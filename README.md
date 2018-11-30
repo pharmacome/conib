@@ -13,6 +13,6 @@ This repository contains knowledge curated in Biological Expression Language (BE
 for the Human Brain Pharmacome (HBP) project.
 </p>
 
-License
--------
+## License
+
 Content in this repository is licensed under the CC BY 4.0 license.
