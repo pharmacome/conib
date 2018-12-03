@@ -15,4 +15,5 @@ for the Human Brain Pharmacome (HBP) project.
 
 ## License
 
-Content in this repository is licensed under the CC BY 4.0 license.
+- BEL scripts in this repository are licensed under the CC BY 4.0 license.
+- Python source code in this repository is licensed under the MIT license.
