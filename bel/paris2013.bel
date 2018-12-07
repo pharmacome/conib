@@ -1,0 +1,381 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name = "Anti-inflammatory activity of anatabine via inhibition of STAT3 phosphorylation"
+SET DOCUMENT Version = "1.0.0"
+SET DOCUMENT Description = ""
+SET DOCUMENT Authors = "Sandra Spalek"
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+SET STATEMENT_GROUP = "Sandra"
+
+# Add statements below this comment
+
+SET Citation = {"PubMed", "Eur J Pharmacol. 2013 Jan 5;698(1-3):145-53. doi: 10.1016/j.ejphar.2012.11.017", "23178521"}
+
+SET Evidence = "Nicotine has been shown to modulate inflammation by affecting
+STAT3 phosphorylation (Chatterjee et al., 2009; Hosur and
+Loring, 2011) and by opposing NFkB activation (Leite et al., 2010;
+Zhou et al., 2010)"
+a(CHEBI:nicotine) reg bp(GO:"inflammatory response")
+a(CHEBI:nicotine) -- p(HGNC:STAT3,pmod(Ph))
+a(CHEBI:nicotine) -| act(p(FPLX:"NFkappaB"))
+
+# 15 mins of TNFa treatment
+
+SET Evidence = "Following this 15 mins of stimulation with
+TNFa, an increased p65 NFkB phosphorylation (Mann–Whitney
+U=0, Z=-2.309, P=0.021) without a noticeable increase in STAT3
+phosphorylation (Mann–Whitney U=7, Z=-0.289, P=0.773) was
+observed compared to the control conditions (Fig. 1)"
+SET CellLine = "SH-SY5Y"
+# p65: RELA
+p(HGNC:TNF) -> p(HGNC:RELA,pmod(Ph))
+p(HGNC:TNF) cnc p(HGNC:STAT3,pmod(Ph))
+UNSET CellLine
+
+SET Evidence = "We observed
+that anatabine inhibits basal STAT3 phosphorylation levels (Mann–
+Whitney U=0, Z=-2.882, P=0.004) and reduces the induction of
+p65 NFkB phosphorylation by TNFa (Mann–Whitney U=0, Z=-2.882, P=0.004)
+within this 15 min time-frame (Fig. 1)"
+SET CellLine = "SH-SY5Y"
+a(CHEBI:Anatabine) -| p(HGNC:STAT3,pmod(Ph))
+a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
+UNSET CellLine
+
+SET Evidence = "As a positive control, we used stattic, a known inhibitor of STAT3
+dimerization and phosphorylation"
+SET CellLine = "SH-SY5Y"
+a(CHEBI:stattic) -| p(HGNC:STAT3,pmod(Ph))
+a(CHEBI:stattic) -| complex(p(HGNC:STAT3),p(HGNC:STAT3))
+UNSET CellLine
+
+SET Evidence = "We found that stattic inhibited
+STAT3 phosphorylation (Mann–Whitney U=0, Z=-2.324, P=0.02)
+and also suppressed p65 NFkB phosphorylation (Mann–Whitney
+U¼0, Z¼2.324, P¼0.02) mimicking the effect of anatabine in SHSY5Y
+cells (Fig. 1)"
+SET CellLine = "SH-SY5Y"
+a(CHEBI:stattic) -| p(HGNC:STAT3,pmod(Ph))
+a(CHEBI:stattic) -| p(HGNC:RELA,pmod(Ph))
+UNSET CellLine
+
+# 24h of TNFa treatment
+
+SET Evidence = "An increased in both STAT3
+(Mann–Whitney U=0, Z=-2.309, P=0.021) and p65 NFkB phosphorylation
+(Mann–Whitney U=0, Z=-2.309, P=0.021) was
+observed following 24 h of treatment with TNFa"
+SET CellLine = "SH-SY5Y"
+p(HGNC:TNF) -> p(HGNC:RELA,pmod(Ph))
+p(HGNC:TNF) -> p(HGNC:STAT3,pmod(Ph))
+UNSET CellLine
+
+SET Evidence = "Under these culture
+conditions, anatabine also inhibited both STAT3 and p65 NFkB
+phosphorylation induced by TNFa (Fig. 2)"
+SET CellLine = "SH-SY5Y"
+a(CHEBI:Anatabine) -| p(HGNC:STAT3,pmod(Ph))
+a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
+UNSET CellLine
+
+SET Evidence = "A significant inhibition
+of STAT3 phosphorylation was observed with 600 mg/ml of anatabine
+(Mann–Whitney U=0, Z=-2.309, P=0.021) and with 800 mg/ml of
+anatabine (Mann–Whitney U=0, Z=-2.309, P=0.021) and a significant
+inhibition of p65 NFkB phosphorylation was observed with
+600 mg/ml of anatabine (Mann–Whitney U=1.0, Z=-2.021,
+P=0.043) and with 800 mg/ml of anatabine (Mann–Whitney U=0,Z=-2.309, P=0.021)"
+SET CellLine = "SH-SY5Y"
+# Dosage: 600 mg/ml and 800 mg/ml anatabine
+a(CHEBI:Anatabine) -| p(HGNC:STAT3,pmod(Ph))
+a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
+UNSET CellLine
+
+SET Evidence = "We next tested the impact of anatabine on STAT3 and p65
+NFkB phosphorylation induced by a 24 h treatment with LPS on
+human microglial cells, a cell type known to express alpha7-nicotinic
+acetylcholine receptor subtype (Suzuki et al., 2006)"
+SET Cell = "microglial cell"
+a(MESH:Microglia) -> a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")
+UNSET Cell
+
+SET Evidence = "An increased
+STAT3 (Mann–Whitney U=0, Z=-2.309, P=0.021) and p65 NFkB
+phosphorylation (Mann–Whitney U=0, Z=-2.309, p=0.021) was
+observed in LPS treated microglia (Fig. 3)"
+SET Cell = "microglial cell"
+a(CHEBI:lipopolysaccharide) -> p(HGNC:STAT3,pmod(Ph))
+a(CHEBI:lipopolysaccharide) -> p(HGNC:RELA,pmod(Ph))
+UNSET Cell
+
+SET Evidence = "We observed that anatabine significantly suppressed the stimulation of p65 NFkB and
+STAT3 phosphorylation by LPS in microglia (Fig. 3)"
+SET Cell = "microglial cell"
+a(CHEBI:lipopolysaccharide) -> p(HGNC:STAT3,pmod(Ph))
+a(CHEBI:Anatabine) -| p(HGNC:STAT3,pmod(Ph))
+a(CHEBI:lipopolysaccharide) -> p(HGNC:RELA,pmod(Ph))
+a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
+UNSET Cell
+
+SET Evidence = "Kruskal–Wallis test revealed that doses of anatabine significantly suppressed both
+LPS induced STAT3 phosphorylation (H=15.658, df=4, P=0.005)
+and p65 NFkB phosphorylation (H=14.150, df=4, P=0.007) in human microglia"
+SET Cell = "microglial cell"
+a(CHEBI:Anatabine) -| p(HGNC:STAT3,pmod(Ph))
+a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
+UNSET Cell
+
+SET Evidence = "A significant inhibition of STAT3 phosphorylation
+was observed with 10 mg/ml of anatabine (Mann–Whitney U=1,
+Z=-2.021, P=0.043), with 100 mg/ml of anatabine (Mann–Whitney
+U=0, Z=-2.309, P=0.021), with 300 mg/ml of anatabine
+(Mann–Whitney U=0, Z=-2.309, P=0.021) and with 600 mg/ml
+of anatabine (Mann–Whitney U=0, Z=-2.309, P=0.021)"
+SET Cell = "microglial cell"
+# Dosage: 10 mg/ml, 100 mg/ml, 300 mg/ml and 600 mg/ml of anatabine
+a(CHEBI:Anatabine) -| p(HGNC:STAT3,pmod(Ph))
+UNSET Cell
+
+SET Evidence = "Similarly, LPS induced p65 NFkB phosphorylation in microglia was
+significantly inhibited with 10 mg/ml of anatabine (Mann–Whitney
+U=0, Z=-2.309, P=0.021), with 100 mg/ml of anatabine (Mann–
+Whitney U=0, Z=-2.309, P=0.021), with 300 mg/ml of anatabine
+(Mann–Whitney U=0, Z=-2.309, P=0.021)"
+SET Cell = "microglial cell"
+# Dosage: 10 mg/ml, 100 mg/ml and 300 mg/ml of anatabine
+a(CHEBI:lipopolysaccharide) -> p(HGNC:RELA,pmod(Ph))
+a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
+UNSET Cell
+
+SET Evidence = "TNFa significantly stimulated
+STAT3 (Mann–Whitney U=0, Z=-2.309, P=0.021) and p65
+NFkB phosphorylation (Mann–Whitney U=0, Z=-2.309, P=0.021)"
+SET CellLine = "HEK293"
+p(HGNC:TNF) -> p(HGNC:RELA,pmod(Ph))
+p(HGNC:TNF) -> p(HGNC:STAT3,pmod(Ph))
+UNSET CellLine
+
+SET Evidence = "An inhibition of TNFa induced STAT3 (Mann–Whitney
+U=0, Z=-2.121, P=0.034), and p65 NFkB phosphorylation
+(Mann–Whitney U=0, Z=-2.121, P=0.034) was observed in
+these cells following the anatabine treatment (Fig. 4) suggesting
+that anatabine may also mediate its anti-inflammatory activity
+independently of nicotinic acetylcholine receptor expression"
+SET CellLine = "HEK293"
+a(CHEBI:Anatabine) -| p(HGNC:STAT3,pmod(Ph))
+a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
+a(CHEBI:Anatabine) reg bp(GO:"inflammatory response")
+UNSET CellLine
+
+SET Evidence = "Anatabine at 200 mg/
+ml significantly lowered LPS induced IL-1b levels in whole blood
+(Mann–Whitney U=0.0, Z=-2.3, P=0.02)"
+composite(a(MESH:Blood),a(CHEBI:Anatabine)) -| p(HGNC:IL1B)
+a(CHEBI:lipopolysaccharide) -> p(HGNC:IL1B)
+
+SET Evidence = "Higher doses of anatabine
+resulted in a complete suppression of IL-1b levels in LPS
+challenged human blood (Mann–Whitney U=0.0, Z=-2.5, P=0.01)"
+composite(a(MESH:Blood),a(CHEBI:Anatabine),a(CHEBI:lipopolysaccharide)) -| p(HGNC:IL1B)
+
+SET Evidence = "Following a 24 h
+incubation with LPS, a significant stimulation of STAT3 (Mann–
+Whitney U=0, Z=-2.882, P=0.004) and p65 NFkB phosphorylation
+was observed (Mann–Whitney U=1, Z=-2.722, P=0.006)"
+SET Cell = "mononuclear cell"
+a(CHEBI:lipopolysaccharide) -> p(HGNC:RELA,pmod(Ph))
+a(CHEBI:lipopolysaccharide) -> p(HGNC:STAT3,pmod(Ph))
+UNSET Cell
+
+SET Evidence = "Anatabine appears to completely antagonize LPS induced STAT3
+(Mann–Whitney U=0, Z=-3.077, P=0.002) and p65 NFkB phosphorylation
+(Mann–Whitney U=0, Z=-3.077, P=0.002) in human mononuclear cells"
+SET Cell = "mononuclear cell"
+a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
+a(CHEBI:Anatabine) -| p(HGNC:STAT3,pmod(Ph))
+UNSET Cell
+
+SET Species = "10090"
+
+SET Evidence = "Our results showed that intraperitoneal injection of LPS (1 mg/kg) caused a significant elevation of
+plasma IL-1b (Mann–Whitney U=3, Z=-2.988, P=0.003), IL-6 (Mann–Whitney U=0, Z=-3.366, P=0.001) and TNFa (Mann–
+Whitney U=0, Z=-3.508, P<0.001) 4 h after the LPS challenge whereas in mice co-treated with an intraperitoneal injection of
+anatabine (2 mg/kg) and LPS, a significant reduction in plasma IL-1b (Mann–Whitney U=7, Z=-2.645, P=0.008) and TNFa
+(Mann–Whitney U=4, Z=-2.941, P=0.003) levels was observed (Fig. 6)"
+SET MeSHAnatomy = "Plasma"
+a(CHEBI:lipopolysaccharide) -> p(MGI:Il1b)
+a(CHEBI:lipopolysaccharide) -> p(MGI:Il6)
+a(CHEBI:lipopolysaccharide) -> p(MGI:Tnf)
+composite(a(CHEBI:lipopolysaccharide),a(CHEBI:Anatabine)) -| p(MGI:Il1b)
+composite(a(CHEBI:lipopolysaccharide),a(CHEBI:Anatabine)) -| p(MGI:Tnf)
+UNSET MeSHAnatomy
+
+SET Evidence = "Plasma IL-6 levels show a trend for a reduction but were
+not significantly affected (Mann–Whitney U=19, Z=-1.368,
+P=0.171) by the anatabine treatment (Fig. 6)"
+SET MeSHAnatomy = "Plasma"
+composite(a(CHEBI:lipopolysaccharide),a(CHEBI:Anatabine)) -| p(MGI:Il6)
+UNSET MeSHAnatomy
+
+SET Evidence = "An elevation of IL-6 (Mann–Whitney U=0, Z=-3.487, P<0.001), IL1b (Mann–
+Whitney U=0, Z=-3.24, P=0.001) and TNFa (Mann–Whitney U=0, Z=-3.361, P=0.001) was observed in the spleen of LPS
+challenged mice (Fig. 7)"
+SET MeSHAnatomy = "Spleen"
+a(CHEBI:lipopolysaccharide) -> p(MGI:Il1b)
+a(CHEBI:lipopolysaccharide) -> p(MGI:Il6)
+a(CHEBI:lipopolysaccharide) -> p(MGI:Tnf)
+UNSET MeSHAnatomy
+
+SET Evidence = "Anatabine significantly inhibited LPS
+induced IL-6 (Mann–Whitney U=4, Z=-3.303, P=0.001), TNF-a
+(Mann–Whitney U=0, Z=-3.361, P=0.001) and IL-1b levels in
+the spleen (Mann–Whitney U=9, Z=-1.981, P=0.048) (Fig. 7)"
+SET MeSHAnatomy = "Spleen"
+composite(a(CHEBI:lipopolysaccharide),a(CHEBI:Anatabine)) -| p(MGI:Il1b)
+composite(a(CHEBI:lipopolysaccharide),a(CHEBI:Anatabine)) -| p(MGI:Il6)
+composite(a(CHEBI:lipopolysaccharide),a(CHEBI:Anatabine)) -| p(MGI:Tnf)
+UNSET MeSHAnatomy
+
+SET Evidence = "Similarly, IL-1b (Mann–Whitney U=0, Z=-3.098, P=0.002), IL-6
+(Mann–Whitney U=0, Z=-3.363, P<0.001) and TNF-a levels
+(Mann–Whitney U=0, Z=-3.361, P=0.001) were elevated in the
+kidney following the LPS challenge (data not shown)"
+SET MeSHAnatomy = "Kidney"
+a(CHEBI:lipopolysaccharide) -> p(MGI:Il1b)
+a(CHEBI:lipopolysaccharide) -> p(MGI:Il6)
+a(CHEBI:lipopolysaccharide) -> p(MGI:Tnf)
+UNSET MeSHAnatomy
+
+SET Evidence = "A significant
+reduction in TNF-a (Mann–Whitney U=12, Z=-2.309, P=0.021)
+but no significant reduction in IL-6 levels (Mann–Whitney U=25,
+Z=-1.223, P=0.221) or IL-1b (Mann–Whitney U=8, Z=-1.857,P=0.063)
+were observed in the kidney of LPS and anatabine cotreated
+animals (data not shown)"
+SET MeSHAnatomy = "Kidney"
+composite(a(CHEBI:lipopolysaccharide),a(CHEBI:Anatabine)) -| p(MGI:Tnf)
+UNSET MeSHAnatomy
+
+SET Evidence = "Western-blot experiments revealed that LPS significantly stimulated
+of STAT3 phosphorylation in the spleen (Mann–Whitney
+U=0, Z=-2.309, P=0.021) (Fig. 8) and kidney (Mann–Whitney
+U=0, Z=-2.882, P=0.004) (data not shown) whereas anatabine
+significantly inhibited STAT3 phosphorylation in the spleen
+(Mann–Whitney U=1, Z=-2.021, P=0.043) and kidney (Mann–
+Whitney U=5, Z=-2.082, P=0.037) (data not shown)"
+SET MeSHAnatomy = {"Spleen","Kidney"}
+a(CHEBI:lipopolysaccharide) -> p(MGI:Stat3,pmod(Ph))
+a(CHEBI:Anatabine) -| p(MGI:Stat3,pmod(Ph))
+UNSET MeSHAnatomy
+
+SET Evidence = "An elevation of brain IL-6 (Mann–Whitney U=0, Z=-3, p=0.003) and TNF-a
+(Mann–Whitney U=0, Z=-2.887, p=0.004) was observed in Tg
+APPsw mice compared to their wild-type littermates (Fig. 9)"
+SET MeSHAnatomy = "Brain"
+SET MeSHDisease = "Alzheimer Disease"
+path(MESH:"Alzheimer Disease") -> p(MGI:Il6)
+path(MESH:"Alzheimer Disease") -> p(MGI:Tnf)
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+
+SET Evidence = "Following 90 days of treatment with anatabine, a significant reduction in
+brain TNF-a (Mann–Whitney U=6, Z=-2.146, p=0.032) and in IL-6
+(Mann–Whitney U=0, Z=-2.887, p=0.004) was observed in Tg
+APPsw mice compared to Tg APPsw that received regular drinking water (Fig. 9)"
+SET MeSHAnatomy = "Brain"
+SET MeSHDisease = "Alzheimer Disease"
+a(CHEBI:Anatabine) -| p(MGI:Tnf)
+a(CHEBI:Anatabine) -| p(MGI:Il6)
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+
+SET Evidence = "A significant elevation of STAT3 phosphorylation was detected in the brain of Tg APPsw
+compared to their control littermates (Mann–Whitney U=1, Z=-3.767, p<0.001) and a significant reduction in STAT3 phosphorylation
+(Mann–Whitney U=8, Z=-2.066, p=0.039) was observed in the brain of Tg APPsw treated with anatabine compared to untreated
+Tg APPsw littermates (Fig. 10)."
+SET MeSHAnatomy = "Brain"
+SET MeSHDisease = "Alzheimer Disease"
+path(MESH:"Alzheimer Disease") -> p(MGI:Stat3,pmod(Ph))
+a(CHEBI:Anatabine) -| p(MGI:Stat3,pmod(Ph))
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+
+UNSET Species
+
+
+##########################################################
+
+
+UNSET STATEMENT_GROUP
