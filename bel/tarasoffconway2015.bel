@@ -1,0 +1,373 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name = "tarasoffconway2015"
+SET DOCUMENT Version = "1.0.0"
+SET DOCUMENT Description = ""
+SET DOCUMENT Authors = "Lingling Xu"
+
+###############
+# Definitions #
+###############
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DNSNP AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE HBP AS PATTERN ".*"
+DEFINE NAMESPACE TAXONOMY AS PATTERN "^\d+$"
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE GFAM     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE MIRBASE  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel
+# --------------------------------------------------------------------
+DEFINE NAMESPACE CTO      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE MGI      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
+DEFINE NAMESPACE RGD      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170725.belns"
+DEFINE NAMESPACE SCOMP    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM     AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+DEFINE NAMESPACE INTERPRO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/interpro/interpro-20170731.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+SET Citation ={"PubMed","26195256"}
+
+SET Evidence =" Emerging evidence suggests that Aβ clearance is impaired in both early-onset and late-onset forms of AD."
+path(MESH:"Alzheimer Disease") -> p(HGNC:APP)
+
+SET Evidence ="Soluble Aβ can be removed from the brain by various clearance systems, including enzymatic degradation and cellular uptake, transport across the blood–brain barrier (BBB) and blood–cerebrospinal fluid barrier (BCSFB), interstitial fluid (ISF) bulk flow, and cerebro- spinal fluid (CSF) absorption into the circulatory and lymphatic systems."
+#amyloid-beta derived diffusible ligands
+bp(GO:"import into cell") -| a(HBP:"amyloid-beta derived diffusible ligands")
+tloc(HBP:"amyloid-beta derived diffusible ligands",fromLoc(MESH:Brain),toLoc(MESH:"Lymphatic System"))
+tloc(HBP:"amyloid-beta derived diffusible ligands",fromLoc(GO:"extracellular region"),toLoc(MESH:"Lymphatic System"))
+
+
+SET Evidence ="In the early 2000s, mouse studies demonstrated that the majority (75%) of extracellular Aβ (eAβ) is cleared by the BBB, with only a minority (10%) being cleared by ISF bulk flow."
+a(MESH:"Blood-Brain Barrier") -| p(CHEBI:"amyloid-beta",loc(GO:"extracellular region"))
+a(MESH:"Extracellular Fluid") -| p(CHEBI:"amyloid-beta",loc(GO:"extracellular region"))
+
+SET Evidence ="However, two-photon imaging studies from the past few years have suggested that ISF bulk flow—facilitated by astroglial aquaporin-4 (AQP4) channels and named the glymphatic (glial + lymphatic) system—contributes to a larger portion of eAβ clearance than previously thought."
+act(p(HGNC:AQP4)) -| p(CHEBI:"amyloid-beta",loc(GO:"extracellular region"))
+
+SET Evidence ="Furthermore, the discovery of meningeal lymphatic vessels suggests yet another potential clearance route.1"
+act(a(MESH:"Glymphatic System")) -| p(CHEBI:"amyloid-beta",loc(GO:"extracellular region"))
+
+SET Evidence ="When characterized by autosomal dominant inheritance, EOAD is related to mutations in the presenilin 1 (PSEN1), presenilin 2 (PSEN2) or amyloid precursor protein (APP) genes."
+path(MESH:"Alzheimer Disease") -- g(HGNC:PSEN1,var("?"))
+path(MESH:"Alzheimer Disease") -- g(HGNC:PSEN2,var("?"))
+path(MESH:"Alzheimer Disease") -- g(HGNC:APP,var("?"))
+
+SET Evidence ="Various factors have been reported to positively and negatively modulate the risk of LOAD. Specifically, the greatest overall risk factor for LOAD is ageing;"
+path(MESH:Aging) -- path(MESH:"Alzheimer Disease")
+
+SET Evidence="The strongest identified genetic risk factor for LOAD is the apolipoprotein E (APOE) ε4 allele (APOE*ε4),"
+path(MESH:"Alzheimer Disease") -- p(HBP:"APOE e4")
+
+SET Evidence ="although genome-wide association studies have linked LOAD to several other genetic variants, such as TREM2 (triggering receptor expressed on myeloid cells 2),27 clusterin (CLU),28 and phosphatidylinositol-binding clathrin assembly protein (PICALM).28,29"
+path(MESH:"Alzheimer Disease") -- p(HGNC:TREM2)
+path(MESH:"Alzheimer Disease") -- p(HGNC:CLU)
+path(MESH:"Alzheimer Disease") -- p(HGNC:PICALM)
+
+SET Evidence ="Known envi- ronmental risk factors for LOAD include cardiovascular disease, and factors conferring a risk of cardiovascu- lar disease, such as diabetes mellitus and hypertension. Head trauma, physical and mental inactivity, and sleep impairment are additional risk factors for LOAD"
+path(MESH:"Cardiovascular Diseases") -- path(MESH:"Alzheimer Disease")
+path(MESH:"Diabetes Mellitus") -- path(MESH:"Alzheimer Disease")
+path(MESH:Hypertension) -- path(MESH:"Alzheimer Disease")
+path(MESH:"Craniocerebral Trauma") -- path(MESH:"Alzheimer Disease")
+path(MESH:"Sleep Initiation and Maintenance Disorders") -- path(MESH:"Alzheimer Disease")
+
+SET Evidence =" The gross pathological changes consist of brain atrophy, particularly in the hippocampal formation, temporal lobes and parietotemporal cortices, accompanied by cortical thinning, enlarged ventricles and white matter abnormalities, as evident on MRI."
+path(MESH:"Pick Disease of the Brain") -- path(MESH:"Alzheimer Disease")
+a(MESH:"Prefrontal Cortex") -- path(MESH:"Alzheimer Disease")
+a(MESH:"Cerebral Cortex") -- path(MESH:"Alzheimer Disease")
+a(MESH:"Cerebral Ventricles") -- path(MESH:"Alzheimer Disease")
+a(MESH:"White Matter") -- path(MESH:"Alzheimer Disease")
+
+
+SET Evidence ="Microscopic changes include accumulation of Aβ into parenchymal senile plaques (also known as neuritic plaques) or in the walls of cerebral capillaries and arter- ies (known as cerebral amyloid angiopathy, or CAA),as well as aggregation of hyperphosphorylated tau into intracellular neurofibrillary tangles (NFTs) and neuropil threads"
+tloc(HGNC:APP,toLoc(MESH:"Plaque, Amyloid"))
+tloc(HGNC:APP,toLoc(MESH:"Blood-Brain Barrier"))
+tloc(HGNC:MAPT,toLoc(MESH:"Neurofibrillary Tangles"))
+tloc(HGNC:MAPT,toLoc(MESH:"Neuropil Threads"))
+
+SET Evidence ="Recent advances now enable several AD-related brain changes to be detected in vivo: 18F-FDG-PET detects decreases in glucose metabolism,45,46 and MRI detects brain atrophy, as well as diffusion and perfu- sion abnormalities, which are most prominent in the vul- nerable hippocampal formation and cortical regions."
+path(MESH:"Alzheimer Disease") -| bp(GO:"glucose metabolic process")
+path(MESH:"Alzheimer Disease") -|  a(MESH:Brain)
+
+SET Evidence ="ecifically, Aβ accumulation into extracellular plaques is marked by decreased CSF levels of Aβ1–42, and tau accumulation into NFTs is marked by increased CSF levels of total tau and hyperphosphory- lated tau."
+p(CHEBI:"amyloid-β polypeptide 42",loc(MESH:"Cerebrospinal Fluid")) neg p(HGNC:APP,loc(MESH:"extracellular region"))
+p(HGNC:MAPT,loc(MESH:"Neurofibrillary Tangles")) pos p(HGNC:MAPT,loc(MESH:"Cerebrospinal Fluid"))
+p(HGNC:MAPT,loc(MESH:"Neurofibrillary Tangles")) pos p(HGNC:MAPT,pomd(Ph),loc(MESH:"Cerebrospinal Fluid"))
+
+SET Evidence ="Extracellular degradation of ISF proteins mainly consists of degradation by proteases expressed and secreted by cells such as astrocytes"
+act(a(MESH:Astrocytes)) -| p(HGNC:APP)
+
+SET Evidence ="Intracellular degradation of proteins occurs via the ubiquitin– proteasome pathway, the autophagy–lysosome pathway, and the endosome–lysosome pathway.56"
+act(p(MESH:Ubiquitin)) -|  p(HGNC:APP)
+bp(GO:autophagy) -|   p(HGNC:APP)
+act(complex(a(MESH:Endosomes),a(MESH:Lysosomes))) -| p(HGNC:APP)
+
+SET Evidence ="Given the size of AD-related proteins, mono- meric Aβ1-40, Aβ1-42 and tau, should be able to pass freely through astrocytic endfeet clefts at the glial barrier.72"
+path(MESH:"Alzheimer Disease") -- a(CHEBI:"amyloid-beta polypeptide 40")
+path(MESH:"Alzheimer Disease") -- a(CHEBI:"amyloid-beta polypeptide 42")
+
+SET Evidence ="APP is cleaved by α-secretase, which precludes forma- tion of Aβ, and the resulting carboxy-terminal fragment is then cleaved by γ-secretase.103 The resulting products do not aggregate.104"
+act(p(MESH:"Amyloid Precursor Protein Secretases")) -> a(CHEBI:"amyloid-beta")
+
+SET Evidence ="If APP is first cleaved by β-secretase 1 (also known as BACE1) instead of α-secretase, the subsequent γ-secretase cleavage will result in soluble monomeric Aβ."
+act(p(HGNC:BACE1)) -> a(HBP:"amyloid-beta derived diffusible ligands")
+
+SET Evidence ="The most common soluble monomeric isoforms of Aβ are Aβ1-40 (<80%), Aβ1-38 (<20%) and Aβ1-42 (10%).105 Aβ1-40 is prone to be deposited in the vasculature, as seen in CAA.15,106 "
+ a(CHEBI:"amyloid-beta polypeptide 40") isA a(CHEBI:"amyloid-beta")
+ a(CHEBI:"amyloid-beta polypeptide 42") isA a(CHEBI:"amyloid-beta")
+ a(HBP:"amyloid-beta polypeptide 38") isA a(CHEBI:"amyloid-beta")
+ 
+SET Evidence ="Intracellular Aβ (iAβ) can be degraded by proteasomes via the ubiquitin–proteasome pathway in neurons,116 lyso- somal cathepsin enzymes,117 proteases (such as insulin- degrading enzyme, a thiol metalloendopeptidase that degrades monomeric Aβ) and insulin."
+act(p(MESH:Ubiquitin)) -| a(CHEBI:"amyloid-beta",loc(intracellular))
+act(p(MESH:Cathepsins)) -| a(CHEBI:"amyloid-beta",loc(intracellular))
+
+SET Evidence =" Extracellular Aβ can also be degraded by proteases, such as neprily- sin (a membrane-anchored zinc metalloendopeptidase that degrades the Aβ monomers Aβ1-40 and Aβ1-42, and Aβ oligomers),119 matrix metalloproteinases 2, 3 and 9,120 glutamate carboxypeptidase II,121 endothelin-converting enzyme,122 tissue plasminogen activator,123 plasmin,120 angiotensin-converting enzyme,120 and insulin-degrading enzyme."
+p(MESH:Neprilysin) -| a(CHEBI:"amyloid-beta",loc(intracellular))
+p(MESH:"Matrix Metalloproteinase 9") -| a(CHEBI:"amyloid-beta",loc(intracellular))
+p(MESH:"Matrix Metalloproteinase 2") -| a(CHEBI:"amyloid-beta",loc(intracellular))
+p(MESH:"Matrix Metalloproteinase 3") -| a(CHEBI:"amyloid-beta",loc(intracellular))
+p(MESH:"Glutamate Carboxypeptidase II") -| a(CHEBI:"amyloid-beta",loc(intracellular))
+p(MESH:"Endothelin-Converting Enzymes") -| a(CHEBI:"amyloid-beta",loc(intracellular))
+p(MESH:"Tissue Plasminogen Activator") -| a(CHEBI:"amyloid-beta",loc(intracellular))
+p(MESH:Fibrinolysin) -| a(CHEBI:"amyloid-beta",loc(intracellular))
+p(HGNC:ACE) -| a(CHEBI:"amyloid-beta",loc(intracellular))
+p(HGNC:IDE) -| a(CHEBI:"amyloid-beta",loc(intracellular))
+
+SET Evidence =" Specifically, ISF Aβ can be taken up by microglia and astrocytes, whereas perivascular Aβ can be degraded by vascular smooth muscle cells, perivascular macrophages, and astrocytes"
+a(MESH:Microglia) -| a(CHEBI:"amyloid-beta",loc(MESH:"Extracellular Fluid"))
+a(MESH:Astrocytes) -| a(CHEBI:"amyloid-beta",loc(MESH:"Extracellular Fluid"))
+a(MESH:"Muscle, Smooth, Vascular") -| a(CHEBI:"amyloid-beta")
+
+SET Evidence ="First, expression of neprilysin is decreased in AD,126 especially in regions with high Aβ loads such as the hippocampus and temporal gyrus.127 "
+SET MeSHAnatomy ={"Hippocampus","Temporal Lobe"}
+path(MESH:"Alzheimer Disease") -| p(MESH:Neprilysin)
+
+SET Evidence ="Although overall matrix metallo- proteinase 2 expression is increased in AD,58 its activity is reduced in astrocytes that surround Aβ plaques."
+path(MESH:"Alzheimer Disease") -> p(HGNC:MMP2)
+
+SET Evidence ="Second, both Aβ and insulin are ligands that compete for degradation by insulin-degrading enzyme; thus, hyper- insulinaemia can reduce clearance of Aβ, which might partly explain the link between type 2 diabetes mellitus and AD."
+a(MESH:Insulin) -> a(CHEBI:"amyloid-beta")
+
+SET Evidence ="Third, plaques activate the immune effectors of the CNS—microglia and astrocytes129—inducing bothphagocytosis of Aβ, which facilitates clearance from the extracellular space, and production of neurotoxic inflammatory cytokines."
+
+SET Evidence ="Some evidence suggests that LRP1 is the main transporter for Aβ efflux at the BBB, whereas other studies have demonstrated its role to be quite minor."
+p(HGNC:LRP1) -> tloc(a(CHEBI:"amyloid-beta"))
+
+SET Evidence ="The main ABC transporter responsible for Aβ efflux is ABCB1 (also known as P-glycoprotein 1 or MDR1),which directly exports Aβ into the circulation."
+p(HGNC:ABCB1) -> tloc(a(CHEBI:"amyloid-beta")))
+
+SET Evidence ="which is located on the abluminal side of the brain endo- thelium,140 does not directly bind and extrude Aβ,141 but mediates Aβ clearance in an ApoE-dependent manner."
+p(HGNC:APOE) reg a(CHEBI:"amyloid-beta")
+
+SET Evidence ="Clearance of Aβ through the BBB is also medi- ated by α2-macroglobulin (α2M),14 and LDLR-related protein 2 (LRP2, also known as megalin) when LRP2 forms a complex with clusterin (also known as ApoJ)."
+p(HGNC:A2M) reg a(CHEBI:"amyloid-beta")
+p(HGNC:LRP2) reg a(CHEBI:"amyloid-beta")
+
+SET Evidence ="In addition, insulin-degrading enzyme has been proposed to have a role in Aβ clearance through the BBB, which might explain why BBB clearance is sensitive to insulin.144"
+a(MESH:Insullin) -- a(CHEBI:"amyloid-beta")
+
+SET Evidence ="Free Aβ can be transported from the circulation into the interstitium via RAGE (advanced glycosylation end product-specific receptor)."
+p(HGNC:AGER) -> tloc(a(CHEBI:"amyloid-beta"))
+
+SET Evidence ="Soluble transport- ers (also known as sequestering agents)—such as the soluble form of RAGE (sRAGE),14 anti-Aβ IgG,14 serum amyloid P component (SAP),14 and the soluble form of LRP (sLRP), which binds 70–90% of plasma Aβ—bind to soluble Aβ and inhibit its binding to RAGE, thereby preventing Aβ from entering the interstitium."
+
+SET Evidence ="Specifically, local soluble Aβ is transferred from the interstitium to the brain by LDL receptor (LDLR) family members such as LRP1, and ATP-binding cassette transporters (ABC transporters)."
+p(HGNC:LRP1) -> tloc(a(CHEBI:"amyloid-beta"),fromLoc(MESH:"Nephritis, Interstitial"),toLoc(MESH:Brain))
+
+SET Evidence ="The main ABC transporter responsible for Aβ efflux is ABCB1 (also known as P-glycoprotein 1 or MDR1), which directly exports Aβ into the circulation. "
+p(HGNC:ABCB1) -> toloc(a(CHEBI:"amyloid-beta"))
+
+SET Evidence ="In AD, these factors are impaired in a number of ways. First, expression of the blood efflux transporters LRP1123 and ABCB1147 is decreased, whereas expression of the blood influx transporter RAGE is upregulated."
+path(MESH:"Alzheimer Disease") -| p(HGNC:LRP1)
+path(MESH:"Alzheimer Disease") -| p(HGNC:ABCB1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:AGER)
+
+SET Evidence ="Inflammation, a common feature of AD, can affect ligand affinity by making the pH more acidic, which promotes hyperphosphorylation of tau and induces conforma- tional changes in Aβ that hinder its clearance."
+path(MESH:Inflammation) -> p(HGNC:MAPT,pmod(Ph))
+
+SET Evidence ="ApoE is a cholesterol transporter that competes with Aβ for efflux by LRP1 from the interstitium into the circula- tion;"
+p(HGNC:LRP1) -> tloc(a(CHEBI:"amyloid-beta"))
+p(HGNC:APOE) -| act(a(CHEBI:"amyloid-beta"))
+
+SET Evidence =" competition for shared receptors is the primary mechanism by which ApoE mediates Aβ clearance"
+p(HGNC:APOE) reg a(CHEBI:"amyloid-beta")
+
+SET Evidence ="Third, ApoE4 is also associated with lower antioxidant activity than other ApoE isoforms,154,155 and it mediates BBB breakdown through a proinflammatory pathway involving cyclophilin A in pericytes."
+p(HGNC:"APOE e4") reg a(MESH:"Blood-Brain Barrier")
+p(HGNC:"Cyclophilin A") -- act(a(MESH:"Blood-Brain Barrier"))
+
+SET Evidence ="These findings are in line with evidence suggesting that increased oxi- dative stress157 and loss of vascular integrity contribute to ageing158 and AD,159 as demonstrated by accelerated breakdown of the BBB and the neurovascular unit."
+bp(MESH:"Oxidative Stress") -> path(MESH:Aging)
+
+SET Evidence ="Aβ is cleared along perivascular drainage pathways.83 In both AD44,160 and CAA44 (commonly associated with AD84), perivascular drainage of Aβ is impaired."
+bp(HBP:"perivascular drainage pathways") -- a(CHEBI:"amyloid-beta")
+
+SET Evidence ="The pres- ence of ApoE4 is associated with reduced perivascular drainage of Aβ,161 which in turn is linked to deposition of immune complexes."
+p(HGNC:"APOE e4") -| bp(HBP:"perivascular drainage pathways")
+
+SET Evidence ="Of note, a high-fat prenatal maternal diet has recently been reported to result in a failure of Aβ clearance along cerebrovascular basement membranes. "
+path(HBP:"high-fat prenatal maternal diet") -> a(CHEBI:"amyloid-beta")
+
+SET Evidence ="Recent mouse studies suggest that the AQP4-dependent glymphatic pathway is an important clearance system for driving the removal of soluble Aβ from the interstitium."
+act(p(MGI:Aqp4)) -| a(CHEBI:"amyloid-beta")
+
+SET Evidence ="Thus, sleep could indirectly increase BBB clearance of Aβ through increased glymphatic bulk flow, but it might also directly increase clearance through the BBB via various mechanisms, such as molecular changes (for example, upregulated LRP1), as seen with AD-protective physical and cognitive activity in mice.1"
+bp(MESH:Sleep) -> act(a(MESH:"Blood-Brain Barrier"))
+bp(MESH:Sleep) -> bp(HBP:"glymphatic bulk flow")
+
+SET Evidence ="These findings might partly explain why sleep impairment increases the risk of AD"
+path(MESH:"Sleep Initiation and Maintenance Disorders") -> path(MESH:"Alzheimer Disease")
+
+SET Evidence =" First, in ageing, and particularly in AD, CSF production by the choroid plexus is reduced, as shown by decreased water secretion into the ventricles via AQP1 water channels."
+path(MESH:Aging) -| a(MESH:"Cerebrospinal Fluid")
+
+SET Evidence ="In AD, the choroid plexus undergoes many structural changes, such as calcification, fibrosis and Aβ deposition, all of which can obstruct CSF production."
+SET MeSHAnatomy ="Choroid Plexus"
+path(MESH:"Alzheimer Disease") -> path(MESH:"Calcification, Physiologic")
+path(MESH:"Alzheimer Disease") -> path(MESH:"Fibrosis")
+
+SET Evidence ="Tau is mainly cleared through intracellular degrada- tion by lysosomes via the autophagy–lysosome pathway, and by proteasomes via the ubiquitin–proteasome pathway.202 "
+act(p(MESH:Lysosomes)) -| p(HGNC:MAPT)
+p(MESH:Ubiquitin) -| p(HGNC:MAPT)
+
+SET Evidence ="Phosphorylation of tau by protein kinase A increases its resistance to degradation by calpain"
+p(MESH:"Cyclic AMP-Dependent Protein Kinases") -> p(HGNC:MAPT,pmod(PH))
+p(HGNC:MAPT,pmod(PH)) -| act(p(MESH:Calpain))
+act(p(MESH:Calpain)) -| p(HGNC:MAPT)
+
+SET Evidence ="These findings support the link between TBI and tau aggre- gation, with resulting neurodegeneration similar to that seen in AD and chronic traumatic encephalopathy"
+path(MESH:"Brain Injuries, Traumatic") -- p(HBP:"tau aggregates")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
