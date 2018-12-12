@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/export/hbp-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/7e4be528f12abd28be768b62402fba6e083eaf9e/export/hbp-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -234,31 +234,31 @@ complex(p(HGNC:CHRNA7),a(CHEBI:"amyloid-beta"))
 
 SET Evidence = "Later it was shown that Abeta is able to activate
 also beta2*-nAChRs (beta2 subunit-containing nAChRs)"
-a(CHEBI:"amyloid-beta") -> act(a(HBP:HBP00176))
+a(CHEBI:"amyloid-beta") -> act(a(HBP:"beta-2-containing nAChR"))
 
 SET Evidence = "This subunit commonly forms heteropentameric
 receptors in combination with the alpha4 subunit"
 #this subunit: beta2
-complex(p(HGNC:CHRNB2),p(HGNC:CHRNA4)) -> a(HBP:HBP00174)
+complex(p(HGNC:CHRNB2),p(HGNC:CHRNA4)) -> a(HBP:"alpha-4 beta-2 nAChR")
 
 SET Evidence = "The subtype alpha4beta2 is characterized by lower calcium ion permeability and a slow
 desensitization rate compared to the homopentameric alpha7 nAChR (Quick and Lester, 2002)"
-a(HBP:HBP00174) negativeCorrelation bp(GO:"calcium ion transport")
+a(HBP:"alpha-4 beta-2 nAChR") negativeCorrelation bp(GO:"calcium ion transport")
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") positiveCorrelation bp(GO:"calcium ion transport")
 
 SET Evidence = "In addition to the
 alpha4beta2 subtype, it was demonstrated that the alpha7 subunit is able to coassemble
 with the beta2 subunit to form a heteropentameric receptor"
-complex(p(HGNC:CHRNB2),p(HGNC:CHRNA7)) -> a(HBP:HBP00175)
+complex(p(HGNC:CHRNB2),p(HGNC:CHRNA7)) -> a(HBP:"alpha-7 beta-2 nAChR")
 
 SET Evidence = "This class of receptors seems to be particularly
 sensitive to Abeta-induced toxicity (Khiroug et al., 2002; Liu et al.,2009, 2012)"
 # this class: alpha7beta2* nAChR
-act(a(CHEBI:"amyloid-beta")) negativeCorrelation a(HBP:HBP00175)
+act(a(CHEBI:"amyloid-beta")) negativeCorrelation a(HBP:"alpha-7 beta-2 nAChR")
 
 SET Evidence = "Under these experimental conditions, alpha7
 and beta2 are able to co-assemble into a functional receptor that localizes at the cell surface"
-complex(p(HGNC:CHRNB2),p(HGNC:CHRNA7)) -> surf(a(HBP:HBP00175))
+complex(p(HGNC:CHRNB2),p(HGNC:CHRNA7)) -> surf(a(HBP:"alpha-7 beta-2 nAChR"))
 
 SET Evidence = "The importance of beta2 in maintaining brain homeostasis during
 normal ageing was highlighted in the KO mouse for this subunit"
@@ -271,7 +271,7 @@ wild-type controls (Zoli et al., 1999). This work should be
 pursued further as it indicates a “neurotrophic” action of beta2 receptor
 activation by endogenous ACh (Zanardi et al., 2007)"
 p(MGI:Chrnb2) -> a(MESH:"Cerebral Cortex")
-a(CHEBI:acetylcholine) -> act(a(HBP:HBP00176))
+a(CHEBI:acetylcholine) -> act(a(HBP:"beta-2-containing nAChR"))
 
 SET Evidence = "Null mutant beta2 mice were also tested to determine the role of this
 subunit in cognition. Guillem et al. (2011) showed that these mice
@@ -334,13 +334,13 @@ SET Evidence = "Even though studies have mainly focused on the
 interaction between alpha7 nAChRs and Abeta and its functional consequences,
 it has been demonstrated that also beta2*-nAChRs bind to Abeta"
 complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:"amyloid-beta"))
-complex(a(CHEBI:"amyloid-beta"),a(HBP:HBP00176))
+complex(a(CHEBI:"amyloid-beta"),a(HBP:"beta-2-containing nAChR"))
 
 SET Evidence = "In both hippocampal interneurons and oocytes they observed a block of beta2*-nAChRs,
 that could be prevented by the application of a positive allosteric
 modulator (PAM) specific for beta2 subunit containing receptors,
 desformylflustrabromine (dFBr) (Pandya and Yakel, 2011)"
-a(PUBCHEM:637026) -> act(a(HBP:HBP00176))
+a(PUBCHEM:637026) -> act(a(HBP:"beta-2-containing nAChR"))
 
 SET Evidence = "Important evidence for a functional interaction between
 nAChRs and Abeta came from the work of Pettit et al. (2001)"
@@ -374,7 +374,7 @@ concentrations adopted were between 0.1 and 10 mM, with
 increased Abeta concentration resulting in a bigger inhibition of the receptor (Tozaki et al., 2002)"
 #SET Dosage = "0.1 and 10 mM"
 SET Cell = "oocyte"
-a(CHEBI:"amyloid-beta polypeptide 40") -| act(a(HBP:HBP00174))
+a(CHEBI:"amyloid-beta polypeptide 40") -| act(a(HBP:"alpha-4 beta-2 nAChR"))
 a(CHEBI:"amyloid-beta polypeptide 40") -| act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
 
 SET Evidence = "A different set of experiments
@@ -383,7 +383,7 @@ expressed in oocytes, this first activation of the receptor was followed
 by its inhibition (Pym et al., 2005)"
 SET Cell = "oocyte"
 a(CHEBI:"amyloid-beta") -> act(a(CHEBI:acetylcholine))
-act(a(CHEBI:acetylcholine)) -> act(a(HBP:HBP00174))
+act(a(CHEBI:acetylcholine)) -> act(a(HBP:"alpha-4 beta-2 nAChR"))
 UNSET Cell
 
 SET Evidence = "However, alpha7 nAChR activation was observed in X. laevis oocytes when a range of Abeta
@@ -402,7 +402,7 @@ UNSET MeSHAnatomy
 SET Evidence = "Further studies showed an
 inhibitory effect of Abeta1-42 on human alpha4beta2 nAChRs transfected in
 the cell line (SHEP1) (Wu et al., 2004)"
-a(CHEBI:"amyloid-beta polypeptide 42") -| act(a(HBP:HBP00174))
+a(CHEBI:"amyloid-beta polypeptide 42") -| act(a(HBP:"alpha-4 beta-2 nAChR"))
 
 SET Evidence = "The oligomeric form of Abeta1-40 was able to activate alpha7 nAChR expressed
 in SH-SY5Y cell line (Lilja et al., 2011)"
@@ -416,10 +416,10 @@ transfected with alpha4beta2 nAChRs and treated for three days with
 led to receptor activation that caused a perturbation of intracellular
 calcium homeostasis followed by mitochondrial dysfunction and
 increased oxidative stress (Arora et al., 2013)"
-composite(a(CHEBI:"amyloid-beta"),a(CHEBI:nicotine)) -> act(a(HBP:HBP00174))
-act(a(HBP:HBP00174)) -| bp(GO:"cellular calcium ion homeostasis")
-act(a(HBP:HBP00174)) -> bp(HBP:HBP00037)
-act(a(HBP:HBP00174)) -> bp(GO:"response to oxidative stress")
+composite(a(CHEBI:"amyloid-beta"),a(CHEBI:nicotine)) -> act(a(HBP:"alpha-4 beta-2 nAChR"))
+act(a(HBP:"alpha-4 beta-2 nAChR")) -| bp(GO:"cellular calcium ion homeostasis")
+act(a(HBP:"alpha-4 beta-2 nAChR")) -> bp(HBP:HBP00037)
+act(a(HBP:"alpha-4 beta-2 nAChR")) -> bp(GO:"response to oxidative stress")
 
 SET Evidence = "In a different study, rat hippocampus and cortex were investigated and the activation of
 both alpha7 and non-alpha7 receptors was obtained with an enhancement
@@ -437,7 +437,7 @@ a(CHEBI:nicotine) -| bp(GO:"apoptotic process")
 
 SET Evidence = "Subsequent to incubation with pM concentrations of Abeta1-42 monomers and
 oligomers, an increase of hippocampal LTP was observed"
-a(HBP:HBP00023) -> bp(GO:"long-term synaptic potentiation")
+a(HBP:"amyloid-beta 42 oligomers") -> bp(GO:"long-term synaptic potentiation")
 a(CHEBI:"amyloid-beta polypeptide 42") -> bp(GO:"long-term synaptic potentiation")
 
 SET Evidence = "This enhancement of synaptic plasticity and the activation of intracellular
@@ -535,13 +535,13 @@ SET Evidence = "The mechanism proposed is that the Aß-alpha7 nAChR interaction
 could activate neuroprotective downstream pathways (Parri et al., 2011), and that
 at the same time the interaction engages Abeta preventing its aggregation"
 complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:"amyloid-beta")) -| bp(HP:Neurodegeneration)
-complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:"amyloid-beta")) -| a(HBP:HBP00018)
+complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:"amyloid-beta")) -| a(HBP:"amyloid-beta aggregates")
 
 SET Evidence = "With the progression of the disease the amount of Abeta increases, it starts
 to accumulate, and becomes toxic for the neurons (Hernandez et al., 2010)"
 # disease: Alzheimer Disease
 path(MESH:"Alzheimer Disease") positiveCorrelation a(CHEBI:"amyloid-beta")
-path(MESH:"Alzheimer Disease") positiveCorrelation a(HBP:HBP00018)
+path(MESH:"Alzheimer Disease") positiveCorrelation a(HBP:"amyloid-beta aggregates")
 
 SET Evidence = "Cotinine is a nicotine metabolite known for its positive effects on memory
 and attention and lower toxicity compared to nicotine (Hatsukami et al., 1997)"
@@ -600,7 +600,7 @@ a(CHEBI:nicotine) -> path(MESH:"Spatial Memory")
 
 SET Evidence = "The amount of Abeta was quantified, and following
 nicotine injections a reduction in Abeta, particularly in the oligomeric form, was found"
-a(CHEBI:nicotine) -| a(HBP:HBP00022)
+a(CHEBI:nicotine) -| a(HBP:"amyloid-beta oligomers")
 
 SET Evidence = "The explanation proposed by the authors is that alpha7 nAChR
 activation through nicotine binding could promote survival pathways
@@ -612,14 +612,14 @@ a(CHEBI:"amyloid-beta") -| a(GO:synapse)
 
 SET Evidence = "The long-term nicotine treatment caused faster tau aggregation in CA1 pyramidal neurons"
 SET MeSHAnatomy = {"CA1 Region, Hippocampal","Pyramidal Cells"}
-a(CHEBI:nicotine) -> a(HBP:HBP00006)
+a(CHEBI:nicotine) -> a(HBP:"Tau aggregates")
 UNSET MeSHAnatomy
 
 SET Evidence = "The possible mechanism by which nicotine enhances the aggregation
 of tau is through the activation of p38-MAP kinase"
-a(CHEBI:nicotine) -> a(HBP:HBP00006)
+a(CHEBI:nicotine) -> a(HBP:"Tau aggregates")
 a(CHEBI:nicotine) -> bp(GO:"p38MAPK cascade")
-bp(GO:"p38MAPK cascade") -> a(HBP:HBP00006)
+bp(GO:"p38MAPK cascade") -> a(HBP:"Tau aggregates")
 
 SET Evidence = "This kinase is sensitive to Ca++, whose levels are increased following
 nAChR activation (Oddo et al., 2005)"
@@ -720,9 +720,9 @@ SET Evidence = "A novel molecule called PTI-125 was used to interfere with the i
 of FLNA and alpha7. The treatment with PTI-125 prevents FLNA binding
 to alpha7 and as consequence reduces the affinity of Abeta for nAChRs,
 attenuating the toxic effect of Abeta (Wang et al., 2012)"
-a(HBP:HBP00173) -| complex(p(HGNC:CHRNA7),p(HGNC:FLNA))
-a(HBP:HBP00173) -| complex(p(FPLX:CHRN),a(CHEBI:"amyloid-beta"))
-a(HBP:HBP00173) -> act(a(CHEBI:"amyloid-beta"))
+a(HBP:"PTI-125") -| complex(p(HGNC:CHRNA7),p(HGNC:FLNA))
+a(HBP:"PTI-125") -| complex(p(FPLX:CHRN),a(CHEBI:"amyloid-beta"))
+a(HBP:"PTI-125") -> act(a(CHEBI:"amyloid-beta"))
 
 
 ##########################################################
