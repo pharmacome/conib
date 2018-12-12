@@ -20,12 +20,12 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/7e4be528f12abd28be768b62402fba6e083eaf9e/export/hbp-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/export/hbp-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
-DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
 DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
-DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mesh-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/mesh-names.belns"
 DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
 DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
 DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
@@ -46,8 +46,10 @@ DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifact
 
 # Namespaces defined with regular expressions
 # -------------------------------------------
-DEFINE NAMESPACE DNSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
 DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
 
 ###############
 # Annotations #
@@ -694,7 +696,7 @@ SET Evidence = "Moreover, the use of M2 antagonists, such as SCH-57790 and SC-72
 blockage of M2-mediated inhibition of presynaptic release of ACh, which can activate M1 and nicotinic receptors,
 ameliorating cognitive impairment in AD"
 a(PUBCHEM:"(4-Cyclohexyl-piperazin-1-yl)-[4-(4-methoxy-benzenesulfinyl)-phenyl]-acetonitrile") -> tloc(a(CHEBI:acetylcholine),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
-p(HGNC:CHRM2) -| loc(a(CHEBI:acetylcholine),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
+p(HGNC:CHRM2) -| tloc(a(CHEBI:acetylcholine),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
 a(PUBCHEM:"(4-Cyclohexyl-piperazin-1-yl)-[4-(4-methoxy-benzenesulfinyl)-phenyl]-acetonitrile") -> act(p(HGNC:CHRM1))
 a(PUBCHEM:"(4-Cyclohexyl-piperazin-1-yl)-[4-(4-methoxy-benzenesulfinyl)-phenyl]-acetonitrile") -> act(a(MESH:"Receptors, Nicotinic"))
 a(PUBCHEM:"(4-Cyclohexyl-piperazin-1-yl)-[4-(4-methoxy-benzenesulfinyl)-phenyl]-acetonitrile") -> bp(GO:cognition)
