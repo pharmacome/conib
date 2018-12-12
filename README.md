@@ -13,6 +13,29 @@ This repository contains knowledge curated in Biological Expression Language (BE
 for the Human Brain Pharmacome (HBP) project.
 </p>
 
+## Installation
+
+The latest version can be installed form GitHub with:
+
+```bash
+$ pip install git+https://github.com/pharmacome/knowledge.git
+```
+
+## Usage
+
+The graph can be loaded with:
+
+```python
+from hbp_knowledge import get_graphs
+from pybel import union
+
+# Get all graphs
+graphs = get_graphs()
+
+# Combine them all using pybel.union
+graph = union(graphs.values())
+```
+
 ## License
 
 - BEL scripts in this repository are licensed under the CC BY 4.0 license.
