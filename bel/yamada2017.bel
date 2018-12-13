@@ -96,7 +96,7 @@ complex(p(HGNC:MAPT),p(MESH:"Receptors, Muscarinic")) -> a(MESH:Calcium)
 complex(p(HGNC:MAPT),p(MESH:"Receptors, Muscarinic")) -| a(MESH:Neurons)
 
 SET Evidence ="Furthermore, extracellular oligomeric tau impairs memory and long-term potentiation (LTP) in mice"
-p(HGNC:MAPT,loc(GO:"extracellular region")) -| bp(MESH:Memory)
+p(HGNC:MAPT,loc(GO:"extracellular region")) -| path(MESH:Memory)
 p(HGNC:MAPT,loc(GO:"extracellular region"))-| bp(MESH:"Long-Term Potentiation")
 
 SET Evidence ="starvation or lysosomal dysfunction increases tau release"
@@ -104,10 +104,10 @@ path(MESH:"Starvation") -> p(HGNC:MAPT)
 bp(HBP:"lysosomal dysfunction") -> p(HGNC:MAPT)
 
 SET Evidence ="In addition, stimulating neuronal activity in either cultured neurons or in vivo also enhances tau release"
-act(MESH:Neurons) -> p(HGNC:MAPT)
+act(a(MESH:Neurons)) -> p(HGNC:MAPT)
 
 SET Evidence ="this observation suggests that the activity-dependent release of tau participates in a positive feedback loop on neuronal activity."
-act(MESH:Neurons) -> p(HGNC:MAPT)
+act(a(MESH:Neurons)) -> p(HGNC:MAPT)
 p(HGNC:MAPT) -> act(MESH:Neurons)
 
 SET Evidence ="Furthermore, caspase-3 cleavage at D421 increases tau release"
@@ -115,7 +115,7 @@ act(p(HGNC:CASP3)) -> p(HGNC:MAPT)
 
 SET Evidence =" Tau from the CSF (Saman et al., 2012) and blood of patients with AD (Fiandaca et al., 2015) is associated with exosomes"
 SET MeSHAnatomy ={"Cerebrospinal Fluid","Blood"}
-p(HGNC:MAPT) -- act(MESH:Exosomes)
+p(HGNC:MAPT) -- act(a(MESH:Exosomes))
 
 SET Evidence =" N2a cells over-expressing tau (Wang et al., 2017) and microglia also release tau in an exosome-dependent manner "
 a(MESH:Microglia) -> p(HGNC:MAPT)
@@ -126,7 +126,7 @@ act(MESH:Exosomes) cnc p(HGNC:MAPT)
 SET Evidence ="For example, DnaJ/Hsc70 chaperone complexes control the release of tau and knockdown of SNAP23, a SNARE protein involved in vesicle-mediated exocytosis, blocks tau release "
 complex(p(INTERPRO:"Chaperone DnaJ"),p(HGNC:HSPA8)) -| p(HGNC:MAPT)
 p(HGNC:SNAP23) -> p(HGNC:MAPT)
-p(HGNC:SNARE) -> p(HGNC:MAPT)
+p(HBP:"SNARE protein") -> p(HGNC:MAPT)
 
 SET Evidence ="Rab GTPase regulates various steps of intracellular vesicle trafficking and membrane fusion"
 p(HBP:"Rab GTPase") reg act(MESH:"Transport Vesicles")
@@ -141,7 +141,7 @@ SET Evidence ="Tau also interacts with plasma membrane via amino terminal projec
 complex(p(HGNC:MAPT),a(MESH:"Cell Membrane"))
 
 SET Evidence =" Anti-tau antibodies facilitate microglial uptake of tau aggregates"
-p(HGNC:MAPT) -| p(MESH:"Tau aggregates")
+p(HGNC:MAPT) -| p(HBP:"Tau aggregates")
 
 SET Evidence ="Elevated CSF tau is a diagnostic biomarker in AD patients"
 SET MeSHAnatomy ="Cerebrospinal Fluid"
