@@ -101,14 +101,14 @@ p(HGNC:MAPT,loc(GO:"extracellular region"))-| bp(MESH:"Long-Term Potentiation")
 
 SET Evidence ="starvation or lysosomal dysfunction increases tau release"
 path(MESH:"Starvation") -> p(HGNC:MAPT)
-bp(HBP:"lysosomal dysfunction") -> p(HGNC:MAPT)
+act(a(MESH:Lysosomes)) -| p(HGNC:MAPT)
 
 SET Evidence ="In addition, stimulating neuronal activity in either cultured neurons or in vivo also enhances tau release"
 act(a(MESH:Neurons)) -> p(HGNC:MAPT)
 
 SET Evidence ="this observation suggests that the activity-dependent release of tau participates in a positive feedback loop on neuronal activity."
 act(a(MESH:Neurons)) -> p(HGNC:MAPT)
-p(HGNC:MAPT) -> act(MESH:Neurons)
+p(HGNC:MAPT) -> act(a(MESH:Neurons))
 
 SET Evidence ="Furthermore, caspase-3 cleavage at D421 increases tau release"
 act(p(HGNC:CASP3)) -> p(HGNC:MAPT)
@@ -126,11 +126,11 @@ act(MESH:Exosomes) cnc p(HGNC:MAPT)
 SET Evidence ="For example, DnaJ/Hsc70 chaperone complexes control the release of tau and knockdown of SNAP23, a SNARE protein involved in vesicle-mediated exocytosis, blocks tau release "
 complex(p(INTERPRO:"Chaperone DnaJ"),p(HGNC:HSPA8)) -| p(HGNC:MAPT)
 p(HGNC:SNAP23) -> p(HGNC:MAPT)
-p(HBP:"SNARE protein") -> p(HGNC:MAPT)
+p(MESH:"SNARE Proteins") -> p(HGNC:MAPT)
 
 SET Evidence ="Rab GTPase regulates various steps of intracellular vesicle trafficking and membrane fusion"
-p(HBP:"Rab GTPase") reg act(MESH:"Transport Vesicles")
-p(HBP:"Rab GTPase") regbp(MESH:"Membrane Fusion")
+p(MESH:"rab GTP-Binding Proteins") reg act(MESH:"Transport Vesicles")
+p(MESH:"rab GTP-Binding Proteins") regbp(MESH:"Membrane Fusion")
 
 SET Evidence ="Rab7a (Rodriguez et al., 2017) and Rab1a (Mohamed et al., 2017) have been recently implicated in tau release, further suggesting that tau release involves vesicle transport."
 p(HGNC:MAPT) -- (MESH:"Transport Vesicles")
