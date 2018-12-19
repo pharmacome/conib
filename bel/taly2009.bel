@@ -1,0 +1,751 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name = "taly2009"
+SET DOCUMENT Version = "1.0.0"
+SET DOCUMENT Description = "This document contains the curation of the review article Nicotinic receptors: allosteric transitions and therapeutic targets in the nervous system by Taly et al. 2009"
+SET DOCUMENT Authors = "Rana Aldisi"
+
+###############
+# Definitions #
+###############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/7e4be528f12abd28be768b62402fba6e083eaf9e/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+##############
+# Statements #
+##############
+
+SET Citation={"PubMed", "19721446"}
+
+SET TextLocation="Review"
+
+SET Evidence="ACh is produced by the enzyme choline
+acetyltransferase and its actions are mediated through
+two types of acetylcholine receptors (AChRs) — the G
+protein-coupled muscarinic AChRs and the nicotinic
+AChRs (nAChRs)."
+
+p(HGNC:CHAT) -> a(CHEBI:acetylcholine)
+p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic") -> act(a(CHEBI:acetylcholine))
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -> act(a(CHEBI:acetylcholine))
+
+SET Evidence="Figure 1 | variability of nicotinic binding sites and receptor subunits. a | The
+various assemblies of nicotinic acetylcholine receptor subtypes are broadly distributed in
+the brain."
+
+#cortex: alpha-4 beta-2, alpha-4 alpha-5 beta-2, alpha-7
+p(HBP:"alpha-4 beta-2 nAChR", loc(MESH:"Cerebral Cortex"))
+p(HGNC:CHRNA7, loc(MESH:"Cerebral Cortex"))
+p(HBP:"alpha-4 alpha-5 beta-2 nAChR", loc(MESH:"Cerebral Cortex"))
+#Hippocampus: alpha-4 beta-2, alpha-4 alpha-5 beta-2, alpha-3 beta-4, alpha-7
+p(HBP:"alpha-4 beta-2 nAChR", loc(MESH:Hippocampus))
+p(HBP:"alpha-4 alpha-5 beta-2 nAChR", loc(MESH:Hippocampus))
+p(HBP:"alpha-3 beta-4 nAChR", loc(MESH:Hippocampus))
+p(HGNC:CHRNA7, loc(MESH:Hippocampus))
+#Medial habenula: alpha-4 beta-2, alpha-3 beta-4, alpha-3 beta-3 beta-4, alpha-7
+p(HBP:"alpha-4 beta-2 nAChR", loc(MESH:Habenula))
+p(HBP:"alpha-3 beta-4 nAChR", loc(MESH:Habenula))
+p(HBP:"alpha-3 beta-3 beta-4 nAChR", loc(MESH:Habenula))
+p(HGNC:CHRNA7, loc(MESH:Habenula))
+#Pineal gland: alpha-7, alpha-3 beta-4
+p(HGNC:CHRNA7, loc(MESH:"Pineal Gland"))
+p(HBP:"alpha-3 beta-4 nAChR", loc(MESH:"Pineal Gland"))
+#Cerebellum: alpha-4 beta-2, alpha-3 beta-4, alpha-7, alpha-3 beta-2
+p(HBP:"alpha-4 beta-2 nAChR", loc(MESH:Cerebellum))
+p(HBP:"alpha-3 beta-4 nAChR", loc(MESH:Cerebellum))
+p(HGNC:CHRNA7, loc(MESH:Cerebellum))
+p(HBP:"alpha-3 beta-2 nAChR", loc(MESH:Cerebellum))
+#Spinal cord: alpha-4 beta-2, alpha-3 beta-2, alpha-7
+p(HBP:"alpha-4 beta-2 nAChR", loc(MESH:"Spinal Cord"))
+p(HGNC:CHRNA7, loc(MESH:"Spinal Cord"))
+p(HBP:"alpha-3 beta-2 nAChR", loc(MESH:"Spinal Cord"))
+#Raphe nuclei: alpha-4 beta-2
+p(HBP:"alpha-4 beta-2 nAChR", loc(MESH:"Raphe Nuclei"))
+#Locus coeruleus: alpha-3 beta-4, alpha-6 beta-2 beta-3
+p(HBP:"alpha-3 beta-4 nAChR", loc(MESH:"Locus Coeruleus"))
+p(HBP:"alpha-6 beta-2 beta-3 nAChR", loc(MESH:"Locus Coeruleus"))
+#interpeduncular nucleus: alpha-4 beta-2, alpha-2 beta-2, alpha-3 beta-3 beta-4, alpha-7
+p(HBP:"alpha-4 beta-2 nAChR", loc(MESH:"Interpeduncular Nucleus"))
+p(HBP:"alpha-2 beta-2 nAChR", loc(MESH:"Interpeduncular Nucleus"))
+p(HBP:"alpha-3 beta-3 beta-4 nAChR", loc(MESH:"Interpeduncular Nucleus"))
+p(HGNC:CHRNA7, loc(MESH:"Interpeduncular Nucleus"))
+#Thalamus: alpha-4 beta-2
+p(HBP:"alpha-4 beta-2 nAChR", loc(MESH:Thalamus))
+#Hypothalamus: alpha-4 beta-2, alpha-7
+p(HBP:"alpha-4 beta-2 nAChR", loc(MESH:Hypothalamus))
+p(HGNC:CHRNA7, loc(MESH:Hypothalamus))
+#Substantia nigra ventral tegmental area: alpha-4 beta-2, alpha-4 alpha-5 beta-2, alpha-3 beta-4, alpha-6 beta-2 beta-3, alpha-7
+p(HBP:"alpha-4 beta-2 nAChR", loc(MESH:"Substantia Nigra"))
+p(HBP:"alpha-4 alpha-5 beta-2 nAChR", loc(MESH:"Substantia Nigra"))
+p(HGNC:CHRNA7, loc(MESH:"Substantia Nigra"))
+p(HBP:"alpha-3 beta-4 nAChR", loc(MESH:"Substantia Nigra"))
+p(HBP:"alpha-6 beta-2 beta-3 nAChR", loc(MESH:"Substantia Nigra"))
+#Amygdala: alpha-4 beta-2, alpha-7
+p(HBP:"alpha-4 beta-2 nAChR", loc(MESH:Amygdala))
+p(HGNC:CHRNA7, loc(MESH:Amygdala))
+#Striatum: alpha-4 beta-2, alpha-4 alpha-5 beta-2, alpha-6 beta-2 beta-3, alpha-6 alpha-4 beta-2 beta-3
+p(HBP:"alpha-4 beta-2 nAChR", loc(MESH:Neostriatum))
+p(HBP:"alpha-4 alpha-5 beta-2 nAChR", loc(MESH:Neostriatum))
+p(HBP:"alpha-6 beta-2 beta-3 nAChR", loc(MESH:Neostriatum))
+p(HBP:"alpha-6 alpha-4 beta-2 beta-3 nAChR", loc(MESH:Neostriatum))
+#Olfactory bulb: alpha-4 beta-2, alpha-7
+p(HBP:"alpha-4 beta-2 nAChR", loc(MESH:"Olfactory Bulb"))
+p(HGNC:CHRNA7, loc(MESH:"Olfactory Bulb"))
+
+SET Evidence="The nAChRs are ligand-gated ion channels that are
+present in both the PNS (at the skeletal neuromuscular
+junction and in the autonomic nervous system) and the
+CNS."
+
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -- a(MESH:"Peripheral Nervous System")
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -- a(MESH:"Central Nervous System")
+
+SET Evidence="Typically, activation of brain nAChRs
+results in enhanced release of various key neurotransmitters,
+including dopamine, serotonin, glutamate and
+GABA (gamma-aminobutyric acid)."
+
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> sec(a(CHEBI:dopamine))
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> sec(a(CHEBI:serotonin))
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> sec(a(CHEBI:"glutamate(2-)"))
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> sec(a(CHEBI:"gamma-aminobutyric acid"))
+
+SET Evidence="The acute effect
+of ACh consists of the fast opening (microsecond to millisecond
+range) of a cationic channel that is permeable to
+Na+, K+ and sometimes Ca2+ ions."
+
+a(CHEBI:acetylcholine) -- bp(GO:"regulation of cation channel activity")
+
+SET Evidence="Chronic exposure to nicotine
+causes a striking increase, typically by twofold, in
+the total number of high-affinity receptors — a process
+termed upregulation8."
+
+a(CHEBI:nicotine) -> p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+
+SET Evidence="Most neuronal nAChRs, including alpha4beta2 and
+alpha7, are potentiated by Ca2+ at millimolar concentrations50."
+
+a(CHEBI:"calcium(2+)") -> act(p(HGNC:CHRNA7))
+a(CHEBI:"calcium(2+)") -> act(p(HBP:"alpha-4 beta-2 nAChR"))
+
+SET Evidence="in parallel, a voltage-dependent inhibitory Zn2+-binding
+site has been identified within the beta2 subunit of the alpha4beta2
+nAChR48."
+
+a(CHEBI:"zinc(2+)") -| act(p(HBP:"alpha-4 beta-2 nAChR"))
+
+SET Evidence="Cholesterol is known to be crucial to
+nAChR function, and it interacts within the transmembrane
+domain between TM1, TM3 and TM4 (ReF. 57)."
+
+a(CHEBI:cholesterol) -- act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+
+SET Evidence="General anaesthetics are small hydrophobic compounds
+that typically allosterically inhibit nAChRs by
+binding to specific residues within small cavities of the
+TMD61,62."
+
+a(MESH:Anesthetics) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+
+SET Evidence="The binding site on alpha7 nAChRs63,64 for the positive
+allosteric modulators PNu-120596 and lY-2087101, has
+been tentatively identified within the transmembrane
+domain. it comprises five amino acids within TM1, TM2
+and TM4 which, when mutated, substantially reduce
+the potentiation of alpah7 nAChRs by allosteric modulators"
+
+#a(MESH:"1-(5-chloro-2,4-dimethoxyphenyl)-3-(5-methylisoxazol-3-yl)urea") = PNu-120596
+p(HGNC:CHRNA7, frag("231_255")) -- act(a(MESH:"1-(5-chloro-2,4-dimethoxyphenyl)-3-(5-methylisoxazol-3-yl)urea"))
+p(HGNC:CHRNA7, frag("262_280")) -- act(a(MESH:"1-(5-chloro-2,4-dimethoxyphenyl)-3-(5-methylisoxazol-3-yl)urea"))
+p(HGNC:CHRNA7, frag("470_490")) -- act(a(MESH:"1-(5-chloro-2,4-dimethoxyphenyl)-3-(5-methylisoxazol-3-yl)urea"))
+#(PUBCHEM:11964458) = lY-2087101
+p(HGNC:CHRNA7, frag("231_255")) -- act(a(PUBCHEM:11964458))
+p(HGNC:CHRNA7, frag("262_280")) -- act(a(PUBCHEM:11964458))
+p(HGNC:CHRNA7, frag("470_490")) -- act(a(PUBCHEM:11964458))
+
+SET Evidence="The cytoplasmic domain of the alpha4
+nAChR subunit binds the scaffold protein 14-3-3η and
+the Ca2+ sensor visinin-like protein 1 (ReF. 69), and the
+beta2 subunit interacts with several cytoskeletal proteins,
+such as tubulin, dynamin and clathrin, and with G protein
+systems that are involved in intracellular signalling
+pathways70."
+
+p(HGNC:CHRNA4, frag("331_600")) -- p(HGNC:YWHAH)
+p(HGNC:CHRNA4, frag("331_600")) -- p(HGNC:VSNL1)
+p(HGNC:CHRNB2) -- p(HGNCGENEFAMILY:Tubulins)
+p(HGNC:CHRNB2) -- p(HGNC:DNM1)
+p(HGNC:CHRNB2) -- p(HGNCGENEFAMILY:"Clathrin subunits")
+
+SET Evidence="Alzheimer’s disease is characterized by progressive
+cognitive decline, accompanied by a loss of neurons
+and synapses — especially cholinergic synapses — in
+the basal forebrain, cerebral cortex and hippocampus126
+and by a substantial reduction in both muscarinic and
+nicotinic AChR expression127."
+
+SET MeSHAnatomy={"Basal Forebrain","Cerebral Cortex", "Hippocampus"}
+
+path(MESH:"Alzheimer Disease") -| bp(GO:cognition)
+path(MESH:"Alzheimer Disease") -| a(MESH:Neurons)
+path(MESH:"Alzheimer Disease") -| p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic")
+path(MESH:"Alzheimer Disease") -| p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+
+UNSET MeSHAnatomy
+
+SET Evidence="in the cerebral cortex, the
+massive reduction in nAChRs in Alzheimer’s disease128–130
+involves predominantly the alpha4beta2 subtype, sparing the alpha7
+subtype131. By contrast, in the hippocampus, a loss of alpha7
+nAChRs seems to predominate and to correlate with the
+progressive loss of cognitive function132–136."
+
+SET MeSHAnatomy="Cerebral Cortex"
+
+path(MESH:"Alzheimer Disease") -| p(HBP:"alpha-4 beta-2 nAChR")
+
+UNSET MeSHAnatomy
+
+SET MeSHAnatomy="Hippocampus"
+SET MeSHDisease="Alzheimer Disease"
+
+bp(GO:cognition) pos p(HGNC:CHRNA7)
+
+UNSET MeSHDisease
+UNSET MeSHAnatomy
+
+SET Evidence="early studies indicated that acute nicotine administration
+improved performance of patients with Alzheimer’s
+disease in cognitive tasks, whereas acute administration
+of the non-competitive (channel blocker) antagonist
+mecamylamine resulted in dose-dependent impairment
+of performance in a battery of cognitive tasks137–141"
+
+SET MeSHDisease="Alzheimer Disease"
+
+a(CHEBI:nicotine) -> bp(GO:cognition)
+a(CHEBI:Mecamylamine) -| bp(GO:cognition)
+
+UNSET MeSHDisease
+
+SET Evidence="First, there is a high level of expression of
+alpha7 nAChRs in the hippocampus, a region that is known
+to be involved in memory formation. Second, gene
+knockout and antisense studies have shown a role for
+alpha7 nAChRs in learning and memory144–146, and specifically
+in attention and working–episodic memory147,148.
+Third, pharmacological studies have shown that a range
+of structurally diverse alpha7 nAChR-selective agonists or
+positive allosteric modulators improve the cognitive
+deficits that are associated with Alzheimer’s disease."
+
+a(MESH:Hippocampus) -- p(HGNC:CHRNA7)
+a(MESH:Hippocampus) -- bp(GO:memory)
+p(HGNC:CHRNA7) -- bp(GO:memory)
+p(HGNC:CHRNA7) -- bp(GO:learning)
+
+SET MeSHDisease="Alzheimer Disease"
+
+act(p(HGNC:CHRNA7)) -> bp(GO:cognition)
+
+UNSET MeSHDisease
+
+SET Evidence="As expected, AR-R17779 — a selective partial alpha7
+nAChR agonist — improved scopolamine-elicited deficits
+in social recognition, and the 24-hour memory retention
+interval in unimpaired animals. Repeated doses of
+AR-R17779 enhanced long-term learning and attenuated
+working-memory deficits in rats."
+
+a(MESH:"AR-R 17779") -> bp(GO:learning)
+a(MESH:"AR-R 17779") -> bp(GO:memory)
+a(MESH:"AR-R 17779") -| act(a(CHEBI:scopolamine))
+
+SET Evidence="Two partial agonists of
+alpha7 nAChRs, GTS-21 (also a strong alpha4beta2 antagonist) and
+MeM-3454 (also a strong 5-hydroxytryptamine type 3
+receptor (5HT3) antagonist)149 (TABLe 1), further showed a
+procognitive action and, in preclinical studies, MeM-3454
+enhanced episodic, spatial and working memory."
+
+#3-(2,4-dimethoxybenzylidene)anabaseine = GTS-21
+a(MESH:"3-(2,4-dimethoxybenzylidene)anabaseine") -> bp(GO:cognition)
+#Facinicline hydrochloride = MeM-3454
+a(DRUGBANK:Facinicline) -> bp(GO:cognition)
+a(DRUGBANK:Facinicline) -> bp(GO:memory)
+
+SET Evidence="The procognitive
+effect of MeM-3454 on episodic memory was
+completely blocked by the alpha7-specific antagonist methyllycaconitine,
+establishing that the efficacy of MeM-3454
+can be attributed to alpha7 nAChR binding."
+
+a(MESH:methyllycaconitine) -| act(a(DRUGBANK:Facinicline))
+
+SET Evidence="in a small Phase i
+clinical trial, GTS-21 improved episodic secondary
+memory tasks, including word recall, and picture and
+word recognition1"
+
+a(MESH:"3-(2,4-dimethoxybenzylidene)anabaseine") -> path(MESH:"Memory, Episodic")
+
+SET Evidence="Similarly, MeM-3454 improved the
+‘quality of episodic secondary memory’ score, which is a
+measure of episodic memory. As for episodic memory,
+working memory is impaired in Alzheimer’s disease.
+MeM-3454 significantly improved the quality of working
+memory score in patients with Alzheimer’s disease
+in Phase i trials. in a Phase ii trial, the quality of working
+memory scores were also improved by MeM-3454,
+as was the ADAS–cog (Alzheimer’s disease assessment
+scale–cognitive subscale) score."
+
+path(MESH:"Alzheimer Disease") -| path(MESH:"Memory, Episodic")
+a(DRUGBANK:Facinicline) -> path(MESH:"Memory, Episodic")
+
+SET Evidence="The alpha7 nAChR has previously
+been implicated in the in vitro neuroprotective effects of
+nicotine, using PC12 cells151."
+
+SET CellLine="PC12"
+
+p(HGNC:CHRNA7) -- bp(MESH:Neuroprotection)
+a(CHEBI:nicotine) -- bp(MESH:Neuroprotection)
+
+UNSET CellLine
+
+SET Evidence="Choline, like nicotine, can
+protect neural cells from cytotoxicity that is induced by
+growth factor deprivation152 or exposure to the glutamate
+analogue AMPA (alpha-amino-3-hydroxy-5-methyl-4-
+isoxazole propionic acid)153."
+
+a(CHEBI:choline) -> bp(MESH:Neuroprotection)
+a(CHEBI:choline) -| act(a(MESH:"alpha-Amino-3-hydroxy-5-methyl-4-isoxazolepropionic Acid"))
+a(MESH:"alpha-Amino-3-hydroxy-5-methyl-4-isoxazolepropionic Acid") -> path(HBP:neurotoxicity)
+
+SET Evidence="As with nicotine, the weak
+alpha7 nAChR agonist GTS-21 is neuroprotective, specifically
+protecting against Abeta1–42-elicited neurotoxicity154. This
+effect is probably due to small, protracted increases in
+receptor-mediated Ca2+ influx. importantly, high concentrations
+of GTS-21 reduced cell survival, underlining the
+possible risk of over-stimulation152"
+
+a(MESH:"3-(2,4-dimethoxybenzylidene)anabaseine") -> bp(MESH:Neuroprotection)
+a(CHEBI:"amyloid-beta polypeptide 42") -> path(HBP:neurotoxicity)
+a(MESH:"3-(2,4-dimethoxybenzylidene)anabaseine") -| act(a(CHEBI:"amyloid-beta polypeptide 42"))
+a(MESH:"3-(2,4-dimethoxybenzylidene)anabaseine") -| bp(MESH:"Cell Survival")
+
+SET Evidence="By contrast, deleting the alpha7
+nAChR subunit in a mouse model of Alzheimer’s disease
+that overexpresses a mutated form of the human amyloid
+precursor protein confers protection against memory
+loss and synaptic dysfunction, supporting a crucial role
+for alpha7 nAChR as a target288."
+
+SET Species="10090"
+SET MeSHDisease="Alzheimer Disease"
+
+act(p(HGNC:CHRNA7)) -| bp(MESH:Neuroprotection)
+act(p(HGNC:CHRNA7)) -| bp(GO:memory)
+
+UNSET Species
+UNSET MeSHDisease
+
+SET Evidence="Regardless of the exact
+effect of Abeta1–42 on receptor activity, it does seem to
+block the activation by nicotine and, consistent with the
+cytoprotective nature of this interaction, amyloid deposition
+limits neuroprotection151. This phenomenon may
+explain at least part of the neurotoxicity that is associated
+with Abeta1–42 (ReF. 156)."
+
+a(CHEBI:"amyloid-beta polypeptide 42") -| act(a(CHEBI:nicotine))
+act(a(CHEBI:nicotine)) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+a(CHEBI:"amyloid-beta polypeptide 42") -| bp(MESH:Neuroprotection)
+a(CHEBI:"amyloid-beta polypeptide 42") -> path(HBP:neurotoxicity)
+
+SET Evidence="Amyloid plaques form in the entorhinal cortex
+of patients with Alzheimer’s disease and this region,
+which connects the neocortex and the hippocampus,
+plays a crucial part in memory. it has been suggested
+that plaques in this region represent the lytic remnants
+of degenerated, Abeta1–42-burdened pyramidal neurons,
+and that amyloid internalization depends on alpha7 nAChR mediated
+Ca2+ entry162. Of interest, chronic nicotine
+treatment has been shown to reduce the plaque burden
+in animal models of Alzheimer’s disease123."
+
+SET MeSHAnatomy="Entorhinal Cortex"
+
+path(MESH:"Alzheimer Disease") -> path(MESH:"Plaque, Amyloid")
+a(MESH:"Entorhinal Cortex") -- bp(GO:memory)
+
+UNSET MeSHAnatomy
+
+SET MeSHDisease="Alzheimer Disease"
+
+a(CHEBI:nicotine) -| path(MESH:"Plaque, Amyloid")
+
+UNSET MeSHDisease
+
+SET Evidence="ABT-418, discussed above, has also been found to
+be active in a limited human trial in attention deficit
+hyperactivity disorder (ADHD)171. A second compound,
+ABT-089, which is a partial agonist at alpha4beta2 nAChRs, was
+also efficacious in ADHD172"
+
+#3-methyl-5-(1-methyl-2-pyrrolidinyl)isoxazole = ABT-418
+a(MESH:"3-methyl-5-(1-methyl-2-pyrrolidinyl)isoxazole") -- path(MESH:"Attention Deficit Disorder with Hyperactivity")
+#ABT-089 = pozanicline
+a(MESH:pozanicline) -- path(MESH:"Attention Deficit Disorder with Hyperactivity")
+
+SET Evidence="in addition to the obvious symptoms of hallucinations
+and delusions, patients with schizophrenia frequently
+suffer from cognitive symptoms, such as the inability to
+focus attention173."
+
+path(MESH:Schizophrenia) -- path(MESH:Hallucinations)
+path(MESH:Schizophrenia) -- path(MESH:Delusions)
+path(MESH:Schizophrenia) -- bp(GO:cognition)
+
+SET Evidence="nAChRs are known to control sensory gating, and
+studies investigating the role of nAChRs in schizophrenia
+have focused primarily on alpha7 nAChRs. Sensory-gating
+deficits in patients with schizophrenia174 have been
+linked to chromosome 15q14, proximal to the alpha7
+locus175,176."
+
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") reg bp(MESH:"Sensory Gating")
+path(MESH:Schizophrenia) -- bp(MESH:"Sensory Gating")
+
+SET Evidence="in addition, a decrease in alpha7 nAChR density
+in the hippocampus of patients with schizophrenia has
+been reported177. Similarly, a low density of alpha7 nAChRs
+in inbred strains of mice is associated with poor gating178.
+Recently, the expression of a novel variant of alpha7 nAChR,
+CHRNA7-2 (cholinergic receptor, nicotinic, alpha7, variant
+2), was found to be reduced below control levels in the
+prefrontal cortex of patients with schizophrenia179."
+
+SET MeSHAnatomy="Hippocampus"
+
+path(MESH:Schizophrenia) -| p(HGNC:CHRNA7)
+
+UNSET MeSHAnatomy
+
+SET Species="10090"
+
+bp(MESH:"Sensory Gating") -- p(HGNC:CHRNA7)
+
+UNSET Species
+
+SET MeSHAnatomy="Prefrontal Cortex"
+
+path(MESH:Schizophrenia) -| p(HGNC:CHRNA7)
+
+UNSET MeSHAnatomy
+
+SET Evidence="Patients with schizophrenia174 and DBA/2 mouse
+models180,181 respond to nicotine administration with
+improved sensory gating, presumably through alpha7
+nAChR activation182,183."
+
+SET MeSHDisease="Schizophrenia"
+
+a(CHEBI:nicotine) -> bp(MESH:"Sensory Gating")
+
+UNSET MeSHDisease
+
+SET Evidence="However, the atypical
+antipsychotic drug clozapine normalizes auditory gating
+in DBA/2 mice — an effect which involves an alpha7 nAChR
+mechanism181."
+
+a(CHEBI:clozapine) -> bp(MESH:"Sensory Gating")
+a(CHEBI:clozapine) -- p(HGNC:CHRNA7)
+
+SET Evidence="Two compounds that are currently in clinical use
+might have direct effects on the alpha7 nAChR. The anticholinesterase
+inhibitor galantamine has modulatory
+effects on alpha7 nAChR and was reportedly beneficial for
+patients with schizophrenia in a case study184"
+
+a(CHEBI:galanthamine) reg p(HGNC:CHRNA7)
+a(CHEBI:galanthamine) -| path(MESH:Schizophrenia)
+
+SET Evidence="Similarly,
+topisetron, a 5HT3 antagonist marketed outside the
+united States as an anti-nausea drug, also has efficacy
+as an alpha7 nAChR agonist and increases the inhibition of
+P50 auditory gating in schizophrenia185."
+#Typo here, it should be tropisetron
+SET MeSHDisease="Schizophrenia"
+
+a(CHEBI:tropisetron) -> act(p(HGNC:CHRNA7))
+a(CHEBI:tropisetron) -| bp(MESH:"Sensory Gating")
+
+UNSET MeSHDisease
+
+SET Evidence="GTS-21, one
+of a series of compounds derived from anabaseine, an
+alkaloid found in marine worms, is a partial agonist
+of alpha7 nAChRs that improves memory-related behaviours
+in various paradigms and normalizes auditory
+gating186. it is the leading clinical candidate in the field
+of alpha7 nAChRs."
+
+a(MESH:"3-(2,4-dimethoxybenzylidene)anabaseine") -> bp(MESH:"Sensory Gating")
+a(MESH:"3-(2,4-dimethoxybenzylidene)anabaseine") ->  act(p(HGNC:CHRNA7))
+
+SET Evidence="initially evaluated in normal subjects,
+GTS-21 was found to significantly improve attention
+and memory. in a second Phase i trial187, GTS-21 normalized
+P50 auditory gating in patients with schizophrenia."
+
+a(MESH:"3-(2,4-dimethoxybenzylidene)anabaseine") -> bp(GO:memory)
+a(MESH:"3-(2,4-dimethoxybenzylidene)anabaseine") -> path(MESH:Attention)
+a(MESH:"3-(2,4-dimethoxybenzylidene)anabaseine") -> bp(MESH:"Sensory Gating")
+
+SET Evidence="Nicotine self administration
+is also reduced in rats by dihydro-beta
+erythroidine (DHbetae), a selective alpha4beta2 antagonist199.
+in this context, partial agonists may substitute for the
+desired effects of nicotine and antagonize its reinforcing
+properties163,200."
+
+a(MESH:"Dihydro-beta-Erythroidine") -| act(a(CHEBI:nicotine))
+a(MESH:"Dihydro-beta-Erythroidine") -| act(p(HBP:"alpha-4 beta-2 nAChR"))
+
+SET Evidence="varenicline (Chantix/Champix; Pfizer),
+the most recently approved drug for smoking cessation
+which is now on the market, is a partial agonist at alpha4beta2
+nAChRs, and a full agonist at alpha7 nAChRs (ReF. 200)."
+
+a(CHEBI:varenicline) -> path(MESH:"Smoking Cessation")
+a(CHEBI:varenicline) -> act(p(HBP:"alpha-4 beta-2 nAChR"))
+a(CHEBI:varenicline) -> act(p(HGNC:CHRNA7))
+
+SET Evidence="For example, as discussed above, at least five
+functional nAChR subtypes have been identified in
+dopaminergic terminals in the striatum: α4α6β2β3,
+α6β2β3 and α6β2, which have the highest sensitivity
+to nicotine, and α4β2 and α4α5β2, which are more
+numerous than the α6-containing subtypes, yet with
+lower affinity for nicotine105,106,204."
+
+SET MeSHAnatomy="Corpus Striatum"
+
+a(MESH:"Dopaminergic Neurons") -- complex(p(HGNC:CHRNA4), p(HGNC:CHRNA6), p(HGNC:CHRNB2), p(HGNC:CHRNB3))
+a(MESH:"Dopaminergic Neurons") -- complex(p(HGNC:CHRNA6), p(HGNC:CHRNB2), p(HGNC:CHRNB3))
+a(MESH:"Dopaminergic Neurons") -- complex(p(HGNC:CHRNA6), p(HGNC:CHRNB2))
+a(MESH:"Dopaminergic Neurons") -- complex(p(HGNC:CHRNA4), p(HGNC:CHRNB2))
+a(MESH:"Dopaminergic Neurons") -- complex(p(HGNC:CHRNA4), p(HGNC:CHRNA5), p(HGNC:CHRNB2))
+
+SET Evidence="Moreover, nAChRs containing β4, α2
+and α5 in the habenulo-interpeduncular systems are
+necessary for nicotine withdrawal in mice107"
+
+p(HGNC:CHRNB4) -- act(a(CHEBI:nicotine))
+p(HGNC:CHRNA2) -- act(a(CHEBI:nicotine))
+p(HGNC:CHRNA5) -- act(a(CHEBI:nicotine))
+
+SET Evidence="interestingly, three independent studies have mapped
+susceptibility loci for lung cancer at nAChR genes:
+CHRNA5, CHRNA3 and CHRNB4 (ReFS 205–207)."
+
+path(MESH:"Lung Neoplasms") -- g(HGNC:CHRNA5)
+path(MESH:"Lung Neoplasms") -- g(HGNC:CHRNA3)
+path(MESH:"Lung Neoplasms") -- g(HGNC:CHRNB4)
+
+SET Evidence="β4 deletion abolishes withdrawal signs
+in the mouse208, and α3 and β4 are also present in the
+PNS, supporting the view that they might be directly
+involved in craving and relapse — an area that is largely
+unexplored in the development of medications to assist
+with smoking cessation."
+
+p(HGNC:CHRNA3) -- path(MESH:Craving)
+p(HGNC:CHRNB4) -- path(MESH:Craving)
+p(HGNC:CHRNA3) -- path(MESH:Recurrence)
+p(HGNC:CHRNB4) -- path(MESH:Recurrence)
+
+SET Evidence="Meanwhile, a number of key
+antidepressants, such as fluoxetine (Prozac; lilly), sertraline
+(Zoloft; Pfizer), paroxetine (Paxil/Seroxat; Novo
+Nordisk/GlaxoSmithKline), nefazodone, nisoxetine,
+citalopram (Celexa/Cipramil/Cipram; H. lundbeck),
+nomifensine and vanoxerine211–216 were shown to inhibit
+neuronal nAChRs, in addition to inhibiting selective
+monoamine reuptake."
+
+SET MeSHAnatomy="Neurons"
+
+a(CHEBI:fluoxetine) -| a(CHEBI:monoamine)
+a(CHEBI:sertraline) -| a(CHEBI:monoamine)
+a(CHEBI:paroxetine) -| a(CHEBI:monoamine)
+a(CHEBI:nefazodone) -| a(CHEBI:monoamine)
+a(CHEBI:nisoxetine) -| a(CHEBI:monoamine)
+a(CHEBI:nomifensine) -| a(CHEBI:monoamine)
+a(CHEBI:vanoxerine) -| a(CHEBI:monoamine)
+a(CHEBI:fluoxetine) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+a(CHEBI:sertraline) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+a(CHEBI:paroxetine) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+a(CHEBI:nefazodone) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+a(CHEBI:nisoxetine) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+a(CHEBI:nomifensine) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+a(CHEBI:vanoxerine) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+
+SET Evidence="using in vivo proton NMR
+imaging, levels of choline (the rate-limiting precursor to
+endogeneous ACh) were shown to be increased in the
+brains of patients with depression217 and in the prefrontal
+cortex of adolescents with depression218 compared with
+the control group."
+
+SET MeSHAnatomy={"Brain","Prefrontal Cortex"}
+
+path(MESH:Depression) -> a(CHEBI:choline)
+
+UNSET MeSHAnatomy
+
+SET Evidence="in α4- and β2-knockout mice,
+the responses of raphe neurons to nicotine is abolished,
+together with nicotine-elicited antinociception228, and
+α4-hypersensitive knock-in mice show nicotine hypersensitivity
+in the supraspinal control (hot-plate assay),
+but not in the spinal control (tail flick assay)229."
+
+p(HGNC:CHRNA4) -> act(a(CHEBI:nicotine))
+p(HGNC:CHRNB2) -> act(a(CHEBI:nicotine))
+
+SET Evidence="Also,
+α7- and non-α7-containing nicotinic receptors directly
+or indirectly (through GABAergic interneurons) modulate
+serotonin release in spinal cord slices230. However,
+the identity of the receptors that are responsible for the
+spinal control of nociception is currently unknown. in
+this process, the nicotine-induced antinociception seems
+to be mediated primarily by activation of calcium–
+calmodulin-dependent protein kinase 2, but this is not
+the case for supraspinal nociception control229."
+
+a(MESH:"Receptors, Nicotinic") reg sec(a(CHEBI:serotonin))
+act(p(FPLX:"CAMK2_complex")) -> act(a(CHEBI:nicotine))
+act(a(CHEBI:nicotine)) -| path(MESH:Nociception)
+
+SET Evidence="The first nicotinic receptor ligand to undergo Phase ii
+clinical trials for analgesic activity was the potent Abbott
+compound ABT-594, a nAChR agonist that preferentially
+targets α4β2 (ReFS 231–235). The compound allowed for
+the clinical proof of concept, but could not be developed
+further because of adverse effects such as emesis and
+nausea236. As these adverse effects seemed to be attributable
+to the activation of the ganglionic α3β4 nAChR
+receptors, Abbott undertook a search for more selective
+α4β2 agonists, independently and in cooperation with
+Neurosearch."
+
+a(MESH:"5-(2-azetidinylmethoxy)-2-chloropyridine") -> act(p(HBP:"alpha-4 beta-2 nAChR"))
+a(MESH:"5-(2-azetidinylmethoxy)-2-chloropyridine") -- path(MESH:Vomiting)
+a(MESH:"5-(2-azetidinylmethoxy)-2-chloropyridine") -- path(MESH:Nausea)
+a(MESH:"5-(2-azetidinylmethoxy)-2-chloropyridine") -> act(complex(p(HGNC:CHRNA3), p(HGNC:CHRNB4)))
+
+SET Evidence="Both initiatives were successful: new compounds
+— A-366833 and ABT-894 — with improved
+α4β2 selectivity and a broad spectrum of analgesic efficacy
+without adverse effects were identified236. ABT-894 was
+chosen to go into Phase ii clinical trials but the results
+were disappointing, and the development of this compound
+for neuropathic pain has been discontinued. The
+compound remains in clinical trials for ADHD."
+
+a(MESH:"3-(5,6-dichloropyridin-3-yl)-3,6-diazabicyclo(3.2.0)heptane") -> act(p(HBP:"alpha-4 beta-2 nAChR"))
+
+SET Evidence="Regarding the ascending afferent excitatory pain pathway,
+in which nicotinic antagonists are anticipated to have
+analgesic effects, a newly described subtype of nAChR,
+α9α10, seems to be expressed on dorsal root ganglia (in
+addition to the inner ear) and constitutes an in vitro target
+for new α-conotoxins, such as vc1.1, RgiA, or it14a237–241."
+
+complex(p(HGNC:CHRNA9), p(HGNC:CHRNA10)) -- a(MESH:Conotoxins)
+
+SET Evidence="In vivo, these α-conotoxins display potent alleviation of
+allopathic pain239,242,243 (and additionally reveal an endogeneous
+ACh activation of lymphocytes through α9α10
+nAChRs, which are inhibited by these α-conotoxins)."
+
+a(MESH:Conotoxins) -| path(MESH:Pain)
+complex(p(HGNC:CHRNA9), p(HGNC:CHRNA10)) -> act(a(MESH:Lymphocytes))
+a(MESH:Conotoxins) -| act(complex(p(HGNC:CHRNA9), p(HGNC:CHRNA10)))
+
+SET Evidence="Nicotine facilitates dopamine release by acting at
+both somatodendritic and presynaptic nAChRs on mesolimbic246,247
+and nigrostriatal247 neurons."
+
+a(CHEBI:nicotine) reg sec(a(CHEBI:dopamine))
