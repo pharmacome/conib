@@ -4,7 +4,7 @@
 
 import os
 
-from .repo_utils import BELRepository
+from bel_repository import BELRepository
 
 __all__ = [
     'HERE',
