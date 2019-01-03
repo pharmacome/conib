@@ -1,0 +1,94 @@
+SET DOCUMENT Name        = "Estrogen receptor-α is localized to neurofibrillary tangles in Alzheimer's disease"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Description = ""
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Authors     = "Esther Wollert"
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+##################################################################################
+# Definitions Section
+
+###############
+# Definitions #
+###############
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DNSNP    AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY AS PATTERN "^\d+$"
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE GFAM     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE MIRBASE  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE HBP   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/export/hbp-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel
+# --------------------------------------------------------------------
+DEFINE NAMESPACE CTO      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE MGI      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
+DEFINE NAMESPACE RGD      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170725.belns"
+DEFINE NAMESPACE SCOMP    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM     AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+DEFINE NAMESPACE INTERPRO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/interpro/interpro-20170731.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "26837465"}
+
+SET Evidence = "In the hippocampal and cortical tissues of all AD cases examined, neuronal staining for ERα  was a prominent finding,\
+ both with a weak cytoplasmic stain, but often specifically with a fibrillar appearance suggesting ERα  was in neurofibrillary tangles\
+ (Fig. 1A), also shown at a higher magnification (Fig. 1B)."
+SET MeSHAnatomy = {"Cerebral Cortex", "Hippocampus"}
+SET Confidence = "Medium"
+p(HGNC:ESR1) -- complex(GO:"neurofibrillary tangle")
+
+SET Evidence = "To confirm the localization of ERα  in NFTs, double fluorescence staining with antibodies to ERα  and hyperphosphorylated\
+ tau (PHF-1) revealed that ERα -positive NFTs were also positive for PHF-1 (Fig. 2A–F)."
+SET Confidence = "Medium" 
+p(HGNC:ESR1) -- complex(GO:"neurofibrillary tangle")
+p(HGNC:ESR1) -- p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+ 
+SET Evidence = "Indeed, significant amounts of ERα  were pulled down by tau-5 antibody in the brain homogenates which confirmed\
+ a physical interaction in vivo under physiological condition (Fig. 5B)."
+SET Confidence = "High" 
+complex(p(HGNC:MAPT), p(HGNC:ESR1))
+
+SET Evidence = "Moreover, more ERα  was found in the tau-5 immunoprecipitates from AD brain than control brain (p <  0.05)\
+ (Fig. 5B,C), demonstrating increased interaction between tau and ERα  in the AD brain which is likely the mechanism that\
+ underlies increased sequestration of ERα  by the PHFs in NFTs. "
+SET Confidence = "High" 
+path(MESH:"Alzheimer Disease") -> complex(p(HGNC:MAPT), p(HGNC:ESR1))
+
+SET Evidence = "Tau overexpression inhibits transcriptional activity of ERα."
+SET Confidence = "High"
+p(HGNC:MAPT) -| tscript(p(HGNC:ESR1))
