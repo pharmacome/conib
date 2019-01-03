@@ -1,0 +1,388 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "NACHO Mediates Nicotinic Acetylcholine Receptor Function throughout the Brain"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Description = ""
+SET DOCUMENT Authors     = "Sandra Spalek"
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DNSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "28445721"}
+
+SET Evidence = "As ACh-gated cation channels,
+these broadly distributed receptors participate in arousal, motivation,
+and numerous aspects of cognition (Gotti and Clementi,
+2004; Hogg et al., 2003; Le Nove` re et al., 2002; Lindstrom, 1997;
+Picciotto, 2003; Role and Berg, 1996)."
+p(FPLX:CHRN) -- path(MESH:Arousal)
+p(FPLX:CHRN) -- path(MESH:Motivation)
+p(FPLX:CHRN) -- bp(GO:cognition)
+
+SET Evidence = "nAChRs also underlie the behavioral and addictive properties of nicotine"
+a(CHEBI:nicotine) reg p(FPLX:CHRN)
+
+SET Evidence = "At the cellular level, nAChRs can underlie synaptic responses,
+neuronal excitability, and neurotransmitter release (Dajas-Bailador
+and Wonnacott, 2004; Gotti and Clementi, 2004; Hogg et al., 2003)"
+act(a(GO:synapse)) reg p(FPLX:CHRN)
+bp(GO:"neuronal action potential") reg p(FPLX:CHRN)
+bp(GO:"neurotransmitter secretion") reg p(FPLX:CHRN)
+
+SET Evidence = "In substantia nigra, postsynaptic nicotinic receptors
+induce inward currents to excite dopaminergic neurons that
+project to corpus striatum (Matsubayashi et al., 2003)"
+SET MeSHAnatomy = "Substantia Nigra"
+act(p(FPLX:CHRN)) -> act(a(MESH:"Dopaminergic Neurons"))
+UNSET MeSHAnatomy
+
+SET Evidence = "Through these postsynaptic effects and by influencing neural excitability, nAChRs
+can modulate or induce synaptic plasticity (Yakel, 2014)"
+p(FPLX:CHRN) -> bp(GO:"positive regulation of synaptic plasticity")
+
+SET Evidence = "Indeed, presynaptic effects of nAChRs in regulating dopamine release
+in basal ganglia and prefrontal cortex likely participate in nicotine’s
+addictive and cognitive effects, respectively (Jasinska et al., 2014)"
+SET MeSHAnatomy = {"Prefrontal Cortex","Basal Ganglia"}
+p(FPLX:CHRN) -> bp(GO:"dopamine secretion")
+UNSET MeSHAnatomy
+p(FPLX:CHRN) -> bp(GO:cognition)
+p(FPLX:CHRN) -- path(MESH:"Tobacco Use Disorder")
+
+SET Evidence = "The neuronal nAChR family comprises numerous subtypes of
+protein pentamers derived from nine alpha (alpha2–alpha10) and three beta
+(beta2–beta4) subunits (Gotti and Clementi, 2004; Hogg et al., 2003;
+Le Nove` re et al., 2002; Lindstrom, 1997; Picciotto, 2003; Role and Berg, 1996)"
+SET MeSHAnatomy = "Neurons"
+p(FPLX:CHRN) hasMembers list(p(HGNC:CHRNA1),p(HGNC:CHRNA2),p(HGNC:CHRNA3),p(HGNC:CHRNA4),p(HGNC:CHRNA5),p(HGNC:CHRNA6),p(HGNC:CHRNA7),p(HGNC:CHRNA9),p(HGNC:CHRNA10))
+p(FPLX:CHRN) hasMembers list(p(HGNC:CHRNB2),p(HGNC:CHRNB3),p(HGNC:CHRNB4))
+UNSET MeSHAnatomy
+
+SET Evidence = "Homomeric alpha7 receptors are also abundant and are of particular
+interest as they show very high calcium permeability and are
+linked to both physiological and disease processes (Gotti and
+Clementi, 2004; Hogg et al., 2003; Le Nove` re et al., 2002; Lindstrom,
+1997; Picciotto, 2003; Role and Berg, 1996"
+a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -> bp(GO:"calcium ion transport")
+a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -- bp(MESH:"Physiological Phenomena")
+a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -- path(MESH:Disease)
+
+SET Evidence = "Resistance to inhibitor of cholinesterase-3 (RIC-3) is
+required for nAChR function in C. elegans (Nguyen et al., 1995)"
+p(HGNC:RIC3) -> act(p(FPLX:CHRN))
+
+SET Evidence = "Whereas RIC-3 can enhance function of certain mammalian
+nAChRs, RIC-3 is not essential (Koperniak et al., 2013)"
+p(HGNC:RIC3) -> act(p(FPLX:CHRN))
+
+# NACHO: also known as TMEM35A
+
+SET Evidence = "Using a genomic cDNA screening strategy, we recently identified
+NACHO (Gu et al., 2016), a small multi-pass transmembrane
+protein enriched in neuronal endoplasmic reticulum (ER)
+that can mediate functional reconstitution of alpha7 receptors in
+non-neuronal cell lines"
+p(HGNC:TMEM35A) reg act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+
+SET Evidence = "NACHO serves as a molecular chaperone
+to mediate folding, assembly, and surface expression of
+alpha7 receptors (Gu et al., 2016)"
+chap(p(HGNC:TMEM35A)) reg surf(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+chap(p(HGNC:TMEM35A)) reg a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")
+
+SET Evidence = "Importantly, NACHO knockout mice show complete loss of alpha7 ligand binding and channel function
+indicating that NACHO is required for formation of alpha7 receptors (Gu et al., 2016)"
+SET Species = "10090"
+chap(p(MGI:Tmem35a)) -> a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")
+UNSET Species
+
+SET Evidence = "NACHO does not affect function of ion
+channels gated by numerous other ligands including glutamate,
+GABA, serotonin, and capsaicin, suggesting that NACHO represents
+the only essential client-specific chaperone yet identified
+for any mammalian neurotransmitter receptor (Gu et al., 2016)"
+p(HGNC:TMEM35A) causesNoChange act(p(FPLX:GABR))
+p(HGNC:TMEM35A) causesNoChange act(a(MESH:"Receptors, Serotonin"))
+p(HGNC:TMEM35A) causesNoChange act(p(HGNC:TRPV1))
+p(HGNC:TMEM35A) causesNoChange act(a(MESH:"Receptors, Glutamate"))
+
+SET Evidence = "As published previously (Gu et al., 2016), ACh evoked
+currents from alpha7 require NACHO, and currents from
+alpha4beta2 were augmented ~3-fold by NACHO, which did not alter
+the desensitization kinetics of alpha4beta2 receptors (Figures 1A and 1B)"
+chap(p(HGNC:TMEM35A)) -> act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+chap(p(HGNC:TMEM35A)) -> act(a(HBP:HBP00174))
+
+SET Evidence = "We now also find that alpha3beta2 receptor function in HEK
+cells requires NACHO, and these channels showed desensitization
+kinetics generally similar to alpha4beta2 (Figures 1A and 1B)"
+chap(p(HGNC:TMEM35A)) -> act(a(MESH:"nicotinic receptor alpha3beta2"))
+
+SET Evidence = "For alpha3beta4 alone, ACh evoked large slowly-desensitizing responses,
+and NACHO amplified their magnitudes ~5-fold (Figures 1A and 1B)"
+chap(p(HGNC:TMEM35A)) -> act(a(MESH:"nicotinic receptor alpha3beta4"))
+
+SET Evidence = "As previously published (Gu et al., 2016),
+robust surface alpha7 and alpha4beta2 expression required co-transfection
+with NACHO (Figures 1C and D), and we find that alpha3beta2 is also
+NACHO-dependent (Figures 1C and D)"
+chap(p(HGNC:TMEM35A)) -> surf(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+chap(p(HGNC:TMEM35A)) -> surf(a(HBP:HBP00174))
+chap(p(HGNC:TMEM35A)) -> surf(a(MESH:"nicotinic receptor alpha3beta2"))
+
+SET Evidence = " For alpha3beta4 alone, we
+found abundant surface labeling and this was enhanced by
+NACHO (Figures 1C and 1D)"
+chap(p(HGNC:TMEM35A)) -> surf(a(MESH:"nicotinic receptor alpha3beta4"))
+
+SET Evidence = "Our previous studies demonstrated that NACHO promotes assembly
+of alpha7 receptors as evidenced by alpha-bungarotoxin labeling,
+(Gu et al., 2016) which in brain only binds with high affinity
+to properly folded pentameric alpha7 receptors (Couturier et al.,
+1990; Schoepfer et al., 1990)"
+SET MeSHAnatomy = "Brain"
+chap(p(HGNC:TMEM35A)) -> a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")
+complex(a(MESH:Bungarotoxins),a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+UNSET MeSHAnatomy
+
+SET Evidence = "To assess whether NACHO facilitates
+assembly of heteromeric nAChRs, we used [3H]epibatidine,
+which binds with high affinity to most all neuronal nAChRs (Daly, 2005)."
+complex(p(FPLX:CHRN),a(CHEBI:epibatidine))
+
+SET Evidence = "In membranes from alpha7-transfected cells,
+[3H]epibatidine binding absolutely required NACHO (Figure 2A),
+which fits with an essential role for NACHO in alpha7 assembly"
+chap(p(HGNC:TMEM35A)) -> complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:epibatidine))
+chap(p(HGNC:TMEM35A)) -> a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")
+
+SET Evidence = "Similarly, quantifiable [3H]epibatidine binding to
+alpha3beta2 required cotransfection with NACHO (Figure 2C)"
+chap(p(HGNC:TMEM35A)) -> complex(a(MESH:"nicotinic receptor alpha3beta2"),a(CHEBI:epibatidine))
+chap(p(HGNC:TMEM35A)) -> a(MESH:"nicotinic receptor alpha3beta2")
+
+SET Evidence = "Cells transfected with
+alpha4beta2 or alpha3beta4 alone showed [3H]epibatidine binding, and this
+was markedly increased (5- to 10-fold) in presence of NACHO (Figures 2B and 2D)"
+chap(p(HGNC:TMEM35A)) -> complex(a(HBP:HBP00174),a(CHEBI:epibatidine))
+chap(p(HGNC:TMEM35A)) -> a(HBP:HBP00174)
+chap(p(HGNC:TMEM35A)) -> complex(a(MESH:"nicotinic receptor alpha3beta4"),a(CHEBI:epibatidine))
+chap(p(HGNC:TMEM35A)) -> a(MESH:"nicotinic receptor alpha3beta4")
+
+SET Evidence = "In C. elegans, RIC-3 protein is essential
+for nAChR function (Nguyen et al., 1995), and mammalian RIC-3 has modest and
+mixed effects on nAChRs (Halevi et al., 2003; Millar, 2008)"
+p(HGNC:RIC3) -> act(p(FPLX:CHRN))
+
+SET Evidence = "For alpha7 and alpha3beta2, RIC-3 did not enable
+detectable [3H]epibatidine binding, yet RIC-3 profoundly augmented the effects
+of NACHO on [3H]epibatidine binding to either receptor subtype (Figures 3A and S1A)"
+p(HGNC:RIC3) causesNoChange complex(a(MESH:"nicotinic receptor alpha3beta2"),a(CHEBI:epibatidine))
+p(HGNC:RIC3) causesNoChange complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:epibatidine))
+
+SET Evidence = "Strikingly, we found that
+alpha-bungarotoxin did not completely displace [3H]epibatidine
+binding to alpha7 receptors with NACHO (Figure 3B)"
+a(MESH:Bungarotoxins) -| complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:epibatidine))
+
+SET Evidence = "These experiments showed that NACHO is most concentrated
+in the heavy (P3) and light (P4) microsomal fractions
+(Figures 3C and 3D), which contain resident endoplasmic reticulum
+(ER) proteins including calnexin"
+SET Species = "10090"
+p(MGI:Tmem35a) -- p(MGI:Canx)
+UNSET Species
+
+SET Evidence = "As previously reported
+using fluorescently labeled alpha-bungarotoxin (Gu et al., 2016),
+NACHO enabled formation of assembled surface alpha7 receptors,
+and RIC-3 further enhanced this (Figures 3E and 3F)"
+chap(p(HGNC:TMEM35A)) -> surf(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+p(HGNC:RIC3) -> surf(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+
+SET Evidence = "Numerous studies have shown that chronic nicotine exposure
+enhances surface expression of nAChRs, especially for the alpha4beta2
+subtype (Schwartz and Kellar, 1983)"
+a(CHEBI:nicotine) -> surf(p(HBP:HBP00174))
+
+SET Evidence = "We found that nicotine exposure does not affect alpha7 in
+absence and presence of NACHO (Figures S1C and S1D), and nicotine markedly
+enhanced alpha4beta2 surface in a manner additive with NACHO (Figures 3G and 3H)"
+a(CHEBI:nicotine) -> a(HBP:HBP00174)
+
+SET Evidence = "However, we did find that NACHO enhances
+[3H]epibatidine binding to cells transfected with alpha6beta2beta3 (Figure
+4C) indicating that NACHO can enhance intracellular receptor assembly"
+p(HGNC:TMEM35A) -> complex(a(MESH:"alpha6beta2 nicotinic acetylcholine receptor"),a(CHEBI:epibatidine))
+
+SET Evidence = "Whereas this subunit combination is
+not competent to form a functional channel (Champtiaux et al.,
+2002; Dash et al., 2014; Kuryatov et al., 2000), NACHO still mediated
+partial receptor assembly as reflected by [3H]epibatidine binding (Figure 4D)"
+# this subunit combination: alpha6beta2
+p(HGNC:TMEM35A) -> a(MESH:"alpha6beta2 nicotinic acetylcholine receptor")
+p(HGNC:TMEM35A) -> complex(a(MESH:"alpha6beta2 nicotinic acetylcholine receptor"),a(CHEBI:epibatidine))
+
+SET Evidence = "This NACHO-mediated [3H]epibatidine binding
+to alpha6beta2 transfectants was also displaced by conotoxin MII (Figure 4E)"
+a(MESH:"alpha-conotoxin MII") -| complex(a(MESH:"alpha6beta2 nicotinic acetylcholine receptor"),a(CHEBI:epibatidine))
+
+SET Species = "10090"
+
+SET Evidence = "We previously showed that [125I]alpha-bungarotoxin binding is
+absent in NACHO knockout mice brain (Gu et al., 2016),
+which express normal levels of RIC-3 mRNA (Figure S1B)"
+p(MGI:Tmem35a) -> complex(a(MESH:Bungarotoxins),p(FPLX:CHRN))
+
+# KO of NACHO
+
+SET Evidence = "[125I]epibatidine binding
+was decreased in all brain regions evaluated—it was reduced
+by 66% in cortex, 39% in striatum, and 51% in medial
+vestibular nucleus (MVN) (Figures 5A and 5D)"
+# binding to alpha6-containing receptors
+SET MeSHAnatomy = {"Cerebral Cortex","Corpus Striatum","Vestibular Nuclei"}
+p(MGI:Tmem35a) -> complex(a(CHEBI:epibatidine),a(HBP:HBP00180))
+UNSET MeSHAnatomy
+
+SET Evidence = "This partial reduction fits with our data showing that
+NACHO enhances [3H]epibatidine binding to alpha4beta2 and other
+heteromeric nAChRs but that some [3H]epibatidine binding
+occurs to certain heteromeric nAChRs in the absence of NACHO (Figure 2B)"
+p(MGI:Tmem35a) -> complex(a(HBP:HBP00174),a(CHEBI:epibatidine))
+
+SET Evidence = "Labeling of alpha6-containing nAChRs in striatum by [125I]conotoxin
+MII is virtually abolished in NACHO knockout mice (Figures
+5B and 5D), indicating a vital role for NACHO in assembly of
+these presynaptic receptors"
+SET MeSHAnatomy = "Corpus Striatum"
+p(MGI:Tmem35a) -> a(HBP:HBP00180)
+UNSET MeSHAnatomy 
+
+SET Evidence = "Consistent with our previous autoradiographic results
+(Gu et al., 2016), we found no detectable [3H]alpha-bungarotoxin
+binding to brain membranes from NACHO knockouts"
+SET MeSHAnatomy = "Brain"
+p(MGI:Tmem35a) -> complex(a(MESH:Bungarotoxins),a(GO:membrane))
+UNSET MeSHAnatomy
+
+SET Evidence = "In membranes from cerebral cortex, hippocampus, and striatum, we
+found that levels of [3H]epibatidine binding sites are decreased by 50%–75%"
+SET MeSHAnatomy = {"Cerebral Cortex","Corpus Striatum","Hippocampus"}
+p(MGI:Tmem35a) -> p(FPLX:CHRN)
+UNSET MeSHAnatomy
+
+SET Evidence = "NACHO knockouts did not show
+changes in levels of [3H]epibatidine binding to membranes
+from superior cervical ganglia (wild-type [WT] 329.0 ± 17.2,
+knockout [KO] 322.8 ± 4.0 fmol/mg protein), which primarily express
+receptors containing alpha3beta4-containing receptors (David et al., 2010)"
+SET MeSHAnatomy = "Superior Cervical Ganglion"
+p(MGI:Tmem35a) -> a(MESH:"nicotinic receptor alpha3beta4")
+UNSET MeSHAnatomy
+
+SET Evidence = "General characterization showed that the
+knockout mice as compared to their wild-type littermates show
+no changes in body weight, have slight increases in body temperature
+(Figures S3A and S3B), and exhibit significantly
+enhanced locomotor activity (Figures S2A and S2B)"
+p(MGI:Tmem35a) -| bp(GO:locomotion)
+p(MGI:Tmem35a) -- bp(GO:"temperature homeostasis")
+
+SET Evidence = "Because nAChRs play important roles in cognition (Gotti and
+Clementi, 2004; Hogg et al., 2003; Le Nove` re et al., 2002; Lindstrom,
+1997; Picciotto, 2003; Role and Berg, 1996), we focused
+attention on this behavi"
+p(FPLX:CHRN) -- bp(GO:cognition)
+
+SET Evidence = "In the Morris water maze,
+NACHO knockout mice were delayed in learning the task during
+acquisition days 1–4 and showed fewer target crossings in the
+probe test (Figures S2Cand S2D), despite showing no significant
+difference for genotype on average speed through each acquisition
+day (ANOVA: F[1,28] = 0.004; p = 0.9492; data not shown)"
+p(MGI:Tmem35a) -> bp(GO:learning)
+
+SET Evidence = "A very recent study also reported memory defects in mice lacking
+NACHO/TMEM35 done by scientists unaware of NACHO’s
+role in controlling nAChRs (Kennedy et al., 2016)"
+p(MGI:Tmem35a) -> bp(GO:memory)
+p(MGI:Tmem35a) reg p(FPLX:CHRN)
+
+SET Evidence = "NACHO knockout mice also showed deficits of spontaneous alternation
+in the Y-maze compared to wild-type littermates (Figure S2E)"
+p(MGI:Tmem35a) -> path(MESH:"Spatial Learning")
+p(MGI:Tmem35a) -> path(MESH:"Spatial Memory")
+
+SET Evidence = "The NACHO knockouts showed
+increased total number of arm entries in the Y-maze, which fits
+with their enhanced locomotor activity (Figure S2F)"
+p(MGI:Tmem35a) -| bp(GO:locomotion)
+
+UNSET Species
