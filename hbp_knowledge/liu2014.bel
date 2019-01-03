@@ -1,0 +1,582 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "The role of inflammasome in Alzheimer’s disease"
+SET DOCUMENT Version     = "1.0.3"
+SET DOCUMENT Description = ""
+SET DOCUMENT Authors     = "Sandra Spalek"
+
+###############
+# Definitions #
+###############
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP    AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY AS PATTERN "^\d+$"
+DEFINE NAMESPACE PUBCHEM  AS PATTERN "^\d+$"
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE GFAM     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE MIRBASE  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE HBP      AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel
+# --------------------------------------------------------------------
+DEFINE NAMESPACE CTO      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE MGI      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
+DEFINE NAMESPACE RGD      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170725.belns"
+DEFINE NAMESPACE SCOMP    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM     AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+DEFINE NAMESPACE INTERPRO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/interpro/interpro-20170731.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+
+SET STATEMENT_GROUP = "Sandra"
+
+# Add statements below this comment
+
+SET Citation = {"PubMed", "Ageing Res Rev. 2014 May;15:6-15. doi: 10.1016/j.arr.2013.12.007", "24561250"}
+
+SET Evidence = "Inflammasomes involve in the maturation of IL-1β and IL-18 are expressed in neurons
+(de Rivero Vaccari et al., 2008; Yang-Wei Fann et al., 2013; Zou and Crews, 2012)"
+SET Confidence = "High"
+SET Subgraph = "Interleukin signaling subgraph"
+SET MeSHAnatomy = "Neurons"
+complex(GO:"inflammasome complex") positiveCorrelation p(HGNC:IL1B)
+complex(GO:"inflammasome complex") positiveCorrelation p(HGNC:IL18)
+
+UNSET Subgraph
+UNSET MeSHAnatomy
+
+SET Evidence = "Trauma, a risk factor for AD, increases inflammasome expression in rat neurons (de Rivero Vaccari et
+al., 2009; de Rivero Vaccari et al., 2008)"
+SET Confidence = "Medium"
+# SET Subgraph =
+SET MeSHAnatomy = "Neurons"
+path(MESH:"Trauma, Nervous System") -> path(MESH:"Alzheimer Disease")
+path(MESH:"Trauma, Nervous System") -> complex(GO:"inflammasome complex")
+
+UNSET MeSHAnatomy
+
+SET Evidence = "Furthermore, postmortem brain tissues from stroke
+patients show increase protein levels of inflammasomes in primary cortical neurons (Yang-
+Wei Fann et al., 2013)"
+SET Confidence = "High"
+# SET Subgraph =
+SET MeSHAnatomy = "Neurons"
+path(MESH:Stroke) -> complex(GO:"inflammasome complex")
+
+UNSET MeSHAnatomy
+
+SET Evidence = "Interleukins, in particular IL-1β
+and IL-18, are upregulated in AD brain, and the overexpression of IL-1β or IL-18 is critical
+for the onset of the inflammatory process (Rubio-Perez and Morillas-Ruiz, 2012), and both
+mediate the expression of a vast array of inflammatory genes (Weber et al., 2010)"
+SET Confidence = "High"
+SET Subgraph = {"Interleukin signaling subgraph","Inflammatory response subgraph"}
+path(MESH:"Alzheimer Disease") positiveCorrelation p(HGNC:IL1B)
+path(MESH:"Alzheimer Disease") positiveCorrelation p(HGNC:IL18)
+p(HGNC:IL1B) -> bp(GO:"inflammatory response")
+p(HGNC:IL18) -> bp(GO:"inflammatory response")
+
+SET Evidence = "IL-1β and IL-18 are synthesized as inactive precursors, proIL-1β and proIL-18, respectively, and
+require inflammasomes for their maturation"
+SET Confidence = "High"
+SET Subgraph = "Interleukin signaling subgraph"
+complex(GO:"inflammasome complex") -> p(HGNC:IL1B)
+complex(GO:"inflammasome complex") -> p(HGNC:IL18)
+
+SET Evidence = "The basic components of inflammasomes include a NOD-like receptor (NLR)
+that recognizes danger signals or ligands, and procaspase-1 which is central to inflammasome activation"
+SET Confidence = "Medium"
+SET Subgraph = "Caspase subgraph"
+complex(GO:"inflammasome complex") hasComponents list(a(MESH:"NLR Proteins"),p(HGNC:CASP1))
+
+SET Evidence = "They include the adaptor
+protein, ASC (apoptosis-associated speck-like protein containing a caspase recruitment
+domain), which is an essential component of the NLRP1, NLRP2 and NLRP3
+inflammasomes, but not of the more complex NLRC4 inflammasome (Martinon et al., 2009;
+Minkiewicz et al., 2013; Schroder and Tschopp, 2010)"
+SET Confidence = "Medium"
+SET Subgraph = "Caspase subgraph"
+complex(GO:"NLRP1 inflammasome complex") hasComponent p(HGNC:PYCARD)
+p(HGNC:PYCARD) -- composite(p(HGNC:NLRP2),complex(GO:"inflammasome complex"))
+complex(GO:"NLRP3 inflammasome complex") hasComponent p(HGNC:PYCARD)
+
+SET Evidence = "Under certain but not all conditions
+ASC (Martinon et al., 2009) or Naip5 (NLR family, apoptosis inhibitory protein 5)
+(Lightfield et al., 2011) is required for the activity of the NLRC4 inflammasome"
+# NLRC4 inflammasome = IPAF inflammasome complex"
+SET Confidence = "High"
+SET Subgraph = "Caspase subgraph"
+p(HGNC:PYCARD) -> act(complex(GO:"IPAF inflammasome complex"))
+p(HGNC:NAIP) -> act(complex(GO:"IPAF inflammasome complex"))
+
+UNSET Subgraph
+
+SET Evidence = "They are structurally characterized by three distinct domains: a domain of leucine rich repeats (LRRs)
+for ligand sensing, a NACHT domain (also called nucleotide-binding oligomerization
+domain (NOD)) that facilitates oligomerization, and an effector domain which consists of
+one of three domains, i.e. a pyrin (PYD), CARD (caspase activation and recruitment
+domains), or BIR (baculovirus IAP repeat) domain (Martinon et al., 2009)"
+SET Confidence = "High"
+# they = NOD-like receptor protein
+# Pyrin domain = DAPIN domain
+# SET Subgraph =
+p(INTERPRO:"Leucine-rich repeat-containing adjacent domain") partOf a(MESH:"NLR Proteins")
+p(INTERPRO:"NACHT-associated domain") partOf a(MESH:"NLR Proteins")
+p(INTERPRO:"DAPIN domain") partOf p(INTERPRO:"NACHT-associated domain")
+p(INTERPRO:"CARD domain") partOf p(INTERPRO:"NACHT-associated domain")
+p(INTERPRO:"BIR repeat") partOf p(INTERPRO:"NACHT-associated domain")
+
+SET Evidence = "In response to danger signals, inflammasomes assemble by self-oligomerizing the NLRs through
+interactions with the NACHT domain (van de Veerdonk et al., 2011)"
+SET Confidence = "High"
+# Alarmins = Damage-Associated Molecular Pattern Molecules (DAMPs)
+# SET Subgraph =
+a(MESH:"Pathogen-Associated Molecular Pattern Molecules") -> complex(GO:"inflammasome complex")
+a(MESH:Alarmins) -> complex(GO:"inflammasome complex")
+complex(a(MESH:"NLR Proteins"),p(INTERPRO:"NACHT-associated domain")) -> complex(GO:"inflammasome complex")
+
+SET Evidence = "As for the NLRP1 and NLRP3 inflammasomes, the oligomerzied NLRs recruit and
+interact with the adaptor protein ASC, which in turn recruits the effector protein
+procaspase-1 that is central to the activation of inflammasomes (Huang et al., 2013)"
+SET Confidence = "High"
+SET Subgraph = "Caspase subgraph"
+complex(p(HGNC:PYCARD),p(HGNC:NLRP1),p(HGNC:CASP1)) -> act(complex(GO:"NLRP1 inflammasome complex"))
+complex(p(HGNC:PYCARD),p(HGNC:NLRP3),p(HGNC:CASP1)) -> act(complex(GO:"NLRP3 inflammasome complex"))
+
+SET Evidence = "Caspase-1 is the protease that
+cleaves the precursor of the proinflammatory molecules to form their mature form, such as
+IL-1β and IL-18 (Schroder and Tschopp, 2010)"
+SET Confidence = "High"
+SET Subgraph = {"Caspase subgraph","Interleukin signaling subgraph"}
+p(HGNC:CASP1) -> p(HGNC:IL1B)
+p(HGNC:CASP1) -> p(HGNC:IL18)
+
+UNSET Subgraph
+
+SET Evidence = "The activators of the inflammasomes can be
+divided into two categories; pathogen associated molecular patterns (PAMPs) activate a
+host-defense reaction, and damage associated molecular patterns (DAMPs) activate a self-defense
+mechanism in response to danger signals (Salminen et al., 2008)"
+SET Confidence = "High"
+# SET Subgraph =
+a(MESH:"Pathogen-Associated Molecular Pattern Molecules") -> act(complex(GO:"inflammasome complex"))
+a(MESH:Alarmins) -> act(complex(GO:"inflammasome complex"))
+
+SET Evidence = "Activators include bacteria, virus, fungus, protoza, microbial proteins, crystalline urea, RNA, Alum, ATP,
+potassium efflux, fatty acids, Aβ, and most recently, degraded mitochondrial DNA (Liu et
+al., 2013a; Mathew et al., 2012; Schmidt and Lenz, 2012)"
+SET Confidence = "High"
+# SET Subgraph =
+a(MESH:Bacteria) -> act(complex(GO:"inflammasome complex"))
+a(MESH:Viruses) -> act(complex(GO:"inflammasome complex"))
+a(MESH:Fungi) -> act(complex(GO:"inflammasome complex"))
+a(MESH:RNA) -> act(complex(GO:"inflammasome complex"))
+a(CHEBI:"potassium aluminium sulfate") -> act(complex(GO:"inflammasome complex"))
+a(CHEBI:ATP) -> act(complex(GO:"inflammasome complex"))
+a(CHEBI:"potassium(1+)") -> act(complex(GO:"inflammasome complex"))
+a(CHEBI:"fatty acid") -> act(complex(GO:"inflammasome complex"))
+deg(a(MESH:"DNA, Mitochondrial")) -> act(complex(GO:"inflammasome complex"))
+
+SET Subgraph = "Amyloidogenic subgraph"
+a(CHEBI:"amyloid-beta") -> act(complex(GO:"inflammasome complex"))
+
+SET Evidence = "In the CNS, the production of IL-1β by inflammasomes, specifically NLRP1, NLRP2, NLRP3 and NLRC4,
+is well-characterized as compared to other interleukins (Minkiewicz et al., 2013; Trendelenburg, 2008)"
+SET Confidence = "High"
+SET Subgraph = "Interleukin signaling subgraph"
+SET MeSHAnatomy = "Central Nervous System"
+complex(GO:"NLRP1 inflammasome complex") -> p(HGNC:IL1B)
+composite(p(HGNC:NLRP2),complex(GO:"inflammasome complex")) -> p(HGNC:IL1B)
+complex(GO:"NLRP3 inflammasome complex") -> p(HGNC:IL1B)
+complex(GO:"IPAF inflammasome complex") -> p(HGNC:IL1B)
+
+UNSET MeSHAnatomy
+
+SET Evidence = "Spinal cord injury can activate the NLRP1
+inflammasome to produce IL-1β in rat spinal cord neurons (de Rivero Vaccari et al., 2008)"
+SET Confidence = "High"
+SET Subgraph = "Interleukin signaling subgraph"
+SET MeSHAnatomy = "Neurons"
+path(MESH:"Spinal Cord Injuries") -> act(complex(GO:"NLRP1 inflammasome complex"))
+act(complex(GO:"NLRP1 inflammasome complex")) -> p(HGNC:IL1B)
+
+UNSET Subgraph
+UNSET MeSHAnatomy
+
+SET Evidence = "A subsequent study demonstrated that P2X7 purinergic receptor is involved in the activation
+of NLRP1 inflammasome (Silverman et al., 2009)"
+SET Confidence = "High"
+# SET Subgraph =
+p(HGNC:P2RX7) -> act(complex(GO:"NLRP1 inflammasome complex"))
+
+SET Evidence = "Given that P2X4 and P2X7 are the major
+purinergic P2X receptor subtypes, a study of spinal cord injury in P2X4 knock-out mice
+showed a significant reduction in inflammasome activation and proinflammatory cytokine
+production as compared to wild type (de Rivero Vaccari et al., 2012), supporting the
+involvement of purinergic receptor P2X4 in the activation of the NLRP1 inflammasome"
+SET Confidence = "High"
+# SET Subgraph =
+p(MGI:P2rx4) -> act(complex(GO:"NLRP1 inflammasome complex"))
+p(MGI:P2rx7) -> act(complex(GO:"NLRP1 inflammasome complex"))
+
+SET Evidence = "Similarly, the P2X7 purinergic receptor has been shown to activate the NLRP1
+inflammasome in primary neurons (Silverman et al., 2009)"
+SET Confidence = "High"
+# SET Subgraph =
+p(HGNC:P2RX7) -> act(complex(GO:"NLRP1 inflammasome complex"))
+
+SET Evidence = "ATP, a danger-associated molecular pattern that is released from damaged cells after brain
+injury, activates the NLRP2 inflammasome, which consists of the NLRP2 receptor, ASC
+and caspase-1, in human astrocytes (Minkiewicz et al., 2013)"
+SET Confidence = "High"
+SET Subgraph = "Caspase subgraph"
+a(CHEBI:ATP) -> composite(p(HGNC:NLRP2),complex(GO:"inflammasome complex"))
+composite(p(HGNC:NLRP2),complex(GO:"inflammasome complex")) -- p(HGNC:CASP1)
+composite(p(HGNC:NLRP2),complex(GO:"inflammasome complex")) -- p(HGNC:NLRP2)
+composite(p(HGNC:NLRP2),complex(GO:"inflammasome complex")) -- p(HGNC:PYCARD)
+
+SET Evidence = "The ATP-induced activation
+of the NLRP2 inflammasome interacts with the ATP-release pannexin 1 channel and ATP-gated
+P2X7 receptor leading to the maturation of IL-1β (Minkiewicz et al., 2013)"
+SET Confidence = "High"
+SET Subgraph = "Interleukin signaling subgraph"
+a(CHEBI:ATP) -> composite(p(HGNC:NLRP2),complex(GO:"inflammasome complex"))
+composite(p(HGNC:NLRP2),complex(GO:"inflammasome complex"),p(HGNC:PANX1),p(HGNC:P2RX7)) -> p(HGNC:IL1B)
+
+SET Evidence = "In vivo and cell studies demonstrate that fibrillar Aβ activates the NLRP3 inflammasome
+which is composed of the NLRP3 receptor, ASC and caspase-1, to produce IL-1β in
+microglia (Halle et al., 2008)"
+SET Confidence = "Medium"
+SET Subgraph = "Amyloidogenic subgraph"
+SET Cell = "microglial cell"
+a(HBP:HBP00038) -> act(complex(GO:"NLRP3 inflammasome complex"))
+complex(GO:"NLRP3 inflammasome complex") hasComponents list(p(HGNC:NLRP3), p(HGNC:PYCARD), p(HGNC:CASP1))
+complex(GO:"NLRP3 inflammasome complex") -> p(HGNC:IL1B)
+
+UNSET Cell
+
+SET Evidence = "Phagocytosis and subsequent lysosomal damage trigger by Aβ
+initiate the activation of the NLRP3 inflammasome in the microglia (Halle et al., 2008)"
+SET Confidence = "High"
+SET Subgraph = "Amyloidogenic subgraph"
+SET Cell = "microglial cell"
+a(CHEBI:"amyloid-beta") -> bp(GO:phagocytosis)
+bp(GO:phagocytosis) -> act(complex(GO:"NLRP3 inflammasome complex"))
+
+SET Subgraph = {"Amyloidogenic subgraph","Endosomal lysosomal subgraph"}
+a(CHEBI:"amyloid-beta") -| a(GO:lysosome)
+a(GO:lysosome) -| act(complex(GO:"NLRP3 inflammasome complex"))
+
+UNSET Subgraph
+UNSET Cell
+
+SET Evidence = "In support, a recent study in APP/PS1 mice confirms that the NLRP3 inflammasome
+contributes to the AD pathology (Heneka et al., 2013)"
+SET Confidence = "Medium"
+# SET Subgraph =
+complex(GO:"NLRP3 inflammasome complex") -- path(MESH:"Alzheimer Disease")
+
+SET Evidence = "Deficiency of the NLRP3 gene
+reduces Aβ deposition and plays a protective role on memory and behavior (Heneka et al.,2013)"
+SET Confidence = "High"
+SET Subgraph = {"Amyloidogenic subgraph","Caspase subgraph"}
+g(HGNC:NLRP3) -> a(CHEBI:"amyloid-beta")
+g(HGNC:NLRP3) -| bp(GO:memory)
+g(HGNC:NLRP3) -| bp(GO:behavior)
+
+SET Evidence = "Similarly, inhibiting the NLRP3 inflammasome reduces the neuritic plaque burden in
+an AD transgenic mouse model (Shi et al., 2013)"
+SET Confidence = "High"
+SET Subgraph = "Amyloidogenic subgraph"
+SET MeSHDisease = "Alzheimer Disease"
+SET MeSHAnatomy = "Neurons"
+complex(GO:"NLRP3 inflammasome complex") -> path(MESH:"Plaque, Amyloid")
+
+UNSET MeSHDisease
+UNSET MeSHAnatomy
+
+SET Evidence = "Palmitate, a fatty acid, activates the NLRC4 inflammasome in primary astrocytes leading to
+the release of IL-1β (Liu and Chan, 2014)"
+SET Confidence = "High"
+SET Subgraph = "Interleukin signaling subgraph"
+SET Cell = "astrocyte"
+a(CHEBI:hexadecanoate) -> complex(GO:"IPAF inflammasome complex")
+complex(GO:"IPAF inflammasome complex") -> sec(p(HGNC:IL1B))
+
+UNSET Cell
+
+SET Evidence = "The adaptor protein ASC is important for the
+activation of NLRC4 inflammasome in astrocytes, while Naip 5 is not (Liu and Chan, 2014)"
+SET Confidence = "High"
+SET Subgraph = "Caspase subgraph"
+SET Cell = "astrocyte"
+p(HGNC:PYCARD) -> act(complex(GO:"IPAF inflammasome complex"))
+
+UNSET Cell
+
+SET Evidence = "Like IL-1β, in most cases, the mature secretable form
+of IL-18 is generated by caspase-1 through the activation of inflammasome"
+SET Confidence = "High"
+SET Subgraph = {"Caspase subgraph","Interleukin signaling subgraph"}
+p(HGNC:CASP1) -> p(HGNC:IL18)
+act(complex(GO:"inflammasome complex")) -> act(p(HGNC:CASP1))
+
+SET Subgraph = "Interleukin signaling subgraph"
+act(complex(GO:"inflammasome complex")) -> p(HGNC:IL18)
+
+SET Evidence = "However the maturation of IL-18 and IL-1β could be regulated by the same type of inflammasome"
+SET Confidence = "High"
+SET Subgraph = "Interleukin signaling subgraph"
+complex(GO:"inflammasome complex") reg p(HGNC:IL18)
+complex(GO:"inflammasome complex") reg p(HGNC:IL1B)
+
+SET Evidence = "For example, down-regulation of NLRP1 in macrophages trigger by Cordyceps sinensis
+mycelium reduces both IL-18 and IL-1β levels (Huang et al., 2013)"
+SET Confidence = "High"
+SET Subgraph = "Interleukin signaling subgraph"
+SET Cell = "macrophage"
+p(HGNC:NLRP1) -> p(HGNC:IL18)
+p(HGNC:NLRP1) -> p(HGNC:IL1B)
+
+UNSET Cell
+
+SET Evidence = "A recent report shows that IL-18 and IL-1β
+are secreted from primed murine dendritic cells in response to Listeria protein p60, but
+inhibiting NLRP3 reduces the production of IL-1β, but not IL-18 secretion (Schmidt and
+Lenz, 2012)"
+SET Confidence = "Low"
+SET MeSHAnatomy = "Dendritic Cells"
+SET Subgraph = "Interleukin signaling subgraph"
+# uniprot:Probable endopeptidase p60 (P21171) -> sec(p(MGI:Il1b))
+# uniprot:Probable endopeptidase p60 (P21171) -> sec(p(MGI:Il18))
+
+SET Confidence = "High"
+SET Subgraph = {"Caspase subgraph","Interleukin signaling subgraph"}
+p(MGI:Nlrp3) -> p(MGI:Il1b)
+
+SET Evidence = "Spinal cord injury causes IL-18 and IL-1β release from neuronal cells through the activation
+of the NLRP1 inflammasome, composed of receptor NLRP1, adaptor protein ASC,
+caspase-1, caspase-11 and X-linked inhibitor of apoptosis protein (de Rivero Vaccari et al.,
+2008)"
+SET Confidence = "High"
+SET Subgraph = "Interleukin signaling subgraph"
+SET MeSHAnatomy = "Neurons"
+path(MESH:"Spinal Cord Injuries") -> act(complex(GO:"NLRP1 inflammasome complex"))
+path(MESH:"Spinal Cord Injuries") -> sec(p(HGNC:IL18))
+path(MESH:"Spinal Cord Injuries") -> sec(p(HGNC:IL1B))
+act(complex(GO:"NLRP1 inflammasome complex")) -> sec(p(HGNC:IL18))
+act(complex(GO:"NLRP1 inflammasome complex")) -> sec(p(HGNC:IL1B))
+
+UNSET MeSHAnatomy
+SET Confidence = "Medium"
+SET Subgraph = "Caspase subgraph"
+complex(GO:"NLRP1 inflammasome complex") hasComponents list(p(HGNC:NLRP1),p(HGNC:PYCARD),p(HGNC:CASP1),p(HGNC:CASP4))
+
+SET Subgraph = "XIAP subgraph"
+complex(GO:"NLRP1 inflammasome complex") hasComponent p(HGNC:XIAP)
+
+
+SET Evidence = "ASC neutralization reduces the upregulation in IL-18 and IL-1β levels (de Rivero
+Vaccari et al., 2008)"
+SET Confidence = "High"
+SET Subgraph = {"Caspase subgraph","Interleukin signaling subgraph"}
+p(HGNC:PYCARD) -> p(HGNC:IL18)
+p(HGNC:PYCARD) -> p(HGNC:IL1B)
+
+UNSET Subgraph
+
+SET Evidence = "Spinal cord injury elevates extracellular ATP levels during
+neuroinflammation, which may act on purinergic receptors to trigger the activation of
+inflammasome (de Rivero Vaccari et al., 2012; Minkiewicz et al., 2013)"
+# SET Subgraph =
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Extracellular Space"
+path(MESH:"Spinal Cord Injuries") -> a(CHEBI:ATP)
+UNSET MeSHAnatomy
+a(CHEBI:ATP) -> act(complex(GO:"inflammasome complex"))
+
+SET Evidence = "However, upon further study of purinergic receptor P2X4 knockout mice with spinal cord injury, the
+production of IL-1β but not of IL-18 reduces in the neurons as compared with wild-type
+mice (de Rivero Vaccari et al., 2012)"
+SET Confidence = "High"
+SET Subgraph = "Interleukin signaling subgraph"
+SET MeSHDisease = "Spinal Cord Injuries"
+SET MeSHAnatomy = "Neurons"
+p(MGI:P2rx4) -> p(HGNC:IL1B)
+
+UNSET MeSHDisease
+UNSET MeSHAnatomy
+
+SET Evidence = "In human astrocytes, ATP released from damaged or dying cells after traumatic brain injury
+activates the NLRP2 inflammasome, leading to the maturation of both IL-1β and IL-18
+(Minkiewicz et al., 2013)"
+SET Confidence = "Medium"
+SET Subgraph = "Interleukin signaling subgraph"
+SET Cell = "astrocyte"
+path(MESH:"Brain Injuries, Traumatic") -> bp(GO:"cell death")
+bp(GO:"cell death") -> sec(a(CHEBI:ATP))
+a(CHEBI:ATP) -> composite(p(HGNC:NLRP2),complex(GO:"inflammasome complex"))
+composite(p(HGNC:NLRP2),complex(GO:"inflammasome complex")) -> p(HGNC:IL1B)
+composite(p(HGNC:NLRP2),complex(GO:"inflammasome complex")) -> p(HGNC:IL18)
+
+UNSET Cell
+
+SET Evidence = "Aging, another risk factor of AD, has been found to activate the NLRP1 inflammasome and
+upregulate IL-18 and IL-1β levels in the hippocampus of aged mice (Mawhinney et al.,
+2011)"
+SET Confidence = "Medium"
+SET Subgraph = "Interleukin signaling subgraph"
+SET MeSHAnatomy = "Hippocampus"
+bp(GO:aging) positiveCorrelation path(MESH:"Alzheimer Disease")
+bp(GO:aging) -> act(complex(GO:"NLRP1 inflammasome complex"))
+bp(GO:aging) -> p(HGNC:IL1B)
+bp(GO:aging) -> p(HGNC:IL18)
+
+UNSET MeSHAnatomy
+
+SET Evidence = "Recently we identify that palmitate activates the NLRC4 inflammasome in
+primary astrocytes to release IL-1β, and ASC participates in the activation of the NLRC4 inflammasome (Liu and Chan, 2014)"
+SET Confidence = "Medium"
+SET Subgraph = "Interleukin signaling subgraph"
+SET Cell = "astrocyte"
+a(CHEBI:hexadecanoate) -> act(complex(GO:"IPAF inflammasome complex"))
+act(complex(GO:"IPAF inflammasome complex")) -> sec(p(HGNC:IL1B))
+
+SET Subgraph = "Caspase subgraph"
+p(HGNC:PYCARD) -> act(complex(GO:"IPAF inflammasome complex"))
+
+UNSET Cell
+
+SET Evidence = "Reducing NLRC4 or ASC levels in the palmitate (PA)-treated astrocytes significantly
+reduces IL-1β production (Liu and Chan, 2014)"
+SET Confidence = "High"
+SET Subgraph = {"Caspase subgraph","Interleukin signaling subgraph"}
+SET Cell = "astrocyte"
+composite(a(CHEBI:hexadecanoate),p(HGNC:PYCARD)) -> p(HGNC:IL1B)
+composite(a(CHEBI:hexadecanoate),p(HGNC:NLRC4)) -> p(HGNC:IL1B)
+
+UNSET Cell
+
+SET Evidence = "In addition, NLRC4 and ASC levels are
+upregulated in the brains of AD patients (Liu and Chan, 2014), suggesting a possible role of
+the NLRC4 inflammasome in AD pathogenesis"
+SET Confidence = "Medium"
+SET Subgraph = "Caspase subgraph"
+path(MESH:"Alzheimer Disease") positiveCorrelation p(HGNC:PYCARD)
+path(MESH:"Alzheimer Disease") positiveCorrelation p(HGNC:NLRC4)
+complex(GO:"IPAF inflammasome complex") -- path(MESH:"Alzheimer Disease")
+
+SET Evidence = "These studies highlighted the role of saturated fatty acids in the production of IL-1β by
+inflammasomes, i.e. NLRC4"
+SET Confidence = "High"
+SET Subgraph = "Interleukin signaling subgraph"
+a(CHEBI:"saturated fatty acid") -> p(HGNC:IL1B)
+complex(GO:"IPAF inflammasome complex") -> p(HGNC:IL1B)
+
+UNSET Subgraph
+
+SET Evidence = "Probenecid, an inhibitor of
+pannexin 1, has been shown to significantly inhibit the expression and activation of the
+NLRP2 inflammasome, and the maturation of bothIL-1β and IL-18 in human astrocytes
+induced by ATP (Minkiewicz et al., 2013)"
+SET Confidence = "Medium"
+SET Cell = "astrocyte"
+# SET Subgraph =
+a(CHEBI:probenecid) -| p(HGNC:PANX1)
+a(CHEBI:probenecid) -| composite(p(HGNC:NLRP2),complex(GO:"inflammasome complex"))
+p(HGNC:PANX1) -> composite(p(HGNC:NLRP2),complex(GO:"inflammasome complex"))
+
+SET Subgraph = "Interleukin signaling subgraph"
+a(CHEBI:probenecid) -| p(HGNC:IL1B)
+a(CHEBI:probenecid) -| p(HGNC:IL18)
+p(HGNC:PANX1) -> p(HGNC:IL1B)
+p(HGNC:PANX1) -> p(HGNC:IL18)
+
+UNSET Subgraph
+UNSET Cell
+
+SET Evidence = "Probenecid has also been demonstrated to reduce
+the activation of the NLRP1 inflammasome, and improve the learning performance in age-related
+cognitive decline (Mawhinney et al., 2011)"
+SET Confidence = "High"
+# SET Subgraph =
+a(CHEBI:probenecid) -| act(complex(GO:"NLRP1 inflammasome complex"))
+a(CHEBI:probenecid) -> bp(GO:learning)
+
+SET Evidence = "In addition, Brilliant Blue G (BBG), a
+P2X7 receptor antagonist, inhibits ATP-induced activation of the NLRP2 inflammasome in
+human astrocytes (Minkiewicz et al., 2013)"
+SET Confidence = "Medium"
+# SET Subgraph =
+SET Cell = "astrocyte"
+a(PUBCHEM:6324599) -| act(p(HGNC:P2RX7))
+a(CHEBI:ATP) -> composite(p(HGNC:NLRP2),complex(GO:"inflammasome complex"))
+a(PUBCHEM:6324599) -| composite(p(HGNC:NLRP2),complex(GO:"inflammasome complex"))
+
+UNSET Cell
+
+SET Evidence = "P2X4 knock-out mice has been shown to
+decrease the level of IL-1β and to have impair inflammasome signaling (de Rivero Vaccari
+et al., 2012)"
+SET Confidence = "High"
+SET Subgraph = "Interleukin signaling subgraph"
+p(MGI:P2rx4) -> p(HGNC:IL1B)
+p(MGI:P2rx4) -> act(complex(GO:"inflammasome complex"))
+
+SET Evidence = "In support, knockout of NLRP3 and caspase-1 have
+been shown to suppress amyloidogenesis and neuropathology, and improve cognition in AD
+transgenic mice (Heneka et al., 2013)"
+SET Confidence = "High"
+SET MeSHDisease = "Alzheimer Disease"
+SET Subgraph = {"Amyloidogenic subgraph","Caspase subgraph"}
+p(MGI:Nlrp3) -> bp(GO:"amyloid-beta formation")
+p(MGI:Casp1) -> bp(GO:"amyloid-beta formation")
+
+SET Subgraph = "Caspase subgraph"
+p(MGI:Nlrp3) -> a(MESH:Neuropathology)
+p(MGI:Casp1) -> a(MESH:Neuropathology)
+p(MGI:Nlrp3) -| bp(GO:cognition)
+p(MGI:Casp1) -| bp(GO:cognition)
+
+UNSET Subgraph
+UNSET MeSHDisease
+UNSET Confidence
