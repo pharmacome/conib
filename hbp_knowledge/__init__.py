@@ -15,6 +15,7 @@ __all__ = [
 ]
 
 HERE = os.path.dirname(__file__)
+VERSION = '0.0.1-dev'
 
 repository = BELRepository(HERE)
 
