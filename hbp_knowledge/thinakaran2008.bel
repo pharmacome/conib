@@ -1,0 +1,159 @@
+##################################################################################
+# Document Properties Section
+
+SET DOCUMENT Name        = "Amyloid Precursor Protein Trafficking, Processing, and Function"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Description = "Amyloid Precursor Protein Trafficking, Processing, and Function by Thinakaran, et al., 2008"
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Authors     = "Esther Wollert"
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+###############
+# Definitions #
+###############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/chebi-names.belns"
+DEFINE NAMESPACE HGNC  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/hgnc-symbols.belns"
+DEFINE NAMESPACE GO    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/go-names.belns"
+DEFINE NAMESPACE HBP   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel
+# --------------------------------------------------------------------
+DEFINE NAMESPACE SCOMP AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+DEFINE ANNOTATION Species AS PATTERN "^\d+$"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "18650430"}
+
+SET Evidence = "More than 25 mutations in APP have been identified that are causative of the hereditary form of familial AD and a related condition of\
+ hereditary cerebral amyloid angiopathy. "
+SET Confidence = "Medium" 
+p(HGNC:APP, var("?")) -> path(MESH:"Alzheimer Disease")
+p(HGNC:APP, var("?")) -> path(MESH:"Cerebral Amyloid Angiopathy, Familial")
+
+SET Evidence = "Several zinc metallo proteinases such asTACE/ADAM17, ADAM9, ADAM10 and MDC-9 and the\
+aspartyl protease BACE2 can cleave APP at the α-secretase site, located within the Aβ domain between\
+Lys 16 and Leu 17 , essentially precluding the generation of intact Aβ(1)."
+#MDC-9 is a synonym for ADAM9
+SET Confidence = "High" 
+pep(p(HGNC:ADAM17)) -> rxn(reactants(p(HGNC:APP)), products(p(HGNC:APP, frag("1_16")), p(HGNC:APP, frag("17_*"))))
+pep(p(HGNC:ADAM9)) -> rxn(reactants(p(HGNC:APP)), products(p(HGNC:APP, frag("1_16")), p(HGNC:APP, frag("17_*"))))
+pep(p(HGNC:ADAM10)) -> rxn(reactants(p(HGNC:APP)), products(p(HGNC:APP, frag("1_16")), p(HGNC:APP, frag("17_*"))))
+pep(p(HGNC:BACE2)) -> rxn(reactants(p(HGNC:APP)), products(p(HGNC:APP, frag("1_16")), p(HGNC:APP, frag("17_*"))))
+
+SET Evidence = "BACE1 generates the N terminus of Aβ.In addition,BACE1 can also cleave within the Aβ\
+ domain between Tyr 10 and Glu 11."
+SET Confidence = "High" 
+pep(p(HGNC:BACE1)) -> rxn(reactants(p(HGNC:APP)), products(p(HGNC:APP, frag("1_10")), p(HGNC:APP, frag("11_*"))))
+
+SET Evidence = "γ-Secretase is made of four essential subunits: presenilin-1 or -2, nicastrin, APH-1, and PEN-2 (3)."
+SET Confidence = "High" 
+complex(SCOMP:"gamma Secretase Complex") hasComponents list(p(HGNC:PSEN1), p(HGNC:PSEN2), p(HGNC:NCSTN), p(HGNC:APH1A), p(HGNC:APH1B), p(HGNC:PSENEN))
+
+SET Evidence = "γ-Secretase cleaves at multiple sites within the transmembrane domain of APP, generating\
+ Aβ peptides ranging in length from 38 to 43 residues (4)."
+SET Confidence = "Medium" 
+complex(SCOMP:"gamma Secretase Complex") -> a(MESH:"Amyloid beta-Peptides")
+
+SET Evidence = "Activation of protein kinase C increases APPs α-secretion by mechanisms involving the\
+ formation and release of secretory vesicles from the TGN, thus enhancing APP (and possiblyα-secretase)\
+ trafficking to the cell surface."
+SET Confidence = "High"
+p(SFAM:"PRKC Family") -> sec(p(HGNC:APP))
+
+SET Evidence = " Overexpression of Mint1, Mint2, or Fe65
+causes reduction in Aβ generation and deposition in the brains
+of transgenic mice, strongly suggesting a physiological role for
+these adaptors in regulating APP processing in the nervous tis-
+sue (17). "
+SET Confidence = "Medium" 
+SET Species = "10090"
+p(HGNC:APBA1) -| a(CHEBI:"amyloid-beta")
+p(HGNC:APBA1) -| a(HBP:HBP00018)
+p(HGNC:APBA1) reg bp(HBP:HBP00073)
+p(HGNC:APBA2) -| a(CHEBI:"amyloid-beta")
+p(HGNC:APBA2) -| a(HBP:HBP00018)
+p(HGNC:APBA2) reg bp(HBP:HBP00073)
+p(HGNC:APBB1) -| a(CHEBI:"amyloid-beta")
+p(HGNC:APBB1) -| a(HBP:HBP00018)
+p(HGNC:APBB1) reg bp(HBP:HBP00073)
+
+SET Evidence = "Moreover, Fe65 stabilizes the highly labile AICD, which may
+serve as a regulatory step in modulating the physiological func-
+tion of AICD (see below)."
+SET Confidence = "High"
+p(HGNC:APBB1) -> a(HBP:HBP00071)
+
+SET Evidence = " Finally, the type I transmembrane protein
+SorLA/LR11 (a member of the VPS10p domain receptor fam-
+ily), which functionally interacts with cytosolic adaptors GGA
+and PACS-1, attenuates Aβ production by acting as a Golgi/
+TGN retention factor (22)."
+SET Confidence = "High"
+p(HGNC:SORL1) -| a(CHEBI:"amyloid-beta")
+
+SET Evidence = "Because, as mentioned above, APPs is constitutively
+released from cells following α-secretase cleavage, these find-
+ings indicated that APP has autocrine and paracrine functions
+in growth regulation."
+SET Confidence = "High"
+p(HGNC:APP) -> bp(GO:"regulation of cell growth")
+
+SET Evidence = "The N-terminal heparin-binding domain of APP (res-
+idues 28–123) upstream from the RERMS sequence also stim-
+ulates neurite outgrowth and promotes synaptogenesis."
+SET Confidence = "Medium"
+p(HGNC:APP) -> bp(GO:"synapse assembly")
+p(HGNC:APP) -> bp(MESH:"Neuronal Outgrowth")
+
+SET Evidence = "An RHDS motif near the extralumenal por-
+tion of APP or at the C terminus of APPs lying within the Aβ
+region appears to promote cell adhesion."
+SET Confidence = "High"
+p(HGNC:APP) -> bp(GO:"cell adhesion")
+
+SET Evidence = " Interestingly,
+because the RHDS sequence is contained within the N terminus
+of Aβ, similar cell adhesion-promoting properties have also
+been attributed to the Aβ peptide itself."
+SET Confidence = "Medium"
+a(CHEBI:"amyloid-beta") -> bp(GO:"cell adhesion")
+a(MESH:"Amyloid beta-Peptides") -> bp(GO:"cell adhesion")
+
+SET Evidence = "As mentioned above, γ-secretase processing of APP also
+releases AICD (Fig. 1)."
+SET Confidence = "High"
+complex(SCOMP:"gamma Secretase Complex") -> a(HBP:HBP00071)
+
+SET Evidence = "Finally, a recent study reported
+a surprising twist, viz. that APP in conjunction with TAG1, a
+molecule found in the outer plasma membrane, and presenilins
+act to suppress neurogenesis. "
+SET Confidence = "High"
+composite(p(HGNC:APP), p(HGNC:CNTN2)) -| bp(GO:neurogenesis)
+
+SET Evidence = "Furthermore, APP also regulates the presynaptic expression
+and activity of the high affinity choline transporter."
+SET Confidence = "Medium"
+p(HGNC:APP) reg act(p(HGNC:SLC5A7))
