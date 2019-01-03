@@ -1,0 +1,291 @@
+#####################
+# Document Metadata #
+#####################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Progress and Developments in Tau Aggregation Inhibitors for Alzheimer Disease"
+SET DOCUMENT Description = "A small assortment of academic articles describing quantitatively described interactions between the MAPT (Tau) protein and small molecules"
+SET DOCUMENT Version     = "0.1.0"
+SET DOCUMENT Authors     = "Charles Tapley Hoyt"
+
+##############
+# Namespaces #
+##############
+
+DEFINE NAMESPACE HBP   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8259206e39a3578e64bbce1cd0b80e6cfb4da65b/export/hbp.belns"
+DEFINE NAMESPACE CHEBI AS URL "https://raw.githubusercontent.com/pharmacome/terminology/9a77ac1a02863bc48b04bab7e8fb0c1d1cec4dd0/external/chebi.belns"
+DEFINE NAMESPACE GO    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/9a77ac1a02863bc48b04bab7e8fb0c1d1cec4dd0/external/go.belns"
+
+# Annotations #
+###############
+
+DEFINE ANNOTATION MeasurementType AS LIST {"IC50"}
+DEFINE ANNOTATION MeasurementUnits AS LIST {"μM"}
+DEFINE ANNOTATION MeasurementRelation AS LIST {"=", "~"}
+DEFINE ANNOTATION MeasurementValue AS PATTERN ".*"
+DEFINE ANNOTATION MeasurementRangeLower AS PATTERN ".*"
+DEFINE ANNOTATION MeasurementRangeUpper AS PATTERN ".*"
+
+DEFINE ANNOTATION Page AS PATTERN ".*"
+DEFINE ANNOTATION Figure AS PATTERN ".*"
+DEFINE ANNOTATION ArticleCompoundNumber AS PATTERN ".*"
+
+#################################################################################
+# Progress and developments in tau aggregation inhibitors for Alzheimer disease #
+#################################################################################
+SET Citation = {"PubMed", "23484434"}
+
+############
+# Figure 4 #
+############
+
+# Disambiguation: TAGI is short for "tau aggregation inhibitors"
+SET Evidence = "Redox cycling of methylene blue and TAGI potencies. Upper panel (black): Reduced leuco form 2 and structural overlap with inactive phenothiazines 3, 4, and 5. Lower panel (blue): Structural overlap between oxidized form 1 and azure A (6), reduced anthraquinone, 8, and 9, showing the extended π-conjugated system (ND: not determined)."
+SET Page = "D"
+SET Figure = "4"
+
+# Disambiguation: CHEBI:6872 label "methylene blue"
+# Disambiguation: HBP00006 label "Tau aggregates"
+SET ArticleCompoundNumber = "1"
+SET MeasurementType = "IC50"
+SET MeasurementUnits = "μM"
+SET MeasurementRelation = "="
+SET MeasurementRangeLower = "1.9"
+SET MeasurementRangeUpper = "31"
+a(CHEBI:"6872") -| a(HBP:HBP00006)
+UNSET {ArticleCompoundNumber, MeasurementType, MeasurementUnits, MeasurementRelation, MeasurementRangeLower, MeasurementRangeUpper}
+
+# Note: compound 2 is a redox product of methylene blue (compound 1)
+
+# Disambiguation: CHEBI:8028 label "perphenazine"
+# Disambiguation: HBP00006 label "Tau aggregates"
+SET ArticleCompoundNumber = "3"
+a(CHEBI:"8028") cnc a(HBP:HBP00006)
+UNSET ArticleCompoundNumber
+
+# Disambiguation: CHEBI:44932 label "acepromazine" and appears in text as "Acetylpromazine"
+# Disambiguation: HBP00006 label "Tau aggregates"
+SET ArticleCompoundNumber = "4"
+a(CHEBI:"44932") cnc a(HBP:HBP00006)
+UNSET ArticleCompoundNumber
+
+# Disambiguation: CHEBI:3647 label "chlorpromazine"
+# Disambiguation: HBP00006 label "Tau aggregates"
+SET ArticleCompoundNumber = "5"
+a(CHEBI:"3647") cnc a(HBP:HBP00006)
+UNSET ArticleCompoundNumber
+
+# Disambiguation: CHEBI:87637 label "azure A"
+# Disambiguation: HBP00006 label "Tau aggregates"
+SET ArticleCompoundNumber = "6"
+SET MeasurementType = "IC50"
+SET MeasurementUnits = "μM"
+SET MeasurementRelation = "="
+SET MeasurementValue = "2.6"
+a(CHEBI:"87637") -| a(HBP:HBP00006)
+UNSET {ArticleCompoundNumber, MeasurementType, MeasurementUnits, MeasurementRelation, MeasurementValue}
+
+# Disambiguation: CHEBI:22580 label "anthraquinone"
+# Disambiguation: HBP00006 label "Tau aggregates"
+SET ArticleCompoundNumber = "7"
+SET MeasurementType = "IC50"
+SET MeasurementUnits = "μM"
+SET MeasurementRelation = "~"
+SET MeasurementValue = "2"
+a(CHEBI:"22580") -| a(HBP:HBP00006)
+UNSET {ArticleCompoundNumber, MeasurementType, MeasurementUnits, MeasurementRelation, MeasurementValue}
+
+# Note: compounds 8 and 9 (acridin and anthracene) appear but without measurements
+
+UNSET {Figure, Page, Evidence}
+
+############
+# Figure 6 #
+############
+
+SET Evidence = "Structures of Aβ-aggregation inhibitors evaluated in current or past clinical trials."
+SET Page = "F"
+SET Figure = "6"
+
+# Disambiguation: CHEBI:1457 label "3-Aminopropanesulfonate" and appears in the text as "Alzhemed"
+# Disambiguation: HBP00018 label "amyloid-beta aggregates"
+SET ArticleCompoundNumber = "10"
+a(CHEBI:"1457") -| a(HBP:HBP00018)
+UNSET ArticleCompoundNumber
+
+# Disambiguation: CHEBI:10642 label "scyllo-inositol" and appears in the text as "AZD-103"
+# Disambiguation: HBP00018 label "amyloid-beta aggregates"
+SET ArticleCompoundNumber = "11"
+a(CHEBI:"10642") -| a(HBP:HBP00018)
+UNSET ArticleCompoundNumber
+
+# Disambiguation: CHEBI:4806 label "(-)-epigallocatechin 3-gallate"
+# Disambiguation: HBP00018 label "amyloid-beta aggregates"
+SET ArticleCompoundNumber = "12"
+a(CHEBI:"4806") -| a(HBP:HBP00018)
+UNSET ArticleCompoundNumber
+
+# Disambiguation: CHEBI:74460 label "5-chloro-7-iodoquinolin-8-ol" and appears in text as "clioquinol"
+# Disambiguation: HBP00018 label "amyloid-beta aggregates"
+SET ArticleCompoundNumber = "13"
+a(CHEBI:"74460") -| a(HBP:HBP00018)
+UNSET ArticleCompoundNumber
+
+# Disambiguation: HBP00021 is drugbank:DB05263, labeled as caprospinol and appears in text as "SP-233"
+# Disambiguation: HBP00018 label "amyloid-beta aggregates"
+SET ArticleCompoundNumber = "14"
+a(HBP:HBP00021) -| a(HBP:HBP00018)
+UNSET ArticleCompoundNumber
+
+# Disambiguation: HBP00019 is pubchem.compound:46835756 and appears in the text as SEN-1269
+# Disambiguation: HBP00018 label "amyloid-beta aggregates"
+SET ArticleCompoundNumber = "14"
+a(HBP:HBP00019) -| a(HBP:HBP00018)
+UNSET ArticleCompoundNumber
+
+############
+# Figure 8 #
+############
+
+SET Evidence = "Pyrogallol generic substitution pattern commonly found in multiple polyphenolic Tau aggregation inhibitors such as 12 and 19. Note the structural overlap with the inactive pyrocatechol-substituted epicatechin"
+SET Page = "H"
+SET Figure = "8"
+
+# Disambiguation: CHEBI:4806 label "(-)-epigallocatechin 3-gallate"
+# Disambiguation: HBP00006 label "Tau aggregates"
+SET ArticleCompoundNumber = "12"
+SET MeasurementType = "IC50"
+SET MeasurementUnits = "μM"
+SET MeasurementRelation = "="
+SET MeasurementValue = "1.8"
+a(CHEBI:"4806") -| a(HBP:HBP00006)
+UNSET {ArticleCompoundNumber, MeasurementType, MeasurementUnits, MeasurementRelation, MeasurementValue}
+
+# Disambiguation: CHEBI:90 label "(-)-epicatechin"
+# Disambiguation: HBP00006 label "Tau aggregates"
+SET ArticleCompoundNumber = "18"
+a(CHEBI:"90") cnc a(HBP:HBP00006)
+UNSET ArticleCompoundNumber
+
+# Disambiguation: CHEBI:18152 label "myricetin"
+# Disambiguation: HBP00006 label "Tau aggregates"
+SET ArticleCompoundNumber = "19"
+SET MeasurementType = "IC50"
+SET MeasurementUnits = "μM"
+SET MeasurementRelation = "="
+SET MeasurementValue = "1.2"
+a(CHEBI:"18152") -| a(HBP:HBP00006)
+UNSET {ArticleCompoundNumber, MeasurementType, MeasurementUnits, MeasurementRelation, MeasurementValue}
+
+UNSET {Figure, Page, Evidence}
+
+#############
+# Figure 10 #
+#############
+
+#: Compound 26 has no systematic name
+#: Compound 27 has no systematic name
+#: Compound 28 has no systematic name
+
+#############
+# Figure 11 #
+#############
+
+#: Compound 29 has no systematic name
+#: Compound 30 has no systematic name
+
+#: Entries in figure 10 have not been assigned systematic names and will need to be extracted with ChemOCR.
+
+#############
+# Figure 12 #
+#############
+
+SET Evidence = "Representative examples of N-phenylamine Tau aggregation inhibitors and structural overlap with the Aβ40 aggregation inhibitor 33 or the nonsteroidal anti-inflammatory drug 34."
+SET Page = "K"
+SET Figure = "12"
+
+#: Compound 31 has no systematic name
+#: Compound 31 has no systematic name
+
+# Disambiguation: CHEBI:3441 label "carvedilol"
+# Disambiguation: HBP00006 label "Tau aggregates"
+SET ArticleCompoundNumber = "33"
+SET MeasurementType = "IC50"
+SET MeasurementUnits = "μM"
+SET MeasurementRelation = "="
+SET MeasurementValue = "30"
+a(CHEBI:"3441") -| a(HBP:HBP00018)
+UNSET {MeasurementType, MeasurementUnits, MeasurementRelation, MeasurementValue}
+
+a(CHEBI:"3441") -| a(HBP:HBP00006)
+UNSET ArticleCompoundNumber
+
+# Disambiguation: CHEBI:6710 label "meclofenamic acid"
+# Disambiguation: HBP00006 label "Tau aggregates"
+SET ArticleCompoundNumber = "34"
+a(CHEBI:"6710") -| a(HBP:HBP00006)
+a(CHEBI:"6710") -| a(HBP:HBP00018)
+UNSETArticleCompoundNumber
+
+UNSET {Figure, Page, Evidence}
+
+#############
+# Figure 13 #
+#############
+
+SET Evidence = "Benzothiazole-based Tau aggregation inhibitors (35, 36, and 37) and Tau NFT binders (38 and 39)."
+SET Page = "L"
+SET Figure = "13"
+
+#: Compound 35 has no systematic name
+#: Compound 36 has no systematic name
+#: Compound 37 has no systematic name
+
+# Disambiguation: CHEBI:76034 label "thioflavin T cation"
+# Disambiguation: GO:0097418 label "neurofibrillary tangles"
+complex(a(CHEBI:"76034"), a(GO:"GO:0097418"))
+
+# Disambiguation: CHEBI:76034 label "thioflavin T cation"
+# Disambiguation: GO:0097418 label "neurofibrillary tangles"
+complex(a(CHEBI:"76034"), a(GO:"GO:0097418"))
+
+UNSET {Figure, Page, Evidence}
+
+#############
+# Figure 14 #
+#############
+
+SET Evidence = "Aminothienopyridazines (APTZs) Tau aggregation inhibitors (B/P: blood to plasma ratio)."
+SET Page = "L"
+SET Figure = "14"
+
+#: Compound 40 has no systematic name
+
+# Disambiguation: CHEBI:112284 label "5-amino-3-(4-methoxyphenyl)-4-oxo-1-thieno[3,4-d]pyridazinecarboxylic acid ethyl ester" appears as MLS000062428
+SET ArticleCompoundNumber = "41"
+SET MeasurementType = "IC50"
+SET MeasurementUnits = "μM"
+SET MeasurementRelation = "="
+SET MeasurementValue = "5.1"
+a(CHEBI:"112284") -| a(HBP:HBP00006)
+UNSET {ArticleCompoundNumber, MeasurementType, MeasurementUnits, MeasurementRelation, MeasurementValue}
+
+
+# Disambiguation: HBP00020 is pubchem.compound:647821 and appears in the text as MLS000034832
+SET ArticleCompoundNumber = "41"
+SET MeasurementType = "IC50"
+SET MeasurementUnits = "μM"
+SET MeasurementRelation = "="
+SET MeasurementValue = "6.3"
+a(HBP:HBP00020) -| a(HBP:HBP00006)
+UNSET {ArticleCompoundNumber, MeasurementType, MeasurementUnits, MeasurementRelation, MeasurementValue}
+
+#: Compound 43 has no systematic name
+#: Compound 44 has no systematic name
+#: Compound 45 has no systematic name
+
+UNSET {Figure, Page, Evidence}
+
+UNSET Citation
