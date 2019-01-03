@@ -1,0 +1,360 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Chaperoning α7 neuronal nicotinic acetylcholine receptors"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Description = ""
+SET DOCUMENT Authors     = "Esther Wollert"
+
+###############
+# Definitions #
+###############
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP    AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT  AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE GFAM     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE MIRBASE  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE HBP      AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel
+# --------------------------------------------------------------------
+DEFINE NAMESPACE CTO      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE MGI      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
+DEFINE NAMESPACE RGD      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170725.belns"
+DEFINE NAMESPACE SCOMP    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM     AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+DEFINE NAMESPACE INTERPRO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/interpro/interpro-20170731.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+##############
+# Statements #
+##############
+
+
+SET STATEMENT_GROUP = "Esther"
+
+# Add statements below this comment
+
+SET Citation = {"PubMed","Biochim Biophys Acta. 2012 Mar;1818(3):718-29. doi: 10.1016/j.bbamem.2011.10.012. Epub 2011 Oct 22.","22040696"}
+
+SET Evidence = " α7 AChRs can act at the presynaptic, postsynaptic
+or perisynaptic levels to facilitate the liberation of neurotransmitters,
+mediate synaptic transmission, or modulate the connections of different
+neurons by activating diverse second messenger routes [1,19,23–31]."
+p(HGNC:CHRNA7) -> bp(GO:"neurotransmitter secretion")
+p(HGNC:CHRNA7) reg bp(GO:"chemical synaptic transmission")
+p(HGNC:CHRNA7) reg bp(GO:"neuron-neuron synaptic transmission")
+
+SET Evidence = "AChRs have been linked to many neurodegenerative disorders
+[13,47–60]."
+p(HGNC:CHRNA7) -- path(MESH:"Neurodegenerative Diseases")
+
+#SET Evidence = "However, the neuronal α7 and the α8 sub-
+#units are the only ones which appear to preferentially form homomeric,
+#rather than heteromeric, receptors in heterologous expression systems"
+
+SET Evidence = "Additionally, the pro-
+lyl isomerase enzyme cyclophilin has been shown to be necessary for
+efﬁcient folding of the α7 subunit in Xenopus oocytes [85–88]."
+p(FPLX:Cyclophilin) -> p(HGNC:CHRNA7)
+
+SET Evidence = "There is evidence that AChR folding, assembly and trafﬁcking are
+inﬂuenced by several chaperone proteins, such as the 14-3-3 protein
+[92,93], BiP [94–96] or calnexin [97–99]."
+#folding, assembly, trafficking as HBP terms?
+p(FPLX:"p14_3_3") -> p(FPLX:CHRN)
+p(HGNC:HSPA5) -> p(FPLX:CHRN)
+p(HGNC:CANX) -> p(FPLX:CHRN)
+
+SET Evidence = " Rapsyn is essential for AChR
+clustering in muscle [100] and has also been detected in non-muscle
+cells, including neurons of the ciliary ganglia [101,102], ﬁbroblasts
+[103], myocardial cells, and Leydig cells [104]."
+SET MeSHAnatomy = "Muscles"
+p(HGNC:RAPSN) -> bp(GO:"skeletal muscle acetylcholine-gated channel clustering")
+UNSET MeSHAnatomy
+
+SET Evidence = " More re-
+cently, the transmembrane protein resistant to inhibitors of cholines-
+terase (RIC-3), originally identiﬁed in Caenorhabditis elegans, has been
+classed as a much more selective chaperone of the AChR [71,107–112]."
+chap(p(HGNC:RIC3)) -> p(FPLX:CHRN)
+
+SET Evidence = "Regulation of receptor subunits by the proteasome, the large pro-
+tein complex that proteolytically degrades unneeded proteins, has
+also been demonstrated [113,114]. "
+complex(GO:"proteasome complex") reg p(FPLX:CHRN)
+
+SET Evidence = "Furthermore, the proteasome in-
+directly regulates synaptic transmission mediated by AChRs via regu-
+lation of RIC-3 [113]."
+complex(GO:"proteasome complex") -> bp(GO:"modulation of chemical synaptic transmission") 
+complex(GO:"proteasome complex") reg p(HGNC:RIC3)
+
+SET Evidence = "In C. elegans, RIC-3 is necessary for synaptic transmission mediated
+by neuronal AChRs but not by other LGICs [71,77,109]."
+p(HGNC:RIC3) -> bp(GO:"synaptic transmission, cholinergic")
+
+SET Evidence = " Co-expression with RIC-3 was shown to be required for AChR ac-
+tivity in C. elegans body muscles and for enhanced AChR activity in
+Xenopus oocytes [110,112]."
+p(HGNC:RIC3) -> act(p(FPLX:CHRN))
+
+SET Evidence = " Co-immunoprecipitation studies have also
+provided proof of an interaction between RIC-3 and the α7 AChR subu-
+nit [71,111] and the α3, α4, β2 and β4 AChR subunits [71]. "
+complex(p(HGNC:RIC3),p(HGNC:CHRNA7))
+complex(p(HGNC:RIC3),p(HGNC:CHRNA3))
+complex(p(HGNC:RIC3),p(HGNC:CHRNA4))
+complex(p(HGNC:RIC3),p(HGNC:CHRNB2))
+complex(p(HGNC:RIC3),p(HGNC:CHRNB4))
+
+SET Evidence = " In contrast,
+RIC-3 caused a marked inhibition of functional responses with hetero-
+meric α3β4 and α4β2 AChRs in Xenopus oocytes [109]."
+p(HGNC:RIC3) -| act(complex(p(HGNC:CHRNA3),p(HGNC:CHRNB4)))
+p(HGNC:RIC3) -| act(complex(p(HGNC:CHRNA4),p(HGNC:CHRNB2)))
+
+SET Evidence = " Osman et al. [122] ﬁnd that RIC-3
+expression increases the total amount of α9 AChR in CL4 cells, supporting
+the view that RIC-3 regulates AChR trafﬁcking by increasing the number
+of mature or correctly folded receptor subunits reaching the cell surface."
+p(HGNC:RIC3) -> p(HGNC:CHRNA9)
+
+SET Evidence = " Co-
+expression of RIC-3 with the 5-HT 3 receptor in X. laevis oocytes totally
+abolishes 5-HT 3 surface expression [108,109]."
+composite(p(HGNC:RIC3),p(HGNC:HTR3A)) -| surf(p(HGNC:HTR3A))
+
+SET Evidence = "It is noteworthy that RIC-3 has
+been shown to increase α7 AChR heterologous expression both in X.
+laevis oocytes and in HEK-293, CHO and SHE-P1 mammalian cell lines
+[66,71,77,107–112,119,125]."
+p(HGNC:RIC3) -> p(HGNC:CHRNA7)
+
+SET Evidence = "Since RIC-3 has been shown to interact with mutant AChR
+subunits that are unable to exit this organelle, it is highly plausible
+that the interaction between RIC-3 and AChR subunits occurs in the
+ER [85,91,108,111,112,118]. "
+SET MeSHAnatomy = "Endoplasmic Reticulum"
+complex(p(HGNC:RIC3),p(FPLX:CHRN))
+UNSET MeSHAnatomy
+
+SET Evidence = "Furthermore, proteins that interact with the RIC-3 C-terminus, such as
+BATH-42, a BTB- (broad-complex, Tramtrack and bric-a-brac) and
+MATH- (meprin-associated Traf homology), domain-containing pro-
+tein, have recently been described [113]."
+SET Species = "6239"
+complex(p(HGNC:RIC3),p(UNIPROT:P34371))
+
+SET Evidence = "Reduced expression of the lat-
+ter protein has been shown to be detrimental to AChR function in C.
+elegans [113] (See Fig. 2)."
+p(UNIPROT:P34371) -> act(p(FPLX:CHRN))
+UNSET Species
+
+SET Evidence = "Although
+the mechanisms that regulate phosphorylation of AChRs are still essen-
+tially unknown, protein tyrosine phosphorylation by the SFKs has been
+shown to affect peripheral AChRs in various ways, depending on the tis-
+sue, subunit type and functional role of the receptors involved."
+kin(p(FPLX:SRC)) -> p(FPLX:CHRN, pmod(Ph,Y))
+
+SET Evidence = "In Torpedo electric organ, phosphorylation of AChRs by SFKs causes
+subtle changes in desensitization kinetics but not in I max , the maximal
+current ﬂowing through the receptor channel [141–143]."
+kin(p(FPLX:SRC)) -> p(FPLX:CHRN, pmod(Ph,Y))
+p(FPLX:CHRN, pmod(Ph,Y)) -| act(p(FPLX:CHRN))
+
+SET Evidence = " In adrenal
+medulla chromafﬁn cells the tyrosine kinases c-SRC and FYN associate
+with the α3β4 receptor and are involved in the cholinergic stimulation
+of catecholamine secretion [141,144,145]."
+SET MeSHAnatomy = "Adrenal Medulla"
+complex(p(FPLX:SRC),p(FPLX:CHRN)) -> bp(GO:"catecholamine secretion")
+complex(p(HGNC:FYN),p(FPLX:CHRN)) -> bp(GO:"catecholamine secretion")
+UNSET MeSHAnatomy
+
+SET Evidence = "In cortical neurons, FYN associates with the α7 AChR [146,147]."
+SET MeSHAnatomy = "Cerebral Cortex"
+SET Cell = "neuron"
+complex(p(HGNC:FYN),p(HGNC:CHRNA7))
+UNSET MeSHAnatomy
+UNSET Cell
+
+SET Evidence = "Recent studies have also demonstrated the importance of the phos-
+phatidylinositol 3-kinase (PI3K) pathway downstream of AChRs in pro-
+tecting neurons from death and up-regulating these receptors [148]."
+bp(GO:"phosphatidylinositol 3-kinase signaling") -| bp(GO:"neuron death")
+bp(GO:"phosphatidylinositol 3-kinase signaling") -> p(FPLX:CHRN)
+
+SET Evidence = "Speciﬁcally, it has been shown that upon stimulation, α7 AChR activates
+PI3K via direct association with non-receptor type tyrosine kinase FYN
+and Janus-activated kinase 2 (JAK2), promoting the survival of neuronal
+cells (Fig. 3)."
+complex(p(HGNC:FYN),p(HGNC:CHRNA7)) -> act(p(FPLX:PI3K))
+complex(p(HGNC:JAK2),p(HGNC:CHRNA7)) -> act(p(FPLX:PI3K))
+act(p(FPLX:PI3K)) -| bp(GO:"neuron death")
+
+SET Evidence = "Tyrosine phosphorylation of α7 AChR was found to
+negatively regulate receptor activity in neuroblastoma cells, hippo-
+campal CA1 interneurons, and supraoptic magnocellular neurons,
+whereas de-phosphorylation of α7 AChR was found to potentiate
+ACh-evoked currents in these cells."
+p(HGNC:CHRNA7, pmod(Ph,Y)) -| act(p(HGNC:CHRNA7))
+
+SET Evidence = "BDNF regulates development of neuronal structures both in the pe-
+ripheral and central nervous systems [150–155]. "
+p(HGNC:BDNF) reg bp(GO:"peripheral nervous system development")
+p(HGNC:BDNF) reg bp(GO:"central nervous system development")
+
+SET Evidence = "It has acute effects on
+the synapse, serving as an activity-dependent regulator of synaptic plas-
+ticity and participating in rapid synaptic transmission [150,151,156–159],
+in the maturation of GABAergic signaling and in the stabilization of newly
+formed synapses [151,160–163]."
+p(HGNC:BDNF) -> bp(GO:"regulation of synaptic plasticity")
+p(HGNC:BDNF) -> bp(GO:"spontaneous synaptic transmission")
+p(HGNC:BDNF) -> bp(GO:"synaptic transmission, GABAergic")
+p(HGNC:BDNF) -> bp(GO:"maintenance of synapse structure")
+
+SET Evidence = " BDNF can also inﬂuence the level of α7
+AChRs subunits (Fig. 4) in the hippocampus and other brain regions
+[160,164,165]. "
+SET MeSHAnatomy = {"Hippocampus","Brain"}
+p(HGNC:BDNF) -- p(HGNC:CHRNA7)
+UNSET MeSHAnatomy
+
+SET Evidence = "Recent studies using dissociated rat hippocampal neurons
+in culture demonstrated that BDNF increases both surface and internal
+α7 AChRs pools."
+p(HGNC:BDNF) -> p(HGNC:CHRNA7)
+p(HGNC:BDNF) -> surf(p(HGNC:CHRNA7))
+
+SET Evidence = "Furthermore, nicotinic
+stimulation rapidly induced SNARE-dependent vesicular endocytosis
+accompanied by receptor internalization [166]. However, the number
+of surface α7 AChRs was not modiﬁed since a SNARE-dependent pro-
+cess also recruited receptors to the cell surface from internal pools
+(Fig. 5). "
+a(CHEBI:nicotine) -> act(a(MESH:"SNARE Proteins"))
+act(a(MESH:"SNARE Proteins")) -> tloc(p(HGNC:CHRNA7),GO:"cell surface",GO:endosome)
+act(a(MESH:"SNARE Proteins")) causesNoChange surf(p(HGNC:CHRNA7))
+
+SET Evidence = " Additionally, SNARE-dependent trafﬁcking
+was required for α7 AChRs to be capable of activating the transcription
+factor cAMP response element-binding protein and attendant gene ex-
+pression when challenged."
+tloc(p(HGNC:CHRNA7),GO:"cell surface",GO:endosome) -> tscript(p(HGNC:CREB1))
+
+SET Evidence = "A recent study showed
+that mutation of amino acids from this region (leucines 335, 336 or 343)
+to alanine reduced cell-surface expression of α7 AChRs [173]."
+p(HGNC:CHRNA7, sub(L,335,A)) -| surf(p(HGNC:CHRNA7))
+p(HGNC:CHRNA7, sub(L,336,A)) -| surf(p(HGNC:CHRNA7))
+p(HGNC:CHRNA7, sub(L,343,A)) -| surf(p(HGNC:CHRNA7))
+
+SET Evidence = "Reduction of α7 AChRs in the CNS is linked with Alzheimer dis-
+ease, which has been shown to lead to neuronal loss [53,188–190]."
+SET MeSHAnatomy = "Central Nervous System"
+p(HGNC:CHRNA7) negativeCorrelation path(MESH:"Alzheimer Disease")
+path(MESH:"Alzheimer Disease") -> bp(GO:"neuron death")
+UNSET MeSHAnatomy
+
+SET Evidence = "One of the salient events at early stages of this disease (usually pre-
+clinical) is the impairment in hippocampus-based episodic memory
+which can be improved by enhancement of cholinergic transmission
+[191]. "
+SET MeSHAnatomy = "Hippocampus"
+path(MESH:"Alzheimer Disease") -| bp(GO:memory)
+bp(GO:"synaptic transmission, cholinergic") -> bp(GO:memory)
+
+SET Evidence = "Another important event that associates well with the Alzheimer
+disease pathology is the aggregation of the β-amyloid peptide [53]. This
+peptide interacts with α7 AChRs and has been reported to affect the nor-
+mal functioning of the latter, causing reduced neuronal survival
+[146,192–194]."
+path(MESH:"Alzheimer Disease") -> a(HBP:HBP00018)
+complex(a(CHEBI:"amyloid-beta"),p(HGNC:CHRNA7)) -| act(p(HGNC:CHRNA7))
+complex(a(CHEBI:"amyloid-beta"),p(HGNC:CHRNA7)) -> bp(GO:"neuron death")
+
+SET Evidence = "Decreased expression of α7 AChR has also been associated with
+schizophrenia [51,195–197]."
+p(HGNC:CHRNA7) negativeCorrelation path(MESH:"Schizophrenia")
+
+SET Evidence = "Since α7 AChRs are highly permeable
+to calcium [198] and increased calcium permeability is required for
+neuronal migration [199], neurons with less α7 AChRs would fail to
+migrate to their correct destinations [200] and be activated by
+acetylcholine."
+SET Cell = "neuron"
+p(HGNC:CHRNA7) -> tloc(a(CHEBI:"calcium(2+)"),MESH:"Extracellular Space",MESH:Cytoplasm)
+tloc(a(CHEBI:"calcium(2+)"),MESH:"Extracellular Space",MESH:Cytoplasm) -> bp(GO:"neuron migration")
+UNSET Cell
+
+SET Evidence = "Interestingly, levels of RIC-3 mRNA are elevat-
+ed in postmortem brains of individuals with bipolar disorder and
+schizophrenia [181], and a link has been suggested between deﬁ-
+cient RIC-3 mediated chaperoning of an AChR subunit and individ-
+uals with bipolar disorder and psychotic symptoms [181]."
+SET MeSHAnatomy = "Brain"
+r(HGNC:RIC3) positiveCorrelation path(MESH:"Schizophrenia")
+r(HGNC:RIC3) positiveCorrelation path(MESH:"Bipolar Disorder")
+chap(p(HGNC:RIC3)) -> p(FPLX:CHRN)
+chap(p(HGNC:RIC3)) negativeCorrelation path(MESH:"Bipolar Disorder")
+chap(p(HGNC:RIC3)) negativeCorrelation path(MESH:"Psychotic Disorders")
+UNSET MeSHAnatomy
+
+SET Evidence = "During acute in-
+ﬂammatory processes α7 AChRs attenuate renal failure induced by ische-
+mia/reperfusion by inhibiting pro-inﬂammatory cytokine expression,
+and subsequently decreasing cell apoptosis [180,201]."
+path(MESH:Inflammation) -> path(MESH:"Renal Insufficiency")
+bp(GO:"response to ischemia") -> path(MESH:"Renal Insufficiency") 
+SET MeSHDisease = "Inflammation"
+p(HGNC:CHRNA7) -| path(MESH:"Renal Insufficiency")
+p(HGNC:CHRNA7) -| bp(GO:"cytokine production")
+p(HGNC:CHRNA7) -| bp(GO:"apoptotic process")
+
+UNSET STATEMENT_GROUP
+
