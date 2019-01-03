@@ -1,0 +1,962 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "chesser2013"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Rana Aldisi"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/90e1cb9e5e882703380c9db8d4915ac6f3cba137/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+SET Citation = {"PubMed", "24027553"}
+
+SET TextLocation = "Review"
+
+SET Evidence="Insoluble, fibrillar intraneuronal accumulations of pathological
+forms of the tau protein called neurofibrillary tangles (NFTs) are
+important and defining hallmarks of the Alzheimer disease (AD)
+brain. Indeed, the progression of AD can be neuropathologically
+staged based on the location and extent of tau pathology (1)."
+
+path(MESH:"Alzheimer Disease") pos path(MESH:"Neurofibrillary Tangles")
+path(MESH:"Alzheimer Disease") -- p(HGNC:MAPT)
+a(HBP:"Tau aggregates") -> path(MESH:"Neurofibrillary Tangles")
+
+SET Evidence="The predominant post-translational modification of tau in the
+NFTs is phosphorylation; however numerous modifications have
+been noted including truncation, acetylation, nitration, and several
+others (2–4)."
+
+path(MESH:"Neurofibrillary Tangles") -- p(HGNC:MAPT, pmod(Ph))
+path(MESH:"Neurofibrillary Tangles") -- p(HGNC:MAPT, pmod(Ac))
+path(MESH:"Neurofibrillary Tangles") -- p(HGNC:MAPT, pmod(HBP:nitration))
+path(MESH:"Neurofibrillary Tangles") -- p(HGNC:MAPT, frag(1_?))
+path(MESH:"Neurofibrillary Tangles") -- p(HGNC:MAPT, frag(?_*))
+
+SET Evidence="Even though the modifications
+of tau that are the primary contributors to toxicity have
+not been conclusively determined, it is clear that tau plays an
+essential role in the pathogenesis of AD."
+
+p(HGNC:MAPT) -- path(MESH:"Alzheimer Disease")
+
+SET Evidence="Given that in animal
+models of AD reducing tau levels attenuates neuronal dysfunction
+(7, 8), and in humans the extent of tau pathology correlates
+with cognitive decline (9), there is a growing interest in defining
+the degradative pathways that remove tau from the cell."
+
+SET MeSHDisease="Alzheimer Disease"
+
+p(HGNC:MAPT) -> path(MESH:"Nerve Degeneration")
+path(MESH:Tauopathies) pos path(MESH:"Cognitive Dysfunction")
+
+UNSET MeSHDisease
+
+SET Evidence="Also of
+importance is understanding the role of non-degradative cleavage
+in influencing the eventual clearance of tau. Numerous proteases
+have been shown to proteolyze tau including aminopeptidases
+(10–12), thrombin (13–15), human high temperature requirement
+serine protease A1 (HTRA1) (16), calpain (17–20), and
+caspases (21–24)."
+
+act(p(HGNCGENEFAMILY:Aminopeptidases)) -> deg(p(HGNC:MAPT))
+act(a(CHEBI:Thrombin)) -> deg(p(HGNC:MAPT))
+act(p(HGNC:HTRA1)) -> deg(p(HGNC:MAPT))
+act(p(HGNCGENEFAMILY:Calpains)) -> deg(p(HGNC:MAPT))
+act(p(HGNCGENEFAMILY:Caspases)) -> deg(p(HGNC:MAPT))
+
+SET Evidence="Aminopeptidases are a group of enzymes that cleave from the
+N-terminal end of a protein. The family includes alanyl, arginyl,
+and glutamyl peptidases. Puromycin sensitive aminopeptidase
+(PSA) is an alanyl peptidase that is responsible for s90% of the
+aminopeptidase activity in the brain(10)."
+
+p(HGNCGENEFAMILY:Aminopeptidases) hasMembers list(p(HGNC:ANPEP), p(HGNC:RNPEP), p(HGNC:ENPEP), p(HGNC:NPEPPS))
+a(MESH:Brain) -- act(p(HGNC:NPEPPS))
+
+SET Evidence="PSA was identified as a potential player in tau pathology
+through a microarray analysis of gene expression in disease-vulnerable
+vs. disease-resistant brain regions in JNPL3 mice that overexpress a
+mutant form of tau (P301L) found in the disease frontotemporal dementia
+and parkinsonism linked to chromosome 17 (FTDP-17). These mice develop
+neurodegeneration in the cortex while the cerebellum is relatively spared
+[although in the original description of these animals pathology was found
+in the deep cerebellar nuclei (27)]. "
+
+path(MESH:"Frontotemporal Dementia") -- p(HGNC:MAPT, var("p.P301L"))
+
+SET MeSHAnatomy="Cerebral Cortex"
+SET Species="10090"
+
+p(MGI:Mapt, var("p.P301L")) -- path(HBP:Neurodegeneration)
+
+UNSET Species
+UNSET MeSHAnatomy
+
+SET Evidence="Interestingly, PSA was found to be elevated in the cerebellum
+of these TAUP301L mice (10). The levels of PSA are also higher in human
+cerebellum compared to cortex in both controls and FTD cases. A slight
+elevation in PSA was also observed in FTD cortices compared to controls."
+
+SET MeSHAnatomy="Cerebellum"
+SET Species="10090"
+
+p(MGI:Mapt, var("p.P301L")) pos p(HGNC:NPEPPS)
+
+UNSET Species
+
+path(MESH:"Frontotemporal Dementia") pos p(HGNC:NPEPPS)
+
+UNSET MeSHAnatomy
+
+SET Evidence="In addition, a non-functional PSA
+mutant exacerbated tau pathology in a Drosophila model of tauopathy,
+while overexpressing PSA ameliorated the tau phenotype and diminished
+tau levels (10). Overexpressing PSA had a similar effect in the TAUP301L
+mice, reducing the pathologic phenotype (delaying paralysis, increasing
+motor neuron density in the spinal cord, decreasing gliosis) and
+decreasing tau levels (12). "
+
+p(HGNC:NPEPPS) -| path(MESH:Tauopathies)
+p(HGNC:NPEPPS) -| p(HGNC:MAPT)
+p(HGNC:NPEPPS) -| p(MGI:Mapt, var("p.P301L"))
+p(HGNC:NPEPPS) -| path(MESH:Paralysis)
+p(HGNC:NPEPPS) -| path(MESH:Gliosis)
+
+SET Evidence="PSA was able to cleave recombinant tau in vitro, as well
+as tau from control human brain (11). However, the data presented in
+this study suggest that PSA is cleaving tau from both the C- and N-terminal
+ends, which is not expected from an aminopeptidase. Additionally, other
+studies failed to demonstrate tau cleavage by PSA (28, 29). "
+
+SET MeSHAnatomy="Brain"
+
+p(HGNC:NPEPPS) -> p(HGNC:MAPT, frag(1_?))
+p(HGNC:NPEPPS) -> p(HGNC:MAPT, frag(?_*))
+
+UNSET MeSHAnatomy
+
+SET Evidence="For example, it has been shown that the isomerase Pin1,
+which has been implicated in AD (30), had opposite effects on P301L and
+wild-type tau degradation (31). An alternative explanation for the
+effects of PSA may be that PSA is indirectly regulating tau degradation."
+
+path(MESH:"Alzheimer Disease") -- p(HGNC:PIN1)
+p(HGNC:PIN1) -| deg(p(HGNC:MAPT, var("p.P301L")))
+p(HGNC:NPEPPS) reg deg(p(HGNC:MAPT))
+
+SET Evidence="PSA has been shown to be involved in the induction of
+autophagy and specifically the formation of autophagosomes, in a model
+of overexpressed mutant huntingtin (32). Thus, the in vivo effects of
+PSA on promoting tau clearance may relate to its ability to modulate the
+key clearance pathway for abnormal and aggregated proteins (to be
+described in more detail below)."
+
+SET MeSHDisease="Huntington Disease"
+
+p(HGNC:NPEPPS) -- bp(GO:autophagy)
+bp(GO:autophagy) -- deg(p(HGNC:MAPT))
+
+UNSET MeSHDisease
+
+SET Evidence="Thrombin is a serine protease that is a well characterized
+component of the coagulation cascade. It is typically produced and secreted
+by endothelial cells, including those in the brain in response to
+hemodynamic injury."
+
+SET MeSHAnatomy="Brain"
+
+a(CHEBI:Thrombin) -> bp(GO:coagulation)
+a(MESH:"Endothelial Cells") -> sec(a(CHEBI:Thrombin))
+
+UNSET MeSHAnatomy
+
+SET Evidence="A recent study showed that thrombin is elevated in microvessels
+isolated from AD brain compared to microvessels from control brain (33).
+Additionally, thrombin was present in the CSF of AD patients but not in that
+of controls (33). This is important, as thrombin can act as a neurotoxin by
+activating intracellular signaling cascades causing neurite retraction and
+stimulating apoptosis (34–36)"
+
+SET MeSHAnatomy="Brain"
+path(MESH:"Alzheimer Disease") -> a(CHEBI:Thrombin, loc(MESH:Microvessels))
+UNSET MeSHAnatomy
+
+path(MESH:"Alzheimer Disease") -> a(CHEBI:Thrombin, loc(MESH:"Cerebrospinal Fluid"))
+a(CHEBI:Thrombin) -> bp(HBP:"neurite retraction")
+a(CHEBI:Thrombin) -> bp(GO:"apoptotic process")
+
+SET Evidence="Thrombin may also be influencing tau pathology, as treatment of
+immortalized hippocampal neuronal cells (HT22 cells) with thrombin resulted in
+the formation of thioflavin-S positive tau aggregates within 24 h, followed by
+an increase in cell death at 72 h (37)."
+
+SET MeSHAnatomy="Hippocampus"
+
+a(CHEBI:Thrombin) -> a(HBP:"Tau aggregates")
+a(CHEBI:Thrombin) -> bp(GO:"apoptotic process")
+
+UNSET MeSHAnatomy
+
+SET Evidence="There are also data to suggest that thrombin may act
+intracellularly to mediate tau pathology. Thrombin is expressed within neurons
+and astrocytes in both normal and AD brain (38). In AD brain the staining
+pattern for thrombin and prothrombin was characteristic of the pattern of NFTs,
+although these structures were not colabeled with antibodies for tau (38)."
+
+a(CHEBI:Thrombin, loc(MESH:Neurons))
+a(CHEBI:Thrombin, loc(MESH:Astrocytes))
+
+SET MeSHDisease="Alzheimer Disease"
+
+path(MESH:"Neurofibrillary Tangles") -- a(CHEBI:Thrombin)
+
+UNSET MeSHDisease
+
+SET Evidence="Evidence supporting a role for thrombin in tau proteolysis came
+initially from an in vitro study showing that thrombin degraded recombinant
+full-length tau from the N-terminus yielding a 25-kDa fragment, while preserving
+the microtubule binding repeat domain (13)."
+
+act(a(CHEBI:Thrombin)) -> p(HGNC:MAPT, frag(1_?))
+act(a(CHEBI:Thrombin)) -> deg(p(HGNC:MAPT))
+act(a(CHEBI:Thrombin)) cnc p(HGNC:MAPT, frag(561_685)) #microtubule binding domain
+
+SET Evidence="A later study, however, showed that in N2a neuroblastoma cells
+expressing a construct of only the tau repeat domain, thrombin cleavage could
+still occur, indicating additional cleavage sites (15). Similar results were
+observed in an in vitro assay (15)."
+
+act(a(CHEBI:Thrombin)) -> deg(p(HGNC:MAPT, frag(561_685)))
+
+SET Evidence="Thrombin cleavage of the repeat domain construct yielded
+fragments that rapidly aggregated, which closely correlated with toxicity in
+cell culture (15). These fragments can also induce the aggregation of
+full-length tau (39). "
+
+deg(p(HGNC:MAPT, frag(561_685))) -> a(HBP:"Tau aggregates")
+a(HBP:"Tau aggregates") pos path(HBP:neurotoxicity)
+
+SET Evidence="A final point of interest relates to potential upstream modifications of
+tau. Endogenous tau is phosphorylated, and in AD, tau phosphorylation becomes dysregulated.
+This may interfere with subsequent processes including cleavage and degradation. For
+example, tau that is in the cis-conformation at T231 appears resistant to degradation,
+as cis-tau is found in dystrophic neurites while trans-tau is not. Additionally cis-tau
+partitions to the insoluble fraction (30). Phosphorylation at T231 prevents the isomerase
+Pin1 from converting cis-tau to trans-tau (30). "
+
+path(MESH:"Alzheimer Disease") reg p(HGNC:MAPT, pmod(Ph))
+p(HBP:"cis p-tau") -| deg(p(HBP:"cis p-tau"))
+p(HBP:"cis p-tau") -| act(p(HGNC:PIN1))
+
+SET Evidence="Interestingly, phosphorylation of tau also appears to disrupt
+some thrombin cleavage sites, changing the pattern of cleavage without impeding
+the thrombin-mediated proteolysis (14, 28)."
+
+p(HGNC:MAPT, pmod(Ph)) -| act(a(CHEBI:Thrombin))
+
+SET Evidence="Another serine protease recently implicated in tau processing
+is HTRA1. This is a ubiquitously expressed, ATP-independent intracellular
+protease. Expression is detectable in many tissues, including the nervous
+system, although expression is low (40).Nonetheless, this enzyme was initially
+implicated in AD because it may play a role in amyloid processing (41).  "
+
+p(HGNC:HTRA1, loc(MESH:"Central Nervous System"))
+p(HGNC:HTRA1) -- bp(HBP:"APP processing")
+bp(HBP:"APP processing") -- path(MESH:"Alzheimer Disease")
+
+SET Evidence="Tubulin was later identified as a substrate for HTRA1, suggesting
+HTRA1 may be involved in mediating microtubule function (42, 43). A more recent
+study showed that HTRA1 can cleave recombinant tau in vitro into multiple
+fragments of varying sizes, and furthermore can degrade insoluble and
+fibrillarized tau (16)."
+
+act(p(HGNC:HTRA1)) -> deg(p(HGNCGENEFAMILY:Tubulins))
+act(p(HGNC:HTRA1)) -- act(a(MESH:Microtubules))
+act(p(HGNC:HTRA1)) -> deg(p(HGNC:MAPT))
+act(p(HGNC:HTRA1)) -> deg(a(HBP:"Tau fibrils"))
+act(p(HGNC:HTRA1)) -> deg(a(HBP:"Tau aggregates"))
+
+SET Evidence="Calpains are calcium-activated cytosolic cysteine proteases. Two
+isoforms differentiated and named by their sensitivities to calcium (i.e.,
+μ-calpain and m-calpain, also called calpain-1 and calpain-2) are abundant in
+the central nervous system, and respond to micromolar and millimolar
+concentrations of calcium, respectively (45). Calpain has been implicated in a
+number of neurodegenerative diseases [for a review, see (46)]. "
+
+a(CHEBI:"calcium(2+)") -> act(p(HGNCGENEFAMILY:Calpains))
+p(HGNCGENEFAMILY:Calpains) hasMembers list(p(HGNC:CAPN1), p(HGNC:CAPN2))
+p(HGNC:CAPN1, loc(MESH:"Central Nervous System"))
+p(HGNC:CAPN2, loc(MESH:"Central Nervous System"))
+p(HGNCGENEFAMILY:Calpains) -- path(MESH:"Neurodegenerative Diseases")
+
+SET Evidence="The active form of calpain-2 is found in 50–75% of NFTs in
+tauopathies including AD, but not in protein aggregates found in other diseases
+(47). This is consistent with another study that found equivalent calpain
+levels between control and AD cases, but the activity level of the enzyme
+isolated from AD brain tissue was increased (48). "
+
+SET MeSHDisease={"Tauopathies", "Alzheimer Disease"}
+
+p(HGNC:CAPN2) pos path(MESH:"Neurofibrillary Tangles")
+path(MESH:"Alzheimer Disease") -> act(p(HGNC:CAPN2))
+
+UNSET MeSHDisease
+
+SET Evidence="Excitotoxicity leading to elevated intracellular calcium is a
+common feature of neurodegenerative diseases, and is implicated in AD (49, 50).
+This process may lead to enhanced activation of calpains (51). This in turn
+could influence a number of pathologic processes, including tau proteolysis.
+Indeed, tau has a number of putative calpain cleavage sites, and incubation of
+recombinant tau with calpain generates specific fragments, including one that
+is ∼35 kDa and one that is ∼17 kDa (19, 20). "
+
+SET MeSHDisease={"Neurodegenerative Diseases", "Alzheimer Disease"}
+
+bp(HBP:Excitotoxicity) -> a(CHEBI:"calcium(2+)", loc(GO:intracellular))
+a(CHEBI:"calcium(2+)", loc(GO:intracellular)) -> act(p(HGNCGENEFAMILY:Calpains))
+act(p(HGNCGENEFAMILY:Calpains)) -> deg(p(HGNC:MAPT))
+act(p(HGNCGENEFAMILY:Calpains)) -> p(HGNC:MAPT, frag(?,"35kD"))
+act(p(HGNCGENEFAMILY:Calpains)) -> p(HGNC:MAPT, frag(?,"17kD"))
+
+UNSET MeSHDisease
+
+SET Evidence="Increasing intracellular calcium levels in PC12 cells leads to
+calpain-induced cleavage of tau (18). This may reflect a potential effect of
+excitotoxicity in AD. Inducing apoptosis in cerebellar granule cells yields
+calpain-mediated tau fragments, including a dominant ∼17 kDa fragment (17). "
+
+SET CellLine="PC12"
+
+a(CHEBI:"calcium(2+)", loc(GO:intracellular)) -> act(p(HGNCGENEFAMILY:Calpains))
+act(p(HGNCGENEFAMILY:Calpains)) -> deg(p(HGNC:MAPT))
+act(p(HGNCGENEFAMILY:Calpains)) -- a(HBP:Excitotoxicity)
+act(p(HGNCGENEFAMILY:Calpains)) -> p(HGNC:MAPT, frag(?,"17kD"))
+p(HGNC:MAPT, frag(?,"17kD")) -- bp(GO:"apoptotic process")
+
+UNSET CellLine
+
+SET Evidence="Also, treating primary hippocampal neurons with pre-aggregated
+amyloid beta (Abeta) led to the generation of tau fragments of ∼35, ∼24, and ∼17 kDa,
+which was blocked by addition of a calpain inhibitor (52, 53). Tau fragments of
+the same size were also found in AD brain tissue (19)."
+
+SET MeSHAnatomy="Hippocampus"
+SET MeSHDisease="Alzheimer Disease"
+
+a(CHEBI:"amyloid-beta") -> p(HGNC:MAPT, frag(?,"17kD"))
+a(CHEBI:"amyloid-beta") -> p(HGNC:MAPT, frag(?,"35kD"))
+a(CHEBI:"amyloid-beta") -> p(HGNC:MAPT, frag(?,"24kD"))
+a(CHEBI:"calpain inhibitor") -| p(HGNC:MAPT, frag(?,"17kD"))
+a(CHEBI:"calpain inhibitor") -| p(HGNC:MAPT, frag(?,"35kD"))
+a(CHEBI:"calpain inhibitor") -| p(HGNC:MAPT, frag(?,"24kD"))
+a(CHEBI:"calpain inhibitor") -| act(p(HGNCGENEFAMILY:Calpains))
+
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+
+SET Evidence="On the one hand, expressing a 17-kDa fragment of tau based on
+calpain cleavage site mapping in hippocampal neurons led to neurite retraction
+and the appearance of varicosities after 48 h (52). Additionally, suppressing
+calpain activity in a fly model of tauopathy prevented neurodegeneration, as
+did expressing a calpain-resistant form of tau (54). "
+
+SET MeSHAnatomy="Hippocampus"
+
+p(HGNC:MAPT, frag(?,"17kD")) -> bp(HBP:"neurite retraction")
+
+UNSET MeSHAnatomy
+
+SET MeSHDisease="Tauopathies"
+
+act(p(HGNCGENEFAMILY:Calpains)) -> path(HBP:Neurodegeneration)
+
+UNSET MeSHDisease
+
+SET Evidence="In contrast, another study used mass spectroscopy and sequencing
+to identify the “17 kDa” tau cleavage product and found it did not correspond to
+the recombinant fragment utilized in the above studies (19). Expression of a
+recombinant form of the mass spectroscopy-identified fragment in hippocampal
+neurons was not toxic (19)."
+
+p(HGNC:MAPT, frag(?,"17kD")) cnc path(HBP:neurotoxicity)
+
+SET Evidence="There is significant evidence that tau is a caspase substrate
+and that caspase-mediated tau cleavage may play a role in AD pathology. Early
+in vitro studies demonstrated that tau is cleaved in the C-terminus by several
+caspases including caspase-3 and caspase-6 (21–23). "
+
+SET MeSHDisease="Alzheimer Disease"
+act(p(HGNCGENEFAMILY:Caspases)) -> deg(p(HGNC:MAPT))
+UNSET MeSHDisease
+
+act(p(HGNC:CASP3)) -> p(HGNC:MAPT, frag("?_*"))
+act(p(HGNC:CASP6)) -> p(HGNC:MAPT, frag("?_*"))
+
+SET Evidence="Caspase-6 was also shown to cleave the N-terminus of tau in
+vitro (24). Caspase-3, which is a key effector in the apoptotic cascade,
+cleaves tau predominantly at the C-terminal D421 site generating a fragment
+often referred to as tauC3 (22, 23)."
+
+act(p(HGNC:CASP6)) -> p(HGNC:MAPT, frag("1_?"))
+act(p(HGNC:CASP6)) -> bp(GO:"apoptotic process")
+act(p(HGNC:CASP6)) -> p(HGNC:MAPT, variant("p.D421*"))
+p(HGNC:MAPT, variant("p.D421*")) isA p(HBP:"Tau C3")
+
+SET Evidence="There may be reciprocity with the apoptosis
+pathway as activating caspase-3 by inducing apoptosis in cortical neuronal
+culture led to tau cleavage (22), and selectively expressing tauC3 led to
+apoptosis in NT2 and COS cells (21). This might represent a feed-forward loop
+of neurotoxicity."
+
+bp(GO:"apoptotic process") -> act(p(HGNC:CASP6))
+act(p(HGNC:CASP3)) -> deg(p(HGNC:MAPT))
+act(p(HGNC:CASP3)) -> p(HBP:"Tau C3")
+p(HBP:"Tau C3") -> bp(GO:"apoptotic process")
+
+SET Evidence="Furthermore, expressing a cleavage resistant form of tau (D421E)
+protects cells from apoptotic cell death (22). Another potential mechanism of
+inducing caspase-3 cleavage of tau is the presence of Aβ peptides. TauC3 is
+formed in primary cortical neurons after treatment with Aβ (23)."
+
+p(HGNC:MAPT, var("p.D421E")) -| bp(GO:"apoptotic process")
+composite(p(HBP:"amyloid-beta oligomers"), p(HGNC:CASP3)) -> p(HBP:"Tau C3")
+
+SET Evidence="Caspase cleavage of tau may play a role in stimulating the tau
+aggregation seen in AD. Indeed, in vitro polymerization assays demonstrate that
+caspase-cleaved tau has a greater propensity to aggregate compared to
+full-length tau (23, 55). "
+
+SET MeSHDisease="Alzheimer Disease"
+
+act(p(HGNC:CASP3)) -> p(HBP:"Tau C3")
+p(HBP:"Tau C3") -> a(HBP:"Tau aggregates")
+
+UNSET MeSHDisease
+
+SET Evidence="There was a strong correlation between active caspases and the
+presence of tangles within viable neurons. In the few cells found that were
+caspase-positive and tangle-negative, 88% had tangles within 24 h (56). This
+seems to further support a role for caspase cleavage in the evolution of tau
+pathology."
+
+SET MeSHAnatomy="Neurons"
+
+act(p(HGNCGENEFAMILY:Caspases)) pos path(MESH:"Neurofibrillary Tangles")
+
+UNSET MeSHAnatomy
+
+SET Evidence="In order for caspase to cleave tau in the AD brain, it needs to
+be present in its active form. The active forms of both caspase-3 and caspase-6
+are elevated in AD-specific brain regions (temporal and frontal lobes)
+compared to unaffected regions (cerebellum) and control brains (57, 58). "
+
+SET MeSHAnatomy={"Temporal Lobe", "Frontal Lobe"}
+
+path(MESH:"Alzheimer Disease") pos act(p(HGNC:CASP3))
+path(MESH:"Alzheimer Disease") pos act(p(HGNC:CASP6))
+
+UNSET MeSHAnatomy
+
+SET Evidence="Furthermore, active caspase co-localizes to NFTs (58), and
+caspase-cleaved tau is found in AD-affected brain regions, particularly in
+neurons displaying tangle pathology (59, 60). This includes tau cleaved by
+caspase-6 in the C-terminus (58–60) as well as in the N-terminus (24). TauC3
+is present in AD brain – in neurons and co-localized with NFTs – and inversely
+correlates with cognitive function (55, 60, 61)."
+
+SET MeSHDisease="Alzheimer Disease"
+
+act(p(HGNCGENEFAMILY:Caspases)) -- path(MESH:"Neurofibrillary Tangles")
+act(p(HGNC:CASP6)) -> p(HGNC:MAPT, frag("?_*"))
+act(p(HGNC:CASP6)) -> p(HGNC:MAPT, frag("1_?"))
+p(HBP:"Tau C3") neg bp(GO:cognition)
+
+UNSET MeSHDisease
+
+SET Evidence="First, inflammation, which is a common feature of AD,
+may contribute to tau pathology by activating caspases. Treating cells
+with the prostaglandin cyclopentenone byproduct PGJ2 increased caspase
+activity and increased cleaved tau (62). "
+
+path(MESH:"Alzheimer Disease") pos path(MESH:Inflammation)
+path(MESH:Inflammation) -- act(p(HGNCGENEFAMILY:Caspases))
+a(MESH:"9-deoxy-delta-9-prostaglandin D2") -> act(p(HGNCGENEFAMILY:Caspases))
+act(p(HGNCGENEFAMILY:Caspases)) -> deg(p(HGNC:MAPT))
+
+SET Evidence="Thrombin signaling can also activate caspases (36).
+Proteasomal impairment appears to be upstream of caspase activation,
+as inhibiting the proteasome with epoxomicin (EPX) led to activation of
+caspase-3 in primary neurons (63) and in a neuroblastoma cell line
+expressing wild-type tau (64)."
+
+a(CHEBI:epoxomicin) -> act(p(HGNC:CASP3))
+act(a(CHEBI:Thrombin)) -> act(p(HGNCGENEFAMILY:Caspases))
+
+SET Evidence="In both studies caspase activation correlated with the
+appearance and increase over time of caspase-cleaved tau species, which
+appeared to subsequently form aggregates in the neurons (63). While the
+mechanism is unclear, a possibility is that accumulating proteins might
+be a factor in initiating caspase activation."
+
+act(p(HGNCGENEFAMILY:Caspases)) -> a(HBP:"Tau aggregates")
+
+SET Evidence="The accumulation of proteins in AD patients’ brains
+generated interest in the role of proteasomal function. There is
+evidence suggesting that proteasomal activity, but not protein level,
+is decreased in AD-sensitive brain regions specifically compared to
+unaffected regions (68, 69)."
+
+path(MESH:"Alzheimer Disease") neg bp(GO:"proteasomal protein catabolic process")
+
+SET Evidence="Additionally, tau appears to be physically associated
+with the proteasome in brain tissue from AD cases. When tau was
+immunoprecipitated it pulled down both the 26S and 20S proteasomes,
+while immunoprecipitating for the 20S catalytic core pulled down tau
+(69). "
+
+path(MESH:"Alzheimer Disease") -> complex(p(HGNC:MAPT), p(HGNCGENEFAMILY:Proteasome))
+
+SET Evidence="This may suggest that abnormal proteins
+themselves may interfere with proteasomal degradative processes.
+Indeed, in vitro aggregated paired helical filament tau could inhibit
+proteasome activity (69)."
+
+a(HBP:"Tau aggregates") -| act(p(HGNCGENEFAMILY:Proteasome))
+
+SET Evidence="Not surprisingly, if recombinant tau is incubated with
+isolated 20S proteasomal complexes, degradation occurs (65). In this
+system proteolysis is bidirectional. Also, if tau is first ubiquitylated
+in an in vitro reaction and then incubated with isolated 26S proteasomes
+supplemented with MgCl2 and ATP, degradation proceeds (66). These data
+indicate tau can be a substrate for both forms of the proteasome. "
+
+act(a(MESH:"Proteasome Endopeptidase Complex")) -> deg(p(HGNC:MAPT))
+act(p(HGNCGENEFAMILY:Proteasome)) -> deg(p(HGNC:MAPT, pmod(Ub)))
+
+SET Evidence="In SH-SY5Y neuroblastoma cells, treatment with lactacystin,
+a selective inhibitor of the 20S catalytic core, maintained levels of
+transfected wild-type full-length tau (4R0N) after cycloheximide treatment
+halted protein synthesis (65). "
+
+a(CHEBI:lactacystin) -| deg(p(HGNC:MAPT))
+
+SET Evidence=" Similarly, overexpressing the FTDP-17 mutant P301L tau
+in SH-SY5Y cells and then treating with lactacystin led to significantly
+increased tau levels (70). Lactacystin also caused accumulation of
+endogenous tau in the HT22 murine neuronal cell line (71). In
+immortalized mouse cortical neuronal cells inducibly expressing
+full-length wild-type tau, EPX slowed the degradation of full-length
+tau (72)."
+
+a(CHEBI:lactacystin) -> p(HGNC:MAPT, var("p.P301L"))
+a(CHEBI:epoxomicin) -| deg(p(HGNC:MAPT))
+
+SET Evidence="In M1C neuroblastoma cells that inducibly express
+wild-type full-length tau (4R0N), EPX, and MG-132 induced accumulation
+of full-length tau but there was a concomitant loss of C-terminus
+immunoreactivity (64). "
+
+a(CHEBI:epoxomicin) -> p(HGNC:MAPT)
+#	N-benzyloxycarbonyl-L-leucyl-L-leucyl-L-leucinal = MG-132
+a(CHEBI:"N-benzyloxycarbonyl-L-leucyl-L-leucyl-L-leucinal") -> p(HGNC:MAPT)
+
+SET Evidence="Additionally, incubation of rat brain extract (containing
+endogenous tau and proteasomal enzymes) with the proteasome activators
+Mg2+ and ATP resulted in lower total tau levels with an increase in
+smaller forms, compared to extract not supplemented with Mg2+ and
+ATP (73). The loss of tau was blocked by lactacystin giving further
+evidence that the proteasome was degrading tau (73)."
+
+a(CHEBI:lactacystin) -> p(HGNC:MAPT)
+act(p(HGNCGENEFAMILY:Proteasome)) -> deg(p(HGNC:MAPT))
+a(CHEBI:lactacystin) -| act(p(HGNCGENEFAMILY:Proteasome))
+
+SET Evidence="For example, treatment of primary neurons with an
+Hsp90 inhibitor to interrupt the proper chaperoning of tau leads to
+decreased levels of tau. Adding MG-132 to block the proteasome prevented
+the Hsp90 inhibitor-induced reduction in total tau. MG-132 alone had no
+effect on tau levels (67)."
+
+act(a(CHEBI:"Hsp90 inhibitor")) -| p(HGNC:MAPT)
+a(CHEBI:"N-benzyloxycarbonyl-L-leucyl-L-leucyl-L-leucinal") -| act(a(CHEBI:"Hsp90 inhibitor"))
+
+SET Evidence="Electron microscopic analysis of brain tissue from confirmed
+AD cases revealed that AVs accumulated in dystrophic neurites and
+correlated with the presence of filamentous tau (79). However, this
+correlation was not quantified (79).Similar results were observed in
+mouse models of AD. "
+
+SET MeSHDisease="Alzheimer Disease"
+#AVs = autophagic vacuoles
+a(MESH:Autophagosomes) pos a(HBP:"Tau aggregates")
+
+UNSET MeSHDisease
+
+SET Evidence="
+In these transgenic mice LC3-positive bodies were
+particularly apparent in neurites surrounding amyloid plaques, and
+immunoblotting of hippocampi from 6 month old transgenic PS1/APP mice
+revealed increased levels of LC3-II compared to wild-type mice (81)"
+
+#MAP1LC3A = LC3
+p(HGNC:MAP1LC3A) pos path(MESH:"Plaque, Amyloid")
+
+SET Evidence="It is well established that mutations in PS1 result in
+familial AD, and until recently it was thought that this was only due
+to alterations in APP processing. "
+
+p(HGNC:PSEN1) -- path(MESH:"Alzheimer disease, familial, type 3")
+
+SET Evidence="Mutations in PS1 were shown to impair the acidification
+of lysosomes, which is necessary for activating the proteolytic enzymes
+in this compartment. Improper acidification and impaired proteolysis of
+substrates would compromise the autophagy system and result in the
+accumulation of AVs as described above."
+
+p(HGNC:PSEN1) -> bp(GO:"vacuolar acidification")
+bp(GO:"vacuolar acidification") -> bp(GO:proteolysis)
+
+SET Evidence="This
+demonstrates that in the absence of mutant PS1, AD-associated impairment
+in autophagy occurs and thus is due to other factors. Treatment of ex
+vivo hippocampal slice cultures with lysosomal disruptors causes the
+formation of enlarged, dystrophic neurites filled with AVs and lysosomes,
+similar to what is seen in mouse AD models and human AD tissue (85, 86)"
+
+path(MESH:"Alzheimer Disease") pos bp(MESH:Autophagy)
+path(MESH:"Alzheimer Disease") pos a(MESH:Lysosomes)
+
+SET Evidence="Incubation of tau with cathepsin D at pH 4.0 resulted in a
+decrease in full-length tau and a concomitant increase in cleaved fragments of
+varying sizes (89). "
+
+#pH
+composite(p(HGNC:MAPT), p(HGNC:CTSD)) -| p(HGNC:MAPT)
+composite(p(HGNC:MAPT), p(HGNC:CTSD)) -| deg(p(HGNC:MAPT))
+
+SET Evidence="Similarly, adding exogenous cathepsin D to homogenates
+of rat cortex at a neutral pH also generated tau fragments. Intriguingly,
+if a cysteine protease inhibitor was added to the assay, tau cleavage
+stopped at the 29-kDa fragment, suggesting that cathepsin D (an aspartyl
+protease) could cleave tau to a 29-kDa fragment after which other
+proteases may act to further degrade the protein. "
+
+act(p(HGNC:CTSD)) -> p(HGNC:MAPT, frag("?","29kD"))
+
+SET Evidence="Treating hippocampal slices with chloroquine (CQ), which
+raises the pH of lysosomes to impair enzymatic function, was associated
+with increased levels of full-length tau (89, 91)."
+
+SET MeSHAnatomy="Hippocampus"
+
+a(CHEBI:chloroquine) -> p(HGNC:MAPT)
+
+UNSET MeSHAnatomy
+
+SET Evidence="In M1C neuroblastoma cells that inducibly express
+full-length wild-type tau (4R0N), treatment with CQ also significantly
+slowed down tau degradation, and caused its accumulation (92). Treatment
+of hippocampal slices with the cathepsin modulator ZPAD (which stimulates
+cathepsin D very strongly) appears to increase the proteolysis of
+full-length tau resulting in the production of smaller fragments,
+including a phosphorylated 29 kDa fragment (86, 89). This partial
+degradation of tau was inhibited by inclusion of a selective cathepsin D
+inhibitor (86). "
+
+a(CHEBI:chloroquine) -| deg(p(HGNC:MAPT))
+act(p(HGNC:CTSD)) -> deg(p(HGNC:MAPT))
+act(p(HGNC:CTSD)) -> p(HGNC:MAPT, frag("?","29kD"), pmod(Ph))
+
+SET Evidence="Cathepsin D seems particularly important for degrading
+tau, as its expression was neuroprotective in a Drosophila tauopathy
+model. Levels of cathepsin D are elevated in flies expressing mutant
+human tau. If cathepsin D is genetically ablated, these tau flies
+exhibit enhanced neurotoxicity and a shorter lifespan (93)."
+
+SET Species="7215"
+SET MeSHDisease="Tauopathies"
+act(p(HGNC:CTSD)) -> deg(p(HGNC:MAPT))
+act(p(HGNC:CTSD)) -> path(MESH:Neuroprotection)
+act(p(HGNC:CTSD)) -| path(HBP:neurotoxicity)
+UNSET MeSHDisease
+UNSET Species
+
+SET Evidence="Overexpressing only the repeat domain of tau containing
+an FTDP-17 mutation in neuroblastoma cells leads to tau aggregation as
+well as the appearance of smaller proteolytic fragments. Using the
+autophagy inhibitor 3-methyladenine (3-MA) to block the formation of
+autophagosomes led to an increase in both soluble and insoluble tau (94)."
+
+SET MeSHDisease="Frontotemporal Dementia"
+
+p(HGNC:MAPT, frag("561_685")) -> a(HBP:"Tau aggregates")
+a(MESH:"3-methyladenine") -| bp(MESH:Autophagy)
+a(MESH:"3-methyladenine") -> p(HGNC:MAPT, frag("?"))
+
+UNSET MeSHDisease
+
+SET Evidence="Directly activating autophagy through a variety of mechanisms
+leads consistently to enhanced tau clearance – either pathological forms
+or total tau. In a hippocampal slice preparation methylene blue was used
+to induce autophagy, which resulted in a decrease in phosphorylated tau
+and insoluble tau, specifically (95). "
+
+SET MeSHAnatomy="Hippocampus"
+
+bp(MESH:Autophagy) -> deg(p(HGNC:MAPT))
+bp(MESH:Autophagy) -> deg(p(HGNC:MAPT, pmod(Ph)))
+
+UNSET MeSHAnatomy
+
+SET Evidence=" In a cell line expressing the repeat domain of tau
+containing the FTDP-17ΔK280 mutant, treatment with the disaccharide
+trehalose, an mTor-independent autophagy activator, significantly
+reduced aggregated tau as measured by Thioflavin-S staining, as well as
+total tau levels both soluble and insoluble as detected by western
+blotting (96). "
+
+SET MeSHDisease="Frontotemporal Dementia"
+
+a(MESH:Trehalose) -> bp(MESH:Autophagy)
+a(MESH:Trehalose) -| a(HBP:"Tau aggregates")
+a(MESH:Trehalose) -| p(HGNC:MAPT)
+
+UNSET MeSHDisease
+
+SET Evidence="Stimulating autophagy either through serum withdrawal
+or rapamycin treatment in SH-SY5Y cells overexpressing P301L tau that
+had been induced to aggregate led to substantial reduction in aggregates
+that was prevented by 3-MA (70). "
+
+a(CHEBI:sirolimus) -> bp(MESH:Autophagy)
+bp(MESH:Autophagy) -| p(HGNC:MAPT, var("p.P301L"))
+bp(MESH:Autophagy) -| a(HBP:"Tau aggregates")
+
+SET Evidence="In a mouse model expressing the FTDP-17 mutant P301S,
+promoting autophagy with trehalose treatment beginning at weaning
+significantly reduced insoluble tau, as well as tau phosphorylated at
+T212/S214 (AT100) (97). However, no other phosphorylation sites were
+assessed. This effect was correlated with improved neuronal survival
+in cortical layers I–III (97)."
+
+SET MeSHDisease="Frontotemporal Dementia"
+SET Species="10090"
+
+a(MESH:Trehalose) -> bp(MESH:Autophagy)
+bp(MESH:Autophagy) -| p(MGI:Mapt, var("p.P301S"))
+bp(MESH:Autophagy) -| p(MGI:Mapt, var("p.P301S"), pmod(Ph, Thr, 212))
+bp(MESH:Autophagy) -| p(MGI:Mapt, var("p.P301S"), pmod(Ph, Ser, 214))
+bp(MESH:Autophagy) neg bp(GO:"neuron death")
+
+UNSET MeSHDisease
+UNSET Species
+
+SET Evidence="Mice in which the critical autophagy gene Atg7 is knocked
+out in forebrain neurons develop age-dependent neurodegeneration with
+accumulation of phosphorylated tau within intracellular inclusions (99).
+These inclusions specifically contained tau phosphorylated at AT8, AT100,
+and TG3 epitopes, but not PHF1. Significantly, if tau was also knocked
+out in these autophagy-deficient mice, neurodegeneration was reduced (99)."
+
+SET Species="10090"
+SET MeSHAnatomy="Neurons"
+
+p(MGI:Atg7) -| path(HBP:Neurodegeneration)
+p(MGI:Atg7) -| p(MGI:Mapt, pmod(Ph))
+p(MGI:Mapt, pmod(Ph)) -> path(HBP:Neurodegeneration)
+p(MGI:Atg7) -| p(MGI:Mapt, pmod(Ph, Thr, 212), pmod(Ph, Ser, 214))
+p(MGI:Atg7) -| p(MGI:Mapt, pmod(Ph, Ser, 202), pmod(Ph, Thr, 205))
+p(MGI:Atg7) -| p(MGI:Mapt, pmod(Ph, Thr, 231))
+
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence=" This is supported by evidence that full-length tau, which has a
+lower propensity for aggregating, is cleared by the proteasome while caspase-
+cleaved tau, which is more aggregate prone, goes through autophagy (72). Also,
+aggregated tau can be cleared by inducing autophagy (70, 96)."
+
+p(HGNCGENEFAMILY:Proteasome) -> deg(p(HGNC:MAPT))
+bp(MESH:Autophagy) -> deg(p(HBP:"Tau C3"))
+bp(MESH:Autophagy) -> deg(a(HBP:"Tau aggregates"))
+
+SET Evidence="For example, if HEK cells are transfected with tau and ubiquitin,
+tau is readily ubiquitylated and degraded by the proteasome (66)."
+
+composite(p(HGNC:MAPT), a(MESH:Ubiquitin)) -> p(HGNC:MAPT, pmod(Ub))
+p(HGNCGENEFAMILY:Proteasome) -> deg(p(HGNC:MAPT, pmod(Ub)))
+
+SET Evidence=" However, another study, also using HEK cells and ubiquitin
+K48 and K63 mutants, demonstrated that in the presence of the E3 ligase CHIP,
+tau could be ubiquitylated by both K48 and K63 linkages (100). The likelihood
+that in vivo tau can be ubiquitylated in multiple ways is supported by studies
+showing tau isolated from NFTs in human brain has several forms of ubiquitin
+linkages as well as mono-ubiquitylation (101, 102). These data suggest that the
+physical structure of the ubiquitin chain is unlikely to be a sufficient signal
+for selectively targeting tau to either the proteasome or autophagy."
+
+#STUB1 = CHIP
+p(HGNC:STUB1) -> p(HGNC:MAPT, pmod(Ub))
+path(MESH:"Neurofibrillary Tangles") pos p(HGNC:MAPT, pmod(Ub))
+
+SET Evidence="For example, in the study where rat brain extract was incubated
+with Mg2+ and ATP, there was an overall decrease in tau due to proteasomal
+activity; however tau phosphorylated at the PHF1 and Tau-1 epitopes seemed to
+be preferentially degraded as they were non-detectable within 3 h (73). The
+preferential degradation of specific phospho-forms of tau by a particular
+pathway has been reported in other studies as well. "
+
+SET Species="10116"
+SET MeSHAnatomy="Brain"
+
+composite(a(CHEBI:"magnesium(2+)"), a(CHEBI:ATP)) -> act(p(HGNCGENEFAMILY:Proteasome))
+act(p(HGNCGENEFAMILY:Proteasome)) -> deg(p(RGD:Mapt))
+act(p(HGNCGENEFAMILY:Proteasome)) -> deg(p(RGD:Mapt, pmod(Ph, Ser, 396), pmod(Ph, Ser, 404)))
+
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence="In CHO cells overexpressing P301L mutant tau, treatment with
+the Hsp90 inhibitor geldanamycin led to a more pronounced proteasome-mediated
+reduction in tau phosphorylated at proline-directed S/T sites compared to total
+tau (67)."
+
+a(CHEBI:geldanamycin) -> act(p(HGNCGENEFAMILY:Proteasome))
+act(p(HGNCGENEFAMILY:Proteasome)) -> deg(p(HGNC:MAPT, pmod(Ph)))
+
+SET Evidence="Additionally, in a hippocampal slice preparation, induction of
+autophagy by treatment with methylene blue led to a decrease in phosphorylated
+tau and insoluble tau without an effect on total tau (95)."
+
+SET MeSHAnatomy="Hippocampus"
+
+a(CHEBI:"methylene blue") -> bp(MESH:Autophagy)
+bp(MESH:Autophagy) -> deg(p(HGNC:MAPT, pmod(Ph)))
+bp(MESH:Autophagy) cnc p(HGNC:MAPT)
+
+UNSET MeSHAnatomy
+
+SET Evidence="Activating autophagy
+with trehalose in rat cortical neurons demonstrated certain phospho-epitopes
+(AT8, PHF1, and 12E8) were reduced more significantly than total tau – up to
+80% compared to the 20% reduction in total tau (96)."
+
+SET Species="10116"
+
+a(MESH:Trehalose) -> bp(MESH:Autophagy)
+bp(MESH:Autophagy) -| a(HBP:"Tau epitope, AT8")
+bp(MESH:Autophagy) -| a(HBP:"Tau epitope, PHF1")
+bp(MESH:Autophagy) -| a(HBP:"Tau epitope, 12E8")
+
+UNSET Species
+
+SET Evidence="Finally, caspase-3 cleaved tau has a shorter half-life than
+full-length tau and is preferentially degraded by autophagy (72)."
+
+bp(MESH:Autophagy) -| p(HBP:"Tau C3")
+
+SET Evidence="Soluble, monomeric tau is an ideal proteasomal substrate. Indeed,
+it has been clearly demonstrated that tau can be degraded by the proteasome
+(65–67, 73). It thus can be suggested that under physiologic circumstances much
+of tau is degraded in this manner, with select modified forms being cleared by
+autophagy.However, within the context of the AD milieu, additional tau
+modifications and degradative impairments may cause the balance to shift away
+from proteasomal degradation toward autophagy."
+
+act(p(HGNCGENEFAMILY:Proteasome)) -> deg(p(HGNC:MAPT))
+
+SET MeSHDisease="Alzheimer Disease"
+
+act(p(HGNCGENEFAMILY:Proteasome)) cnc deg(a(HBP:"Tau aggregates"))
+bp(MESH:Autophagy) -> deg(a(HBP:"Tau aggregates"))
+
+UNSET MeSHDisease
+
+SET Evidence="For example, as discussed above, certain modified forms of tau,
+such as caspase-cleaved tau, have a stronger tendency to aggregate. As tau
+begins to assemble into oligomers, it may become increasingly undesirable as a
+proteasomal substrate. These low-order, soluble oligomers may be preferentially
+degraded by autophagy. "
+
+p(HBP:"Tau C3") -> a(HBP:"Tau aggregates")
+act(p(HGNCGENEFAMILY:Proteasome)) cnc deg(a(HBP:"Tau oligomers"))
+bp(MESH:Autophagy) -> deg(a(HBP:"Tau aggregates"))
+bp(MESH:Autophagy) -> deg(a(HBP:"Tau oligomers"))
+
+SET Evidence="However, as previously discussed, autophagy is likely impaired
+in AD. The tendency for certain phospho-epitopes to show preferential clearance
+by certain pathways may also relate to their propensity for aggregation."
+
+path(MESH:"Alzheimer Disease") -| bp(MESH:Autophagy)
