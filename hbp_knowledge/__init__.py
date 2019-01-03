@@ -8,6 +8,7 @@ from bel_repository import BELMetadata, BELRepository
 
 __all__ = [
     'repository',
+    'metadata',
     'get_graph',
     'get_graphs',
     'get_summary_df',
@@ -29,7 +30,7 @@ AUTHORS = [
 ]
 
 # All metadata is grouped here
-METADATA = BELMetadata(
+metadata = BELMetadata(
     name='Human Brain Pharmacome Knowledge',
     version=VERSION,
     authors=', '.join(sorted(AUTHORS, key=lambda s: s.split()[-1])),
@@ -38,7 +39,7 @@ METADATA = BELMetadata(
 
 repository = BELRepository(
     HERE,
-    bel_metadata=METADATA,
+    bel_metadata=metadata,
 )
 
 get_graph = repository.get_graph
