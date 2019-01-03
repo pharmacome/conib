@@ -1,0 +1,301 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Inﬂammasome Involvement in Alzheimer’s Disease"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Description = ""
+SET DOCUMENT Authors     = "Esther Wollert"
+
+###############
+# Definitions #
+###############
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY AS PATTERN "^\d+$"
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+DEFINE NAMESPACE HBP      AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/export/hbp-names.belns"
+DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE GFAM     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE MIRBASE  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel
+# --------------------------------------------------------------------
+DEFINE NAMESPACE CTO      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE MGI      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
+DEFINE NAMESPACE RGD      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170725.belns"
+DEFINE NAMESPACE SCOMP    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM     AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+DEFINE NAMESPACE INTERPRO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/interpro/interpro-20170731.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "27314526"}
+
+SET Evidence = "Inﬂammasomes are responsible for the maturation of pro-inﬂammatory cytokines such as interleukin (IL)-1beta, IL-18,\
+ and IL-33 and activation of inﬂammatory cell death, pyroptosis. "
+SET Subgraph = "Interleukin signaling subgraph"
+SET Confidence = "High" 
+complex(GO:"inflammasome complex") -> act(p(HGNC:IL1B))
+complex(GO:"inflammasome complex") -> act(p(HGNC:IL18))
+complex(GO:"inflammasome complex") -> act(p(HGNC:IL33))
+complex(GO:"inflammasome complex") -> bp(GO:pyroptosis)
+UNSET Subgraph
+
+SET Evidence = "They appear to be involved in several pathological processes activated by microbes including Alzheimer’s disease (AD)."
+SET Confidence = "High" 
+complex(GO:"inflammasome complex") -- path(MESH:"Alzheimer Disease")
+ 
+SET Evidence = " Post activation of the inﬂammasome, caspase 1 enzyme initiates the maturation of pro-inﬂammatory cytokines\
+particularly interleukin (IL)-1beta, IL-18, and IL-33 [4] (Fig. 1),and inﬂammation mediated cell death occurs via the\
+nucleotide-binding domain and leucine-rich repeat(NLR) family of proteins [5]."
+SET Subgraph = {"Interleukin signaling subgraph", "Caspase subgraph"}
+SET Confidence = "High" 
+act(complex(GO:"inflammasome complex")) -> act(p(HGNC:CASP1))
+act(p(HGNC:CASP1)) -> act(p(HGNC:IL1B))
+act(p(HGNC:CASP1)) -> act(p(HGNC:IL18))
+act(p(HGNC:CASP1)) -> act(p(HGNC:IL33))
+UNSET Subgraph
+
+SET Evidence = "Of these, the NLRP3 inﬂammasome can be acti-
+vated via bacterial RNA species [3]."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High" 
+a(CHEBI:"RNA fragment") -> act(complex(GO:"NLRP3 inflammasome complex"))
+
+SET Evidence = " This family serves several
+biological functions but if inappropriately secreted
+can lead to manifestation of depressive behaviors typ-
+ically associated with dementia onset and chronic
+neuroinﬂammation."
+#"this family": interleukins
+SET Subgraph = "Interleukin signaling subgraph"
+SET Confidence = "Medium" 
+sec(a(MESH:Interleukins)) -- path(MESH:Dementia)
+sec(a(MESH:Interleukins)) -- bp(HBP:"neuroinflammation")
+
+SET Evidence = "In AD, microglial cells and astrocytes express
+NLRP3, which in turn can detect A beta plaques and
+act by secreting caspase-1 to activate IL-1 beta and IL-
+18 [23–25]."
+SET Subgraph = {"Amyloidogenic subgraph","Interleukin signaling subgraph","Caspase subgraph"}
+SET MeSHDisease = "Alzheimer Disease"
+SET Confidence = "Medium" 
+a(MESH:Microglia) -> p(HGNC:NLRP3)
+a(MESH:Astrocytes) -> p(HGNC:NLRP3)
+p(HGNC:NLRP3) -- a(CHEBI:"amyloid-beta")
+act(p(HGNC:NLRP3)) -> sec(p(HGNC:CASP1))
+sec(p(HGNC:CASP1)) -> act(p(HGNC:IL1B))
+sec(p(HGNC:CASP1)) -> act(p(HGNC:IL18))
+
+SET Evidence = " P2X7 activation
+is followed by a number of downstream events,
+including release of pro-inﬂammatory mediators,
+cell death, and proliferation."
+SET Subgraph = {"Apoptosis signaling subgraph", "Inflammatory response subgraph"}
+SET Confidence = "High" 
+act(p(HGNC:P2RX7)) -> bp(GO:"inflammatory response")
+act(p(HGNC:P2RX7)) -> bp(GO:"apoptotic process")
+act(p(HGNC:P2RX7)) -> bp(GO:"cell proliferation")
+
+SET Evidence = "P2X7
+expressed by microglial cells will also activate the
+NLP3 inﬂammasome [30, 32] and the expression of
+P2X7 is likely to be increased in AD brains [35]."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "Medium" 
+a(MESH:Microglia) -> p(HGNC:P2RX7)
+p(HGNC:P2RX7) -> act(complex(GO:"NLRP3 inflammasome complex"))
+path(MESH:"Alzheimer Disease") positiveCorrelation p(HGNC:P2RX7)
+
+SET Evidence = "Pattern recognition receptors such as the
+TLR4 receptor are expressed in the brain’s own
+immune cells like microglia and astrocytes that
+induce inﬂammation via cytokine secretion [38]."
+SET Subgraph = "Toll like receptor subgraph"
+SET MeSHAnatomy = "Brain"
+SET Confidence = "Medium" 
+a(MESH:Microglia) -> p(HGNC:TLR4)
+a(MESH:Astrocytes) -> p(HGNC:TLR4)
+p(HGNC:TLR4) -> bp(GO:"cytokine secretion")
+bp(GO:"cytokine secretion") -> bp(GO:"inflammatory response")
+
+SET Evidence = " Increased levels of IL-1 beta and IL-18 have
+been detected in serum, cerebrospinal ﬂuid, and
+brains of patients with AD and in other forms of
+dementia [42–46]."
+SET Subgraph = "Interleukin signaling subgraph"
+SET MeSHAnatomy = {"Serum", "Cerebrospinal Fluid", "Brain"}
+SET Confidence = "High"
+path(MESH:"Alzheimer Disease") positiveCorrelation p(HGNC:IL1B)
+path(MESH:"Alzheimer Disease") positiveCorrelation p(HGNC:IL18)
+path(MESH:Dementia) positiveCorrelation p(HGNC:IL1B)
+path(MESH:Dementia) positiveCorrelation p(HGNC:IL18) 
+
+SET Evidence = " It is noteworthy that
+IL-1 beta and IL-18 can activate various cell types, par-
+ticularly astrocytes and microglia to induce additional
+cytokine release involving IL-1 beta , IL-6, and IL-18,
+and also nitric oxide (NO) synthase that can stimulate
+production of free radical NO, leading to the forma-
+tion of peroxynitrite that denatures DNA and impairs
+cellular energy pathways [48, 49]."
+SET Subgraph = {"Interleukin signaling subgraph", "Nitric oxide subgraph"}
+SET Confidence = "Medium"
+p(HGNC:IL1B) -> bp(GO:"microglial cell activation")
+p(HGNC:IL1B) -> bp(GO:"astrocyte activation")
+p(HGNC:IL18) -> bp(GO:"microglial cell activation")
+p(HGNC:IL18) -> bp(GO:"astrocyte activation")
+bp(GO:"microglial cell activation") -> sec(p(HGNC:IL1B))
+bp(GO:"microglial cell activation") -> sec(p(HGNC:IL6))
+bp(GO:"microglial cell activation") -> sec(p(HGNC:IL18))
+bp(GO:"microglial cell activation") -> sec(p(HGNC:NOS2))
+bp(GO:"astrocyte activation") -> sec(p(HGNC:IL1B))
+bp(GO:"astrocyte activation") -> sec(p(HGNC:IL6))
+bp(GO:"astrocyte activation") -> sec(p(HGNC:IL18))
+bp(GO:"astrocyte activation") -> sec(p(HGNC:NOS2))
+act(p(HGNC:NOS2)) -> a(CHEBI:"nitric oxide")
+a(CHEBI:"nitric oxide") -> a(CHEBI:peroxynitrite)
+a(CHEBI:peroxynitrite) -> bp(GO:"DNA conformation change")
+a(CHEBI:peroxynitrite) -| bp(GO:"energy reserve metabolic process")
+
+SET Evidence = "NO can also bring
+about apoptosis of hippocampal neurons via caspase-
+3 activity [50] whereas astrocyte-secreted IL-1 beta can
+increase the production of APP and A beta from neu-
+rons [51–53] (Fig. 1). "
+SET Subgraph = {"Interleukin signaling subgraph", "Nitric oxide subgraph", "Caspase subgraph","Amyloidogenic subgraph"}
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Hippocampus"
+a(CHEBI:"nitric oxide") -> act(p(HGNC:CASP3))
+act(p(HGNC:CASP3)) -> bp(GO:"neuron death")
+SET MeSHAnatomy = "Neurons"
+a(MESH:Astrocytes) -> sec(p(HGNC:IL1B))
+sec(p(HGNC:IL1B)) -> p(HGNC:APP)
+sec(p(HGNC:IL1B)) -> a(CHEBI:"amyloid-beta")
+UNSET MeSHAnatomy
+
+SET Evidence = " Additionally, it can induce
+phosphorylation of the tau protein and promote for-
+mation of neuroﬁbrillary tangles through the mitogen
+activated protein kinases-p38 (MAPK-p38) stress
+pathway [22, 54]."
+#it: NO
+SET Subgraph = {"Nitric oxide subgraph","MAPK-JNK subgraph","Tau protein subgraph"}
+SET Confidence = "High"
+a(CHEBI:"nitric oxide") -> p(HGNC:MAPT, pmod(Ph))
+a(CHEBI:"nitric oxide") -> bp(GO:"p38MAPK cascade")
+bp(GO:"p38MAPK cascade") -> complex(GO:"neurofibrillary tangle")
+
+SET Evidence = "Pro-inﬂammatory IL-18 increases AD-associated
+A beta deposition in human neuron-like cells in culture
+[55]. IL-18 also increases the expression of glycogen
+synthase kinase 3 beta (GSK-3 beta ) and cyclin-dependent
+kinase 5, both of which are involved in hyperphos-
+phorylation of the tau protein [56]. "
+SET Subgraph = {"Interleukin signaling subgraph","Amyloidogenic subgraph","GSK3 subgraph","Cyclin-CDK subgraph","Tau protein subgraph"}
+SET Confidence = "High"
+SET MeSHAnatomy = "Neurons"
+p(HGNC:IL18) -> a(CHEBI:"amyloid-beta")
+UNSET MeSHAnatomy
+p(HGNC:IL18) -> p(HGNC:GSK3B)
+p(HGNC:IL18) -> p(HGNC:CDK5)
+p(HGNC:GSK3B) -> p(HGNC:MAPT, pmod(Ph))
+p(HGNC:CDK5) -> p(HGNC:MAPT, pmod(Ph))
+
+SET Evidence = " Both these
+studies indicated an important role of IL-18 in AD."
+SET Subgraph = "Interleukin signaling subgraph"
+SET Confidence = "High"
+p(HGNC:IL18) -- path(MESH:"Alzheimer Disease")
+
+SET Evidence = "Both IL-1 beta and IL-18 are generated in their
+mature secreted form by caspase-1 through activa-
+tion of the inﬂammasome. "
+SET Subgraph = {"Interleukin signaling subgraph","Caspase subgraph"}
+SET Confidence = "High"
+complex(GO:"inflammasome complex") -> act(p(HGNC:CASP1))
+act(p(HGNC:CASP1)) -> act(p(HGNC:IL1B))
+act(p(HGNC:CASP1)) -> act(p(HGNC:IL18))
+
+SET Evidence = "However, IL-
+18 can be derived as a byproduct from the activities
+of various extracellular enzymes such as protease 3,
+serine protease, elastase and cathepsin G [62–65]."
+SET Subgraph = "Interleukin signaling subgraph"
+SET Confidence = "High"
+act(p(HGNC:PRSS3)) -> p(HGNC:IL18)
+act(p(FPLX:ELA)) -> p(HGNC:IL18)
+act(p(HGNC:CTSG)) -> p(HGNC:IL18)
+
+SET Evidence = "In the NLRP3 inﬂammasome, the NLR pro-
+tein recruits the inﬂammasome-adaptor protein
+apoptosis-associated speck-like protein containing
+CARD (ASC), which in turn interacts with caspase-
+1 leading to its activation [7]."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "Medium"
+composite(complex(GO:"NLRP3 inflammasome complex"),p(HGNC:PYCARD),p(HGNC:CASP1)) -> act(p(HGNC:CASP1))
+
+SET Evidence = "Once activated,
+caspase-1 promotes the maturation of the proin-
+ﬂammatory cytokines IL-1 beta , IL-18, and IL-33."
+SET Subgraph = {"Interleukin signaling subgraph","Caspase subgraph"}
+SET Confidence = "High"
+act(p(HGNC:CASP1)) -> act(p(HGNC:IL1B))
+act(p(HGNC:CASP1)) -> act(p(HGNC:IL18))
+act(p(HGNC:CASP1)) -> act(p(HGNC:IL33))
+
+SET Evidence = "The
+NLRP3 inﬂammasome has a role in AD by increas-
+ing caspase-1 expression levels in AD brains [13,
+23]. "
+SET Subgraph = "Caspase subgraph"
+SET MeSHAnatomy = "Brain"
+SET MeSHDisease = "Alzheimer Disease"
+SET Confidence = "High"
+complex(GO:"NLRP3 inflammasome complex") -> p(HGNC:CASP1)
+UNSET Subgraph
+
+SET Evidence = "Longitudinal studies including that by Ide et al.
+[8] all agree that in AD, the presence of periodonti-
+tis appears to be associated with a marked increase
+in cognitive decline."
+SET MeSHDisease = "Alzheimer Disease"
+SET Confidence = "High"
+path(MESH:Periodontitis) -| bp(GO:cognition)
