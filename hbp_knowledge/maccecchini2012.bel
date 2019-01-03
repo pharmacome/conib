@@ -1,0 +1,83 @@
+#####################
+# Document Metadata #
+#####################
+SET DOCUMENT Name = "Posiphen as a candidate drug to lower CSF amyloid precursor protein, amyloid-b peptide and s levels: target engagement, tolerability and pharmacokinetics in humans"
+SET DOCUMENT Version = "0.1.0"
+SET DOCUMENT Authors = "Lingling Xu"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+SET DOCUMENT Description = "Posiphen as a candidate drug to lower CSF amyloid precursor protein, amyloid-b peptide and s levels: target engagement, tolerability and pharmacokinetics in humans by Macccecchini, et al., 2012"
+
+##############
+# Namespaces #
+##############
+
+DEFINE NAMESPACE HBP   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8259206e39a3578e64bbce1cd0b80e6cfb4da65b/export/hbp.belns"
+DEFINE NAMESPACE CHEBI AS URL "https://raw.githubusercontent.com/pharmacome/terminology/9a77ac1a02863bc48b04bab7e8fb0c1d1cec4dd0/external/chebi.belns"
+DEFINE NAMESPACE GO    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/9a77ac1a02863bc48b04bab7e8fb0c1d1cec4dd0/external/go.belns"
+
+###############
+# Annotations #
+###############
+
+DEFINE ANNOTATION MeasurementType AS LIST {"IC50","plasma concentration","brain concertration", "CSF concentration","dose"}
+DEFINE ANNOTATION MeasurementUnits AS LIST {"μM","mg"}
+DEFINE ANNOTATION MeasurementRelation AS LIST {"=", "~"}
+DEFINE ANNOTATION MeasurementValue AS PATTERN ".*"
+DEFINE ANNOTATION MeasurementRangeLower AS PATTERN ".*"
+DEFINE ANNOTATION MeasurementRangeUpper AS PATTERN ".*"
+
+DEFINE ANNOTATION Page AS PATTERN ".*"
+DEFINE ANNOTATION Figure AS PATTERN ".*"
+DEFINE ANNOTATION ArticleCompoundNumber AS PATTERN ".*"
+
+#######################################################################################################################################################################
+# Posiphen as a candidate drug to lower CSF amyloid precursor protein, amyloid-β peptide and τ levels: target engagement, tolerability and pharmacokinetics in humans #
+#######################################################################################################################################################################
+SET Citation = {"PubMed", "22791904"}
+
+SET Page = 896
+SET Evidence ="A 160 mg dose was associated with an increased incidence of nausea and vomiting (four subjects were nauseous and three vomited)"
+SET Figure = 2A
+SET ArticleCompoundNumber = 1
+SET MeasurementType = "dose"
+SET MeasurementUnits ="mg"
+SET MeasurementValue =160
+
+a(HBP:Posiphen) -> path(MESH:Nausea)
+a(HBP:Posiphen) -> path(MESH:Vomiting)
+
+UNSET {MeasurementValue,MeasurementUnits,MeasurementType,ArticleCompoundNumber,Figure}
+
+
+SET Evidence ="Posiphen 80 mg was determined as the no observed adverse effect level (table 1)."
+SET ArticleCompoundNumber = 1
+SET MeasurementType = "dose"
+SET MeasurementUnits ="mg"
+SET MeasurementValue =80
+
+a(HBP:Posiphen) cnc path(MESH:Nausea)
+a(HBP:Posiphen) cnc path(MESH:Vomiting)
+UNSET {MeasurementValue,MeasurementUnits,MeasurementType,ArticleCompoundNumber,Page}
+
+SET Evidence ="The four times a day regimen resulted in some accumulation of Posiphen in plasma and accumulation of Posiphen/metabolites in CSF"
+
+SET Page =899
+SET Evidence ="Specifically, Posiphen lowered sAPPa and sAPPb levels by 59.9% and 57.7%, respectively, assessed by the AlpaLisa assay, and by 34.1% and 34%, respectively, assessed by the MSD assay, in accordance with Posiphen’s proposed mechanism of action to inhibit APP expression."
+SET ArticleCompoundNumber = 1
+a(HBP:Posiphen) -| a(HBP:sAPP-alpha)
+a(HBP:Posiphen) -| a(HBP:sAPP-beta)
+
+SET Evidence ="In addition, Posiphen significantly reduced levels of t-s (74.1%, as assessed by the Innogenetics assay and 46.2%, as assessed by the AlphaLisa assay) and p-s (61%, as assessed by the Innogenetics assay)."
+a(HBP:Posiphen) -| p(HGNC:MAPT)
+a(HBP:Posiphen) -| p(HGNC:MAPT,pmod(Ph))
+
+SET Evidence =" A significant lowering of pro-inflammatory, C3 (86.9%) and microglial activation markers, MCP-1 (87.5%) and YKL-40 (72.7%), was evident."
+a(HBP:Posiphen) -| p(HGNC:C3)
+a(HBP:Posiphen) -| p(HGNC:CCL2)
+a(HBP:Posiphen) -| p(HGNC:CHIL1)
+
+SET Evidence ="and the complement control protein, factor H, were unaffected by Posiphen (26.1% and +23.7%, respectively)."
+a(HBP:Posiphen) cnc p(HGNC:CFH)
+
+UNSET Page
+UNSET Citation
