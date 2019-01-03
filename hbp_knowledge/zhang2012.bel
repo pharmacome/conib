@@ -1,0 +1,523 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Name        = "Proteolytic processing of Alzeimer's beta-amyloid precursor protein"
+SET DOCUMENT Version     = "1.0.1"
+SET DOCUMENT Description = ""
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved"
+SET DOCUMENT Authors     = "Sandra Spalek"
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+###############
+# Definitions #
+###############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+DEFINE NAMESPACE FPLX     AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE GFAM     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/go-names.belns"
+DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE MGI      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
+DEFINE NAMESPACE HBP      AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp.belns"
+
+# Annotations
+# -----------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Species       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/species-taxonomy-id/species-taxonomy-id-20170511.belanno"
+
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Published     AS LIST {"Epilepsy comorbidity paper", "CDR story"}
+
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+
+DEFINE ANNOTATION PublicationType AS LIST {"Review", "Research", "Comment"}
+
+######################
+# Statements Section #
+######################
+SET Citation = {"PubMed", "22122372"}
+SET PublicationType = "Review"
+
+SET Evidence = "APP undergoes post-translational proteolysis/processing to generate the hydrophobic beta-amyloid (Abeta) peptides"
+SET Confidence = "High"
+p(HGNC:APP) -> a(MESH:"Amyloid beta-Peptides")
+
+SET Evidence = "The processing of APP to generate Abeta is executed by beta- and gamma-secretase and is
+highly regulated"
+SET Confidence = "Medium"
+p(FPLX:"Gamma_secretase") -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta")))
+p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta")))
+
+SET Evidence = "Abeta toxicity can lead to synaptic dysfunction,
+neuronal cell death, impaired learning/memory and abnormal
+behaviors in AD models in vitro and in vivo"
+SET Confidence = "High"
+a(CHEBI:"amyloid-beta") -| bp(GO:"regulation of synapse structure or activity")
+a(CHEBI:"amyloid-beta") -> bp(GO:"neuron death")
+a(CHEBI:"amyloid-beta") -| bp(GO:"learning or memory")
+
+SET Evidence = "APP can also
+be cleaved by alpha-secretase to form a soluble or secreted APP
+ectodomain (sAPP-alpha) that has been shown to be mostly
+neuro-protective"
+SET Confidence = "High"
+p(HGNC:ADAM10) -> rxn(reactants(p(HGNC:APP)),products(a(HBP:HBP00067)))
+p(HGNC:ADAM10) -> sec(p(HGNC:APP))
+a(HBP:HBP00067) -| bp(HBP:HBP00061)
+
+SET Evidence = "Plaques consisting of beta-amyloid (Abeta) peptide (Selkoe 1998),
+neurofibrillary tangles consisting largely of hyperphosphorylated
+microtubule-associated tau protein (Buee et al. 2000; Gendron
+and Petrucelli 2009) and neuron loss in the hippocampus and
+cortex regions are the major pathological hallmarks of Alzheimer’s disease."
+SET Confidence = "High"
+a(MESH:"Amyloid beta-Peptides") -- path(MESH:"Alzheimer Disease")
+bp(GO:"neurofibrillary tangle assembly") -- p(HGNC:MAPT,pmod(Ph))
+bp(GO:"neurofibrillary tangle assembly") -- path(MESH:"Alzheimer Disease")
+SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex"}
+bp(GO:"neuron death") -- path(MESH:"Alzheimer Disease")
+
+SET Evidence = "The amyloid plaques associated with AD were first purified
+and found to consist of multimeric aggregates of Abeta
+polypeptide containing about 40 amino acid residues in the
+mid-1980s (Glenner and Wong 1984; Masters et al. 1985)"
+SET Confidence = "High"
+a(MESH:"Amyloid beta-Peptides") -- a(HBP:HBP00018)
+
+SET Evidence = "Cloning of the complementary DNA (cDNA) of Abeta revealed
+that Abeta is derived from a larger precursor protein (Tanzi
+et al. 1987)"
+SET Confidence = "High"
+p(HGNC:APP) -> a(CHEBI:"amyloid-beta")
+
+SET Evidence = "Although alternative splicing of transcripts from
+the single APP gene results in several isoforms of the gene
+product, APP695, whose encoding cDNA lacks the gene
+sequence from exons 7 and 8, is preferentially expressed in
+neurons (Sandbrink et al. 1994)"
+SET Confidence = "High"
+SET MeSHAnatomy = "Neurons"
+bp(HBP:HBP00077) -> a(HBP:HBP00063)
+
+SET Evidence = "APP751, lacking exon 8,
+and APP770, encoded with all 18 exons, are predominant
+variants elsewhere (Yoshikai et al. 1990)"
+SET Confidence = "High"
+bp(HBP:HBP00077) -> a(HBP:HBP00064)
+
+SET Evidence = "The extracellular portion of
+APP contains E1 and E2 domains and a Kunitz protease
+inhibitor (KPI) domain that is missing in APP695 (Kang and
+Muller-Hill 1990; Rohan de Silva et al. 1997)"
+SET Confidence = "High"
+p(HGNC:APP) -- a(HBP:HBP00078)
+p(HGNC:APP) -- a(HBP:HBP00079)
+
+SET Evidence = "The E1 domain is reported to function as the major interaction
+interface for dimerization of cellular APP/APLPs (Soba et al. 2005)"
+SET Confidence = "High"
+a(HBP:HBP00078) -> complex(p(HGNC:APP),p(HGNC:APP))
+a(HBP:HBP00078) -> complex(p(HGNC:APLP1),p(HGNC:APLP1))
+a(HBP:HBP00078) -> complex(p(HGNC:APLP2),p(HGNC:APLP2))
+
+SET Evidence = "The levels of APP isoforms with a KPI
+domain seem to be elevated in patients with AD (Menendez-
+Gonzalez et al. 2005) and a splicing shift in neurons from
+APP695 to KPI-containing APP isoforms, along with
+increased Abeta generation, is observed when the NMDA
+receptor is activated (Bordji et al. 2010)"
+SET Confidence = "Medium"
+path(MESH:"Alzheimer Disease") positiveCorrelation a(HBP:HBP00064)
+path(MESH:"Alzheimer Disease") positiveCorrelation a(HBP:HBP00065)
+a(MESH:"Receptors, N-Methyl-D-Aspartate") -> a(HBP:HBP00064)
+a(MESH:"Receptors, N-Methyl-D-Aspartate") -> a(HBP:HBP00065)
+a(MESH:"Receptors, N-Methyl-D-Aspartate") -| a(HBP:HBP00063)
+
+SET Evidence = "However, APP/APLP2, APLP1/APLP2 double knockout or APP/APLP1/APLP2 triple
+knockout mice show early postnatal lethality"
+SET Confidence = "High"
+composite(p(MGI:App),p(MGI:Aplp1),p(MGI:Aplp2)) -| path(MESH:"Perinatal Death")
+
+SET Evidence = "alpha-cleavage,
+which cuts APP at the 17th amino acid inside the
+Abeta peptide sequence (Fig. 1), releases a large secreted
+extracellular domain (sAPP-alpha) and a membrane-associated
+C-terminal fragment consisting of 83 amino acids (C83)"
+SET Confidence = "High"
+p(HGNC:ADAM10) -> rxn(reactants(p(HGNC:APP)),products(a(HBP:HBP00067),a(HBP:HBP00072)))
+
+SET Evidence  = "APP C83 is further cleaved by gamma-secretase to release a P3
+peptide and the AICD, both of which are degraded rapidly"
+SET Confidence = "Medium"
+p(FPLX:"Gamma_secretase") -> rxn(reactants(a(HBP:HBP00072)),products(a(HBP:HBP00080),a(HBP:HBP00071)))
+
+SET Evidence = "In the amyloidogenic pathway, APP is primarily processed by
+beta-secretase at the first residue or at the 11th residue (so called
+beta’ site) of the Abeta peptide sequence (Fig. 1), shedding sAPPbeta
+and generating a membrane associated C-terminal fragment
+consisting of 99 amino acids (C99) (Sarah and Robert 2007)"
+SET Confidence = "High"
+p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(a(HBP:HBP00042),a(HBP:HBP00081)))
+
+SET Evidence = "gamma-Secretase further cleaves C99 to release AICD and the
+amyloidogenic Abeta peptide which aggregates and fibrillates to form amyloid plaques in the brain"
+SET Confidence = "Medium"
+p(FPLX:"Gamma_secretase")  -> rxn(reactants(a(HBP:HBP00081)),products(a(HBP:HBP00071),a(MESH:"Amyloid beta-Peptides")))
+a(CHEBI:"amyloid-beta") -> a(HBP:HBP00038)
+a(CHEBI:"amyloid-beta") -> a(HBP:HBP00018)
+a(HBP:HBP00018) -> path(MESH:"Plaque, Amyloid")
+a(HBP:HBP00038) -> path(MESH:"Plaque, Amyloid")
+
+SET Evidence = "As APP was found to be constitutively cleaved at the alpha-site
+to yield sAPP-alpha (Esch et al. 1990), three members of the a
+disintegrin and metalloproteinase (ADAMs), ADAM-10,ADAM-17 and ADAM-9 have been proposed as the
+alpha-secretase (Buxbaum et al. 1998; Koike et al. 1999;Lammich et al. 1999)"
+SET Confidence = "High"
+p(HGNC:ADAM10) -> rxn(reactants(p(HGNC:APP)),products(a(HBP:HBP00067)))
+p(HGNC:ADAM17) -> rxn(reactants(p(HGNC:APP)),products(a(HBP:HBP00067)))
+p(HGNC:ADAM9) -> rxn(reactants(p(HGNC:APP)),products(a(HBP:HBP00067)))
+
+SET Evidence = "Moderate neuronal over-expression of human ADAM10
+increases sAPP-alpha production while reducing Abeta generation/
+plaque formation in mice carrying the human APP V717I mutation, while expression of a catalytically-inactive form of
+the ADAM10 mutation increases the size and number of amyloid plaques in mouse brains (Postina et al. 2004)"
+SET Confidence = "High"
+p(HGNC:ADAM10) -> a(HBP:HBP00067)
+p(HGNC:ADAM10) -| a(CHEBI:"amyloid-beta")
+p(HGNC:ADAM10) -| path(MESH:"Plaque, Amyloid")
+
+SET Evidence = "However, although sAPP-alpha generation is not affected in ADAM9/17 knock-down cell
+lines nor in mice carrying deficient ADAM9/17 genes (Weskamp et al. 2002; Kuhn et al. 2010), over-expression
+of ADAM9/17 does increase the level of sAPP-alpha under some conditions, suggesting that ADAM9 and ADAM17 are more
+likely involved in the regulated alpha-cleavage of APP rather than in constitutive alpha-cleavage"
+SET Confidence = "High"
+p(HGNC:ADAM17) -> a(HBP:HBP00067)
+p(HGNC:ADAM9) -> a(HBP:HBP00067)
+
+SET Evidence = "Abeta generation is initiated by beta-cleavage at the ectodomain of
+APP, resulting in the generation of an sAPP-beta domain and the membrane associated APP C-terminal fragment C99.
+The putative beta-secretase, beta-site APP cleaving enzyme 1 (BACE1), was first identified and characterized in 1999
+(Sinha et al. 1999; Vassar et al. 1999; Yan et al. 1999; Hussain et al. 2000; Lin et al. 2000)."
+SET Confidence = "High"
+p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(a(HBP:HBP00042),a(HBP:HBP00081)))
+
+SET Evidence = "Knocking out the BACE1 gene prevents Abeta generation and
+completely abolishes Abeta pathology in mice expressing the
+Swedish mutation of human APP (Cai et al. 2001; Luo et al.
+2001; Roberds et al. 2001; Ohno et al. 2004; Laird et al. 2005)"
+SET Confidence = "High"
+p(HGNC:BACE1) -> a(CHEBI:"amyloid-beta")
+
+SET Evidence = "However, recent studies suggest that Cathepsin B can degrade Abeta into
+harmless fragments"
+SET Confidence = "High"
+p(HGNC:CTSB) -> deg(a(CHEBI:"amyloid-beta"))
+
+SET Evidence = "Transgenic mice over-expressing PSs with FAD mutations show significantly increased Abeta42
+levels, suggesting that PS mutations probably induce AD by producing more of the hydrophobic Abeta42 form (Duff et al.
+1996; Qian et al. 1998)"
+SET Confidence = "Medium"
+p(HGNC:PSEN1,var("?")) -> p(HGNC:APP, frag(672_713))
+p(HGNC:PSEN2,var("?")) -> p(HGNC:APP, frag(672_713))
+#p(HGNC:PSENEN,var("?")) -> p(HGNC:APP, frag(672_713))
+
+SET Evidence = "Mature nicastrin can bind to the ectodomain of APP
+C-terminal fragments derived through alpha-/beta-secretase cleavage
+and may act as a substrate receptor of gamma-secretase
+(Shirotani et al. 2003; Kaether et al. 2004; Shah et al. 2005)"
+SET Confidence = "High"
+complex(p(HGNC:NCSTN),a(HBP:HBP00024))
+
+SET Evidence = "gamma-Secretase cleaves APP at multiple sites and in sequential
+steps to generate Abeta peptides of different lengths (Fig. 1).
+The majority of Abeta peptides produced are 40 amino acids
+long, however, peptides ranging from 38 to 43 amino acids
+are found in vivo"
+SET Confidence = "Medium"
+p(FPLX:"Gamma_secretase") -> p(HGNC:APP, frag(1_38))
+p(FPLX:"Gamma_secretase") -> p(HGNC:APP, frag(1_43))
+p(FPLX:"Gamma_secretase") -> p(HGNC:APP, frag(672_711))
+
+SET Evidence = "Accordingly, various AICDs (C50, C53,
+C57 and C59) can be generated during these multi-site
+cleavages executed by gamma-secretase. However, all of the
+endogenous AICD forms are rarely detected, probably
+because of their very rapid degradation (Lu et al. 2000;
+Passer et al. 2000; Sastre et al. 2001; Yu et al. 2001; Sato
+et al. 2003)"
+SET Confidence = "Medium"
+p(FPLX:"Gamma_secretase") -> a(HBP:HBP00071)
+
+SET Evidence = "In addition to cleavages involving secretases, APP can be
+cleaved by caspases independently at its C terminus (Asp664
+of APP695), releasing a short tail containing the last 31
+amino acids (C31) of APP and a fragment (Jcasp) from
+between the gamma- and caspase-cleavage sites (Lu et al. 2000)"
+SET Confidence = "High"
+a(MESH:Caspases) -> rxn(reactants(p(HGNC:APP)),products(a(HBP:HBP00069),a(HBP:HBP00070)))
+
+SET Evidence = "Caspase-cleavages of APP are thought to be harmful because
+both C31 and the Jcasp fragment generated were found to be
+cytotoxic (Lu et al. 2003a)"
+SET Confidence = "High"
+a(HBP:HBP00069) -> bp(HBP:HBP00061)
+a(HBP:HBP00070) -> bp(HBP:HBP00061)
+
+SET Evidence = "Because of its highly similar structure to Notch, APP has
+been proposed to function as a cell surface receptor (reviewed in Zheng and Koo 2011)"
+SET Confidence = "Low"
+#only proposed to be. no evidence
+p(HGNC:APP) -- a(MESH:"Receptors, Cell Surface")
+
+SET Evidence = "Several studies have
+reported that certain ligands, including Abeta, F-spondin, Nogo-
+66, netrin-1 and BRI2, bind to the extracellular domain of
+APP, resulting in modulated APP processing and sequential
+downstream signals (Lorenzo et al. 2000; Lu et al. 2003b;
+Ho and Sudhof 2004; Park et al. 2006; Lourenco et al. 2009;
+Matsuda et al. 2009; Zheng and Koo 2011)"
+SET Confidence = "High"
+complex(p(HGNC:APP),a(CHEBI:"amyloid-beta")) reg bp(HBP:HBP00073)
+complex(p(HGNC:APP),p(HGNC:SPON1)) reg bp(HBP:HBP00073)
+complex(p(HGNC:APP),p(HGNC:NTN1)) reg bp(HBP:HBP00073)
+complex(p(HGNC:APP),p(HGNC:RTN4R)) reg bp(HBP:HBP00073)
+complex(p(HGNC:APP),p(HGNC:ITM2B)) reg bp(HBP:HBP00073)
+
+SET Evidence = "Nevertheless, APP is more widely accepted as a
+protein contributing to cell adhesion via its extracellular
+domain"
+SET Confidence = "High"
+p(HGNC:APP) -> bp(GO:"cell adhesion")
+
+SET Evidence = "Furthermore, the E1 and E2 regions of
+APP were found to interact with themselves, in parallel or
+anti-parallel, forming homo- (with APP) or hetero-dimers
+(with APLPs) (Wang and Ha 2004; Soba et al. 2005; Dahms
+et al. 2010)"
+SET Confidence = "High"
+complex(a(HBP:HBP00078),a(HBP:HBP00079)) -> complex(p(HGNC:APP),p(HGNC:APLP1))
+complex(a(HBP:HBP00078),a(HBP:HBP00079)) -> complex(p(HGNC:APP),p(HGNC:APLP2))
+complex(a(HBP:HBP00078),a(HBP:HBP00079)) -> complex(p(HGNC:APP),p(HGNC:APP))
+
+SET Evidence = "The constitutively secreted sAPP-alpha has been found to
+be neuro-protective (Mattson et al. 1993; Furukawa et al.
+1996a,b; Han et al. 2005; Ma et al. 2009)"
+SET Confidence = "Medium"
+sec(a(HBP:HBP00067)) -| bp(HBP:HBP00061)
+
+SET Evidence = "sAPP-alpha is thought
+to promote neurite outgrowth and synaptogenesis as well as
+cell adhesion (Mattson 1997; Gakhar Koppole et al. 2008)"
+SET Confidence = "High"
+a(HBP:HBP00067) -> bp(GO:"cell adhesion")
+a(HBP:HBP00067) -> bp(MESH:"Neuronal Outgrowth")
+a(HBP:HBP00067) -> bp(GO:"synapse assembly")
+
+SET Evidence = "In vivo studies have also shown
+that sAPP-alpha promotes learning and memory in animal
+models (Meziane et al. 1998; Taylor et al. 2008)"
+SET Confidence = "High"
+a(HBP:HBP00067) -> bp(GO:learning)
+a(HBP:HBP00067) -> bp(GO:memory)
+
+SET Evidence = "Although there are only 17 amino acids difference between
+sAPP-beta and sAPP-alpha, sAPP-beta reportedly lacks most of the
+neuroprotective effects of sAPP-a (Furukawa et al. 1996a,b)"
+SET Confidence = "High"
+a(HBP:HBP00042) -> bp(HBP:HBP00061)
+
+SET Evidence = "A recent study suggested that sAPP-beta can be cleaved to
+generate an N-terminal fragment that is a ligand for death
+receptor 6, activating caspase 6 which further stimulates
+axonal pruning and neuronal cell death (Nikolaev et al. 2009)"
+SET Confidence = "High"
+complex(p(HBP:HBP00042, frag("?")), p(HGNC:TNFRSF21)) -> bp(GO:"neuron death")
+complex(p(HBP:HBP00042, frag("?")), p(HGNC:TNFRSF21)) -> bp(GO:"synapse pruning")
+
+SET Evidence = "Studies have demonstrated that Abeta overproduction leads
+to neurotoxicity, neuronal tangle formation, synaptic damage
+and eventually neuron loss in the pathologically affected
+brain regions (Selkoe 1998; Shankar and Walsh 2009)"
+SET Confidence = "High"
+a(CHEBI:"amyloid-beta") -> bp(HBP:HBP00061)
+a(CHEBI:"amyloid-beta") -> bp(GO:"neurofibrillary tangle assembly")
+a(CHEBI:"amyloid-beta") -| bp(GO:"regulation of synapse structure or activity")
+a(CHEBI:"amyloid-beta") -> bp(GO:"neuron death")
+
+SET Evidence = "Among the various Ab peptides generated by the multiplesite
+cleavages of secretases, Abeta 42 has proved to be more
+hydrophobic and amyloidogenic than others (Burdick et al. 1992)"
+SET Confidence = "High"
+p(HGNC:APP, frag(672_713)) -> path(MESH:"Plaque, Amyloid")
+
+SET Evidence = "Studies also
+suggest that increased Abeta 42 levels probably provide the
+core for oligomerization, fibrillation and amyloid plaque
+generation (Jarrett et al. 1993; Iwatsubo et al. 1994)"
+SET Confidence = "High"
+p(HGNC:APP, frag(672_713)) -> path(MESH:"Plaque, Amyloid")
+p(HGNC:APP, frag(672_713)) -> a(HBP:HBP00022)
+p(HGNC:APP, frag(672_713)) -> a(HBP:HBP00038)
+
+SET Evidence = "Although excessive Abeta causes neurotoxicity, some studies
+have shown that Abeta 40 protects neurons against Abeta 42- induced neuronal damage
+and is required for the viability of central neurons (Plant et al. 2003; Zou et al. 2003)"
+SET Confidence = "High"
+a(CHEBI:"amyloid-beta") -> bp(HBP:HBP00061)
+p(HGNC:APP, frag(672_711)) -| bp(HBP:HBP00061)
+
+SET Evidence = "Many
+AICD-binding proteins have been identified. Some of the
+proteins, including kinesin light chain (KLC), Fe65, Shc,
+JNK-interacting protein (JIP), Numb, X11, Clathrin and
+mDab1, were found to share one or several common
+phosphotyrosine-binding domains that specifically interact
+with the Asn-Pro-X-Tyr amino acid sequence present in the
+YENPTY motif of AICD (Fiore et al. 1995; Borg et al.
+1996; Brassler et al. 1996; McLoughlin and Miller 1996;
+Marquez-Sterling et al. 1997; Howell et al. 1999; Kamal
+et al. 2000; Matsuda et al. 2001; Roncarati et al. 2002;
+Scheinfeld et al. 2002; Tarr et al. 2002; Inomata et al. 2003;
+Matsuda et al. 2003)"
+SET Confidence = "High"
+complex(p(HBP:HBP00071),p(HGNC:KLC1))
+complex(p(HBP:HBP00071),p(HGNC:APBB1))
+complex(p(HBP:HBP00071),p(HGNC:SHC1))
+complex(p(HBP:HBP00071),p(HGNC:SPAG9))
+complex(p(HBP:HBP00071),p(HGNC:NUMB))
+complex(p(HBP:HBP00071),p(HGNC:APBA1))
+complex(p(HBP:HBP00071),a(MESH:Clathrin))
+complex(p(HBP:HBP00071),p(HGNC:DAB1))
+
+SET Evidence = "AICD also contains three phosphorylation sites, including
+two threonine residues at 654 and 668 and a serine residue at
+665. AICD has been found to be phosphorylated by PKC,
+calcium-calmodulin dependent-kinase II, GSK3-b, Cdk5 and
+c-Jun N-terminal kinase (JNK) at the Ser/Thr sites mentioned
+above"
+SET Confidence = "High"
+p(HGNC:PRKCA) -> p(HBP:HBP00071,pmod(Ph,Thr,654))
+p(HGNC:PRKCA) -> p(HBP:HBP00071,pmod(Ph,Thr,668))
+p(HGNC:PRKCA) -> p(HBP:HBP00071,pmod(Ph,Ser,665))
+p(HGNC:CAMK2A) -> p(HBP:HBP00071,pmod(Ph,Thr,654))
+p(HGNC:CAMK2A) -> p(HBP:HBP00071,pmod(Ph,Thr,668))
+p(HGNC:CAMK2A) -> p(HBP:HBP00071,pmod(Ph,Ser,665))
+p(HGNC:GSK3B) -> p(HBP:HBP00071,pmod(Ph,Thr,654))
+p(HGNC:GSK3B) -> p(HBP:HBP00071,pmod(Ph,Thr,668))
+p(HGNC:GSK3B) -> p(HBP:HBP00071,pmod(Ph,Ser,665))
+p(HGNC:CDK5) -> p(HBP:HBP00071,pmod(Ph,Thr,654))
+p(HGNC:CDK5) -> p(HBP:HBP00071,pmod(Ph,Thr,668))
+p(HGNC:CDK5) -> p(HBP:HBP00071,pmod(Ph,Ser,665))
+a(MESH:"JNK Mitogen-Activated Protein Kinases") -> p(HBP:HBP00071,pmod(Ph,Thr,654))
+a(MESH:"JNK Mitogen-Activated Protein Kinases") -> p(HBP:HBP00071,pmod(Ph,Thr,668))
+a(MESH:"JNK Mitogen-Activated Protein Kinases") -> p(HBP:HBP00071,pmod(Ph,Ser,665))
+
+SET Evidence = "Such phosphorylation may affect APP processing or
+the binding of AICD-interacting proteins, thus affecting the
+function of AICD (Gandy et al. 1988; Suzuki et al. 1994;
+Iijima et al. 2000; Inomata et al. 2003)"
+SET Confidence = "High"
+p(HBP:HBP00071,pmod(Ph,Thr,654)) -- bp(HBP:HBP00073)
+p(HBP:HBP00071,pmod(Ph,Thr,668)) -- bp(HBP:HBP00073)
+p(HBP:HBP00071,pmod(Ph,Ser,665)) -- bp(HBP:HBP00073)
+p(HBP:HBP00071,pmod(Ph,Thr,654)) -- act(p(HBP:HBP00071))
+p(HBP:HBP00071,pmod(Ph,Thr,668)) -- act(p(HBP:HBP00071))
+p(HBP:HBP00071,pmod(Ph,Ser,665)) -- act(p(HBP:HBP00071))
+
+SET Evidence = "The most widely
+accepted mechanism is that AICD, together with Fe65 and
+Tip60, forms a transcriptionally-active complex"
+SET Confidence = "Medium"
+complex(p(HBP:HBP00071),p(HGNC:APBB1),p(HGNC:KAT5))
+
+SET Evidence = "Although Tip60 does not bind to AICD directly, an indirect
+interaction between AICD and Tip60 is mediated by Fe65.
+Upon forming this complex, AICD is stabilized and can be
+translocated into the nucleus to regulate expression of genes
+such as KAI1, Neprilysin, LRP1, p53, GSK-3b and EGF
+receptor (Baek et al. 2002; Kim et al. 2003; Cao and Sudhof
+2004; Pardossi-Piquard et al. 2005; Alves da Costa et al.
+2006; Liu et al. 2007; Zhang et al. 2007)"
+SET Confidence = "Medium"
+complex(p(HBP:HBP00071),p(HGNC:KAT5),p(HGNC:APBB1)) reg p(HGNC:CD82)
+complex(p(HBP:HBP00071),p(HGNC:KAT5),p(HGNC:APBB1)) reg p(HGNC:MME)
+complex(p(HBP:HBP00071),p(HGNC:KAT5),p(HGNC:APBB1)) reg p(HGNC:TP53)
+complex(p(HBP:HBP00071),p(HGNC:KAT5),p(HGNC:APBB1)) reg p(HGNC:GSK3B)
+complex(p(HBP:HBP00071),p(HGNC:KAT5),p(HGNC:APBB1)) reg p(HGNC:EGFR)
+complex(p(HBP:HBP00071),p(HGNC:KAT5),p(HGNC:APBB1)) reg p(HGNC:LRP1)
+
+SET Evidence = "Another transactivating
+complex consisting of AICD, Fe65 and Late SV40
+Factor (LSF)/leader-binding protein-1 (LBP1)/transcription
+factor CP2 (TFCP2) has also been reported to induce the
+expression of GSK3-b (Kim et al. 2003)"
+SET Confidence = "High"
+complex(p(HBP:HBP00071),p(HGNC:APBB1),p(HGNC:TFCP2)) -> p(HGNC:GSK3B)
+
+SET Evidence = "As an adaptor protein involved in protein sorting and
+trafficking, X11 has been suggested as affecting APP
+trafficking/metabolism by interacting with AICD, leading
+to reduced Abeta production"
+SET Confidence = "High"
+complex(p(HBP:HBP00071),p(HGNC:APBA1)) -| a(CHEBI:"amyloid-beta")
+
+SET Evidence = "Many studies have documented that AICD is cytotoxic
+and that over-expressing different AICDs (C31, C57, C59) in
+Hela, H4, N2a or PC12 cell lines, as well as neuronal cell
+lines, induces cell death (Lu et al. 2000)"
+SET Confidence = "High"
+p(HBP:HBP00071) -> bp(GO:"cell death")
+
+SET Evidence = "By binding to AICD, JIP mediates
+APP/AICD phosphorylation at Thr668, thus modulating APP
+trafficking, maturation and processing"
+SET Confidence = "Medium"
+complex(p(HBP:HBP00071),p(HGNC:MAPK8IP1)) reg p(HGNC:APP,pmod(Ph,Thr,668))
+complex(p(HBP:HBP00071),p(HGNC:MAPK8IP1)) -- a(HBP:HBP00073)
+
+SET Evidence = "For example, P53 expression,
+as well as p53-mediated apoptosis, can be enhanced by
+AICD (Alves da Costa et al. 2006; Ozaki et al. 2006)"
+SET Confidence = "Medium"
+p(HBP:HBP00071) -> p(HGNC:TP53)
+p(HBP:HBP00071) -> act(p(HGNC:TP53))
+act(p(HGNC:TP53)) -> bp(GO:"apoptotic process")
+
+SET Evidence = "However, C31, a short form of AICD generated by
+caspase cleavage, has been reported to directly activate
+caspase 3 in the tumor cell death process (Lu et al. 2000;
+Bertrand et al. 2001; Nishimura et al. 2002; Madeira et al. 2005)"
+SET Confidence = "High"
+a(HBP:HBP00069) -> act(p(HGNC:CASP3))
+
+SET Evidence = "C31 also appears to induce a caspase-independent
+toxicity by selectively increasing Abeta42 (Dumanchin-Njock et al. 2001)"
+SET Confidence = "High"
+a(HBP:HBP00069) -> p(HGNC:APP, frag(672_713))
+
+SET Evidence = "APP-binding protein 1 reportedly interacts with
+AICD and activates the neddylation pathway (Chen 2004),
+further down-regulating the level of beta-catenin and potentially
+resulting in apoptosis"
+SET Confidence = "High"
+complex(p(HGNC:NAE1),p(HBP:HBP00071)) -> bp(GO:"protein neddylation")
+complex(p(HGNC:NAE1),p(HBP:HBP00071)) -| p(HGNC:CTNNB1)
+complex(p(HGNC:NAE1),p(HBP:HBP00071)) -> bp(GO:"apoptotic process")
+
+SET Evidence = "In addition, cellular Ca2+ homeostasis
+appears to be modulated by AICD (Hamid et al. 2007)"
+SET Confidence = "High"
+p(HBP:HBP00071) reg bp(GO:"calcium ion homeostasis")
