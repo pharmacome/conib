@@ -4,7 +4,7 @@
 
 import os
 
-from bel_repository import BELRepository
+from bel_repository import BELMetadata, BELRepository
 
 __all__ = [
     'repository',
@@ -17,7 +17,29 @@ __all__ = [
 HERE = os.path.dirname(__file__)
 VERSION = '0.0.1-dev'
 
-repository = BELRepository(HERE)
+# Author list will be sorted by last name
+AUTHORS = [
+    'Charles Tapley Hoyt',
+    'Daniel Domingo-Fernández',
+    'Esther Wollert',
+    'Sandra Spalek',
+    'Rana Al Disi',
+    'Lingling Xu',
+    'Kristian Kolpeja',
+]
+
+# All metadata is grouped here
+METADATA = BELMetadata(
+    name='Human Brain Pharmacome Knowledge',
+    version=VERSION,
+    authors=', '.join(sorted(AUTHORS, key=lambda s: s.split()[-1])),
+    contact='charles.hoyt@scai.fraunhofer.de',
+)
+
+repository = BELRepository(
+    HERE,
+    bel_metadata=METADATA,
+)
 
 get_graph = repository.get_graph
 get_graphs = repository.get_graphs
