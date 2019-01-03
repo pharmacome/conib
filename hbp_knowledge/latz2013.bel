@@ -1,0 +1,538 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Activation and regulation of the inflammasomes"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Description = ""
+SET DOCUMENT Authors     = "Esther Wollert"
+
+###############
+# Definitions #
+###############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+DEFINE NAMESPACE HBP      AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/export/hbp-names.belns"
+DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE GFAM     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE MIRBASE  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX     AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel
+# --------------------------------------------------------------------
+DEFINE NAMESPACE DO       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE MGI      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
+DEFINE NAMESPACE RGD      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170725.belns"
+DEFINE NAMESPACE SCOMP    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM     AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+DEFINE NAMESPACE INTERPRO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/interpro/interpro-20170731.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "23702978"}
+
+SET Evidence = "Inflammasomes are key signalling platforms that detect pathogenic microorganisms and sterile stressors, and that activate the \
+highly pro-inflammatory cytokines interleukin-1β (IL-1β) and IL-18."
+SET Subgraph = "Interleukin signaling subgraph"
+SET Confidence = "High"
+complex(GO:"inflammasome complex") -> act(p(HGNC:IL1B))
+complex(GO:"inflammasome complex") -> act(p(HGNC:IL18))
+
+SET Evidence = "The inflammasomes are a group of multimeric protein complexes that consist of an inflammasome sensor molecule, the adaptor protein ASC and caspase 1."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High"
+complex(GO:"inflammasome complex") hasComponent p(HGNC:PYCARD)
+complex(GO:"inflammasome complex") hasComponent p(HGNC:CASP1)
+
+SET Evidence = " Once the protein complexes have formed, the inflammasomes activate caspase 1, which proteolytically activates the pro-inflammatory\
+ cytokines interleukin-1β (IL-1β)3 and IL-18."
+SET Subgraph = {"Interleukin signaling subgraph", "Caspase subgraph"}
+SET Confidence = "High"
+complex(GO:"inflammasome complex") -> act(p(HGNC:CASP1))
+act(p(HGNC:CASP1)) -> act(p(HGNC:IL1B))
+act(p(HGNC:CASP1)) -> act(p(HGNC:IL18))
+
+SET Evidence = "In addition, inflammasome activation causes a rapid, proinflammatory form of cell death called pyroptosis4."
+SET Subgraph = "Apoptosis signaling subgraph"
+SET Confidence = "High"
+act(complex(GO:"inflammasome complex")) -> bp(GO:pyroptosis)
+UNSET Subgraph
+
+SET Evidence = "At the same time, we have learnt that immune dysregulation contributes to prevalent diseases in Western societies such as atherosclerosis,\
+ type 2 diabetes, cancer and neurodegenerative diseases. "
+SET Confidence = "High"
+path(MESH:"Immune System Diseases") -> path(MESH:Atherosclerosis)
+path(MESH:"Immune System Diseases") -> path(MESH:"Diabetes Mellitus, Type 2")
+path(MESH:"Immune System Diseases") -> path(MESH:"Neurodegenerative Diseases")
+
+SET Evidence = "Using its CARD, ASC brings monomers of procaspase 1 into close proximity, which initiates caspase 1 self- cleavage and the formation of the\
+ active heterotetrameric caspase 1."
+SET Subgraph = {"Interleukin signaling subgraph", "Caspase subgraph"}
+SET Confidence = "High"
+p(HGNC:PYCARD) -> complex(p(HGNC:CASP1), p(HGNC:CASP1))
+complex(p(HGNC:CASP1), p(HGNC:CASP1)) -> act(p(HGNC:CASP1))
+
+SET Evidence = "Active caspase 1 proteolytically activates a number of proteins8, including pro-IL-1β and pro-IL-18 (REFS 9,10), and induces their release\
+ via a non-classical secretion pathway11."
+SET Subgraph = {"Interleukin signaling subgraph", "Caspase subgraph"}
+SET Confidence = "Medium"
+act(p(HGNC:CASP1)) -> act(p(HGNC:IL1B))
+act(p(HGNC:CASP1)) -> sec(p(HGNC:IL1B))
+act(p(HGNC:CASP1)) -> act(p(HGNC:IL18))
+act(p(HGNC:CASP1)) -> sec(p(HGNC:IL18))
+
+SET Evidence = "The transcription of pro-IL-1β is induced by the activation of the transcription factor nuclear factor-κB (NF-κB), whereas pro-IL-18 is\
+ constitutively expressed and its expression is increased after cellular activation. "
+SET Subgraph = {"Interleukin signaling subgraph", "Nuclear factor Kappa beta subgraph"}
+SET Confidence = "High"
+p(HGNC:NFKB1) -> p(HGNC:IL1B)
+bp(GO:"cell activation") -> p(HGNC:IL18)
+
+SET Evidence = " Caspase 1mediated activation of members of the IL-1β cytokine family leads to the recruitment and the activation of other immune cells,\
+ such as neutrophils, at the site of infection and/or tissue damage."
+SET Subgraph = {"Interleukin signaling subgraph", "Caspase subgraph"}
+SET Confidence = "High"
+act(p(HGNC:CASP1)) -> act(p(HGNC:IL1B))
+act(p(HGNC:IL1B)) -> bp(GO:"neutrophil activation")
+
+SET Evidence = " Most of the inflammasomes that have been described to date contain a NOD-like receptor (NLR) sensor molecule, namely NLRP1 (NOD-, LRR- and\
+ pyrin domain-containing 1), NLRP3, NLRP6, NLRP7, NLRP12 or NLRC4 (NOD-, LRR- and CARD-containing 4; also known as IPAF)."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High"
+complex(GO:"inflammasome complex") hasComponent p(HGNC:NLRP1)
+complex(GO:"inflammasome complex") hasComponent p(HGNC:NLRP3)
+complex(GO:"inflammasome complex") hasComponent p(HGNC:NLRP6)
+complex(GO:"inflammasome complex") hasComponent p(HGNC:NLRP7)
+complex(GO:"inflammasome complex") hasComponent p(HGNC:NLRP12)
+complex(GO:"inflammasome complex") hasComponent p(HGNC:NLRC4)
+
+SET Evidence = "In the original description of the inflammasome, human NLRP1 was shown to recruit and to activate an additional inflammatory caspase,\
+ namely caspase 5, via its CARD3."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High"
+complex(GO:"NLRP1 inflammasome complex") -> act(p(HGNC:CASP5))
+
+SET Evidence = "NLRC4 and NLRP1 can both activate caspase 1 through their CARDs without recruiting ASC; however, the recruitment of ASC greatly enhances\
+ the formation of the complex and the processing of IL-1β7,13–16."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High"
+complex(GO:"NLRP1 inflammasome complex") -> act(p(HGNC:CASP1))
+complex(GO:"IPAF inflammasome complex") -> act(p(HGNC:CASP1))
+composite(complex(GO:"NLRP1 inflammasome complex"),p(HGNC:PYCARD)) -> act(p(HGNC:CASP1))
+composite(complex(GO:"IPAF inflammasome complex"),p(HGNC:PYCARD)) -> act(p(HGNC:CASP1))
+UNSET Subgraph
+
+SET Evidence = "Two other inflammasomes have been described that contain the PYHIN (pyrin and HIN domain-containing protein) family members absent in\
+ melanoma 2 (AIM2) and IFNγinducible protein 16 (IFI16) rather than an NLR18."
+SET Confidence = "High"
+#Subgraph?
+complex(GO:"inflammasome complex") hasComponent p(HGNC:AIM2)
+complex(GO:"inflammasome complex") hasComponent p(HGNC:IFI16)
+
+SET Evidence = " Retinoic acid-inducible gene I (RIG-I) protein is also thought to assemble an inflammasome with ASC and caspase 1 (REF. 19), possibly via its CARDs."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High"
+complex(GO:"inflammasome complex") hasComponents list(p(HGNC:DDX58),p(HGNC:PYCARD),p(HGNC:CASP1))
+UNSET Subgraph 
+
+SET Evidence = "Indeed, NLRP12 can function as a positive regulator of dendritic cell migration or as a negative regulator of non-canonical NFκB\
+ signalling20,21, and NLRP6 can negatively regulate innate immunity22. "
+SET Confidence = "High"
+#SET Subgraph = "
+p(HGNC:NLRP12) -> bp(GO:"dendritic cell migration")
+p(HGNC:NLRP12) -> bp(GO:"negative regulation of NIK/NF-kappaB signaling")
+p(HGNC:NLRP6) -> bp(GO:"negative regulation of innate immune response")
+
+SET Evidence = " RIG-I is widely known as a PRR that senses RNA and that signals via mitochondrial antiviral signalling protein (MAVS) to induce an\
+ interferon (IFN) response2, and IFI16 has been suggested to be a DNA sensor that signals via the protein STING (stimulator of IFN genes; also known\
+ as TMEM173) to generate an IFN response23."
+SET Subgraph = "Interferon signaling subgraph"
+SET Confidence = "High"
+a(CHEBI:"RNA fragment") -> act(p(HGNC:DDX58))
+act(p(HGNC:DDX58)) -> act(p(HGNC:MAVS))
+act(p(HGNC:MAVS)) -> bp(GO:"response to type I interferon")
+a(CHEBI:"DNA polyanion") -> act(p(HGNC:IFI16))
+act(p(HGNC:IFI16)) -> act(p(HGNC:TMEM173))
+act(p(HGNC:TMEM173)) -> bp(GO:"response to type I interferon")
+UNSET Subgraph
+
+SET Evidence = "NLRP1 recognizes muramyl dipeptide, which is a bacterial peptidoglycan"
+SET Confidence = "Low"
+#SET Subgraph = "
+a(CHEBI:"muramyl dipeptide") -> act(p(HGNC:NLRP1))
+
+SET Evidence = " NLRP1 has been shown to bind directly to its ligand muramyl dipeptide in vitro and this was demonstrated to be sufficient to activate\
+ the assembly of an inflammasome."
+SET Confidence = "High"
+#SET Subgraph = "
+complex(a(CHEBI:"muramyl dipeptide"), p(HGNC:NLRP1)) -> act(complex(GO:"inflammasome complex"))
+
+SET Evidence = "However, a requirement for the interaction of NLRP1 with nucleotide-binding oligomerization domain-containing protein 2 (NOD2), which is\
+ another receptor for muramyl dipeptide, has been described."
+SET Confidence = "Medium"
+#SET Subgraph = "
+complex(p(HGNC:NOD2), p(HGNC:NLRP1)) -> act(complex(GO:"inflammasome complex"))
+complex(p(HGNC:NOD2),a(CHEBI:"muramyl dipeptide"))
+
+SET Evidence = "In mice, NAIP (NLR family, apoptosis inhibitory protein) family proteins sense the proteinaceous NLRC4 activators and, in turn, activate the\
+assembly of the NLRC4 inflammasome."
+SET Confidence = "High"
+#SET Subgraph = "
+act(p(HGNC:NAIP)) -> complex(GO:"IPAF inflammasome complex")
+
+#SET Evidence = "NAIP5 and NAIP6 have been shown to detect flagellin, and NAIP2 has been shown to sense the type III secretion system component PrgJ34,35."
+#UniProt:P06179 -> act(p(MGI:Naip5))
+#UniProt:P06179 -> act(p(MGI:Naip6))
+#UniProt:P41785 -> act(p(MGI:Naip2))
+
+#SET Evidence = " In addition, oxidized mitochondrial DNA, which is released into the cytosol under cellular stress and is a possible NLRP3 inflammasome\
+#activator, was recently reported to interact with NLRP3 (REF. 40) (BOX 1)."
+#bp(GO:"cellular response to stress") -> a("oxidized mitochondrial DNA")
+# a("oxidized mitochondrial DNA") -> composite(p(HGNC:NLRP3),complex(GO:"inflammasome complex"))
+
+SET Evidence = "Pyroptosis in response to live Gram-negative bacteria but not in response to other inflammasome triggers is entirely dependent on caspase 11,\
+ whereas caspase 1 is dispensable for this process41"
+SET Subgraph = "Apoptosis signaling subgraph"
+SET Confidence = "High"
+p(HGNC:SCAF11) -> bp(GO:pyroptosis)
+
+SET Evidence = " First, a bacterial Toll-like receptor (TLR) activator leads to cellular priming and upregulation of NLRP3 and pro-IL-1β expression\
+ (the priming checkpoint in the standard model)37,38."
+SET Subgraph = "Interleukin signaling subgraph"
+SET Confidence = "High"
+act(p(FPLX:TLR)) -> p(HGNC:NLRP3)
+act(p(FPLX:TLR)) -> p(HGNC:IL1B)
+
+SET Evidence = " One checkpoint is that bacterial mRNA from live bacteria (also known as vita-PAMPs)44 activates NLRP3; the other checkpoint is that TLR4- \
+and TRIF (TIR domain-containing adaptor protein inducing IFNβ)-dependent signalling — which is triggered by bacterial lipopolysaccharide (LPS) — mediate the\
+ secretion of type I IFNs, inducing pro-caspase 11 expression and activation by triggering the IFNα/β receptor (IFNAR) (FIG. 1)."
+SET Subgraph = "Interferon signaling subgraph"
+SET Confidence = "Medium"
+#a("vita-PAMPs") -> act(p(HGNC:NLRP3))
+a(CHEBI:"LPS with O-antigen") -> bp(GO:"TRIF-dependent toll-like receptor 4 signaling pathway")
+bp(GO:"TRIF-dependent toll-like receptor 4 signaling pathway") reg sec(a(MESH:"Interferon Type I"))
+bp(GO:"TRIF-dependent toll-like receptor 4 signaling pathway") -> p(HGNC:SCAF11)
+bp(GO:"TRIF-dependent toll-like receptor 4 signaling pathway") -> act(p(HGNC:IFNAR1))
+act(p(HGNC:IFNAR1)) -> act(p(HGNC:SCAF11))
+
+SET Evidence = "In the context of NLRC4 activation, caspase 11 was shown to interact with cofilin. "
+SET Subgraph = {"Apoptosis signaling subgraph","Regulation of actin cytoskeleton subgraph"}
+SET Confidence = "Medium"
+act(p(HGNC:NLRC4)) -> complex(p(HGNC:SCAF11),p(HGNC:CFL1))  
+
+SET Evidence = "Even if the expression of pro-caspase 11 could be induced independently of IFN signalling, caspase 11 activation in macrophages in response \
+to Salmonella enterica subsp. enterica serovar Typhimurium infection is dependent on IFNAR1 as well as signal tranducer and activator of transcription 1 (STAT1)46."
+SET Subgraph = {"Apoptosis signaling subgraph", "Caspase subgraph", "Interferon signaling subgraph"}
+SET Confidence = "High"
+p(HGNC:IFNAR1) -> act(p(HGNC:SCAF11))
+act(p(HGNC:STAT1)) -> act(p(HGNC:SCAF11))
+
+SET Evidence = " Indeed, a number of non-caspase proteases such as proteinase 3 have the ability to activate IL-1β in an inflammasome-independent manner11."
+SET Subgraph = "Interleukin signaling subgraph"
+SET Confidence = "High"
+p(HGNC:PRTN3) -> act(p(HGNC:IL1B))
+
+SET Evidence = "In addition, IL-1α, which also activates IL-1R, could contribute to the inflammatory response in vivo."
+SET Subgraph = "Interleukin signaling subgraph"
+SET Confidence = "Medium"
+p(HGNC:IL1A) -> act(p(HGNC:IL1R1))
+p(HGNC:IL1A) -> bp(GO:"inflammatory response")
+
+SET Evidence = "One additional factor that can mediate IL-1β processing and activation is caspase 8 (FIG. 1)"
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High"
+p(HGNC:CASP8) -> act(p(HGNC:IL1B))
+
+SET Evidence = " For example, following sensing of fungal components by the PRR dectin 1 that is expressed on human dendritic cells, signalling via the\
+ kinase SYK leads to the formation of a complex that is composed of caspase 8 and mucosa-associated lymphoid tissue lymphoma translocation protein 1 (MALT1);\
+ this complex binds to ASC, which possibly recruits cleavage substrates53. The MALT1-ASC-caspase 8 complex directly mediates IL-1β maturation53. "
+SET Subgraph = {"Caspase subgraph", "Interleukin signaling subgraph"}
+SET Confidence = "High"
+act(p(HGNC:CLEC7A)) -> act(p(HGNC:SYK))
+act(p(HGNC:SYK)) -> complex(p(HGNC:CASP8),p(HGNC:MALT1))
+complex(p(HGNC:CASP8),p(HGNC:MALT1)) -> complex(p(HGNC:CASP8),p(HGNC:MALT1),p(HGNC:PYCARD))
+complex(p(HGNC:CASP8),p(HGNC:MALT1),p(HGNC:PYCARD)) -> act(p(HGNC:IL1B))
+
+SET Evidence = " In the presence of the translation inhibitor cycloheximide, TRIF signalling that is downstream of TLR3 or TLR4 leads to pro-IL-1β processing\
+ by caspase 8 (REF. 55)."
+SET Subgraph = {"Caspase subgraph", "Interleukin signaling subgraph"}
+SET Confidence = "High"
+a(CHEBI:cycloheximide) -> bp(GO:"TRIF-dependent toll-like receptor 4 signaling pathway")
+bp(GO:"TRIF-dependent toll-like receptor 4 signaling pathway") -> act(p(HGNC:CASP8))
+act(p(HGNC:CASP8)) -> act(p(HGNC:IL1B))
+
+SET Evidence = "Furthermore, in response to genotoxic stress, the ripoptosome assembles and activates caspase 8. "
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High"
+bp(GO:"cellular response to DNA damage stimulus") -> complex(GO:ripoptosome)
+complex(GO:ripoptosome) -> act(p(HGNC:CASP8))
+
+SET Evidence = " The ripoptosome contains caspase 8, FAS-associated death domain protein (FADD) and receptor-interacting protein 1 (RIP1; also known as RIPK1),\
+ and forms spontaneously in response to loss or inhibition of the antiapoptotic proteins X-linked inhibitor of apoptosis protein (XIAP), inhibitor of apoptosis\
+ protein 1 (IAP1; also known as BIRC3) and IAP2 (also known as BIRC2) (REF 56). "
+SET Subgraph = {"Toll like receptor subgraph", "Caspase subgraph", "Apoptosis signaling subgraph"}
+SET Confidence = "High"
+complex(GO:ripoptosome) hasComponents list(p(HGNC:CASP8),p(HGNC:FADD),p(HGNC:RIPK1))
+p(HGNC:XIAP) -| complex(GO:ripoptosome) 
+p(HGNC:BIRC3) -| complex(GO:ripoptosome) 
+p(HGNC:BIRC2) -| complex(GO:ripoptosome) 
+
+SET Evidence = "The formation of this complex activates RIP3, which is necessary for the cleavage of pro-IL-1β by both the NLRP3-caspase 1 and the caspase 8 pathways56 (FIG. 1). "
+SET Subgraph = {"Caspase subgraph", "Interleukin signaling subgraph"}
+SET Confidence = "Medium"
+complex(GO:ripoptosome) -> act(p(HGNC:RIPK3))
+act(p(HGNC:RIPK3)) -> act(p(HGNC:IL1B))
+act(p(HGNC:RIPK3)) -> act(p(HGNC:CASP1))
+act(p(HGNC:RIPK3)) -> act(p(HGNC:CASP8))
+
+SET Evidence = " Indeed, activation of the TNFR family member CD95 (also known as FAS) can induce IL-1β processing that is independent of inflammasomes and of caspase 1 (REF. 59)."
+SET Subgraph = {"Tumor necrosis factor subgraph", "Interleukin signaling subgraph"}
+SET Confidence = "High"
+act(p(HGNC:FAS)) -> act(p(HGNC:IL1B))
+
+SET Evidence = " In addition, it was recently shown that CD95 signalling mediates IL-1β and IL-18 processing through the activation of caspase 8 (REF. 60) (FIG. 1). "
+SET Subgraph = {"Tumor necrosis factor subgraph", "Interleukin signaling subgraph", "Caspase subgraph"}
+SET Confidence = "Medium"
+act(p(HGNC:FAS)) -> act(p(HGNC:CASP8))
+act(p(HGNC:CASP8)) reg act(p(HGNC:IL1B))
+act(p(HGNC:CASP8)) reg act(p(HGNC:IL18))
+
+SET Evidence = "Many innate immune signalling or cytokine receptors, such as the TNFR, activate transcription of NLRP3 and thereby influence the susceptibility of immune cells\
+ to NLRP3 inflammasome triggers37,38 (FIG. 2). "
+SET Subgraph = "Tumor necrosis factor subgraph"
+SET Confidence = "High"
+p(FPLX:TNFRSF) -> p(HGNC:NLRP3)
+
+SET Evidence = " NLRP3 deubiquitylation is mediated by the K63-specific deubiquitinase BRCC3 (REF. 63)."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "Medium"
+p(HGNC:BRCC3) -| p(HGNC:NLRP3, pmod(Ub))
+
+SET Evidence = "In addition, AIM2 expression can be induced by IFNβ and IFNγ65,66."
+SET Subgraph = "Interleukin signaling subgraph"
+SET Confidence = "High"
+p(HGNC:IFNG) -> p(HGNC:AIM2)
+p(FPLX:IFNB) -> p(HGNC:AIM2)
+
+SET Evidence = " NLRC4 can only be activated by S . Typhimurium after a specific serine residue has been phosphorylated by protein kinase Cδ (PKCδ; encoded by PRKCD ), which\
+ depends on the recognition of both flagellin and the type III secretion system."
+SET Subgraph = "Interferon signaling subgraph"
+SET Confidence = "High"
+kin(p(HGNC:PRKCD)) -> p(HGNC:NLRC4, pmod(Ph,Ser))
+
+SET Evidence = "A few molecules, such as amyloid-β, can induce both NLRP3 priming through TLR activation and NLRP3 inflammasome activation68."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High"
+a(CHEBI:"amyloid-beta") -> act(p(HGNC:NLRP3))
+a(CHEBI:"amyloid-beta") -> act(p(FPLX:TLR))
+a(CHEBI:"amyloid-beta") -> act(complex(GO:"NLRP3 inflammasome complex"))
+
+SET Evidence = "It is known that about 60% of patients with cryopyrin-associated periodic syndrome (CAPS) carry activating mutations in the coding sequence of NLRP3\
+ itself or in other inflammasome components69."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High"
+g(HGNC:NLRP3, var("?")) positiveCorrelation path(MESH:"Cryopyrin-Associated Periodic Syndromes")
+
+SET Evidence = " Thus, it is not surprising that effector and memory CD4+ T cells have the capacity to inhibit the activation of the NLRP1 and NLRP3 inflammasomes in\
+ a contact-dependent manner, possibly via TNFR superfamily molecules such as CD40 ligand (CD40L)70."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High"
+bp(GO:"CD4-positive, alpha-beta T cell activation") -| act(complex(GO:"NLRP1 inflammasome complex"))
+bp(GO:"CD4-positive, alpha-beta T cell activation") -| act(complex(GO:"NLRP3 inflammasome complex"))
+
+SET Evidence = " In addition, T cell-derived IFNγ has been shown to downregulate the activity of NLRP3 via activation of inducible nitric oxide synthase (iNOS) in a \
+mouse model of tuberculosis71; nitric oxide (NO) induces NLRP3 nitrosylation and thereby inhibits NLRP3 activity. "
+SET Subgraph = {"Nitric oxide subgraph", "Interferon signaling subgraph", "Caspase subgraph"}
+SET Confidence = "High"
+p(HGNC:IFNG) -| act(p(HGNC:NLRP3))
+p(HGNC:IFNG) -> act(p(HGNC:NOS2))
+act(p(HGNC:NOS2)) -> a(CHEBI:"nitric oxide")
+a(CHEBI:"nitric oxide") -> p(HGNC:NLRP3, pmod(NO))
+p(HGNC:NLRP3, pmod(NO)) -| act(p(HGNC:NLRP3))
+
+SET Evidence = "In addition, type I IFNs can reduce IL-1β and IL-18 release by functioning at two levels. "
+SET Subgraph = {"Interleukin signaling subgraph", "Interferon signaling subgraph"}
+SET Confidence = "Medium"
+a(MESH:"Interferon Type I") -| sec(p(HGNC:IL1B))
+a(MESH:"Interferon Type I") -| sec(p(HGNC:IL18))
+
+SET Evidence = "IFNs upregulate AIM2 expression but they downregulate IL-1β expression and inhibit the NLRP3 inflammasome. "
+SET Subgraph = {"Interleukin signaling subgraph", "Interferon signaling subgraph"}
+SET Confidence = "High"
+a(MESH:Interferons) -> p(HGNC:AIM2)
+a(MESH:Interferons) -| p(HGNC:IL1B)
+a(MESH:Interferons) -| act(complex(GO:"NLRP3 inflammasome complex"))
+
+SET Evidence = "Furthermore, the amount of NLRP3 mRNA is tightly regulated by the microRNA miR-223, which leads to decreased NLRP3 protein levels and, thus,\
+ influences the threshold of NLRP3 activation74,75. "
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High" 
+m(HGNC:MIR223) -| p(HGNC:NLRP3)
+
+SET Evidence = " Indeed, inflammasomes (which induce pyroptosis through caspase 1 or caspase 11 activation) and apoptosomes (which activate caspase 9 in response\
+ to cytochrome c release from mitochondria) are two mechanisms by which compromised cells are eliminated."
+SET Subgraph = {"Caspase subgraph", "Apoptosis signaling subgraph", "XIAP subgraph"}
+SET Confidence = "Medium"
+complex(GO:"inflammasome complex") -> bp(GO:pyroptosis)
+complex(GO:"inflammasome complex") -> act(p(HGNC:CASP1))
+complex(GO:"inflammasome complex") -> act(p(HGNC:SCAF11))
+act(p(HGNC:CASP1)) -> bp(GO:pyroptosis)
+act(p(HGNC:SCAF11)) -> bp(GO:pyroptosis)
+act(complex(GO:apoptosome)) -> act(p(HGNC:CASP9))
+tloc(p(HGNC:CYCS), fromLoc(MESH:Mitochondria), toLoc(MESH:Cytosol)) -> act(complex(GO:apoptosome))
+
+SET Evidence = "Indeed, the binding of cytochrome c that has been released from mitochondria to apoptotic protease-activating factor 1 (APAF1) and the subsequent\
+ assembly of the apoptosome only occurs when subphysiological K+ concentrations are reached in compromised cells77,78. "
+SET Subgraph = "XIAP subgraph"
+SET Confidence = "High" 
+tloc(p(HGNC:CYCS), fromLoc(MESH:Mitochondria), toLoc(MESH:Cytosol)) -> complex(p(HGNC:CYCS), p(HGNC:APAF1))
+complex(p(HGNC:CYCS), p(HGNC:APAF1)) -> bp(GO:"apoptosome assembly")
+a(CHEBI:"potassium(1+)") -| bp(GO:"apoptosome assembly")
+
+SET Evidence = "Similarly, activation of the NLRP1B and NLRP3 inflammasomes depends on low K+ concentrations in intracellular compartments79, and a low K+\
+ concentration promotes the assembly of the ASC speck6. "
+SET Subgraph = "Caspase subgraph"
+SET MeSHAnatomy = "Intracellular Space"
+SET Confidence = "High" 
+a(CHEBI:"potassium(1+)") -> act(complex(GO:"NLRP1 inflammasome complex"))
+a(CHEBI:"potassium(1+)") -> act(complex(GO:"NLRP3 inflammasome complex"))
+a(CHEBI:"potassium(1+)") -> act(p(HGNC:PYCARD))
+
+SET Evidence = "In addition, high extracellular levels of K+ can block IL-1β release after NLRC4 and AIM2 inflammasome formation80,81, which indicates that low\
+ intracellular K+ levels might also be required for the activation of these inflammasomes. "
+SET Subgraph = {"Interleukin signaling subgraph","Caspase subgraph"}
+SET MeSHAnatomy = "Extracellular Space"
+SET Confidence = "High" 
+a(CHEBI:"potassium(1+)") -| sec(p(HGNC:IL1B))
+UNSET Subgraph
+
+SET Evidence = "The mobilized Ca2+ has many molecular targets, including TGFβ-activated kinase 1 (TAK1; also known as MAP3K7) (REF. 86). "
+#SET Subgraph = "
+SET Confidence = "High" 
+a(CHEBI:"calcium(2+)") -- p(HGNC:MAP3K7)
+
+SET Evidence = "Another transient receptor potential channel — TRPM2 — has also been implicated in NLRP3 activation in response to crystalline substances88. "
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High" 
+p(HGNC:TRPM2) -> act(p(HGNC:NLRP3))
+
+SET Evidence = " This channel senses intracellular ROS and responds by opening itself to facilitate Ca2+ influx into the cell; this is intriguing considering that\
+ both ion fluxes and the oxidative state (see below) have important roles in NLRP3 inflammasome activation."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High" 
+a(CHEBI:"reactive oxygen species") -> act(p(HGNC:TRPM2))
+act(p(HGNC:TRPM2)) -> tloc(a(CHEBI:"calcium(2+)"), fromLoc(MESH:"Extracellular Space"), toLoc(MESH:"Intracellular Space"))
+tloc(a(CHEBI:"calcium(2+)"), fromLoc(MESH:"Extracellular Space"), toLoc(MESH:"Intracellular Space")) -> act(p(HGNC:NLRP3))
+
+SET Evidence = "Another regulator of Ca2+, namely C/EPB-homologous protein (CHOP; also known as DDIT3), has been implicated in NLRP3 inflammasome activation89"
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High" 
+p(HGNC:DDIT3) reg a(CHEBI:"calcium(2+)")
+p(HGNC:DDIT3) -> act(complex(GO:"NLRP3 inflammasome complex"))
+UNSET Subgraph
+
+SET Evidence = " In particular, ROS facilitate the assembly of the apoptosome in several ways."
+SET Subgraph = "Apoptosis signaling subgraph"
+SET Confidence = "High" 
+a(CHEBI:"reactive oxygen species") -> bp(GO:"apoptosome assembly")
+
+SET Evidence = " By contrast, nitrosylation of caspase 9 inhibits its function94. Similarly, caspase 1 can be inhibited by nitrosylation95, which suggests\
+ that modification by reactive molecules is a general mechanism for the regulation of caspase activity. "
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High" 
+p(HGNC:CASP9, pmod(NO)) -| act(p(HGNC:CASP9))
+p(HGNC:CASP1, pmod(NO)) -| act(p(HGNC:CASP1))
+UNSET Subgraph
+
+SET Evidence = "Furthermore, autophagy can regulate both apoptosis and inflammasome assembly, and, depending on the conditions, can be either pro- or anti-apoptotic104"
+SET Subgraph = "Apoptosis signaling subgraph"
+SET Confidence = "High" 
+bp(GO:autophagy) reg bp(GO:"apoptotic process")
+bp(GO:autophagy) reg complex(GO:"inflammasome complex")
+
+SET Evidence = "For inflammasome activation and IL-1β release, autophagy is a negative regulator:"
+SET Subgraph = "Interleukin signaling subgraph"
+SET Confidence = "High" 
+bp(GO:autophagy) -| act(complex(GO:"inflammasome complex"))
+bp(GO:autophagy) -| sec(p(HGNC:IL1B))
+
+SET Evidence = " CARD8 has multiple functions in regulating apoptosis, one of which is to directly bind to procaspase 9 and to suppress its activation109."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High" 
+complex(p(HGNC:CARD8), p(HGNC:CASP9)) -| act(p(HGNC:CASP9))
+
+SET Evidence = " Similarly, mouse caspase 12, which is a paralogue of caspase 1, interacts with caspase 1 to reduce its activity110"
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High" 
+complex(p(MGI:Casp12), p(HGNC:CASP1)) -| act(p(HGNC:CASP1))
+
+SET Evidence = " CARD-only proteins (COPs) can also inhibit caspase 1 activation112. CARD18 (also known as ICEBERG) and CARD16 (also known as pseudoICE and COP1)\
+ were the first ‘decoy’ COPs to be described113."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High" 
+p(HGNC:CARD18) -| act(p(HGNC:CASP1))
+p(HGNC:CARD16) -| act(p(HGNC:CASP1))
+
+SET Evidence = " CARD17 (also known as INCA), which is another decoy protein, is upregulated by IFNγ to suppress IL-1β generation114. "
+SET Subgraph = {"Interleukin signaling subgraph","Caspase subgraph","Interferon signaling subgraph"}
+SET Confidence = "High" 
+p(HGNC:IFNG) -> p(HGNC:CARD17)
+p(HGNC:CARD17) -| p(HGNC:IL1B)
+
+SET Evidence = " POP1 (also known as PYDC1 and ASC2) and POP2 (also known as PYDC2) inhibit the interactions between the inflammasome sensor molecules and ASC115–117."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High" 
+p(HGNC:PYDC1) -| complex(p(HGNC:PYCARD),complex(GO:"inflammasome complex"))
+p(HGNC:PYDC2) -| complex(p(HGNC:PYCARD),complex(GO:"inflammasome complex"))
+
+SET Evidence = " One study found that Mefv deletion in mice lead to increased IL-1β release without influencing caspase 1 activity or inflammasome assembly. "
+SET Subgraph = "Interleukin signaling subgraph"
+SET Confidence = "Medium"
+p(MGI:Mefv) -| sec(p(MGI:Il1b))
+UNSET Subgraph
+
+SET Evidence = " Protein synthesis could be inhibited by the phosphorylation of the initiation factor eukaryotic translation initiation factor 2 subunit-α\
+ (EIF2α; also known as EIF2S1)."
+SET Confidence = "High" 
+p(HGNC:EIF2S1, pmod(Ph)) -| bp(GO:translation)
+
+SET Evidence = " The authors proposed that another, not yet characterized, ER stress pathway activates the NLRP3 inflammasome90. "
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "High" 
+bp(GO:"response to endoplasmic reticulum stress") -> act(complex(GO:"NLRP3 inflammasome complex"))
+
+SET Evidence = "Finally, heat shock proteins (HSPs) also have important roles in the regulation of cell death, and it has been shown that HSP90 and the \
+cochaperone ubiquitin ligase-associated protein SGT1 are required for NLRP3 activation (REF. 129)."
+SET Subgraph = "Caspase subgraph"
+SET Confidence = "Medium"
+composite(p(FPLX:HSP90),p(HGNC:SUGT1)) -> act(p(HGNC:NLRP3))
