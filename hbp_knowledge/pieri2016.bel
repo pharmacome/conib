@@ -1,0 +1,99 @@
+############
+# Document #
+############
+SET DOCUMENT Name        = "Structural and functional properties of prefibrillar α-synuclein oligomers"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Description = ""
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved"
+SET DOCUMENT Authors     = "Esther Wollert and Charles Tapley Hoyt"
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+###############
+# Definitions #
+###############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/chebi-names.belns"
+DEFINE NAMESPACE GO    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/go-names.belns"
+DEFINE NAMESPACE HBP   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Cell AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "27075649"}
+
+SET Evidence = "Parkinson’s disease (PD), Multiple System Atrophy (MSA) and Dementia with Lewy Bodies (DLB) are devastating synucleinopathies.\
+The deposition of filamentous insoluble protein inclusions termed Lewy bodies and Lewy neurites whose main\
+ constituent is aggregated α -synuclein (α -syn) characterizes synucleinopathies."
+SET Confidence = "High"
+SET MeSHAnatomy = "Lewy Bodies"
+path(MESH:"Parkinson Disease") positiveCorrelation a(HBP:HBP00016)
+path(MESH:"Multiple System Atrophy") positiveCorrelation a(HBP:HBP00016)
+path(MESH:"Lewy Body Disease") positiveCorrelation a(HBP:HBP00016)
+
+SET Evidence = "Prefibrillar oligomeric α -syn has been proposed to contribute to neurodegeneration by perturbing\
+ cellular ion homeostasis20, by seeding the assembly of soluble α -syn into higher molecular weight aggregates21,\
+ and/or by imbalancing cellular proteostasis22,23."
+SET Confidence = "Medium"
+a(HBP:HBP00095) -> bp(GO:"neuron death")
+a(HBP:HBP00095) -| bp(GO:"ion homeostasis")
+a(HBP:HBP00095) -> a(HBP:HBP00016)
+
+SET Evidence = " The neurotransmitter dopamine (DA) has been shown to promote the formation of stable, SDS-resistant\
+ α -syn oligomers both in vitro and in neurons30–32 by different mechanisms, including the formation of stable α -syn-DA-quinone\
+ adducts, methionine oxidation, or non-covalent interactions33. "
+SET Confidence = "High"
+SET Cell = "neuron"
+a(CHEBI:dopamine) -> a(HBP:HBP00093)
+
+#SET Evidence = " Purified on-fibrillar assembly pathway α -syn oligomers were found to interact with cells to a lesser extent\
+# (Fig. 2a, middle panel), whereas no or marginal binding was observed for monomeric α -syn (Fig. 2a, left panel). "
+
+SET Evidence = "1 nM (Fig. 3a, right panels and Fig. 3b, red curve, solid line) and 0.2 nM α -syn fibrils (Fig. 3b, red curve,\
+ dashed line) induced a progressive and significant increase of intracellular Ca2+ levels, as revealed by the rise of Fluo-4 \
+ fluorescence in exposed SH-SY5Y cells. In contrast, only a modest Ca2+ increase was observed in cells exposed to 300 nM on-fibrillar\
+ assembly pathway oligomeric α -syn (Fig. 3a, middle panels and Fig. 3b, blue curve, solid line) or 10 μM monomeric α -syn (Fig. 3a,\
+ left panels and Fig. 3b, black curve, solid line)."
+SET Confidence = "Medium"
+SET CellStructure = "Intracellular Space" 
+ a(HBP:HBP00092) -> a(CHEBI:"calcium(2+)")
+ a(HBP:HBP00093) -> a(CHEBI:"calcium(2+)")
+ 
+ SET Evidence = "α -syn fibrils revealed to be highly toxic to cells at all the concentrations we tested, spanning 1 to 0.01 nM \
+(53.4 ±  4% inhibition of MTT reduction at 0.01 nM, i.e. 0.1 μM equivalent monomer concentration) whereas α -syn oligomers only\
+ slightly impaired cell viability (23.9 ±  6% inhibition of MTT reduction at 300 nM, i.e. 10 μM initial monomer concentration) (Fig. 3c)."
+SET Confidence = "High"
+a(HBP:HBP00092) -> bp(GO:"apoptotic process")
+a(HBP:HBP00093) -> bp(GO:"apoptotic process")
+
+SET Evidence = "Increasing amounts of fibrils and a concomitant decrease in the amount of oligomeric species were observed upon longer incubation times (Supplementary Fig. S1). "
+SET Confidence = "Medium"
+a(HBP:HBP00092) negativeCorrelation a(HBP:HBP00093)
+
+SET Evidence = "DA-mediated α -syn oligomers constitute a range of SDS-resistant species with apparent molecular weights ranging\
+ from over 2200 to 200 kDa as determined by SEC (Fig. 4a). "
+SET Confidence = "High"
+a(CHEBI:dopamine) -> a(HBP:HBP00093)
+ 
+SET Evidence = "GA-cross-linked α -syn oligomers are also a heterogeneous set of SDS-resistant oligomeric species (Fig. 4b)."
+SET Confidence = "High"
+a(CHEBI:glutaraldehyde) -> a(HBP:HBP00093)
+
+#SET Evidence = "A seeding activity in vitro and in cultured cells has also been described for oligomeric α -syn21,38."
+#a(HBP:HBP00093) -> a(HBP:HBP00093)
+
+SET Evidence = "The high proportion of cells with overlapping ChFP and ATTO-488 puncta (89 ±  7% upon cell exposure to 0.06 nM\
+ ATTO-488-labeled α -syn fibrils, Fig. 6f) indicates that α -syn fibrils seed with high efficiency the aggregation of soluble\
+ cytoplasmic ChFP-α -syn."
+SET Confidence = "Low"
+a(HBP:HBP00092) -> a(HBP:HBP00016)
