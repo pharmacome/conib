@@ -1,0 +1,127 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved"
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "In Vivo and In Vitro Characterization of Antalarmin, a Nonpeptide Corticotropin-Releasing Hormone (CRH) Receptor Antagonist: Suppression of Pituitary ACTH Release and Peripheral Inflammation"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Kristian Kolpeja"
+SET DOCUMENT Description = ""
+
+###############
+# Definitions #
+###############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE CL             AS PATTERN "^\d{7}$"
+
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender         AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+# Locally defined annotations
+# ---------------------------
+DEFINE ANNOTATION AssayType AS LIST {"B"}
+DEFINE ANNOTATION MeasurementType AS LIST {"Ki"}
+DEFINE ANNOTATION MeasurementUnits AS LIST {"nM"}
+DEFINE ANNOTATION MeasurementRelation AS LIST {"="}
+DEFINE ANNOTATION MeasurementValue AS LIST {"1.9", "1.3", "1.4"}
+
+##############
+# Statements #
+##############
+
+SET Citation = {"PubMed", "8940412"}
+SET Evidence = "Corticotropin-releasing hormone (CRH) secreted from the hypothalamus is the major regulator of
+pituitary ACTH release and consequent glucocorticoid secretion. CRH secreted in the periphery also acts as
+a proinflammatory modulator."
+SET Species = "10116"
+act(p(RGD:Crh)) pos bp(GO:"inflammatory response")
+act(p(RGD:Crh)) reg sec(p(RGD:Pomc))
+
+SET Evidence = "Antalarmin potently displaced 1251-oCRH binding, exhibiting respectively Ki values of 1. 9 f 0.9,. 1.3 f .4, and 1.4 f .6 nM (mean f SEM) in
+pituitary, cerebellum, and frontal cortex homogenates.Antalarmin, by effectively displacing IoCRH
+binding in tissues predominately expressing CRHRl but not in tissues expressing CRHR2, appears to be a specific CRHRl receptor antagonist."
+SET AssayType = "B"
+SET MeasurementType = "Ki"
+SET MeasurementUnits = "nM"
+SET MeasurementRelation = "="
+SET Anatomy = "pituitary gland"
+SET MeasurementValue = "1.9"
+a(CHEBI:antalarmin) =| act(p(RGD:Crh))
+act(p(RGD:Crh)) => act(p(RGD:Crhr1))
+a(CHEBI:antalarmin) =| act(p(RGD:Crhr1))
+UNSET MeasurementValue
+UNSET Anatomy
+SET Anatomy = "cerebellum"
+SET MeasurementValue = "1.3"
+a(CHEBI:antalarmin) =| act(p(RGD:Crh))
+act(p(RGD:Crh)) => act(p(RGD:Crhr1))
+a(CHEBI:antalarmin) =| act(p(RGD:Crhr1))
+UNSET MeasurementValue
+UNSET Anatomy
+SET Anatomy = "frontal cortex"
+SET MeasurementValue = "1.4"
+a(CHEBI:antalarmin) =| act(p(RGD:Crh))
+act(p(RGD:Crh)) => act(p(RGD:Crhr1))
+a(CHEBI:antalarmin) =| act(p(RGD:Crhr1))
+UNSET MeasurementValue
+UNSET Anatomy
+UNSET MeasurementRelation
+UNSET MeasurementUnits
+UNSET MeasurementType
+UNSET AssayType
+
+SET Evidence = "These results raise the possibility that pyrrolopyrimidine compounds,
+such as antalarmin, which antagonize CRH at the level of its own receptor, have therapeutic
+potential in some forms of inflammation."
+
+a(CHEBI:antalarmin) neg bp(GO:"inflammatory response")
+
+SET Evidence = "Indeed, the compound significantly suppressed (XI-l-induced
+ACTH secretion to approximately the same extent as neutralizing polyclonal anti-CRH."
+
+a(CHEBI:antalarmin) -| sec(p(RGD:Pomc))
+
+UNSET Species
