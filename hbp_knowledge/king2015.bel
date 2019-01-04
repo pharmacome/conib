@@ -107,7 +107,7 @@ seen in the adult brain (Fig. 1A)."
 
 SET MeSHAnatomy = {"Prefrontal Cortex", "Hippocampus"}
 
-p(HGNCGENEFAMILY:"G protein subunits beta") -> complex(p(HGNCGENEFAMILY:"G protein subunits beta"), p(HGNC:CHRNA7))
+p(HGNCGENEFAMILY:"G protein subunits beta") -> complex(p(FPLX:"G_protein"), p(HGNC:CHRNA7))
 
 UNSET MeSHAnatomy
 
@@ -117,8 +117,8 @@ BgtxC indicates greater specificity and stronger yield when the nicotinic
 agonist, carbachol, is used to elute from the Bgtx matrix."
 #: not sure about this statement
 
-a(HBP:"alpha-Bungarotoxin") -> complex(p(HGNC:"alpha-Bungarotoxin"), p(HGNC:CHRNA7))
-a(CHEBI:carbachol) cnc complex(p(HGNC:"alpha-Bungarotoxin"), p(HGNC:CHRNA7))
+a(HBP:"alpha-Bungarotoxin") -> complex(p(HBP:"alpha-Bungarotoxin"), p(HGNC:CHRNA7))
+a(CHEBI:carbachol) cnc complex(p(HBP:"alpha-Bungarotoxin"), p(HGNC:CHRNA7))
 
 SET Evidence = "Gel lanes of the BgtxC were divided into 3 molecular mass
 fractions: F1, 190-90 kDa; F2, 89-45 kDa; and F3, 44-15 kDa (Fig. 1C). Proteomic
@@ -224,7 +224,7 @@ and B). This reduction approached significance in the neurite of α7345–348A c
 
 SET MeSHAnatomy = "Neurites"
 
-composite(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), (a(CHEBI:choline))) -| a(CHEBI:"calcium(2+)")
+composite(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), a(CHEBI:choline)) -| a(CHEBI:"calcium(2+)")
 
 UNSET MeSHAnatomy
 
@@ -236,7 +236,7 @@ to choline (333.4% ΔF/Fθ ± 35.7%) when compared with N2a cells that express t
 α7nAChR (peak: 581% ΔF/Fθ ± 122.7%; p = 0.04) (Fig. 4, D and E)."
 
 composite(p(HGNC:CHRNA7), a(CHEBI:choline)) -> a(CHEBI:"calcium(2+)")
-composite(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), (a(CHEBI:choline))) -| a(CHEBI:"calcium(2+)")
+composite(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), a(CHEBI:choline)) -| a(CHEBI:"calcium(2+)")
 
 SET Evidence = "These findings in N2a cells are consistent with data from PC12 cells
 and suggest that α7345–348A nAChR expression impairs nAChR calcium signaling."
@@ -261,9 +261,9 @@ effect on the peak and total calcium transient observed in α7 (peak: 1474.83%
 ΔF/Fθ ± 162.00%; AUC: 693.5% ΔF/Fθ2 × s ± 154.15%) and α7345–348A expressing
 cells (peak: 794% ΔF/Fθ ± 81.36%; AUC: 543.5% ΔF/Fθ2 × s ± 89.59%)."
 
-a(MEHS:Barium) cnc bp(GO:"calcium-mediated signaling")
-a(MEHS:Barium) cnc act(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")))
-a(MEHS:Barium) cnc act(p(HGNC:CHRNA7))
+a(MESH:Barium) cnc bp(GO:"calcium-mediated signaling")
+a(MESH:Barium) cnc act(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")))
+a(MESH:Barium) cnc act(p(HGNC:CHRNA7))
 
 SET Evidence = "As shown in Fig. 5, A–C, nifedipine was found to decrease the
 peak calcium response to choline in PC12 cells (peak: 795.00% ΔF/Fθ ± 107.1%) by
@@ -285,7 +285,7 @@ A–C). The findings suggest that choline-induced calcium responses in PC12
 cells involve the activity of VGCC (37, 38)."
 
 a(CHEBI:nifedipine) cnc act(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")))
-a(CHEBI:nifedipine) cnc composite(bp(GO:"calcium-mediated signaling"), p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"))
+a(CHEBI:nifedipine) cnc bp(GO:"calcium-mediated signaling")
 act(a(CHEBI:choline)) -- act(p(HGNCGENEFAMILY:"Calcium voltage-gated channel subunits"))
 a(CHEBI:"calcium(2+)") -- act(p(HGNCGENEFAMILY:"Calcium voltage-gated channel subunits"))
 
