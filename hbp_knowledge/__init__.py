@@ -5,6 +5,7 @@
 import os
 
 from bel_repository import BELMetadata, BELRepository
+from bel_repository.utils import serialize_authors
 
 __all__ = [
     'repository',
@@ -33,7 +34,7 @@ AUTHORS = [
 metadata = BELMetadata(
     name='Human Brain Pharmacome Knowledge',
     version=VERSION,
-    authors=', '.join(sorted(AUTHORS, key=lambda s: s.split()[-1])),
+    authors=serialize_authors(AUTHORS),
     contact='charles.hoyt@scai.fraunhofer.de',
 )
 
