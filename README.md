@@ -5,6 +5,9 @@
     <img src="https://travis-ci.com/pharmacome/knowledge.svg?branch=master"
          alt="Travis CI">
   </a>
+  <a href="https://zenodo.org/badge/latestdoi/159803376">
+  	<img src="https://zenodo.org/badge/159803376.svg" alt="DOI">
+  </a>
   <br>
 </h1>
 
@@ -14,8 +17,13 @@ for the Human Brain Pharmacome (HBP) project.
 </p>
 
 ## Installation
+``hbp_knowledge`` can be installed from [PyPI](https://pypi.org/project/hbp-knowledge/) with the following command:
 
-The latest version can be installed form GitHub with:
+```bash
+$ pip install hbp_knowledge
+```
+
+or the latest version can be installed from [GitHub](https://github.com/pharmacome/knowledge) with:
 
 ```bash
 $ pip install git+https://github.com/pharmacome/knowledge.git
