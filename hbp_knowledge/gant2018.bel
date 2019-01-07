@@ -14,7 +14,7 @@ SET DOCUMENT Description = "FK506-Binding Protein 12.6/1b, a Negative Regulator 
 
 DEFINE NAMESPACE CHEBI AS URL "https://raw.githubusercontent.com/pharmacome/terminology/9a77ac1a02863bc48b04bab7e8fb0c1d1cec4dd0/external/chebi.belns"
 DEFINE NAMESPACE HBP   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8259206e39a3578e64bbce1cd0b80e6cfb4da65b/export/hbp.belns"
-DEFINE NAMESPACE GO    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/9a77ac1a02863bc48b04bab7e8fb0c1d1cec4dd0/external/go.belns"
+DEFINE NAMESPACE GO    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
 DEFINE NAMESPACE MGI   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
 
 # Annotations #
@@ -38,30 +38,34 @@ SET Citation = {"PubMed", "29255009"}
 
 SET Page = 1034
 SET Evidence = "FKBP1b overexpression improved spatial reference and reversal memory for both LT and ST aged groups"
-p(MGI:Fkbp1b) -> bp(GO:memory)
+p(MGI:Fkbp1b) -> bp(MESH:Memory)
 
 SET Page = 1035
 SET Evidence="AAV-FKBP1b injection increased hippocampal FKBP1b protein and gene expression, particularly in the LT group"
-a(AAV-FKBP1B) -> p(MGI:Fkbp1b)
+a(HBP:"AAV-FKBP1B") -> p(MGI:Fkbp1b,loc(MESH:Hippocampus))
 
 SET Page = 1036
 SET Evidence="Remarkably, only four of the 876 aging-dependent and FKBP1b- sensitive genes (Eif3g, Pla2g7, S100􏰌, and Snapc2) exhibited exac- erbation of aging effects by FKBP1b, whereas the other 872 changed in opposite directions with aging and FKBP1b treatment."
 p(MGI:Fkbp1b) -> bp(MESH:Aging)
-p(MGI:Fkbp1b) -> act(p(MGI:Eif3g),ma(MESH:Aging))
-p(MGI:Fkbp1b) -> act(p(MGI:Pla2g7),ma(MESH:Aging))
-p(MGI:Fkbp1b) -> act(p(MGI:S100b),ma(MESH:Aging))
-p(MGI:Fkbp1b) -> act(p(MGI:Snapc2),ma(MESH:Aging))
+p(MGI:Fkbp1b) -> act(p(MGI:Eif3g))
+p(MGI:Eif3g) -> bp(MESH:Aging)
+p(MGI:Fkbp1b) -> act(p(MGI:Pla2g7))
+p(MGI:Pla2g7) -> bp(MESH:Aging)
+p(MGI:Fkbp1b) -> act(p(MGI:S100b))
+p(MGI:S100b) -> bp(MESH:Aging)
+p(MGI:Fkbp1b) -> act(p(MGI:Snapc2))
+p(MGI:Snapc2) -> bp(MESH:Aging)
 
 SET Page = 1036
 SET Evidence="Genes downregulated with aging and upregulated by FKBP1b (AC downregulated vs YC, FKBP1b upregulated vs AC, template II) strongly overrepresented GO categories related to intracellular and extracellular structure, including: cytoskeleton, extracellular region passive transmembrane transporter activity, ectoderm devel- opment, regulation of actin cytoskeleton organization, and regulation of MAP kinase activity (Table 1)"
-p(MGI:Fkbp1b) -> bp(GO:"passive transmembrane transporter activity")
+p(MGI:Fkbp1b) -> bp(MESH:"Facilitated Diffusion")
 p(MGI:Fkbp1b) -> bp(GO:"ectoderm development")
 p(MGI:Fkbp1b) -> bp(GO:"regulation of actin cytoskeleton organization")
-p(MGI:Fkbp1b) -> bp(GO:"regulation of MAP kinase activity")
-bp(MESH:Aging) -| bp(GO:"passive transmembrane transporter activity")
+p(MGI:Fkbp1b) -> act(p(MESH:"Mitogen-Activated Protein Kinases"))
+bp(MESH:Aging) -| bp(MESH:"Facilitated Diffusion")
 bp(MESH:Aging) -| bp(GO:"ectoderm development")
 bp(MESH:Aging) -| bp(GO:"regulation of actin cytoskeleton organization")
-bp(MESH:Aging) -| bp(GO:"regulation of MAP kinase activity")
+bp(MESH:Aging) -| act(p(MESH:"Mitogen-Activated Protein Kinases"))
 
 SET Evidence="Genes upregulated with aging and downregulated by FKBP1b (AC upregulated vs YC, FKBP1b downregulated vs AC, template IV) overrepresented GO category annotations related to extracel- lular remodeling and transporter activity, including extracellular matrix, primary transmembrane transporter activity, blood vessel development, regulation of cell motion, and membrane-bounded vesicle (Table 1)"
 p(MGI:Fkbp1b) -| bp(GO:"primary active transmembrane transporter activity")
