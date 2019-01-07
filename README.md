@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  Knowledge
+  HBP Knowledge
   <a href="https://travis-ci.com/pharmacome/knowledge">
     <img src="https://travis-ci.com/pharmacome/knowledge.svg?branch=master"
          alt="Travis CI">
