@@ -17,7 +17,7 @@ __all__ = [
 ]
 
 HERE = os.path.dirname(__file__)
-VERSION = '0.0.1-dev'
+VERSION = '0.0.1'
 
 # Author list will be sorted by last name
 AUTHORS = [
