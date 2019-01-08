@@ -16,6 +16,13 @@ This repository contains knowledge curated in Biological Expression Language (BE
 for the Human Brain Pharmacome (HBP) project.
 </p>
 
+<p align="center">
+  <a href="#installation">Installation</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#contributing">Contributing</a> •
+  <a href="#license">License</a>
+</p>
+
 ## Installation
 ``hbp_knowledge`` can be installed from [PyPI](https://pypi.org/project/hbp-knowledge/) with the following command:
 
@@ -43,6 +50,10 @@ graphs = get_graphs()
 # Combine them all using pybel.union
 graph = union(graphs.values())
 ```
+
+## Contributing
+
+Contributions are welcome! Please submit all pull requests to https://github.com/pharmacome/knowledge.
 
 ## License
 
