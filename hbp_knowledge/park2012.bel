@@ -68,7 +68,7 @@ path(MESH:"Alzheimer Disease") -> p(HGNC:AK1)
 a(CHEBI:"amyloid-beta polypeptide 42") -> p(HGNC:AK1)
 
 SET Evidence ="the AK1 level was higher in the hippocampus of 9-, 12- and 15-month-old Tg2576 mice expressing Swedish mutant of amyloid precursor protein (hAPP) "
-p(HGNC:APP) pos p(HGNC:AK1)
+p(HGNC:APP,var("c.27269939G>T"),var("c.27269938A>C")) pos p(HGNC:AK1)
 
 SET Evidence ="AK1 also increased in the hippocampus of APP-J20, an AD model mouse expressing familial AD-mutant APP (Supple- mentary Material, Fig. S1A and B)."
 p(HGNC:APP) pos p(HGNC:AK1)
@@ -113,37 +113,37 @@ p(HGNC:AK1) -| act(a(CHEBI:"amyloid-beta polypeptide 42"))
 a(CHEBI:"amyloid-beta polypeptide 42") -> p(HGNC:MAPT,pmod(Ph))
 
 SET Evidence =" Ectopic expression of AK1 in mouse cortical neurons increased immunoreactivity against phosphorylated tau at Ser396/404 (PHF-1), Ser202 (CP13) and Ser231/Thr235 (AT180) "
-p(HGNC:AK1) -| act(p(HGNC:MAPT,pmod(Ph,Ser,202)))
-p(HGNC:AK1) -| act(p(HGNC:MAPT,pmod(Ph,Ser,396)))
-p(HGNC:AK1) -| act(p(HGNC:MAPT,pmod(Ph,Ser,404)))
-p(HGNC:AK1) -| act(p(HGNC:MAPT,pmod(Ph,Ser,231)))
-p(HGNC:AK1) -| act(p(HGNC:MAPT,pmod(Ph,Thr,235)))
+p(HGNC:AK1) -| act(p(ECCODE:"2.7.11.31",pmod(Ph,Ser,202)))
+p(HGNC:AK1) -| act(p(ECCODE:"2.7.11.31",pmod(Ph,Ser,396)))
+p(HGNC:AK1) -| act(p(ECCODE:"2.7.11.31",pmod(Ph,Ser,404)))
+p(HGNC:AK1) -| act(p(ECCODE:"2.7.11.31",pmod(Ph,Ser,231)))
+p(HGNC:AK1) -| act(p(ECCODE:"2.7.11.31",pmod(Ph,Thr,235)))
 
 SET Evidence ="The data suggest that the increased expres- sion of AK1 can enhance tau aggregation as well as tau phos- phorylation."
 p(HGNC:AK1) -> p(HBP:"Tau aggregates")
 p(HGNC:AK1) -> p(HGNC:MAPT,pmod(Ph))
 
 SET Evidence ="Interestingly, treatment with Ab42 decreased the phosphorylation of AMPK at Thr172, whereas the total amount of AMPK was not altered in primary cortical neurons "
-a(CHEBI:"amyloid-beta polypeptide 42") -| p(HGNC:AMPK,pmod(Ph,Thr,171))
-a(CHEBI:"amyloid-beta polypeptide 42") cnc p(HGNC:AMPK)
+a(CHEBI:"amyloid-beta polypeptide 42") -| p(ECCODE:"2.7.11.31",pmod(Ph,Thr,171))
+a(CHEBI:"amyloid-beta polypeptide 42") cnc p(ECCODE:"2.7.11.31")
 
 SET Evidence ="Consistently, the phosphorylation of acetyl Co-A carboxylase, a well-defined downstream substrate of AMPK, was also reduced by Ab42 "
 a(CHEBI:"amyloid-beta polypeptide 42") -| p(MESH:"Acetyl-CoA Carboxylase",pmod(Ph))
 
 SET Evidence ="We found, in addition, that enzyme activity of AMPK was sup- pressed in the cortical neurons after exposure to Ab42"
-a(CHEBI:"amyloid-beta polypeptide 42") -| act(p(HGNC:AMPK))
+a(CHEBI:"amyloid-beta polypeptide 42") -| act(p(ECCODE:"2.7.11.31"))
 
 SET Evidence ="These results indicate that AMPK activity is impaired by Ab42 in the neuronal cells in which tau phosphor- ylation increased. "
-a(CHEBI:"amyloid-beta polypeptide 42") -| act(p(HGNC:AMPK))
-p(HGNC:MAPT,pmod(Ph)) neg act(p(HGNC:AMPK))
+a(CHEBI:"amyloid-beta polypeptide 42") -| act(p(ECCODE:"2.7.11.31"))
+p(HGNC:MAPT,pmod(Ph)) neg act(p(ECCODE:"2.7.11.31"))
 
 SET Evidence ="Moreover, the phosphorylation of AMPK at Thr172 tended to be reduced in AD patients, although statis- tical significance was marginal "
-path(MESH:"Alzheimer Disease") -| p(HGNC:AMPK,pmod(Ph,Thr,172))
+path(MESH:"Alzheimer Disease") -| p(ECCODE:"2.7.11.31",pmod(Ph,Thr,172))
 
 SET Evidence ="AK1 overexpression
 markedly decreased AMPK phosphorylation at Thr172 in the primary neurons, whereas AK1 R132A mutant failed to do so"
-p(HGNC:AMPK) -| p(HGNC:AMPK,pmod(Ph,Thr,172))
-p(HBP:AK1 R132A) cnc p(HGNC:AMPK,pmod(Ph,Thr,172))
+p(ECCODE:"2.7.11.31") -| p(ECCODE:"2.7.11.31",pmod(Ph,Thr,172))
+p(HBP:AK1 R132A) cnc p(ECCODE:"2.7.11.31",pmod(Ph,Thr,172))
 
 SET Evidence =" In addition, we found that transient expression of AK1 (but not AK1 R132A mutant) markedly reduced the inhibitory
 phosphorylation of GSK3b at Ser9 (Fig. 4D and Supplemen- tary Material, S6A), indicating that AK1 may regulate GSK3b activity. "
@@ -151,24 +151,24 @@ p(HGNC:AK1) -| p(HGNC:GSK3B,pmod(Ph,Ser,9))
 
 SET Evidence ="As shown in Figure 5A and B, treatment of control cells with Ab42 reduced the levels of AMPK phosphorylation at Thr172 and the inhibitory phosphorylation of GSK3b at Ser9. On the contrary, these alterations triggered by Ab42 were not observed in SH-SY5Y/AK1 knockdown cells, showing no changes in the levels of the phosphorylated AMPK and GSK3b. These results suggest that AK1 plays a crucial role in the regulation of AMPK and GSK3b in the neuronal cells exposed to Ab42."
 a(CHEBI:"amyloid-beta polypeptide 42") -- act(p(HGNC:AK1))
-p(HGNC:AK1) reg p(HGNC:AMPK)
+p(HGNC:AK1) reg p(ECCODE:"2.7.11.31")
 p(HGNC:AK1) reg p(HGNC:GSK3B)
 
 SET Evidence ="The treatment of cortical neurons with compound C, a selective AMPK inhibitor (33), reduced the inhibitory phosphorylation of GSK3b at Ser9 and markedly increased tau phosphorylation at Ser396/404 "
-p(HGNC:AMPK) -| p(HGNC:GSK3B,pmod(Ph,Ser,9))
-p(HGNC:AMPK) -| p(HGNC:GSK3B,pmod(Ph,Ser,396))
-p(HGNC:AMPK) -| p(HGNC:GSK3B,pmod(Ph,Ser,404))
+p(ECCODE:"2.7.11.31") -| p(HGNC:GSK3B,pmod(Ph,Ser,9))
+p(ECCODE:"2.7.11.31") -| p(HGNC:GSK3B,pmod(Ph,Ser,396))
+p(ECCODE:"2.7.11.31") -| p(HGNC:GSK3B,pmod(Ph,Ser,404))
 
 SET Evidence ="Conversely, treatment with AICAR (5-aminoimidazole-4- carboxamide ribonucleoside), an AMPK activator (34),
 increased the inhibitory phosphorylation of GSK3b and reduced tau phosphorylation at Ser396/404 in SH-SY5Y cells and cortical neurons"
-a(MESH:acadesine) -> act(p(HGNC:AMPK))
-p(HGNC:AMPK) -| p(HGNC:GSK3B,pmod(Ph,Ser,9))
-p(HGNC:AMPK) -| p(HGNC:GSK3B,pmod(Ph,Ser,396))
-p(HGNC:AMPK) -| p(HGNC:GSK3B,pmod(Ph,Ser,404))
+a(MESH:acadesine) -> act(p(ECCODE:"2.7.11.31"))
+p(ECCODE:"2.7.11.31") -| p(HGNC:GSK3B,pmod(Ph,Ser,9))
+p(ECCODE:"2.7.11.31") -| p(HGNC:GSK3B,pmod(Ph,Ser,396))
+p(ECCODE:"2.7.11.31") -| p(HGNC:GSK3B,pmod(Ph,Ser,404))
 
 SET Evidence =" These observations indicate that AMPK negatively regulates GSK3b activity and tau phosphorylation"
-p(HGNC:AMPK) -| act(p(HGNC:GSK3B))
-p(HGNC:AMPK) -| p(HGNC:GSK3B,pmod(Ph))
+p(ECCODE:"2.7.11.31") -| act(p(HGNC:GSK3B))
+p(ECCODE:"2.7.11.31") -| p(HGNC:GSK3B,pmod(Ph))
 
 SET Evidence ="Co-expression of an AK1 transgene with tau in flies (gl-tau2.1/UAS-AK1) markedly enhanced tau-induced retinal degeneration,indicating that AK1 enhances tau toxicity in the fly retina."
 p(HGNC:AK1) -> path(MESH:"Retinal Degeneration")
@@ -178,7 +178,7 @@ SET Evidence ="These results indicate that AK1 exacerbates rough eye phenotype a
 p(HGNC:AK1) -> path(MESH:"Retinal Degeneration")
 p(HGNC:MAPT,pmod(Ph)) -- path(MESH:"Retinal Degeneration")
 
-SET Evidence =""
+
 
 
 
