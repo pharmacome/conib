@@ -123,11 +123,10 @@ composite(p(HGNC:CHRNA7), p(HGNCGENEFAMILY:"Heterotrimeric G proteins"), a(HBP:"
 SET Evidence = "Sequence alignment of mammalian nAChRs revealed a conservation
 of residues at the GPBC site in the M3-M4 loop (Fig. 2A). Based on amino acid
 similarity we found that α7 nAChRs possess 88% homology with the GyR1 at the
-GPBC (Fig. 2A). Other nAChRs such as the α4, which have been shown to
-functionally couple to G proteins in immune cells (28), also demonstrate
-sequence similarity at the GPBC (63%)."
+GPBC (Fig. 2A)."
+# Typo here in GyR1 , should be GlyR1 which means Glycine Receptor 1 (GLRA1)
 
-#: discuss
+p(HBP:"GPBC, alpha-7 nAChR") orthologous p(HBP:"GPBC, Glycine Receptor 1")
 
 SET Evidence = "The findings
 confirm that the mutation in α7345–348A does not interfere with the trafficking
@@ -155,7 +154,11 @@ yields a similar α7 nAChR expression as the wild-type (α7) and supports the
 finding that mutation at the GPBC does not impact the synthesis of the nAChR in
 cells."
 
+SET CellLine = "Neuro-2a cell"
+
 g(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) cnc p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A"))
+
+UNSET CellLine
 
 SET Evidence = "As shown in Fig. 3A, coupling between Gαq and α7 nAChRs was
 virtually abolished by expression of α7345–348A. A noticeable loss in Gαq
@@ -226,8 +229,12 @@ expressing α7345–348A nAChRs indicate a significantly lowered calcium signal 
 to choline (333.4% ΔF/Fθ ± 35.7%) when compared with N2a cells that express the
 α7nAChR (peak: 581% ΔF/Fθ ± 122.7%; p = 0.04) (Fig. 4, D and E)."
 
+SET CellLine = "Neuro-2a cell"
+
 composite(p(HGNC:CHRNA7), a(CHEBI:choline)) -> a(CHEBI:"calcium(2+)")
 composite(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), a(CHEBI:choline)) -| a(CHEBI:"calcium(2+)")
+
+UNSET CellLine
 
 SET Evidence = "These findings in N2a cells are consistent with data from PC12 cells
 and suggest that α7345–348A nAChR expression impairs nAChR calcium signaling."
