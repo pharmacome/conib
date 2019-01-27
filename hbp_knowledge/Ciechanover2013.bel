@@ -145,8 +145,8 @@ p(HGNC:MOCS3) -> bp(GO:"protein polyubiquitination")
 SET Evidence = "Degradation of polyubiquitinated substrates is carried
 out by a large protease complex, the 26S proteasome
 that does not generally recognize nonmodified substrates"
-complex(GO:"proteasome complex") -> deg(a(MESH:Proteins,pmod("Lysine 48-linked polyubiquitination")))
-complex(GO:"proteasome complex") -> deg(a(MESH:Proteins,pmod("Lysine 63-linked polyubiquitination")))
+complex(GO:"proteasome complex") -> deg(p(MESH:Proteins,pmod(GO:"Lysine 48-linked polyubiquitination")))
+complex(GO:"proteasome complex") -> deg(p(MESH:Proteins,pmod(GO:"Lysine 63-linked polyubiquitination")))
 
 SET Evidence = "In one established and exceptional case, however
 that of the polyamine synthesizing enzyme ornithine decarboxylase (ODC), the
@@ -162,7 +162,7 @@ SET Evidence = "It is composed of two subcomplexes: a 20S core
 particle (CP) that carries out the catalytic activity and a
 regulatory 19S regulatory particle (RP)."
 # proteasome regulatory particle = 19S regulatory particle
-complex(GO:"proteasome complex") hasComponents list(p(HBP:"20 S Proteasome"),a(GO:"proteasome regulatory particle"))
+complex(GO:"proteasome complex") hasComponents list(p(HBP:"20 S Proteasome"),complex(GO:"proteasome regulatory particle"))
 
 SET Evidence = "Two ubiquitin binding subunits of the
 19S RP have been identified, Rpn10 (S5a in mammalian
@@ -748,7 +748,7 @@ UNSET MeSHAnatomy
 SET Evidence = "However, Abeta has been demonstrated to reduce proteasome activity in reticulocyte lysates (Gregori et al.,
 1995), suggesting that increased levels of the peptide could underlie the reduction in UPS function observed in the AD brain."
 SET MeSHAnatomy = "Reticulocytes"
-a(CHEBI:"amyloid-beta") -| act(a(GO:"proteasome complex"))
+a(CHEBI:"amyloid-beta") -| act(complex(GO:"proteasome complex"))
 UNSET MeSHAnatomy
 
 SET Evidence = "This family of diseases is considered to be caused by a protein component of
