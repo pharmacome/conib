@@ -117,12 +117,12 @@ p(HGNC:UBA3) -> bp(GO:"protein ubiquitination")
 
 SET Evidence = "The degradation signal that is recognized by
 the 26S proteasome complex is made of a Lys48 polyubiquitin chain."
-bp(GO:"protein K48-linked ubiquitination") -> act(a(GO:"proteasome complex"))
+bp(GO:"protein K48-linked ubiquitination") -> act(complex(GO:"proteasome complex"))
 
 SET Evidence = "Conjugation to other Lys residues, Lys63
 for example, serves nonproteolytic functions of the system,
 such as activation of transcription"
-bp(GO:"protein K63-linked ubiquitination") -> act(a(GO:"proteasome complex"))
+bp(GO:"protein K63-linked ubiquitination") -> act(complex(GO:"proteasome complex"))
 
 SET Evidence = "It appears that E3s play a key role in the ubiquitin-mediated
 proteolytic cascade since they serve as the specific substrate recognition factors of the system"
@@ -145,8 +145,8 @@ p(HGNC:MOCS3) -> bp(GO:"protein polyubiquitination")
 SET Evidence = "Degradation of polyubiquitinated substrates is carried
 out by a large protease complex, the 26S proteasome
 that does not generally recognize nonmodified substrates"
-complex(GO:"proteasome complex") -> deg(p(MESH:Proteins,pmod("Lysine 48-linked polyubiquitination")))
-complex(GO:"proteasome complex") -> deg(p(MESH:Proteins,pmod("Lysine 63-linked polyubiquitination")))
+complex(GO:"proteasome complex") -> deg(a(MESH:Proteins,pmod("Lysine 48-linked polyubiquitination")))
+complex(GO:"proteasome complex") -> deg(a(MESH:Proteins,pmod("Lysine 63-linked polyubiquitination")))
 
 SET Evidence = "In one established and exceptional case, however
 that of the polyamine synthesizing enzyme ornithine decarboxylase (ODC), the
@@ -162,20 +162,20 @@ SET Evidence = "It is composed of two subcomplexes: a 20S core
 particle (CP) that carries out the catalytic activity and a
 regulatory 19S regulatory particle (RP)."
 # proteasome regulatory particle = 19S regulatory particle
-complex(GO:"proteasome complex") hasComponents list(a(HBP:"20 S Proteasome"),a(GO:"proteasome regulatory particle"))
+complex(GO:"proteasome complex") hasComponents list(p(HBP:"20 S Proteasome"),a(GO:"proteasome regulatory particle"))
 
 SET Evidence = "Two ubiquitin binding subunits of the
 19S RP have been identified, Rpn10 (S5a in mammalian
 cells) and Rpt5 (S6'); however, their essential role and
 mode of action have not been discerned"
-a(GO:"proteasome regulatory particle") hasComponents list(p(HGNC:PSMD4),p(HGNC:PSMC3))
+complex(GO:"proteasome regulatory particle") hasComponents list(p(HGNC:PSMD4),p(HGNC:PSMC3))
 p(HGNC:PSMD4) -> complex(p(HGNC:PSMD4),a(MESH:Ubiquitin))
 p(HGNC:PSMC3) -> complex(p(HGNC:PSMC3),a(MESH:Ubiquitin))
 
 SET Evidence = "Also, since a folded protein would not be able
 to fit through the narrow proteasomal channel, it is assumed that the
 19S particle unfolds substrates and inserts them into the 20S CP"
-a(GO:"proteasome regulatory particle") -> bp(GO:"protein unfolding")
+complex(GO:"proteasome regulatory particle") -> bp(GO:"protein unfolding")
 
 SET Evidence = "Following degradation of the substrate, short peptides
 are released along with free and reusable ubiquitin."
@@ -196,7 +196,7 @@ rhythms, regulation of the immune and inflammatory responses,and biogenesis of o
 bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(GO:"cell cycle")
 bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(GO:"cell division")
 bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(GO:"cell differentiation")
-bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(GO:"cell population proliferation")
+bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(MESH:"Cell Proliferation")
 bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(GO:"cellular response to stress")
 bp(GO:"ubiquitin-dependent protein catabolic process") reg a(MESH:"Receptors, Cell Surface")
 bp(GO:"ubiquitin-dependent protein catabolic process") reg a(MESH:"Ion Channels")
@@ -436,15 +436,15 @@ is possible that the ubiquitination of Synphilin by wildtype Parkin plays a role
 ubiquitinated Synphilin to these bodies and removing it from the cytosol where it can be toxic"
 path(MESH:"Parkinsonian Disorders") neg a(MESH:"Inclusion Bodies")
 p(HGNC:PRKN) -> p(HGNC:SNCAIP,pmod(ubiquitination))
-p(HGNC:PRKN) -> tloc(p(HGNC:SNCAIP,pmod(ubiquitination)),fromLoc(GO:cytosol),toLoc(a(MESH:"Inclusion Bodies")))
+p(HGNC:PRKN) -> tloc(p(HGNC:SNCAIP,pmod(ubiquitination)),fromLoc(GO:cytosol),toLoc(MESH:"Inclusion Bodies")))
 
 SET Evidence = "Concomitantly, it reduced the inhibition of the proteasome and the activation of caspase 12
 that are induced by accumulation of the polyglutamine-containing fragment"
 #it:parkin
 #polyglutamine-containing fragment of ATXN3
-p(HGNC:PRKN) -> act(a(GO:"proteasome complex"))
+p(HGNC:PRKN) -> act(complex(GO:"proteasome complex"))
 p(HGNC:PRKN) -| act(p(HGNC:CASP12))
-p(HGNC:ATXN3,frag("?")) -| act(a(GO:"proteasome complex"))
+p(HGNC:ATXN3,frag("?")) -| act(complex(GO:"proteasome complex"))
 p(HGNC:ATXN3,frag("?")) -> act(p(HGNC:CASP12))
 
 SET Evidence = "The affinity of the polyglutamine fragment to Parkin was increased by Hsp70,
@@ -455,7 +455,7 @@ p(FPLX:HSPA) -> complex(p(HGNC:PRKN),p(HGNC:ATXN3,frag("?")))
 SET Evidence = "A rather surprising, recently discovered
 substrate of Parkin is cyclin E (Staropoli et al., 2003)
 that is ubiquitinated by the SCF complex that contains Parkin."
-a(GO:"SCF ubiquitin ligase complex") -> p(HGNC:CCNE1,pmod(ubiquitination))
+complex(GO:"SCF ubiquitin ligase complex") -> p(HGNC:CCNE1,pmod(ubiquitination))
 p(HGNC:PRKN) -- p(HGNC:CCNE1)
 
 SET Evidence = "Consistent with the notion that cyclin E is targeted by the Parkin ligase complex is the finding that
@@ -587,13 +587,13 @@ in the Parkin E3 (see above)—develop neurodegeneration"
 #it: SNCA
 SET MeSHDisease = "Parkinsonian Disorders"
 p(HGNC:PRKN,var("?")) cnc deg(p(HGNC:SNCA))
-path(MESH:"Parkinsonian Disorders") -> path(MESH:Neurodegeneration)
+path(MESH:"Parkinsonian Disorders") -> path(HBP:Neurodegeneration)
 UNSET MeSHDisease
 
 SET Evidence = "An important finding, however, in that respect is that aggregated and even monomeric alphaSYN bind to the S6'
 proteasome subunit and inhibit proteasomal function (Snyder et al., 2003)."
-complex(p(HGNC:PSMC4),a(HBP:"alpha-synuclein aggregates")) -| act(a(GO:"proteasome complex"))
-complex(p(HGNC:PSMC4),p(HGNC:SNCA)) -| act(a(GO:"proteasome complex"))
+complex(p(HGNC:PSMC4),a(HBP:"alpha-synuclein aggregates")) -| act(complex(GO:"proteasome complex"))
+complex(p(HGNC:PSMC4),p(HGNC:SNCA)) -| act(complex(GO:"proteasome complex"))
 
 SET Evidence = "Thus, aggregation, which is the primary event, may lead to
 secondary damage by inhibiting the UPS (Bence et al., 2001)."
@@ -659,12 +659,12 @@ p(HGNC:APP) -> a(MESH:"Amyloid beta-Peptides")
 
 SET Evidence = "Three different proteases, called alpha, beta, and gamma secretases, can cleave APP at specific sites and
 generate products that are well characterized."
-a(MESH:"Amyloid Precursor Protein Secretases") -> rxn(reactants(p(HGNC:APP),products(a(MESH:"Amyloid beta-Peptides"))))
+a(MESH:"Amyloid Precursor Protein Secretases") -> rxn(reactants(p(HGNC:APP)),products(a(MESH:"Amyloid beta-Peptides")))
 
 SET Evidence = "Concomitant cleavage of APP by beta and gamma secretase at specific
 sites can result in fragments (Abeta1-40 or Abeta1-42) that can misfold and form extracellular fibrils."
-p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP),products(a(MESH:"Amyloid beta-Peptides"))))
-complex(GO:"gamma-secretase complex") -> rxn(reactants(p(HGNC:APP),products(a(CHEBI:"amyloid-beta polypeptide 40"),a(CHEBI:"amyloid-beta polypeptide 42"))))
+p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(a(MESH:"Amyloid beta-Peptides")))
+complex(GO:"gamma-secretase complex") -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta polypeptide 40"),a(CHEBI:"amyloid-beta polypeptide 42")))
 a(CHEBI:"amyloid-beta polypeptide 40") -> a(HBP:"amyloid-beta fibrils")
 a(CHEBI:"amyloid-beta polypeptide 42") -> a(HBP:"amyloid-beta fibrils")
 
@@ -688,7 +688,7 @@ g(HGNC:MAPT,var("?")) -> path(MESH:"Pick Disease of the Brain")
 
 SET Evidence = "Mutant tau alone does not cause AD, favoring the idea that accumulation of erroneously processed Abeta
 is a key event in AD pathogenesis"
-composite(p(HGNC:MAPT,var("?"),a(CHEBI:"amyloid-beta"))) -> path(MESH:"Alzheimer Disease")
+composite(p(HGNC:MAPT,var("?")),a(CHEBI:"amyloid-beta")) -> path(MESH:"Alzheimer Disease")
 
 SET Evidence = "They have demonstrated
 that AD can be caused by mutations in the APP
@@ -703,9 +703,9 @@ mutant presenilin proteins 1 and 2 (PS1 and PS2)
 that can change the processing of APP by altering gamma
 secretase activity, thereby promoting the generation of
 amyloidogenic Abeta (Hardy and Selkoe, 2002)."
-p(HGNC:PSEN1,var("?")) -- act(a(GO:"gamma-secretase complex"))
+p(HGNC:PSEN1,var("?")) -- act(complex(GO:"gamma-secretase complex"))
 p(HGNC:PSEN1,var("?")) -> a(CHEBI:"amyloid-beta")
-p(HGNC:PSEN2,var("?")) -- act(a(GO:"gamma-secretase complex"))
+p(HGNC:PSEN2,var("?")) -- act(complex(GO:"gamma-secretase complex"))
 p(HGNC:PSEN2,var("?")) -> a(CHEBI:"amyloid-beta")
 
 SET Evidence = "It has been shown that Abeta can be degraded by
@@ -714,7 +714,7 @@ reatment with the proteasome inhibitor lactacystin decreased viability
 of cells exposed to Abeta (Lopez Salon et al., 2003)."
 SET Cell = {"astrocyte","neuron"}
 complex(GO:"proteasome complex") -> deg(a(CHEBI:"amyloid-beta"))
-a(CHEBI:lactacystin) -| act(a(GO:"proteasome complex"))
+a(CHEBI:lactacystin) -| act(complex(GO:"proteasome complex"))
 a(CHEBI:lactacystin) -> bp(GO:"cell death")
 UNSET Cell
 
@@ -722,7 +722,7 @@ SET Evidence = "They present evidence that paired helical filaments obtained fro
 inhibit proteasome function and that in AD brain tissue these
 filaments coimmunoprecipitate with the proteasome (Keck et al., 2003)."
 SET MeSHDisease = "Alzheimer Disease"
-a(HBP:"paired helical filaments") -| act(a(GO:"proteasome complex"))
+a(HBP:"paired helical filaments") -| act(complex(GO:"proteasome complex"))
 UNSET MeSHDisease
 
 SET Evidence = "Finally, there is also evidence for a reduced activity of E1 and E2 enzymes in cerebral cortex samples
@@ -742,14 +742,14 @@ SET Evidence = "The proteasome activity in the mammalian brain decreases with
 increasing age (Keller et al., 2002), suggesting that the
 aged brain is less able to handle the aberrantly folded Abeta"
 SET MeSHAnatomy = "Brain"
-bp(GO:aging) neg act(a(GO:"proteasome complex"))
+bp(GO:aging) neg act(complex(GO:"proteasome complex"))
 UNSET MeSHAnatomy
 
 SET Evidence = "However, Abeta has been demonstrated to reduce proteasome activity in reticulocyte lysates (Gregori et al.,
 1995), suggesting that increased levels of the peptide could underlie the reduction in UPS function observed in the AD brain."
-SET Cell = "Reticulocytes"
+SET MeSHAnatomy = "Reticulocytes"
 a(CHEBI:"amyloid-beta") -| act(a(GO:"proteasome complex"))
-UNSET Cell
+UNSET MeSHAnatomy
 
 SET Evidence = "This family of diseases is considered to be caused by a protein component of
 the proteinaceous infectious (prion) particles, originally proposed to be the causative agent of these diseases
@@ -765,7 +765,7 @@ severe motor disturbance and dementia leading to death
 within a fewmonths to a fewyears after diagnosis,which
 can be years to decades after the initial infection in transmissible cases."
 #thex: prion dieseases
-path(MESH:"Prion Diseases") -| bp(GO:"motor activity")
+path(MESH:"Prion Diseases") -> path(MESH:"Motor Disorders")
 path(MESH:"Prion Diseases") -> path(MESH:Dementia)
 path(MESH:"Prion Diseases") -> path(MESH:Death)
 
@@ -873,7 +873,7 @@ bp(GO:"response to oxidative stress") -> p(HGNC:SOD1,var("?"),pmod(ubiquitinatio
 
 SET Evidence = "They found that the proteasome catalytic activity was decreased in neuroblastoma cells
 following 1 week of expression of a mutant SOD1 gene."
-p(HGNC:SOD1,var("?")) neg act(a(GO:"proteasome complex"))
+p(HGNC:SOD1,var("?")) neg act(complex(GO:"proteasome complex"))
 
 SET Evidence = "Consequently, due to the increased stress, mutant SOD1 will misfold more rapidly"
 #stress: oxidative stress
@@ -888,7 +888,7 @@ SET Evidence = "In the other model, the expression of mutant SOD1 alone was suff
 induce oxidative stress, giving rise to increased proteasome activity, possibly due to the need to
 remove oxidatively damaged proteins (Hyun et al., 2003)."
 p(HGNC:SOD1,var("?")) -> bp(GO:"response to oxidative stress")
-p(HGNC:SOD1,var("?")) -> act(a(GO:"proteasome complex"))
+p(HGNC:SOD1,var("?")) -> act(complex(GO:"proteasome complex"))
 
 SET Evidence = "The disease is caused by a mutation in
 the gene coding for Huntingtin—a protein of hitherto
@@ -936,7 +936,7 @@ p(HGNC:RAD23A) -> tloc(p(HGNC:ATXN3,pmod(ubiquitination)),fromLoc(GO:cytosol),to
 
 SET Evidence = "In a cell culture model, they overexpressed mutant Huntingtin and
 observed proteasomal inhibition accompanied by cell cycle arrest"
-p(HGNC:HTT) -| act(a(GO:"proteasome complex"))
+p(HGNC:HTT) -| act(complex(GO:"proteasome complex"))
 p(HGNC:HTT) -> bp(GO:"cell cycle arrest")
 
 SET Evidence = "Another study has also demonstrated that UPS inhibition
@@ -948,7 +948,7 @@ SET Evidence = "Neuronal autophagy has been found to occur following chronic, lo
 proteasomal inhibition in cultured neuroblastoma cells (Ding et al., 2003) and may reflect activation of the
 lysosomal system as cells try to protect themselves during stress (Larsen and Sulzer, 2002)."
 SET MeSHAnatomy = "Neurons"
-act(a(GO:"proteasome complex")) -| bp(GO:autophagy)
+act(complex(GO:"proteasome complex")) -| bp(GO:autophagy)
 UNSET MeSHAnatomy
 
 SET Evidence = "Administration of cystamine, a transglutaminase inhibitor, can reduce aggregate formation and death in
@@ -967,7 +967,7 @@ SET Evidence = "In a parallel experiment using a cell culture model,
 Congo red was found to increase proteasomal activity
 in cells expressing a polyglutamine protein but not in
 cells expressing a control protein (Sanchez et al., 2003)."
-a(CHEBI:"Congo Red") -> act(a(GO:"proteasome complex"))
+a(CHEBI:"Congo Red") -> act(complex(GO:"proteasome complex"))
 
 SET Evidence = "Consequently, the formation of aggregates may increase when the UPS fails"
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -| a(HBP:"protein aggregates")
@@ -975,7 +975,7 @@ bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -| a(
 SET Evidence = "Lunkes and colleagues demonstrated that truncated Huntingtin, which has undergone proteolytic
 cleavage in the cytoplasm, accumulates more rapidly if the proteasome is pharmacologically inhibited
 (Lunkes et al., 2002)."
-act(a(GO:"proteasome complex")) -| p(HGNC:HTT,frag("?"))
+act(complex(GO:"proteasome complex")) -| p(HGNC:HTT,frag("?"))
 
 SET Evidence = "This indicates that the truncated fragments are
 normally processed via the UPS, and therefore the disposal of fragments of mutant proteins will be
@@ -988,7 +988,7 @@ showed that N-terminal mutant Huntingtin inhibited the
 20S proteasome catalytic activity, in turn causing impaired
 proteasomal degradation of p53, subsequent loss of mitochondrial
 membrane potential, release of cytochrome c, caspase activation, and apoptosis (Jana et al., 2001) (Figure 2)."
-p(HGNC:HTT,var("?")) -| act(a(HBP:"20 S Proteasome"))
+p(HGNC:HTT,var("?")) -| act(p(HBP:"20 S Proteasome"))
 p(HGNC:HTT,var("?")) -| deg(p(HGNC:TP53))
 p(HGNC:HTT,var("?")) -| bp(MESH:"Membrane Potential, Mitochondrial")
 p(HGNC:HTT,var("?")) -> sec(a(CHEBI:"cytochrome c"))
