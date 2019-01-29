@@ -1,0 +1,1828 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses = "CC BY-SA 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name = "buckingham2009"
+SET DOCUMENT Version = "1.0.0"
+SET DOCUMENT Authors = "Rana Aldisi"
+SET DOCUMENT Description = "This file encodes Nicotinic Acetylcholine Receptor Signalling: Roles in Alzheimer’s Disease and Amyloid Neuroprotection by Buckingham et al. 2009"
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+#####################################################################################
+#Statements
+#####################################################################################
+SET Citation={"PubMed", "19293145"}
+
+SET Evidence="Alzheimer’s disease (AD) is the most common form of
+dementia in elderly persons. It is a neurodegenerative
+disease marked by decline in memory and cognitive performance,
+including deterioration of language as well as
+defects in visual and motor coordination, and eventual
+death (for review, see Cummings, 2004)."
+
+path(MESH:"Alzheimer Disease") -- path(MESH:Dementia)
+path(MESH:"Alzheimer Disease") -| bp(GO:memory)
+path(MESH:"Alzheimer Disease") -| bp(GO:cognition)
+path(MESH:"Alzheimer Disease") -| path(MESH:"Psychomotor Performance")
+path(MESH:"Alzheimer Disease") -- path(MESH:Death)
+
+SET Evidence="AD also involves
+loss of neurons, beginning in the entorhinal cortex and
+later spreading to the neocortex (Braak et al., 2006); early
+in the disease, nicotinic acetylcholine receptors (nAChRs)
+are lost (Kadir et al., 2006)."
+
+SET MeSHAnatomy={"Entorhinal Cortex","Neocortex"}
+
+path(MESH:"Alzheimer Disease") -> bp(GO:"neuron death")
+
+UNSET MeSHAnatomy
+
+path(MESH:"Alzheimer Disease") -| p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+
+SET Evidence="AD is characterized pathologically
+by the occurrence of intracellular neurofibrillary tangles
+rich in tau protein and extracellular plaques containing
+amyloid peptides (Price et al., 1991)."
+
+path(MESH:"Alzheimer Disease") pos a(MESH:"Neurofibrillary Tangles")
+a(MESH:"Neurofibrillary Tangles") -- p(HGNC:MAPT)
+path(MESH:"Alzheimer Disease") pos path(MESH:"Plaque, Amyloid")
+
+SET Evidence="It is generally agreed that the beta-amyloid peptide (Abeta)
+plays an important role in the development of AD. The
+brains of patients with AD contain deposits of Abeta, and
+Abeta is toxic to cultured neurons (Kihara et al., 1997a; Yao
+et al., 2005). In addition, mice transgenically overexpressing
+Abeta or with mutations that enhance Abeta aggregation
+show many of the symptoms of AD (Hsiao et al.,
+1996; van Groen et al., 2006)."
+
+SET MeSHAnatomy="Brain"
+
+a(CHEBI:"amyloid-beta") -> path(MESH:"Alzheimer Disease")
+path(MESH:"Alzheimer Disease") -- a(HBP:"amyloid-beta aggregates")
+a(CHEBI:"amyloid-beta") -> path(HBP:neurotoxicity)
+
+UNSET MeSHAnatomy
+
+SET Evidence="There is abundant evidence
+that Abeta also affects cholinergic signaling in the
+brain. Recent studies indicate that brain nAChRs are
+not only affected by Abeta but can also initiate signaling
+pathways that protect against Abeta toxicity (Kihara et al.,
+1997b; Takada et al., 2003; Arias et al., 2005; Akaike,
+2006; Meunier et al., 2006; Dineley, 2007; Liu et al.,
+2007)."
+
+SET MeSHAnatomy="Brain"
+
+a(CHEBI:"amyloid-beta") -- bp(GO:"synaptic transmission, cholinergic")
+a(CHEBI:"amyloid-beta") -- p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -| path(HBP:neurotoxicity)
+
+UNSET MeSHAnatomy
+
+SET Evidence="Current licensed pharmacological treatments for
+AD consist largely of three acetylcholinesterase (AChE)
+inhibitors: rivastigmine, galantamine, and donepezil
+(Aguglia et al., 2004; Ritchie et al., 2004), although memantine,
+a blocker of L-glutamate receptors of the Nmethyl-
+D-aspartate (NMDA) subtype, is also deployed in
+late stages of the disease"
+
+a(CHEBI:rivastigmine) isA a(CHEBI:"EC 3.1.1.8 (cholinesterase) inhibitor")
+a(CHEBI:galanthamine) isA a(CHEBI:"EC 3.1.1.8 (cholinesterase) inhibitor")
+a(CHEBI:donepezil) isA a(CHEBI:"EC 3.1.1.8 (cholinesterase) inhibitor")
+a(CHEBI:rivastigmine) -| path(MESH:"Alzheimer Disease")
+a(CHEBI:galanthamine) -| path(MESH:"Alzheimer Disease")
+a(CHEBI:donepezil) -| path(MESH:"Alzheimer Disease")
+a(CHEBI:memantine) isA a(CHEBI:"NMDA receptor antagonist")
+a(CHEBI:memantine) -| path(MESH:"Alzheimer Disease")
+
+SET Evidence="There is, however, a
+consensus that cholinesterase inhibitors perform measurably,
+but modestly, in slowing the progression of AD
+(Raina et al., 2008), one meta-analysis estimating their
+efficacy to amount to saving 2 months per year in the
+progression of the disease (Trinh et al., 2003)."
+
+a(CHEBI:"EC 3.1.1.8 (cholinesterase) inhibitor") -| path(MESH:"Alzheimer Disease")
+
+SET Evidence="The accumulation of plaques consisting of Abeta is one of
+the histopathological hallmarks of AD. Abeta is the product
+of serial cleavage of the amyloid precursor protein (APP)
+first by beta and then by gamma secretases to yield Abeta peptides
+of varying lengths, predominantly the 37-, 40-, and 42-
+residue forms."
+
+path(MESH:"Plaque, Amyloid") biomarkerFor path(MESH:"Alzheimer Disease")
+composite(p(HGNC:APP), p(HGNC:BACE1), p(HBP:"gamma-secretase")) => composite(a(CHEBI:"amyloid-beta polypeptide 40"), a(CHEBI:"amyloid-beta polypeptide 42"))
+
+SET Evidence="An increasing ratio of the full-length,
+1–42 peptide to the 1–40 form is associated with disease
+(Kumar-Singh et al., 2006), and mutations underlying
+familial forms of AD either increase this ratio or increase
+the amount of Abeta secreted."
+
+a(CHEBI:"amyloid-beta polypeptide 42") -- path(MESH:"Alzheimer Disease")
+path(MESH:"Alzheimer Disease") -- sec(a(CHEBI:"amyloid-beta"))
+
+SET Evidence="Abeta peptides belong to
+a class of natively unfolded proteins and as a consequence
+can adopt a wide variety of tertiary and quaternary
+structures in vivo and in vitro, including monomers,
+oligomers, and fibrils (Luheshi et al., 2007;
+Roychaudhuri et al., 2009)."
+
+a(HBP:"amyloid-beta oligomers") isA a(CHEBI:"amyloid-beta")
+a(HBP:"amyloid-beta fibrils") isA a(CHEBI:"amyloid-beta")
+
+SET Evidence="Early work on AD considered
+the fibrillar form to be the toxic species. However, a
+lack of correlation between plaque burden and cognitive
+score contrasted with a strong positive correlation between
+total soluble amyloid and cognitive decline pointing
+to soluble, oligomeric forms as the primary toxic
+factor (Walsh and Selkoe, 2007)."
+
+a(HBP:"amyloid-beta oligomers") pos path(MESH:"Cognitive Dysfunction")
+a(HBP:"amyloid-beta oligomers") -- path(HBP:neurotoxicity)
+
+SET Evidence="Considerable interest
+recently focused upon the discovery that Abeta56*, a form
+whose molecular weight is consistent with its being a
+dodecamer, can be isolated from the cerebrospinal fluid
+of transgenic mice expressing human APP and, when
+injected into rats, rapidly and reversibly induced impaired
+maze performance (Lesne´ et al., 2006)."
+
+SET MeSHAnatomy="Cerebrospinal Fluid"
+
+a(HBP:"Abeta*56") -| path(MESH:"Maze Learning")
+
+UNSET MeSHAnatomy
+
+SET Evidence="However,
+other naturally occurring oligomeric forms of Abeta are also
+toxic (Deshpande et al., 2006; Shankar et al., 2008), and
+evidence is accumulating that the capacity of Abeta, mutant
+Abeta, or fragments of Abeta to aggregate into oligomers
+is directly related to toxicity (Luheshi et al., 2007)."
+
+a(HBP:"amyloid-beta oligomers") => path(HBP:neurotoxicity)
+
+SET Evidence="Several lines of evidence point to a link between brain
+nAChRs and the development of AD. Biochemical analysis
+of brains of patients with AD reveals deficits in
+nAChRs, an increase in butyrylcholinesterase, reduction
+in ACh, and attenuated activity of cholinergic synthetic
+[choline acetyltransferase (ChAT)] and inactivating
+(AChE) enzymes (Bartus et al., 1982; Francis et al.,
+1999).Butyrylcholinesterase and AChE help terminate
+ACh signaling by hydrolyzing the transmitter, thereby
+inactivating it."
+
+path(MESH:"Alzheimer Disease") -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+path(MESH:"Alzheimer Disease") -> p(HGNC:BCHE)
+path(MESH:"Alzheimer Disease") -| a(CHEBI:acetylcholine)
+path(MESH:"Alzheimer Disease") -| act(p(HGNC:CHAT))
+# inactivating (AChE) enzymes = AChE inhibitors
+path(MESH:"Alzheimer Disease") -| act(a(MESH:"Cholinesterase Inhibitors"))
+p(HGNC:BCHE) -| a(CHEBI:acetylcholine)
+p(HGNC:ACHE) -| a(CHEBI:acetylcholine)
+
+SET Evidence="Genetic
+association studies investigating single nucleotide
+polymorphisms point to roles for cholinergic signaling
+components such as the synthetic enzyme ChAT, the
+inactivating enzyme AChE, and alpha4beta2 nAChRs in AD
+(Cook et al., 2004, 2005; Vasto et al., 2006). The most
+vulnerable neurons in AD seem to be those expressing
+high levels of nAChRs, particularly those containing the
+alpha7 subunit (D’Andrea and Nagele, 2006), and the numbers
+of nAChRs as well as some of their associated
+proteins change in AD (Martin-Ruiz et al., 1999; Gotti et
+al., 2006; Sabbagh et al., 2006)."
+
+path(MESH:"Alzheimer Disease") -- g(HGNC:CHAT)
+path(MESH:"Alzheimer Disease") -- g(HGNC:ACHE)
+path(MESH:"Alzheimer Disease") -- a(HBP:"alpha-4 beta-2 nAChR")
+p(HGNC:CHRNA7) -- path(MESH:"Alzheimer Disease")
+
+SET Evidence="In addition, not only
+have alpha7 nAChRs been found colocalized with plaques
+(Wang et al., 2000b) but alpha7 and alpha4 subunits are also
+positively correlated with neurons that accumulate Abeta
+(Wevers et al., 1999)."
+
+SET MeSHAnatomy="Neurons"
+
+p(HGNC:CHRNA7) -- path(MESH:"Plaque, Amyloid")
+p(HGNC:CHRNA7) pos a(CHEBI:"amyloid-beta")
+p(HGNC:CHRNA4) pos a(CHEBI:"amyloid-beta")
+
+UNSET MeSHAnatomy
+
+SET Evidence="Thus, although other mechanisms are also involved in
+the development of AD, there is abundant evidence that
+defects in cholinergic synaptic transmission and, in particular,
+nAChR-mediated signaling plays a major role in
+the disease and are hence the subject of attempts to
+generate new routes to therapy."
+
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -- path(MESH:"Alzheimer Disease")
+
+SET Evidence="The discovery that nicotine, a ligand acting at nAChRs,
+and its mimetics can protect neurons against Abeta toxicity
+(Kihara et al., 1998) is of interest, especially in view of the
+observation that nicotine also enhances cognition (Rusted
+et al., 2000). Nicotinic receptors play a particularly prominent
+role in nicotine protection. The protective effect is
+blocked by the nicotinic antagonists dihydro-beta-erythroidine
+and mecamylamine (Kihara et al., 2001; Takada-
+Takatori et al., 2006)."
+
+a(CHEBI:nicotine) -- p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+a(CHEBI:nicotine) -> bp(MESH:Neuroprotection)
+a(CHEBI:nicotine) -| path(HBP:neurotoxicity)
+a(CHEBI:"dihydro-beta-erythroidine") -| act(a(CHEBI:nicotine))
+a(CHEBI:Mecamylamine) -| act(a(CHEBI:nicotine))
+
+SET Evidence="In addition to nicotine, donepezil and
+rivastigmine, AChE inhibitors currently used as treatments
+for mild or moderate AD under the brand names of
+Aricept and Exelon, also protect cultured neuroblastoma
+cells from the toxic effects of Abeta. Although there is evidence
+that, in addition to inhibiting AChE, these ligands are also
+allosteric modulators of nAChRs (Schrattenholz et al.,
+1996; Coyle et al., 2007), it has not been established
+whether these AChE inhibitors protect neurons by their
+actions on alpha7 nAChRs rather than by simply inhibiting
+AChE, thereby elevating ACh in the medium."
+
+a(CHEBI:donepezil) -| path(HBP:neurotoxicity)
+a(CHEBI:rivastigmine) -| path(HBP:neurotoxicity)
+a(CHEBI:donepezil) reg act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+a(CHEBI:rivastigmine) reg act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+
+SET Evidence="Curiously,
+although most studies are in agreement that nAChRs need
+to be activated to mediate their protective effects, mouse
+cortical neurons are protected by the alpha7 antagonist methyllycaconitine
+(Martin et al., 2004), raising the possibility
+that neuroprotection by alpha7 agonists may be through desensitization
+rather than activation of this rapidly desensitizing
+receptor. This would be consistent with the alpha7-
+dependent activation of intracellular signaling pathways
+by Abeta (Bell et al., 2004), but the opposite effects on cell
+survival exerted by Abeta and nicotine means that other
+mechanisms must be sought, such as ligand-specific coupling
+to downstream signaling pathways."
+
+a(MESH:methyllycaconitine) -| act(p(HGNC:CHRNA7))
+a(MESH:methyllycaconitine) -> bp(MESH:Neuroprotection)
+a(CHEBI:"amyloid-beta") -> act(p(HGNC:CHRNA7))
+a(CHEBI:"amyloid-beta") -> bp(GO:"intracellular receptor signaling pathway")
+
+SET Evidence="
+It is now well established that exposure to nicotine
+results in increased expression of nAChRs in brain and in
+cultured cells (for review, see Gentry and Lukas, 2002).
+Exposure of human neuroblastoma SH-SY5Y cells (which
+express ganglionic alpha7 and alpha3* nAChRs), human TE671/RD
+cells, or mouse BC3H-1 cells (which express muscle-type
+nAChRs) to nicotine for up to 120 h induces a dose- and
+time-dependent increase in surface ACh and alpha-bungarotoxin
+(alpha-BTX) binding not attributable to changes in
+mRNA levels (Ke et al., 1998)."
+
+SET CellLine="SH-SY5Y"
+
+a(CHEBI:nicotine) -> p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+a(CHEBI:nicotine) -> a(CHEBI:acetylcholine)
+#R: binding to what?I assumed receptor
+a(CHEBI:nicotine) -> complex(a(MESH:Bungarotoxins), p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+
+UNSET CellLine
+
+SET Evidence="The nicotine-induced
+nAChR up-regulation in human SH-EP1 cells heterologously
+expressing alpha7 nAChRs is mediated by cAMP and
+protein kinase C (PKC) (Nuutinen et al., 2006). The
+effects of long-term nicotine treatment on nAChR expression
+in rat brain differs for receptors of different
+subtype composition (most pronounced up-regulation
+being observed for alpha4beta2 receptors) and for different
+brain regions (Nguyen et al., 2003)."
+
+composite(a(CHEBI:"3',5'-cyclic AMP"), p(FPLX:PKC)) reg act(a(CHEBI:nicotine))
+act(a(CHEBI:nicotine)) -> p(HGNC:CHRNA7)
+
+SET Evidence="Donepezil, which
+protects cultured rat cortical neurons, when applied for
+4 days resulted in an up-regulation of alpha4 and alpha7 nAChRs
+with the result that donepezil was even more potently
+protective (Kume et al., 2005)."
+
+a(CHEBI:donepezil) -> p(HGNC:CHRNA4)
+a(CHEBI:donepezil) -> p(HGNC:CHRNA7)
+a(CHEBI:donepezil) -> bp(MESH:Neuroprotection)
+
+SET Evidence="Nicotine protection of cultured rat cortical neu-
+rons against Abeta toxicity is blocked by the alpha4beta2 antagonist,
+dihydro-beta-erythroidine (Kihara et al., 1998)."
+
+a(CHEBI:"dihydro-beta-erythroidine") -| act(a(CHEBI:nicotine))
+a(CHEBI:"dihydro-beta-erythroidine") -| act(a(HBP:"alpha-4 beta-2 nAChR"))
+a(CHEBI:"dihydro-beta-erythroidine") -| bp(MESH:Neuroprotection)
+
+SET Evidence="In SHSY5Y
+cells, RNA interference (RNAi) knockdown of alpha7
+enhanced Abeta toxicity (Qi et al., 2007), and alpha7 antagonists,
+but not alpha4beta2 antagonists, block galantamine protection
+of cultured rat neurons (Kihara et al., 2004).
+Donepezil protects cultured rat cortical neurons against
+Abeta toxicity through both alpha7 and non-alpha7 nAChRs
+(Takada et al., 2003). It is therefore likely that alpha7
+nAChRs are the primary mediators of nicotine neuroprotection,
+but in some cells, non-alpha7 subtypes are also
+likely to contribute."
+
+p(HGNC:CHRNA7) -| act(a(CHEBI:"amyloid-beta"))
+act(a(CHEBI:"amyloid-beta")) -> path(HBP:neurotoxicity)
+p(HGNC:CHRNA7) -> act(a(CHEBI:galanthamine))
+act(a(CHEBI:galanthamine)) -> bp(MESH:Neuroprotection)
+a(CHEBI:donepezil) -| path(HBP:neurotoxicity)
+a(CHEBI:donepezil) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+p(HGNC:CHRNA7) reg act(a(CHEBI:nicotine))
+
+SET Evidence="Nicotinic neuroprotection against non-Abeta toxicity is
+also mediated largely through alpha7 nAChRs. alpha7 nAChRs
+protect PC12 cells against ethanol toxicity (Li et al.,
+1999a) and from cell death associated with serum depletion
+(Ren et al., 2005); they protect cultured neurons
+against glutamate-induced excitotoxicity (Kaneko et al.,
+1997) and hippocampal slices against oxygen and glucose
+deprivation (Egea et al., 2007) through the activation
+of alpha7 nAChRs (Rosa et al., 2006)."
+
+SET CellLine="PC12"
+
+act(p(HGNC:CHRNA7)) -| act(a(CHEBI:ethanol))
+act(a(CHEBI:ethanol)) -> path(HBP:neurotoxicity)
+act(p(HGNC:CHRNA7)) -| bp(GO:"cell death")
+a(MESH:Serum) -| bp(GO:"cell death")
+
+UNSET CellLine
+
+SET MeSHAnatomy="Neurons"
+
+act(a(CHEBI:"glutamate(2-)")) -> bp(HBP:Excitotoxicity)
+act(p(HGNC:CHRNA7)) -| act(a(CHEBI:"glutamate(2-)"))
+
+UNSET MeSHAnatomy
+
+SET MeSHAnatomy="Hippocampus"
+
+act(p(HGNC:CHRNA7)) -> a(CHEBI:glucose)
+act(p(HGNC:CHRNA7)) -> a(MESH:Oxygen)
+
+UNSET MeSHAnatomy
+
+SET Evidence="Nicotine protects
+SH-SY5Y cells from cell death induced by thapsigargin,
+an inhibitor of the sarcoplasmic-reticulum calcium pump
+(Arias et al., 2004)."
+
+SET CellLine="SH-SY5Y"
+
+a(CHEBI:thapsigargin) -> bp(GO:"cell death")
+a(CHEBI:thapsigargin) -| bp(GO:"sarcoplasmic reticulum calcium ion transport")
+a(CHEBI:nicotine) -| act(a(CHEBI:thapsigargin))
+
+UNSET CellLine
+
+SET Evidence="For
+example, alpha4-specific agonists protect porcine small retinal
+ganglion cells against L-glutamate toxicity (Thompson
+et al., 2006), whereas alpha7 nAChRs protect large retinal
+ganglion cells (Wehrwein et al., 2004) against L-glutamate
+toxicity."
+
+SET MeSHAnatomy="Retinal Ganglion Cells"
+SET Species="9823" #swine
+
+act(p(HGNC:CHRNA4)) -| act(a(CHEBI:"L-glutamate(2-)"))
+
+UNSET Species
+
+act(p(HGNC:CHRNA7)) -| act(a(CHEBI:"L-glutamate(2-)"))
+act(a(CHEBI:"L-glutamate(2-)")) -> path(HBP:neurotoxicity)
+
+UNSET MeSHAnatomy
+
+SET Evidence="For example, non-alpha7 nAChRs protect cultured
+nigral dopaminergic neurons from toxicity induced by
+1-methyl-4-phenylpyridinium, a neurotoxin that selectively
+damages nigrostriatal dopaminergic neurons (Jeyarasasingam
+et al., 2002), and this effect is not mediated
+by alpha7 receptors."
+
+SET MeSHAnatomy="Dopaminergic Neurons"
+
+a(CHEBI:"N-methyl-4-phenylpyridinium") -> path(HBP:neurotoxicity)
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -| act(a(CHEBI:"N-methyl-4-phenylpyridinium"))
+act(p(HGNC:CHRNA7)) causesNoChange act(a(CHEBI:"N-methyl-4-phenylpyridinium"))
+
+UNSET MeSHAnatomy
+
+SET Evidence="For example, nicotine effectively
+protects wild-type mice, but not alpha4-knockout mice,
+against methamphetamine-evoked neurodegeneration
+(Ryan et al., 2001)."
+
+SET Species="10090"
+
+act(a(CHEBI:nicotine)) -| act(a(CHEBI:methamphetamine))
+act(a(CHEBI:methamphetamine)) -> bp(HBP:Neurodegeneration)
+act(p(HGNC:CHRNA4)) -> act(a(CHEBI:nicotine))
+
+UNSET Species
+
+SET Evidence="Hepatic vagus
+nerve activity has recently been shown to protect
+hepatocytes from Fas-induced apoptosis via activation
+of alpha7 nAChRs (Hiramoto et al., 2008). Thus, nicotine
+seems to exert a general pro-survival action not only
+on neurons but also on non-neuronal cells, suggesting
+that the protection offered by nicotine against Abeta
+toxicity may therefore simply be the result of a general
+pro-survival response."
+
+SET MeSHAnatomy="Liver"
+
+act(a(MESH:"Vagus Nerve")) -> act(p(HGNC:CHRNA7))
+act(p(HGNC:CHRNA7)) -| act(p(HGNC:FAS))
+act(p(HGNC:FAS)) -> bp(GO:"programmed cell death")
+a(CHEBI:nicotine) -- bp(GO:"negative regulation of apoptotic process")
+
+UNSET MeSHAnatomy
+
+SET Evidence="The neuroprotective effects of nicotine are
+blocked by inhibitors of either PI3K or SRC family kinases,
+and nicotine evokes an increase in levels of phosphorylated
+AKT, B-cell chronic lymphocytic leukemia/lymphoma
+(BCL2), and BCL-2-like protein (Shimohama and Kihara,
+2001), which are further downstream in the PI3K/AKT
+pathway (Fig. 3)."
+
+p(FPLX:PI3K) -> act(a(CHEBI:nicotine))
+p(FPLX:SRC) -> act(a(CHEBI:nicotine))
+act(a(CHEBI:nicotine)) -> p(FPLX:AKT, pmod(Ph))
+act(a(CHEBI:nicotine)) -> p(HGNC:BCL2)
+act(a(CHEBI:nicotine)) -> p(HGNC:BCL2L1)
+act(a(CHEBI:nicotine)) -> bp(MESH:Neuroprotection)
+
+SET Evidence="Likewise, blocking the PI3K-AKT pathway
+inhibits the protective effects of AChE inhibitors on
+neuroblastoma cells or neuronal cells against Abeta (Arias et
+al., 2005) or L-glutamate neurotoxicity (Takada-Takatori
+et al., 2006). In all these studies, protection was also inhibited
+by nAChR blockers, suggesting that these effects are
+mediated by nAChRs."
+
+SET MeSHAnatomy="Neurons"
+
+act(p(FPLX:PI3K)) -> act(a(MESH:"Cholinesterase Inhibitors"))
+act(a(MESH:"Cholinesterase Inhibitors")) -| act(a(CHEBI:"amyloid-beta"))
+act(a(MESH:"Cholinesterase Inhibitors")) -| act(a(CHEBI:"L-glutamate(2-)"))
+a(MESH:"Nicotinic Antagonists") -| bp(MESH:Neuroprotection)
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -> bp(MESH:Neuroprotection)
+
+UNSET MeSHAnatomy
+
+SET Evidence="The
+AD therapeutic AChE inhibitors donepezil, galantamine,
+and tacrine increase BCL2 expression when
+applied to cultured neuronal cells (Arias et al., 2004;
+Takada-Takatori et al., 2006). In these cells, nicotine
+promotes cell survival and causes the phosphorylation
+of the proapoptotic protein Bcl2-associated X protein
+(BAX), through the PI3K/AKT pathway, reducing the
+movement of BAX from the cytosol to the mitochondria
+and inhibiting its apoptotic activity (Xin and
+Deng, 2005)."
+
+SET MeSHAnatomy="Neurons"
+
+a(CHEBI:donepezil) -> p(HGNC:BCL2)
+a(CHEBI:galanthamine) -> p(HGNC:BCL2)
+a(CHEBI:tacrine) -> p(HGNC:BCL2)
+a(CHEBI:nicotine) -> p(HGNC:BAX, pmod(Ph))
+a(CHEBI:nicotine) -| bp(GO:"apoptotic process")
+a(CHEBI:nicotine) -| tloc(p(HGNC:BAX), fromLoc(GO:cytosol), toLoc(GO:mitochondrion))
+tloc(p(HGNC:BAX), fromLoc(GO:cytosol), toLoc(GO:mitochondrion)) -> bp(GO:"apoptotic process")
+
+UNSET MeSHAnatomy
+
+SET Evidence="In lung cancer cells, nicotine also exerts
+an antiapoptotic effect through activating BCL2-antagonist
+of cell death (BAD), a process that is inhibited
+by blockers of the extracellular signal-regulated
+kinase (ERK)/mitogen-activated protein kinase
+(MAPK) pathway or the PI3K/AKT pathway (Jin et
+al., 2004)."
+
+SET CellLine="lung cancer cell line"
+
+a(CHEBI:nicotine) -> act(p(HGNC:BAD))
+bp(GO:"MAPK cascade") -> act(p(HGNC:BAD))
+act(p(FPLX:PI3K)) -> act(p(HGNC:BAD))
+
+UNSET CellLine
+
+SET Evidence="For instance, over-expressing PI3K in
+Drosophila melanogaster neurons in situ results in an
+increase in functional synapses as well as synaptic
+sprouting (Martín-Pen˜ a et al., 2006). Thus it is possible
+that nicotine’s activation of the PI3K pathway
+results in increased synaptic stability, and it would be
+of interest to explore this further in vertebrates. Thus,
+the evidence suggests that activation of nAChRs activates
+the PI3K/AKT pathway to favor antiapoptotic
+pathways and possibly induce synaptogenesis."
+
+p(FPLX:PI3K) -> act(a(MESH:Synapses))
+a(CHEBI:nicotine) -> act(p(FPLX:PI3K))
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> act(p(FPLX:PI3K))
+act(p(FPLX:PI3K)) -| bp(GO:"apoptotic process")
+
+SET Evidence="The
+neuroprotective activation of the PI3K/AKT pathway by
+nicotine involves the tyrosine kinase FYN, which physically
+interacts with alpha7 nAChRs, and the p85 subunit of
+PI3K in rat fetal cortical neurons in culture (Kihara et
+al., 2001)."
+
+a(CHEBI:nicotine) -> complex(p(HGNC:FYN), p(HGNC:CHRNA7),p(FPLX:"PI3K_p85"))
+
+SET Evidence="FYN expression is increased in
+brains from patients with AD, specifically in a subset of
+neurons with elevated hyperphosphorylated tau protein
+(Shirazi and Wood, 1993), but it is not known whether
+this increase in FYN contributes to hyperphosphorylation
+of tau or is a protective response to it. In extracts of
+human brains from patients with AD, soluble FYN increases
+with cognitive score and synaptophysin levels
+and inversely with the tangle count, suggestive of a
+pro-cognitive role for FYN (Ho et al., 2005)."
+
+path(MESH:"Alzheimer Disease") -> p(HGNC:FYN)
+p(HGNC:FYN) -- p(HGNC:MAPT, pmod(Ph))
+p(HGNC:FYN) -> bp(GO:cognition)
+
+SET Evidence="In a microarray
+study comparing brains from patients with AD with
+control brains, FYN was found to be significantly upregulated
+in AD (Wang et al., 2003a). In this context, it
+is of interest that FYN has also been shown to activate
+the PI3K/AKT cascade, thereby inhibiting apoptosis
+(Tang et al., 2007). Indeed, FYN is required for phos-
+phorylation of phosphoinositide 3-kinase enhancer
+(PIKE), which itself regulates AKT (Fig. 3). PIKE binds
+to AKT and up-regulates its kinase a ctivity, thereby
+reducing apoptosis. Phosphorylation protects PIKE from
+caspase cleavage, hence FYN is antiapoptotic (Tang et
+al., 2007)."
+
+path(MESH:"Alzheimer Disease") -> p(HGNC:FYN)
+p(HGNC:FYN) -> act(p(FPLX:PI3K))
+#AGAP2 = PIKE
+p(HGNC:FYN) -> p(HGNC:AGAP2, pmod(Ph))
+complex(p(HGNC:AGAP2), p(FPLX:AKT)) -> act(p(FPLX:AKT))
+act(p(FPLX:AKT)) -| bp(GO:"apoptotic process")
+p(HGNC:FYN) -| bp(GO:"apoptotic process")
+
+SET Evidence="From these findings, it would seem that FYN plays a
+neuroprotective role. However, FYN may also play a
+paradoxical role in Abeta toxicity. Indeed, Abeta activates both
+FYN and the PI3K cascade (Williamson et al., 2002),
+whereas germline knockout of FYN is neuroprotective
+in mice (Lambert et al., 1998; Chin et al., 2004). FYN
+knockout protects mature mouse neurons in organotypic
+central nervous system cultures (Lambert et al., 1998)."
+
+p(HGNC:FYN) -- bp(MESH:Neuroprotection)
+p(HGNC:FYN) -- act(a(CHEBI:"amyloid-beta"))
+a(CHEBI:"amyloid-beta") -> act(p(HGNC:FYN))
+a(CHEBI:"amyloid-beta") -> act(p(FPLX:PI3K))
+p(MGI:Fyn) -| bp(MESH:Neuroprotection)
+
+SET Evidence="Furthermore, inhibitors of SRC, a closely related tyrosine
+kinase, also prevent nicotinic protection of differentiated
+PC12 cells against serum-deprivation-induced
+cell death (Li et al., 1999b), and inhibitors of FYN
+or Janus kinase-2 (JAK-2) block the neuroprotection
+against Abeta toxicity of therapeutic AChE inhibitors
+(Takada-Takatori et al., 2006)."
+
+SET CellLine="PC12"
+
+p(HGNC:SRC) -> bp(MESH:Neuroprotection)
+p(HGNC:FYN) -> bp(MESH:Neuroprotection)
+p(HGNC:JAK2) -> bp(MESH:Neuroprotection)
+
+UNSET CellLine
+
+SET Evidence="FYN physically interacts
+with and phosphorylates tau protein, and the affinity of
+this physical interaction is enhanced in AD-associated
+mutations in tau protein (Bhaskar et al., 2005). Abeta rapidly
+induces tyrosine phosphorylation of many proteins
+(including tau protein) in human and cultured rat cortical
+neurons (Williamson et al., 2002). This phosphorylation
+is concomitant with phosphorylation and inactivation
+of focal adhesion kinase 1 (FADK1, a major
+downstream target of FYN), is blocked by inhibitors of
+SRC kinases and PI3K, and involves FYN associating
+physically with FADK1 (Williamson et al., 2002)."
+
+complex(p(HGNC:FYN), p(HGNC:MAPT)) -> p(HGNC:MAPT, pmod(Ph))
+path(MESH:"Alzheimer Disease") -> complex(p(HGNC:FYN), p(HGNC:MAPT))
+a(CHEBI:"amyloid-beta") -> p(HGNC:MAPT, pmod(Ph, Tyr))
+p(HGNC:FYN) -> complex(p(HGNC:FYN), p(HGNC:PTK2))
+p(HGNC:MAPT, pmod(Ph, Tyr)) -- p(HGNC:PTK2, pmod(Ph))
+p(HGNC:PTK2, pmod(Ph)) -| act(p(HGNC:PTK2))
+
+SET Evidence="Genistein, a phytoestrogen, protects SH-SY5Y
+cells (Bang et al., 2004) as well as cultured hippocampal
+neurons (Zeng et al., 2004) from Abeta toxicity. However, in
+addition to its action on estrogen receptors, genistein is
+also a general tyrosine kinase inhibitor that protects
+cultured neurons from L-glutamate toxicity (Kajta et al.,
+2007)."
+
+SET CellLine="SH-SY5Y"
+
+a(CHEBI:genistein) -| act(a(CHEBI:"amyloid-beta"))
+act(a(CHEBI:"amyloid-beta")) -> path(HBP:neurotoxicity)
+a(CHEBI:genistein) -| act(a(CHEBI:"L-glutamate(2-)"))
+act(a(CHEBI:"L-glutamate(2-)")) -> path(HBP:neurotoxicity)
+
+UNSET CellLine
+
+SET Evidence="Genistein enhances the amplitude of ACh responses
+when human alpha7 nAChRs are expressed in Xe-
+nopus laevis oocytes by inhibiting phosphorylation of the
+receptor in the intracellular loop (Charpantier et al.,
+2005; Grønlien et al., 2007) and shows similar actions on
+alpha7 nAChRs of rat hippocampal and supraoptic nucleus
+neurons as well as human SH-SY5Y cells (Charpantier
+et al., 2005)."
+
+SET Species={"8355", "10116"}
+a(CHEBI:genistein) -| p(HGNC:CHRNA7, pmod(Ph))
+p(HGNC:CHRNA7, pmod(Ph)) -| act(a(CHEBI:acetylcholine))
+
+SET CellLine="SH-SY5Y"
+
+a(CHEBI:genistein) -| p(HGNC:CHRNA7, pmod(Ph))
+p(HGNC:CHRNA7, pmod(Ph)) -| act(a(CHEBI:acetylcholine))
+
+UNSET CellLine
+UNSET Species
+
+SET Evidence="In support
+of this notion, beta-estradiol protects PC12 cells from
+amyloid toxicity, and this is prevented when alpha7 nAChRs
+are blocked with methyllycaconitine (Svensson and
+Nordberg, 1999)."
+
+SET CellLine="PC12"
+
+a(CHEBI:estradiol) -| act(a(CHEBI:"amyloid-beta"))
+a(CHEBI:estradiol) -| path(HBP:neurotoxicity)
+a(MESH:methyllycaconitine) -| act(p(HGNC:CHRNA7))
+a(MESH:methyllycaconitine) -| path(HBP:neurotoxicity)
+
+UNSET CellLine
+
+SET Evidence="JAK-2, another early target in the nicotine neuroprotection
+pathway that may mediate signaling
+between the nAChR and the PI3K pathway (Shaw et al.,
+2002), may link nAChR activation with the JAK/signal
+transducer and activator of transcription 3 (STAT-3)
+protective pathway. JAK-2 is also activated by nicotine
+in non-neuronal cells such as nAChR-bearing keratinocytes
+(Arredondo et al., 2006). In a microarray study,
+expression of 8 of 33 JAK/STAT pathway genes was
+altered when human bronchial epithelial cells were exposed
+to 5 microM nicotine for 4 to 10 h (Tsai et al., 2006).
+Thus, the JAK-2/STAT-3 pathway is activated by exposure
+to nicotine."
+
+p(HGNC:JAK2) -> act(a(CHEBI:nicotine))
+act(a(CHEBI:nicotine)) -> bp(MESH:Neuroprotection)
+p(HGNC:JAK2) -- act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+p(HGNC:JAK2) -- act(p(HGNC:STAT3))
+act(a(CHEBI:nicotine)) -- act(p(HGNC:STAT3))
+
+SET Evidence="Nicotine induced phosphorylation of STAT-3 (signal
+transducer and activator of transcription 3) in peritoneal
+macrophages is mediated by an alpha7-dependent activation
+of JAK-2, as part of the anti-inflammatory action of
+vagal nerve stimulation (de Jonge et al., 2005)."
+
+SET Cell="peritoneal macrophage"
+
+act(a(CHEBI:nicotine)) -> p(HGNC:STAT3, pmod(Ph))
+act(p(HGNC:CHRNA7)) -> act(p(HGNC:JAK2))
+act(p(HGNC:JAK2)) reg act(a(CHEBI:nicotine))
+
+UNSET Cell
+
+SET Evidence="Shortterm
+nicotine application also induces phosphorylation
+of p44/42MAPK, p38MAPK, and STAT-3 and was mediated
+mostly by alpha7 nAChRs in rat vascular smooth muscle
+cells (Wada et al., 2007). It is noteworthy that the
+JAK-2/STAT-3 pathway also mediates the mitogenic effects
+of insulin, a process recently implicated in AD (Li
+and Ho¨lscher, 2007)."
+
+SET Cell="vascular associated smooth muscle cell"
+
+act(a(CHEBI:nicotine)) -> p(RGD:Mapk3, pmod(Ph))
+act(a(CHEBI:nicotine)) -> p(RGD:Mapk14, pmod(Ph))
+act(a(CHEBI:nicotine)) -> p(RGD:Stat3, pmod(Ph))
+act(p(RGD:Chrna7)) reg act(a(CHEBI:nicotine))
+composite(p(HGNC:JAK2), p(HGNC:STAT3)) reg act(p(HGNC:INS))
+act(p(HGNC:INS)) -- path(MESH:"Alzheimer Disease")
+
+UNSET Cell
+
+SET Evidence="Microarray
+studies have shown that 24-h incubation in
+nicotine causes the up-regulation of several genes in
+SH-SY5Y cells, including ninein (Dunckley and Lukas,
+2006), which is known on the basis of a yeast two-hybrid
+screen to interact with the AD-implicated gene glycogen
+synthase kinase 3beta (Hong et al., 2000)."
+
+SET CellLine="SH-SY5Y"
+
+a(CHEBI:nicotine) -> act(g(HGNC:NIN))
+g(HGNC:NIN) -- g(HGNC:GSK3B)
+
+UNSET CellLine
+
+SET Evidence="Application
+of nicotine to rat microglia results in the up-regulated
+expression of cyclooxygenase-2 and prostaglandin E2
+(De Simone et al., 2005). Signaling pathways downstream
+to the MAPK pathway are similarly well
+placed to effect changes in gene expression. For example,
+alpha7-dependent activation of the MAPK pathway is
+known to activate c-Myc (Liu et al., 2007), a protooncogene
+whose transcription product sensitizes cells
+to pro-apoptotic stimuli."
+
+SET Species="10116"
+SET Cell="microglial cell"
+
+a(CHEBI:nicotine) -> act(g(HGNC:PTGS2))
+a(CHEBI:nicotine) -> a(CHEBI:"prostaglandin E1(1-)")
+p(HGNC:CHRNA7) -> bp(GO:"MAPK cascade")
+bp(GO:"MAPK cascade") -> act(p(HGNC:MYC))
+act(p(HGNC:MYC)) -> bp(GO:"apoptotic process")
+
+UNSET Cell
+UNSET Species
+
+SET Evidence="In studies on SH-SY5Y cells and cultured rat hippocampal
+neurons, nicotine, acting through alpha7 nAChRs,
+results in the activation of ERK-1/2 pathways dependent
+upon calcium and protein kinase A (Dajas-Bailador et
+al., 2002b). In addition, the alpha7-specific agonist GTS-21
+promotes ERK-1/2 phosphorylation, but not that of c-jun
+N-terminal kinase (JNK) or p38 (Ren et al., 2005)."
+
+SET CellLine="SH-SY5Y"
+
+complex(a(CHEBI:nicotine), p(HGNC:CHRNA7)) -> bp(GO:"ERK1 and ERK2 cascade")
+a(MESH:"3-(2,4-dimethoxybenzylidene)anabaseine") -> p(HGNC:MAPK1, pmod(Ph))
+a(MESH:"3-(2,4-dimethoxybenzylidene)anabaseine") -> p(HGNC:MAPK3, pmod(Ph))
+a(MESH:"3-(2,4-dimethoxybenzylidene)anabaseine") causesNoChange p(HGNC:MAPK14, pmod(Ph))
+a(MESH:"3-(2,4-dimethoxybenzylidene)anabaseine") causesNoChange p(HGNC:MAPK8, pmod(Ph))
+
+UNSET CellLine
+SET Evidence="Furthermore,
+nicotinic activation of ERK-1/2 promotes survival
+of cultured murine spinal cord neurons, and the
+blocking of ERK-1 prevents nicotine’s antiapoptotic action
+(Toborek et al., 2007). Likewise, the alpha7-specific agonist
+A-582941 induces phosphorylation of ERK-1/2 in
+PC12 cells and in mouse brain, and this is completely
+blocked by the mitogen-activated protein kinase 1 inhibitor
+SL327 (Bitner et al., 2007)."
+
+a(CHEBI:nicotine) -> bp(GO:"ERK1 and ERK2 cascade")
+bp(GO:"ERK1 and ERK2 cascade") -> bp(GO:"apoptotic process")
+
+SET CellLine="PC12"
+
+a(MESH:"A-582941") -> p(HGNC:MAPK3, pmod(Ph))
+a(MESH:"A-582941") -> p(HGNC:MAPK1, pmod(Ph))
+a(CHEBI:"SL-327") -| act(a(MESH:"A-582941"))
+
+UNSET CellLine
+
+SET Evidence="Nicotine also activates
+ERK in non-neuronal cells such as pancreatic acinar
+cells (Chowdhury et al., 2007) and vascular smooth muscle
+cells (Kanda and Watanabe, 2007), although it is not
+known in those cases which nAChR subtypes are involved.
+In the cortex and hippocampus of mice, nicotine’s inhibition
+of MAPK (shown by RNAi reduction of alpha7 expression
+to be alpha7-dependent) prevents activation of nuclear factor-
+kappaB and c-Myc, also thereby reducing the activity of
+inducible nitric-oxide synthetase and NO production and
+decreasing Abeta production (Liu et al., 2007)."
+
+SET Cell={"pancreatic acinar cell", "vascular associated smooth muscle cell"}
+
+a(CHEBI:nicotine) -> bp(GO:"MAPK cascade")
+p(HGNC:CHRNA7) -> bp(GO:"MAPK cascade")
+bp(GO:"MAPK cascade") -> act(p(FPLX:NFkappaB))
+bp(GO:"MAPK cascade") -> act(p(HGNC:MYC))
+bp(GO:"MAPK cascade") -> act(p(HGNC:NOS1))
+act(p(HGNC:NOS1)) -> a(CHEBI:"nitric oxide")
+bp(GO:"MAPK cascade") -> a(CHEBI:"amyloid-beta")
+
+UNSET Cell
+
+SET Evidence="Paradoxically,
+Abeta also activates the MAPK pathway through an alpha7-dependent
+pathway (Dineley et al., 2001; Bell et al., 2004). In
+human oral keratinocytes, the Ras/Raf/mitogen-activated
+protein kinase kinase 1/ERK pathway cooperates with the
+nicotine activation of the JAK/STAT-3 pathway (Arredondo
+et al., 2006); the Ras pathway induces STAT-3 upregulation
+whereas the JAK/STAT-3 pathway phosphorylates
+STAT-3."
+
+composite(a(CHEBI:"amyloid-beta"), p(HGNC:CHRNA7)) -> bp(GO:"MAPK cascade")
+composite(p(FPLX:RAS), p(FPLX:RAF), p(HGNC:MAP2K1), p(FPLX:ERK)) -> act(a(CHEBI:nicotine))
+act(a(CHEBI:nicotine)) -> composite(p(FPLX:JAK), p(HGNC:STAT3))
+act(p(FPLX:RAS)) -> p(HGNC:STAT3)
+composite(p(FPLX:JAK), p(HGNC:STAT3)) -> p(HGNC:STAT3, pmod(Ph))
+
+SET Evidence="There is evidence that nicotine’s
+neuroprotective effects can be mediated through tumor
+necrosis factor-alpha (TNF-alpha). Application of either nicotine
+or TNF-alpha protects cultured mouse embryonic cortical
+neurons from N-methyl-D-aspartate (NMDA) toxicity,
+but coapplication of both does not."
+
+p(HGNC:TNF) -> act(a(CHEBI:nicotine))
+act(a(CHEBI:nicotine)) -> bp(MESH:Neuroprotection)
+p(HGNC:TNF) -| act(a(CHEBI:"N-methyl-D-aspartic acid"))
+a(CHEBI:nicotine) -| act(a(CHEBI:"N-methyl-D-aspartic acid"))
+act(a(CHEBI:"N-methyl-D-aspartic acid")) -> path(HBP:neurotoxicity)
+
+SET Evidence="Nicotine may regulate the neuroprotective secretion
+of TNFalpha by microglia through enhancement of lowlevel
+TNF secretion and suppression of lipopolysaccharide-
+induced TNFalpha secretion (Suzuki et al., 2006; Park
+et al., 2007) via alpha7-dependent activation of JNK and
+MAPK pathways."
+
+complex(a(CHEBI:nicotine), p(HGNC:CHRNA7)) -> act(p(FPLX:JNK))
+complex(a(CHEBI:nicotine), p(HGNC:CHRNA7)) -> bp(GO:"MAPK cascade")
+a(CHEBI:nicotine) reg act(p(HGNC:TNF))
+a(CHEBI:nicotine) -| a(MESH:Lipopolysaccharides)
+
+SET Evidence="Calcium signaling pathways are involved both in
+the toxic action of Abeta and in the protection against that
+toxicity offered by nicotinic ligands. Given that alpha7 homomeric
+nAChRs are much more permeable to calcium
+ions than are most other nAChRs (Bertrand et al., 1993),
+it is to be expected that nicotinic neuroprotection mediated
+by nAChRs, notably alpha7, would depend upon the
+activation of calcium signaling pathways. ABT-418 is a
+nicotinic agonist that protects primary rat cortical neurons
+from glutamate toxicity through its activation of alpha7
+nAChRs, and this is blocked when calcium is removed
+from the extracellular medium (Donnelly-Roberts et al.,
+1996)."
+
+bp(GO:"calcium-mediated signaling") -- act(a(CHEBI:"amyloid-beta"))
+bp(GO:"calcium-mediated signaling") -- bp(MESH:Neuroprotection)
+act(p(HGNC:CHRNA7)) -> bp(GO:"calcium ion transport")
+act(p(HGNC:CHRNA7)) -- bp(GO:"calcium-mediated signaling")
+a(MESH:"3-methyl-5-(1-methyl-2-pyrrolidinyl)isoxazole") -> act(p(RGD:Chrna7))
+act(p(RGD:Chrna7)) -| act(a(CHEBI:"glutamate(2-)"))
+a(CHEBI:"calcium(1+)") -| act(a(MESH:"3-methyl-5-(1-methyl-2-pyrrolidinyl)isoxazole"))
+
+SET Evidence="Nicotine protects PC12 cells from cell death resulting
+from serum depletion through a mechanism that
+depends upon the function of IP3 receptors, L-type calcium
+channels, ryanodine receptors, and ERK, suggesting
+that the protective effect of nicotine is mediated by
+calcium signaling pathways (Ren et al., 2005)."
+
+SET CellLine="PC12"
+
+a(CHEBI:nicotine) -| bp(GO:"apoptotic process")
+bp(GO:"calcium-mediated signaling") -- a(CHEBI:nicotine)
+p(HGNCGENEFAMILY:"Inositol 1,4,5-triphosphate receptors") -- a(CHEBI:nicotine)
+p(HGNCGENEFAMILY:"Ryanodine receptors") -- a(CHEBI:nicotine)
+p(FPLX:ERK) -- a(CHEBI:nicotine)
+
+UNSET CellLine
+
+SET Evidence="Stevens
+et al. (2003) showed that calcineurin is involved in nicotine
+neuroprotection. Abeta, through alpha7 nAChRs, increases
+Ca2+, which phosphorylates NMDARs via calcineurin
+and protein tyrosine phosphatase, nonreceptor
+type 5 (striatum-enriched) (Snyder et al., 2005)."
+
+a(MESH:Calcineurin) -- act(a(CHEBI:nicotine))
+a(MESH:Calcineurin) -- bp(MESH:Neuroprotection)
+composite(p(HGNC:CHRNA7), a(CHEBI:"amyloid-beta")) -> a(CHEBI:"calcium(2+)")
+composite(a(CHEBI:"calcium(2+)"), a(MESH:Calcineurin), p(HGNC:PTPN5)) -> p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits", pmod(Ph))
+
+SET Evidence="Recent research interest has focused on the role of
+calcium dyshomeostasis in AD (Green and LaFerla,
+2008); for instance, genetic links with the regulation
+of cytosolic calcium have been identified (Dreses-
+Werringloer et al., 2008). Thus nAChRs may provide a
+link between Abeta and disruption of calcium homeostasis."
+
+path(MESH:"Alzheimer Disease") -- bp(GO:"regulation of cytosolic calcium ion concentration")
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -- a(CHEBI:"amyloid-beta")
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -- bp(GO:"calcium ion homeostasis")
+
+SET Evidence="Short-term application of Abeta to the SH-SY5Y human
+neuroblastoma cell line results in a rapid increase in
+intracellular calcium ions that is dependent upon both
+alpha3beta2 and alpha7 nAChRs (Dajas-Bailador et al., 2002a)"
+
+SET CellLine="SH-SY5Y"
+
+composite(a(CHEBI:"amyloid-beta"), complex(p(HGNC:CHRNA3), p(HGNC:CHRNB2))) -> bp(GO:"cellular calcium ion homeostasis")
+
+UNSET CellLine
+
+SET Evidence="It has been shown that the alpha7 receptors, but not the
+alpha3beta2 receptors, specifically trigger calcium release from
+intracellular stores by activating ryanodine receptors.
+Such a specific functional coupling of alpha7 receptors and
+ryanodine-sensitive stores may provide another site of
+therapeutic intervention. However, the sustained calcium
+rise seen in these cells upon prolonged nicotine
+administration, which is more likely to be of relevance to
+neuroprotection than short-term responses, is more dependent
+upon the activation of inositol 1,4,5-triphosphate
+receptors (Dajas-Bailador et al., 2002a), which are
+also a target for phosphorylation by FYN (Cui et al.,
+2004)."
+
+p(HGNC:CHRNA7) -> act(p(HGNCGENEFAMILY:"Ryanodine receptors"))
+act(p(HGNCGENEFAMILY:"Ryanodine receptors")) -> bp(GO:"cellular calcium ion homeostasis")
+a(CHEBI:nicotine) -> a(CHEBI:"calcium(2+)")
+a(CHEBI:nicotine) -> bp(MESH:Neuroprotection)
+act(p(HGNCGENEFAMILY:"Inositol 1,4,5-triphosphate receptors")) -- a(CHEBI:"calcium(2+)")
+p(HGNC:FYN) -> p(HGNCGENEFAMILY:"Inositol 1,4,5-triphosphate receptors", pmod(Ph))
+
+SET Evidence="JAK-2, also implicated in the neuroprotective
+pathway, may play a role in linking nAChR action with
+calcium signaling, because JAK-2 phosphorylates inositol
+1,4,5-triphosphate receptors through its activation of
+FYN (Wallace et al., 2005)."
+
+p(HGNC:JAK2) -- bp(MESH:Neuroprotection)
+composite(p(HGNC:JAK2), p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -- bp(GO:"calcium-mediated signaling")
+p(HGNC:JAK2) -> act(p(HGNC:FYN))
+p(HGNC:FYN) -> p(HGNCGENEFAMILY:"Inositol 1,4,5-triphosphate receptors", pmod(Ph))
+
+SET Evidence="Consequently, there is mounting evidence that
+Abeta affects cholinergic signaling independent of its
+cytotoxic action. For example, Abeta blocks long-term
+potentiation, a cellular correlate of learning, through
+activation of JNK and p38MAPK (Wang et al., 2004)."
+
+a(CHEBI:"amyloid-beta") -- bp(GO:"synaptic transmission, cholinergic")
+a(CHEBI:"amyloid-beta") -> act(p(HGNC:MAPK8))
+a(CHEBI:"amyloid-beta") -> act(p(HGNC:MAPK14))
+composite(p(HGNC:MAPK14), p(HGNC:MAPK8)) -| bp(GO:"long-term synaptic potentiation")
+
+SET Evidence="APP and APP/presenilin-1 (PS-1) mice do not show
+neurodegeneration (Irizarry et al., 1997) and yet show
+several features of AD, including accumulation of plaques
+and defects in learning (Hsiao et al., 1996), suggesting that
+many features of AD are not the result of neuronal loss.
+These animals nonetheless have swollen cholinergic nerve
+terminals at 12 months, suggesting defective nerve sprouting
+(Hernandez et al., 2001)."
+
+a(CHEBI:"amyloid-beta") causesNoChange path(HBP:Neurodegeneration)
+p(HGNC:PSEN1) causesNoChange path(HBP:Neurodegeneration)
+a(CHEBI:"amyloid-beta") -- path(MESH:"Alzheimer Disease")
+p(HGNC:PSEN1) -- path(MESH:"Alzheimer Disease")
+path(MESH:"Alzheimer Disease") -- path(MESH:"Plaque, Amyloid")
+path(MESH:"Alzheimer Disease") -- bp(GO:learning)
+
+SET Evidence="It has long been known that
+cognitive decline in AD correlates well with synaptic loss
+(Lue et al., 1999), and it has been shown directly that
+soluble Abeta inhibits synaptic plasticity (Rowan et al., 2004)."
+
+path(MESH:"Alzheimer Disease") -- path(MESH:"Cognitive Dysfunction")
+a(MESH:Synapses) -> bp(GO:cognition)
+a(CHEBI:"amyloid-beta") -| a(MESH:Synapses)
+
+SET Evidence="For example, a recent study has
+shown that alpha7-specific ligands rescue the Abeta-induced decrease
+in neurite outgrowth of cultured mouse neurons
+(Hu et al., 2007)."
+
+a(CHEBI:"amyloid-beta") -| bp(MESH:"Neuronal Outgrowth")
+p(MGI:Chrna7) -> bp(MESH:"Neuronal Outgrowth")
+
+SET Evidence="The apolipoprotein E type 4 allele (APOE-epsilon4) encodes
+the APOE lipoprotein, which through its lipid transport
+function plays a role in lipid metabolism. APOE-epsilon4 has
+been found to be a major risk factor for late familial or
+sporadic AD, with a strong gene-dosage effect such that
+the number of APOE-epsilon4 alleles correlated positively
+with the risk of developing AD and the age of onset
+(Corder et al., 1993)."
+
+g(HGNC:APOE) -> p(HGNC:APOE)
+p(HGNC:APOE) -- bp(GO:"lipid metabolic process")
+g(HGNC:APOE) pos path(MESH:"Alzheimer Disease")
+
+SET Evidence="The APOE-epsilon4 gene-dose effect was
+also found to correlate with the loss of nAChR binding
+sites in patients with AD, as well as a reduced respon-
+siveness to the therapeutic AChE inhibitor tacrine
+(Poirier et al., 1995). Within an AD cohort, APOE-epsilon4
+dose dependently correlates with higher losses of ChAT
+but not with losses in alpha4beta2 nAChRs (Lai et al., 2006)."
+
+SET MeSHDisease="Alzheimer Disease"
+
+g(HGNC:APOE) -- act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+g(HGNC:APOE) neg p(HGNC:CHAT)
+g(HGNC:APOE) neg act(a(CHEBI:tacrine))
+g(HGNC:APOE) causesNoChange complex(p(HGNC:CHRNA4), p(HGNC:CHRNB2))
+
+UNSET MeSHDisease
+
+SET Evidence="There is evidence that ApoE directly interacts with
+nAChRs. An APOE-derived peptide blocks nAChRs on
+rat hippocampal slices with a submicromolar affinity,
+and this action is dependent on an arginine-rich segment
+of the APOE peptide (Klein and Yakel, 2004).
+Block of heterologously expressed alpha7 nAChRs is greater
+than that for alpha4beta2 or alpha2beta2 nAChRs (Gay et al., 2006).
+This block of alpha7 receptors is abolished when alpha7 Trp55 is
+mutated to alanine, providing strong evidence that it
+results from a direct interaction between the peptide
+and the receptors (Gay et al., 2007), and the effects of
+other substitutions of Trp55 suggests that this interaction
+is hydrophobic"
+
+p(HGNC:APOE) -- p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+p(HGNC:CHRNA7, var("p.Trp55Ala")) -| complex(p(HGNC:APOE), p(HGNC:CHRNA7))
+
+SET Evidence="ApoE-epsilon4, but not ApoE-epsilon3, disrupts carbachol-stimulated
+phosphoinositol (PI) hydrolysis and so does Abeta
+and Abeta/ApoE-epsilon4 complexes in SH-SY5Y cells (Cedazo-
+Mínguez and Cowburn, 2001). The effect of Abeta and its
+ApoE complex on PI hydrolysis were blocked by estrogen,
+and this disruption was itself blocked by wortmannin,
+suggesting that PI3K mediates estrogen’s effect
+on PI hydrolysis."
+
+SET CellLine="SH-SY5Y"
+
+act(a(CHEBI:carbachol)) -| a(CHEBI:phosphatidylinositol)
+p(HBP:"APOE e4") -| act(a(CHEBI:carbachol), ma(MESH:Hydrolysis))
+a(CHEBI:"amyloid-beta") -| act(a(CHEBI:carbachol), ma(MESH:Hydrolysis))
+a(CHEBI:estrogen) -| act(a(CHEBI:"amyloid-beta"))
+a(CHEBI:estrogen) -| act(p(HBP:"APOE e4"))
+a(CHEBI:wortmannin) -| act(a(CHEBI:estrogen))
+p(FPLX:PI3K) reg act(a(CHEBI:estrogen))
+
+UNSET CellLine
+
+SET Evidence="In addition to Abeta acting upon nAChRs, nAChRs in
+turn regulate Abeta secretion. Nicotine or epibatidine applied
+to the human SHEP1 cell line stably transfected
+with human alpha4beta2 nAChRs and human APP decreases
+the secretion and intracellular accumulation of Abeta without
+significantly affecting the APP mRNA, suggesting
+that these effects are post-translational (Nie et al.,
+2007)."
+
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") reg sec(a(CHEBI:"amyloid-beta"))
+composite(a(CHEBI:nicotine), complex(p(HGNC:CHRNA4), p(HGNC:CHRNB2))) -| sec(a(CHEBI:"amyloid-beta"))
+composite(a(CHEBI:nicotine), complex(p(HGNC:CHRNA4), p(HGNC:CHRNB2))) causesNoChange r(HGNC:APP)
+
+SET Evidence="Nicotine stimulates the secretion of betaAPP, which
+is trophic and neuroprotective against Abeta, from PC12
+cells through an alpha7 and calcium-dependent pathway
+(Kim et al., 1997) as well as increasing the secretion of
+soluble APP and lowering the Abeta-containing sAPP-gamma in
+rats (Lahiri et al., 2002), again through nAChR-dependent
+mechanisms. Galantamine, a nAChR potentiator
+and AChE inhibitor, also increases the secretion of sAPP
+from human SH-SY5Y neuroblastoma cells (Lenzken et
+al., 2007) through the activation of nAChRs. It therefore
+seems that activation of nAChRs shifts the balance of
+APP processing away from beta-amyloidogenic to soluble
+APP production."
+
+SET CellLine="PC12"
+
+p(HGNC:CHRNA7) -> a(CHEBI:nicotine)
+a(CHEBI:nicotine) -> sec(a(HBP:"sAPP-beta"))
+a(HBP:"sAPP-beta") -| act(a(CHEBI:"amyloid-beta"))
+UNSET CellLine
+
+a(CHEBI:nicotine) -| a(HBP:"sAPP-gamma")
+
+SET CellLine="SH-SY5Y"
+
+a(CHEBI:galanthamine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> sec(a(HBP:"sAPP-beta"))
+
+UNSET CellLine
+
+SET Evidence="An indication that nAChRs may play a role in
+Abeta internalization comes from a close inspection of cholinergic
+neurons in brains from patients with AD, which revealed
+that neurons with high expression levels of alpha7 also
+contained large amounts of intracellular Abeta (Nagele et al.,
+2002). Addition of Abeta to the culture medium of neuroblastoma
+cells overexpressing alpha7 results in more Abeta internalization
+than in control cells with lower levels of alpha7 expression
+(Nagele et al., 2002)."
+
+SET MeSHDisease="Alzheimer Disease"
+SET MeSHAnatomy={"Brain", "Neurons"}
+
+p(HGNC:CHRNA7) -> a(CHEBI:"amyloid-beta")
+
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+
+SET Evidence="Whatever the mechanism of uptake, it is interesting
+to note that the signaling pathways evoked by the
+accumulation of intracellular Abeta resemble those evoked by
+extracellularly applied Abeta: transgenic rats overexpressing
+Abeta intraneuronally display elevated levels of phosphorylated
+ERK2 (Echeverria et al., 2004), as do rat hippocampal
+slices in response to bath-applied Abeta (Dineley et al.,
+2001). Again, bath-applied Abeta causes an increase in BAX
+and a decrease in BCL2 expression in neurons or neuronlike
+cell lines (Koriyama et al., 2003; Clementi et al., 2006)."
+
+a(CHEBI:"amyloid-beta") -> p(HGNC:MAPK1, pmod(Ph))
+a(CHEBI:"amyloid-beta") -> p(HGNC:BAX)
+a(CHEBI:"amyloid-beta") -| p(HGNC:BCL2)
+
+SET Evidence="Thus, it
+seems that nAChRs may play a role in mediating Abeta
+toxicity through synergistic mechanisms; in addition
+to possible direct interactions (binding), nAChRs may
+also result in accelerated cell death through enhancing
+intracellular Abeta accumulation."
+
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") reg act(a(CHEBI:"amyloid-beta"))
+act(a(CHEBI:"amyloid-beta")) -> path(HBP:neurotoxicity)
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -- path(HBP:neurotoxicity)
+act(a(CHEBI:"amyloid-beta")) -> bp(GO:"apoptotic process")
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -- bp(GO:"apoptotic process")
+
+SET Evidence="Paradoxically, in addition to their neuroprotective action,
+nAChRs may also partly mediate the toxic action
+of Abeta. The toxicity of Abeta on SH-SY5Y cells, as measured
+by a 3-(4,5-dimethylthiazol-2-yl)-2,5-diphenyltetrazolium
+bromide assay, in which the health of cells is monitored
+by their ability of cells to reduce 3-(4,5-dimethylthiazol-
+2-yl)-2,5-diphenyltetrazolium bromide, was significantly
+impaired when alpha7 was silenced by RNAi, suggesting
+that Abeta may exert its toxicity, at least in part, through
+a pathway that includes alpha7 nAChRs (Qi et al., 2007)."
+
+SET CellLine="SH-SY5Y"
+
+complex(p(HGNC:CHRNA7),a(CHEBI:"amyloid-beta")) -> path(HBP:neurotoxicity)
+
+UNSET CellLine
+
+SET Evidence="It is
+noteworthy that this internalization was blocked by
+alpha-bungarotoxin, which may indicate that alpha-bungarotoxin
+either inhibits binding of Abeta to the alpha7 receptor
+(and therefore that Abeta toxicity results from binding of
+Abeta to alpha7 nAChRs) or directly inhibits alpha7 nAChR internalization."
+
+a(MESH:Bungarotoxins) -| act(a(CHEBI:"amyloid-beta"))
+a(MESH:Bungarotoxins) -| complex(a(CHEBI:"amyloid-beta"), p(HGNC:CHRNA7))
+
+SET Evidence="However, it has been shown that Abeta1–42
+binds with high affinity to alpha7 nAChRs in several different
+neuronal tissues (Wang et al., 2000a) and displaces
+alpha-bungarotoxin binding (Wang et al., 2000a,b) and,
+rather than inhibiting receptor internalization, alpha-bungarotoxin
+enhances internalization of heterologously expressed
+nAChRs (Kumari et al., 2008)."
+
+complex(a(CHEBI:"amyloid-beta polypeptide 42"), p(HGNC:CHRNA7)) -| act(a(MESH:Bungarotoxins))
+
+SET Evidence="It is also noteworthy
+that Abeta-induced tau protein phosphorylation in
+PC12 cells is inhibited not only by alpha7 agonists, as would
+be predicted from the role of alpha7 nAChRs in neuroprotection,
+but also by alpha-bungarotoxin (Hu et al., 2008), as
+might be predicted if the competition by alpha-bungarotoxin
+for the Abeta site blocked a direct action of Abeta on nAChRs.
+It is therefore possible that the toxicity of Abeta is mediated,
+at least in part, through a direct physical interaction
+between Abeta and nAChRs."
+
+SET CellLine="PC12"
+
+a(CHEBI:"amyloid-beta") -> p(HGNC:MAPT, pmod(Ph))
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -| p(HGNC:MAPT, pmod(Ph))
+act(a(MESH:Bungarotoxins)) -| p(HGNC:MAPT, pmod(Ph))
+
+UNSET CellLine
+
+SET Evidence="Abeta initiates intracellular signaling cascades via
+nAChRs (Fig. 3), including the MAPK kinase signaling
+pathway, resulting in cell death. In hippocampal slices,
+Abeta activates ERK-2 isoforms of the ERK MAPK. This is
+blocked by alpha7 antagonists, suggesting that Abeta evokes
+the cascade through alpha7 nAChRs (Dineley et al., 2001)."
+
+SET MeSHAnatomy="Hippocampus"
+
+composite(a(CHEBI:"amyloid-beta"), p(HGNC:CHRNA7)) -> act(p(HGNC:MAPK1))
+act(p(HGNC:MAPK1)) -> bp(GO:"apoptotic process")
+
+UNSET MeSHAnatomy
+
+SET Evidence="Which pathway is activated by Abeta
+depends upon the time of exposure to the amyloid peptide:
+chronic applications of oligomeric Abeta to hippocampal
+slice cultures activate the JNK/MAPK pathway but
+inhibit the ERK/MAPK pathway, whereas short-term
+applications of Abeta oligomers do not activate JNK (Bell et
+al., 2004). This may be one of the routes whereby Abeta
+impairs memory, because ERK-1 and ERK-2 play key
+roles in the signaling events central to memory (Satoh et
+al., 2007)."
+
+SET MeSHAnatomy="Hippocampus"
+
+a(HBP:"amyloid-beta oligomers") -> act(p(FPLX:JNK))
+a(HBP:"amyloid-beta oligomers") -| act(p(FPLX:ERK))
+composite(p(HGNC:MAPK3), p(HGNC:MAPK1)) -- bp(GO:memory)
+
+UNSET MeSHAnatomy
+
+SET Evidence="In neuroblastoma cells, as well as cultured
+hippocampal neurons, Abeta activates JNK and ERK, and
+blocking these prevents Abeta hyperphosphorylating tau
+protein, as does alpha7 antisense oligonucleotides or alpha7 antagonists,
+suggesting that Abeta may trigger tau protein
+phosphorylation through ERK and JNK via alpha7 receptors
+(Wang et al., 2003b). Abeta leads to phosphorylation of AKT
+in cultured mouse neurons through a mechanism that
+requires alpha7 nAChRs (Abbott et al., 2008), AKT phosphorylation
+levels returning to baseline upon prolonged
+application of Abeta."
+
+a(CHEBI:"amyloid-beta") -> act(p(FPLX:JNK))
+a(CHEBI:"amyloid-beta") -> act(p(FPLX:ERK))
+composite(p(FPLX:ERK), p(HGNC:CHRNA7)) -> p(HGNC:MAPT, pmod(Ph))
+composite(p(FPLX:JNK), p(HGNC:CHRNA7)) -> p(HGNC:MAPT, pmod(Ph))
+composite(a(CHEBI:"amyloid-beta"), p(HGNC:CHRNA7)) -> p(FPLX:AKT, pmod(Ph))
+
+SET Evidence="AKT interacts with BAD to regulate
+apoptosis and, interestingly, also has many interacting
+partners in the insulin signaling pathway. Abeta increased
+activity of BAD, lowered the activity of the antiapoptotic
+protein BCL2, in rat hippocampal neurons in primary
+culture (Koriyama et al., 2003) and has been shown to be
+toxic to human neuroblastoma cells by increasing BAX
+activity and decreasing BCl-2 activity (Clementi et al.,
+2006)."
+
+complex(p(FPLX:AKT), p(HGNC:BAD)) reg bp(GO:"apoptotic process")
+p(FPLX:AKT) -- bp(GO:"insulin receptor signaling pathway")
+a(CHEBI:"amyloid-beta") -> act(p(HGNC:BAD))
+a(CHEBI:"amyloid-beta") -| act(p(HGNC:BCL2))
+a(CHEBI:"amyloid-beta") -> act(p(HGNC:BAX))
+
+SET Evidence="For instance, in
+Abeta-overexpressing mice (PDAPP derived from a heterogeneous
+background comprising the strains C57BL/6J,
+DBA/2J, and Swiss-Webster), Abeta seems to target the
+high-affinity choline transporter (Bales et al., 2006)."
+
+a(CHEBI:"amyloid-beta") -- bp(GO:"choline transport")
+
+SET Evidence="One study showed high-affinity binding
+of Abeta at picomolar levels to human alpha7 nAChRs heterologously
+expressed in cell lines, based both on the ability
+of Abeta to displace labeled alpha-bungarotoxin and the
+ability of alpha-bungarotoxin to displace fluorescently labeled
+Abeta (Wang et al., 2000b)."
+
+complex(a(CHEBI:"amyloid-beta"), p(HGNC:CHRNA7)) -| complex(a(MESH:Bungarotoxins), p(HGNC:CHRNA7))
+complex(a(MESH:Bungarotoxins), p(HGNC:CHRNA7)) -| complex(a(CHEBI:"amyloid-beta"), p(HGNC:CHRNA7))
+
+SET Evidence="In contrast, Small et al.
+(2007) found no displacement of alpha-BTX from SH-SY5Y
+cells (a cell line very closely related to that used by Wang
+et al.) by either amyloid or methyllycaconitine. Wang et
+al. (2000b) also showed similar staining of human AD
+cortical neurons by alpha7 and Abeta antibodies in double immunofluorescence,
+suggesting that in human cortical
+neurons, alpha7 and Abeta are closely associated, although
+such an approach does not prove direct binding. However
+another study (Small et al., 2007) showed no displacement
+of labeled alpha-bungarotoxin from cell lines expressing
+rat alpha7 nAChRs."
+
+SET CellLine="SH-SY5Y"
+
+complex(a(MESH:Bungarotoxins), p(HGNC:CHRNA7)) -| complex(a(CHEBI:"amyloid-beta"), p(HGNC:CHRNA7))
+complex(a(MESH:Bungarotoxins), p(HGNC:CHRNA7)) -| complex(a(CHEBI:methyllycaconitine), p(HGNC:CHRNA7))
+p(HGNC:CHRNA7) -- a(CHEBI:"amyloid-beta")
+
+UNSET CellLine
+
+SET Evidence="Although there is abundant evidence that Abeta can affect
+nAChR function, studies disagree as to whether Abeta
+is an antagonist or an agonist at nAChRs (these findings
+are summarized in Table 1). For example, Abeta has been
+reported to inhibit single-channel nicotinic receptor currents
+in rat hippocampal interneurons (Pettit et al.,
+2001) as well as currents recorded from human alpha7 receptors
+heterologously expressed in Xenopus laevis oocytes
+(Tozaki et al., 2002; Grassi et al., 2003; Pym et al.,
+2005). Abeta, however, activates a mutant (L250T) of the
+alpha7 receptor—this mutant conducts current in the desensitized
+state, indicating that Abeta may exert its antagonistic
+action through receptor desensitization (Grassi et
+al., 2003)."
+
+a(CHEBI:"amyloid-beta") -- act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+a(CHEBI:"amyloid-beta") -> act(p(HGNC:CHRNA7, var("p.L250T")))
+
+SET Evidence="Abeta action on nAChRs depends on subunit
+composition; it has been reported to block alpha7, transiently
+potentiate alpha4beta2 before blocking, and to have no action
+on alpha3beta4 (Pym et al., 2005). However, in contrast to its
+reported transient enhancement when expressed in oocytes,
+an inhibition of alpha4beta2 has been reported when
+expressed in human SH-EP1 cells (Wu et al., 2004)."
+
+a(CHEBI:"amyloid-beta") -| act(p(HGNC:CHRNA7))
+a(CHEBI:"amyloid-beta") -> act(complex(p(HGNC:CHRNA4), p(HGNC:CHRNB2)))
+a(CHEBI:"amyloid-beta") -| act(complex(p(HGNC:CHRNA4), p(HGNC:CHRNB2)))
+a(CHEBI:"amyloid-beta") causesNoChange act(complex(p(HGNC:CHRNA3), p(HGNC:CHRNB4)))
+
+SET Evidence="Abeta1–42 activates heterologously expressed
+nAChRs (Dineley et al., 2002), and Abeta25–35 has been
+shown to activate non-alpha7 nAChRs in rat basal forebrain
+neurons (Fu and Jhamandas, 2003) and to evoke a alpha7-
+mediated calcium increases in presynaptic terminals
+isolated from rat hippocampus and neocortex (Dougherty
+et al., 2003)."
+
+a(CHEBI:"amyloid-beta polypeptide 42") -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+p(HGNC:APP, frag("25_35")) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+p(HGNC:APP, frag("25_35")) -> act(p(HGNC:CHRNA7))
+act(p(HGNC:CHRNA7)) -> a(CHEBI:"calcium(2+)")
+
+SET Evidence="Perfusion of soluble Abeta into mouse
+prefrontal cortex increases dopamine secretion through
+a mechanism that is blocked by alpha7 antagonists (Wu et
+al., 2007)."
+
+SET Species="10090"
+SET MeSHAnatomy="Prefrontal Cortex"
+
+composite(a(CHEBI:"amyloid-beta"), p(HGNC:CHRNA7)) -> sec(a(CHEBI:dopamine))
+
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence="Again, despite numerous reports of a block of
+alpha7, one study indicated that Abeta failed to block alpha7, even
+though it blocked alpha4beta2, alpha2beta2 and alpha4alpha5beta2 receptors
+(Lamb et al., 2005)."
+
+a(CHEBI:"amyloid-beta") causesNoChange p(HGNC:CHRNA7)
+a(CHEBI:"amyloid-beta") -| act(complex(p(HGNC:CHRNA4),p(HGNC:CHRNB2)))
+a(CHEBI:"amyloid-beta") -| act(complex(p(HGNC:CHRNA2),p(HGNC:CHRNB2)))
+a(CHEBI:"amyloid-beta") -| act(complex(p(HGNC:CHRNA4),p(HGNC:CHRNA5),p(HGNC:CHRNB2)))
+
+SET Evidence="It has also been observed that although
+Abeta inhibits recombinant human and mouse alpha7
+nAChRs, transgenic mice overexpressing human Abeta express
+functional alpha7 nAChRs, and the amplitude of alpha7-
+mediated currents is no different from that of wild-type
+mice (Spencer et al., 2006)."
+
+SET Species="10090"
+
+a(CHEBI:"amyloid-beta") -| act(p(HGNC:CHRNA7, var("?")))
+a(CHEBI:"amyloid-beta") causesNoChange act(p(HGNC:CHRNA7))
+
+UNSET Species
+
+SET Evidence="The most comprehensive
+study of the effects of Abeta at different concentrations
+showed that at 10 pM, Abeta evoked an inward
+current mediated by rat alpha7 nAChRs expressed in X.
+laevis oocytes, whereas at 100 nM, Abeta blocked nicotine
+responses through desensitization (Dineley et al., 2002)."
+
+SET Species="8355"
+
+a(CHEBI:"amyloid-beta") -| act(a(CHEBI:nicotine))
+
+UNSET Species
+
+SET Evidence="It is clear that AD involves loss of cholinergic neurons
+in the brain as well as an overall reduction in nAChRs,
+and it seems that different subunits are differentially
+up- or down-regulated in AD in different brain regions
+and different cell types."
+
+SET MeSHAnatomy="Brain"
+
+path(MESH:"Alzheimer Disease") -| a(MESH:"Cholinergic Neurons")
+path(MESH:"Alzheimer Disease") -| p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+
+UNSET MeSHAnatomy
+
+SET Evidence="Loss of cholinergic neurons has often been demonstrated
+as lowered ChAT activity in brains of patients
+with AD. Early post mortem studies indicated a loss of
+ChAT activity restricted to the neocortex (Slotkin et al.,
+1990) and this has been confirmed in more recent studies
+on frontal lobe and temporal cortex (Lai et al., 2006).
+It is noteworthy that an increase in ChAT activity in the
+surviving neurons was interpreted as a possible compensatory
+mechanism (Slotkin et al., 1990)."
+
+SET MeSHAnatomy={"Neocortex", "Frontal Lobe", "Temporal Lobe"}
+
+path(MESH:"Alzheimer Disease") -| a(MESH:"Cholinergic Neurons")
+a(MESH:"Cholinergic Neurons") -> act(p(HGNC:CHAT))
+
+UNSET MeSHAnatomy
+
+SET Evidence="AD involves loss of cholinergic cells not only in the
+cortex but also in subcortical nuclei. Up to 50% loss of
+neurons and of ChAT activity has been reported at autopsy
+in the locus ceruleus of brains from patients with
+AD compared with brains from subjects without AD,
+whereas no change was observed for adrenergic brainstem
+nuclei (Strong et al., 1991)."
+
+SET MeSHAnatomy="Basal Ganglia"
+
+path(MESH:"Alzheimer Disease") -| a(MESH:"Cholinergic Neurons")
+path(MESH:"Alzheimer Disease") -| act(p(HGNC:CHAT))
+
+UNSET MeSHAnatomy
+
+SET Evidence="Selective cell loss in the locus ceruleus has
+also been confirmed in a double-mutant mouse model
+([APPswe, PS1dE9]85Dbo/J; PrP promoter) transgenically
+expressing the Swedish mutant form of the APP
+and the mutant human APP/PS-1, suggesting that these
+mutations can contribute to neurodegeneration (O’Neil
+et al., 2007)."
+
+#pass
+
+SET Evidence="A stereological approach, in which specific, identified
+regions of cortex were excised as a by-product of therapeutic
+surgery, revealed an approximately 50% decrease
+in the number of alpha7-containing neurons in the temporal
+cortices of patients with AD, without overall loss in
+neuron number (Banerjee et al., 2000). In addition to
+loss of neurons, there are reports of reduced expression
+of specific nAChR subtypes, particularly of alpha4beta2 and alpha7
+subunits, in many brain areas in AD."
+
+SET MeSHAnatomy="Neurons"
+
+path(MESH:"Alzheimer Disease") -| p(HGNC:CHRNA7)
+path(MESH:"Alzheimer Disease") -| complex(p(HGNC:CHRNA4), p(HGNC:CHRNB2))
+
+UNSET MeSHAnatomy
+
+SET Evidence="Binding studies using subtypeselective
+labeled ligands suggest that alpha4beta2 receptors
+are lost in brains from patients with AD (Warpman and
+Nordberg, 1995; Martin-Ruiz et al., 1999). Regions
+showing reduced binding levels include the frontal lobe
+and the temporal cortex (Lai et al., 2006)."
+
+SET MeSHAnatomy={"Brain", "Frontal Lobe", "Temporal Lobe"}
+
+path(MESH:"Alzheimer Disease") -| act(complex(p(HGNC:CHRNA4), p(HGNC:CHRNB2)))
+
+UNSET MeSHAnatomy
+
+SET Evidence="Similar results have
+been obtained using subtype-specific antibodies. Binding
+of monoclonal antibodies raised against the alpha4 or the
+alpha7 subunit, for example, was significantly reduced in post
+mortem cortices of five patients with AD compared with
+five patients without AD of similar age (Burghaus et al.,
+2000). In one study, Western blots confirmed that the
+greatest reduction was in alpha4 (Guan et al., 2000). Likewise,
+subunit-specific antibodies reveal a reduced expression of
+alpha4 but not alpha3 or alpha7 in brains from patients with AD
+(Martin-Ruiz et al., 1999)"
+
+path(MESH:"Alzheimer Disease") -| p(HGNC:CHRNA4)
+
+SET Evidence="The loss of alpha4 subunits was suggested
+to be related to lipid peroxidation, because the loss
+correlated with the level of peroxidation in the temporal
+cortex of brains from patients with AD, suggesting that
+receptor loss may be caused by oxidation of proteins (Yu et
+al., 2003)."
+
+SET MeSHDisease="Alzheimer Disease"
+
+p(HGNC:CHRNA4) -- bp(GO:"lipid metabolic process")
+
+UNSET MeSHDisease
+
+SET Evidence="It is noteworthy that a different
+pattern of changes in nAChRs is seen in non-neuronal
+cells; expression levels of alpha7 have been reported to be
+elevated in astrocytes of brains from patients with AD and
+in cultured astrocytes (Teaktong et al., 2003; Xiu et al.,
+2005; Yu et al., 2005). Likewise, studies comparing alpha7
+expression in human AD brain and Swedish-mutant mice
+found enhanced alpha7 expression in astrocytes but decreased
+expression in neurons compared with controls (Xiao et al.,
+2006)."
+
+SET MeSHAnatomy="Astrocytes"
+
+path(MESH:"Alzheimer Disease") -> p(HGNC:CHRNA7)
+
+UNSET MeSHAnatomy
+
+SET Evidence="The loss of nAChR subunits, as determined by [3H]-
+epibatidine binding, seems to take place after the transition
+from mild cognitive impairment (MCI) to AD (Sabbagh
+et al., 2006), although the loss of epibatidine binding
+did not correlate with decline in memory, cognitive
+performance, or with the development of neurofibrillary
+tangles or plaques (Sabbagh et al., 2001)."
+
+a(CHEBI:epibatidine) causesNoChange bp(GO:memory)
+a(CHEBI:epibatidine) causesNoChange bp(GO:cognition)
+a(CHEBI:epibatidine) causesNoChange path(MESH:"Plaque, Amyloid")
+a(CHEBI:epibatidine) causesNoChange bp(MESH:"Neurofibrillary Tangles")
+
+SET Evidence="However, a reduction of alpha3 subunits in a Western blot
+analysis of brains from patients with AD has been observed
+(Guan et al., 2000), although the loss was not as
+great as that observed for alpha4 or alpha7 subunits. In addition,
+alpha3 subunit levels were reduced in the temporal cortex
+and hippocampus of brains from patients with AD, both
+smokers and nonsmokers, compared with control subjects
+(Mousavi et al., 2003)."
+
+SET MeSHAnatomy={"Temporal Lobe", "Hippocampus"}
+
+path(MESH:"Alzheimer Disease") -| p(HGNC:CHRNA3)
+
+UNSET MeSHAnatomy
+
+SET Evidence="Similar effects of Abeta on nAChR expression have been
+confirmed in studies using cultured cells; Abeta causes
+a reduced expression of nAChRs in PC12 cells (Guan
+et al., 2001), and alpha4, alpha3, and alpha7 expression are all
+increased in cultured rat astrocytes (Xiu et al., 2005)."
+
+SET CellLine="PC12"
+
+a(CHEBI:"amyloid-beta") -| p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+
+UNSET CellLine
+
+SET MeSHAnatomy="Astrocytes"
+SET Species="10116"
+
+a(CHEBI:"amyloid-beta") -> p(HGNC:CHRNA4)
+a(CHEBI:"amyloid-beta") -> p(HGNC:CHRNA3)
+a(CHEBI:"amyloid-beta") -> p(HGNC:CHRNA7)
+
+UNSET Species
+UNSET MeSHAnatomy
+
+SET Evidence="Thus, predominantly alpha4 and alpha7 subunits, and to a lesser
+extent alpha3 subunits, are lost in AD, although there are
+tissue-specific differences to this pattern, such as the upregulation
+of nAChRs on astrocytes."
+
+path(MESH:"Alzheimer Disease") -| p(HGNC:CHRNA4)
+path(MESH:"Alzheimer Disease") -| p(HGNC:CHRNA3)
+path(MESH:"Alzheimer Disease") -| p(HGNC:CHRNA7)
+
+SET MeSHAnatomy="Astrocytes"
+
+path(MESH:"Alzheimer Disease") -> p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+
+UNSET MeSHAnatomy
+
+SET Evidence="Intracerebral injection of Abeta into rats resulted in a
+loss of alpha4 and alpha7 subunits as measured by Western blotting
+but an increase in alpha7 mRNA (Liu et al., 2008), again
+suggesting that Abeta directly reduces expression of alpha7
+nAChRs through mechanisms other than reduced mRNAproduction,
+although caution should be exercised in interpreting
+quantitative data from Western blot studies. It is
+noteworthy that a combined patch-clamp and in situ hybridization
+study of dissociated human brain tissue (obtained
+as route-of-access tissue removed during surgery)
+indicated that neurons near Abeta plaques retained alpha4 and
+alpha7 mRNA transcripts, whereas these transcripts were absent
+in neurons burdened with hyperphosphorylated tau
+protein (Wevers et al., 1999)."
+
+SET Species="10116"
+
+a(CHEBI:"amyloid-beta") -| p(RGD:Chrna4)
+a(CHEBI:"amyloid-beta") -| p(RGD:Chrna7)
+a(CHEBI:"amyloid-beta") -> r(RGD:Chrna7)
+
+UNSET Species
+
+path(MESH:"Plaque, Amyloid") causesNoChange r(HGNC:CHRNA4)
+path(MESH:"Plaque, Amyloid") causesNoChange r(HGNC:CHRNA7)
+
+SET Evidence="More recent approaches have confirmed this:
+RNA profiling of isolated neurons from control brains or
+brains from patients with AD show no evidence for
+changes in nAChR RNA (Chow et al., 1998; Ginsberg et
+al., 2000)."
+
+path(MESH:"Alzheimer Disease") causesNoChange r(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+
+SET Evidence="Thus, in brains from patients with AD and in neurons
+responding to exogenously applied Abeta, there is a reduction
+in expression of nAChR subunits, especially alpha4, alpha7,
+beta4, and possibly alpha3. Although AD may also involve
+changes in expression of other ligand-gated ion channels—
+for example, the expression of NMDA receptors
+(Bi and Sze, 2002; Jacob et al., 2007), alpha-amino-3-hydroxy-
+5-methyl-4-isoxazolepropionic acid receptors (Jacob
+et al., 2007), and beta3 GABA receptor subunits are all
+reduced (Mizukami et al., 1998)—there is abundant evidence
+of a loss of nAChR subunits in AD possibly caused
+by the actions of Abeta."
+
+SET MeSHAnatomy="Brain"
+
+path(MESH:"Alzheimer Disease") -| p(HGNC:CHRNA4)
+path(MESH:"Alzheimer Disease") -| p(HGNC:CHRNA7)
+path(MESH:"Alzheimer Disease") -| p(HGNC:CHRNB4)
+path(MESH:"Alzheimer Disease") -| p(HGNC:CHRNA3)
+path(MESH:"Alzheimer Disease") -| p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits")
+path(MESH:"Alzheimer Disease") -| p(HGNCGENEFAMILY:"Glutamate ionotropic receptor AMPA type subunits")
+path(MESH:"Alzheimer Disease") -| p(HGNC:GABRB3)
+
+UNSET MeSHAnatomy
+
+SET Evidence="Tg2576 mice expressing
+human Abeta show reduced [3H]cytisine binding (a label of
+nAChRs) in the cortex at 17 months after birth (Apelt
+et al., 2002). In contrast, however, levels of alpha7 or alpha4
+subunits were unchanged in double-mutant Swedish
+APP/PS-1 mice as determined by radiolabeled cytosine
+(alpha4beta2) or alpha-bungarotoxin (alpha7) binding (Marutle et al.,
+2002)."
+
+SET Species="10090"
+SET MeSHAnatomy="Cerebral Cortex"
+
+a(CHEBI:"amyloid-beta") -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+
+UNSET MeSHAnatomy
+
+path(MESH:"Alzheimer Disease") causesNoChange p(MGI:Chrna7)
+path(MESH:"Alzheimer Disease") causesNoChange p(MGI:Chrna4)
+
+UNSET Species
+
+SET Evidence="In addition, APP or APP/PS-1 double-mutant mice
+have normal or even enhanced levels of ChAT and an
+unchanged cholinergic cell count (Hernandez et al., 2001).
+However, a double-mutant mouse expressing the Swedish
+APP and overexpressing human AChE showed enhanced
+mRNA levels of alpha7 in brain and adrenal medulla, although
+in brain tissue this enhancement declined with age. In this
+same mouse, there was no alteration in mRNA levels for
+alpha4, and an increase in alpha3 has also been observed in the
+brain and the adrenal medulla (Mousavi and Nordberg,
+2006), a pattern similar to that seen in Abeta single-mutant
+mice (Bednar et al., 2002), suggesting that it is not attributable
+to the human AChE."
+
+SET Species="10090"
+SET MeSHAnatomy={"Brain", "Adrenal Medulla"}
+
+a(CHEBI:"amyloid-beta") -> p(MGI:Chat)
+composite(a(CHEBI:"amyloid-beta"), p(MGI:Ache)) -> r(MGI:Chrna7)
+composite(a(CHEBI:"amyloid-beta"), p(MGI:Ache)) causesNoChange r(MGI:Chrna4)
+a(CHEBI:"amyloid-beta") -> r(MGI:Chrna3)
+
+UNSET Species
+UNSET MeSHAnatomy
