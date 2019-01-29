@@ -1,0 +1,548 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name = "Functional aspects of meningeal lymphatics in ageing and Alzheimer’s disease"
+SET DOCUMENT Version = "1.0.0"
+SET DOCUMENT Description = ""
+SET DOCUMENT Authors = "Sandra Spalek"
+
+###############
+# Definitions #
+###############
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY AS PATTERN "^\d+$"
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE GFAM     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE MIRBASE  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE HBP      AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel
+# --------------------------------------------------------------------
+DEFINE NAMESPACE CTO      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE MGI      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
+DEFINE NAMESPACE RGD      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170725.belns"
+DEFINE NAMESPACE SCOMP    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM     AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+DEFINE NAMESPACE INTERPRO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/interpro/interpro-20170731.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+
+SET STATEMENT_GROUP = "Sandra" 
+
+# Add statements below this comment
+
+SET Citation = {"PubMed", "Nature. 2018 Aug;560(7717):185-191. doi: 10.1038/s41586-018-0368-8", "30046111"} 
+
+SET Evidence = "By contrast, the parenchyma of the CNS is devoid of lymphatic vasculature2; in the brain,
+removal of cellular debris and toxic molecules, such as amyloid-β peptides, is mediated by a combination 
+of transcellular transport mechanisms across the blood−brain and blood−cerebrospinal fluid (CSF)
+barriers7–9, phagocytosis and digestion by resident microglia and recruited monocytes and/or 
+macrophages10,11, as well as CSF influx and ISF efflux through a paravascular (glymphatic) route12–14"
+SET MeSHAnatomy = "Brain"
+SET Confidence = "High"
+tloc(a(CHEBI:"amyloid-beta"),fromLoc(MESH:Blood),toLoc(MESH:"Cerebrospinal Fluid")) reg deg(a(CHEBI:"amyloid-beta"))
+bp(GO:phagocytosis) reg deg(a(CHEBI:"amyloid-beta"))
+a(MESH:Microglia) reg deg(a(CHEBI:"amyloid-beta"))
+a(MESH:Monocytes) reg deg(a(CHEBI:"amyloid-beta"))
+a(MESH:Macrophages) reg deg(a(CHEBI:"amyloid-beta"))
+
+UNSET MeSHAnatomy
+
+SET Evidence = "Extracellular deposition of amyloid-β aggregates, the main constituent of senile plaques, is considered to be
+a pathological hallmark of Alzheimer’s disease that contributes to neuronal dysfunction and behavioural changes"
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Extracellular Space"
+a(HBP:HBP00018) positiveCorrelation path(MESH:"Alzheimer Disease")
+a(HBP:HBP00018) -| bp(GO:"neuron cellular homeostasis")
+a(HBP:HBP00018) -> path(MESH:"Problem Behavior")
+UNSET Confidence
+
+SET Evidence = "The ageing-associated decrease in paravascular recirculation of CSF and ISF is 
+thought to be responsible, at least in part, for the accumulation of amyloid-β in the brain parenchyma"
+SET Confidence = "High"
+SET MeSHAnatomy = {"Parenchymal Tissue","Brain"}
+bp(GO:aging) -| bp(GO:"cerebrospinal fluid circulation")
+bp(GO:aging) -| act(a(HP:"interstitial fluid"))
+bp(GO:"cerebrospinal fluid circulation") -| a(CHEBI:"amyloid-beta")
+act(a(HP:"interstitial fluid")) -| a(CHEBI:"amyloid-beta")
+bp(GO:aging) -> a(CHEBI:"amyloid-beta")
+UNSET Confidence
+UNSET MeSHAnatomy
+
+SET Evidence = "Ageing also leads to progressive lymphatic vessel dysfunction in peripheral tissues"
+SET Confidence = "High"
+bp(GO:aging) -| act(a(MESH:"Lymphatic Vessels"))
+UNSET Confidence
+
+SET Evidence = "Here we show that meningeal lymphatic vessels have an essential role in maintaining 
+brain homeostasis by draining macromolecules from the CNS (both CSF and ISF) into the cervical lymph nodes"
+SET Confidence = "High"
+SET MeSHAnatomy = {"Meninges","Brain"}
+a(MESH:"Lymphatic Vessels") reg bp(MESH:Homeostasis)
+SET MeSHAnatomy = {"Meninges","Neck"}
+a(MESH:"Lymphatic Vessels") -> tloc(a(CHEBI:macromolecule),fromLoc(MESH:"Cerebrospinal Fluid"),toLoc(MESH:"Lymph Nodes"))
+UNSET Confidence
+UNSET MeSHAnatomy
+
+SET Evidence = "The use of this method resulted in effective ablation of meningeal lymphatic vessels (Fig. 1b, c),
+without any detectable off-target effects in the coverage of meningeal blood vasculature seven days after the procedure (Fig. 1d)"
+# 'this method': injections of visudyne
+SET Confidence = "High"
+SET MeSHAnatomy = "Meninges"
+a(CHEBI:verteporfin) -| a(MESH:"Lymphatic Vessels") 
+UNSET Confidence
+UNSET MeSHAnatomy
+
+SET Evidence = "A significant reduction in OVA-A647 drainage was observed in the visudyne with photoconversion
+group compared to the control groups (Extended Data Fig. 1b)"
+SET Confidence = "High"
+a(CHEBI:verteporfin) -| act(a(MESH:"Lymphatic Vessels"))
+UNSET Confidence
+
+SET Evidence = "Brain perfusion by the CSF tracer was found to be significantly lower
+in the visudyne with photoconversion group than in the control groups
+(Fig. 1e, f and Extended Data Fig. 2f, g)"
+SET Confidence = "High"
+SET MeSHAnatomy = "Brain"
+a(CHEBI:verteporfin) -| bp(MESH:"Cerebrovascular Circulation")
+UNSET Confidence
+
+SET Evidence = "Similar findings for brain perfusion by CSF were observed when meningeal lymphatic drainage
+was disrupted by surgical ligation of the vessels afferent to the dCLNs (Extended Data Fig. 3a–d)"
+SET Confidence = "High"
+SET MeSHAnatomy = "Brain"
+act(a(MESH:"Lymphatic Vessels")) -> bp(MESH:"Cerebrovascular Circulation")
+UNSET Confidence
+
+SET Evidence = "Prospero homeobox protein 1 heterozygous (Prox1+/−) mice, a genetic model of lymphatic vessel malfunction25,
+also presented impaired perfusion through the brain parenchyma and impaired CSF drainage (Extended Data Fig. 3e–i)"
+SET Confidence = "High"
+SET MeSHAnatomy = {"Parenchymal Tissue","Brain"}
+act(a(MESH:"Lymphatic Vessels")) -> bp(GO:"cerebrospinal fluid secretion")
+SET MeSHAnatomy = "Brain"
+act(a(MESH:"Lymphatic Vessels")) -> bp(MESH:"Cerebrovascular Circulation")
+UNSET Confidence
+
+SET Evidence = "Together, three different models of impaired meningeal lymphatic function (pharmacological,
+surgical and genetic) showed a significant impact on brain perfusion by CSF macromolecules"
+SET Confidence = "High"
+SET MeSHAnatomy = "Brain"
+act(a(MESH:"Lymphatic Vessels")) -- bp(MESH:"Cerebrovascular Circulation")
+SET Confidence = "Low"
+SET MeSHAnatomy = {"Brain","Cerebrospinal Fluid"}
+#why translocation? not mentioned in evidence
+act(a(MESH:"Lymphatic Vessels")) -- tloc(a(CHEBI:macromolecule),fromLoc(GO:"extracellular space"),toLoc(MESH:"Intracellular Space"))
+UNSET Confidence
+UNSET MeSHAnatomy
+
+SET Evidence = "Notably, along with the lower influx of Gd into the parenchyma,
+we observed higher contrast in signal intensity (over approximately
+52 min) in the ventricles of visudyne-treated mice, suggesting
+that Gd accumulation in the CSF occurred (Extended Data Fig. 3n)"
+SET Confidence = "Low"
+# evaluate the effect of meningeal lymphatic ablation
+a(CHEBI:verteporfin) -| tloc(a(CHEBI:"gadolinium atom"),fromLoc(GO:"extracellular space"),toLoc(MESH:"Cerebrospinal Fluid"))
+act(a(MESH:"Lymphatic Vessels")) -> tloc(a(CHEBI:"gadolinium atom"),fromLoc(GO:"extracellular space"),toLoc(MESH:"Cerebrospinal Fluid"))
+UNSET Confidence
+
+SET Evidence = "Within the brain parenchyma, it was shown that aquaporin 4 (AQP4)
+expression by astrocytes plays an important role in the modulation of
+paravascular CSF macromolecule influx and efflux (through the glymphatic route)"
+SET Confidence = "High"
+SET MeSHAnatomy = {"Parenchymal Tissue","Brain","Cerebrospinal Fluid"}
+p(MGI:Aqp4) reg tloc(a(CHEBI:macromolecule),fromLoc(GO:"extracellular space"),toLoc(MESH:"Intracellular Space"))
+p(MGI:Aqp4) reg tloc(a(CHEBI:macromolecule),fromLoc(MESH:"Intracellular Space"),toLoc(GO:"extracellular space"))
+UNSET Confidence
+UNSET MeSHAnatomy
+
+SET Evidence = "Deletion of Aqp4 in transgenic mice with Alzheimer’s disease also resulted in 
+increased amyloid-β plaque burden and exacerbated cognitive impairment"
+SET Confidence = "High"
+SET MeSHDisease = "Alzheimer Disease"
+p(MGI:Aqp4) -| a(CHEBI:"amyloid-beta")
+p(MGI:Aqp4) -> bp(GO:cognition)
+UNSET Confidence
+UNSET MeSHDisease
+
+SET Evidence = "These findings, as has been suggested previously, demonstrate that the efflux
+of parenchymal and/or ISF macromolecules and the drainage of these macromolecules into dCLNs 
+are impaired as a consequence of meningeal lymphatic ablation, thus functionally connecting 
+meningeal lymphatics with CSF influx and ISF efflux mechanisms"
+SET Confidence = "High"
+SET MeSHAnatomy = {"Meninges","Neck"}
+act(a(MESH:"Lymphatic Vessels")) -> tloc(a(CHEBI:macromolecule),fromLoc(MESH:"Parenchymal Tissue"),toLoc(MESH:"Lymph Nodes"))
+act(a(MESH:"Lymphatic Vessels")) -> tloc(a(CHEBI:macromolecule),fromLoc(HP:"interstitial fluid"),toLoc(MESH:"Lymph Nodes"))
+UNSET Confidence
+
+SET Evidence = "A significant difference between control groups and visudyne with photoconversion group
+was observed in the cued test of the CFC (Extended Data Fig. 5e, f), which points to an impairment in fear memory and in hippocampal–
+amygdala neuronal circuitry in mice with impaired meningeal lymphatic vessel function"
+SET Confidence = "High"
+SET MeSHAnatomy = "Meninges"
+act(a(MESH:"Lymphatic Vessels")) -> bp(GO:"fear response")
+UNSET Confidence
+
+SET Evidence = "Mice with ablated meningeal lymphatic vessels also showed significant deficits 
+in spatial learning in the MWM (Fig. 1k–o)"
+SET Confidence = "High"
+SET MeSHAnatomy = "Meninges"
+act(a(MESH:"Lymphatic Vessels")) -> path(MESH:"Spatial Learning")
+UNSET Confidence
+
+SET Evidence = "Similar impairments in spatial learning and memory were observed in mice that had undergone lymphatic ligation (Extended
+Data Fig. 5g–j), supporting the notion that the observed effect is a result of dysfunctional meningeal lymphatic drainage and not an artefact of
+the ablation method using visudyne"
+SET Confidence = "High"
+SET MeSHAnatomy = "Meninges"
+act(a(MESH:"Lymphatic Vessels")) -> path(MESH:"Spatial Learning")
+act(a(MESH:"Lymphatic Vessels")) -> bp(GO:memory)
+UNSET Confidence
+
+SET Evidence = "However, significant differences in hippocampal gene expression were
+found in response to MWM performance after prolonged meningeal lymphatic ablation (Extended Data Fig. 5m, n)"
+SET Confidence = "Medium"
+SET MeSHAnatomy = {"Hippocampus","Meninges"}
+act(a(MESH:"Lymphatic Vessels")) -- bp(GO:"gene expression")
+UNSET Confidence
+
+SET Evidence = "Notably, although the fold change in significantly altered genes after lymphatic ablation and
+MWM was moderate (−1.79 < log2(fold change) < 1.69), functional enrichment analysis (Extended Data Fig. 5o, p) revealed changes in gene
+sets associated with neurodegenerative diseases, such as Huntington’s, Parkinson’s and Alzheimer’s disease (Extended Data Fig. 5o)"
+SET Confidence = "High"
+SET MeSHAnatomy = "Meninges"
+act(a(MESH:"Lymphatic Vessels")) -- path(MESH:"Huntington Disease")
+act(a(MESH:"Lymphatic Vessels")) -- path(MESH:"Parkinson Disease")
+act(a(MESH:"Lymphatic Vessels")) -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+SET Evidence = "Significant transcriptional alterations were also associated with excitatory synaptic
+remodelling and plasticity, hippocampal neuronal transmission, learning and memory and ageing-related cognitive decline 
+(Extended Data Fig. 5q, r)"
+SET Confidence = "High"
+# transcriptional alterations due to meningeal lymphatic ablation
+SET MeSHAnatomy = "Meninges"
+act(a(MESH:"Lymphatic Vessels")) -- bp(GO:"excitatory chemical synaptic transmission")
+act(a(MESH:"Lymphatic Vessels")) -> bp(GO:learning)
+act(a(MESH:"Lymphatic Vessels")) -> bp(GO:memory)
+act(a(MESH:"Lymphatic Vessels")) -> bp(GO:cognition)
+SET MeSHAnatomy = "Hippocampus"
+act(a(MESH:"Lymphatic Vessels")) -- bp(GO:"neuronal signal transduction")
+UNSET Confidence
+
+SET Evidence = "Furthermore, different gene sets that are involved in the regulation of metabolite generation and processing, glycolysis and
+mitochondrial respiration and oxidative stress were also significantly altered in the hippocampus upon lymphatic ablation and performance
+of the behaviour test (Extended Data Fig. 5p, s–v)"
+SET Confidence = "High"
+SET MeSHAnatomy = {"Hippocampus","Meninges"}
+act(a(MESH:"Lymphatic Vessels")) reg a(CHEBI:metabolite)
+act(a(MESH:"Lymphatic Vessels")) reg bp(MESH:Glycolysis)
+act(a(MESH:"Lymphatic Vessels")) reg bp(GO:"response to oxidative stress")
+SET CellStructure = "Mitochondria"
+act(a(MESH:"Lymphatic Vessels")) reg bp(GO:"cellular respiration")
+UNSET Confidence
+UNSET CellStructure
+UNSET MeSHAnatomy
+
+SET Evidence = "The reported findings that ageing is also associated with peripheral lymphatic dysfunction
+led us to hypothesize that the deterioration of meningeal lymphatic vessels underlies some aspects of 
+age-associated cognitive decline"
+SET Confidence = "High"
+bp(GO:aging) negativeCorrelation act(a(MESH:"Lymphatic Vessels"))
+UNSET Confidence
+
+SET Evidence = "Indeed, and in agreement with a previous study, old mice demonstrate reduced brain perfusion 
+by CSF macromolecules compared to young counterparts (Extended Data Fig. 6a, b)"
+SET Confidence = "High"
+SET MeSHAnatomy = "Cerebrospinal Fluid"
+bp(GO:aging) -| tloc(a(CHEBI:macromolecule),fromLoc(GO:"extracellular space"),toLoc(MESH:"Intracellular Space"))
+UNSET Confidence
+
+SET Evidence = "Impaired brain perfusion by CSF in old mice was accompanied by a decrease in
+meningeal lymphatic vessel diameter and coverage, as well as decreased drainage of CSF macromolecules into dCLNs 
+in both females and males (Extended Data Fig. 6c–f)"
+SET Confidence = "High"
+SET MeSHAnatomy = "Cerebrospinal Fluid"
+bp(MESH:"Cerebrovascular Circulation") -> tloc(a(CHEBI:macromolecule),fromLoc(GO:"extracellular space"),toLoc(MESH:"Intracellular Space"))  
+SET MeSHAnatomy = "Meninges"
+bp(MESH:"Cerebrovascular Circulation") -> act(a(MESH:"Lymphatic Vessels"))
+UNSET Confidence
+
+SET Evidence = "Enrichment analysis revealed, however, changes in gene sets involved in immune and inflammatory responses, phospholipid
+metabolism, extracellular matrix organization, cellular adhesion and endothelial tube morphogenesis, all of which suggest that there are
+functional alterations in meningeal LECs with age (Fig. 2c)."
+SET Confidence = "High"
+SET MeSHAnatomy = "Meninges"
+bp(GO:aging) -- bp(GO:"immune response")
+bp(GO:aging) -- bp(GO:"inflammatory response")
+bp(GO:aging) -- bp(GO:"phospholipid metabolic process")
+bp(GO:aging) -- bp(GO:"extracellular matrix organization")
+bp(GO:aging) -- bp(GO:"cell adhesion")
+bp(GO:aging) -- bp(GO:"endothelial tube morphogenesis")
+UNSET Confidence
+
+SET Evidence = "The altered expression of genes involved in the transmembrane receptor protein
+tyrosine kinase signalling pathway in old mice, namely the downregulation
+of Cdk5r1, Adamts3 and Fgfr3, indicated possible changes
+in signalling by lymphangiogenic growth factors in old meningeal LECs (Fig. 2d)"
+SET Confidence = "High"
+SET MeSHAnatomy = "Meninges"
+bp(GO:aging) -| p(MGI:Cdk5r1)
+bp(GO:aging) -| p(MGI:Adamts3)
+bp(GO:aging) -| p(MGI:Fgfr3)
+UNSET Confidence
+
+SET Evidence = "We have previously shown that treatment with recombinant VEGF-C
+increases the diameter of meningeal lymphatic vessels"
+SET Confidence = "Low"
+#diameter increased, not total number
+SET MeSHAnatomy = "Meninges"
+p(MGI:Vegfc) -> a(MESH:"Lymphatic Vessels")
+UNSET Confidence
+
+SET Evidence = "Furthermore, delivery of VEGF-C by adenoviral gene therapy was previously found
+to efficiently boost peripheral lymphatic sprouting and function"
+SET Confidence = "High"
+SET MeSHAnatomy = "Meninges"
+p(MGI:Vegfc) -> act(a(MESH:"Lymphatic Vessels"))
+UNSET Confidence
+
+SET Evidence = "Treatment of young mice with AAV1-CM-mVEGF-C resulted in a significant increase in meningeal lymphatic
+vessel diameter, without affecting blood vessel coverage (Extended Data Fig. 6k–m)"
+#adeno-associated virus serotype 1 (AAV1) vector used to express mouse (m)VEGF-C or enhanced green fluorescent protein (eGFP) as control
+SET MeSHAnatomy = "Meninges"
+SET Confidence = "Low"
+#diameter increased, not total number
+p(MGI:Vegfc) -> a(MESH:"Lymphatic Vessels")
+UNSET Confidence
+
+SET Evidence = "Treatment of old mice (at 20–24 months) with AAV1-CMV-mVEGF-C also resulted in increased lymphatic vessel diameter (compared
+to AAV1-CMV-eGFP) without detectable off-target effects on the meningeal blood vasculature coverage and on meningeal and/or brain
+vascular haemodynamics (Fig. 2e–h and Extended Data Fig. 6n–p)"
+SET Confidence = "Low"
+#diameter increased, not total number
+SET MeSHAnatomy = "Meninges"
+p(MGI:Vegfc) -> a(MESH:"Lymphatic Vessels")
+UNSET Confidence
+
+SET Evidence = "Notably, the rate of tracer influx into the brain parenchyma was significantly
+increased as a result of enhanced meningeal lymphatic function (Fig. 2k, l and Extended Data Fig. 6q, r)"
+SET Confidence = "High"
+SET MeSHAnatomy = "Meninges"
+act(a(MESH:"Lymphatic Vessels")) -> tloc(a(CHEBI:macromolecule),fromLoc(MESH:"Cerebrospinal Fluid"),toLoc(MESH:"Parenchymal Tissue"))
+UNSET Confidence
+
+SET Evidence = "Transcranial delivery (through a thinned skull surface) of hydrogel-encapsulated
+VEGF-C peptide also resulted in increased diameter of meningeal lymphatics in young and old mice (Extended Data Fig. 7a–c)"
+SET Confidence = "Low"
+#diameter increased, not total number
+SET MeSHAnatomy = "Meninges"
+composite(p(MGI:Vegfc),a(CHEBI:"poly(ethylene glycol dimethacrylate)")) -> a(MESH:"Lymphatic Vessels")
+UNSET Confidence
+
+SET Evidence = "This VEGF-C treatment led to a significant increase in the function of meningeal lymphatic vessels in old 
+mice, whereas young–adult mice did not respond to the treatment (Extended Data Fig. 7d, e), probably due
+to the ceiling effect of their existing capacity to drain OVA-A647"
+SET Confidence = "High"
+SET MeSHAnatomy = "Meninges"
+p(MGI:Vegfc) -> act(a(MESH:"Lymphatic Vessels"))
+UNSET Confidence
+
+SET Evidence = "The increased drainage after VEGF-C treatment in old mice also correlated
+with enhanced brain perfusion by CSF macromolecules (Extended Data Fig. 7f, g)"
+SET Confidence = "High"
+SET MeSHAnatomy = "Brain"
+act(a(MESH:"Lymphatic Vessels")) positiveCorrelation bp(MESH:"Cerebrovascular Circulation")
+UNSET Confidence
+
+SET Evidence = "Treatment with VEGF-C156S resulted in a significant increase in meningeal lymphatic diameter 
+(Extended Data Fig. 7i, j), drainage of tracer from the CSF (Extended Data Fig. 7k, l), and paravascular influx
+of tracer into the brains of old mice (Extended Data Fig. 7m, n)"
+SET MeSHAnatomy = "Meninges"
+SET Confidence = "Low"
+#diameter increased, not total number
+p(MGI:Vegfc,var("p.Cys156Ser")) -> a(MESH:"Lymphatic Vessels")
+SET Confidence = "High"
+p(MGI:Vegfc,var("p.Cys156Ser")) -> tloc(a(CHEBI:macromolecule),fromLoc(MESH:"Cerebrospinal Fluid"),toLoc(MESH:"Brain"))
+UNSET Confidence
+UNSET MeSHAnatomy
+
+SET Evidence = "However, AAV1-CMV-mVEGF-C treatment resulted in significant improvement in the latency to platform 
+and in the percentage of allocentric navigation strategies, in the MWM reversal at 12–14 months (Extended Data
+Fig. 7q, t) and in the MWM acquisition and reversal at 20–22 months (Extended Data Fig. 7r, u), compared to 
+AAV1-CMV-eGFP-treated age-matched mice"
+SET Confidence = "High"
+p(MGI:Vegfc) -> path(MESH:"Spatial Learning")
+UNSET Confidence
+
+SET Evidence = "Increased expression of VEGF-C in the adult brain has previously
+been shown to boost proliferation of neural stem cells in the hippocampus"
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Hippocampus"
+SET Cell = "neuron"
+p(MGI:Vegfc) -> bp(GO:"stem cell proliferation")
+UNSET Confidence
+UNSET MeSHAnatomy
+UNSET Cell
+
+SET Evidence = "The beneficial effect of mVEGF-C treatment in mice from the sham group, which performed significantly better
+in the NLR (Fig. 2n, o) and MWM (Fig. 2p–r) tests, was abrogated in mice in which the CSF-draining lymphatic vessels had been ligated"
+SET Confidence = "High"
+p(MGI:Vegfc) -> bp(GO:cognition)
+UNSET Confidence
+
+SET Evidence = "Accordingly, the drainage of CSF macromolecules into dCLNs was significantly higher in sham-operated mice treated with mVEGF-C
+compared to all other groups (Fig. 2s, t)"
+SET Confidence = "High"
+SET MeSHAnatomy = "Neck"
+p(MGI:Vegfc) -> tloc(a(CHEBI:macromolecule),fromLoc(MESH:"Cerebrospinal Fluid"),toLoc(MESH:"Lymph Nodes"))
+UNSET Confidence
+
+SET Evidence = "Moreover, viral expression of mVEGF-C did not significantly affect the diameter of meningeal lymphatic vessels, the level
+of amyloid-β in the CSF, or amyloid-β deposition in the hippocampus (Extended Data Fig. 8g–n)"
+SET MeSHDisease = "Alzheimer Disease"
+SET Confidence = "Low"
+#diameter increased, not total number
+SET MeSHAnatomy = "Meninges"
+p(MGI:Vegfc) causesNoChange a(MESH:"Lymphatic Vessels")
+SET Confidence = "High"
+SET MeSHAnatomy = {"Cerebrospinal Fluid","Hippocampus"}
+p(MGI:Vegfc) causesNoChange a(CHEBI:"amyloid-beta")
+UNSET Confidence
+
+SET Evidence = "Independently of the model, the level of CSF tracer drained into the dCLNs was comparable between 
+transgenic mice with Alzheimer’s disease and age-matched wild-type littermates (Extended Data Fig. 8p–s)"
+SET Confidence = "High"
+SET MeSHDisease = "Alzheimer Disease"
+p(MGI:Vegfc) causesNoChange tloc(a(CHEBI:macromolecule),fromLoc(MESH:"Cerebrospinal Fluid"),toLoc(MESH:"Lymph Nodes"))
+UNSET Confidence
+
+SET Evidence = "Similarly, the morphology and coverage of meningeal lymphatic vessels did not differ between 
+wild-type and 5xFAD mice at 3–4 months of age (Extended Data Fig. 8t, u)"
+SET Confidence = "High"
+SET MeSHDisease = "Alzheimer Disease"
+SET MeSHAnatomy = "Meninges"
+p(MGI:Vegfc) causesNoChange path(HP:"Abnormal lymphatic vessel morphology")
+UNSET Confidence
+
+SET Evidence = "Collectively, these data point to no apparent meningeal lymphatic dysfunction in transgenic mice with
+Alzheimer’s disease at younger ages, which might explain the inefficacy of mVEGF-C treatment"
+SET Confidence = "Low"
+SET MeSHDisease = "Alzheimer Disease"
+SET MeSHAnatomy = "Meninges"
+act(a(MESH:"Lymphatic Vessels")) -> act(p(MGI:Vegfc)) 
+UNSET Confidence
+UNSET MeSHDisease 
+
+SET Evidence = " However, 5xFAD mice with ablated meningeal lymphatic vessels demonstrated marked deposition of amyloid-β in the meninges
+(Fig. 3b), as well as macrophage recruitment to large amyloid-β aggregates (Fig. 3c)"
+SET Confidence = "High"
+SET MeSHAnatomy = "Meninges"
+act(a(MESH:"Lymphatic Vessels")) -| a(CHEBI:"amyloid-beta")
+act(a(MESH:"Lymphatic Vessels")) -| bp(GO:"macrophage migration")
+UNSET Confidence
+
+SET Evidence = "Analysis of lymphoid and myeloid cell populations in the meninges (Extended Data Fig. 9d) demonstrated a significant
+increase in the number of macrophages upon lymphatic ablation compared to both control groups (Extended Data Fig. 9e), which might be
+correlated with increased amyloid-β deposition and inflammation in the meninges"
+SET Confidence = "High"
+SET MeSHAnatomy = "Meninges"
+act(a(MESH:"Lymphatic Vessels")) -| a(MESH:Macrophages)
+act(a(MESH:"Lymphatic Vessels")) negativeCorrelation a(CHEBI:"amyloid-beta")
+act(a(MESH:"Lymphatic Vessels")) negativeCorrelation path(MESH:Inflammation)
+UNSET Confidence
+
+SET Evidence = "Notably, along with meningeal amyloid-β pathology, we observed an aggravation of brain amyloid-β burden in the hippocampi
+of 5xFAD mice with dysfunctional meningeal lymphatic vessels (Fig. 3d–g)"
+SET Confidence = "High"
+SET MeSHAnatomy = {"Hippocampus","Meninges"}
+act(a(MESH:"Lymphatic Vessels")) -| a(CHEBI:"amyloid-beta")
+UNSET Confidence
+
+SET Evidence = "A similar outcome was observed in J20 transgenic mice after a total of three months of meningeal lymphatic ablation
+(Extended Data Fig. 9f); amyloid-β aggregates had formed in the meninges (Extended Data Fig. 9g) and the amyloid-β plaque load in
+the hippocampi of these mice was significantly increased (Extended Data Fig. 9h–k)"
+SET Confidence = "High"
+SET MeSHAnatomy = "Meninges"
+act(a(MESH:"Lymphatic Vessels")) -| a(HBP:HBP00018)
+act(a(MESH:"Lymphatic Vessels")) -| a(CHEBI:"amyloid-beta")
+UNSET Confidence
+
+SET Evidence = "Staining for amyloid-β in the brains of nine patients with Alzheimer’s disease and
+eight controls without Alzheimer’s disease (Extended Data Table 1) revealed, as expected, marked parenchymal deposition 
+of amyloid-β in the brains of patients with Alzheimer’s disease, but not in the brains of the controls without 
+Alzheimer’s disease (Extended Data Fig. 9l, m)"
+SET Confidence = "Medium"
+SET MeSHAnatomy = {"Parenchymal Tissue","Brain"}
+path(MESH:"Alzheimer Disease") positiveCorrelation a(CHEBI:"amyloid-beta")
+UNSET Confidence
+
+SET Evidence = "Notably, when compared to tissue from controls, all samples from patients with Alzheimer’s disease demonstrated 
+striking vascular amyloid-β pathology in the cortical leptomeninges (Extended Data Fig. 9l, m) and amyloid-β deposition in the 
+dura mater adjacent to the superior sagittal sinus (Fig. 3i, j) or further away from the sinus (Fig. 3k, l)"
+SET MeSHAnatomy = {"Dura Mater","Superior Sagittal Sinus"}
+SET Confidence = "Medium"
+path(MESH:"Alzheimer Disease") positiveCorrelation a(CHEBI:"amyloid-beta")
+UNSET Confidence
+
+SET Evidence = "Macrophages in the dura of cases with Alzheimer’s disease were also found in close 
+proximity to amyloid-β deposits (Fig. 3l)"
+SET Confidence = "High"
+SET MeSHAnatomy = "Dura Mater"
+SET MeSHDisease = "Alzheimer Disease"
+a(MESH:Macrophages) -- a(CHEBI:"amyloid-beta")
+UNSET Confidence
+
+SET Evidence = "These findings showed that prominent meningeal amyloid-β deposition observed in
+patients with Alzheimer’s disease is also observed in mouse models of
+Alzheimer’s disease after meningeal lymphatic vessel ablation"
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Meninges"
+SET MeSHDisease = "Alzheimer Disease"
+path(MESH:"Alzheimer Disease") positiveCorrelation a(CHEBI:"amyloid-beta")
+a(MESH:"Lymphatic Vessels") -| a(CHEBI:"amyloid-beta")
+UNSET Confidence
+ 
+
+########################################################## 
+
+
+UNSET STATEMENT_GROUP
