@@ -1,0 +1,401 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved"
+SET DOCUMENT Licenses = "CC BY-SA 4.0"
+SET DOCUMENT ContactInfo = "rana.al.disi@scai.fraunhofer.de"
+
+SET DOCUMENT Name = "francis2016"
+SET DOCUMENT Version = "1.0.0"
+SET DOCUMENT Authors = "Rana Aldisi"
+SET DOCUMENT Description = "this file encodes the article Interplay of neurotransmitters in Alzheimer's disease by Francis et al. 2016"
+
+###############
+# Definitions #
+###############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh.belns"
+DEFINE NAMESPACE CHEBI AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/chebi-names.belns"
+DEFINE NAMESPACE HGNC AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/hgnc-symbols.belns"
+DEFINE NAMESPACE GO AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/go.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel
+# --------------------------------------------------------------------
+DEFINE NAMESPACE GFAM AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hgnc-gene-families/hgnc-gene-families-20170710.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Disease AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION MeSHAnatomy AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+
+# Annotations defined as lists
+# ----------------------------
+
+DEFINE ANNOTATION Species AS PATTERN "\d+"
+
+#####################################################################################
+#Statements
+#####################################################################################
+
+SET Citation={"PubMed","16273023"}
+
+SET Evidence="From the perspective of brain histopathology,
+Alzheimer's disease has three characteristic features—the
+appearance of beta-amyloid plaques, the
+presence of neurofibrillary tangles, and the loss of neuronal cells"
+
+SET Disease="Alzheimer's disease"
+#D000544 = Alzheimer Disease
+#D016874 = Neurofibrillary Tangles
+path(MESH:D000544) -- path(MESH:D016874)
+#D058225 = Plaque, Amyloid
+path(MESH:D000544) -- path(MESH:D058225)
+#GO:0070997 = neuron death
+path(MESH:D000544) -- bp(GO:"GO:0070997")
+
+UNSET Disease
+
+SET Evidence="Although the loss of neurons leads
+to deficits in neurotransmission, even neurons that
+are not dead may exhibit impaired neurotransmission
+in Alzheimer's disease"
+
+SET Disease="Alzheimer's disease"
+
+#D009435 = Synaptic Transmission
+path(MESH:D000544) -| bp(MESH:D009435)
+
+UNSET Disease
+
+SET Evidence="Among the systems affected in patients with
+Alzheimer's disease are the cholinergic and glutamatergic
+neurotransmission systems. These two
+systems play key roles in cognition and, as a result,
+contemporary pharmacologic agents used in the
+treatment of Alzheimer's disease are designed to
+restore their functioning"
+
+SET Disease="Alzheimer's disease"
+
+#GO:0007271 = synaptic transmission, cholinergic
+path(MESH:D000544) -| bp(GO:"GO:0007271")
+#GO:0035249 = synaptic transmission, glutamatergic
+path(MESH:D000544) -| bp(GO:"GO:0035249")
+
+#D003071 = Cognition
+bp(GO:"GO:0035249") -- path(MESH:D003071)
+bp(GO:"GO:0007271") -- path(MESH:D003071)
+
+UNSET Disease
+
+SET Evidence="For example, the activity
+of choline acetyltransferase, the enzyme that catalyzes
+the synthesis of ACh from choline and acetyl
+coenzyme A, is reduced to 35% to 50% of normal
+levels in Alzheimer's disease"
+
+act(p(HGNC:CHAT), ma(cat)) -> a(CHEBI:acetylcholine)
+
+SET Disease="Alzheimer's disease"
+
+path(MESH:D000544) -| act(p(HGNC:CHAT), ma(cat))
+
+UNSET Disease
+
+SET Evidence="Furthermore, synaptic
+reuptake of choline, which is essential for the
+synthesis of ACh molecules that are to be released
+into the synaptic cleft in subsequent rounds of neurotransmission,
+is reduced to -60% of normal levels
+in Alzheimer's disease, and direct measurement
+reveals that levels of ACh synthesis are reduced by
+one half in affected patients."
+
+SET Disease="Alzheimer's disease"
+
+#GO:0015871 = choline transport
+path(MESH:D000544) -| bp(GO:"GO:0015871")
+#GO:0008292 = acetylcholine biosynthetic process
+path(MESH:D000544) -| bp(GO:"GO:0008292")
+
+UNSET Disease
+
+SET Evidence="In fact, it has been
+demonstrated that decreasing levels of ACh synthesis
+are significantly correlated with increasing
+severity of dementia in patients with Alzheimer's
+disease (Table)"
+
+SET Disease="Alzheimer's disease"
+
+bp(GO:"GO:0008292") -- path(MESH:D003704)
+
+UNSET Disease
+
+SET Evidence="Despite the various cholinergic abnormalities
+seen in Alzheimer's disease, ACh receptor systems
+remain relatively unaltered in affected patients.8"
+
+#D011950 = Receptors, Cholinergic
+path(MESH:D000544) causesNoChange p(MESH:D011950)
+
+SET Evidence="The capacity for thinking and remembering is
+derived from various input and output pathways
+between the hippocampus and the neocortex,9 and
+all such pathways rely on signaling mediated by
+the neurotransmitter glutamate. "
+
+#D006624 = Hippocampus, D019579 = Neocortex
+#D013850 = Thinking
+path(MESH:D013850) -- a(MESH:D006624)
+path(MESH:D013850) -- a(MESH:D019579)
+path(MESH:D013850) -- a(CHEBI:"glutamate(1-)")
+#D008568 = Memory
+path(MESH:D008568) -- a(MESH:D006624)
+path(MESH:D008568) -- a(MESH:D019579)
+path(MESH:D008568) -- a(CHEBI:"glutamate(1-)")
+
+SET Evidence="In healthy individuals,
+the glutamatergic neurotransmission cycle
+begins in the mitochondria of hippocampal neurons,
+where the enzyme glutaminase catalyzes the
+conversion of glutamine to glutamate. Next, the
+vesicular glutamate transporter molecule mediates
+the packaging of these glutamate molecules into
+vesicles. Glutamate-containing vesicles are then
+released from the neuron, resulting in elevated
+synaptic concentrations of free glutamate, which
+can transmit neural signals by interacting with
+glutamatergic receptors on postsynaptic neurons"
+
+SET MeSHAnatomy="Hippocampus"
+SET Cell="hippocampal neuron"
+SET CellStructure="Mitochondria"
+
+act(p(HGNC:GLS), ma(cat)) => a(CHEBI:"glutamate(1-)")
+#GO:0014047 = glutamate secretion
+a(CHEBI:"glutamate(2-)") => bp(GO:"GO:0014047")
+bp(GO:"GO:0014047") -> bp(GO:"GO:0035249")
+
+UNSET {MeSHAnatomy, Cell, CellStructure}
+
+SET Evidence="Synaptic glutamate concentration is promptly
+restored to normal levels, however, through the
+rapid uptake of unbound glutamate molecules by
+nearby glial cells, which subsequently convert
+these glutamate molecules to glutamine. The
+resulting glutamine molecules are then recycled to
+the neurons, and the cycle of glutamatergic signaling
+begins anew"
+
+SET Cell="glial cell"
+#GO:0035249 = synaptic transmission, glutamatergic
+#GO:0051935 = glutamate reuptake
+bp(GO:"GO:0035249") -> bp(GO:"GO:0051935")
+bp(GO:"GO:0051935") -> a(CHEBI:glutamine)
+#GO:0006868 = glutamine transport
+a(CHEBI:glutamine) -> bp(GO:"GO:0006868")
+
+UNSET Cell
+
+SET Evidence="In patients with Alzheimer's disease, available
+evidence points to a disruption in the glutamatergic
+neurotransmission cycle at the point of
+glial cell reuptake of free glutamate from the synapse.
+Neuropathologic studies have documented
+reduced levels of glutamate reuptake in the frontal
+and temporal cortices of patients with Alzheimer's
+disease,10 possibly due to oxidative modification
+of the glutamate transporter 1 molecule.
+Furthermore, diminished uptake by vesicular glutamate
+transporter has been reported in patients
+with Alzheimer's disease"
+
+SET Disease="Alzheimer's disease"
+SET MeSHAnatomy={"Frontal Lobe","Temporal Lobe"}
+SET Cell="glial cell"
+
+path(MESH:D000544) -| bp(GO:"GO:0051935")
+path(MESH:D000544) -| bp(GO:"GO:0014047")
+
+SET Evidence="First, the presence of elevated neurotransmitter
+levels in the synapse under resting conditions
+can be thought of as a constant 'background signal,'
+leading to chronic low-level activation of glutamatergic
+receptors on postsynaptic neurons and
+possibly neuronal death."
+
+SET Disease="Alzheimer's disease"
+SET CellStructure="Post-Synaptic Density"
+
+#D017470 = Receptors, Glutamate
+a(CHEBI:"glutamate(2-)") => act(p(MESH:D017470))
+#GO:0070997 = neuron death
+act(p(MESH:D017470)) -- bp(GO:"GO:0070997")
+
+UNSET {Disease, CellStructure}
+
+SET Evidence="Second, because of this
+background signal, as well as the fact that neurons
+are left with smaller amounts of neurotransmitter
+to release into the synapse during neuronal firing,
+the 'peak signal'—the difference between synaptic
+glutamate concentration during neuronal activity
+and synaptic glutamate concentration under resting
+conditions—is attenuated, leading to suboptimal
+neurotransmission as exemplified by a lack of
+long-term potentiation (LTP)"
+
+SET Disease="Alzheimer's disease"
+
+#D017774 = Long-Term Potentiation
+bp(GO:"GO:0014047") -> bp(MESH:D017774)
+path(MESH:D000544) -| bp(GO:"GO:0014047")
+path(MESH:D000544) -| bp(MESH:D017774)
+
+UNSET Disease
+
+SET Evidence="It is believed
+that LTP, which can persist at a given synapse for
+periods ranging from hours to months, models the
+processes of learning and memory, and a number of
+studies have demonstrated a loss of LTP in animal
+models of Alzheimer's disease."
+
+bp(MESH:D017774) -- path(MESH:D008568)
+#D007858 = Learning
+bp(MESH:D017774) -- path(MESH:D007858)
+path(MESH:D000544) -| bp(MESH:D017774)
+
+SET Evidence="Pyramidal neurons, which account for ~70% of
+all neurons in the neocortex, use glutamate as their
+primary neurotransmitter. Nonetheless, in addition
+to possessing glutamatergic receptors on their
+surface, these neurons often also possess cholinergic
+receptors, which are capable of receiving cholinergic
+inputs into the neocortex from the basal forebrain.
+The presence of these cholinergic receptors
+has been putatively linked to an important finding
+regarding the interaction between the cholinergic
+and glutamatergic neurotransmission systems. In
+particular, rodent studies have revealed that cholinesterase
+inhibitors (ChEIs) promote the release
+of glutamate from pyramidal neurons,16 with the
+proposed explanation being that ChEI administration
+leads to increased cortical ACh concentrations
+and, consequently, increased binding of ACh by
+cholinergic receptors on pyramidal neurons, thereby
+stimulating neuronal firing (ie, glutamate release)."
+
+SET MeSHAnatomy="Neocortex"
+SET Cell="pyramidal neuron"
+
+#D017966 = Pyramidal Cells, D011950 = Receptors, Cholinergic
+a(MESH:D017966) -- composite(p(MESH:D017470), p(MESH:D011950))
+
+SET Species="10116"
+#D002800 = Cholinesterase Inhibitors
+a(MESH:D002800) -> bp(GO:"GO:0014047")
+a(MESH:D002800) -> a(CHEBI:acetylcholine)
+a(CHEBI:acetylcholine) -> complex(p(MESH:D011950), a(CHEBI:acetylcholine))
+complex(p(MESH:D011950), a(CHEBI:acetylcholine)) -> a(CHEBI:acetylcholine)
+
+UNSET {MeSHAnatomy, Cell, Species}
+
+SET Evidence="In individuals with normal cognitive functioning,
+Mg2+ blocks the passage of Ca2+ through the
+neuronal NMDA receptor calcium channel under
+resting conditions, but it is readily displaced when
+membrane depolarization occurs and synaptic glutamate
+concentrations are at peak levels (ie, when
+neuronal firing occurs)."
+
+a(CHEBI:"magnesium(2+)") -| complex(p(GFAM:"Glutamate ionotropic receptor NMDA type subunits"), a(CHEBI:"calcium(2+)"))
+
+SET Evidence="In Alzheimer's disease,
+however, it is believed that Mg2+ is displaced from
+the NMDA receptor calcium channel even under
+resting conditions, due to the elevated levels of glutamate
+that are present in the synapse at all times.13
+It has been hypothesized that this constant activation
+of NMDA receptors leads to neuronal overactivity
+while also contributing to an unfavorable
+signal-to-noise ratio during glutamatergic neurotransmission
+and, hence, to the absence of LTP."
+
+SET Disease="Alzheimer's disease"
+
+path(MESH:D000544) -| complex(p(GFAM:"Glutamate ionotropic receptor NMDA type subunits"), a(CHEBI:"magnesium(2+)"))
+act(p(GFAM:"Glutamate ionotropic receptor NMDA type subunits")) -| bp(MESH:D017774)
+
+UNSET Disease
+
+SET Evidence="According
+to the proposed hypothesis, memantine has the
+ability to block the passage of Ca2+ through the
+calcium channel even when, as in Alzheimer's
+disease, resting synaptic glutamate levels are
+abnormally high, but it is still readily displaced
+at peak synaptic glutamate concentrations.13 In
+other words, the clinical efficacy of memantine
+appears to stem from its ability to prevent neuronal
+overactivity without also hindering normal
+neurotransmission."
+
+SET Disease="Alzheimer's disease"
+a(CHEBI:memantine) -| complex(p(GFAM:"Glutamate ionotropic receptor NMDA type subunits"), a(CHEBI:"calcium(2+)"))
+#D009435 = Synaptic Transmission
+a(CHEBI:memantine) causesNoChange bp(MESH:D009435)
+
+UNSET Disease
+
+SET Evidence="Glutamatergic and cholinergic abnormalities are
+strongly correlated with cognitive deterioration in
+Alzheimer's disease, and both types of abnormalities
+have been hypothesized to have a causative role in
+this deterioration. The two major classes of agents
+used to treat cognitive symptoms of Alzheimer's
+disease are ChEIs and NMDA receptor antagonists."
+
+SET Disease="Alzheimer's disease"
+
+bp(GO:"GO:0035249") -- path(MESH:D003071)
+bp(GO:"GO:0007271") -- path(MESH:D003071)
+
+UNSET Disease
+
+SET Evidence="ChEIs are believed to target cholinergic abnormalities
+in Alzheimer's disease, although there is evidence
+indicating that their therapeutic effect may
+be via the glutamatergic system. NMDA receptor
+antagonists, in contrast, are believed to target the
+glutamatergic system directly"
+
+a(MESH:D002800) -- bp(GO:"GO:0007271")
+a(CHEBI:"NMDA receptor antagonist") -- bp(GO:"GO:0035249")
+
+SET Evidence="With regard to the glutamatergic system, studies
+suggest that ChEIs may stimulate the release of glutamate
+from pyramidal neurons during normal neuronal
+activity, while NMDA receptor antagonists
+are believed to block the abnormal neuronal activity
+that results from the presence of excess glutamate
+in the synapse under resting conditions. Thus,
+ChEIs and NMDA receptor antagonists appear to
+have complementary effects, as the former enhance
+the signals received by postsynaptic neurons during
+normal neurotransmission, and the latter diminish
+the background 'noise' that is constantly being
+detected by those same receptors."
+
+SET Cell="pyramidal neuron"
+
+a(MESH:D002800) -> bp(GO:"GO:0014047")
+#D009474 = Neurons
+a(CHEBI:"NMDA receptor antagonist") -| act(a(MESH:D009474))
+
+UNSET Cell
