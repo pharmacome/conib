@@ -1,0 +1,265 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Name = "Amyloid β oligomers (AβOs) in Alzheimer’s disease"
+SET DOCUMENT Version = "1.0.0"
+SET DOCUMENT Description = ""
+SET DOCUMENT Copyright = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved"
+SET DOCUMENT Authors = "Esther Wollert"
+SET DOCUMENT Licenses = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+###############
+# Definitions #
+###############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE HGNC  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE GO    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE HBP   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp.belns"
+
+DEFINE NAMESPACE CTO   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE MGI   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "29196815"}
+SET Evidence = "AD belongs to a large group of neurodegenerative diseases (NDs) characterized by cognitive impairment and progressive \
+ synaptic damage accompanied by neuronal loss."
+SET Confidence = "High"
+path(MESH:"Alzheimer Disease") isA path(MESH:"Neurodegenerative Diseases")
+path(MESH:"Alzheimer Disease") -| bp(GO:cognition)
+path(MESH:"Alzheimer Disease") -> bp(GO:"positive regulation of neuron apoptotic process")
+
+SET Evidence = "The histopathological changes in the brain include the presence of extracellular amyloid plaques consisted of various \
+ peptide variants of amyloid β (Aβ) and accumulation of intracellular neurofibrillary tangles (NFTs) composed mainly of phosphorylated \
+ Tau proteins (pTau), localized predominantly in neurons (reviewed by Serrano-Pozo et al. 2011). "
+SET Confidence = "Medium"
+path(MESH:"Alzheimer Disease") positiveCorrelation a(CHEBI:"amyloid-beta")
+path(MESH:"Alzheimer Disease") positiveCorrelation path(MESH:"Plaque, Amyloid")
+path(MESH:"Alzheimer Disease") positiveCorrelation a(MESH:"Amyloid beta-Peptides")
+path(MESH:"Alzheimer Disease") positiveCorrelation a(GO:"neurofibrillary tangle")
+
+SET Evidence = "The risk factors of AD include: increasing age, vascular factors such as smoking, obesity, and diabetes (Reitz and Mayeux\
+ 2014) as well as genetic mutations."
+SET Confidence = "High" 
+bp(GO:"aging") -> path(MESH:"Alzheimer Disease")
+path(MESH:Smoking) -> path(MESH:"Alzheimer Disease")
+path(MESH:Obesity) -> path(MESH:"Alzheimer Disease")
+path(MESH:"Diabetes Mellitus") -> path(MESH:"Alzheimer Disease")
+
+SET Evidence = " However, a significant risk of AD development is related to certain genetic changes: the sporadic form of AD can be \
+associated with the presence of apolipoprotein E (APOE) ε4 genotype (Holtzman et al. 2012; Spinney 2014), whereas the familial Alzheimer’s\
+ disease (FAD) can be linked to mutations in presenilin1 (PS1), presenilin2 (PS2), and amyloid precursor protein (APP) genes (reviewed by\
+ Hardy and Gwinn-Hardy 1998). "
+SET Confidence = "High"
+g(HBP:HBP00030) -> path(MESH:"Alzheimer Disease")
+g(HGNC:PSEN1, var("?")) -> path(MESH:"Alzheimer Disease")
+g(HGNC:PSEN2, var("?")) -> path(MESH:"Alzheimer Disease")
+g(HGNC:APP, var("?")) -> path(MESH:"Alzheimer Disease")
+
+SET Evidence = "The presence of amyloid deposits, as the main factor leading to damage of the nerve tissue (amyloid hypothesis) has been \
+ postulated for over 25 years (recently reviewed in Selkoe and Hardy 2016). "
+SET Confidence = "High" 
+a(CHEBI:"amyloid-beta") -> bp(GO:"positive regulation of neuron apoptotic process")
+
+SET Evidence = "Amyloid hypothesis is supported by the fact that progressive Aβ deposition is observed in early, preclinical stages of AD and,\
+ finally, in all AD patients." 
+SET Confidence = "High" 
+path(MESH:"Alzheimer Disease") positiveCorrelation a(CHEBI:"amyloid-beta")
+
+SET Evidence = "These Aβ deposits lead to subsequent molecular and cellular alterations, such as NTFs, neuronal dystrophy, or microgliosis, \
+i.e., pathological events that are closer to dementia and more relevant to neuronal dysfunction. " 
+SET Confidence = "Medium"
+a(CHEBI:"amyloid-beta") -> complex(GO:"neurofibrillary tangle")
+a(CHEBI:"amyloid-beta") -> path(MESH:Gliosis)
+a(CHEBI:"amyloid-beta") -> path(MESH:"Neuroaxonal Dystrophies")
+
+SET Evidence = " Moreover, it was postulated that AβOs may trigger a harmful cascade damaging neurons and synapses (Morris et al. 2014). "
+SET Confidence = "High" 
+a(HBP:HBP00074) -> bp(GO:"neuron death")
+a(HBP:HBP00074) -| a(MESH:Synapses)
+
+SET Evidence = "It was also demonstrated that fibril-free AβO solutions are essential for memory loss (Brito-Moreira et al. 2017), while \
+the fibrillar Aβ in amyloid deposits is not the active factor affecting the cognition (Martins et al. 2008)."
+SET Confidence = "High" 
+a(HBP:HBP00074) -| bp(GO:memory)
+a(CHEBI:"amyloid fibril") causesNoChange bp(GO:memory)
+
+SET Evidence = " In very early stages of AD pathology, before the appearance of amyloid plaques, oligomers assemble perisomatically, rather\
+ than intracellularly, surrounding individual diffuse neurons." 
+SET Confidence = "High"  
+SET Cell = "neuron"
+SET CellStructure = "Extracellular Space"
+path(MESH:"Alzheimer Disease") positiveCorrelation a(HBP:HBP00074)
+
+SET Evidence = "Soluble Aβ oligomers may cause a highly selective neuronal death accelerated by increasing exposure to AβOs (Lambert et al. 1998)."
+SET Confidence = "High" 
+a(HBP:HBP00074) -> bp(GO:"neuron death")
+
+SET Evidence = " It was also shown that soluble AβOs may directly trigger dysfunction of neural signaling, which leads to early memory loss\
+ and the progression of dementia in AD."
+SET Confidence = "High"  
+a(HBP:HBP00074) -| bp(GO:"neuronal signal transduction") 
+a(HBP:HBP00074) -| bp(GO:memory)
+SET MeSHDisease = "Alzheimer Disease"
+a(HBP:HBP00074) -> path(MESH:Dementia)
+UNSET MeSHDisease
+
+SET Evidence = " Moreover, in brain slices, AβOs rapidly inhibited long-term potentiation (LTP) of synapses (Klein et al. 2001). "
+SET Confidence = "High" 
+a(HBP:HBP00074) -| bp(GO:"long-term synaptic potentiation")
+
+SET Evidence = "In normal rats, impaired memory of a learned behavior was observed after intraventricular application of soluble oligomers of \
+Aβ42 isolated directly from human AD brains (Shankar et al. 2008). Furthermore, AβO injections resulted in reduction of a synapse number and \
+their function in dose-dependent manner.  It also led to the inhibition of LTP and enhancement of long-term synaptic depression (LTD) in rodent\
+ hippocampus (Shankar et al. 2008). "
+SET Confidence = "High"  
+SET Species = "10116"
+a(HBP:HBP00074) -| bp(GO:memory)
+a(HBP:HBP00074) -| a(MESH:Synapses)
+a(HBP:HBP00074) -| bp(GO:"signal release from synapse")
+SET MeSHAnatomy = "Hippocampus"
+a(HBP:HBP00074) -| bp(GO:"long-term synaptic potentiation")
+a(HBP:HBP00074) -> bp(GO:"long term synaptic depression")
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "These results are in line with findings of Koffie et al. (2009), who revealed that AβOs surrounding plaques contribute to\
+ synapse loss in a mouse model of AD."
+SET Confidence = "High"  
+SET Species = "10090"
+a(HBP:HBP00074) -| a(MESH:Synapses)
+UNSET Species
+
+SET Evidence = "AβOs can trigger changes in Tau protein characteristic for AD (Shankar et al. 2008). They induce hyperphosphorylation of Tau\
+ at AD-specific epitopes and cause neuritic dystrophy in cultured neurons. "
+SET Confidence = "Medium"  
+a(HBP:HBP00074) -> p(HGNC:APP, pmod(Ph))
+a(HBP:HBP00074) -> path(MESH:"Neuroaxonal Dystrophies")
+
+SET Evidence = "Furthermore, it was demonstrated that AβO may not only injure the neurites of brain neurons, but also activate microglia and\
+ astrocyte response (Sondag et al. 2009). "
+SET Confidence = "High" 
+a(HBP:HBP00074) -> bp(GO:"microglial cell activation")
+a(HBP:HBP00074) -> bp(GO:"astrocyte activation")
+ 
+SET Evidence = "An exponential increase of brain levels of AβOs in aging mice was observed."
+SET Confidence = "High"
+SET Species = "10090"
+bp(GO:aging) -> a(HBP:HBP00074)
+
+SET Evidence = " In addition, the load of AβO deposits significantly correlated with fibrillar Aβ plaque deposition as well as with neuronal\
+ loss and numbers of astrocytes, although not with memory deficits. "
+SET Species = "10090"
+SET Confidence = "High"
+a(CHEBI:"amyloid fibril") positiveCorrelation a(HBP:HBP00074)
+a(HBP:HBP00074) positiveCorrelation bp(GO:"neuron death")
+a(HBP:HBP00074) positiveCorrelation bp(GO:"astrocyte activation")
+
+SET Evidence = " On the contrary, no relationship between total Aβ plaque burden and number of astrocytes or neurons was found (da Rocha-Souto et al. 2011)."
+SET Confidence = "High"
+a(HBP:HBP00018) causesNoChange bp(GO:"neuron death")
+a(HBP:HBP00018) causesNoChange bp(GO:"astrocyte activation")
+
+SET Evidence = " Excessive activation of NMDAR by soluble AβOs triggers disproportionate influx of  Ca2+ into neurons, which leads to excitotoxicity, \
+mitochondrial dysfunction, and loss of synapses (Zhao et al. 2004)."
+SET Confidence = "Medium"
+a(HBP:HBP00074) -> act(p(HGNC:GRIN1))
+SET Cell = "neuron"
+act(p(HGNC:GRIN1)) -> tloc(a(CHEBI:"calcium(2+)"),fromLoc(GO:"extracellular region"),toLoc(GO:"intracellular part"))
+act(p(HGNC:GRIN1)) -> bp(HBP:HBP00068)
+act(p(HGNC:GRIN1)) -> bp(HBP:HBP00037)
+act(p(HGNC:GRIN1)) -| a(MESH:Synapses)
+
+SET Evidence = "Soluble AβOs, but not monomers, mediate the internalization of the GluA1/GluA2 subunits by endocytosis (Zhang et al. 2011), leading to\
+ synaptic dysfunction (Hsieh et al. 2006)."
+SET Confidence = "Medium"
+a(HBP:HBP00074) reg tloc(p(HGNC:GRIA1), GO:"extracellular region", GO:intracellular)
+a(HBP:HBP00074) reg tloc(p(HGNC:GRIA2), GO:"extracellular region", GO:intracellular)
+
+SET Evidence = " LMW oligomers led to a decrease in the neuronal levels of β2ARs, activated brain microglia, and induced impaired hippocampal LTP in mice\
+ in vivo (Yang et al. 2017)."
+SET Confidence = "Medium" 
+SET Species = "10090" 
+SET Cell = "neuron" 
+a(HBP:HBP00075) -| p(MGI:Adrb2)
+UNSET Cell
+SET MeSHAnatomy = "Brain"
+a(HBP:HBP00075) -> bp(GO:"microglial cell activation")
+SET MeSHAnatomy = "Hippocampus"
+a(HBP:HBP00075) -| bp(GO:"long-term synaptic potentiation")
+
+SET Evidence = " PrPC was identified as AβO co-receptor, which mediates an impairment of synaptic plasticity by AβOs, although the infectious form  PrPSc\
+ conformation is not necessary (Lauren et al. 2009)."
+SET Confidence = "High"
+complex(p(HGNC:PRNP), a(HBP:HBP00074)) -| bp(GO:"regulation of synaptic plasticity")
+
+SET Evidence = "It was demonstrated that Aβ42 oligomers, but not monomers, significantly altered  Ca2+ release from intracellular stores \
+(Lazzari et al. 2015), what induced intracellular  Ca2+ increase in neurons via the complex  PrPC–mGluR5, with harmful effects on synaptic\
+transmission (Beraldo et al. 2016)."
+SET Confidence = "High"
+SET Cell = "neuron"
+a(HBP:HBP00023) -> a(CHEBI:"calcium(2+)")
+a(HBP:HBP00023) -> complex(p(HGNC:GRIK1), p(HGNC:PRNP))
+a(HBP:HBP00023) -| bp(GO:"signal release from synapse")
+
+SET Evidence = " Moreover, PrPC inhibits formation fibrillary form of Aβ, trapping Aβ in an oligomeric state (Younan et al. 2013). "
+SET Confidence = "High"
+p(HGNC:PRNP) -| a(CHEBI:"amyloid fibril")
+
+SET Evidence = "Synapse targeting of AβOs involves activation of p75NTR. "
+SET Confidence = "High"
+a(HBP:HBP00074) -> act(p(HGNC:NGFR))
+
+SET Evidence = " In cultures of mature hippocampal neurons, soluble AβOs caused a rapid, substantial loss of surface IRs, especially on dendrites (Zhao et al. 2010)."
+SET Confidence = "High"
+SET Cell = "neuron"
+SET MeSHAnatomy = "Hippocampus"
+a(HBP:HBP00074) -| p(HGNC:INSR)
+
+SET Evidence = "Despite enhanced Aβ42 accumulation in AD brain (Lewczuk et al. 2003), concentrations of monomeric Aβ42 in the CSF of AD patients are decreased"
+SET Confidence = "High"
+path(MESH:"Alzheimer Disease") negativeCorrelation a(CHEBI:"amyloid-beta polypeptide 42")
+
+SET Evidence = " Furthermore, the authors demonstrated significant, negative correlation of AβO number with the MMSE scores, what indicates that sFIDA readout\
+ seems to reflect the severity of AD, similar to the results described above. "
+SET Confidence = "High"
+a(HBP:HBP00074) negativeCorrelation a(CTO:"Mini_Mental_State_Examination")
+
+SET Evidence = " The levels of HMW AβOs in AD or MCI patients were significantly higher than in normal controls and correlated inversely with MMSE score."
+SET Confidence = "High"
+a(HBP:HBP00074) positiveCorrelation path(MESH:"Cognitive Dysfunction")
+
+SET Evidence = " Using a novel misfolded protein assay for the detection of soluble oligomers composed of Aβx-40 and Aβx-42 peptides,\
+ Gao and co-workers demonstrated also increased levels of oligomeric Aβ40 in CSF, which may be a potential biomarker for the diagnosis\
+ of AD (Gao et al. 2010)."
+SET Confidence = "High"
+SET MeSHAnatomy = "Cerebrospinal Fluid" 
+a(HBP:HBP00076) positiveCorrelation path(MESH:"Alzheimer Disease")
+
+SET Evidence = " These results suggest that circulating Aβ40 oligomers, and not only Aβ42 oligomers, could be a potential new biomarker in early AD. "
+SET Confidence = "High"
+a(HBP:HBP00076) biomarkerFor path(MESH:"Alzheimer Disease")
+
+SET Evidence = "They revealed increases in AβOs and soluble TNF-R plasma levels that accurately differentiated mild AD patients from\
+ control subjects and to some extent from amnestic mild cognitive impairment (aMCI) patients."
+SET Confidence = "High" 
+SET MeSHAnatomy = "Plasma"
+a(HBP:HBP00074) positiveCorrelation path(MESH:"Alzheimer Disease")
+a(HBP:HBP00074) positiveCorrelation path(MESH:"Cognitive Dysfunction")
+p(HGNC:NGFR) positiveCorrelation path(MESH:"Alzheimer Disease")
+p(HGNC:NGFR) positiveCorrelation path(MESH:"Cognitive Dysfunction")
