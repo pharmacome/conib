@@ -1,0 +1,186 @@
+##################################################################################
+# Document Properties Section
+
+SET DOCUMENT Name = "A role for APP in Wnt signalling links synapse loss with β-amyloid production."
+SET DOCUMENT Version = "1.0.0"
+SET DOCUMENT Description = "This knowledge assembly is specific to Alzheimer's Disease for the AETIONOMY project. It encodes the pathological mechanisms
+in neurons in the human brain as well as additional evidence from mice and rats. This model includes different pathways such as apoptosis signaling,
+calcium signaling, cholesterol homeostasis, endocytosis, GSK activation, inflammatory responses, oxidative stress of mitochondria and
+endoplasmic reticulum, etc. In this version, we have added additional mechanisms/pathways to describe the functional consequences of
+SNPs linked with genes implicated in Alzheimer's Disease through GWAS."
+SET DOCUMENT Copyright = "Copyright © 2012-2018 Fraunhofer Institute SCAI, All rights reserved"
+SET DOCUMENT Authors = "Esther Wollert"
+SET DOCUMENT Licenses = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+##################################################################################
+# Definitions Section
+
+###############
+# Definitions #
+###############
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE dbSNP AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY AS PATTERN "^\d+$"
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/chebi-names.belns"
+DEFINE NAMESPACE HGNC  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/hgnc-symbols.belns"
+DEFINE NAMESPACE GO    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/go-names.belns"
+DEFINE NAMESPACE HBP   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+DEFINE ANNOTATION Species AS PATTERN "^\d+$"
+
+##################################################################################
+# Statements Section
+
+SET STATEMENT_GROUP = "Esther"
+
+# Add statements below this comment
+
+SET Citation = {"PubMed", "Transl Psychiatry. 2018 Sep 20;8(1):179. doi: 10.1038/s41398-018-0231-6.", "30232325"}
+
+SET Evidence = "APP did though potentiate both Wnt3a-driven Wnt-β-catenin signalling and Wnt5a-driven Wnt-PCP signalling. "
+#canonical Wnt signaling pathway is through beta-catenin
+#pcp: planar cell polarity
+SET Confidence = "High"
+p(HGNC:APP) -> act(p(HGNC:WNT3A))
+act(p(HGNC:WNT3A)) -> bp(GO:"canonical Wnt signaling pathway")
+p(HGNC:APP) -> act(p(HGNC:WNT5A))
+act(p(HGNC:WNT5A)) -> bp(GO:"Wnt signaling pathway, planar cell polarity pathway")
+
+SET Evidence = "APP has previously been shown to interact with Vangl2, a Wnt-PCP-speciﬁc co-receptor protein,\
+ and independently has been shown to bind LRP6, a receptor component of the Wnt-β-catenin pathway21."
+SET Confidence = "High"
+complex(p(HGNC:APP),p(HGNC:VANGL2))
+p(HGNC:VANGL2) -- bp(GO:"Wnt signaling pathway, planar cell polarity pathway")
+complex(p(HGNC:APP),p(HGNC:LRP6))
+p(HGNC:LRP6) -- bp(GO:"canonical Wnt signaling pathway")
+
+SET Evidence = " The ability of APP to potentiate Wnt-β-catenin signalling in response to Wnt3a was enhanced \
+by the overexpression of LRP6, and attenuated by Vangl2 (Fig. 1g)."
+#nested statement or as composite?
+SET Confidence = "Medium"
+composite(p(HGNC:LRP6),p(HGNC:APP)) -> bp(GO:"canonical Wnt signaling pathway")
+composite(p(HGNC:VANGL2),p(HGNC:APP)) -| bp(GO:"canonical Wnt signaling pathway")
+
+SET Evidence = " Conversely, the ability of APP to potentiate Wnt-PCP signalling in response to Wnt5a was enhanced by Vangl2 and attenuated by LRP6 (Fig. 1h). "
+#see above statement
+SET Confidence = "Medium"
+composite(p(HGNC:VANGL2),p(HGNC:APP)) -> bp(GO:"Wnt signaling pathway, planar cell polarity pathway")
+composite(p(HGNC:LRP6),p(HGNC:APP)) -| bp(GO:"Wnt signaling pathway, planar cell polarity pathway")
+
+SET Evidence = "In contrast with wild-type APP which, as before, potentiated both canonical and non-canonical Wnt\
+ signalling, the Swedish mutant form of APP antagonised canonical Wnt signalling (Fig. 2a), and potentiated non-canonical\
+ Wnt signalling to a greater degree than wild-type APP (APPWT) (Fig. 2b)."
+SET Confidence = "High"
+p(HGNC:APP) -> bp(GO:"canonical Wnt signaling pathway")
+p(HGNC:APP) -> bp(GO:"non-canonical Wnt signaling pathway")
+#APP(swe): KM670/671NL
+p(HGNC:APP, sub(K,670,N), sub(M,671,L)) -| bp(GO:"canonical Wnt signaling pathway")
+p(HGNC:APP, sub(K,670,N), sub(M,671,L)) -> bp(GO:"non-canonical Wnt signaling pathway")
+
+SET Evidence = "As expected, cells expressing the Swedish mutant form of APP695 produced much more Aβ than the control wildtype-expressing cells."
+SET Confidence = "High"
+p(HGNC:APP, sub(K,670,N), sub(M,671,L)) -> a(CHEBI:"amyloid-beta")
+
+SET Evidence = "In cells expressing either wild-type or Swedish APP, the amount of Aβ produced was reduced in cells\
+ stimulated with Wnt3a, which promotes Wnt-βcatenin signalling, whereas Aβ production was enhanced in cells stimulated\
+ with Wnt5a, which promotes Wnt-PCP signalling (Fig. 2c)."
+SET Confidence = "High"
+act(p(HGNC:WNT3A)) -| a(CHEBI:"amyloid-beta")
+bp(GO:"canonical Wnt signaling pathway") -| a(CHEBI:"amyloid-beta")
+act(p(HGNC:WNT3A)) -> a(CHEBI:"amyloid-beta")
+bp(GO:"Wnt signaling pathway, planar cell polarity pathway") -> a(CHEBI:"amyloid-beta")
+
+SET Evidence = "Co-expression of LRP6 with APP reduced the production of Aβ, while co-expression of Vangl2 with APP led to increased Aβ production (Fig. 2c)."
+SET Confidence = "Medium"
+composite(p(HGNC:LRP6),p(HGNC:APP)) -| a(CHEBI:"amyloid-beta")
+composite(p(HGNC:VANGL2),p(HGNC:APP)) -> a(CHEBI:"amyloid-beta")
+
+SET Evidence = "Comparison of signalling activity and Aβ production under each of the different conditions showed\
+ clearly that Aβ production was negatively correlated with Wnt-β-catenin signalling activity (Fig. 2d) and positively\
+ correlated with Wnt-PCP signalling (Fig. 2e)."
+SET Confidence = "High"
+bp(GO:"canonical Wnt signaling pathway") negativeCorrelation bp(GO:"amyloid-beta formation")
+bp(GO:"Wnt signaling pathway, planar cell polarity pathway") positiveCorrelation bp(GO:"amyloid-beta formation")
+
+SET Evidence = " Overexpression of APP enhanced the inhibitory effects of Dkk1 on Wnt3a induced Wnt-β-catenin signalling,\
+ counteracting the enhanced activity resulting from APP overexpression and reducing the IC50 of Dkk1 to 122ng/mL from 173ng/mL in the absence of APP (Fig. 2f) ."
+SET Confidence = "Medium"
+p(HGNC:APP) -> act(p(HGNC:DKK1))
+act(p(HGNC:DKK1)) -| act(p(HGNC:WNT3A))
+act(p(HGNC:DKK1)) -| bp(GO:"canonical Wnt signaling pathway")
+act(p(HGNC:WNT3A)) -> bp(GO:"canonical Wnt signaling pathway")
+
+SET Evidence = "In contrast, the stimulatory effects of Dkk1 on WntPCP signalling induced by Wnt5a were enhanced by APP \
+overexpression, decreasing the EC50 of Dkk1 to 599ng/ mL from 1405ng/mL (Fig. 2g). "
+SET Confidence = "High"
+p(HGNC:APP) -> act(p(HGNC:DKK1))
+act(p(HGNC:DKK1)) -> act(p(HGNC:WNT5A))
+act(p(HGNC:DKK1)) -> bp(GO:"Wnt signaling pathway, planar cell polarity pathway")
+
+SET Evidence = "Aβ synaptoxicity is Dkk1-dependent12,24 and also appears to be APP-dependent25."
+SET Confidence = "High"
+a(CHEBI:"amyloid-beta") -> bp(HBP:HBP00061) 
+p(HGNC:APP) -> bp(HBP:HBP00061) 
+p(HGNC:DKK1) -> bp(HBP:HBP00061) 
+
+SET Evidence = "As previously reported, Dkk1-treatment markedly reduced the number of dendritic spines on APP+/+ neurons\
+ (Fig. 3a, b). In contrast, APP-deﬁciency protected neurons against the synaptotoxic activity of Dkk1 (Fig. 3a, b)."
+SET Confidence = "Medium"
+composite(p(HGNC:DKK1),p(HGNC:APP)) -| a(MESH:"Dendritic Spines")
+
+SET Evidence = "The Wnt-PCP signalling pathway acts through RhoA and ROCK26, and can be inhibited pharmacologically,\
+ for example, with fasudil24, a ROCK inhibitor that is in clinical use for the treatment of cerebral vasospasm."
+SET Confidence = "High"
+a(CHEBI:"fasudil hydrochloride") -| bp(GO:"Wnt signaling pathway, planar cell polarity pathway")
+
+SET Evidence = "Fasudil also reversed the stimulatory effect of Vangl2 and Dkk1 on Aβ production in the same cells as\
+ determined by ELISA based quantiﬁcation of Aβ1–40 levels in the paired culture media from the same experiments (Fig. 3d). "
+SET Confidence = "High" 
+a(CHEBI:"fasudil hydrochloride") -| a(CHEBI:"amyloid-beta polypeptide 40")
+
+SET Evidence = "Dkk1 resulted in substantial loss of dendritic spines, which was blocked by 10µM fasudil treatment (Fig. 3e, f)."
+SET Confidence = "High"
+p(HGNC:DKK1) -| a(MESH:"Dendritic Spines")
+composite(p(HGNC:DKK1),a(CHEBI:"fasudil hydrochloride")) causesNoChange a(MESH:"Dendritic Spines")
+
+SET Evidence = "In addition to causing a signiﬁcant reduction in the numbers of dendritic spines, Dkk1 treatment\
+ also resulted a substantial increase in levels of all three Aβ species (Fig. 3g)."
+SET Confidence = "Medium"
+p(HGNC:DKK1) -> a(CHEBI:"amyloid-beta")
+p(HGNC:DKK1) -| a(MESH:"Dendritic Spines")
+
+SET Evidence = "Notably, in parallel with the protective effect of fasudil on synapses (Fig. 3e, f), treatment with\
+ fasudil reversed the stimulatory effects of Dkk1 on Aβ production (Fig. 3g)."
+SET Confidence = "Medium"
+composite(p(HGNC:DKK1),a(CHEBI:"fasudil hydrochloride")) causesNoChange a(CHEBI:"amyloid-beta")
+p(HGNC:DKK1) -> bp(GO:"amyloid-beta formation")
+
+SET Evidence = " Animals receiving fasudil had signiﬁcantly lower soluble Aβ1–40 levels than controls (Fig. 4b)."
+SET Confidence = "High"
+a(CHEBI:"fasudil hydrochloride") -| a(CHEBI:"amyloid-beta polypeptide 40")
+
+
+########################################################## 
+
+UNSET STATEMENT_GROUP
+
