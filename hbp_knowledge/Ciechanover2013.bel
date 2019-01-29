@@ -1,0 +1,1002 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "The Ubiquitin Proteasome System in Neurodegenerative Diseases: Sometimes the Chicken, Sometimes the Egg"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Sandra Spalek"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/77c0796c3ca82a80cb0eaf1c8380d6ccd7f323af/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+SET STATEMENT_GROUP = "Sandra"
+
+# Add statements below this comment
+
+SET Citation = {"PubMed", "Neuron. 2003 Oct 9;40(2):427-46", "14556719"}
+
+SET Evidence = "Initially, the ubiquitin-activating enzyme E1 activates ubiquitin
+in an ATP-requiring reaction to generate a high-energy
+thiol ester intermediate, E1-S~ubiquitin, where ubiquitin is bound to an internal E1 Cys residue"
+composite(p(HGNC:UBA1),a(CHEBI:ATP)) -> act(a(MESH:Ubiquitin))
+act(a(MESH:Ubiquitin)) -> complex(p(HGNC:UBA1),a(MESH:Ubiquitin))
+
+SET Evidence = "One of several
+E2 enzymes (ubiquitin-carrier proteins or Ubiquitin-Conjugating enzymes [UBCs])
+transfers the activated ubiquitin moiety from E1, via an additional high-energy thiol
+ester intermediate, E2-S~ubiquitin, to the substrate that
+is specifically bound to an E3, a member of the ubiquitinprotein
+ligase family of proteins"
+p(HGNC:UBA2) -| complex(p(HGNC:UBA1),a(MESH:Ubiquitin))
+p(HGNC:UBA2) -> complex(p(HGNC:UBA3),a(MESH:Ubiquitin))
+
+SET Evidence = "For the Homologous to the E6-AP C Terminus (HECT) domain E3s, the
+ubiquitin is transferred once again from the E2 enzyme
+to an active site Cys residue on the E3 to generate a
+third high-energy thiol ester intermediate, ubiquitin-S~E3, prior to its
+transfer to the ligase bound substrate"
+p(HGNC:UBA2) -> complex(p(INTERPRO:"HECT domain"),a(MESH:Ubiquitin))
+
+SET Evidence = "On the other hand, RING finger-containing E3s catalyze,
+most probably, direct transfer of the activated ubiquitin
+moiety from E2 to the E3 bound substrate"
+p(INTERPRO:"E3 ubiquitin ligase RBR family") -| complex(p(HGNC:UBA2),a(MESH:Ubiquitin))
+p(INTERPRO:"E3 ubiquitin ligase RBR family") -> complex(p(HGNC:UBA3),a(MESH:Ubiquitin),a(MESH:Proteins))
+
+SET Evidence = "E3s catalyze the last step in the conjugation process: covalent attachment
+of ubiquitin to the substrate."
+p(HGNC:UBA3) -> bp(GO:"protein ubiquitination")
+
+SET Evidence = "The degradation signal that is recognized by
+the 26S proteasome complex is made of a Lys48 polyubiquitin chain."
+bp(GO:"protein K48-linked ubiquitination") -> act(complex(GO:"proteasome complex"))
+
+SET Evidence = "Conjugation to other Lys residues, Lys63
+for example, serves nonproteolytic functions of the system,
+such as activation of transcription"
+bp(GO:"protein K63-linked ubiquitination") -> act(complex(GO:"proteasome complex"))
+
+SET Evidence = "It appears that E3s play a key role in the ubiquitin-mediated
+proteolytic cascade since they serve as the specific substrate recognition factors of the system"
+p(HGNC:UBA3) -- bp(GO:proteolysis)
+
+SET Evidence = "In many of these cases, the modification leads
+to targeting of the tagged substrate for degradation in
+the lysosome/vacuole"
+#modification refers to monoubiquitination
+bp(GO:"protein ubiquitination") -> bp(GO:"lysosomal protein catabolic process")
+bp(GO:"protein ubiquitination") -> bp(GO:"protein catabolic process in the vacuole")
+
+SET Evidence = "In some other cases, the
+first ubiquitin moiety is conjugated to the substrate by
+one E3, while chain elongation is catalyzed by a different
+ligase, often termed E4"
+p(HGNC:UBA3) -> bp(GO:"protein ubiquitination")
+p(HGNC:MOCS3) -> bp(GO:"protein polyubiquitination")
+
+SET Evidence = "Degradation of polyubiquitinated substrates is carried
+out by a large protease complex, the 26S proteasome
+that does not generally recognize nonmodified substrates"
+complex(GO:"proteasome complex") -> deg(p(MESH:Proteins,pmod(GO:"protein K48-linked ubiquitination")))
+complex(GO:"proteasome complex") -> deg(p(MESH:Proteins,pmod(GO:"protein K63-linked ubiquitination")))
+
+SET Evidence = "In one established and exceptional case, however
+that of the polyamine synthesizing enzyme ornithine decarboxylase (ODC), the
+proteasome recognizes and degrades the substrate following its association with
+another protein, antizyme, without prior ubiquitination"
+complex(GO:"proteasome complex") -> deg(complex(p(HGNC:ODC1),p(HGNC:OAZ1)))
+
+SET Evidence = "The proteasome is a large, multicatalytic protease
+that degrades polyubiquitinated proteins to small peptides"
+complex(GO:"proteasome complex") -> a(CHEBI:peptide)
+
+SET Evidence = "It is composed of two subcomplexes: a 20S core
+particle (CP) that carries out the catalytic activity and a
+regulatory 19S regulatory particle (RP)."
+# proteasome regulatory particle = 19S regulatory particle
+complex(GO:"proteasome complex") hasComponents list(p(HBP:"20 S Proteasome"),complex(GO:"proteasome regulatory particle"))
+
+SET Evidence = "Two ubiquitin binding subunits of the
+19S RP have been identified, Rpn10 (S5a in mammalian
+cells) and Rpt5 (S6'); however, their essential role and
+mode of action have not been discerned"
+complex(GO:"proteasome regulatory particle") hasComponents list(p(HGNC:PSMD4),p(HGNC:PSMC3))
+p(HGNC:PSMD4) -> complex(p(HGNC:PSMD4),a(MESH:Ubiquitin))
+p(HGNC:PSMC3) -> complex(p(HGNC:PSMC3),a(MESH:Ubiquitin))
+
+SET Evidence = "Also, since a folded protein would not be able
+to fit through the narrow proteasomal channel, it is assumed that the
+19S particle unfolds substrates and inserts them into the 20S CP"
+complex(GO:"proteasome regulatory particle") -> bp(GO:"protein unfolding")
+
+SET Evidence = "Following degradation of the substrate, short peptides
+are released along with free and reusable ubiquitin."
+deg(complex(a(MESH:Proteins),a(MESH:Ubiquitin))) -> a(CHEBI:peptide)
+deg(complex(a(MESH:Proteins),a(MESH:Ubiquitin))) -> a(MESH:Ubiquitin)
+
+SET Evidence = "The stability of additional proteins depends on association with ancillary proteins,
+such as molecular chaperones, that act as recognition elements in trans and serve as a
+link to the appropriate ligase."
+complex(a(MESH:Proteins),a(MESH:"Molecular Chaperones")) -> bp(GO:"protein stabilization")
+
+SET Evidence = "Ubiquitin-mediated proteolysis of a variety of cellular
+proteins plays an important role in many basic cellular processes. Among these are regulation of cell cycle and
+division, differentiation and development, involvement in the cellular response to stress and extracellular
+effectors, morphogenesis of neuronal networks, modulation of cell surface receptors, ion channels and the
+secretory pathway, DNA repair, transcriptional regulation, transcriptional silencing, long-term memory, circadian
+rhythms, regulation of the immune and inflammatory responses,and biogenesis of organelles"
+bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(GO:"cell cycle")
+bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(GO:"cell division")
+bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(GO:"cell differentiation")
+bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(MESH:"Cell Proliferation")
+bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(GO:"cellular response to stress")
+bp(GO:"ubiquitin-dependent protein catabolic process") reg a(MESH:"Receptors, Cell Surface")
+bp(GO:"ubiquitin-dependent protein catabolic process") reg a(MESH:"Ion Channels")
+bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(MESH:"Secretory Pathway")
+bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(GO:"DNA repair")
+bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(GO:"gene silencing")
+bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(GO:"long-term memory")
+bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(GO:"circadian rhythm")
+bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(GO:"immune response")
+bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(GO:"inflammatory response")
+bp(GO:"ubiquitin-dependent protein catabolic process") reg bp(GO:"organelle organization")
+
+SET Evidence = "The UPS can be regulated at the level of ubiquitination
+or at the level of proteasome activity"
+complex(GO:"proteasome complex") reg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+bp(GO:"protein ubiquitination") reg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+
+SET Evidence = "For example, upregulation of the pathway is observed during massive degradation of
+skeletal muscle proteins that occurs under normal fasting but also under pathological conditions such as
+cancer-induced cachexia, severe sepsis, metabolic acidosis, or following denervation"
+SET MeSHAnatomy = "Muscle, Skeletal"
+bp(GO:"protein catabolic process") -> bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+path(MESH:Cachexia) -> bp(GO:"protein catabolic process")
+path(MESH:Sepsis) -> bp(GO:"protein catabolic process")
+path(MESH:Acidosis) -> bp(GO:"protein catabolic process")
+a(MESH:Denervation) -> bp(GO:"protein catabolic process")
+UNSET MeSHAnatomy
+
+SET Evidence = "For example, modification of the Cullin component of the
+SCF E3 complexes by the ubiquitin-like protein NEDD8
+increases the affinity of the ligases to the E2 component of the conjugation machinery"
+p(HGNC:NEDD8) -> complex(a(GO:"SCF ubiquitin ligase complex"),p(HGNC:UBA2))
+
+SET Evidence = "For example, in the case of IkBalpha,the inhibitor of the
+transcriptional regulator NF-kB, modification by SUMO-1 was shown to protect the substrate
+from ubiquitination"
+p(HGNC:SUMO1) -> p(HGNC:NFKBIA,pmod(SUMOylation))
+p(HGNC:NFKBIA,pmod(SUMOylation)) -| bp(GO:"protein ubiquitination")
+
+SET Evidence = "Thus, Rad23 and Dsk2 in yeast are believed to bind polyubiquitinated substrates in the
+cytosol and target them to the proteasome"
+p(UNIPROT:P32628) -> tloc(p(MESH:Proteins,pmod(ubiquitination)),fromLoc(GO:cytosol),toLoc(GO:"proteasome complex"))
+p(UNIPROT:P48510) -> tloc(p(MESH:Proteins,pmod(ubiquitination)),fromLoc(GO:cytosol),toLoc(GO:"proteasome complex"))
+
+SET Evidence = "Accumulation of ubiquitin conjugates and/or inclusion bodies associated with ubiquitin, proteasome, and certain
+disease-characteristic proteins have been reported in a broad array of chronic neurodegenerative diseases,
+such as the neurofibrillary tangles of Alzheimer’s disease (AD), brainstem Lewy bodies (LBs) (the neuropathological
+hallmark in Parkinson’s disease [PD]), Bunina bodies in Amyotrophic Lateral Sclerosis (ALS), and nuclear inclusions
+in CAG repeat expansion (polyglutamine/Q extension) disorders such as Huntington’s disease, Spinocerebellar Ataxias (SCAs), and Spinal and
+Bulbar Muscular Atrophy (SBMA; Kennedy’s disease) (reviewed recently by Alves-Rodrigues et al., 1998; Sherman and Goldberg, 2001) (Figure 2)"
+a(MESH:"Neurofibrillary Tangles") pos complex(a(MESH:"Inclusion Bodies"),a(MESH:Ubiquitin))
+a(MESH:"Neurofibrillary Tangles") pos complex(a(MESH:"Inclusion Bodies"),a(GO:"proteasome complex"))
+a(GO:"Bunina body") pos complex(a(MESH:"Inclusion Bodies"),a(MESH:Ubiquitin))
+a(GO:"Bunina body") pos complex(a(MESH:"Inclusion Bodies"),a(GO:"proteasome complex"))
+path(MESH:"Huntington Disease") pos complex(a(MESH:"Inclusion Bodies"),a(MESH:Ubiquitin))
+path(MESH:"Huntington Disease") pos complex(a(MESH:"Inclusion Bodies"),a(GO:"proteasome complex"))
+path(MESH:"Spinocerebellar Ataxias") pos complex(a(MESH:"Inclusion Bodies"),a(MESH:Ubiquitin))
+path(MESH:"Spinocerebellar Ataxias") pos complex(a(MESH:"Inclusion Bodies"),a(GO:"proteasome complex"))
+path(MESH:"Bulbo-Spinal Atrophy, X-Linked") pos complex(a(MESH:"Inclusion Bodies"),a(MESH:Ubiquitin))
+path(MESH:"Bulbo-Spinal Atrophy, X-Linked") pos complex(a(MESH:"Inclusion Bodies"),a(GO:"proteasome complex"))
+SET MeSHAnatomy = "Brain Stem"
+a(MESH:"Lewy Bodies") pos complex(a(MESH:"Inclusion Bodies"),a(MESH:Ubiquitin))
+a(MESH:"Lewy Bodies") pos complex(a(MESH:"Inclusion Bodies"),a(GO:"proteasome complex"))
+UNSET MeSHAnatomy
+
+SET Evidence = "Recent findings
+demonstrate that soluble aggregated proteins can inhibit the ubiquitin system (Bence et al., 2001)"
+a(HBP:"protein aggregates") -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+
+SET Evidence = "In PD, the main neuropathological feature is the progressive death of neurons in the substantia nigra
+pars compacta with resulting loss of dopaminergic innervation of the striatum."
+#PD: Parkinson Disease
+SET MeSHAnatomy = "Pars Compacta"
+path(MESH:"Parkinson Disease") pos bp(GO:"neuron death")
+path(MESH:"Parkinson Disease") neg bp(GO:"synaptic transmission, dopaminergic")
+UNSET MeSHAnatomy
+
+SET Evidence = "In the vast majority of patients, some of the remaining nigral dopaminergic
+neurons exhibit aggregated proteins in the form of cytoplasmic LB inclusions"
+SET MeSHDisease = "Parkinson Disease"
+SET MeSHAnatomy = "Pars Compacta"
+a(GO:"dopaminergic synapse") -- a(MESH:"Lewy Bodies")
+UNSET MeSHDisease
+UNSET MeSHAnatomy
+
+SET Evidence = "Several apparently independent aberrations linked to defects in the UPS have been described in various rare forms of hereditary PD"
+path(MESH:"Parkinson Disease") neg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+
+SET Evidence = "An important player in the pathogenesis of PD is Parkin (PARK2))"
+p(HGNC:PRKN) pos path(MESH:"Parkinson Disease")
+
+SET Evidence = "Various deletion and point mutations in the gene have
+been found in ~50% of patients with AR-JP (known also as Autosomal Recessive Parkinson’s Disease [ARPD]),
+one of the most common familial forms of PD (Kitada et al., 1998)."
+p(HGNC:PRKN,var("?")) -> path(MESH:"Parkinsonian Disorders")
+
+SET Evidence = "Interestingly, with a few exceptions, AR-JP is characterized by a lack of LBs"
+#LB: Lewy Bodies
+path(MESH:"Parkinsonian Disorders") neg a(MESH:"Lewy Bodies")
+
+SET Evidence = "Indeed, it has been reported that Parkin associates with the RPN10 (S5a) subunit of the
+26S proteasome (Sakata et al., 2003)"
+p(HGNC:PRKN) -- p(HGNC:PSMD4)
+
+SET Evidence = "Interestingly, mutation at R42
+abrogates the binding of Parkin to the proteasome, suggesting that it can cause AR-JP."
+p(HGNC:PRKN,var("p.Arg42")) -| complex(p(HGNC:PRKN),a(GO:"proteasome complex"))
+p(HGNC:PRKN,var("p.Arg42")) -> path(MESH:"Parkinsonian Disorders")
+complex(p(HGNC:PRKN),a(GO:"proteasome complex")) -| path(MESH:"Parkinsonian Disorders")
+
+SET Evidence = "Recent findings have demonstrated that Parkin is a component of an SCF-like E3 complex along with the F-box/WD repeat protein
+hSel-10 and Cullin 1 (Staropoli et al., 2003)."
+complex(GO:"SCF ubiquitin ligase complex") hasComponents list(p(HGNC:FBXW7),p(HGNC:PRKN),p(HGNC:CUL1))
+
+SET Evidence = "Most of the point mutations described in Parkin reside in its RING-IBR-(In Between-
+RINGS)-RING domain and result in its inactivation (Lucking et al., 2000)."
+#DISCUSS: IBR domain of parkin
+p(INTERPRO:"IBR domain",var("?")) -| act(p(HGNC:PRKN))
+
+SET Evidence = "An interesting finding is that not all mutations found in
+Parkin in AR-JP patients are inactivatingmutations (see,for example, Chung et al., 2001;
+Corti et al., 2003; Imai   et al., 2001"
+SET MeSHDisease = "Parkinsonian Disorders"
+p(HGNC:PRKN,var("?")) -| act(p(HGNC:PRKN))
+UNSET MeSHDisease
+
+SET Evidence = "Such a partner can be, for example, the cochaperone CHIP (Carboxy terminus of the Hsc70-Interacting
+Protein) that was found to increase the activity of Parkin, possibly by acting as an E4 (Imai et al., 2002) or the
+proteasome (see above)."
+#partners of PRKN
+complex(p(HGNC:PRKN),p(HGNC:STUB1)) -> act(p(HGNC:PRKN))
+
+SET Evidence = "On the other hand, Parkin appears to have a role in synaptic transmission that has not been
+described previously and that was not possible to observe in patients."
+p(HGNC:PRKN) -- bp(MESH:"Synaptic Transmission")
+
+SET Evidence = "The overriding hypothesis is that a defect in Parkin will result in accumulation
+of this protein(s), which is toxic to the dopaminergic neurons"
+p(HGNC:PRKN,var("?")) -> p(HGNC:PRKN)
+p(HGNC:PRKN) neg a(MESH:"Dopaminergic Neurons")
+
+SET Evidence = "One of these substrates is Cell Division Control
+related protein (CDCrel-1) (Zhang et al., 2000), an ~44kDa member of the septin family of proteins that includes
+GTPases required for cytokinesis"
+# cdcrel-1:SEPT5
+#substrates that get ubiquitinated by parkin
+p(HGNC:PRKN) -> p(HGNC:SEPT5,pmod(ubiquitination))
+
+SET Evidence = "CDCrel-1 has been implicated in the inhibition of exocytosis through its interactions with syntaxin"
+complex(p(HGNC:SEPT5),p(HGNC:STX1A)) -| bp(GO:exocytosis)
+
+SET Evidence = "Following transfection to a cell line,
+wild-type CDCrel-1 inhibits secretion of growth hormone,
+while the dominant-negative species increases secretion (Beites et al., 1999"
+p(HGNC:SEPT5) -| sec(a(CHEBI:"growth hormone"))
+
+SET Evidence = "It is possible that CDCrel-1 is
+involved in regulating transmitter release via its role
+in regulating synaptic vesicle dynamics, and its accumulation in patients
+with a mutation in Parkin perturbs the process."
+p(HGNC:SEPT5) reg sec(a(CHEBI:neurotransmitter))
+p(HGNC:SEPT5) reg act(a(GO:"synaptic vesicle"))
+p(HGNC:PRKN,var("?")) -| act(p(HGNC:SEPT5))
+
+SET Evidence = "A second important substrate of Parkin is the
+Parkin-associated endothelial-like (Pael) receptor, a putative G protein-coupled transmembrane polypeptide
+(Imai et al., 2001). When overexpressed in cells, the receptor becomes misfolded"
+p(HGNC:PRKN) -- p(HGNC:GPR37)
+p(HGNC:GPR37) -> p(HGNC:GPR37,pmod(HBP:misfolding))
+
+SET Evidence = "It then aggregates, and the insoluble protein elicits cell death via the Unfolded
+Protein Response (UPR)."
+#it: GPR37
+p(HGNC:GPR37) pos bp(GO:"cell death")
+bp(GO:"response to unfolded protein") -> bp(GO:"cell death")
+
+SET Evidence = "The UPR is a mechanism that involves a stress response in the ER, including increased
+biosynthesis of ER chaperones, in response to accumulation of misfolded/denatured/mutated proteins in this
+organelle (for a recent review on UPR, see Kaufman, 2002)."
+SET MeSHAnatomy = "Endoplasmic Reticulum"
+bp(GO:"response to unfolded protein") -> bp(GO:"response to endoplasmic reticulum stress")
+bp(GO:"response to unfolded protein") -> a(MESH:"Molecular Chaperones")
+p(MESH:Proteins,pmod(HBP:misfolding)) -> bp(GO:"response to unfolded protein")
+p(MESH:Proteins,var("?")) -> bp(GO:"response to unfolded protein")
+UNSET MeSHAnatomy
+
+SET Evidence = "Parkin ubiquitinates and promotes the degradation of the insoluble Pael receptor, acting in this reaction
+along Ubc6 and Ubc7, two E2s located in the ER"
+SET MeSHAnatomy = "Endoplasmic Reticulum"
+composite(p(HGNC:PRKN),p(HGNC:UBE2J1),p(HGNC:UBE2G1)) -> deg(p(HGNC:GPR37))
+UNSET MeSHAnatomy
+
+SET Evidence = "Importantly, the insoluble Pael receptor accumulates in the
+brains of patients with AR-JP"
+SET MeSHAnatomy = "Brain"
+path(MESH:"Parkinsonian Disorders") pos p(HGNC:GPR37)
+UNSET MeSHAnatomy
+
+SET Evidence = "Overexpression of Parkin can rescue cells from the UPR elicited by a variety of
+stresses, such as exposure to H2O2, DNA alkylating
+agents, short-wavelength UV light, high osmolarity, and heat shock (Imai et al., 2000)"
+#UPR: Unfolded Protein Response
+p(HGNC:PRKN) -| bp(GO:"response to unfolded protein")
+a(CHEBI:"hydrogen peroxide") -> bp(GO:"response to unfolded protein")
+a(CHEBI:"alkylating agent") -> bp(GO:"response to unfolded protein")
+bp(MESH:"Ultraviolet Rays") -> bp(GO:"response to unfolded protein")
+bp(MESH:"Osmolar Concentration") pos bp(GO:"response to unfolded protein")
+bp(MESH:"Heat-Shock Response") ->  bp(GO:"response to unfolded protein")
+
+SET Evidence = "Of note is that overexpression of Parkin also suppresses alpha-synuclein (alphSYN) toxicity, suggesting that
+Parkin may play a role in regulating this protein as well (see below)"
+p(HGNC:PRKN) -| act(p(HGNC:SNCA))
+p(HGNC:PRKN) reg p(HGNC:SNCA)
+
+SET Evidence = "Another substrate of Parkin is a novel 22 kDa form of O-glycosylated SYN (Sp22) (Shimura et al., 2001)"
+p(HGNC:SNCA,pmod(OGlyco)) -- p(HGNC:PRKN)
+
+SET Evidence = "It is important to note that while mutations
+in the nonglycosylated 14 kDa form of alphaSYN have been linked
+to the pathogenesis of PD (see below), to date,
+they have not been linked with Parkin-associated AR-JP."
+p(HGNC:SNCA,var("?")) -- path(MESH:"Parkinsonian Disorders")
+
+SET Evidence = "Parkin also ubiquitinates Synphilin-1, a protein of hitherto
+unknown function that contains a coiled-coiled domain and an ATP/GTP binding motif and that associates with
+alphaSYN (Chung et al., 2001)."
+p(HGNC:PRKN) -> p(HGNC:SNCAIP,pmod(ubiquitination))
+p(HGNC:SNCAIP) -- p(HGNC:SNCA)
+
+SET Evidence = "Overexpression of Synphilin-1 with alphaSYN results in the formation
+of protein inclusions, yet the function of Synphilin in this process as
+well as the role of its ubiquitination are still elusive"
+composite(p(HGNC:SNCA),p(HGNC:SNCAIP)) -> a(MESH:"Inclusion Bodies")
+
+SET Evidence = "Since inclusion bodies are lacking in most cases of AR-JP, it
+is possible that the ubiquitination of Synphilin by wildtype Parkin plays a role in their formation, by targeting
+ubiquitinated Synphilin to these bodies and removing it from the cytosol where it can be toxic"
+path(MESH:"Parkinsonian Disorders") neg a(MESH:"Inclusion Bodies")
+p(HGNC:PRKN) -> p(HGNC:SNCAIP,pmod(ubiquitination))
+p(HGNC:PRKN) -> tloc(p(HGNC:SNCAIP,pmod(ubiquitination)),fromLoc(GO:cytosol),toLoc(MESH:"Inclusion Bodies")))
+
+SET Evidence = "Concomitantly, it reduced the inhibition of the proteasome and the activation of caspase 12
+that are induced by accumulation of the polyglutamine-containing fragment"
+#it:parkin
+#polyglutamine-containing fragment of ATXN3
+p(HGNC:PRKN) -> act(complex(GO:"proteasome complex"))
+p(HGNC:PRKN) -| act(p(HGNC:CASP12))
+p(HGNC:ATXN3,frag("?")) -| act(complex(GO:"proteasome complex"))
+p(HGNC:ATXN3,frag("?")) -> act(p(HGNC:CASP12))
+
+SET Evidence = "The affinity of the polyglutamine fragment to Parkin was increased by Hsp70,
+in agreement with the hypothesis that molecular chaperones may play a role in the recruitment of misfolded proteins
+to the conjugation machinery (see, for example, Bercovich et al., 1997)."
+p(FPLX:HSPA) -> complex(p(HGNC:PRKN),p(HGNC:ATXN3,frag("?")))
+
+SET Evidence = "A rather surprising, recently discovered
+substrate of Parkin is cyclin E (Staropoli et al., 2003)
+that is ubiquitinated by the SCF complex that contains Parkin."
+complex(GO:"SCF ubiquitin ligase complex") -> p(HGNC:CCNE1,pmod(ubiquitination))
+p(HGNC:PRKN) -- p(HGNC:CCNE1)
+
+SET Evidence = "Consistent with the notion that cyclin E is targeted by the Parkin ligase complex is the finding that
+Parkin deficiency leads to accumulation of cyclin E in cultured postmitotic neurons exposed to the
+glutamatergic excitotoxin kainite and promotes their apoptosis."
+SET MeSHAnatomy = "Neurons"
+composite(a(PUBCHEM:164810),p(HGNC:PRKN)) -| p(HGNC:CCNE1)
+p(HGNC:CCNE1) pos bp(GO:"neuron apoptotic process")
+UNSET MeSHAnatomy
+
+SET Evidence = "Overexpression of Parkin is reported to attenuate
+cyclin E accumulation and rescue the cells from apoptosis"
+p(HGNC:PRKN) -| p(HGNC:CCNE1)
+p(HGNC:PRKN) -| bp(GO:"neuron apoptotic process")
+
+SET Evidence = "In the dopamine-producing neuroblastoma cell line SH-SY5Y, Parkin
+rescued the cells from p38-induced cell death"
+SET CellLine = "SH-SY5Y"
+p(HGNC:PRKN) -| bp(GO:"cell death")
+p(HGNC:AIMP2) -> bp(GO:"cell death")
+UNSET CellLine
+
+SET Evidence = "An interesting point is that the mutated Parkin species K161N,
+which is associated with AR-JP, could still ubiquitinate
+p38, suggesting that it is not loss of function that underlies the human disease (see above)."
+p(HGNC:PRKN,var("p.Lys161Asn")) -- path(MESH:"Parkinsonian Disorders")
+p(HGNC:PRKN,var("p.Lys161Asn")) -> p(HGNC:AIMP2,pmod(ubiquitination))
+
+SET Evidence = "Finally, Synaptotagmin XI has also recently been reported to be a substrate
+of Parkin (Huynh et al., 2003). It is possible that ubiquitination of this substrate affects synaptic vesicle
+transport and/or transmitter release."
+p(HGNC:PRKN) -> p(HGNC:SYT11,pmod(ubiquitination))
+p(HGNC:SYT11,pmod(ubiquitination)) -- bp(GO:"synaptic vesicle transport")
+p(HGNC:SYT11,pmod(ubiquitination)) -- sec(a(CHEBI:neurotransmitter))
+
+SET Evidence = "Parkin has been reported also to associate with actin
+filaments but not with microtubules (Huynh et al., 2000)."
+p(HGNC:PRKN) -- a(GO:"actin filament")
+
+SET Evidence = "Yet, it is possible that the ligase regulates actin activity
+by ubiquitinating an actin-associated protein, which in
+turn affects the function of actin and thereby influences
+the movement of synaptic vesicles"
+p(HGNC:PRKN) reg act(a(MESH:Actins))
+
+SET Evidence = "Further supporting this hypothesis is the finding of Cummings and collaborators
+(Cummings et al., 1999) that inactivation of the gene coding for the E6-AP (Ube3a) ligase in a transgenic
+model of SCA-1 resulted in a reduced number of neurons containing intranuclear aggregates (see below)."
+p(HGNC:UBE3A) -> complex(a(MESH:Neurons),a(HBP:"protein aggregates"))
+
+SET Evidence = "Recent findings in a German family with PD have revealed a mutation in the gene coding for the ubiquitin
+carboxy-terminal hydrolase UCH-L1 (Leroy et al., 1998)."
+p(HGNC:UCHL1,var("?")) -- path(MESH:"Parkinson Disease")
+
+SET Evidence = "The simple explanation is that the mutation leads to a shortage in free
+ubiquitin that should have been recycled from conjugates, which results in general impairment of the
+function of the UPS."
+#mutation of UCHL1
+p(HGNC:UCHL1,var("?")) -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+
+SET Evidence = "Themutation inUCH-L1 that was found
+linked to PD was identified as I93M"
+p(HGNC:UCHL1,var("p.Ile93Met")) --  path(MESH:"Parkinson Disease")
+
+SET Evidence = "It has been reported recently that while the monomeric
+form of UCH-L1 catalyzes deubiquitination, the dimers
+display a ubiquitin ligase activity that generates ubiquitin-K63 bonds (Liu et al., 2002)."
+p(HGNC:UCHL1) -| bp(GO:"protein ubiquitination")
+complex(p(HGNC:UCHL1),p(HGNC:UCHL1)) -> bp(GO:"protein K63-linked ubiquitination")
+
+SET Evidence = "Mono- and diubiquitinated alphaSYN were polyubiquitinated by the enzyme,
+suggesting that it acts as an E4 (Koegl et al., 1999)"
+#enzyme: UCHL1
+p(HGNC:UCHL1) -> p(HGNC:SNCA,pmod(ubiquitination))
+
+SET Evidence = "However, mice homozygous for both UCH-L1 and UCH-L3 deletions
+die early due to dysphagia and display degeneration of the nucleus tractus solitarius and area postrema in
+addition to the degeneration of the gracile tract that is observed in GAD mice that only have a UCH-L1 deletion"
+p(HGNC:UCHL1) -| path(MESH:"Deglutition Disorders")
+p(HGNC:UCHL3) -| path(MESH:"Deglutition Disorders")
+p(HGNC:UCHL1) pos a(MESH:"Solitary Nucleus")
+p(HGNC:UCHL3) pos a(MESH:"Solitary Nucleus")
+p(HGNC:UCHL1) pos a(MESH:"Area Postrema")
+p(HGNC:UCHL3) pos a(MESH:"Area Postrema")
+
+SET Evidence = "alphaSYN is a small, 140 amino acid residue protein that is thought
+to regulate/participate in dopamine neurotransmission/release via effects on vesicular storage"
+p(HGNC:SNCA) reg bp(GO:"dopamine secretion, neurotransmission")
+p(HGNC:SNCA) reg bp(GO:"dopamine secretion")
+
+SET Evidence = "Wild-type alphaSYN is monomeric, but at high concentration, it oligomerizes
+to beta-pleated sheets known as protofibrils"
+p(HGNC:SNCA) pos bp(HBP:"Alpha-synuclein Oligomerization")
+bp(HBP:"Alpha-synuclein Oligomerization") -> a(HBP:"alpha-synuclein fibrils")
+
+SET Evidence = "The protofibrils can further aggregate and
+precipitate as amyloid fibrils that are present in Lewy
+bodies, the hallmark of sporadic, late-onset PD"
+a(HBP:"alpha-synuclein fibrils") -> a(HBP:"alpha-synuclein aggregates")
+a(HBP:"alpha-synuclein aggregates") -- a(MESH:"Lewy Bodies")
+a(MESH:"Lewy Bodies") -- path(MESH:"Parkinson Disease")
+
+SET Evidence = "In the late 1990s, it was reported that two mutations in the N-terminal domain of
+alphaSYN, A30P (Kruger et al., 1998) and A53T (Polymeropoulos et al., 1997), were associated with a rare form
+of autosomal-dominant familial PD"
+p(HGNC:SNCA,var("p.Ala30Pro")) -- path(MESH:"Parkinson Disease")
+p(HGNC:SNCA,var("p.Ala53Thr")) -- path(MESH:"Parkinson Disease")
+
+SET Evidence = "The mutant proteins have a higher tendency to generate protofibrils"
+#mutant proteins: alphaSYN A30P and alphaSYN  A53T
+p(HGNC:SNCA,var("p.Ala30Pro")) -> a(HBP:"alpha-synuclein fibrils")
+p(HGNC:SNCA,var("p.Ala53Thr")) -> a(HBP:"alpha-synuclein fibrils")
+
+SET Evidence = "Overexpression of wild-type, but in particular mutant alphaSYN in many cell types but not in all, induces
+apoptosis or sensitizes the cells to toxic agents, including proteasome inhibitors (see, for example, Lee et al.,2001a)."
+p(HGNC:SNCA) -> bp(GO:"apoptotic process")
+p(HGNC:SNCA,var("?")) -> bp(GO:"apoptotic process")
+
+SET Evidence = "AR-JP is characterized by lack of LBs and alphaSYN aggregates"
+path(MESH:"Parkinsonian Disorders") neg a(MESH:"Lewy Bodies")
+path(MESH:"Parkinsonian Disorders") pos a(HBP:"alpha-synuclein aggregates")
+
+SET Evidence = "The suggestion that the glycosylated form of alphaSYN is targeted by Parkin (Shimura et al., 2001) may
+resolve part of the enigma"
+p(HGNC:PRKN) -- p(HGNC:SNCA,pmod(Glyco))
+
+SET Evidence = "Therefore, patients with AR-JP—who cannot degrade it because of the mutation
+in the Parkin E3 (see above)—develop neurodegeneration"
+#it: SNCA
+SET MeSHDisease = "Parkinsonian Disorders"
+p(HGNC:PRKN,var("?")) cnc deg(p(HGNC:SNCA))
+path(MESH:"Parkinsonian Disorders") -> path(HBP:Neurodegeneration)
+UNSET MeSHDisease
+
+SET Evidence = "An important finding, however, in that respect is that aggregated and even monomeric alphaSYN bind to the S6'
+proteasome subunit and inhibit proteasomal function (Snyder et al., 2003)."
+complex(p(HGNC:PSMC4),a(HBP:"alpha-synuclein aggregates")) -| act(complex(GO:"proteasome complex"))
+complex(p(HGNC:PSMC4),p(HGNC:SNCA)) -| act(complex(GO:"proteasome complex"))
+
+SET Evidence = "Thus, aggregation, which is the primary event, may lead to
+secondary damage by inhibiting the UPS (Bence et al., 2001)."
+#aggregation of SNCA
+a(HBP:"alpha-synuclein aggregates") -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+
+SET Evidence = "Instead, impairment of alphaSYN function may disturb ubiquitination of alphaSYN-associated
+proteins, such as Synphilin (Chung et al., 2001) and tyrosine hydroxylase (Doskeland and Flatmark, 2002),
+and thereby perturb neuronal homeostasis"
+act(p(HGNC:SNCA)) -> p(HGNC:SNCAIP,pmod(ubiquitination))
+act(p(HGNC:SNCA)) -> p(HGNC:TH,pmod(ubiquitination))
+SET MeSHAnatomy = "Neurons"
+act(p(HGNC:SNCA)) reg bp(GO:"homeostatic process")
+UNSET MeSHAnatomy
+
+SET Evidence = "Recently discovered mutations in the DJ-1 gene have also
+been associated with AR-JP (Bonifati et al., 2003)."
+g(HGNC:PARK7,var("?")) -- path(MESH:"Parkinsonian Disorders")
+
+SET Evidence = "DJ-1 activity may be regulated by SUMOylation, as it was found that it binds to
+the SUMO E3 PIASx (Takahashi et al., 2001)."
+p(HGNC:PARK7,pmod(SUMOylation)) reg act(p(HGNC:PARK7))
+complex(p(HGNC:PIAS2),p(HGNC:PARK7)) -> p(HGNC:PARK7,pmod(SUMOylation))
+
+SET Evidence = "Interestingly, one of the DJ-1 mutations that is associated with
+AR-JP is a point mutation, L166P."
+p(HGNC:PARK7,var("p.Leu166Pro")) -- path(MESH:"Parkinsonian Disorders")
+
+SET Evidence = "Miller and colleagues (Miller et al., 2003) have recently shown that this
+mutation destabilizes DJ-1 via promotion of its rapid, UPS-mediated degradation"
+#this mutation: p(HGNC:PARK7,var("p.Leu166Pro"))
+p(HGNC:PARK7,var("p.Leu166Pro")) -> deg(p(HGNC:PARK7))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(HGNC:PARK7))
+
+SET Evidence = "This case may be analogous to the loss of function observed during the rapid degradation of mutated
+ΔF508 Cystic Fibrosis Transmembrane conductance Regulator (CFTR), which is also an active protein, and
+that the rapid degradation of which contributes to the pathogenesis of cystic fibrosis (CF) in patients carrying
+the mutation"
+p(HGNC:CFTR,var("p.Phe508del")) -> deg(p(HGNC:CFTR))
+p(HGNC:CFTR,var("p.Phe508del")) -> path(MESH:"Cystic Fibrosis")
+
+SET Evidence = "It should be noted that CFTR degradation is mediated by Endoplasmic Reticulum Associated
+Degradation (ERAD—a quality control mechanism that eliminates, via the UPS, misfolded/mutated/abnormal
+membrane or lumenal ER proteins following their retrotranslocation to the cytosol via the Sec61 translocation channel)."
+bp(GO:"ERAD pathway") reg deg(p(HGNC:CFTR))
+p(HGNC:SEC61A1) -> tloc(p(MESH:Proteins,pmod(HBP:misfolding)),fromLoc(GO:"endoplasmic reticulum lumen"),toLoc(GO:cytosol))
+
+SET Evidence = "In AD, the dominant symptom is dementia, initially characterized by a loss of short-term memory
+which gradually develops into a loss of most higher faculties"
+path(MESH:"Alzheimer Disease") -> path(MESH:Dementia)
+path(MESH:"Alzheimer Disease") -| bp(GO:"short-term memory")
+
+SET Evidence = "Patients with AD display two types of protein deposits: extracellular
+amyloid plaques and intracellular neurofibrillary tangles (Hardy and Selkoe, 2002)."
+path(MESH:"Alzheimer Disease") -> path(MESH:"Plaque, Amyloid")
+path(MESH:"Alzheimer Disease") -> a(MESH:"Neurofibrillary Tangles")
+
+SET Evidence = "The plaques in AD are rich in amyloid beta peptides (Abeta)
+that are produced by proteolytic cleavage of the amyloid precursor peptide (APP), a glycolipid located in the outer
+cell membrane"
+path(MESH:"Plaque, Amyloid") -- a(MESH:"Amyloid beta-Peptides")
+p(HGNC:APP) -> a(MESH:"Amyloid beta-Peptides")
+
+SET Evidence = "Three different proteases, called alpha, beta, and gamma secretases, can cleave APP at specific sites and
+generate products that are well characterized."
+a(MESH:"Amyloid Precursor Protein Secretases") -> rxn(reactants(p(HGNC:APP)),products(a(MESH:"Amyloid beta-Peptides")))
+
+SET Evidence = "Concomitant cleavage of APP by beta and gamma secretase at specific
+sites can result in fragments (Abeta1-40 or Abeta1-42) that can misfold and form extracellular fibrils."
+p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(a(MESH:"Amyloid beta-Peptides")))
+complex(GO:"gamma-secretase complex") -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta polypeptide 40"),a(CHEBI:"amyloid-beta polypeptide 42")))
+a(CHEBI:"amyloid-beta polypeptide 40") -> a(HBP:"amyloid-beta fibrils")
+a(CHEBI:"amyloid-beta polypeptide 42") -> a(HBP:"amyloid-beta fibrils")
+
+SET Evidence = "In contrast, the neurofibrillary tangles are intracellular and are rich in tau, a structural
+protein that is normally associated with microtubuli"
+a(MESH:"Neurofibrillary Tangles") -- p(HGNC:MAPT)
+p(HGNC:MAPT) -- a(GO:microtubule)
+
+SET Evidence = "In conjunction with the formation of neurofibrillary tangles, the synthesis of the tau protein increases, and it
+undergoes an abnormal posttranslational modification characterized by hyperphosphorylation"
+a(MESH:"Neurofibrillary Tangles") -> p(HGNC:MAPT)
+a(MESH:"Neurofibrillary Tangles") -> p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+
+SET Evidence = "Proteolytic processing/degradation of tau is also believed to be
+important for the formation of the neurofibrillary tangles,although the molecular pathways involved in this
+process are not fully understood"
+deg(p(HGNC:MAPT)) -> a(MESH:"Neurofibrillary Tangles")
+
+SET Evidence = "Mutations in the tau gene can cause the tauopathy Pick’s disease (mentioned above)."
+g(HGNC:MAPT,var("?")) -> path(MESH:"Pick Disease of the Brain")
+
+SET Evidence = "Mutant tau alone does not cause AD, favoring the idea that accumulation of erroneously processed Abeta
+is a key event in AD pathogenesis"
+composite(p(HGNC:MAPT,var("?")),a(CHEBI:"amyloid-beta")) -> path(MESH:"Alzheimer Disease")
+
+SET Evidence = "They have demonstrated
+that AD can be caused by mutations in the APP
+gene, either in the vicinity of the secretase cleavage
+sites, causing abnormal APP processing, or in the sequence coding for Abeta, giving rise to a peptide that is
+more likely to self-aggregate"
+p(HGNC:APP,var("?")) -> path(MESH:"Alzheimer Disease")
+p(HGNC:APP,var("?")) -> a(HBP:"amyloid-beta aggregates")
+
+SET Evidence = "Finally, some patients express
+mutant presenilin proteins 1 and 2 (PS1 and PS2)
+that can change the processing of APP by altering gamma
+secretase activity, thereby promoting the generation of
+amyloidogenic Abeta (Hardy and Selkoe, 2002)."
+p(HGNC:PSEN1,var("?")) -- act(complex(GO:"gamma-secretase complex"))
+p(HGNC:PSEN1,var("?")) -> a(CHEBI:"amyloid-beta")
+p(HGNC:PSEN2,var("?")) -- act(complex(GO:"gamma-secretase complex"))
+p(HGNC:PSEN2,var("?")) -> a(CHEBI:"amyloid-beta")
+
+SET Evidence = "It has been shown that Abeta can be degraded by
+the proteasome in cultured neurons and astrocytes, and
+reatment with the proteasome inhibitor lactacystin decreased viability
+of cells exposed to Abeta (Lopez Salon et al., 2003)."
+SET Cell = {"astrocyte","neuron"}
+complex(GO:"proteasome complex") -> deg(a(CHEBI:"amyloid-beta"))
+a(CHEBI:lactacystin) -| act(complex(GO:"proteasome complex"))
+a(CHEBI:lactacystin) -> bp(GO:"cell death")
+UNSET Cell
+
+SET Evidence = "They present evidence that paired helical filaments obtained from AD brain or generated in vitro can
+inhibit proteasome function and that in AD brain tissue these
+filaments coimmunoprecipitate with the proteasome (Keck et al., 2003)."
+SET MeSHDisease = "Alzheimer Disease"
+a(HBP:"paired helical filaments") -| act(complex(GO:"proteasome complex"))
+UNSET MeSHDisease
+
+SET Evidence = "Finally, there is also evidence for a reduced activity of E1 and E2 enzymes in cerebral cortex samples
+from AD patients compared to age-matched controls (Lopez Salon et al., 2000)."
+SET MeSHAnatomy = "Cerebral Cortex"
+path(MESH:"Alzheimer Disease") neg act(p(HGNC:UBA1))
+path(MESH:"Alzheimer Disease") neg act(p(HGNC:UBA2))
+UNSET MeSHAnatomy
+
+SET Evidence = "Taken together, several lines of evidence point to a reduced UPS function in AD and
+suggest that both Abeta and tau are important players in the game."
+path(MESH:"Alzheimer Disease") neg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+path(MESH:"Alzheimer Disease") -- a(CHEBI:"amyloid-beta")
+path(MESH:"Alzheimer Disease") -- p(HGNC:MAPT)
+
+SET Evidence = "The proteasome activity in the mammalian brain decreases with
+increasing age (Keller et al., 2002), suggesting that the
+aged brain is less able to handle the aberrantly folded Abeta"
+SET MeSHAnatomy = "Brain"
+bp(GO:aging) neg act(complex(GO:"proteasome complex"))
+UNSET MeSHAnatomy
+
+SET Evidence = "However, Abeta has been demonstrated to reduce proteasome activity in reticulocyte lysates (Gregori et al.,
+1995), suggesting that increased levels of the peptide could underlie the reduction in UPS function observed in the AD brain."
+SET MeSHAnatomy = "Reticulocytes"
+a(CHEBI:"amyloid-beta") -| act(complex(GO:"proteasome complex"))
+UNSET MeSHAnatomy
+
+SET Evidence = "This family of diseases is considered to be caused by a protein component of
+the proteinaceous infectious (prion) particles, originally proposed to be the causative agent of these diseases
+by Stanley Pruisner (1982)."
+a(MESH:Prions) -> path(MESH:"Prion Diseases")
+
+SET Evidence = "In cattle, prions can cause Bovine Spongiform Encephalopathy (BSE), called in lay terms
+“mad cow disease.”"
+a(MESH:Prions) -> path(MESH:"Encephalopathy, Bovine Spongiform")
+
+SET Evidence = "They have in common a progressive development of
+severe motor disturbance and dementia leading to death
+within a fewmonths to a fewyears after diagnosis,which
+can be years to decades after the initial infection in transmissible cases."
+#thex: prion dieseases
+path(MESH:"Prion Diseases") -> path(MESH:"Motor Disorders")
+path(MESH:"Prion Diseases") -> path(MESH:Dementia)
+path(MESH:"Prion Diseases") -> path(MESH:Death)
+
+SET Evidence = "Prion disease neuropathology is characterized by widespread neuronal death, accompanied
+by spongiform vacuolation and astrogliosis, usually combined with widespread deposits of extracellular
+amyloid aggregates."
+path(MESH:"Prion Diseases") -> bp(GO:"neuron death")
+path(MESH:"Prion Diseases") -> path(MESH:Gliosis)
+path(MESH:"Prion Diseases") -> a(HBP:"amyloid-beta aggregates")
+
+SET Evidence = "PrPc is abundant in many cells throughout the body, particularly in the immune
+and nervous systems, and is typically anchored to the outer cell membrane, where it may act as a copper
+binding protein with antioxidant properties (Brown,2002)."
+#PrPc: prion protein
+p(HGNC:PRNP) -> complex(p(HGNC:PRNP),a(CHEBI:"copper(2+)"))
+
+SET Evidence = "The Prion protein normally interacts with the chaperone BiP and undergoes assisted folding (Jin et al., 2000)."
+complex(p(HGNC:HSPA5),p(HGNC:PRNP)) -> bp(GO:"protein folding")
+
+SET Evidence = "Alternatively, if misfolded, it is believed to be directed to degradation via ERAD (Yedidia et al., 2001)."
+#it: PRNP
+bp(GO:"ERAD pathway") -> deg(p(HGNC:PRNP,pmod(HBP:misfolding)))
+
+SET Evidence = "Recent work has highlighted a novel possible role for failure of the UPS in initiating prion disease, which can
+explain the cause of some cases of sporadic prion disease."
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") neg path(MESH:"Prion Diseases")
+
+SET Evidence = "Lindquist and colleagues proposed that inhibition of UPS, which can be caused by ageing or following a
+pharmacological treatment, can lead to accumulation of PrPc in the cytoplasm where it is spontaneously
+converted into a PrPsc-like species because it is not rapidly degraded by the UPS (Hooper, 2003; Ma and Lindquist,2002;Ma et al., 2002)."
+bp(GO:aging) neg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+bp(GO:aging) -> p(HGNC:PRNP)
+
+SET Evidence = "Once in the cytoplasm, the PrPc would be efficiently degraded by the UPS via the ERAD pathway, but this does not
+occur in the presence of the proteasome inhibitors"
+tloc(p(HGNC:PRNP),fromLoc(MESH:"Endoplasmic Reticulum"),toLoc(GO:cytosol)) -> deg(p(HGNC:PRNP))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(HGNC:PRNP))
+
+SET Evidence = "The model proposed by Lindquist and collaborators is important as it identifies malfunction of UPS as a
+potentially important player in prion pathogenesis"
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") neg path(MESH:"Prion Diseases")
+
+SET Evidence = "There are different forms of amyotrophic lateral sclerosis (ALS), all primarily display widespread death of
+brainstem and spinal motoneurons, corticospinal degeneration, paralysis of skeletal muscle, and eventual neuronal cell death"
+path(MESH:"Amyotrophic Lateral Sclerosis") -| a(MESH:"Brain Stem")
+path(MESH:"Amyotrophic Lateral Sclerosis") -| bp(GO:"spinal cord development")
+path(MESH:"Amyotrophic Lateral Sclerosis") -| a(MESH:"Pyramidal Tracts")
+path(MESH:"Amyotrophic Lateral Sclerosis") -> path(MESH:Paralysis)
+path(MESH:"Amyotrophic Lateral Sclerosis") -> bp(GO:"neuron death")
+
+SET Evidence = "There is very little evidence to suggest that alterations in SOD are a common feature of sporadic ALS
+(Alexander et al., 2002)."
+p(HGNC:SOD1,var("?")) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+
+SET Evidence = "The normal function of SOD1 is to scavenge
+oxygen radicals and prevent oxidative stress."
+p(HGNC:SOD1) -| bp(GO:"response to oxidative stress")
+
+SET Evidence = "The first is that the mutant protein promotes oxidative stress through a gain-of-function
+mechanism where improper handling of copper may lead to the enzyme catalyzing aberrant pro-oxidant
+reactions (Cleveland and Liu, 2000)."
+#mutant of SOD1
+p(HGNC:SOD1,var("?")) -> bp(GO:"response to oxidative stress")
+
+SET Evidence = "Alternatively, the enzyme
+itself may misfold and generate protein aggregates, thereby
+implicating a role for the UPS in disease pathogenesis
+(Cleveland and Liu, 2000; Julien, 2001;Valentine and Hart, 2003)."
+#enzyme:SOD1
+p(HGNC:SOD1,pmod(HBP:misfolding)) -> a(HBP:"protein aggregates")
+
+SET Evidence = "The mutant SOD1 proteins, unlike the wild-type
+form, are degraded by the UPS (Hoffman et al., 1996;Johnston et al., 2000)."
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(HGNC:SOD1,var("?")))
+
+SET Evidence = "Overexpression of the chaperone HSP70 has been found to
+reduce aggregate formation and death in nonneuronal cultured cells expressing mutant SOD1 (Bruening et al.,1999)."
+p(FPLX:HSPA) -> a(HBP:"protein aggregates")
+p(FPLX:HSPA) -> bp(GO:"cell death")
+
+SET Evidence = "Similarly, overexpression of the putative SOD1 E3 ligase dorfin can inhibit cell death induced by the
+mutant protein (Niwa et al., 2002), presumably by promoting its removal via the UPS."
+p(HGNC:RNF19A) -| bp(GO:"cell death")
+p(HGNC:SOD1,var("?")) -> bp(GO:"cell death")
+p(HGNC:RNF19A) -> bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(HGNC:SOD1,var("?")))
+
+SET Evidence = "Interestingly, dorfin expression is increased in the spinal cord of ALS patients
+(Ishigaki et al., 2002), which may suggest that the expression of the E3 ligase is increased in an attempt to
+enhance clearance of the mutant SOD1."
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:RNF19A)
+p(HGNC:RNF19A) -> deg(p(HGNC:SOD1,var("?")))
+
+SET Evidence = "Spinal cords from sporadic ALS cases
+also express increased levels of the gene for ubiquitin-like protein 5."
+SET MeSHAnatomy = "Spinal Cord"
+path(MESH:"Amyotrophic Lateral Sclerosis") pos p(HGNC:UBL5)
+UNSET MeSHAnatomy
+
+SET Evidence = "Urushitani and coworkers (Urushitani et al., 2002) showed that mutant SOD1 is degraded by
+the UPS in cultured cells and that oxidative damage increases the degree of ubiquitination of mutant but
+not of wild-type SOD1."
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(HGNC:SOD1,var("?")))
+bp(GO:"response to oxidative stress") -> p(HGNC:SOD1,var("?"),pmod(ubiquitination))
+
+SET Evidence = "They found that the proteasome catalytic activity was decreased in neuroblastoma cells
+following 1 week of expression of a mutant SOD1 gene."
+p(HGNC:SOD1,var("?")) neg act(complex(GO:"proteasome complex"))
+
+SET Evidence = "Consequently, due to the increased stress, mutant SOD1 will misfold more rapidly"
+#stress: oxidative stress
+bp(GO:"response to oxidative stress") -> p(HGNC:SOD1,var("?"),pmod(HBP:misfolding))
+
+SET Evidence = "Thus, exposure to lactacystin resulted in
+increased cell death in human cell lines expressing mutant
+SOD1 (Aquilano et al., 2003; Hyun et al., 2003)."
+composite(p(HGNC:SOD1,var("?")),a(CHEBI:lactacystin)) -> bp(GO:"cell death")
+
+SET Evidence = "In the other model, the expression of mutant SOD1 alone was sufficient to
+induce oxidative stress, giving rise to increased proteasome activity, possibly due to the need to
+remove oxidatively damaged proteins (Hyun et al., 2003)."
+p(HGNC:SOD1,var("?")) -> bp(GO:"response to oxidative stress")
+p(HGNC:SOD1,var("?")) -> act(complex(GO:"proteasome complex"))
+
+SET Evidence = "The disease is caused by a mutation in
+the gene coding for Huntingtin—a protein of hitherto
+unknown function, although it has been recently implicated in
+the control of gene transcription (Zuccato et al., 2003)."
+#the disease:Huntington Disease
+p(HGNC:HTT,var("?")) -> path(MESH:"Huntington Disease")
+
+SET Evidence = "However, a contribution to the pathogenesis by loss of function of
+Huntingtin encoded from the wild-type allele has not
+been excluded in HD (Cattaneo et al., 2001), since the
+mutant protein not only aggregates itself but can also
+promote aggregation of the wild-type protein (Busch et al.,2003)."
+p(HGNC:HTT,var("?")) -> a(HBP:"huntingtin aggregates")
+
+SET Evidence = "In addition, other proteins, e.g., alphaSYN (Waelter et al., 2001) and the transcriptional
+cofactor CREB binding protein (CBP) (Jiang et al., 2003),colocalize with the protein inclusions"
+p(HGNC:SNCA) -- a(MESH:"Inclusion Bodies")
+p(HGNC:CREBBP) -- a(MESH:"Inclusion Bodies")
+
+SET Evidence = "Tentative support for this idea was obtained in a cell model of HD,
+where expression of a dominant-negative variant of the E2 Cdc34p
+decreased the formation of intranuclear inclusions but
+increased the likelihood of cell death (Saudou et al., 1998)."
+SET MeSHDisease = "Huntington Disease"
+p(HGNC:CDC34,var("?")) -| a(MESH:"Inclusion Bodies")
+p(HGNC:CDC34,var("?")) -> bp(GO:"cell death")
+UNSET MeSHDisease
+
+SET Evidence = "Interestingly, the expression of the inactive E3 increased the number of the dying Purkinje cells"
+SET Cell = "Purkinje cell"
+act(p(HGNC:UBE3A)) -| bp(GO:"cell death")
+UNSET Cell
+
+SET Evidence = "Thus,Huntingtin was found to be ubiquitinated and also to
+interact with E2-25 kDa (Kalchman et al., 1996)."
+p(HGNC:UBA2) -> p(HGNC:HTT,pmod(ubiquitination))
+p(HGNC:HTT) -> complex(p(HGNC:UBA2),p(HGNC:HTT))
+
+SET Evidence = "It interacts with the human homolog of Rad23, a cytosolic protein that binds
+polyubiquitinated proteins and is involved, most probably, in shuttling them to the proteasome."
+#it: Ataxin-3
+p(HGNC:ATXN3) -> complex(p(HGNC:ATXN3),p(HGNC:RAD23A))
+p(HGNC:RAD23A) -> tloc(p(HGNC:ATXN3,pmod(ubiquitination)),fromLoc(GO:cytosol),toLoc(GO:"proteasome complex"))
+
+SET Evidence = "In a cell culture model, they overexpressed mutant Huntingtin and
+observed proteasomal inhibition accompanied by cell cycle arrest"
+p(HGNC:HTT) -| act(complex(GO:"proteasome complex"))
+p(HGNC:HTT) -> bp(GO:"cell cycle arrest")
+
+SET Evidence = "Another study has also demonstrated that UPS inhibition
+is only revealed under conditions of increased stress in
+cells expressing mutant Huntingtin (Ding et al., 2002)"
+p(HGNC:HTT,var("?")) -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+
+SET Evidence = "Neuronal autophagy has been found to occur following chronic, low-grade
+proteasomal inhibition in cultured neuroblastoma cells (Ding et al., 2003) and may reflect activation of the
+lysosomal system as cells try to protect themselves during stress (Larsen and Sulzer, 2002)."
+SET MeSHAnatomy = "Neurons"
+act(complex(GO:"proteasome complex")) -| bp(GO:autophagy)
+UNSET MeSHAnatomy
+
+SET Evidence = "Administration of cystamine, a transglutaminase inhibitor, can reduce aggregate formation and death in
+cells expressing atrophin-1 (DRPLA model) (Igarashi et al., 1998) and in cells expressing mutant androgen
+receptor (SBMA model) (Mandrusiak et al., 2003)."
+composite(a(CHEBI:cystamine),p(HGNC:ATN1)) -| a(HBP:"protein aggregates")
+composite(a(CHEBI:cystamine),p(HGNC:ATN1)) -| bp(GO:"cell death")
+composite(a(CHEBI:cystamine),p(HGNC:AR,var("?"))) -| a(HBP:"protein aggregates")
+composite(a(CHEBI:cystamine),p(HGNC:AR,var("?"))) -| bp(GO:"cell death")
+
+SET Evidence = "If oligomerization of mutant Huntingtin is inhibited by administration
+of Congo red starting at this age, no aggregates can be detected in the brain 5weeks later (Sanchez et al., 2003)."
+a(CHEBI:"Congo Red") -| a(HBP:"huntingtin aggregates")
+
+SET Evidence = "In a parallel experiment using a cell culture model,
+Congo red was found to increase proteasomal activity
+in cells expressing a polyglutamine protein but not in
+cells expressing a control protein (Sanchez et al., 2003)."
+a(CHEBI:"Congo Red") -> act(complex(GO:"proteasome complex"))
+
+SET Evidence = "Consequently, the formation of aggregates may increase when the UPS fails"
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -| a(HBP:"protein aggregates")
+
+SET Evidence = "Lunkes and colleagues demonstrated that truncated Huntingtin, which has undergone proteolytic
+cleavage in the cytoplasm, accumulates more rapidly if the proteasome is pharmacologically inhibited
+(Lunkes et al., 2002)."
+act(complex(GO:"proteasome complex")) -| p(HGNC:HTT,frag("?"))
+
+SET Evidence = "This indicates that the truncated fragments are
+normally processed via the UPS, and therefore the disposal of fragments of mutant proteins will be
+impaired."
+#truncated fragments of HTT
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(HGNC:HTT,frag("?")))
+
+SET Evidence = "A study in cultured mouse neuroblastoma cells
+showed that N-terminal mutant Huntingtin inhibited the
+20S proteasome catalytic activity, in turn causing impaired
+proteasomal degradation of p53, subsequent loss of mitochondrial
+membrane potential, release of cytochrome c, caspase activation, and apoptosis (Jana et al., 2001) (Figure 2)."
+p(HGNC:HTT,var("?")) -| act(p(HBP:"20 S Proteasome"))
+p(HGNC:HTT,var("?")) -| deg(p(HGNC:TP53))
+p(HGNC:HTT,var("?")) -| bp(MESH:"Membrane Potential, Mitochondrial")
+p(HGNC:HTT,var("?")) -> sec(a(CHEBI:"cytochrome c"))
+p(HGNC:HTT,var("?")) -> act(p(FPLX:Caspase))
+p(HGNC:HTT,var("?")) -> bp(GO:"apoptotic process")
+
+
+##########################################################
+
+
+UNSET STATEMENT_GROUP
