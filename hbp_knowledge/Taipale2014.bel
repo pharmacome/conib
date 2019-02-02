@@ -81,7 +81,7 @@ SET STATEMENT_GROUP = "Sandra"
 
 # Add statements below this comment
 
-SET Citation = {"PubMed", "Cell. 2014 Jul 17;158(2):434-448. doi: 10.1016/j.cell.2014.05.039", "25036637"}
+SET Citation = {"PubMed","25036637"}
 
 SET Evidence = "Two subnetworks emerged within this central network, corresponding to known Hsp90 and Hsp70 chaperone
 complexes (Figure 2, blue and orange squares, respectively). These two subnetworks were bridged by a unique set of cochaperones
@@ -163,13 +163,13 @@ SET Evidence = "Third, FKBP51 associated with three transcription factors (EGLN1
 which contain an MYND zinc finger domain, suggesting that this
 domain represents an Hsp90-interacting protein fold"
 p(HGNC:FKBP5) -- p(HGNC:EGLN1)
-p(HGNC:EGLN1) hasComponent p(INTERPRO:"Zinc finger, MYND-type")
+p(HGNC:EGLN1) -- p(INTERPRO:"Zinc finger, MYND-type")
 p(INTERPRO:"Zinc finger, MYND-type") -> complex(p(HGNC:EGLN1),p(INTERPRO:"Heat shock protein Hsp90 family"))
 p(HGNC:FKBP5) -- p(HGNC:PDCD2)
-p(HGNC:PDCD2) hasComponent p(INTERPRO:"Zinc finger, MYND-type")
+p(HGNC:PDCD2) -- p(INTERPRO:"Zinc finger, MYND-type")
 p(INTERPRO:"Zinc finger, MYND-type") ->  complex(p(HGNC:PDCD2),p(INTERPRO:"Heat shock protein Hsp90 family"))
 p(HGNC:FKBP5) -- p(HGNC:ANKMY2)
-p(HGNC:ANKMY2) hasComponent p(INTERPRO:"Zinc finger, MYND-type")
+p(HGNC:ANKMY2) -- p(INTERPRO:"Zinc finger, MYND-type")
 p(INTERPRO:"Zinc finger, MYND-type") -> complex(p(HGNC:ANKMY2),p(INTERPRO:"Heat shock protein Hsp90 family"))
 
 SET Evidence = "Perhaps most surprisingly, we found that FKBP51 interacted
@@ -203,7 +203,7 @@ SET Evidence = "For example, the FKBP38 (aka FKBP8) interactome suggested a link
 signaling through interaction with PDCL, which acts as a chaperone
 for G protein g subunits (Lukov et al., 2006; Figure 3B)."
 p(HGNC:FKBP8) -> complex(p(HGNC:FKBP8),p(HGNC:PDCL))
-p(HGNC:FKBP8) -- bp(GO:"G protein-coupled receptor signaling pathway")
+p(HGNC:FKBP8) -- bp(GO:"regulation of G protein-coupled receptor signaling pathway")
 p(HGNC:PDCL) -- p(INTERPRO:"G-protein, gamma subunit")
 p(HGNC:PDCL) isA a(MESH:"Molecular Chaperones")
 
@@ -260,7 +260,7 @@ p(HGNC:DDX6) -- bp(GO:"gene silencing")
 
 SET Evidence = "Thus, BAG4 overexpression disrupted P body organization"
 SET CellLine = "HeLa cell"
-p(HGNC:BAG4) neg a(GO:"P-body")
+p(HGNC:BAG4) neg complex(GO:"P-body")
 UNSET CellLine
 
 SET Evidence = "We introduced a point mutation in the BAG domain
@@ -269,8 +269,8 @@ p(HGNC:BAG4,var("p.Asp424Ala")) -| complex(p(HGNC:BAG4,var("p.Asp424Ala")),p(INT
 
 SET Evidence = "However, mutant BAG4 still localized to P bodies and disrupted P body organization at
 high expression levels (Figure S3H)."
-p(HGNC:BAG4,var("p.Asp424Ala")) -- a(GO:"P-body")
-p(HGNC:BAG4,var("p.Asp424Ala")) neg a(GO:"P-body")
+p(HGNC:BAG4,var("p.Asp424Ala")) -- complex(GO:"P-body")
+p(HGNC:BAG4,var("p.Asp424Ala")) neg complex(GO:"P-body")
 
 SET Evidence = "Ganetespib treatment had a strong effect on most Hsp90-
 client interactions. Of the 630 unique proteins that we detected
@@ -314,13 +314,13 @@ clustered together with Hsc70, their nucleotide-exchange factor
 BAG2, and the E3 ligase CHIP (Figure 5A, orange cluster),
 whereas Hsp90 and many of its cochaperones formed a separate
 group (Figure 5A, blue cluster)"
-p(INTERPRO:"Heat shock protein 70 family") => complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:HSPA8)p(HGNC:BAG2),p(HGNC:STUB1))
+p(INTERPRO:"Heat shock protein 70 family") => complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:HSPA8),p(HGNC:BAG2),p(HGNC:STUB1))
 
 SET Evidence = "Similarly, three components of the
 proteasome regulatory particle (PSMD4, PSMC1, and ADRM1)
 clustered together, as did the two subunits of the prefoldin complex,
 PFDN2 and PFDN5 (Figure 5A)"
-p(HGNC:PSMD4) => complex(p(HGNC:PSMD4),p(HGNC:PSMC1),p(HGNC:v))
+p(HGNC:PSMD4) => complex(p(HGNC:PSMD4),p(HGNC:PSMC1),p(HGNC:ADRM1))
 complex(GO:"prefoldin complex") hasComponents list(p(HGNC:PFDN2),p(HGNC:PFDN5))
 p(HGNC:PFDN2) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5))
 
@@ -373,7 +373,7 @@ p(HGNC:ADRM1) => complex(p(HGNC:PSMD4),p(HGNC:ADRM1))
 p(HGNC:PSMC1) => complex(p(HGNC:PSMC2),p(HGNC:PSMC1))
 p(HGNC:PSMC1) => complex(p(HGNC:PSMD2),p(HGNC:PSMC1))
 
-SET Evidence  "Although all four subunits are
+SET Evidence = "Although all four subunits are
 part of the base of the proteasome regulatory particle (Lander
 et al., 2012), RPN1 clustered together with Hsp70 rather than
 with the other proteasome subunits (Figure 5A)"
@@ -401,9 +401,9 @@ SET Evidence = "The four proteins in the first cluster (PFDN2 itself, VBP1, UXT,
 prefoldin-like proteins and interacted primarily with PFDN2 and PFDN5."
 p(HGNC:PFDN2) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5))
 p(HGNC:PFDN2) => complex(p(HGNC:PFDN2),p(HGNC:PFDN2))
-p(HGNC:VBP1) => complex(p(HGNC:PFDN2)p(HGNC:VBP1))
+p(HGNC:VBP1) => complex(p(HGNC:PFDN2),p(HGNC:VBP1))
 p(HGNC:VBP1) => complex(p(HGNC:PFDN5),p(HGNC:VBP1))
-p(HGNC:UXT) => complex(p(HGNC:PFDN2)p(HGNC:UXT))
+p(HGNC:UXT) => complex(p(HGNC:PFDN2),p(HGNC:UXT))
 p(HGNC:UXT) => complex(p(HGNC:PFDN5),p(HGNC:UXT))
 p(HGNC:PDRG1) => complex(p(HGNC:PFDN2),p(HGNC:PDRG1))
 p(HGNC:PDRG1) => complex(p(HGNC:PFDN5),p(HGNC:PDRG1))
@@ -462,7 +462,7 @@ p(HGNC:NUDCD3) => complex(p(HGNC:NUDCD3),p(INTERPRO:"Kelch-type beta propeller")
 SET Evidence = "As reported before (Taipale et al.,
 2012), CDC37 interacted with the kinase domain of ARAF, and
 SGT1 interacted with the LRR domain of FBXL2 (Figure 7B)"
-p(HGNC:CCD37) => complex(p(HGNC:ARAF),p(HGNC:CCD37))
+p(HGNC:CFAP100) => complex(p(HGNC:ARAF),p(HGNC:CCD37))
 p(HGNC:SUGT1) => complex(p(INTERPRO:"Leucine-rich repeat"),p(HGNC:SUGT1))
 
 SET Evidence = "NUDC interacted with the WD40 domain of FBXW2, NUDCD2
