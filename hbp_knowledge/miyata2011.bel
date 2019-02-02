@@ -81,7 +81,7 @@ SET STATEMENT_GROUP = "Sandra"
 
 # Add statements below this comment
 
-SET Citation = {"PubMed", "Future Med Chem. 2011 Sep;3(12):1523-37. doi: 10.4155/fmc.11.88", "21882945"}
+SET Citation = {"PubMed","21882945"}
 
 SET Evidence = "Tauopathies are a family of neurodegenerative
 disorders characterized by the appearance of
@@ -95,17 +95,17 @@ path(MESH:Tauopathies) neg bp(GO:cognition)
 
 SET Evidence = "Phosphorylation of tau by the kinases GSK3b,
 Cdk5 and MARK2 is a major regulator of its microtubule interactions"
-act(p(HGNC:GSK3B,ma(kin)))  => p(HGNC:MAPT,pmod(Ph))
-act(p(HGNC:CDK5,ma(kin))) => p(HGNC:MAPT,pmod(Ph))
-act(p(HGNC:MARK2,ma(kin))) => p(HGNC:MAPT,pmod(Ph))
+act(p(HGNC:GSK3B))  => p(HGNC:MAPT,pmod(Ph))
+act(p(HGNC:CDK5)) => p(HGNC:MAPT,pmod(Ph))
+act(p(HGNC:MARK2)) => p(HGNC:MAPT,pmod(Ph))
 p(HGNC:MAPT,pmod(Ph)) reg complex(p(HGNC:MAPT),a(GO:microtubule))
 
 SET Evidence = "Importantly, MARK2-based phosphorylation of tau is accelerated
 by the priming activity of either Cdk5 or GSK3b [29], suggesting that tau phosphorylation
 involves a series of ordered kinase events."
-act(p(HGNC:MARK2,ma(kin))) => p(HGNC:MAPT,pmod(Ph))
-p(HGNC:GSK3B) -> act(p(HGNC:MARK2,ma(kin)))
-p(HGNC:CDK5) -> act(p(HGNC:MARK2,ma(kin)))
+act(p(HGNC:MARK2)) => p(HGNC:MAPT,pmod(Ph))
+p(HGNC:GSK3B) -> act(p(HGNC:MARK2))
+p(HGNC:CDK5) -> act(p(HGNC:MARK2))
 
 SET Evidence = "In general, phosphorylation of tau reduces its
 affinity for microtubules [30], while dephosphorylation
@@ -302,8 +302,6 @@ favor its aggregation are thought to generate a molecular ‘danger signal’ th
 the quality control system [112,113]."
 p(HGNC:MAPT,var("?")) -> a(HBP:"Tau aggregates")
 p(HGNC:MAPT,var("?")) -| complex(p(HGNC:MAPT),a(GO:microtubule))
-p(HGNC:MAPT,pmod("?")) -> a(HBP:"Tau aggregates")
-p(HGNC:MAPT,pmod("?")) -| complex(p(HGNC:MAPT),a(GO:microtubule))
 
 SET Evidence = "Hsp70 has been shown to both stabilize binding
 of tau to microtubules [114] and promote its degradation in combination with CHIP [115,116]"
@@ -327,7 +325,7 @@ p(FPLX:HSP90) -> complex(p(HGNC:MAPT),a(GO:microtubule))
 SET Evidence = "For example, it has recently been shown that Hsp90
 promotes tau’s phosphorylation by its ability to stabilize GSK3b [118]"
 p(FPLX:HSP90) -> p(HGNC:MAPT,pmod(Ph))
-p(FPLX:HSP90) reg act(p(HGNC:GSK3B,ma(kin)))
+p(FPLX:HSP90) reg act(p(HGNC:GSK3B))
 
 SET Evidence = "However, this issue is more complicated, as other work has shown that chemical
 inhibition of Hsp90 by 17-AAG and other inhibitors reduces cellular levels of two phospho-
@@ -419,8 +417,8 @@ p(HGNC:FKBP5) -> p(HGNC:MAPT,pmod(Ph))
 
 SET Evidence = "Finally, the FKBP51–Hsp90 complex has been proposed to be responsible for the interaction of
 tau with phosphatases, helping to restore binding to microtubules [137]."
-complex(p(HGNC:FKBP5),p(FPLX:HSP90)) -> complex(p(HGNC:MAPT)a(MESH:"Protein Phosphatase 2"))
-complex(p(HGNC:MAPT)a(MESH:"Protein Phosphatase 2")) -> complex(p(HGNC:MAPT),a(GO:microtubule))
+complex(p(HGNC:FKBP5),p(FPLX:HSP90)) -> complex(p(HGNC:MAPT),a(MESH:"Protein Phosphatase 2"))
+complex(p(HGNC:MAPT),a(MESH:"Protein Phosphatase 2")) -> complex(p(HGNC:MAPT),a(GO:microtubule))
 
 SET Evidence = "In this model,accumulation of an Hsp70–substrate complex
 (either via treatment with chemical inhibitors or because of intrinsic properties of the substrate)
