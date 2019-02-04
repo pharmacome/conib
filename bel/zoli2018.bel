@@ -81,7 +81,7 @@ complex(p(MESH:"Receptors, Nicotinic"),a(MESH:Acetylcholine)) -> act(a(MESH:"Per
 
 SET Evidence ="but ACh is also released by non-neuronal tissues where it is involved in cell-to-cell communication, and con- trols essential functions such as cell proliferation, adhesion, migration, secretion, survival and apoptosis, in an autocrine, paracrine or juxtacrine manner"
 a(MESH:Acetylcholine) -- bp(GO:"cell-cell signaling")
-a(MESH:Acetylcholine) -- bp(GO:"cell population proliferation")
+a(MESH:Acetylcholine) -- bp(HBP:"cell population proliferation")
 a(MESH:Acetylcholine) -- bp(GO:"cell adhesion")
 a(MESH:Acetylcholine) -- bp(MESH:"Cell Movement")
 a(MESH:Acetylcholine) -- bp(GO:"secretion by cell")
@@ -103,10 +103,10 @@ a(MESH:"Endothelial Cells") -> a(MESH:"Choline O-Acetyltransferase")
 a(MESH:"Epithelial Cells") -> a(MESH:"Choline O-Acetyltransferase")
 
 SET Evidence ="In the brain, nAChRs are widely expressed, both presyn- aptically and postsynaptically, and are involved in several functions including learning and memory, arousal, reward, motor control, and analgesia. nAChRs are also the target of nicotine, the main addictive agent delivered by cigarette smoke"
-p(MESH:"Receptors, Nicotinic") -- bp(MESH:Learning)
-p(MESH:"Receptors, Nicotinic") -- bp(MESH:Memory)
-p(MESH:"Receptors, Nicotinic") -- bp(MESH:Arousal)
-p(MESH:"Receptors, Nicotinic")-- bp(MESH:Reward)
+p(MESH:"Receptors, Nicotinic") -- path(MESH:Learning)
+p(MESH:"Receptors, Nicotinic") -- path(MESH:Memory)
+p(MESH:"Receptors, Nicotinic") -- path(MESH:Arousal)
+p(MESH:"Receptors, Nicotinic")-- path(MESH:Reward)
 p(MESH:"Receptors, Nicotinic") -- bp(MESH:Analgesia)
 
 SET Evidence ="Homomeric α7 receptors are one of the two most abun- dant nAChR subtypes in the CNS, where they are mainly localised in the cortex, hippocampus, hypothalamus and some brain stem nuclei."
@@ -115,20 +115,20 @@ p(HGNC:CHRNA7,loc(MESH:Hippocampus))
 p(HGNC:CHRNA7,loc(MESH:Hypothalamus))
 
 SET Evidence ="In heterologous sys- tems, α7 subunits form functional channels with the β2 [29], β3 [30], β4 [31], or α5 subunit [32]. "
-complex(p(HGNC:CHRNA7),p(HGNC:CHRNB2),p(HGNC:CHENB3),p(HGNC:CHRNB4),p(HGNC:CHRNA5))
+complex(p(HGNC:CHRNA7),p(HGNC:CHRNB2),p(HGNC:CHRNB3),p(HGNC:CHRNB4),p(HGNC:CHRNA5))
 
 SET Evidence ="CHRFAM7A mRNA expression is low in human brain, but abundant in peripheral lymphocytes and tissues"
 r(HGNC:CHRFAM7A,loc(MESH:"Leukemia, Large Granular Lymphocytic"))
 
 SET Evidence ="Functional studies have shown that α7dup, expressed in oo- cytes, acts as a dominant negative regulator of α7 nAChR activity by means of a mechanism involving a reduction in the number of functional α7 nAChRs incorporated into the oocyte surface "
-p(HGNC:CHRFAM7A,loc(MESH:Oocytes)) -| act(p(HGNC:CHRNA7),loc(MESH:Oocytes))
+p(HGNC:CHRFAM7A,loc(MESH:Oocytes)) -| act(p(HGNC:CHRNA7,loc(MESH:Oocytes))
 
 SET Evidence =" α4β2* subtypes, in which the presence of different accessory subunits changes their pharmacological and biophysical properties, and their sensitivity to allosteric modulators and up-regulation by nicotine "
 a(MESH:Nicotine) -| act(complex(p(HGNC:CHRNA4),p(HGNC:CHRNB2)))
 
 SET Evidence ="nAChRs are expressed also at the somatodendritic postsynaptic site, where they regulate neuron depolarisation, firing and long- term potentiation [9]. Moreover these receptors are also in- volved in proliferation, differentiation and migration of neu- ral progenitors"
 p(MESH:"Receptors, Nicotinic") -- bp(GO:"action potential initiation")
-p(MESH:"Receptors, Nicotinic") -- bp(GO:"cell population proliferation")
+p(MESH:"Receptors, Nicotinic") -- bp(HBP:"cell population proliferation")
 p(MESH:"Receptors, Nicotinic") -- bp(GO:"cell differentiation")
 p(MESH:"Receptors, Nicotinic") -- bp(GO:"cell differentiation")
 
@@ -177,7 +177,7 @@ p(MESH:"Receptors, Nicotinic",loc(MESH:"Cholinergic Neurons")) -- a(HBP:neurotra
 SET Evidence ="By acting on the α7 receptors in glutamate terminals, acutely administrated nicotine stimu- lates the release of glutamate, which facilitates the burst fir- ing of VTA DA neurons and eventually leads to LTP,and increases the firing rate of the GABAergic neurons of the rostromedial tegmental nucleus"
 a(MESH:Nicotine) -> a(MESH:Glutamates)
 a(MESH:Glutamates) -> bp(MESH:"Long-Term Potentiation")
-a(MESH:Glutamates) -> bp(GO:"action potential initiation",loc(MESH:"GABAergic Neurons")
+a(MESH:Glutamates) -> bp(GO:"action potential initiation",loc(MESH:"GABAergic Neurons"))
 
 SET Evidence =" By activating the α4β2 receptors on inhibitory GABAergic inputs to the VTA or GABAergic interneurons, smoked concentrations of nicotine transiently increase the release of GABA and subse- quently depress it for about one hour "
 a(MESH:Nicotine) -> complex(p(HGNC:CHRNA4),p(HGNC:CHRNB2))
@@ -217,9 +217,9 @@ p(MGI:Chrna5) -> a(MESH:Nicotine)
 p(MGI:Chrna2) -> a(MESH:Nicotine)
 
 SET Evidence ="The binding of ACh or nicotine activates neuronal nAChRs thus leading to the influx of Na+ and Ca2+ and ef- flux of K+. "
-complex(p(MESH:"Receptors, Nicotinic"),a(MESH:Acetylcholine)) -> toloc(a(MESH:Sodium),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
-complex(p(MESH:"Receptors, Nicotinic"),a(MESH:Acetylcholine)) -> toloc(a(CHEBI:"calcium cation"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
-complex(p(MESH:"Receptors, Nicotinic"),a(MESH:Acetylcholine)) -> toloc(a(CHEBI:potassium(1+)),fromLoc(GO:intracelluar),toLoc(GO::"extracellular region"))
+complex(p(MESH:"Receptors, Nicotinic"),a(MESH:Acetylcholine)) -> toloc(a(MESH:Sodium,fromLoc(GO:"extracellular region",toLoc(GO:intracellular)))
+complex(p(MESH:"Receptors, Nicotinic"),a(MESH:Acetylcholine)) -> toloc(a(CHEBI:"calcium cation",fromLoc(GO:"extracellular region",toLoc(GO:intracellular)))
+complex(p(MESH:"Receptors, Nicotinic"),a(MESH:Acetylcholine)) -> toloc(a(CHEBI:potassium(1+),fromLoc(GO:intracelluar),toLoc(GO::"extracellular region")))
 
 SET Evidence ="The cytoplasmic in- crease in calcium triggers the secretion of mitogenic factors and activates the signalling cascades involved in cell prolif- eration, migration and angiogenesis and the inhibition of apoptosis "
 a(CHEBI:"calcium cation") -> bp(MESH:"Cell Proliferation")
@@ -252,13 +252,13 @@ p(HGNC:CHRNA7) -> bp(GO:"intracellular receptor signaling pathway")
 
 SET Evidence ="whereas those on microglia increase intracellular calcium levels and signalling cascades without using channel function, and those on macrophages and other immunological cells signal through the JAK2/STAT3 tran- scription factor pathway"
 p(HGNC:CHRNA7) -> bp(GO:"JAK-STAT cascade")
-bp(GO:"JAK-STAT cascade") -> a(CHEBI:"calcium cation",lco(GO:intracellular))
+bp(GO:"JAK-STAT cascade") -> a(CHEBI:"calcium cation",loc(GO:intracellular))
 
 SET Evidence ="Airway epithelium cells synthesise, store, process, se- crete and reabsorb ACh, which acts as an autocrine and paracrine growth factor "
 a(MESH:Epithelium) reg a(MESH:Acetylcholine)
 
 SET Evidence ="Moreover, ACh is stored in vesicles via the vesicular ACh transporter (VACh) in neurons, whereas the secretion of ACh is not necessarily vesicular in lung cells"
-toloc(MESH:Acetylcholine,fromLoc(MESH:"Transport Vesicles"),toLoc(MESH:Neurons))
+tloc(MESH:Acetylcholine,fromLoc(MESH:"Transport Vesicles"),toLoc(MESH:Neurons))
 
 SET Evidence ="α7 nAChRs are essential for the plasticity of the airway epithelium as α7 Ko mice show altered basal cell layer formation, hyperplasia, and uncontrolled growth"
 p(MGI:Chrna7) -- act(a(MESH:Epithelium))
