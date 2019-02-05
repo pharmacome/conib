@@ -28,7 +28,6 @@ DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/mesh-names.belns"
 DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
 DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
-DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
 DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
 DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
 
@@ -50,6 +49,7 @@ DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
 DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
 DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
 DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+DEFINE NAMESPACE NBCIGENE       AS PATTERN "^\d+$"
 
 ###############
 # Annotations #
@@ -81,29 +81,29 @@ SET Citation = {"PubMed", "29807032"}
 
 SET Evidence ="The endogenous response to heat shock was characterized by transient changes in caspase-3 activity and gene expression."
 SET Species ="7955"
-bp(MESH:"Heat-Shock Response") -- act(p(HBP:casp3a))
+bp(MESH:"Heat-Shock Response") -- act(p(NCBIGENE:140621))
 
 SET Evidence ="For embryos heat shocked at 6 hpf, the induction of caspase-3 activity was dependent on recovery time (interaction of main variables P=0.007), with a significant increase over controls at 7 h and 10 h recovery (Table 1)."
 bp(MESH:"Heat-Shock Response") -> act(p(HBP:casp3a))
 
 SET Evidence ="In embryos heat shocked at 6 hpf, crf abundance increased relative to controls after 4 h recovery, but there were no differences at 7 h or 10 h recovery (Fig. 1A)."
 SET CellLine ="embryonic cell line"
-bp(MESH:"Heat-Shock Response") -> p(HBP:crhb)
-bp(MESH:"Heat-Shock Response") cnc p(HBP:crhb)
+bp(MESH:"Heat-Shock Response") -> p(NCBIGENE:492507)
+bp(MESH:"Heat-Shock Response") cnc p(NCBIGENE:492507)
 
 SET Evidence ="The endogenous response to heat shock was also characterized by an increase in crf-bp mRNA levels independent of recovery time (main effect of heat shock P<0.05), and this was true for embryos exposed to the stressor at 6 hpf (Fig. 1C) and at 30 hpf (Fig. 1D)."
-bp(MESH:"Heat-Shock Response") -> r(HBP:crfbp)
-path(MESH:"Stress Disorders, Traumatic") -> r(HBP:crfbp)
+bp(MESH:"Heat-Shock Response") -> p(MESH:"corticotropin releasing factor-binding protein")
+path(MESH:"Stress Disorders, Traumatic") -> p(MESH:"corticotropin releasing factor-binding protein")
 
 SET Evidence ="CRF overexpression by mRNA microinjection reduced heat shock-induced caspase-3 activity by approximately 2-fold relative to control-injected embryos"
-p(HBP:crhb) -| act(p(HBP:casp3a))
+p(HBP:crhb) -| act(p(NCBIGENE:140621))
 
 SET Evidence ="Heat shock significantly increased embryo mortality relative to non-heat shocked embryos"
 bp(MESH:"Heat-Shock Response") -| a(MESH:"Embryonic Structures")
 
 SET Evidence ="However, embryos that recovered from heat shock in the presence of the CRF-R1 antagonist, antalarmin, experienced a greater increase in caspase-3 activity than embryos not given the antagonist"
 a(MESH:antalarmin) -| bp(MESH:"Heat-Shock Response")
-a(MESH:antalarmin) -> p(HBP:casp3a)
+a(MESH:antalarmin) ->act(p(NCBIGENE:140621))
 
 SET Evidence =" Final cumulative mortality (at 10 h recovery) in non-heat shocked embryos was low in both the 0 nM and 10 nM antalarmin groups (4.7% and 8.3%, respectively), and heat shock increased mortality in both groups"
 bp(MESH:"Heat-Shock Response") -| a(MESH:"Embryonic Structures")
