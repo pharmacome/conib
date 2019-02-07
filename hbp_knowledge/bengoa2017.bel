@@ -8,6 +8,7 @@ SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
 SET DOCUMENT Name        = "Alpha-synuclein oligomers: a new hope "
 SET DOCUMENT Version     = "1.0.0"
 SET DOCUMENT Authors     = "Esther Wollert"
+SET DOCUMENT Description = ""
 
 ###############
 # Definitions #
@@ -63,24 +64,24 @@ a(HBP:HBP00016) -> path(MESH:"Parkinson Disease")
 
 SET Evidence = ". Multiple lines of evidence now suggest that oligomeric species of a-syn, which are thought to precede the\
  fibrillar aggregates found in Lewy bodies, are the culprits for neuronal degeneration in Parkinson’s disease"
-SET Confidence = "Medium" 
+SET Confidence = "Medium"
 a(HBP:HBP00093) -> path(MESH:"Parkinson Disease")
 a(HBP:HBP00093) -> a(HBP:HBP00092)
 
 SET Evidence = " Finally, Parkinson’s disease patients carrying familial mutations in the parkin gene, and some of those with\
  the LRRK2 G2019S mutation, show neuronal degeneration in the absence of Lewy body formation [28, 50]. "
-SET Confidence = "Medium"  
-p(HGNC:PRKN, var("?")) -> path(MESH:"Neurodegenerative Diseases") 
+SET Confidence = "Medium"
+p(HGNC:PRKN, var("?")) -> path(MESH:"Neurodegenerative Diseases")
 p(HGNC:LRRK2, sub(G,2019,S)) -> path(MESH:"Neurodegenerative Diseases")
 
 SET Evidence = " In vitro formed a-syn oligomers ectopically applied to cell cultures or formed due to overexpression of a-syn\
  induce cell death [20, 30, 109, 149], which has been recapitulated in vivo in several studies."
-SET Confidence = "High" 
+SET Confidence = "High"
 a(HBP:HBP00093) -> bp(GO:"apoptotic process")
 
 SET Evidence = " In contrast, a-syn 30–110 that forms fibrils at a fast rate, did not display toxicity, indicating that oligomers\
  are indeed the toxic species leading to TH-neuron loss in vivo [162]."
-SET Confidence = "High"  
+SET Confidence = "High"
 SET Cell = "neuron"
 a(HBP:HBP00093) -> bp(GO:"apoptotic process")
 a(HBP:HBP00092) causesNoChange bp(GO:"apoptotic process")
@@ -88,38 +89,38 @@ UNSET Cell
 
 SET Evidence = "In 2014 Plotegher et al. showed that mitochondrial morphology is disrupted by a-syn oligomers, which cause\
  fragmentation of these organelles in vitro in SH-SY5Y cells [124]. "
-SET Confidence = "High"  
+SET Confidence = "High"
 a(HBP:HBP00093) -| a(MESH:Mitochondria)
 
 SET Evidence = " Interestingly, it was very recently reported that astrocytes take up a-syn oligomers and degrade it via the\
- lysosomal pathway, but this pathway can become saturated leading to mitochondrial fragmentation [89]. " 
-SET Confidence = "High"  
+ lysosomal pathway, but this pathway can become saturated leading to mitochondrial fragmentation [89]. "
+SET Confidence = "High"
 a(MESH:Astrocytes) -> deg(a(HBP:HBP00093))
 
 SET Evidence = "All these results show that a-syn oligomers are implicated in mitochondrial dysfunction across different models."
-SET Confidence = "High" 
+SET Confidence = "High"
 a(HBP:HBP00093) -> bp(HBP:HBP00037)
 
 SET Evidence = "Accumulation of oligomers has been demonstrated in a transgenic mouse overexpressing A53T a-syn and in\
  Parkinson’s disease brain tissue, resulting in chronic ER stress and impaired ER protein quality control [25]."
-SET Confidence = "High" 
+SET Confidence = "High"
 a(HBP:HBP00093) -> bp(MESH:"Endoplasmic Reticulum Stress")
 
 SET Evidence = "furthermore, treatment with salubrinal, which alleviates ER stress, reduced oligomeric accumulation in the ER."
-SET Confidence = "High" 
+SET Confidence = "High"
 a(CHEBI:salubrinal) -| bp(MESH:"Endoplasmic Reticulum Stress")
 SET MeSHAnatomy = "Endoplasmic Reticulum"
 a(CHEBI:salubrinal) -| a(HBP:HBP00093)
 
 SET Evidence = " This can be inhibited by a-syn oligomers: oligomers were shown to inhibit proteasomal activity, which\
  was blocked by addition of antibodies that neutralized the interaction [87]. "
-SET Confidence = "Medium" 
+SET Confidence = "Medium"
 a(HBP:HBP00093) -| act(complex(GO:"proteasome complex"))
 
 SET Evidence = "Finally, inhibition of histone deacetylase 6 (HDAC6), which was previously shown to be involved in the\
  response to cytotoxic ubiquitinated aggregates, increased the oligomeric content in vitro, while overexpression of HDAC6\
  produced the opposite effect [36]. "
-SET Confidence = "High" 
+SET Confidence = "High"
 p(HGNC:HDAC6) -| a(HBP:HBP00093)
 
 SET Evidence = " a report by Hoffmann et al. showed that fibrillar a-syn induced a more pronounced inflammatory response in microglial cells [61]."
@@ -130,7 +131,7 @@ a(HBP:HBP00092) -> bp(GO:"microglial cell activation")
 
 SET Evidence = " However, in a different report, oligomers were shown to activate proinflammatory signals in microglial cells\
  in vitro and in vivo, and this was prevented by addition of a MAP kinase inhibitor [161]."
-SET Confidence = "High"  
+SET Confidence = "High"
 a(HBP:HBP00093) -> bp(GO:"microglial cell activation")
 
 SET Evidence = " Kim et al. demonstrated that a-syn oligomers lead to microglial inflammatory responses via TLR2 activation [74]."
@@ -141,7 +142,7 @@ a(HBP:HBP00093) -> act(p(HGNC:TLR2))
 
 SET Evidence = " Another report by Zhang and collaborators also highlighted glial activation and production of reactive\
  oxygen species in response to oligomer-like preparations of aggregated a-syn [168]. "
-SET Confidence = "High" 
+SET Confidence = "High"
 a(HBP:HBP00093) -> a(CHEBI:"reactive oxygen species")
 
 SET Evidence = "A-syn oligomers can stabilize membrane defects accelerating membrane damage [19] and can alter membrane \
@@ -156,7 +157,7 @@ a(HBP:HBP00093) -> tloc(a(CHEBI:"calcium(2+)"),fromLoc(GO:"extracellular space")
 
 SET Evidence = "a-syn accumulation has been linked to autophagic and lysosomal dysfunction, which may in turn lead to a-syn\
  aggregation and production of more detrimental oligomers. "
-SET Confidence = "Medium" 
+SET Confidence = "Medium"
 bp(GO:autophagy) -> a(HBP:HBP00093)
 
 SET Evidence = "Accordingly, overexpression of transcription factor EB (TFEB) was shown to correct lysosomal defects induced\
@@ -218,4 +219,3 @@ SET Cell = "neuron"
 a(HBP:HBP00094) -| bp(GO:"apoptotic process")
 
 UNSET STATEMENT_GROUP
-
