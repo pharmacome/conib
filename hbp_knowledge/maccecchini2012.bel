@@ -11,10 +11,11 @@ SET DOCUMENT Description = "Posiphen as a candidate drug to lower CSF amyloid pr
 # Namespaces #
 ##############
 
-DEFINE NAMESPACE HBP   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8259206e39a3578e64bbce1cd0b80e6cfb4da65b/export/hbp.belns"
+DEFINE NAMESPACE HBP   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3c85897632afa791ac78fb3aa2e392963ab155b1/export/hbp-names.belns"
 DEFINE NAMESPACE CHEBI AS URL "https://raw.githubusercontent.com/pharmacome/terminology/9a77ac1a02863bc48b04bab7e8fb0c1d1cec4dd0/external/chebi.belns"
 DEFINE NAMESPACE GO    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/9a77ac1a02863bc48b04bab7e8fb0c1d1cec4dd0/external/go.belns"
 
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
 ###############
 # Annotations #
 ###############
@@ -43,8 +44,8 @@ SET MeasurementType = "dose"
 SET MeasurementUnits ="mg"
 SET MeasurementValue =160
 
-a(HBP:Posiphen) -> path(MESH:Nausea)
-a(HBP:Posiphen) -> path(MESH:Vomiting)
+a(PUBCHEM:"11249342") -> path(MESH:Nausea)
+a(PUBCHEM:"11249342") -> path(MESH:Vomiting)
 
 UNSET {MeasurementValue,MeasurementUnits,MeasurementType,ArticleCompoundNumber,Figure}
 
@@ -55,8 +56,8 @@ SET MeasurementType = "dose"
 SET MeasurementUnits ="mg"
 SET MeasurementValue =80
 
-a(HBP:Posiphen) cnc path(MESH:Nausea)
-a(HBP:Posiphen) cnc path(MESH:Vomiting)
+a(PUBCHEM:"11249342") cnc path(MESH:Nausea)
+a(PUBCHEM:"11249342") cnc path(MESH:Vomiting)
 UNSET {MeasurementValue,MeasurementUnits,MeasurementType,ArticleCompoundNumber,Page}
 
 SET Evidence ="The four times a day regimen resulted in some accumulation of Posiphen in plasma and accumulation of Posiphen/metabolites in CSF"
@@ -64,20 +65,20 @@ SET Evidence ="The four times a day regimen resulted in some accumulation of Pos
 SET Page =899
 SET Evidence ="Specifically, Posiphen lowered sAPPa and sAPPb levels by 59.9% and 57.7%, respectively, assessed by the AlpaLisa assay, and by 34.1% and 34%, respectively, assessed by the MSD assay, in accordance with Posiphen’s proposed mechanism of action to inhibit APP expression."
 SET ArticleCompoundNumber = 1
-a(HBP:Posiphen) -| a(HBP:sAPP-alpha)
-a(HBP:Posiphen) -| a(HBP:sAPP-beta)
+a(PUBCHEM:"11249342") -| a(HBP:sAPP-alpha)
+a(PUBCHEM:"11249342") -| a(HBP:sAPP-beta)
 
 SET Evidence ="In addition, Posiphen significantly reduced levels of t-s (74.1%, as assessed by the Innogenetics assay and 46.2%, as assessed by the AlphaLisa assay) and p-s (61%, as assessed by the Innogenetics assay)."
-a(HBP:Posiphen) -| p(HGNC:MAPT)
-a(HBP:Posiphen) -| p(HGNC:MAPT,pmod(Ph))
+a(PUBCHEM:"11249342") -| p(HGNC:MAPT)
+a(PUBCHEM:"11249342") -| p(HGNC:MAPT,pmod(Ph))
 
 SET Evidence =" A significant lowering of pro-inflammatory, C3 (86.9%) and microglial activation markers, MCP-1 (87.5%) and YKL-40 (72.7%), was evident."
-a(HBP:Posiphen) -| p(HGNC:C3)
-a(HBP:Posiphen) -| p(HGNC:CCL2)
-a(HBP:Posiphen) -| p(HGNC:CHIL1)
+a(PUBCHEM:"11249342") -| p(HGNC:C3)
+a(PUBCHEM:"11249342") -| p(HGNC:CCL2)
+a(PUBCHEM:"11249342") -| p(HGNC:CHIL1)
 
 SET Evidence ="and the complement control protein, factor H, were unaffected by Posiphen (26.1% and +23.7%, respectively)."
-a(HBP:Posiphen) cnc p(HGNC:CFH)
+a(PUBCHEM:"11249342") cnc p(HGNC:CFH)
 
 UNSET Page
 UNSET Citation
