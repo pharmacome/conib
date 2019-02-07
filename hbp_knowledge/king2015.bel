@@ -21,9 +21,9 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/bd0996a28201cad363557315043c6392e31abf58/export/hbp-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
-DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/go-names.belns"
 DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
 DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
@@ -118,7 +118,7 @@ digestion followed by high-performance LC-ESI. A cohort of G proteins was
 identified in the F2 and F3 fractions (Fig. 1D). These G proteins were not
 detected in BgtxC from α7−/− mice (data not shown)."
 
-composite(p(HGNC:CHRNA7), p(HGNCGENEFAMILY:"Heterotrimeric G proteins"), a(HBP:"alpha-Bungarotoxin")) -> complex(p(HGNCGENEFAMILY:"Heterotrimeric G proteins"), a(HBP:"alpha-Bungarotoxin"))
+composite(p(HGNC:CHRNA7), p(MESH:"Heterotrimeric GTP-Binding Proteins"), a(HBP:"alpha-Bungarotoxin")) -> complex(p(MESH:"Heterotrimeric GTP-Binding Proteins"), a(HBP:"alpha-Bungarotoxin"))
 
 SET Evidence = "Sequence alignment of mammalian nAChRs revealed a conservation
 of residues at the GPBC site in the M3-M4 loop (Fig. 2A). Based on amino acid
@@ -284,8 +284,8 @@ cells involve the activity of VGCC (37, 38)."
 
 a(CHEBI:nifedipine) cnc act(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")))
 a(CHEBI:nifedipine) cnc bp(GO:"calcium-mediated signaling")
-act(a(CHEBI:choline)) -- act(p(HGNCGENEFAMILY:"Calcium voltage-gated channel subunits"))
-a(CHEBI:"calcium(2+)") -- act(p(HGNCGENEFAMILY:"Calcium voltage-gated channel subunits"))
+act(a(CHEBI:choline)) -- act(a(MESH:"Calcium Channels"))
+a(CHEBI:"calcium(2+)") -- act(a(MESH:"Calcium Channels"))
 
 SET Evidence = "Treatment of PC12 cells with 10 mM choline was associated with a
 translocation of PH-mCherry from the cell surface as determined by the presence
@@ -295,8 +295,8 @@ translocation (Fig. 6B)."
 
 SET MeSHAnatomy = "PC12 Cells"
 
-a(CHEBI:choline) -- tloc(a(MESH:"Pleckstrin Homology Domains"), fromLoc(GO:"cell surface"), toLoc(GO:cytosol))
-a(MESH:"GP Antagonist-2A peptide") -| tloc(a(MESH:"Pleckstrin Homology Domains"), fromLoc(GO:"cell surface"), toLoc(GO:cytosol))
+a(CHEBI:choline) -- tloc(bp(MESH:"Pleckstrin Homology Domains"), fromLoc(GO:"cell surface"), toLoc(GO:cytosol))
+a(MESH:"GP Antagonist-2A peptide") -| tloc(bp(MESH:"Pleckstrin Homology Domains"), fromLoc(GO:"cell surface"), toLoc(GO:cytosol))
 
 UNSET MeSHAnatomy
 
@@ -307,8 +307,8 @@ PH-mCherry at the cell surface in the absence of drug treatment (Fig. 6B)."
 
 SET MeSHAnatomy = "PC12 Cells"
 
-p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -| tloc(a(MESH:"Pleckstrin Homology Domains"), fromLoc(GO:"cell surface"), toLoc(GO:cytosol))
-p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -| a(MESH:"Pleckstrin Homology Domains", loc(GO:"cell surface"))
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -| tloc(bp(MESH:"Pleckstrin Homology Domains"), fromLoc(GO:"cell surface"), toLoc(GO:cytosol))
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -| bp(MESH:"Pleckstrin Homology Domains", loc(GO:"cell surface"))
 
 UNSET MeSHAnatomy
 
@@ -319,8 +319,8 @@ occurred on a slower time scale (40 s after choline application) than peak calci
 responses (∼1 s after choline application). These kinetics are consistent with the
 translocation of the PH domain sensor in the cell (20, 29)."
 
-a(CHEBI:choline) -> tloc(a(MESH:"Pleckstrin Homology Domains"), fromLoc(GO:"cell surface"), toLoc(GO:cytosol))
-a(CHEBI:choline) -> a(MESH:"Pleckstrin Homology Domains", loc(GO:intracellular))
+a(CHEBI:choline) -> tloc(bp(MESH:"Pleckstrin Homology Domains"), fromLoc(GO:"cell surface"), toLoc(GO:cytosol))
+a(CHEBI:choline) -> bp(MESH:"Pleckstrin Homology Domains", loc(GO:intracellular))
 
 SET Evidence = "We confirmed the involvement of IP3Rs in choline-induced calcium
 transients at the GC of PC12 cells. Cells were preincubated with the IP3R blocker
