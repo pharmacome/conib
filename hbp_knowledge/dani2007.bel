@@ -165,12 +165,12 @@ SET Evidence = "Nicotinic receptors mediate a small direct calcium inﬂux (42�
 act(p(FPLX:CHRN)) -> tloc(a(CHEBI:"calcium(2+)"), MESH:"Extracellular Space", MESH:"Intracellular Space")
 
 SET Evidence = "This calcium inﬂux can trigger calcium-induced calcium release from intracellular stores (86)."
-tloc(a(CHEBI:"calcium(2+)"), MESH:"Extracellular Space", MESH:"Intracellular Space") -> bp(GO:"calcium-induced calcium release activity")
+tloc(a(CHEBI:"calcium(2+)"), fromLoc(MESH:"Extracellular Space"), toLoc(MESH:"Intracellular Space")) -> bp(GO:"calcium-induced calcium release activity")
 
 SET Evidence = "In addition, nAChR activity produces a depolarization that activates voltage-gated calcium channels in the presynaptic terminal (87). "
 SET MeSHAnatomy = "Presynaptic Terminals"
 act(p(FPLX:CHRN)) -> bp(GO:"membrane depolarization")
-bp(GO:"membrane depolarization") -> a(GO:"voltage-gated calcium channel activity")
+bp(GO:"membrane depolarization") -> act(complex(GO:"voltage-gated calcium channel complex"))
 UNSET MeSHAnatomy
 
 SET Evidence = "Nicotinic stimulation enhances glutamate release on multiple timescales, extending from seconds to a few minutes (81), and contributes to the induction of synaptic plasticity (4, 13, 14, 16, 88)."
@@ -183,18 +183,18 @@ p(HGNC:CHRNA7) -> bp(GO:"neurotransmitter secretion")
 SET Evidence = "Preterminal nAChRs located before the presynaptic terminal
 bouton indirectly affect neurotransmitter release by activating voltage-gated channels
 and, potentially, initiating action potentials (78, 91, 93)."
-p(HGNC:CHRNA7) -> a(GO:"voltage-gated calcium channel activity")
+p(HGNC:CHRNA7) -> act(complex(GO:"voltage-gated calcium channel complex"))
 
 SET Evidence = "This effect of preterminal nAChRs is inhibited by tetrodotoxin, which blocks sodium channels and, thus, prevents the regenerative voltage-dependent activation of calcium channels in the presynaptic bouton."
 SET MeSHAnatomy = "Presynaptic Terminals"
-a(CHEBI:tetrodotoxin) -| a(GO:"voltage-gated calcium channel activity")
+a(CHEBI:tetrodotoxin) -| act(complex(GO:"voltage-gated calcium channel complex"))
 UNSET MeSHAnatomy
 
 SET Evidence = "Furthermore, by directly exciting or by shunting the progress of an action potential at a bifurcation, axonal or dendritic nAChRs alter the spread of neuronal excitation."
 SET Cell = "neuron"
 SET MeSHAnatomy = {"Axons","Dendrites"}
 p(FPLX:CHRN) reg bp(GO:"rhythmic excitation")
-UNSET Cell 
+UNSET Cell
 UNSET MeSHAnatomy
 
 SET Evidence = "Presynaptic and preterminal nAChRs increase the release of neurotransmitters in the hippocampus, particularly the main neurotransmitters, GABA and glutamate (41, 78, 81, 97)."
@@ -212,8 +212,8 @@ UNSET MeSHAnatomy
 SET Evidence = "In the rat CA3 region, spontaneous activation of GABA A receptors produces giant depolarizing potentials, whose frequency is controlled by α7∗ and non-α7 nAChRs."
 SET Species = "10116"
 SET MeSHAnatomy = "CA3 Region, Hippocampal"
-a(GO:"GABA-A receptor activity") -> bp(GO:"membrane depolarization")
-p(FPLX:CHRN) reg a(GO:"GABA-A receptor activity")
+act(complex(GO:"GABA-A receptor complex")) -> bp(GO:"membrane depolarization")
+p(FPLX:CHRN) reg act(complex(GO:"GABA-A receptor complex"))
 UNSET Species
 UNSET MeSHAnatomy
 
