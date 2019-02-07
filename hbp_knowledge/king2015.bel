@@ -118,7 +118,7 @@ digestion followed by high-performance LC-ESI. A cohort of G proteins was
 identified in the F2 and F3 fractions (Fig. 1D). These G proteins were not
 detected in BgtxC from α7−/− mice (data not shown)."
 
-composite(p(HGNC:CHRNA7), p(MESH:"Heterotrimeric GTP-Binding Proteins"), a(HBP:"alpha-Bungarotoxin")) -> complex(p(MESH:"Heterotrimeric GTP-Binding Proteins"), a(HBP:"alpha-Bungarotoxin"))
+composite(p(HGNC:CHRNA7), p(MESH:"Heterotrimeric GTP-Binding Proteins"), p(HBP:"alpha-Bungarotoxin")) -> complex(p(MESH:"Heterotrimeric GTP-Binding Proteins"), a(HBP:"alpha-Bungarotoxin"))
 
 SET Evidence = "Sequence alignment of mammalian nAChRs revealed a conservation
 of residues at the GPBC site in the M3-M4 loop (Fig. 2A). Based on amino acid
@@ -293,10 +293,10 @@ of the fluorescence signal within 1 μm of the edge of the cell into the cytosol
 of the GC (Fig. 6, A and B). Pre-treatment of cells with SP abolished this
 translocation (Fig. 6B)."
 
-SET MeSHAnatomy = "PC12 Cells"
+SET MeSHAnatomy = {"PC12 Cells","Cytosol"}
 
-a(CHEBI:choline) -- tloc(bp(MESH:"Pleckstrin Homology Domains"), fromLoc(GO:"cell surface"), toLoc(GO:cytosol))
-a(MESH:"GP Antagonist-2A peptide") -| tloc(bp(MESH:"Pleckstrin Homology Domains"), fromLoc(GO:"cell surface"), toLoc(GO:cytosol))
+a(CHEBI:choline) -- bp(MESH:"Pleckstrin Homology Domains")
+a(MESH:"GP Antagonist-2A peptide") -| bp(MESH:"Pleckstrin Homology Domains")
 
 UNSET MeSHAnatomy
 
@@ -305,10 +305,13 @@ effect on PH-mCherry translocation relative to empty plasmid-transfected control
 Expression α7345–348A nAChRs was surprisingly associated with strong levels of
 PH-mCherry at the cell surface in the absence of drug treatment (Fig. 6B)."
 
-SET MeSHAnatomy = "PC12 Cells"
+SET MeSHAnatomy = {"PC12 Cells","Cytosol"}
 
-p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -| tloc(bp(MESH:"Pleckstrin Homology Domains"), fromLoc(GO:"cell surface"), toLoc(GO:cytosol))
-p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -| bp(MESH:"Pleckstrin Homology Domains", loc(GO:"cell surface"))
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -| bp(MESH:"Pleckstrin Homology Domains")
+
+SET MeSHAnatomy = "Cell Membrane"
+
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -| bp(MESH:"Pleckstrin Homology Domains")
 
 UNSET MeSHAnatomy
 
@@ -319,8 +322,15 @@ occurred on a slower time scale (40 s after choline application) than peak calci
 responses (∼1 s after choline application). These kinetics are consistent with the
 translocation of the PH domain sensor in the cell (20, 29)."
 
-a(CHEBI:choline) -> tloc(bp(MESH:"Pleckstrin Homology Domains"), fromLoc(GO:"cell surface"), toLoc(GO:cytosol))
-a(CHEBI:choline) -> bp(MESH:"Pleckstrin Homology Domains", loc(GO:intracellular))
+SET MeSHAnatomy = "Cytosol"
+
+a(CHEBI:choline) -> bp(MESH:"Pleckstrin Homology Domains")
+
+SET MeSHAnatomy = "Intracellular Space"
+
+a(CHEBI:choline) -> bp(MESH:"Pleckstrin Homology Domains")
+
+UNSET MeSHAnatomy
 
 SET Evidence = "We confirmed the involvement of IP3Rs in choline-induced calcium
 transients at the GC of PC12 cells. Cells were preincubated with the IP3R blocker
