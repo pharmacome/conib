@@ -1,0 +1,109 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses = "CC BY-SA 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name = "Identification of the Tau phosphorylation pattern that drives its aggregation"
+SET DOCUMENT Version = "1.0.0"
+SET DOCUMENT Authors = "Kristian Kolpeja"
+SET DOCUMENT Description = ""
+
+###############
+# Definitions #
+###############
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DNSNP AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY AS PATTERN "^\d+$"
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+DEFINE NAMESPACE HBP      AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE GFAM     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE MIRBASE  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel
+# --------------------------------------------------------------------
+DEFINE NAMESPACE CTO      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE MGI      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
+DEFINE NAMESPACE RGD      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170725.belns"
+DEFINE NAMESPACE SCOMP    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM     AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+DEFINE NAMESPACE INTERPRO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/interpro/interpro-20170731.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+# Locally defined annotations
+# ---------------------------
+
+DEFINE ANNOTATION Tau_Epitope AS LIST {"AT8", "AT270", "AD2", "AP422"}
+DEFINE ANNOTATION Method AS LIST {"Thioflavin T Assay", "Electron Microscopy, Transmission", "NMR Spectroscopy"}
+
+##############
+# Statements #
+##############
+
+
+SET Citation = {"PubMed", "28784767"}
+SET Method = {"NMR Spectroscopy", "Electron Microscopy, Transmission", "Thioflavin T Assay"}
+SET Tau_Epitope = "AT8"
+SET Evidence = "Only very recently has the crystal structure of its fragment antigen body (Fab) with different
+phosphorylated peptides suggested that a third phosphorylation event at position Ser208 might lead to an epitope with an even better affinity (15)."
+p(HGNC:MAPT, pmod(Ph, Ser, 208)) partOf p(HBP:"Tau epitope, AT8")
+
+SET Evidence = "When combined with ERK2 catalyzed phosphorylation, the turn-like
+disrupting G207V mutation in TauF8 hence leads to fast aggregation that already occurs during the phosphorylation reaction."
+act(p(HGNC:MAPK1)) -> p(HGNC:MAPT, pmod(Ph, Ser, 202))
+act(p(HGNC:MAPK1)) -> p(HGNC:MAPT, pmod(Ph, Thr, 205))
+p(HGNC:MAPT, pmod(Ph, Ser, 202)) partOf p(HBP:"Tau epitope, AT8")
+p(HGNC:MAPT, pmod(Ph, Thr, 205)) partOf p(HBP:"Tau epitope, AT8")
+p(HGNC:MAPT, var("pGly207Val")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT, pmod(Ph, Ser, 202),  pmod(Ph, Thr, 205)) -> a(HBP:"Tau Protein Secondary Structure, Turn")
+p(HGNC:MAPT, var("p.Gly207Val")) -| a(HBP:"Tau Protein Secondary Structure, Turn")
+
+SET Evidence = "Our finding that the resulting Tau species with phosphorylation at Ser202/Th205, but with a disrupted turn-like structure,
+forms abundant fibers detectable by thioflavin fluorescence or electron microscopy (Figs. 2 and 4) suggests the initial
+turn-like structure induced by the phosphorylation of only Ser202 and Thr205 is protective against aggregation."
+a(HBP:"Tau Protein Secondary Structure, Turn") -| a(HBP:"Tau aggregates")
+
+SET Evidence = "Phosphorylation at Ser208 might be catalyzed by Casein kinase 1 (44), and its identification as a potential
+site for O-GlcNacylation (45) points to the important role of this residue."
+kin(p(FPLX:CSNK1)) -> p(HGNC:MAPT, pmod(Ph, Ser, 208))
+
+SET Evidence = "Indeed, Tau phosphorylation at the three positions, Ser202/Thr205/Ser208, while not at Ser262, is
+sufficient to induce aggregation without the addition of any exogenous aggregation inducer."
+p(HGNC:MAPT, pmod(Ph, Ser, 202),  pmod(Ph, Thr, 205), pmod(Ph, Thr, 208)) eq p(HBP:"Tau epitope, AT8")
+p(HBP:"Tau epitope, AT8") -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT, pmod(Ph, Ser, 208)) -| a(HBP:"Tau Protein Secondary Structure, Turn")
+a(HBP:"Tau Protein Secondary Structure, Turn") -| a(HBP:"Tau aggregates")
+
+UNSET Tau_Epitope
+UNSET Method
