@@ -1,0 +1,413 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "The Biology of Proteostasis in Aging and Disease"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Esther Wollert"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "25784053"}
+
+SET Evidence = "Proteome fidelity is maintained by the protein homeostasis (proteostasis) network (PN), a
+multi-compartmental system that coordinatesprotein synthesis, folding, disaggregation, and
+degradation (1)."
+bp(HBP:Proteostasis) -- bp(MESH:"Protein Biosynthesis")
+bp(HBP:Proteostasis) -- bp(GO:"protein folding")
+bp(HBP:Proteostasis) -- path(MESH:"Protein Aggregation, Pathological")
+bp(HBP:Proteostasis) -- bp(MESH:"Proteolysis")
+
+SET Evidence = " Furthermore, the activity of the PN can be altered permanently
+or transiently by development and aging, alterations in physiology, or exposure to
+environmental stress (1)."
+bp(MESH:"Growth and Development") reg bp(HBP:Proteostasis)
+bp(MESH:Aging) reg bp(HBP:Proteostasis)
+bp(MESH:"Stress, Physiological") reg bp(HBP:Proteostasis)
+
+SET Evidence = "Molecular chaperones are central to the function of the PN and can be broadly grouped into
+the HSP70, HSP90, DNAJ/HSP40, chaperonin/HSP60, and small HSP (sHSP) families (10,
+11)."
+p(FPLX:HSPA) isA a(MESH:"Molecular Chaperones")
+p(FPLX:HSP90) isA a(MESH:"Molecular Chaperones")
+p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins") isA a(MESH:"Molecular Chaperones")
+p(HGNC:HSPD1) isA a(MESH:"Molecular Chaperones")
+p(FPLX:HSPB) isA a(MESH:"Molecular Chaperones")
+
+SET Evidence = "ATP hydrolysisis essential for the chaperone activity of
+HSP70 and HSP90, causing conformational changes that result in substrate binding (11)."
+bp(GO:"ATP metabolic process") -> act(p(FPLX:HSPA))
+bp(GO:"ATP metabolic process") -> act(p(FPLX:HSP90))
+
+SET Evidence = " As such, HSP70 and HSP90 are central to the process
+of triaging proteins for refolding or elimination."
+p(FPLX:HSPA) reg bp(GO:"protein folding")
+p(FPLX:HSPA) reg bp(MESH:"Proteolysis")
+p(FPLX:HSP90) reg bp(GO:"protein folding")
+p(FPLX:HSP90) reg bp(MESH:"Proteolysis")
+
+SET Evidence = " Perhaps the
+most significant example of this process is that the HSP110 molecular chaperone, long
+considered simply a NEF, can catalyze protein disaggregation as part of a complex
+containing HSP70 and DNAJ/HSP40 (18)."
+complex(p(HGNC:HSPH1),p(HGNC:DNAJB1),p(FPLX:HSPA)) -| path(MESH:"Protein Aggregation, Pathological")
+
+SET Evidence = " HSP60 is essential for maturation and maintenance of the
+mitochondrial proteome and is therefore intimately linked to energy production."
+SET MeSHAnatomy = "Mitochondria"
+p(HGNC:HSPD1) -> bp(HBP:Proteostasis)
+p(HGNC:HSPD1) -- bp(MESH:"Energy Metabolism")
+UNSET MeSHAnatomy
+
+SET Evidence = " TRiC is
+essential for proper posttranslational folding of the cytoskeletal components actin and
+tubulin and is therefore essential for cell structure, division, and cargo delivery (11)."
+p(FPLX:"CCT_complex") -- a(MESH:"Cellular Structures")
+p(FPLX:"CCT_complex") -- bp(GO:"cell division")
+p(FPLX:"CCT_complex") -- bp(GO:"intracellular transport")
+
+SET Evidence = ". Proteins can be
+degraded either individually or en masse by proteasomes (20) or lysosomes (21),
+respectively. "
+p(FPLX:Proteasome) -> bp(MESH:"Proteolysis")
+a(MESH:Lysosomes) -> bp(MESH:"Proteolysis")
+
+SET Evidence = " As discussed above, one approach is to employ specialized molecular chaperone
+machines to release misfolded proteins from aggregates and direct them to the proteasome
+for degradation (19)."
+a(MESH:"Molecular Chaperones") -| path(MESH:"Protein Aggregation, Pathological")
+p(FPLX:Proteasome) -| path(MESH:"Protein Aggregation, Pathological")
+
+SET Evidence = " Alternatively, bulkier substrates, such as large inclusions, can be
+directed to the lysosome, a membrane-bound organelle containing a host of nonspecific
+proteases that can degrade a wide range of substrates (21). "
+a(MESH:Lysosomes) -| path(MESH:"Protein Aggregation, Pathological")
+
+SET Evidence = "Upon increased levels of nonnative proteins, HSF1 is released from its repressive complex,
+acquires DNA-binding activity through homotrimerization, and rapidly translocates to the
+nucleus to induce expression of genes encoding molecular chaperones (7, 35)."
+bp(GO:"response to misfolded protein") -> act(p(HGNC:HSF1))
+act(p(HGNC:HSF1)) -> tloc(p(HGNC:HSF1), MESH:"Cytosol", MESH:"Cell Nucleus")
+tscript(p(HGNC:HSF1)) -> a(MESH:"Molecular Chaperones")
+
+SET Evidence = "Once stress
+has been relieved, HSF1 activity is repressed through acetylation and binding to molecular
+chaperones (34, 36, 37)."
+p(HGNC:HSF1, pmod(Ac)) -| act(p(HGNC:HSF1))
+complex(p(HGNC:HSF1),a(MESH:"Molecular Chaperones")) -| act(p(HGNC:HSF1))
+
+SET Evidence = " IRE1 is a transmembrane protein with kinase and endoribonuclease (RNase) activity
+that senses misfolding in the ER directly, leading to autophosphorylation, oligomerization,
+and acquisition of RNase activity (8)."
+SET MeSHAnatomy = "Endoplasmic Reticulum"
+bp(GO:"response to misfolded protein") -> kin(p(HGNC:ERN1))
+kin(p(HGNC:ERN1)) -> p(HGNC:ERN1, pmod(Ph))
+p(HGNC:ERN1, pmod(Ph)) -> act(p(HGNC:ERN1), ma(GO:"ribonuclease activity"))
+UNSET MeSHAnatomy
+
+SET Evidence = "This process allows active IRE1 to cleave XBP1
+messenger RNA (mRNA), thereby generating a spliced transcript (XBP1s) that encodes a
+stable form of XBP1 that binds DNA and induces transcription of UPR target genes (8)."
+#UPR (unfolded protein response)
+act(p(HGNC:ERN1), ma(GO:"ribonuclease activity")) -> p(HGNC:XBP1)
+tscript(p(HGNC:XBP1)) -> bp(GO:"response to misfolded protein")
+
+SET Evidence = " In
+parallel, ER stress promotes the relocation of ATF6 from the ER membrane to the Golgi
+apparatus, where it is cleaved by SP1 and SP2 proteases."
+bp(MESH:"Endoplasmic Reticulum Stress") -> tloc(p(HGNC:ATF6), MESH:"Endoplasmic Reticulum", MESH:"Golgi Apparatus")
+SET MeSHAnatomy = "Golgi Apparatus"
+p(HGNC:PRSS1) -| p(HGNC:ATF6)
+p(HGNC:PRSS2) -| p(HGNC:ATF6)
+p(HGNC:PRSS1) -> p(HBP:"N-terminal fragment of ATF6")
+p(HGNC:PRSS2) -> p(HBP:"N-terminal fragment of ATF6")
+UNSET MeSHAnatomy
+
+SET Evidence = "The cytosolic N-terminal fragment
+of ATF6 that is generated translocates to the nucleus, binds DNA, and drives expression of a
+complementary set of UPR genes (8)."
+tloc(p(HBP:"N-terminal fragment of ATF6"), MESH:"Cytosol", MESH:"Cell Nucleus") -> tscript(p(HBP:"N-terminal fragment of ATF6"))
+tscript(p(HBP:"N-terminal fragment of ATF6")) -> bp(GO:"response to misfolded protein")
+
+
+SET Evidence = " Finally, a third ER transmembrane protein, PERK,
+promotes translation of the TF ATF4 by phosphorylating the translation initiation factor
+eIF2α in response to ER stress."
+#PERK is EIF2AK3
+bp(MESH:"Endoplasmic Reticulum Stress") -> kin(p(HGNC:EIF2AK3))
+kin(p(HGNC:EIF2AK3)) -> p(HGNC:EIF2S1, pmod(Ph))
+p(HGNC:EIF2S1, pmod(Ph)) -> tscript(p(HGNC:EIF2S1))
+tscript(p(HGNC:EIF2S1)) -> p(HGNC:ATF4)
+
+SET Evidence = " Under these conditions, ATF4 mRNA is preferentially
+translated, leading to selective expression of the proapoptotic TF CHOP, which elicits
+apoptosis if ER stress is not resolved, presumably to ensure that irreversibly damaged cells
+are removed from the population."
+#CHOP is DDIT3
+p(HGNC:ATF4) -> p(HGNC:DDIT3)
+p(HGNC:DDIT3) -> bp(GO:"apoptotic process")
+
+SET Evidence = "Cerebellar granular neurons were found to express high levels of HSP70 in response to
+mHTT expression but not mAtaxin-1."
+SET Cell = "cerebellar granule cell"
+p(HGNC:HTT, var("?")) -> p(FPLX:HSPA)
+p(HGNC:ATXN1, var("?")) causesNoChange p(FPLX:HSPA)
+UNSET Cell
+
+SET Evidence = "Furthermore, increased levels of HSP70 were
+found in the cerebellar cortex of human HD brain samples but not in tissue from unaffected
+individuals or from brains of PD patients (57)."
+SET MeSHAnatomy = "Cerebral Cortex"
+p(FPLX:HSPA) positiveCorrelation path(MESH:"Huntington Disease")
+UNSET MeSHAnatomy
+
+SET Evidence = "Protein aggregation is recognized as a hallmark of neurodegenerative disease by the
+consistent appearance of detergent-insoluble inclusions and aggregates in the nucleus and
+cytoplasm of neurons."
+SET MeSHAnatomy = "Neurons"
+SET CellStructure = {"Cell Nucleus", "Cytoplasm"}
+path(MESH:"Protein Aggregation, Pathological") -- path(MESH:"Neurodegenerative Diseases")
+UNSET CellStructure
+UNSET MeSHAnatomy
+
+SET Evidence = "Studies of chaperone levels in tissue culture and mouse models of polyQ disease showed
+that the levels of HSP70 (HSPA1A/B) and DNAJ/HSP40 (DNAJB1), as well as some
+cochaperones, decline with protein aggregation (64, 65)."
+path(MESH:"Protein Aggregation, Pathological") negativeCorrelation p(HGNC:HSPA1A)
+path(MESH:"Protein Aggregation, Pathological") negativeCorrelation p(HGNC:HSPA1B)
+path(MESH:"Protein Aggregation, Pathological") negativeCorrelation p(HGNC:DNAJB1)
+
+SET Evidence = "Experiments examining the effects of Aβ on
+proteasomal activity in vitro revealed an inhibitory effect on the chymotrypsin-like
+properties of the 20S core (73), consistent with observations of impaired proteasome
+function in AD patient brains (74). "
+a(CHEBI:"amyloid-beta") -| act(p(FPLX:Proteasome))
+SET MeSHAnatomy = "Brain"
+path(MESH:"Alzheimer Disease") negativeCorrelation act(p(FPLX:Proteasome))
+UNSET MeSHAnatomy
+
+SET Evidence = " Mice deficient for the autophagy-related genes
+Atg5 and Atg7 exhibit severe neurodegeneration (84, 85), and the expression of disease-
+associated proteins is reported to exert differential inhibitory effects on autophagic
+pathways."
+SET Species = "10090"
+p(MGI:Atg5) -| bp(HP:Neurodegeneration)
+p(MGI:Atg7) -| bp(HP:Neurodegeneration)
+UNSET Species
+
+SET Evidence = " Consistent with a role of autophagy in disease, AD patient tissues exhibit
+impaired initiation of macroautophagy and an excess of autophagic vacuoles in dystrophic
+neurites, possibly due to impaired targeting of the vacuolar ATPase to the lysosome (86, 87)."
+path(MESH:"Alzheimer Disease") negativeCorrelation bp(GO:macroautophagy)
+
+SET Evidence = "In contrast, α-synuclein overexpression impairs autophagy in mammalian cells and mice
+through reduced expression of RAB1A, thereby inhibiting autophagosome formation (88). "
+p(HGNC:SNCA) -| bp(GO:autophagy)
+p(HGNC:SNCA) -| p(HGNC:RAB1A)
+p(HGNC:RAB1A) -> bp(GO:"autophagosome assembly")
+
+SET Evidence =  "In contrast to findings in HD, AD, and PD, a recent study has suggested that autophagy
+is enhanced in ALS mice."
+SET Species = "10090"
+path(MESH:"Amyotrophic Lateral Sclerosis") -> bp(GO:autophagy)
+UNSET Species
+
+SET Evidence = " Reduced levels of lipofuscin, LC3, and p62 have been observed in
+motor neurons of SOD1(G85R) mice (92). Treatment with the autophagy inhibitor chloroquine
+restored lipofuscin, LC3, and p62 levels in motor neurons, suggesting that mutant SOD1
+causes hyperactive autophagy in mice (92). "
+#p62 is SQSTM1
+SET Species = "10090"
+SET Cell = "motor neuron"
+p(HGNC:SOD1, var("p.Gly576Arg")) -| a(CHEBI:"N-retinylidene-N-retinylethanolamine")
+p(HGNC:SOD1, var("p.Gly576Arg")) -| p(HGNC:MAP1LC3A)
+p(HGNC:SOD1, var("p.Gly576Arg")) -| p(HGNC:SQSTM1)
+a(CHEBI:chloroquine) -| bp(GO:autophagy)
+a(CHEBI:chloroquine) -> a(CHEBI:"N-retinylidene-N-retinylethanolamine")
+a(CHEBI:chloroquine) -> p(HGNC:MAP1LC3A)
+a(CHEBI:chloroquine) -> p(HGNC:SQSTM1)
+p(HGNC:SOD1, var("p.Gly576Arg")) -> bp(GO:autophagy)
+UNSET Species
+
+SET Evidence = " Disruption of the ATF6 arm of the
+UPR(ER) is reported to occur in mouse models of HD and a VAPB cell model of ALS,
+suggesting that differential changes in UPR arms may be a feature of disease progression
+(102, 103). "
+SET Species = "10090"
+path(MESH:"Amyotrophic Lateral Sclerosis") negativeCorrelation p(HGNC:ATF6)
+path(MESH:"Huntington Disease") negativeCorrelation p(HGNC:ATF6)
+UNSET Species
+
+SET Evidence = "Additionally, an investigation of chaperone and cochaperone gene expression in young
+(36±4 years of age) and aged (73 ±4 years of age) human brain tissue revealed that of 332
+genes examined, 101 are significantly repressed with age, including HSP70, HSP40, HSP90,
+and TRiC genes (113). Furthermore, 62 chaperone genes, including several small HSPs,
+were found to be significantly induced, likely as a result of the cellular response to
+accumulating protein damage with age (113)."
+bp(MESH:Aging) -| p(FPLX:HSPA)
+bp(MESH:Aging) -| p(FPLX:HSP90)
+bp(MESH:Aging) -| p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins")
+bp(MESH:Aging) -> p(FPLX:HSPB)
+
+SET Evidence = "Constitutive activation of
+HSF1 is detrimental to cells and increased expression, and activity of HSF1 has been linked
+to multiple forms of cancer, highlighting the need for appropriate and balanced activation of
+stress response pathways as and when required throughout life (122)."
+act(p(HGNC:HSF1)) -- path(MESH:Neoplasms)
+
+SET Evidence = "As such, it is feasible that any reduction in the
+protein degradation capacity of a cell could contribute to proteostasis collapse and promote
+aging."
+bp(HBP:Proteostasis) -| bp(MESH:Aging)
+
+SET Evidence = "One strategy is to directly activate HSF1, thereby increasing the expression of multiple
+molecular chaperones simultaneously. This approach has been traditionally achieved by
+inhibition of HSP90 with compounds that bind the N-terminal ATP-binding pocket, such as
+radicicol, geldanamycin, or 17-AAG (64, 132–134). "
+#17-AAG is tanespimycin
+act(p(FPLX:HSP90)) -| act(p(HGNC:HSF1))
+a(CHEBI:radicicol) -| act(p(FPLX:HSP90))
+a(CHEBI:geldanamycin) -| act(p(FPLX:HSP90))
+a(CHEBI:tanespimycin) -| act(p(FPLX:HSP90))
+
+SET Evidence = "High-throughput screens in yeast and HeLa cells identified HSF1A and F1, respectively, as
+two small molecules that activate HSF1 independently of HSP90 inhibition (136, 137). "
+#F1 compound number in figure. no name given
+a(PUBCHEM:"377503130") -> act(p(HGNC:HSF1))
+
+SET Evidence = "HSF1A suppresses toxicity in cell and tissue culture models of HD and SCA-3/MJD and
+appears to activate HSF1 by impairing the activity of TRiC, a recently discovered negative
+regulator of HSF1."
+a(PUBCHEM:"377503130") -| act(p(FPLX:"CCT_complex"))
+p(FPLX:"CCT_complex") -| act(p(HGNC:HSF1))
+
+SET Evidence = "Treatment of cell, Drosophila, and mouse models of HD, SCA3/MJD, AD, PD, and ALS
+with the mTOR inhibitor rapamycin (or a derivative) reduces aggregation and suppresses
+disease (140– 143)."
+#rapamycin is sirolimus
+a(CHEBI:sirolimus) -| act(p(FPLX:mTORC1))
+a(CHEBI:sirolimus) -| path(MESH:"Protein Aggregation, Pathological")
+a(CHEBI:sirolimus) -| path(MESH:"Huntington Disease")
+a(CHEBI:sirolimus) -| path(MESH:"Machado-Joseph Disease")
+a(CHEBI:sirolimus) -| path(MESH:"Alzheimer Disease")
+a(CHEBI:sirolimus) -| path(MESH:"Parkinson Disease")
+a(CHEBI:sirolimus) -| path(MESH:"Amyotrophic Lateral Sclerosis")
+
+SET Evidence = "An in silico screen based on the structure of 10-NCP, an Akt inhibitor that potently induces
+autophagy (144), identified the molecules FPZ and MTM as potent activators of autophagic
+flux and clearance of TDP-43 in mammalian cells (145)."
+a(PUBCHEM:"10521421") -| act(p(FPLX:AKT))
+a(PUBCHEM:"10521421") -> bp(GO:autophagy)
+a(CHEBI:fluphenazine) -> bp(GO:autophagy)
+a(CHEBI:methotrimeprazine) -> bp(GO:autophagy)
+#TDP-43 is TARDBP
+a(CHEBI:fluphenazine) -| p(HGNC:TARDBP)
+a(CHEBI:methotrimeprazine) -| p(HGNC:TARDBP)
+
+SET Evidence = "A screen for autophagy inducers in yeast identified the
+molecules SMER-10, -18, and -28 as TOR-independent activators of autophagy (146). "
+a(PUBCHEM:"799645") -> bp(GO:autophagy)
+a(PUBCHEM:"877863") -> bp(GO:autophagy)
+a(PUBCHEM:"1560402") -> bp(GO:autophagy)
+
+SET Evidence = "Treatment of PC12 cells stably expressing mutant α-synuclein (A53T) with SMER-10, -18,
+or-28 significantly reduced levels of mutant α-synuclein, an effect that was enhanced by
+cotreatment with rapamycin (146)."
+a(PUBCHEM:"799645") -| p(HGNC:SNCA, var("p.Ala53Thr"))
+a(PUBCHEM:"877863") -| p(HGNC:SNCA, var("p.Ala53Thr"))
+a(PUBCHEM:"1560402") -| p(HGNC:SNCA, var("p.Ala53Thr"))
+composite(a(PUBCHEM:"799645"),a(CHEBI:sirolimus)) -| p(HGNC:SNCA, var("p.Ala53Thr"))
+composite(a(PUBCHEM:"877863"),a(CHEBI:sirolimus)) -| p(HGNC:SNCA, var("p.Ala53Thr"))
+composite(a(PUBCHEM:"1560402"),a(CHEBI:sirolimus)) -| p(HGNC:SNCA, var("p.Ala53Thr"))
+
+SET Evidence = "In addition, SMER-10, -18, and -28 were effective at
+suppressing mHTT aggregation and toxicity in COS-7 cells and flies (146)."
+a(PUBCHEM:"799645") -| a(HBP:"huntingtin aggregates")
+a(PUBCHEM:"877863") -| a(HBP:"huntingtin aggregates")
+a(PUBCHEM:"1560402") -| a(HBP:"huntingtin aggregates")
+
+SET Evidence = "The DUB
+USP14 suppresses turnover of Tau and TDP-43 in mouse embryonic fibroblasts (MEFs) by
+impairing the protea-some;"
+SET CellLine = "MEF cell line"
+p(HGNC:USP14) -| deg(p(HGNC:MAPT))
+p(HGNC:USP14) -| deg(p(HGNC:TARDBP))
+p(HGNC:USP14) -| act(p(FPLX:Proteasome))
+
+SET Evidence = "Treatment with IU1 reduced
+the levels of Tau, TDP-43, and ataxin-3 in MEFs in a USP14-dependent manner and
+independently of changes in proteasome levels or composition (147)."
+a(PUBCHEM:"675434") -| p(HGNC:MAPT)
+a(PUBCHEM:"675434") -| p(HGNC:TARDBP)
+a(PUBCHEM:"675434") -| p(HGNC:ATXN3)
+a(PUBCHEM:"675434") -| act(p(HGNC:USP14))
+a(PUBCHEM:"675434") causesNoChange p(FPLX:Proteasome)
+UNSET CellLine
