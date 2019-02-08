@@ -1,0 +1,238 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name = "Inflammasome activation and innate immunity in Alzheimer’s disease"
+SET DOCUMENT Version = "1.0.2"
+SET DOCUMENT Authors = "Sandra Spalek"
+SET DOCUMENT Description = ""
+
+###############
+# Definitions #
+###############
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY AS PATTERN "^\d+$"
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE GFAM     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE MIRBASE  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE HBP      AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel
+# --------------------------------------------------------------------
+DEFINE NAMESPACE CTO      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE MGI      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
+DEFINE NAMESPACE RGD      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170725.belns"
+DEFINE NAMESPACE SCOMP    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM     AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+DEFINE NAMESPACE INTERPRO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/interpro/interpro-20170731.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+
+##############
+# Statements #
+##############
+
+
+SET STATEMENT_GROUP = "Sandra"
+
+# Add statements below this comment
+
+SET Citation = {"PubMed", "Brain Pathol. 2017 Mar;27(2):220-222. doi: 10.1111/bpa.12483", "28019679"}
+
+SET Evidence = "One of the canonical pathways of this innate immune response evoked by Abeta is the
+activation of the NOD-like receptor (NLR) family, pyrin domain containing 3 (NLRP3) inflammasome that
+became a focus of intense research"
+SET Confidence = "High"
+SET Subgraph = {"Amyloidogenic subgraph","Innate immune system subgraph"}
+a(CHEBI:"amyloid-beta") -> bp(GO:"innate immune response")
+bp(GO:"innate immune response") -> act(complex(GO:"NLRP3 inflammasome complex"))
+
+UNSET Subgraph
+
+SET Evidence = "NLRP3 inflammasome activation results from TLR ligation and
+concomitant uptake of Ab in models of AD"
+SET Confidence = "High"
+SET Subgraph = "Amyloidogenic subgraph"
+a(CHEBI:"amyloid-beta") -> act(complex(GO:"NLRP3 inflammasome complex"))
+
+SET Subgraph = "Toll like receptor subgraph"
+a(MESH:"Toll-Like Receptors") -> act(complex(GO:"NLRP3 inflammasome complex"))
+
+UNSET Subgraph
+
+SET Evidence = "Activation of NLRP3 leads to the generation of interleukin-1b (IL-1b)
+and interleukin 18 (IL-18), which are being cleaved by caspase-1 from their inactive
+precursors and subsequently"
+SET Confidence = "Medium"
+SET Subgraph = {"Interleukin signaling subgraph","Caspase subgraph"}
+act(complex(GO:"NLRP3 inflammasome complex")) -> p(HGNC:IL18)
+act(complex(GO:"NLRP3 inflammasome complex")) -> p(HGNC:IL1B)
+p(HGNC:CASP1) -> act(p(HGNC:IL18))
+p(HGNC:CASP1) -> act(p(HGNC:IL1B))
+
+UNSET Subgraph
+
+SET Evidence = "Activation of the NLRP3 inflammasome by fibrillar Abeta has been
+described first by Halle et al. in 2008"
+SET Confidence = "High"
+SET Subgraph = "Amyloidogenic subgraph"
+a(HBP:HBP00038) -> act(complex(GO:"NLRP3 inflammasome complex"))
+
+UNSET Subgraph
+
+SET Evidence = "NLRP3 activation was characterized by ASC speck formation in an
+immune-activated microglial cell line and required a dual signal to become
+effective: the phagocytic uptake of Abeta and cathepsin B release after lysosomal disruption"
+SET Confidence = "High"
+SET Subgraph = "Amyloidogenic subgraph"
+composite(p(HGNC:CTSB),a(CHEBI:"amyloid-beta")) -> act(complex(GO:"NLRP3 inflammasome complex"))
+
+UNSET Subgraph
+
+SET Evidence = "NLRP3 inflammasome formation and subsequent activation of caspase-1
+cleavage capacity was instrumental for Abeta-induced nitric oxide production and TNF-a release"
+SET Confidence = "High"
+SET Subgraph = "Caspase subgraph"
+complex(GO:"NLRP3 inflammasome complex") -> act(p(HGNC:CASP1))
+
+SET Subgraph = {"Amyloidogenic subgraph","Nitric oxide subgraph"}
+a(CHEBI:"amyloid-beta") -> a(CHEBI:"nitric oxide")
+
+SET Subgraph = {"Nitric oxide subgraph","Caspase subgraph"}
+complex(GO:"NLRP3 inflammasome complex") -> a(CHEBI:"nitric oxide")
+act(p(HGNC:CASP1)) -> a(CHEBI:"nitric oxide")
+
+SET Subgraph = {"Tumor necrosis factor subgraph","Amyloidogenic subgraph"}
+a(CHEBI:"amyloid-beta") -> sec(p(HGNC:TNF))
+complex(GO:"NLRP3 inflammasome complex") -> sec(p(HGNC:TNF))
+
+SET Subgraph = {"Tumor necrosis factor subgraph","Caspase subgraph"}
+act(p(HGNC:CASP1)) -> sec(p(HGNC:TNF))
+
+UNSET Subgraph
+
+SET Evidence = "Soluble Abeta (sAbeta)-induces NLRP3 inflammasome activation,
+however it requires the presence of the surface receptor CD36 (12)"
+SET Confidence = "High"
+SET Subgraph = "Amyloidogenic subgraph"
+composite(a(CHEBI:"amyloid-beta"),p(HGNC:CD36)) -> act(complex(GO:"NLRP3 inflammasome complex"))
+
+UNSET Subgraph
+
+SET Evidence = "Recently, Kaushal et al. described the involvement of NLRP1 inflammasome
+activation in neurons. In these experiments, serum deprivation induced NLRP1-dependent
+caspase-1 activity and ASC speck formation, which resulted in caspase-6 activation and an
+increase in the Ab42/total Ab ratio (11)"
+SET Confidence = "High"
+SET Subgraph = "Caspase subgraph"
+complex(GO:"NLRP1 inflammasome complex") -> act(p(HGNC:CASP1))
+act(complex(GO:"NLRP1 inflammasome complex")) -> act(p(HGNC:CASP6))
+
+SET Subgraph = "Amyloidogenic subgraph"
+act(complex(GO:"NLRP1 inflammasome complex")) -> a(CHEBI:"amyloid-beta polypeptide 42")
+
+UNSET Subgraph
+
+SET Evidence = "Further data, showing “neuronal pyroptosis” of Abeta exposed neurons in a NLRP1-
+dependent and caspase-1-mediated manner may point to a vicious cycle, by which NLRP1 is causing
+neurodegeneration in response to increased Abeta production (14)"
+SET Confidence = "High"
+SET Subgraph = "Amyloidogenic subgraph"
+SET MeSHAnatomy = "Neurons"
+a(CHEBI:"amyloid-beta") -> act(complex(GO:"NLRP1 inflammasome complex"))
+
+SET Subgraph = "Apoptosis signaling subgraph"
+complex(GO:"NLRP1 inflammasome complex") -> bp(GO:pyroptosis)
+complex(GO:"NLRP1 inflammasome complex") -> bp(HBP:HBP00027)
+
+SET Confidence = "Medium"
+SET Subgraph = {"Caspase subgraph","Apoptosis signaling subgraph"}
+a(CHEBI:"amyloid-beta") -> act(p(HGNC:CASP1))
+act(p(HGNC:CASP1)) -> bp(GO:pyroptosis)
+
+UNSET Subgraph
+
+SET Evidence = "The combined effect of the increased IDE production and phagocytic Abeta clearance reduced
+the cerebral Abeta load substantially, even at late life. Since immunohistochemistry found NLRP3 exclusively
+expressed in microglial cells, it has been concluded that the observed changes were entirely
+due to NLRP3 inflammasome modulation in these cells"
+SET Confidence = "Medium"
+SET Subgraph = {"Amyloidogenic subgraph","Insulin signal transduction"}
+p(HGNC:IDE) -| a(CHEBI:"amyloid-beta")
+p(HGNC:IDE) reg complex(GO:"NLRP3 inflammasome complex")
+
+UNSET Subgraph
+
+SET Evidence = "Using a similar mouse model, Shi et al. treated animals with the antimalarial drug
+artemisinin, showing that this treatment results in inhibition of NFkB and presumably the NLRP3 inflammasome (13)"
+SET Subgraph = "Nuclear factor Kappa beta subgraph"
+SET Confidence = "High"
+a(CHEBI:"(+)-artemisinin") -| p(MGI:Nfkbia)
+a(CHEBI:"(+)-artemisinin") -| complex(GO:"NLRP3 inflammasome complex")
+
+UNSET Subgraph
+
+SET Evidence = "Using the herbizide, N,N0-dimethyl-4,40-bipyridinium dichloride (paraquat)
+as a mitochondrial toxin, which is known to induce oxidative stress, Chen et al. found increased
+levels of caspase-1 and IL-1b in brain of wild type and APP/PS1 transgenic mice (2), suggesting
+that those were due to NLRP3 inflammasome activation"
+SET Confidence = "High"
+SET Subgraph = "Caspase subgraph"
+a(CHEBI:paraquat) -> act(complex(GO:"NLRP3 inflammasome complex"))
+a(CHEBI:paraquat) -> p(HGNC:CASP1)
+act(complex(GO:"NLRP3 inflammasome complex")) -> p(HGNC:CASP1)
+
+SET Subgraph = "Interleukin signaling subgraph"
+a(CHEBI:paraquat) -> p(HGNC:IL1B)
+act(complex(GO:"NLRP3 inflammasome complex"))  -> p(HGNC:IL1B)
+
+UNSET Subgraph
+
+SET Evidence = "This finding was associated with spatial memory dysfunction and an increase in Abeta plaque deposition"
+# this = NLRP3 inflammasome activation
+SET Confidence = "High"
+SET Subgraph = "Amyloidogenic subgraph"
+act(complex(GO:"NLRP3 inflammasome complex")) -| path(MESH:"Spatial Memory")
+act(complex(GO:"NLRP3 inflammasome complex")) -> a(CHEBI:"amyloid-beta")
+
+UNSET Subgraph
+
+
+##########################################################
+
+
+UNSET STATEMENT_GROUP
