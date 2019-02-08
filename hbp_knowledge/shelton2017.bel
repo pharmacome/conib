@@ -1,0 +1,522 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Imbalances in the Hsp90 Chaperone Machinery: Implications for Tauopathies"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Esther Wollert"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+SET STATEMENT_GROUP = "Esther"
+
+# Add statements below this comment
+
+SET Citation = {"PubMed","Front Neurosci. 2017 Dec 22;11:724. doi: 10.3389/fnins.2017.00724. eCollection 2017.","29311797"}
+
+SET Evidence = "Aging is the biggest risk factor for developing a neurodegenerative disease, but the speciﬁc factors
+which cause these predominantly sporadic diseases are still under investigation (Reeve et al., 2014)."
+bp(MESH:Aging) -- path(MESH:"Neurodegenerative Diseases")
+
+SET Evidence = " Not only does aging lead
+to an increased likelihood of protein misfolding and aggregation,
+it is compounded by a decrease in the eﬃciency of the protein
+degradation machinery."
+bp(MESH:Aging) -| bp(GO:"protein folding")
+bp(MESH:Aging) -> path(MESH:"Protein Aggregation, Pathological")
+bp(MESH:Aging) -| bp(MESH:"Proteolysis")
+
+SET Evidence = "The activity of both the proteasome,
+which is the main mechanism of protein degradation (Rock et al.,
+1994; Conconi et al., 1996), and chaperone-mediated autophagy
+(CMA; Cuervo and Dice, 2000b) is signiﬁcantly impaired with
+aging and is especially pronounced in post-mitotic cells, such
+as neurons, potentially resulting in neurodegenerative disease
+(Terman, 2001)."
+bp(MESH:Aging) -| act(p(FPLX:Proteasome))
+bp(MESH:Aging) -| bp(GO:"chaperone-mediated autophagy")
+
+SET Evidence = "All of these chaperones assist
+in various ways to help fold, refold and degrade misfolded
+proteins."
+a(MESH:"Molecular Chaperones") -- bp(GO:"protein folding")
+a(MESH:"Molecular Chaperones") -- bp(MESH:"Proteolysis")
+
+SET Evidence = "Hsp90 requires
+ATP to perform these functions including protein degradation,
+protein folding, prevention of protein aggregation, and protein
+modiﬁcation (Echeverría et al., 2011). "
+bp(GO:"ATP metabolic process") -> act(p(FPLX:HSP90))
+act(p(FPLX:HSP90)) -> bp(MESH:"Proteolysis")
+act(p(FPLX:HSP90)) -> bp(GO:"protein folding")
+act(p(FPLX:HSP90)) -| path(MESH:"Protein Aggregation, Pathological")
+act(p(FPLX:HSP90)) -> bp(GO:"protein modification process")
+
+SET Evidence = " The pathological
+accumulation of tau is a hallmark in several neurodegenerative
+disorders collectively termed tauopathies (Kovacs, 2015); a series
+of diseases including Alzheimer’s disease (AD), progressive
+supranuclear palsy (PSP), Pick’s disease, and chronic traumatic
+encephalopathy (CTE; Guo et al., 2017)."
+a(HBP:"Tau aggregates") -> path(MESH:Tauopathies)
+path(MESH:"Alzheimer Disease") isA path(MESH:Tauopathies)
+path(MESH:"Supranuclear Palsy, Progressive") isA path(MESH:Tauopathies)
+path(MESH:"Pick Disease of the Brain") isA path(MESH:Tauopathies)
+path(MESH:"Chronic Traumatic Encephalopathy") isA path(MESH:Tauopathies)
+
+SET Evidence = " However, Hsp90
+regulates tau and other aggregating proteins in coordination
+with a diverse group of co-chaperones (Schopf et al., 2017)."
+p(FPLX:HSP90) reg a(HBP:"Tau aggregates")
+p(FPLX:HSP90) reg path(MESH:"Protein Aggregation, Pathological")
+
+SET Evidence = "Hsp90 is critical to maintaining proteostasis (Brehme et al.,
+2014) and accounts for up to 6% of all protein within the cell
+during times of stress (Picard, 2002; Prodromou, 2016). "
+p(FPLX:HSP90) -- bp(HBP:Proteostasis)
+
+SET Evidence = "Hsp90α is involved in growth
+promotion, cell cycle regulation, stress-induced cytoprotection,
+and cancer cell invasiveness; whereas Hsp90β is involved with
+early embryonic development, germ cell maturation, cytoskeletal
+stabilization, cellular transformation, signal transduction, and
+long-term cell adaptation (Eustace et al., 2004; Sreedhar et al.,
+2004)."
+p(HGNC:HSP90AA1) -- bp(GO:growth)
+p(HGNC:HSP90AA1) -- bp(GO:"regulation of cell cycle")
+p(HGNC:HSP90AA1) -- bp(MESH:Cytoprotection)
+p(HGNC:HSP90AA1) -- path(MESH:"Neoplasm Metastasis")
+p(HGNC:HSP90AB1) -- bp(GO:"embryo development")
+SET MeSHAnatomy = "Germ Cells"
+p(HGNC:HSP90AB1) -- bp(GO:"cell maturation")
+UNSET MeSHAnatomy
+p(HGNC:HSP90AB1) -- bp(GO:"cytoskeleton organization")
+p(HGNC:HSP90AB1) -- bp(GO:"signal transduction")
+p(HGNC:HSP90AB1) -- bp(GO:"adaptation of signaling pathway")
+
+SET Evidence = "Hsp90 interacts with six immunophilins that display peptidyl-
+prolyl isomerase (PPIase) activity through TPR domains
+including cyclophilin 40 (CyP40) and ﬁve FK506-binding
+proteins: FKBP51, FKBP52, FKBP36, FKBP38, FKBPL/WISp39
+(Jascur et al., 2005; Jarczowski et al., 2009; Guy et al., 2015;
+Blundell et al., 2017)."
+#CyP40 is PPID
+p(HGNC:PPID) isA a(MESH:Immunophilins)
+p(HGNC:FKBP5) isA a(MESH:Immunophilins)
+p(HGNC:FKBP4) isA a(MESH:Immunophilins)
+p(HGNC:FKBP6) isA a(MESH:Immunophilins)
+p(HGNC:FKBP8) isA a(MESH:Immunophilins)
+p(HGNC:FKBPL) isA a(MESH:Immunophilins)
+complex(p(FPLX:HSP90),p(HGNC:PPID))
+complex(p(FPLX:HSP90),p(HGNC:FKBP5))
+complex(p(FPLX:HSP90),p(HGNC:FKBP4))
+complex(p(FPLX:HSP90),p(HGNC:FKBP6))
+complex(p(FPLX:HSP90),p(HGNC:FKBP8))
+complex(p(FPLX:HSP90),p(HGNC:FKBPL))
+
+SET Evidence = "Hsp90 also interacts with two immunophilin homologs: protein
+phosphatase 5 (PP5) and XAP2/FKBP37."
+complex(p(FPLX:HSP90),p(HGNC:PPP5C))
+complex(p(FPLX:HSP90),p(HGNC:AIP))
+
+SET Evidence = "An interesting PPIase, CyP40, decreases in aging and is
+further repressed in AD (Table 1; Brehme et al., 2014)."
+bp(MESH:Aging) -| p(HGNC:PPID)
+path(MESH:"Alzheimer Disease") -| p(HGNC:PPID)
+
+SET Evidence = " CyP40
+was recently shown to disaggregate tau ﬁbrils in vitro and
+prevents toxic tau accumulation in vivo preserving memory,
+demonstrating a neuroprotective role for CyP40 in the brain
+(Baker et al., 2017)."
+p(HGNC:PPID) -| a(HBP:"Tau fibrils")
+p(HGNC:PPID) -| a(HBP:"Tau aggregates")
+p(HGNC:PPID) -> bp(GO:memory)
+SET MeSHAnatomy = "Brain"
+p(HGNC:PPID) -| bp(GO:"neuron apoptotic process")
+UNSET MeSHAnatomy
+
+SET Evidence = "Contrary to the neuroprotective eﬀects of CyP40, two FK506-
+binding proteins (FKBPs) have been shown to stimulate toxic tau
+aggregation (Blair et al., 2013; Giustiniani et al., 2015; Kamah
+et al., 2016). One of these, FKBP51, coordinates with Hsp90
+to preserve toxic tau oligomers in vivo (Blair et al., 2013)."
+complex(p(FPLX:HSP90),p(HGNC:FKBP5)) -> a(HBP:"Tau aggregates")
+
+SET Evidence = " However, throughout aging,
+FKBP51 levels progressively increase and are further increased
+in AD brain samples (Table 1; Blair et al., 2013; Sabbagh et al.,
+2014)."
+bp(MESH:Aging) -> p(HGNC:FKBP5)
+path(MESH:"Alzheimer Disease") -> p(HGNC:FKBP5)
+
+SET Evidence = "FKBP52 interacts both physically and functionally with tau
+and promotes tau aggregation in vitro (Giustiniani et al., 2015;
+Meduri et al., 2016). "
+complex(p(HGNC:MAPT),p(HGNC:FKBP4))
+p(HGNC:FKBP4) -> a(HBP:"Tau aggregates")
+
+SET Evidence = " However, it is interesting to note that FKBP52 levels are
+lower in the cortex of AD patients’ brains (Table 1; Brehme et al.,
+2014; Meduri et al., 2016)."
+SET MeSHAnatomy = "Cerebral Cortex"
+path(MESH:"Alzheimer Disease") -| p(HGNC:FKBP4)
+
+SET Evidence = "While a direct role of XAP2 in tau
+pathogenesis has not been described, studies have shown that
+XAP2 is activated by histone deacetylase (HDAC) 6, which has
+been linked to pathogenic tau (Kekatpure et al., 2009; Cook et al.,
+2012; Selenica et al., 2014)."
+p(HGNC:HDAC6) -> act(p(HGNC:AIP))
+p(HGNC:HDAC6) -- a(HBP:"Tau aggregates")
+
+SET Evidence = " In addition, XAP2 coordinates with
+Hsp90 to regulate glucocorticoid receptor signaling (Laenger
+et al., 2009), which has also been implicated in the production
+of pathogenic tau (Pinheiro et al., 2016)."
+complex(p(FPLX:HSP90),p(HGNC:AIP)) reg bp(GO:"glucocorticoid receptor signaling pathway")
+bp(GO:"glucocorticoid receptor signaling pathway") -- a(HBP:"Tau aggregates")
+
+SET Evidence = "Another member of this family, protein phosphatase 5 (PP5), is
+repressed in aging."
+bp(MESH:Aging) -| p(HGNC:PPP5C)
+
+SET Evidence = " PP5 activity has been shown to be repressed in AD
+(Table 1; Liu et al., 2005). "
+path(MESH:"Alzheimer Disease") -| act(p(HGNC:PPP5C))
+
+SET Evidence = "Studies have shown that PP5 is able to
+dephosphorylate tau at several phosphorylation sites connected
+to AD pathology (Gong et al., 2004). "
+act(p(HGNC:PPP5C)) -| p(HGNC:MAPT, pmod(Ph))
+p(HGNC:MAPT, pmod(Ph)) -- path(MESH:"Alzheimer Disease")
+
+SET Evidence = "A previous study found that when
+Hop was depleted using siRNA, there was an accumulation of
+tau (Jinwal et al., 2013)."
+p(HGNC:STIP1) -| p(HGNC:MAPT)
+
+SET Evidence = " CHIP has been linked to several
+neurodegenerative disorders including Huntington’s disease,
+Parkinson’s disease and AD as well as other diseases such as
+cystic ﬁbrosis and cancer (Dickey et al., 2007b; Edkins, 2015)."
+p(HGNC:STUB1) -- path(MESH:"Huntington Disease")
+p(HGNC:STUB1) -- path(MESH:"Parkinson Disease")
+p(HGNC:STUB1) -- path(MESH:"Alzheimer Disease")
+p(HGNC:STUB1) -- path(MESH:"Cystic Fibrosis")
+p(HGNC:STUB1) -- path(MESH:Neoplasms)
+
+SET Evidence = " In
+tauopathic mice, CHIP regulates the removal of tau species that
+have undergone abnormal phosphorylation and folding (Dickey
+et al., 2007b)."
+p(HGNC:STUB1) -> deg(p(HGNC:MAPT, pmod(Ph)))
+p(HGNC:STUB1) -> deg(p(HGNC:MAPT, pmod(HBP:"misfolding")))
+
+SET Evidence = " One study found that in Drosophila, impaired Tom34
+gene function led to enhanced tau pathology (Ambegaokar and
+Jackson, 2011). "
+p(HGNC:TOMM34) -| path(MESH:Tauopathies)
+
+SET Evidence = "Cdc37 is also required
+for the stable folding of protein kinases in coordination with
+Hsp90 (Calderwood, 2015). Many of these kinases are known to
+phosphorylate tau at sites associated with AD, such as GSK3β
+and MAPK13 (Taipale et al., 2012; Jin et al., 2016)."
+complex(p(HGNC:CDC37),p(FPLX:HSP90)) -> p(HGNC:GSK3B)
+complex(p(HGNC:CDC37),p(FPLX:HSP90)) -> p(HGNC:MAPK13)
+kin(p(HGNC:GSK3B)) -> p(HGNC:MAPT, pmod(Ph))
+kin(p(HGNC:MAPK13)) -> p(HGNC:MAPT, pmod(Ph))
+
+SET Evidence = " Interestingly,
+overexpression of Cdc37 preserves tau, and its suppression
+reduces tau (Jinwal et al., 2012)."
+p(HGNC:CDC37) -> p(HGNC:MAPT)
+
+SET Evidence = "The activator of Hsp90 ATPase homolog 1 (Aha1) works as a co-
+chaperone to stimulate the ATPase function of Hsp90 to regulate
+the folding and activation of client proteins."
+p(HGNC:AHSA1) -> act(p(FPLX:HSP90), ma(GO:"ATPase activity"))
+
+SET Evidence = " Aha1 levels have been shown to
+increase with AD."
+p(HGNC:AHSA1) positiveCorrelation path(MESH:"Alzheimer Disease")
+
+SET Evidence = " In the same study, we
+found that high levels of Aha1 in a tau transgenic mouse model
+increased tau oligomers as well as neuronal loss concomitant
+with cognitive deﬁcits (Shelton et al., 2017)."
+p(HGNC:AHSA1) -> a(HBP:"Tau oligomers")
+p(HGNC:AHSA1) -> bp(GO:"neuron apoptotic process")
+
+SET Evidence = "Since Aha1 levels
+are repressed in aging, but are abnormally preserved in AD, tau
+aggregation could be accelerated in part by Aha1 in the AD
+brain."
+bp(MESH:Aging) -| p(HGNC:AHSA1)
+SET MeSHDisease = "Alzheimer Disease"
+SET MeSHAnatomy = "Brain"
+p(HGNC:AHSA1) -> a(HBP:"Tau aggregates")
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+
+SET Evidence = " Previous studies have also implicated Aha1 for a role in
+cystic ﬁbrosis. "
+p(HGNC:AHSA1) -- path(MESH:"Cystic Fibrosis")
+
+SET Evidence = "p23 has an opposing eﬀect on Hsp90 compared to Aha1. p23
+works by inhibiting the ATPase activity of Hsp90."
+#p23 is PTGES3
+p(HGNC:PTGES3) -| act(p(FPLX:HSP90), ma(GO:"ATPase activity"))
+
+SET Evidence = " As a
+co-chaperone, p23 works to suppress protein aggregation and
+exhibits chaperoning activity, although p23 is not able to refold
+proteins on its own (Freeman et al., 1996)."
+p(HGNC:PTGES3) -| path(MESH:"Protein Aggregation, Pathological")
+
+SET Evidence = "Inhibition of p23 in an
+siRNA screen of Hsp90 co-chaperones showed that silencing p23
+reduced both total and phospho-tau (Jinwal et al., 2012, 2013)."
+p(HGNC:PTGES3) -> p(HGNC:MAPT)
+p(HGNC:PTGES3) -> p(HGNC:MAPT, pmod(Ph))
+
+SET Evidence = "p23 also plays an important role in preventing endoplasmic
+reticulum (ER) stress-induced cell death, which can be triggered
+by misfolded proteins, like tau (Rao et al., 2006; Abisambra et al.,
+2013)."
+p(HGNC:PTGES3) -| bp(GO:"cell death in response to oxidative stress")
+p(HGNC:MAPT, pmod(HBP:"misfolding")) -> bp(GO:"cell death in response to oxidative stress")
+
+SET Evidence = "S100 calcium-binding protein A1 (S100A1) interacts with Hsp90."
+complex(p(HGNC:S100A1),p(FPLX:HSP90))
+
+SET Evidence = "This study found that reductions in
+S100A1 also led to massive reductions in both phospho- and total
+tau levels in cells (Jinwal et al., 2013)."
+p(HGNC:S100A1) -> p(HGNC:MAPT)
+p(HGNC:S100A1) -> p(HGNC:MAPT, pmod(Ph))
+
+SET Evidence = "The folliculin-interacting protein 1 (FNIP1) is able to interact
+with Hsp90 as a co-chaperone in order to inhibit its ATPase
+activity. "
+complex(p(HGNC:FNIP1),p(FPLX:HSP90)) -| act(p(FPLX:HSP90), ma(GO:"ATPase activity"))
+
+SET Evidence = "One study found that FNIP1, in complex with FNIP2
+and Hsp90, was able to stabilize the tumor suppressor folliculin
+(FLCN; Woodford et al., 2016). "
+complex(p(HGNC:FNIP1),p(HGNC:FNIP2),p(FPLX:HSP90)) -> p(HGNC:FLCN)
+
+SET Evidence = " One study focused on the basal levels of cytosolic
+Hsp90 in peripheral blood mononuclear cells (PBMC) and found
+that in aged human samples there was an increase in Hsp90
+under normal physiological conditions when compared to young
+samples (Njemini et al., 2007). "
+SET Cell = "peripheral blood mononuclear cell"
+bp(MESH:Aging) -> p(FPLX:HSP90)
+UNSET Cell
+
+SET Evidence = "Conversely, there are also
+studies showing decreased levels of Hsp90 in aged human brain
+samples."
+SET MeSHAnatomy = "Brain"
+bp(MESH:Aging) -| p(FPLX:HSP90)
+UNSET MeSHAnatomy
+
+SET Evidence = " One study found
+that cytosolic Hsp90 was repressed in the superior frontal gyrus,
+while another demonstrated a similar repression in the prefrontal
+cortex of aged patients compared to controls (Berchtold et al.,
+2008; Loerch et al., 2008; Brehme et al., 2014)."
+SET Anatomy = {"superior frontal gyrus","prefrontal cortex"}
+bp(MESH:Aging) -| p(FPLX:HSP90)
+UNSET Anatomy
+
+SET Evidence = " For instance, CyP40, FKBP52, PP5,
+Hop, p23, and Aha1 are all repressed in the aged brain."
+SET MeSHAnatomy = "Brain"
+bp(MESH:Aging) -| p(HGNC:PPID)
+bp(MESH:Aging) -| p(HGNC:FKBP4)
+bp(MESH:Aging) -| p(HGNC:PPP5C)
+bp(MESH:Aging) -| p(HGNC:STIP1)
+bp(MESH:Aging) -| p(HGNC:PTGES3)
+bp(MESH:Aging) -| p(HGNC:AHSA1)
+UNSET MeSHAnatomy
+
+SET Evidence = "Interestingly, one co-chaperone is signiﬁcantly induced in the
+aged brain and that is FKBP51."
+SET MeSHAnatomy = "Brain"
+bp(MESH:Aging) -> p(HGNC:FKBP5)
+UNSET MeSHAnatomy
+
+SET Evidence = "One study found that Hsp90 could
+form stable complexes with Hsp90, FKBP52, Hop, and p23
+(Hildenbrand et al., 2011). "
+complex(p(FPLX:HSP90),p(HGNC:FKBP4),p(HGNC:STIP1),p(HGNC:PTGES3))
+
+SET Evidence = " In addition to the problems
+faced with an overwhelmed chaperone network, the proteolytic
+activity of the proteasome also declines with aging, and in
+fact Hsp90 has been shown to protect the proteasome from
+age-related, oxidative-dependent decline (Conconi and Friguet,
+1997). "
+bp(MESH:Aging) -| act(p(FPLX:Proteasome))
+p(FPLX:HSP90) -> act(p(FPLX:Proteasome))
+
+SET Evidence = "Proteins can also be degraded by CMA; however, CMA activity
+also decreases with age (Cuervo and Dice, 2000a)."
+bp(MESH:Aging) -| bp(GO:"chaperone-mediated autophagy")
+
+SET Evidence = "Hsp90 and
+Hop are both involved in the CMA system;"
+p(FPLX:HSP90) -- bp(GO:"chaperone-mediated autophagy")
+p(HGNC:STIP1) -- bp(GO:"chaperone-mediated autophagy")
+
+SET Evidence = "Phosphorylation of
+Hsp90 leads to reduced chaperoning ability and phosphorylation
+of speciﬁc tyrosine residues can aﬀect the ability of Hsp90 to
+interact with distinct client proteins (Zhao et al., 2001; Mollapour
+and Neckers, 2012)."
+p(FPLX:HSP90, pmod(Ph)) -| act(p(FPLX:HSP90))
+
+SET Evidence = " Acetylation of Hsp90 aﬀects client protein
+interaction and also decreases binding of Hsp90 to ATP (Yu et al.,
+2002; Mollapour and Neckers, 2012)."
+p(FPLX:HSP90, pmod(Ac)) -| complex(p(FPLX:HSP90),a(CHEBI:ATP))
+
+SET Evidence = "S-nitrosylation, oxidation
+and ubiquitination also inhibit Hsp90 chaperone activity (Blank
+et al., 2003; Martínez-Ruiz et al., 2005; Chen et al., 2008)."
+p(FPLX:HSP90, pmod(NO)) -| act(p(FPLX:HSP90))
+p(FPLX:HSP90, pmod(U)) -| act(p(FPLX:HSP90))
+
+SET Evidence = "These
+PTMs increase with aging and can alter the ability of Hsp90
+to function properly as well as change the ability of diﬀerent
+co-chaperones to bind."
+bp(MESH:Aging) -> p(FPLX:HSP90, pmod(Ph))
+bp(MESH:Aging) -> p(FPLX:HSP90, pmod(Ac))
+bp(MESH:Aging) -> p(FPLX:HSP90, pmod(NO))
+bp(MESH:Aging) -> p(FPLX:HSP90, pmod(U))
+
+SET Evidence = "Inhibition of the ATPase activity of Hsp90 has been shown
+to have positive outcomes in cell culture and animal models
+of tauopathy."
+act(p(FPLX:HSP90), ma(GO:"ATPase activity")) -> path(MESH:Tauopathies)
+
+SET Evidence = "Previous studies have shown that Hsp90 inhibition decreased
+the levels of hyperphosphorylated and/or mutated tau species
+both in cells and mice."
+p(FPLX:HSP90) -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+p(FPLX:HSP90) -> p(HGNC:MAPT, var("?"))
+
+SET Evidence = "The Hsp90 N-terminal domain
+inhibitor, EC102, was used to demonstrate degradation of
+hyperphosphorylated pathologically relevant tau in cells (Dickey
+et al., 2007a)."
+a(HBP:"EC102") -> deg(p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)))
+
+SET Evidence = " Another N-terminal Hsp90 ATPase inhibitor, 17-
+AAG, was shown to decrease levels of phosphorylated tau in
+cells, and a related N-terminal Hsp90 ATPase inhibitor, PU-
+DZ8, reduced soluble and insoluble tau in tauP301L mice
+(Luo et al., 2007)."
+#17-AAG is tanespimycin
+a(CHEBI:tanespimycin) -| act(p(FPLX:HSP90), ma(GO:"ATPase activity"))
+a(CHEBI:tanespimycin) -| p(HGNC:MAPT, pmod(Ph))
+a(PUBCHEM:"14719853") -| act(p(FPLX:HSP90), ma(GO:"ATPase activity"))
+a(PUBCHEM:"14719853") -| p(HGNC:MAPT)
+
+SET Evidence = "The Cdc37/Hsp90 inhibitors, Celasterol
+and Withaferin A (Zhang et al., 2008; Yu et al., 2010), reduce
+tau levels and a new compound, platycodin D has just been
+discovered (Li et al., 2017). Platycodin D does not aﬀect the
+ATPase activity of Hsp90, but instead disrupts the interaction
+between Hsp90 and Cdc37 leading to client protein degradation
+without an increase in Hsp70 (Li et al., 2017)."
+a(CHEBI:celastrol) -| act(p(FPLX:HSP90))
+a(CHEBI:"withaferin A") -| act(p(FPLX:HSP90))
+a(CHEBI:celastrol) -| p(HGNC:MAPT)
+a(CHEBI:"withaferin A") -| p(HGNC:MAPT)
+a(PUBCHEM:"162859") -| complex(p(FPLX:HSP90),p(HGNC:CDC37))
+
+SET Evidence = "Interestingly, one study demonstrated that patients
+chronically treated with FK506, which inhibits the PPIase domain
+of many of the FKBPs, signiﬁcantly reduced the incidence of
+AD (Taglialatela et al., 2015)."
+a(PUBCHEM:"4456430") -| path(MESH:"Alzheimer Disease")
+
+SET Evidence = "Additionally, Aha1-speciﬁc inhibitors have been
+recently developed (Hall et al., 2014). One of these inhibitors,
+KU-177, reduced insoluble tauP301L levels in cells (Shelton et al.,
+2017). "
+a(HBP:"KU-177") -| p(HGNC:MAPT, var("p.Pro301Leu"))
