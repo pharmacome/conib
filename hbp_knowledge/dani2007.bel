@@ -1,0 +1,385 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Nicotinic Acetylcholine Receptors and Nicotinic Cholinergic Mechanisms of the Central Nervous System"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Esther Wollert and Charles Tapley Hoyt"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73ec5665b99a7a4b84edd84bbd46b34fac335358/external/mesh-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "17009926"}
+
+SET Evidence = "Presynaptic and preterminal nicotinic receptors enhance neurotransmitter release, and postsynaptic and nonsynaptic nAChRs mediate excitation as well as activity-dependent modulation of circuits and intracellular enzymatic processes. "
+SET MeSHAnatomy = "Presynaptic Terminals"
+p(FPLX:CHRN) -> bp(GO:"neurotransmitter secretion")
+UNSET MeSHAnatomy
+#SET MeSHAnatomy = "Post-Synaptic Density" ????
+p(FPLX:CHRN) reg bp(GO:"rhythmic excitation")
+p(FPLX:CHRN) reg bp(GO:"neuron remodeling")
+
+SET Evidence = "By modulating activity-dependent events, nAChRs participate in fundamental aspects of synaptic plasticity that are involved in attention, learning, memory, and development (3, 12–16)."
+p(FPLX:CHRN) -- bp(GO:"regulation of synaptic plasticity")
+p(FPLX:CHRN) -- path(MESH:Attention)
+p(FPLX:CHRN) -- bp(GO:learning)
+p(FPLX:CHRN) -- bp(GO:memory)
+p(FPLX:CHRN) -- bp(GO:"developmental process")
+
+SET Evidence = "Decline, disruption, or alterations of nicotinic cholinergic mechanisms have been implicated in various dysfunctions, such as schizophrenia, epilepsy, autism, Alzheimer’s disease (AD), and addiction (17–23)."
+p(FPLX:CHRN) -- path(MESH:Schizophrenia)
+p(FPLX:CHRN) -- path(MESH:Epilepsy)
+p(FPLX:CHRN) -- path(MESH:"Autistic Disorder")
+p(FPLX:CHRN) -- path(MESH:"Alzheimer Disease")
+p(FPLX:CHRN) -- path(MESH:"Behavior, Addictive")
+
+SET Evidence = "Mammalian nAChRs are cation selective, being permeable to small monovalent and divalent cations."
+p(FPLX:CHRN) -> tloc(a(MESH:"Cations, Monovalent"), MESH:"Extracellular Space", MESH:"Intracellular Space")
+p(FPLX:CHRN) -> tloc(a(MESH:"Cations, Monovalent"), MESH:"Intracellular Space", MESH:"Extracellular Space")
+p(FPLX:CHRN) -> tloc(a(MESH:"Cations, Divalent"), MESH:"Extracellular Space", MESH:"Intracellular Space")
+p(FPLX:CHRN) -> tloc(a(MESH:"Cations, Divalent"), MESH:"Intracellular Space", MESH:"Extracellular Space")
+
+SET Evidence = "Nicotinic receptor activity causes depolarization, and the divalent cation perme-
+ability plays an important physiological role by supplying ionic signals, including
+calcium (39–41)."
+act(p(FPLX:CHRN)) -> bp(GO:"membrane depolarization")
+
+SET Evidence = "Similarly, replacement of the α7 leucine at the synaptic, extracellular end (position 254 or 255) of the pore by threonine dramatically reduced the calcium permeability of the α7 receptors."
+p(HGNC:CHRNA7, sub(L,254,T)) -| tloc(a(CHEBI:"calcium(2+)"), MESH:"Extracellular Space", MESH:"Intracellular Space")
+p(HGNC:CHRNA7, sub(L,254,T)) -| tloc(a(CHEBI:"calcium(2+)"), MESH:"Intracellular Space", MESH:"Extracellular Space")
+p(HGNC:CHRNA7, sub(L,255,T)) -| tloc(a(CHEBI:"calcium(2+)"), MESH:"Extracellular Space", MESH:"Intracellular Space")
+p(HGNC:CHRNA7, sub(L,255,T)) -| tloc(a(CHEBI:"calcium(2+)"), MESH:"Intracellular Space", MESH:"Extracellular Space")
+
+SET Evidence = "Unlike many neurotransmitter signals that are shaped by pumps that return the transmitter to the intracellular space, the spread of ACh from the release site is determined by diffusion and by acetylcholinesterase (AChE) hydrolysis of ACh."
+pep(p(HGNC:ACHE)) => deg(a(CHEBI:acetylcholine))
+deg(a(CHEBI:acetylcholine)) -| act(a(CHEBI:acetylcholine))
+
+SET Evidence = "Cholinergic volume transmission enables ACh to diffuse and to act at lower concentrations some distance away from the release site."
+bp(GO:"synaptic transmission, cholinergic") -> act(a(CHEBI:acetylcholine))
+
+SET Evidence = "Another important aspect of this diffusive ACh signal is that its eventual hydrolysis
+creates choline, which also activates and desensitizes nAChRs in a subtype-selective
+manner (54, 55)."
+pep(p(HGNC:ACHE)) => rxn(reactants(a(CHEBI:acetylcholine)), products(a(CHEBI:choline),a(CHEBI:acetate)))
+a(CHEBI:choline) -> act(p(FPLX:CHRN))
+
+SET Evidence = "The α7 nAChR has a relatively low afﬁnity for ACh activation, with an effective dose for half-activation at approximately 200 μM ACh."
+a(CHEBI:acetylcholine) -> act(p(HGNC:CHRNA7))
+
+SET Evidence = "For example, ivermectin increases the apparent ACh afﬁnity, the slope of the dose-response curve, and the amplitude of nAChR responses (68)."
+composite(a(CHEBI:ivermectin),a(CHEBI:acetylcholine)) -> act(p(FPLX:CHRN))
+
+SET Evidence = "Ivermectin is an example of a positive allosteric effector that modiﬁes the pharmacological profile of the α7 nAChR."
+a(CHEBI:ivermectin) reg act(p(HGNC:CHRNA7))
+
+SET Evidence = "Dimethylphenylpiperazidium (DMPP) normally is a partial agonist at this receptor subtype, but it becomes almost a full agonist following ivermectin exposure (68)."
+composite(a(CHEBI:ivermectin),a(CHEBI:"1,1-dimethyl-4-phenylpiperazinium iodide")) -> act(p(HGNC:CHRNA7))
+
+SET Evidence = "5-Hydroxy-indol (5-HI) allosterically increases the α7 ACh-induced responses without modifying the response time course or sensitivity to the agonist (69)."
+composite(a(CHEBI:"5-hydroxyindole"),a(CHEBI:acetylcholine)) -> act(p(HGNC:CHRNA7))
+
+SET Evidence = "Another allosteric effector, 1-(5-chloro-2,4-dimethoxy-phenyl)-3-(5-methyl-isoxazol-3-yl)-urea (PNU-120596), dramatically modiﬁes the response time course, ampliude of the current, and agonist sensitivity of the rat and human α7 nAChRs (70)."
+a(CHEBI:"1-(5-chloro-2,4-dimethoxyphenyl)-3-(5-methyl-3-isoxazolyl)urea") reg act(p(HGNC:CHRNA7))
+
+SET Evidence = "Dephosphorylation of the α7 receptor by genistein causes a signiﬁcant increase of ACh-evoked responses without modifying the response time course or ACh sensitivity (71, 72)."
+a(CHEBI:genistein) -| p(HGNC:CHRNA7, pmod(Ph))
+p(HGNC:CHRNA7, pmod(Ph)) -| act(p(HGNC:CHRNA7))
+
+SET Evidence = "Results show that genistein does not alter the surface expression of nAChRs, but rather it modiﬁes nAChRs in the cell membrane (71)."
+a(CHEBI:genistein) causesNoChange surf(p(FPLX:CHRN))
+SET MeSHAnatomy = "Cell Membrane"
+a(CHEBI:genistein) reg p(FPLX:CHRN)
+UNSET MeSHAnatomy
+
+SET Evidence = "Furthermore, Src-family kinases (SFKs) directly phosphorylate the cytoplasmic loop of α7 nAChRs in the plasma membrane."
+SET MeSHAnatomy = "Cell Membrane"
+kin(p(FPLX:SRC)) -> p(HGNC:CHRNA7, pmod(Ph))
+UNSET MeSHAnatomy
+
+SET Evidence = "Activation of presynaptic nAChRs increases the release of many different neurotransmitters (1, 2, 4, 5, 40, 41, 77–83)."
+SET MeSHAnatomy = "Presynaptic Terminals"
+act(p(FPLX:CHRN)) -> bp(GO:"neurotransmitter secretion")
+UNSET MeSHAnatomy
+
+SET Evidence = "Exogenously applied nicotinic agonists enhance and nicotinic antagonists often diminish the release of ACh, dopamine (DA), norepinephrine, and serotonin, as well as glutamate and GABA."
+a(CHEBI:"nicotinic acetylcholine receptor agonist") -> sec(a(CHEBI:acetylcholine))
+a(CHEBI:"nicotinic acetylcholine receptor agonist") -> sec(a(CHEBI:dopamine))
+a(CHEBI:"nicotinic acetylcholine receptor agonist") -> sec(a(CHEBI:noradrenaline))
+a(CHEBI:"nicotinic acetylcholine receptor agonist") -> sec(a(CHEBI:serotonin))
+a(CHEBI:"nicotinic acetylcholine receptor agonist") -> sec(a(CHEBI:"glutamate(2-)"))
+a(CHEBI:"nicotinic acetylcholine receptor agonist") -> sec(a(CHEBI:"gamma-aminobutyric acid"))
+a(CHEBI:"nicotinic antagonist") -| sec(a(CHEBI:acetylcholine))
+a(CHEBI:"nicotinic antagonist") -| sec(a(CHEBI:dopamine))
+a(CHEBI:"nicotinic antagonist") -| sec(a(CHEBI:noradrenaline))
+a(CHEBI:"nicotinic antagonist") -| sec(a(CHEBI:serotonin))
+a(CHEBI:"nicotinic antagonist") -| sec(a(CHEBI:"glutamate(2-)"))
+a(CHEBI:"nicotinic antagonist") -| sec(a(CHEBI:"gamma-aminobutyric acid"))
+
+SET Evidence = "Nicotinic receptors mediate a small direct calcium inﬂux (42–44, 85)."
+act(p(FPLX:CHRN)) -> tloc(a(CHEBI:"calcium(2+)"), MESH:"Extracellular Space", MESH:"Intracellular Space")
+
+SET Evidence = "This calcium inﬂux can trigger calcium-induced calcium release from intracellular stores (86)."
+tloc(a(CHEBI:"calcium(2+)"), fromLoc(MESH:"Extracellular Space"), toLoc(MESH:"Intracellular Space")) -> tloc(a(CHEBI:"calcium(2+)"), fromLoc(MESH:"Intracellular Space"), toLoc(GO:cytosol))
+
+SET Evidence = "In addition, nAChR activity produces a depolarization that activates voltage-gated calcium channels in the presynaptic terminal (87). "
+SET MeSHAnatomy = "Presynaptic Terminals"
+act(p(FPLX:CHRN)) -> bp(GO:"membrane depolarization")
+bp(GO:"membrane depolarization") -> act(complex(GO:"voltage-gated calcium channel complex"))
+UNSET MeSHAnatomy
+
+SET Evidence = "Nicotinic stimulation enhances glutamate release on multiple timescales, extending from seconds to a few minutes (81), and contributes to the induction of synaptic plasticity (4, 13, 14, 16, 88)."
+act(p(FPLX:CHRN)) -> sec(a(CHEBI:"glutamate(2-)"))
+act(p(FPLX:CHRN)) -> bp(GO:"regulation of synaptic plasticity")
+
+SET Evidence = "In some cases, the highly calcium-permeable α7-containing (α7∗) nAChRs mediate the increased release of neurotransmitter, but in other cases different nAChR subtypes are involved."
+p(HGNC:CHRNA7) -> bp(GO:"neurotransmitter secretion")
+
+SET Evidence = "Preterminal nAChRs located before the presynaptic terminal
+bouton indirectly affect neurotransmitter release by activating voltage-gated channels
+and, potentially, initiating action potentials (78, 91, 93)."
+p(HGNC:CHRNA7) -> act(complex(GO:"voltage-gated calcium channel complex"))
+
+SET Evidence = "This effect of preterminal nAChRs is inhibited by tetrodotoxin, which blocks sodium channels and, thus, prevents the regenerative voltage-dependent activation of calcium channels in the presynaptic bouton."
+SET MeSHAnatomy = "Presynaptic Terminals"
+a(CHEBI:tetrodotoxin) -| act(complex(GO:"voltage-gated calcium channel complex"))
+UNSET MeSHAnatomy
+
+SET Evidence = "Furthermore, by directly exciting or by shunting the progress of an action potential at a bifurcation, axonal or dendritic nAChRs alter the spread of neuronal excitation."
+SET Cell = "neuron"
+SET MeSHAnatomy = {"Axons","Dendrites"}
+p(FPLX:CHRN) reg bp(GO:"rhythmic excitation")
+UNSET Cell
+UNSET MeSHAnatomy
+
+SET Evidence = "Presynaptic and preterminal nAChRs increase the release of neurotransmitters in the hippocampus, particularly the main neurotransmitters, GABA and glutamate (41, 78, 81, 97)."
+SET MeSHAnatomy = {"Presynaptic Terminals","Hippocampus"}
+p(FPLX:CHRN) -> bp(GO:"neurotransmitter secretion")
+p(FPLX:CHRN) -> sec(a(CHEBI:"gamma-aminobutyric acid"))
+p(FPLX:CHRN) -> sec(a(CHEBI:"glutamate(2-)"))
+UNSET MeSHAnatomy
+
+SET Evidence = "In most cases, the exogenously applied ACh caused action potential ﬁring by the GABA neuron that consequently regulated the activity of nearby pyramidal neurons (100, 103)."
+SET MeSHAnatomy = "GABAergic Neurons"
+a(CHEBI:acetylcholine) -> bp(GO:"regulation of action potential firing rate")
+UNSET MeSHAnatomy
+
+SET Evidence = "In the rat CA3 region, spontaneous activation of GABA A receptors produces giant depolarizing potentials, whose frequency is controlled by α7∗ and non-α7 nAChRs."
+SET Species = "10116"
+SET MeSHAnatomy = "CA3 Region, Hippocampal"
+act(complex(GO:"GABA-A receptor complex")) -> bp(GO:"membrane depolarization")
+p(FPLX:CHRN) reg act(complex(GO:"GABA-A receptor complex"))
+UNSET Species
+UNSET MeSHAnatomy
+
+SET Evidence = "Nicotinic receptors also modulate glutamatergic synaptic plasticity."
+SET Cell = "glutamatergic neuron"
+p(FPLX:CHRN) -- bp(GO:"regulation of synaptic plasticity")
+UNSET Cell
+
+SET Evidence = "Activation and desensitization of nAChRs by bath-applied nicotine also increases LTD induced by a stimulus train"
+a(CHEBI:nicotine) -> act(p(FPLX:CHRN))
+act(p(FPLX:CHRN)) -> bp(GO:"long term synaptic depression")
+
+SET Evidence = "Activation of nAChRs on distal apical dendrites depolarizes the cell and promotes action potential ﬁring"
+SET MeSHAnatomy = {"Neocortex","Dendrites"}
+act(p(FPLX:CHRN)) -> bp(GO:"membrane depolarization")
+act(p(FPLX:CHRN)) -> bp(GO:"regulation of action potential firing rate")
+
+SET Evidence = "Acting through these excitatory and inhibitory inputs and nAChRs located on the DA neurons, nicotinic receptors inﬂuence the ﬁring modes and ﬁring frequency of DA neurons (119, 121)."
+#DA neurons = midbrain dopaminergic neuron
+SET Cell = "midbrain dopaminergic neuron"
+p(FPLX:CHRN) -- bp(GO:"regulation of action potential firing rate")
+p(FPLX:CHRN) -- bp(GO:"regulation of action potential firing pattern")
+UNSET Cell
+
+SET Evidence = "Nicotine decreases tonic DA release in the striatum that is evoked by single action potentials (127), and nicotine also alters the frequency dependence of DA release that is electrically evoked by stimulus trains (130, 131)."
+SET MeSHAnatomy = "Corpus Striatum"
+SET Cell = "neuron"
+bp(GO:"action potential") -> sec(a(CHEBI:dopamine))
+a(CHEBI:nicotine) -| sec(a(CHEBI:dopamine))
+UNSET MeSHAnatomy
+UNSET Cell
+
+SET Evidence = "The nicotine initially activates nAChRs on DA neurons, causing an increase in burst ﬁring and overall ﬁring rate (88, 121, 123, 124, 134)."
+SET Cell = "dopaminergic neuron"
+a(CHEBI:nicotine) -> act(p(FPLX:CHRN))
+p(FPLX:CHRN) -> bp(GO:"regulation of action potential firing rate")
+UNSET Cell
+
+SET Evidence = "Simultaneously, nicotine activates presynaptic α7∗ nAChRs, boosting glutamatergic synaptic transmission onto DA neurons (23, 88, 123, 134)."
+SET MeSHAnatomy = "Presynaptic Terminals"
+a(CHEBI:nicotine) -> act(p(HGNC:CHRNA7))
+UNSET MeSHAnatomy
+SET Cell = "dopaminergic neuron"
+act(p(HGNC:CHRNA7)) -> bp(GO:"synaptic transmission, glutamatergic")
+UNSET Cell
+
+SET Evidence = "Postsynaptic β2∗ nAChRs initially depolarize DA neurons, causing them to ﬁre action potentials while presynaptic α7∗ nAChRs boost glutamate release. "
+SET Cell = "dopaminergic neuron"
+SET MeSHAnatomy = "Post-Synaptic Density"
+act(p(HGNC:CHRNB2)) -> bp(GO:"depolarization of postsynaptic membrane")
+bp(GO:"depolarization of postsynaptic membrane") -> bp(GO:"regulation of action potential firing rate")
+SET MeSHAnatomy = "Presynaptic Terminals"
+act(p(HGNC:CHRNA7)) -> sec(a(CHEBI:"glutamate(2-)"))
+UNSET MeSHAnatomy
+UNSET Cell
+
+SET Evidence = " The combination of enhanced glutamatergic release and strong postsynaptic response produces LTP of the glutamatergic afferents."
+SET Cell = "glutamatergic neuron"
+sec(a(CHEBI:"glutamate(2-)")) -> bp(GO:"long-term synaptic potentiation")
+bp(GO:"depolarization of postsynaptic membrane") -> bp(GO:"long-term synaptic potentiation")
+UNSET Cell
+
+SET Evidence = "Nicotinic mechanisms contribute to cognitive function, and the decline of nicotinic mechanisms or loss of nAChRs has been observed in AD, dementia with Lewy bodies, Down syndrome, autism, and Parkinson’s disease (20, 140)."
+act(p(FPLX:CHRN)) negativeCorrelation path(MESH:"Alzheimer Disease")
+act(p(FPLX:CHRN)) negativeCorrelation path(MESH:"Lewy Body Disease")
+act(p(FPLX:CHRN)) negativeCorrelation path(MESH:"Down Syndrome")
+act(p(FPLX:CHRN)) negativeCorrelation path(MESH:"Autistic Disorder")
+act(p(FPLX:CHRN)) negativeCorrelation path(MESH:"Parkinson Disease")
+p(FPLX:CHRN) negativeCorrelation path(MESH:"Alzheimer Disease")
+p(FPLX:CHRN) negativeCorrelation path(MESH:"Lewy Body Disease")
+p(FPLX:CHRN) negativeCorrelation path(MESH:"Down Syndrome")
+p(FPLX:CHRN) negativeCorrelation path(MESH:"Autistic Disorder")
+p(FPLX:CHRN) negativeCorrelation path(MESH:"Parkinson Disease")
+
+SET Evidence = "Genetic evidence has linked nicotinic receptors to epilepsy and schizophrenia, and studies with mutant mice have implicated nAChRs in pain mechanisms, anxiety, and depression."
+p(FPLX:CHRN) -- path(MESH:Epilepsy)
+p(FPLX:CHRN) -- path(MESH:Schizophrenia)
+p(FPLX:CHRN) -- bp(GO:"response to pain")
+p(FPLX:CHRN) -- path(MESH:Anxiety)
+p(FPLX:CHRN) -- path(MESH:Depression)
+
+SET Evidence = "In general, nicotinic agonists improve certain forms of memory, and nicotinic antagonists and cholinergic lesions impair memory (5, 141–145)."
+a(CHEBI:"nicotinic acetylcholine receptor agonist") -> bp(GO:"memory")
+a(CHEBI:"nicotinic antagonist") -| bp(GO:"memory")
+
+SET Evidence = "For example, local infusion of the α7 antagonist, methyllycaconitine (MLA), or the β2∗ antagonist, dihydro-β-erythroidine (DHβE), into the basolateral amygdala, the ventral hippocampus, or the dorsal hippocampus impairs the working memory of rats seeking food reward within a 16-arm radial maze (146–148)."
+SET Species = "10116"
+SET MeSHAnatomy = {"Hippocampus","Amygdala"}
+a(PUBCHEM:5311278) -| act(p(HGNC:CHRNA7))
+a(PUBCHEM:5311278) -| bp(GO:"memory")
+a(CHEBI:"dihydro-beta-erythroidine") -| act(p(HGNC:CHRNB2))
+a(CHEBI:"dihydro-beta-erythroidine") -| bp(GO:"memory")
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "In animal studies, acute and chronic nicotine administration improves working memory, and nicotinic agonists were found to improve learning and memory in humans and nonhuman primates (145)."
+a(CHEBI:nicotine) -> bp(GO:"memory")
+a(CHEBI:"nicotinic acetylcholine receptor agonist") -> bp(GO:"learning")
+a(CHEBI:"nicotinic acetylcholine receptor agonist") -> bp(GO:"memory")
+
+SET Evidence = "During attention tasks, the nicotinic antagonist, mecamylamine, impaired accuracy or reaction time (151, 152) and nicotinic agonists improved accuracy (153). "
+a(CHEBI:Mecamylamine) isA a(CHEBI:"nicotinic antagonist")
+a(CHEBI:Mecamylamine) -| path(MESH:Attention)
+a(CHEBI:"nicotinic acetylcholine receptor agonist") -> path(MESH:Attention)
+
+SET MeSHDisease = "Alzheimer Disease"
+
+SET Evidence = "The most well-appreciated neuronal loss, however, is in the cholinergic system (155, 156), particularly the basal forebrain cholinergic system comprised of the medial septal nucleus, the horizontal and vertical diagonal bands of Broca, and the nucleus basalis of Meynert (157)."
+SET Cell = "cholinergic neuron"
+path(MESH:"Alzheimer Disease") positiveCorrelation bp(GO:"neuron death")
+UNSET Cell
+
+SET Evidence = "As AD worsens, cholinergic neurons are progressively lost and the number of nAChRs declines, particularly in the hippocampus and cortex (140, 158)."
+SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex"}
+SET Cell = "cholinergic neuron"
+path(MESH:"Alzheimer Disease") positiveCorrelation bp(GO:"neuron death")
+path(MESH:"Alzheimer Disease") negativeCorrelation p(FPLX:CHRN)
+UNSET Cell
+UNSET MeSHAnatomy
+
+SET Evidence = "The most commonly prescribed treatments for AD are acetylcholinesterase inhibitors, which decrease the hydrolysis rate of ACh and, thereby, enhance cholinergic signaling. One such drug, galantamine (Reminyl), also potentiates nAChRs (66)."
+a(CHEBI:"EC 3.1.1.7 (acetylcholinesterase) inhibitor") -| path(MESH:"Alzheimer Disease")
+a(CHEBI:"EC 3.1.1.7 (acetylcholinesterase) inhibitor") -| act(p(HGNC:ACHE))
+a(CHEBI:"EC 3.1.1.7 (acetylcholinesterase) inhibitor") -| rxn(reactants(a(CHEBI:acetylcholine)), products(a(CHEBI:choline),a(CHEBI:acetate)))
+a(CHEBI:"EC 3.1.1.7 (acetylcholinesterase) inhibitor") -> act(p(FPLX:CHRN))
+a(CHEBI:galanthamine) isA a(CHEBI:"EC 3.1.1.7 (acetylcholinesterase) inhibitor")
+a(CHEBI:galanthamine) -> act(p(FPLX:CHRN))
+
+SET Evidence = "Consistent with these treatments, nicotinic agents improve cognitive deﬁcits of AD patients (20, 158)."
+a(CHEBI:"nicotinic acetylcholine receptor agonist") -> bp(GO:cognition)
+
+SET Evidence = "Although Aβ peptides negatively alter the cholinergic system at multiple sites, including ACh synthesis, ACh release, and muscarinic receptors (157), the discovery that Aβ1−42 binds to α7 nAChRs with high afﬁnity suggested the potential for
+a causal role of nAChRs in AD (159, 160)."
+a(CHEBI:"amyloid-beta") -| a(CHEBI:acetylcholine)
+a(CHEBI:"amyloid-beta") -| sec(a(CHEBI:acetylcholine))
+a(CHEBI:"amyloid-beta") -| act(p(FPLX:CHRM))
+complex(a(CHEBI:"amyloid-beta polypeptide 42"),p(HGNC:CHRNA7))
+complex(a(CHEBI:"amyloid-beta polypeptide 42"),p(HGNC:CHRNA7)) -- path(MESH:"Alzheimer Disease")
+
+SET Evidence = "This prospect was supported by the finding that α7 nAChRs were found in plaques (159), and α7 and α4 subunits positively correlated with neurons that accumulated Aβ and hyperphosphorylated tau in AD brain tissue (161)."
+p(HGNC:CHRNA7) -- a(HBP:"amyloid-beta aggregates")
+SET MeSHAnatomy = "Brain"
+SET Cell = "neuron"
+p(HGNC:CHRNA7) positiveCorrelation a(CHEBI:"amyloid-beta")
+p(HGNC:CHRNA7) positiveCorrelation p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+p(HGNC:CHRNA4) positiveCorrelation a(CHEBI:"amyloid-beta")
+p(HGNC:CHRNA4) positiveCorrelation p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+UNSET Cell
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+
+SET MeSHDisease = "Epilepsy"
+
+SET Evidence = "A mutation in the gene encoding the α4 nAChR subunit (CHRNA4) causes a genetically transmissible form of epilepsy, which was the ﬁrst discovery of a human disease associated with a neuronal nAChR (165, 166). The mutation has been identiﬁed as a single base substitution converting a serine into threonine (S248F) in the TM2 domain of the α4 subunit (165)."
+p(HGNC:CHRNA4, sub(S,248,T)) -> path(MESH:Epilepsy)
+
+SET Evidence = "Subsequent to the original discovery, several other families suffering from typical ADNFLE or nocturnal frontal lobe epilepsy (NFLE) have been found to have a mutation either in α4 or β2 (encoded by CHRNB2) (165, 166, 168–170)."
+g(HGNC:CHRNA4, var("?")) positiveCorrelation path(MESH:"Autosomal Dominant Nocturnal Frontal Lobe Epilepsy")
+g(HGNC:CHRNB2, var("?")) positiveCorrelation path(MESH:"Autosomal Dominant Nocturnal Frontal Lobe Epilepsy")
+
+#SET Evidence = " Although each mutant displays slightly
+#different characteristics, a shared trait is an increased sensitivity to ACh (173). "
+
+#how to express increased sensitivity?
+
+SET Evidence = " Moreover, although nicotine increases wakefulness in wild-type mice, it does not affect β2−/− mice. Overall, stimulation of nAChRs promotes arousal and REM sleep."
+a(CHEBI:nicotine) -> bp(GO:"circadian sleep/wake cycle, wakefulness")
+act(p(FPLX:CHRN)) -> path(MESH:Arousal)
+act(p(FPLX:CHRN)) -> bp(GO:"circadian sleep/wake cycle, REM sleep")
