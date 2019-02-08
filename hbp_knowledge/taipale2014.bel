@@ -1,0 +1,487 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "A Quantitative Chaperone Interaction Network Reveals the Architecture of Cellular Protein Homeostasis Pathways"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Sandra Spalek"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+SET STATEMENT_GROUP = "Sandra"
+
+# Add statements below this comment
+
+SET Citation = {"PubMed","25036637"}
+
+SET Evidence = "Two subnetworks emerged within this central network, corresponding to known Hsp90 and Hsp70 chaperone
+complexes (Figure 2, blue and orange squares, respectively). These two subnetworks were bridged by a unique set of cochaperones
+(Figure 2, tan squares). Among these were the wellknown bridging factors HOP/STIP1, TPR2/DNAJC7, and CHIP/
+STUB1, validating our approach (Brychzy et al., 2003; Schmid et al., 2012; Xu et al., 2002). Other bridging factors in this
+first tier of organization included members of the Hsp40 chaperone family (DNAJB1 and DNAJB6), HSP70-binding protein 1
+(HSPBP1), the TPR domain protein EDRF1, and the E3 ligase NRDP1/RNF41"
+p(HGNC:STIP1) -> complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:STIP1),p(INTERPRO:"Heat shock protein Hsp90 family"))
+p(HGNC:DNAJC7) -> complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:DNAJC7),p(INTERPRO:"Heat shock protein Hsp90 family"))
+p(HGNC:STUB1) -> complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:STUB1),p(INTERPRO:"Heat shock protein Hsp90 family"))
+p(HGNC:DNAJB1) -> complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:DNAJB1),p(INTERPRO:"Heat shock protein Hsp90 family"))
+p(HGNC:DNAJB6) -> complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:DNAJB6),p(INTERPRO:"Heat shock protein Hsp90 family"))
+p(HGNC:HSPBP1) -> complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:HSPBP1),p(INTERPRO:"Heat shock protein Hsp90 family"))
+p(HGNC:EDRF1) -> complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:EDRF1),p(INTERPRO:"Heat shock protein Hsp90 family"))
+p(HGNC:RNF41) -> complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:RNF41),p(INTERPRO:"Heat shock protein Hsp90 family"))
+
+SET Evidence = "For example, we identified several protein kinases
+that copurified with CDC37, a known kinase-specific Hsp90 cochaperone
+(Taipale et al., 2012)"
+p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(INTERPRO:"Heat shock protein Hsp90 family"))
+
+SET Evidence = "CDC37L1/Harc, a protein that
+is 62% similar to CDC37 (Figure S3A; Scholz et al., 2001), similarly
+interacted very strongly with Hsp90 and several of its cochaperones (Figures 2 and 3B)"
+p(HGNC:CDC37L1) => complex(p(HGNC:CDC37L1),p(INTERPRO:"Heat shock protein Hsp90 family"))
+
+SET Evidence = "For example, CDC37L1 interacted with the bridging factor HOP, whereas
+CDC37 copurified with AHA1 (Figure 3B), but even more
+strikingly, CDC37L1 did not associate with any kinases in AP-MS (Figures 2 and 3B)"
+p(HGNC:CDC37L1) => complex(p(HGNC:CDC37L1),p(HGNC:STIP1))
+p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:AHSA1))
+
+SET Evidence = "CDC37L1 lacks the very N terminus of
+CDC37, which is required for kinase interaction and the cellular
+function of CDC37 (Shao et al., 2003), and is able to mediate
+strong interaction with ARAF when fused to CDC37L1 (Figure S3B)"
+p(INTERPRO:"Cdc37, N-terminal domain") -> act(p(HGNC:CDC37))
+complex(p(INTERPRO:"Cdc37, N-terminal domain"),p(HGNC:CDC37L1)) reg complex(p(INTERPRO:"Cdc37, N-terminal domain"),p(HGNC:CDC37L1),p(HGNC:ARAF))
+
+SET Evidence = "These proteins share an FK506-binding
+domain and one or more TPR domains, which confer interaction with Hsp90 (Figure 3A)."
+#these proteins: FK506-binding protein family
+p(INTERPRO:"Tetratricopeptide repeat") -> complex(a(MESH:"Tacrolimus Binding Proteins"),p(INTERPRO:"Heat shock protein Hsp90 family"))
+
+SET Evidence = "First, FKBP51 interacted with a subset of the kinases that interacted with CDC37 (Figure 3B)"
+p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:AURKB))
+p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:CDK11A))
+p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:CDK1))
+p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:IKBKG))
+p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:CDK4))
+p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:FER))
+p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:CHUK))
+p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:RAF1))
+p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:ABL2))
+p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:ARAF))
+p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:AURKB))
+p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:CDK11A))
+p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:CDK1))
+p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:IKBKG))
+p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:CDK4))
+p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:FER))
+p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:CHUK))
+p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:RAF1))
+p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:ABL2))
+p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:ARAF))
+p(HGNC:FKBP5) -- p(HGNC:CDC37)
+
+SET Evidence = "Second, FKBP51 interacted with the Argonaute proteins AGO1
+and AGO2, which are known Hsp90 clients involved in small
+RNA biogenesis (Iwasaki et al., 2010)"
+p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:AGO1))
+p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:AGO2))
+p(HGNC:AGO1) => complex(p(HGNC:AGO1),p(INTERPRO:"Heat shock protein Hsp90 family"))
+p(HGNC:AGO1) => complex(p(HGNC:AGO2),p(INTERPRO:"Heat shock protein Hsp90 family"))
+p(HGNC:AGO1) pos bp(GO:"ribonucleoprotein complex biogenesis")
+p(HGNC:AGO2) pos bp(GO:"ribonucleoprotein complex biogenesis")
+
+SET Evidence = "Third, FKBP51 associated with three transcription factors (EGLN1, PDCD2, ANKMY2), all of
+which contain an MYND zinc finger domain, suggesting that this
+domain represents an Hsp90-interacting protein fold"
+p(HGNC:FKBP5) -- p(HGNC:EGLN1)
+p(HGNC:EGLN1) -- p(INTERPRO:"Zinc finger, MYND-type")
+p(INTERPRO:"Zinc finger, MYND-type") -> complex(p(HGNC:EGLN1),p(INTERPRO:"Heat shock protein Hsp90 family"))
+p(HGNC:FKBP5) -- p(HGNC:PDCD2)
+p(HGNC:PDCD2) -- p(INTERPRO:"Zinc finger, MYND-type")
+p(INTERPRO:"Zinc finger, MYND-type") ->  complex(p(HGNC:PDCD2),p(INTERPRO:"Heat shock protein Hsp90 family"))
+p(HGNC:FKBP5) -- p(HGNC:ANKMY2)
+p(HGNC:ANKMY2) -- p(INTERPRO:"Zinc finger, MYND-type")
+p(INTERPRO:"Zinc finger, MYND-type") -> complex(p(HGNC:ANKMY2),p(INTERPRO:"Heat shock protein Hsp90 family"))
+
+SET Evidence = "Perhaps most surprisingly, we found that FKBP51 interacted
+with MCM4 and MCMBP (Figure 3B), two subunits of the MCM
+complex that are involved in DNA replication initiation and fork progression"
+p(HGNC:FKBP5) -> complex(p(HGNC:FKBP5),p(HGNC:MCM4))
+p(HGNC:FKBP5) -> complex(p(HGNC:FKBP5),p(HGNC:MCMBP))
+complex(GO:"MCM complex") hasComponents list(p(HGNC:MCM4),p(HGNC:MCMBP))
+p(HGNC:MCMBP) -> bp(GO:"DNA replication initiation")
+p(HGNC:MCMBP) -> bp(GO:"replication fork progression beyond termination site")
+p(HGNC:MCM4) -> bp(GO:"DNA replication initiation")
+p(HGNC:MCM4) ->  bp(GO:"replication fork progression beyond termination site")
+
+SET Evidence = "Indeed, MCMBP interacted with all members
+of the MCM complex and with FKBP51 (Figure S3C)"
+complex(GO:"MCM complex") hasComponents list(p(HGNC:MCM2),p(HGNC:MCM4),p(HGNC:MCM3),p(HGNC:MCM5),p(HGNC:MCM6),p(HGNC:MCM7))
+p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:MCM2))
+p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:MCM3))
+p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:MCM4))
+p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:MCM5))
+p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:MCM6))
+p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:MCM7))
+p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:FKBP5))
+
+SET Evidence = "Corroborating our results, a recent systematic small
+interfering RNA (siRNA) screen identified FKBP51 as a factor in
+modulating the cellular response to DNA damage (Cotta-Ramusino et al., 2011)"
+p(HGNC:FKBP5) reg bp(GO:"cellular response to DNA damage stimulus")
+
+SET Evidence = "For example, the FKBP38 (aka FKBP8) interactome suggested a link to G protein
+signaling through interaction with PDCL, which acts as a chaperone
+for G protein g subunits (Lukov et al., 2006; Figure 3B)."
+p(HGNC:FKBP8) -> complex(p(HGNC:FKBP8),p(HGNC:PDCL))
+p(HGNC:FKBP8) -- bp(GO:"G protein-coupled receptor signaling pathway")
+p(HGNC:PDCL) -- p(INTERPRO:"G-protein, gamma subunit")
+p(HGNC:PDCL) isA a(MESH:"Molecular Chaperones")
+
+SET Evidence = "In contrast, the highly homologous cochaperone FKBP36 (aka
+FKBP6) did not interact with PDCL, but instead associated
+with the oxysterol-binding protein OSBP (Burgett et al., 2011;Figure 3B)"
+p(HGNC:FKBP6) -> complex(p(HGNC:FKBP6),p(HGNC:OSBP))
+
+SET Evidence = "Indeed, OSW-1 treatment led to the
+dissociation of OSBP from FKBP36 (Figure 3C)"
+a(HBP:"OSW-1") -| complex(p(HGNC:FKBP6),p(HGNC:OSBP))
+
+SET Evidence = "BAG proteins comprise a family of homologous cochaperones
+for Hsp70. All of these proteins regulate Hsp70’s ATPase activity,
+interacting with Hsp70 through a conserved BAG domain in their
+C termini (Figure 3D; Kampinga and Craig, 2010)"
+p(INTERPRO:"BAG domain") reg act(p(INTERPRO:"Heat shock protein 70 family"))
+
+SET Evidence = "BAG1 interacted with the E3 ubiquitin ligase Listerin (LTN1),
+which is involved in ribosomal quality control (RQC) of stalled
+polypeptides (Bengtson and Joazeiro, 2010)."
+p(HGNC:BAG1) -> complex(p(HGNC:BAG1),p(HGNC:LTN1))
+p(HGNC:LTN1) -- bp(GO:"protein quality control for misfolded or incompletely synthesized proteins")
+
+SET Evidence = "As previously reported (Fuchs et al., 2010), BAG3 associated
+with the small heat shock proteins Hsp22/HSPB8 and
+Hsp27/HSPB1. In addition, we detected a robust interaction
+with HSF1, the master regulator of the heat-shock response (Figure 3E)"
+p(HGNC:BAG3) -> complex(p(HGNC:HSPB8),p(HGNC:BAG3))
+p(HGNC:BAG3) -> complex(p(HGNC:HSPB1),p(HGNC:BAG3))
+p(HGNC:BAG3) -> complex(p(HGNC:HSF1),p(HGNC:BAG3))
+
+SET Evidence = "BAG5 purification revealed the spindle checkpoint components Mad1/
+MAD1L1 and Mad2/MAD2L1 as the most prominent interactors (Schuyler et al., 2012)."
+p(HGNC:BAG5) -> complex(p(HGNC:MAD1L1),p(HGNC:BAG5))
+p(HGNC:BAG5) -> complex(p(HGNC:MAD2L1),p(HGNC:BAG5))
+
+SET Evidence = "BAG4, in contrast, interacted with three central components of the These three proteins localize to
+cytoplasmic structures known as processing bodies, or P bodies, which are involved in mRNA decapping, degradation,
+and translational silencing (Eulalio et al., 2007): DCP1A, EDC3, and DDX6 (Figure 3E)"
+p(HGNC:BAG4) -> complex(p(HGNC:DCP1A),p(HGNC:BAG4))
+p(HGNC:BAG4) -> complex(p(HGNC:EDC3),p(HGNC:BAG4))
+p(HGNC:BAG4) -> complex(p(HGNC:DDX6),p(HGNC:BAG4))
+
+SET Evidence = "These three proteins localize to cytoplasmic structures known as processing bodies, or P
+bodies, which are involved in mRNA decapping, degradation, and translational silencing (Eulalio et al., 2007)"
+# these three:DCP1A, EDC3, and DDX6
+p(HGNC:DCP1A) -- bp(GO:"cellular protein catabolic process")
+p(HGNC:DCP1A) -- bp(GO:"gene silencing")
+p(HGNC:EDC3) -- bp(GO:"cellular protein catabolic process")
+p(HGNC:EDC3) -- bp(GO:"gene silencing")
+p(HGNC:DDX6) -- bp(GO:"cellular protein catabolic process")
+p(HGNC:DDX6) -- bp(GO:"gene silencing")
+
+SET Evidence = "Thus, BAG4 overexpression disrupted P body organization"
+SET CellLine = "HeLa cell"
+p(HGNC:BAG4) neg complex(GO:"P-body")
+UNSET CellLine
+
+SET Evidence = "We introduced a point mutation in the BAG domain
+of BAG4 (D424A) that disrupts its association with Hsp70 (Briknarova et al., 2002; Figure S3G)"
+p(HGNC:BAG4,var("p.Asp424Ala")) -| complex(p(HGNC:BAG4,var("p.Asp424Ala")),p(INTERPRO:"Heat shock protein 70 family"))
+
+SET Evidence = "However, mutant BAG4 still localized to P bodies and disrupted P body organization at
+high expression levels (Figure S3H)."
+p(HGNC:BAG4,var("p.Asp424Ala")) -- complex(GO:"P-body")
+p(HGNC:BAG4,var("p.Asp424Ala")) neg complex(GO:"P-body")
+
+SET Evidence = "Ganetespib treatment had a strong effect on most Hsp90-
+client interactions. Of the 630 unique proteins that we detected
+by LUMIER assay, 46% significantly decreased their interaction
+with Hsp90beta (change in LUMIER score > 1.5, adjusted p value <0.05; Figure 4A)"
+# Ganetespib: inhibitor of Hsp90
+a(PUBCHEM:23624255) -| act(p(INTERPRO:"Heat shock protein Hsp90 family"))
+a(PUBCHEM:23624255) -| complex(p(HGNC:HSP90AB1),p(HGNC:RPAP3))
+a(PUBCHEM:23624255) -| complex(p(HGNC:HSP90AB1),p(HGNC:SUGT1))
+a(PUBCHEM:23624255) -| complex(p(HGNC:HSP90AB1),p(HGNC:FKBP4))
+
+SET Evidence = "The effect of ganetespib on Hsc70 interactions was more subtle
+but still clearly detectable: 16% of the tested proteins increased
+their interaction with Hsc70 upon ganetespib treatment. This
+was particularly noticeable for proteins that interacted strongly with Hsc70 (Figure 4B)."
+a(PUBCHEM:23624255) -> complex(p(HGNC:HSPA8),p(HGNC:BAG3))
+a(PUBCHEM:23624255) -> complex(p(HGNC:HSPA8),p(HGNC:BAG1))
+a(PUBCHEM:23624255) -> complex(p(HGNC:HSPA8),p(HGNC:BAG4))
+a(PUBCHEM:23624255) -> complex(p(HGNC:HSPA8),p(HGNC:BAG5))
+
+SET Evidence = "A few, mostly cochaperones, decreased
+their interaction with both Hsp90b and Hsc70 (blue circles, Figure 4C)."
+#effect of ganetespib on Hsp90 and Hsc70 interactions
+a(PUBCHEM:23624255) -| complex(p(HGNC:HSP90AB1),p(HGNC:SUGT1))
+a(PUBCHEM:23624255) -| complex(p(HGNC:HSP90AB1),p(HGNC:FKBP4))
+a(PUBCHEM:23624255) -| complex(p(HGNC:HSP90AB1),p(HGNC:FKBP5))
+a(PUBCHEM:23624255) -| complex(p(HGNC:HSPA8),p(HGNC:SUGT1))
+a(PUBCHEM:23624255) -| complex(p(HGNC:HSPA8),p(HGNC:FKBP4))
+a(PUBCHEM:23624255) -| complex(p(HGNC:HSPA8),p(HGNC:FKBP5))
+
+SET Evidence = "Interestingly, five proteins increased their interaction
+with both Hsp90 and Hsp70 after drug treatment (orange circles,Figure 4C)"
+#drug:ganetespib
+a(PUBCHEM:23624255) -> complex(p(HGNC:HSP90AB1),p(HGNC:SIRT6))
+a(PUBCHEM:23624255) -> complex(p(HGNC:HSP90AB1),p(HGNC:AR))
+a(PUBCHEM:23624255) -> complex(p(HGNC:HSPA8),p(HGNC:SIRT6))
+a(PUBCHEM:23624255) -> complex(p(HGNC:HSPA8),p(HGNC:AR))
+
+SET Evidence = "For example, Hsp70 and Hsp90 machineries formed distinct clusters: Hsp70
+clustered together with Hsc70, their nucleotide-exchange factor
+BAG2, and the E3 ligase CHIP (Figure 5A, orange cluster),
+whereas Hsp90 and many of its cochaperones formed a separate
+group (Figure 5A, blue cluster)"
+p(INTERPRO:"Heat shock protein 70 family") => complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:HSPA8),p(HGNC:BAG2),p(HGNC:STUB1))
+
+SET Evidence = "Similarly, three components of the
+proteasome regulatory particle (PSMD4, PSMC1, and ADRM1)
+clustered together, as did the two subunits of the prefoldin complex,
+PFDN2 and PFDN5 (Figure 5A)"
+p(HGNC:PSMD4) => complex(p(HGNC:PSMD4),p(HGNC:PSMC1),p(HGNC:ADRM1))
+complex(GO:"prefoldin complex") hasComponents list(p(HGNC:PFDN2),p(HGNC:PFDN5))
+p(HGNC:PFDN2) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5))
+
+SET Evidence = "Hsp90beta interacted particularly strongly with kinases (Figure 5B, filled
+blue circles), whereas the transcription factors p53 and HSF1
+were among the most Hsp70-biased interactors (Figure 5B,green circles)"
+p(HGNC:HSP90AB1) => complex(p(HGNC:HSP90AB1),a(MESH:"Protein Kinases"))
+p(INTERPRO:"Heat shock protein 70 family") => complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:TP53),p(HGNC:HSF1))
+
+SET Evidence = "BAG proteins interacted more
+strongly with Hsp70B' than with Hsp70 or Hsc70 (Figure S4B and data not shown)"
+p(INTERPRO:"BAG domain superfamily") => complex(p(HGNC:HSPA6),p(INTERPRO:"BAG domain superfamily"))
+p(INTERPRO:"BAG domain superfamily") => complex(p(HGNC:HSPA8),p(INTERPRO:"BAG domain superfamily"))
+
+SET Evidence = "The Hsp90 cochaperone UNC45A, but
+not its homolog UNC45B, were previously described as an
+Hsp90beta-specific cochaperone (Chadli et al., 2008) and this
+held true in our assay. We detected a similar preference for sFKBP38 (Figure 5D)"
+p(HGNC:UNC45A) => complex(p(HGNC:UNC45A),p(HGNC:HSP90AB1))
+
+SET Evidence = "BAG3 and BAG4 showed a strong association only
+with the small heat shock protein Hsp27 (Figure 5F) and the
+mRNA decapping complex member DCP1B, respectively (Figure
+5G), whereas BAG1 interacted with several proteasome subunits (Figure S4C)"
+p(HGNC:BAG3) => complex(p(HGNC:BAG3),p(HGNC:HSPB1))
+p(HGNC:BAG3) => complex(p(HGNC:BAG3),p(HGNC:DCP1B))
+p(HGNC:BAG4) => complex(p(HGNC:BAG4),p(HGNC:HSPB1))
+p(HGNC:BAG4) => complex(p(HGNC:BAG4),p(HGNC:DCP1B))
+p(HGNC:BAG1) => complex(p(HGNC:BAG1),p(HGNC:PSMA5))
+p(HGNC:BAG1) => complex(p(HGNC:BAG1),p(HGNC:PSMC4))
+p(HGNC:BAG1) => complex(p(HGNC:BAG1),p(HGNC:PSMD2))
+
+SET Evidence = "RPN1 interacted strongly with four BAG proteins and with the ubiquitin ligase CHIP. This
+was in contrast to the three other subunits (RPN10, RPN13,
+and RPT2) that primarily interacted with other proteasome subunits (Figures 5I, 5J, and S4E)"
+p(HGNC:PSMD2) => complex(p(HGNC:BAG1),p(HGNC:PSMD2))
+p(HGNC:PSMD2) => complex(p(HGNC:BAG2),p(HGNC:PSMD2))
+p(HGNC:PSMD2) => complex(p(HGNC:BAG3),p(HGNC:PSMD2))
+p(HGNC:PSMD2) => complex(p(HGNC:BAG5),p(HGNC:PSMD2))
+p(HGNC:PSMD2) => complex(p(HGNC:STUB1),p(HGNC:PSMD2))
+p(HGNC:PSMD4) => complex(p(HGNC:USP14),p(HGNC:PSMD4))
+p(HGNC:PSMD4) => complex(p(HGNC:PSMC1),p(HGNC:PSMD4))
+p(HGNC:PSMD4) => complex(p(HGNC:PSMD2),p(HGNC:PSMD4))
+p(HGNC:PSMD4) => complex(p(HGNC:PRPS2),p(HGNC:PSMD4))
+p(HGNC:PSMD4) => complex(p(HGNC:PSMA5),p(HGNC:PSMD4))
+p(HGNC:ADRM1) => complex(p(HGNC:PSMA5),p(HGNC:ADRM1))
+p(HGNC:ADRM1) => complex(p(HGNC:PSMC1),p(HGNC:ADRM1))
+p(HGNC:ADRM1) => complex(p(HGNC:PSMD1),p(HGNC:ADRM1))
+p(HGNC:ADRM1) => complex(p(HGNC:PSMD4),p(HGNC:ADRM1))
+p(HGNC:PSMC1) => complex(p(HGNC:PSMC2),p(HGNC:PSMC1))
+p(HGNC:PSMC1) => complex(p(HGNC:PSMD2),p(HGNC:PSMC1))
+
+SET Evidence = "Although all four subunits are
+part of the base of the proteasome regulatory particle (Lander
+et al., 2012), RPN1 clustered together with Hsp70 rather than
+with the other proteasome subunits (Figure 5A)"
+p(HGNC:PSMD2) => complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:PSMD2))
+
+SET Evidence = "CHIP binds Hsp90 and Hsp70 with
+similar affinities and can regulate the degradation of chaperone
+clients (Kundrat and Regan, 2010)."
+p(HGNC:STUB1) => complex(p(HGNC:STUB1),p(INTERPRO:"Heat shock protein 70 family"))
+p(HGNC:STUB1) => complex(p(HGNC:STUB1),p(FPLX:HSP90))
+p(HGNC:STUB1) reg bp(GO:"cellular protein catabolic process")
+
+SET Evidence = "For example, seven members of the cytoplasmic RNA
+polymerase assembly complex R2TP interacted with the prefoldin subunits PFDN2 and PFDN5"
+complex(GO:"R2TP complex") hasComponents list(p(HGNC:PFDN2),p(HGNC:VBP1),p(HGNC:UXT),p(HGNC:PDRG1),p(HGNC:RPAP3),p(HGNC:POLR3A),p(HGNC:URI1))
+p(HGNC:VBP1) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5),p(HGNC:VBP1))
+p(HGNC:PFDN2) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5))
+p(HGNC:UXT) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5),p(HGNC:UXT))
+p(HGNC:PDRG1) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5),p(HGNC:PDRG1))
+p(HGNC:RPAP3) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5),p(HGNC:RPAP3))
+p(HGNC:POLR3A) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5),p(HGNC:POLR3A))
+p(HGNC:URI1) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5),p(HGNC:URI1))
+
+SET Evidence = "The four proteins in the first cluster (PFDN2 itself, VBP1, UXT, and PDRG1) are all
+prefoldin-like proteins and interacted primarily with PFDN2 and PFDN5."
+p(HGNC:PFDN2) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5))
+p(HGNC:PFDN2) => complex(p(HGNC:PFDN2),p(HGNC:PFDN2))
+p(HGNC:VBP1) => complex(p(HGNC:PFDN2),p(HGNC:VBP1))
+p(HGNC:VBP1) => complex(p(HGNC:PFDN5),p(HGNC:VBP1))
+p(HGNC:UXT) => complex(p(HGNC:PFDN2),p(HGNC:UXT))
+p(HGNC:UXT) => complex(p(HGNC:PFDN5),p(HGNC:UXT))
+p(HGNC:PDRG1) => complex(p(HGNC:PFDN2),p(HGNC:PDRG1))
+p(HGNC:PDRG1) => complex(p(HGNC:PFDN5),p(HGNC:PDRG1))
+
+SET Evidence = "The second cluster (URI1, POLR3A, and RPAP3) interacted
+also with RPAP3 and Hsp90 in addition to the prefoldins (Figure 6B)"
+p(HGNC:URI1) => complex(p(HGNC:RPAP3),p(HGNC:URI1))
+p(HGNC:URI1) => complex(p(FPLX:HSP90),p(HGNC:URI1))
+p(HGNC:POLR3A) => complex(p(HGNC:RPAP3),p(HGNC:POLR3A))
+p(HGNC:POLR3A) => complex(p(FPLX:HSP90),p(HGNC:POLR3A))
+p(HGNC:RPAP3) => complex(p(HGNC:RPAP3),p(HGNC:RPAP3))
+p(HGNC:RPAP3) => complex(p(FPLX:HSP90),p(HGNC:RPAP3))
+
+SET Evidence = "LRR proteins interacted particularly strongly with the SGT1 cochaperone,
+whereas Argonaute proteins bound the protein phosphatase
+PP5 and p23, both of which are well-characterized Hsp90 cochaperones (Figure 6A)"
+p(INTERPRO:"Leucine-rich repeat domain superfamily") => complex(p(INTERPRO:"Leucine-rich repeat domain superfamily"),p(HGNC:SUGT1))
+a(MESH:"Argonaute Proteins") => complex(a(MESH:"Argonaute Proteins"),p(HGNC:PPP5C))
+a(MESH:"Argonaute Proteins") => complex(a(MESH:"Argonaute Proteins"),p(HGNC:PTGES3))
+
+SET Evidence = "NUDC proteins have been found to associate with
+the Hsp90 complex, but the biological roles of these cochaperones
+are largely unknown (Zheng et al., 2011)"
+p(INTERPRO:"NudC family") -- p(INTERPRO:"Heat shock protein Hsp90 family")
+
+SET Evidence = "NUDC interacted strongly with WD40 repeat proteins (Table S1)"
+p(HGNC:NUDC) => complex(p(INTERPRO:"WD40-repeat-containing domain superfamily"),p(HGNC:NUDC))
+
+SET Evidence = "NUDCD3, in contrast, interacted with proteins with Kelch domains (Figure 6G; Table S1)"
+p(HGNC:NUDCD3) => complex(p(HGNC:NUDCD3),p(HGNC:KLHL13))
+p(HGNC:NUDCD3) => complex(p(HGNC:NUDCD3),p(HGNC:KLHL1))
+p(HGNC:NUDCD3) => complex(p(HGNC:NUDCD3),p(HGNC:ENC1))
+
+SET Evidence = "For NUDCD2, the most significant interacting
+protein was FBXO24, an RCC1 repeat protein (Figure 6I)"
+# RCC1 repeat protein: SNX31
+p(HGNC:NUDCD2) => complex(p(HGNC:NUDCD2),p(HGNC:FBXO24))
+p(HGNC:NUDCD2) => complex(p(HGNC:NUDCD2),p(HGNC:SNX31))
+
+SET Evidence = "As expected, CDC37 interacted virtually exclusively with kinases (p < 0.0001,
+Mann-Whitney test; Figure 7A)"
+p(HGNC:CDC37) => complex(a(MESH:"Protein Kinases"),p(HGNC:CDC37))
+
+SET Evidence = "Similarly, although SGT1 interacted
+with some non-LRR proteins, it had significantly stronger
+interactions with LRR proteins than with other domains (p <0.0001)"
+p(HGNC:SUGT1) => complex(p(INTERPRO:"Leucine-rich repeat domain superfamily"),p(HGNC:SUGT1))
+
+SET Evidence = "NUDC selectively associated with WD40 repeats,
+NUDCD2 with RCC1 repeats, and NUDCD3 with Kelch domains
+(p < 0.0001 for each; Figure 7A)"
+p(HGNC:NUDC) => complex(p(INTERPRO:"WD40-repeat-containing domain"),p(HGNC:NUDC))
+p(HGNC:NUDCD2) => complex(p(HGNC:NUDCD2),p(INTERPRO:"Regulator of chromosome condensation, RCC1"))
+p(HGNC:NUDCD3) => complex(p(HGNC:NUDCD3),p(INTERPRO:"Kelch-type beta propeller"))
+
+SET Evidence = "As reported before (Taipale et al.,
+2012), CDC37 interacted with the kinase domain of ARAF, and
+SGT1 interacted with the LRR domain of FBXL2 (Figure 7B)"
+p(HGNC:CFAP100) => complex(p(HGNC:ARAF),p(HGNC:CDC37))
+p(HGNC:SUGT1) => complex(p(INTERPRO:"Leucine-rich repeat"),p(HGNC:SUGT1))
+
+SET Evidence = "NUDC interacted with the WD40 domain of FBXW2, NUDCD2
+interacted with the RCC1 domain of FBXO24, and NUDCD3
+interacted with the Kelch domain of KLHL38 (Figure 7B)"
+p(HGNC:NUDC) => complex(p(INTERPRO:"WD40-repeat-containing domain"),p(HGNC:NUDC))
+p(HGNC:NUDCD2) => complex(p(INTERPRO:"Regulator of chromosome condensation, RCC1"),p(HGNC:NUDCD2))
+p(HGNC:NUDCD3) => complex(p(HGNC:NUDCD3),p(INTERPRO:"Kelch-type beta propeller"))
+
+SET Evidence = "However, AP-MS and LUMIER revealed that it did interact strongly
+with multiple DEAH/DEAD box RNA helicases and several subunits
+of the COPI complex, which regulates retrograde signaling
+between Golgi compartments (Figures 2 and 6E)"
+#it: NUDCD1
+p(HGNC:NUDCD1) => complex(p(HGNC:NUDCD1),p(INTERPRO:"DEAD/DEAH box helicase domain"))
+p(HGNC:NUDCD1) => complex(a(GO:"COPI-coated vesicle"),p(HGNC:NUDCD1))
+a(GO:"COPI-coated vesicle") reg bp(GO:"retrograde transport, vesicle recycling within Golgi")
+
+##########################################################
+
+
+UNSET STATEMENT_GROUP
