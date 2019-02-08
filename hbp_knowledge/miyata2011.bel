@@ -1,0 +1,486 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Molecular chaperones and regulation of tau quality control: strategies for drug discovery in tauopathies"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Sandra Spalek"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+SET STATEMENT_GROUP = "Sandra"
+
+# Add statements below this comment
+
+SET Citation = {"PubMed","21882945"}
+
+SET Evidence = "Tauopathies are a family of neurodegenerative
+disorders characterized by the appearance of
+aggregates of the microtubule-associating protein, tau."
+a(HBP:"Tau aggregates") -> path(MESH:Tauopathies)
+
+SET Evidence = "For example, tau pathology closely correlates to neuron loss and
+cognitive deficits"
+path(MESH:Tauopathies) pos bp(GO:"neuron death")
+path(MESH:Tauopathies) neg bp(GO:cognition)
+
+SET Evidence = "Phosphorylation of tau by the kinases GSK3b,
+Cdk5 and MARK2 is a major regulator of its microtubule interactions"
+act(p(HGNC:GSK3B))  => p(HGNC:MAPT,pmod(Ph))
+act(p(HGNC:CDK5)) => p(HGNC:MAPT,pmod(Ph))
+act(p(HGNC:MARK2)) => p(HGNC:MAPT,pmod(Ph))
+p(HGNC:MAPT,pmod(Ph)) reg complex(p(HGNC:MAPT),a(GO:microtubule))
+
+SET Evidence = "Importantly, MARK2-based phosphorylation of tau is accelerated
+by the priming activity of either Cdk5 or GSK3b [29], suggesting that tau phosphorylation
+involves a series of ordered kinase events."
+act(p(HGNC:MARK2)) => p(HGNC:MAPT,pmod(Ph))
+p(HGNC:GSK3B) -> act(p(HGNC:MARK2))
+p(HGNC:CDK5) -> act(p(HGNC:MARK2))
+
+SET Evidence = "In general, phosphorylation of tau reduces its
+affinity for microtubules [30], while dephosphorylation
+via enzymes such as PP2A and PP5 restores binding"
+p(HGNC:MAPT,pmod(Ph)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
+p(HGNC:MAPT) -> complex(p(HGNC:MAPT),a(GO:microtubule))
+p(HGNC:PPP5C) -| p(HGNC:MAPT,pmod(Ph))
+p(HGNC:PPP2R5B) -| p(HGNC:MAPT,pmod(Ph))
+
+SET Evidence = "However, hyperphosphorylated forms of tau are
+more prone to aggregate, which might decrease
+their solubility and remove them from normal cycling"
+p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> a(HBP:"Tau aggregates")
+
+SET Evidence = "There are no cures for any tauopathy.
+Neuroprotective agents, such as acetylcholinesterase
+inhibitors and NMDA antagonists, have been approved for use in the clinic, based
+on their ability to slow the rate of cognitive
+decline in patients with moderate to severe AD (reviewed in [36])"
+SET MeSHDisease = "Alzheimer Disease"
+a(PUBCHEM:134222899) pos bp(GO:cognition)
+a(CHEBI:"NMDA receptor antagonist") pos bp(GO:cognition)
+UNSET MeSHDisease
+
+SET Evidence = "These efforts have produced early-stage molecules of
+multiple different chemical classes, including
+rhodanine-based inhibitors, phenylthiazolylhydrazides,
+N-phenylamines, anthraquinones, benzothiazoles, phenothiazines and polyphenols [41]"
+# compounds that directly block the aggregation of tau
+a(CHEBI:rhodanine) -| a(HBP:"Tau aggregates")
+a(HBP:"Phenylthiazolyl-hydrazide") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:53789478) -| a(HBP:"Tau aggregates")
+a(CHEBI:anthraquinone) -| a(HBP:"Tau aggregates")
+a(CHEBI:benzothiazoles) -| a(HBP:"Tau aggregates")
+a(CHEBI:phenothiazines) -| a(HBP:"Tau aggregates")
+a(CHEBI:polyphenol) -| a(HBP:"Tau aggregates")
+
+SET Evidence = "All proteins, including tau,
+are subject to extensive regulation by the cellular
+quality control pathways, which carefully control
+the balance between protein expression and
+turnover to maintain healthy protein homeostasis (or proteostasis)"
+bp(HBP:Proteostasis) reg p(HGNC:MAPT)
+bp(HBP:Proteostasis) reg a(MESH:Proteins)
+
+SET Evidence = "Interestingly, tau clearance
+is known to be impaired in the aging brain [45],
+supporting the idea that diminished quality control
+might be conducive to certain tauopathies,
+such as AD, which are linked to aging"
+bp(GO:aging) neg deg(p(HGNC:MAPT))
+
+SET Evidence = "Furthermore, recent evidence suggests that tau
+is essential for the neurotoxicity of amyloid-b, providing a possible link between these classic
+AD targets and suggesting that reductions in tau levels might be important via multiple,
+beneficial mechanisms [46–48]"
+a(CHEBI:"amyloid-beta") -> path(HBP:neurotoxicity)
+p(HGNC:MAPT) -> path(HBP:neurotoxicity)
+
+SET Evidence = "Molecular chaperones are abundant and highly
+conserved proteins that assume an important role in protein quality control"
+a(MESH:"Molecular Chaperones") -- bp(GO:"protein quality control for misfolded or incompletely synthesized proteins")
+
+SET Evidence = "Several members of the chaperone family are upregulated in
+response to stress and, thus, these factors have been termed heat shock proteins (Hsps)"
+bp(GO:"cellular response to stress") -> a(MESH:"Heat-Shock Proteins")
+
+SET Evidence = "The expression of Hsps is regulated by heat shock
+factor 1 (HSF1), which, under stress conditions,
+becomes associated with heat shock elements
+to elevate the transcription of Hsps and other proteins [51]."
+p(HGNC:HSF1) -> a(MESH:"Heat-Shock Proteins")
+
+SET Evidence = "Importantly, the Hsps are also critical at the end of a protein’s life,
+as they facilitate turnover by the proteasome system
+and the clearance of proteotoxic aggregates by autophagy [53]"
+a(MESH:"Heat-Shock Proteins") -> bp(GO:"proteasomal protein catabolic process")
+a(MESH:"Heat-Shock Proteins") -> bp(GO:autophagy)
+
+SET Evidence = "The intrinsic ATPase activity of Hsp70
+is very weak (~0.2 nmol/μg/min) [60] and, under physiological
+conditions, it is regulated by cochaperones, including
+J-proteins and nucleotide exchange factors (NEFs)."
+p(INTERPRO:"Chaperone J-domain superfamily") -> act(p(INTERPRO:"Heat shock protein 70 family"))
+a(MESH:"Guanine Nucleotide Exchange Factors") -> act(p(INTERPRO:"Heat shock protein 70 family"))
+
+SET Evidence = "Briefly, J-proteins cause
+a conformational change in Hsp70s that accelerates
+ATP hydrolysis [61], while NEFs facilitate ADP release [62]"
+p(INTERPRO:"Chaperone J-domain superfamily") -> rxn(reactants(a(CHEBI:ATP)),products(a(CHEBI:ADP),a(CHEBI:"phosphate(3-)")))
+a(MESH:"Guanine Nucleotide Exchange Factors") -> a(CHEBI:ADP)
+
+SET Evidence = "For example, VER-155008 is an ATP-competitive compound developed by
+structure-guided design [69,70]"
+a(PUBCHEM:25195348) -| act(a(MESH:"Adenosine Triphosphatases"))
+
+SET Evidence = "As might be expected given the diverse mechanisms of these compounds, known
+Hsp70 inhibitors represent a variety of chemical classes, including dihydropyrimidines, adenosine
+analogs, polyamines and others (Figure 1) [52,63]. Moreover, many of these inhibitors, including
+methylene blue and MKT-077, have poorly understood mechanisms"
+a(PUBCHEM:1056) -| act(p(INTERPRO:"Heat shock protein 70 family"))
+a(CHEBI:adenosine) -| act(p(INTERPRO:"Heat shock protein 70 family"))
+a(CHEBI:polyamine) -| act(p(INTERPRO:"Heat shock protein 70 family"))
+a(CHEBI:"methylene blue") -| act(p(INTERPRO:"Heat shock protein 70 family"))
+a(PUBCHEM:6444403) -| act(p(INTERPRO:"Heat shock protein 70 family"))
+
+SET Evidence = "Recent structural studies have suggested that Hsp90 functions as a homodimer in which
+the C-terminal domains of two Hsp90 molecules are in contact at the bottom of the ‘V-shaped’ open conformer"
+complex(p(FPLX:HSP90),p(FPLX:HSP90)) -> act(p(FPLX:HSP90))
+
+SET Evidence = "As in the case of Hsp70, cochaperones of Hsp90, such as Aha1, cdc37 and
+TPR domain-containing proteins, regulate its ATPase activity and control its conformational
+transitions (reviewed in [84])."
+p(HGNC:AHSA1) reg act(p(FPLX:HSP90))
+p(HGNC:CDC37) reg act(p(FPLX:HSP90))
+p(INTERPRO:"Tetratricopeptide repeat-containing domain") reg act(p(FPLX:HSP90))
+
+SET Evidence = "Work on Hsp90 inhibitors benefited from the early discovery of the natural product, geldanamycin,
+which competes with ATP and induces destabilization of Hsp90-bound proteins [87]"
+a(CHEBI:"geldanamycin") -| act(p(FPLX:HSP90))
+
+SET Evidence = "Since this discovery, a number of high-affinity analogs, such as 17-AAG, and alternative synthetic
+scaffolds, including radicicol and PU-H71, have been reported (Figure 1) [85,88]. These compounds
+bind in either the N-terminal ATP-binding site (e.g., 17-AAG, radicicol and PU-H71) [89] or
+C-terminal dimerization domain (e.g., novobiocin and A4) [90,91], and they show great promise
+as both anticancer compounds and research tools for understanding Hsp90 biology"
+a(CHEBI:radicicol) => complex(a(CHEBI:radicicol),p(INTERPRO:"Heat shock protein Hsp90, N-terminal"))
+a(CHEBI:radicicol) =| act(p(FPLX:HSP90))
+a(PUBCHEM:9549213) => complex(a(PUBCHEM:9549213),p(INTERPRO:"Heat shock protein Hsp90, N-terminal"))
+a(PUBCHEM:9549213) =| act(p(FPLX:HSP90))
+a(CHEBI:tanespimycin) => complex(a(CHEBI:tanespimycin),p(INTERPRO:"Heat shock protein Hsp90, N-terminal"))
+a(CHEBI:tanespimycin) =| act(p(FPLX:HSP90))
+a(CHEBI:novobiocin) => complex(a(CHEBI:novobiocin),p(INTERPRO:"HSP90, C-terminal domain"))
+a(CHEBI:novobiocin) =| act(p(FPLX:HSP90))
+a(PUBCHEM:501026) => complex(a(PUBCHEM:501026),p(INTERPRO:"HSP90, C-terminal domain"))
+a(PUBCHEM:501026) =| act(p(FPLX:HSP90))
+
+SET Evidence = "More recently, there has also been interest in developing
+compounds, such as celastrol (Figure 1), that selectively disrupt association of co-chaperones
+with Hsp90 as an alternative way to control chaperone activity [93–96]."
+a(CHEBI:celastrol) -- act(p(FPLX:HSP90))
+
+SET Evidence = "These proteins are ATP-independent chaperones that
+undergo homo-oligomerization in response to stress [97,98]"
+#these proteins: Hsp27 oligomers
+bp(GO:"cellular response to stress") -> a(HBP:"Hsp27 oligomers")
+
+SET Evidence = "To allow substrate release, Hsp27 oligomerization is
+reversible; a process that is regulated, at least in part, by phosphorylation"
+bp(GO:phosphorylation) reg a(HBP:"Hsp27 oligomers")
+
+SET Evidence = "During protein quality control, Hsp70, Hsp90 and Hsp27 (and their co-chaperones) often work
+in concert. If prolonged misfolding is detected, the chaperones shuttle the protein to a degradation
+endpoint, such as the proteasome or autophagy"
+p(INTERPRO:"Heat shock protein 70 family") -> bp(GO:"protein quality control for misfolded or incompletely synthesized proteins")
+p(INTERPRO:"Heat shock protein 70 family") -> bp(GO:"proteasomal protein catabolic process")
+p(INTERPRO:"Heat shock protein 70 family") -> bp(GO:autophagy)
+p(FPLX:HSP90) -> bp(GO:"protein quality control for misfolded or incompletely synthesized proteins")
+p(FPLX:HSP90) -> bp(GO:"proteasomal protein catabolic process")
+p(FPLX:HSP90) -> bp(GO:autophagy)
+p(HGNC:HSPB1) -> bp(GO:"protein quality control for misfolded or incompletely synthesized proteins")
+p(HGNC:HSPB1) -> bp(GO:"proteasomal protein catabolic process")
+p(HGNC:HSPB1) -> bp(GO:autophagy)
+
+SET Evidence = "Alternatively, either Hsp70 or Hsp90 can recruit the ubiquitin
+E3 ligase, C-terminal Hsp70 interacting protein (CHIP), to degrade the bound substrate [104]"
+p(INTERPRO:"Heat shock protein 70 family") -> act(p(HGNC:STUB1))
+p(FPLX:HSP90) -> act(p(HGNC:STUB1))
+act(p(HGNC:STUB1)) -> bp(GO:"protein catabolic process")
+
+SET Evidence = "For example, the co-chaperones cdc37, a peptidyl-prolyl cis-trans isomerase (PPIase) family
+member, and p23 are all critical for the transfer of kinases to Hsp90 and maturation of the active protein [76,105]"
+p(HGNC:CDC37) -> complex(a(MESH:"Protein Kinases"),p(FPLX:HSP90))
+p(HGNC:PTGES3) -> complex(a(MESH:"Protein Kinases"),p(FPLX:HSP90))
+
+SET Evidence = "In addition, Hsp90’s hydrolysis of ATP, which is stimulated by Aha1, facilitates
+polypeptide release [82,106] and transfer to CHIP or other E3 ligases [107,108]"
+p(HGNC:AHSA1) -> rxn(reactants(a(CHEBI:ATP)),products(a(CHEBI:ADP),a(CHEBI:"phosphate(3-)")))
+p(HGNC:AHSA1) -> complex(a(CHEBI:polypeptide),p(HGNC:STUB1))
+
+SET Evidence = "Although both Hsp70 and Hsp90 can promote degradation of client proteins, it has
+recently been shown that, functionally, the Hsp70 complex often dominates triage decisions [85,107,109]"
+p(INTERPRO:"Heat shock protein 70 family") -> bp(GO:"protein catabolic process")
+p(FPLX:HSP90) -> bp(GO:"protein catabolic process")
+
+SET Evidence = "However, under potentially proteotoxic conditions, the
+post-translational modifications or mutations that damage tau’s affinity for microtubules and
+favor its aggregation are thought to generate a molecular ‘danger signal’ that specifically alerts
+the quality control system [112,113]."
+p(HGNC:MAPT,var("?")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,var("?")) -| complex(p(HGNC:MAPT),a(GO:microtubule))
+
+SET Evidence = "Hsp70 has been shown to both stabilize binding
+of tau to microtubules [114] and promote its degradation in combination with CHIP [115,116]"
+p(INTERPRO:"Heat shock protein 70 family") -> complex(p(HGNC:MAPT),a(GO:microtubule))
+complex(p(HGNC:STUB1),p(INTERPRO:"Heat shock protein 70 family")) -> deg(p(HGNC:MAPT))
+
+SET Evidence = "In addition, recent work has demonstrated that Hsc70, the constitutive cytosolic form of
+Hsp70s, also dynamically regulates the association of tau with microtubules"
+p(HGNC:HSPA8) reg complex(p(HGNC:MAPT),a(GO:microtubule))
+
+SET Evidence = "In fact, recent work from our group has shown that inhibition of the ATPase
+activity of Hsp70/Hsc70 promotes proteasomal degradation of tau; whereas activation results
+in tau accumulation [117]"
+act(p(INTERPRO:"Heat shock protein 70 family")) -> deg(p(HGNC:MAPT))
+act(p(HGNC:HSPA8)) -> deg(p(HGNC:MAPT))
+
+SET Evidence = "Hsp90 was also shown to increase association of tau with microtubules [114]; however, its binding
+is not well characterized and it is not known whether this is a direct or indirect process"
+p(FPLX:HSP90) -> complex(p(HGNC:MAPT),a(GO:microtubule))
+
+SET Evidence = "For example, it has recently been shown that Hsp90
+promotes tau’s phosphorylation by its ability to stabilize GSK3b [118]"
+p(FPLX:HSP90) -> p(HGNC:MAPT,pmod(Ph))
+p(FPLX:HSP90) reg act(p(HGNC:GSK3B))
+
+SET Evidence = "However, this issue is more complicated, as other work has shown that chemical
+inhibition of Hsp90 by 17-AAG and other inhibitors reduces cellular levels of two phospho-
+tau species, pS202/T205 and pS396/S404, both of which are relevant to AD pathogenesis [119]."
+a(CHEBI:tanespimycin) -| act(p(FPLX:HSP90))
+a(CHEBI:tanespimycin) -| p(HGNC:MAPT,pmod(Ph,Ser,202),pmod(Ph,Thr,205))
+a(CHEBI:tanespimycin) -| p(HGNC:MAPT,pmod(Ph,Ser,396),pmod(Ph,Ser,404))
+p(HGNC:MAPT,pmod(Ph,Ser,202),pmod(Ph,Thr,205)) pos path(MESH:"Alzheimer Disease")
+p(HGNC:MAPT,pmod(Ph,Ser,396),pmod(Ph,Ser,404)) pos path(MESH:"Alzheimer Disease")
+
+SET Evidence = "Interestingly, it was recently found that reducing the levels of Akt, another client of
+the Hsp90/CHIP complex, facilitates tau degradation [123], suggesting a synchronized balance
+between competing Hsp90 substrates that may be driven, in part, by their relative abundance
+or susceptibility to Hsp90 binding"
+p(HGNC:AKT1) -- complex(p(HGNC:STUB1),p(FPLX:HSP90))
+p(HGNC:AKT1) neg deg(p(HGNC:MAPT))
+
+SET Evidence = "Together, multiple studies suggest that Hsp90
+regulates the stability of both phospho- and mutant-tau"
+p(FPLX:HSP90) reg p(HGNC:MAPT,pmod(Ph))
+p(FPLX:HSP90) reg p(HGNC:MAPT,var("?"))
+
+SET Evidence = "Hsp27 has emerged as a potential target for tau regulation based on early findings that it
+preferentially binds to phosphorylated and hyperphosphorylated tau and promotes their clearance [125,126]"
+p(HGNC:HSPB1) => complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),p(HGNC:HSPB1))
+p(HGNC:HSPB1) => complex(p(HGNC:MAPT,pmod(Ph)),p(HGNC:HSPB1))
+complex(p(HGNC:MAPT,pmod(Ph)),p(HGNC:HSPB1)) -> deg(p(HGNC:MAPT,pmod(Ph)))
+complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),p(HGNC:HSPB1)) -> deg(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)))
+
+SET Evidence = "However, astrocyte-derived Hsp27 has been shown to promote tau accumulation
+and Hsp27 associates with tau tangles in a mouse model [127,128], suggesting a more complex relationship"
+SET Cell = "astrocyte"
+p(HGNC:HSPB1) -> p(HGNC:MAPT)
+UNSET Cell
+SET Species = "10090"
+p(HGNC:HSPB1) => complex(p(HGNC:HSPB1),a(MESH:"Neurofibrillary Tangles"))
+UNSET Species
+
+SET Evidence = "Recently, our group demonstrated that viral delivery of wild-type Hsp27
+into the brains of tau-transgenic mice reduced tau levels and rescued long-term potentiation deficits."
+SET Species = "10090"
+p(HGNC:HSPB1) -| p(HGNC:MAPT)
+p(HGNC:HSPB1) pos bp(GO:"long-term synaptic potentiation")
+UNSET Species
+
+SET Evidence = "BAG1 is upregulated in the hippocampus of AD patients [130], where it
+associates with tau and increases tau levels in cooperation with Hsp70 [131]"
+SET MeSHAnatomy = "Hippocampus"
+p(HGNC:BAG1) pos path(MESH:"Alzheimer Disease")
+p(HGNC:BAG1) => complex(p(HGNC:BAG1),p(HGNC:MAPT))
+complex(p(HGNC:BAG1),p(INTERPRO:"Heat shock protein 70 family")) -> p(HGNC:MAPT)
+UNSET MeSHAnatomy
+
+SET Evidence = "BAG1 silencing decreases tau levels, consistent with a critical
+role for this co-chaperone in protecting tau from degradation."
+p(HGNC:BAG1) -| deg(p(HGNC:MAPT))
+
+SET Evidence = "However, another related BAG family member, BAG2, interacts with Hsp70
+and tau but, unlike BAG1, assists clearance of phosphorylated tau [132]"
+p(HGNC:BAG2) => complex(p(HGNC:BAG2),p(HGNC:MAPT),p(INTERPRO:"Heat shock protein 70 family"))
+p(HGNC:BAG2) -- deg(p(HGNC:MAPT,pmod(Ph)))
+
+SET Evidence = "This co-chaperone is of interest in tauopathies because Hsp110
+knockout mice show an age-dependent accumulation of phosphorylated tau in the hippocampus [135]."
+#this co-chaperone: Hsp110
+SET MeSHAnatomy = "Hippocampus"
+SET Species = "10090"
+p(HGNC:HSPH1) -| p(HGNC:MAPT,pmod(Ph))
+UNSET Species
+UNSET MeSHAnatomy
+
+SET Evidence = "Recently, the co-chaperone FK506-binding protein 51 kDa (FKBP51) has been implicated
+as a modulator of tau binding to microtubules"
+p(HGNC:FKBP5) reg complex(p(HGNC:MAPT),a(GO:microtubule))
+
+SET Evidence = "In relation to tau biology, FKBP51 enhances the association of Hsp90 with tau,
+co-localizes with tau in murine neurons, coimmunoprecipitates
+with tau in AD tissue samples and increases with age in an AD mouse model [136]."
+p(HGNC:FKBP5) -> complex(p(HGNC:MAPT),p(FPLX:HSP90))
+SET MeSHDisease = "Alzheimer Disease"
+p(HGNC:FKBP5) => complex(p(HGNC:MAPT),p(HGNC:FKBP5))
+bp(GO:aging) pos p(HGNC:FKBP5)
+UNSET MeSHDisease
+
+SET Evidence = "These interactions may be functionally important because silencing FKBP51
+reduces tau and phosphorylated-tau levels [136]."
+p(HGNC:FKBP5) -> p(HGNC:MAPT)
+p(HGNC:FKBP5) -> p(HGNC:MAPT,pmod(Ph))
+
+SET Evidence = "Finally, the FKBP51–Hsp90 complex has been proposed to be responsible for the interaction of
+tau with phosphatases, helping to restore binding to microtubules [137]."
+complex(p(HGNC:FKBP5),p(FPLX:HSP90)) -> complex(p(HGNC:MAPT),a(MESH:"Protein Phosphatase 2"))
+complex(p(HGNC:MAPT),a(MESH:"Protein Phosphatase 2")) -> complex(p(HGNC:MAPT),a(GO:microtubule))
+
+SET Evidence = "In this model,accumulation of an Hsp70–substrate complex
+(either via treatment with chemical inhibitors or because of intrinsic properties of the substrate)
+might allow enough time for a degradation factor (e.g., CHIP) to bind and facilitate polyubiquitination."
+complex(p(INTERPRO:"Heat shock protein 70 family"),a(MESH:Proteins)) pos complex(p(HGNC:STUB1),p(INTERPRO:"Heat shock protein 70 family"),a(MESH:Proteins))
+complex(p(HGNC:STUB1),p(INTERPRO:"Heat shock protein 70 family"),a(MESH:Proteins)) -> bp(GO:"protein polyubiquitination")
+
+SET Evidence = "For example, Hsp90 inhibitors cause degradation of tau and many
+cancer-related substrates [85]."
+a(CHEBI:"Hsp90 inhibitor") -> deg(p(HGNC:MAPT))
+
+SET Evidence = "Moreover, these compounds were found to prolong binding of
+Hsp90 to a model substrate, which was sufficient to promote its degradation [142]"
+#these inhibitors: Hsp90 inhibitors
+a(CHEBI:"Hsp90 inhibitor") -> complex(a(MESH:Proteins),p(FPLX:HSP90))
+complex(a(MESH:Proteins),p(FPLX:HSP90)) -> deg(a(MESH:Proteins))
+
+SET Evidence = "The fact that Hsp70 inhibitors reduce tau levels without affecting other likely
+Hsp70 substrates, such as a-synuclein or TDP-43, generally supports the idea that substrates
+are actively involved in dictating their own fate [117]"
+act(p(INTERPRO:"Heat shock protein 70 family")) -> p(HGNC:MAPT)
+
+SET Evidence = "This model is consistent with the data that hyperphosphorylated
+tau appears to be specifically selected for degradation by some chaperone
+machines, such as the Hsp90–FKBP51 complex, without effects on normal tau [132,136]."
+complex(p(HGNC:FKBP5),p(FPLX:HSP90)) -> deg(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)))
+
+SET Evidence = "For example, the Hsp90 inhibitor geldanamycin
+mimics ADP binding, but also inhibits recruitment
+of p23, which is a necessary step in client maturation [145]."
+a(CHEBI:"geldanamycin") -| act(p(FPLX:HSP90))
+a(CHEBI:"geldanamycin") -| complex(p(FPLX:HSP90),p(HGNC:PTGES3))
+
+SET Evidence = "For example, BAG-2 inhibits client ubiquitination by CHIP by interfering with the
+interaction between CHIP and E2 ubiquitin-conjugating enzymes [148]."
+p(HGNC:BAG2) -| act(p(HGNC:STUB1))
+p(HGNC:BAG2) -| bp(GO:"protein ubiquitination")
+act(p(HGNC:STUB1)) -> bp(GO:"protein ubiquitination")
+p(HGNC:BAG2) -| complex(p(HGNC:STUB1),p(HGNC:UBA2))
+
+SET Evidence = "In another example, McClellan et al. showed that von Hippel–Lindau
+tumor-suppressor protein requires Hsp70 for its folding and degradation, whereas Hsp90 is only
+required for degradation [149]."
+complex(p(HGNC:VHL),p(INTERPRO:"Heat shock protein 70 family")) -> deg(p(HGNC:VHL))
+complex(p(HGNC:VHL),p(FPLX:HSP90)) -> deg(p(HGNC:VHL))
+
+SET Evidence = "HOP was also required for degradation, indicating that transfer
+of von Hippel–Lindau from the Hsp70 complex
+to Hsp90 is a necessary part of its degradation pathway."
+#degradation of VHL
+complex(p(HGNC:STIP1),p(HGNC:VHL)) -> deg(p(HGNC:VHL))
+
+SET Evidence = "For example, we found that dihydropyrimidine-based
+molecules can either force the association of a prokaryotic Hsp70 with its J-protein partner
+or, with a relatively modest change in chemical structure, related compounds could block this contact [73]."
+a(PUBCHEM:1056) reg complex(p(INTERPRO:"Chaperone J-domain superfamily"),p(INTERPRO:"Heat shock protein 70 family"))
+
+SET Evidence = "Using high-throughput screening against the J-protein-stimulated ATPase activity
+of an Hsp70, we also found polyphenols that selectively block J-stimulated activities by interfering
+with J-protein recruitment to the Hsp70 complex [72]."
+a(CHEBI:polyphenol) -| complex(p(INTERPRO:"Chaperone J-domain superfamily"),p(INTERPRO:"Heat shock protein 70 family"))
+
+SET Evidence = "However, the mechanisms that link HSF1 induction to
+improved proteostasis are not yet clear"
+p(HGNC:HSF1) -> bp(HBP:Proteostasis)
+
+##########################################################
+
+
+UNSET STATEMENT_GROUP
