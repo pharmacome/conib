@@ -1,0 +1,478 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses = "CC BY-SA 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name = "Interplay of pathogenic forms of human tau with different autophagic pathways"
+SET DOCUMENT Version = "1.0.1"
+SET DOCUMENT Authors = "Sandra Spalek"
+SET DOCUMENT Description = ""
+
+###############
+# Definitions #
+###############
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DNSNP AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY AS PATTERN "^\d+$"
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE GFAM     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE MIRBASE  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE HBP      AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel
+# --------------------------------------------------------------------
+DEFINE NAMESPACE CTO      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE MGI      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
+DEFINE NAMESPACE RGD      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170725.belns"
+DEFINE NAMESPACE SCOMP    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM     AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+DEFINE NAMESPACE INTERPRO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/interpro/interpro-20170731.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+SET STATEMENT_GROUP = "Sandra"
+
+# Add statements below this comment
+
+SET Citation = {"PubMed", "Aging Cell. 2018 Feb;17(1). doi: 10.1111/acel.12692", "29024336"}
+
+SET Evidence = "Loss of neuronal proteostasis, a common feature of the aging
+brain, is accelerated in neurodegenerative disorders, including
+different types of tauopathies"
+SET Confidence = "High"
+SET MeSHAnatomy = {"Neurons","Brain"}
+bp(GO:aging) -> path(MESH:"Proteostasis Deficiencies")
+path(MESH:"Neurodegenerative Diseases") -> path(MESH:"Proteostasis Deficiencies")
+path(MESH:Tauopathies) -> path(MESH:"Proteostasis Deficiencies")
+
+SET Evidence = "In this study, we analyzed the contribution of three different types
+of autophagy, macroautophagy, chaperone-mediated autophagy,
+and endosomal microautophagy to the degradation of
+tau protein variants and tau mutations associated with this agerelated
+disease. We have found that the pathogenic P301L
+mutation inhibits degradation of tau by any of the three
+autophagic pathways, whereas the risk-associated tau mutation
+A152T reroutes tau for degradation through a different autophagy pathway"
+SET Confidence = "High"
+bp(GO:macroautophagy) -> deg(p(MGI:Mapt))
+bp(GO:"chaperone-mediated autophagy") -> deg(p(MGI:Mapt))
+bp(GO:"late endosomal microautophagy") -> deg(p(MGI:Mapt))
+p(MGI:Mapt, var("p.Pro301Leu")) -| deg(p(MGI:Mapt))
+p(MGI:Mapt, var("p.Ala152Thr")) -| deg(p(MGI:Mapt))
+
+SET Evidence = "It is well accepted that loss of proteostasis occurs gradually with age and
+underlies the basis of severe neurodegenerative disorders such as
+Parkinson’s disease, Huntington’s disease, Alzheimer’s disease, and
+other types of frontotemporal dementia (Prahlad & Morimoto, 2009;
+Voisine et al., 2010; Morimoto & Cuervo, 2014)"
+SET Confidence = "High"
+bp(GO:aging) -> path(MESH:"Proteostasis Deficiencies")
+path(MESH:"Neurodegenerative Diseases") -> path(MESH:"Proteostasis Deficiencies")
+path(MESH:"Parkinson Disease") -> path(MESH:"Proteostasis Deficiencies")
+path(MESH:"Huntington Disease") -> path(MESH:"Proteostasis Deficiencies")
+path(MESH:"Frontotemporal Dementia") -> path(MESH:"Proteostasis Deficiencies")
+path(MESH:"Alzheimer Disease") -> path(MESH:"Proteostasis Deficiencies")
+
+SET Evidence = "An increase in overall tau levels has been observed in brains from
+patients bearing either P301L or A152T mutation on tau (Torres et al.,
+1998)"
+SET Confidence = "High"
+SET MeSHAnatomy = "Brain"
+p(MGI:Mapt, var("p.Pro301Leu")) -> p(MGI:Mapt)
+p(MGI:Mapt, var("p.Ala152Thr")) -> p(MGI:Mapt)
+
+SET Evidence = "However, whereas the P301L mutation leads to tau aggregation
+into paired helical filaments (PHFs) (Barghorn et al., 2000), patients with
+the risk-associated A152T mutation display higher abundance of
+oligomers (Coppola et al., 2012)"
+SET Confidence = "High"
+p(MGI:Mapt, var("p.Pro301Leu")) -> a(HBP:HBP00006)
+p(MGI:Mapt, var("p.Pro301Leu")) -> a(HBP:HBP00100)
+p(MGI:Mapt, var("p.Ala152Thr")) -> a(HBP:HBP00009)
+
+SET CellStructure = "Lysosomes"
+
+# WT tau = HBP00053
+
+SET Evidence = "In agreement with our
+previous observations (Wang et al., 2009), we found that lysosomes
+contribute to degradation of WT tau (reflected as an increase in tau
+levels upon blockage of lysosomal proteolysis with inhibitors)"
+SET Confidence = "High"
+a(GO:lysosome) -> deg(a(HBP:HBP00053))
+
+SET Evidence = "This lysosomal degradation occurred, in large part, through CMA, as genetic
+blockage of this pathway almost completely abolished lysosomal
+degradation of WT tau and led to its accumulation (Fig. 1a,b; GAPDH
+is shown as an example of a well-characterized CMA substrate (Aniento
+et al., 1993) known to accumulate intracellularly upon blockage of CMA
+(Schneider et al., 2014))"
+SET Confidence = "High"
+bp(GO:"chaperone-mediated autophagy") -> deg(a(HBP:HBP00053))
+
+SET Evidence = "Tau-A152T displayed very similar degradation
+dynamics, although this mutation slightly reduced tau’s rates of
+lysosomal degradation (20% inhibition) when compared with WT tau
+(Fig. 1a,b)."
+SET Confidence = "High"
+bp(GO:"chaperone-mediated autophagy") -> deg(p(MGI:Mapt, var("p.Ala152Thr")))
+p(HGNC:MAPT, var("p.Ala152Thr")) -| deg(p(MGI:Mapt))
+
+SET Evidence = "Blockage of CMA in cells expressing tau-A152T also resulted
+in significant accumulation of this variant and ablated its lysosomal
+degradation, suggesting preferential degradation of A152T by CMA
+(Fig. 1a,b)"
+SET Confidence = "High"
+bp(GO:"chaperone-mediated autophagy") -> deg(p(MGI:Mapt, var("p.Ala152Thr")))
+
+SET Evidence = "Interestingly, although tau-P301L was not degraded in lysosomes,
+blockage of CMA promoted accumulation of this protein variant, albeit
+at significantly lower levels than WT and A152T. We propose that overall
+loss of proteostasis as a consequence of CMA blockage could indirectly
+affect clearance of tau-P301L through other systems"
+SET Confidence = "Medium"
+bp(GO:"chaperone-mediated autophagy") -> deg(p(MGI:Mapt, var("p.Pro301Leu")))
+bp(GO:"chaperone-mediated autophagy") -| path(MESH:"Proteostasis Deficiencies")
+path(MESH:"Proteostasis Deficiencies") -| deg(p(MGI:Mapt, var("p.Pro301Leu")))
+
+SET Evidence = "Consistent
+with our previous findings (Wang et al., 2009), WT tau is a very efficient
+CMA substrate, to the point that binding is almost undetectable because
+the protein is rapidly internalized (Fig. 1c,d)"
+SET Confidence = "Medium"
+bp(GO:"chaperone-mediated autophagy") -> deg(a(HBP:HBP00053))
+
+SET Evidence = "In contrast, the P301L
+mutation severely impaired lysosomal uptake of tau by CMA, resulting in
+a sixfold decrease in degradation when compared to WT tau protein
+(Fig. 1c,d)"
+SET Confidence = "High"
+p(MGI:Mapt, var("p.Pro301Leu")) -| deg(p(MGI:Mapt))
+p(MGI:Mapt, var("p.Pro301Leu")) -| complex(p(MGI:Mapt),a(GO:lysosome))
+
+SET Evidence = "Reduced tau-P301L uptake is not caused by a problem in
+translocation across the lysosomal membrane, but rather by reduced
+targeting/binding to lysosomes, as we did not detect tau accumulation at
+the lysosomal membrane"
+SET Confidence = "Medium"
+p(MGI:Mapt, var("p.Pro301Leu")) -| complex(p(MGI:Mapt),a(GO:lysosome))
+complex(p(MGI:Mapt, var("p.Pro301Leu")),a(GO:lysosome)) -> tloc(p(MGI:Mapt, var("p.Pro301Leu")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+
+SET Evidence = "This is in clear contrast to other pathogenic
+proteins such as mutant alpha-synuclein or mutant LRRK2 that bind to
+lysosomes but fail to translocate through CMA (Cuervo et al., 2004;
+Orenstein et al., 2013)"
+SET Confidence = "Medium"
+complex(p(MGI:Snca, var("?")),a(GO:lysosome)) -| tloc(p(MGI:Snca, var("?")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+complex(p(MGI:Lrrk2, var("?")),a(GO:lysosome)) -| tloc(p(MGI:Lrrk2, var("?")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+
+SET Evidence = "In the case of tau-A152T, the dynamics of
+internalization/degradation through CMA were comparable to WT tau
+(Fig. 1c,d), in agreement with our studies in intact cells in culture (Fig. 1a,
+b), but we found a significantly higher amount of tau-A152T bound to the
+membrane of CMA-active lysosomes (Fig. 1c,d)"
+SET Confidence = "Medium"
+bp(GO:"chaperone-mediated autophagy") -> deg(p(MGI:Mapt, var("p.Ala152Thr")))
+complex(p(MGI:Mapt, var("p.Ala152Thr")),a(GO:lysosome))
+
+SET Evidence = "Taken together, our in vitro and cell-based studies argue that these
+two point mutations, A152T and P301L, reduce the normal degradation
+of tau by CMA, although the P301L mutation has a more pronounced
+inhibitory effect"
+SET Confidence = "High"
+p(MGI:Mapt, var("p.Pro301Leu")) -| deg(p(MGI:Mapt))
+p(MGI:Mapt, var("p.Ala152Thr")) -| deg(p(MGI:Mapt))
+bp(GO:"chaperone-mediated autophagy") -> deg(p(MGI:Mapt))
+
+UNSET CellStructure
+
+#e-MI = endosomal microautophagy
+
+SET Evidence = "Contrary to WT tau, which accumulates in e-
+MI-defective cells, intracellular levels of A152T and P301L tau did not
+change in cells knocked down for Vps4, suggesting that both point
+mutations in tau compromise its ability to undergo degradation by this
+pathway (Fig. 2a,b)"
+SET Confidence = "High"
+bp(GO:"late endosomal microautophagy") -> deg(a(HBP:HBP00053))
+p(MGI:Mapt, var("p.Pro301Leu")) -| bp(GO:"late endosomal microautophagy")
+p(MGI:Mapt, var("p.Pro301Leu")) -| deg(p(MGI:Mapt, var("p.Pro301Leu")))
+p(MGI:Mapt, var("p.Ala152Thr")) -| bp(GO:"late endosomal microautophagy")
+p(MGI:Mapt, var("p.Ala152Thr")) -| deg(p(MGI:Mapt, var("p.Ala152Thr")))
+
+SET Evidence = "We found that WT
+tau was taken up and efficiently degraded by LE (Fig. 2c,d)"
+SET Confidence = "High"
+a(GO:"late endosome") -> deg(p(MGI:Mapt))
+
+SET Evidence = "This process
+was significantly impaired for tau-P301L and, to higher extent, for tau-
+A152T (Fig. 2c,d)"
+SET Confidence = "High"
+a(GO:"late endosome") -| deg(p(MGI:Mapt, var("p.Pro301Leu")))
+a(GO:"late endosome") -| deg(p(MGI:Mapt, var("p.Ala152Thr")))
+
+SET Evidence = "Macroautophagy blockage resulted
+in preferential accumulation of A152T, but not WT and P301L tau
+(Fig. 2e,f)"
+SET Confidence = "High"
+bp(GO:macroautophagy) -> deg(p(MGI:Mapt, var("p.Ala152Thr")))
+bp(GO:macroautophagy) -| deg(p(MGI:Mapt, var("p.Pro301Leu")))
+bp(GO:macroautophagy) -| deg(p(MGI:Mapt))
+
+SET Evidence = "Cells expressing tau-A152T displayed significantly
+higher rates of intracellular protein degradation than the other cells
+under basal conditions (Fig. 3a)"
+SET Confidence = "High"
+SET CellStructure = "Intracellular Space"
+p(MGI:Mapt, var("p.Ala152Thr")) -> deg(a(MESH:Proteins))
+
+SET Evidence = "A similar significant increase in protein
+degradation was observed in response to serum removal in cells
+expressing either of the mutants (Fig. 3b)"
+#serum removal?
+SET Confidence = "Low"
+SET CellStructure = "Intracellular Space"
+p(MGI:Mapt, var("p.Ala152Thr")) -> deg(a(MESH:Proteins))
+p(MGI:Mapt, var("p.Pro301Leu")) -> deg(a(MESH:Proteins))
+
+SET Evidence = "We did however find that under
+serum deprivation conditions, tau-A152T-expressing cells displayed
+significantly higher CMA (Fig. 3d,e; 30% increase) than control cells"
+SET Confidence = "High"
+p(MGI:Mapt, var("p.Ala152Thr")) -> bp(GO:"chaperone-mediated autophagy")
+
+SET Evidence = "Cells expressing tau-P301L displayed significant upregulation of CMA
+under basal conditions that was no longer observed upon serum removal
+(Fig. 3c–e)"
+SET Confidence = "High"
+p(MGI:Mapt, var("p.Pro301Leu")) -> bp(GO:"chaperone-mediated autophagy")
+
+SET Evidence = "Cells expressing WT tau behave as control cells and
+display a dose-dependent increase in CMA activity upon exposure to
+paraquat (Fig. 3f) or thapsigargin (Fig. 3g)"
+SET Confidence = "High"
+a(CHEBI:paraquat) -> bp(GO:"response to oxidative stress")
+a(CHEBI:thapsigargin) -> bp(GO:"response to endoplasmic reticulum stress")
+composite(a(CHEBI:thapsigargin),a(HBP:HBP00053)) -> bp(GO:"chaperone-mediated autophagy")
+composite(a(CHEBI:paraquat),a(HBP:HBP00053)) -> bp(GO:"chaperone-mediated autophagy")
+
+SET Evidence = "However, cells expressing the
+mutant tau proteins failed to further upregulate CMA and even a
+decrease was noticeable in cells expressing tau-P301L (Fig. 3f,g)"
+SET Confidence = "High"
+composite(a(CHEBI:paraquat),p(MGI:Mapt, var("p.Pro301Leu"))) -| bp(GO:"chaperone-mediated autophagy")
+composite(a(CHEBI:thapsigargin),p(MGI:Mapt, var("p.Pro301Leu"))) -| bp(GO:"chaperone-mediated autophagy")
+composite(a(CHEBI:thapsigargin),p(MGI:Mapt, var("p.Ala152Thr"))) causesNoChange bp(GO:"chaperone-mediated autophagy")
+composite(a(CHEBI:paraquat),p(MGI:Mapt, var("p.Ala152Thr"))) causesNoChange bp(GO:"chaperone-mediated autophagy")
+
+SET Evidence = "As expected,
+fluorescence puncta were visible in transduced control cells (Fig. 4a) and
+blockage of endo/lysosomal degradation with ammonium chloride and
+leupeptin significantly increased the number of fluorescent puncta by
+preventing their degradation (Fig. 4b)"
+SET Confidence = "High"
+composite(a(CHEBI:"ammonium chloride"),a(CHEBI:leupeptin)) -| bp(GO:"late endosomal microautophagy")
+
+SET Evidence = "In the presence of any of the tau
+proteins, we found some sequestration of the probe in the multivesicular
+bodies, albeit significantly less in cells expressing the WT and A152T
+protein"
+SET CellStructure = "Multivesicular Bodies"
+SET Confidence = "High"
+p(MGI:Mapt) -| bp(GO:"late endosomal microautophagy")
+p(MGI:Mapt, var("p.Ala152Thr")) -| bp(GO:"late endosomal microautophagy")
+
+SET Evidence = "We found that abundance of
+autophagic vacuoles (autophagosomes + autolysosomes) significantly
+increased in cells expressing either of the two tau mutants (Fig. 4d,e).
+This increase was mainly due to higher content of autolysosomes (red
+puncta) (Fig. 4d,e), in support of increased macroautophagic flux"
+SET Confidence = "High"
+p(MGI:Mapt, var("p.Ala152Thr")) -> a(GO:autophagosome)
+p(MGI:Mapt, var("p.Ala152Thr")) -> a(GO:autolysosome)
+p(MGI:Mapt, var("p.Ala152Thr")) -> bp(GO:macroautophagy)
+p(MGI:Mapt, var("p.Pro301Leu")) -> a(GO:autophagosome)
+p(MGI:Mapt, var("p.Pro301Leu")) -> a(GO:autolysosome)
+p(MGI:Mapt, var("p.Pro301Leu")) -> bp(GO:macroautophagy)
+
+SET Evidence = "In fact, increased
+macroautophagy may be responsible for the increase in the degradation
+of long-lived proteins that we observed for both mutant forms of tau
+under these conditions (Fig. 3b)"
+SET Confidence = "High"
+p(MGI:Mapt, var("p.Ala152Thr")) -> bp(GO:macroautophagy)
+p(MGI:Mapt, var("p.Pro301Leu")) -> bp(GO:macroautophagy)
+bp(GO:macroautophagy) -> deg(a(MESH:Proteins))
+p(MGI:Mapt, var("p.Ala152Thr")) -> deg(a(MESH:Proteins))
+p(MGI:Mapt, var("p.Pro301Leu")) -> deg(a(MESH:Proteins))
+
+SET Evidence = "In summary, when comparing the pathogenic tau mutation P301L
+with the risk-associated mutation A152T, we found that both reduced
+normal turnover of tau by autophagy, but that the effect of the P301L
+mutation was more pronounced (summarized in Fig. 2g and Fig. S6,
+Supporting information)"
+SET Confidence = "High"
+p(MGI:Mapt, var("p.Pro301Leu")) -| deg(p(MGI:Mapt))
+p(MGI:Mapt, var("p.Ala152Thr")) -| deg(p(MGI:Mapt))
+
+SET Evidence = "The most notable difference between the two
+tau mutants was the inability of P301L to undergo degradation by CMA
+or by macroautophagy"
+SET Confidence = "Medium"
+bp(GO:macroautophagy) causesNoChange deg(p(MGI:Mapt, var("p.Pro301Leu")))
+bp(GO:"chaperone-mediated autophagy") causesNoChange deg(p(MGI:Mapt, var("p.Pro301Leu")))
+
+SET Evidence = "Our previous studies and data presented in this work support substantial
+contribution of CMA to the degradation of wild-type unmodified tau
+(Wang et al., 2009)"
+SET Confidence = "High"
+bp(GO:"chaperone-mediated autophagy") -> deg(p(MGI:Mapt))
+
+SET Evidence = "Interestingly, although judging by the studies in
+intact cells the contribution of e-MI to tau degradation is small (Fig. 2a),
+our in vitro studies with isolated LE revealed a high efficiency for e-MI of
+tau (Fig. 2c)"
+SET Confidence = "High"
+bp(GO:"late endosomal microautophagy") -> deg(p(MGI:Mapt))
+
+#HBP00053 = 2N4R = hTau40
+#HBP00054 = 0N3R
+#HBP00055 = 1N3R
+#HBP00057 = 2N3R
+
+SET Evidence = "Analysis of their uptake by isolated
+CMA-active lysosomes revealed that 2N3R tau behaved similarly to 2N4R
+tau (which we have used in the rest of the study as control)"
+SET Confidence = "High"
+a(HBP:HBP00057) -> tloc(p(MGI:Mapt),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+a(HBP:HBP00057) -> bp(GO:"chaperone-mediated autophagy")
+
+SET Evidence = "Absence of the second N-terminal insert (in 1N3R tau) did not
+reduce CMA of tau, but instead this isoform displayed faster internalization
+(lower binding because of more efficient uptake) (Fig. 5b,c)"
+SET Confidence = "High"
+a(HBP:HBP00055) -> tloc(p(MGI:Mapt),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+
+SET Evidence = "In contrast, once the first N-terminal insert is lost (in 0N3R tau), we
+observed a very pronounced decrease in tau uptake (Fig. 5b,c)"
+SET Confidence = "High"
+a(HBP:HBP00054) -| tloc(p(MGI:Mapt),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+
+SET Evidence = "Absence of the second N-terminal insert also significantly
+reduced e-MI of tau (Fig. 5e,f)"
+SET Confidence = "High"
+a(HBP:HBP00055) -| bp(GO:"late endosomal microautophagy")
+a(HBP:HBP00055) -| deg(p(MGI:Mapt))
+
+SET Evidence = "Interestingly, a deletion of lysine 280 (hTau40 DK280), known to lead
+to tau aggregation (Khlistunova et al., 2006), turned this protein into a
+very poor CMA substrate (Fig. 6a,b)"
+SET Confidence = "Medium"
+p(HBP:HBP00053, var("p.Lys280del")) -> a(HBP:HBP00006)
+p(HBP:HBP00053, var("p.Lys280del")) -| deg(p(HGNC:MAPT))
+
+SET Evidence = "Thus, insertion of two prolines in the DK280
+background (hTau40 DK280/2P), which prevents tau aggregation (Barghorn
+& Mandelkow, 2002), only partially rescued CMA uptake of the
+DK280 mutant (Fig. 6a,b)"
+SET Confidence = "High"
+p(HBP:HBP00053, var("p.Lys280delinsProPro")) -> tloc(p(HBP:HBP00053, var("p.Lys280del")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+p(HBP:HBP00053, var("p.Lys280delinsProPro")) -| a(HBP:HBP00006)
+# hgvs nomenclature was used
+
+SET Evidence = "This conformational change, but not the
+aggregation itself, interferes also with tau degradation by e-MI, as we
+found a significant decrease in the uptake of both mutants by LE (Fig. 6d,e)"
+SET Confidence = "High"
+p(HBP:HBP00053, var("p.Lys280del")) -| tloc(p(HBP:HBP00053, var("p.Lys280del")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+p(HBP:HBP00053, var("p.Lys280delinsProPro")) -| tloc(p(HBP:HBP00053, var("p.Lys280Pro")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+# hgvs nomenclature was used
+
+SET Evidence = "Previous studies have demonstrated that
+oxidized proteins accumulate inside multivesicular bodies (Cannizzo
+et al., 2012), suggesting that oxidation may be a prerequisite to
+complete internalization of tau by e-MI, and that the LE environment
+may contribute to that modification"
+SET Confidence = "High"
+bp(GO:"protein oxidation") -> tloc(p(MGI:Mapt),fromLoc(MESH:"Extracellular Space"),toLoc(GO:"multivesicular body"))
+
+# hTau40 4xKXGE : exchange of Ser262, Ser293, Ser324, and Ser356 to Glu
+# AT8 : phosphorylation at Ser202 and Thr205
+# AT100 : phosphorylation at Ser214 and Thr212
+# PHF-1 : phosphorylation at Ser396 and Ser404
+
+SET Evidence = "The two
+pseudophosphorylated tau proteins (hTau40 AT8/AT100/PHF-1 and
+hTau40 4xKXGE) displayed significantly decreased lysosomal uptake
+when compared to hTau40 WT Tau (Fig. 7a,b)"
+SET Confidence = "High"
+p(HBP:HBP00053, pmod(Ph,Ser,202),pmod(Ph,Thr,205)) -| tloc(p(HBP:HBP00053, pmod(Ph,Ser,202),pmod(Ph,Thr,205)),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+p(HBP:HBP00053, pmod(Ph,Thr,212),pmod(Ph,Ser,214)) -| tloc(p(HBP:HBP00053, pmod(Ph,Thr,212),pmod(Ph,Ser,214)),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+p(HBP:HBP00053, pmod(Ph,Ser,396),pmod(Ph,Ser,404)) -| tloc(p(HBP:HBP00053, pmod(Ph,Ser,396),pmod(Ph,Ser,404)),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+p(HBP:HBP00053, var("p.Ser262Glu"),var("p.Ser293Glu"),var("p.Ser324Glu"),var("p.Ser356Glu")) -| tloc(p(HBP:HBP00053, var("p.Ser262Glu"),var("p.Ser293Glu"),var("p.Ser324Glu"),var("p.Ser356Glu")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+
+# hTau40 4xKXGA : exchange of Ser262, Ser293, Ser324, and Ser356 to Ala
+
+SET Evidence = "Changing glutamic acid for alanine (hTau40
+4xKXGA), which serves as a control for the pseudophosphorylation,
+partially rescued the uptake of this form of tau (Fig. 7a,b"
+SET Confidence = "Low"
+#Glu to Ala
+p(HBP:HBP00053, var("p.Ser262Ala"),var("p.Ser293Ala"),var("p.Ser324Ala"),var("p.Ser356Ala")) -> tloc(p(HBP:HBP00053, var("p.Ser262Ala"),var("p.Ser293Ala"),var("p.Ser324Ala"),var("p.Ser356Ala")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+
+SET Evidence = "Analysis of e-MI of the pseudophosphorylated forms of tau using LE showed reduced
+uptake/degradation of hTau40 AT8/AT100/PHF-1 when compared to
+WT tau (Fig. 7d,e)"
+SET Confidence = "High"
+p(HBP:HBP00053, pmod(Ph,Ser,202),pmod(Ph,Thr,205)) -| deg(p(HBP:HBP00053, pmod(Ph,Ser,202),pmod(Ph,Thr,205)))
+p(HBP:HBP00053, pmod(Ph,Thr,212),pmod(Ph,Ser,214)) -| deg(p(HBP:HBP00053, pmod(Ph,Thr,212),pmod(Ph,Ser,214)))
+p(HBP:HBP00053, pmod(Ph,Ser,396),pmod(Ph,Ser,404)) -| deg(p(HBP:HBP00053, pmod(Ph,Ser,396),pmod(Ph,Ser,404)))
+
+SET Evidence = "This effect was more pronounced in the case of
+hTau40 4xKXGE, whose uptake and degradation by LE was completely
+abolished (Fig. 7d,e), suggesting that phosphorylation in the microtubule-
+binding domain diminishes its degradation by e-MI"
+SET Confidence = "Low"
+p(HBP:HBP00053, var("p.Ser262Glu"),var("p.Ser293Glu"),var("p.Ser324Glu"),var("p.Ser356Glu")) -| deg(p(HBP:HBP00053, var("p.Ser262Glu"),var("p.Ser293Glu"),var("p.Ser324Glu"),var("p.Ser356Glu")))
+
+
+##########################################################
+
+
+UNSET STATEMENT_GROUP
