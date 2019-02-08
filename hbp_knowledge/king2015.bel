@@ -1,0 +1,366 @@
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "king2015"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Rana Aldisi"
+SET DOCUMENT Description = "This file encodes the article Identification and Characterization of a G Protein-binding Cluster in alpha7 Nicotinic Acetylcholine Receptors by King et. al, 2015"
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+SET Citation = {"PubMed", "26088141"}
+
+SET Evidence = "As shown in Fig. 1A, α7 nAChRs were found in association with
+Gαs, Gαq, and Gαi proteins within the hippocampus and prefrontal cortex.
+Striatal fractions suggest α7 interaction with Gαq and Gαi subunits (Fig. 1A)."
+
+SET MeSHAnatomy = {"Hippocampus", "Prefrontal Cortex"}
+
+p(HGNC:GNAS) -> complex(p(HGNC:GNAS), p(HGNC:CHRNA7))
+p(HGNC:GNAQ) -> complex(p(HGNC:GNAQ), p(HGNC:CHRNA7))
+p(HGNC:GNAI1) -> complex(p(HGNC:GNAI1), p(HGNC:CHRNA7))
+p(HGNC:GNAI2) -> complex(p(HGNC:GNAI2), p(HGNC:CHRNA7))
+
+UNSET MeSHAnatomy
+
+SET MeSHAnatomy = "Corpus Striatum"
+
+p(HGNC:GNAQ) -> complex(p(HGNC:GNAQ), p(HGNC:CHRNA7))
+p(HGNC:GNAI1) -> complex(p(HGNC:GNAI1), p(HGNC:CHRNA7))
+p(HGNC:GNAI2) -> complex(p(HGNC:GNAI2), p(HGNC:CHRNA7))
+
+UNSET MeSHAnatomy
+
+SET Evidence = "An association between α7 nAChRs and Gβ was observed in the
+prefrontal cortex and hippocampus, whereas little to no detection of Gαo was
+seen in the adult brain (Fig. 1A)."
+
+SET MeSHAnatomy = {"Prefrontal Cortex", "Hippocampus"}
+
+p(HGNCGENEFAMILY:"G protein subunits beta") -> complex(p(FPLX:"G_protein"), p(HGNC:CHRNA7))
+
+UNSET MeSHAnatomy
+
+SET Evidence = "Gel lanes of the BgtxC were divided into 3 molecular mass
+fractions: F1, 190-90 kDa; F2, 89-45 kDa; and F3, 44-15 kDa (Fig. 1C). Proteomic
+analysis was performed on the individual fractions using tryptic in-gel
+digestion followed by high-performance LC-ESI. A cohort of G proteins was
+identified in the F2 and F3 fractions (Fig. 1D). These G proteins were not
+detected in BgtxC from α7−/− mice (data not shown)."
+
+composite(p(HGNC:CHRNA7), p(MESH:"Heterotrimeric GTP-Binding Proteins"), p(HBP:"alpha-Bungarotoxin")) -> complex(p(MESH:"Heterotrimeric GTP-Binding Proteins"), a(HBP:"alpha-Bungarotoxin"))
+
+SET Evidence = "Sequence alignment of mammalian nAChRs revealed a conservation
+of residues at the GPBC site in the M3-M4 loop (Fig. 2A). Based on amino acid
+similarity we found that α7 nAChRs possess 88% homology with the GyR1 at the
+GPBC (Fig. 2A)."
+# Typo here in GyR1 , should be GlyR1 which means Glycine Receptor 1 (GLRA1)
+
+p(HBP:"GPBC, alpha-7 nAChR") orthologous p(HBP:"GPBC, Glycine Receptor 1")
+
+SET Evidence = "The findings
+confirm that the mutation in α7345–348A does not interfere with the trafficking
+or expression of the nAChR."
+
+p(HGNC:CHRNA7) -> bp(HBP:"nAChR assembly")
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -> bp(HBP:"nAChR assembly")
+
+SET Evidence = "Western blot analysis confirms that transfection of α7 nAChRs
+augments total α7 subunit expression in PC12 cells, which express endogenous α7
+nAChRs. Transfection with α7 (α7+) increased the immunoreactive α7 signal by over
+60% from endogenous mock-transfected control cells, whereas transfection with the
+mutant α7345–348A increased the total α7 signal by 48% over the endogenous α7
+from control cells (Fig. 3A)."
+
+SET MeSHAnatomy = "PC12 Cells"
+
+p(HGNC:CHRNA7) -> p(HGNC:CHRNA7)
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -> p(HGNC:CHRNA7)
+
+UNSET MeSHAnatomy
+
+SET Evidence = "Studies in N2a cells indicate that transfection with α7345–348A
+yields a similar α7 nAChR expression as the wild-type (α7) and supports the
+finding that mutation at the GPBC does not impact the synthesis of the nAChR in
+cells."
+
+SET CellLine = "Neuro-2a cell"
+
+g(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) cnc p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A"))
+
+UNSET CellLine
+
+SET Evidence = "As shown in Fig. 3A, coupling between Gαq and α7 nAChRs was
+virtually abolished by expression of α7345–348A. A noticeable loss in Gαq
+(−62.18%) and Gβγ (−20.03%) expression within the α7 nAChR complex IP was seen
+in cells transfected with α7345–348A (Fig. 3A)."
+
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) =| complex(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), p(HGNC:GNAQ))
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) =| complex(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), p(FPLX:"G_beta") ,p(FPLX:"G_gamma"))
+
+SET Evidence = "An increase in G protein association within the α7 complex was
+observed in α7+ cells (Gαq +16.71%; Gβγ +19.90%) (Fig. 3A). Similar findings in
+transfected N2a cells indicate a loss in G protein association within the α7
+complex when α7345–348A nAChRs are expressed (Fig. 3B). "
+
+p(HGNC:CHRNA7) -> complex(p(HGNC:CHRNA7), p(HGNC:GNAQ))
+p(HGNC:CHRNA7) -> complex(p(HGNC:CHRNA7), p(FPLX:"G_beta") ,p(FPLX:"G_gamma"))
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) =| complex(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), p(HGNC:GNAQ))
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) =| complex(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), p(FPLX:"G_beta") ,p(FPLX:"G_gamma"))
+
+SET Evidence = "The data complements earlier findings on the ability of
+α7345–348A to function as a dominant negative blocker of G protein coupling in
+PC12 cells, and suggests that the GPBC directs nAChR association with Gαq and Gβγ."
+
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) =| complex(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), p(HGNC:GNAQ))
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) =| complex(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), p(FPLX:"G_beta") ,p(FPLX:"G_gamma"))
+
+SET Evidence = "
+In α7+ cells, choline application resulted in a calcium signal that peaked at
+1050% ΔF/Fθ (±176.4%) in the neurite. Calcium transients in the GC were found to
+last for ∼1.6 s in both α7 and α7+ cells peaking at 1396% (±154.4%) and 1316%
+(±146.9%) ΔF/Fθ, relatively (Fig. 4, A and B)."
+
+SET MeSHAnatomy = "Neurites"
+
+
+composite(p(HGNC:CHRNA7), a(CHEBI:choline)) -> a(CHEBI:"calcium(2+)")
+
+UNSET MeSHAnatomy
+
+SET Evidence = "PC12 cells transfected with α7345–348A showed a reduction in
+choline-mediated calcium responses."
+
+SET MeSHAnatomy = "PC12 Cells"
+
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -| act(a(CHEBI:choline))
+act(a(CHEBI:choline)) -> a(CHEBI:"calcium(2+)")
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -| a(CHEBI:"calcium(2+)")
+
+UNSET MeSHAnatomy
+
+SET Evidence = "Most notably, in the GC, the calcium peak values were
+significantly lower in α7345–348A-transfected cells compared with α7 cells after
+Tukey's HSD post hoc comparisons (peak: 741 ± 159.8% ΔF/Fθ, p = 0.006). This
+represents a 46.92% reduction from the α7 baseline calcium response (Fig. 4, A
+and B). This reduction approached significance in the neurite of α7345–348A cells
+(peak: 561 ± 124.9% ΔF/Fθ) (Fig. 4, A and B)"
+
+SET MeSHAnatomy = "Neurites"
+
+composite(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), a(CHEBI:choline)) -| a(CHEBI:"calcium(2+)")
+
+UNSET MeSHAnatomy
+
+SET Evidence = "In N2a cells α7345–348A nAChR expression fostered a weak calcium
+response to (10 mM) choline, whereas expression of α7 nAChRs correlated with
+noticeable choline-induced calcium transient. Imaging studies in N2a cells
+expressing α7345–348A nAChRs indicate a significantly lowered calcium signal peak
+to choline (333.4% ΔF/Fθ ± 35.7%) when compared with N2a cells that express the
+α7nAChR (peak: 581% ΔF/Fθ ± 122.7%; p = 0.04) (Fig. 4, D and E)."
+
+SET CellLine = "Neuro-2a cell"
+
+composite(p(HGNC:CHRNA7), a(CHEBI:choline)) -> a(CHEBI:"calcium(2+)")
+composite(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), a(CHEBI:choline)) -| a(CHEBI:"calcium(2+)")
+
+UNSET CellLine
+
+SET Evidence = "These findings in N2a cells are consistent with data from PC12 cells
+and suggest that α7345–348A nAChR expression impairs nAChR calcium signaling."
+
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -| bp(GO:"calcium-mediated signaling")
+
+SET Evidence = "SP pretreatment did not significantly alter calcium peaks in
+α7345–348A nAChR expressing cells, showing a small (−31.24%) reduction in calcium
+responses relative to the α7345–348A baseline measure (p > 0.05)."
+#SP =D-[7,9,10-Trp]substance P =  GP Antagonist-2A peptide
+a(MESH:"GP Antagonist-2A peptide") cnc a(CHEBI:"calcium(2+)")
+a(MESH:"GP Antagonist-2A peptide") cnc act(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")))
+
+SET Evidence = "Because α7345–348A-
+transfected cells did not show any responsiveness to SP, these findings suggest
+this receptor mutant is not functionally coupled to Gαq."
+
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) =| complex(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), p(HGNC:GNAQ))
+
+SET Evidence = "As shown in Fig. 5, A–C, barium replacement had little to no
+effect on the peak and total calcium transient observed in α7 (peak: 1474.83%
+ΔF/Fθ ± 162.00%; AUC: 693.5% ΔF/Fθ2 × s ± 154.15%) and α7345–348A expressing
+cells (peak: 794% ΔF/Fθ ± 81.36%; AUC: 543.5% ΔF/Fθ2 × s ± 89.59%)."
+
+a(MESH:Barium) cnc bp(GO:"calcium-mediated signaling")
+a(MESH:Barium) cnc act(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")))
+a(MESH:Barium) cnc act(p(HGNC:CHRNA7))
+
+SET Evidence = "As shown in Fig. 5, A–C, nifedipine was found to decrease the
+peak calcium response to choline in PC12 cells (peak: 795.00% ΔF/Fθ ± 107.1%) by
+56.94% (p = 0.003), whereas prolonging the duration of the choline-induced calcium
+transient (AUC: 749.50% ΔF/Fθ2 × s ± 64.02%) in the same cell."
+
+SET MeSHAnatomy = "PC12 Cells"
+
+a(CHEBI:nifedipine) -| act(a(CHEBI:choline))
+a(CHEBI:nifedipine) -| a(CHEBI:"calcium(2+)")
+a(CHEBI:nifedipine) -> bp(GO:"calcium-mediated signaling")
+
+UNSET MeSHAnatomy
+
+SET Evidence = "In α7345–348A nAChR expressing cells, nifedipine had no effect on
+the peak or the duration of the calcium transient (peak: 957.00% ΔF/Fθ ± 252.2%;
+AUC: 333.33% ΔF/Fθ2 × s ± 91.53%) relative to choline treatment alone (Fig. 5,
+A–C). The findings suggest that choline-induced calcium responses in PC12
+cells involve the activity of VGCC (37, 38)."
+
+a(CHEBI:nifedipine) cnc act(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")))
+a(CHEBI:nifedipine) cnc bp(GO:"calcium-mediated signaling")
+act(a(CHEBI:choline)) -- act(a(MESH:"Calcium Channels"))
+a(CHEBI:"calcium(2+)") -- act(a(MESH:"Calcium Channels"))
+
+SET Evidence = "Treatment of PC12 cells with 10 mM choline was associated with a
+translocation of PH-mCherry from the cell surface as determined by the presence
+of the fluorescence signal within 1 μm of the edge of the cell into the cytosol
+of the GC (Fig. 6, A and B). Pre-treatment of cells with SP abolished this
+translocation (Fig. 6B)."
+
+SET MeSHAnatomy = {"PC12 Cells","Cytosol"}
+
+a(CHEBI:choline) -- bp(MESH:"Pleckstrin Homology Domains")
+a(MESH:"GP Antagonist-2A peptide") -| bp(MESH:"Pleckstrin Homology Domains")
+
+UNSET MeSHAnatomy
+
+SET Evidence = "In PC12 cells expressing α7345–348A nAChRs choline had a weak
+effect on PH-mCherry translocation relative to empty plasmid-transfected controls.
+Expression α7345–348A nAChRs was surprisingly associated with strong levels of
+PH-mCherry at the cell surface in the absence of drug treatment (Fig. 6B)."
+
+SET MeSHAnatomy = {"PC12 Cells","Cytosol"}
+
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -| bp(MESH:"Pleckstrin Homology Domains")
+
+SET MeSHAnatomy = "Cell Membrane"
+
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -| bp(MESH:"Pleckstrin Homology Domains")
+
+UNSET MeSHAnatomy
+
+SET Evidence = "Sequential imaging of PH-mCherry and GCaMP5G confirms that choline
+promotes a rise in intracellular calcium and PH-mCherry translocation in the same
+cellular compartment (Fig. 6, B and C). Cytoplasmic translocation of PH-mCherry
+occurred on a slower time scale (40 s after choline application) than peak calcium
+responses (∼1 s after choline application). These kinetics are consistent with the
+translocation of the PH domain sensor in the cell (20, 29)."
+
+SET MeSHAnatomy = "Cytosol"
+
+a(CHEBI:choline) -> bp(MESH:"Pleckstrin Homology Domains")
+
+SET MeSHAnatomy = "Intracellular Space"
+
+a(CHEBI:choline) -> bp(MESH:"Pleckstrin Homology Domains")
+
+UNSET MeSHAnatomy
+
+SET Evidence = "We confirmed the involvement of IP3Rs in choline-induced calcium
+transients at the GC of PC12 cells. Cells were preincubated with the IP3R blocker
+xestospongin C (1 μM) prior to imaging. As shown in Fig. 7, A–C, pretreatment with
+xestospongin C reduced the α7 nAChR calcium response peak by 46.82% in α7 cells
+(peak: 1308.43% ΔF/Fθ ± −238.13%; + xestospongin C = 695.80% ΔF/Fθ ± 101.46%)."
+
+SET MeSHAnatomy = "PC12 Cells"
+
+a(MESH:"xestospongin C") -| act(p(HGNC:CHRNA7))
+a(MESH:"xestospongin C") -| bp(GO:"calcium-mediated signaling")
+
+UNSET MeSHAnatomy
+
+SET Evidence = "Xestospongin C treatment did not impact the calcium peak
+(628.87% ΔF/Fθ ± 69.43%) or total calcium transient (AUC: 443.86% ΔF/Fθ2 ×
+s ± 54.72%; + xestospongin C = 340.39% ΔF/Fθ2 × s ± 96.99%) in α7345–348A
+expressing cells (α7 to α7 + xestospongin C, p = 0.017; α7 to α7345–348A,
+p = 0.013; α7 to α7345-348A + xestospongin C, p = 0.017) (Fig. 7, B and C).
+The data underscores the inability of α7345–348A nAChRs to activate
+intracellular calcium via IP3Rs (18)."
+
+a(MESH:"xestospongin C") -| act(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")))
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -| act(a(CHEBI:"calcium(2+)", loc(GO:intracellular)))
+
+SET Evidence = "As shown in Fig. 8, A and B, IP of the α7 using the C-20 antibody
+suggests that choline application attenuates G protein binding with the nAChR.
+Choline treatment resulted in a 56% reduction in Gαq and 47% reduction in Gβ
+association within the α7 nAChR complex (Fig. 8B). "
+
+a(CHEBI:choline) -| complex(p(HGNC:CHRNA7), p(FPLX:"G_protein"))
+a(CHEBI:choline) -| complex(p(HGNC:CHRNA7), p(HGNC:GNAQ))
+a(CHEBI:choline) -| complex(p(HGNC:CHRNA7), p(HGNCGENEFAMILY:"G protein subunits beta"))
