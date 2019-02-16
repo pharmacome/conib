@@ -310,9 +310,7 @@ composite(p(HGNC:LAMP2),p(HGNC:HSPA8)) -> tloc(p(HGNC:MAPT),fromLoc(GO:cytosol),
 
 SET Evidence = "Wang et al., using an N2a neuroblastoma cell line that expresses the repeat domain of tau with an
 FTD-17 mutation (TauRDΔK280), has demonstrated that tau aggregates can be degraded by macroautophagy [48]"
-SET Cell = "Neuro-2a cell"
 bp(GO:macroautophagy) -> deg(a(HBP:"Tau aggregates"))
-UNSET Cell
 
 SET Evidence = "Lastly, macroautophagy, but not UPS or CMA can clear protein aggregates."
 bp(GO:macroautophagy) -> deg(a(HBP:"protein aggregates"))
@@ -371,8 +369,8 @@ clears via CMA, the pathogenic A53T and A30P variants remain
 bound to LAMP-2, blocking lysosomal degradation by preventing
 binding of other substrate complexes to the receptor [64]."
 bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:SNCA))
-complex(p(HGNC:SNCA,var("p.Ala53Thr"),p(HGNC:LAMP2)) -| bp(GO:"lysosomal protein catabolic process")
-complex(p(HGNC:SNCA,var("p.Ala30Pro"),p(HGNC:LAMP2)) -| bp(GO:"lysosomal protein catabolic process")
+complex(p(HGNC:SNCA,var("p.Ala53Thr")),p(HGNC:LAMP2)) -| bp(GO:"lysosomal protein catabolic process")
+complex(p(HGNC:SNCA,var("p.Ala30Pro")),p(HGNC:LAMP2)) -| bp(GO:"lysosomal protein catabolic process")
 
 SET Evidence = "Another common proteinopathy occurs from the misfolding of TARDNA
 binding protein 43 kDa (TDP-43), which is primarily seen in
@@ -490,7 +488,6 @@ p(HGNC:TFEB) reg bp(GO:autophagy)
 p(HGNC:TFEB) -- path(MESH:"Alzheimer Disease")
 
 SET Evidence = "TFEB at normal state is phosphorylated by mTOR complex 1, which inhibits its activity"
-a(MESH:"Mechanistic Target of Rapamycin Complex 1") -> p(HGNC:TFEB,pmod(Ph))
 p(HGNC:TFEB,pmod(Ph)) -| act(p(HGNC:TFEB))
 
 SET Evidence = "Under starvation or stress, TFEB translocates to the
@@ -526,7 +523,7 @@ p(HGNC:PICALM,var("?")) -- path(MESH:"Alzheimer Disease")
 SET Evidence = "Overexpression of PICALM in APP/PS1 mice substantially
 elevates Aβ levels, whereas knockdown reduces the Aβ plaque load, respectively [98]"
 p(HGNC:PICALM) pos a(CHEBI:"amyloid-beta")
-p(HGNC:PICALM) -> a(MESH:"Plaque, Amyloid")
+p(HGNC:PICALM) -> path(MESH:"Plaque, Amyloid")
 
 SET Evidence = "A recent line of work revealed Aβ-promoting function
 of PICALM by demonstrating that PICALM depletion decreased Aβ
@@ -594,7 +591,7 @@ p(HGNC:TREM2) -> bp(GO:macroautophagy)
 p(HGNC:TREM2) -> bp(GO:"metabolic process")
 UNSET Cell
 
-SEZ Evidence = "TREM2 deficiency in an AD mouse model results in suppressed
+SET Evidence = "TREM2 deficiency in an AD mouse model results in suppressed
 metabolic function in microglia through the dampening of the
 mTOR signaling pathway, which subsequently elicits a compensatory
 autophagic response to address the metabolic defect [109]."
