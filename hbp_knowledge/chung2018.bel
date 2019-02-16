@@ -1,0 +1,742 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Alzheimer’s disease and the autophagic-lysosomal system"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Sandra Spalek"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+SET STATEMENT_GROUP = "Sandra"
+
+# Add statements below this comment
+
+SET Citation = {"PubMed","29758300"}
+
+SET Evidence = "Since Nixon and colleagues first reported the pathological evidence
+of defective macroautophagy in EM images in the AD brain, similar
+observations have been made in cellular and animal models of AD [2,3,7,14]"
+path(MESH:"Alzheimer Disease") neg bp(GO:macroautophagy)
+
+SET Evidence = "Robust AV accumulation in dystrophic neurites from biopsy
+tissues from patients with AD implicate a compromised state of autophagic flux"
+# AV: autophagosome
+path(MESH:"Alzheimer Disease") -> complex(a(HBP:"dystrophic neurite"),a(GO:autophagosome))
+path(MESH:"Alzheimer Disease") neg bp(GO:autophagy)
+
+SET Evidence = "Other studies have also demonstrated the accumulation
+of autolysosomes in the AD brain and experimentally when lysosomal
+proteolysis is compromised via genetic knockdown of specific cathepsins
+or use of pharmacological inhibition of lysosomes [2,3,15]"
+SET MeSHAnatomy = "Brain"
+path(MESH:"Alzheimer Disease") pos a(GO:autolysosome)
+bp(GO:"lysosomal protein catabolic process") -| a(GO:autolysosome)
+UNSET MeSHAnatomy
+
+SET Evidence = "Such evidence of lysosomal proteolytic failure in AD brain further
+strengthens the concept that impaired macroautophagy in AD is a critical event"
+SET MeSHAnatomy = "Brain"
+path(MESH:"Alzheimer Disease") neg bp(GO:"lysosomal protein catabolic process")
+UNSET MeSHAnatomy
+
+SET Evidence = "Defects in macroautophagy in AD are supported by additional lines of evidence"
+path(MESH:"Alzheimer Disease") neg bp(GO:macroautophagy)
+
+SET Evidence = "For example, levels of Beclin 1, a key component of the
+class III type phosphoinositide 3-kinase/VPS34 complex essential to the
+pre-autophagosomal structure (PAS), has been suggested to be reduced
+in AD brains [16,17], with Rohn et al. demonstrating the cleavage of
+Beclin 1 by caspase-3 in the AD brain and colocalization of the cleaved product with NFTs [16]."
+SET MeSHAnatomy = "Brain"
+complex(GO:"phosphatidylinositol 3-kinase complex, class III") hasComponent p(HGNC:BECN1)
+path(MESH:"Alzheimer Disease") neg p(HGNC:BECN1)
+p(HGNC:CASP3) -> p(HGNC:BECN1,frag("?"))
+p(HGNC:BECN1,frag("?")) -- a(GO:"neurofibrillary tangle")
+UNSET MeSHAnatomy
+
+SET Evidence = "Furthermore, presenilin-1, the most common
+mutation associated with early-onset familial AD (FAD), plays an essential
+role in calcium homeostasis and maintaining acidic lysosomal
+pH, with FAD-associated mutations disrupting calcium-dependent
+vATPase function in lysosomes [7,18–20]"
+p(HGNC:PSEN1,var("?")) -- path(MESH:"Alzheimer Disease")
+p(HGNC:PSEN1) -- bp(GO:"calcium ion homeostasis")
+p(HGNC:PSEN1) -- bp(GO:"regulation of lysosomal lumen pH")
+p(HGNC:PSEN1,var("?")) -| act(a(MESH:"Vacuolar Proton-Translocating ATPases"))
+a(CHEBI:"calcium ion") -> act(a(MESH:"Vacuolar Proton-Translocating ATPases"))
+
+SET Evidence = "Recently, a comprehensive investigation utilizing gene expression analysis of the
+hippocampal region (CA1) of patients with Alzheimer’s disease identified
+that autophagosome formation and lysosomal biogenesis genes
+were upregulated at early stages of AD [21]"
+SET MeSHAnatomy = "CA1 Region, Hippocampal"
+path(MESH:"Alzheimer Disease") -> a(GO:lysosome)
+path(MESH:"Alzheimer Disease") -> a(GO:autophagosome)
+UNSET MeSHAnatomy
+
+SET Evidence = "Even early autophagic activation may become impaired due to
+progressively diminishing lysosomal clearance of substrates."
+bp(GO:"lysosomal protein catabolic process") pos bp(GO:autophagy)
+
+SET Evidence = "Maintenance of neuronal macroautophagy can counteract AD pathology [22,23]."
+SET MeSHAnatomy = "Neurons"
+bp(GO:macroautophagy) neg path(MESH:"Alzheimer Disease")
+UNSET MeSHAnatomy
+
+SET Evidence = "For instance, rapamycin, an inhibitor of the Ser/Thr
+protein kinase mammalian target of rapamycin (mTOR), improves
+cognitive function and reduces Aβ in AD mouse model by enhancing autophagic flux [23]."
+a(CHEBI:sirolimus) -| act(p(HGNC:MTOR))
+a(CHEBI:sirolimus) -> bp(GO:cognition)
+a(CHEBI:sirolimus) -| a(CHEBI:"amyloid-beta")
+a(CHEBI:sirolimus) -> bp(GO:autophagy)
+
+SET Evidence = "The presence of aberrant protein aggregates is common to neurodegenerative diseases"
+a(HBP:"protein aggregates") pos path(MESH:"Neurodegenerative Diseases")
+
+SET Evidence = "Accumulation of misfolded proteins and damaged
+organelles is highly detrimental for neuronal homeostasis and survival."
+p(MESH:Proteins,pmod(HBP:misfolding)) -| bp(GO:"neuron cellular homeostasis")
+p(MESH:Proteins,pmod(HBP:misfolding)) -| a(MESH:Neurons)
+
+SET Evidence = "Although the UPS is accountable for the degradation of up to 80–90% of
+proteins, misfolded proteins and aggregates are too large to be processed
+through the proteasome barrel and can impede UPS function by
+physical occlusion, leaving autophagic-lysosomal breakdown as the
+only effective pathway to clear these proteins [25,26]"
+bp(GO:autophagy) -> deg(p(MESH:Proteins,pmod(HBP:misfolding)) )
+bp(GO:autophagy) -> deg(a(HBP:"protein aggregates"))
+
+SET Evidence = "Impairment in the UPS is cardinal to the development of neurodegeneration, in part
+because of its reciprocal interplay with protein aggregation"
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") neg path(HBP:Neurodegeneration)
+
+SET Evidence = "For instance, phosphorylated insoluble tau proteins dampen 26S proteasome
+activity, while activation of the UPS attenuates tauopathy [27]"
+p(HGNC:MAPT,pmod(Ph)) -| act(complex(GO:"proteasome complex"))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -| path(MESH:Tauopathies)
+
+SET Evidence = "With neurons profoundly relying on macroautophagy for clearance of toxic
+protein aggregates, impairment in the proteolytic systems ultimately
+results in progressive neuronal death, a common feature in several
+neurodegenerative diseases [27]."
+bp(GO:macroautophagy) -> deg(a(HBP:"protein aggregates"))
+bp(GO:proteolysis) -| bp(GO:"neuron death")
+bp(GO:"neuron death") -- path(MESH:"Neurodegenerative Diseases")
+
+SET Evidence = "Defective chaperone-mediated autophagy
+(CMA), a type of autophagy that targets proteins with a specific
+KFERQ-like motif recognizable to its chaperones, plays a significant role
+in aggregate formation of disease-related proteins [28]."
+bp(GO:"chaperone-mediated autophagy") -| a(HBP:"protein aggregates")
+
+SET Evidence = "While misfolding of Aβ peptide and hyperphosphorylation of tau are recognized
+as pathogenic mechanisms of AD, accumulation of α-synuclein,
+which is recognized more as a risk factor for Parkinson’s disease
+(PD), also plays a pathological role in AD [29]."
+p(MESH:"Amyloid beta-Peptides",pmod(HBP:misfolding)) -> path(MESH:"Alzheimer Disease")
+p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> path(MESH:"Alzheimer Disease")
+p(HGNC:SNCA) pos path(MESH:"Alzheimer Disease")
+p(HGNC:SNCA) -> path(MESH:"Parkinson Disease")
+
+SET Evidence = "Formation of amyloid β (Aβ) plaques is one of the most notable
+hallmarks in AD pathology [30]"
+a(MESH:"Plaque, Amyloid") pos path(MESH:"Parkinson Disease")
+
+SET Evidence = "Aβ peptides originate from the transmembrane protein amyloid precursor protein (APP) which undergoes
+sequential cleavage via two distinct pathways by the enzyme complexes β- and γ-secretase [31]"
+p(HGNC:APP) -> a(MESH:"Amyloid beta-Peptides")
+complex(GO:"gamma-secretase complex") -> p(HGNC:APP,frag("?"))
+p(HGNC:BACE1) -> p(HGNC:APP,frag("?"))
+
+SET Evidence = "Increased Aβ generation and accumulation in lysosomes suggest
+that Aβ metabolism, at least partially, is regulated by macroautophagy [3,14,32–34]."
+SET CellStructure = "Lysosomes"
+bp(GO:macroautophagy) reg a(CHEBI:"amyloid-beta")
+UNSET CellStructure
+
+SET Evidence = "For instance, while accumulation of Aβ activates the mTOR signaling pathway and subsequently blocks macroautophagy,
+rapamycin reduces the Aβ load by enhancing macroautophagy [32]"
+a(CHEBI:"amyloid-beta") pos act(complex(GO:"TOR complex"))
+a(CHEBI:"amyloid-beta") neg bp(GO:macroautophagy)
+a(CHEBI:sirolimus) -| a(CHEBI:"amyloid-beta")
+a(CHEBI:sirolimus) -> bp(GO:macroautophagy)
+
+SET Evidence = "In line with this, reduced Beclin 1 levels, as seen in AD models [16],
+increase the levels of intracellular and extracellular Aβ peptides, supporting
+the role of macroautophagy in the generation and degradation of Aβ [33,35]."
+path(MESH:"Alzheimer Disease") -| p(HGNC:BECN1)
+p(HGNC:BECN1) -| a(MESH:"Amyloid beta-Peptides")
+bp(GO:macroautophagy) -> deg(a(CHEBI:"amyloid-beta"))
+bp(GO:macroautophagy) reg a(CHEBI:"amyloid-beta")
+
+SET Evidence = "These results may be attributed to coincidental evidence of the involvement of Beclin
+1 in VPS34-mediated trafficking pathways including macroautophagy
+and endocytosis [37], both of which are pronouncedly affected in AD pathology [38]"
+path(MESH:"Alzheimer Disease") neg bp(GO:macroautophagy)
+path(MESH:"Alzheimer Disease") neg bp(GO:endocytosis)
+p(HGNC:BECN1) -- bp(GO:macroautophagy)
+p(HGNC:BECN1) -- bp(GO:endocytosis)
+
+SET Evidence = "Compromised macroautophagy, via the genetic suppression
+of Atg7, leads to the blockade of Aβ secretion and contributes
+to the subsequent diminution in extracellular Aβ plaque load"
+p(HGNC:ATG7) -> bp(GO:macroautophagy)
+bp(GO:macroautophagy) -> sec(a(CHEBI:"amyloid-beta"))
+bp(GO:macroautophagy) -> a(MESH:"Plaque, Amyloid")
+
+SET Evidence = "This inhibition of Aβ secretion during macroautophagy deficiency results in
+aberrant cytosolic accumulation of Aβ, which ultimately evokes neurodegeneration accompanied with memory loss."
+bp(GO:macroautophagy) -> sec(a(CHEBI:"amyloid-beta"))
+sec(a(CHEBI:"amyloid-beta")) -| path(HBP:Neurodegeneration)
+sec(a(CHEBI:"amyloid-beta")) -> bp(GO:memory)
+
+SET Evidence = "Tau serves an important function by enabling microtubules to connect with cytoskeletal
+components and facilitates anterograde and retrograde axonal transport of vesicles and organelles [39]."
+p(HGNC:MAPT) -> complex(a(GO:microtubule),a(GO:cytoskeleton))
+p(HGNC:MAPT) -> bp(GO:"anterograde axonal protein transport")
+p(HGNC:MAPT) -> bp(GO:"retrograde axonal protein transport")
+
+SET Evidence = "However, when tau becomes hyperphosphorylated, it detaches from microtubules and aggregates, resulting
+in depolymerization of microtubules and formation of insoluble tau deposits [40]"
+p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -| complex(a(GO:microtubule),p(HGNC:MAPT))
+p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> bp(GO:"microtubule depolymerization")
+
+SET Evidence = "Dysregulation of tau proteins can produce a spectrum of neurodegenerative
+diseases or tauopathies characterized by dementia and tau deposition, including AD, frontotemporal dementia (FTD), Niemann-
+Pick disease, corticobasal degeneration (CBD), tangle-only dementia (TOD) and progressive supranuclear palsy (PSP)."
+p(HGNC:MAPT) -- path(MESH:Tauopathies)
+path(MESH:Tauopathies) -- path(MESH:Dementia)
+p(HGNC:MAPT) -- path(MESH:"Alzheimer Disease")
+p(HGNC:MAPT) -- path(MESH:"Frontotemporal Dementia")
+p(HGNC:MAPT) -- path(MESH:"Niemann-Pick Diseases")
+p(HGNC:MAPT) -- path(MESH:"Supranuclear Palsy, Progressive")
+
+SET Evidence = "Tau phosphorylation, the major disease-related post-translational modification, is highly regulated
+by glycogen synthase kinase-3β (GSK-3β), cyclin-dependent kinase
+5 (CDK5), mitogen-activated protein kinase (MAPK) and other kinases."
+p(HGNC:GSK3B) -> p(HGNC:MAPT,pmod(Ph))
+p(HGNC:CDK5) -> p(HGNC:MAPT,pmod(Ph))
+p(FPLX:MAPK) -> p(HGNC:MAPT,pmod(Ph))
+
+SET Evidence = "Abnormal phosphorylation and truncation of tau are hallmarks
+of AD pathology and are targets of proteasome and autophagy pathways [27,44,45]."
+p(HGNC:MAPT,pmod(Ph)) -> path(MESH:"Alzheimer Disease")
+complex(GO:"proteasome complex") -- p(HGNC:MAPT,pmod(Ph))
+bp(GO:autophagy) -- p(HGNC:MAPT,pmod(Ph))
+
+SET Evidence = "Tau aggregates can be targeted by two protein clearance pathways,
+the UPS and the A-LS, with the latter pathway encompassing microautophagy,CMA and macroautophagy."
+# A-LS: autophagic-lysosomal system
+a(HBP:"Tau aggregates") -- bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+a(HBP:"Tau aggregates") -- bp(GO:autophagy)
+
+SET Evidence = "Evidence suggests that CMA can degrade tau via the chaperone heat shock cognate of 70 kDa
+(Hsc70), which recognizes KFERQ-like motifs and transfers its substrates via LAMP-2 into the lysosome [47]"
+bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:MAPT))
+p(HGNC:HSPA8) -> deg(p(HGNC:MAPT))
+composite(p(HGNC:LAMP2),p(HGNC:HSPA8)) -> tloc(p(HGNC:MAPT),fromLoc(GO:cytosol),toLoc(GO:lysosome))
+
+SET Evidence = "Wang et al., using an N2a neuroblastoma cell line that expresses the repeat domain of tau with an
+FTD-17 mutation (TauRDΔK280), has demonstrated that tau aggregates can be degraded by macroautophagy [48]"
+SET Cell = "Neuro-2a cell"
+bp(GO:macroautophagy) -> deg(a(HBP:"Tau aggregates"))
+UNSET Cell
+
+SET Evidence = "Lastly, macroautophagy, but not UPS or CMA can clear protein aggregates."
+bp(GO:macroautophagy) -> deg(a(HBP:"protein aggregates"))
+
+SET Evidence = "NBR1 colocalizes with tau and has primary sequence domains for binding [52]."
+p(HGNC:NBR1) -- p(HGNC:MAPT)
+
+SET Evidence = "Evidence that p62 facilitates tau degradation has been demonstrated in several studies where
+p62 colocalized with tau in NFTs from AD patients [53]."
+p(HGNC:SQSTM1) -> deg(p(HGNC:MAPT))
+
+SET Evidence = "For example, Babu et al. has shown that p62−/− knockout mice have increased levels
+of hyperphosphorylated tau, reduction of synaptophysin and changes in short term memory compared to p62+/− [54]"
+p(HGNC:SQSTM1) -| p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+p(HGNC:SQSTM1) -> p(HGNC:SYP)
+p(HGNC:SQSTM1) reg bp(GO:"short-term memory")
+
+SET Evidence = "While AD is generally considered a disorder with two proteinopathies,
+other protein aggregates are also seen in AD, like α-synuclein"
+path(MESH:"Alzheimer Disease") -- a(HBP:"alpha-synuclein aggregates")
+
+SET Evidence = "Recent clinical and immunohistochemistry studies demonstrate the
+contribution of α-synuclein in the development of AD pathology"
+p(HGNC:SNCA) -> path(MESH:"Alzheimer Disease")
+
+SET Evidence = "Misfolded α-synuclein proteins form insoluble oligomers, which in turn
+lead to the cascade of pathogenic neurotoxicity-induced responses such
+as neuroinflammation and cell death [55]"
+p(HGNC:SNCA,pmod(HBP:misfolding)) -> a(HBP:"alpha-synuclein oligomers")
+a(HBP:"alpha-synuclein oligomers") -> path(HBP:neuroinflammation)
+a(HBP:"alpha-synuclein oligomers") -> bp(GO:"cell death")
+
+SET Evidence = "First identified as a nonamyloid component of Aβ plaques in the AD brain, α-synuclein aggregates
+are detected in the majority of the brains of patients with AD [56,57]."
+SET MeSHAnatomy = "Brain"
+path(MESH:"Alzheimer Disease") pos a(HBP:"alpha-synuclein aggregates")
+UNSET MeSHAnatomy
+
+SET Evidence = "Since the initial finding of proteasome-dependent degradation
+of α-synuclein [58], significant efforts have been made to
+clarify the modes of α-synuclein metabolism"
+complex(GO:"proteasome complex") -> deg(p(HGNC:SNCA))
+
+SET Evidence = "These experimental differences may be attributed to the intricate interplay
+between the UPS and autophagy, as α-synuclein is degraded by both proteolytic systems [62,63]."
+bp(GO:autophagy) -> deg(p(HGNC:SNCA))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(HGNC:SNCA))
+
+SET Evidence = "Cuervo et al. have revealed a distinct
+interaction of wild-type and mutant α-synuclein proteins with CMA [64]"
+bp(GO:"chaperone-mediated autophagy") -- p(HGNC:SNCA)
+bp(GO:"chaperone-mediated autophagy") -- p(HGNC:SNCA,var("?"))
+
+SET Evidence = "While wild-type α-synuclein protein efficiently
+clears via CMA, the pathogenic A53T and A30P variants remain
+bound to LAMP-2, blocking lysosomal degradation by preventing
+binding of other substrate complexes to the receptor [64]."
+bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:SNCA))
+complex(p(HGNC:SNCA,var("p.Ala53Thr"),p(HGNC:LAMP2)) -| bp(GO:"lysosomal protein catabolic process")
+complex(p(HGNC:SNCA,var("p.Ala30Pro"),p(HGNC:LAMP2)) -| bp(GO:"lysosomal protein catabolic process")
+
+SET Evidence = "Another common proteinopathy occurs from the misfolding of TARDNA
+binding protein 43 kDa (TDP-43), which is primarily seen in
+amyotrophic lateral sclerosis (ALS) and FTD [67]"
+p(HGNC:TARDBP,pmod(HBP:misfolding)) pos path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:TARDBP,pmod(HBP:misfolding)) pos path(MESH:"Frontotemporal Dementia")
+
+SET Evidence = "Although exact relations remain
+unknown, it was reported that Aβ can induce a cascade that results
+in phosphorylation and subsequent deposition of TDP-43 in the cytosol [70]"
+a(CHEBI:"amyloid-beta") -> p(HGNC:TARDBP,pmod(Ph))
+SET MeSHAnatomy = "Cytosol"
+a(CHEBI:"amyloid-beta") -> p(HGNC:TARDBP)
+UNSET MeSHAnatomy
+
+SET Evidence = "In addition to their structural role in membranes, lipids are essential
+in the maintenance of cellular energy homeostasis as well as regulation of intracellular signaling pathways"
+a(CHEBI:lipid) reg bp(GO:"energy homeostasis")
+a(CHEBI:lipid) reg bp(GO:"intracellular signal transduction")
+
+SET Evidence = "Cytosolic lipids are stored as triglycerides in lipid droplets and are hydrolyzed into fatty acid for
+energy under nutrient starvation"
+path(MESH:Starvation) -> rxn(reactants(a(CHEBI:lipid)),products(a(CHEBI:"fatty acid")))
+
+SET Evidence = "Decreased triglyceride breakdown upon macroautophagy
+inhibition and impairment in macroautophagy by lipid
+supplementation demonstrates reciprocally interrelated regulation of autophagy and lipids [72]"
+bp(GO:macroautophagy) -> deg(a(CHEBI:triglyceride))
+a(CHEBI:lipid) reg bp(GO:macroautophagy)
+
+SET Evidence = "Decreased autophagy in the diseased brain may contribute to aberrant
+lipid accumulation that occurs along with an increased incidence of the
+metabolic syndrome in aged humans [76]"
+bp(GO:autophagy) -| a(CHEBI:lipid)
+
+SET Evidence = "While autophagic-lysosomal degradation is more commonly associated
+with protein degradation, it serves to degrade all cellular material including carbohydrates and lipids."
+bp(GO:autophagy) -> deg(a(CHEBI:lipid))
+bp(GO:autophagy) -> deg(a(CHEBI:carbohydrate))
+
+SET Evidence = "Lipid biology can also impact proteinopathy, with strong evidence
+that Aβ metabolism is modulated by lipids"
+a(CHEBI:lipid) reg bp(GO:"amyloid-beta metabolic process")
+
+SET Evidence = "For instance, ApoE4–an important determinant of cholesterol metabolism
+and the strongest genetic risk factor for sporadic AD – regulates Aβ degradation [77]."
+g(HBP:"APOE e4") -> bp(GO:"cholesterol metabolic process")
+g(HBP:"APOE e4") -> path(MESH:"Alzheimer Disease")
+g(HBP:"APOE e4") reg deg(a(CHEBI:"amyloid-beta"))
+
+SET Evidence = "Cellular cholesterol can directly impact the level of
+Aβ, as decreases in cholesterol levels inhibit the generation of Aβ
+peptides through direct modulation of γ-secretase activity [78,79]."
+a(CHEBI:cholesterol) -> a(MESH:"Amyloid beta-Peptides")
+a(CHEBI:cholesterol) reg act(complex(GO:"gamma-secretase complex"))
+
+SET Evidence = "Sphingolipids are also strongly implicated in AD pathology, with upregulated
+levels of ceramide, a key component in sphingolipid metabolism,
+detected in the early phase of AD [80]."
+a(CHEBI:ceramide) pos path(MESH:"Alzheimer Disease")
+
+SET Evidence = "The finding of reduced Aβ generation when conversion of sphingomyelin
+to ceramide is blocked further substantiates the crucial involvement
+of sphingolipids in Aβ metabolism through modulation of γ-secretase [81,82]"
+rxn(reactants(a(MESH:Sphingomyelins)),products(a(CHEBI:ceramide))) -> a(CHEBI:"amyloid-beta")
+a(CHEBI:sphingolipid) reg act(complex(GO:"gamma-secretase complex"))
+
+SET Evidence = "Cytosolic tau is highest in density in
+membrane-rich axons and growth cones where lipid interaction with
+cytosolic tau may contribute to fibrillary tau aggregation [84]."
+SET MeSHAnatomy = "Cytosol"
+complex(p(HGNC:MAPT),a(CHEBI:lipid)) -> a(HBP:"Tau aggregates")
+UNSET MeSHAnatomy
+
+SET Evidence = "Furthermore, the membrane bilayer lipid can influence protein aggregation
+and subsequent tau pathology, with recent studies showing that tau
+binds to the membrane, which has subsequent effects on the formation of fibrillary tau aggregates [85,86]."
+complex(a(MESH:"Lipid Bilayers"),p(HGNC:MAPT)) -- a(HBP:"Tau aggregates")
+
+SET Evidence = "In addition to the direct modulation
+of protein generation, lipids can also influence the levels of proteins
+through autophagic clearance; for instance, increasing lipid contents
+has been shown to impair autophagy [72]."
+a(CHEBI:lipid) neg bp(GO:autophagy)
+
+SET Evidence = "Modulation of mTOR can influence the levels of tau,
+with upregulation increasing tau phosphorylation and accumulation by
+reducing autophagic clearance [87], and conversely, pharmacological
+treatment with rapamycin reducing tau levels and rescuing motor
+deficits in the Tau P301S mice [53]"
+p(HGNC:MTOR) pos p(HGNC:MAPT,pmod(Ph))
+p(HGNC:MTOR) neg bp(GO:autophagy)
+a(CHEBI:sirolimus) -| p(HGNC:MAPT)
+a(CHEBI:sirolimus) -> bp(GO:"motor behavior")
+
+SET Evidence = "For instance, adenosine monophosphate-
+activated protein kinase (AMPK) phosphorylates ULK1 and
+inactivates mTOR through the raptor and tuberous sclerosis complex (TSC2)."
+p(FPLX:AMPK) -> p(HGNC:ULK1,pmod(Ph))
+composite(p(FPLX:AMPK),p(HGNC:TSC2)) -| act(p(HGNC:MTOR))
+
+SET Evidence = "A recent study has demonstrated that activation of AMPKα1
+enhances tau phosphorylation, while inhibition reduces tau phosphorylation
+at Ser-262, an epitope that is increased in early stages of AD,
+which promotes the autophagic degradation of tau [87]"
+p(HGNC:PRKAA1) => p(HGNC:MAPT,pmod(Ph,Ser,262))
+p(HGNC:MAPT,pmod(Ph,Ser,262)) pos path(MESH:"Alzheimer Disease")
+p(HGNC:MAPT,pmod(Ph,Ser,262)) -> bp(GO:autophagy)
+bp(GO:autophagy) -> deg(p(HGNC:MAPT))
+
+SET Evidence = "Another modulator of A-LS implicated in AD pathology is transcription
+factor EB (TFEB), a master regulator of lysosome biogenesis"
+p(HGNC:TFEB) reg a(GO:lysosome)
+p(HGNC:TFEB) reg bp(GO:autophagy)
+p(HGNC:TFEB) -- path(MESH:"Alzheimer Disease")
+
+SET Evidence = "TFEB at normal state is phosphorylated by mTOR complex 1, which inhibits its activity"
+a(MESH:"Mechanistic Target of Rapamycin Complex 1") -> p(HGNC:TFEB,pmod(Ph))
+p(HGNC:TFEB,pmod(Ph)) -| act(p(HGNC:TFEB))
+
+SET Evidence = "Under starvation or stress, TFEB translocates to the
+nucleus and binds the CRE element to promote expression of macroautophagy
+and lysosomal genes [88]."
+path(MESH:Starvation) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+path(MESH:Starvation) -> complex(p(INTERPRO:"cAMP response element binding (CREB) protein"),p(HGNC:TFEB))
+bp(GO:"cellular response to stress") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+bp(GO:"cellular response to stress") -> complex(p(INTERPRO:"cAMP response element binding (CREB) protein"),p(HGNC:TFEB))
+complex(p(INTERPRO:"cAMP response element binding (CREB) protein"),p(HGNC:TFEB)) -> bp(GO:macroautophagy)
+complex(p(INTERPRO:"cAMP response element binding (CREB) protein"),p(HGNC:TFEB)) -> a(GO:lysosome)
+
+SET Evidence = "TFEB has been shown to effectively clear phosphorylated tau proteins through A-LS, resulting in
+ameliorated neuronal loss and neuroinflammation, as well as improved cognitive performance [89]."
+p(HGNC:TFEB) -> bp(GO:autophagy)
+p(HGNC:TFEB) -> deg(p(HGNC:MAPT,pmod(Ph)))
+bp(GO:autophagy) -> deg(p(HGNC:MAPT,pmod(Ph)))
+deg(p(HGNC:MAPT,pmod(Ph))) -| bp(GO:"neuron death")
+deg(p(HGNC:MAPT,pmod(Ph))) -| path(HBP:neuroinflammation)
+deg(p(HGNC:MAPT,pmod(Ph))) -> bp(GO:cognition)
+
+SET Evidence = "Activation of PTEN, another inducer of macroautophagy, by TFEB is
+indispensable for this TFEB-mediated increase in macroautophagy [89]"
+p(HGNC:TFEB) -> act(p(HGNC:PTEN))
+p(HGNC:PTEN) -> bp(GO:macroautophagy)
+composite(p(HGNC:PTEN),p(HGNC:TFEB)) -> bp(GO:macroautophagy)
+
+SET Evidence = "Multiple large-scale GWAS demonstrate that variants of PICALM
+(phosphatidylinositol-L-binding clathrin assembly protein involved in
+endocytosis) are significantly associated with AD [90,93,94]."
+p(HGNC:PICALM,var("?")) -- path(MESH:"Alzheimer Disease")
+
+SET Evidence = "Overexpression of PICALM in APP/PS1 mice substantially
+elevates Aβ levels, whereas knockdown reduces the Aβ plaque load, respectively [98]"
+p(HGNC:PICALM) pos a(CHEBI:"amyloid-beta")
+p(HGNC:PICALM) -> a(MESH:"Plaque, Amyloid")
+
+SET Evidence = "A recent line of work revealed Aβ-promoting function
+of PICALM by demonstrating that PICALM depletion decreased Aβ
+generation through disrupting clathrin-mediated endocytosis and internalization
+of γ-secretase [99,100]."
+p(HGNC:PICALM) -> a(CHEBI:"amyloid-beta")
+p(HGNC:PICALM) -> bp(GO:"clathrin-dependent endocytosis")
+p(HGNC:PICALM) -> tloc(complex(GO:"gamma-secretase complex"),fromLoc(GO:"extracellular space"),toLoc(GO:intracellular))
+
+SET Evidence = "PICALM may also promote amyloid
+clearance from the brain by internalizing Aβ into endothelial cells
+and ultimately into to the bloodstream [101]"
+p(HGNC:PICALM) -> tloc(a(CHEBI:"amyloid-beta"),fromLoc(MESH:"Endothelial Cells"),toLoc(MESH:Blood))
+
+SET Evidence = "However, recent work provides direct evidence that PICALM can also
+modulate macroautophagy, via its role in SNARE endocytosis to clear tau aggregates [102]."
+p(HGNC:PICALM) reg bp(GO:macroautophagy)
+p(HGNC:PICALM) -> tloc(complex(GO:"SNARE complex"),fromLoc(GO:"extracellular space"),toLoc(GO:intracellular))
+tloc(complex(GO:"SNARE complex"),fromLoc(GO:"extracellular space"),toLoc(GO:intracellular)) -> deg(a(HBP:"Tau aggregates"))
+
+SET Evidence = "BIN1 is involved in the endocytosis and the endosomal
+sorting of membrane proteins"
+p(HGNC:BIN1) -> bp(GO:endocytosis)
+
+SET Evidence = "Similar to PICALM, BIN1, due to its role
+in endocytosis and trafficking, is implicated in APP metabolism [103]."
+p(HGNC:BIN1) -> bp(GO:"amyloid precursor protein metabolic process")
+
+SET Evidence = "Suppression of BIN1 disrupts cellular trafficking of BACE1 and reduces
+BACE1 lysosomal degradation, leading to increased Aβ production [103]."
+p(HGNC:BIN1) -> bp(GO:autophagy)
+p(HGNC:BIN1) -| a(CHEBI:"amyloid-beta")
+
+SET Evidence = "Higher expression of BIN1 has been reported in AD brains, and
+suppression of BIN1 reduces tau toxicity, suggesting BIN1 involvement
+in tau pathology, as well [104]."
+p(HGNC:BIN1) pos path(MESH:"Alzheimer Disease")
+p(HGNC:BIN1) pos path(MESH:Tauopathies)
+
+SET Evidence = "In a more recent GWAS investigation, TREM2 (triggering receptor
+expressed on myeloid cells 2) was identified as one of the markers
+strongly associated with increased levels of tau and phosphorylated tau
+in cerebrospinal fluid from AD patients [91]."
+SET MeSHAnatomy = "Cerebrospinal Fluid"
+SET MeSHDisease = "Alzheimer Disease"
+p(HGNC:TREM2) pos p(HGNC:MAPT)
+p(HGNC:TREM2) pos p(HGNC:MAPT,pmod(Ph))
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+
+SET Evidence = "Variants of TREM2 have been found to increase the risk of developing AD by approximately
+three times [105,106], further validating it as a risk factor for AD."
+p(HGNC:TREM2,var("?")) -> path(MESH:"Alzheimer Disease")
+
+SET Evidence = "For example, Beclin 1 suppression results in impaired
+microglial phagocytosis of Aβ and reduced recycling of TREM2 [108]."
+SET Cell = "microglial cell"
+p(HGNC:BECN1) -> bp(GO:phagocytosis)
+UNSET Cell
+
+SET Evidence = "Recent work by Ulland et al. has also discovered an additional function
+of TREM2 in the maintenance of microglial macroautophagy and metabolism"
+SET Cell = "microglial cell"
+p(HGNC:TREM2) -> bp(GO:macroautophagy)
+p(HGNC:TREM2) -> bp(GO:"metabolic process")
+UNSET Cell
+
+SEZ Evidence = "TREM2 deficiency in an AD mouse model results in suppressed
+metabolic function in microglia through the dampening of the
+mTOR signaling pathway, which subsequently elicits a compensatory
+autophagic response to address the metabolic defect [109]."
+SET MeSHDisease = "Alzheimer Disease"
+SET Cell = "microglial cell"
+p(HGNC:TREM2) -> bp(GO:"metabolic process")
+p(HGNC:TREM2) -> act(complex(GO:"TOR complex"))
+UNSET Cell
+UNSET MeSHDisease
+
+SET Evidence = "VPS35, one of the retromer-related genes identified from GWAS
+datasets on AD [110], regulates TREM2’s function in microglia [111]."
+SET Cell = "microglial cell"
+p(HGNC:VPS35) reg act(p(HGNC:TREM2))
+UNSET Cell
+
+SET Evidence = "VPS35 mutations have been shown to disrupt macroautophagy
+[113] and mitochondrial function [114] and are associated with AD
+and PD [102,115]."
+p(HGNC:VPS35,var("?")) -| bp(GO:macroautophagy)
+p(HGNC:VPS35,var("?")) -| act(a(GO:mitochondrion))
+p(HGNC:VPS35,var("?")) -- path(MESH:"Alzheimer Disease")
+p(HGNC:VPS35,var("?")) -- path(MESH:"Parkinson Disease")
+
+SET Evidence = "One intriguing molecule that interacts with VPS35 is
+SORL1, a VPS10P-domain receptor protein that has been linked to autosomal
+dominant early-onset AD [116,117]."
+p(HGNC:VPS35) => complex(p(HGNC:SORL1),p(HGNC:VPS35))
+p(HGNC:SORL1) -- path(MESH:"Alzheimer Disease")
+
+SET Evidence = "Identified as a candidate
+susceptibility gene for AD by GWAS [116], reduced level of SORL1 has
+been consistently correlated with brain Aβ levels [118,119]."
+p(HGNC:SORL1) neg a(CHEBI:"amyloid-beta")
+
+SET Evidence = "Mitochondria are instrumental in the regulation of energy metabolism, and impairment in
+mitochondrial function has been implicated in the pathogenesis of AD,
+leading to the mitochondrial cascade hypothesis of AD [121]."
+a(GO:mitochondrion) reg bp(GO:"energy homeostasis")
+path(HBP:"mitochondrial dysfunction") -> path(MESH:"Alzheimer Disease")
+
+SET Evidence = "Dysfunctional mitochondria are
+critically harmful to cells, as this leads to decreased synthesis of cellular
+ATP and accumulation of ROS, which further overburden and damage
+other functional mitochondria."
+path(HBP:"mitochondrial dysfunction") -| a(CHEBI:ATP)
+path(HBP:"mitochondrial dysfunction") -> a(CHEBI:"reactive oxygen species")
+
+SET Evidence = "Previous studies demonstrate impaired
+mitochondrial function preceding the accumulation of hallmark proteins
+in AD, such as Aβ [123,124] and tau [125]."
+SET MeSHDisease = "Alzheimer Disease"
+path(HBP:"mitochondrial dysfunction") -> a(CHEBI:"amyloid-beta")
+path(HBP:"mitochondrial dysfunction") -> p(HGNC:MAPT)
+UNSET MeSHDisease
+
+SET Evidence = "Thus, as a quality control mechanism, mitophagy − a form of selective macroautophagy
+that specifically targets mitochondria − occurs in response to damaged
+or dysfunctional mitochondria in order to prevent mitochondrial bioenergetic deficits."
+path(HBP:"mitochondrial dysfunction") -> bp(GO:mitophagy)
+
+SET Evidence = "A recent study reported that mitophagy is robustly induced in AD brains and in
+vitro models of mutant APP, accompanied with abnormal accumulation of depoloarized mitochondria [126]"
+SET MeSHAnatomy = "Brain"
+path(MESH:"Alzheimer Disease") -> bp(GO:mitophagy)
+UNSET MeSHAnatomy
+
+SET Evidence = "Altogether, as with proteinopathy, accumulation of
+damaged or dysfunctional mitochondria is detrimental to the development of AD pathologies"
+path(HBP:"mitochondrial dysfunction") -> path(MESH:"Alzheimer Disease")
+
+SET Evidence = "PSEN1 M146L and A246E mutant cortical neurons have been shown to possess decreased
+activation of the CLEAR (coordinated lysosomal expression and regulation)
+gene network, as measured by a TFEB-driven luciferase assay,
+consistent with a reduction in autophagic activity [131]."
+p(HGNC:PSEN1,var("p.Met146Leu")) -| bp(GO:autophagy)
+p(HGNC:PSEN1,var("p.Ala246Glu")) -| bp(GO:autophagy)
+
+SET Evidence = "In a similar vein, PSEN1 A246E mutant cortical neurons have reduced mitophagy
+compared to control neurons, which is associated more with decreased
+lysosomal function rather than mitochondrial targeting [132]."
+p(HGNC:PSEN1,var("p.Ala246Glu")) -| bp(GO:mitophagy)
+p(HGNC:PSEN1,var("p.Ala246Glu")) -| act(a(GO:lysosome))
+
+SET Evidence = "For example, in tau A152T iPSC-derived cortical neurons, total
+and phosphorylated Tau levels are elevated, particularly the insoluble
+forms [133], which is associated with decreases in UPS function as
+measured by total polyubiquitinated proteins and an upregulation of
+macroautophagy markers."
+p(HGNC:MAPT,var("p.Ala152Thr")) pos p(HGNC:MAPT,pmod(Ph))
+p(HGNC:MAPT,var("p.Ala152Thr")) -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+p(HGNC:MAPT,var("p.Ala152Thr")) -> bp(GO:macroautophagy)
+
+SET Evidence = "However, in another study, iPSC-derived tau
+A152T and MAPT IVS 10+16 (a tau splice mutant) cortical neurons
+had increased cell death in response to rapamycin treatment, although
+basal cell death was ∼10 times higher in these tau mutants relative to
+controls, making interpretation of the work difficult [134]."
+composite(p(HGNC:MAPT,var("p.Ala152Thr")),a(CHEBI:sirolimus)) -> bp(GO:"cell death")
+
+SET Evidence = "Finally, numerous studies using iPSC models have implicated
+changes in macroautophagy pathways in Parkinson’s disease
+[137–144], Gaucher disease [145], Niemann-Pick Type C1 disease
+[146–148] and diseases affecting motor neurons, including ALS
+[149,150], spinal and bulbar muscular atrophy (SBMA) [151], Brown-
+Vialetto disease [152], Charcot-Marie-Tooth 2A [153] and hereditary spastic paraplegia [154]"
+path(MESH:"Parkinson Disease") neg bp(GO:macroautophagy)
+path(MESH:"Niemann-Pick Disease, Type C") neg bp(GO:macroautophagy)
+path(MESH:"Amyotrophic Lateral Sclerosis") neg bp(GO:macroautophagy)
+path(MESH:"Bulbo-Spinal Atrophy, X-Linked") neg bp(GO:macroautophagy)
+path(MESH:"Spastic Paraplegia, Hereditary") neg bp(GO:macroautophagy)
+
+SET Evidence = "Protein clearance in animal models has been successfully demonstrated
+using several small molecules and drugs that enhance induction
+of macroautophagy reduces AD-relevant pathology, including rapamycin
+in 3xTGAD mice [32] and temsirolimus in P301S transgenic mice
+[156] and trehalose in APP/PS1 and P301S MAPT transgenic mice [157,158]."
+a(CHEBI:sirolimus) -> bp(GO:macroautophagy)
+a(CHEBI:Temsirolimus) -> bp(GO:macroautophagy)
+a(CHEBI:"alpha,alpha-trehalose") -> bp(GO:macroautophagy)
+
+SET Evidence = "Methylene blue, a contrast agent that can reduce tau misfolding,
+has also been shown to induce macroautophagy, as indicated
+by elevated Beclin 1 and LC3-II levels and reduced tau and p62 levels in
+organotypic neuronal cultures and a mouse model of FTD [159]"
+a(CHEBI:"methylene blue") -| p(HGNC:MAPT,pmod(HBP:misfolding))
+a(CHEBI:"methylene blue") -> bp(GO:macroautophagy)
+a(CHEBI:"methylene blue") -> p(HGNC:BECN1)
+a(CHEBI:"methylene blue") -> p(HGNC:MAP1LC3B)
+a(CHEBI:"methylene blue") -| p(HGNC:MAPT)
+a(CHEBI:"methylene blue") -| p(HGNC:SQSTM1)
+
+SET Evidence = "Paclitaxel reversed Aβ-induced microtubule
+disruption and restored autophagosomal transport in neurons
+[161], while a similar compound, epothilone D/BMS-241027, reduced
+tauopathy and improved cognition in P301S transgenic mice [162] although
+the compound did not progress beyond Phase I clinical testing"
+a(CHEBI:paclitaxel) -> a(GO:microtubule)
+a(CHEBI:paclitaxel) -> tloc(a(GO:autophagosome),fromLoc(GO:"extracellular space"),toLoc(MESH:Neurons)))
+a(CHEBI:epothilone) -| path(MESH:Tauopathies)
+a(CHEBI:epothilone) -> bp(GO:cognition)
+
+##########################################################
+
+UNSET STATEMENT_GROUP
