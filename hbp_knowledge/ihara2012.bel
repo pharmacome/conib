@@ -1,0 +1,955 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "The Ubiquitin–Proteasome System and the Autophagic–Lysosomal System in Alzheimer Disease"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Sandra Spalek"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+SET STATEMENT_GROUP = "Sandra"
+
+# Add statements below this comment
+
+SET Citation = {"PubMed","22908190"}
+
+SET Evidence = "The proteasome selectively degrades normal proteins (mainly
+those with short half-lives) and abnormal proteins, which are earmarked for elimination
+by a process involving their conjugation to ubiquitin (Ub; Goldberg 2003)."
+complex(GO:"proteasome complex") -> deg(p(MESH:Proteins,pmod(Ub)))
+
+SET Evidence = "The lysosomal system, and specifically the autophagic pathway,
+is the principal mechanism for degrading proteins with long half-lives and is the
+only system in cells for degrading organelles and large protein aggregates or inclusions."
+bp(GO:autophagy) -> deg(a(GO:organelle))
+bp(GO:autophagy) -> deg(a(HBP:"protein aggregates"))
+
+SET Evidence = "A second route to lysosomes, the endocytic pathway, delivers extracellular material and plasma
+membrane constituents to lysosomes under the direction of specific targeting signals (Nixon 2004)."
+bp(GO:endocytosis) -> tloc(a(GO:"intrinsic component of plasma membrane"),fromLoc(GO:"plasma membrane"),toLoc(GO:lysosome))
+
+SET Evidence = "It has recently become appreciated that ubiquitination
+of proteins by covalent modification tags them for elimination not only through the
+proteasome (the ubiquitin–proteasome system or UPS) but also through the lysosomal system."
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(MESH:Proteins,pmod(Ub)))
+a(GO:lysosome) -> deg(p(MESH:Proteins,pmod(Ub)))
+
+SET Evidence = "Recently, protein aggregates and certain organelles have been shown to be tagged
+with ubiquination for selective removal by autophagy (Narendra et al. 2009; Dikic et al.
+2010; Youle et al. 2011), a degradative process previously believed to be only nonselective"
+bp(GO:autophagy) -> deg(a(GO:organelle))
+bp(GO:autophagy) -> deg(a(HBP:"protein aggregates"))
+
+SET Evidence = "Interdependence of the proteasome and lysosomal system is also suggested by observations
+that, when proteasome activity is inhibited, proteins accumulate that become substrates for autophagy (Fortun et al. 2003)"
+bp(GO:"proteasomal protein catabolic process") neg bp(GO:autophagy)
+bp(GO:"proteasomal protein catabolic process") -| a(MESH:Proteins)
+
+SET Evidence = "Inhibiting autophagy by genetically deleting components of the
+sequestration machinery causes ubiquitinated protein aggregates to appear in neurons, reflecting
+additional negative effects on the UPS (Korolchuket al. 2009a,b)."
+SET MeSHAnatomy = "Neurons"
+bp(GO:autophagy) -> deg(p(HBP:"protein aggregates",pmod(Ub)))
+UNSET MeSHAnatomy
+
+SET Evidence = "For example, p62, an adaptor protein for autophagy, also influences proteasomal
+degradation, whereas VCP/p97 acting through p62 and ubiquitin regulates both the
+proteasome-dependent endoplasmic reticulum–associated degradation (ERAD) pathway and
+aspects of autophagosome maturation (Tresse et al. 2010)."
+p(HGNC:SQSTM1) -> bp(GO:autophagy)
+p(HGNC:SQSTM1) -- bp(GO:"proteasomal protein catabolic process")
+composite(p(HGNC:SQSTM1),a(MESH:Ubiquitin)) -> act(p(HGNC:VCP))
+act(p(HGNC:VCP)) reg bp(GO:"ERAD pathway")
+act(p(HGNC:VCP)) reg a(GO:autophagosome)
+
+SET Evidence = "The E3 ligase Parkin, a protein implicated in Parkinson’s disease, creates an autophagy
+signal on mitochondria and also tags proteins elsewhere for proteasomal degradation (Yoshii et al. 2011)."
+p(HGNC:PRKN) pos path(MESH:"Alzheimer Disease")
+p(HGNC:PRKN) -> bp(GO:mitophagy)
+p(HGNC:PRKN) -> bp(GO:"proteasomal protein catabolic process")
+
+SET Evidence = "Polyclonal antibodies to the classical paired helical filaments (PHFs) found in the neurofibrillary
+tangles and dystrophic neurites of AD were first raised in about 1982, allowing
+exploration of the component(s) of PHFs using immunochemical approaches (Ihara et al. 1983)"
+SET MeSHDisease = "Alzheimer Disease"
+a(HBP:"paired helical filaments") -- a(GO:"neurofibrillary tangle")
+a(HBP:"paired helical filaments") -- a(HBP:"dystrophic neurite")
+UNSET MeSHDisease
+
+SET Evidence = "This protein reactive with the initial anti-PHF sera was soon identified as tau, a microtubule-associated
+protein (MAP), based on its molecular weight, isoform change during development, microtubule-
+binding activity, and heat stability (Kosik et al. 1986; Nukina and Ihara 1986; see
+also Brion et al. 1985; Grundke-Iqbal et al. 1986; Wood et al. 1986; discovery of tau in
+PHF is reviewed in Mandelkow and Mandelkow 2011)."
+p(HGNC:MAPT) -- a(HBP:"paired helical filaments")
+
+SET Evidence = "Besides the characteristic “PHF smear,” they also labeled
+a very small protein of ~8 kDa. Hiroshi Mori named these monoclonal antibodies DF (Dementia
+Filament) 1 and 2, of which the latter (DF2) was used for subsequent characterization (Mori et al. 1987)."
+#DF2: antibody recognizing ubiquitin
+a(MESH:Ubiquitin) -- a(HBP:"paired helical filaments")
+
+SET Evidence = "In AD cortical sections, we observed that NFTs and dystrophic neurites (Fig. 1) and,
+unexpectedly, granulovacuolar changes (Fig. 1, inset) were intensely immunolabeled by the DF2 monoclonal.
+When mild fixation conditions were used, innumerable neuropil threads were also detected."
+SET MeSHDisease = "Alzheimer Disease"
+SET MeSHAnatomy = "Cerebral Cortex"
+a(GO:"neurofibrillary tangle") -- a(MESH:Ubiquitin)
+a(HBP:"dystrophic neurite") -- a(MESH:Ubiquitin)
+path(HBP:"granulovacuolar degeneration") -- a(MESH:Ubiquitin)
+a(MESH:"Neuropil Threads") -- a(MESH:Ubiquitin)
+UNSET MeSHDisease
+UNSET MeSHAnatomy
+
+SET Evidence = "However, Ub was found to have other functional
+roles; for example, a proportion of histone (H)2B is ubiquitinated in a way that has a role in the transcription."
+bp(GO:"histone H2B ubiquitination") -- bp(MESH:"Transcription, Genetic")
+
+SET Evidence = "Using well-characterized antibodies to various MAPs as well as PHF
+polyclonal antibodies, tau had recently been established as a major component of PHFs
+(see above and Mandelkow and Mandelkow 2011)."
+p(HGNC:MAPT) -- a(HBP:"paired helical filaments")
+
+SET Evidence = "By protein sequencing and MS, we identified four Ub-conjugated
+sites on tau (Fig. 3) and further identified K48-linked Ub chains (Morishima-Kawashima
+et al. 1993)."
+# results obtained from Fig. 3
+SET MeSHDisease = "Alzheimer Disease"
+a(HBP:"paired helical filaments") -- p(HBP:"Tau isoform F (441 aa)",pmod(Ub,Lys,254))
+a(HBP:"paired helical filaments") -- p(HBP:"Tau isoform F (441 aa)",pmod(Ub,Lys,257))
+a(HBP:"paired helical filaments") -- p(HBP:"Tau isoform F (441 aa)",pmod(Ub,Lys,311))
+a(HBP:"paired helical filaments") -- p(HBP:"Tau isoform F (441 aa)",pmod(Ub,Lys,317))
+a(HBP:"paired helical filaments") -- p(HBP:"Tau isoform F (441 aa)",pmod(UbK48))
+UNSET MeSHDisease
+
+SET Evidence = "However, recent work by Cripps et al. (2006) successfully used MC1 (a monoclonal specific
+for an abnormal PHF-like conformation of tau) to affinity purify soluble full-length tau
+from PHF-rich extracts of AD cortex and subject it to liquid chromatography–tandem MS
+(LC–MS/MS) analysis. The presence of K6, K11, and K48- linked polyubiquitinations—in
+addition to monoubiquitination—was observed."
+SET MeSHDisease = "Alzheimer Disease"
+a(HBP:"paired helical filaments") -- p(HBP:"Tau isoform F (441 aa)",pmod(UbK48))
+a(HBP:"paired helical filaments") -- p(HBP:"Tau isoform F (441 aa)",pmod(UbPoly,Lys,6))
+a(HBP:"paired helical filaments") -- p(HBP:"Tau isoform F (441 aa)",pmod(UbPoly,Lys,11))
+UNSET MeSHDisease
+
+SET Evidence = "This finding suggests that neuropil threads may extend at both ends: Tau
+may aggregate and deposit first, followed by its ubiquitination."
+a(HBP:"Tau aggregates") -> p(HBP:"Tau aggregates",pmod(Ub))
+
+SET Evidence = "In addition, DF2 intensely labeled the classical granulovacuolar changes
+in the hippocampus in AD and other neurodegenerative disorders (Fig. 1, inset)."
+SET MeSHAnatomy = "Hippocampus"
+SET MeSHDisease = {"Alzheimer Disease","Neurodegenerative Diseases"}
+a(MESH:Ubiquitin) -- path(HBP:"granulovacuolar degeneration")
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+
+SET Evidence = "We soon found that DF2 strongly stained cortical and
+brain stem Lewy bodies in brain sections from “diffuse Lewy body disease” (Kuzuhara et al.
+1988), as originally described by Kenji Kosaka (1978), who proposed that some elderly subjects
+dying with dementia had many cortical Lewy bodies"
+SET MeSHDisease = "Lewy Body Disease"
+SET MeSHAnatomy = {"Brain Stem","Cerebral Cortex"}
+a(MESH:Ubiquitin) -- a(GO:"Lewy body")
+path(MESH:Dementia) pos a(GO:"Lewy body")
+UNSET MeSHDisease
+UNSET MeSHAnatomy
+
+SET Evidence = "In this dementia, Lewy bodies are abundant in cortical neurons, especially in
+the cingulate gyrus, in addition to their presence in the substantia nigra and locus ceruleus,
+their prototypical loci in Parkinson’s disease."
+SET MeSHDisease = "Parkinson Disease"
+SET MeSHAnatomy = {"Neurons","Cerebral Cortex","Gyrus Cinguli","Substantia Nigra","Locus Coeruleus"}
+path(MESH:Dementia) pos a(GO:"Lewy body")
+UNSET MeSHDisease
+UNSET MeSHAnatomy
+
+SET Evidence = "In 1997, a-synuclein was shown to be the principal component of Lewy bodies
+(Spillantini et al. 1997). The accumulated a-synuclein was then shown to be ubiquitinated
+(Hasegawa et al. 2002)."
+p(HGNC:SNCA) -> complex(a(GO:"Lewy body"),p(HGNC:SNCA))
+p(HGNC:SNCA) pos p(HGNC:SNCA,pmod(Ub))
+
+SET Evidence = "The DF2 immunoreactivity of Lewy bodies led us to search for similar DF2-positive inclusions,
+and we found that Lewy-like bodies in motor neurons in amyotrophic lateral sclerosis
+(ALS; Murayama et al. 1990a) and Pick bodies in Pick’s disease (Murayama et al. 1990b) were
+strongly reactive; the latter stained also for tau, whereas the former stained neither for tau nor a-synuclein."
+SET MeSHAnatomy = "Motor Neurons"
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+a(GO:"Lewy body") -- p(HGNC:MAPT)
+a(GO:"Lewy body") -- a(MESH:Ubiquitin)
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+SET MeSHDisease = "Niemann-Pick Diseases"
+a(GO:"Pick body") -- p(HGNC:MAPT)
+a(GO:"Pick body") -- a(MESH:Ubiquitin)
+UNSET MeSHDisease
+
+SET Evidence = "In this regard, the entity of frontotemporal lobar degeneration (FTLD)
+with Ub-positive/tau-negative inclusions was described later, and TDP43 was identified
+as the ubiquitinated protein in both this disorder and ALS (Neuman et al. 2006)."
+path(MESH:"Amyotrophic Lateral Sclerosis") pos p(HGNC:TARDBP,pmod(Ub))
+path(MESH:"Frontotemporal Lobar Degeneration") pos p(HGNC:TARDBP,pmod(Ub))
+
+SET Evidence = "In AD, tau is ubiquitinated, in Parkinson’s disease and dementia with Lewy
+bodies, it is a-synuclein, and in ALS and FTLD-U, it is TDP-43"
+path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ub))
+path(MESH:"Parkinson Disease") pos p(HGNC:SNCA,pmod(Ub))
+path(MESH:Dementia) pos p(HGNC:SNCA,pmod(Ub))
+path(MESH:"Amyotrophic Lateral Sclerosis") pos p(HGNC:TARDBP,pmod(Ub))
+
+SET Evidence = "The first step is activation of the carboxyl terminus
+of Ub by an E1 protein (i.e., a Ub-activating enzyme), which consumes ATP."
+composite(p(HGNC:UBA1),a(CHEBI:ATP)) -> act(a(MESH:Ubiquitin))
+
+SET Evidence = "Second, there is conjugation of the ATP-activated Ub to an
+E2 protein (i.e., a Ub-conjugating enzyme)."
+act(a(MESH:Ubiquitin)) -> complex(p(HGNC:UBA2),a(MESH:Ubiquitin))
+
+SET Evidence = "Third, there is ligation of Ub with an epsilon-amino group of lysine in the target protein by an E3
+ligase. E3 ligase binds both the target protein and the E2–Ub complex; thousands of substrate-
+specific E3s ensure selective protein tagging and degradation."
+p(HGNC:UBA3) -> complex(p(HGNC:UBA2),a(MESH:Ubiquitin),p(HGNC:UBA3),a(MESH:Proteins))
+complex(p(HGNC:UBA2),a(MESH:Ubiquitin),p(HGNC:UBA3),a(MESH:Proteins)) -> p(MESH:Proteins,pmod(Ub))
+p(MESH:Proteins,pmod(Ub)) -> deg(p(MESH:Proteins,pmod(Ub)))
+
+SET Evidence = "An E4 enzyme catalyzes the polyubiquitination of the target substrate
+that is bound to the E2–E3 complexes"
+p(HGNC:UBE4A) -> bp(GO:"protein polyubiquitination")
+
+SET Evidence = "Proteins tagged with chains of four or more K48-linked
+multiubiquitins provide the strongest signal for degradation by the 26S proteasome, because
+a chain of at least four Ub moieties is required for substrate recognition by the 26S proteasome complex."
+complex(GO:"proteasome complex") -> deg(p(MESH:Proteins,pmod(UbK48)))
+
+SET Evidence = "Ubiquitinated target proteins bind to the 19S cap (RP), which has a Ub binding
+site and ATPase activity, and this leads to cleavage of Ub moieties from the target by
+deubiquitinating enzymes, unfolds the polypeptides and sends them to the narrow channel
+of the 20S core particle."
+p(MESH:Proteins,pmod(Ub)) -> complex(a(GO:"proteasome regulatory particle"),p(MESH:Proteins,pmod(Ub)))
+complex(a(GO:"proteasome regulatory particle"),p(MESH:Proteins,pmod(Ub))) -> tloc(a(MESH:Protein),fromLoc(GO:"proteasome regulatory particle"),toLoc(HBP:"20 S Proteasome"))
+
+SET Evidence = "AD is the most common of numerous age-associated brain diseases,
+and the activity of brain proteasomes appears to decline with age (Keller et al. 2002)."
+SET MeSHDisease = "Alzheimer Disease"
+bp(GO:aging) neg act(complex(GO:"proteasome complex"))
+UNSET MeSHDisease
+
+SET Evidence = "PHF have been associated with inhibition of the activity
+of the proteasome in a brain region–specific manner (Keller et al. 2000)."
+a(HBP:"paired helical filaments") neg act(complex(GO:"proteasome complex"))
+
+SET Evidence = "That is, in areas where NFTs formed abundantly, including hippocampus
+and parahippocampal gyrus and superior and middle temporal gyri, proteasome
+activity (as assessed by chymortrypsinlike and postglutamyl peptidases) appeared to
+be most affected, whereas occipital gyri and cerebellum, which often have few or no NFTs,
+were least affected (Keller et al. 2000)."
+SET MeSHAnatomy = {"Hippocampus","Parahippocampal Gyrus","Temporal Lobe"}
+a(GO:"neurofibrillary tangle") neg act(complex(GO:"proteasome complex"))
+UNSET MeSHAnatomy
+
+SET Evidence = "Another study of AD brain tissues showed that hyperphosphorylated tau was bound to the proteasome,
+presumably to the 19S cap portion, and the more tau that was bound, the more that
+proteasomes appeared to be inhibited (Keck et al. 2003)."
+SET MeSHDisease = "Alzheimer Disease"
+complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),a(GO:"proteasome regulatory particle")) neg act(complex(GO:"proteasome complex"))
+UNSET MeSHDisease
+
+SET Evidence = "In vitro experiments further showed that aggregated (recombinant) tau—but not
+nonaggregated (monomeric) tau—can inhibit the proteasome activity."
+a(HBP:"Tau aggregates") -| act(complex(GO:"proteasome complex"))
+
+SET Evidence = "Based on these various findings, it has been speculated that small aggregates of
+PHFs may bind to the cap portion of the 26S proteasome and inhibit its activity"
+complex(a(HBP:"paired helical filaments"),a(GO:"proteasome regulatory particle")) act(complex(GO:"proteasome complex"))
+
+SET Evidence = "The currently prevailing view of the temporal involvement of Ub in PHF evolution is that
+the aggregation of hyperphosphorylated tau is followed by ubiquitination"
+p(HBP:"Tau aggregates",pmod(HBP:hyperphosphorylation)) -> p(HBP:"Tau aggregates",pmod(HBP:hyperphosphorylation),pmod(Ub))
+
+SET Evidence = "UBB+1 protein accumulates in brains affected by AD and
+other diseases such as Pick’s disease and Huntington’s disease (Fischer et al. 2003)."
+SET MeSHAnatomy = "Brain"
+path(MESH:"Alzheimer Disease") pos p(HBP:"UBB+1")
+path(MESH:"Niemann-Pick Diseases") pos p(HBP:"UBB+1")
+UNSET MeSHAnatomy
+
+SET Evidence = "The resulting polyubiquitinated UBB+1 cannot be
+degraded by proteasomes and impairs the UPS
+(Lam et al. 2000), which may induce neurotoxicity."
+p(HBP:"UBB+1",pmod(UbPoly)) -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+p(HBP:"UBB+1",pmod(UbPoly)) -| deg(p(HBP:"UBB+1",pmod(UbPoly)))
+
+SET Evidence = "Indeed, transgenic mice expressing UBB+1 have an impaired UPS and show contextual
+memory deficits in both water maze and fear conditioning paradigms, without specific neuropathological
+findings (Fischer et al. 2009)."
+p(HBP:"UBB+1") -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+p(HBP:"UBB+1") -| bp(GO:memory)
+
+SET Evidence = "Although UCH-L1 is genetically associated with Parkinson’s disease (i.e.,
+it is the PARK5 gene; Belin and Westerlund 2008), it has also been implicated in the pathogenesis of AD"
+p(HGNC:UCHL1) -- path(MESH:"Parkinson Disease")
+p(HGNC:UCHL1) -- path(MESH:"Alzheimer Disease")
+
+SET Evidence = "A proteomic analysis has shown down-regulation and oxidative modification of
+UCH-L1 in the AD brain, and the levels of soluble UCH-L1 were inversely proportional to the
+number of NFTs (Choi et al. 2004)."
+SET MeSHDisease = "Alzheimer Disease"
+p(HGNC:UCHL1,pmod(GO:"protein oxidation")) neg a(GO:"neurofibrillary tangle")
+UNSET MeSHDisease
+
+SET Evidence = "Moreover, administration of UCH-L1 can reverse the amyloid
+b-protein–induced synaptic dysfunction and memory loss in transgenic mice overexpressing
+APP and PS1 (Gong et al. 2006)."
+a(CHEBI:"amyloid-beta") -| act(a(GO:synapse))
+a(CHEBI:"amyloid-beta") -| bp(GO:memory)
+p(HGNC:UCHL1) -> act(a(GO:synapse))
+p(HGNC:UCHL1) -> bp(GO:memory)
+
+SET Evidence = "Next, ubiquilin-1 has been reported to be genetically linked to AD"
+p(HGNC:UBQLN1) -- path(MESH:"Alzheimer Disease")
+
+SET Evidence = "Ubiquilin-1 interacts with both proteasomes and ubiquitinated proteins
+and regulates the proteasomal degradation of various proteins, including presenilin 1
+(Haapasalo et al. 2010)."
+p(HGNC:UBQLN1) -> complex(p(HGNC:UBQLN1),a(GO:"proteasome complex"))
+p(HGNC:UBQLN1) -> complex(p(HGNC:UBQLN1),p(MESH:Proteins,pmod(Ub)))
+p(HGNC:UBQLN1) reg deg(p(HGNC:PSEN1))
+
+SET Evidence = "An intronic polymorphism involving alternative splicing of exon 8
+in the ubiquilin 1 gene (UBQLN1), which is genetically located near a well-established linkage
+peak for AD on chromosome 9q22, has been associated with increased risk for late-onset
+AD (Bertram et al. 2005)."
+p(HGNC:UBQLN1,var("?")) pos path(MESH:"Alzheimer Disease")
+
+SET Evidence = "The earliest symptoms of AD are believed to be due to synaptic dysfunction, and in this context,
+numerous studies have established a significant role of the UPS in the regulation of synaptic plasticity."
+path(MESH:"Alzheimer Disease") neg act(a(GO:synapse))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -- bp(GO:"regulation of synaptic plasticity")
+
+SET Evidence = "During the induction of long-term facilitation in the snail, the regulatory
+subunit of cAMP-dependent protein kinase (PKA) is ubiquitinated and degraded by
+the proteasome, generating persistently activated PKA (Hegde et al. 1993)."
+complex(GO:"proteasome complex") -> deg(p(FPLX:PKA,pmod(Ub)))
+deg(p(FPLX:PKA,pmod(Ub))) -> act(p(FPLX:PKA))
+
+SET Evidence = "Activated PKA induces transcription of ApUCH (UCH-L1 in
+mammals), a deubiquitinating enzyzme, which has been found to be critical for the induction
+of long-term facilitation (Hegde et al. 1997)."
+act(p(FPLX:PKA)) -> p(HGNC:UCHL1)
+
+SET Evidence = "The UPS is also critically involved in learning and memory."
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -- bp(GO:learning)
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -- bp(GO:memory)
+
+SET Evidence = "Bilateral injection of lactacystin, a specific proteasome inhibitor, into the CA1 region of
+the rat hippocampus blocks long-term memory formation (Lopez-Salon et al. 2001"
+SET MeSHAnatomy = "CA1 Region, Hippocampal"
+a(CHEBI:lactacystin) -| bp(GO:"long-term memory")
+UNSET MeSHAnatomy
+
+SET Evidence = "This and numerous related findings suggest that degradation
+of certain critical proteins by the UPS is required during long-term memory formation.
+One of these proteins is arc, a negative regulator of synaptic strength that promotes the internalization
+of AMPA receptors and is degraded via the E3 ligase, UBE3A (Greer et al. 2010)."
+p(HGNC:ARC) reg bp(GO:"synapse maturation")
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(HGNC:ARC))
+p(HGNC:UBE3A) -> deg(p(HGNC:ARC))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> bp(GO:"long-term memory")
+
+SET Evidence = "Synaptic loss has long been documented in AD brain (Gonatas et al. 1967) and, as expected,
+is strongly correlated with the degree of cognitive impairment (Terry et al. 1991)."
+SET MeSHAnatomy = "Brain"
+path(MESH:"Alzheimer Disease") neg act(a(GO:synapse))
+act(a(GO:synapse)) pos bp(GO:cognition)
+UNSET MeSHAnatomy
+
+SET Evidence = "In transgenic mouse models of AD, synaptic deficits
+have been detected prior to the formation of amyloid plaques (Hsia et al. 1999)."
+SET MeSHDisease = "Alzheimer Disease"
+act(a(GO:synapse)) -| path(MESH:"Plaque, Amyloid")
+UNSET MeSHDisease
+
+SET Evidence = "Among the various molecular species of Abeta present in the
+brain, soluble oligomeric forms of Abeta are arguably the most plausible candidates to
+impair synaptic function (reviewed in Walsh and Selkoe 2004)."
+a(HBP:AβOs) -| act(a(GO:synapse))
+
+SET Evidence = "Soluble Ab oligomers inhibit hippocampal long-term potentiation and alter
+memory and learning performance"
+a(HBP:AβOs) -| bp(GO:"long-term synaptic potentiation")
+a(HBP:AβOs) -| bp(GO:learning)
+a(HBP:AβOs) -| bp(GO:memory)
+
+SET Evidence = "They also facilitate long-term depression by, among other
+effects, disrupting synaptic glutamate uptake (Li et al. 2009)."
+# they: soluble oligomeric Abeta
+a(HBP:AβOs) -> bp(GO:"long-term synaptic depression")
+SET MeSHAnatomy = "Synapses"
+a(HBP:AβOs) -| bp(GO:"L-glutamate import")
+UNSET MeSHAnatomy
+
+SET Evidence = "Recently, it has been shown that soluble Ab oligomers isolated from AD
+cortex can induce tau hyperphosphorylation at AD-relevant epitopes and subsequent neuritic
+degeneration (Jin et al. 2011)."
+SET MeSHDisease = "Alzheimer Disease"
+a(HBP:AβOs) -> p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+a(HBP:AβOs) -> deg(a(MESH:Neurites))
+UNSET MeSHDisease
+
+SET Evidence = "Beyond an age-related reduction (Keller et al. 2002), proteasome
+activities decrease in AD in a brain region–specific manner, particularly in hippocampus,
+parahippocampal gyrus, superior and middle temporal gyri, and the inferior parietal
+lobule (Keller et al. 2000), areas that are especially critical for long-term memory formation."
+SET MeSHDisease = "Alzheimer Disease"
+SET MeSHAnatomy = {"Parahippocampal Gyrus","Temporal Lobe","Parietal Lobe"}
+bp(GO:aging) neg act(complex(GO:"proteasome complex"))
+UNSET MeSHDisease
+UNSET MeSHAnatomy
+
+SET Evidence = "Moreover, soluble Ab oligomers themselves can
+inhibit proteasomal activity (Tseng et al. 2008)."
+a(HBP:AβOs) -| act(complex(GO:"proteasome complex"))
+
+SET Evidence = "It has been reported that tau is degraded by
+several major cellular degradation systems, including
+calpain, caspases, lysosomes, and proteasomes."
+p(FPLX:CAPN) -> deg(p(HGNC:MAPT))
+p(FPLX:Caspase) -> deg(p(HGNC:MAPT))
+a(GO:lysosome) -> deg(p(HGNC:MAPT))
+complex(GO:"proteasome complex") -> deg(p(HGNC:MAPT))
+
+SET Evidence = "As regards the proteasome, both the ATP-dependent 26S proteasome and the
+ATP-independent 20S proteasome have been reported to degrade normal, soluble tau (Cardozo
+et al. 2002; Zhang et al. 2005)."
+complex(GO:"proteasome complex") -> deg(p(HGNC:MAPT))
+complex(HBP:"20 S Proteasome") -> deg(p(HGNC:MAPT))
+
+SET Evidence = "On the other hand, it has been reported that the E3 ligase CHIP (carboxyl terminus
+of the Hsc70-interacting protein) binds to tau and is involved in the degradation of
+abnormal forms of tau, including insoluble tau and hyperphosphorylated tau, coordinately
+with Hsp70 (Petrucelli et al. 2004; Dickey et al. 2006)."
+p(HGNC:STUB1) -> complex(p(HGNC:STUB1),p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)))
+complex(p(HGNC:STUB1),p(HGNC:HSPA8),p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))) -> deg(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)))
+
+SET Evidence = "As described above, it has also been found that the 20S proteasome interacts with
+tau aggregates (Keck et al. 2003)."
+complex(HBP:"20 S Proteasome") -> complex(a(HBP:"20 S Proteasome"),a(HBP:"Tau aggregates"))
+
+SET Evidence = "Thus, the accumulation of tau and of Ab, forming the two major protein lesions of
+AD, impairs proteasome activity in vivo."
+SET MeSHDisease = "Alzheimer Disease"
+p(HGNC:MAPT) neg act(complex(GO:"proteasome complex"))
+a(CHEBI:"amyloid-beta") neg act(complex(GO:"proteasome complex"))
+UNSET MeSHDisease
+
+SET Evidence = "Indeed, many recent studies suggest the involvement of autophagy in the pathogenesis of AD"
+bp(GO:autophagy) -- path(MESH:"Alzheimer Disease")
+
+SET Evidence = "For example, immunocytochemistry showing the presence of K63-
+linked polyubiquitin in a fraction of the NFTs in AD cortex (Paine et al. 2009) suggests an
+active involvement of autophagy in the mechanism of AD."
+SET MeSHDisease = "Alzheimer Disease"
+bp(GO:"protein K63-linked ubiquitination") -- a(GO:"neurofibrillary tangle")
+bp(GO:autophagy) -- path(MESH:"Alzheimer Disease")
+UNSET MeSHDisease
+
+SET Evidence = "Although key to the survival of all cells, endocytosis supports unique neuronal functions,
+including aspects of synaptic transmission and plasticity underlying memory and learning."
+bp(GO:endocytosis) -> act(a(MESH:Neurons))
+bp(GO:endocytosis) -- bp(GO:"regulation of synaptic plasticity")
+bp(GO:endocytosis) -> bp(GO:memory)
+bp(GO:endocytosis) -> bp(GO:learning)
+bp(GO:endocytosis) -> bp(MESH:"Synaptic Transmission")
+
+SET Evidence = "During the initiation of endocytosis, the invagination of plasmamembranes into vesicles
+is mediated most often by the clathrin/adaptor protein complex, but also via caveolae or bulk
+macropinocytosis (Lim et al. 2011)."
+complex(GO:"clathrin complex") -> bp(GO:"plasma membrane invagination")
+a(GO:caveola) -> bp(GO:"plasma membrane invagination")
+bp(GO:"bulk synaptic vesicle endocytosis") -> bp(GO:"plasma membrane invagination")
+
+SET Evidence = "Still other cargoes reach late endosomes when Rab7 and its effectors
+replace Rab5 and initiate further endosomal maturation (Poteryaev et al. 2010)."
+p(HGNC:RAB7A) -> a(GO:endosome)
+
+SET Evidence = "Ubiquitin, the crucial signal for efficient sorting of proteins
+into the MVB (Babst et al. 1997), initiates this process, which is mediated by a group of
+ESCRT complexes (endosomal sorting complex required for transport; Hurley 2010)."
+a(MESH:Ubiquitin) -> tloc(a(MESH:Proteins),fromLoc(GO:cytoplasm),toLoc(GO:"multivesicular body"))
+complex(GO:"ESCRT complex") reg tloc(a(MESH:Proteins),fromLoc(GO:cytoplasm),toLoc(GO:"multivesicular body"))
+
+SET Evidence = "Acid hydrolases, including cathepsins, are delivered
+from the trans-Golgi network (TGN) to MVBs/late endosomes by either of two mannose-6-
+phosphate receptors: cation-dependent 46 kDa MPR (CD-MPR) and cation-independent
+215 kDa MPR (CI-MPR; Mullins et al. 2001)."
+p(HGNC:M6PR) -> tloc(a(MESH:Cathepsins),fromLoc(GO:"trans-Golgi network"),toLoc(GO:"multivesicular body"))
+p(HGNC:IGF2R) -> tloc(a(MESH:Cathepsins),fromLoc(GO:"trans-Golgi network"),toLoc(GO:"multivesicular body"))
+
+SET Evidence = "Autophagy is the cell’s principal degradative pathway for eliminating unwanted organelles
+and long-lived proteins and for clearing damaged, aggregated, or obsolete proteins (Wong et al. 2010)."
+bp(GO:autophagy) -> deg(a(GO:organelle))
+bp(GO:autophagy) -> deg(a(HBP:"protein aggregates"))
+
+SET Evidence = "In CMA, cytosolic proteins containing a KFERQ motif
+(including proteins pathogenic in some neurodegenerative diseases) are selectively targeted by
+certain chaperones to the lysosomal lumen for degradation (Arias et al. 2011)."
+bp(GO:"chaperone-mediated autophagy") -> tloc(a(MESH:Proteins),fromLoc(GO:cytosol),toLoc(GO:"lysosomal lumen"))
+
+SET Evidence = "Microautophagy involves the nonselective entry of small
+quantities of cytoplasm into lysosomes or late endosomes/MVBs when the limiting membranes
+of these compartments invaginate and pinch off small vesicles for digestion within the lumen (Sahu et al. 2011)."
+bp(GO:"lysosomal microautophagy") -> tloc(a(GO:cytoplasm),fromLoc(GO:intracellular),toLoc(GO:lysosome))
+bp(GO:"lysosomal microautophagy") -> tloc(a(GO:cytoplasm),fromLoc(GO:intracellular),toLoc(GO:"multivesicular body"))
+
+SET Evidence = "During macroautophagy, an elongated “isolation” membrane
+created from a preautophagosomal structure sequesters a region of cytoplasm to form a double-
+membrane-limited autophagosome (Fig. 5)."
+bp(GO:macroautophagy) -> a(GO:autophagosome)
+
+SET Evidence = "Sequestered material within autophagosomes is digested when lysosomes
+or late endosomes fuse with the outer membrane of the autophagosome (Gordon et al. 1988)."
+complex(a(GO:lysosome),a(GO:"late endosome"),a(GO:autophagosome)) -> deg(a(MESH:Proteins))
+
+SET Evidence = "Amphisomes formed by the fusion of autophagosomes with early endosomes or
+MVBs/late endosomes are especially important in neurons, where a considerable proportion of
+endocytosed cargo is directed to the autophagic pathway prior to being degraded by lysosomes
+(Larsen et al. 2002)."
+complex(a(GO:autophagosome),a(GO:"early endosome")) -> a(GO:amphisome)
+
+SET Evidence = "Induction of autophagy is generally controlled by the mTOR kinase
+(mammalian Target of Rapamycin), which is regulated by growth factors (especially insulin)
+and nutrient levels."
+p(HGNC:MTOR) reg bp(GO:autophagy)
+a(CHEBI:"insulin (human)") reg p(HGNC:MTOR)
+bp(GO:"response to nutrient") reg p(HGNC:MTOR)
+
+SET Evidence = "A continuum of pathological changes of the lysosomal network unfolds in neurons as Alzheimer
+disease progresses, including dysregulation of endocytosis, increased lysosome biogenesis
+and, later, progressive failure of lysosomal clearance mechanisms (Fig. 6; Nixon et al. 2006)."
+path(MESH:"Alzheimer Disease") neg bp(GO:endocytosis)
+path(MESH:"Alzheimer Disease") pos a(GO:lysosome)
+path(MESH:"Alzheimer Disease") neg bp(GO:"lysosomal protein catabolic process")
+
+SET Evidence = "Neuronal endosome enlargement, which is not characteristically observed in other major
+neurodegenerative diseases, develops in pyramidal neurons of the neocortex at a stage
+when plaques and tangles are restricted only to the hippocampus (Braak stage 2) and not
+in brains of similarly aged individuals free of AD-like hippocampal pathology (Cataldo et al. 1997, 2000)."
+SET MeSHAnatomy = {"Neurons","Pyramidal Cells","Neocortex"}
+path(MESH:"Neurodegenerative Diseases") -- bp(GO:"regulation of endosome size")
+a(HBP:"Braak_Stage II") -- bp(GO:"regulation of endosome size")
+UNSET MeSHAnatomy
+
+SET Evidence = "Similar endosomal anomalies develop gradually in Down syndrome brain,
+beginning decades before the appearance of classical AD pathology (Cataldo et al. 2000)."
+path(MESH:"Down Syndrome") neg bp(GO:"regulation of endosome size")
+
+SET Evidence = "Genes related to endocytosis, such as Rab5,Rab7, and Rab4, are among the earliest groups
+to showup-regulated transcription in AD(Ginsberg et al. 2010), and their corresponding proteins
+are abnormally recruited to endosomes, where they promote fusion and abnormal enlargement
+of early and late endosomes (Cataldo et al. 1997, 2008)."
+path(MESH:"Alzheimer Disease") pos p(HGNC:RAB7A)
+p(HGNC:RAB7A) -> complex(a(GO:"early endosome"),a(GO:"late endosome"))
+p(HGNC:RAB7A) -- bp(GO:"regulation of endosome size")
+path(MESH:"Alzheimer Disease") pos p(HGNC:RAB5A)
+p(HGNC:RAB5A) -> complex(a(GO:"early endosome"),a(GO:"late endosome"))
+p(HGNC:RAB5A) -- bp(GO:"regulation of endosome size")
+path(MESH:"Alzheimer Disease") pos p(HGNC:RAB4A)
+p(HGNC:RAB4A) -> complex(a(GO:"early endosome"),a(GO:"late endosome"))
+p(HGNC:RAB4A) -- bp(GO:"regulation of endosome size")
+
+SET Evidence = "AV accumulations are not specific to the degenerative phenomena of AD; however,
+in AD brain, the extensive numbers of dystrophic neurites (Masliah et al. 1993; Schmidt
+et al. 1994), their characteristic marked distension, and the fact that they are predominantly
+filled with AVs distinguish the pattern and magnitude of this pathology from that of
+other aging-related neurodegenerative diseases (Benzing et al. 1993)."
+# AV: autophagic vacuoles
+a(GO:autophagosome) -- a(HBP:"dystrophic neurite")
+path(MESH:"Alzheimer Disease") pos a(HBP:"dystrophic neurite")
+
+SET Evidence = "The profuse and selective accumulation of AVs in neurons in AD reflects a defect in the
+clearance of AVs by lysosomes rather than an abnormally elevated induction of autophagy"
+SET MeSHAnatomy = "Neurons"
+path(MESH:"Alzheimer Disease") pos a(GO:autophagosome)
+path(MESH:"Alzheimer Disease") neg act(a(GO:lysosome))
+UNSET MeSHAnatomy
+
+SET Evidence = "Similar autophagy pathology is observed when lysosomal proteolysis is inhibited (Ivy
+et al. 1984; Koike et al. 2005; Yang et al. 2008)."
+bp(GO:"lysosomal protein catabolic process") pos bp(GO:autophagy)
+
+SET Evidence = "That presenilin 1 mutations, which are a cause of early-onset familial AD, impede lysosome
+proteolysis and accelerate neuritic dystrophy also supports a primary role for failure of proteolytic
+clearance (Lee et al. 2010)."
+p(HGNC:PSEN1,var("?")) -> path(MESH:"Alzheimer Disease")
+p(HGNC:PSEN1,var("?")) -| bp(GO:"lysosomal protein catabolic process")
+p(HGNC:PSEN1,var("?")) -| act(a(HBP:Neurites))
+
+SET Evidence = "Beyond its role as a component of g-secretase, Presenilin 1 (PS1) is required for
+lysosome acidification, which is needed to activate cathepsins and other hydrolases that carry
+out digestion during autophagy (Lee et al. 2010)."
+SET MeSHAnatomy = "Lysosomes"
+p(HGNC:PSEN1) -> bp(GO:"pH reduction")
+p(HGNC:PSEN1) -> act(a(MESH:Cathepsins))
+UNSET MeSHAnatomy
+
+SET Evidence = "In the absence of PS1, the V0a1 subunit of v-ATPase is not N-glycosylated in the ER
+and is degraded before sufficient amounts can be delivered to autolysosomes/lysosomes to
+support lysosomal acidification."
+SET MeSHAnatomy = "Lysosomes"
+p(HGNC:PSEN1) -> p(HGNC:ATP6V0A1,pmod(NGlyco))
+p(HGNC:ATP6V0A1,pmod(NGlyco)) -> bp(GO:"pH reduction")
+UNSET MeSHAnatomy
+
+SET Evidence = "App promoter polymorphisms that increase APP expression are
+also associated with early-onset AD (Athan et al. 2002)."
+p(HGNC:APP,var("?")) pos path(MESH:"Alzheimer Disease")
+
+SET Evidence = "These findings support a longstanding hypothesis that the App gene on the trisomic
+copy of human chromosome 21 (HSA21) in Down syndrome (DS) is principally responsible
+for the invariant early development of AD in DS individuals (Margallo-Lana et al. 2004)."
+SET MeSHDisease = "Down Syndrome"
+p(HGNC:APP,var("?")) pos path(MESH:"Alzheimer Disease")
+UNSET MeSHDisease
+
+SET Evidence = "In DS, the extra copy of App causes endocytic up-regulation and endosome pathology similar
+to that seen at the earliest stages of sporadic AD, but beginning even earlier"
+SET MeSHDisease = "Down Syndrome"
+p(HGNC:APP,var("?")) -> bp(GO:endocytosis)
+UNSET MeSHDisease
+
+SET Evidence = "Recently, these effects of increased App dosage were shown to
+be mediated specifically by the b-cleaved carboxy-terminal fragment of APP, bCTF (Jiang
+et al. 2010), which binds to a complex of signaling molecules on endosomes that pathologically
+activates rab5 (S Kim and RA Nixon, unpubl.)."
+p(HBP:"APP C-terminally truncated carboxyl-terminal fragments") -> act(p(HGNC:RAB5A))
+
+SET Evidence = "It is this abnormal rab5 activation that causes protein and lipid accumulation in endosomes,
+slowed lysosomal degradation of endocytic cargoes,endosome swelling (Cataldo et al. 2008),
+and disrupted retrograde transport of endosomes (S Kim and RA Nixon, unpubl.)."
+act(p(HGNC:RAB5A)) pos a(MESH:Proteins)
+act(p(HGNC:RAB5A)) pos a(CHEBI:lipid)
+act(p(HGNC:RAB5A)) neg bp(GO:"lysosomal protein catabolic process")
+
+SET Evidence = "Interactions between FAD-mutant forms of APP and
+APP binding protein (APP-BP1) on endosomes also initiate pathological rab5 activation, which
+was shown to promote a neuronal apoptosis cascade (Laifenfeld et al. 2007)."
+complex(p(HGNC:APP,var),p(HGNC:NAE1),a(GO:endosome)) -> act(p(HGNC:RAB5A))
+act(p(HGNC:RAB5A)) pos bp(GO:"neuron death")
+
+SET Evidence = "Acceleration of endosome pathology is also seen in individuals who inherit the 14 allele of
+APOE, a key mediator of neuronal cholesterol transport and the major genetic risk factor for
+late-onset AD (Cataldo et al. 2000)."
+SET MeSHAnatomy = "Neurons"
+g(HBP:"APOE e4") reg bp(GO:"cholesterol transpor")
+g(HBP:"APOE e4") -- path(MESH:"Alzheimer Disease")
+UNSET MeSHAnatomy
+
+SET Evidence = "High dietary LDL-cholesterol and overexpression of its receptor
+ApoE (particularly ApoE 14) elevate bCTF levels (Ji et al. 2006; Cossec et al. 2010), and
+these levels are also elevated in NPC, DS, and AD, particularly in early-onset forms of AD
+caused by certain mutations of APP."
+g(HBP:"APOE e4") pos p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")
+a(CHEBI:"low-density lipoprotein cholesterol") pos p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")
+
+SET Evidence = "AVs and lysosomes constitute more than 95% of the organelles in dystrophic neuritic
+swellings in AD and AD mouse models, implying a cargo-specific defect in axonal transport,
+rather than a global one."
+SET MeSHDisease = "Alzheimer Disease"
+a(GO:autophagosome) -> a(GO:organelle)
+a(GO:lysosome) -> a(GO:organelle)
+path(MESH:"Alzheimer Disease") neg bp(GO:"axonal transport")
+UNSET MeSHDisease
+
+SET Evidence = "Indeed, when lysosomal proteolysis is inhibited by blocking
+acidification or directly inhibiting cathepsins,axonal transport of autophagy-related compartments
+is selectively slowed and intermittently interrupted."
+bp(GO:"lysosomal protein catabolic process") -> bp(GO:"axonal transport")
+
+SET Evidence = "These observations suggest how PS1 mutations, which impede lysosomal acidification
+(Lee et al. 2010), may markedly accelerate and amplify neuritic dystrophy in AD"
+SET MeSHDisease = "Alzheimer Disease"
+SET MeSHAnatomy = "Lysosomes"
+p(HGNC:PSEN1,var("?")) -| bp(GO:"pH reduction")
+p(HGNC:PSEN1,var("?")) -| act(a(MESH:Neurites))
+UNSET MeSHDisease
+UNSET MeSHAnatomy
+
+SET Evidence = "Similar neuritic dystrophy eventually develops in all forms of AD and in mouse AD models
+where only FAD-causingmutant APP is overexpressed."
+SET MeSHDisease = "Alzheimer Disease"
+p(HGNC:APP,var("?")) neg act(a(MESH:Neurites))
+UNSET MeSHDisease
+
+SET Evidence = "In this regard, elevated bCTF levels induced by APP overexpression, elevated
+dietary cholesterol, or overexpression of its receptor ApoE (particularly ApoE 14) can upregulate
+endocytosis and enlarge endosomes (Laifenfeld et al. 2007; Chen et al. 2010; Cossec
+et al. 2010), leading to impaired endosome retrograde transport (S Kim and RA Nixon, unpubl.)."
+p(HGNC:APP) pos p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")
+p(HGNC:APP) pos bp(GO:endocytosis)
+p(HGNC:APP) -> a(GO:endosome)
+g(HBP:"APOE e4") pos p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")
+g(HBP:"APOE e4") pos bp(GO:endocytosis)
+g(HBP:"APOE e4") -> a(GO:endosome)
+a(CHEBI:cholesterol) pos p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")
+a(CHEBI:cholesterol) pos bp(GO:endocytosis)
+a(CHEBI:cholesterol) -> a(GO:endosome)
+
+SET Evidence = "Accelerated endocytosis also increases protein and lipid accumulation in endosomes
+and slows lysosomal degradation of endocytic cargoes (Cataldo et al. 2008), leading to lysosomal
+instability and neurodegeneration, as discussed below."
+SET MeSHAnatomy = "Endosomes"
+bp(GO:endocytosis) pos a(MESH:Proteins)
+bp(GO:endocytosis) pos a(CHEBI:lipid)
+bp(GO:endocytosis) neg bp(GO:"lysosomal protein catabolic process")
+bp(GO:"lysosomal protein catabolic process") -| path(HBP:Neurodegeneration)
+UNSET MeSHAnatomy
+
+SET Evidence = "In APP transgenic mouse models of AD, undigested
+autophagy substrates including LC3-II, p62, and ubiquitinated proteins accumulate in
+neuronal AVs, establishing that autophagic protein turnover in lysosomes is impeded (Yang et al. 2011)."
+SET MeSHDisease = "Alzheimer Disease"
+bp(GO:"lysosomal protein catabolic process") -| p(HGNC:MAP1LC3B)
+bp(GO:"lysosomal protein catabolic process") -| p(HGNC:SQSTM1)
+bp(GO:"lysosomal protein catabolic process") -| p(MESH:Proteins,pmod(Ub))
+UNSET MeSHDisease
+
+SET Evidence = "AVs are also enriched in APP substrates and secretases and,
+during autophagy, Ab peptide is generated from APP (Yu et al. 2005), although it is subsequently
+degraded in lysosomes under normal circumstances (Heinrich et al. 1999; Bahr et al.
+2002; Florez-McClure et al. 2007)."
+a(GO:autophagosome) -- p(HGNC:APP)
+bp(GO:autophagy) -> rxn(reactants(p(HGNC:APP)),products(a(MESH:"Amyloid beta-Peptides")))
+bp(GO:"lysosomal protein catabolic process") -> deg(a(MESH:"Amyloid beta-Peptides"))
+
+SET Evidence = "Although less well studied as “Ab degrading proteases”
+than the zinc metallopeptidase family (Guenette 2003; Eckman et al. 2005), cathepsins are
+considered an important route for Ab/amyloid clearance (Mueller-Steiner et al. 2006; Nixon
+2007; Butler et al. 2011) and human neurons may be particularly dependent on this mechanism
+(LeBlanc et al. 1999; reviewed in Saido and Leissring 2011)."
+a(MESH:Cathepsins) reg deg(a(CHEBI:"amyloid-beta"))
+
+SET Evidence = "Chronic low-level stimulation of autophagy through peripheral administration
+of rapamycin or other agents (Tian et al. 2011), or enhancing lysosomal proteolysis
+selectively (Sun et al. 2008; Yang et al. 2011), can markedly diminish Ab levels and amyloid
+load in APP transgenic mice, underscoring the importance of lysosomal clearance of Ab."
+bp(GO:"lysosomal protein catabolic process") -> deg(a(CHEBI:"amyloid-beta"))
+bp(GO:autophagy) -> deg(a(CHEBI:"amyloid-beta"))
+a(CHEBI:sirolimus) -> bp(GO:autophagy)
+
+SET Evidence = "Endocytic pathway up-regulation in AD stemming in part from pathological rab 5 activation
+generates higher levels of Ab (Mathews et al. 2002; Grbovic et al. 2003) that must be cleared in part by lysosomes."
+act(p(HGNC:RAB5A)) -> bp(GO:endocytosis)
+act(p(HGNC:RAB5A)) -> a(CHEBI:"amyloid-beta")
+bp(GO:endocytosis) pos a(CHEBI:"amyloid-beta")
+bp(GO:"lysosomal protein catabolic process") -> deg(a(CHEBI:"amyloid-beta"))
+
+SET Evidence = "Pathological rab5 activation, which in Down syndrome is dependent
+on bCTF generation (Jiang et al. 2010), can up-regulate endocytosis in a manner functionally
+equivalent to the elevated endocytosis associated with increased synaptic activity, which is
+considered a source of Ab generation (Cirrito et al. 2008)."
+SET MeSHDisease = "Down Syndrome"
+p(HBP:"APP C-terminally truncated carboxyl-terminal fragments") -> act(p(HGNC:RAB5A))
+act(p(HGNC:RAB5A)) -> bp(GO:endocytosis)
+bp(GO:endocytosis) pos act(a(GO:synapse))
+bp(GO:endocytosis) pos a(CHEBI:"amyloid-beta")
+UNSET MeSHDisease
+
+SET Evidence = "The acidic environment in lysosomes is particularly favorable for
+the initial stages of Ab oligomerization (Peralvarez-Marin et al. 2008)."
+SET MeSHAnatomy = "Lysosomes"
+bp(GO:"response to acidic pH") -> a(HBP:"amyloid-beta oligomers")
+UNSET MeSHAnatomy
+
+SET Evidence = "Neurofibrillary tangles composed of tau proteins in a hyperphosphorylated state are rarely
+observed in abundance except in AD and a limited number of aging-related tauopathies."
+a(GO:"neurofibrillary tangle") -- p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+
+SET Evidence = "Incomplete charperone-mediated autophagy of tau generates fragments that
+aggregate and are cleared by macroautophagy (Wang et al. 2009)."
+bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:MAPT))
+deg(p(HGNC:MAPT)) -> p(HGNC:MAPT,frag("?"))
+bp(GO:macroautophagy) -> deg(p(HGNC:MAPT,frag("?")))
+
+SET Evidence = "Consistent with these findings, rapamycin induction of autophagy reduces
+tau pathology in the triple transgenic AD-mouse model (Caccamo et al. 2010), whereas in other
+models, autophagic–lysosomal dysfunction amplifies tau pathology and tau neurotoxicity
+(Hamano et al. 2008; Khurana et al. 2010)."
+a(CHEBI:sirolimus) -> bp(GO:autophagy)
+a(CHEBI:sirolimus) -| path(MESH:Tauopathies)
+bp(GO:autophagy) -| path(MESH:Tauopathies)
+bp(GO:autophagy) -| path(HBP:neurotoxicity)
+
+SET Evidence = "Pathological Rab5 activation driving endocytic dysfunction in AD may negatively impact longterm
+potentiation (LTP) and long-term depression (LTD) aspects of synaptic plasticity closely
+associated with learning and memory (Kessels et al. 2009)"
+act(p(HGNC:RAB5A)) -| bp(GO:endocytosis)
+path(MESH:"Alzheimer Disease") neg bp(GO:endocytosis)
+act(p(HGNC:RAB5A)) neg bp(GO:"long-term synaptic potentiation")
+act(p(HGNC:RAB5A)) neg bp(GO:"long-term synaptic depression")
+
+SET Evidence = "Conversely, deletion of the neuronal rab5 GEF, rin1, reduces rab5 activation, increases
+LTP induction in the amygdala, and enhances fear learning and memory, most likely
+by increasing surface levels of AMPA receptors (Dhaka et al. 2003)."
+SET MeSHAnatomy = "Amygdala"
+p(HGNC:RIN1) -> act(p(HGNC:RAB5A))
+p(HGNC:RIN1) -| bp(GO:"long-term synaptic potentiation")
+p(HGNC:RIN1) -| bp(GO:"fear response")
+p(HGNC:RIN1) -| bp(GO:memory)
+p(HGNC:RIN1) -| a(MESH:"Receptors, AMPA")
+UNSET MeSHAnatomy
+
+SET Evidence = "Autophagy may also modulate synaptic plasticity, which involves structural
+remodeling of nerve terminals (Boland et al. 2006) and the trafficking and degradation
+of receptors and other synaptic proteins (Leil et al. 2004; Rowland et al. 2006)."
+bp(GO:autophagy) -- bp(GO:"regulation of synaptic plasticity")
+
+SET Evidence = "A close connection between lysosomal network dysfunction and mechanisms of neurodegeneration
+is well documented (McCray et al. 2008; Nixon et al. 2008; Bellettato et al. 2010; Cherra et al. 2010)."
+bp(GO:"lysosomal protein catabolic process") -| path(HBP:Neurodegeneration)
+
+SET Evidence = "Cataclysmic disruption of lysosomal membranes releases hydrolases that act as
+both the trigger and executioner in rapid necrosis (Syntichaki et al. 2003; Kroemer et al.
+2005), whereas slow release of cathepsins more likely operates through signaling pathways to
+trigger apoptosis (Kroemer et al. 2005)."
+sec(a(MESH:Hydrolases)) -> path(MESH:Necrosis)
+sec(a(MESH:Cathepsins)) -> bp(GO:"apoptotic process")
+
+SET Evidence = "By up-regulating endocytosis, high dietary LDL-cholesterol and overexpression of its receptor
+ApoE (particularly ApoE 14) elevate bCTF levels and increase delivery of Ab1–42
+to lysosomes in cellular model systems (Ji et al. 2006; Cossec et al. 2010)."
+bp(GO:endocytosis) pos p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")
+bp(GO:endocytosis) pos tloc(a(CHEBI:"amyloid-beta polypeptide 42"),fromLoc(GO:cytosol),toLoc(GO:lysosome))
+g(HBP:"APOE e4") pos p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")
+g(HBP:"APOE e4") pos tloc(a(CHEBI:"amyloid-beta polypeptide 42"),fromLoc(GO:cytosol),toLoc(GO:lysosome))
+a(CHEBI:"low-density lipoprotein cholesterol") pos p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")
+a(CHEBI:"low-density lipoprotein cholesterol") pos tloc(a(CHEBI:"amyloid-beta polypeptide 42"),fromLoc(GO:cytosol),toLoc(GO:lysosome))
+
+SET Evidence = "Consistent with these findings, strong overexpression of human
+Ab42, but not Ab40, in Drosophila neurons induces age-related accumulation of Ab in autolysosomes
+and neurotoxicity (Ling et al. 2009)."
+SET MeSHAnatomy = "Neurons"
+a(CHEBI:"amyloid-beta polypeptide 42") pos a(CHEBI:"amyloid-beta")
+a(CHEBI:"amyloid-beta polypeptide 42") pos path(HBP:neurotoxicity)
+UNSET MeSHAnatomy
+
+SET Evidence = "Ab42-induced neurotoxicity is further enhanced by autophagy activation and is partially
+rescued by autophagy inhibition."
+a(CHEBI:"amyloid-beta polypeptide 42") -> path(HBP:neurotoxicity)
+bp(GO:autophagy) -> path(HBP:neurotoxicity)
+
+SET Evidence = "Expression of the ApoE epsilon 4 allele, but not ApoE epsilon 3, in mice
+administered a neprilysin inhibitor increases Ab immunoreactivity in lysosomes and causes
+neurodegeneration of hippocampal CA1, entorhinal,and septal neurons (Belinson et al. 2008)."
+SET MeSHAnatomy = "Lysosomes"
+g(HBP:"APOE e4") -> act(a(CHEBI:"amyloid-beta"))
+UNSET MeSHAnatomy
+SET MeSHAnatomy = {"CA1 Region, Hippocampal","Neurons"}
+g(HBP:"APOE e4") -> path(HBP:Neurodegeneration)
+UNSET MeSHAnatomy
+
+SET Evidence = "ApoE epsilon4 that trafficks to lysosomes more readily than ApoE epsilon3, promotes leakage
+of acid hydrolases, and induces apoptosis in cultured neuronal cells by forming membrane-damaging
+intermediates in the low-pHenvironment (Ji et al. 2002)."
+g(HBP:"APOE e4") -> bp(GO:"apoptotic process")
+
+SET Evidence = "Beyond influencing Ab generation and toxicity, defective endosome functioning plays a
+crucial Ab-independent role in the failure of retrograde NGF signaling that leads to basal
+forebrain cholinergic neuron degeneration in the Ts65Dn mouse model of DS (Cooper et al. 2001; Delcroix et al. 2004)."
+act(a(GO:endosome)) -> bp(GO:"nerve growth factor signaling pathway")
+act(a(GO:endosome)) -| path(HBP:Neurodegeneration)
+
+SET Evidence = "Peripheral administration of rapamycin to strongly stimulate autophagy
+substantially reduces amyloid deposition and tau pathology in both APPand triple transgenic
+mouse models of AD pathology (Caccamo et al. 2010; Spilman et al. 2010; Tian et al. 2011)"
+a(CHEBI:sirolimus) -| a(CHEBI:"amyloid-beta")
+a(CHEBI:sirolimus) -| path(MESH:Tauopathies)
+
+SET Evidence = "Stimulating lysosomal proteolytic efficiency in the TgCRND8 APP mouse
+model by deleting an endogenous inhibitor of lysosomal cysteine proteases (cystatin B) rescues
+lysosomal pathology, eliminates abnormal autolysosomal accumulation of autophagy substrates,
+including Ab, decreases Ab and amyloid deposition, and ameliorates learning and memory deficits (Yang et al. 2011)"
+bp(GO:"lysosomal protein catabolic process") -| a(CHEBI:"amyloid-beta")
+bp(GO:"lysosomal protein catabolic process") -> bp(GO:learning)
+bp(GO:"lysosomal protein catabolic process") -> bp(GO:memory)
+
+SET Evidence = "Similar therapeutic effects, including restoration of synaptic
+functions, are seen in APP mouse models after deleting cystatin C (Sun et al. 2008), by overexpressing
+cathepsin B (Mueller-Steiner et al. 2006), or by enhancing its activity (Butler et al. 2011)."
+p(HGNC:CST3) -| act(a(GO:synapse))
+p(HGNC:CTSB) pos act(a(GO:synapse))
+
+##########################################################
+
+UNSET STATEMENT_GROUP
