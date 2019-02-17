@@ -36,6 +36,10 @@ metadata = BELMetadata(
     version=VERSION,
     authors=serialize_authors(AUTHORS),
     contact='charles.hoyt@scai.fraunhofer.de',
+    description="Mechanistic knowledge surrounding three biological phenomena: tau modification/aggregation, "
+                "nicotinic receptor signalling, and proteostasis in the context of neurodegenerative disease",
+    license='CC BY 4.0',
+    copyright='Copyright © 2019 Fraunhofer SCAI, All rights reserved.',
 )
 
 repository = BELRepository(
