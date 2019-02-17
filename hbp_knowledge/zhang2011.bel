@@ -15,13 +15,11 @@ SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
 DEFINE NAMESPACE CHEBI   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/chebi/chebi-20180106.belns"
 DEFINE NAMESPACE GO      AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/go-names.belns"
 DEFINE NAMESPACE HGNC    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hgnc/hgnc-20180215.belns"
-DEFINE NAMESPACE MESHC   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-chemicals/mesh-chemicals-20170725.belns"
-DEFINE NAMESPACE MESHCS  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-cell-structures/mesh-cell-structures-20170511.belns"
-DEFINE NAMESPACE MESHD   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-diseases/mesh-diseases-20170725.belns"
-DEFINE NAMESPACE MESHPP  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-processes/mesh-processes-20170725.belns"
-DEFINE NAMESPACE SCOMP   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE MESH  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
 DEFINE NAMESPACE HBP     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/bd0996a28201cad363557315043c6392e31abf58/export/hbp.belns"
+
 DEFINE NAMESPACE FPLX    AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/1b7e14ec0fd02ee7ed71514c6e267f57d5641a4b/export/famplex.belns"
+
 DEFINE NAMESPACE UNIPROT AS PATTERN ".*"
 
 ###############
@@ -45,8 +43,8 @@ through sequential cleavages first by beta-secretase and then by gamma-secretase
 SET Confidence = "Medium"
 p(HGNC:APP) -> a(CHEBI:"amyloid-beta")
 p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta")))
-complex(SCOMP:"gamma Secretase Complex") -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta")))
-a(MESHC:"Amyloid Precursor Protein Secretases") -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta")))
+complex(FPLX:Gamma_secretase) -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta")))
+a(MESH:"Amyloid Precursor Protein Secretases") -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta")))
 
 SET Evidence = "Alternatively, APP can be
 cleaved by alpha-secretase within the Abeta domain to release soluble APPa and preclude Abeta generation"
@@ -57,8 +55,8 @@ p(HGNC:ADAM10) -| a(CHEBI:"amyloid-beta")
 SET Evidence = "Cleavage of
 APP by caspases may also contribute to AD pathologies"
 SET Confidence = "Medium"
-a(MESHC:Caspases) -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta")))
-a(MESHC:Caspases) -> path(MESHD:"Alzheimer Disease")
+a(MESH:Caspases) -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta")))
+a(MESH:Caspases) -> path(MESH:"Alzheimer Disease")
 
 SET Evidence = "The neurofibrillary tangles (NFTs) consist
 largely of hyperphosphorylated twisted filaments of
@@ -72,7 +70,7 @@ small peptides called beta-amyloid (Abeta) that are derived via
 sequential proteolytic cleavages of the b-amyloid precursor
 protein (APP) [6]"
 SET Confidence = "High"
-a(CHEBI:"amyloid-beta") -> path(MESHD:"Plaque, Amyloid")
+a(CHEBI:"amyloid-beta") -> path(MESH:"Plaque, Amyloid")
 
 SET Evidence = "The APP gene is located on chromosome 21 in humans
 with three major isoforms arising from alternative
@@ -98,15 +96,15 @@ NMDA receptor in neurons can shift APP expression
 from APP695 to KPI-containing APP isoforms, accompanied
 with increased production of Ab [10]"
 SET Confidence = "Medium"
-p(HBP:HBP00064) -> path(MESHD:"Plaque, Amyloid")
-p(HBP:HBP00065) -> path(MESHD:"Plaque, Amyloid")
-path(MESHD:"Alzheimer Disease") positiveCorrelation r(HBP:HBP00064)
-path(MESHD:"Alzheimer Disease") positiveCorrelation r(HBP:HBP00064)
-path(MESHD:"Alzheimer Disease") positiveCorrelation p(HBP:HBP00065)
-path(MESHD:"Alzheimer Disease") positiveCorrelation p(HBP:HBP00065)
-a(MESHC:"Receptors, N-Methyl-D-Aspartate") -> p(HBP:HBP00064)
-a(MESHC:"Receptors, N-Methyl-D-Aspartate") -> p(HBP:HBP00065)
-a(MESHC:"Receptors, N-Methyl-D-Aspartate") -> a(CHEBI:"amyloid-beta")
+p(HBP:HBP00064) -> path(MESH:"Plaque, Amyloid")
+p(HBP:HBP00065) -> path(MESH:"Plaque, Amyloid")
+path(MESH:"Alzheimer Disease") positiveCorrelation r(HBP:HBP00064)
+path(MESH:"Alzheimer Disease") positiveCorrelation r(HBP:HBP00064)
+path(MESH:"Alzheimer Disease") positiveCorrelation p(HBP:HBP00065)
+path(MESH:"Alzheimer Disease") positiveCorrelation p(HBP:HBP00065)
+a(MESH:"Receptors, N-Methyl-D-Aspartate") -> p(HBP:HBP00064)
+a(MESH:"Receptors, N-Methyl-D-Aspartate") -> p(HBP:HBP00065)
+a(MESH:"Receptors, N-Methyl-D-Aspartate") -> a(CHEBI:"amyloid-beta")
 
 SET Evidence = "A role for APP has been suggested
 in neurite outgrowth and synaptogenesis, neuronal
@@ -115,7 +113,7 @@ signal transduction, cell adhesion, calcium metabolism,
 etc, all requiring additional in vivo evidence (reviewed
 in [19])"
 SET Confidence = "High"
-p(HGNC:APP) -- bp(MESHPP:"Neuronal Outgrowth")
+p(HGNC:APP) -- bp(MESH:"Neuronal Outgrowth")
 p(HGNC:APP) -- bp(GO:"synapse assembly")
 p(HGNC:APP) -- bp(GO:"signal transduction")
 p(HGNC:APP) -- bp(GO:"cell adhesion")
@@ -206,11 +204,11 @@ platlets and cerebrospinal fluid [55] and the reduced alpha-secretase
 activity in the temporal cortex homogenates of AD patients [56]"
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Blood Platelets"
-path(MESHD:"Alzheimer Disease") negativeCorrelation p(HGNC:ADAM10)
+path(MESH:"Alzheimer Disease") negativeCorrelation p(HGNC:ADAM10)
 SET MeSHAnatomy = {"Blood Platelets", "Cerebrospinal Fluid"}
-path(MESHD:"Alzheimer Disease") negativeCorrelation a(HBP:HBP00067)
+path(MESH:"Alzheimer Disease") negativeCorrelation a(HBP:HBP00067)
 SET MeSHAnatomy = "Temporal Lobe"
-path(MESHD:"Alzheimer Disease") negativeCorrelation act(p(HGNC:ADAM10))
+path(MESH:"Alzheimer Disease") negativeCorrelation act(p(HGNC:ADAM10))
 
 SET Evidence = "In contrast to Abeta, sAPPalpha has an important role in
 neuronal plasticity/survival and is protective against
@@ -278,7 +276,7 @@ p(HGNC:BACE1) -> p(HGNC:APP, frag(672_711))
 SET Evidence = "As DS also results in Abeta accumulation, the genes location
 suggests a link between BACE2 and APP processing"
 SET Confidence = "Medium"
-path(MESHD:"Down Syndrome") -> a(HBP:HBP00018)
+path(MESH:"Down Syndrome") -> a(HBP:HBP00018)
 p(HGNC:BACE2) -- rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta")))
 
 SET Evidence = "Indeed, BACE2 cleaves beta-secretase substrates such as
@@ -324,7 +322,7 @@ gamma- and/or caspase-cleavage including APP intracellular
 domain (AICD), C31 and Jcasp which are cytotoxic (see
 below)"
 SET Confidence = "Low"
-a(MESHC:Caspases) -> rxn(reactants(p(HBP:HBP00071)),products(a(HBP:HBP00069),a(HBP:HBP00070)))
+a(MESH:Caspases) -> rxn(reactants(p(HBP:HBP00071)),products(a(HBP:HBP00069),a(HBP:HBP00070)))
 
 SET Evidence = "APP alphaCTF and betaCTF are further cleaved by gamma-secretase
 to generate p83 and Abeta, respectively"
@@ -336,7 +334,7 @@ Nicastrin binds to APP and Notch and can recruit them
 into the g-secretase complex, suggesting that Nicastrin
 may act as the gamma-secretase receptor [108]"
 SET Confidence = "Medium"
-complex(p(HGNC:NCSTN),p(HGNC:APP),p(HGNC:NOTCH1)) -> complex(complex(SCOMP:"gamma Secretase Complex"),p(HGNC:APP))
+complex(p(HGNC:NCSTN),p(HGNC:APP),p(HGNC:NOTCH1)) -> complex(complex(FPLX:"Gamma_secretase"),p(HGNC:APP))
 
 SET Evidence = "Downregulation of CD147 increases Abeta production but its overexpression
 has no effect on Abeta generation [113]"
@@ -396,14 +394,14 @@ SET Evidence = "In addition to secretases, caspases (predominantly caspase-
 tail during apoptosis to release a fragment containing
 the last 31 amino acids of APP (called C31)"
 SET Confidence = "High"
-a(MESHC:Caspases) -> rxn(reactants(p(HGNC:APP)),products(a(HBP:HBP00069)))
+a(MESH:Caspases) -> rxn(reactants(p(HGNC:APP)),products(a(HBP:HBP00069)))
 
 SET Evidence = "Additional
 gamma-cleavage further generates the fragment (called Jcasp)
 containing the region between gamma- and caspase-cleavage
 sites"
 SET Confidence = "High"
-a(MESHC:Caspases) -> rxn(reactants(p(HGNC:APP)),products(a(HBP:HBP00070)))
+a(MESH:Caspases) -> rxn(reactants(p(HGNC:APP)),products(a(HBP:HBP00070)))
 
 SET Evidence = "One
 possible mechanism for C31’s toxicity is that C31 complexes
@@ -438,10 +436,10 @@ for AD pathogenesis, probably by providing the core for
 Abeta assembly into oligomers, fibrils and amyloidogenic
 plaques [145,146]"
 SET Confidence = "High"
-p(HGNC:APP, frag(672_713)) -> path(MESHD:"Alzheimer Disease")
+p(HGNC:APP, frag(672_713)) -> path(MESH:"Alzheimer Disease")
 p(HGNC:APP, frag(672_713)) -> a(HBP:HBP00022)
 p(HGNC:APP, frag(672_713)) -> a(HBP:HBP00038)
-p(HGNC:APP, frag(672_713)) -> path(MESHD:"Plaque, Amyloid")
+p(HGNC:APP, frag(672_713)) -> path(MESH:"Plaque, Amyloid")
 
 SET Evidence = "In Down Syndrome (DS) patients, the accumulation of
 intracellular Abeta precedes extracellular plaque formation
@@ -449,7 +447,7 @@ intracellular Abeta precedes extracellular plaque formation
 extracellular Abeta plaques accumulate [149]"
 SET MeSHDisease = "Down Syndrome"
 SET Confidence = "High"
-a(CHEBI:"amyloid-beta") -> path(MESHD:"Plaque, Amyloid")
+a(CHEBI:"amyloid-beta") -> path(MESH:"Plaque, Amyloid")
 
 SET Evidence = "Intraneuronal Abeta can also
 impair amygdala-dependent emotional responses by
@@ -470,9 +468,9 @@ potentiation and enhances memory, indicating a novel positive, modulatory role o
 and memory [158,159]"
 SET Confidence = "High"
 a(CHEBI:"amyloid-beta") -| bp(GO:"regulation of synapse structure or activity")
-a(CHEBI:"amyloid-beta") -| a(MESHCS:Synapses)
+a(CHEBI:"amyloid-beta") -| a(MESH:Synapses)
 a(CHEBI:"amyloid-beta") -| bp(GO:"memory")
-a(CHEBI:"amyloid-beta") -- bp(MESHPP:"Synaptic Transmission")
+a(CHEBI:"amyloid-beta") -- bp(MESH:"Synaptic Transmission")
 SET MeSHAnatomy = "Hippocampus"
 a(CHEBI:"amyloid-beta") -| bp(GO:"long-term synaptic potentiation")
 
@@ -483,7 +481,7 @@ generation (by exposure to inhibitors of beta- or gamma-scretases)
 [161]"
 SET Confidence = "Low"
 #low levels different to no levels. result because it has a different funtion when present in low amounts or due to missing activity of downregulation?
-a(CHEBI:"amyloid-beta") -- a(MESHC:"Potassium Channels")
+a(CHEBI:"amyloid-beta") -- a(MESH:"Potassium Channels")
 a(CHEBI:"amyloid-beta") -> bp(GO:"cell death")
 
 SET Evidence = "For example, the
@@ -618,7 +616,7 @@ to estrogen found an estrogen-independent improvement in cognitive function and 
 formation along with a decrease in BACE1 mRNA, protein level, and activity [211]. In addition, testosterone
 may also reduce the protein level of PS1 [196]"
 SET Confidence = "Medium"
-a(CHEBI:testosterone) -| path(MESHD:"Plaque, Amyloid")
+a(CHEBI:testosterone) -| path(MESH:"Plaque, Amyloid")
 a(CHEBI:testosterone) -| r(HGNC:BACE1)
 a(CHEBI:testosterone) -| p(HGNC:BACE1)
 a(CHEBI:testosterone) -| act(p(HGNC:BACE1))

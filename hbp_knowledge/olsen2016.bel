@@ -43,8 +43,6 @@ DEFINE NAMESPACE DO       AS URL "https://arty.scai.fraunhofer.de/artifactory/be
 DEFINE NAMESPACE HP       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
 DEFINE NAMESPACE MGI      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
 DEFINE NAMESPACE RGD      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170725.belns"
-DEFINE NAMESPACE SCOMP    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
-DEFINE NAMESPACE SFAM     AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
 DEFINE NAMESPACE INTERPRO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/interpro/interpro-20170731.belns"
 
 # Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
@@ -55,7 +53,6 @@ DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifact
 DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
 DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
-DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
 DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
 DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
@@ -68,9 +65,9 @@ DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifact
 SET Citation = {"PubMed", "27314526"}
 
 SET Evidence = "Inﬂammasomes are responsible for the maturation of pro-inﬂammatory cytokines such as interleukin (IL)-1beta, IL-18,\
- and IL-33 and activation of inﬂammatory cell death, pyroptosis. "
+and IL-33 and activation of inﬂammatory cell death, pyroptosis. "
 SET Subgraph = "Interleukin signaling subgraph"
-SET Confidence = "High" 
+SET Confidence = "High"
 complex(GO:"inflammasome complex") -> act(p(HGNC:IL1B))
 complex(GO:"inflammasome complex") -> act(p(HGNC:IL18))
 complex(GO:"inflammasome complex") -> act(p(HGNC:IL33))
@@ -78,14 +75,14 @@ complex(GO:"inflammasome complex") -> bp(GO:pyroptosis)
 UNSET Subgraph
 
 SET Evidence = "They appear to be involved in several pathological processes activated by microbes including Alzheimer’s disease (AD)."
-SET Confidence = "High" 
+SET Confidence = "High"
 complex(GO:"inflammasome complex") -- path(MESH:"Alzheimer Disease")
- 
+
 SET Evidence = " Post activation of the inﬂammasome, caspase 1 enzyme initiates the maturation of pro-inﬂammatory cytokines\
 particularly interleukin (IL)-1beta, IL-18, and IL-33 [4] (Fig. 1),and inﬂammation mediated cell death occurs via the\
 nucleotide-binding domain and leucine-rich repeat(NLR) family of proteins [5]."
 SET Subgraph = {"Interleukin signaling subgraph", "Caspase subgraph"}
-SET Confidence = "High" 
+SET Confidence = "High"
 act(complex(GO:"inflammasome complex")) -> act(p(HGNC:CASP1))
 act(p(HGNC:CASP1)) -> act(p(HGNC:IL1B))
 act(p(HGNC:CASP1)) -> act(p(HGNC:IL18))
@@ -95,7 +92,7 @@ UNSET Subgraph
 SET Evidence = "Of these, the NLRP3 inﬂammasome can be acti-
 vated via bacterial RNA species [3]."
 SET Subgraph = "Caspase subgraph"
-SET Confidence = "High" 
+SET Confidence = "High"
 a(CHEBI:"RNA fragment") -> act(complex(GO:"NLRP3 inflammasome complex"))
 
 SET Evidence = " This family serves several
@@ -105,7 +102,7 @@ ically associated with dementia onset and chronic
 neuroinﬂammation."
 #"this family": interleukins
 SET Subgraph = "Interleukin signaling subgraph"
-SET Confidence = "Medium" 
+SET Confidence = "Medium"
 sec(a(MESH:Interleukins)) -- path(MESH:Dementia)
 sec(a(MESH:Interleukins)) -- bp(HBP:"neuroinflammation")
 
@@ -115,7 +112,7 @@ act by secreting caspase-1 to activate IL-1 beta and IL-
 18 [23–25]."
 SET Subgraph = {"Amyloidogenic subgraph","Interleukin signaling subgraph","Caspase subgraph"}
 SET MeSHDisease = "Alzheimer Disease"
-SET Confidence = "Medium" 
+SET Confidence = "Medium"
 a(MESH:Microglia) -> p(HGNC:NLRP3)
 a(MESH:Astrocytes) -> p(HGNC:NLRP3)
 p(HGNC:NLRP3) -- a(CHEBI:"amyloid-beta")
@@ -128,7 +125,7 @@ is followed by a number of downstream events,
 including release of pro-inﬂammatory mediators,
 cell death, and proliferation."
 SET Subgraph = {"Apoptosis signaling subgraph", "Inflammatory response subgraph"}
-SET Confidence = "High" 
+SET Confidence = "High"
 act(p(HGNC:P2RX7)) -> bp(GO:"inflammatory response")
 act(p(HGNC:P2RX7)) -> bp(GO:"apoptotic process")
 act(p(HGNC:P2RX7)) -> bp(GO:"cell proliferation")
@@ -138,7 +135,7 @@ expressed by microglial cells will also activate the
 NLP3 inﬂammasome [30, 32] and the expression of
 P2X7 is likely to be increased in AD brains [35]."
 SET Subgraph = "Caspase subgraph"
-SET Confidence = "Medium" 
+SET Confidence = "Medium"
 a(MESH:Microglia) -> p(HGNC:P2RX7)
 p(HGNC:P2RX7) -> act(complex(GO:"NLRP3 inflammasome complex"))
 path(MESH:"Alzheimer Disease") positiveCorrelation p(HGNC:P2RX7)
@@ -149,7 +146,7 @@ immune cells like microglia and astrocytes that
 induce inﬂammation via cytokine secretion [38]."
 SET Subgraph = "Toll like receptor subgraph"
 SET MeSHAnatomy = "Brain"
-SET Confidence = "Medium" 
+SET Confidence = "Medium"
 a(MESH:Microglia) -> p(HGNC:TLR4)
 a(MESH:Astrocytes) -> p(HGNC:TLR4)
 p(HGNC:TLR4) -> bp(GO:"cytokine secretion")
@@ -165,7 +162,7 @@ SET Confidence = "High"
 path(MESH:"Alzheimer Disease") positiveCorrelation p(HGNC:IL1B)
 path(MESH:"Alzheimer Disease") positiveCorrelation p(HGNC:IL18)
 path(MESH:Dementia) positiveCorrelation p(HGNC:IL1B)
-path(MESH:Dementia) positiveCorrelation p(HGNC:IL18) 
+path(MESH:Dementia) positiveCorrelation p(HGNC:IL18)
 
 SET Evidence = " It is noteworthy that
 IL-1 beta and IL-18 can activate various cell types, par-

@@ -41,8 +41,6 @@ DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorger
 DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
 DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
 DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
-DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
-DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
 
 # Namespaces defined with regular expressions
 # -------------------------------------------
@@ -67,7 +65,6 @@ DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifact
 DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
 DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
-DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
 DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
 DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
@@ -103,54 +100,54 @@ path(MESH:Tauopathies) -> p(MGI:Ctsd)
 SET Evidence ="Transcriptomic analysis of these isolated astrocytes revealed an increase in TFEB tran- scripts, as well as transcripts of several of its well-known target genes in the rTg4510 relative to wild-type controls "
 a(MESH:astrocytes) -> p(MGI:Tfeb)
 
-SET Evidnece ="as expected, the expression of several TFEB lysosomal target genes was signifi- cantly up-regulated in TFEB-transduced astrocytes, including lysosomal marker LAMP1 and lysosomal proteases, cathepsins A and B"
+SET Evidence = "as expected, the expression of several TFEB lysosomal target genes was signifi- cantly up-regulated in TFEB-transduced astrocytes, including lysosomal marker LAMP1 and lysosomal proteases, cathepsins A and B"
 p(MGI:Tfeb) -> p(MGI:Lamp1)
 p(MGI:Tfeb) -> p(MGI:Ctsa)
 p(MGI:Tfeb) -> p(MGI:Ctsb)
 
 SET Evidence ="In sum, these results demonstrate that TFEB regulates the lysosomal pathway in primary astrocytes."
 SET Cell ="astrocyte"
-p(MGI:Tfeb) reg act(MESH:Lysosomes)
+p(MGI:Tfeb) reg act(a(MESH:Lysosomes))
 
-SET Evdience ="TFEB not only increased the proportion of cells taking up beads, but also increased the pro- portion of cells taking up multiple beads, suggesting an enhanced phagocytic capacity"
+SET Evidence ="TFEB not only increased the proportion of cells taking up beads, but also increased the pro- portion of cells taking up multiple beads, suggesting an enhanced phagocytic capacity"
 p(MGI:Tfeb) -> act(a(MESH:Phagocytes))
 
 SET Evidence ="Our results demonstrate a statistically significant increase of 12% in the uptake of pffs in TFEB transduced astrocytes relative to control at the 1-h time point, with a 22% relative increase in up- take in the TFEB transduced cells at 4 h"
-p(MGI:Tfeb) -> a(HBP:"tau fibrils")
+p(MGI:Tfeb) -> a(HBP:"Tau fibrils")
 
 SET Evidence ="Inhibiting mTORC1 blocks the phosphor- ylation of TFEB, allowing unphosphorylated TFEB to translocate to the nucleus and become transcriptionally active"
 p(MESH:"Mechanistic Target of Rapamycin Complex 1") -> p(MGI:Tfeb,pmod(Ph))
 
 SET Evidence =" Flow cytometry revealed that Torin1 treatment of TFEB transduced astrocytes increased dye-conjugated pff uptake 63% relative to EGFP transduced controls as shown by median fluorescence in- tensity, while under basal conditions, the TFEB overexpressing astrocytes increased uptake just 18% relative to EGFP expressing controls (Fig. 2 K). Thus, TFEB enhances phagocytic pathways in astrocytes, in particular increasing the uptake of pffs."
-p(MGI:Tfeb) -> a(HBP:"tau fibrils") 
+p(MGI:Tfeb) -> a(HBP:"Tau fibrils")
 p(MGI:Tfeb) -> bp(MESH:Phagocytosis)
 
 SET Evidence ="qRT-PCR demonstrated undetectable transcript levels of TFEB as well as a reduction in LAMP1 mRNA in TFEB KO astrocytes compared with littermate controls"
 p(MGI:Tfeb) -> r(MGI:Lamp1)
 
 SET Evidence =". Recapitulating the uptake assay with dye-conjugated pffs in TFEB KO astrocytes, we observed a modest reduction pff uptake compared with primary astrocytes from littermate controls"
-p(MGI:Tfeb) -> a(HBP:"tau fibrils") 
+p(MGI:Tfeb) -> a(HBP:"Tau fibrils")
 
 SET Evidence ="Flow cytometry analysis of primary astrocytes incubated with DQ-BSA revealed an ∼60% increase in median fluorescence for TFEB-transduced astro- cytes, indicating that TFEB enhances uptake and proteolysis of DQ-BSA "
 p(MGI:Tfeb) -> bp(MESH:Proteolysis)
 
 SET Evidence =" In sum, these data suggest that TFEB stimulates uptake and trafficking of pffs to the lysosome for degradation."
-p(MGI:Tfeb) -> tloc(HBP:"tau fibrils",toloc(MESH:Lsosomes))
+p(MGI:Tfeb) -> tloc(a(HBP:"Tau fibrils"))
 
 SET Evidence =" In addition, flow cytometry analysis demonstrated that heparin reduces dye-conjugated pff uptake in both TFEB and EGFP transduced astrocytes, suggesting that macropino- cytosis is responsible for astroglial pff uptake"
 bp(MESH:Pinocytosis) -> act(a(MESH:Astrocytes))
-act(a(MESH:Astrocytes)) -> a(HBP:"tau fibrils")
+act(a(MESH:Astrocytes)) -> a(HBP:"Tau fibrils")
 
 SET Evidence =" Immunoblot- ting for total tau and phospho-tau antibodies, PHF1 and CP13, demonstrated no statistical difference in hippocampal brain ly- sate from TFEB- versus EGFP-injected rTg4510 male or female mice"
-complex(p(MGI:Mapt,pmod(Ph),p("Tau antibody,PHF1")))
-complex(p(MGI:Mapt,pmod(Ph),p("Tau antibody,CP13")))
+complex(p(MGI:Mapt, pmod(Ph)), p(HBP:"Tau antibody, PHF1")))
+complex(p(MGI:Mapt, pmod(Ph)), p(HBP:"Tau antibody, CP13")))
 p(MGI:Tfeb) cnc p(MGI:Phf1)
 p(MGI:Tfeb) cnc p(MGI:Cp13)
 
 SET Evidence ="Western blot a reduction in phospho-tau species recognized by AT8 (trending), AT180, and CP13 antibodies in the TFEB-injected mice "
-complex(p(MGI:Mapt,pmod(Ph),p("Tau antibody,AT8")))
-complex(p(MGI:Mapt,pmod(Ph),p("Tau antibody,AT180")))
-complex(p(MGI:Mapt,pmod(Ph),p("Tau antibody,CP13")))
+complex(p(MGI:Mapt, pmod(Ph), p(HBP:"Tau antibody, AT8")))
+complex(p(MGI:Mapt, pmod(Ph), p(HBP:"Tau antibody, AT180")))
+complex(p(MGI:Mapt, pmod(Ph), p(HBP:"Tau antibody, CP13")))
 p(MGI:Tfeb) -| p(MGI:Mapt,pmod(Ph))
 
 SET Evidence ="Following fractionation, immunoblotting for phospho and total tau species in the soluble pool similarly showed a significant reduction in phospho-tau species recog- nized by CP13 and PHF1 antibodies, with no change in total tau"
@@ -158,15 +155,16 @@ p(MGI:Tfeb) -| p(HBP:"solubale tau",pmod(Ph))
 p(MGI:Tfeb) cnc p(HBP:"soluble tau")
 
 SET Evidence ="In the insoluble fraction, phospho- and total tau species were all reduced in the TFEB mice, as demonstrated by Western blot"
-p(MGI:Tfeb) -| p(MGI:Mapt,pmod(Ph))
+p(MGI:Tfeb) -| p(MGI:Mapt, pmod(Ph))
 p(MGI:Tfeb) -| p(MGI:Mapt)
 
 SET Evidence ="Overall, these results show that astroglial TFEB overexpression reduces tau pathology and gliosis in the hippocampus of PS19 tauopathy mice."
-SET MeSHAnatomy ="Hippocumpus"
+SET MeSHAnatomy ="Hippocampus"
 p(MGI:Tfeb) -| path(MESH:Tauopathies)
 p(MGI:Tfeb) -| path(MESH:Gliosis)
 
 SET Evidence ="Quantifying the area fluorescence of MC1 staining for both hippocampi from sections representing the entire volume of hippocampus showed that astroglial TFEB had no impact on MC1 staining on the ipsi- lateral side, but significantly reduced the area of MC1 staining on the contralateral side "
 complex(p(HBP:"Tau antibody,MC1"))
 p(MGI:Tfeb) cnc p(MGI:Mapt,pmod(Ph))
-p(MGI:Tfeb) -| p(MGI:Mapt,pmod(Ph),loc)
+#: FIXME
+# p(MGI:Tfeb) -| p(MGI:Mapt,pmod(Ph),loc)

@@ -15,7 +15,6 @@ SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
 
 # Namespaces defined with regular expressions
 # -------------------------------------------
-DEFINE NAMESPACE dbSNP AS PATTERN "rs[0-9]+"
 DEFINE NAMESPACE ECCODE AS PATTERN "^\d+\.-\.-\.-|\d+\.\d+\.-\.-|\d+\.\d+\.\d+\.-|\d+\.\d+\.\d+\.(n)?\d+$"
 DEFINE NAMESPACE TAXONOMY AS PATTERN "^\d+$"
 
@@ -39,8 +38,6 @@ DEFINE NAMESPACE GFAM AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/na
 DEFINE NAMESPACE HP AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
 DEFINE NAMESPACE MGI AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
 DEFINE NAMESPACE RGD AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170725.belns"
-DEFINE NAMESPACE SCOMP AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
-DEFINE NAMESPACE SFAM AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
 DEFINE NAMESPACE INTERPRO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/interpro/interpro-20170731.belns"
 
 # Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
@@ -51,7 +48,6 @@ DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifact
 DEFINE ANNOTATION Cell AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
 DEFINE ANNOTATION Confidence AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 DEFINE ANNOTATION Disease AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
-DEFINE ANNOTATION Gender AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
 DEFINE ANNOTATION MeSHDisease AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
 DEFINE ANNOTATION Subgraph AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
@@ -72,8 +68,8 @@ SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -- a(HBP:HBP00018)
 
 SET Evidence = "It has been postulated that soluble or small oligomeric forms of Ab have deleterious effects in the brain, inducing impaired synaptic function\
- and promoting neuronal degeneration [5]. "
-SET Confidence = "High" 
+and promoting neuronal degeneration [5]. "
+SET Confidence = "High"
 a(HBP:HBP00022) -| bp(GO:"synaptic signaling")
 a(HBP:HBP00074) -| bp(GO:"synaptic signaling")
 a(HBP:HBP00022) ->  bp(GO:"neuron death")
@@ -84,8 +80,8 @@ SET Confidence = "High"
 a(HBP:HBP00089) -- bp(GO:"microglial cell activation")
 
 SET Evidence = "The plaque-associated microglia secrete a variety of cytotoxic species including the inflammatory cytokines, INF-g, TNF-a, IL-1b and IL-6 and\
- chemokines, most prominently CCL2 [10-12]. "
-SET Confidence = "High" 
+chemokines, most prominently CCL2 [10-12]. "
+SET Confidence = "High"
 SET MeSHAnatomy= "Microglia"
 a(HBP:HBP00089) -> sec(p(HGNC:IFNG))
 a(HBP:HBP00089) -> sec(p(HGNC:TNF))
@@ -125,12 +121,12 @@ p(FPLX:PPAR) -- bp(GO:"response to insulin")
 p(FPLX:PPAR) -- bp(GO:"response to tumor cell")
 
 SET Evidence = "They act as dominant regulators of lipid metabolism through their ability to transactivate genes encoding enzymes of lipid metabolism,\
- providing a key linkage between the diet and the genome."
-SET Confidence = "Medium" 
+providing a key linkage between the diet and the genome."
+SET Confidence = "Medium"
 p(FPLX:PPAR) reg bp(GO:"lipid metabolic process")
 
 SET Evidence = "PPAR-a is known to regulate lipid oxidation but is not highly expressed in the brain [20]. "
-SET Confidence = "Medium" 
+SET Confidence = "Medium"
 p(HGNC:PPARA) reg bp(GO:"lipid oxidation")
 
 SET Evidence = "PPAR-g is involved in lipid storage, insulin sensitivity and energy metabolism and has been shown to promote adipocyte differentiation [21]. "
@@ -145,9 +141,9 @@ SET Confidence = "High"
 p(HGNC:PPARD) -- bp(GO:"fatty acid oxidation")
 
 SET Evidence = "LXR receptors are activated by oxysterols, most prominently hydroxylated forms of cholesterol, and play a critical role in the control\
- of whole body cholesterol homeostasis, as well as exerting potent anti-inflammatory actions [26]. "
-SET Confidence = "High" 
-a(CHEBI:oxysterol) -> act(p(HGNC:NR1H3)) 
+of whole body cholesterol homeostasis, as well as exerting potent anti-inflammatory actions [26]. "
+SET Confidence = "High"
+a(CHEBI:oxysterol) -> act(p(HGNC:NR1H3))
 p(HGNC:NR1H3) -- bp(GO:"cholesterol homeostasis")
 p(HGNC:NR1H3) -- bp(GO:"negative regulation of inflammatory response")
 
@@ -164,16 +160,16 @@ SET Confidence = "High"
 p(HGNC:APOE) -> a(CHEBI:"high-density lipoprotein")
 
 SET Evidence = " Numerous studies have shown that both PPAR-g and LXRs induce the expression of ApoE and ABCA1 and it is through the expression of\
- these proteins that they exert their effects on amyloid pathology."
-SET Confidence = "High" 
+these proteins that they exert their effects on amyloid pathology."
+SET Confidence = "High"
 p(HGNC:PPARG) -> p(HGNC:APOE)
 p(HGNC:PPARG) -> p(HGNC:ABCA1)
 p(HGNC:NR1H3) -> p(HGNC:APOE)
 p(HGNC:NR1H3) -> p(HGNC:ABCA1)
 
 SET Evidence = " They were able to show that the lipidation of ApoE enhanced the degradation of soluble species of Ab by neprilysin in the endolytic compartments of microglia\
- as well as extracellularly through the actions of the insulindegrading enzyme (IDE) [13]. "
-SET Confidence = "High" 
+as well as extracellularly through the actions of the insulindegrading enzyme (IDE) [13]. "
+SET Confidence = "High"
 p(HGNC:APOE) -> deg(a(CHEBI:"amyloid-beta"))
 SET MeSHAnatomy= "Microglia"
 p(HGNC:MME) -> deg(a(CHEBI:"amyloid-beta"))
@@ -192,74 +188,74 @@ a(CHEBI:"GW 3965") -| a(HBP:HBP00018)
 a(CHEBI:"GW 3965") -> bp(GO:memory)
 
 SET Evidence = "LXR activation increased the ApoE particle size of all human ApoE isoforms, suggesting that activation of this pathways may enhance\
- Ab clearance regardless of the ApoE allele expressed [13]."
-SET Confidence = "Medium" 
+Ab clearance regardless of the ApoE allele expressed [13]."
+SET Confidence = "Medium"
 act(p(HGNC:NR1H3)) -> act(p(HGNC:APOE))
 act(p(HGNC:APOE)) -> deg(a(CHEBI:"amyloid-beta"))
 act(p(HGNC:NR1H3)) -> deg(a(CHEBI:"amyloid-beta"))
 
 SET Evidence = "A different result was reported by Vanmierlo et al. who found that LXR agonist treatment resulted in restoration of memory,\
- but did not find a change in plaque burden [48]. "
-SET Confidence = "High" 
+but did not find a change in plaque burden [48]. "
+SET Confidence = "High"
 act(p(HGNC:NR1H3)) -> bp(GO:memory)
 
 SET Evidence = "The loss of abca1 resulted in not only the reduction of ApoE levels but also a paradoxical increase in Ab deposition in the\
- brain parenchyma of these animals owing to enhanced deposition of poorly lipidated ApoE in the brain [50-52]."
-SET Confidence = "High" 
+brain parenchyma of these animals owing to enhanced deposition of poorly lipidated ApoE in the brain [50-52]."
+SET Confidence = "High"
 p(HGNC:ABCA1) -> p(HGNC:APOE)
 p(HGNC:ABCA1) -| a(HBP:HBP00018)
 
 SET Evidence = " Conversely, overexpression of ABCA1 in a mouse model of AD was shown to decrease both soluble and fibrillar pools of Ab\
- in 12-month-old mice and reduce plaque burden [53]."
-SET Confidence = "Medium" 
+in 12-month-old mice and reduce plaque burden [53]."
+SET Confidence = "Medium"
 p(MGI:Abca1) -| a(CHEBI:"amyloid-beta")
 p(MGI:Abca1) -| a(HBP:HBP00038)
 
 SET Evidence = "Additionally, PPAR-g can also induce the expression of LXRa creating a metabolically linked cycle."
-SET Confidence = "High" 
+SET Confidence = "High"
 p(HGNC:PPARG) -> p(HGNC:NR1H3)
 
 SET Evidence = "The synthetic TZD PPAR-g agonists are widely prescribed for the treatment of type 2 diabetes mellitus, and have also been\
- shown to be efficacious in a number of CNS disease models [21]. Currently, two TZD agonists, Actos (pioglitazone) and Avandia (rosiglitazone),\
- are FDA approved for the treatment of diabetes."
+shown to be efficacious in a number of CNS disease models [21]. Currently, two TZD agonists, Actos (pioglitazone) and Avandia (rosiglitazone),\
+are FDA approved for the treatment of diabetes."
 #agonists for PPAR-g
-SET Confidence = "High" 
+SET Confidence = "High"
 a(CHEBI:pioglitazone) -> act(p(HGNC:PPARG))
 a(CHEBI:rosiglitazone) -> act(p(HGNC:PPARG))
 a(CHEBI:pioglitazone) -| path(MESH:"Diabetes Mellitus, Type 2")
-a(CHEBI:rosiglitazone) -| path(MESH:"Diabetes Mellitus, Type 2") 
+a(CHEBI:rosiglitazone) -| path(MESH:"Diabetes Mellitus, Type 2")
 
 SET Evidence = " When a higher dose of pioglitazone (7 days/40 mg/kg/day) was used in 10-monthold transgenic mice overexpressing the APP V717I \
 mutation, a 20-- 25% decrease in plaque burden was observed with significant reduction in Ab42 levels within the brains of these animals [61]."
-SET Confidence = "High" 
+SET Confidence = "High"
 a(CHEBI:pioglitazone) -| a(HBP:HBP00018)
 a(CHEBI:pioglitazone) -| a(CHEBI:"amyloid-beta polypeptide 42")
 
 SET Evidence = "Pedersen and Flynn examined the effects of rosiglitazone and found that activation of PPAR-g ameliorated behavioral deficits in\
- the Tg2576 AD mouse model. However, these animals displayed no changes in plaque pathology, but had reduced brain Ab42 levels. "
-SET Confidence = "High" 
+the Tg2576 AD mouse model. However, these animals displayed no changes in plaque pathology, but had reduced brain Ab42 levels. "
+SET Confidence = "High"
 a(CHEBI:rosiglitazone) -> act(p(HGNC:PPARG))
 a(CHEBI:rosiglitazone) -> bp(GO:behavior)
 a(CHEBI:rosiglitazone) causesNoChange a(HBP:HBP00018)
 a(CHEBI:rosiglitazone) -| a(CHEBI:"amyloid-beta polypeptide 42")
 
 SET Evidence = " These animals were treated with a low dose of rosiglitazone (3 mg/kg/ day) for 12 weeks and evaluated for plaque deposition and\
- behavior. These animals displayed an approximate 50% decrease in amyloid deposition, a decrease in Ab oligomers, preservation of pre and postsynaptic\
- proteins and the attenuation of cognitive deficits in the Morris water maze. "
-SET Confidence = "High" 
+behavior. These animals displayed an approximate 50% decrease in amyloid deposition, a decrease in Ab oligomers, preservation of pre and postsynaptic\
+proteins and the attenuation of cognitive deficits in the Morris water maze. "
+SET Confidence = "High"
 a(CHEBI:rosiglitazone) -| a(HBP:HBP00018)
 a(CHEBI:rosiglitazone) -| a(CHEBI:"amyloid-beta")
 a(CHEBI:rosiglitazone) -> bp(GO:"learning or memory")
 
 SET Evidence = " The authors argue that the effects of rosiglitazone were due to the activation of the wnt signaling cascade which they show by an\
- increase in b-catenin expression and a decrease in GSK-3b levels [63]."
-SET Confidence = "Medium"  
+increase in b-catenin expression and a decrease in GSK-3b levels [63]."
+SET Confidence = "Medium"
 a(CHEBI:rosiglitazone) -> p(MGI:Ctnnb1)
 a(CHEBI:rosiglitazone) -| p(MGI:Gsk3b)
 
 SET Evidence = "While the authors did not detect an increase in ApoE levels in the treated animals, they did observe a modest increase in ABCA1\
- levels and argue that the enhanced Ab clearance could be attributed to an increase in lipidation of ApoE by ABCA1 [64]. "
-SET Confidence = "Medium"  
+levels and argue that the enhanced Ab clearance could be attributed to an increase in lipidation of ApoE by ABCA1 [64]. "
+SET Confidence = "Medium"
 a(CHEBI:rosiglitazone) -> p(MGI:Abca1)
 
 SET Evidence = " Furthermore, the treatment of APP/PS1 mouse model of AD with pioglitazone (80 mg/kg/day) for 9 days lowered plaque burden by \
@@ -280,8 +276,8 @@ a(CHEBI:pioglitazone) -> bp(GO:memory)
 a(CHEBI:pioglitazone) -> bp(GO:cognition)
 
 SET Evidence = " A Phase II clinical trial in which patients were treated with rosiglitazone for 6 months showed improvements in attention\
- and memory retention, but only in patients who did not have an APOE4 allele."
-SET Confidence = "High" 
+and memory retention, but only in patients who did not have an APOE4 allele."
+SET Confidence = "High"
 a(CHEBI:rosiglitazone) -> bp(GO:memory)
 a(CHEBI:rosiglitazone) -> bp(GO:cognition)
 
@@ -296,7 +292,7 @@ a(CHEBI:"GW 501516") -> p(HGNC:ABCA1)
 a(CHEBI:"GW 501516") -> p(HGNC:APOA1)
 
 SET Evidence = "In a study reported by Kalinin et al., treatment of 5xFAD mice with the PPAR-d agonist, GW742, resulted in decreased plaque burden\
- and an increase in the expression of two Ab proteases, neprilysin and IDE [72]."
+and an increase in the expression of two Ab proteases, neprilysin and IDE [72]."
 #GW742 is similar to GW501516
 SET Confidence = "High"
 a(CHEBI:"GW 501516") -| a(HBP:HBP00018)
@@ -306,7 +302,7 @@ a(CHEBI:"GW 501516") -> p(HGNC:IDE)
 SET Evidence = "PPAR-d activation has also been shown to have robust anti-inflammatory actions [73]. "
 SET Confidence = "High"
 act(p(HGNC:PPARD)) -> bp(GO:"negative regulation of inflammatory response")
- 
+
 SET Evidence = "RXR activation by numerous ligands has shown to increase levels of both ApoE and ABCA1 in vitro [74-76]."
 SET Confidence = "High"
 act(p(FPLX:RXR)) -> p(HGNC:APOE)
@@ -318,16 +314,16 @@ a(CHEBI:"all-trans-retinoic acid") -> act(p(FPLX:RXR))
 a(CHEBI:"all-trans-retinoic acid") -> act(p(FPLX:RAR))
 
 SET Evidence = " Treatment of 5-month-old APP/PS1 mice for 8 weeks with ATRA (20 mg/kg/day) resulted in significant decreases in Ab deposition and\
- tau phosphorylation in these mice. Additionally, it attenuated memory deficits seen in the Morris water maze [77]. "
-SET Confidence = "Medium" 
-a(CHEBI:"all-trans-retinoic acid") -| a(HBP:HBP00018) 
+tau phosphorylation in these mice. Additionally, it attenuated memory deficits seen in the Morris water maze [77]. "
+SET Confidence = "Medium"
+a(CHEBI:"all-trans-retinoic acid") -| a(HBP:HBP00018)
 a(CHEBI:"all-trans-retinoic acid") -| p(HGNC:MAPT, pmod(Ph))
 a(CHEBI:"all-trans-retinoic acid") -> bp(GO:memory)
 
 SET Evidence = "Bexarotene is a highly specific RXR agonist and is currently FDA approved with a favorable side effect profile. Studies in our laboratory\
- have shown that treatment of APP/ PS1 animals with bexarotene for only 3 days results in a dramatic induction of ApoE and ABCA1 and the rapid reversal\
- of AD-associated pathological hallmarks including reduction in amyloid deposition and deficits in behavior as well as neural networks."
-SET Confidence = "High" 
+have shown that treatment of APP/ PS1 animals with bexarotene for only 3 days results in a dramatic induction of ApoE and ABCA1 and the rapid reversal\
+of AD-associated pathological hallmarks including reduction in amyloid deposition and deficits in behavior as well as neural networks."
+SET Confidence = "High"
 a(CHEBI:bexarotene) -> act(p(FPLX:RXR))
 a(CHEBI:bexarotene) -> p(HGNC:APOE)
 a(CHEBI:bexarotene) -> p(HGNC:ABCA1)
@@ -335,20 +331,20 @@ a(CHEBI:bexarotene) -| a(HBP:HBP00018)
 a(CHEBI:bexarotene) -> bp(GO:behavior)
 
 SET Evidence = " More recently, a naturally occurring RXR agonist, honokiol, has been identified. This agonist is capable of activating RXR/LXR heterodimers\
- and has been shown to induce the expression of ABCA1 and ApoE and should be tested in AD models [75,78]."
-SET Confidence = "High" 
+and has been shown to induce the expression of ABCA1 and ApoE and should be tested in AD models [75,78]."
+SET Confidence = "High"
 a(CHEBI:Honokiol) -> act(p(FPLX:RXR))
 a(CHEBI:Honokiol) -> act(complex(p(FPLX:RXR), p(HGNC:NR1H3)))
 a(CHEBI:Honokiol) -> p(HGNC:APOE)
-a(CHEBI:Honokiol) -> p(HGNC:ABCA1) 
+a(CHEBI:Honokiol) -> p(HGNC:ABCA1)
 
 SET Evidence = "The appearance of amyloid deposition in the AD brain coincides with a dramatic phenotypic activation of microglial cells in the surrounding area."
 SET Confidence = "High"
 a(HBP:HBP00089) positiveCorrelation bp(GO:"microglial cell activation")
 
 SET Evidence = "The deposition of fibrillar Ab in the AD brain results in the recruitment of microglia to the plaques owing to their expression of CCL2,\
- which acts to attract microglia [82]."
-SET Confidence = "Medium" 
+which acts to attract microglia [82]."
+SET Confidence = "Medium"
 a(HBP:HBP00038) -> p(HGNC:CCL2)
 p(HGNC:CCL2) -> bp(GO:"microglial cell activation")
 a(HBP:HBP00038) -> bp(GO:"microglial cell activation")
@@ -359,8 +355,8 @@ act(p(FPLX:PPAR)) -| bp(GO:"microglial cell activation")
 act(p(HGNC:NR1H3)) -| bp(GO:"microglial cell activation")
 
 SET Evidence = "  In this study, it was shown that samples from human AD brains as well as two aged mouse models of AD showed increased mRNA levels of the\
- M2 markers, Arg1 and Ym1, when compared to age matched controls [101]."
-SET Confidence = "High" 
+M2 markers, Arg1 and Ym1, when compared to age matched controls [101]."
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") positiveCorrelation r(HGNC:ARG1)
 path(MESH:"Alzheimer Disease") positiveCorrelation r(HGNC:CHI3L1)
 
@@ -372,8 +368,8 @@ act(p(HGNC:PPARD)) -> p(HGNC:ARG1)
 act(p(HGNC:PPARD)) -> p(HGNC:IL4)
 
 SET Evidence = " Similarly, stimulation of microglia with the LXR agonist, GW3965, acts simultaneously to suppress inflammation and\
- promote fibrillar Ab stimulated phagocytosis [47]."
-SET Confidence = "Medium" 
+promote fibrillar Ab stimulated phagocytosis [47]."
+SET Confidence = "Medium"
 a(CHEBI:"GW 3965") -> act(p(HGNC:NR1H3))
 a(CHEBI:"GW 3965") -| path(MESH:Inflammation)
 a(CHEBI:"GW 3965") -> act(a(HBP:HBP00038))
@@ -381,41 +377,41 @@ a(CHEBI:"GW 3965") -> bp(GO:phagocytosis)
 act(a(HBP:HBP00038)) -> bp(GO:phagocytosis)
 
 SET Evidence="The Ab peptide is generated by the sequential cleavage of the amyloid precursor protein (APP) by the b and g secretases, resulting in the generation of peptides 40 or 42 amino acids in length [2]."
-SET Confidence = "Medium" 
+SET Confidence = "Medium"
 p(HGNC:BACE1) -| p(HGNC:APP)
 p(HGNC:APH1A) -| p(HGNC:APP)
 p(HGNC:BACE1) -> a(CHEBI:"amyloid-beta polypeptide 40")
-p(HGNC:APH1A) -> a(CHEBI:"amyloid-beta polypeptide 42") 
+p(HGNC:APH1A) -> a(CHEBI:"amyloid-beta polypeptide 42")
 
 SET Evidence="PPARs have been shown to play essential roles in energy metabolism, adipocyte differentiation, insulin sensitization and tumor suppression."
-SET Confidence = "Medium" 
+SET Confidence = "Medium"
 p(FPLX:PPAR) positiveCorrelation bp(MESH:"Energy Metabolism")
 p(FPLX:PPAR) positiveCorrelation bp(GO:"fat cell differentiation")
 p(FPLX:PPAR) positiveCorrelation bp(GO:"response to insulin")
 p(FPLX:PPAR) positiveCorrelation bp(GO:"response to tumor cell")
 
 SET Evidence="PPAR-a is known to regulate lipid oxidation but is not highly expressed in the brain [20]. "
-SET Confidence = "Medium" 
+SET Confidence = "Medium"
 p(HGNC:PPARA) reg bp(MESH:"Lipid Peroxidation")
 
 SET Evidence="PPAR-g is involved in lipid storage, insulin sensitivity and energy metabolism and has been shown to promote adipocyte differentiation [21]."
-SET Confidence = "Medium" 
+SET Confidence = "Medium"
 p(HGNC:PPARGC1A) -- bp(MESH:"Energy Metabolism")
 p(HGNC:PPARGC1A) -- path(MESH:"Insulin Resistance")
 p(HGNC:PPARGC1A) -- bp(MESH:"Energy Metabolism")
 p(HGNC:PPARGC1A) -> bp(GO:"fat cell differentiation")
 
 SET Evidence="LXR receptors are activated by oxysterols, most prominently hydroxylated forms of cholesterol, and play a critical role in the control of whole body cholesterol homeostasis, as well as exerting potent anti-inflammatory actions [26]."
-SET Confidence = "Medium" 
+SET Confidence = "Medium"
 a(CHEBI:cholesterol) -> act(p(HGNC:NR1H3))
 a(CHEBI:oxysterol) -> act(p(HGNC:NR1H3))
 
 SET Evidence="The ApoE4 allele is most important genetic risk factor for AD, while the ApoE2 allele is thought to be protective."
-SET Confidence = "Medium" 
+SET Confidence = "Medium"
 p(HBP:HBP00030) -- path(MESH:"Alzheimer Disease")
 
 SET Evidence="The M2c macrophages are thought to be in an ‘acquired deactivation’ state induced by IL-10, TGF-b, glucocorticoids or contact with apoptotic cells, and are associated with a suppression of the innate immune response."
-SET Confidence = "Medium" 
-p(HGNC:IL10) -| a(MESH:Macrophages) 
+SET Confidence = "Medium"
+p(HGNC:IL10) -| a(MESH:Macrophages)
 a(MESH:Glucocorticoids) -| a(MESH:Macrophages)
 p(HGNC:TGFB1) -| a(MESH:Macrophages)

@@ -16,12 +16,9 @@ SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
 # NAMESPACES
 
 DEFINE NAMESPACE CHEBI  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/chebi/chebi-20180106.belns"
-DEFINE NAMESPACE GOBP   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/go-biological-process/go-biological-process-20170725.belns"
-DEFINE NAMESPACE GOCC   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/go-cellular-component/go-cellular-component-20170725.belns"
+DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/go-names.belns"
 DEFINE NAMESPACE HGNC   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hgnc/hgnc-20180215.belns"
-DEFINE NAMESPACE MESHC  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-chemicals/mesh-chemicals-20170725.belns"
-DEFINE NAMESPACE MESHCS AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-cell-structures/mesh-cell-structures-20170511.belns"
-DEFINE NAMESPACE MESHD  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-diseases/mesh-diseases-20170725.belns"
+DEFINE NAMESPACE MESH  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
 DEFINE NAMESPACE HP     AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
 DEFINE NAMESPACE HBP    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/export/hbp-names.belns"
 
@@ -45,9 +42,9 @@ SET Evidence = "AD (Alzheimer’s disease) is a progressive neurodegenerative di
 accumulation of amyloid beta-peptide and the intracellular accumulation of tau"
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Extracellular Space"
-a(HBP:"amyloid-beta aggregates") positiveCorrelation path(MESHD:"Alzheimer Disease")
+a(HBP:"amyloid-beta aggregates") positiveCorrelation path(MESH:"Alzheimer Disease")
 SET MeSHAnatomy = "Intracellular Space"
-a(HBP:"Tau aggregates") positiveCorrelation path(MESHD:"Alzheimer Disease")
+a(HBP:"Tau aggregates") positiveCorrelation path(MESH:"Alzheimer Disease")
 
 SET Evidence = "In order to study this non-fibrillar tau, we generated a novel monoclonal antibody, named
 TOC1 (tau oligomeric complex 1), which selectively labels tau dimers and oligomers, but does not label
@@ -60,15 +57,15 @@ SET Confidence = "Medium"
 SET Evidence = "Using a squid axoplasm assay, we have demonstrated that aggregated tau inhibits
 anterograde FAT (fast axonal transport), whereas monomeric tau has no effect"
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -| bp(GOBP:"anterograde axonal protein transport")
+a(HBP:"Tau aggregates") -| bp(GO:"anterograde axonal protein transport")
 
 SET Evidence = "We illustrate that Hsp70 preferentially binds to tau oligomers over filaments and
 prevents anterograde FAT inhibition observed with a mixture of both forms of aggregated tau"
 SET Confidence = "High"
-complex(p(HGNC:HSPA1A),a(HBP:"Tau oligomers")) -| bp(GOBP:"anterograde axonal protein transport")
+complex(p(HGNC:HSPA1A),a(HBP:"Tau oligomers")) -| bp(GO:"anterograde axonal protein transport")
 
-SET Evidence = "Together, these findings support the hypothesis that tau oligomers are the toxic form of 
-tau in neurodegenerative disease" 
+SET Evidence = "Together, these findings support the hypothesis that tau oligomers are the toxic form of
+tau in neurodegenerative disease"
 SET Confidence = "High"
 a(HBP:"Tau oligomers") -> bp(HBP:neurotoxicity)
 
@@ -82,23 +79,23 @@ tangles), NTs (neuropil threads) and NPs (neuritic plaques)
 [1,2]"
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Extracellular Space"
-path(MESHD:"Alzheimer Disease") positiveCorrelation path(MESHD:"Plaque, Amyloid")
+path(MESH:"Alzheimer Disease") positiveCorrelation path(MESH:"Plaque, Amyloid")
 SET MeSHAnatomy = "Intracellular Space"
-path(MESHD:"Alzheimer Disease") -- a(GOCC:"neurofibrillary tangle")
-path(MESHD:"Alzheimer Disease") -- a(MESHCS:"Neuropil Threads")
+path(MESH:"Alzheimer Disease") -- a(GO:"neurofibrillary tangle")
+path(MESH:"Alzheimer Disease") -- a(MESH:"Neuropil Threads")
 
 SET Evidence = "Tau’s primary role within neurons is thought to be
 the regulation and stabilization of microtubule dynamics
 [1,2]"
 SET Confidence = "High"
-p(HGNC:MAPT) -- bp(GOBP:"regulation of microtubule cytoskeleton organization")
+p(HGNC:MAPT) -- bp(GO:"regulation of microtubule cytoskeleton organization")
 
 SET Evidence = "The tau protein becomes highly phosphorylated in AD
 and this is likely to induce a conformational change causing
 its detachment from microtubules and its accumulation in
 aggregates [3]"
 SET Confidence = "High"
-path(MESHD:"Alzheimer Disease") -> p(HGNC:MAPT,pmod(Ph))
+path(MESH:"Alzheimer Disease") -> p(HGNC:MAPT,pmod(Ph))
 p(HGNC:MAPT,pmod(Ph)) -> a(HBP:"Tau aggregates")
 
 SET Evidence = "Time-course aggregation analysis revealed
@@ -123,7 +120,7 @@ brains compared with healthy controls, but co-localizes
 best with early-stage markers for AD pathogenesis such as
 pS422 [16]"
 SET Confidence = "Medium"
-path(MESHD:"Alzheimer Disease") -> a(HBP:"Tau oligomers")
+path(MESH:"Alzheimer Disease") -> a(HBP:"Tau oligomers")
 a(HBP:"Tau oligomers") -- p(HGNC:MAPT,pmod(Ph,Ser,422))
 
 SET Evidence = "We discovered that aggregated tau inhibits FAT
@@ -131,15 +128,15 @@ only in the anterograde direction at physiological tau levels,
 whereas tau monomers had no effect on FAT in either
 direction, even at concentrations of tau >10-fold higher than"
 SET Confidence = "Medium"
-a(HBP:"Tau aggregates") -| bp(GOBP:"anterograde axonal protein transport")
+a(HBP:"Tau aggregates") -| bp(GO:"anterograde axonal protein transport")
 
 SET Evidence = "Further investigation
 illustrated that this inhibition occurs via activation of a
 signalling cascade involving PP1 (protein phosphatase 1)
 and GSK3 (glycogen synthase kinase 3) [24]"
 SET Confidence = "High"
-p(HGNC:PPP1CA) -| bp(GOBP:"anterograde axonal protein transport")
-p(HGNC:GSK3A) -| bp(GOBP:"anterograde axonal protein transport")
+p(HGNC:PPP1CA) -| bp(GO:"anterograde axonal protein transport")
+p(HGNC:GSK3A) -| bp(GO:"anterograde axonal protein transport")
 
 SET Evidence = "Deletion
 analyses demonstrate that FAT inhibition requires a small
@@ -148,14 +145,14 @@ N-terminus that we have termed the PAD (phosphataseactivation
 domain) [21]"
 SET Confidence = "Low"
 #domain, not fragment. maybe code "PAD" as new term?
-p(HGNC:MAPT,frag("2_18")) -| bp(GOBP:"anterograde axonal protein transport")
+p(HGNC:MAPT,frag("2_18")) -| bp(GO:"anterograde axonal protein transport")
 
 SET Evidence = "Tau reportedly exerts an effect on axonal transport by
 interfering and reducing the attachment frequency of the
 motor proteins to the microtubules [28]"
 SET Confidence = "High"
-p(HGNC:MAPT) -| complex(a(MESHC:Kinesin),a(GOCC:microtubule))
-p(HGNC:MAPT) -| complex(a(MESHC:Dyneins),a(GOCC:microtubule))
+p(HGNC:MAPT) -| complex(a(MESH:Kinesin),a(GO:microtubule))
+p(HGNC:MAPT) -| complex(a(MESH:Dyneins),a(GO:microtubule))
 
 SET Evidence = "However, when tau aggregates,
 this conformation is altered, exposing PAD and allowing
@@ -164,7 +161,7 @@ FAT inhibition [21]"
 SET Confidence = "High"
 a(HBP:"Tau aggregates") -> act(p(HGNC:PPP1CA))
 a(HBP:"Tau aggregates") -> act(p(HGNC:GSK3A))
-a(HBP:"Tau aggregates") -| bp(GOBP:"anterograde axonal protein transport")
+a(HBP:"Tau aggregates") -| bp(GO:"anterograde axonal protein transport")
 
 SET Evidence = "TNT1 also co-localizes in tissue with the phospho-epitope
 defined by the AT8 antibody, indicating that PAD
@@ -197,7 +194,7 @@ SET Evidence = "However, our data indicate that Hsp70 preferentially binds
 to oligomeric as opposed to fibrillar tau aggregates and
 prevents anterograde FAT inhibition [31]"
 SET Confidence = "Medium"
-complex(p(HGNC:HSPA1A),a(HBP:"Tau oligomers")) -> bp(GOBP:"anterograde axonal protein transport")
+complex(p(HGNC:HSPA1A),a(HBP:"Tau oligomers")) -> bp(GO:"anterograde axonal protein transport")
 
 SET Evidence = "This indicates that
 tau oligomers represent the main toxic species responsible
@@ -211,4 +208,4 @@ when Hsp70 was pre-incubated with the PAD peptide and
 introduced to the squid axoplasm, inhibition of FAT was still
 observed [31]"
 SET Confidence = "High"
-composite(p(HGNC:HSPA1A),p(HGNC:MAPT,frag("2_18"))) -| bp(GOBP:"anterograde axonal protein transport")
+composite(p(HGNC:HSPA1A),p(HGNC:MAPT,frag("2_18"))) -| bp(GO:"anterograde axonal protein transport")
