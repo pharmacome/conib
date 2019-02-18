@@ -1,0 +1,162 @@
+SET DOCUMENT Name = "Tau Effect on Mitochondria"
+SET DOCUMENT Version = "1.0.3"
+SET DOCUMENT Description = "Tau and mitochondria section of NESTOR"
+SET DOCUMENT Copyright = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved"
+SET DOCUMENT Authors = "Kristian Kolpeja"
+SET DOCUMENT Licenses = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT ContactInfo = "cthoyt"
+
+
+##################################################################################
+# Definitions
+##################################################################################
+
+###############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/90e1cb9e5e882703380c9db8d4915ac6f3cba137/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+##############
+# Statements #
+##############
+
+DEFINE ANNOTATION MouseStrain AS LIST {"Tau X Drp1+/-"}
+DEFINE ANNOTATION Method AS LIST {"Immunoblotting","Imunofluorescence","RT-PCR"}
+
+
+###########################################################################################################################################################################################
+########################################################################### TAU AND MITOCHONDRIA ############################################################################################
+
+SET Citation = {"PubMed", "28173111"}
+SET Evidence = "Mitochondrial dysfunction found to be reduced in TauXDrp1þ/+- mice relative to Tau mice. Phosphorylated Tau levels were significantly reduced \
+in TauXDrp1þ/+- mice relative to Tau mice. These findings suggest that a partial reduction of Drp1 decreases the levels of phosphorylated Tau, reduces mitochondrial dysfunction,\
+and maintains mitochondrial dynamics, enhances mitochondrial biogenesis and synaptic activity in Tau mice."
+SET Method = {"Immunoblotting","Imunofluorescence","RT-PCR"}
+SET Species = "10090"
+SET MouseStrain = "Tau X Drp1+/-"
+r(MGI:Dnm1l) neg act(complex(GO:mitochondrion))
+r(MGI:Dnm1l) pos p(MGI:Mapt, pmod(Ph))
+r(MGI:Dnm1l) neg bp(MESH:"Mitochondrial Dynamics")
+r(MGI:Dnm1l) neg complex(GO:mitochondrion)
+r(MGI:Dnm1l) neg act(complex(GO:"neuron to neuron synapse"))
+
+SET Evidence = "Using real-time RT-PCR, immunoblotting and immunostaining analyses,
+we measured mRNA expressions and protein levels of genes related to the mitochondrial dynamics—Drp1 and Fis1
+(fission), Mfn1, Mfn2 and Opa1 (fusion), CypD (matrix), mitochondrial biogenesis—Nrf1, Nrf2, PGC1a and TFAM and synaptic—
+synaptophysin, PSD95, synapsin 1, synaptobrevin 1, neurogranin, GAP43 and synaptopodin in brain tissues from 6-month old
+Drp1þ/+-, Tau, TauXDrp1þ/+- and wild-type mice. Decreased mRNA and protein levels of fission and matrix and increased
+levels of fusion, mitochondrial biogenesis, and synaptic genes were found in 6-month-old TauXDrp1þ/+- mice relative to Tau
+mice. Mitochondrial dysfunction was reduced in TauXDrp1þ/+- mice relative to Tau mice."
+
+r(MGI:Dnm1l) neg r(MGI:Syp)
+r(MGI:Dnm1l) neg r(MGI:Dlg4)
+r(MGI:Dnm1l) neg r(MGI:Syn1)
+r(MGI:Dnm1l) neg r(MGI:Syn2)
+r(MGI:Dnm1l) neg r(HGNCGENEFAMILY:"Vesicle associated membrane proteins")
+r(MGI:Dnm1l) neg r(MGI:Synpo2)
+r(MGI:Dnm1l) neg r(MGI:Nrgn)
+r(MGI:Dnm1l) neg r(MGI:Gap43)
+
+r(MGI:Syp) pos act(complex(GO:"neuron to neuron synapse"))
+r(MGI:Dlg4) pos act(complex(GO:"neuron to neuron synapse"))
+r(MGI:Syn1) pos act(complex(GO:"neuron to neuron synapse"))
+r(MGI:Syn2) pos act(complex(GO:"neuron to neuron synapse"))
+r(HGNCGENEFAMILY:"Vesicle associated membrane proteins") pos act(complex(GO:"neuron to neuron synapse"))
+r(MGI:Synpo2) pos act(complex(GO:"neuron to neuron synapse"))
+r(MGI:Nrgn) pos act(complex(GO:"neuron to neuron synapse"))
+r(MGI:Gap43) pos act(complex(GO:"neuron to neuron synapse"))
+
+r(MGI:Dnm1l) pos r(MGI:Fis1)
+r(MGI:Dnm1l) pos p(MGI:Fis1)
+p(MGI:Fis1) pos bp(GO:"mitochondrial fission")
+p(MGI:Dnm1l) pos bp(GO:"mitochondrial fission")
+r(MGI:Dnm1l) pos r(MGI:Ppid)
+r(MGI:Dnm1l) pos p(MGI:Ppid)
+p(MGI:Ppid) pos complex(GO:"mitochondrial matrix")
+r(MGI:Dnm1l) neg r(MGI:Mfn1)
+r(MGI:Dnm1l) neg p(MGI:Mfn1)
+r(MGI:Dnm1l) neg r(MGI:Mfn2)
+r(MGI:Dnm1l) neg p(MGI:Mfn2)
+r(MGI:Dnm1l) neg r(MGI:Opa1)
+r(MGI:Dnm1l) neg p(MGI:Opa1)
+p(MGI:Mfn1) pos bp(GO:"mitochondrial fusion")
+p(MGI:Mfn2) pos bp(GO:"mitochondrial fusion")
+p(MGI:Opa1) pos bp(GO:"mitochondrial fusion")
+r(MGI:Dnm1l) neg r(MGI:Nrf1)
+r(MGI:Dnm1l) neg p(MGI:Nrf1)
+r(MGI:Dnm1l) neg r(MGI:Nfe2l2)
+r(MGI:Dnm1l) neg p(MGI:Nfe2l2)
+r(MGI:Dnm1l) neg r(MGI:Ppargc1a)
+r(MGI:Dnm1l) neg p(MGI:Ppargc1a)
+r(MGI:Dnm1l) neg r(MGI:Tfam)
+r(MGI:Dnm1l) neg p(MGI:Tfam)
+p(MGI:Nrf1) pos complex(GO:mitochondrion)
+p(MGI:Nfe2l2) pos complex(GO:mitochondrion)
+p(MGI:Ppargc1a) pos complex(GO:mitochondrion)
+
+UNSET MouseStrain
+UNSET Species
+UNSET Method
