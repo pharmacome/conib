@@ -18,7 +18,7 @@ SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
 DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mesh-names.belns"
 DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
 DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
-DEFINE NAMESPACE FPLX     AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+DEFINE NAMESPACE FPLX     AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
 DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
 DEFINE NAMESPACE GFAM     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/go-names.belns"
@@ -55,7 +55,7 @@ p(HGNC:APP) -> a(MESH:"Amyloid beta-Peptides")
 SET Evidence = "The processing of APP to generate Abeta is executed by beta- and gamma-secretase and is
 highly regulated"
 SET Confidence = "Medium"
-p(FPLX:"Gamma_secretase") -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta")))
+complex(FPLX:"Gamma_secretase") -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta")))
 p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta")))
 
 SET Evidence = "Abeta toxicity can lead to synaptic dysfunction,
@@ -159,7 +159,7 @@ p(HGNC:ADAM10) -> rxn(reactants(p(HGNC:APP)),products(a(HBP:HBP00067),a(HBP:HBP0
 SET Evidence  = "APP C83 is further cleaved by gamma-secretase to release a P3
 peptide and the AICD, both of which are degraded rapidly"
 SET Confidence = "Medium"
-p(FPLX:"Gamma_secretase") -> rxn(reactants(a(HBP:HBP00072)),products(a(HBP:HBP00080),a(HBP:HBP00071)))
+complex(FPLX:"Gamma_secretase") -> rxn(reactants(a(HBP:HBP00072)),products(a(HBP:HBP00080),a(HBP:HBP00071)))
 
 SET Evidence = "In the amyloidogenic pathway, APP is primarily processed by
 beta-secretase at the first residue or at the 11th residue (so called
@@ -172,7 +172,7 @@ p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(a(HBP:HBP00042),a(HBP:HBP00
 SET Evidence = "gamma-Secretase further cleaves C99 to release AICD and the
 amyloidogenic Abeta peptide which aggregates and fibrillates to form amyloid plaques in the brain"
 SET Confidence = "Medium"
-p(FPLX:"Gamma_secretase")  -> rxn(reactants(a(HBP:HBP00081)),products(a(HBP:HBP00071),a(MESH:"Amyloid beta-Peptides")))
+complex(FPLX:"Gamma_secretase")  -> rxn(reactants(a(HBP:HBP00081)),products(a(HBP:HBP00071),a(MESH:"Amyloid beta-Peptides")))
 a(CHEBI:"amyloid-beta") -> a(HBP:HBP00038)
 a(CHEBI:"amyloid-beta") -> a(HBP:HBP00018)
 a(HBP:HBP00018) -> path(MESH:"Plaque, Amyloid")
@@ -244,9 +244,9 @@ The majority of Abeta peptides produced are 40 amino acids
 long, however, peptides ranging from 38 to 43 amino acids
 are found in vivo"
 SET Confidence = "Medium"
-p(FPLX:"Gamma_secretase") -> p(HGNC:APP, frag(1_38))
-p(FPLX:"Gamma_secretase") -> p(HGNC:APP, frag(1_43))
-p(FPLX:"Gamma_secretase") -> p(HGNC:APP, frag(672_711))
+complex(FPLX:"Gamma_secretase") -> p(HGNC:APP, frag(1_38))
+complex(FPLX:"Gamma_secretase") -> p(HGNC:APP, frag(1_43))
+complex(FPLX:"Gamma_secretase") -> p(HGNC:APP, frag(672_711))
 
 SET Evidence = "Accordingly, various AICDs (C50, C53,
 C57 and C59) can be generated during these multi-site
@@ -256,7 +256,7 @@ because of their very rapid degradation (Lu et al. 2000;
 Passer et al. 2000; Sastre et al. 2001; Yu et al. 2001; Sato
 et al. 2003)"
 SET Confidence = "Medium"
-p(FPLX:"Gamma_secretase") -> a(HBP:HBP00071)
+complex(FPLX:"Gamma_secretase") -> a(HBP:HBP00071)
 
 SET Evidence = "In addition to cleavages involving secretases, APP can be
 cleaved by caspases independently at its C terminus (Asp664

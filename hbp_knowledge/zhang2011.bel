@@ -18,7 +18,7 @@ DEFINE NAMESPACE HGNC    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel
 DEFINE NAMESPACE MESH  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
 DEFINE NAMESPACE HBP     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/bd0996a28201cad363557315043c6392e31abf58/export/hbp.belns"
 
-DEFINE NAMESPACE FPLX    AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/1b7e14ec0fd02ee7ed71514c6e267f57d5641a4b/export/famplex.belns"
+DEFINE NAMESPACE FPLX    AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
 
 DEFINE NAMESPACE UNIPROT AS PATTERN ".*"
 
@@ -327,7 +327,7 @@ a(MESH:Caspases) -> rxn(reactants(p(HBP:HBP00071)),products(a(HBP:HBP00069),a(HB
 SET Evidence = "APP alphaCTF and betaCTF are further cleaved by gamma-secretase
 to generate p83 and Abeta, respectively"
 SET Confidence = "Medium"
-p(FPLX:"Gamma_secretase") -> rxn(reactants(a(HBP:HBP00024)),products(a(CHEBI:"amyloid-beta"),a(HBP:HBP00072)))
+complex(FPLX:"Gamma_secretase") -> rxn(reactants(a(HBP:HBP00024)),products(a(CHEBI:"amyloid-beta"),a(HBP:HBP00072)))
 
 SET Evidence = "One study showed that the ectodomain of
 Nicastrin binds to APP and Notch and can recruit them
@@ -354,19 +354,19 @@ activating protein (GSAP) was identified and GSAP
 was found to selectively increase Abeta production through
 interaction with both gamma-secretase and the APP CTF substrate [117]"
 SET Confidence = "Medium"
-complex(p(HGNC:GSAP),p(FPLX:"Gamma_secretase"),a(HBP:HBP00024)) -> a(CHEBI:"amyloid-beta")
+complex(p(HGNC:GSAP), complex(FPLX:"Gamma_secretase"),a(HBP:HBP00024)) -> a(CHEBI:"amyloid-beta")
 
 SET Evidence = "In addition to cleaving APP CTFs, gamma-secretase
 cleaves a series of functionally important transmembrane
 proteins, including Notch [120], cadherin [114],
 tyrosinase [121], ErbB4 [79], CD44 [70], etc.) (see review [122])"
 SET Confidence = "Medium"
-p(FPLX:"Gamma_secretase") -> p(HBP:HBP00024, frag("?"))
-p(FPLX:"Gamma_secretase") -> p(HGNC:NOTCH1, frag("?"))
-p(FPLX:"Gamma_secretase") -> p(FPLX:Cadherin, frag("?"))
-p(FPLX:"Gamma_secretase") -> p(HGNC:TYR, frag("?"))
-p(FPLX:"Gamma_secretase") -> p(HGNC:ERBB4, frag("?"))
-p(FPLX:"Gamma_secretase") -> p(HGNC:CD44, frag("?"))
+complex(FPLX:"Gamma_secretase") -> p(HBP:HBP00024, frag("?"))
+complex(FPLX:"Gamma_secretase") -> p(HGNC:NOTCH1, frag("?"))
+complex(FPLX:"Gamma_secretase") -> p(FPLX:Cadherin, frag("?"))
+complex(FPLX:"Gamma_secretase") -> p(HGNC:TYR, frag("?"))
+complex(FPLX:"Gamma_secretase") -> p(HGNC:ERBB4, frag("?"))
+complex(FPLX:"Gamma_secretase") -> p(HGNC:CD44, frag("?"))
 
 SET Evidence = "In a similar fashion, released AICD has been
 shown to possess transactivation activity and can regulate
