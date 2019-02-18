@@ -90,17 +90,17 @@ nitric oxide synthase (NOS), P450 metabolism and peroxisomes."
 act(p(FPLX:"NADPH_oxidase")) -> a(CHEBI:radical)
 act(p(HGNC:XDH)) -> a(CHEBI:radical)
 act(p(FPLX:NOS)) -> a(CHEBI:radical)
-act(p(HGNCGENEFAMILY:"Cytochrome P450s")) -> a(CHEBI:radical)
+act(p(HGNCGENEFAMILY:"Cytochrome P450 family 1")) -> a(CHEBI:radical)
 act(a(MESH:Peroxisomes)) -> a(CHEBI:radical)
 act(p(FPLX:"NADPH_oxidase")) -> a(CHEBI:"reactive oxygen species")
 act(p(HGNC:XDH)) -> a(CHEBI:"reactive oxygen species")
 act(p(FPLX:NOS)) -> a(CHEBI:"reactive oxygen species")
-act(p(HGNCGENEFAMILY:"Cytochrome P450s")) -> a(CHEBI:"reactive oxygen species")
+act(p(HGNCGENEFAMILY:"Cytochrome P450 family 1")) -> a(CHEBI:"reactive oxygen species")
 act(a(MESH:Peroxisomes)) -> a(CHEBI:"reactive oxygen species")
 act(p(FPLX:"NADPH_oxidase")) -> a(CHEBI:"reactive nitrogen species")
 act(p(HGNC:XDH)) -> a(CHEBI:"reactive nitrogen species")
 act(p(FPLX:NOS)) -> a(CHEBI:"reactive nitrogen species")
-act(p(HGNCGENEFAMILY:"Cytochrome P450s")) -> a(CHEBI:"reactive nitrogen species")
+act(p(HGNCGENEFAMILY:"Cytochrome P450 family 1")) -> a(CHEBI:"reactive nitrogen species")
 act(a(MESH:Peroxisomes)) -> a(CHEBI:"reactive nitrogen species")
 
 SET Evidence = " Notably, free radicals may also arise from exogenous sources
@@ -119,7 +119,7 @@ a(CHEBI:radical) -- bp(GO:"detection of redox state")
 a(CHEBI:radical) reg bp(GO:"intracellular receptor signaling pathway")
 a(CHEBI:radical) reg bp(MESH:Metabolism)
 a(CHEBI:radical) -| a(MESH:Antioxidants)
-a(CHEBI:radical) -- a(MESH:"Host-Pathogen Interactions")
+a(CHEBI:radical) -- bp(MESH:"Host-Pathogen Interactions")
 
 SET Evidence = "Proteome is modiﬁed post-translationally by either numerous
 highly regulated enzymatic protein modiﬁcations (EPMs) (e.g.
@@ -132,19 +132,19 @@ bp(HBP:"non-enzymatic protein modiﬁcations") positiveCorrelation bp(GO:aging)
 SET Evidence = "EPMs alter the targeted proteins, which however
 remain fully functional, while NEPMs may induce protein unfolding
 or misfolding resulting in increased proteome instability."
-bp(HBP:"non-enzymatic protein modiﬁcations") -> bp(HBP:misfolding)
+bp(HBP:"non-enzymatic protein modiﬁcations") -> a(HBP:misfolding)
 
 SET Evidence = " Free
 radicals-derived protein modiﬁcation can result in either gain- or
 loss-of-function due to the protein misfolding or unfolding. "
 a(CHEBI:radical) -> bp(HBP:"non-enzymatic protein modiﬁcations")
-a(CHEBI:radical) -> bp(HBP:misfolding)
+a(CHEBI:radical) -> a(HBP:misfolding)
 
 SET Evidence = "In those organismal states (e.g. ageing or diseases) where
 the chaperone network becomes deregulated, the accumulating
 non-native, misfolded or unfolded proteins can form (among
 others) ﬁbrils, amyloids or large amorphous aggregates [15]. "
-bp(HBP:misfolding) -> path(MESH:"Protein Aggregation, Pathological")
+a(HBP:misfolding) -> path(MESH:"Protein Aggregation, Pathological")
 
 SET Evidence = "These
 chaperones provide high-afﬁnity binding platforms for unfolded
@@ -181,7 +181,7 @@ folding of newly synthesized proteins and to perform the refolding
 of proteins that are misfolded and/or aggregated. "
 p(FPLX:HSPA) -> bp(GO:"'de novo' protein folding")
 p(FPLX:HSPA) -> bp(GO:"protein folding")
-p(FPLX:HSPA) -| bp(HBP:misfolding)
+p(FPLX:HSPA) -| a(HBP:misfolding)
 p(FPLX:HSPA) -| path(MESH:"Protein Aggregation, Pathological")
 
 SET Evidence = "n general, HSP90s are more specialized than other
@@ -203,7 +203,7 @@ dictory responses since they either promote cell survival by decreasing
 the misfolded protein and/or oxidative load, or, if UPR fails, they
 promote the activation of apoptotic pathways that eventually result in
 cell death [57]."
-bp(GO:"response to endoplasmic reticulum stress") -| bp(HBP:misfolding)
+bp(GO:"response to endoplasmic reticulum stress") -| a(HBP:misfolding)
 bp(GO:"response to endoplasmic reticulum stress") -| bp(GO:"cell death")
 bp(GO:"response to endoplasmic reticulum stress") -> bp(GO:"apoptotic process")
 bp(GO:"response to endoplasmic reticulum stress") -> bp(GO:"cell death")
@@ -234,9 +234,9 @@ mechanisms include enzymes like the superoxide dismutases,
 SOD1 (Cu–Zn SOD) and SOD2 (MnSOD) that convert superoxide
 to H 2 O 2 and catalase or glutathione peroxidase that convert H 2 O 2
 to H 2 O;"
-p(HGNC:SOD1) -> rxn(reactants(a(CHEBI:superoxide)),products(a(CHEBI:"hydrogen peroxide"), a(CHEBI:"oxygen")))
-p(HGNC:SOD2) -> rxn(reactants(a(CHEBI:superoxide)),products(a(CHEBI:"hydrogen peroxide"), a(CHEBI:"oxygen")))
-p(HGNC:CAT) -> rxn(reactants(a(CHEBI:"hydrogen peroxide")),products(a(CHEBI:"water"),a(CHEBI:"oxygen")))
+p(HGNC:SOD1) -> rxn(reactants(a(CHEBI:superoxide)),products(a(CHEBI:"hydrogen peroxide"), a(CHEBI:dioxygen)))
+p(HGNC:SOD2) -> rxn(reactants(a(CHEBI:superoxide)),products(a(CHEBI:"hydrogen peroxide"), a(CHEBI:dioxygen)))
+p(HGNC:CAT) -> rxn(reactants(a(CHEBI:"hydrogen peroxide")),products(a(CHEBI:"water"),a(CHEBI:dioxygen)))
 p(HGNC:GPX1) -> rxn(reactants(a(CHEBI:"hydrogen peroxide")),products(a(CHEBI:"water")))
 
 SET Evidence = "Oxidative stress abrogates the
@@ -289,8 +289,8 @@ SET Evidence = " HSF1 binds to a consensus heat shock
 element (HSE) within the promoter regions of HSP genes resulting
 in the activation of HSPs' gene expression and the control of cellular
 responses to oxidative and proteotoxic stress [108]."
-p(HGNC:HSF1) -> p(HGNCGENEFAMILY:"Heat shock proteins")
-p(HGNCGENEFAMILY:"Heat shock proteins") reg bp(GO:"response to oxidative stress")
+p(HGNC:HSF1) -> a(MESH:"Heat-Shock Proteins")
+a(MESH:"Heat-Shock Proteins") reg bp(GO:"response to oxidative stress")
 
 SET Evidence = "During elevated stress the chaperones within
 the repressive HSF1-containing multi-chaperone complexes bind
@@ -298,7 +298,7 @@ the unfolded proteins and thus the liberated monomeric HSF1s
 undergo phosphorylation, trimerization and nuclear localization
 with increased transcriptional activity [109]."
 bp(GO:"response to stress") -> p(HGNC:HSF1, pmod(Ph))
-bp(GO:"response to stress") -> p(HGNC:HSF1, loc(MESH:"Cell Nucleus")
+bp(GO:"response to stress") -> p(HGNC:HSF1, loc(MESH:"Cell Nucleus"))
 bp(GO:"response to stress") -> tscript(p(HGNC:HSF1))
 
 SET Evidence = "PDI is a redox sensitive chaperone that acts not
@@ -307,7 +307,7 @@ oxidized proteins and in preventing misfolding and/or aggregation
 of proteins."
 SET MeSHAnatomy = "Endoplasmic Reticulum"
 p(HGNCGENEFAMILY:"Protein disulfide isomerases") -| bp(GO:"protein oxidation")
-p(HGNCGENEFAMILY:"Protein disulfide isomerases") -| bp(HBP:misfolding)
+p(HGNCGENEFAMILY:"Protein disulfide isomerases") -| a(HBP:misfolding)
 p(HGNCGENEFAMILY:"Protein disulfide isomerases") -| a(MESH:"Protein Aggregates")
 UNSET MeSHAnatomy
 
