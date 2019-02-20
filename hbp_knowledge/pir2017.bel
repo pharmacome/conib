@@ -1,0 +1,372 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Caenorhabditis elegans models of tauopathy"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Sandra Spalek"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+# Add statements below this comment
+
+SET Citation = {"PubMed","29191965"}
+
+SET Evidence = "For example, the first transgenic C. elegans human disease model was based on the expression
+of the AD-associated Ab peptide in body wall muscles, resulting in paralysis that could be suppressed by
+coexpression of transthyretin (29)."
+composite(a(MESH:"Amyloid beta-Peptides"),a(PUBCHEM:160718443)) -| path(MESH:Paralysis)
+
+SET Evidence = "Genetic interaction studies involving ptl-1 and mutants in other genes associated with
+microtubules such as mec-12 (a-tubulin) and mec-7 (btubulin), suggested a larger functional role of PTL-1 in
+mechanosensation (45)."
+# ptl-1: MAPT
+p(HGNC:MAPT) -> complex(p(HGNC:MAPT),a(GO:microtuble))
+p(HGNC:MAPT) -> complex(p(HGNC:TUBA1A),p(HGNC:MAPT))
+p(HGNC:MAPT) -> complex(p(HGNC:TUBB),p(HGNC:MAPT))
+
+SET Evidence = "A recent study, Krieg et al. (49), established the role of PTL-1 in the maintenance and repair
+of the microtubule cytoskeleton after transient damage induced by mechanical stress.
+This process requires other microtubule-associated proteins such as b-spectrin."
+bp(GO:"cellular response to mechanical stimulus") -| a(GO:"microtubule cytoskeleton")
+composite(p(HGNC:SPTB),p(HGNC:MAPT)) reg a(GO:"microtubule cytoskeleton")
+
+SET Evidence = "Tien et al. (50) showed a physical interaction of PTL-1 with Kinesin-3/UNC-104, a
+major motor for synaptic vesicle proteins and dense core vesicles in C. elegans."
+p(HGNC:MAPT) => complex(p(HGNC:KLC3),p(HGNC:MAPT))
+complex(p(HGNC:KLC3),p(HGNC:MAPT)) -- a(GO:"synaptic vesicle")
+
+SET Evidence = "Three transgenic lines were generated based on 1N4R wild-type MAPT or its FTD-17 mutant variants
+P301L and V337M. The mutant lines showed a stronger Unc phenotype than the wild-type tau lines and the severity
+of the Unc phenotype progressed with age"
+# uncoordinated (Unc) phenotype: defective locomotion
+p(HBP:"Tau isoform E (412 aa)",var("p.Pro301Leu")) -| bp(GO:locomotion)
+p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")) -| bp(GO:locomotion)
+bp(GO:aging) -| bp(GO:locomotion)
+
+SET Evidence = "This worm also shows reduced survival, accumulates detergent-insoluble tau, and undergoes
+late-onset neurodegeneration (66)"
+# this worm: Unc phenotype variants
+p(HBP:"Tau isoform E (412 aa)",var("p.Pro301Leu")) -| a(MESH:Survival)
+p(HBP:"Tau isoform E (412 aa)",var("p.Pro301Leu")) -> path(HBP:Neurodegeneration)
+p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")) -| a(MESH:Survival)
+p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")) -> path(HBP:Neurodegeneration)
+
+SET Evidence = "Frontotemporal dementia with parkinsonism–mutant tau
+expression (0N4R-tau P301L and 0N4R-tau R406W), on
+the other hand, resulted in a reduced touch response that worsened with age"
+# touch response by touch Neurons
+SET MeSHDisease = "Frontotemporal Dementia"
+p(HBP:"Tau isoform D (383 aa)",var("p.Pro301Leu")) -| act(a(MESH:Neurons))
+p(HBP:"Tau isoform D (383 aa)",var("p.Arg406Trp")) -| act(a(MESH:Neurons))
+UNSET MeSHDisease
+
+SET Evidence = "At the later stages, the mutant-tau lines showed microtubule loss
+and non-apoptotic neuronal death, paralleled by a complete loss of touch response (62)."
+# mutant-tau lines: 0N4R-tau P301L and 0N4R-tau R406W
+p(HBP:"Tau isoform D (383 aa)",var("p.Pro301Leu")) -| a(GO:microtuble)
+p(HBP:"Tau isoform D (383 aa)",var("p.Pro301Leu")) -> bp(GO:"neuron death")
+p(HBP:"Tau isoform D (383 aa)",var("p.Pro301Leu")) -| act(a(MESH:Neurons))
+p(HBP:"Tau isoform D (383 aa)",var("p.Arg406Trp")) -| a(GO:microtuble)
+p(HBP:"Tau isoform D (383 aa)",var("p.Arg406Trp")) -> bp(GO:"neuron death")
+p(HBP:"Tau isoform D (383 aa)",var("p.Arg406Trp")) -| act(a(MESH:Neurons))
+
+SET Evidence = "The transgenic lines exhibited a progressive age-associated Unc phenotype,
+with or without phospho-mimicking mutations"
+# transgenic lines:wild-type human tau (0N3R) pan-neuronally (F25B3.3 gene promoter),pseudohyperphosphorylated (PHP) tau with 9 glutamate substitutions, tauAla10 construct with the same codons replaced by nonphosphorylatable alanine residues
+a(HBP:"Tau isoform Fetal-tau (352 aa)") -| bp(GO:locomotion)
+p(HBP:"Tau isoform Fetal-tau (352 aa)",pmod(HBP:hyperphosphorylation)) -| bp(GO:locomotion)
+
+SET Evidence = "Only PHP tau expression induced morphologic abnormalities in
+the motor neurons, but none of the lines developed substantial neurodegeneration"
+# PHP tau: pseudohyperphosphorylated 0N3R tau
+p(HBP:"Tau isoform Fetal-tau (352 aa)",pmod(HBP:hyperphosphorylation)) -| a(MESH:"Motor Neurons")
+
+SET Evidence = "As a result, the proaggregant lines showed a range of defects including paralysis, axonal degeneration
+of GABAergic and cholinergic motor neurons, presynaptic defects, synapse loss, and mitochondrial transport
+defects early in adulthood"
+#proaggregant lines: themutant1N4R-tau V337M coexpressed with proaggregant 4R-tau fragment (F3DK280)
+composite(p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")),p(HBP:"4R tau",var("p.Lys280del"))) -> path(MESH:Paralysis)
+composite(p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")),p(HBP:"4R tau",var("p.Lys280del"))) -| a(MESH:"GABAergic Neurons")
+composite(p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")),p(HBP:"4R tau",var("p.Lys280del"))) -| a(MESH:"Cholinergic Neurons")
+composite(p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")),p(HBP:"4R tau",var("p.Lys280del"))) -| a(GO:synapse)
+composite(p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")),p(HBP:"4R tau",var("p.Lys280del"))) -| bp(GO:"axonal transport of mitochondrion")
+
+SET Evidence = "Another MAPT polymorphism (A152T) was recently identified in patients diagnosed
+with progressive supranuclear palsy (PSP) (72–74)."
+p(HGNC:MAPT,var("p.Ala152Thr")) -- path(MESH:"Supranuclear Palsy, Progressive")
+
+SET Evidence = "Although the wild-type tau lines showed a mild late-onset
+dose-dependent Unc phenotype, TauA152T worms showed early-onset paralysis and acute neuronal dysfunction."
+# 2N4R-tau (wild-type or A152T mutant)
+p(HBP:"Tau isoform F (441 aa)",var("p.Ala152Thr")) -> path(MESH:Paralysis)
+p(HBP:"Tau isoform F (441 aa)",var("p.Ala152Thr")) -| act(a(MESH:Neurons))
+
+SET Evidence = "Thus, TauA152T affects both neuronal aging and whole organism lifespan"
+# 2N4R-tau ( A152T mutant)
+SET MeSHAnatomy = "Neurons"
+p(HBP:"Tau isoform F (441 aa)",var("p.Ala152Thr")) neg bp(GO:"cell aging")
+p(HBP:"Tau isoform F (441 aa)",var("p.Ala152Thr")) -| bp(MESH:Longevity)
+UNSET MeSHAnatomy
+
+SET Evidence = "Comparison of the mitochondrial transport in the wildtype tau and TauA152T lines revealed striking differences;
+wild-type tau lines showed a late onset akin to both antero- and retrograde mitochondrial transport
+defects, whereas TauA152T lines showed mainly early-onset anterograde mitochondrial transport defects"
+# 2N4R-tau ( A152T mutant)
+p(HBP:"Tau isoform F (441 aa)") -| bp(GO:"anterograde axonal transport of mitochondrion")
+p(HBP:"Tau isoform F (441 aa)") -| bp(GO:"retrograde axonal transport of mitochondrion")
+p(HBP:"Tau isoform F (441 aa)",var("p.Ala152Thr")) -| bp(GO:"anterograde axonal transport of mitochondrion")
+
+SET Evidence = "One exception is the report of the accumulation of tau aggregates in presynaptic boutons in transgenic mice,
+whereby it induces synaptic dysfunction and loss of presynapses (77)."
+SET MeSHAnatomy = "Presynaptic Terminals"
+a(HBP:"Tau aggregates") -| act(a(GO:synapse))
+a(HBP:"Tau aggregates") -| a(GO:presynapse)
+UNSET MeSHAnatomy
+
+SET Evidence = "In a recent study, tau was reported to impair neurotransmission at the presynapse by binding and
+inhibiting synaptic vesicle transport and release, an effect mediated by the N-terminal domain (78)."
+complex(a(GO:"synaptic vesicle"),p(HGNC:MAPT)) -| bp(MESH:"Synaptic Transmission")
+complex(a(GO:"synaptic vesicle"),p(HGNC:MAPT)) -| act(a(GO:"synaptic vesicle"))
+
+SET Evidence = "Indeed, 2 of the candidates identified in an RNAi screen
+that worsened the Unc phenotype in the TauV337M worm, called enhancers of tauopathy, were postsynaptic (80)."
+# candidates: acr-14 (homolog to human alpha7 nAChR subunits), aex-1 (homolog to human BAP3)
+composite(p(HGNC:CHRNA7),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -| bp(GO:locomotion)
+composite(p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")),p(HGNC:BAIAP3)) -| bp(GO:locomotion)
+
+SET Evidence = "acr-14 controls body movement by modulating the synaptic inputs and outputs of the ventral
+cord neural circuitry (83)."
+p(HGNC:CHRNA7) reg bp(GO:"musculoskeletal movement")
+p(HGNC:CHRNA7) reg act(a(GO:synapse))
+
+SET Evidence = "AD brains show an upregulation of CHRNA7 (acr-14 homolog in humans) (84), where it
+may mediate the Ab-induced tau pathology (85)."
+SET MeSHAnatomy = "Brain"
+path(MESH:"Alzheimer Disease") pos p(HGNC:CHRNA7)
+p(HGNC:CHRNA7) reg act(a(CHEBI:"amyloid-beta"))
+UNSET MeSHAnatomy
+
+SET Evidence = "AEX-1, predominantly expressed in muscles and intestine, regulates
+the retrograde signaling at neuromuscular junctions and is required for the normal
+localization of synaptic vesicle fusion protein UNC-13"
+# aex-1 (homolog to human BAP3)
+SET MeSHAnatomy = "Neuromuscular Junction"
+p(HGNC:BAIAP3) reg bp(GO:"retrograde trans-synaptic signaling")
+UNSET MeSHAnatomy
+
+SET Evidence = "Tau lines described by Miyasaka et al. show tau accumulations predominantly in
+the cell bodies as seen by immunostaining (62)."
+a(GO:"cell body") -- p(HGNC:MAPT)
+
+SET Evidence = "Indeed, evidence from both human and mouse studies indicates that soluble oligomers rather than
+insoluble aggregates are toxic to normal neurons (70)."
+# tau oligomers and aggregates
+a(HBP:"Tau oligomers") -| a(MESH:Neurons)
+
+SET Evidence = "Phosphorylation is generally increased in AD and can
+be recognized by diagnostic antibodies against phosphoepitopes"
+#phosphorylation of tau
+path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ph))
+
+SET Evidence = "The responsible kinases include 1) proline-directed protein kinases
+(PDPKs) targeting SP or TP motifs [e.g., GSK3b, cyclindependent kinase (CDK)-5, and MAPKs]; 2) non–proline directed
+protein kinases targeting KXGS-motifs [e.g., PKA, microtubule affinity-regulating kinase and synapses of the
+amphid defective (SADK)]; 3) protein kinases specific for tyrosines (e.g., Src, Lck, Syk, Fyn, and c-Abl kinase) (91)."
+# responsible for the phosphorylation of  tau
+p(HGNC:GSK3B) => p(HGNC:MAPT,pmod(Ph))
+p(HGNC:CDK5) => p(HGNC:MAPT,pmod(Ph))
+p(FPLX:MAPK) => p(HGNC:MAPT,pmod(Ph))
+p(HGNC:PKA) => p(HGNC:MAPT,pmod(Ph))
+p(HGNC:SRC) => p(HGNC:MAPT,pmod(Ph,Tyr))
+p(HGNC:LCK) => p(HGNC:MAPT,pmod(Ph,Tyr))
+p(HGNC:SYK) => p(HGNC:MAPT,pmod(Ph,Tyr))
+p(HGNC:FYN) => p(HGNC:MAPT,pmod(Ph,Tyr))
+p(HGNC:ABL1) => p(HGNC:MAPT,pmod(Ph,Tyr))
+
+SET Evidence = "Dephosphorylation of tau is achieved mainly by protein
+phosphatase (PP)2A, PP2B (calcineurin), and PP-1 (92)."
+p(HGNC:PPP2CA) =| p(HGNC:MAPT,pmod(Ph))
+p(HGNC:PPP3CB) =| p(HGNC:MAPT,pmod(Ph))
+p(HGNC:PPP1R8) =| p(HGNC:MAPT,pmod(Ph))
+
+SET Evidence = "For example, AD brain tau is;4-fold more phosphorylated than normal adult brain tau(93), but
+a high state of phosphorylation can also occur physiologically (e.g., in fetal brain or in hibernating animals (94)."
+path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ph))
+
+SET Evidence = "Nonetheless, it is assumed that tau aggregation may be driven by phosphorylation at certain sites (95),
+whereas phosphorylation at other sites may inhibit aggregation (96)."
+p(HGNC:MAPT,pmod(Ph)) pos a(HBP:"Tau aggregates")
+
+SET Evidence = "For example, both soluble and insoluble tau from transgenic worms generated by Kraemer and colleagues
+(66) was phosphorylated at most of the sites examined; however, the insoluble tau did not show reactivity
+at the AT8 and pS422 epitopes, which are pronounced in human AD tau."
+path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ph,Ser,422))
+path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ph,Ser,202)
+path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ph,Thr,205)
+
+SET Evidence = "Similarly, elimination of CDK-5 improved the touch response in the mutant TauR406W-line,
+but failed to improve it inother line"
+composite(p(HGNC:CDK5),p(HBP:"Tau isoform D (383 aa)",var("p.Pro301Leu"))) -| a(MESH:Neurons)
+
+SET Evidence = "For example, Fatouros et al. (68) tested several tau-aggregation
+inhibitor compounds such as methylene blue, a rhodanine derivative (bb14), and a phenylthiazolyl hydrazide derivative
+(BSc3094), which reduce the insoluble tau and partially suppress the Unc phenotype."
+a(CHEBI:"methylene blue") -| a(HBP:"Tau aggregates")
+a(CHEBI:"methylene blue") pos bp(GO:locomotion)
+a(PUBCHEM:6475963) -| a(HBP:"Tau aggregates")
+a(PUBCHEM:6475963) pos bp(GO:locomotion)
+a(HBP:"Phenylthiazolyl-hydrazide") -| a(HBP:"Tau aggregates")
+a(HBP:"Phenylthiazolyl-hydrazide") pos bp(GO:locomotion)
+
+SET Evidence = "Another compound of the ATPZ class also is protective and partially
+ameliorates the neurodegeneration in this tauopathy model."
+a(PUBCHEM:66766582) -| path(HBP:Neurodegeneration)
+
+SET Evidence = "The antipsychotic drug azaperone shows neuroprotective effects,
+improves locomotion, reduces the insoluble tau, and partially abates the neurodegeneration in this tauopathy model (104)."
+a(CHEBI:azaperone) -> bp(GO:locomotion)
+a(CHEBI:azaperone) -| p(HGNC:MAPT)
+a(CHEBI:azaperone) -| path(HBP:Neurodegeneration)
+
+SET Evidence = "In a recent study, the antiepileptic drug ethosuximide increased the
+lifespan and partially corrected the Unc phenotype in TauV337M worms with the effect dependent on the insulin signaling pathway (106)."
+composite(a(CHEBI:ethosuximide),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -> bp(MESH:Longevity)
+composite(a(CHEBI:ethosuximide),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -> bp(GO:locomotion)
+composite(a(CHEBI:ethosuximide),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) pos bp(GO:"insulin receptor signaling pathway")
+
+SET Evidence = "Some of these enhancer genes are specific only to the tau-induced
+disease phenotype and include genes encoding proteins like WNT2 (111), TTBK2 (112), GSK-3b (113),
+TAOK1 (114, 115), CTSE (116) and CHRNA7 (117), have been implicated in tau-mediated pathology."
+p(HGNC:WNT2) -- path(MESH:Tauopathies)
+p(HGNC:TTBK2) -- path(MESH:Tauopathies)
+p(HGNC:GSK3B) -- path(MESH:Tauopathies)
+p(HGNC:TAOK1) -- path(MESH:Tauopathies)
+p(HGNC:CTSE) -- path(MESH:Tauopathies)
+p(HGNC:CHRNA7) -- path(MESH:Tauopathies)
+
+SET Evidence = "A study from the same group whereby the knockdown of dynamin binding protein (DNMBP/TUBA), a
+known interactor of UNC-34 (120), elevated the toxicity induced by TauV337M(80), lends further support to this notion"
+# UNC-34 homolog of human ENAH
+p(HGNC:DNMBP) -> complex(p(HGNC:DNMBP),p(HGNC:ENAH))
+composite(p(HGNC:DNMBP),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -> path(MESH:Tauopathies)
+
+SET Evidence = "Eliminating sut-2 resulted in partial recovery of Unc phenotype, less neurodegeneration and reduction
+of insoluble tau in the TauV337M worm; whereas sut-2 overexpression exacerbated the pathology"
+# sut-2 homolog of human ZC3H14
+composite(p(HGNC:ZC3H14),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -| bp(GO:locomotion)
+composite(p(HGNC:ZC3H14),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -> path(HBP:Neurodegeneration)
+composite(p(HGNC:ZC3H14),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -> p(HGNC:MAPT)
+
+SET Evidence = "Homologs of SUT-2 exist in higher animals, including humans
+(MSUT-2), and reducing the MSUT-2 levels was found to be protective against tau-induced toxicity in a cell model (121)."
+# MSUT-2: ZC3H14
+p(HGNC:ZC3H14) -> path(MESH:Tauopathies)
+
+SET Evidence = "Although a direct mechanism by which SUT-2 acts is not known, functional evidence of its
+binding partner ZYG-12 (122) suggests that it may act via modulating the aggresome formation by ZYG-12 (123,124)."
+p(HGNC:ZC3H14) reg bp(GO:"aggresome assembly")
+
+SET Evidence = "Indeed, aggresome formation represents one such process employed by a cell to discard misfolded proteins
+(125) and has been implicated in neurodegenerative diseases (126)."
+bp(GO:"aggresome assembly") -- path(MESH:"Neurodegenerative Diseases")
+bp(GO:"aggresome assembly") -| p(MESH:Proteins,pmod(HBP:misfolding))
+
+SET Evidence = "A recent addition to the suppressors of tau-induced toxicity in C. elegans is the bas-1 gene (105), encoding the
+dopa decarboxylase, loss of which reduces the dopamine and serotonin levels (128–130)."
+# bas-1: DDC
+p(HGNC:DDC) -> a(CHEBI:dopamine)
+p(HGNC:DDC) -> a(CHEBI:serotonin)
+
+SET Evidence = "Loss of bas-1 function improved the motor function, reduced insoluble tau and its
+phosphorylation and ameliorated the tau-induced neurodegeneration without increasing the longevity in TauV337M worms"
+# bas-1: DDC
+composite(p(HGNC:DDC),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -| bp(GO:locomotion)
+composite(p(HGNC:DDC),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -> p(HGNC:MAPT)
+composite(p(HGNC:DDC),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -> p(HGNC:MAPT,pmod(Ph))
+composite(p(HGNC:DDC),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -> path(HBP:Neurodegeneration)
+
+SET Evidence = "Loss of function in other genes (cat-2, cat-4, tph-1) that also regulate the dopamine or serotonin levels (130–132),did
+not affect the tau-induced toxicity in TauV337M; however, their activity is essential for bas-1-mediated suppression of
+tau-induced toxicity in TauV337M (105)"
+p(HGNC:TH) reg a(CHEBI:dopamine)
+p(HGNC:TH) reg a(CHEBI:serotonin)
+p(HGNC:TH) reg act(p(HGNC:DDC))
+composite(p(HGNC:TH),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) cnc path(MESH:Tauopathies)
+p(HGNC:GCH1) reg a(CHEBI:dopamine)
+p(HGNC:GCH1) reg a(CHEBI:serotonin)
+p(HGNC:GCH1) reg act(p(HGNC:DDC))
+composite(p(HGNC:GCH1),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) cnc path(MESH:Tauopathies)
+p(HGNC:TPH1) reg a(CHEBI:dopamine)
+p(HGNC:TPH1) reg a(CHEBI:serotonin)
+p(HGNC:TPH1) reg act(p(HGNC:DDC))
+composite(p(HGNC:TPH1),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) cnc path(MESH:Tauopathies)
