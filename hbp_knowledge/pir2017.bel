@@ -81,6 +81,8 @@ DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifact
 
 SET Citation = {"PubMed","29191965"}
 
+SET Species = "6239"
+
 SET Evidence = "For example, the first transgenic C. elegans human disease model was based on the expression
 of the AD-associated Ab peptide in body wall muscles, resulting in paralysis that could be suppressed by
 coexpression of transthyretin (29)."
@@ -90,7 +92,7 @@ SET Evidence = "Genetic interaction studies involving ptl-1 and mutants in other
 microtubules such as mec-12 (a-tubulin) and mec-7 (btubulin), suggested a larger functional role of PTL-1 in
 mechanosensation (45)."
 # ptl-1: MAPT
-p(HGNC:MAPT) -> complex(p(HGNC:MAPT),a(GO:microtuble))
+p(HGNC:MAPT) -> complex(p(HGNC:MAPT),a(GO:microtubule))
 p(HGNC:MAPT) -> complex(p(HGNC:TUBA1A),p(HGNC:MAPT))
 p(HGNC:MAPT) -> complex(p(HGNC:TUBB),p(HGNC:MAPT))
 
@@ -133,17 +135,17 @@ UNSET MeSHDisease
 SET Evidence = "At the later stages, the mutant-tau lines showed microtubule loss
 and non-apoptotic neuronal death, paralleled by a complete loss of touch response (62)."
 # mutant-tau lines: 0N4R-tau P301L and 0N4R-tau R406W
-p(HBP:"Tau isoform D (383 aa)",var("p.Pro301Leu")) -| a(GO:microtuble)
+p(HBP:"Tau isoform D (383 aa)",var("p.Pro301Leu")) -| a(GO:microtubule)
 p(HBP:"Tau isoform D (383 aa)",var("p.Pro301Leu")) -> bp(GO:"neuron death")
 p(HBP:"Tau isoform D (383 aa)",var("p.Pro301Leu")) -| act(a(MESH:Neurons))
-p(HBP:"Tau isoform D (383 aa)",var("p.Arg406Trp")) -| a(GO:microtuble)
+p(HBP:"Tau isoform D (383 aa)",var("p.Arg406Trp")) -| a(GO:microtubule)
 p(HBP:"Tau isoform D (383 aa)",var("p.Arg406Trp")) -> bp(GO:"neuron death")
 p(HBP:"Tau isoform D (383 aa)",var("p.Arg406Trp")) -| act(a(MESH:Neurons))
 
 SET Evidence = "The transgenic lines exhibited a progressive age-associated Unc phenotype,
 with or without phospho-mimicking mutations"
 # transgenic lines:wild-type human tau (0N3R) pan-neuronally (F25B3.3 gene promoter),pseudohyperphosphorylated (PHP) tau with 9 glutamate substitutions, tauAla10 construct with the same codons replaced by nonphosphorylatable alanine residues
-a(HBP:"Tau isoform Fetal-tau (352 aa)") -| bp(GO:locomotion)
+p(HBP:"Tau isoform Fetal-tau (352 aa)") -| bp(GO:locomotion)
 p(HBP:"Tau isoform Fetal-tau (352 aa)",pmod(HBP:hyperphosphorylation)) -| bp(GO:locomotion)
 
 SET Evidence = "Only PHP tau expression induced morphologic abnormalities in
@@ -271,8 +273,8 @@ SET Evidence = "For example, both soluble and insoluble tau from transgenic worm
 (66) was phosphorylated at most of the sites examined; however, the insoluble tau did not show reactivity
 at the AT8 and pS422 epitopes, which are pronounced in human AD tau."
 path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ph,Ser,422))
-path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ph,Ser,202)
-path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ph,Thr,205)
+path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ph,Ser,202))
+path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ph,Thr,205))
 
 SET Evidence = "Similarly, elimination of CDK-5 improved the touch response in the mutant TauR406W-line,
 but failed to improve it inother line"
@@ -370,3 +372,5 @@ p(HGNC:TPH1) reg a(CHEBI:dopamine)
 p(HGNC:TPH1) reg a(CHEBI:serotonin)
 p(HGNC:TPH1) reg act(p(HGNC:DDC))
 composite(p(HGNC:TPH1),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) cnc path(MESH:Tauopathies)
+
+UNSET Species
