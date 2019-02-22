@@ -94,28 +94,28 @@ SET Evidence = "Indeed, knockdown of FUS increases the expression of the 2N and 
 a possible link between frontotemporal lobar degeneration-FUS (FTLDFUS; a subtype of FTD characterized by FUS inclusions
 in neurons and glia) and FTLD-tau (a tauopathy)."
 p(HGNC:FUS) -| p(HBP:"4R tau")
-p(HGNC:FUS) -| p(HBP"Tau isoform F (441 aa)")
+p(HGNC:FUS) -| p(HBP:"Tau isoform F (441 aa)")
 p(HGNC:FUS) -| p(HBP:"Tau isoform C (410 aa)")
 path(MESH:"Frontotemporal Lobar Degeneration") -- p(HGNC:FUS)
 
 SET Evidence = "For instance, miR‑132, which is downregulated in PSP, reduces 4R tau expression in
 mouse neuroblastoma cells."
-path(MESH:"Supranuclear Palsy, Progressive") neg r(HGNC:MIR132)
-r(HGNC:MIR132) -| p(HBP:"4R tau")
+path(MESH:"Supranuclear Palsy, Progressive") neg g(HGNC:MIR132)
+g(HGNC:MIR132) -| p(HBP:"4R tau")
 
 SET Evidence = "It is worth noting that another non-coding miRNA, miR‑219, can bind directly
 to the 3ʹ untranslated region of tau mRNA and thereby repress tau synthesis at the post-transcriptional level,
 although it does not affect splicing of tau."
-r(HGNC:MIR219A1) -> complex(r(HGNC:MIR219A1),p(HGNC:MAPT))
-complex(r(HGNC:MIR219A1),p(HGNC:MAPT)) -| p(HGNC:MAPT)
+g(HGNC:MIR219A1) -> complex(g(HGNC:MIR219A1),p(HGNC:MAPT))
+complex(g(HGNC:MIR219A1),p(HGNC:MAPT)) -| p(HGNC:MAPT)
 
 SET Evidence = "Third, some evidence suggests that expression of tau mRNA-binding proteins
 (such as RAS GTPase-activating protein-binding protein 1 and minor histocompatibility antigen
 H13) promotes the formation of ribonucleoprotein granules, resulting in a shift towards the expression of
 larger tau isoforms (such as high-molecular-weight tau and E3‑containing tau isoforms)."
-p(HGNC:G3BP1) -> a(GO:"ribonucleoprotein granule")
-p(HGNC:HM13) -> a(GO:"ribonucleoprotein granule")
-a(GO:"ribonucleoprotein granule") -> p(HGNC:MAPT)
+p(HGNC:G3BP1) -> complex(GO:"ribonucleoprotein granule")
+p(HGNC:HM13) -> complex(GO:"ribonucleoprotein granule")
+complex(GO:"ribonucleoprotein granule") -> p(HGNC:MAPT)
 
 SET Evidence = "Finally, inhibition of mitochondrial complex I (for example, using annonacin
 or MPP+ (1‑methyl‑4‑phenylpyridinium)) upregulates expression of the splicing factor SRSF2, thus promoting
@@ -173,7 +173,7 @@ p(HGNC:LCK) => p(HGNC:MAPT,pmod(Ph,Tyr,18))
 p(HGNC:SYK) => p(HGNC:MAPT,pmod(Ph,Tyr,18))
 p(HGNC:FYN) => p(HGNC:MAPT,pmod(Ph,Tyr,18))
 p(HGNC:ABL1) => p(HGNC:MAPT,pmod(Ph,Tyr,394))
-p(HGNC:ARG) => p(HGNC:MAPT,pmod(Ph,Tyr,394))
+p(HGNC:ABL2) => p(HGNC:MAPT,pmod(Ph,Tyr,394))
 
 SET Evidence = "The phosphorylation of tau at Tyr394 and Tyr18 is present in PHFs in the brains
 of individuals with AD."
@@ -241,8 +241,8 @@ SET Evidence = "For example, hyperphosphorylated tau but not unphosphorylated
 tau can interact with the kinesin-associated protein JUN N‑terminal kinase-interacting protein 1 (JIP1)
 and thus impair the formation of the kinesin complex,which mediates axonal transport"
 p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),p(HGNC:MAPK8IP1))
-complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),p(HGNC.MAPK8IP1)) -| complex(GO:"kinesin complex")
-complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),p(HGNC.MAPK8IP1)) -| bp(GO:"axonal transport")
+complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),p(HGNC:MAPK8IP1)) -| complex(GO:"kinesin complex")
+complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),p(HGNC:MAPK8IP1)) -| bp(GO:"axonal transport")
 complex(GO:"kinesin complex") reg bp(GO:"axonal transport")
 
 SET Evidence = "Tau can be acetylated by the P300 acetyltransferase or by CREB-binding protein at several Lys residues
@@ -473,7 +473,7 @@ functions were observed in 12‑month-old tau-knockoutmice"
 p(HGNC:MAPT) -| a(CHEBI:"iron(0)")
 p(HGNC:MAPT) -> bp(GO:locomotion)
 SET MeSHAnatomy = "Substantia Nigra"
-p(HGNC:MAPT) -> a(MESH:neurons)
+p(HGNC:MAPT) -> a(MESH:Neurons)
 UNSET MeSHAnatomy
 
 SET Evidence = "This study revealed that tau deficiency can cause iron accumulation inside neurons by
@@ -568,19 +568,19 @@ UNSET MeSHAnatomy
 SET Evidence = "The two short hexapeptide motifs VQIINK and VQIVYK at
 the beginning of R2 and R3, respectively, show propensity for forming β‑sheet structures and are essential for
 tau aggregation, even though they comprise only a tiny fraction of the sequence"
-a(HBP:"VQIINK motif") -> a(HBP:"Tau aggregates")
-a(HBP:"VQIVYK motif") -> a(HBP:"Tau aggregates")
+p(HBP:"VQIINK motif") -> a(HBP:"Tau aggregates")
+p(HBP:"VQIVYK motif") -> a(HBP:"Tau aggregates")
 
 SET Evidence = "The motif VQIVYK has been shown to be sufficient to form fibrils composed of steric
 ‘zippers’ formed by two tightly interdigitated β‑sheets."
-a(HBP:"VQIVYK motif") -> a(HBP:"Tau fibrils")
+p(HBP:"VQIVYK motif") -> a(HBP:"Tau fibrils")
 
 SET Evidence = "Disruption of these motifs (for example, by Pro mutations) abrogates the tendency for tau
 to aggregate; by contrast, strengthening the β‑structure with certain mutations (for instance, ΔK280 or P301L)
 accelerates tau aggregation both in vitro and in vivo"
 # these motifs: VQIINK and VQIVYK motif
-a(HBP:"VQIINK motif") -> a(HBP:"Tau aggregates")
-a(HBP:"VQIVYK motif") -> a(HBP:"Tau aggregates")
+p(HBP:"VQIINK motif") -> a(HBP:"Tau aggregates")
+p(HBP:"VQIVYK motif") -> a(HBP:"Tau aggregates")
 p(HGNC:MAPT,var("p.Lys280del")) -> a(HBP:"Tau aggregates")
 p(HGNC:MAPT,var("p.Pro301Leu")) -> a(HBP:"Tau aggregates")
 
@@ -739,11 +739,11 @@ p(HGNC:MAPT,var("p.Lys280del")) -| bp(GO:cognition)
 SET Evidence = "For instance, hyperphosphorylated tau can interact with JIP1 and thus impair
 the formation of kinesin complex"
 p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),p(HGNC:MAPK8IP1))
-complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),p(HGNC.MAPK8IP1)) -| complex(GO:"kinesin complex")
+complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),p(HGNC:MAPK8IP1)) -| complex(GO:"kinesin complex")
 
 SET Evidence = "In a Drosophila melanogaster model of tauopathy, the hyperphosphorylation
 of tau led to the abnormal alignment and accumulation of F‑actin filaments, and thereby induced neurodegeneration"
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> a(GO:"filamentous actin")
+p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> complex(GO:"filamentous actin")
 p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> path(HBP:Neurodegeneration)
 
 SET Evidence = "In AD and other tauopathies, the increase in dendritic
@@ -754,10 +754,10 @@ UNSET MeSHAnatomy
 
 SET Evidence = "Hyperphosphorylation, mutations and overexpression of tau can drive the mislocalization
 of tau into postsynaptic spines, resulting in synaptic dysfunction"
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(GO:"Dendritic Spines"))
-p(HGNC:MAPT,var("?")) -> tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(GO:"Dendritic Spines"))
-p(HGNC:MAPT) pos tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(GO:"Dendritic Spines"))
-tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(GO:"Dendritic Spines")) -| act(a(GO:synapse))
+p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines"))
+p(HGNC:MAPT,var("?")) -> tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines"))
+p(HGNC:MAPT) pos tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines"))
+tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines")) -| act(a(GO:synapse))
 p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -| act(a(GO:synapse))
 p(HGNC:MAPT,var("?")) -| act(a(GO:synapse))
 p(HGNC:MAPT) neg act(a(GO:synapse))
@@ -765,10 +765,10 @@ p(HGNC:MAPT) neg act(a(GO:synapse))
 SET Evidence = "In cultured neurons, missorted dendritic tau may mediate toxicity that is
 induced by Aβ or other stressors by promoting the translocation of tubulin tyrosine ligase-like enzyme 6
 (TTLL6) into dendrites, and the severing of microtubules by spastin"
-tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(GO:"Dendritic Spines")) reg act(a(CHEBI:"amyloid-beta"))
-tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(GO:"Dendritic Spines")) -> tloc(p(HGNC:TTLL6),fromLoc(GO:axon),toLoc(GO:"Dendritic Spines"))
-tloc(p(HGNC:TTLL6),fromLoc(GO:axon),toLoc(GO:"Dendritic Spines")) -> act(a(CHEBI:"amyloid-beta"))
-tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(GO:"Dendritic Spines")) neg a(GO:microtubule)
+tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines")) reg act(a(CHEBI:"amyloid-beta"))
+tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines")) -> tloc(p(HGNC:TTLL6),fromLoc(GO:axon),toLoc(GO:"Dendritic Spines"))
+tloc(p(HGNC:TTLL6),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines")) -> act(a(CHEBI:"amyloid-beta"))
+tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines")) neg a(GO:microtubule)
 p(HGNC:SPAST) -> bp(GO:"microtubule severing")
 
 SET Evidence = "In addition, dendritic tau could serve as a protein scaffold to deliver the kinase FYN
