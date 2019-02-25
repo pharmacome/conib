@@ -1,8 +1,8 @@
 #######################
 # Document Properties #
 #######################
-SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
-SET DOCUMENT Licenses    = "Private Ownership to Fraunhofer Institute SCAI"
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
 SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
 
 SET DOCUMENT Name        = "Molecular chaperones and proteostasis regulation during redox imbalance"
@@ -132,19 +132,19 @@ bp(HBP:"non-enzymatic protein modiﬁcations") positiveCorrelation bp(GO:aging)
 SET Evidence = "EPMs alter the targeted proteins, which however
 remain fully functional, while NEPMs may induce protein unfolding
 or misfolding resulting in increased proteome instability."
-bp(HBP:"non-enzymatic protein modiﬁcations") -> a(HBP:misfolding)
+bp(HBP:"non-enzymatic protein modiﬁcations") -> bp(HBP:misfolding)
 
 SET Evidence = " Free
 radicals-derived protein modiﬁcation can result in either gain- or
 loss-of-function due to the protein misfolding or unfolding. "
 a(CHEBI:radical) -> bp(HBP:"non-enzymatic protein modiﬁcations")
-a(CHEBI:radical) -> a(HBP:misfolding)
+a(CHEBI:radical) -> bp(HBP:misfolding)
 
 SET Evidence = "In those organismal states (e.g. ageing or diseases) where
 the chaperone network becomes deregulated, the accumulating
 non-native, misfolded or unfolded proteins can form (among
 others) ﬁbrils, amyloids or large amorphous aggregates [15]. "
-a(HBP:misfolding) -> path(MESH:"Protein Aggregation, Pathological")
+bp(HBP:misfolding) -> path(MESH:"Protein Aggregation, Pathological")
 
 SET Evidence = "These
 chaperones provide high-afﬁnity binding platforms for unfolded
@@ -181,7 +181,7 @@ folding of newly synthesized proteins and to perform the refolding
 of proteins that are misfolded and/or aggregated. "
 p(FPLX:HSPA) -> bp(GO:"'de novo' protein folding")
 p(FPLX:HSPA) -> bp(GO:"protein folding")
-p(FPLX:HSPA) -| a(HBP:misfolding)
+p(FPLX:HSPA) -| bp(HBP:misfolding)
 p(FPLX:HSPA) -| path(MESH:"Protein Aggregation, Pathological")
 
 SET Evidence = "n general, HSP90s are more specialized than other
@@ -203,7 +203,7 @@ dictory responses since they either promote cell survival by decreasing
 the misfolded protein and/or oxidative load, or, if UPR fails, they
 promote the activation of apoptotic pathways that eventually result in
 cell death [57]."
-bp(GO:"response to endoplasmic reticulum stress") -| a(HBP:misfolding)
+bp(GO:"response to endoplasmic reticulum stress") -| bp(HBP:misfolding)
 bp(GO:"response to endoplasmic reticulum stress") -| bp(GO:"cell death")
 bp(GO:"response to endoplasmic reticulum stress") -> bp(GO:"apoptotic process")
 bp(GO:"response to endoplasmic reticulum stress") -> bp(GO:"cell death")
@@ -307,7 +307,7 @@ oxidized proteins and in preventing misfolding and/or aggregation
 of proteins."
 SET MeSHAnatomy = "Endoplasmic Reticulum"
 p(HGNCGENEFAMILY:"Protein disulfide isomerases") -| bp(GO:"protein oxidation")
-p(HGNCGENEFAMILY:"Protein disulfide isomerases") -| a(HBP:misfolding)
+p(HGNCGENEFAMILY:"Protein disulfide isomerases") -| bp(HBP:misfolding)
 p(HGNCGENEFAMILY:"Protein disulfide isomerases") -| a(MESH:"Protein Aggregates")
 UNSET MeSHAnatomy
 
