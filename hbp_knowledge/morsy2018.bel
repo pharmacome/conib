@@ -109,8 +109,8 @@ SET Evidence = "Genetics have a role to play within AD; patients with a mutation
 in Apolipoprotein E4 (APOE4), which affects the clearance of Aβ, will experience late onset AD."
 g(HGNC:APP, var("?")) -> path(MESH:"Alzheimer Disease")
 g(HGNC:APP, var("?")) -> p(HGNC:MAPT)
-g(HGNC:APOE4, var("?")) -> path(MESH:"Alzheimer Disease")
-p(HGNC:APOE4, var("?")) -| deg(p(HGNC:APP))
+g(HBP:"APOE e4") -> path(MESH:"Alzheimer Disease")
+g(HBP:"APOE e4") -| deg(p(HGNC:APP))
 
 SET Evidence = " In
 addition, several other gene mutations have been discovered such as Presenilin-1 and Presenilin-2
@@ -121,8 +121,8 @@ g(HGNC:PSEN2, var("?")) -> path(MESH:"Alzheimer Disease")
 SET Evidence = "The formation of Aβ starts by a transmembrane protein,
 APP (695 to 770 amino acids in length), which is sequentially cleaved by the aspartate proteases β-
 and  γ-secretase,  that  leads  to  the  formation  of  Aβ  peptide  (1-42)  and  a  degenerated  C-terminus. "
-p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta polypeptide 42"), a(HBP:"APP C-terminally truncated carboxyl-terminal fragments")))
-p(FPLX:"Gamma_secretase") -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta polypeptide 42"), a(HBP:"APP C-terminally truncated carboxyl-terminal fragments")))
+p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta polypeptide 42"), p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")))
+p(FPLX:"Gamma_secretase") -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta polypeptide 42"), p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")))
 
 SET Evidence = " Mitochondrial  dysfunction  is  the  hallmark  of  Aβ-induced
 toxicity. 50-52  "
@@ -217,7 +217,7 @@ glutathione peroxidase. 101  "
 a(PUBCHEM:"5757") -> p(HGNC:BCL2)
 a(PUBCHEM:"5757") -> p(HGNC:BCL2L1)
 a(PUBCHEM:"5757") -| p(HGNC:BCL2L11)
-p(HGNC:BCL2 -| bp(GO:"apoptotic process")
+p(HGNC:BCL2) -| bp(GO:"apoptotic process")
 p(HGNC:BCL2L1) -| bp(GO:"apoptotic process")
 p(HGNC:BCL2L11) -> bp(GO:"apoptotic process")
 a(PUBCHEM:"5757") -> p(HGNC:SOD2)
