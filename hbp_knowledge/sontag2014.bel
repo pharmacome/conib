@@ -94,10 +94,10 @@ a(CHEBI:"S-adenosyl-L-homocysteine") -| act(p(HGNC:LCMT1))
 
 SET Evidence = "Conversely, the PP2A-specific methylesterase PME-1 can directly bind to the active site of the catalytic subunit,
 remove the methyl group and inactivate PP2A by evicting manganese ions required for phosphatase activity (Xing et al.,2008)."
-p(HGNC:PPME1) -> complex(p(HGNC:PPME1)p(HGNC:PPP2CA))
-complex(p(HGNC:PPME1)p(HGNC:PPP2CA)) -| act(complex(GO:"protein phosphatase type 2A complex"))
-p(HGNC:PPME1) -> complex(p(HGNC:PPME1)p(HGNC:PPP2CB))
-complex(p(HGNC:PPME1)p(HGNC:PPP2CB)) -| act(complex(GO:"protein phosphatase type 2A complex"))
+p(HGNC:PPME1) -> complex(p(HGNC:PPME1),p(HGNC:PPP2CA))
+complex(p(HGNC:PPME1),p(HGNC:PPP2CA)) -| act(complex(GO:"protein phosphatase type 2A complex"))
+p(HGNC:PPME1) -> complex(p(HGNC:PPME1),p(HGNC:PPP2CB))
+complex(p(HGNC:PPME1),p(HGNC:PPP2CB)) -| act(complex(GO:"protein phosphatase type 2A complex"))
 
 SET Evidence = "Methylation is thought to play a critical role in the biogenesis of PP2A holoenzymes."
 p(HGNC:PPP2CA,pmod(Me,Leu,309)) -> complex(GO:"protein phosphatase type 2A complex")
@@ -229,8 +229,8 @@ SET Evidence = "For instance, some B’ subunits target PP2A to the nucleus (McC
 et al.,2010); Bα subunits can direct some PP2A pools to microtubules, which could serve as a cytoskeletal reservoir of inac-
 tive enzymes (Sontag et al.,1995; Hiraga and Tamura,2000)."
 # B' subunit: PPP2R5 also known as Protein phosphatase 2A, regulatory B subunit, B56
-p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56") -> tloc(a(GO:"protein phosphatase type 2A complex"),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
-p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56") -> tloc(a(GO:"protein phosphatase type 2A complex"),fromLoc(GO:cytoplasm),toLoc(GO:centrosome))
+p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56") -> tloc(complex(GO:"protein phosphatase type 2A complex"),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56") -> tloc(complex(GO:"protein phosphatase type 2A complex"),fromLoc(GO:cytoplasm),toLoc(GO:centrosome))
 p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55") -> complex(a(GO:"protein phosphatase type 2A complex"),a(GO:microtubule))
 
 SET Evidence = "For example, PME-1 stabilizes a nuclear pool of inactive PP2A enzymes (Longin et al., 2008), while methylation
@@ -384,13 +384,13 @@ act(p(HGNC:GSK3B)) neg bp(HBP:"APP processing")
 act(p(HGNC:GSK3B)) neg bp(GO:neurogenesis)
 act(p(HGNC:GSK3B)) pos bp(GO:"negative regulation of synaptic plasticity")
 act(p(HGNC:GSK3B)) pos bp(GO:"apoptotic process")
-act(p(HGNC:CDK5) neg a(GO:"microtubule cytoskeleton")
-act(p(HGNC:CDK5) neg a(GO:"neurofilament cytoskeleton")
-act(p(HGNC:CDK5) neg p(HGNC:APP,pmod(Ph))
-act(p(HGNC:CDK5) neg bp(HBP:"APP processing")
-act(p(HGNC:CDK5) neg bp(GO:neurogenesis)
-act(p(HGNC:CDK5) pos bp(GO:"negative regulation of synaptic plasticity")
-act(p(HGNC:CDK5) pos bp(GO:"apoptotic process")
+act(p(HGNC:CDK5)) neg a(GO:"microtubule cytoskeleton")
+act(p(HGNC:CDK5)) neg a(GO:"neurofilament cytoskeleton")
+act(p(HGNC:CDK5)) neg p(HGNC:APP,pmod(Ph))
+act(p(HGNC:CDK5)) neg bp(HBP:"APP processing")
+act(p(HGNC:CDK5)) neg bp(GO:neurogenesis)
+act(p(HGNC:CDK5)) pos bp(GO:"negative regulation of synaptic plasticity")
+act(p(HGNC:CDK5)) pos bp(GO:"apoptotic process")
 act(p(FPLX:ERK)) neg a(GO:"microtubule cytoskeleton")
 act(p(FPLX:ERK)) neg a(GO:"neurofilament cytoskeleton")
 act(p(FPLX:ERK)) neg p(HGNC:APP,pmod(Ph))
