@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cfd2ee89d1a71126da8b5f452544b7fe43be67e7/export/hbp-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/0c9853baf883545b922ff1b138a9f297a70b7951/export/hbp-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -113,7 +113,7 @@ a(MESH:"Air Pollution") -> a(CHEBI:radical)
 SET Evidence = "Free radicals were originally believed to be harmful, but it has
 been realized that in physiological concentrations they serve as
 redox messengers, which are essential in the regulation of intra-
-cellular signalling and signiﬁcant cellular processes including meta-
+cellular signalling and significant cellular processes including meta-
 bolism, antioxidant defenses and responses to pathogens [1,4]."
 a(CHEBI:radical) -- bp(GO:"detection of redox state")
 a(CHEBI:radical) reg bp(GO:"intracellular receptor signaling pathway")
@@ -121,34 +121,34 @@ a(CHEBI:radical) reg bp(MESH:Metabolism)
 a(CHEBI:radical) -| a(MESH:Antioxidants)
 a(CHEBI:radical) -- bp(MESH:"Host-Pathogen Interactions")
 
-SET Evidence = "Proteome is modiﬁed post-translationally by either numerous
-highly regulated enzymatic protein modiﬁcations (EPMs) (e.g.
+SET Evidence = "Proteome is modified post-translationally by either numerous
+highly regulated enzymatic protein modifications (EPMs) (e.g.
 phosphorylation, acetylation, ubiquitination, methylation, etc.) or
-by non-enzymatic protein modiﬁcations (NEPMs), which are mostly
+by non-enzymatic protein modifications (NEPMs), which are mostly
 stochastic and increase with ageing or in age-related diseases
 (Fig. 1)."
-bp(HBP:"non-enzymatic protein modiﬁcations") positiveCorrelation bp(GO:aging)
+bp(HBP:"non-enzymatic protein modification") positiveCorrelation bp(GO:aging)
 
 SET Evidence = "EPMs alter the targeted proteins, which however
 remain fully functional, while NEPMs may induce protein unfolding
 or misfolding resulting in increased proteome instability."
-bp(HBP:"non-enzymatic protein modiﬁcations") -> bp(HBP:misfolding)
+bp(HBP:"non-enzymatic protein modification") -> bp(HBP:misfolding)
 
 SET Evidence = " Free
-radicals-derived protein modiﬁcation can result in either gain- or
+radicals-derived protein modification can result in either gain- or
 loss-of-function due to the protein misfolding or unfolding. "
-a(CHEBI:radical) -> bp(HBP:"non-enzymatic protein modiﬁcations")
+a(CHEBI:radical) -> bp(HBP:"non-enzymatic protein modification")
 a(CHEBI:radical) -> bp(HBP:misfolding)
 
 SET Evidence = "In those organismal states (e.g. ageing or diseases) where
 the chaperone network becomes deregulated, the accumulating
 non-native, misfolded or unfolded proteins can form (among
-others) ﬁbrils, amyloids or large amorphous aggregates [15]. "
+others) fibrils, amyloids or large amorphous aggregates [15]. "
 bp(HBP:misfolding) -> path(MESH:"Protein Aggregation, Pathological")
 
 SET Evidence = "These
-chaperones provide high-afﬁnity binding platforms for unfolded
-proteins and prevent protein aggregation speciﬁcally during stress
+chaperones provide high-affinity binding platforms for unfolded
+proteins and prevent protein aggregation specifically during stress
 conditions."
 p(HGNCGENEFAMILY:"Small heat shock proteins") -| path(MESH:"Protein Aggregation, Pathological")
 
@@ -170,7 +170,7 @@ many different types of stress as they are key components of the
 PN and PDR."
 bp(GO:"response to stress") -> p(HGNCGENEFAMILY:"Small heat shock proteins")
 
-SET Evidence = "Speciﬁcally, they have been found overexpressed in
+SET Evidence = "Specifically, they have been found overexpressed in
 many different diseases including various types of cancer where
 they contribute in reducing proteotoxic stress [7]. "
 path(MESH:Neoplasms) -> p(HGNCGENEFAMILY:"Small heat shock proteins")
@@ -193,7 +193,7 @@ p(FPLX:HSP90) -| path(MESH:"Protein Aggregation, Pathological")
 SET Evidence = " Upon
 ER proteotoxic stress, GRP78 dissociates from its binding partners,
 which are then free to trigger the Unfolded Protein Response (UPR) by
-regulating speciﬁc gene responses aiming to restore ER proteome
+regulating specific gene responses aiming to restore ER proteome
 stability. "
 #GRP78 is HSPA5
 bp(GO:"response to endoplasmic reticulum stress") -> act(p(HGNC:HSPA5))
@@ -217,7 +217,7 @@ SET Evidence = "Excessive amounts of ROS may also
 arise from inﬂammatory processes [75]."
 bp(GO:"inflammatory response") -> a(CHEBI:"reactive oxygen species")
 
-SET Evidence = "Speciﬁcally, ROS have been shown to
+SET Evidence = "Specifically, ROS have been shown to
 regulate a wide variety of signalling pathways including anti-
 inﬂammatory responses and adaptation to hypoxia [77,78], autop-
 hagy [79], immune cell function [80], cellular differentiation [81],
@@ -242,7 +242,7 @@ p(HGNC:GPX1) -> rxn(reactants(a(CHEBI:"hydrogen peroxide")),products(a(CHEBI:"wa
 SET Evidence = "Oxidative stress abrogates the
 Keap1-mediated degradation of Nrf2 which in turn accumulates in
 the nucleus where it heterodimerizes with a small musculoapo-
-neurotic ﬁbrosarcoma (Maf) protein on antioxidant response
+neurotic fibrosarcoma (Maf) protein on antioxidant response
 elements (AREs) to stimulate the expression of a wide arrays of
 phase II and antioxidant enzymes including NAD(P)H quinone
 oxidoreductase 1 (Nqo1), heme oxygenase 1 (Hmox1), glutamane-
@@ -273,7 +273,7 @@ bp(GO:"protein oxidation") -- bp(HP:"Neurodegeneration")
 bp(GO:"protein oxidation") -- path(MESH:Neoplasms)
 
 SET Evidence = "A frequent
-oxidative modiﬁcation of proteins is irreversible carbonylation which
+oxidative modification of proteins is irreversible carbonylation which
 can occur by either direct oxidation where oxidants act and leave a
 functional carbonyl group on amino acid side chains or in the protein
 backbone, or, indirectly, by protein conjugation with oxidation pro-
