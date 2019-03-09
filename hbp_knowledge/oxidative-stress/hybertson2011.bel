@@ -1,0 +1,518 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Oxidative stress in health and disease: The therapeutic potential of Nrf2 activation"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Sandra Spalek"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cfd2ee89d1a71126da8b5f452544b7fe43be67e7/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+# Add statements below this comment
+
+SET Citation = {"PubMed","22020111"}
+
+SET Evidence = "Sulforaphane is often considered a ‘‘gold standard’’ among naturally-occurring
+Nrf2 activators (Agyeman et al., 2011)."
+a(CHEBI:sulforaphane) -> act(p(HGNC:NFE2L2))
+
+SET Evidence = "The greatest FImax was observed with Protandim at 135-fold, followed by bardoxolone methyl at 67-fold, dimethyl fumarate at
+55-fold, and sulforaphane at 21-fold"
+a(PUBCHEM:135316034) -> act(p(HGNC:NFE2L2))
+a(PUBCHEM:400769) -> act(p(HGNC:NFE2L2))
+a(CHEBI:"dimethyl fumarate") -> act(p(HGNC:NFE2L2))
+a(CHEBI:sulforaphane) -> act(p(HGNC:NFE2L2))
+
+SET Evidence = "Bardoxolone methyl appeared to produce a biphasic induction, producing
+near maximal FI over a range of concentrations from less than 40 nM to 0.4 lM"
+a(PUBCHEM:400769) -> act(p(HGNC:NFE2L2))
+
+SET Evidence = "When compared contemporaneously in the AREc32-based assay, FImax observed was in
+the order Protandim > bardoxolone methyl > dimethyl fumarate > sulforaphane."
+a(PUBCHEM:135316034) -> act(p(HGNC:NFE2L2))
+a(PUBCHEM:400769) -> act(p(HGNC:NFE2L2))
+a(CHEBI:"dimethyl fumarate") -> act(p(HGNC:NFE2L2))
+a(CHEBI:sulforaphane) -> act(p(HGNC:NFE2L2))
+
+SET Evidence = "A recent laboratory study of dimethyl fumarate found that the compound activates Nrf2 in primary astrocytes, but not in
+the C6 glioma-derived cell line (Wilms et al., 2010), demonstrating that different cells may respond quite differently to Nrf2
+activators"
+SET MeSHAnatomy = "Astrocytes"
+a(CHEBI:"dimethyl fumarate") -> act(p(HGNC:NFE2L2))
+UNSET MeSHAnatomy
+SET CellLine = "C6 cell"
+a(CHEBI:"dimethyl fumarate") cnc act(p(HGNC:NFE2L2))
+UNSET CellLine
+
+SET Evidence = "Sirtuin 1 (SIRT1) was shown to decrease acetylation of Nrf2, as well as Nrf2-dependent transcription."
+p(HGNC:SIRT1) -| p(HGNC:NFE2L2,pmod(Ac))
+
+SET Evidence = "In our gene expression data, SIRT1 was induced 1.75-fold by Protandim (p = 0.015)."
+a(PUBCHEM:135316034) -> p(HGNC:SIRT1)
+
+SET Evidence = "The study also found that resveratrol, a putative activator of SIRT1
+(Howitz et al., 2003), inhibited Nrf2-dependent transcription, apparently contradicting earlier reports that resveratrol activates
+Nrf2 (Chen et al., 2005; Ungvari et al., 2010)."
+a(CHEBI:resveratrol) -> act(p(HGNC:SIRT1))
+a(CHEBI:resveratrol) -| act(p(HGNC:NFE2L2))
+
+SET Evidence = "SLC7A11, induced 76-fold, encodes a cystine/glutamate antiporter responsible for maintaining
+extracellular glutamate in the brain, and for importing cystine necessary for glutathione synthesis (Albrecht et al., 2010)."
+# upregulation of gene expression by Protandim
+a(PUBCHEM:135316034) -> p(HGNC:SLC7A11)
+SET MeSHAnatomy = "Brain"
+p(HGNC:SLC7A11) reg bp(GO:"glutamate homeostasis")
+p(HGNC:SLC7A11) -> tloc(a(CHEBI:cystine),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
+a(CHEBI:cystine) -> a(CHEBI:glutathione)
+UNSET MeSHAnatomy
+
+SET Evidence = "This antiporter was recently found to be decreased by repeated cocaine exposure, and restoration of the activity prevented
+cocaine-primed drug seeking behavior in rats (Baker et al., 2003)."
+#this antiporter: SLC7A11
+a(CHEBI:cocaine) -| act(p(HGNC:SLC7A11))
+
+SET Evidence = "AKR1B10, induced 72-fold, encodes aldo–keto reductase
+family 1 member B10 which efficiently detoxifies mutagenic and carcinogenic alpha, beta-unsaturated carbonyls such as
+4-hydroxynonenal (Zhong et al., 2009)."
+# upregulation of gene expression by Protandim
+a(PUBCHEM:135316034) -> p(HGNC:AKR1B10)
+p(HGNC:AKR1B10) -> bp(GO:detoxification)
+p(HGNC:AKR1B10) -| a(PUBCHEM:5283344)
+
+SET Evidence = "PTGR1 (aka LTB4DH), induced 68-fold, encodes leukotriene B4-12-hydroxydehydrogenase,
+which is considered to be a key enzyme responsible for biological inactivation of prostaglandins and related eicosanoids (Tai et al., 2002)."
+# upregulation of gene expression by Protandim
+a(PUBCHEM:135316034) -> p(HGNC:PTGR1)
+p(HGNC:PTGR1) -| act(a(MESH:Prostaglandins))
+p(HGNC:PTGR1) -| act(a(MESH:Eicosanoids))
+
+SET Evidence = "HMOX1, induced 56-fold, encodes heme oxygenase-1, an antioxidant enzyme considered a hallmark of Nrf2 activation."
+# upregulation of gene expression by Protandim
+a(PUBCHEM:135316034) -> p(HGNC:HMOX1)
+p(HGNC:HMOX1) -> act(p(HGNC:NFE2L2))
+
+SET Evidence = "AIFM2 (aka AMID), induced 29-fold, is implicated in caspase-independent apoptosis
+and was found to be downregulated in a majority of human tumors (Wu et al., 2004b)."
+# upregulation of gene expression by Protandim
+a(PUBCHEM:135316034) -> p(HGNC:AIFM2)
+path(MESH:Neoplasms) neg p(HGNC:AIFM2)
+
+SET Evidence = "OSGIN1 (aka OKL38), induced
+29-fold, is an oxidative stress response gene and a tumor suppressor gene (Yao et al., 2008)."
+# upregulation of gene expression by Protandim
+a(PUBCHEM:135316034) -> p(HGNC:OSGIN1)
+
+SET Evidence = "GPX3, induced 20-fold, encodes
+an important antioxidant enzyme, glutathione peroxidase-3, found normally in plasma and kidney but underexpressed in
+head and neck cancers (Chen et al., 2011)."
+# upregulation of gene expression by Protandim
+a(PUBCHEM:135316034) -> p(HGNC:GPX3)
+SET MeSHAnatomy = {"Head","Neck"}
+path(MESH:Neoplasms) neg p(HGNC:GPX3)
+UNSET MeSHAnatomy
+
+SET Evidence = "SQSTM1, induced 20-fold, encodes sequestosome-1, a participant in the autophagy
+pathway recently shown to be necessary to avoid premature senescence in human fibroblasts (Kang et al., 2011)."
+# upregulation of gene expression by Protandim
+a(PUBCHEM:135316034) -> p(HGNC:SQSTM1)
+p(HGNC:SQSTM1) -> bp(GO:autophagy)
+SET MeSHAnatomy = "Fibroblasts"
+p(HGNC:SQSTM1) -| bp(GO:"stress-induced premature senescence")
+UNSET MeSHAnatomy
+
+SET Evidence = "HSPB8, induced 19-fold, is a heat shock protein that forms a complex with BAG3 (also induced 1.43-fold)."
+# upregulation of gene expression by Protandim
+a(PUBCHEM:135316034) -> p(HGNC:HSPB8)
+p(HGNC:HSPB8) -> complex(p(HGNC:HSPB8),p(HGNC:BAG3))
+
+SET Evidence = "Overexpression of the HSPB8-BAG3 complex also stimulates autophagy and facilitates
+the clearance of mutated aggregation-prone proteins, the
+accumulation of which characterizes many neurodegenerative disorders such as Alzheimer disease, Parkinson disease,
+and amyotrophic lateral sclerosis (Seidel et al., 2011)."
+complex(p(HGNC:HSPB8),p(HGNC:BAG3)) pos bp(GO:autophagy)
+complex(p(HGNC:HSPB8),p(HGNC:BAG3)) -> deg(a(HBP:"protein aggregates"))
+path(MESH:"Alzheimer Disease") pos a(HBP:"protein aggregates")
+path(MESH:"Parkinson Disease") pos a(HBP:"protein aggregates")
+path(MESH:"Amyotrophic Lateral Sclerosis") pos a(HBP:"protein aggregates")
+
+SET Evidence = "TNFSF9 (aka CD137L), induced 19-fold, can induce maturation of human
+immature monocyte-derived dendritic cells leading to an enhanced capacity of the dendritic cells to stimulate protective
+T cell responses, as compared to classical dendritic cells (Tang et al., 2011)."
+# upregulation of gene expression by Protandim
+a(PUBCHEM:135316034) -> p(HGNC:TNFSF9)
+p(HGNC:TNFSF9) -> act(a(MESH:"Dendritic Cells"))
+act(a(MESH:"Dendritic Cells")) -> bp(GO:"T cell activation")
+p(HGNC:TNFSF9) -> bp(GO:"T cell activation")
+
+SET Evidence = "For example, 19 genes products have been associated
+with atherosclerosis and are up or down-regulated by Protandim. Of these 19 genes, the first 16 listed (84%) were regulated
+by Protandim in the opposing direction to that taken by the atherosclerosis disease process. The probable benefit of this effect
+of Protandim is further supported by the fact that of the 11 gene products currently being targeted by drug interventions
+(Table 1, in bold type), nine of them (Table 1, marked by asterisks) are modulated by Protandim in the same direction that is
+proposed to be beneficial and caused by the therapeutic intervention."
+path(MESH:Atherosclerosis) -> p(HGNC:CTNNB1)
+path(MESH:Atherosclerosis) -> p(HGNC:DHFR)
+path(MESH:Atherosclerosis) -> p(HGNC:EDN1)
+path(MESH:Atherosclerosis) -> p(HGNC:ITGB3)
+path(MESH:Atherosclerosis) -> p(HGNC:MKI67)
+path(MESH:Atherosclerosis) -> p(HGNC:MMP11)
+path(MESH:Atherosclerosis) -> p(HGNC:MMP14)
+path(MESH:Atherosclerosis) -> p(HGNC:MMP2)
+path(MESH:Atherosclerosis) -> p(HGNC:PDE7A)
+path(MESH:Atherosclerosis) -> p(HGNC:PDE7B)
+path(MESH:Atherosclerosis) -> p(HGNC:PLAU)
+path(MESH:Atherosclerosis) -> p(HGNC:PTGS1)
+path(MESH:Atherosclerosis) -> p(HGNC:SCARB1)
+path(MESH:Atherosclerosis) -> p(HGNC:TUBB3)
+path(MESH:Atherosclerosis) -| p(HGNC:NR3C1)
+path(MESH:Atherosclerosis) -| p(HGNC:PPARA)
+path(MESH:Atherosclerosis) -> p(HGNC:EGR1)
+path(MESH:Atherosclerosis) -> p(HGNC:PTGS2)
+path(MESH:Atherosclerosis) -> p(HGNC:SOAT1)
+SET MeSHDisease = "Atherosclerosis"
+a(PUBCHEM:135316034) -| p(HGNC:CTNNB1)
+a(PUBCHEM:135316034) -| p(HGNC:DHFR)
+a(PUBCHEM:135316034) -| p(HGNC:EDN1)
+a(PUBCHEM:135316034) -| p(HGNC:ITGB3)
+a(PUBCHEM:135316034) -| p(HGNC:MKI67)
+a(PUBCHEM:135316034) -| p(HGNC:MMP11)
+a(PUBCHEM:135316034) -| p(HGNC:MMP14)
+a(PUBCHEM:135316034) -| p(HGNC:MMP2)
+a(PUBCHEM:135316034) -| p(HGNC:PDE7A)
+a(PUBCHEM:135316034) -| p(HGNC:PDE7B)
+a(PUBCHEM:135316034) -| p(HGNC:PLAU)
+a(PUBCHEM:135316034) -| p(HGNC:PTGS1)
+a(PUBCHEM:135316034) -| p(HGNC:SCARB1)
+a(PUBCHEM:135316034) -| p(HGNC:TUBB3)
+a(PUBCHEM:135316034) -> p(HGNC:NR3C1)
+a(PUBCHEM:135316034) -> p(HGNC:PPARA)
+a(PUBCHEM:135316034) -> p(HGNC:EGR1)
+a(PUBCHEM:135316034) -> p(HGNC:PTGS2)
+a(PUBCHEM:135316034) -> p(HGNC:SOAT1)
+UNSET MeSHDisease
+
+SET Evidence = "In colon carcinoma, IPA analysis revealed 28 genes associated with the disease that were also modulated by Protandim
+treatment. Of these, the first 25 listed (89%) were regulated by Protandim in the opposing direction to that taken by the colon
+carcinoma disease process."
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:ACLY)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:ANTXR1)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:C20orf27)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:CCNA2)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:CHAF1A)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:DHFR)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:EFCAB11)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:FEN1)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:GINS2)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:MCM10)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:MCM4)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:RNASEH2A)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:SLIT2)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:SPC25)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:TFRC)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:TK1)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:TMEM97)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:TRIP13)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:TUBB)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:TUBB3)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:TYMS)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:UBA1)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:UNG)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:VRK1)
+path(MESH:"Colorectal Neoplasms") -| p(HGNC:ABCD3)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:GLRX2)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:MICB)
+path(MESH:"Colorectal Neoplasms") -> p(HGNC:NQO1)
+SET MeSHDisease = "Colorectal Neoplasms"
+a(PUBCHEM:135316034) -| p(HGNC:ACLY)
+a(PUBCHEM:135316034) -| p(HGNC:ANTXR1)
+a(PUBCHEM:135316034) -| p(HGNC:C20orf27)
+a(PUBCHEM:135316034) -| p(HGNC:CCNA2)
+a(PUBCHEM:135316034) -| p(HGNC:CHAF1A)
+a(PUBCHEM:135316034) -| p(HGNC:DHFR)
+a(PUBCHEM:135316034) -| p(HGNC:EFCAB11)
+a(PUBCHEM:135316034) -| p(HGNC:FEN1)
+a(PUBCHEM:135316034) -| p(HGNC:GINS2)
+a(PUBCHEM:135316034) -| p(HGNC:MCM10)
+a(PUBCHEM:135316034) -| p(HGNC:MCM4)
+a(PUBCHEM:135316034) -| p(HGNC:RNASEH2A)
+a(PUBCHEM:135316034) -| p(HGNC:SLIT2)
+a(PUBCHEM:135316034) -| p(HGNC:SPC25)
+a(PUBCHEM:135316034) -| p(HGNC:TFRC)
+a(PUBCHEM:135316034) -| p(HGNC:TK1)
+a(PUBCHEM:135316034) -| p(HGNC:TMEM97)
+a(PUBCHEM:135316034) -| p(HGNC:TRIP13)
+a(PUBCHEM:135316034) -| p(HGNC:TUBB)
+a(PUBCHEM:135316034) -| p(HGNC:TUBB3)
+a(PUBCHEM:135316034) -| p(HGNC:TYMS)
+a(PUBCHEM:135316034) -| p(HGNC:UBA1)
+a(PUBCHEM:135316034) -| p(HGNC:UNG)
+a(PUBCHEM:135316034) -| p(HGNC:VRK1)
+a(PUBCHEM:135316034) -> p(HGNC:ABCD3)
+a(PUBCHEM:135316034) -> p(HGNC:GLRX2)
+a(PUBCHEM:135316034) -> p(HGNC:MICB)
+a(PUBCHEM:135316034) -> p(HGNC:NQO1)
+UNSET MeSHDisease
+
+SET Evidence = "In addition, Protandim downregulated the one gene targeted by a chemotherapeutic drug, an
+antimetabolite inhibitor for that gene’s product, thymidylate synthetase"
+a(PUBCHEM:135316034) -| p(HGNC:TYMS)
+
+SET Evidence = "In Alzheimer disease, 66 genes were identified that are also modulated by Protandim at the gene expression level. Of
+these 66 genes, the first 43 of them (65%) were regulated by Protandim in the opposing direction to that taken by the Alzheimer
+disease process. The beneficial effect of Protandim is further supported by the fact that of the 10 gene products currently
+targeted by drug therapies, eight of them are modulated by Protandim in the same direction that is proposed to be
+beneficial and caused by the drug."
+path(MESH:"Alzheimer Disease") -> p(HGNC:AGRN)
+path(MESH:"Alzheimer Disease") -> p(HGNC:ANP32A)
+path(MESH:"Alzheimer Disease") -> p(HGNC:BAX)
+path(MESH:"Alzheimer Disease") -> p(HGNC:BCHE)
+path(MESH:"Alzheimer Disease") -> p(HGNC:BGN)
+path(MESH:"Alzheimer Disease") -> p(HGNC:BRCA1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:CADPS2)
+path(MESH:"Alzheimer Disease") -> p(HGNC:CAPN1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:CCNB1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:CDK1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:CDK2)
+path(MESH:"Alzheimer Disease") -> p(HGNC:CDKN2A)
+path(MESH:"Alzheimer Disease") -> p(HGNC:CXCR4)
+path(MESH:"Alzheimer Disease") -> p(HGNC:EIF4EBP1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:FOLH1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:HOMER1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:HRH1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:IGF2)
+path(MESH:"Alzheimer Disease") -> p(HGNC:IGFBP2)
+path(MESH:"Alzheimer Disease") -> p(HGNC:LDLR)
+path(MESH:"Alzheimer Disease") -> p(HGNC:MAOA)
+path(MESH:"Alzheimer Disease") -> p(HGNC:NEFH)
+path(MESH:"Alzheimer Disease") -> p(HGNC:NPDC1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:NRGN)
+path(MESH:"Alzheimer Disease") -> p(HGNC:PREP)
+path(MESH:"Alzheimer Disease") -> p(HGNC:PROS1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:PTGS1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:SELENBP1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:TAGLN)
+path(MESH:"Alzheimer Disease") -> p(HGNC:TGFB1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:TUBB3)
+path(MESH:"Alzheimer Disease") -> p(HGNC:VKORC1)
+path(MESH:"Alzheimer Disease") -| p(HGNC:CANX)
+path(MESH:"Alzheimer Disease") -| p(HGNC:GCNT2)
+path(MESH:"Alzheimer Disease") -| p(HGNC:IDE)
+path(MESH:"Alzheimer Disease") -| p(HGNC:MMP1)
+path(MESH:"Alzheimer Disease") -| p(HGNC:NFE2L2)
+path(MESH:"Alzheimer Disease") -| p(HGNC:NR3C1)
+path(MESH:"Alzheimer Disease") -| p(HGNC:PPARA)
+path(MESH:"Alzheimer Disease") -| p(HGNC:SLC6A6)
+path(MESH:"Alzheimer Disease") -| p(HGNC:SYVN1)
+path(MESH:"Alzheimer Disease") -| p(HGNC:TSHZ1)
+path(MESH:"Alzheimer Disease") -| p(HGNC:TXN)
+path(MESH:"Alzheimer Disease") -| p(HGNC:ACLY)
+path(MESH:"Alzheimer Disease") -| p(HGNC:ATAD2)
+path(MESH:"Alzheimer Disease") -| p(HGNC:BECN1)
+path(MESH:"Alzheimer Disease") -| p(HGNC:DHCR24)
+path(MESH:"Alzheimer Disease") -| p(HGNC:FGF2)
+path(MESH:"Alzheimer Disease") -| p(HGNC:HTRA1)
+path(MESH:"Alzheimer Disease") -| p(HGNC:PRKCE)
+path(MESH:"Alzheimer Disease") -| p(HGNC:PRKDC)
+path(MESH:"Alzheimer Disease") -| p(HGNC:SCD)
+path(MESH:"Alzheimer Disease") -| p(HGNC:TUBB)
+path(MESH:"Alzheimer Disease") -| p(HGNC:UNG)
+path(MESH:"Alzheimer Disease") -> p(HGNC:ATP1A1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:CTSD)
+path(MESH:"Alzheimer Disease") -> p(HGNC:GLRX)
+path(MESH:"Alzheimer Disease") -> p(HGNC:HMOX1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:IL6R)
+path(MESH:"Alzheimer Disease") -> p(HGNC:NPTX1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:NQO1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:PHF1)
+path(MESH:"Alzheimer Disease") -> p(HGNC:PRKCD)
+path(MESH:"Alzheimer Disease") -> p(HGNC:PTGS2)
+path(MESH:"Alzheimer Disease") -> p(HGNC:RANBP9)
+path(MESH:"Alzheimer Disease") -> p(HGNC:SOD1)
+SET MeSHDisease = "Alzheimer Disease"
+a(PUBCHEM:135316034) -| p(HGNC:AGRN)
+a(PUBCHEM:135316034) -| p(HGNC:ANP32A)
+a(PUBCHEM:135316034) -| p(HGNC:BAX)
+a(PUBCHEM:135316034) -| p(HGNC:BCHE)
+a(PUBCHEM:135316034) -| p(HGNC:BGN)
+a(PUBCHEM:135316034) -| p(HGNC:BRCA1)
+a(PUBCHEM:135316034) -| p(HGNC:CADPS2)
+a(PUBCHEM:135316034) -| p(HGNC:CAPN1)
+a(PUBCHEM:135316034) -| p(HGNC:CCNB1)
+a(PUBCHEM:135316034) -| p(HGNC:CDK1)
+a(PUBCHEM:135316034) -| p(HGNC:CDK2)
+a(PUBCHEM:135316034) -| p(HGNC:CDKN2A)
+a(PUBCHEM:135316034) -| p(HGNC:CXCR4)
+a(PUBCHEM:135316034) -| p(HGNC:EIF4EBP1)
+a(PUBCHEM:135316034) -| p(HGNC:FOLH1)
+a(PUBCHEM:135316034) -| p(HGNC:HOMER1)
+a(PUBCHEM:135316034) -| p(HGNC:HRH1)
+a(PUBCHEM:135316034) -| p(HGNC:IGF2)
+a(PUBCHEM:135316034) -| p(HGNC:IGFBP2)
+a(PUBCHEM:135316034) -| p(HGNC:LDLR)
+a(PUBCHEM:135316034) -| p(HGNC:MAOA)
+a(PUBCHEM:135316034) -| p(HGNC:NEFH)
+a(PUBCHEM:135316034) -| p(HGNC:NPDC1)
+a(PUBCHEM:135316034) -| p(HGNC:NRGN)
+a(PUBCHEM:135316034) -| p(HGNC:PREP)
+a(PUBCHEM:135316034) -| p(HGNC:PROS1)
+a(PUBCHEM:135316034) -| p(HGNC:PTGS1)
+a(PUBCHEM:135316034) -| p(HGNC:SELENBP1)
+a(PUBCHEM:135316034) -| p(HGNC:TAGLN)
+a(PUBCHEM:135316034) -| p(HGNC:TGFB1)
+a(PUBCHEM:135316034) -| p(HGNC:TUBB3)
+a(PUBCHEM:135316034) -| p(HGNC:VKORC1)
+a(PUBCHEM:135316034) -> p(HGNC:CANX)
+a(PUBCHEM:135316034) -> p(HGNC:GCNT2)
+a(PUBCHEM:135316034) -> p(HGNC:IDE)
+a(PUBCHEM:135316034) -> p(HGNC:MMP1)
+a(PUBCHEM:135316034) -> p(HGNC:NFE2L2)
+a(PUBCHEM:135316034) -> p(HGNC:NR3C1)
+a(PUBCHEM:135316034) -> p(HGNC:PPARA)
+a(PUBCHEM:135316034) -> p(HGNC:SLC6A6)
+a(PUBCHEM:135316034) -> p(HGNC:SYVN1)
+a(PUBCHEM:135316034) -> p(HGNC:TSHZ1)
+a(PUBCHEM:135316034) -> p(HGNC:TXN)
+a(PUBCHEM:135316034) -| p(HGNC:ACLY)
+a(PUBCHEM:135316034) -| p(HGNC:ATAD2)
+a(PUBCHEM:135316034) -| p(HGNC:BECN1)
+a(PUBCHEM:135316034) -| p(HGNC:DHCR24)
+a(PUBCHEM:135316034) -| p(HGNC:FGF2)
+a(PUBCHEM:135316034) -| p(HGNC:HTRA1)
+a(PUBCHEM:135316034) -| p(HGNC:PRKCE)
+a(PUBCHEM:135316034) -| p(HGNC:PRKDC)
+a(PUBCHEM:135316034) -| p(HGNC:SCD)
+a(PUBCHEM:135316034) -| p(HGNC:TUBB)
+a(PUBCHEM:135316034) -| p(HGNC:UNG)
+a(PUBCHEM:135316034) -> p(HGNC:ATP1A1)
+a(PUBCHEM:135316034) -> p(HGNC:CTSD)
+a(PUBCHEM:135316034) -> p(HGNC:GLRX)
+a(PUBCHEM:135316034) -> p(HGNC:HMOX1)
+a(PUBCHEM:135316034) -> p(HGNC:IL6R)
+a(PUBCHEM:135316034) -> p(HGNC:NPTX1)
+a(PUBCHEM:135316034) -> p(HGNC:NQO1)
+a(PUBCHEM:135316034) -> p(HGNC:PHF1)
+a(PUBCHEM:135316034) -> p(HGNC:PRKCD)
+a(PUBCHEM:135316034) -> p(HGNC:PTGS2)
+a(PUBCHEM:135316034) -> p(HGNC:RANBP9)
+a(PUBCHEM:135316034) -> p(HGNC:SOD1)
+UNSET MeSHDisease
+
+SET Evidence = "A likely explanation for the increased expression of GLRX2 (glutaredoxin 2) and
+NQO1 (NAD(P)H dehydrogenase, quinone 1) in colon carcinoma and of GLRX (glutaredoxin), HMOX1 (heme oxygenase-1),
+NQO1, and SOD1 (superoxide dismutase 1) in Alzheimer is that it represents an adaptive attempt to partially compensate
+for the increased level of oxidative stress associated with these diseases.
+These antioxidant genes are also upregulated by Protandim, which would provide additional
+antioxidant protection beyond that achieved by the ROS-dependent induction
+of these enzymes in the diseased tissues."
+path(MESH:"Colorectal Neoplasms") pos p(HGNC:GLRX2)
+path(MESH:"Colorectal Neoplasms") pos p(HGNC:NQO1)
+path(MESH:"Alzheimer Disease") pos p(HGNC:GLRX)
+path(MESH:"Alzheimer Disease") pos p(HGNC:HMOX1)
+path(MESH:"Alzheimer Disease") pos p(HGNC:NQO1)
+path(MESH:"Alzheimer Disease") pos p(HGNC:SOD1)
+path(MESH:"Colorectal Neoplasms") pos bp(MESH:"Oxidative Stress")
+path(MESH:"Alzheimer Disease") pos bp(MESH:"Oxidative Stress")
+SET MeSHDisease = "Colorectal Neoplasms"
+a(PUBCHEM:135316034) -> p(HGNC:GLRX2)
+a(PUBCHEM:135316034) -> p(HGNC:NQO1)
+UNSET MeSHDisease
+SET MeSHDisease = "Alzheimer Disease"
+a(PUBCHEM:135316034) -> p(HGNC:GLRX)
+a(PUBCHEM:135316034) -> p(HGNC:HMOX1)
+a(PUBCHEM:135316034) -> p(HGNC:NQO1)
+a(PUBCHEM:135316034) -> p(HGNC:SOD1)
+UNSET MeSHDisease
+
+SET Evidence = "While Protandim, bardoxolone methyl, BG-12, and sulforaphane all have been demonstrated to modify gene expression
+profiles by activation of Nrf2, they have not been compared side by side, in the same cell line, under identical conditions."
+a(PUBCHEM:135316034) -> act(p(HGNC:NFE2L2))
+a(PUBCHEM:400769) -> act(p(HGNC:NFE2L2))
+a(CHEBI:"dimethyl fumarate") -> act(p(HGNC:NFE2L2))
+a(CHEBI:sulforaphane) -> act(p(HGNC:NFE2L2))
+
+SET Evidence = "After 52 weeks, the estimated glomerular filtration rate in the 75 mg/day treatment
+group had increased by 10.5 ± 1.8 ml/min/1.73 m2 (p < 0.001), representing an increase of about 32% when compared
+to entry values."
+# bardoxolone methyl therapy
+a(PUBCHEM:400769) -> bp(GO:"glomerular filtration")
+
+SET Evidence = "The study suggests that Nrf2 activation represents a viable new therapeutic approach for renal disease, as
+similar results are not achievable with currently available therapies"
+act(p(HGNC:NFE2L2)) neg path(MESH:"Kidney Diseases")
+
+SET Evidence = "Patients with relapsing-remitting multiple sclerosis treated with BG-12 for 24 weeks showed significantly fewer new
+gadolinium-enhancing lesions, with significantly reduced probability of their evolution to T1-hypointense lesions than patients
+treated with placebo (Macmanus et al., 2011)"
+a(PUBCHEM:400769) neg path(MESH:"Multiple Sclerosis, Relapsing-Remitting")
+
+SET Evidence = "These studies suggest that Nrf2 activation may represent a promising new therapeutic approach for multiple sclerosis."
+act(p(HGNC:NFE2L2)) neg path(MESH:"Multiple Sclerosis, Relapsing-Remitting")

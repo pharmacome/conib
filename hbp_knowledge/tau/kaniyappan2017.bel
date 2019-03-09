@@ -1,0 +1,264 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Extracellular low-n oligomers of tau cause selective synaptotoxicity without affecting cell viability"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Sandra Spalek"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+# Add statements below this comment
+
+SET Citation = {"PubMed","28528849"}
+
+# Pro-aggregant tau: TauRDΔK280 : p(HBP:"Tau oligomers",var("p.Lys280del"))
+# in this paper the mutant refers to Tau oligomers
+# general references and not results refer to p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del"))
+
+SET Evidence = "TauRDΔK comprises the structural elements required for the
+pathologic assembly of tau filaments, and it causes reversible
+memory deficits and synapse loss in regulatable transgenic mice [11,25]."
+p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del")) -| bp(GO:memory)
+p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del")) -| a(GO:synapse)
+p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del")) -> a(HBP:"Tau fibrils")
+
+SET Evidence = "Analysis of sarkosyl extracts of brain homogenates of mice expressing the pro-aggregant
+repeat domain TauRDΔK revealed that oligomers are present, partly in a disulfide–cross-linked form (Supplementary Fig. 1)."
+p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del")) -> a(HBP:"Tau oligomers")
+
+# thioflavin S (ThS) or 8-anilino-1-naphthalenesulfonate (ANS)
+
+SET Evidence = "During early stages of assembly, there is some increase in ThS intensity, combined with a pronounced increase in
+ANSfluorescence (Fig. 2Aand B), which is due to oligomers, indicating a change in conformation without increase in beta-structure"
+# monomeric TauRDΔK assembly to oligomers
+p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del")) -> p(HBP:"Tau oligomers",var("p.Lys280del"))
+
+SET Evidence = "During the transition from oligomers to polymers, the ANS fluorescence remains roughly constant, whereas
+ThS fluorescence increases strongly (Fig. 2B)"
+# high ThS signal: fibrils
+p(HBP:"Tau oligomers",var("p.Lys280del")) -> p(HBP:"Tau fibrils",var("p.Lys280del"))
+
+SET Evidence = "To address this question, we first applied the oligomers directly after the purification of the protein eluting from the Butyl FF 16/
+10 column (without buffer exchange; 1, 5, and 10 mM) to SHSY5Y cells and observed a variety of toxic effects, including
+pronounced reduction in the cell viability (by MTT assay, Fig. 3A), increase in apoptotic cells (by Hoechst staining,
+Supplementary Fig. 4A), loss of mitochondrial membrane potential (by JC1 assay, Supplementary Fig. 4B), caspase 3/7 activation
+(Supplementary Fig. 4C-D), and cytochrome-c release (Supplementary Fig. 4), within 5 hours of incubation."
+#oligomers: p(HBP:"Tau oligomers",var("p.Lys280del"))
+SET CellLine = "SK-N-SH"
+p(HBP:"Tau oligomers",var("p.Lys280del")) -> bp(GO:"cell death")
+p(HBP:"Tau oligomers",var("p.Lys280del")) -> bp(GO:"apoptotic process")
+p(HBP:"Tau oligomers",var("p.Lys280del")) -> bp(GO:"negative regulation of mitochondrial membrane potential")
+p(HBP:"Tau oligomers",var("p.Lys280del")) -> act(p(HGNC:CASP3))
+p(HBP:"Tau oligomers",var("p.Lys280del")) -> act(p(HGNC:CASP7))
+p(HBP:"Tau oligomers",var("p.Lys280del")) -> sec(p(HGNC:CYCS))
+UNSET CellLine
+
+SET Evidence = "There was no significant change in the LDH release in oligomer-treated cells compared with controls
+indicating that TauRDΔK oligomers do not compromise the membrane integrity (Supplementary Fig. 5G-H)."
+SET CellLine = "SK-N-SH"
+p(HBP:"Tau oligomers",var("p.Lys280del")) cnc a(GO:membrane)
+UNSET CellLine
+
+SET Evidence = "As shown earlier, TauRDΔK-expressing mice display loss of
+neurons in the CA3 and other regions of the hippocampus [11,24]."
+SET MeSHAnatomy = "CA3 Region, Hippocampal"
+p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del")) -| a(MESH:Neurons)
+UNSET MeSHAnatomy
+
+SET Evidence = "We reasoned that microglia and other cell types in the hippocampus might act as mediators for the
+cytotoxicity caused by TauRDΔK oligomers, which could explain why cytotoxicity was not observed in the cell
+culture systems."
+a(MESH:Microglia) reg act(p(HBP:"Tau oligomers",var("p.Lys280del")))
+
+SET Evidence = "Consistent with this, NeuN staining of the slices fixed after 48 hours of treatment with TauRDΔK oligomers
+revealed no reduction in the neuronal number in all regions of the hippocampus (CA1, CA3, and DG) (Fig. 3C and
+D, Supplementary Fig. 7), confirming that TauRDΔK oligomers do not cause cell death in the OHSC model as well."
+# OHSC model: ex vivo method to examine mechanisms of neuronal injury
+SET MeSHAnatomy = {"CA3 Region, Hippocampal","CA1 Region, Hippocampal","CA2 Region, Hippocampal"}
+p(HBP:"Tau oligomers",var("p.Lys280del")) cnc bp(GO:"cell death")
+UNSET MeSHAnatomy
+
+# aggregates of recombinant human full-length tau protein (ht40 wt, 2N4R)
+
+SET Evidence = "In our hands, these aggregated tau species formed in different conditions did not show any significant release of
+LDH when applied on the differentiated SH-SY5Y cells (Supplementary Fig. 8A), and they did not show a significant
+reduction in cell viability by the MTTassay (Supplementary Fig. 8B)."
+SET CellLine = "SK-N-SH"
+a(HBP:"Tau aggregates") cnc bp(GO:"cell death")
+a(HBP:"Tau aggregates") cnc a(GO:membrane)
+UNSET CellLine
+
+SET Evidence = "Recently, extracellular tau oligomers were shown to impair long term potentiation (LTP) and memory [40]."
+SET MeSHAnatomy = "Extracellular Space"
+a(HBP:"Tau oligomers") -| bp(GO:"long-term synaptic potentiation")
+a(HBP:"Tau oligomers") -| bp(GO:memory)
+UNSET MeSHAnatomy
+
+SET Evidence = "In this case, there was a dramatic loss (up to 50%) of spines in TauRDΔK oligomer-treated cells
+compared with monomer-treated cells (Fig. 4A and B, bar 3)."
+p(HBP:"Tau oligomers",var("p.Lys280del")) -| a(MESH:"Dendritic Spines")
+
+SET Evidence = "The fibril-treated cells (cross-linked with GA or not) did not reduce the spine density significantly (Fig 4C, bars
+8 and 9)."
+a(HBP:"Tau fibrils") -| a(MESH:"Dendritic Spines")
+
+SET Evidence = "For comparison, in the case of Ab oligomers, only higher concentrations
+(w1 mM) cause an appreciable spine reduction of w30% (Fig. 4C, bar 3) (Zempel et al., 2010 [30])."
+a(HBP:"AβOs") -| a(MESH:"Dendritic Spines")
+
+SET Evidence = "PSD-95, a marker of postsynaptic spines, decreased
+up to 50% in the TauRDΔK oligomer-treated cells, compared with buffer- and monomer-treated cells"
+SET MeSHAnatomy = "Dendritic Spines"
+p(HBP:"Tau oligomers",var("p.Lys280del")) -| a(GO:postsynapse)
+UNSET MeSHAnatomy
+
+SET Evidence = "Similarly, the GluR1 subunits of a-amino-3-hydroxy-5-methyl-4-isoxazolepropionic
+acid (AMPA) receptors (characteristic of mature spines and necessary for LTP and calcium signaling)
+decreased in the oligomer-treated samples up to 60%."
+p(HBP:"Tau oligomers",var("p.Lys280del")) -| p(HGNC:GRIA1)
+
+SET Evidence = "Drebrin, a neuronal actin-binding protein involved in spinogenesis
+and synaptogenesis, was decreased by up to 60% consistent with the reduced number of spines (Fig. 4D,
+bars 3, 6, and 9)."
+p(HBP:"Tau oligomers",var("p.Lys280del")) -| p(HGNC:DBN1)
+p(HGNC:DBN1) -> bp(GO:"synapse assembly")
+p(HBP:"Tau oligomers",var("p.Lys280del")) -| a(MESH:"Dendritic Spines")
+
+SET Evidence = "We also looked at the presynaptic protein synaptophysin, which was not significantly altered in
+TauRDΔK oligomer-treated cells compared with buffer- or monomer-treated cells (Fig 4D, bar 12). However, at higher
+concentration, synaptophysin tends to be reduced."
+p(HBP:"Tau oligomers",var("p.Lys280del")) -| p(HGNC:SYP)
+
+SET Evidence = "We observed an oligomer-dependent increase in the ROS production
+in the mature rat primary hippocampal neurons in all cellular compartments (Fig. 5A)."
+SET MeSHAnatomy = {"Hippocampus","Neurons"}
+p(HBP:"Tau oligomers",var("p.Lys280del")) -> a(CHEBI:"reactive oxygen species")
+UNSET MeSHAnatomy
+
+SET Evidence = "By contrast, monomers of TauRDΔK even at 10 mM concentration
+did not cause any significant ROS increase (Fig. 5B)."
+p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del")) cnc a(CHEBI:"reactive oxygen species")
+
+SET Evidence = "We indeed found that there is an overexpression (w15%) of Nox1 protein (a component of NADPH oxidase
+complex) by Western blot, suggesting the role of NADPH oxidase complex as a potential source of ROS"
+p(HBP:"Tau oligomers",var("p.Lys280del")) -> p(HGNC:NOX1)
+p(HBP:"Tau oligomers",var("p.Lys280del")) -> act(complex(GO:"NADPH oxidase complex"))
+act(complex(GO:"NADPH oxidase complex")) -> a(CHEBI:"reactive oxygen species")
+
+SET Evidence = "However, we did not find significant changes in the expression level
+of Nox2 protein (another component of NADPH oxidase complex) (Fig. 5C)."
+p(HBP:"Tau oligomers",var("p.Lys280del")) cnc p(HGNC:CYBB)
+
+SET Evidence = "These findings suggest that the ROS production induced by extracellular TauRDΔK oligomers might
+cause the activation of NADPH oxidase complex"
+p(HBP:"Tau oligomers",var("p.Lys280del")) -> act(complex(GO:"NADPH oxidase complex"))
+act(complex(GO:"NADPH oxidase complex")) -> a(CHEBI:"reactive oxygen species")
+
+SET Evidence = "The ratio of 340 to 380 nm in TauRDΔK oligomer-treated cells
+showed a steady concentration-dependent increase in the intracellular calcium with a maximum reached at 20 minutes
+of incubation with oligomers (10 mM) occurring in all cell compartments (Fig. 5D; arrows)."
+SET MeSHAnatomy = {"Hippocampus","Neurons"}
+p(HBP:"Tau oligomers",var("p.Lys280del")) -> bp(GO:"cellular calcium ion homeostasis")
+UNSET MeSHAnatomy
+
+SET Evidence = "By contrast, there was no significant increase in the calcium level in cells treated with
+TauRDΔK monomers even at higher concentration (10 mM) (Fig. 5E and F, green curves)."
+p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del")) cnc bp(GO:"cellular calcium ion homeostasis")
+
+SET Evidence = "We did not observe any increase in the phosphorylation of the tau
+repeat domain (as seen by the antibody 12E8) after treating the neurons with TauRDΔK oligomers."
+p(HBP:"Tau oligomers",var("p.Lys280del")) cnc p(HGNC:MAPT,pmod(Ph,Ser,262))
+
+SET Evidence = "We also checked the phosphorylation of tau at other sites (e.g., using the antibody AT8, reacting only with the endogenous
+tau) and did not observe an increase in the phosphorylation."
+p(HBP:"Tau oligomers",var("p.Lys280del")) cnc p(HGNC:MAPT,pmod(Ph,Ser,202))
+p(HBP:"Tau oligomers",var("p.Lys280del")) cnc p(HGNC:MAPT,pmod(Ph,Thr,205))
+
+SET Evidence = "Endogenous tau protein retained its normal axonal localization and did not missort into the
+cell body and dendrites (Fig. 6A8), although there was a reduction in the spine density (Fig. 6B6) in the TauRDΔK
+oligomer-treated neurons."
+SET MeSHAnatomy = "Neurons"
+p(HBP:"Tau oligomers",var("p.Lys280del")) cnc tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(GO:"cell body"))
+p(HBP:"Tau oligomers",var("p.Lys280del")) cnc tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines"))
+p(HBP:"Tau oligomers",var("p.Lys280del")) -| a(MESH:"Dendritic Spines")
+UNSET MeSHAnatomy
+
+SET Evidence = "The results revealed that both TauRDΔK and TauFLΔK oligomers reduce the density
+of spines up to 50% compared with the buffer-treated cells."
+# TauFLDK: full-length TauFLΔK
+p(HBP:"Tau oligomers",var("p.Lys280del")) -| a(MESH:"Dendritic Spines")
+
+SET Evidence = "Tau oligomers from TauRDΔK and TauFLΔK mice reduced the density of the synapses by
+w50%, whereas tau from wild-type mice had no effect on the density (Fig. 7G)."
+p(HBP:"Tau oligomers",var("p.Lys280del")) -| a(GO:synapse)
+p(HGNC:MAPT) cnc a(GO:synapse)

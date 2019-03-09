@@ -1,0 +1,300 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Neuronal and Extraneuronal Nicotinic Acetylcholine Receptors."
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Description = ""
+SET DOCUMENT Authors     = "Lingling Xu"
+
+###############
+# Definitions #
+###############
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DNSNP AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE HBP AS PATTERN ".*"
+DEFINE NAMESPACE TAXONOMY AS PATTERN "^\d+$"
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE GFAM     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE MIRBASE  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel
+# --------------------------------------------------------------------
+DEFINE NAMESPACE CTO      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE MGI      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
+DEFINE NAMESPACE RGD      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170725.belns"
+DEFINE NAMESPACE INTERPRO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/interpro/interpro-20170731.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+SET Citation ={"PubMed","28901280"}
+
+SET Evidence ="Neuronal nicotinic acetylcholine receptors (nAChRs) belong to a super-family of Cys- loop ligand-gated ion channels that respond to endogenous acetylcholine (ACh) or other cholinergic ligands."
+p(MESH:"Receptors, Nicotinic") isA p(MESH:"Cysteine Loop Ligand-Gated Ion Channel Receptors")
+complex(p(MESH:"Receptors, Nicotinic"),a(MESH:Acetylcholine))
+
+SET Evidence ="These receptors are also the targets of drugs such as nicotine (the main addictive agent delivered by cigarette smoke) and are involved in a variety of physiological and pathophysiological processes."
+complex(p(MESH:"Receptors, Nicotinic"),a(MESH:Nicotine))
+
+SET Evidence ="The neurotransmitter acetylcholine (ACh) is synthesised, stored and released by cholinergic neurons, and exerts its effects on the central nervous system (CNS) and peripheral nervous system (PNS) through two distinct types of receptor: the muscarinic and nicotinic ACh receptors (mAChRs and nAChRs)."
+a(MESH:"Cholinergic Neurons") -> a(MESH:Acetylcholine)
+complex(a(MESH:Acetylcholine),a(MESH:"Receptors, Muscarinic")) -> act(a(MESH:"Central Nervous System"))
+complex(p(MESH:"Receptors, Nicotinic"),a(MESH:Acetylcholine)) -> act(a(MESH:"Peripheral Nervous System"))
+
+SET Evidence ="but ACh is also released by non-neuronal tissues where it is involved in cell-to-cell communication, and con- trols essential functions such as cell proliferation, adhesion, migration, secretion, survival and apoptosis, in an autocrine, paracrine or juxtacrine manner"
+a(MESH:Acetylcholine) -- bp(GO:"cell-cell signaling")
+a(MESH:Acetylcholine) -- bp(HBP:"cell population proliferation")
+a(MESH:Acetylcholine) -- bp(GO:"cell adhesion")
+a(MESH:Acetylcholine) -- bp(MESH:"Cell Movement")
+a(MESH:Acetylcholine) -- bp(GO:"secretion by cell")
+a(MESH:Acetylcholine) -- bp(MESH:"Cell Survival")
+a(MESH:Acetylcholine) -- bp(MESH:Apoptosis)
+a(MESH:Acetylcholine) -- bp(MESH:"Autocrine Communication")
+a(MESH:Acetylcholine) -- bp(MESH:"Paracrine Communication")
+a(MESH:Acetylcholine) -- bp(HBP:"juxtacrine signaling")
+
+SET Evidence ="Together with that re- leased by vagal nerve endings, ACh can also contribute to the cholinergic control of inflammation"
+a(MESH:Acetylcholine) -| path(MESH:Inflammation)
+
+SET Evidence ="Accordingly, ACh and its synthesizing enzyme choline acetyltransferase (ChAT), are found in human and animal erythrocytes, immune cells, endothelial and epithelial cells (including airway epithelial cells) and placenta cells. Small amounts of ACh are even found in blood "
+a(MESH:Erythrocytes) -> a(MESH:Acetylcholine)
+a(MESH:"Endothelial Cells") -> a(MESH:Acetylcholine)
+a(MESH:"Epithelial Cells") -> a(MESH:Acetylcholine)
+a(MESH:Erythrocytes) -> a(MESH:"Choline O-Acetyltransferase")
+a(MESH:"Endothelial Cells") -> a(MESH:"Choline O-Acetyltransferase")
+a(MESH:"Epithelial Cells") -> a(MESH:"Choline O-Acetyltransferase")
+
+SET Evidence ="In the brain, nAChRs are widely expressed, both presyn- aptically and postsynaptically, and are involved in several functions including learning and memory, arousal, reward, motor control, and analgesia. nAChRs are also the target of nicotine, the main addictive agent delivered by cigarette smoke"
+p(MESH:"Receptors, Nicotinic") -- path(MESH:Learning)
+p(MESH:"Receptors, Nicotinic") -- path(MESH:Memory)
+p(MESH:"Receptors, Nicotinic") -- path(MESH:Arousal)
+p(MESH:"Receptors, Nicotinic")-- path(MESH:Reward)
+p(MESH:"Receptors, Nicotinic") -- bp(MESH:Analgesia)
+
+SET Evidence ="Homomeric α7 receptors are one of the two most abun- dant nAChR subtypes in the CNS, where they are mainly localised in the cortex, hippocampus, hypothalamus and some brain stem nuclei."
+p(HGNC:CHRNA7,loc(MESH:"Cerebral Cortex"))
+p(HGNC:CHRNA7,loc(MESH:Hippocampus))
+p(HGNC:CHRNA7,loc(MESH:Hypothalamus))
+
+SET Evidence ="In heterologous sys- tems, α7 subunits form functional channels with the β2 [29], β3 [30], β4 [31], or α5 subunit [32]. "
+complex(p(HGNC:CHRNA7),p(HGNC:CHRNB2),p(HGNC:CHRNB3),p(HGNC:CHRNB4),p(HGNC:CHRNA5))
+
+SET Evidence ="CHRFAM7A mRNA expression is low in human brain, but abundant in peripheral lymphocytes and tissues"
+r(HGNC:CHRFAM7A,loc(MESH:"Leukemia, Large Granular Lymphocytic"))
+
+SET Evidence ="Functional studies have shown that α7dup, expressed in oo- cytes, acts as a dominant negative regulator of α7 nAChR activity by means of a mechanism involving a reduction in the number of functional α7 nAChRs incorporated into the oocyte surface "
+p(HGNC:CHRFAM7A,loc(MESH:Oocytes)) -| act(p(HGNC:CHRNA7,loc(MESH:Oocytes)))
+
+SET Evidence =" α4β2* subtypes, in which the presence of different accessory subunits changes their pharmacological and biophysical properties, and their sensitivity to allosteric modulators and up-regulation by nicotine "
+a(MESH:Nicotine) -| act(complex(p(HGNC:CHRNA4),p(HGNC:CHRNB2)))
+
+SET Evidence ="nAChRs are expressed also at the somatodendritic postsynaptic site, where they regulate neuron depolarisation, firing and long- term potentiation [9]. Moreover these receptors are also in- volved in proliferation, differentiation and migration of neu- ral progenitors"
+p(MESH:"Receptors, Nicotinic") -- bp(GO:"action potential initiation")
+p(MESH:"Receptors, Nicotinic") -- bp(HBP:"cell population proliferation")
+p(MESH:"Receptors, Nicotinic") -- bp(GO:"cell differentiation")
+p(MESH:"Receptors, Nicotinic") -- bp(GO:"cell differentiation")
+
+SET Evidence ="nAChRs contribute to cognitive function, and changes in their number and/or func- tion are associated with various pathological conditions such as cognitive disorders, anxiety, depression, Alzheimer’s and Parkinson’s disease, pain and epilepsy "
+p(MESH:"Receptors, Nicotinic") -- path(MESH:"Cognition Disorders")
+p(MESH:"Receptors, Nicotinic") -- path(MESH:Anxiety)
+p(MESH:"Receptors, Nicotinic") -- path(MESH:Depression)
+p(MESH:"Receptors, Nicotinic") -- path(MESH:"Alzheimer Disease")
+p(MESH:"Receptors, Nicotinic") -- path(MESH:"Parkinson Disease")
+p(MESH:"Receptors, Nicotinic") -- path(MESH:Pain)
+p(MESH:"Receptors, Nicotinic") -- path(MESH:Epilepsy)
+
+SET Evidence ="nAChRs are particularly important in two critical periods of brain life: early pre- and post-natal circuit formation, and age-related cell degeneration. They are involved in neuronal survival, as it has been shown that nicotinic agonists are neu- roprotective in in vivo and in vitro models"
+p(MESH:"Receptors, Nicotinic") -- a(MESH:Neurons)
+a(MESH:Nicotine) -| a(MESH:Neurons)
+
+SET Evidence ="Once in the bloodstream, nicotine, rapidly crosses the blood/brain barrier, and accumulates and exerts its pharmacological effects [9, 58] (including psy- chostimulation, reward and the reduction of stress and anxi- ety) in the brain by binding to nAChRs."
+complex(a(MESH:Nicotine),p(MESH:"Receptors, Nicotinic"),loc(MESH:Brain)) -| path(MESH:Anxiety)
+
+SET Evidence ="Chronic nicotine exposure induces neural adaptations that change cell physi- ology and behaviour mainly as a result of activation and/or desensitisation of nAChRs. Studies of the brains of animals and smokers chronically exposed to nicotine have shown an increase in the number of nAChRs (up-regulation)."
+a(MESH:Nicotine) -| p(MESH:"Receptors, Nicotinic")
+
+SET Evidence ="The up- regulation of nAChRs has also been obtained using nicotinic agonists (cytisine, carbamylcholine and varenicline) [66, 67], antagonists (dihydro-β-erythroidine, mecamylamine) [68-70] and a partial agonist (CC4) "
+a(HBP:cytisine) -| p(MESH:"Receptors, Nicotinic")
+a(MESH:Carbachol) -| p(MESH:"Receptors, Nicotinic")
+a(MESH:Varenicline) -| p(MESH:"Receptors, Nicotinic")
+a(MESH:"Dihydro-beta-Erythroidine") -| p(MESH:"Receptors, Nicotinic")
+a(MESH:Mecamylamine) -| p(MESH:"Receptors, Nicotinic")
+a(HBP:cytisine) -| act(a(MESH:Nicotine))
+a(MESH:Carbachol) -| act(a(MESH:Nicotine))
+a(MESH:Varenicline) -| act(a(MESH:Nicotine))
+a(MESH:"Dihydro-beta-Erythroidine") -| act(a(MESH:Nicotine))
+a(MESH:Mecamylamine) -| act(a(MESH:Nicotine))
+
+
+SET Evidence ="There is evidence indicating that key steps in nicotine-induced up-regulation are receptor assem- bly [72, 73], decreased proteasomal degradation [74], traf- ficking [75] and cell surface expression "
+a(MESH:Nicotine) -> bp(GO:"nodal receptor complex assembly")
+a(MESH:Nicotine) -> act(p(MESH:"Proteasome Endopeptidase Complex"))
+
+SET Evidence ="Dopamine (DA) neurons, which project to the NAc receive both excitatory glutamater- gic and cholinergic afferents that mediate nicotine reward, and inhibitory GABAergic afferents, that mediate aversion [77]. The release of these neurotransmitters is modulated by the nAChRs expressed in cholinergic, glutamatergic and GABAergic terminals "
+a(MESH:"Dopaminergic Neurons") reg a(MESH:Nicotine)
+p(MESH:"Receptors, Nicotinic",loc(MESH:"GABAergic Neurons")) -- a(HBP:neurotransmitters)
+p(MESH:"Receptors, Nicotinic",loc(MESH:"Cholinergic Neurons")) -- a(HBP:neurotransmitters)
+
+
+SET Evidence ="By acting on the α7 receptors in glutamate terminals, acutely administrated nicotine stimu- lates the release of glutamate, which facilitates the burst fir- ing of VTA DA neurons and eventually leads to LTP,and increases the firing rate of the GABAergic neurons of the rostromedial tegmental nucleus"
+SET MeSHAnatomy ="GABAergic Neurons"
+a(MESH:Nicotine) -> a(MESH:Glutamates)
+a(MESH:Glutamates) -> bp(MESH:"Long-Term Potentiation")
+a(MESH:Glutamates) -> bp(GO:"action potential initiation")
+
+SET Evidence =" By activating the α4β2 receptors on inhibitory GABAergic inputs to the VTA or GABAergic interneurons, smoked concentrations of nicotine transiently increase the release of GABA and subse- quently depress it for about one hour "
+a(MESH:Nicotine) -> complex(p(HGNC:CHRNA4),p(HGNC:CHRNB2))
+a(MESH:Nicotine) -> p(MESH:"Receptors, GABA")
+a(MESH:Nicotine) -| p(MESH:"Receptors, GABA")
+
+SET Evidence ="nicotine modulates the shift towards burst firing and increases DA release in the NAc "
+a(MESH:Nicotine) -> bp(GO:"action potential initiation")
+a(MESH:Nicotine) -> a(MESH:Dopamine)
+
+
+SET Evidence ="Chronic nicotine treatment also activates the α7 receptors expressed on glutamatergic terminals, increases the release of glutamate (which facilitates the burst firing of VTA DA neurons), increases NMDA receptor activity, and LTP [79], but simultaneosusly induces the desensitisation of the α4β2 receptors on GABAergic terminals. Overall, these effects decrease the inhibition onto DA neurons, and increase DA release in the NAc [82]."
+a(MESH:Nicotine) -> act(p(HGNC:CHRNA7))
+a(MESH:Nicotine) -> a(MESH:Glutamates)
+a(MESH:Nicotine) -> p(MESH:"Receptors, N-Methyl-D-Aspartate")
+a(MESH:Nicotine) -> bp(MESH:"Long-Term Potentiation")
+a(MESH:Nicotine) -| act(complex(p(HGNC:CHRNA4),p(HGNC:CHRNB2)))
+a(MESH:Nicotine) -> a(MESH:Dopamine)
+
+SET Evidence ="The Hb-IPN system expresses the highest levels and va- riety of nAChR subunits and subtypes in mammalian brain [85], and is the only central system expressing high levels of α3, β4 and α5 subunits. "
+bp(HBP:"habenulo-interpeduncular pathway") -> p(MESH:"Receptors, Nicotinic")
+bp(HBP:"habenulo-interpeduncular pathway") -> p(HGNC:CHRNA3,loc(MESH:"Central Nervous System"))
+bp(HBP:"habenulo-interpeduncular pathway") -> p(HGNC:CHRNB4,loc(MESH:"Central Nervous System"))
+bp(HBP:"habenulo-interpeduncular pathway") -> p(HGNC:CHRNA5,loc(MESH:"Central Nervous System"))
+
+SET Evidence ="The coding SNP α5 D398N is closely associated with nicotine consumption "
+g(DNSNP:rs16969968) -- act(a(MESH:Nicotine))
+
+SET Evidence ="α5 subunit Ko mice or mice with selective knock down of the α5 subunits in the Hb develop increased nicotine intake in a self-administration paradigm that is blocked by the selective re-expression of the α5 subunit within the MHb; thus indicating that the α5-containing nAChRs located in this brain area also play an important role in regulating the negative effects of nicotine. "
+p(MGI:Chrna5) reg act(a(MESH:Nicotine))
+
+SET Evidence ="On the contrary the overexpression of β4* nAChRs in mice decreases nico- tine reinforcing properties and consumption "
+p(MGI:Chrnb4) -| act(a(MESH:Nicotine))
+
+SET Evidence ="Finally, a study has shown that α2 Ko mice have enhanced nicotine self-administration behaviour [88]. These findings suggest that α5* nAChRs in the MHb, and α2* nAChRs in the IPN may underlie aversive responses to nicotine."
+p(MGI:Chrna5) -> a(MESH:Nicotine)
+p(MGI:Chrna2) -> a(MESH:Nicotine)
+
+SET Evidence ="The binding of ACh or nicotine activates neuronal nAChRs thus leading to the influx of Na+ and Ca2+ and ef- flux of K+. "
+complex(p(MESH:"Receptors, Nicotinic"),a(MESH:Acetylcholine)) -> tloc(a(MESH:Sodium),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
+complex(p(MESH:"Receptors, Nicotinic"),a(MESH:Acetylcholine)) -> tloc(a(CHEBI:"calcium cation"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
+complex(p(MESH:"Receptors, Nicotinic"),a(MESH:Acetylcholine)) -> tloc(a(CHEBI:"potassium(1+)"),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
+
+SET Evidence ="The cytoplasmic in- crease in calcium triggers the secretion of mitogenic factors and activates the signalling cascades involved in cell prolif- eration, migration and angiogenesis and the inhibition of apoptosis "
+a(CHEBI:"calcium cation") -> bp(MESH:"Cell Proliferation")
+a(CHEBI:"calcium cation") -> bp(MESH:"Cell Movement")
+a(CHEBI:"calcium cation") -| bp(MESH:Apoptosis)
+
+SET Evidence ="Non-neuronal cholinergic signalling uses the same nAChRs as neuronal cholinergic signalling and the nAChRs in both neuronal and non-neuronal networks are modulated by members of the ly-6 family of small proteins related to snake α-neurotoxins such as the α7 nAChR antagonist αBgtx"
+p(HBP:"LY6 family") reg p(MESH:"Receptors, Nicotinic")
+
+SET Evidence ="These proteins include Lynx1, a glycophosphati- dylinositol- anchored membrane protein that can form a sta- ble complex, negatively regulates the responses of α4β2 and α7 nAChRs in heterologous systems and enhances the rate and extent of desensitisation of α4β2 nAChRs, thus acting as a molecular brake on nAChR function "
+p(HGNC:LYNX1) -| act(complex(p(HGNC:CHRNA4),p(HGNC:CHRNB2)))
+p(HGNC:LYNX1) -| act(p(HGNC:CHRNA7))
+
+SET Evidence ="The α5 subunit, which is the product of the CHRNA5 gene, has been shown to form functional channels when it is associated with the α4 and β2 or α3 and β4 subunits"
+complex(p(HGNC:CHRNA5),p(HGNC:CHRNB2),p(HGNC:CHRNA3),p(HGNC:CHRNB4))
+
+SET Evidence ="Human genetic studies have shown that the non- synonymous coding SNP D398N is associated with lung cancer and nicotine dependence"
+g(DNSNP:rs1051730) -- path(MESH:"Lung Neoplasms")
+g(DNSNP:rs1051730) -- path(MESH:"Tobacco Use Disorder")
+
+SET Evidence ="α7-containing receptors are expressed in neurons and non-excitable cells in order to mediate pro-proliferative, sur- vival and anti-inflammatory signalling."
+p(HGNC:CHRNA7) reg bp(MESH:"Cell Survival")
+p(HGNC:CHRNA7) reg path(MESH:Inflammation)
+
+SET Evidence ="In addition, various studies have shown the expression of α7 nAChR (as mRNA and protein), in many different cancer cells obtained from human tumours."
+p(HGNC:CHRNA7) -- path(MESH:Neoplasms)
+
+SET Evidence =" it has recently been shown that the intra- cellular loop of the α7 subunit contains a G protein binding cluster that promotes intracellular signalling"
+p(HGNC:CHRNA7) -> bp(GO:"intracellular receptor signaling pathway")
+
+SET Evidence ="whereas those on microglia increase intracellular calcium levels and signalling cascades without using channel function, and those on macrophages and other immunological cells signal through the JAK2/STAT3 tran- scription factor pathway"
+p(HGNC:CHRNA7) -> bp(GO:"JAK-STAT cascade")
+bp(GO:"JAK-STAT cascade") -> a(CHEBI:"calcium cation",loc(GO:intracellular))
+
+SET Evidence ="Airway epithelium cells synthesise, store, process, se- crete and reabsorb ACh, which acts as an autocrine and paracrine growth factor "
+a(MESH:Epithelium) reg a(MESH:Acetylcholine)
+
+SET Evidence ="Moreover, ACh is stored in vesicles via the vesicular ACh transporter (VACh) in neurons, whereas the secretion of ACh is not necessarily vesicular in lung cells"
+tloc(a(MESH:Acetylcholine),fromLoc(MESH:"Transport Vesicles"),toLoc(MESH:Neurons))
+
+SET Evidence ="α7 nAChRs are essential for the plasticity of the airway epithelium as α7 Ko mice show altered basal cell layer formation, hyperplasia, and uncontrolled growth"
+p(MGI:Chrna7) -- act(a(MESH:Epithelium))
+
+SET Evidence ="These alterations are very similar to those observed in cul- tured human airway cells or in ex vivo human lung explants treated with the selective α7 antagonist αBgtx, or epithelial cell cultures chronically exposed to nicotine in which nico- tine-induced desensitisation of α7 receptors mimics the ab- sence of α7 nAChR"
+a(MESH:Nicotine) -| act(p(HGNC:CHRNA7))
+
+SET Evidence ="When lung cancer arises from the airway epithelium, cell growth is stimulated by ACh or nicotine, and this growth loop may provide endogenous mitogenic signalling without any further activation "
+a(MESH:Nicotine) -> path(MESH:Neoplasms)
+a(MESH:Acetylcholine) -> path(MESH:Neoplasms)
+
+SET Evidence =" Unlike the α9 subunit, the α10 subunit is only functional when it is co-expressed with an α9 subunit. In Xenopus oocytes, the co-injection of α9 and α10 subunits increases functional nAChR expression at least 100 times more than the injection of α9 alone."
+complex(p(HGNC:CHRNA9),p(HGNC:CHRNA10)) -> p(MESH:"Receptors, Nicotinic")
+
+SET Evidence ="α9 and α9-α10 nAChRs have a number of interesting characteristics: they are acti- vated by ACh but not by the classical agonist nicotine. Cho- line is also a potent selective agonist of the α9 subtype"
+a(MESH:Acetylcholine) -> act(complex(p(HGNC:CHRNA9),p(HGNC:CHRNA10)))
+a(MESH:Nicotine) cnc act(complex(p(HGNC:CHRNA9),p(HGNC:CHRNA10)))
+a(MESH:Acetylcholine) -> act(p(HGNC:CHRNA9))
+a(MESH:Nicotine) cnc act(p(HGNC:CHRNA9))
+a(MESH:Choline) ->  act(p(HGNC:CHRNA9))
+
+SET Evidence ="whereas phosphocholine (PC) does not evoke ion current responses in Xenopus oocytes expressing functional ho- momeric α9 or heteromeric α9-α10 nAChRs [121]. How- ever, preincubation with PC attenuates choline-induced ion current changes, thus suggesting that PC is a silent agonist of these two subtypes "
+a(MESH:Phosphorylcholine) cnc complex(p(HGNC:CHRNA9),p(HGNC:CHRNA10))
+a(MESH:Phosphorylcholine) cnc p(HGNC:CHRNA9)
+
+SET Evidence ="α9 or a9 and α10 subunits are expressed in most immune cells, dorsal root ganglion cells, human keratinocytes and colon and breast cancer cells. "
+a(MESH:"Ganglia, Spinal") -> complex(p(HGNC:CHRNA9),p(HGNC:CHRNA10))
+a(MESH:"Ganglia, Spinal") -> p(HGNC:CHRNA9)
+a(MESH:Keratinocytes) -> complex(p(HGNC:CHRNA9),p(HGNC:CHRNA10))
+a(MESH:Keratinocytes) -> p(HGNC:CHRNA9)
+
+SET Evidence ="Lee et al. [122] have found that α9 nAChRs are ubiquitously expressed in many epithe- lial, lung and breast cancer cell lines, most of which also express α5 and α10 nAChR subunits. α9 nAChRs are also present in primary tumour and non-malignant breast tissue obtained from patients, but their expression is higher in breast cancer cells than the surrounding normal tissue."
+path(MESH:"Lung Neoplasms") -> p(HGNC:CHRNA9)
+path(MESH:"Breast Neoplasms") -> p(HGNC:CHRNA9)
+path(MESH:"Lung Neoplasms") -> p(HGNC:CHRNA5)
+path(MESH:"Breast Neoplasms") -> p(HGNC:CHRNA5)
+path(MESH:"Lung Neoplasms") -> p(HGNC:CHRNA10)
+path(MESH:"Breast Neoplasms") -> p(HGNC:CHRNA10)
+
+SET Evidence ="Si- lencing α9 nAChR expression in the tumour cells reduces their proliferation and tumorigenic potential in in vitro and in vivo assays [122]."
+p(HGNC:CHRNA9) -> path(MESH:Neoplasms)
