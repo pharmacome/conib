@@ -1,0 +1,986 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Promoting the clearance of neurotoxic proteins in neurodegenerative disorders of ageing"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Esther Wollert, Sandra Spalek, and Charles Tapley Hoyt"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY AS PATTERN "^\d+$"
+DEFINE NAMESPACE PUBCHEM AS PATTERN "^\d+$"
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
+DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE GFAM     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE MIRBASE  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE HBP      AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel
+# --------------------------------------------------------------------
+DEFINE NAMESPACE CTO      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE MGI      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
+DEFINE NAMESPACE RGD      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170725.belns"
+DEFINE NAMESPACE INTERPRO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/interpro/interpro-20170731.belns"
+
+###############
+# Annotations #
+###############
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "30116051"}
+
+#autophagy refers to macroautophagy
+
+SET Evidence = "The heterotrimeric serine/threonine kinase 5ʹ‑AMP‑
+activated protein kinase (AMPK) and mammalian target
+of rapamycin complex 1 (mTORC1) trigger autophagy
+and repress mitophagy 3,10,20–23   (BOX 2; FIG. 3) ."
+p(FPLX:AMPK) -> bp(GO:macroautophagy)
+p(FPLX:mTORC1) -> bp(GO:macroautophagy)
+p(FPLX:AMPK) -| bp(GO:mitophagy)
+p(FPLX:mTORC1) -| bp(GO:mitophagy)
+
+SET Evidence = "Unc-51-like
+kinase 1 (ULK1) is primarily an autophagy-initiating
+protein 3,10,19 , as is the mTORC1- suppressed transcrip-
+tion factor EB (TFEB), which orchestrates the synthesis
+of lysosomal and other proteins critical for maintaining
+ALN flux 20–23 ."
+p(HGNC:ULK1) -> bp(GO:macroautophagy)
+p(HGNC:TFEB) -> bp(GO:macroautophagy)
+
+SET Evidence = "Because the class III deacetylase NAD-
+dependent protein deacetylase sirtuin 1 (SIRT1) requires
+nicotinamide adenine dinucleotide (NAD) to sustain its
+activity, this positive regulator of autophagy may also be
+considered a sensor 24 ."
+a(CHEBI:"NAD(+)") -> act(p(HGNC:SIRT1))
+p(HGNC:SIRT1) -> bp(GO:macroautophagy)
+
+SET Evidence = "AMPK is central to several mechanisms that trigger
+autophagy — most importantly, activating phosphoryla-
+tion of ULK1 (Ser317 and Ser777) and inhibitory phos-
+phorylation of mTORC1  (REFS21,31) ."
+p(FPLX:AMPK) -> p(HGNC:ULK1, pmod(Ph,S,317))
+p(FPLX:AMPK) -> p(HGNC:ULK1, pmod(Ph,S,777))
+p(HGNC:ULK1, pmod(Ph,S,317)) -> act(p(HGNC:ULK1))
+p(HGNC:ULK1, pmod(Ph,S,777)) -> act(p(HGNC:ULK1))
+p(FPLX:AMPK) -> p(FPLX:mTORC1, pmod(Ph))
+p(FPLX:mTORC1, pmod(Ph)) -| act(p(FPLX:mTORC1))
+
+SET Evidence = "Conversely, mTORC1
+inhibits ULK1 by Ser757 phosphorylation 3,4,31 ."
+p(FPLX:mTORC1) -> p(HGNC:ULK1, pmod(Ph,S,757))
+p(HGNC:ULK1, pmod(Ph,S,757)) -| act(p(HGNC:ULK1))
+
+SET Evidence = "mTORC1
+also restrains autophagy by preventing nuclear translo-
+cation of TFEB 20 ."
+p(FPLX:mTORC1) -| tloc(p(HGNC:TFEB), MESH:Cytoplasm, MESH:"Cell Nucleus")
+tloc(p(HGNC:TFEB), MESH:Cytoplasm, MESH:"Cell Nucleus") -> bp(GO:macroautophagy)
+
+SET Evidence = "Other transcription factors that posi-
+tively regulate autophagy include forkhead box protein
+O1 (FOXO1) and FOXO3  (REF.22) . "
+p(HGNC:FOXO1) -> bp(GO:macroautophagy)
+p(HGNC:FOXO3) -> bp(GO:macroautophagy)
+
+SET Evidence = "Conversely, repression
+is effected by signal transducer and activator of transcrip-
+tion 3 (STAT3) and possibly zinc-finger protein with
+KRAB and SCAN domains 3 (ZKSCAN3), although its
+role has been disputed 22,32 ."
+p(HGNC:STAT3) -| bp(GO:macroautophagy)
+p(HGNC:ZKSCAN3) -| bp(GO:macroautophagy)
+
+SET Evidence = " SIRT1 is activated by AMPK-
+mediated increases in nicotinamide, and it drives the ALN
+by inhibiting mTORC1, inducing FOXO1 and FOXO3
+and activating key regulatory proteins such as ATG5,
+ATG7 and LC3."
+p(FPLX:AMPK) -> a(CHEBI:"NAD(+)")
+a(CHEBI:"NAD(+)") -> act(p(HGNC:SIRT1))
+act(p(HGNC:SIRT1)) -| act(p(FPLX:mTORC1))
+act(p(HGNC:SIRT1)) -> act(p(HGNC:FOXO1))
+act(p(HGNC:SIRT1)) -> act(p(HGNC:FOXO3))
+act(p(HGNC:SIRT1)) -> act(p(HGNC:ATG5))
+act(p(HGNC:SIRT1)) -> act(p(HGNC:ATG7))
+#LC3 is MAP1LC3A
+act(p(HGNC:SIRT1)) -> act(p(HGNC:MAP1LC3A))
+
+SET Evidence = "Activation of ULK1 triggers
+autophagosome nucleation through activating phospho-
+rylation of AMBRA and beclin 1 within the autophagy-
+specific PIK3C3 complex 10   (FIG. 3) ."
+act(p(HGNC:ULK1)) -> bp(GO:"autophagosome assembly")
+act(p(HGNC:ULK1)) -> p(HGNC:AMBRA1, pmod(Ph))
+p(HGNC:AMBRA1, pmod(Ph)) -> act(p(HGNC:AMBRA1))
+act(p(HGNC:AMBRA1)) -> bp(GO:"autophagosome assembly")
+act(p(HGNC:ULK1)) -> p(HGNC:BECN1, pmod(Ph))
+p(HGNC:BECN1, pmod(Ph)) -> act(p(HGNC:BECN1))
+act(p(HGNC:BECN1)) -> bp(GO:"autophagosome assembly")
+
+SET Evidence = "Tau, α-synuclein and TDP43 are substrates for
+CMA degradation, as are amyloid precursor protein (APP)
+but not amyloid-β fragment 42 (Aβ42) itself 3,45–47,48 . "
+bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:MAPT))
+bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:SNCA))
+bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:TARDBP))
+bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:APP))
+bp(GO:"chaperone-mediated autophagy") causesNoChange deg(a(CHEBI:"amyloid-beta polypeptide 42"))
+
+SET Evidence = "Htt is not efficiently cleared by CMA, and the same
+appears to hold for its fragments and mutant and post-
+translationally modified forms, although the precise
+role of CMA in Htt elimination remains to be more fully
+defined 2,45–47 ."
+bp(GO:"chaperone-mediated autophagy") causesNoChange deg(p(HGNC:HTT))
+
+SET Evidence = "Interestingly, the UPS is important for elimination of tau
+and other neurotoxic proteins in post synaptic dendritic
+compartments (a key site of spreading), where it plays
+a more general role favouring synaptic plasticity, den-
+dritogenesis and memory formation 49,52 ."
+SET MeSHAnatomy = "Dendrites"
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(HGNC:MAPT))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> bp(GO:"regulation of synaptic plasticity")
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> bp(GO:"dendrite development")
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> bp(GO:memory)
+UNSET MeSHAnatomy
+
+SET MeSHDisease = "Alzheimer Disease"
+
+SET Evidence = "Second, while
+decr1eases in beclin 1 levels in AD remain to be confirmed,
+SIRT1 expression is diminished 24 . "
+path(MESH:"Alzheimer Disease") -| p(HGNC:SIRT1)
+
+SET Evidence = "Third, apolipoprotein E
+allele 4 (APOE4), a major risk allele for sporadic AD,
+is associated with increased generation and accumula-
+tion of Aβ42  (REFS59,60) ."
+a(HBP:HBP00030) -> path(MESH:"Alzheimer Disease")
+a(HBP:HBP00030) -> a(CHEBI:"amyloid-beta polypeptide 42")
+
+SET Evidence = "In addition to decreased degradation, one
+consequence is leakage of asparaginyl endopeptidase
+into the cytosol, where it generates toxic fragments of
+tau 61 . "
+SET MeSHAnatomy = "Cytosol"
+a(HBP:HBP00030) -> p(HGNC:LGMN)
+p(HGNC:LGMN) -> p(HGNC:MAPT, frag("?"))
+UNSET MeSHAnatomy
+
+SET Evidence = "Fourth, genetic mutations and anomalies of presenilin 1,
+a dominant negative gene linked to AD, are associated
+with reduced lysosomal v-ATPase-mediated acidifica-
+tion 40,63 , a compromised ALN and deficient mitophagy 64 . "
+g(HGNC:PSEN1, var("?")) positiveCorrelation path(MESH:"Alzheimer Disease")
+g(HGNC:PSEN1, var("?")) negativeCorrelation act(complex(GO:"lysosomal proton-transporting V-type ATPase complex"))
+g(HGNC:PSEN1, var("?")) negativeCorrelation bp(GO:autophagy)
+g(HGNC:PSEN1, var("?")) negativeCorrelation bp(GO:mitophagy)
+
+SET Evidence = "Fifth, mutations in
+APP similarly disrupt endosomal and lysosomal func-
+tion, in part owing to accumulation of the β-secretase-
+generated, carboxy-terminal and Aβ42-containing
+fragment of APP called C99  (REF.66) ."
+g(HGNC:APP, var("?")) -| act(a(GO:endosome))
+g(HGNC:APP, var("?")) -| act(a(GO:lysosome))
+g(HGNC:APP, var("?")) -> a(HBP:HBP00081)
+
+SET Evidence = "Sixth, Aβ42 compro-
+mises the function of AMPK to impede initiation of the
+ALN 67 . "
+a(CHEBI:"amyloid-beta polypeptide 42") -| act(p(FPLX:AMPK))
+a(CHEBI:"amyloid-beta polypeptide 42") -| bp(GO:"autophagosome assembly")
+
+SET Evidence = " Seventh, Aβ42 obstructs the UPS and CMA 47,68 . "
+a(CHEBI:"amyloid-beta polypeptide 42") -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+a(CHEBI:"amyloid-beta polypeptide 42") -| bp(GO:"chaperone-mediated autophagy")
+
+SET Evidence = "Both aggregates and mutant forms of tau likewise
+block the proteasome, and its ability to degrade hyper-
+phosphorylated and oligomeric tau is reduced compared
+with its ability to degrade physiological tau 3,55,68 . "
+a(HBP:HBP00006) -| act(complex(GO:"proteasome complex"))
+p(HGNC:MAPT, var("?")) -| act(complex(GO:"proteasome complex"))
+complex(GO:"proteasome complex") -> deg(p(HGNC:MAPT))
+p(HGNC:MAPT, pmod(HBP:HBP00007)) -| deg(p(HGNC:MAPT))
+
+SET Evidence = "Finally,
+while physiological tau possesses KFERQ motifs and is
+degraded by CMA, aggregates, mutant forms and frag-
+ments interfere with CMA 45,47 ."
+bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:MAPT))
+a(HBP:HBP00006) -| bp(GO:"chaperone-mediated autophagy")
+p(HGNC:MAPT, var("?")) -| bp(GO:"chaperone-mediated autophagy")
+p(HGNC:MAPT, frag("?")) -| bp(GO:"chaperone-mediated autophagy")
+
+SET MeSHDisease = "Parkinson Disease"
+
+SET Evidence = "First, autosomal
+recessive forms of early-onset PD are associated with
+mutations in PTEN-induced putative kinase protein 1
+(PINK1) and the E3 ubiquitin-protein ligase parkin; these
+mutations lead to deficits in the mitophagic removal of
+damaged mitochondria 69,70   (BOX 2) ."
+p(HGNC:PINK1, var("?")) -- path(MESH:"Parkinson Disease")
+p(HGNC:PRKN, var("?")) -- path(MESH:"Parkinson Disease")
+p(HGNC:PINK1, var("?")) -| bp(GO:mitophagy)
+p(HGNC:PRKN, var("?")) -| bp(GO:mitophagy)
+
+SET Evidence = "Second, the GTPase
+leucine-rich repeat serine/threonine-protein kinase 2
+(LRRK2) is the most commonly mutated protein in
+late-onset, familial PD. "
+p(HGNC:LRRK2, var("?")) -- path(MESH:"Parkinson Disease")
+
+SET Evidence = " Some of these lead to an
+impairment of the ALN owing to reduced activation of
+beclin 1; another repercussion may be altered process-
+ing of APP, providing an unexpected link to AD 69,71–73 . "
+p(HGNC:LRRK2, var("?")) -| bp(GO:autophagy)
+p(HGNC:LRRK2, var("?")) -| act(p(HGNC:BECN1))
+p(HGNC:LRRK2, var("?")) -- bp(HBP:HBP00073)
+
+SET Evidence = "Third, α-synuclein mutations, triplications or excesses
+amplify the ALN burden, interfere with auto phagosome
+formation and irreversibly disrupt the lysosomal mem-
+brane 1,3,44,56 ."
+p(HGNC:SNCA, var("?")) -| bp(GO:"autophagosome assembly")
+p(HGNC:SNCA, var("?")) -| a(GO:"lysosomal membrane")
+
+SET Evidence = "Fourth, homozygous mutations of lyso-
+somal β-glucocerebrosidase (βGCase; also known as
+GBA) provoke the LSD Gaucher disease, which is linked
+to decreased ALN flux, α-synuclein accumulation and a
+fivefold increase in risk of PD 43  (Supplementary Box 1)."
+p(HGNC:GBA, var("?")) -> path(MESH:"Gaucher Disease")
+p(HGNC:GBA, var("?")) -| bp(GO:autophagy)
+p(HGNC:GBA, var("?")) -> a(HBP:HBP00016)
+p(HGNC:GBA, var("?")) -> path(MESH:"Parkinson Disease")
+
+SET Evidence = "Sixth,
+aggregates and mutant forms of α-synuclein disrupt the
+proteasome in dopaminergic neurons. "
+SET MeSHAnatomy = "Dopaminergic Neurons"
+a(HBP:HBP00016) -| complex(GO:"proteasome complex")
+
+SET Evidence = "Furthermore,
+mutations in the gene encoding parkin and several other
+genes are linked to reduced UPS activity 2,56,69,79,80 ."
+p(HGNC:PRKN, var("?")) -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+
+SET Evidence = " In addition, CMA is disrupted by sev-
+eral genetic mutations occurring in PD, including muta-
+tions in LRRK2  (REFS2,3,45–47,55,69,80) . "
+p(HGNC:LRRK2, var("?")) -|  bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+
+SET Evidence = " CMA dysfunction in
+PD favours the accumulation of α- synuclein and leads to
+inactivation of the dopaminergic neuron survival factor,
+myocyte-specific enhancer factor 2D (MEF2D) 2,45,47,55 ."
+bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:SNCA))
+bp(GO:"chaperone-mediated autophagy") -> act(p(HGNC:MEF2D))
+
+SET MeSHDisease = "Frontotemporal Dementia"
+
+SET Evidence = "However, in light of common risk genes
+such as SQSTM1 (which encodes p62) and chromosome 9
+open reading frame 72 (C9ORF72), FTD is increasingly
+linked to ALS 82,83 . "
+p(HGNC:SQSTM1) -- path(MESH:"Frontotemporal Dementia")
+p(HGNC:C9orf72) -- path(MESH:"Frontotemporal Dementia")
+
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+
+SET Evidence = "ALS shares many causal
+genes with FTD, including SQSTM1, CHMP2B, TBK1
+(which encodes tank-binding kinase 1), OPTN (which
+encodes optineurin) and other genes associated with
+deficits in ALN and mitophagy."
+p(HGNC:SQSTM1) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:CHMP2B) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:TBK1) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:OPTN) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+
+SET Evidence = "For example, mutations
+in OPTN and TBK1 interfere with cargo loading 82,84,87 ."
+p(HGNC:OPTN, var("?")) -| bp(GO:"cargo loading into vesicle")
+p(HGNC:TBK1, var("?")) -| bp(GO:"cargo loading into vesicle")
+
+SET Evidence = "Mutations in C9ORF72 (the most prevalent risk gene for
+familial ALS and FTD) are likewise linked to disruption
+of the ALN, including interference with dynactin–dynein
+coordinated transport of autophagosomes along axons
+of motor neurons to the perikarya 82,88 ."
+p(HGNC:C9orf72, var("?")) -| bp(GO:autophagy)
+
+SET MeSHDisease = "Huntington Disease"
+
+SET Evidence = "Mutant Htt is cleared by autophagy, but it
+compromises the ALN because of decreased cargo load-
+ing and impaired autophagosome formation and trans-
+port 55,56,68,92 . "
+bp(GO:autophagy) -> deg(p(HGNC:HTT, var("?")))
+p(HGNC:HTT, var("?")) -| bp(GO:autophagy)
+p(HGNC:HTT, var("?")) -| bp(GO:"cargo loading into vesicle")
+p(HGNC:HTT, var("?")) -| bp(GO:"autophagosome assembly")
+
+UNSET MeSHDisease
+
+SET Evidence = "For example, methylene blue coun-
+ters tau oligomerization and promotes autophagy 101,102
+(Supplementary Table 4)."
+a(CHEBI:"methylene blue") -| a(HBP:HBP00009)
+a(CHEBI:"methylene blue") -> bp(GO:autophagy)
+
+SET Evidence = " Indeed, clonidine and rilmenidine, two
+G i  /G o -coupled α 2 -adrenergic receptor and imidazoline 1
+receptor agonists, stimulate autophagy and cleared Htt
+in cellular 103  and animal models of HD 104 ."
+SET MeSHDisease = "Huntington Disease"
+a(CHEBI:clonidine) -> bp(GO:autophagy)
+a(CHEBI:clonidine) -> deg(p(HGNC:HTT))
+a(CHEBI:Rilmenidine) -> bp(GO:autophagy)
+a(CHEBI:Rilmenidine) -> deg(p(HGNC:HTT))
+
+SET Evidence = " Genetic knockdown of calpain 1 or
+calpain 2 or overexpression of their endogenous inhibitor,
+calpastatin, increased autophagy and cleared aggregates
+in SK-N-SH cells overexpressing a mutant form of Htt 103 ."
+p(HGNC:CAPN1) -| bp(GO:autophagy)
+p(HGNC:CAPN1) -| deg(p(HGNC:HTT, var("?")))
+p(HGNC:CAPN2) -| bp(GO:autophagy)
+p(HGNC:CAPN2) -| deg(p(HGNC:HTT, var("?")))
+p(HGNC:CAST) -| act(p(HGNC:CAPN1))
+p(HGNC:CAST) -| act(p(HGNC:CAPN2))
+p(HGNC:CAST) -> bp(GO:autophagy)
+p(HGNC:CAST) -> deg(p(HGNC:HTT, var("?")))
+
+SET Evidence = " Calpeptin, a cell-permeable
+calpain inhibitor, can also reduce Htt proteinopathy via
+induction of autophagy 103,105 ."
+a(CHEBI:Calpeptin) -| act(p(HGNC:CAPN1))
+a(CHEBI:Calpeptin) -| act(p(HGNC:CAPN2))
+a(CHEBI:Calpeptin) -> bp(GO:autophagy)
+a(CHEBI:Calpeptin) -> deg(p(HGNC:HTT, var("?")))
+
+UNSET MeSHDisease
+
+SET Evidence = " Calpain inhibition by cal-
+pastatin or pharmacological agents also confers neuropro-
+tective effects in other NDA models, including improved
+clearance of tau, α-synuclein and SOD1  (REFS54,106,107) ."
+p(HGNC:CAST) -> deg(p(HGNC:MAPT))
+p(HGNC:CAST) -> deg(p(HGNC:SNCA))
+p(HGNC:CAST) -> deg(p(HGNC:SOD1))
+
+SET Evidence = "The aminoimidazole derivative 5-aminoimidazole-
+4-carboxamide ribonucleotide (AICAR) undergoes intra-
+cellular transformation to an AMP analogue that triggers
+AMPK-mediated autophagy 21,108 ."
+a(CHEBI:"AICA ribonucleotide") -> act(p(FPLX:AMPK))
+act(p(FPLX:AMPK)) -> bp(GO:autophagy)
+
+SET Evidence = " Another direct facilitator of AMPK, A769662,
+elicited autophagy and reduced the burden of Htt in a
+striatal cell line derived from knock-in mice expressing
+a humanized form of mutant Htt (exon 1 containing
+seven polyglutamine repeats) 111 ."
+a(PUBCHEM:54708532) -> act(p(FPLX:AMPK))
+a(PUBCHEM:54708532) -> deg(p(HGNC:HTT, var("?")))
+
+SET Evidence = " Selenium deficits have
+been linked to AD, and thus it is interesting that seleno-
+methionine boosted ALN flux, from AMPK recruit-
+ment through autophagosome formation to lysosomal
+degradation, in the 3×Tg AD mouse model 112 ."
+a(CHEBI:"selenium(2+)") negativeCorrelation path(MESH:"Alzheimer Disease")
+a(CHEBI:selenomethionine) -> bp(GO:autophagy)
+a(CHEBI:selenomethionine) -> act(p(FPLX:AMPK))
+a(CHEBI:selenomethionine) -> bp(GO:"autophagosome assembly")
+a(CHEBI:selenomethionine) -> bp(GO:"lysosomal microautophagy")
+
+SET Evidence = "The ‘anti-ageing’ agent resveratrol is thought to indi-
+rectly recruit AMPK via activation of calcium/calmodulin-
+dependent protein kinase kinase 2 (CAMKK2), which,
+acting in synergy with Ca 2+ , exerts its effects via Thr172
+phosphorylation 113 . This action, among others (below),
+is involved in its reduction of Aβ levels in N2a cells and
+neurons 114  and the elimination of Aβ and Htt in animal
+models of AD and HD 114,115 ."
+a(CHEBI:resveratrol) -> act(p(HGNC:CAMKK2))
+composite(p(HGNC:CAMKK2),a(CHEBI:"calcium(2+)")) -> p(FPLX:AMPK, pmod(Ph,T,172))
+a(CHEBI:resveratrol) -| a(CHEBI:"amyloid-beta")
+a(CHEBI:resveratrol) -| p(HGNC:HTT)
+
+SET Evidence = "The antidiabetic drug metformin, a prototypical
+activator of AMPK, induced autophagy and increased
+longevity in mice 116 . "
+a(CHEBI:metformin) -> act(p(FPLX:AMPK))
+a(CHEBI:metformin) -> bp(GO:autophagy)
+
+SET Evidence = " Moreover, reductions in levels of
+hyper phosphorylated tau and Aβ were seen in metformin-
+treated neurons 117,118 , while it blunted neuronal loss in a
+neurochemical lesion model of PD in mice 119 ."
+a(CHEBI:metformin) -| a(CHEBI:"amyloid-beta")
+a(CHEBI:metformin) -| p(HGNC:MAPT, pmod(HBP:HBP00007))
+SET MeSHDisease = "Parkinson Disease"
+a(CHEBI:metformin) -| bp(GO:"neuron death")
+UNSET MeSHDisease
+
+SET Evidence = "The di-glucose derivative trehalose inhibits the sol-
+ute carrier 2A (SLC2A) family of glucose transporters
+to promote AMPK-induced autophagy and reduce
+neurotoxic protein load, although it also exerts other
+actions downstream in the ALN 4,120 . "
+a(CHEBI:"alpha,alpha-trehalose") -| act(p(HGNC:SLC2A9))
+a(CHEBI:"alpha,alpha-trehalose") -> act(p(FPLX:AMPK))
+act(p(FPLX:AMPK)) -> bp(GO:autophagy)
+
+SET Evidence = " It also proved effective in cellu-
+lar models of PD, HD and AD 121,122 , as well as in mouse
+models of HD, AD and tauopathies, where it cleared
+aggregates, reduced neurodegeneration and ameliorated
+motor and cognitive performance 123–125 ."
+a(CHEBI:"alpha,alpha-trehalose") -| bp(HP:Neurodegeneration)
+a(CHEBI:"alpha,alpha-trehalose") -| a(HBP:HBP00006)
+a(CHEBI:"alpha,alpha-trehalose") -| a(HBP:HBP00016)
+a(CHEBI:"alpha,alpha-trehalose") -| a(HBP:HBP00017)
+a(CHEBI:"alpha,alpha-trehalose") -| a(HBP:HBP00018)
+a(CHEBI:"alpha,alpha-trehalose") -> bp(GO:"motor behavior")
+a(CHEBI:"alpha,alpha-trehalose") -> bp(GO:cognition)
+
+SET Evidence = "Lithium ions inhibit inositol monophosphatase to
+deplete inositol triphosphate."
+a(CHEBI:"lithium(1+)") -| act(p(HGNC:IMPA1))
+a(CHEBI:"lithium(1+)") -| a(PUBCHEM:55310)
+
+SET Evidence = " This mechanism may be
+involved in its promotion of autophagy, reduction in cel-
+lular levels of α-synuclein, SOD1, Htt and tau 126 , ame-
+lioration of motor function in a P301L mouse model of
+tauopathy 127  and slowing of disease progression in SOD1
+mice 128 . "
+a(CHEBI:"lithium(1+)") -> bp(GO:autophagy)
+a(CHEBI:"lithium(1+)") -| p(HGNC:SNCA)
+a(CHEBI:"lithium(1+)") -| p(HGNC:SOD1)
+a(CHEBI:"lithium(1+)") -| p(HGNC:HTT)
+a(CHEBI:"lithium(1+)") -| p(HGNC:MAPT)
+a(CHEBI:"lithium(1+)") -> bp(GO:"motor behavior")
+
+SET Evidence = "Other compounds that act through AMPK acti-
+vation  include  the  antiaggregant  methylene  blue
+(Supplementary Box 1), which elevated levels of beclin  1,
+p62 and LC3, induced autophagy and suppressed tau in
+organotypic neuronal cultures and a mouse model of
+FTD 101,102 ."
+a(CHEBI:"methylene blue") -> act(p(FPLX:AMPK))
+a(CHEBI:"methylene blue") -> bp(GO:autophagy)
+a(CHEBI:"methylene blue") -> p(HGNC:BECN1)
+a(CHEBI:"methylene blue") -> p(HGNC:MAP1LC3A)
+a(CHEBI:"methylene blue") -> p(HGNC:DCTN4)
+a(CHEBI:"methylene blue") -| act(p(HGNC:MAPT))
+
+SET Evidence = " In addition, calcitriol (the active metabolite
+of vitamin D 3 ) elicited AMPK-dependent autophagy in
+a neurochemical lesion-induced model of PD 129."
+SET MeSHDisease = "Parkinson Disease"
+a(CHEBI:calcitriol) -> act(p(FPLX:AMPK))
+a(CHEBI:calcitriol) -> bp(GO:autophagy)
+UNSET MeSHDisease
+
+SET Evidence = "One major strategy for promoting autophagy
+is the relief of its repression by mTORC1."
+p(FPLX:mTORC1) -| bp(GO:macroautophagy)
+
+SET Evidence = "This kinase
+is classically inactivated by rapamycin, which binds to
+the modulatory protein 12 kDa FK506-binding protein
+(FKBP12; also known as FKBP1A)."
+complex(p(HGNC:FKBP1A),a(CHEBI:sirolimus)) -| act(p(FPLX:mTORC1))
+
+SET Evidence = "Enhancing auto-
+phagy with rapamycin reduced levels of α-synuclein, FUS
+and Htt 130–132 . "
+a(CHEBI:sirolimus) -> bp(GO:autophagy)
+a(CHEBI:sirolimus) -| p(HGNC:SNCA)
+a(CHEBI:sirolimus) -| p(HGNC:FUS)
+a(CHEBI:sirolimus) -| p(HGNC:HTT)
+
+SET Evidence = "Likewise, temsirolimus reduced the accumulation
+of phosphorylated tau in SH-SY5Y cells and P301S
+tauopathy mice 137 ."
+a(CHEBI:Temsirolimus) -| a(HBP:HBP00006)
+
+SET Evidence = " It also removed cellular aggregates
+of mutant Htt and improved motor performance in a
+mouse model of HD, reduced α-synuclein aggregation
+and afforded neuroprotection in a lesion-based model of
+PD and depleted mutant ataxin 3 in a mouse model
+of supraspinal cerebellar ataxia type 3  (REFS133,138,139) . "
+SET MeSHDisease = "Huntington Disease"
+a(CHEBI:Temsirolimus) -| a(HBP:HBP00017)
+a(CHEBI:Temsirolimus) -> bp(GO:"motor behavior")
+SET MeSHDisease = "Parkinson Disease"
+a(CHEBI:Temsirolimus) -| a(HBP:HBP00016)
+a(CHEBI:Temsirolimus) -| bp(HP:Neurodegeneration)
+SET MeSHDisease = "Machado-Joseph Disease"
+a(CHEBI:Temsirolimus) -| p(HGNC:ATXN3, var("?"))
+
+SET Evidence = "The natural product curcumin induced macro-
+autophagy and protected rotenone-treated dopaminer-
+gic neurons 141  in addition to accelerating the elimination
+of mutant α-synuclein-A53T by repressing mTORC1 in a
+cellular model of early-onset PD, although it also exerts
+other actions such as inhibition of p300-mediated pro-
+tein acetylation and of aggregation 142,143 . "
+a(CHEBI:curcumin) -> bp(GO:macroautophagy)
+a(CHEBI:curcumin) -| act(p(FPLX:mTORC1))
+a(CHEBI:curcumin) -> deg(p(HGNC:SNCA, sub(A,53,T)))
+
+SET Evidence = "Pro-autophagic
+effects of curcumin are reflected in improved function
+in cellular and animal models of PD and AD, as well as
+reduced levels of α-synuclein aggregates 144  or Aβ and tau
+oligomers 145,146 ."
+a(CHEBI:curcumin) -| a(HBP:HBP00016)
+a(CHEBI:curcumin) -| a(HBP:HBP00022)
+a(CHEBI:curcumin) -| a(HBP:HBP00009)
+
+SET Evidence = "Indeed, TFEB over-
+expression reduced amyloid plaques in a APP/PS1 mouse
+model 148 . "
+p(HGNC:TFEB) -| a(HBP:HBP00018)
+
+SET Evidence = " Moreover, the flavonol fisetin stimulated auto-
+phagic degradation of phosphorylated tau in cortical neu-
+rons via mTORC1-dependent activation of TFEB and the
+cytoprotective transcription factor nuclear factor eryth-
+roid 2-related factor 2 (NFE2L2) 149 . Fisetin also reduced
+Aβ accumulation in an APP/PS1 mouse model of AD 150 . "
+a(CHEBI:fisetin) -> bp(GO:macroautophagy)
+bp(GO:macroautophagy) -> deg(p(HGNC:MAPT, pmod(HBP:HBP00007)))
+a(CHEBI:fisetin) -> act(p(FPLX:mTORC1))
+act(p(FPLX:mTORC1)) -> act(p(HGNC:TFEB))
+act(p(FPLX:mTORC1)) -> act(p(HGNC:NFE2L2))
+a(CHEBI:fisetin) -| a(HBP:HBP00018)
+
+SET Evidence = "Tyrosine-protein kinase ABL1 is a proto- oncogene
+that  negatively  regulates autophagy,  partly  acting
+upstream of the RAC serine/threonine-protein kinase
+(AKT)–mTORC1 axis."
+p(HGNC:ABL1) -| bp(GO:macroautophagy)
+
+SET Evidence = " ABL1 is overactivated in AD and
+tauopathies such as FTD 152 ."
+path(MESH:"Alzheimer Disease") -> act(p(HGNC:ABL1))
+path(MESH:"Frontotemporal Dementia") -> act(p(HGNC:ABL1))
+
+SET Evidence = "Inactivation of ABL1 with
+brain-penetrant nilotinib conferred neuroprotective
+autophagy in mouse models of PD 153 ."
+a(CHEBI:nilotinib) -| act(p(HGNC:ABL1))
+a(CHEBI:nilotinib) -> bp(GO:macroautophagy)
+a(CHEBI:nilotinib) -| bp(HP:Neurodegeneration)
+
+SET Evidence = " Activity of the deacetylase SIRT1 declines with
+age, partially owing to limited availability of its co fac-
+tor, nicotinamide 24,56,156 . "
+bp(GO:aging) -| act(p(HGNC:SIRT1))
+bp(GO:aging) -| a(CHEBI:"NAD(+)")
+
+SET Evidence = "Resveratrol can stimulate SIRT1 via AMPK (see
+above), and it also possesses an AMPK-independent
+mode of SIRT1 recruitment that participates in blunting
+the neurotoxicity of Aβ25–35 fragments in PC12 cells 160 . "
+a(CHEBI:resveratrol) -> act(p(FPLX:AMPK))
+act(p(FPLX:AMPK)) -> act(p(HGNC:SIRT1))
+a(CHEBI:resveratrol) -| act(p(HGNC:APP, frag(23_35)))
+
+SET Evidence = "Cilostazol (a phosphodiesterase 3 inhibitor) clears
+Aβ42 from neuronal cell lines by promoting autophagy,
+upregulating beclin 1, ATG5 and LC3, downregulating
+mTORC1 and inducing lysosomal cathepsin B; these
+actions of cilostazol involve activation of SIRT1 as well
+as upstream Tyr172 phosphorylation of AMPK 108,162,163 ."
+a(CHEBI:cilostazol) -| a(CHEBI:"amyloid-beta polypeptide 42")
+a(CHEBI:cilostazol) -> bp(GO:macroautophagy)
+a(CHEBI:cilostazol) -> p(HGNC:BECN1)
+a(CHEBI:cilostazol) -> p(HGNC:ATG5)
+a(CHEBI:cilostazol) -> p(HGNC:MAP1LC3A)
+a(CHEBI:cilostazol) -| p(FPLX:mTORC1)
+SET MeSHAnatomy = "Lysosomes"
+a(CHEBI:cilostazol) -> p(HGNC:CTSB)
+UNSET MeSHAnatomy
+a(CHEBI:cilostazol) -> act(p(HGNC:SIRT1))
+a(CHEBI:cilostazol) -> p(FPLX:AMPK, pmod(Ph,Y,172))
+
+SET Evidence = "Cilostazol improved cognition and reduced levels of
+Aβ42 and hyperphosphorylated tau following intra-
+cerebroventricular injection of Aβ25–35 into mice 162,163 ."
+a(CHEBI:cilostazol) -> bp(GO:cognition)
+a(CHEBI:cilostazol) -| a(CHEBI:"amyloid-beta polypeptide 42")
+a(CHEBI:cilostazol) -| p(HGNC:MAPT, pmod(HBP:HBP00007))
+
+SET Evidence = "Spermidine inhibits
+the acetylation of ATG7 and histone H3, while induc-
+ing beclin 1 via blockade of its cleavage by caspase 3
+(REF.168) . "
+a(CHEBI:spermidine) -| p(HGNC:ATG7, pmod(Ac))
+a(CHEBI:spermidine) -| p(FPLX:"Histone_H3", pmod(Ac))
+a(CHEBI:spermidine) -> act(p(HGNC:BECN1))
+a(CHEBI:spermidine) -| act(p(HGNC:CASP3))
+act(p(HGNC:CASP3)) -> p(HGNC:BECN1, frag("?"))
+p(HGNC:BECN1, frag("?")) -| act(p(HGNC:BECN1))
+
+SET Evidence = "In
+addition, the plant-derived alkaloid isorhynchophylline
+upregulated beclin 1 independently of mTORC1 and
+promoted autophagic clearance of α-synuclein, although
+its precise mechanism of action remains to be clarified 175 . "
+a(CHEBI:Isorhynchophylline) -> p(HGNC:BECN1)
+a(CHEBI:Isorhynchophylline) -| a(HBP:HBP00016)
+
+SET Evidence = "Disruption of this Bcl-2–beclin 1 complex
+is an alternative approach for promoting autophagy,
+as achieved in mouse fibroblasts by the BH3 mimetic
+ABT-737  (REF.177) ."
+complex(p(HGNC:BCL2),p(HGNC:BECN1)) -| bp(GO:macroautophagy)
+
+SET Evidence = "The multi-modal agent resveratrol induced the expression of ATG4 and promoted autophagosome formation."
+a(CHEBI:resveratrol) -> r(FPLX:ATG4)
+a(CHEBI:resveratrol) -> bp(GO:"autophagosome assembly")
+
+SET Evidence = " An unusual approach to augmenting
+autophagosome formation is represented by the brain-
+penetrant autophagy enhancer 99 (AUTEN-99), which
+blocks myotubularin-related protein 14 (MTMR14, also
+known as Jumpy), a phosphatase that inhibits the phos-
+phoinositide 3-kinase (PI3K)-mediated generation of
+the autophagosome membrane  (FIG. 3) . AUTEN-99 aug-
+mented autophagic flux in isolated neurons, increased
+markers of autophagy in mouse brain and slowed neuro-
+degeneration in D. melanogaster models of PD and HD 181 ."
+a(PUBCHEM:16240819) -| act(p(HGNC:MTMR14))
+p(HGNC:MTMR14) -| act(p(FPLX:PI3K))
+act(p(FPLX:PI3K)) -> a(GO:"autophagosome membrane")
+a(PUBCHEM:16240819) -> bp(GO:macroautophagy)
+a(PUBCHEM:16240819) -| bp(HP:Neurodegeneration)
+
+SET Evidence = "The microtubule stabilizers
+paclitaxel and epothilone A countered Aβ42-induced
+cytoskeletal disruption — and moderated excessive UPR
+— in neurons 182 ."
+a(CHEBI:"amyloid-beta polypeptide 42") -| a(GO:microtubule)
+a(CHEBI:paclitaxel) -> a(GO:microtubule)
+a(CHEBI:"epothilone A") -> a(GO:microtubule)
+
+SET Evidence = "Furthermore, epothilone D countered
+microtubule disruption and cognitive deficits in aged
+P301S/P19 AD mice 183 . "
+a(CHEBI:"epothilone D") -> a(GO:microtubule)
+a(CHEBI:"epothilone D") -> bp(GO:cognition)
+
+SET Evidence = "Interestingly, genetic or pharmacological activation of
+RAB5 countered neurodegeneration in mouse C9ORF72
+models of ALS and FTD 187 ."
+SET MeSHDisease = {"Frontotemporal Dementia","Amyotrophic Lateral Sclerosis"}
+act(p(HGNC:RAB5A)) -| bp(HP:Neurodegeneration)
+UNSET MeSHDisease
+
+SET Evidence = "Second, the TFEB inducer 2-hydroxypropyl-β-cyclo-
+dextrin promoted the acidity of lysosomes in neurons 190 ."
+a(PUBCHEM:129688311) -> bp(GO:"lysosomal lumen acidification")
+
+SET Evidence = "Third, acidic nanoparticles such as polylactic acid and
+poly(lactide- co-glycolide) increase acidification  (BOX 3) ."
+a(CHEBI:"poly(lactic acid) polymer") -> bp(GO:"lysosomal lumen acidification")
+a(CHEBI:"poly(D,L-lactic acid-co-glycolic acid)") -> bp(GO:"lysosomal lumen acidification")
+
+SET Evidence = "Fourth, activation of the lysosomal Ca 2+  channel mucol-
+ipin transient receptor potential channel 1 (TRPML1)
+with a synthetic agonist (ML-SA1) increased lysoso-
+mal Ca 2+  release, lowered pH and promoted Aβ clear-
+ance 191,192 . "
+a(PUBCHEM:2880983) -> act(p(HGNC:MCOLN1))
+act(p(HGNC:MCOLN1)) -> tloc(a(CHEBI:"calcium(2+)"),MESH:Lysosomes,MESH:Cytoplasm)
+act(p(HGNC:MCOLN1)) -> bp(GO:"lysosomal lumen acidification")
+act(p(HGNC:MCOLN1)) -| a(CHEBI:"amyloid-beta")
+
+SET Evidence = " Indeed, clioquinol countered disruption
+of autophagy by chloroquine in retinal cells, reduced
+Aβ42 accumulation in CHO cells expressing APP and
+mutant presenilin 1 and diminished amyloid misfolding
+and aggregation in Tg2576 AD mice 196,197 ."
+a(CHEBI:chlorohydroquinone) -| bp(GO:macroautophagy)
+a(CHEBI:"5-chloro-7-iodoquinolin-8-ol") -> bp(GO:macroautophagy)
+a(CHEBI:"5-chloro-7-iodoquinolin-8-ol") -| a(CHEBI:"amyloid-beta polypeptide 42")
+
+SET Evidence = " It increased expression of βGCase, normalized
+autophagy and accelerated degradation of α-synuclein
+in a stem cell model of dopaminergic neurons derived
+from patients with PD bearing mutations in βGCase 200 . "
+#It: Ambroxol
+SET MeSHDisease = "Parkinson Disease"
+a(CHEBI:ambroxol) -> p(HGNC:GBA)
+a(CHEBI:ambroxol) -> bp(GO:macroautophagy)
+a(CHEBI:ambroxol) -> deg(p(HGNC:SNCA))
+UNSET MeSHDisease
+
+SET Evidence = "Ambroxol, which also decreased ER stress in D. mela-
+nogaster 201 , reduced α-synuclein levels in overexpress-
+ing, transgenic mice 202 ."
+a(CHEBI:ambroxol) -| bp(GO:"response to endoplasmic reticulum stress")
+a(CHEBI:ambroxol) -| p(HGNC:SNCA)
+
+SET Evidence = "Harnessing TFEB by 2-hydroxypropyl-β-cyclodextrin
+promoted clearance of proteolipid aggregates and α-syn-
+uclein in a cellular model of PD 195,204 .It also augmented
+the elimination of Aβ in a Tg19959/CRND8 mouse
+model of AD 173 ."
+SET MeSHDisease = "Parkinson Disease"
+a(PUBCHEM:129688311) -| a(HBP:HBP00016)
+SET MeSHDisease = "Alzheimer Disease"
+a(PUBCHEM:129688311) -| a(CHEBI:"amyloid-beta")
+UNSET MeSHDisease
+
+SET Evidence = " The protein kinase C (PKC) activator
+HEP14 stimulated nuclear translocation of TFEB to
+boost lysosomal gene transcription and reduced Aβ
+plaques in APP/PS1 AD mouse brains 151 ."
+
+SET Evidence = "One promising agent is the hydroxylamine deriva-
+tive arimoclomol, which increases the activity of HSP70
+by augmenting transcriptional activity of HSF1  (REF.210) ."
+a(PUBCHEM:9568077) -> tscript(p(HGNC:HSF1))
+tscript(p(HGNC:HSF1)) -> act(p(FPLX:HSPA))
+
+SET Evidence = "Among compounds that inhibit HSP90,
+geldanamycin promoted elimination of both hyper-
+phosphorylated tau and oligomeric α-synuclein in cell
+lines 219,220 . "
+a(CHEBI:geldanamycin) -| act(p(FPLX:HSP90))
+a(CHEBI:geldanamycin) -| p(HGNC:MAPT, pmod(HBP:HBP00007))
+a(CHEBI:geldanamycin) -| a(HBP:HBP00016)
+
+SET Evidence = "The less cytotoxic
+analogue of geldanamycin, 17-AAG, has improved
+brain penetrance. It decreased Aβ levels 223 , improved
+memory 224  and lowered tau in transgenic AD mice 224 .
+17-AAG also reduced α-synuclein oligomers in H4
+cells 220 .  "
+#17-AAG is tanespimycin
+a(CHEBI:tanespimycin) -| act(p(FPLX:HSP90))
+SET MeSHDisease = "Alzheimer Disease"
+a(CHEBI:tanespimycin) -| a(CHEBI:"amyloid-beta")
+a(CHEBI:tanespimycin) -> bp(GO:memory)
+a(CHEBI:tanespimycin) -| p(HGNC:MAPT)
+UNSET MeSHDisease
+a(CHEBI:tanespimycin) -| a(HBP:HBP00016)
+
+SET Evidence = "Another HSP90 inhibitor, HSP990, has shown
+promise in lowering Htt aggregates and improving
+motor performance in two mouse models of HD 225 ."
+a(PUBCHEM:46216556) -| act(p(FPLX:HSP90))
+a(PUBCHEM:46216556) -| a(HBP:HBP00017)
+
+SET Evidence = " Chronic administration of CGS-21680, a selective
+agonist of the AC-coupled adenosine A 2A  receptor, restored
+proteasomal activity in cellular and murine models for HD
+via PKA-mediated Ser120 phosphorylation of the RPT6
+component of the 19S subunit 231 ."
+a(PUBCHEM:3086599) -> act(complex(GO:"proteasome complex"))
+a(PUBCHEM:3086599) -> kin(p(FPLX:PKA))
+#rpt6 subunit encoded by PSMC5 gene
+kin(p(FPLX:PKA)) -> p(HGNC:PSMC5, pmod(Ph,S,120))
+
+SET Evidence = "Another kinase that activates the proteasome (RPT6
+subunit) — and directs it to dendritic spines — is
+CAMKK2  (REF.227) ."
+p(HGNC:CAMKK2) -> act(p(HGNC:PSMC5))
+
+SET Evidence = "Third, cellular inhibitor of apoptosis 1 (CIAP1;
+also known as BIRC2) specifically binds mutant SOD1
+and drives it to proteasomal degradation."
+complex(p(HGNC:BIRC2),p(HGNC:SOD1)) -> deg(p(HGNC:SOD1))
+
+SET Evidence = "Finally, mirroring its inhibitory
+influence on the ALN, mTORC1 suppresses the UPS by
+impeding the formation and assembly of proteasomal
+subunits. "
+p(FPLX:mTORC1) -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+p(FPLX:mTORC1) -| bp(GO:"proteasome assembly")
+
+SET Evidence = "Nonetheless, overexpression of LAMP2A accelerated
+CMA-related clearance of α-synuclein and afforded pro-
+tection of dopaminergic neurons 45 , and several routes
+to potential pharmacological exploitation exist. "
+p(HGNC:LAMP2) -> bp(GO:"chaperone-mediated autophagy")
+p(HGNC:LAMP2) -> deg(p(HGNC:SNCA))
+
+SET Evidence = "The UPS and CMA are
+disrupted by neurotoxic proteins like Aβ42 and tau,
+hence, their early and preventive reinforcement prior to
+Aβ42 and tau accumulation may be critical."
+a(CHEBI:"amyloid-beta polypeptide 42") -| bp(GO:"chaperone-mediated autophagy")
+a(CHEBI:"amyloid-beta polypeptide 42") -| bp(GO:"chaperone-mediated autophagy")
+p(HGNC:MAPT) -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+p(HGNC:MAPT) -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+
+SET Evidence = "Supporting the relevance of sestrin 2,
+it has been shown to protect dopaminergic neurons
+from the neurotoxin rotenone via AMPK-transduced
+autophagy 247 ."
+p(HGNC:SESN2) -> act(p(FPLX:AMPK))
+p(HGNC:SESN2) -> bp(GO:macroautophagy)
+
+SET Evidence = " Sestrin 2 over expression also prompted
+mTORC1-dependent autophagy in cortical neurons in a
+presenilin-knockout model of AD."
+SET MeSHDisease = "Alzheimer Disease"
+p(HGNC:SESN2) -> bp(GO:macroautophagy)
+UNSET MeSHDisease
+
+SET Evidence = "Aβ42 and amylin (a pancreas-derived, AD-associated
+protein found in brain) are substrates for degradation by
+IDE, which also irreversibly traps Aβ42 and α-synuclein,
+preventing their aggregation and promoting ALN and
+UPS elimination 259 ."
+p(HGNC:IDE) -> deg(a(CHEBI:"amyloid-beta"))
+p(HGNC:IDE) -> deg(p(HGNC:IAPP))
+p(HGNC:IDE) -| a(HBP:HBP00016)
+p(HGNC:IDE) -| a(HBP:HBP00018)
+
+SET Evidence = "Cerebral levels of IDE are reduced in
+early AD and in mouse models of AD, whereas, mirroring
+AD amyloidosis, Aβ42 accumulates in mice genetically
+depleted of IDE. "
+SET MeSHAnatomy = "Cerebrum"
+path(MESH:"Alzheimer Disease") -| p(HGNC:IDE)
+UNSET MeSHAnatomy
+
+SET Evidence = " In a vicious circle, Aβ42 itself decreases
+IDE expression, although it may prompt its release from
+glia 254,259 ."
+a(CHEBI:"amyloid-beta polypeptide 42") -| p(HGNC:IDE)
+
+SET Evidence = " IDE also degrades and prevents the forma-
+tion of α-synuclein fibrils 259 ."
+p(HGNC:IDE) -| a(HBP:HBP00092)
+
+SET Evidence = "Similar to IDE, neprilysin
+catabolizes Aβ42, and its loss in mouse models of AD
+and in patients with AD alike also contributes to Aβ42
+accumulation 253,256,260 ."
+p(HGNC:MME) -> deg(a(CHEBI:"amyloid-beta polypeptide 42"))
+path(MESH:"Alzheimer Disease") -| p(HGNC:MME)
+
+SET Evidence = "Like IDE
+and neprilysin, plasmin degrades Aβ42 and blocks
+Aβ42-induced toxicity, suggesting that the decrease
+in its levels in AD is involved in the evolution of
+AD 254,256,261 . "
+p(HGNC:PLG) -> deg(a(CHEBI:"amyloid-beta polypeptide 42"))
+
+SET Evidence = " Plasmin also degrades α-synuclein to retard
+intercellular spreading 262 ."
+p(HGNC:PLG) -> deg(p(HGNC:SNCA))
+
+SET Evidence = " Finally, the extracellular and intracellular
+serine protease neurosin (also known as KLK6) cleaves
+α- synuclein. "
+p(HGNC:KLK6) -> deg(p(HGNC:SNCA))
+
+SET Evidence = "In
+regard to pharmacological manipulation, substances
+such as epigallocatechin and somatostatin promote the
+expression, secretion and (allosterically) catalytic activ-
+ity of IDE and neprilysin in parallel with an increase
+in the degradation of Aβ peptides 259,280 ."
+a(CHEBI:"(-)-epigallocatechin") -> p(HGNC:IDE)
+a(CHEBI:"(-)-epigallocatechin") -> sec(p(HGNC:IDE))
+a(CHEBI:"(-)-epigallocatechin") -> act(p(HGNC:IDE))
+a(CHEBI:"(-)-epigallocatechin") -> p(HGNC:MME)
+a(CHEBI:"(-)-epigallocatechin") -> sec(p(HGNC:MME))
+a(CHEBI:"(-)-epigallocatechin") -> act(p(HGNC:MME))
+a(CHEBI:somatostatin) -> p(HGNC:IDE)
+a(CHEBI:somatostatin) -> sec(p(HGNC:IDE))
+a(CHEBI:somatostatin) -> act(p(HGNC:IDE))
+a(CHEBI:somatostatin) -> p(HGNC:MME)
+a(CHEBI:somatostatin) -> sec(p(HGNC:MME))
+a(CHEBI:somatostatin) -> act(p(HGNC:MME))
+
+SET Evidence = " Furthermore,
+expression of progranulin in the hippocampus of AD
+mice reduces the density of amyloid plaques by enhanc-
+ing the activity of neprilysin 281 ."
+p(HGNC:GRN) -> act(p(HGNC:MME))
+p(HGNC:GRN) -| a(HBP:HBP00018)
+
+SET Evidence = "The antibiotic
+rifampicin likewise promoted Aβ42 clearance by induc-
+ing BBB-localized LRP1 and P glycoprotein 1  (REFS273,292) . "
+a(CHEBI:rifampicin) -> deg(a(CHEBI:"amyloid-beta polypeptide 42"))
+SET MeSHAnatomy = "Blood-Brain Barrier"
+a(CHEBI:rifampicin) -> act(p(HGNC:LRP1))
+a(CHEBI:rifampicin) -> act(p(FPLX:"GPIb_IX_V"))
+UNSET MeSHAnatomy
+
+SET Evidence = "Interestingly, resver-
+atrol downregulated RAGE as well as MMP9 — an effect
+that is related to decreased hippocampal load of Aβ42
+(REF.297) . "
+a(CHEBI:resveratrol) -| p(HGNC:AGER)
+a(CHEBI:resveratrol) -| p(HGNC:MMP9)
+SET MeSHAnatomy = "Hippocampus"
+a(CHEBI:resveratrol) -| a(CHEBI:"amyloid-beta polypeptide 42")
+UNSET MeSHAnatomy
+
+SET Evidence = "Activation of aquaporin 4 channels on perivascular
+astrocytes to aid the glymphatic elimination of cerebral
+Aβ and other toxic proteins is a potential strategy for
+stimulating clearance."
+act(p(HGNC:AQP4)) -> deg(a(CHEBI:"amyloid-beta"))

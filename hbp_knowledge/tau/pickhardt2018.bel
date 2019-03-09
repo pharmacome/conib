@@ -1,0 +1,223 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Screening of a neuronal cell model of Tau pathology for therapeutic compounds"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Esther Wollert"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/6ebac4dddc69402cb8fdd90c746ff6ee572c95af/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
+DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+SET STATEMENT_GROUP = "Esther"
+
+# Add statements below this comment
+
+SET Citation = {"PubMed","Neurobiol Aging. 2018 Dec 13;76:24-34. doi: 10.1016/j.neurobiolaging.2018.11.026. [Epub ahead of print]","30640040"}
+
+SET Evidence = "As shown before, Tau aggregation (on the level of
+ oligomeric and/or fibril aggregates) is toxic for cells."
+a(HBP:"Tau aggregates") -> bp(GO:"cell killing")
+
+SET Evidence = "The dose response screening identified compounds
+related to the inhibition of 3 major targets led to inhibition
+of Tau aggregation: p38 MAPK (7 out of 8 compounds in the initial
+library), VEGFR1/2 (3 of 8) and TGF (3 of 10). "
+act(p(HGNC:MAPK14)) -> a(HBP:"Tau aggregates")
+act(p(HGNC:FLT1)) -> a(HBP:"Tau aggregates")
+act(p(HGNC:KDR)) -> a(HBP:"Tau aggregates")
+act(p(FPLX:TGFB)) -> a(HBP:"Tau aggregates")
+
+SET Evidence = " Conversely, compounds related to HDAC inhibition
+(16 of 20) led to enhanced Tau aggregation, suggesting that HDAC
+activity is important for suppressing aggregation"
+act(p(FPLX:HDAC)) -| a(HBP:"Tau aggregates")
+
+SET Evidence = "Treatment with Givinostat (1.2 µM) lead to a
+nearly 7-fold increase in the fraction of ThS + cells (from
+~ 12% to ~ 84%, Fig. S4A and B, blue lines) compared to the
+uninduced control, and 2.5-fold compared to the induced control. "
+#Givinostat is a HDAC inhibitors
+a(PUBCHEM:"9804992") -| act(p(FPLX:HDAC))
+a(PUBCHEM:"9804992") -> a(HBP:"Tau aggregates")
+
+SET Evidence = "The GO terms enrichment for the molecular function
+related to the activator targets elicit the following terms ranking
+as first ten for p-value: (1) deacetylase activity, (2) hydrolase
+activity (acting on carbon-nitrogen but not peptide bond), (3)
+hydrolase activity (acting on carbonnitrogen but not peptide bonds
+in linear amides), (4) histone deacetylase activity, (5) protein
+deacetylase activity, (6) protein kinase binding, (7) transcription
+cofactor activity, (8) transcription repressor binding, (9) kinase
+binding, (10) protein kinase C binding. For the inhibitor targets
+the first ten terms returned where: (1) protein kinase activity,
+(2) phosphotransferase activity (alcohol group as acceptor), (3)
+protein serine/threonine kinase activity, (4) nucleotide binding,
+(5) ribonucleotide binding, (6) transferase activity, (7) transferase
+activity (transferring phosphorus-containing groups), (8) purine
+nucleotide binding, (9) purine ribonucleotide binding, (10) adenyl
+nucleotide binding."
+#targets involved in the regulation of the Tau aggregation
+#a(GO:"deacetylase activity") pos a(HBP:"Tau aggregates")
+#a(GO:"hydrolase activity, acting on carbon-nitrogen (but not peptide) bonds") pos a(HBP:"Tau aggregates")
+#a(GO:"hydrolase activity, acting on carbon-nitrogen (but not peptide) bonds, in linear amides") pos a(HBP:"Tau aggregates")
+#a(GO:"histone deacetylase activity") pos a(HBP:"Tau aggregates")
+#a(GO:"protein deacetylase activity") pos a(HBP:"Tau aggregates")
+#a(GO:"protein kinase binding") pos a(HBP:"Tau aggregates")
+#a(GO:"transcription coregulator activity") pos a(HBP:"Tau aggregates")
+#a(GO:" DNA-binding transcription repressor activity ") pos a(HBP:"Tau aggregates")
+#a(GO:"kinase binding") pos a(HBP:"Tau aggregates")
+#a(GO:"protein kinase C binding") pos a(HBP:"Tau aggregates")
+
+#a(GO:"protein kinase activity") neg a(HBP:"Tau aggregates")
+#a(GO:"phosphotransferase activity, alcohol group as acceptor") neg a(HBP:"Tau aggregates")
+#a(GO:"protein serine/threonine kinase activity") neg a(HBP:"Tau aggregates")
+#a(GO:"nucleotide binding") neg a(HBP:"Tau aggregates")
+#a(GO:"ribonucleotide binding") neg a(HBP:"Tau aggregates")
+#a(GO:"transferase activity") neg a(HBP:"Tau aggregates")
+#a(GO:"transferase activity, transferring phosphorus-containing groups") neg a(HBP:"Tau aggregates")
+#a(GO:"purine nucleotide binding") neg a(HBP:"Tau aggregates")
+#a(GO:"purine ribonucleotide binding") neg a(HBP:"Tau aggregates")
+#a(GO:"adenyl nucleotide binding") neg a(HBP:"Tau aggregates")
+
+SET Evidence = "Tab. 1A-B: Summary of the Tau aggregation modulators
+ (inhibitors = 18 (A), stimulators = 10 (B)) which show decrease /
+ increase in the amount of ThS + cells without affecting the expression
+ level of TauRD∆K compared to the compound untreated control. "
+#stimulators
+a(PUBCHEM:"9865515") -> a(HBP:"Tau aggregates")
+a(PUBCHEM:"4261") -> a(HBP:"Tau aggregates")
+a(PUBCHEM:"24756910") -> a(HBP:"Tau aggregates")
+a(PUBCHEM:"448537") -> a(HBP:"Tau aggregates")
+a(PUBCHEM:"5318517") -> a(HBP:"Tau aggregates")
+a(PUBCHEM:"71295844") -> a(HBP:"Tau aggregates")
+a(PUBCHEM:"42640") -> a(HBP:"Tau aggregates")
+a(PUBCHEM:"2746") -> a(HBP:"Tau aggregates")
+a(PUBCHEM:"71729974") -> a(HBP:"Tau aggregates")
+a(PUBCHEM:"53340666") -> a(HBP:"Tau aggregates")
+#inhibitors
+a(PUBCHEM:"11154925") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"4521392") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"11234052") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"46209426") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"6321424") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"11570805") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"156422") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"9880") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"3033825") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"5311272") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"49806720") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"9839311") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"447966") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"11655119") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"10435235") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"5833") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"10341154") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"4878") -| a(HBP:"Tau aggregates")
+#stimulator target
+a(PUBCHEM:"9865515") -- p(FPLX:HDAC)
+a(PUBCHEM:"4261") -- p(HGNC:HDAC1)
+a(PUBCHEM:"4261") -- p(HGNC:HDAC3)
+a(PUBCHEM:"24756910") -- p(FPLX:"HDAC_I")
+a(PUBCHEM:"24756910") -- p(FPLX:"HDAC_II")
+a(PUBCHEM:"24756910") -- p(HGNC:EGFR)
+a(PUBCHEM:"24756910") -- p(HGNC:ERBB2)
+a(PUBCHEM:"448537") -- p(FPLX:ESR)
+a(PUBCHEM:"5318517") -- p(FPLX:NFkappaB)
+a(PUBCHEM:"5318517") -- p(FPLX:Actin)
+a(PUBCHEM:"71295844") -- p(HGNC:GSK3A)
+a(PUBCHEM:"71295844") -- p(HGNC:GSK3B)
+a(PUBCHEM:"42640") -- p(HGNC:MDM4)
+a(PUBCHEM:"2746") -- p(FPLX:"HDAC_I")
+a(PUBCHEM:"71729974") -- p(HGNCGENEFAMILY:"Lysine demethylases")
+a(PUBCHEM:"53340666") -- p(HGNC:HDAC6)
+#inhibitor target
+a(PUBCHEM:"11154925") -- p(HGNC:KDR)
+a(PUBCHEM:"4521392") -- p(HGNC:TGFBR1)
+a(PUBCHEM:"11234052") -- p(HGNC:KDR)
+a(PUBCHEM:"46209426") -- p(FPLX:ROCK)
+a(PUBCHEM:"6321424") -> act(p(HGNCGENEFAMILY:"Chloride channel accessory"))
+a(PUBCHEM:"11570805") -- p(HGNC:MAPK14)
+a(PUBCHEM:"156422") -- p(HGNC:MAPK14)
+a(PUBCHEM:"9880") -| act(p(HGNC:AR))
+a(PUBCHEM:"3033825") -- p(HGNC:TNC)
+a(PUBCHEM:"5311272") -| act(p(FPLX:"Gamma_secretase"))
+a(PUBCHEM:"49806720") -| act(p(HGNC:ALK))
+a(PUBCHEM:"9839311") -- p(HGNC:SELE)
+a(PUBCHEM:"9839311") -- p(HGNC:ICAM1)
+a(PUBCHEM:"447966") -- p(HGNC:TGFBR1)
+a(PUBCHEM:"11655119") -- p(HGNC:TGFBR1)
+a(PUBCHEM:"11655119") -- p(HGNC:TGFBR2)
+a(PUBCHEM:"10435235") -| act(p(FPLX:"Gamma_secretase"))
+a(PUBCHEM:"5833") -- p(HGNC:AR)
+a(PUBCHEM:"10341154") -- p(HGNC:MAPK14)
+a(PUBCHEM:"4878") -- p(HGNC:LCK)
+a(PUBCHEM:"4878") -- p(HGNC:FYN)
