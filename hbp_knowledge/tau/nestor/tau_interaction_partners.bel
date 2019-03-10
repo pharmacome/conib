@@ -37,8 +37,6 @@ DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorger
 DEFINE NAMESPACE CTO            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
 DEFINE NAMESPACE DO             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170725.belns"
 DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
-DEFINE NAMESPACE SCOMP          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170725.belns"
-DEFINE NAMESPACE SFAM           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170725.belns"
 
 # Namespaces defined with regular expressions
 # -------------------------------------------
@@ -268,7 +266,7 @@ SET TauIsoform = "Isoform F (441 aa)"
 #ABac = PP2A
 
 SET Method = {"Enhanced Chemioluminescence visualization (ECL)", "SDS-PAGE", "Western Blot", "Microtubule Co-Sedimentation Assay", "Dephosphorylation Assay, Colorimetric"}
-act(complex(SCOMP:"PP2A Complex")) -- p(HBP:"microtubule-binding region")
+act(complex(GO:"protein phosphatase type 2A complex")) -- p(HBP:"microtubule-binding region")
 p(HBP:"microtubule-binding region") isA p(HGNC:MAPT)
 act(complex(GO:microtubule)) pos p(HBP:"microtubule-binding region")
 
@@ -277,14 +275,14 @@ binding site for tau, and ABaC and tau bind to different domains on MTs."
 
 p(HGNC:PPP2CA) -- complex(GO:microtubule)
 p(HGNC:PPP2CA) -> complex(p(HGNC:PPP2CA), complex(GO:microtubule))
-p(HGNC:PPP2CA) isA complex(SCOMP:"PP2A Complex")
+#: FIXME p(HGNC:PPP2CA) isA complex(GO:"protein phosphatase type 2A complex")
 p(HGNC:MAPT) -- complex(GO:microtubule)
 p(HGNC:MAPT) -> complex(p(HGNC:MAPT), complex(GO:microtubule))
 
 SET Evidence = "Thus, MTs inhibited the rate of tau dephosphorylation by ABaC."
 
-act(complex(GO:microtubule)) =| act(complex(SCOMP:"PP2A Complex"))
-act(complex(SCOMP:"PP2A Complex")) -> rxn(reactants(p(HGNC:MAPT, pmod(Ph))), products(p(HGNC:MAPT), a(CHEBI:"phosphate(3-)")))
+act(complex(GO:microtubule)) =| act(complex(GO:"protein phosphatase type 2A complex"))
+act(complex(GO:"protein phosphatase type 2A complex")) -> rxn(reactants(p(HGNC:MAPT, pmod(Ph))), products(p(HGNC:MAPT), a(CHEBI:"phosphate(3-)")))
 rxn(reactants(p(HGNC:MAPT, pmod(Ph))), products(p(HGNC:MAPT), a(CHEBI:"phosphate(3-)"))) neg p(HGNC:MAPT, pmod(Ph))
 UNSET Method
 UNSET TauIsoform
@@ -319,23 +317,23 @@ a hypothesis which is also supported by the fact that a tau variant deleted for 
 to interact with Hsp90 under immunoprecipitation conditions (Fig. 2B)."
 
 SET Method = {"SDS-PAGE", "Western Blot", "Immunoprecipitation", "Dot Blot"}
-p(SFAM:"HSP90 Family") -- p(HBP:"VQIVYK motif")
+p(FPLX:HSP90) -- p(HBP:"VQIVYK motif")
 p(HBP:"VQIVYK motif") isA p(HBP:"tubulin-binding repeat 4")
-p(SFAM:"HSP90 Family") -> complex(p(SFAM:"HSP90 Family"), p(HGNC:MAPT))
-p(HBP:"VQIVYK motif") -> complex(p(SFAM:"HSP90 Family"), p(HGNC:MAPT))
+p(FPLX:HSP90) -> complex(p(FPLX:HSP90), p(HGNC:MAPT))
+p(HBP:"VQIVYK motif") -> complex(p(FPLX:HSP90), p(HGNC:MAPT))
 
 SET Evidence = "To test the effect of Hsp90 on tau phosphorylation, this protein
 was mixed with tau protein in the presence of GSK-3 and ATP. Figure 4 shows that tau phosphorylation increases
 in the presence of increased added amounts of Hsp90."
 
-p(SFAM:"HSP90 Family") pos p(HGNC:MAPT, pmod(Ph))
+p(FPLX:HSP90) pos p(HGNC:MAPT, pmod(Ph))
 
 SET Evidence = "Figure 5 shows the presence of fibrillar polymers when the Hsp90 was mixed with tau protein. These filaments are
 similar to tau aggregates assembled in the presence of quinones [19] such as juglone, used here as a positive
 control (Fig. 5C). No filaments were observed in control samples of tau2R alone (Fig. 5A) or Hsp90 alone
 (data not shown)."
 
-p(SFAM:"HSP90 Family") pos bp(GO:"neurofibrillary tangle assembly")
+p(FPLX:HSP90) pos bp(GO:"neurofibrillary tangle assembly")
 a(CHEBI:juglone) -> bp(GO:"neurofibrillary tangle assembly")
 UNSET Method
 
@@ -565,9 +563,9 @@ UNSET Species
 SET Evidence = "In addition to its peptidyl–prolyl isomerase activity, FKBP52 serves as a molecular chaperone. This activity depends on its tetratricopeptide
 repeat domain (27) to which the molecular chaperone HSP90 and other proteins bind."
 
-p(HGNC:FKBP4, frag(270_386)) -- p(SFAM:"HSP90 Family")
+p(HGNC:FKBP4, frag(270_386)) -- p(FPLX:HSP90)
 p(HGNC:FKBP4, frag(270_386)) isA p(HGNC:FKBP4)
-p(HGNC:FKBP4, frag(270_386)) isA complex(p(HGNC:FKBP4), p(SFAM:"HSP90 Family"))
+p(HGNC:FKBP4, frag(270_386)) isA complex(p(HGNC:FKBP4), p(FPLX:HSP90))
 
 UNSET Method
 
@@ -603,7 +601,7 @@ Conversely, knockdown of FKBP51 with siRNA increased the association of endogeno
 Moreover, endogenous p23 binding to tau was only detectable when FKBP51 was knocked down (Fig. 4C)."
 
 p(HGNC:FKBP5) neg complex(p(HGNC:AHSA1), p(HGNC:MAPT))
-p(HGNC:FKBP5) pos complex(p(SFAM:"HSP90 Family"), p(HGNC:MAPT))
+p(HGNC:FKBP5) pos complex(p(FPLX:HSP90), p(HGNC:MAPT))
 p(HGNC:FKBP5) -| complex(p(HGNC:PTGES3), p(HGNC:MAPT))
 
 SET Evidence = "Fluorescent imaging of these extracts revealed that wildtype FKBP51 promoted microtubule
@@ -620,9 +618,9 @@ SET Evidence = "This coordination of kinase triage decisions by Hsp90 requires t
 The Hsp90/Cdc37 machine is essential for the maturation of a number of kinases, including Akt"
 
 SET Method = {"Western Blot", "Immunocytochemistry", "RNA Interference, siRNA"}
-p(HGNC:CDC37) pos act(p(SFAM:"HSP90 Family"))
-p(HGNC:CDC37) isA complex(p(HGNC:CDC37), p(SFAM:"HSP90 Family"))
-complex(p(HGNC:CDC37), p(SFAM:"HSP90 Family")) pos kin(p(HGNC:AKT1))
+p(HGNC:CDC37) pos act(p(FPLX:HSP90))
+p(HGNC:CDC37) isA complex(p(HGNC:CDC37), p(FPLX:HSP90))
+complex(p(HGNC:CDC37), p(FPLX:HSP90)) pos kin(p(HGNC:AKT1))
 
 SET Evidence = "Quantification of the Western blot showed that Cdc37 knockdown reduced phospho-Thr-231,
 phospho-Ser-199/Ser-202, phospho-Ser-396/Ser-404, and phospho-Ser-262/Ser-356 tau."
@@ -640,8 +638,8 @@ Cdc37 might modulate Hsp90 inhibitor efficacy for phosphotau. M17 cells were tra
 treated with 1 μM 17-AAG for 24 h. Indeed, reducing Cdc37 synergized with Hsp90 inhibition to reduce tau levels more
 potently than either condition alone (Fig. 6A)."
 
-a(CHEBI:tanespimycin) -| act(p(SFAM:"HSP90 Family"))
-act(p(SFAM:"HSP90 Family")) neg deg(p(HGNC:MAPT))
+a(CHEBI:tanespimycin) -| act(p(FPLX:HSP90))
+act(p(FPLX:HSP90)) neg deg(p(HGNC:MAPT))
 p(HGNC:CDC37) -| deg(p(HGNC:MAPT))
 
 SET Evidence = "Western blot analysis for a panel of tau kinases showed that only the levels of endogenous
@@ -694,9 +692,9 @@ p(HGNC:S100B) -- p(HGNC:MAPT)
 a(CHEBI:"calcium(2+)") -> act(p(HGNC:S100B))
 p(HGNC:S100B) isA complex(p(HGNC:S100B), p(HGNC:MAPT))
 p(HGNC:MAPT) isA complex(p(HGNC:S100B), p(HGNC:MAPT))
-act(p(SFAM:"CAMK2 Family")) -> p(HGNC:MAPT, pmod(Ph))
-complex(p(HGNC:S100B), p(HGNC:MAPT)) -| act(p(SFAM:"CAMK2 Family"))
-act(p(HGNC:S100B)) -| act(p(SFAM:"CAMK2 Family"))
+act(p(FPLX:"CAMK2_family")) -> p(HGNC:MAPT, pmod(Ph))
+complex(p(HGNC:S100B), p(HGNC:MAPT)) -| act(p(FPLX:"CAMK2_family"))
+act(p(HGNC:S100B)) -| act(p(FPLX:"CAMK2_family"))
 a(CHEBI:"zinc(2+)") -> act(p(HGNC:S100B))
 UNSET Method
 
