@@ -1,7 +1,7 @@
 #######################
 # Document Properties #
 #######################
-SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved"
+SET DOCUMENT Copyright   = "Copyright © 2018-2019 Fraunhofer Institute SCAI, All rights reserved."
 SET DOCUMENT Licenses    = "CC BY 4.0"
 SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
 
@@ -10,30 +10,24 @@ SET DOCUMENT Authors     = "Rana Aldisi"
 SET DOCUMENT Version     = "1.0.0"
 SET DOCUMENT Description = ""
 
-
 ###############
 # Definitions #
 ###############
 
 # Namespaces hosted on https://github.com/pharmacome/terminology
 # --------------------------------------------------------------
-
-DEFINE NAMESPACE MESH  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh.belns"
-DEFINE NAMESPACE CHEBI AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/chebi-names.belns"
-DEFINE NAMESPACE HGNC  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/hgnc-symbols.belns"
-DEFINE NAMESPACE GO    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/go.belns"
-DEFINE NAMESPACE HBP   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/export/hbp-names.belns"
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/chebi-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/go.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/hgnc-symbols.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/master/external/hgnc.genefamily.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mgi-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/rgd-names.belns"
 
 # Namespaces hosted on https://github.com/sorgerlab/famplex
 # ---------------------------------------------------------
-DEFINE NAMESPACE FPLX  AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/1b7e14ec0fd02ee7ed71514c6e267f57d5641a4b/export/famplex.belns"
-
-# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel
-# --------------------------------------------------------------------
-DEFINE NAMESPACE GFAM  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hgnc-gene-families/hgnc-gene-families-20170710.belns"
-DEFINE NAMESPACE MESHC AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-chemicals/mesh-chemicals-20170725.belns"
-DEFINE NAMESPACE MGI   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
-DEFINE NAMESPACE RGD   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170725.belns"
+DEFINE NAMESPACE FPLX            AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/1b7e14ec0fd02ee7ed71514c6e267f57d5641a4b/export/famplex.belns"
 
 # Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
 # --------------------------------------------------------------------------------
@@ -47,9 +41,9 @@ DEFINE ANNOTATION MeSHDisease AS URL "https://arty.scai.fraunhofer.de/artifactor
 
 DEFINE ANNOTATION Species AS PATTERN "\d+"
 
-#####################################################################################
-#Statements
-#####################################################################################
+##############
+# Statements #
+##############
 
 SET Citation={"PubMed","18986241"}
 
@@ -84,15 +78,15 @@ These clinical pathobiologic studies suggest that MCI,
 in general, represents a prodromal or preclinical
 stage of AD."
 
-#D060825= Cognitive Dysfunction, D008569=Memory Disorders
+# D060825 = Cognitive Dysfunction, D008569=Memory Disorders
 path(HBP:aMCI) -- path(MESH:D008569)
 path(HBP:mdMCI) -- path(MESH:D060825)
-#D003704 = Dementia
+# D003704 = Dementia
 path(HBP:aMCI) -- path(MESH:D003704)
 path(HBP:aMCI) -- path(MESH:D000544)
 
 SET Disease="Alzheimer's disease"
-#D060825= Cognitive Dysfunction, D062706 = Prodormal Symptoms
+# D060825 = Cognitive Dysfunction, D062706 = Prodormal Symptoms
 path(MESH:D060825) -- path(MESH:D062706)
 
 UNSET Disease
@@ -368,10 +362,10 @@ NGF, but is approximately fivefold less active than the mature
 NGF peptide [62,63]."
 
 SET MeSHAnatomy="Cerebral Cortex"
-path(MESH:D060825) -> a(MESHC:"pro-nerve growth factor, human")
-path(MESH:D000544) -> a(MESHC:"pro-nerve growth factor, human")
+path(MESH:D060825) -> a(MESH:"pro-nerve growth factor, human")
+path(MESH:D000544) -> a(MESH:"pro-nerve growth factor, human")
 #GO:0031175 = neuron projection development
-complex(a(MESHC:"pro-nerve growth factor, human"), p(HGNC:NTRK1)) -> bp(GO:"GO:0031175")
+complex(a(MESH:"pro-nerve growth factor, human"), p(HGNC:NTRK1)) -> bp(GO:"GO:0031175")
 complex(p(HGNC:NGF), p(HGNC:NTRK1)) -> bp(GO:"GO:0031175")
 
 UNSET MeSHAnatomy
@@ -388,7 +382,7 @@ SET Disease="Alzheimer's disease"
 path(MESH:D000544) -| p(HGNC:NTRK1)
 #D003072 = Cognition Disorders
 p(HGNC:NTRK1) neg path(MESH:D003072)
-a(MESHC:"pro-nerve growth factor, human") pos path(MESH:D003072)
+a(MESH:"pro-nerve growth factor, human") pos path(MESH:D003072)
 
 UNSET Disease
 UNSET MeSHAnatomy
@@ -401,7 +395,7 @@ AD (Figure 1A). In fact, significantly increased cerebrospinal fluid
 potential utility of NGF as a diagnostic biomarker."
 
 p(HGNC:NTRK1) biomarkerFor path(MESH:D000544)
-a(MESHC:"pro-nerve growth factor, human") biomarkerFor path(MESH:D000544)
+a(MESH:"pro-nerve growth factor, human") biomarkerFor path(MESH:D000544)
 
 SET MeSHAnatomy="Cerebrospinal Fluid"
 
@@ -417,7 +411,7 @@ shown to bind p75NTR with high affinity and promote neuronal
 apoptosis [55]."
 
 #GO:0006915 = apoptotic process
-complex(a(MESHC:"pro-nerve growth factor, human"), p(HGNC:NGFR)) -> bp(GO:"GO:0006915")
+complex(a(MESH:"pro-nerve growth factor, human"), p(HGNC:NGFR)) -> bp(GO:"GO:0006915")
 
 SET Evidence="It is also important to note that TrkA
 reduces and p75NTR activates β-secretase strike (BACE) cleavage of
@@ -453,7 +447,7 @@ p75NTR-mediated apoptosis following proNGF treatment [57],
 suggesting that sortilin is a p75NTR binding partner associated
 with the initiation of cell death [51,58]"
 
-composite(complex(p(HGNC:NGFR), p(HGNC:SORT1)), a(MESHC:"pro-nerve growth factor, human")) -> bp(GO:"GO:0006915")
+composite(complex(p(HGNC:NGFR), p(HGNC:SORT1)), a(MESH:"pro-nerve growth factor, human")) -> bp(GO:"GO:0006915")
 path(MESH:D000544) -- p(HGNC:SORT1)
 
 SET Evidence="Bruno and Cuello reported
@@ -526,7 +520,7 @@ act(p(HGNC:NGF)) -> bp(GO:"GO:0000165")
 bp(GO:"GO:0000165") -- bp(GO:"GO:0006915")
 #GO:0030182 = neuron differentiation
 bp(GO:"GO:0000165") -- bp(GO:"GO:0030182")
-p(GFAM:"Mitogen-activated protein kinases", pmod(Ph)) -> act(p(GFAM:"Mitogen-activated protein kinases"))
+p(HGNCGENEFAMILY:"Mitogen-activated protein kinases", pmod(Ph)) -> act(p(HGNCGENEFAMILY:"Mitogen-activated protein kinases"))
 
 SET Evidence="The
 classic MAPK cascade involves activation of the small GTPase
@@ -547,7 +541,7 @@ bp(GO:"GO:0000165") -> act(p(FPLX:P90RSK)) #RSK
 bp(GO:"GO:0000165") -> act(p(HGNC:MAPKAPK2))
 act(p(HGNC:MAPKAPK2)) -> p(HGNC:ELK1, pmod(Ph))
 act(p(HGNC:MAPKAPK2)) -> p(HGNC:CREB1, pmod(Ph))
-act(p(GFAM:"Mitogen-activated protein kinases")) -- bp(GO:"GO:0031175")
+act(p(HGNCGENEFAMILY:"Mitogen-activated protein kinases")) -- bp(GO:"GO:0031175")
 
 SET Evidence="A second downstream pathway is the PI3K/Akt
 pathway that regulates neurotrophin-mediated survival responses
@@ -606,14 +600,14 @@ in PC12 cells [116], making this a potential lead compound for
 chemical modification and clinical trial assessment."
 
 #C545053 = gambogic amide
-complex(a(MESHC:"gambogic amide"), p(HGNC:NTRK1)) => p(HGNC:NTRK1, pmod(Ph))
+complex(a(MESH:"gambogic amide"), p(HGNC:NTRK1)) => p(HGNC:NTRK1, pmod(Ph))
 p(HGNC:NTRK1, pmod(Ph)) -> bp(GO:"GO:0043491")
 p(HGNC:NTRK1, pmod(Ph)) -> bp(GO:"GO:0000165")
 
 SET CellLine="PC12"
 
-a(MESHC:"gambogic amide") -| bp(HBP:Excitotoxicity)
-a(MESHC:"gambogic amide") -> bp(GO:"GO:0031175")
+a(MESH:"gambogic amide") -| bp(HBP:Excitotoxicity)
+a(MESH:"gambogic amide") -> bp(GO:"GO:0031175")
 
 UNSET CellLine
 
@@ -627,12 +621,12 @@ distributed within the CNS [118]"
 
 SET MeSHAnatomy="Central Nervous System"
 
-p(GFAM:"Cholinergic receptors nicotinic subunits") hasMembers list(p(HGNC:CHRNA1)\
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") hasMembers list(p(HGNC:CHRNA1)\
 , p(HGNC:CHRNA2), p(HGNC:CHRNA3), p(HGNC:CHRNA4), p(HGNC:CHRNA5), p(HGNC:CHRNA6), \
 p(HGNC:CHRNA7), p(HGNC:CHRNA9), p(HGNC:CHRNA10), p(HGNC:CHRNB1), p(HGNC:CHRNB2),\
 p(HGNC:CHRNB3), p(HGNC:CHRNB4), p(HGNC:CHRND), p(HGNC:CHRNG))
 
-p(GFAM:"Cholinergic receptors muscarinic") hasMembers list(p(HGNC:CHRM1), p(HGNC:CHRM2),\
+p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic") hasMembers list(p(HGNC:CHRM1), p(HGNC:CHRM2),\
 p(HGNC:CHRM3), p(HGNC:CHRM4), p(HGNC:CHRM5))
 
 UNSET MeSHAnatomy
@@ -735,13 +729,13 @@ SET Species="10090"
 
 #(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one (i.e AF267B)
 
-a(MESHC:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| path(MESH:D060825)
-a(MESHC:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| path(MESH:D024801)
-a(MESHC:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| a(CHEBI:"amyloid-beta polypeptide 42")
-a(MESHC:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -> act(p(MGI:Chrm1))
+a(MESH:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| path(MESH:D060825)
+a(MESH:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| path(MESH:D024801)
+a(MESH:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| a(CHEBI:"amyloid-beta polypeptide 42")
+a(MESH:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -> act(p(MGI:Chrm1))
 act(p(MGI:Chrm1)) -> act(p(MGI:Adam17))
-a(MESHC:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| p(MGI:Bace1)
-a(MESHC:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| act(p(MGI:Gsk3b))
+a(MESH:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| p(MGI:Bace1)
+a(MESH:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| act(p(MGI:Gsk3b))
 
 UNSET Species
 UNSET Disease
@@ -761,13 +755,13 @@ hydrolase cathepsin D mRNA was upregulated in AD [134–136]."
 
 #D016708 = Synaptophysin
 path(MESH:D000544) -| r(HGNC:SYP)
-path(MESH:D000544) -| r(GFAM:"Synaptotagmins")
+path(MESH:D000544) -| r(HGNCGENEFAMILY:"Synaptotagmins")
 path(MESH:D000544) causesNoChange r(HGNC:VAMP1)
 path(MESH:D000544) causesNoChange r(HGNC:SNAP29)
 #GO:0031629 = synaptic vesicle fusion to presynaptic active zone membrane
-p(GFAM:"Synaptotagmins") -- bp(GO:"GO:0031629")
+p(HGNCGENEFAMILY:"Synaptotagmins") -- bp(GO:"GO:0031629")
 #GO:0007269 = neurotransmitter secretion
-p(GFAM:"Synaptotagmins") -- bp(GO:"GO:0007269")
+p(HGNCGENEFAMILY:"Synaptotagmins") -- bp(GO:"GO:0007269")
 path(MESH:D000544) causesNoChange r(HGNC:APP)
 path(MESH:D000544) causesNoChange r(HGNC:NOTCH1)
 path(MESH:D000544) -> r(HGNC:CTSD)
@@ -785,8 +779,8 @@ SET Disease="Alzheimer's disease"
 
 path(MESH:D000544) -| r(HGNC:PPP1CA)
 path(MESH:D000544) -| r(HGNC:PPP1CC)
-p(GFAM:"Protein phosphatase catalytic subunits") -> p(HGNC:MAPT, pmod(Ph))
-act(p(GFAM:"Protein phosphatase catalytic subunits")) -| bp(HBP:hyperphosphorylation)
+p(HGNCGENEFAMILY:"Protein phosphatase catalytic subunits") -> p(HGNC:MAPT, pmod(Ph))
+act(p(HGNCGENEFAMILY:"Protein phosphatase catalytic subunits")) -| bp(HBP:hyperphosphorylation)
 bp(HBP:hyperphosphorylation) -- path(MESH:D016874)
 
 UNSET Disease
@@ -1010,12 +1004,12 @@ and provide neuroprotective effects in models of AD [194]."
 
 SET Disease="Alzheimer's disease"
 #latrepirdine (i.e dimebon)
-a(MESHC:"latrepirdine") -| act(p(HGNC:BCHE))
-a(MESHC:"latrepirdine") -| act(p(HGNC:ACHE))
+a(MESH:"latrepirdine") -| act(p(HGNC:BCHE))
+a(MESH:"latrepirdine") -| act(p(HGNC:ACHE))
 #GO:0098989 = NMDA selective glutamate receptor signaling pathway
-a(MESHC:"latrepirdine") -| bp(GO:"GO:0098989")
+a(MESH:"latrepirdine") -| bp(GO:"GO:0098989")
 #GO:0046902 = regulation of mitochondrial membrane permeability
-a(MESHC:"latrepirdine") -| bp(GO:"GO:0046902")
-a(MESHC:"latrepirdine") -> bp(MESH:D000066829)
+a(MESH:"latrepirdine") -| bp(GO:"GO:0046902")
+a(MESH:"latrepirdine") -> bp(MESH:D000066829)
 
 UNSET Disease

@@ -16,14 +16,14 @@ SET DOCUMENT Description = ""
 
 # Namespaces hosted on https://github.com/pharmacome/terminology
 # --------------------------------------------------------------
-DEFINE NAMESPACE MESH AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh.belns"
-DEFINE NAMESPACE CHEBI AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/chebi-names.belns"
-DEFINE NAMESPACE HGNC AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/hgnc-symbols.belns"
-DEFINE NAMESPACE GO AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/go.belns"
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/chebi-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/go.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/hgnc-symbols.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/d67144bc27a21626a514837b3b4382413dd6866b/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh.belns"
 
 # Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel
 # --------------------------------------------------------------------
-DEFINE NAMESPACE GFAM AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hgnc-gene-families/hgnc-gene-families-20170710.belns"
 
 # Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
 # --------------------------------------------------------------------------------
@@ -314,7 +314,7 @@ membrane depolarization occurs and synaptic glutamate
 concentrations are at peak levels (ie, when
 neuronal firing occurs)."
 
-a(CHEBI:"magnesium(2+)") -| complex(p(GFAM:"Glutamate ionotropic receptor NMDA type subunits"), a(CHEBI:"calcium(2+)"))
+a(CHEBI:"magnesium(2+)") -| complex(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"), a(CHEBI:"calcium(2+)"))
 
 SET Evidence="In Alzheimer's disease,
 however, it is believed that Mg2+ is displaced from
@@ -329,8 +329,8 @@ and, hence, to the absence of LTP."
 
 SET Disease="Alzheimer's disease"
 
-path(MESH:D000544) -| complex(p(GFAM:"Glutamate ionotropic receptor NMDA type subunits"), a(CHEBI:"magnesium(2+)"))
-act(p(GFAM:"Glutamate ionotropic receptor NMDA type subunits")) -| bp(MESH:D017774)
+path(MESH:D000544) -| complex(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"), a(CHEBI:"magnesium(2+)"))
+act(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits")) -| bp(MESH:D017774)
 
 UNSET Disease
 
@@ -347,7 +347,7 @@ overactivity without also hindering normal
 neurotransmission."
 
 SET Disease="Alzheimer's disease"
-a(CHEBI:memantine) -| complex(p(GFAM:"Glutamate ionotropic receptor NMDA type subunits"), a(CHEBI:"calcium(2+)"))
+a(CHEBI:memantine) -| complex(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"), a(CHEBI:"calcium(2+)"))
 #D009435 = Synaptic Transmission
 a(CHEBI:memantine) causesNoChange bp(MESH:D009435)
 
