@@ -271,11 +271,11 @@ SET Gender = "Male"
 p(HGNC:ADNP) reg p(HGNC:APOE)
 a(PUBCHEM:9832404) -- p(HGNC:APOE)
 p(HGNC:APOE) -> path(MESH:"Alzheimer Disease")
-p(HGNC:"IQCJ-SCHIP1") -> bp(GO:"calcium-mediated signaling")
-p(HGNC:"IQCJ-SCHIP1") -> bp(GO:"action potential")
-p(HGNC:"IQCJ-SCHIP1") -> bp(MESH:"Neuronal Outgrowth")
-p(HGNC:ADNP) -- p(HGNC:"IQCJ-SCHIP1")
-a(PUBCHEM:9832404) -- p(HGNC:"IQCJ-SCHIP1")
+g(HGNC:"IQCJ-SCHIP1") -> bp(GO:"calcium-mediated signaling")
+g(HGNC:"IQCJ-SCHIP1") -> bp(GO:"action potential")
+g(HGNC:"IQCJ-SCHIP1") -> bp(MESH:"Neuronal Outgrowth")
+p(HGNC:ADNP) -- g(HGNC:"IQCJ-SCHIP1")
+a(PUBCHEM:9832404) -- g(HGNC:"IQCJ-SCHIP1")
 p(HGNC:LIPA) -> bp(GO:"lipid metabolic process")
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) reg act(p(HGNC:LIPA))
 a(PUBCHEM:9832404) -- p(HGNC:NLGN2)
@@ -344,7 +344,7 @@ a(PUBCHEM:9832404) reg p(HGNC:MTOR)
 p(HGNC:ADNP) reg p(HGNC:MTOR)
 p(HGNC:MTOR) -- bp(GO:translation)
 p(HGNC:MTOR) -- bp(GO:autophagy)
-p(HGNC:MTOR) -- bp(GO:"actin cytoskeleton")
+p(HGNC:MTOR) -- a(GO:"actin cytoskeleton")
 
 SET Evidence = "Female cortical Hist1h3b was found to be regulated only by the Adnp+/– genotype."
 SET Gender = "Female"
@@ -365,7 +365,7 @@ p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) neg bp(MESH:"Body Height")
 
 SET Evidence = "Supplemental Figure 12 shows marked delays in weight gain
 that were also sex dependent (apparent earlier in females)."
-p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) neg bp(MESH:"Weight Gain")
+p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) neg path(MESH:"Weight Gain")
 
 SET Evidence = "Specifically, the standing time and step cycle parameters
 indicated better performance in males, with significant impairments
@@ -379,10 +379,10 @@ found a highly significant impairment (decreased latency) in male Adnp+/– mice
 (Figure 7A). The females were not affected in this behavior, indicating
 sex differences in motor behavior and development in the haploinsufficient mice"
 SET Gender = "Male"
-p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| bp(MESH:"Motor Activity")
-a(PUBCHEM:9832404) -> bp(MESH:"Motor Activity")
+p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| path(MESH:"Motor Activity")
+a(PUBCHEM:9832404) -> path(MESH:"Motor Activity")
 SET Gender = "Female"
-p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) cnc bp(MESH:"Motor Activity")
+p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) cnc path(MESH:"Motor Activity")
 UNSET Gender
 
 SET Evidence = "Likewise, Adnp+/– males, but not females,
@@ -416,10 +416,10 @@ but not males, with the female mice exhibiting impaired odor discrimination
 that was also restored by NAP treatment (Figure 7E;
 for more detail, see Supplemental Figure 14)."
 SET Gender = "Female"
-p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| bp(MESH:Smell)
-a(PUBCHEM:9832404) -> bp(MESH:Smell)
+p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| path(MESH:Smell)
+a(PUBCHEM:9832404) -> path(MESH:Smell)
 SET Gender = "Male"
-p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) cnc bp(MESH:Smell)
+p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) cnc path(MESH:Smell)
 UNSET Gender
 
 SET Evidence = "As with object recognition memory, the deficient social memory
@@ -430,4 +430,4 @@ p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| bp(GO:"social behavior")
 a(PUBCHEM:9832404) -> bp(GO:"social behavior")
 UNSET Gender
 
-UNSET Species 
+UNSET Species
