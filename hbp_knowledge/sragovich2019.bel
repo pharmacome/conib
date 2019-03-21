@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns" 
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hbp-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 #DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 #DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -140,24 +140,24 @@ CB-treated males (Fig. 2e) and a sex difference, with no preference for a specif
 females (Supplemental Fig. S2E), thus corroborating previous findings observed for DD-treated mice"
 bp(MESH:Smell) reg bp(GO:"social behavior")
 SET Gender = "Male"
-a(CHEBI:chlorobutanol) cnc bp(MESH:Smell)
+a(CHEBI:chlorobutanol) cnc path(MESH:Smell)
 SET Gender = "Female"
-a(CHEBI:chlorobutanol) -| bp(MESH:Smell)
+a(CHEBI:chlorobutanol) -| path(MESH:Smell)
 UNSET Gender
 
 SET Evidence = "Interestingly, in CB-treated males, Adnp haploinsufficiency
 showed a reduction in the total time spent with the different odors, which was significantly increased upon NAP
 treatment (Fig. 2e, inset)."
 SET Gender = "Male"
-composite(a(CHEBI:chlorobutanol),p(HGNC:ADNP,pmod(MESH:Haploinsufficiency))) -| bp(MESH:Smell)
-composite(a(PUBCHEM:9832404),p(HGNC:ADNP,pmod(MESH:Haploinsufficiency))) -> bp(MESH:Smell)
+composite(a(CHEBI:chlorobutanol),p(HGNC:ADNP,pmod(MESH:Haploinsufficiency))) -| path(MESH:Smell)
+composite(a(PUBCHEM:9832404),p(HGNC:ADNP,pmod(MESH:Haploinsufficiency))) -> path(MESH:Smell)
 UNSET Gender
 
 SET Evidence = "As opposed to this, in females, CB-treated Adnp haploinsufficient mice showed significant
 increased total odor sniffing time, which was significantly reduced by NAP treatment (Supplemental Fig. S2E, inset)."
 SET Gender = "Female"
-composite(a(CHEBI:chlorobutanol),p(HGNC:ADNP,pmod(MESH:Haploinsufficiency))) -> bp(MESH:Smell)
-composite(a(PUBCHEM:9832404),p(HGNC:ADNP,pmod(MESH:Haploinsufficiency))) -| bp(MESH:Smell)
+composite(a(CHEBI:chlorobutanol),p(HGNC:ADNP,pmod(MESH:Haploinsufficiency))) -> path(MESH:Smell)
+composite(a(PUBCHEM:9832404),p(HGNC:ADNP,pmod(MESH:Haploinsufficiency))) -| path(MESH:Smell)
 UNSET Gender
 
 SET Evidence = "Given the fact that children carrying ADNP mutations (ADNP syndrome children) exhibit motor impairments,
