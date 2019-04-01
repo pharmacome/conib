@@ -77,6 +77,9 @@ SET Species = "10090"
 SET Evidence = "The measurements showed similar patterns in both tested brain areas, with Adnp deficiency resulting in substantial
 decreases in spine density (male and female mice) and increases in PSD95-asymmetric shaft synapses (males only, as indicated
 by increased localization of PSD95 in dendritic shafts rather than spines), which were all rescued by NAP treatment."
+#PSD95 = DLG4
+#Davunetide is also called NAP peptide(MeSH)
+#SET Confidence = " "
 SET MeSHAnatomy = {"CA1 Region, Hippocampal","Pyramidal Cells","Cerebral Cortex"}
 SET Gender = {"Female","Male"}
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| a(GO:"dendritic spine")
@@ -89,61 +92,71 @@ UNSET Gender
 
 SET Evidence = "In female mice, NAP treatment significantly decreased shaft synapses"
 # PSD95-asymmetric shaft synapses
+SET Confidence = "High"
 SET Gender = "Female"
 a(PUBCHEM:9832404) -| a(GO:"dendritic shaft")
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Closer inspection suggested a more severe Adnp+/– genotype effect on total spine density in the male cortex compared
 with the hippocampus (Figure 1A, –1.56-fold reduction compared with Figure 2A, –1.83-fold reduction compared with the Adnp+/+ genotype)."
+SET Confidence = "High"
 SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex"}
 SET Gender = "Male"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| a(GO:"dendritic spine")
 UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "In hippocampal CA1 pyramidal cells, all dendritic spine subtypes were reduced in the Adnp+/– mice,
 except for the thin spines observed in males. The spine loss was rescued by NAP treatment, except for the stubby spines seen in
 males (Supplemental Figure 1)."
+SET Confidence = "Medium"
 SET MeSHAnatomy = {"CA1 Region, Hippocampal","Pyramidal Cells"}
-SET Gender = {"Female","Male"}
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| a(GO:"dendritic spine")
 a(PUBCHEM:9832404) -> a(GO:"dendritic spine")
 UNSET MeSHAnatomy
-UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Supplemental Figure 2 shows the cortical spine data indicating a significant genotype effect
 (P < 0.01) and NAP rescue for all subtypes in males (P < 0.05)."
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Cerebral Cortex"
 SET Gender = "Male"
-p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| a(GO:"dendritic spine")
 a(PUBCHEM:9832404) -> a(GO:"dendritic spine")
 UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Further sex comparisons revealed differences in excitatory synapse numbers, with the Adnp+/– male
 mice showing significantly reduced hippocampal spine density, coupled with increased immature
 pathologic excitatory shaft synapses compared with Adnp+/– female mice (P < 0.01, Supplemental Table 2)"
+SET Confidence = "High "
 SET MeSHAnatomy = "Hippocampus"
 SET Gender = "Male"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| a(GO:"dendritic spine")
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -> a(GO:"excitatory synapse")
 UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "This genotype- and sex-dependent pathology also extended to the cortex, with increased PSD95
 shaft synapse density in Adnp+/– males compared with Adnp+/– females (P < 0.01), and was rescued by
 NAP treatment."
+SET Confidence = "High"
 SET MeSHAnatomy = "Cerebral Cortex"
 SET Gender = "Male"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -> p(HGNC:DLG4)
 a(PUBCHEM:9832404) -| p(HGNC:DLG4)
 UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Measurements of PSD95 for excitatory shaft synapse volumes (indicative of synaptic maturation)
 showed significant increases in Adnp+/– mice in both hippocampus and cortex (P < 0.05), but not in the
 male mouse cortical spines. We observed a further increase with NAP treatment in female mice only,
 suggesting a compensatory effect (Supplemental Figures 1 and 2, insets)."
+SET Confidence = "High"
 SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex"}
 SET Gender = "Male"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -> a(GO:"excitatory synapse")
@@ -151,36 +164,46 @@ SET Gender = "Female"
 a(PUBCHEM:9832404) -> a(GO:"excitatory synapse")
 UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Specifically, in Adnp+/+ male mice, we found that NAP treatment reduced hippocampal stubby, thin, and total spine densities (Supplemental
 Figure 3, P < 0.05) as well as cortical mushroom, stubby, and total densities (Supplemental Figure 4, P < 0.05)."
-SET MeSHAnatomy = "Hippocampus"
+SET Confidence = "Medium"
+SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex"}
 SET Gender = "Male"
 composite(a(PUBCHEM:9832404),p(HGNC:ADNP,pmod(MESH:Haploinsufficiency))) -| a(GO:"dendritic spine")
 UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Importantly, in males, NAP treatment did not affect PSD95 shaft synapse density
 in either tested region (Supplemental Figures 3 and 4, insets)."
+SET Confidence = "High"
 SET Gender = "Male"
 a(PUBCHEM:9832404) cnc p(HGNC:DLG4)
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Interestingly, we found that shaft synapse densities (immature synapses)
 were decreased in the female cortex following NAP treatment (Supplemental Figure 4, P < 0.05)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Cerebral Cortex"
 SET Gender = "Female"
 a(PUBCHEM:9832404) -| a(GO:"dendritic shaft")
 UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Furthermore, NAP treatment increased PSD95 shaft synapse volume in both tested brain regions
 (Supplemental Figures 3 and 4, insets, P < 0.05)."
+SET Confidence = "High"
 a(PUBCHEM:9832404) -> p(HGNC:DLG4)
+UNSET Confidence
 
 SET Evidence = "Additionally, given that ADNP and NAP are linked with autophagy (13), cell adhesion (35),
 immune response (36), autism (6, 13, 15, 17, 27), and synapse-related
 processes (6), the analysis included several representative genes pertaining to these processes"
+SET Confidence = "High"
 p(HGNC:ADNP) -- bp(GO:autophagy)
 p(HGNC:ADNP) -- bp(GO:"cell adhesion")
 p(HGNC:ADNP) -- bp(GO:"immune response")
@@ -191,6 +214,7 @@ a(PUBCHEM:9832404) -- bp(GO:"cell adhesion")
 a(PUBCHEM:9832404) -- bp(GO:"immune response")
 a(PUBCHEM:9832404) -- path(MESH:"Autistic Disorder")
 a(PUBCHEM:9832404) -- act(a(GO:synapse))
+UNSET Confidence
 
 SET Evidence = "We evaluated the 31 transcripts regulated at both tested ages
 (see above) and found that the most enriched modified functions
@@ -200,6 +224,8 @@ glutamatergic, regulation of synapse organization, regulation of
 cell communication, α-amino-3-hydroxy-5-methyl-4-isoxazole-propionic acid (AMPA) glutamate receptor clustering, learning or
 memory, social behavior, regulation of ion transport, vocalization
 behavior, and nervous system development (Figure 3, Supplemental Tables 11 and 12)"
+SET Confidence = "Medium"
+#not sure whether the NAP peptide should eb included or not. No such mention in the evidence atleast
 p(HGNC:ADNP) -- bp(GO:"nervous system development")
 p(HGNC:ADNP) -- bp(GO:"synapse assembly")
 p(HGNC:ADNP) pos bp(GO:"synaptic transmission, glutamatergic")
@@ -225,9 +251,9 @@ a(PUBCHEM:9832404) -- bp(GO:"vocalization behavior")
 
 SET Evidence = "Figure 3, Supplemental Figure 5 (younger age group), Supplemental Figure 6 (older age group), and Supplemental
 Tables 5 and 8 reveal an overall similar pattern of Adnp genotype–and NAP treatment–regulated human and mouse protein
-product interactions across ages with Akt1 (the mosaic mutations of which lead to the Proteus syndrome, characterized by the overgrowth
-of skin, connective tissue, brain, and other tissues; ref. 37) and discs large MAGUK scaffold protein 4 (Dlg4, also known as
-Psd95), a key regulator of synaptic plasticity (see above) that plays central roles associated with ADNP and NAP function."
+product interactions across ages with Akt1 (the mosaic mutations of which lead to the Proteus syndrome, characterized by the overgrowth of skin, connective tissue, brain, and other tissues; ref. 37) and discs large MAGUK scaffold protein 4 (Dlg4, also known as Psd95), a key regulator of synaptic plasticity (see above) that plays central roles associated with ADNP and NAP function."
+SET Confidence = "High"
+SET Species = "9606"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) reg complex(p(HGNC:DLG4),p(HGNC:ADNP))
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) reg complex(p(HGNC:AKT1),p(HGNC:ADNP))
 a(PUBCHEM:9832404) reg complex(p(HGNC:AKT1),p(HGNC:ADNP))
@@ -236,6 +262,7 @@ p(HGNC:DLG4) reg act(p(HGNC:ADNP))
 p(HGNC:DLG4) reg act(a(PUBCHEM:9832404))
 p(HGNC:DLG4) -- bp(GO:"regulation of synaptic plasticity")
 p(HGNC:AKT1,var("?")) -> path(MESH:"Proteus Syndrome")
+UNSET Confidence
 
 SET Evidence = "In the young, developing mouse, specific Adnp genotype– and NAP-regulated hippocampal transcripts
 included a reduction and rescue of formyl peptide receptor 3 (Fpr-rs3) in males only, in agreement with the
