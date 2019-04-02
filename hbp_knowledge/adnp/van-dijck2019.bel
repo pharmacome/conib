@@ -76,69 +76,98 @@ SET Citation = {"PubMed", "29724491"}
 SET Evidence = "Fifty-two percent of the individuals in this cohort present with
 severe intellectual disability at the age of assessment, 36% have a moderate
 disability and 12% have a mild disability. "
+SET Confidence = "High"
 p(HGNC:ADNP) -| path(MESH:"Intellectual Disability")
+UNSET Confidence
 
 SET Evidence = "Developmental delay is present in all individuals, with motor
 delay being one of the key features."
-p(HGNC:ADNP) -| path(MESH:"Developmental Disabilities")
-p(HGNC:ADNP) -> bp(GO:"motor behavior")
+SET Confidence = "Medium"
+p(HGNC:ADNP) -> path(MESH:"Developmental Disabilities")
+p(HGNC:ADNP) -| bp(GO:"motor behavior")
+UNSET Confidence
 
 SET Evidence = "Interestingly, individuals with a p.Tyr719* mutation start
 walking at 3.5 years, significantly later than the 2 years and 2 months of
 the remainder of the cohort (p<0.0001, One Way Anova)."
+SET Confidence = "High"
 p(HGNC:ADNP, frag("1_719")) -| bp(GO:"walking behavior")
+UNSET Confidence
 
+#not sure whether talking about mutated ADNP or non-mutated one
 SET Evidence = "Seventy-eight percent of the children had hypotonia, while
 hypertonia was present in three children."
-p(HGNC:ADNP) -| path(MESH:"Muscle Hypotonia")
-p(HGNC:ADNP) -| path(MESH:"Muscle Hypertonia")
+SET Confidence = "Medium"
+p(HGNC:ADNP,var("?")) -> path(MESH:"Muscle Hypotonia")
+p(HGNC:ADNP,var("?")) -> path(MESH:"Muscle Hypertonia")
+UNSET Confidence
 
+#not sure whether talking about mutated ADNP or non-mutated one
 SET Evidence = "Another key feature is speech delay which presents in 98.6% of individuals."
-p(HGNC:ADNP) -| path(MESH:"Language Development Disorders")
+SET Confidence = "Medium"
+p(HGNC:ADNP, var("?")) -> path(MESH:"Language Development Disorders")
+UNSET Confidence
 
 SET Evidence = "Sixteen percent have seizures, including absence seizures,
 focal seizures with reduced awareness, epilepsy with Continuous Spike and
 Waves during Slow Wave Sleep (CSWS), or unclassified seizures."
-p(HGNC:ADNP) -| path(MESH:Seizures)
-p(HGNC:ADNP) -| path(MESH:Epilepsy)
+SET Confidence = "Medium"
+p(HGNC:ADNP, var("?")) -> path(MESH:Seizures)
+p(HGNC:ADNP, var("?")) -> path(MESH:Epilepsy)
+UNSET Confidence
 
 SET Evidence = "Ninety-three percent of the individuals present with autistic
 features (Fig. 3-B). Sixty-seven percent of them have been reported to have
 a clinical diagnosis of ASD. "
-p(HGNC:ADNP) -| path(MESH:"Autistic Disorder")
-p(HGNC:ADNP) -| path(MESH:"Autism Spectrum Disorder")
+#ASD: Autism SPectrum Disorder
+SET Confidence = "Medium"
+p(HGNC:ADNP, var("?")) -> path(MESH:"Autistic Disorder")
+p(HGNC:ADNP, var("?")) -| path(MESH:"Autism Spectrum Disorder")
+UNSET Continuous
 
 SET Evidence = "Sixty-seven percent have also been diagnosed with sensory processing disorder. "
-p(HGNC:ADNP) -> bp(GO:"sensory processing")
+SET Confidence = "Medium"
+p(HGNC:ADNP, var("?")) -| bp(GO:"sensory processing")
+UNSET Confidence
 
 SET Evidence = "Several present with obsessive compulsive behavior, mood disorder,
 a high anxiety level, temper tantrums, self-injurious and (verbally) aggressive
 behavior. "
-p(HGNC:ADNP) -| path(MESH:"Compulsive Behavior")
-p(HGNC:ADNP) -| path(MESH:"Mood Disorders")
-p(HGNC:ADNP) -| path(MESH:Anxiety)
-p(HGNC:ADNP) -> path(MESH:Morale)
-p(HGNC:ADNP) -| path(MESH:"Self-Injurious Behavior")
-p(HGNC:ADNP) -| path(MESH:Aggression)
+SET Confidence = "Medium"
+p(HGNC:ADNP., var("?")) -> path(MESH:"Compulsive Behavior")
+p(HGNC:ADNP, var("?")) -- path(MESH:"Mood Disorders")
+p(HGNC:ADNP, var("?")) -> path(MESH:Anxiety)
+p(HGNC:ADNP, var("?")) -- path(MESH:Morale)
+p(HGNC:ADNP, var("?")) -- path(MESH:"Self-Injurious Behavior")
+p(HGNC:ADNP, var("?")) -- path(MESH:Aggression)
+UNSET Coonfidence
 
 SET Evidence = "Forty-four percent of the individuals are hyperactive or easily distracted.
 About one third of them have a diagnosis of Attention Deficit Hyperactivity Disorder (ADHD). "
-p(HGNC:ADNP) -| path(MESH:"Attention Deficit Disorder with Hyperactivity")
+SET Confidence = "Medium"
+p(HGNC:ADNP, var("?")) -> path(MESH:"Attention Deficit Disorder with Hyperactivity")
+UNSET Confidence
 
 SET Evidence = "Sleep problems are present in 65.2%."
-p(HGNC:ADNP) -> bp(GO:sleep)
+SET Confidence = "Medium"
+p(HGNC:ADNP, var("?")) -| bp(GO:sleep)
+UNSET Confidence
 
 SET Evidence = "Fifty-six percent of them appeared to have cerebral abnormalities,
 including atypical white matter lesions, delayed myelination, cortical dysplasia
 or atrophy, perinatal hypoxic ischemic encephalopathy, hydrocephalus, and
 hippocampal hypoplasticity (Fig. 3-C)"
-p(HGNC:ADNP) -| path(MESH:"Malformations of Cortical Development")
+SET Confidence = "Medium"
+p(HGNC:ADNP, var("?")) -> path(MESH:"Malformations of Cortical Development")
+UNSET Confidence
 
 SET Evidence = "Visual problems were present in 73.6% of the individuals,
 especially hypermetropia (40.3%) and strabismus (49.2%), but also myopia
 and astigmatism (Fig. 3-E). "
-p(HGNC:ADNP) -> path(MESH:"Vision, Ocular")
-p(HGNC:ADNP) -| path(MESH:Hyperopia)
-p(HGNC:ADNP) -| path(MESH:Strabismus)
-p(HGNC:ADNP) -| path(MESH:Myopia)
-p(HGNC:ADNP) -| path(MESH:Astigmatism)
+SET Confidence = "Medium"
+p(HGNC:ADNP, var("?")) -| path(MESH:"Vision, Ocular")
+p(HGNC:ADNP, var("?")) -> path(MESH:Hyperopia)
+p(HGNC:ADNP, var("?")) -> path(MESH:Strabismus)
+p(HGNC:ADNP, var("?")) -> path(MESH:Myopia)
+p(HGNC:ADNP, var("?")) -> path(MESH:Astigmatism)
+UNSET Confidence
