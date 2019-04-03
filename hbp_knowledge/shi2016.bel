@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 # DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 # DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 # DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/6e71f2b59daa002349a1e3eeae64412ce175745a/export/hbp-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 # DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -95,10 +95,10 @@ kinase (IKK) complex becomes activated and mediates the phosphoryla-
 tion of IκBs, then IκBs are degradated and the remaining NF-κB dimer is
 activated and thus translocates to the nucleus where it binds to the
 DNA consensus sequence of various target genes [9–11]."
-a(HBP:"amyloid-beta aggregates") -> act(p(FPLX:IKK_complex))
-a(CHEBI:"reactive oxygen species") -> act(p(FPLX:IKK_complex))
-a(MESH:Cytokines) -> act(p(FPLX:IKK_complex))
-act(p(FPLX:IKK_complex)) -> p(FPLX:IKB, pmod(Ph))
+a(HBP:"amyloid-beta aggregates") -> act(p(FPLX:"IKK_complex"))
+a(CHEBI:"reactive oxygen species") -> act(p(FPLX:"IKK_complex"))
+a(MESH:Cytokines) -> act(p(FPLX:"IKK_complex"))
+act(p(FPLX:"IKK_complex")) -> p(FPLX:IKB, pmod(Ph))
 p(FPLX:IKB, pmod(Ph)) -> deg(p(FPLX:IKB))
 deg(p(FPLX:IKB)) -> act(p(FPLX:NFkappaB))
 act(p(FPLX:NFkappaB)) -> tloc(p(FPLX:NFkappaB), MESH:"Cytosol", MESH:"Cell Nucleus")
@@ -185,8 +185,8 @@ the NF-κB pathway with increase in the phosphorylation of IKK and
 p65 while decrease in the level of IκB [32]. "
 p(HGNC:TNF) -> tloc(p(FPLX:NFkappaB), MESH:"Cytosol", MESH:"Cell Nucleus")
 p(HGNC:IL1B) -> tloc(p(FPLX:NFkappaB), MESH:"Cytosol", MESH:"Cell Nucleus")
-p(HGNC:TNF) -> p(FPLX:IKK_complex, pmod(Ph))
-p(HGNC:IL1B) -> p(FPLX:IKK_complex, pmod(Ph))
+p(HGNC:TNF) -> p(FPLX:"IKK_complex", pmod(Ph))
+p(HGNC:IL1B) -> p(FPLX:"IKK_complex", pmod(Ph))
 p(HGNC:TNF) -> p(HGNC:RELA, pmod(Ph))
 p(HGNC:IL1B) -> p(HGNC:RELA, pmod(Ph))
 p(HGNC:TNF) -| p(FPLX:IKB)
@@ -357,10 +357,10 @@ SET Evidence = "Inducible miRNAs and lncRNA perform critical regulatory roles in
 CNS development, several brain-enriched miRNAs are consistently up-
 regulated by NF-κB, including miRNA-125b [66], miRNA-146a [67]
 and miRNA-155 [68]."
-p(FPLX:NFkappaB) -> r(MIRBASE:"hsa-mir-125b-1")
-p(FPLX:NFkappaB) -> r(MIRBASE:"hsa-mir-125b-2")
-p(FPLX:NFkappaB) -> r(MIRBASE:"hsa-mir-146a")
-p(FPLX:NFkappaB) -> r(MIRBASE:"hsa-mir-155")
+p(FPLX:NFkappaB) -> m(MIRBASE:"hsa-mir-125b-1")
+p(FPLX:NFkappaB) -> m(MIRBASE:"hsa-mir-125b-2")
+p(FPLX:NFkappaB) -> m(MIRBASE:"hsa-mir-146a")
+p(FPLX:NFkappaB) -> m(MIRBASE:"hsa-mir-155")
 
 SET Evidence = " Elevated miRNA-146a in AD brain has
 been shown to also speciﬁcally target the interleukin-1 associated ki-
@@ -370,25 +370,25 @@ brain cells and tissues in inﬂammatory neurodegenerative diseases
 including AD and in primary human brain cells stressed with ROS-
 generating metal sulfates [69]. "
 SET MeSHAnatomy = "Brain"
-r(MIRBASE:"hsa-mir-146a") pos path(MESH:"Alzheimer Disease")
+m(MIRBASE:"hsa-mir-146a") pos path(MESH:"Alzheimer Disease")
 SET MeSHDisease = "Neurodegenerative Diseases"
-r(MIRBASE:"hsa-mir-146a") -- r(HGNC:IRAK1)
-r(MIRBASE:"hsa-mir-146a") -- bp(GO:"immune response")
-r(MIRBASE:"hsa-mir-146a") -> path(HP:Neurodegeneration)
+m(MIRBASE:"hsa-mir-146a") -- r(HGNC:IRAK1)
+m(MIRBASE:"hsa-mir-146a") -- bp(GO:"immune response")
+m(MIRBASE:"hsa-mir-146a") -> path(HP:Neurodegeneration)
 UNSET MeSHDisease
 UNSET MeSHAnatomy
 
 SET Evidence = " Moreover, miRNA-155 is strongly
 and rapidly up-regulated by inﬂammatory cytokines and also is an
 inducible miRNA under transcriptional control by NF-κB."
-a(MESH:Cytokines) -> r(MIRBASE:"hsa-mir-155")
-tscript(p(FPLX:NFkappaB)) -> r(MIRBASE:"hsa-mir-155")
+a(MESH:Cytokines) -> m(MIRBASE:"hsa-mir-155")
+tscript(p(FPLX:NFkappaB)) -> m(MIRBASE:"hsa-mir-155")
 
 SET Evidence = " Speciﬁc
 up-regulation of miRNA-155 is observed in related immunopatho-
 logic conditions including MS and AD [70]."
-r(MIRBASE:"hsa-mir-155") pos path(MESH:"Alzheimer Disease")
-r(MIRBASE:"hsa-mir-155") pos path(MESH:"Multiple Sclerosis")
+m(MIRBASE:"hsa-mir-155") pos path(MESH:"Alzheimer Disease")
+m(MIRBASE:"hsa-mir-155") pos path(MESH:"Multiple Sclerosis")
 
 SET Evidence = "Pathogenic effects appear to be mediated via speciﬁc interaction of
 miRNA-125b with the 3′-UTR region of mRNA of 15-lipoxygenase
@@ -399,10 +399,10 @@ CA1 of AD brain [71]."
 #15-LOX is ALOX15
 SET MeSHAnatomy = "CA1 Region, Hippocampal"
 SET MeSHDisease = "Alzheimer Disease"
-r(MIRBASE:"hsa-mir-125b-1") -| p(HGNC:ALOX15)
-r(MIRBASE:"hsa-mir-125b-2") -| p(HGNC:ALOX15)
-r(MIRBASE:"hsa-mir-125b-1") -| p(HGNC:VDR)
-r(MIRBASE:"hsa-mir-125b-2") -| p(HGNC:VDR)
+m(MIRBASE:"hsa-mir-125b-1") -| p(HGNC:ALOX15)
+m(MIRBASE:"hsa-mir-125b-2") -| p(HGNC:ALOX15)
+m(MIRBASE:"hsa-mir-125b-1") -| p(HGNC:VDR)
+m(MIRBASE:"hsa-mir-125b-2") -| p(HGNC:VDR)
 UNSET MeSHDisease
 UNSET MeSHAnatomy
 
@@ -482,7 +482,6 @@ and APP695 protein expression, also reduced Aβ 42 levels in the medium
 [90]."
 a(CHEBI:nicorandil) -| bp(GO:"apoptotic process")
 a(CHEBI:nicorandil) -| path(MESH:"Oxidative Stress")
-a(CHEBI:nicorandil) -| r(HBP:APP695)
 a(CHEBI:nicorandil) -| p(HBP:APP695)
 a(CHEBI:nicorandil) -| a(CHEBI:"amyloid-beta polypeptide 42")
 
@@ -493,20 +492,21 @@ phosphorylation and activation of NF-κB."
 a(PUBCHEM:6440944) -| act(p(FPLX:ERK))
 p(HGNC:TNF) -> act(p(FPLX:ERK))
 a(CHEBI:"hydrogen peroxide") -> act(p(FPLX:ERK))
-SET Cell = "SH-SY5Y"
+SET CellLine = "SH-SY5Y"
 a(PUBCHEM:6440944) -| p(HGNC:CHUK, pmod(Ph))
 a(PUBCHEM:6440944) -| p(FPLX:NFkappaB, pmod(Ph))
 a(PUBCHEM:6440944) -| act(p(FPLX:NFkappaB))
-UNSET Cell
+UNSET CellLine
 
 SET Evidence = "What's more, DLPC complete-
 ly abolishes TNF-α and H 2 O 2 induced neuronal tau phosphorylation, re-
 duces cellular APP levels and Aβ expression and secretion in SH-SY5Y
 cells [91,92] (Table 1)."
-SET Cell = "SH-SY5Y"
+SET CellLine = "SH-SY5Y"
 a(PUBCHEM:6440944) -| p(HGNC:MAPT, pmod(Ph))
 p(HGNC:TNF) -> p(HGNC:MAPT, pmod(Ph))
 a(CHEBI:"hydrogen peroxide") -> p(HGNC:MAPT, pmod(Ph))
 a(PUBCHEM:6440944) -| p(HGNC:APP)
 a(PUBCHEM:6440944) -| a(CHEBI:"amyloid-beta")
 a(PUBCHEM:6440944) -| sec(a(CHEBI:"amyloid-beta"))
+UNSET CellLine
