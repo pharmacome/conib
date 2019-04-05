@@ -22,7 +22,7 @@ DEFINE NAMESPACE PUBCHEM AS PATTERN "^\d+$"
 
 # Namespaces hosted on https://github.com/pharmacome/terminology
 # --------------------------------------------------------------
-DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
+DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mesh-names.belns"
 DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
 DEFINE NAMESPACE DRUGBANK AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
@@ -226,8 +226,8 @@ allele 4 (APOE4), a major risk allele for sporadic AD,
 is associated with increased generation and accumula-
 tion of Aβ42  (REFS59,60) ."
 SET Confidence = "High"
-a(HBP:"APOE e4") -> path(MESH:"Alzheimer Disease")
-a(HBP:"APOE e4") -> a(CHEBI:"amyloid-beta polypeptide 42")
+g(HBP:"APOE e4") -> path(MESH:"Alzheimer Disease")
+g(HBP:"APOE e4") -> a(CHEBI:"amyloid-beta polypeptide 42")
 UNSET Confidence
 
 SET Evidence = "In addition to decreased degradation, one
@@ -236,7 +236,7 @@ into the cytosol, where it generates toxic fragments of
 tau 61 . "
 SET Confidence = "High"
 SET MeSHAnatomy = "Cytosol"
-a(HBP:"APOE e4") -> p(HGNC:LGMN)
+g(HBP:"APOE e4") -> p(HGNC:LGMN)
 p(HGNC:LGMN) -> p(HGNC:MAPT, frag("?"))
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -260,7 +260,7 @@ fragment of APP called C99  (REF.66) ."
 SET Confidence = "High"
 g(HGNC:APP, var("?")) -| act(a(GO:endosome))
 g(HGNC:APP, var("?")) -| act(a(GO:lysosome))
-g(HGNC:APP, var("?")) -> a(HBP:C99)
+g(HGNC:APP, var("?")) -> p(HBP:C99)
 UNSET Confidence
 
 SET Evidence = "Sixth, Aβ42 compro-
@@ -286,7 +286,7 @@ a(HBP:"Tau aggregates") -| act(complex(GO:"proteasome complex"))
 p(HGNC:MAPT, var("?")) -| act(complex(GO:"proteasome complex"))
 complex(GO:"proteasome complex") -> deg(p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)))
 complex(GO:"proteasome complex") -> deg(a(HBP:"Tau oligomers"))
-a(HBP:"Tau aggregates") -| deg(p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)))    
+a(HBP:"Tau aggregates") -| deg(p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)))
 a(HBP:"Tau aggregates") -| deg(a(HBP:"Tau oligomers"))
 p(HGNC:MAPT, var("?")) -| deg(p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)))
 p(HGNC:MAPT, var("?")) -| deg(a(HBP:"Tau oligomers"))
