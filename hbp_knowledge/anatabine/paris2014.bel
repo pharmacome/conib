@@ -71,94 +71,138 @@ DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifact
 # Statements #
 ##############
 SET Citation = {"DOI", "10.4172/2168-975X.1000126"}
+SET Species = "10090"
 
 SET Evidence = "During the time course of the treatment (40 days), 25% of Tg Tau P301S placebo mice became
 paralyzed (3 out of 12) whereas none (0 out of 11) in the anatabine treatment group developed paralysis
 during the study duration (Figure 1)"
+# mouse strain - Tg Tau P301S placebo
 # treatment: 40 days
+SET Confidence = "High"
 a(CHEBI:Anatabine) -| path(MESH:Paralysis)
+UNSET Confidence
 
 SET Evidence = "Approximately 44 % (4 out of 9 non-paralyzed mice) of the placebo group (33 week-old mice) elicited an abnormal
 hind-limb extension reflex when suspended by the tail compared to 18% (2 out of 11) of Tg Tau P301S mice treated with anatabine (Figure 1)."
+# mouse strain - Tg Tau P301S
 # hind-limb extension reflex: detection of defects in motor behavior
+SET Confidence = "High"
 a(CHEBI:Anatabine) -> bp(GO:"motor behavior")
+UNSET Confidence
 
 SET Evidence = "In addition, Tg Tau P301S mice treated with anatabine showed an increased latency to fall (T-test, P<0.05) from an accelerating rotarod
 apparatus compared to Tg Tau P301S mice receiving regular drinking water (Figure 2) showing improved motor coordination."
+# mouse strain - Tg Tau P301S
+SET Confidence = "High"
 a(CHEBI:Anatabine) -> bp(GO:"motor behavior")
+UNSET Confidence
 
 SET Evidence = "Tg Tau P301S mice treated with anatabine spent significantly more time (T-test, P<0.05) in the open arms of
 the elevated plus maze than placebo Tg Tau P301S mice (Figure 3)."
+# mouse strain - Tg Tau P301S
 # impact of anatabine on anxiety related behavior
+SET Confidence = "High"
 a(CHEBI:Anatabine) -| path(MESH:Anxiety)
+UNSET Confidence
 
+#didnt show spatial learning impariment mean no change or increase in learning
 SET Evidence = "Compared to age matched wild-type mice, 32 week-old Tg Tau P301S mice did not show spatial learning impairment
 in the RAWM (data not shown)"
+# mouse strain - Tg Tau P301S
 # Spatial learning abilities which depend on hippocampal functions were assessed by the radial arm water maze (RAWM)
-a(CHEBI:Anatabine) -> path(MESH:"Spatial Learning")
+SET Confidence = "Medium"
+a(CHEBI:Anatabine) cnc path(MESH:"Spatial Learning")
+UNSET Confidence
 
 SET Evidence = "No effect of the anatabine treatment was observed on tau expression (T-test, P>0.05) in Tg Tau P301S mice (Figure 4)."
+# mouse strain - Tg Tau P301S
 # effect of the anatabine in brain and spinal cord homogenates
+SET Confidence = "High"
 SET MeSHAnatomy = {"Spinal Cord","Brain"}
 a(CHEBI:Anatabine) cnc p(HGNC:MAPT)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In both the detergent soluble and insoluble fractions of the brain
 and spinal cord homogenates of Tg Tau P301S mice, we found that tau phosphorylation was significantly reduced (T-tests, P<0.05) by
 the anatabine treatment for all the AD phosphorylated epitopes tested (Figure 6)"
+# mouse strain - Tg Tau P301S
 # phosphorylated epitopes (antibodies: PHF-1, RZ3 and CP13)
 # PHF-1: Ser396/Ser404
 # RZ3: Thr231
 # CP13: Ser202
+SET Confidence = "High"
 SET MeSHAnatomy = {"Spinal Cord","Brain"}
 a(CHEBI:Anatabine) -| p(HGNC:MAPT,pmod(Ph,Ser,396),pmod(Ph,Ser,404))
 a(CHEBI:Anatabine) -| p(HGNC:MAPT,pmod(Ph,Ser,202))
 a(CHEBI:Anatabine) -| p(HGNC:MAPT,pmod(Ph,Thr,231))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Moreover, a significant reduction in MC1-immunoreactivity (P<0.05) was observed in the detergent soluble and insoluble fractions
 of brain and spinal cord homogenates from Tg Tau P301S mice treated with anatabine showing that anatabine prevents the formation of
 pathological tau conformers (Figure 7)."
+# mouse strain - Tg Tau P301S
 # MC1 recognizes neurofibrillary tangles
+SET Confidence = "Medium"
 SET MeSHAnatomy = {"Spinal Cord","Brain"}
 a(CHEBI:Anatabine) -| a(GO:"neurofibrillary tangle")
+#prevetn formation of Tau conformers
+a(CHEBI:Anatabine) -| act(p(HGNC:MAPT))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Additionally, a significant reduction (P<0.05) in tau oligomers levels (TOC1 immunopositive)
 was detected both in the brain and the spinal cord of Tg Tau P301S treated with anatabine using dot-blots (Figure 8)."
+# mouse strain - Tg Tau P301S
+SET Confidence = "High"
 SET MeSHAnatomy = {"Spinal Cord","Brain"}
 a(CHEBI:Anatabine) -| a(HBP:"Tau oligomers")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "We observed that anatabine significantly prevented the formation of MC1-positive tau oligomers (Figure 9) by western-blots
 in both the brain and the spinal cord of Tg Tau P301S mice (T-tests, P<0.05) further confirming the data obtained with the dot-blots"
+# mouse strain - Tg Tau P301S
+SET Confidence = "High"
 SET MeSHAnatomy = {"Spinal Cord","Brain"}
 a(CHEBI:Anatabine) -| a(HBP:"Tau oligomers")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "A significant reduction in Iba1 immunoreactivity was observed both in the brain (T-test, P<0.01) and spinal cord (T-test, P<0.01)
 homogenates of Tg Tau P301S mice treated with anatabine. Figure 10."
+# mouse strain - Tg Tau P301S
 # Iba1: marker of microgliosis
+SET Confidence = "High"
 SET MeSHAnatomy = {"Spinal Cord","Brain"}
 a(CHEBI:Anatabine) -| bp(HBP:Microgliosis)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Glycogen synthase 3β (GSK3β) is one of the main serine-threonine kinase responsible for tau phosphorylation and has been shown to
 affect tau phosphorylation at multiple AD relevant epitopes including Ser396, Ser404, Thr231 and Ser202"
+SET Confidence = "High"
 p(HGNC:GSK3B) -> p(HGNC:MAPT,pmod(Ph,Ser,396))
 p(HGNC:GSK3B) -> p(HGNC:MAPT,pmod(Ph,Ser,404))
 p(HGNC:GSK3B) -> p(HGNC:MAPT,pmod(Ph,Thr,231))
 p(HGNC:GSK3B) -> p(HGNC:MAPT,pmod(Ph,Ser,202))
+UNSET Confidence
 
 SET Evidence = "GSK3β is inactivated upon phosphorylation of Ser9 by protein kinase B (AKT) [41] whereas
 AKT phosphorylation at Ser473 results in AKT activation [42]."
-p(FPLX:AKT) => p(HGNC:GSK3B,pmod(Ph,Ser,9))
+SET Confidence = "Medium"
+p(FPLX:AKT) -> p(HGNC:GSK3B,pmod(Ph,Ser,9))
 p(HGNC:GSK3B,pmod(Ph,Ser,9)) -| act(p(HGNC:GSK3B))
 p(FPLX:AKT,pmod(Ph,Ser,473)) -> act(p(FPLX:AKT))
+UNSET Confidence
 
 SET Evidence = "We found a significant increase in brain AKT Ser473 phosphorylation (T-test, P<0.001) and
 GSK3β Ser9 phosphorylation (T-test, P<0.001) in Tg Tau P301S mice treated with anatabine. Figure 11."
+# mouse strain - Tg Tau P301S
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 a(CHEBI:Anatabine) -> p(HGNC:GSK3B,pmod(Ph,Ser,9))
 a(CHEBI:Anatabine) -> p(FPLX:AKT,pmod(Ph,Ser,473))
 UNSET MeSHAnatomy
+UNSET Confidence
