@@ -24,7 +24,6 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/6e71f2b59daa002349a1e3eeae64412ce175745a/export/hbp-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 # DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
-DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
 # DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
 DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mesh-names.belns"
@@ -59,13 +58,14 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 # DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
 DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
 # DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
 # DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
 
 ##############
 # Statements #
@@ -100,7 +100,7 @@ the 20S proteasome can play a key role in digesting proteins
 directly via an ATP-independent and ubiquitin-independent
 pathway (Jariel-Encontre et al. 2008)"
 SET Confidence = "High"
-a(HBP:"20 S Proteasome") -> bp(GO:"proteasomal ubiquitin-independent protein catabolic process")
+p(HBP:"20 S Proteasome") -> bp(GO:"proteasomal ubiquitin-independent protein catabolic process")
 UNSET Confidence
 
 SET Evidence = "And autophagy-lysosomal activity
@@ -128,7 +128,7 @@ and ultimately leading to neuronal injuries and death"
 SET Confidence = "High"
 act(a(MESH:Microglia)) -> bp(GO:"cytokine production involved in inflammatory response")
 act(a(MESH:Microglia)) -> bp(GO:"inflammatory response")
-act(a(MESH:Microglia)) -> bp(HBP:Neurodegeneration)
+act(a(MESH:Microglia)) -> path(HBP:Neurodegeneration)
 UNSET Confidence
 
 SET Evidence = "On the other hand, they may show beneficial effects via facilitating
@@ -165,8 +165,8 @@ impaired due to the loss of AQP4 after traumatic brain injury
 (Iliff et al. 2014)"
 SET Confidence = "High"
 path(MESH:"Brain Injuries, Traumatic") -| p(HGNC:AQP4)
-path(MESH:"Brain Injuries, Traumatic") -| a(HP:"glymphatic system")
-p(HGNC:AQP4) -> a(HP:"glymphatic system")
+path(MESH:"Brain Injuries, Traumatic") -| a(MESH:"Glymphatic System")
+p(HGNC:AQP4) -> a(MESH:"Glymphatic System")
 UNSET Confidence
 
 SET Evidence = "Under normal conditions, Aβ production in brain parenchyma
@@ -236,8 +236,8 @@ which fails to offer ATP for the degradation of targeted
 proteins by UPS in yeast (Chen and Petranovic 2015)"
 SET Confidence = "Medium"
 a(CHEBI:"amyloid-beta") -> bp(GO:"response to oxidative stress")
-a(CHEBI:"amyloid-beta") -> bp(HBP:"mitochondrial dysfunction")
-bp(HBP:"mitochondrial dysfunction") -| a(CHEBI:ATP)
+a(CHEBI:"amyloid-beta") -> path(HBP:"mitochondrial dysfunction")
+path(HBP:"mitochondrial dysfunction") -| a(CHEBI:ATP)
 a(CHEBI:ATP) -> bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
 UNSET Confidence
 
@@ -272,7 +272,7 @@ by the expression of APOE4, which attenuates Aβ degradation
 (Simonovitch et al. 2016)"
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Astrocytes"
-a(HBP:"APOE e4") -| deg(a(CHEBI:"amyloid-beta"))
+g(HBP:"APOE e4") -| deg(a(CHEBI:"amyloid-beta"))
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -608,7 +608,7 @@ reduction of Aβ clearance from the brain by impairing its arterial
 perivascular drainage, accompanied by changes of protein levels
 in cerebrovascular basement membrane (Hawkes et al. 2012)"
 SET Confidence = "High"
-a(HBP:"APOE e4") -| deg(a(CHEBI:"amyloid-beta"))
+g(HBP:"APOE e4") -| deg(a(CHEBI:"amyloid-beta"))
 UNSET Confidence
 
 SET Evidence = "In addition, Jeffrey J. Iliff et al. have demonstrated that the Aβ in
@@ -632,7 +632,7 @@ SET Evidence = "In the meanwhile, a study supported this idea that AQP4 deficien
 can reduce the rate of Aβ clearance via glymphatic pathway (Iliff
 and Nedergaard 2013)"
 SET Confidence = "High"
-a(HP:"glymphatic system") -| a(CHEBI:"amyloid-beta")
+a(MESH:"Glymphatic System") -| a(CHEBI:"amyloid-beta")
 p(HGNC:AQP4) -| a(CHEBI:"amyloid-beta")
 UNSET Confidence
 
@@ -656,7 +656,7 @@ UNSET Confidence
 
 SET Evidence = "A study suggested that Aβ is removed from CSF to cervical
 lymph nodes via perineural space of the olfactory nerve
-(Picken 2001; Pollay 2010)""
+(Picken 2001; Pollay 2010)"
 SET Confidence = "High"
 SET MeSHAnatomy = "Neck"
 a(MESH:"Lymph Nodes") -| a(CHEBI:"amyloid-beta")
@@ -787,7 +787,7 @@ may possess neurotoxicity in AD (Ferreira and Bigio 2011)"
 SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 p(FPLX:CAPN) -> p(HGNC:MAPT,frag("?"))
-p(HGNC:MAPT,frag("?")) -> bp(HBP:neurotoxicity)
+p(HGNC:MAPT,frag("?")) -> path(HBP:neurotoxicity)
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -805,11 +805,11 @@ may be impaired due to the loss of AQP4 after TBI,
 which ultimately accelerates tau accumulation (Iliff et al.2014)"
 SET Confidence = "High"
 SET MeSHAnatomy = "Extracellular Fluid"
-a(HP:"glymphatic system") -| p(HGNC:MAPT)
-p(HGNC:AQP4) -> a(HP:"glymphatic system")
+a(MESH:"Glymphatic System") -| p(HGNC:MAPT)
+p(HGNC:AQP4) -> a(MESH:"Glymphatic System")
 path(MESH:"Brain Injuries, Traumatic") -| p(HGNC:AQP4)
 path(MESH:"Brain Injuries, Traumatic") -> p(HGNC:MAPT)
-path(MESH:"Brain Injuries, Traumatic") -| a(HP:"glymphatic system")
+path(MESH:"Brain Injuries, Traumatic") -| a(MESH:"Glymphatic System")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -923,12 +923,12 @@ through up-regulating NEP, IDE, MMP9, LRP1, and HSP70 (Moore et al. 2016)"
 SET Confidence = "Medium"
 SET Species = "10090"
 SET MeSHAnatomy = "Brain"
-a(MESH:"Exercise") -> deg(a(CHEBI:"amyloid-beta"))
-a(MESH:"Exercise") -> p(HGNC:MME)
-a(MESH:"Exercise") -> p(HGNC:IDE)
-a(MESH:"Exercise") -> p(HGNC:MMP9)
-a(MESH:"Exercise") -> p(HGNC:LRP1)
-a(MESH:"Exercise") -> p(FPLX:HSPA)
+bp(MESH:"Exercise") -> deg(a(CHEBI:"amyloid-beta"))
+bp(MESH:"Exercise") -> p(HGNC:MME)
+bp(MESH:"Exercise") -> p(HGNC:IDE)
+bp(MESH:"Exercise") -> p(HGNC:MMP9)
+bp(MESH:"Exercise") -> p(HGNC:LRP1)
+bp(MESH:"Exercise") -> p(FPLX:HSPA)
 p(HGNC:MME) -> deg(a(CHEBI:"amyloid-beta"))
 p(HGNC:IDE) -> deg(a(CHEBI:"amyloid-beta"))
 p(HGNC:MMP9) -> deg(a(CHEBI:"amyloid-beta"))
@@ -958,8 +958,8 @@ UNSET Confidence
 SET Evidence = "A recent study showed that omega-3 polyunsaturated
 fatty acids also increase Aβ degradation by proteases"
 SET Confidence = "Medium"
-a(CHEBI:"omega-3 fatty acid") -> act(p(MESH:"Endopeptidases")
-act(p(MESH:"Endopeptidases") -> deg(a(CHEBI:"amyloid-beta"))
+a(CHEBI:"omega-3 fatty acid") -> act(p(MESH:"Endopeptidases"))
+act(p(MESH:"Endopeptidases")) -> deg(a(CHEBI:"amyloid-beta"))
 UNSET Confidence
 
 SET Evidence = "For example, eicosapentaenoic acid (EPA) can induce the
