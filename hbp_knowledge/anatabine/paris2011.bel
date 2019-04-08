@@ -76,17 +76,24 @@ SET CellLine = "CHO cell"
 
 SET Evidence = "Anatabine dose dependently inhibited Aβ1–40 and Aβ1–42 with an approximate half maximal
 inhibitory concentration of 640 μg/ml for both Aβ1–40 and Aβ1–42 (Fig. 2)."
+#dose concentration 640 microgrm per ml
+SET Confidence = "High"
 a(CHEBI:Anatabine) -| a(CHEBI:"amyloid-beta polypeptide 42")
 a(CHEBI:Anatabine) -| a(CHEBI:"amyloid-beta polypeptide 40")
+UNSET Confidence
 
 SET Evidence = "No cytotoxicity was observed (as measured by the release of lactate dehydrogenase in the culture medium of 7W CHO cells) with
 the dose range of anatabine tested (data not shown)."
+#LDHA : Lactose dehydrogenase
+SET Confidence = "High"
 a(CHEBI:Anatabine) cnc sec(p(HGNC:LDHA))
+UNSET Confidence
 
 SET Evidence = "Contrary to anatabine, (−)-nicotine and other nicotinic acetylcholine
 receptors agonists and antagonists do not inhibit Aβ production by 7W CHO cells (Fig. 3)."
-# nicotinic acetylcholine receptors agonists (5-Iodo-A85380 dihydrochloride, (−)-nicotine and PHA543613 hydrochloride) and antagonists
-# (α-bungarotoxin and dihydro-β-erythroidine hydrobromide).
+# nicotinic acetylcholine receptors agonists (5-Iodo-A85380 dihydrochloride, (−)-nicotine and PHA543613 hydrochloride)
+# antagonists (α-bungarotoxin and dihydro-β-erythroidine hydrobromide).
+SET Confidence = "High"
 a(CHEBI:Anatabine) -| a(CHEBI:"amyloid-beta")
 a(PUBCHEM:71311633) cnc a(CHEBI:"amyloid-beta")
 a(PUBCHEM:71311633) -> act(a(MESH:"Receptors, Nicotinic"))
@@ -98,50 +105,71 @@ p(HBP:"alpha-Bungarotoxin") cnc a(CHEBI:"amyloid-beta")
 p(HBP:"alpha-Bungarotoxin") -| act(a(MESH:"Receptors, Nicotinic"))
 a(PUBCHEM:11957537) cnc a(CHEBI:"amyloid-beta")
 a(PUBCHEM:11957537) -| act(a(MESH:"Receptors, Nicotinic"))
+UNSET Confidence
 
 SET Evidence = "We then tested the impact of anatabine on sAPPα and sAPPβ production using 7W CHO cells and observed that
 anatabine inhibits sAPPβ secretion without impacting sAPPα suggesting that anatabine is preventing the β-cleavage of APP (Fig. 4)."
 # cleavage by beta-secretase yields the amyloidogenic form Abeta1–40 or the longer, more fibrillogenic Abeta1–42
+SET Confidence = "High"
 a(CHEBI:Anatabine) -| sec(p(HBP:"sAPP-beta"))
 a(CHEBI:Anatabine) cnc sec(p(HBP:"sAPP-alpha"))
 a(CHEBI:Anatabine) -| a(CHEBI:"amyloid-beta polypeptide 42")
 a(CHEBI:Anatabine) -| a(CHEBI:"amyloid-beta polypeptide 40")
+UNSET Confidence
 
 SET Evidence = "Nicotine does not appear to affect sAPPβ and sAPPα secretion in 7W CHO contrary to anatabine (Fig. 4)"
+SET Confidence = "High"
 a(CHEBI:nicotine) cnc sec(p(HBP:"sAPP-beta"))
 a(CHEBI:nicotine) cnc sec(p(HBP:"sAPP-alpha"))
+UNSET Confidence
+
+UNSET CellLine
 
 SET Evidence = "We observed that anatabine dose dependently inhibited NFκB activation by TNFα in HEK293 NFκB luciferase
 reporter cells (Fig. 5) whereas nicotine was ineffective"
+SET Confidence = "Medium"
+SET CellLine = "HEK293"
 a(CHEBI:Anatabine) -| act(complex(GO:"NF-kappaB complex"))
 p(HGNC:TNF) -> act(complex(GO:"NF-kappaB complex"))
 a(CHEBI:nicotine) cnc act(complex(GO:"NF-kappaB complex"))
-
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "In addition, an inhibition of p65 NFκB phosphorylation was observed
 following treatment with anatabine in 7W CHO overexpressing APP (Fig. 6A), in HEK293 (Fig. 6B) and in human neuronal like SH-SY5Y
 cells (Fig. 6C) showing that anatabine can prevent NFκB activation in various cell lines."
-SET CellLine = {"SH-SY5Y","CHO cell"}
+SET Confidence = "Medium"
+SET CellLine = "CHO cell"
 a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
-a(CHEBI:Anatabine) -| act(complex(GO:"NF-kappaB complex"))
 UNSET CellLine
+SET CellLine = {"SH-SY5Y","HEK293"}
+SET Cell = "neuron"
+a(CHEBI:Anatabine) -| act(complex(GO:"NF-kappaB complex"))
+UNSET Cell
+UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "Since BACE-1 transcription is regulated by NFκB (Buggia-Prevot et al., 2008) and since we have shown that anatabine inhibits NFκB
 activation, we investigated the effect of anatabine on BACE-1 transcription using human neuronal like SH-SY5Y cells"
-complex(GO:"NF-kappaB complex") reg p(HGNC:BACE1)
+SET Confidence = "Medium"
+complex(GO:"NF-kappaB complex") reg r(HGNC:BACE1)
 a(CHEBI:Anatabine) -| act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
 
 SET CellLine = "SH-SY5Y"
 
 SET Evidence = "As expected, TNFα greatly stimulated BACE-1 transcription whereas anatabine
 fully prevented the increase in BACE-1 mRNA levels induced by TNFα (Fig. 7A)."
-p(HGNC:TNF) -> p(HGNC:BACE1)
+SET Confidence = "Medium"
+p(HGNC:TNF) -> r(HGNC:BACE1)
 a(CHEBI:Anatabine) -| r(HGNC:BACE1)
+UNSET Confidence
 
 SET Evidence = "Following 24 h of treatment, a dose dependent inhibition of BACE-1 protein levels was observed with anatabine (Fig. 7B)"
 # Treatment: 1 day
+SET Confidence = "High"
 a(CHEBI:Anatabine) -| p(HGNC:BACE1)
+UNSET Confidence
 
 UNSET CellLine
 
@@ -149,25 +177,37 @@ SET Evidence = "A significant reduction in the accumulation of brain soluble and
 following four days of treatment with 2 mg/kg of anatabine (Fig. 9)."
 # Dosage: 2 mg/kg
 # Treatment: 4 days
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 a(CHEBI:Anatabine) -| a(CHEBI:"amyloid-beta polypeptide 42")
 a(CHEBI:Anatabine) -| a(CHEBI:"amyloid-beta polypeptide 40")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In addition, a significant decreased in plasma Aβ levels
 was observed in mice treated with anatabine consistent with an inhibition of Aβ production (Fig. 10)."
+SET Confidence = "Medium"
+SET Species = "10090"
 SET MeSHAnatomy = "Plasma"
 a(CHEBI:Anatabine) -| a(CHEBI:"amyloid-beta")
+a(CHEBI:Anatabine) -| a(GO:"amyloid-beta formation")
 UNSET MeSHAnatomy
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Since anatabine lowers NFκB activation in vitro, we explored the possibility that anatabine
 may affect the level of C-reactive protein (CRP) whose expression is NFκB dependent (Karlsen et al., 2010; Yang et al.,2010)."
+SET Confidence = "High"
 a(CHEBI:Anatabine) -| act(complex(GO:"NF-kappaB complex"))
 complex(GO:"NF-kappaB complex") reg p(HGNC:CRP)
+UNSET Confidence
 
 SET Evidence = "A statistically significant reduction in plasma CRP levels was observed following the 2 mg/kg treatment with anatabine
 showing that at this dosage anatabine displays an anti-inflammatory activity in vivo (Fig. 11)."
 # Dosage: 2 mg/kg
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Plasma"
 a(CHEBI:Anatabine) -| p(HGNC:CRP)
+a(CHEBI:Anatabine) neg bp(GO:"inflammatory response")
 UNSET MeSHAnatomy
+UNSET Confidence
