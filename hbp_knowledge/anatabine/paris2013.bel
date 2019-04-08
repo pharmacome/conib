@@ -76,9 +76,11 @@ SET Evidence = "Nicotine has been shown to modulate inflammation by affecting
 STAT3 phosphorylation (Chatterjee et al., 2009; Hosur and
 Loring, 2011) and by opposing NFkB activation (Leite et al., 2010;
 Zhou et al., 2010)"
+SET Confidence = "Medium"
 a(CHEBI:nicotine) reg bp(GO:"inflammatory response")
 a(CHEBI:nicotine) -- p(HGNC:STAT3,pmod(Ph))
-a(CHEBI:nicotine) -| act(p(FPLX:"NFkappaB"))
+a(CHEBI:nicotine) -| act(p(MESH:"NF-kappa B"))
+UNSET Confidence
 
 # 15 mins of TNFa treatment
 
@@ -87,38 +89,46 @@ TNFa, an increased p65 NFkB phosphorylation (Mann–Whitney
 U=0, Z=-2.309, P=0.021) without a noticeable increase in STAT3
 phosphorylation (Mann–Whitney U=7, Z=-0.289, P=0.773) was
 observed compared to the control conditions (Fig. 1)"
-SET CellLine = "SH-SY5Y"
 # p65: RELA
+SET Confidence = "High"
+SET CellLine = "SH-SY5Y"
 p(HGNC:TNF) -> p(HGNC:RELA,pmod(Ph))
 p(HGNC:TNF) cnc p(HGNC:STAT3,pmod(Ph))
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "We observed
 that anatabine inhibits basal STAT3 phosphorylation levels (Mann–
 Whitney U=0, Z=-2.882, P=0.004) and reduces the induction of
 p65 NFkB phosphorylation by TNFa (Mann–Whitney U=0, Z=-2.882, P=0.004)
 within this 15 min time-frame (Fig. 1)"
+SET Confidence = "High"
 SET CellLine = "SH-SY5Y"
 a(CHEBI:Anatabine) -| p(HGNC:STAT3,pmod(Ph))
 a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "As a positive control, we used stattic, a known inhibitor of STAT3
 dimerization and phosphorylation"
+SET Confidence = "High"
 SET CellLine = "SH-SY5Y"
 a(CHEBI:stattic) -| p(HGNC:STAT3,pmod(Ph))
 a(CHEBI:stattic) -| complex(p(HGNC:STAT3),p(HGNC:STAT3))
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "We found that stattic inhibited
 STAT3 phosphorylation (Mann–Whitney U=0, Z=-2.324, P=0.02)
 and also suppressed p65 NFkB phosphorylation (Mann–Whitney
 U¼0, Z¼2.324, P¼0.02) mimicking the effect of anatabine in SHSY5Y
 cells (Fig. 1)"
+SET Confidence = "High"
 SET CellLine = "SH-SY5Y"
 a(CHEBI:stattic) -| p(HGNC:STAT3,pmod(Ph))
 a(CHEBI:stattic) -| p(HGNC:RELA,pmod(Ph))
 UNSET CellLine
+UNSET Confidence
 
 # 24h of TNFa treatment
 
@@ -126,18 +136,22 @@ SET Evidence = "An increased in both STAT3
 (Mann–Whitney U=0, Z=-2.309, P=0.021) and p65 NFkB phosphorylation
 (Mann–Whitney U=0, Z=-2.309, P=0.021) was
 observed following 24 h of treatment with TNFa"
+SET Confidence = "High"
 SET CellLine = "SH-SY5Y"
 p(HGNC:TNF) -> p(HGNC:RELA,pmod(Ph))
 p(HGNC:TNF) -> p(HGNC:STAT3,pmod(Ph))
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "Under these culture
 conditions, anatabine also inhibited both STAT3 and p65 NFkB
 phosphorylation induced by TNFa (Fig. 2)"
+SET Confidence = "High"
 SET CellLine = "SH-SY5Y"
 a(CHEBI:Anatabine) -| p(HGNC:STAT3,pmod(Ph))
 a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "A significant inhibition
 of STAT3 phosphorylation was observed with 600 mg/ml of anatabine
@@ -146,45 +160,60 @@ anatabine (Mann–Whitney U=0, Z=-2.309, P=0.021) and a significant
 inhibition of p65 NFkB phosphorylation was observed with
 600 mg/ml of anatabine (Mann–Whitney U=1.0, Z=-2.021,
 P=0.043) and with 800 mg/ml of anatabine (Mann–Whitney U=0,Z=-2.309, P=0.021)"
+SET Confidence = "High"
 SET CellLine = "SH-SY5Y"
 # Dosage: 600 mg/ml and 800 mg/ml anatabine
 a(CHEBI:Anatabine) -| p(HGNC:STAT3,pmod(Ph))
 a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "We next tested the impact of anatabine on STAT3 and p65
 NFkB phosphorylation induced by a 24 h treatment with LPS on
 human microglial cells, a cell type known to express alpha7-nicotinic
 acetylcholine receptor subtype (Suzuki et al., 2006)"
+SET Confidence = "Medium"
+SET Species = "9606"
 SET Cell = "microglial cell"
 a(MESH:Microglia) -> a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")
 UNSET Cell
+UNSET Species
+UNSET Confidence
 
+#not sure of information provided
 SET Evidence = "An increased
 STAT3 (Mann–Whitney U=0, Z=-2.309, P=0.021) and p65 NFkB
 phosphorylation (Mann–Whitney U=0, Z=-2.309, p=0.021) was
 observed in LPS treated microglia (Fig. 3)"
+#SET Confidence
 SET Cell = "microglial cell"
 a(CHEBI:lipopolysaccharide) -> p(HGNC:STAT3,pmod(Ph))
 a(CHEBI:lipopolysaccharide) -> p(HGNC:RELA,pmod(Ph))
 UNSET Cell
+#UNSET Confidence
 
 SET Evidence = "We observed that anatabine significantly suppressed the stimulation of p65 NFkB and
 STAT3 phosphorylation by LPS in microglia (Fig. 3)"
+#SET Confidence = "High"
 SET Cell = "microglial cell"
 a(CHEBI:lipopolysaccharide) -> p(HGNC:STAT3,pmod(Ph))
 a(CHEBI:Anatabine) -| p(HGNC:STAT3,pmod(Ph))
 a(CHEBI:lipopolysaccharide) -> p(HGNC:RELA,pmod(Ph))
 a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
 UNSET Cell
+#UNSET Confidence
 
 SET Evidence = "Kruskal–Wallis test revealed that doses of anatabine significantly suppressed both
 LPS induced STAT3 phosphorylation (H=15.658, df=4, P=0.005)
 and p65 NFkB phosphorylation (H=14.150, df=4, P=0.007) in human microglia"
+SET Confidence = "Medium"
+SET Species = "9606"
 SET Cell = "microglial cell"
 a(CHEBI:Anatabine) -| p(HGNC:STAT3,pmod(Ph))
 a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
 UNSET Cell
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "A significant inhibition of STAT3 phosphorylation
 was observed with 10 mg/ml of anatabine (Mann–Whitney U=1,
@@ -192,29 +221,35 @@ Z=-2.021, P=0.043), with 100 mg/ml of anatabine (Mann–Whitney
 U=0, Z=-2.309, P=0.021), with 300 mg/ml of anatabine
 (Mann–Whitney U=0, Z=-2.309, P=0.021) and with 600 mg/ml
 of anatabine (Mann–Whitney U=0, Z=-2.309, P=0.021)"
+SET Confidence = "High"
 SET Cell = "microglial cell"
 # Dosage: 10 mg/ml, 100 mg/ml, 300 mg/ml and 600 mg/ml of anatabine
 a(CHEBI:Anatabine) -| p(HGNC:STAT3,pmod(Ph))
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Similarly, LPS induced p65 NFkB phosphorylation in microglia was
 significantly inhibited with 10 mg/ml of anatabine (Mann–Whitney
 U=0, Z=-2.309, P=0.021), with 100 mg/ml of anatabine (Mann–
 Whitney U=0, Z=-2.309, P=0.021), with 300 mg/ml of anatabine
 (Mann–Whitney U=0, Z=-2.309, P=0.021)"
+SET Confidence = "High"
 SET Cell = "microglial cell"
 # Dosage: 10 mg/ml, 100 mg/ml and 300 mg/ml of anatabine
 a(CHEBI:lipopolysaccharide) -> p(HGNC:RELA,pmod(Ph))
 a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "TNFa significantly stimulated
 STAT3 (Mann–Whitney U=0, Z=-2.309, P=0.021) and p65
 NFkB phosphorylation (Mann–Whitney U=0, Z=-2.309, P=0.021)"
+#SET Confidence = "High"
 SET CellLine = "HEK293"
 p(HGNC:TNF) -> p(HGNC:RELA,pmod(Ph))
 p(HGNC:TNF) -> p(HGNC:STAT3,pmod(Ph))
 UNSET CellLine
+#UNSET Confidence
 
 SET Evidence = "An inhibition of TNFa induced STAT3 (Mann–Whitney
 U=0, Z=-2.121, P=0.034), and p65 NFkB phosphorylation
@@ -222,39 +257,51 @@ U=0, Z=-2.121, P=0.034), and p65 NFkB phosphorylation
 these cells following the anatabine treatment (Fig. 4) suggesting
 that anatabine may also mediate its anti-inflammatory activity
 independently of nicotinic acetylcholine receptor expression"
+SET Confidence = "Medium"
 SET CellLine = "HEK293"
 a(CHEBI:Anatabine) -| p(HGNC:STAT3,pmod(Ph))
 a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
-a(CHEBI:Anatabine) reg bp(GO:"inflammatory response")
+a(CHEBI:Anatabine) neg bp(GO:"inflammatory response")
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "Anatabine at 200 mg/
 ml significantly lowered LPS induced IL-1b levels in whole blood
 (Mann–Whitney U=0.0, Z=-2.3, P=0.02)"
+SET Confidence = "High"
 composite(a(MESH:Blood),a(CHEBI:Anatabine)) -| p(HGNC:IL1B)
 a(CHEBI:lipopolysaccharide) -> p(HGNC:IL1B)
+UNSET Confidence
 
 SET Evidence = "Higher doses of anatabine
 resulted in a complete suppression of IL-1b levels in LPS
 challenged human blood (Mann–Whitney U=0.0, Z=-2.5, P=0.01)"
+SET Confidence = "Medium"
+SET Species = "9606"
 composite(a(MESH:Blood),a(CHEBI:Anatabine),a(CHEBI:lipopolysaccharide)) -| p(HGNC:IL1B)
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Following a 24 h
 incubation with LPS, a significant stimulation of STAT3 (Mann–
 Whitney U=0, Z=-2.882, P=0.004) and p65 NFkB phosphorylation
 was observed (Mann–Whitney U=1, Z=-2.722, P=0.006)"
-SET Cell = "mononuclear cell"
+SET Confidence = "Medium"
 a(CHEBI:lipopolysaccharide) -> p(HGNC:RELA,pmod(Ph))
 a(CHEBI:lipopolysaccharide) -> p(HGNC:STAT3,pmod(Ph))
-UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Anatabine appears to completely antagonize LPS induced STAT3
 (Mann–Whitney U=0, Z=-3.077, P=0.002) and p65 NFkB phosphorylation
 (Mann–Whitney U=0, Z=-3.077, P=0.002) in human mononuclear cells"
+SET Confidence = "Medium"
+SET Species = "9606"
 SET Cell = "mononuclear cell"
 a(CHEBI:Anatabine) -| p(HGNC:RELA,pmod(Ph))
 a(CHEBI:Anatabine) -| p(HGNC:STAT3,pmod(Ph))
 UNSET Cell
+UNSET Species
+UNSET Confidence
 
 SET Species = "10090"
 
@@ -263,6 +310,7 @@ plasma IL-1b (Mann–Whitney U=3, Z=-2.988, P=0.003), IL-6 (Mann–Whitney U=0, 
 Whitney U=0, Z=-3.508, P<0.001) 4 h after the LPS challenge whereas in mice co-treated with an intraperitoneal injection of
 anatabine (2 mg/kg) and LPS, a significant reduction in plasma IL-1b (Mann–Whitney U=7, Z=-2.645, P=0.008) and TNFa
 (Mann–Whitney U=4, Z=-2.941, P=0.003) levels was observed (Fig. 6)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Plasma"
 a(CHEBI:lipopolysaccharide) -> p(MGI:Il1b)
 a(CHEBI:lipopolysaccharide) -> p(MGI:Il6)
@@ -270,42 +318,51 @@ a(CHEBI:lipopolysaccharide) -> p(MGI:Tnf)
 composite(a(CHEBI:lipopolysaccharide),a(CHEBI:Anatabine)) -| p(MGI:Il1b)
 composite(a(CHEBI:lipopolysaccharide),a(CHEBI:Anatabine)) -| p(MGI:Tnf)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Plasma IL-6 levels show a trend for a reduction but were
 not significantly affected (Mann–Whitney U=19, Z=-1.368,
 P=0.171) by the anatabine treatment (Fig. 6)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Plasma"
 composite(a(CHEBI:lipopolysaccharide),a(CHEBI:Anatabine)) -| p(MGI:Il6)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "An elevation of IL-6 (Mann–Whitney U=0, Z=-3.487, P<0.001), IL1b (Mann–
 Whitney U=0, Z=-3.24, P=0.001) and TNFa (Mann–Whitney U=0, Z=-3.361, P=0.001) was observed in the spleen of LPS
 challenged mice (Fig. 7)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Spleen"
 a(CHEBI:lipopolysaccharide) -> p(MGI:Il1b)
 a(CHEBI:lipopolysaccharide) -> p(MGI:Il6)
 a(CHEBI:lipopolysaccharide) -> p(MGI:Tnf)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Anatabine significantly inhibited LPS
 induced IL-6 (Mann–Whitney U=4, Z=-3.303, P=0.001), TNF-a
 (Mann–Whitney U=0, Z=-3.361, P=0.001) and IL-1b levels in
 the spleen (Mann–Whitney U=9, Z=-1.981, P=0.048) (Fig. 7)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Spleen"
 composite(a(CHEBI:lipopolysaccharide),a(CHEBI:Anatabine)) -| p(MGI:Il1b)
 composite(a(CHEBI:lipopolysaccharide),a(CHEBI:Anatabine)) -| p(MGI:Il6)
 composite(a(CHEBI:lipopolysaccharide),a(CHEBI:Anatabine)) -| p(MGI:Tnf)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Similarly, IL-1b (Mann–Whitney U=0, Z=-3.098, P=0.002), IL-6
 (Mann–Whitney U=0, Z=-3.363, P<0.001) and TNF-a levels
 (Mann–Whitney U=0, Z=-3.361, P=0.001) were elevated in the
 kidney following the LPS challenge (data not shown)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Kidney"
 a(CHEBI:lipopolysaccharide) -> p(MGI:Il1b)
 a(CHEBI:lipopolysaccharide) -> p(MGI:Il6)
 a(CHEBI:lipopolysaccharide) -> p(MGI:Tnf)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "A significant
 reduction in TNF-a (Mann–Whitney U=12, Z=-2.309, P=0.021)
@@ -313,9 +370,11 @@ but no significant reduction in IL-6 levels (Mann–Whitney U=25,
 Z=-1.223, P=0.221) or IL-1b (Mann–Whitney U=8, Z=-1.857,P=0.063)
 were observed in the kidney of LPS and anatabine cotreated
 animals (data not shown)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Kidney"
 composite(a(CHEBI:lipopolysaccharide),a(CHEBI:Anatabine)) -| p(MGI:Tnf)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Western-blot experiments revealed that LPS significantly stimulated
 of STAT3 phosphorylation in the spleen (Mann–Whitney
@@ -324,41 +383,52 @@ U=0, Z=-2.882, P=0.004) (data not shown) whereas anatabine
 significantly inhibited STAT3 phosphorylation in the spleen
 (Mann–Whitney U=1, Z=-2.021, P=0.043) and kidney (Mann–
 Whitney U=5, Z=-2.082, P=0.037) (data not shown)"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Spleen","Kidney"}
 a(CHEBI:lipopolysaccharide) -> p(MGI:Stat3,pmod(Ph))
 a(CHEBI:Anatabine) -| p(MGI:Stat3,pmod(Ph))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "An elevation of brain IL-6 (Mann–Whitney U=0, Z=-3, p=0.003) and TNF-a
 (Mann–Whitney U=0, Z=-2.887, p=0.004) was observed in Tg
 APPsw mice compared to their wild-type littermates (Fig. 9)"
+#mouse model : Tg APPsw
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 SET MeSHDisease = "Alzheimer Disease"
 path(MESH:"Alzheimer Disease") -> p(MGI:Il6)
 path(MESH:"Alzheimer Disease") -> p(MGI:Tnf)
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Following 90 days of treatment with anatabine, a significant reduction in
 brain TNF-a (Mann–Whitney U=6, Z=-2.146, p=0.032) and in IL-6
 (Mann–Whitney U=0, Z=-2.887, p=0.004) was observed in Tg
 APPsw mice compared to Tg APPsw that received regular drinking water (Fig. 9)"
+#mouse model : Tg APPsw
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 SET MeSHDisease = "Alzheimer Disease"
 a(CHEBI:Anatabine) -| p(MGI:Tnf)
 a(CHEBI:Anatabine) -| p(MGI:Il6)
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "A significant elevation of STAT3 phosphorylation was detected in the brain of Tg APPsw
 compared to their control littermates (Mann–Whitney U=1, Z=-3.767, p<0.001) and a significant reduction in STAT3 phosphorylation
 (Mann–Whitney U=8, Z=-2.066, p=0.039) was observed in the brain of Tg APPsw treated with anatabine compared to untreated
 Tg APPsw littermates (Fig. 10)."
+#mouse model : Tg APPsw
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 SET MeSHDisease = "Alzheimer Disease"
 path(MESH:"Alzheimer Disease") -> p(MGI:Stat3,pmod(Ph))
 a(CHEBI:Anatabine) -| p(MGI:Stat3,pmod(Ph))
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 UNSET Species
