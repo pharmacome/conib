@@ -78,19 +78,25 @@ human health, but it has also been associated with a
 few apparent salutary actions, including the amelioration
 of autoimmune (Hashimoto) thyroiditis and ulcerative
 colitis."
+SET Confidence = "High"
 path(MESH:Smoking) -- path(MESH:"Hashimoto Disease")
 path(MESH:Smoking) -- path(MESH:"Colitis, Ulcerative")
+UNSET Confidence
 
 SET Evidence = "Smokers in the Third National Health and Nutri-
 tion Examination Survey were found to have lower prev-
 alence of thyroperoxidase and/or thyroglobulin antibod-
 ies than nonsmokers (1)."
+#TPO : thyroperoxidase
+SET Confidence = "High"
 path(MESH:Smoking) neg p(HGNC:TPO)
+UNSET Confidence
 
 SET Evidence = " Furthermore, anatabine has been recently
 shown to inhibit nuclear factor-kB(NF-kB) activation and
 reduce neuroinflammation in a mouse model of Alzheimer
 disease (15)."
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 SET Species = "10090"
 a(CHEBI:Anatabine) -| act(p(FPLX:NFkappaB))
@@ -99,11 +105,14 @@ a(CHEBI:Anatabine) -| bp(GO:"inflammatory response")
 UNSET MeSHAnatomy
 UNSET Species
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Anatabine significantly decreased the severity of EAT
 induced with our standard induction protocol."
-#ETA is experimental autoimmune thyroiditis
+#EAT is experimental autoimmune thyroiditis
+SET Confidence = "High"
 a(CHEBI:Anatabine) -| path(MESH:"Thyroiditis, Autoimmune")
+UNET Confidence
 
 SET Evidence = "Anatabine
 treated mice developed lower levels of thyroglobulin
@@ -111,16 +120,24 @@ antibodies than controls on d 14 (P  0.029) and d 21
 (P  0.045) (Fig. 2A), suggesting that anatabine atten-
 uates the thyroid-specific autoimmune response in-
 duced by thyroglobulin immunization."
+SET Confidence = "Medium"
+SET Species = "10090"
 SET MeSHDisease = "Thyroiditis, Autoimmune"
 a(CHEBI:Anatabine) -| a(MESH:Thyroglobulin)
 UNSET MeSHDisease
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Anatabine suppressed the EAT-mediated
 increase of IL-1 receptor type 2 (IL-1R2, Figure 3A) and
 IL-18 (Fig. 3B), restoring their expression to levels similar
 to those seen in normal unimmunized thyroids."
+SET Confidence = "Medium"
 path(MESH:"Thyroiditis, Autoimmune") -> p(HGNC:IL1R2)
 a(CHEBI:Anatabine) -| p(HGNC:IL1R2)
+path(MESH:"Thyroiditis, Autoimmune") -> p(HGNC:IL18)
+a(CHEBI:Anatabine) -| p(HGNC:IL18)
+UNSET Confidence
 
 SET Evidence = "Anatabine suppressed in a dose-
 dependent manner the increase of iNOS and COX2 in-
@@ -129,9 +146,11 @@ antiinflammatory properties. The effect seen with inter-
 feron-g was also seen when macrophages were stimulated
 with lipopolysaccharide (Supplemental Fig. 1)."
 #COX2 is PTGS2
+SET Confidence = "High"
 p(HGNC:IFNG) -> p(HGNC:NOS2)
 p(HGNC:IFNG) -> p(HGNC:PTGS2)
 a(CHEBI:Anatabine) -| p(HGNC:NOS2)
 a(CHEBI:Anatabine) -| p(HGNC:PTGS2)
 a(CHEBI:lipopolysaccharide) -> bp(GO:"macrophage activation")
 a(CHEBI:Anatabine) -| bp(GO:"macrophage activation")
+UNSET Confidence
