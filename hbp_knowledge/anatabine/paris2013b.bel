@@ -81,44 +81,64 @@ SET Species = "10090"
 
 SET Evidence = "The axonal damage in EAE mice leads to well
 defined clinical signs such as tail paralysis, hind-limb weakness and paralysis"
+#EAE : Experimental autoimmune encephalomyelitis
+#mouse model : EAE mice
+SET Confidence = "Medium"
 SET MeSHDisease = "Encephalomyelitis"
+SET Anatomy = {'tail','limb'}
 act(a(GO:"axon")) -| path(MESH:"Paralysis")
+UNSET Anatomy
 act(a(GO:"axon")) -| path(HP:"Limb muscle weakness")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "This particular dosage was selected from a
 previous study showing that this dosage is efficient at lowering
 brain cytokine levels in a mouse model of Alzheimer’s disease
 displaying chronic neuroinflammation"
 # this dosage refers to anatabine dosage
+SET Confidence = "Medium"
 SET MeSHDisease = "Alzheimer Disease"
 SET MeSHAnatomy = "Brain"
 a(CHEBI:Anatabine) -| a(MESH:Cytokines)
+a(CHEBI:Anatabine) -> bp(GO:"neuroinflammatory response")
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Clinical signs of EAE became apparent by day 6
 following the immunization in the placebo group but were delayed
 to day 11 in the anatabine treatment group (Fig. 1A)"
+#mouse strains : EAE, placebo group
+SET Confidence = "High"
 a(CHEBI:Anatabine) neg path(MESH:Encephalomyelitis)
+UNSET Confidence
 
 SET Evidence = "The average clinical severity of EAE was also significantly reduced by the
 anatabine treatment (Fig. 1B)"
+#mouse strains : EAE
+SET Confidence = "High"
 a(CHEBI:Anatabine) -| path(MESH:Encephalomyelitis)
+UNSET Confidence
 
 SET Evidence = "Importantly, approximately 70% of
 the mice in the placebo group developed hind-limb weakness or
 paralysis compared to only 20% in the anatabine treatment group
 (Fig. 1C) showing that the mice treated with anatabine displayed
 significantly milder disease symptoms than the placebo group"
+#mice model : placebo group
+SET Confidence = "High"
 SET MeSHDisease = "Encephalomyelitis"
 a(CHEBI:Anatabine) -| path(MESH:"Paralysis")
 a(CHEBI:Anatabine) -| path(HP:"Limb muscle weakness")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "We found that IL-1b, IFN-gamma,
 TNF-alpha, IL-6 and IL-17A were significantly elevated in the serum
 of EAE mice compared to control non-immunized mice"
+#mouse model : EAE
+SET Confidence = "High"
 SET MeSHAnatomy = "Serum"
 path(MESH:Encephalomyelitis) pos p(MGI:Il1b)
 path(MESH:Encephalomyelitis) pos p(MGI:Ifng)
@@ -126,10 +146,13 @@ path(MESH:Encephalomyelitis) pos p(MGI:Tnf)
 path(MESH:Encephalomyelitis) pos p(MGI:Il6)
 path(MESH:Encephalomyelitis) pos p(MGI:Il17a)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "However, anatabine significantly suppressed the production of
 IL-1b, IL-6 and IL-17A in the serum of EAE mice (Fig. 2B) but
 did not significantly impact IFN-gamma and TNF-alpha"
+#mouse  model : EAE
+SET Confidence = "High"
 SET MeSHDisease = "Encephalomyelitis"
 SET MeSHAnatomy = "Serum"
 a(CHEBI:Anatabine) -| p(MGI:Il1b)
@@ -139,18 +162,24 @@ a(CHEBI:Anatabine) cnc p(MGI:Ifng)
 a(CHEBI:Anatabine) cnc p(MGI:Tnf)
 UNSET MeSHDisease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "A significant elevation of IL-1b, INF-gamma and TNF-alpha
 was observed in the spleen of EAE mice compared to control non
 immunized animals"
+#mouse model : EAE
+SET Confidence = "High"
 SET MeSHAnatomy = "Spleen"
 path(MESH:Encephalomyelitis) -> p(MGI:Il1b)
 path(MESH:Encephalomyelitis) -> p(MGI:Tnf)
 path(MESH:Encephalomyelitis) -> p(MGI:Ifng)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Anatabine appears to fully suppress IL-1b,
 INF-gamma and TNF-a elevation in the spleen of EAE mice (Fig. 2C)."
+#mouse model : EAE
+SET Confidence = "High"
 SET MeSHDisease = "Encephalomyelitis"
 SET MeSHAnatomy = "Spleen"
 a(CHEBI:Anatabine) -| p(MGI:Il1b)
@@ -158,55 +187,72 @@ a(CHEBI:Anatabine) -| p(MGI:Ifng)
 a(CHEBI:Anatabine) -| p(MGI:Tnf)
 UNSET MeSHDisease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "However, a significant
 reduction in IL-17 was observed in the spleen of EAE anatabine
 treated mice compared to EAE placebo mice (Fig. 2C)"
+#mouse model : EAE
+SET Confidence = "High"
 SET MeSHDisease = "Encephalomyelitis"
 SET MeSHAnatomy = "Spleen"
 a(CHEBI:Anatabine) -| p(MGI:Il17a)
 UNSET MeSHDisease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "We have shown previously that anatabine prevents STAT3 and
 p65 NFkB phosphorylation in various cell types and suggested that
 anatabine impact cytokine production by this mechanism as
 both STAT3 and p65 NFkB are known to regulate cytokine production."
+#p65 NFkB : Rela
+SET Confidence = "High"
 a(CHEBI:Anatabine) -| p(MGI:Stat3,pmod(Ph))
 p(MGI:Stat3) reg bp(GO:"cytokine production")
 a(CHEBI:Anatabine) -| p(MGI:Rela,pmod(Ph))
 p(MGI:Rela) reg bp(GO:"cytokine production")
+UNSET Confidence
 
 SET Evidence = "Interestingly, a significant increase in STAT3 phosphorylation was
 observed in the spleen of EAE mice compared to control non
 immunized mice and a significant decrease in STAT3 phosphorylation
 level was detected in EAE mice treated with anatabine (Fig. 3)"
+#mouse model : EAE
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Spleen"
-path(MESH:Encephalomyelitis) -> p(MGI:Stat3,pmod(Ph))
 SET MeSHDisease = "Encephalomyelitis"
+path(MESH:Encephalomyelitis) -> p(MGI:Stat3,pmod(Ph))
 a(CHEBI:Anatabine) -| p(MGI:Stat3,pmod(Ph))
 UNSET MeSHDisease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Western-blot
 experiments using brain homogenates from EAE mice also reveal
 that both STAT3 and p65 NFkB phosphorylation are significantly
 elevated in the brain of EAE mice compared to control non
 immunized mice (Fig. 4)"
+#mouse model : EAE
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Brain"
+SET MeSHDisease = "Encephalomyelitis"
 path(MESH:Encephalomyelitis) -> p(MGI:Stat3,pmod(Ph))
 path(MESH:Encephalomyelitis) -> p(MGI:Rela,pmod(Ph))
+UNSET MeSHDisease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Additionally, we observed that anatabine
 significantly prevented STAT3 and p65 NFkB phosphorylation in
 brain homogenates of EAE mice (Fig. 4)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 SET MeSHDisease = "Encephalomyelitis"
 a(CHEBI:Anatabine) -| p(MGI:Stat3,pmod(Ph))
 a(CHEBI:Anatabine) -| p(MGI:Rela,pmod(Ph))
 UNSET MeSHDisease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Interestingly, a
 statistically significant correlation was observed between the
@@ -216,37 +262,50 @@ and the clinical severity of EAE (Pearson correlation
 (Pearson correlation = 0.371, P= 0.062) suggesting that STAT3
 may play a more preponderant role than NFkB in the
 development of neurological deficits of EAE"
+#mouse model : EAE
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 p(MGI:Stat3,pmod(Ph)) pos path(MESH:Encephalomyelitis)
 p(MGI:Stat3,pmod(Ph)) -- path(MESH:"Neurologic Manifestations")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In addition, we
 observed a statistically significant correlation between the amount
 of p65 NFkB phosphorylation and STAT3 phosphorylation in
 brain homogenates (Pearson Correlation = 0.637, P<0.001)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 p(MGI:Stat3,pmod(Ph)) pos p(MGI:Rela,pmod(Ph))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "We further assessed
 STAT3 phosphorylation by immunohistochemistry using brain
 sections of the animals and observed an increased number of
 phosphorylated STAT3 immunopositive cells in the cortex of EAE
 mice compared to control non-immunized mice (Fig. 5)"
+#mouse model : EAE
+SET Confidence = "Medium"
+SET MeSHDisease = "Encephalomyelitis"
 SET MeSHAnatomy = "Cerebral Cortex"
 path(MESH:Encephalomyelitis) -> p(MGI:Stat3,pmod(Ph))
 UNSET MeSHAnatomy
+UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "A reduction in the number of phosphorylated STAT3 immunoreactive
 cells was observed in the cerebral cortex of EAE mice
 treated with anatabine further confirming the data obtained by
 western-blotting using brain homogenates (Fig. 5)"
+#mouse model : EAE
+SET Confidence = "High"
 SET MeSHDisease = "Encephalomyelitis"
 SET MeSHAnatomy = "Cerebral Cortex"
 a(CHEBI:Anatabine) -| p(MGI:Stat3,pmod(Ph))
 UNSET MeSHDisease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Similarly, we
 observed an increased number of phosphorylated STAT3
@@ -256,85 +315,132 @@ phosphorylated STAT3 immunoreactive cells in EAE mice treated
 with anatabine (Fig. 6) showing overall that anatabine reduces
 STAT3 phosphorylation in the brain, spinal cord and spleen of
 EAE mice."
+#mouse model : EAE
+SET Confidence = "High"
+SET MeSHDisease = "Encephalomyelitis"
 SET MeSHAnatomy = "Spinal Cord"
 path(MESH:Encephalomyelitis) -> p(MGI:Stat3,pmod(Ph))
-SET MeSHDisease = "Encephalomyelitis"
 a(CHEBI:Anatabine) -| p(MGI:Stat3,pmod(Ph))
 UNSET MeSHAnatomy
 SET MeSHAnatomy = {"Spinal Cord","Cerebral Cortex","Brain"}
 a(CHEBI:Anatabine) -| p(MGI:Stat3,pmod(Ph))
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "A statistically significant correlation was observed
 between the number of STAT3 phosphorylated cells in the
 cerebral cortex and the clinical severity of EAE (Pearson
 Correlation =0.531, P,0.002)"
+#mouse model : EAE
+SET Confidence = "Medium"
+SET MeSHDisease = "Encephalomyelitis"
 SET MeSHAnatomy = "Cerebral Cortex"
 p(MGI:Stat3,pmod(Ph)) pos path(MESH:Encephalomyelitis)
 UNSET MeSHAnatomy
+UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "A statistically significant correlation
 was also observed between the amount of STAT3 phosphorylated
 cells in the spinal cord and the clinical severity of EAE
 (Pearson Correlation = 0.512, P,0.004)"
+#mouse model : EAE
+SET Confidence = "Medium"
+SET MeSHDisease = "Encephalomyelitis"
 SET MeSHAnatomy = "Spinal Cord"
 p(MGI:Stat3,pmod(Ph)) pos path(MESH:Encephalomyelitis)
 UNSET MeSHAnatomy
+UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "A significant increase in
 astrogliosis revealed by a GFAP immunostaining was observed in
 the cortex and medulla of EAE mice compared to control non
 immunized animals (Fig. 7)"
+#mouse model : EAE
+SET Confidence = "Medium"
+SET MeSHDisease = "Encephalomyelitis"
 SET MeSHAnatomy = "Cerebral Cortex"
 path(MESH:Encephalomyelitis) -> bp(HBP:Astrogliosis)
 UNSET MeSHAnatomy
+UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Overall, anatabine did not significantly impact EAE induced astrogliosis for
 the different areas of the brain examined (Fig. 7)"
+#mouse model : EAE
+SET Confidence = "Medium"
+SET MeSHDisease = "Encephalomyelitis"
 SET MeSHAnatomy = {"Cerebral Cortex","Hippocampus"}
 a(CHEBI:Anatabine) cnc bp(HBP:Astrogliosis)
 UNSET MeSHAnatomy
+UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "A significant
 increase in the number of microglial cells immunoreactive for Iba1
 was observed in the hippocampus and medulla of EAE mice compared to control non-immunized mice (Fig. 8)"
+#mouse model : EAE
+SET Confidence = "Medium"
+SET MeSHDisease = "Encephalomyelitis"
 SET MeSHAnatomy = {"Medulla Oblongata","Hippocampus"}
 path(MESH:Encephalomyelitis) -> bp(HBP:Microgliosis)
 UNSET MeSHAnatomy
+UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Interestingly, a
 significant reduction in the number of IBa1 immunopositive
 microglial cells was found in the hippocampus and medulla of
 anatabine treated EAE mice (Fig. 8)"
+#mouse model : EAE
+SET Confidence = "High"
 SET MeSHAnatomy = {"Medulla Oblongata","Hippocampus"}
 SET MeSHDisease = "Encephalomyelitis"
 a(CHEBI:Anatabine) -| bp(HBP:Microgliosis)
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "As shown in
 Fig. 9, hematoxylin and eosin staining revealed numerous
 perivascular clusters of mononuclear infiltrating cells in the spinal
 cord of EAE mice and an absence of these inflammatory cell
 infiltrates in the spinal cord of control non-immunized mice"
+#mouse model : EAE
+SET Confidence = "High"
 path(MESH:Encephalomyelitis) -> tloc(a(MESH:Leukocytes),fromLoc(GO:"extracellular region"),toLoc(MESH:"Spinal Cord"))
+UNSET Confidence
 
 SET Evidence = "Less cellular infiltration was observed in the spinal cord of anatabine
 treated mice compared to EAE placebo mice (Fig. 9)"
+#mouse model : EAE placebo
+SET Confidence = "High"
 SET MeSHDisease = "Encephalomyelitis"
 a(CHEBI:Anatabine) -| tloc(a(MESH:Leukocytes),fromLoc(GO:"extracellular region"),toLoc(MESH:"Spinal Cord"))
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Globally, Iba1 immunostaining is significantly increased
 in the spinal cord of EAE mice compared to control nonimmunized
 mice (Fig. 10)"
+#Iba1 immunostaining is sensitive for microglia
+#mouse model : EAE
+SET Confidence = "Medium"
+SET MeSHDisease = "Encephalomyelitis"
+SET MeSHAnatomy = "Spinal Cord"
 path(MESH:Encephalomyelitis) -> a(MESH:Microglia)
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "In addition, anatabine markedly
 decreased the Iba1 immunostaining in the spinal cord of EAE
 mice showing that anatabine reduces the infiltration of macrophage/
 microglia in the spinal cord of EAE mice (Fig. 10)"
+#mouse model : EAE
+SET Confidence = "High"
 SET MeSHDisease = "Encephalomyelitis"
 SET MeSHAnatomy = "Spinal Cord"
 a(CHEBI:Anatabine) -| a(MESH:Microglia)
@@ -342,31 +448,44 @@ a(CHEBI:Anatabine) -| tloc(a(MESH:Macrophages),fromLoc(GO:"extracellular region"
 a(CHEBI:Anatabine) -| tloc(a(MESH:Microglia),fromLoc(GO:"extracellular region"),toLoc(MESH:"Spinal Cord"))
 UNSET MeSHDisease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "A marked increase in GFAP immunostaining was also observed in
 the spinal cord of EAE mice and was significantly suppressed by
 the anatabine treatment showing that anatabine prevents astrogliosis
 in the spinal cord of EAE mice (Fig. 11)"
+#GFAP immunostaining is sensitive to Astrogliosis
+#mosue model : EAE
+SET Confidence = "High"
 SET MeSHAnatomy = "Spinal Cord"
-path(MESH:Encephalomyelitis) -> bp(HBP:Astrogliosis)
 SET MeSHDisease = "Encephalomyelitis"
+path(MESH:Encephalomyelitis) -> bp(HBP:Astrogliosis)
 a(CHEBI:Anatabine) -| bp(HBP:Astrogliosis)
 UNSET MeSHDisease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Finally, Luxol Fast Blue staining showed significant myelin loss in the white matter of
 the spinal cord of EAE mice compared control non-immunized mice (Fig. 12)"
+#mosue model : EAE
+SET Confidence = "Medium"
+SET MeSHDisease = "Encephalomyelitis"
 SET MeSHAnatomy = {"Spinal Cord","White Matter"}
 path(MESH:Encephalomyelitis) -| a(GO:"myelin sheath")
 UNSET MeSHAnatomy
+UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Interestingly, anatabine significantly prevented demyelination
 associated with EAE in the spinal cord (Fig. 12)"
+#mouse model : EAE
+SET Confidence = "Medium"
 SET MeSHDisease = "Encephalomyelitis"
-SET MeSHAnatomy = {"Spinal Cord","White Matter"}
+SET MeSHAnatomy = {"Spinal Cord"}
 a(CHEBI:Anatabine) pos a(GO:"myelin sheath")
 UNSET MeSHDisease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "A statistically significant positive correlation was observed between the amount
 of GFAP and Iba1 burden in the spinal cord (Pearson
@@ -376,6 +495,8 @@ burden (Pearson correlation =20.525, P= 0.007), and between
 the IBa1 burden and the Luxol fast blue burden (Pearson
 correlation =20.609, P =0.001) suggesting that astrogliosis and
 microgliosis are associated with the loss of myelin in the spinal cord"
+#Luxol fast blue burden is used for mylein sheath
+SET Confidence = "High"
 SET MeSHAnatomy = "Spinal Cord"
 a(MESH:Astrocytes) pos a(MESH:Microglia)
 a(MESH:Astrocytes) neg a(GO:"myelin sheath")
@@ -383,6 +504,7 @@ a(MESH:Microglia) neg  a(GO:"myelin sheath")
 bp(HBP:Astrogliosis) neg a(GO:"myelin sheath")
 bp(HBP:Microgliosis) neg a(GO:"myelin sheath")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 UNSET Species
 
