@@ -266,7 +266,7 @@ path(MESH:"Alzheimer Disease") -> a(CHEBI:Thrombin, loc(MESH:Microvessels))
 UNSET MeSHAnatomy
 
 path(MESH:"Alzheimer Disease") -> a(CHEBI:Thrombin, loc(MESH:"Cerebrospinal Fluid"))
-a(CHEBI:Thrombin) -> bp(HBP:"neurite retraction")
+a(CHEBI:Thrombin) -> path(HBP:"neurite retraction")
 a(CHEBI:Thrombin) -> bp(GO:"apoptotic process")
 UNSET Confidence
 
@@ -407,7 +407,7 @@ is ∼35 kDa and one that is ∼17 kDa (19, 20). "
 SET Confidence = "High"
 SET MeSHDisease={"Neurodegenerative Diseases", "Alzheimer Disease"}
 
-bp(HBP:Excitotoxicity) -> a(CHEBI:"calcium(2+)", loc(GO:intracellular))
+path(HBP:Excitotoxicity) -> a(CHEBI:"calcium(2+)", loc(GO:intracellular))
 a(CHEBI:"calcium(2+)", loc(GO:intracellular)) -> act(p(HGNCGENEFAMILY:Calpains))
 act(p(HGNCGENEFAMILY:Calpains)) -> deg(p(HGNC:MAPT))
 act(p(HGNCGENEFAMILY:Calpains)) -> p(HGNC:MAPT, frag(?,"35kD"))
@@ -425,7 +425,7 @@ SET CellLine="PC12"
 
 a(CHEBI:"calcium(2+)", loc(GO:intracellular)) -> act(p(HGNCGENEFAMILY:Calpains))
 act(p(HGNCGENEFAMILY:Calpains)) -> deg(p(HGNC:MAPT))
-act(p(HGNCGENEFAMILY:Calpains)) -- a(HBP:Excitotoxicity)
+act(p(HGNCGENEFAMILY:Calpains)) -- path(HBP:Excitotoxicity)
 act(p(HGNCGENEFAMILY:Calpains)) -> p(HGNC:MAPT, frag(?,"17kD"))
 bp(GO:"apoptotic process") -> act(p(HGNCGENEFAMILY:Calpains))
 bp(GO:"apoptotic process") -> p(HGNC:MAPT, frag(?,"17kD"))
@@ -460,7 +460,7 @@ did expressing a calpain-resistant form of tau (54). "
 SET Confidence = "High"
 SET MeSHAnatomy="Hippocampus"
 
-p(HGNC:MAPT, frag(?,"17kD")) -> bp(HBP:"neurite retraction")
+p(HGNC:MAPT, frag(?,"17kD")) -> path(HBP:"neurite retraction")
 
 UNSET MeSHAnatomy
 
@@ -522,7 +522,7 @@ inducing caspase-3 cleavage of tau is the presence of Aβ peptides. TauC3 is
 formed in primary cortical neurons after treatment with Aβ (23)."
 SET Confidence = "Medium"
 p(HGNC:MAPT, var("p.D421E")) -| bp(GO:"apoptotic process")
-composite(a(MESH:"Amyloid beta-Peptides")), p(HGNC:CASP3)) -> p(HBP:"Tau C3")
+composite(a(MESH:"Amyloid beta-Peptides"),p(HGNC:CASP3)) -> p(HBP:"Tau C3")
 a(CHEBI:"amyloid-beta") -> p(HBP:"Tau C3")
 UNSET Confidence
 
@@ -660,7 +660,7 @@ transfected wild-type full-length tau (4R0N) after cycloheximide treatment
 halted protein synthesis (65). "
 SET Confidence = "Medium"
 a(CHEBI:lactacystin) -| deg(p(HGNC:MAPT))
-a(CHEBI:lactacystin) -| act(complex(HBP:"20 S Proteasome"))
+a(CHEBI:lactacystin) -| act(p(HBP:"20 S Proteasome"))
 UNSET Confidence
 
 SET Evidence=" Similarly, overexpressing the FTDP-17 mutant P301L tau
@@ -1000,9 +1000,9 @@ SET Confidence = "High"
 SET Species="10116"
 
 a(MESH:Trehalose) -> bp(MESH:Autophagy)
-bp(MESH:Autophagy) -| a(HBP:"Tau epitope, AT8")
-bp(MESH:Autophagy) -| a(HBP:"Tau epitope, PHF1")
-bp(MESH:Autophagy) -| a(HBP:"Tau epitope, 12E8")
+bp(MESH:Autophagy) -| p(HBP:"Tau epitope, AT8")
+bp(MESH:Autophagy) -| p(HBP:"Tau epitope, PHF1")
+bp(MESH:Autophagy) -| p(HBP:"Tau epitope, 12E8")
 
 UNSET Species
 UNSET Confidence
