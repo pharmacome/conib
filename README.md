@@ -23,6 +23,12 @@ for the Human Brain Pharmacome (HBP) project.
   <a href="#license">License</a>
 </p>
 
+## Content
+
+- [hbp_knowledge](https://github.com/pharmacome/knowledge/tree/master/hbp_knowledge): This folder contains curated BEL documents. Most have been organized by category (protein of interest, biological process of interest, pathway, etc.). AMost BEL documents correspond to a single publication, but a select few contain content from several due to topic-based curation.
+- [docs](https://github.com/pharmacome/knowledge/tree/master/docs): This folder contains automatically generated HTML summaries of the content that can best be accesed through https://pharmacome.github.io/knowledge.
+- [notebooks](https://github.com/pharmacome/knowledge/tree/master/notebooks): This folder contains various Jupyter notebooks associated with the repository. Since many of them use PyBEL-Jupyter, they may be best viewed using [NBViewer](https://nbviewer.jupyter.org/github/pharmacome/knowledge/tree/master/notebooks/).
+
 ## Installation
 ``hbp_knowledge`` can be installed from [PyPI](https://pypi.org/project/hbp-knowledge/) with the following command:
 
