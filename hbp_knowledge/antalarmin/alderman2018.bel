@@ -72,17 +72,28 @@ DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifact
 ##############
 SET Citation = {"PubMed", "29807032"}
 
-SET Evidence ="The endogenous response to heat shock was characterized by transient changes in caspase-3 activity and gene expression."
 SET Species ="7955"
-bp(MESH:"Heat-Shock Response") -- act(p(NCBIGENE:140621))
+
+
+SET Evidence ="The endogenous response to heat shock was characterized by transient changes in caspase-3 activity and gene expression."
+SET Confidence = "High"
+bp(MESH:"Heat-Shock Response") -- act(p(NCBIGEN:140621))
+UNSET Confidence
 
 SET Evidence ="For embryos heat shocked at 6 hpf, the induction of caspase-3 activity was dependent on recovery time (interaction of main variables P=0.007), with a significant increase over controls at 7 h and 10 h recovery (Table 1)."
+SET Confidence = "Medium"
+SET CellLine ="embryonic cell line"
 bp(MESH:"Heat-Shock Response") -> act(p(NCBIGENE:140621))
+UNSET CellLine
+UNSET Confidence
 
+#contrdicting sentences.
 SET Evidence ="In embryos heat shocked at 6 hpf, crf abundance increased relative to controls after 4 h recovery, but there were no differences at 7 h or 10 h recovery (Fig. 1A)."
+#crf : corticotropin releasing hormone b
+SET Confidence = " "
 SET CellLine ="embryonic cell line"
 bp(MESH:"Heat-Shock Response") -> p(NCBIGENE:492507)
-bp(MESH:"Heat-Shock Response") cnc p(NCBIGENE:492507)
+UNSET Confidence
 
 SET Evidence ="The endogenous response to heat shock was also characterized by an increase in crf-bp mRNA levels independent of recovery time (main effect of heat shock P<0.05), and this was true for embryos exposed to the stressor at 6 hpf (Fig. 1C) and at 30 hpf (Fig. 1D)."
 bp(MESH:"Heat-Shock Response") -> p(MESH:"corticotropin releasing factor-binding protein")
