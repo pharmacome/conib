@@ -87,31 +87,53 @@ bp(MESH:"Heat-Shock Response") -> act(p(NCBIGENE:140621))
 UNSET CellLine
 UNSET Confidence
 
-#contrdicting sentences.
 SET Evidence ="In embryos heat shocked at 6 hpf, crf abundance increased relative to controls after 4 h recovery, but there were no differences at 7 h or 10 h recovery (Fig. 1A)."
+#hpf : hours post fertilization
 #crf : corticotropin releasing hormone b
-SET Confidence = " "
+SET Confidence = "Medium"
 SET CellLine ="embryonic cell line"
 bp(MESH:"Heat-Shock Response") -> p(NCBIGENE:492507)
 UNSET Confidence
 
 SET Evidence ="The endogenous response to heat shock was also characterized by an increase in crf-bp mRNA levels independent of recovery time (main effect of heat shock P<0.05), and this was true for embryos exposed to the stressor at 6 hpf (Fig. 1C) and at 30 hpf (Fig. 1D)."
-bp(MESH:"Heat-Shock Response") -> p(MESH:"corticotropin releasing factor-binding protein")
-path(MESH:"Stress Disorders, Traumatic") -> p(MESH:"corticotropin releasing factor-binding protein")
+#crf-bp : crf binding protein
+SET Confidence = "Medium"
+bp(MESH:"Heat-Shock Response") -> r(MESH:"corticotropin releasing factor-binding protein")
+path(MESH:"Stress Disorders, Traumatic") -> r(MESH:"corticotropin releasing factor-binding protein")
+UNSET Confidence
 
 SET Evidence ="CRF overexpression by mRNA microinjection reduced heat shock-induced caspase-3 activity by approximately 2-fold relative to control-injected embryos"
+SET Confidence = "Medium"
+SET Cell = "embryonic cell"
 p(NCBIGENE:492507) -| act(p(NCBIGENE:140621))
+UNSET Cell
+UNSET Confidence
 
 SET Evidence ="Heat shock significantly increased embryo mortality relative to non-heat shocked embryos"
+SET Confidence = "High"
 bp(MESH:"Heat-Shock Response") -| a(MESH:"Embryonic Structures")
+UNSET Confidence
 
 SET Evidence ="However, embryos that recovered from heat shock in the presence of the CRF-R1 antagonist, antalarmin, experienced a greater increase in caspase-3 activity than embryos not given the antagonist"
+SET Confidence = "Medium"
+SET Cell = "embryonic cell"
 a(MESH:antalarmin) -| bp(MESH:"Heat-Shock Response")
 a(MESH:antalarmin) ->act(p(NCBIGENE:140621))
+UNSET Cell
+UNSET Confidence
 
 SET Evidence =" Final cumulative mortality (at 10 h recovery) in non-heat shocked embryos was low in both the 0 nM and 10 nM antalarmin groups (4.7% and 8.3%, respectively), and heat shock increased mortality in both groups"
+SET Confidence = "Medium"
+SET Cell = "embryonic cell"
+a(MESH:antalarmin) cnc a(MESH:"Embryonic Structures")
 bp(MESH:"Heat-Shock Response") -| a(MESH:"Embryonic Structures")
+UNSET Cell
+UNSET Confidence
 
 SET Evidence ="The greatest heat shock-induced mortality occurred during the first 1 h of recovery and plateaued after 5 h recovery (main effect of time P<0.001; n=3; Fig. 3B), but the presence of antalarmin did not influence this response."
+SET Confidence = "High"
 bp(MESH:"Heat-Shock Response") -| a(MESH:"Embryonic Structures")
 a(MESH:antalarmin) cnc a(MESH:"Embryonic Structures")
+UNSET Confidence
+
+UNSET Species
