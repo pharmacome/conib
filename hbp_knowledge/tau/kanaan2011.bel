@@ -161,15 +161,14 @@ UNSET Confidence
 
 SET Evidence =" Consistent with our model, Δ144 –273 tau monomers significantly inhibited anterograde FAT (Fig. 6 B, C), while retrograde FAT remained unaffected (Fig. 6 B, D)."
 SET Confidence = "Medium"
-p(HGNC:MAPT,var("p.144_273del") -| bp(GO:"anterograde axonal protein transport")
-p(HGNC:MAPT,var("p.144_273del") cnc bp(GO:"retrograde axonal protein transport")
+p(HGNC:MAPT,var("p.144_273del")) -| bp(GO:"anterograde axonal protein transport")
+p(HGNC:MAPT,var("p.144_273del")) cnc bp(GO:"retrograde axonal protein transport")
 UNSET Confidence
 
 SET Evidence = "Together, these data indicate that disease- associated modifications and mutations in tau
 that increase exposure of PAD promote activation of the PP1–GSK3 pathway and inhibition of anterograde FAT."
 SET Confidence = "Medium"
 p(HGNC:MAPT,var("?")) -> p(HBP:"phosphatase-activating domain")
-p(HGNC:MAPT,pmod("?")) -> p(HBP:"phosphatase-activating domain")
 p(HBP:"phosphatase-activating domain") -> act(p(MESH:"Glycogen Synthase Kinase 3"))
 p(HBP:"phosphatase-activating domain") -> act(p(MESH:"Protein Phosphatase 1"))
 p(HBP:"phosphatase-activating domain") -| bp(GO:"anterograde axonal protein transport")
@@ -177,7 +176,7 @@ UNSET Confidence
 
 SET Evidence ="To evaluate the relevance of these findings in human disease, we generated a novel monoclonal antibody, termed TNT1, which specifically recognizes PAD."
 SET Confidence = "Medium"
-a(HBP:"Tau antibody, TNT1") biomarkerFor p(HBP:"phosphatase-activating domain")
+a(HBP:"Tau antibody, TNT1") -- p(HBP:"phosphatase-activating domain")
 UNSET Confidence
 
 SET Evidence ="These data indicated that increased PAD exposure, as revealed by TNT1 immunoreactivity, occurs early in AD and remains present throughout the disease process."
