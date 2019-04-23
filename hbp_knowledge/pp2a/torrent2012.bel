@@ -76,51 +76,72 @@ SET Citation = {"PubMed", "Curr Alzheimer Res. 2012 Feb;9(2):248-56.","22299660"
 SET Evidence = "The excessive accumulation of phosphate groups in tau is
 associated with its altered capacity in promoting microtubule
 assembly  and  stability  [4-6]."
+SET Confidence = "High"
 p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)) -| bp(GO:"microtubule polymerization")
+UNSET Confidence
 
 SET Evidence = "PP2A is mainly pre-
 sent as a soluble protein in the cytosol but it is also encoun-
 tered  in  the  nucleus,  mitochondria,  cytoskeleton,  and  mem-
 branes. "
+SET Confidence = "High"
 p(FPLX:PPP2) -- a(MESH:Cytosol)
 p(FPLX:PPP2) -- a(MESH:"Cell Nucleus")
 p(FPLX:PPP2) -- a(MESH:Mitochondria)
 p(FPLX:PPP2) -- a(MESH:Cytoskeleton)
 p(FPLX:PPP2) -- a(MESH:"Cell Membrane")
+UNSET Confidence
 
 SET Evidence = "PP2A is composed of a catalytic, a scaffolding and a
 regulatory subunit that integrate as a trimer [21]."
+#catalytic : PP2A C
+#scaffolding : PP2A A
+#regulatory : PP2 AB B55α
+SET Confidence = "High"
 p(FPLX:PPP2) hasComponents list(p(FPLX:PPP2C), p(FPLX:"PPP2R_A"), p(FPLX:"PPP2R_B"))
+UNSET Confidence
 
 SET Evidence = "Within the brain, ACB55 (B55) is the major PP2A B iso-
 form  and  it  binds  to  tau  with  high  affinity  both  in  in  vitro
 protein-protein  interaction  paradigms  and  in  cell  cultures
 [36, 37]. "
+#PPP2R2A : PP2A B isoform
+SET Confidence = "High"
 p(HGNC:PPP2R2A) -- a(MESH:Brain)
 complex(p(HGNC:PPP2R2A),p(HGNC:MAPT))
+UNSET Confidence
 
 SET Evidence = "So far, the most explored pathologies in which PP2A is
 implicated are cancer, and some viral and parasitic diseases
 [44].  More  recently,  PP2A  has  been  investigated  in  FTLD
 linked to mutations in the tau gene [45]. "
+#FTLD : Frontaltemporal Dermentia
+SET Confidence = "Medium"
 p(FPLX:PPP2) -- path(MESH:Neoplasms)
 p(FPLX:PPP2) -- path(MESH:"Frontotemporal Dementia")
+path(MESH:"Frontotemporal Dementia") -- p(HGNC:MAPT, var('?'))
+UNSET Confidence
 
 SET Evidence = " Studies  in  transgenic  mice  and  in  cell  cultures  have
 shown a connection between PP2A loss of function and tau
 hyper-phosphorylation  and  aggregation  into  PHF. "
+#PHF : Paired helical filaments
+SET Confidence = "High"
 SET Species = "10090"
 act(p(FPLX:PPP2)) neg p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
 act(p(FPLX:PPP2)) neg a(HBP:"paired helical filaments")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Trans-
 genic  mice  with  reduced  PP2A  activity  show  increased  tau
 phosphorylation  at  Ser202/Thr205  and  Ser42  [46]. "
+SET Confidence = "Medium"
 SET Species = "10090"
 act(p(FPLX:PPP2)) -| p(HGNC:MAPT, pmod(Ph,Ser,202), pmod(Ph,Thr,205))
-act(p(FPLX:PPP2)) -| p(HGNC:MAPT, pmod(Ph,Ser,242))
+act(p(FPLX:PPP2)) -| p(HGNC:MAPT, pmod(Ph,Ser,42))
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Similar
 findings have been observed in metabolically active rat brain
@@ -128,26 +149,34 @@ slices, where a selective inhibition of PP2A with OA results
 in  an  aberrant  phosphorylation  of  tau  at  the  same  residues
 seen in AD brains at serines (Ser) 198, 199, 202, 396, 404,
 422 and 262 [11, 47, 48]."
+#OA : okadaic acid
+SET Confidence = "Medium"
+SET Species = "10116"
+SET Anatomy = "Brain"
 a(CHEBI:"okadaic acid") -| act(p(FPLX:PPP2))
-a(CHEBI:"okadaic acid") -> p(HGNC:MAPT, pmod(Ph,Ser,189))
+a(CHEBI:"okadaic acid") -> p(HGNC:MAPT, pmod(Ph,Ser,198))
 a(CHEBI:"okadaic acid") -> p(HGNC:MAPT, pmod(Ph,Ser,199))
 a(CHEBI:"okadaic acid") -> p(HGNC:MAPT, pmod(Ph,Ser,202))
 a(CHEBI:"okadaic acid") -> p(HGNC:MAPT, pmod(Ph,Ser,396))
 a(CHEBI:"okadaic acid") -> p(HGNC:MAPT, pmod(Ph,Ser,404))
 a(CHEBI:"okadaic acid") -> p(HGNC:MAPT, pmod(Ph,Ser,422))
 a(CHEBI:"okadaic acid") -> p(HGNC:MAPT, pmod(Ph,Ser,262))
-p(HGNC:MAPT, pmod(Ph,Ser,189)) pos path(MESH:"Alzheimer Disease")
+p(HGNC:MAPT, pmod(Ph,Ser,198)) pos path(MESH:"Alzheimer Disease")
 p(HGNC:MAPT, pmod(Ph,Ser,199)) pos path(MESH:"Alzheimer Disease")
 p(HGNC:MAPT, pmod(Ph,Ser,202)) pos path(MESH:"Alzheimer Disease")
 p(HGNC:MAPT, pmod(Ph,Ser,396)) pos path(MESH:"Alzheimer Disease")
 p(HGNC:MAPT, pmod(Ph,Ser,404)) pos path(MESH:"Alzheimer Disease")
 p(HGNC:MAPT, pmod(Ph,Ser,422)) pos path(MESH:"Alzheimer Disease")
 p(HGNC:MAPT, pmod(Ph,Ser,262)) pos path(MESH:"Alzheimer Disease")
+UNSET Anatomy
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Further experiments based on the
 injection of a PP2A inhibitor in the rat hippocampus demon-
 strated tau hyper-phosphorylation, and learning and memory
 deficits  [49,  50]. "
+SET Confidence = "High"
 SET Species = "10116"
 SET MeSHAnatomy = "Hippocampus"
 a(CHEBI:"okadaic acid") -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
@@ -155,23 +184,29 @@ a(CHEBI:"okadaic acid") -| bp(GO:learning)
 a(CHEBI:"okadaic acid") -| bp(GO:memory)
 UNSET Species
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Moreover,  some  tau  kinases  as  cyclin-
 dependent  kinase  5  (cdk5)  and  TPKI  (thiamine  pyrophos-
 phokinase 1)/GSK3 (glycogen synthase kinase 3) are acti-
 vated following PP2A inhibition in starved mice [51]."
+SET Confidence = "High"
 SET Species = "10090"
 act(p(FPLX:PPP2)) -| act(p(HGNC:CDK5))
 act(p(FPLX:PPP2)) -| act(p(HGNC:TPK1))
 act(p(FPLX:PPP2)) -| act(p(HGNC:GSK3B))
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Several observations showing reduced PP2A activity
 by 30% in the frontal cortex in AD [55], were followed by a
 number of studies of PP2A mRNA and proteins."
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Frontal Lobe"
 path(MESH:"Alzheimer Disease") neg act(p(FPLX:PPP2))
+path(MESH:"Alzheimer Disease") neg r(FPLX:PPP2)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = " Decreased
 mRNA  levels  of  PP2A  C  have  been  reported  in  the  CA3
@@ -184,6 +219,7 @@ AD [57]. This has been further corroborated by quantitative
 TaqMan PCR showing reduced PP2A C mRNA expression
 levels  in  the  hippocampus,  but  not  in  the  frontal  cortex,  in
 AD  cases  with  disease  progression  Fig.  (1)."
+SET Confidence = "Medium"
 SET MeSHAnatomy = "CA3 Region, Hippocampal"
 path(MESH:"Alzheimer Disease") neg r(HGNC:PPP2CA)
 path(MESH:"Alzheimer Disease") neg r(HGNC:PPP2CB)
@@ -192,19 +228,27 @@ path(MESH:"Alzheimer Disease") neg r(HGNC:PPP2CA)
 SET MeSHAnatomy = "Hippocampus"
 path(MESH:"Alzheimer Disease") neg r(HGNC:PPP2CA)
 UNSET MeSHAnatomy
+SET MeSHAnatomy = "Frontal Lobe"
+path(MESH:"Alzheimer Disease") cnc r(HGNC:PPP2CA)
+UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Analyses of protein expression by using gel electrophore-
 sis and western blotting have shown not only a reduction of
 PP2A  C  expression  levels  but  also  a  marked  reduction  of
 B55, thus indicating that PP2A impairment is the result of
 combined  effects  of  different  subunits  [60]."
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") neg p(FPLX:PPP2C)
 path(MESH:"Alzheimer Disease") neg p(HGNC:PPP2R2A)
+UNSET Confidence
 
 SET Evidence = "Decreased  of
 PP2A, but not of other phosphatases, has also been observed
 in Down syndrome correlating with increased tau pathology. "
+SET Confidence = "High"
 path(MESH:"Down Syndrome") neg p(FPLX:PPP2)
+UNSET Confidence
 
 SET Evidence = " Car-
 boxyl  methylation  of  the  catalytic  subunit  is  required  for
@@ -213,47 +257,61 @@ a process that is balanced by the opposite actions of methyl-
 transferase  type  IV  (PPMT)  and  the  methylesterase  PME-1
 [66-70]. "
 #PPMT is ICMT
+SET Confidence = "High"
 p(FPLX:PPP2C, pmod(M)) -> complex(p(FPLX:PPP2C), p(FPLX:"PPP2R_A"), p(FPLX:"PPP2R_B"))
 p(HGNC:ICMT) -> p(FPLX:PPP2C, pmod(M))
 p(HGNC:PPME1) -| p(FPLX:PPP2C, pmod(M))
+UNSET Confidence
 
 SET Evidence = "The other important post-translational modi-
 fication is phosphorylation of PP2A C at Tyr307 which in-
 hibits PP2A activity [74-76]. "
-p(FPLX:PPP2C, pmod(Ph,Tyr,307)) -> act(p(FPLX:PPP2))
+SET Confidence = "Medium"
+p(FPLX:PPP2C, pmod(Ph,Tyr,307)) -| act(p(FPLX:PPP2))
+UNSTE Confidence
 
 SET Evidence = " PP2A  C
 methylation  at  Leu309  is  reduced  in  AD  and  this  seems  to
 contribute to PP2A C dysfunction by impairing the assembly
 of the trimer [77, 78]. "
+SET Confidence = "High"
 p(FPLX:PPP2C, pmod(M,Leu,309)) neg path(MESH:"Alzheimer Disease")
 p(FPLX:PPP2C, pmod(M,Leu,309)) -| complex(p(FPLX:PPP2C), p(FPLX:"PPP2R_A"), p(FPLX:"PPP2R_B"))
+UNSET Confidence
 
 SET Evidence = " Complementing these findings, immu-
 nohistochemical  and  western  blot  studies  have  shown  re-
 duced  expression  of  PPMT  [77],  and  up-regulation  of  the
 PP2A inhibitors I 1  and I 2  in AD cases [79, 80]. "
 #I1 is ANP32A, I2 is SET
+SET Confidence = "High"
 p(HGNC:ICMT) neg path(MESH:"Alzheimer Disease")
 p(HGNC:ANP32A) -| act(p(FPLX:PPP2))
 p(HGNC:SET) -| act(p(FPLX:PPP2))
 p(HGNC:ANP32A) pos path(MESH:"Alzheimer Disease")
 p(HGNC:SET) pos path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = " High  levels  of  PP2A  C  phosphorylated  at  Tyr307  have
 been  reported  in  the  entorhinal  cortex,  hippocampus  and
 frontal cortex in AD compared to controls [81]."
+SET Confidence = "High"
 SET MeSHAnatomy = {"Entorhinal Cortex","Hippocampus", "Frontal Lobe"}
 p(FPLX:PPP2C, pmod(Ph,Tyr,307)) pos path(MESH:"Alzheimer Disease")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Furthermore,
 phosphorylated  PP2A  C  decorates  neurofibrillary  tangles. "
+SET Confidence = "High"
 p(FPLX:PPP2C, pmod(Ph)) -- a(MESH:"Neurofibrillary Tangles")
+UNSET Confidence
 
 SET Evidence = "To sum up, PP2A
 activity  is  decreased  in  brain  of  AD,  as  revealed  by  using
 different  approaches  in  different  laboratories. "
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 act(p(FPLX:PPP2)) neg path(MESH:"Alzheimer Disease")
 UNSET MeSHAnatomy
+UNSET Confidence
