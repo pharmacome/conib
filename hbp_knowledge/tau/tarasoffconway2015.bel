@@ -54,9 +54,14 @@ DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifact
 DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
 DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
 
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species AS PATTERN "^\d+$"
+
 ##############
 # Statements #
 ##############
+
 SET Citation = {"PubMed", "26195256"}
 
 SET Evidence =" Emerging evidence suggests that Aβ clearance is impaired in both early-onset and late-onset forms of AD."
@@ -97,7 +102,7 @@ SET Evidence ="However, two-photon imaging studies from the past few years have 
  than previously thought."
 SET Confidence = "Medium"
 act(p(HGNC:AQP4)) -> act(a(HBP:"Glymphatic System"))
-act(a(HBP:"Glymphatic System")) -| a(CHEBI:"amyloid-beta",loc(GO:"extracellular region")
+act(a(HBP:"Glymphatic System")) -| a(CHEBI:"amyloid-beta",loc(GO:"extracellular region"))
 UNSET Confidence
 
 SET Evidence ="When characterized by autosomal dominant inheritance, EOAD is related to
@@ -137,8 +142,8 @@ path(MESH:"Cardiovascular Diseases") -> path(MESH:"Alzheimer Disease")
 path(MESH:"Diabetes Mellitus") -> path(MESH:"Alzheimer Disease")
 path(MESH:Hypertension) -> path(MESH:"Alzheimer Disease")
 path(MESH:"Craniocerebral Trauma") -> path(MESH:"Alzheimer Disease")
-a(MESH:Exercise) -| path(MESH:"Alzheimer Disease")
-a(MESH:Thinking) -| path(MESH:"Alzheimer Disease")
+bp(MESH:Exercise) -| path(MESH:"Alzheimer Disease")
+bp(MESH:Thinking) -| path(MESH:"Alzheimer Disease")
 path(MESH:"Sleep Initiation and Maintenance Disorders") -> path(MESH:"Alzheimer Disease")
 UNSET Confidence
 
@@ -159,7 +164,7 @@ SET Evidence ="Microscopic changes include accumulation of Aβ into parenchymal 
 as cerebral amyloid angiopathy, or CAA),as well as aggregation of hyperphosphorylated tau int
 o intracellular neurofibrillary tangles (NFTs) and neuropil #threads"
 SET Confidence = "Medium"
-a(HBP:"amyloid-beta aggregates") -- a(MESH:"Plaque, Amyloid")
+a(HBP:"amyloid-beta aggregates") -- path(MESH:"Plaque, Amyloid")
 a(HBP:"amyloid-beta aggregates") -- path(MESH:"Cerebral Amyloid Angiopathy")
 p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)) -- a(MESH:"Neurofibrillary Tangles")
 p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)) -- a(MESH:"Neuropil Threads")
@@ -169,7 +174,7 @@ SET Evidence ="Recent advances now enable several AD-related brain changes to be
 vivo: 18F-FDG-PET detects decreases in glucose metabolism,45,46 and MRI detects brain atrophy,
 as well as diffusion and perfu- sion abnormalities, which are most prominent in the vul- nerable
 hippocampal formation and cortical regions."
-SET MeSHAnatomy = "Medium"
+SET Confidence = "Medium"
 path(MESH:"Alzheimer Disease") -| bp(GO:"glucose metabolic process")
 SET MeSHAnatomy = "Brain"
 path(MESH:"Alzheimer Disease") -| path(MESH:Atrophy)
@@ -209,7 +214,7 @@ resulting carboxy-terminal fragment is then cleaved by γ-secretase.103 The resu
 products do not aggregate.104"
 SET Confidence = "Medium"
 act(p(MESH:"Amyloid Precursor Protein Secretases")) -> reaction(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta"),a(HBP:"APP C-terminally truncated carboxyl-terminal fragments")))
-p(FPLX:Gamma_secretase) -> deg(a(HBP:"APP C-terminally truncated carboxyl-terminal fragments"))
+p(FPLX:"Gamma_secretase") -> deg(a(HBP:"APP C-terminally truncated carboxyl-terminal fragments"))
 UNSET Confidence
 
 SET Evidence ="If APP is first cleaved by β-secretase 1 (also known as BACE1) instead of α-secretase,
@@ -263,7 +268,6 @@ Aβ can be degraded by vascular smooth muscle cells, perivascular macrophages, a
 SET Confidence = "Medium"
 a(MESH:Microglia) -| a(CHEBI:"amyloid-beta",loc(MESH:"Extracellular Fluid"))
 a(MESH:Astrocytes) -| a(CHEBI:"amyloid-beta",loc(MESH:"Extracellular Fluid"))
-SET MeSHAnatomy = "Glymphatic System"
 a(MESH:"Muscle, Smooth, Vascular") -> deg(a(CHEBI:"amyloid-beta"))
 a(MESH:Macrophages) -> deg(a(CHEBI:"amyloid-beta"))
 a(MESH:Astrocytes) -> deg(a(CHEBI:"amyloid-beta"))
@@ -281,7 +285,7 @@ SET Evidence ="Although overall matrix metallo- proteinase 2 expression is incre
 SET Confidence = "Medium"
 path(MESH:"Alzheimer Disease") pos p(HGNC:MMP2)
 SET MeSHAnatomy = "Astrocytes"
-a(MESH:"Plaque, Amyloid") neg act(p(HGNC:MMP2))
+path(MESH:"Plaque, Amyloid") neg act(p(HGNC:MMP2))
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -291,15 +295,14 @@ might partly explain the link between type 2 diabetes mellitus and AD."
 SET Confidence = "Medium"
 p(HGNC:IDE) -> deg(p(HGNC:INS))
 p(HGNC:IDE) -> deg(a(CHEBI:"amyloid-beta"))
-a(HGNC:INS) -> a(CHEBI:"amyloid-beta")
+p(HGNC:INS) -> a(CHEBI:"amyloid-beta")
 UNSET Confidence
 
 SET Evidence ="Third, plaques activate the immune effectors of the CNS—microglia and
 astrocytes129—inducing both phagocytosis of Aβ, which facilitates clearance from the
 extracellular space, and production of neurotoxic inflammatory cytokines."
 SET Confidence = "Medium"
-a(MESH:"Plaque, Amyloid") -> act(a(MESH:Microglia))
-a(MESH:"Plaque, Amyloid") -> act(a(MESH:Astrocytes))
+path(MESH:"Plaque, Amyloid") -> act(a(MESH:Astrocytes))
 SET MeSHAnatomy = "Extracellular Space"
 act(a(MESH:Microglia)) -| a(CHEBI:"amyloid-beta")
 act(a(MESH:Astrocytes)) -| a(CHEBI:"amyloid-beta")
@@ -459,6 +462,7 @@ path(MESH:Sleep) -> act(a(MESH:"Blood-Brain Barrier"))
 path(MESH:Sleep) -| a(CHEBI:"amyloid-beta")
 path(MESH:Sleep) -> bp(HBP:"glymphatic bulk flow")
 path(MESH:Sleep) -> p(HGNC:LRP1)
+UNSET Species
 UNSET Confidence
 
 SET Evidence ="These findings might partly explain why sleep impairment increases the risk of AD"
