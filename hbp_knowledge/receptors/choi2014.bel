@@ -73,7 +73,7 @@ SET Citation = {"PubMed", "24511233"}
 SET Evidence="Schizophrenia (SZ) and Alzheimer’s disease (AD) are two devastating disorders of the
 central nervous system (CNS) that present clinically with cognitive impairments and
 psychotic symptoms"
-
+SET Confidence = "High"
 SET MeSHAnatomy="Central Nervous System"
 
 path(MESH:"Alzheimer Disease") -- path(MESH:"Psychotic Disorders")
@@ -82,34 +82,38 @@ path(MESH:Schizophrenia) -- path(MESH:"Psychotic Disorders")
 path(MESH:Schizophrenia) -- path(MESH:"Cognitive Dysfunction")
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="Psychosis is the hallmark symptom of SZ and manifests as hallucinations,
 disordered thought/speech, and delusions. While these psychotic symptoms are
 commonly associated with SZ, it has become well documented that these patients also
 experience cognitive and behavioral disturbances that are not adequately addressed by
 currently prescribed typical and atypical psychotics."
-
+SET Confidence = "High"
 path(MESH:Schizophrenia) -- path(MESH:Hallucinations)
 path(MESH:Schizophrenia) -- path(MESH:Delusions)
 path(MESH:Schizophrenia) -- bp(GO:cognition)
 path(MESH:Schizophrenia) -- bp(GO:behavior)
+UNSET Confidence
 
 SET Evidence="Conversely, the most commonly
 associated symptoms of AD are cognitive in nature and include deficits in learning
 and memory. However, 50%–80% of AD patients display psychotic and behavioral
 disturbances that are correlated with poor social and functional outcomes"
-
+SET Confidence = "Medium"
 path(MESH:"Alzheimer Disease") -- bp(GO:cognition)
-path(MESH:"Alzheimer Disease") -- bp(GO:learning)
-path(MESH:"Alzheimer Disease") -- bp(GO:memory)
+path(MESH:"Alzheimer Disease") -| bp(GO:learning)
+path(MESH:"Alzheimer Disease") -| bp(GO:memory)
 path(MESH:"Alzheimer Disease") -- path(MESH:"Psychotic Disorders")
+UNSET Confidence
 
 SET Evidence="Another commonality between AD and SZ is the apparent
 involvement of dysregulated cholinergic signaling in
 the brain."
-
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -| bp(GO:"synaptic transmission, cholinergic")
 path(MESH:Schizophrenia) -| bp(GO:"synaptic transmission, cholinergic")
+UNSET Confidence
 
 SET Evidence="Acetylcholine (ACh) is a neurotransmitter that
 modulates neuronal function in several areas of the CNS
@@ -118,7 +122,7 @@ striatum, cortex, hippocampus, and prefrontal cortex.5
 ACh mediates its actions via two families of receptors, termed
 the muscarinic ACh receptors (mAChRs) and the nicotinic
 ACh receptors (nAChRs)."
-
+SET Confidence = "High"
 SET MeSHAnatomy={"Corpus Striatum", "Cerebral Cortex", "Hippocampus", "Prefrontal Cortex"}
 
 a(CHEBI:acetylcholine) reg act(a(MESH:Neurons))
@@ -126,22 +130,24 @@ p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic") reg act(a(CHEBI:acetylcholi
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") reg act(a(CHEBI:acetylcholine))
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="The mAChR family consists of five subtypes (M1
 –M5) that can be found throughout the CNS and periphery.
 These receptors are guanosine nucleotide-binding protein
 (G-protein)-coupled receptors and can be subdivided based
 on their canonical signaling pathways."
-
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic") hasMembers list(p(HGNC:CHRM1), p(HGNC:CHRM2), p(HGNC:CHRM3), p(HGNC:CHRM4), p(HGNC:CHRM5))
 p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic") isA p(MESH:"Receptors, G-Protein-Coupled")
+UNSET Confidence
 
 SET Evidence="M1, M3, and M5 all
 signal primarily via the Galphaq G-protein and induce Ca2+ mobilization
 and inositol trisphosphate (IP3) production, while M2
 and M4 signal via the Galphai G-protein to inhibit cyclic adenosine
 monophosphate (cAMP) production."
-
+SET Confidence = "High"
 complex(p(HGNC:CHRM1), p(HGNC:GNAQ)) -> bp(GO:"calcium ion transport")
 complex(p(HGNC:CHRM1), p(HGNC:GNAQ)) -> a(MESH:"Inositol 1,4,5-Trisphosphate")
 complex(p(HGNC:CHRM3), p(HGNC:GNAQ)) -> bp(GO:"calcium ion transport")
@@ -150,7 +156,7 @@ complex(p(HGNC:CHRM5), p(HGNC:GNAQ)) -> bp(GO:"calcium ion transport")
 complex(p(HGNC:CHRM5), p(HGNC:GNAQ)) -> a(MESH:"Inositol 1,4,5-Trisphosphate")
 complex(p(HGNC:CHRM2), p(HGNC:GNAI1)) -| a(CHEBI:"3',5'-cyclic AMP")
 complex(p(HGNC:CHRM4), p(HGNC:GNAI1)) -| a(CHEBI:"3',5'-cyclic AMP")
-
+UNSET Confidence
 
 SET Evidence="AD is the most commonly diagnosed form of dementia
 and currently affects approximately 35 million individuals
@@ -160,30 +166,34 @@ impairments in learning and memory. In addition to the
 well-documented cognitive impairments, AD patients also
 display behavioral disturbances, including anxiety, depression,
 and psychosis"
-
+SET Confidence = "Medium"
 path(MESH:"Alzheimer Disease") -- path(MESH:Dementia)
 path(MESH:"Alzheimer Disease") isA path(MESH:"Neurodegenerative Diseases")
 path(MESH:"Alzheimer Disease") -- path(MESH:"Cognitive Dysfunction")
 path(MESH:"Alzheimer Disease") -| bp(GO:cognition)
 path(MESH:"Alzheimer Disease") -| bp(GO:learning)
+path(MESH:"Alzheimer Disease") -| bp(GO:memory)
 path(MESH:"Alzheimer Disease") -> path(MESH:Depression)
 path(MESH:"Alzheimer Disease") -> path(MESH:Anxiety)
 path(MESH:"Alzheimer Disease") -- path(MESH:"Psychotic Disorders")
+UNSET Confidence
 
 SET Evidence="Age is the primary risk factor for AD,
 and the disease usually manifests in individuals after the age
 of 60 years. Due to an aging population, the prevalence of AD
 is predicted to rise to 66 million people by the year 2030."
-
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -- bp(MESH:Aging)
+UNSET Confidence
 
 SET Evidence="The hallmarks of AD pathology are the accumulation of
 amyloid-beta (Abeta) peptide aggregates (neuritic plaques) and
 hyperphosphorylated tau protein (neurofibrillary tangles)."
-
+SET Confidence = "High"
 a(HBP:"amyloid-beta aggregates") -- path(MESH:"Plaque, Amyloid")
 path(MESH:"Plaque, Amyloid") biomarkerFor path(MESH:"Alzheimer Disease")
 path(MESH:"Neurofibrillary Tangles") biomarkerFor path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence="The popular amyloid cascade hypothesis posits that the
 gradual build-up of Abeta plaques leads to neuronal inflammation,
@@ -191,7 +201,7 @@ dysfunction, and, eventually, cell death. The two
 brain regions most critically affected by this degeneration
 are the cortex and hippocampus, both of which are involved
 in cognition, learning, and memory."
-
+SET Confidence = "High"
 SET MeSHAnatomy={"Hippocampus", "Cerebral Cortex"}
 
 path(MESH:"Plaque, Amyloid") -> bp(HBP:neuroinflammation)
@@ -204,6 +214,7 @@ a(MESH:"Cerebral Cortex") -- bp(GO:learning)
 a(MESH:"Cerebral Cortex") -- bp(GO:memory)
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="1 Several lines of evidence
 suggest that impaired cholinergic signaling plays a
@@ -212,7 +223,7 @@ impairments observed in AD patients.12 The basal forebrain
 cholinergic system is disproportionately affected in AD
 patients, with a robust loss of cholinergic neurons, including
 those innervating the hippocampus and cortex."
-
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -| bp(GO:"synaptic transmission, cholinergic")
 bp(GO:"synaptic transmission, cholinergic") -- bp(GO:cognition)
 bp(GO:"synaptic transmission, cholinergic") -- bp(GO:behavior)
@@ -222,6 +233,7 @@ SET MeSHAnatomy={"Hippocampus", "Cerebral Cortex"}
 path(MESH:"Alzheimer Disease") -| a(MESH:"Cholinergic Neurons")
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence=" In addition,
 administration of nonselective muscarinic antagonists
@@ -229,13 +241,14 @@ can produce or exacerbate cognitive deficits in animals,15
 as well as in AD patients and both young and old control
 subjects,16,17 suggesting that mAChRs can directly modulate
 cognition."
-
+SET Confidence = "High"
 SET MeSHDisease="Alzheimer Disease"
 
 a(MESH:"Muscarinic Antagonists") -| bp(GO:cognition)
 p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic") reg bp(GO:cognition)
 
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence="The current primary treatments for AD symptoms
 are acetylcholinesterase inhibitors (AChEIs) such as donepezil,
@@ -244,7 +257,7 @@ cholinergic signaling.18,19 These treatments not only provide
 improvements in cognitive symptoms associated with
 AD,20,21 but also show efficacy in treating the psychiatric
 symptoms."
-
+SET Confidence = "Medium"
 SET MeSHDisease="Alzheimer Disease"
 
 a(CHEBI:donepezil) isA a(CHEBI:"EC 3.1.1.7 (acetylcholinesterase) inhibitor")
@@ -253,18 +266,20 @@ a(CHEBI:galanthamine) isA a(CHEBI:"EC 3.1.1.7 (acetylcholinesterase) inhibitor")
 a(CHEBI:rivastigmine) isA a(CHEBI:"EC 3.1.1.7 (acetylcholinesterase) inhibitor")
 a(CHEBI:"EC 3.1.1.7 (acetylcholinesterase) inhibitor") -> bp(GO:"synaptic transmission, cholinergic")
 a(CHEBI:"EC 3.1.1.7 (acetylcholinesterase) inhibitor") -> bp(GO:cognition)
-a(CHEBI:"EC 3.1.1.7 (acetylcholinesterase) inhibitor") -> path(MESH:"Mental Processes")
+a(CHEBI:"EC 3.1.1.7 (acetylcholinesterase) inhibitor") -> bp(MESH:"Mental Processes")
 
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence="Unfortunately, cardiovascular and gastrointestinal
 side effects are often observed with these treatments,
 effects thought to be mediated by peripherally located ACh
 receptors. Despite this, AChEIs remain modestly beneficial
 for treating AD and other forms of dementia."
-
+SET Confidence = "High"
 a(CHEBI:"EC 3.1.1.7 (acetylcholinesterase) inhibitor") -- a(MESH:"Cardiovascular System")
 a(CHEBI:"EC 3.1.1.7 (acetylcholinesterase) inhibitor") -- a(MESH:"Gastrointestinal Tract")
+UNSET Confidence
 
 SET Evidence="The hallmark psychotic
 symptoms of SZ are the positive cluster and include auditory
@@ -274,14 +289,15 @@ including anhedonia, dysfunctional social interactions, and
 poverty of thoughts and speech, as well as cognitive disturbances
 affecting several behavioral domains, including working
 memory, attention, and executive function"
-
+SET Confidence = "Medium"
 path(MESH:Hallucinations) biomarkerFor path(MESH:Schizophrenia)
 path(MESH:Delusions) biomarkerFor path(MESH:Schizophrenia)
 path(MESH:Anhedonia) biomarkerFor path(MESH:Schizophrenia)
 path(MESH:"Social Isolation") biomarkerFor path(MESH:Schizophrenia)
-path(MESH:"Memory, Short-Term") -- path(MESH:Schizophrenia)
-path(MESH:Attention) -- path(MESH:Schizophrenia)
-path(MESH:"Executive Function") -- path(MESH:Schizophrenia)
+bp(MESH:"Memory, Short-Term") -- path(MESH:Schizophrenia) #because short term memory is not a pathology but a biological process affected by SZ. Same with the next two statements.
+bp(MESH:Attention) -- path(MESH:Schizophrenia)
+bp(MESH:"Executive Function") -- path(MESH:Schizophrenia)
+UNSET Confidence
 
 SET Evidence="Current treatments include both typical (eg, haloperidol and
 chlorpromazine) and atypical (eg, risperidone and clozapine)
@@ -292,27 +308,30 @@ however, they demonstrate little to no efficacy in addressing
 negative symptoms and cognitive impairments, which can
 prevent patients from participating fully and productively in
 society"
-
+SET Confidence = "High"
 a(CHEBI:"antipsychotic agent") reg p(HGNC:DRD2)
 a(CHEBI:"antipsychotic agent") causesNoChange bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence="Accumulating evidence suggests that the three clusters of
 SZ symptoms cannot be ascribed solely to alterations in
 monoaminergic signaling as dysregulation of glutamatergic,
 gamma-aminobutyric acid (GABA)-ergic, and cholinergic systems
 have also been reported"
-
+SET Confidence = "High"
 path(MESH:Schizophrenia) -- bp(GO:"synaptic transmission, cholinergic")
 path(MESH:Schizophrenia) -- bp(GO:"synaptic transmission, glutamatergic")
 path(MESH:Schizophrenia) -- bp(GO:"gamma-aminobutyric acid signaling pathway")
+UNSET Confidence
 
 SET Evidence="Furthermore, administration of nonselective muscarinic
 antagonists can induce cognitive deficits and psychosis in
 humans,16,37 indicating that mAChR activation may provide
 pro-cognitive and antipsychotic efficacy."
-
+SET Confidence = "Medium"
 a(MESH:"Muscarinic Antagonists") -> path(MESH:"Cognitive Dysfunction")
-a(MESH:"Muscarinic Antagonists") -- path(MESH:"Mental Processes")
+a(MESH:"Muscarinic Antagonists") -- bp(MESH:"Mental Processes")
+UNSET Confidence
 
 SET Evidence="Of these, the M1/M4
 -preferring agonist xanomeline was the
@@ -324,7 +343,7 @@ effect did not reach statistical significance. However, this
 agonist did produce surprisingly robust and dose-dependent
 reductions in hallucinations, delusions, vocal outbursts,
 and other behavioral disturbances in these patients"
-
+SET Confidence = "High"
 SET MeSHDisease="Alzheimer Disease"
 
 a(CHEBI:xanomeline) -> bp(GO:cognition)
@@ -332,12 +351,14 @@ a(CHEBI:xanomeline) -| path(MESH:Hallucinations)
 a(CHEBI:xanomeline) -| path(MESH:Delusions)
 
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence="This study reported that xanomeline treatment produced
 robust improvements in both the positive and the negative
 symptoms of patients with SZ"
-
+SET Confidence = "High"
 a(CHEBI:xanomeline) -| path(MESH:Schizophrenia)
+UNSET Confidence
 
 SET Evidence=" In addition, xanomeline produced statistically
 significant improvements in verbal learning and short-term
@@ -345,36 +366,40 @@ memory, indicating efficacy in treating cognitive symptoms.40
 Unfortunately, gastrointestinal side effects were observed,
 and dose limitations have removed it from consideration for
 long-term clinical use."
-
+SET Confidence = "Medium"
 a(CHEBI:xanomeline) -> bp(GO:learning)
-a(CHEBI:xanomeline) -> path(MESH:"Memory, Short-Term")
+a(CHEBI:xanomeline) -> bp(MESH:"Memory, Short-Term")
 a(CHEBI:xanomeline) -- a(MESH:"Gastrointestinal Tract")
+UNSET Confidence
 
 SET Evidence="The M1 mAChR subtype is the most predominantly expressed mAChR
 subtype in the CNS and is expressed in several brain regions implicated in
 the regulation of cognitive processes, including the striatum, prefrontal
 cortex, and hippocampus."
-
+SET Confidence = "High"
 SET MeSHAnatomy={"Corpus Striatum", "Hippocampus", "Prefrontal Cortex"}
 
 p(HGNC:CHRM1) -- bp(GO:cognition)
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="Interestingly, these M1-deficient mice display increased
 amphetamine-induced hyperlocomotion and dopamine neurotransmission,47
 indicating that M1 modulation may have antipsychotic potential."
-
+SET Confidence = "High"
 p(HGNC:CHRM1) -| act(a(CHEBI:amphetamine))
 p(HGNC:CHRM1) -| bp(GO:"dopamine secretion, neurotransmission")
+UNSET Confidence
 
 SET Evidence="N-methyl-D-aspartate (NMDA)
 receptors play a critical role in regulating synaptic plasticity, and
 disrupted NMDA-receptor neurotransmission is thought to underlie the
 cognitive deficits observed in numerous psychiatric diseases."
-
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits") reg bp(MESH:"Neuronal Plasticity")
 p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits") -- bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence="M1 mAChRs have been demonstrated to potentiate NMDA-receptor
 signaling in the hippocampus and cortex,48,49 brain areas intimately
@@ -383,7 +408,7 @@ reduced hippocampal long-term potentiation, a mechanism heavily implicated
 in learning and memory. Behaviorally, M1 KO animals display deficits in several
 medial prefrontal cortex-dependent cognitive tasks, including non-matching-to-
 sample, win-shift radial arm maze, and social discrimination tasks."
-
+SET Confidence = "High"
 SET MeSHAnatomy={"Hippocampus", "Cerebral Cortex"}
 
 p(HGNC:CHRM1) -> act(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"))
@@ -396,11 +421,12 @@ bp(GO:"long-term synaptic potentiation") -- bp(GO:learning)
 bp(GO:"long-term synaptic potentiation") -- bp(GO:memory)
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="Finally, studies in mice exhibiting AD-like Abeta plaque
 pathologies found that deletion of M1 increased amyloidogenic processes,
 suggesting that M1 may play a role in regulating AD disease progression.51"
-
+SET Confidence = "High"
 SET Species="10090"
 SET MeSHDisease="Alzheimer Disease"
 
@@ -408,29 +434,32 @@ p(MGI:Chrm1) -| act(a(CHEBI:"amyloid-beta"))
 
 UNSET Species
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence="Subsequent optimization produced two analogs of AC-42
 (AC-260584 and 77-LH-28-1), which maintained M1 selectivity and possessed
 properties suitable for use in animal models. Both AC-260584 and 77-LH-28-1
 displayed antipsychotic and cognition-enhancing efficacy in pre-clinical models"
-
+SET Confidence = "High"
 #AC-260584 = 4-(3-(4-butylpiperidin-1-yl)propyl)-7-fluoro-4H-benzo(1,4)oxazin-3-one
 a(MESH:"4-(3-(4-butylpiperidin-1-yl)propyl)-7-fluoro-4H-benzo(1,4)oxazin-3-one") -> act(p(HGNC:CHRM1))
 #77-LH-28-1 = 1-(3-(4-butyl-1-piperidinyl)propyl)-3,4-dihydro-2(1H)-quinolinone
 a(MESH:"1-(3-(4-butyl-1-piperidinyl)propyl)-3,4-dihydro-2(1H)-quinolinone") -> act(p(HGNC:CHRM1))
 act(p(HGNC:CHRM1)) -> bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence="Another early allosteric agonist, TBPB (1-(1’-(2-methylbenzyl)
 -1,4’-bipiperidin-4-yl)-1H-benzo[d]imidazol-2(3H)-1), also exhibited
 impressive selectivity for M1 mAChRs and potentiated NMDA receptor currents
 in CA1 hippocampal cells. "
-
+SET Confidence = "High"
 SET MeSHAnatomy="CA1 Region, Hippocampal"
 
 a(MESH:"1-(1'-(2-methylbenzyl)-1,4'-bipiperidin-4-yl)-1H-benzo(d)imidazol-2-(3H)-one") -> act(p(HGNC:CHRM1))
 act(p(HGNC:CHRM1)) -> act(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"))
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="Moreover, additional pre-clinical studies with TBPB
 demonstrated efficacy in reducing antipsychotic-like behaviors and
@@ -438,39 +467,43 @@ in reversing scopolamine-impaired acquisition of contextual fear.59
 Studies in cell lines also demonstrated that TBPB promoted a non-amyloidogenic
 pathway and decreased Abeta production, indicating that M1 modulation may
 have efficacy in the treatment of both symptomatic and pathologic features of AD"
-
+SET Confidence = "High"
 a(MESH:"1-(1'-(2-methylbenzyl)-1,4'-bipiperidin-4-yl)-1H-benzo(d)imidazol-2-(3H)-one") -| act(a(CHEBI:scopolamine))
 act(a(CHEBI:scopolamine)) -| bp(GO:"behavioral fear response")
 a(MESH:"1-(1'-(2-methylbenzyl)-1,4'-bipiperidin-4-yl)-1H-benzo(d)imidazol-2-(3H)-one") -| a(CHEBI:"amyloid-beta")
+UNSET Confidence
 
 SET Evidence="More recently, the M1-selective allosteric agonist VU0357017
 was discovered, which displayed improved potency via binding to a
 novel allosteric site on the M1 mAChR. VU0357017 significantly blocked
 scopolamine-impaired contextual fear conditioning and enhanced spatial
 and contextual fear learning"
-
+SET Confidence = "High"
 a(MESH:VU0357017) -> complex(a(MESH:VU0357017), p(HGNC:CHRM1))
 complex(a(MESH:VU0357017), p(HGNC:CHRM1)) -> act(p(HGNC:CHRM1))
 a(MESH:VU0357017) -| act(a(CHEBI:scopolamine))
 a(MESH:VU0357017) -> bp(GO:"behavioral fear response")
+UNSET Confidence
 
 SET Evidence="A recent clinical study utilizing the M1-selective
 allosteric agonist GSK1034702 demonstrated pro-cognitive efficacy
 in a nicotine abstinence model of episodic memory impairment in smokers,
 67 providing exciting evidence that M1-selective activation can provide
 pro-cognitive benefits in humans"
-
+SET Confidence = "High"
 complex(a(MESH:"GSK 1034702"), p(HGNC:CHRM1)) -> bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence="The first subtype-selective M1 PAM to be characterized
 was benzyl quinolone carboxylic acid (BQCA);68 BQCA exhibited high
 selectivity with no activity at mAChR subtypes M2–M5 and induced up
 to a 129-fold leftward shift in ACh potency at the M1 mAChR"
-
+SET Confidence = "High"
 #BQCA = 1-(4-methoxybenzyl)-4-oxo-1,4-dihydroquinoline-3-carboxylic acid
 
 a(MESH:"1-(4-methoxybenzyl)-4-oxo-1,4-dihydroquinoline-3-carboxylic acid") -> act(p(HGNC:CHRM1))
 act(p(HGNC:CHRM1)) -> a(CHEBI:acetylcholine)
+UNSET Confidence
 
 SET Evidence="In brain slice electrophysiology studies, BQCA
 enhanced excitatory postsynaptic currents in medial prefrontal
@@ -479,7 +512,7 @@ and memory functions.70 In pre-clinical animal studies, BQCA reversed
 scopolamine-impaired contextual fear conditioning and rescued medial
 prefrontal cortex-dependent discrimination reversal learning deficits
 in a transgenic mouse model of AD."
-
+SET Confidence = "High"
 SET MeSHAnatomy="Prefrontal Cortex"
 
 a(MESH:"1-(4-methoxybenzyl)-4-oxo-1,4-dihydroquinoline-3-carboxylic acid") -> bp(GO:"excitatory postsynaptic potential")
@@ -496,25 +529,28 @@ a(MESH:"1-(4-methoxybenzyl)-4-oxo-1,4-dihydroquinoline-3-carboxylic acid") -> bp
 a(MESH:"1-(4-methoxybenzyl)-4-oxo-1,4-dihydroquinoline-3-carboxylic acid") -> bp(GO:learning)
 
 UNSET Species
+UNSET Confidence
 
 SET Evidence="Additionally, recent studies demonstrated that BQCA was
 effective in reversing memory deficits in Y-maze object recognition
 and spontaneous alternation tasks in rats.71,72"
-
+SET Confidence = "High"
 SET Species="10116"
 
 a(MESH:"1-(4-methoxybenzyl)-4-oxo-1,4-dihydroquinoline-3-carboxylic acid") -> bp(GO:memory)
 
 UNSET Species
+UNSET Confidence
 
 SET Evidence="Recent drug discovery efforts in our group have yielded
 novel M1-selective PAMs VU0405652 (ML169) and VU0456940, both of
 which potentiate M1-mediated non-amyloidogenic amyloid precursor
 protein (APPsalpha) processing, suggesting disease-modifying potential in AD"
-
+SET Confidence = "High"
 a(MESH:"VU 0405652") -> act(p(HGNC:CHRM1))
 a(HBP:VU0456940) -> act(p(HGNC:CHRM1))
 act(p(HGNC:CHRM1)) -> deg(a(HBP:"sAPP-alpha"))
+UNSET Confidence
 
 SET Evidence="Conversely, the nonselective mAChR agonist BuTAC
 ([5R-(exo)]-6-[4-butylthio-1,2,5-thiadiazol-3-yl]-1-azabicyclo-[3.2.1]-octane)
@@ -522,54 +558,61 @@ shows an antipsychotic profile when tested in numerous preclinical animal
 models. Administration of BuTAC reduces apomorphine-induced climbing and
 apomorphine-induced disruptions of prepulse inhibition78,79 and reduces
 conditioned avoidance responding in wild-type, but not M4 KO mice."
-
+SET Confidence = "High"
 a(MESH:"6-(4-butylthio-1,2,5-thiadiazol-3-yl)-1-azabicyclo(3.2.1)octane") -| act(a(CHEBI:apomorphine))
 act(a(CHEBI:apomorphine)) -| bp(GO:"prepulse inhibition")
 a(MESH:"6-(4-butylthio-1,2,5-thiadiazol-3-yl)-1-azabicyclo(3.2.1)octane") -| path(MESH:"Avoidance Learning")
 path(MESH:"Avoidance Learning") -- p(HGNC:CHRM4)
+UNSET Confidence
 
 SET Evidence="The M4 receptor is highly expressed in the striatum,
 hippocampus, and neocortex,45,46 suggesting that this mAChR subtype is
 ideally located to modulate dopaminergic signaling. In support of this
 hypothesis, M4 KO mice exhibit a hyperdopaminergic phenotype that is
 resistant to mAChR agonist-induced attenuation of dopamine levels."
-
+SET Confidence = "High"
 a(MESH:Hippocampus) -- p(HGNC:CHRM4)
 a(MESH:"Corpus Striatum") -- p(HGNC:CHRM4)
 a(MESH:Neocortex) -- p(HGNC:CHRM4)
 p(HGNC:CHRM4) reg bp(GO:"synaptic transmission, dopaminergic")
+UNSET Confidence
 
 SET Evidence="Two novel M4-selective compounds, VU10010 and LY2033298,
 represented a breakthrough when they were described in 2008.84,85 VU10010
 is a potent M4-selective PAM that increases affinity/efficacy of ACh to
 promote M4 mAChR activation."
-
+SET Confidence = "Medium"
 a(HBP:VU10010) -> act(a(CHEBI:acetylcholine))
-act(a(CHEBI:acetylcholine)) -> act(p(HGNC:CHRM1))
+act(a(CHEBI:acetylcholine)) -> act(p(HGNC:CHRM4))
+UNSET Confidence
 
 SET Evidence="In brain slices, VU10010 selectively potentiated mAChR-mediated
 reductions in glutamatergic, but not GABAergic, signaling in hippocampal
 neurons, indicating a key role for M4 in regulating hippocampal function,
 and possibly in modulating cognition."
-
+SET Confidence = "Medium"
 SET MeSHAnatomy="Hippocampus"
 
 a(HBP:VU10010) -> act(p(HGNC:CHRM4))
 act(p(HGNC:CHRM4)) -| bp(GO:"synaptic transmission, glutamatergic")
+p(HGNC:CHRM4) reg bp(GO:cognition)
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="Both VU0152100 and VU0152099 effectively reversed
 amphetamine-induced hyperlocomotion, demonstrating antipsychotic-like activity
 in preclinical models."
-
-a(MESH:"3-amino-N-(4-methoxybenzyl)-4,6-dimethylthieno(2,3-b)pyridine-2-carboxamide")
+SET Confidence = "Medium"
+a(MESH:"3-amino-N-(4-methoxybenzyl)-4,6-dimethylthieno(2,3-b)pyridine-2-carboxamide") -| act(a(CHEBI:amphetamine))
 a(HBP:VU0152099) -| act(a(CHEBI:amphetamine))
 act(a(CHEBI:amphetamine)) -> bp(GO:locomotion)
+UNSET Confidence
 
 SET Evidence="LY2033298, a structurally distinct M4-selective PAM, was
 similarly efficacious in several preclinical models of psychosis, including
 conditioned avoidance responding and apomorphine-impaired prepulse inhibition"
-
+SET Confidence = "High"
 a(MESH:"3-amino-5-chloro-6-methoxy-4-methyl-thieno(2,3-b)pyridine-2-carboxylic acid cyclopropylamide") -| act(a(CHEBI:amphetamine))
 act(a(CHEBI:apomorphine)) -| bp(GO:"prepulse inhibition")
+UNSET Confidence
