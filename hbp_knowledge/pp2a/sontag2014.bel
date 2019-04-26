@@ -92,13 +92,16 @@ a(CHEBI:"S-adenosyl-L-methionine") -> act(p(HGNC:LCMT1))
 a(CHEBI:"S-adenosyl-L-homocysteine") -| act(p(HGNC:LCMT1))
 UNSET Confidence
 
-#demethylation?
 SET Evidence = "Conversely, the PP2A-specific methylesterase PME-1 can directly bind to the active site of the catalytic subunit,
 remove the methyl group and inactivate PP2A by evicting manganese ions required for phosphatase activity (Xing et al.,2008)."
+SET Confidence = "Medium"
 p(HGNC:PPME1) -> complex(p(HGNC:PPME1),p(HGNC:PPP2CA))
-complex(p(HGNC:PPME1),p(HGNC:PPP2CA)) -| act(complex(GO:"protein phosphatase type 2A complex"))
+complex(p(HGNC:PPME1),p(HGNC:PPP2CA), pmod(Me)) -> act(complex(GO:"protein phosphatase type 2A complex"))
 p(HGNC:PPME1) -> complex(p(HGNC:PPME1),p(HGNC:PPP2CB))
+complex(p(HGNC:PPME1),p(HGNC:PPP2CB), pmod(Me)) -> act(complex(GO:"protein phosphatase type 2A complex"))
+complex(p(HGNC:PPME1),p(HGNC:PPP2CA)) -| act(complex(GO:"protein phosphatase type 2A complex"))
 complex(p(HGNC:PPME1),p(HGNC:PPP2CB)) -| act(complex(GO:"protein phosphatase type 2A complex"))
+UNSET Confidence
 
 SET Evidence = "Methylation is thought to play a critical role in the biogenesis of PP2A holoenzymes."
 SET Confidence = "High"
