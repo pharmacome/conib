@@ -97,6 +97,8 @@ SET Confidence = "High"
 complex(GO:"protein phosphatase type 2A complex") hasComponents list(p(HGNC:PPP2R1A),p(HGNC:PPP2CA))
 UNSET Confidence
 
+## why did you set the confidence to 'Low'?
+## i made a few changes and i think it would fit better. would you agree?
 SET Evidence = "To gain full activity towards specific substrates, the PP2A core enzyme interacts
 with a variable regulatory subunit to form a heterotrimeric holoenzyme. The variable regulatory subunits
 consist of four families: B (also known as B55 or PR55), B′ (B56 or PR61), B′′ (PR48/PR72/PR130), and B′′′
@@ -109,11 +111,17 @@ consist of four families: B (also known as B55 or PR55), B′ (B56 or PR61), B�
 # PR110 STRN
 SET Confidence = "Low"
 p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55") -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"))
+## complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55")) -> act(complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55")))
 p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56") -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"))
+## complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56")) -> act(complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56")))
 p(HGNC:PPP2R3B) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3B))
+## complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3B))  -> act(complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3B)))
 p(HGNC:PPP2R3A) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3A))
+## complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3A)) -> act(complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3A)))
 p(HGNC:STRN3) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN3))
+## complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN3)) -> act(complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN3)))
 p(HGNC:STRN) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN))
+## complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN)) -> act(complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN)))
 UNSET Confidence
 
 SET Evidence = "Except the B′′′ subunits, direct interactions
@@ -130,6 +138,7 @@ p(HGNC:PPP2R3A) => complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3A))
 UNSET Confidence
 
 #only some regulatory enxymes mentioned? No specific ones given
+## i just checked it again and we should delete this statement
 SET Evidence = "Methylation of the carboxy-terminal Leu309 in a conserved
 TPDYFL309 motif of the catalytic subunit has been shown to enhance the affinity of the PP2A core
 enzyme for some, but not all, regulatory subunits"
@@ -143,12 +152,14 @@ p(HGNC:PPP2CA,pmod(Me,Leu,309)) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC
 UNSET confidence
 
 #which complex is being mentioned in the second statement?
+## it should refer to complex(p(HGNC:IGBP1),p(HGNC:PPP2CA))
 SET Evidence = "Intriguingly, changes in this peptide motif also affected
 interaction of the catalytic subunit with the alpha4 protein (α4), presumably through alteration of methylation[
 29], and led to a complex with distinct substrate specificity that is essential for cell survival"
 #this peptide : methylation of the carboxy-terminal Leu309
 SET confidence = "Medium"
 p(HGNC:PPP2CA,pmod(Me,Leu,309)) -| complex(p(HGNC:IGBP1),p(HGNC:PPP2CA))
+complex(p(HGNC:IGBP1),p(HGNC:PPP2CA)) -| bp(GO:"cell death")
 UNSET Confidence
 
 SET Evidence = "Reversible methylation of PP2A is catalyzed by two
@@ -183,6 +194,15 @@ tumor viruses SV40 and polyoma viruses was shown to only interact with the PP2A 
 SET Confidence = "Medium"
 p(UNIPROT:P03081) -> complex(p(UNIPROT:P03081),p(HGNC:PPP2R1A),p(HGNC:PPP2CA))
 #p(UNIPROT:P03081) cnc complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA), p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"), p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"), p(HGNC:PPP2R3B), p(HGNC:PPP2R3A), p(HGNC:STRN3), p(HGNC:STRN) )
+## complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"))
+
+## there is just not one type of holoenzyme as it depends on the type of regulatory subunit, so you can't put everything together. however, it would be an option to do it like I did (see below).
+## you can decide if we should include it like that or just leave it out because it causes no change. so, it's not that important
+## p(UNIPROT:P03081) cnc complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"))
+## p(UNIPROT:P03081) cnc complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3B))
+## p(UNIPROT:P03081) cnc complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3A))
+## p(UNIPROT:P03081) cnc complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN3))
+## p(UNIPROT:P03081) cnc complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN))
 UNSET Confidence
 
 SET Evidence = "Structures of the PP2A core enzyme reveal that the catalytic subunit recognizes one end of the scaffold
@@ -237,6 +257,7 @@ p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56") reg complex(p(IN
 UNSET Confidence
 
 #does two calcium binding needs to be annotated?
+## i would annotate it as it is mentioned in the evidence and might be of importance for some regulatory processes
 SET Evidence = "In fact, the B subunit is now known to contain multiple WD40 repeats [28],
 whereas B′′/PR72 is thought to contain two calcium-binding EF hands"
 SET Confidence = "Low"
@@ -253,17 +274,22 @@ p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55") -> bp(GO:"protein d
 UNSET Confidence
 
 #makes few interactions doesn't mean that no interaction takes place.
+## I don't know what you mean by that because the annotations refers to the B subunit (PR55) making interactions or did you change something here?
+## I would add the missing interaction between the B' subunit and the catalytic one (see below)
 SET Evidence = "Unlike the PP2A holoenzyme involving the B′ subunit, B makes few interactions with the catalytic subunit"
 SET Confidence = "Low"
 p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55") -> complex(p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"),p(HGNC:PPP2CA))
+## p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56") cnc complex(p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"),p(HGNC:PPP2CA))
 UNSET Confidence
 
 #sentece to be includede or not?
+## i would leave it but add the second part of the evidence (see below)
 SET Evidence = "This analysis further suggests that the B subunit may form a relatively
 stable complex with the isolated scaffold subunit and does not seem to support the notion that the catalytic
 subunit is required for interaction between the scaffold and the B subunits"
 SET Confidence = "Low"
 p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55") -> complex(p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"),p(HGNC:PPP2R1A))
+## p(HGNC:PPP2CA) cnc complex(p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"),p(HGNC:PPP2R1A))
 UNSET Confidence
 
 SET Evidence = "Furthermore, the B′ subunit makes significant interactions with the catalytic subunit of PP2A, which consequently
@@ -337,7 +363,7 @@ UNSET Confidence
 SET Evidence = "Previous studies suggested that carboxy-methylation of
 the catalytic subunit played an important role in the assembly
 of heterotrimeric PP2A holoenzymes in cells"
-p(HGNC:PPP2CA) -> complex(GO:"protein phosphatase type 2A complex")
+p(HGNC:PPP2CA,pmod(Me)) -> complex(GO:"protein phosphatase type 2A complex")
 
 SET Evidence = "By contrast, several recent studies using purified, recombinant proteins showed that
 the methylation status of the catalytic subunit did not play a decisive role for the in vitro assembly of PP2A
@@ -348,11 +374,14 @@ p(HGNC:PPP2CA,pmod(Me)) cnc complex(p(HGNC:PPP2CA),p(HGNC:PPP2R1A),p(INTERPRO:"P
 UNSET Confidence
 
 #speific variations specified, not important to annotate them?
+## they are imortant and i added a possible way to annotate the deletion but the mutation is not specific enough to annotate it because it doesn't mention how it is mutated
 SET Evidence = "Neither mutation of the carboxy-terminal Leu residue nor removal of the carboxy-terminal 14
 amino acids of the catalytic subunit prevented formation of heterotrimeric holoenzymes involving the B or B′ subunits"
 SET Confidence = "Low"
 p(HGNC:PPP2CA,var("?")) cnc complex(p(HGNC:PPP2CA),p(HGNC:PPP2R1A),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"))
+## p(HGNC:PPP2CA,var("p.295_309del")) cnc complex(p(HGNC:PPP2CA),p(HGNC:PPP2R1A),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"))
 p(HGNC:PPP2CA,var("?")) cnc complex(p(HGNC:PPP2CA),p(HGNC:PPP2R1A),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"))
+## p(HGNC:PPP2CA,var("p.295_309del")) cnc complex(p(HGNC:PPP2CA),p(HGNC:PPP2R1A),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"))
 UNSET Confidence
 
 SET Evidence = "In fact, competition experiments using recombinant proteins suggested that, compared to the unmethylated
@@ -388,7 +417,9 @@ SET Evidence = "Thus, PME-1 appears to exist in an inactive conformation in the 
 SET Confidence = "High"
 complex(p(HGNC:PPME1),a(GO:"protein phosphatase type 2A complex")) -> act(p(HGNC:PPME1))
 UNSET Confidence
+
  #multiple statements leading to same bel statement/ same meaning
+ ## we could delete it but i would still annotate it even if the meaning is the same
 SET Evidence = "Structural analysis of the heterotrimeric PME-1-PP2A complex showed that PME-1 is only activated
 upon binding to PP2A (Figure 4, left panel)."
 SET Confidence = "Low"
