@@ -79,83 +79,116 @@ SET Citation = {"PubMed","29758300"}
 SET Evidence = "Since Nixon and colleagues first reported the pathological evidence
 of defective macroautophagy in EM images in the AD brain, similar
 observations have been made in cellular and animal models of AD [2,3,7,14]"
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Brain"
 path(MESH:"Alzheimer Disease") neg bp(GO:macroautophagy)
+UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Robust AV accumulation in dystrophic neurites from biopsy
 tissues from patients with AD implicate a compromised state of autophagic flux"
 # AV: autophagosome
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -> complex(a(HBP:"dystrophic neurite"),a(GO:autophagosome))
 path(MESH:"Alzheimer Disease") neg bp(GO:autophagy)
+UNSET Confidence
 
+#there is no way we can annotate the second half of the statemenet as no specific details given, right?
 SET Evidence = "Other studies have also demonstrated the accumulation
 of autolysosomes in the AD brain and experimentally when lysosomal
 proteolysis is compromised via genetic knockdown of specific cathepsins
 or use of pharmacological inhibition of lysosomes [2,3,15]"
+SET Confidence = "Low"
 SET MeSHAnatomy = "Brain"
 path(MESH:"Alzheimer Disease") pos a(GO:autolysosome)
 bp(GO:"lysosomal protein catabolic process") -| a(GO:autolysosome)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Such evidence of lysosomal proteolytic failure in AD brain further
 strengthens the concept that impaired macroautophagy in AD is a critical event"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 path(MESH:"Alzheimer Disease") neg bp(GO:"lysosomal protein catabolic process")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Defects in macroautophagy in AD are supported by additional lines of evidence"
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") neg bp(GO:macroautophagy)
+UNSET Confidence
 
 SET Evidence = "For example, levels of Beclin 1, a key component of the
 class III type phosphoinositide 3-kinase/VPS34 complex essential to the
 pre-autophagosomal structure (PAS), has been suggested to be reduced
 in AD brains [16,17], with Rohn et al. demonstrating the cleavage of
 Beclin 1 by caspase-3 in the AD brain and colocalization of the cleaved product with NFTs [16]."
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 complex(GO:"phosphatidylinositol 3-kinase complex, class III") hasComponent p(HGNC:BECN1)
 path(MESH:"Alzheimer Disease") neg p(HGNC:BECN1)
 p(HGNC:CASP3) -> p(HGNC:BECN1,frag("?"))
 p(HGNC:BECN1,frag("?")) -- a(GO:"neurofibrillary tangle")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Furthermore, presenilin-1, the most common
 mutation associated with early-onset familial AD (FAD), plays an essential
 role in calcium homeostasis and maintaining acidic lysosomal
 pH, with FAD-associated mutations disrupting calcium-dependent
 vATPase function in lysosomes [7,18–20]"
+SET Confidence = "Medium"
 p(HGNC:PSEN1,var("?")) -- path(MESH:"Alzheimer Disease")
 p(HGNC:PSEN1) -- bp(GO:"calcium ion homeostasis")
 p(HGNC:PSEN1) -- bp(GO:"regulation of lysosomal lumen pH")
+SET MeSHAnatomy = "Lysosomes"
 p(HGNC:PSEN1,var("?")) -| act(a(MESH:"Vacuolar Proton-Translocating ATPases"))
 a(CHEBI:"calcium ion") -> act(a(MESH:"Vacuolar Proton-Translocating ATPases"))
+UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Recently, a comprehensive investigation utilizing gene expression analysis of the
 hippocampal region (CA1) of patients with Alzheimer’s disease identified
 that autophagosome formation and lysosomal biogenesis genes
 were upregulated at early stages of AD [21]"
+SET Confidence = "High"
 SET MeSHAnatomy = "CA1 Region, Hippocampal"
 path(MESH:"Alzheimer Disease") -> a(GO:lysosome)
 path(MESH:"Alzheimer Disease") -> a(GO:autophagosome)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Even early autophagic activation may become impaired due to
 progressively diminishing lysosomal clearance of substrates."
+SET Confidence = "High"
 bp(GO:"lysosomal protein catabolic process") pos bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "Maintenance of neuronal macroautophagy can counteract AD pathology [22,23]."
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 bp(GO:macroautophagy) neg path(MESH:"Alzheimer Disease")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "For instance, rapamycin, an inhibitor of the Ser/Thr
 protein kinase mammalian target of rapamycin (mTOR), improves
 cognitive function and reduces Aβ in AD mouse model by enhancing autophagic flux [23]."
+#rapamycin : sirolimus
+SET Confidence = "Medium"
 a(CHEBI:sirolimus) -| act(p(HGNC:MTOR))
 a(CHEBI:sirolimus) -> bp(GO:cognition)
+SET Species = "10090"
 a(CHEBI:sirolimus) -| a(CHEBI:"amyloid-beta")
 a(CHEBI:sirolimus) -> bp(GO:autophagy)
+bp(GO:autophagy) -| a(CHEBI:"amyloid-beta")
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "The presence of aberrant protein aggregates is common to neurodegenerative diseases"
+SET Confidence = "High"
 a(HBP:"protein aggregates") pos path(MESH:"Neurodegenerative Diseases")
+UNSET Confidence
 
 SET Evidence = "Accumulation of misfolded proteins and damaged
 organelles is highly detrimental for neuronal homeostasis and survival."
