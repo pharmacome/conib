@@ -78,7 +78,7 @@ SET Citation = {"PubMed","24653673"}
 
 SET Evidence = "Proteinphosphatase 2A catalytic subunit is uniquely methylated
 on Leu-309 by the dedicated leucine carboxyl methyltransferase-1 (LCMT-1; Lee et al.,1996; De Baere et al.,1999)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNCGENEFAMILY:Protein phosphatase catalytic subunits) hasComponent list(p(HGNC:PPP2CA), p(HGNC:PPP2CB))
 p(HGNC:LCMT1) -> p(HGNC:PPP2CA,pmod(Me,Leu,309))
 p(HGNC:LCMT1) -> p(HGNC:PPP2CB,pmod(Me,Leu,309))
@@ -96,13 +96,11 @@ SET Evidence = "Conversely, the PP2A-specific methylesterase PME-1 can directly 
 remove the methyl group and inactivate PP2A by evicting manganese ions required for phosphatase activity (Xing et al.,2008)."
 SET Confidence = "Medium"
 p(HGNC:PPME1) -> complex(p(HGNC:PPME1),p(HGNC:PPP2CA))
-## add: complex(p(HGNC:PPME1),p(HGNC:PPP2CA)) -| p(HGNC:PPP2CA, pmod(Me)
-complex(p(HGNC:PPME1),p(HGNC:PPP2CA), pmod(Me)) -> act(complex(GO:"protein phosphatase type 2A complex"))
-## change to: p(HGNC:PPP2CA, pmod(Me))  -> act(complex(GO:"protein phosphatase type 2A complex"))
+complex(p(HGNC:PPME1),p(HGNC:PPP2CA)) -| p(HGNC:PPP2CA, pmod(Me))
+p(HGNC:PPP2CA, pmod(Me))  -> act(complex(GO:"protein phosphatase type 2A complex"))
 p(HGNC:PPME1) -> complex(p(HGNC:PPME1),p(HGNC:PPP2CB))
-## add: complex(p(HGNC:PPME1),p(HGNC:PPP2CB)) -| p(HGNC:PPP2CA, pmod(Me)
-complex(p(HGNC:PPME1),p(HGNC:PPP2CB), pmod(Me)) -> act(complex(GO:"protein phosphatase type 2A complex"))
-## change to: p(HGNC:PPP2CB, pmod(Me)) -> act(complex(GO:"protein phosphatase type 2A complex"))
+complex(p(HGNC:PPME1),p(HGNC:PPP2CB)) -| p(HGNC:PPP2CA, pmod(Me))
+p(HGNC:PPP2CB, pmod(Me)) -> act(complex(GO:"protein phosphatase type 2A complex"))
 complex(p(HGNC:PPME1),p(HGNC:PPP2CA)) -| act(complex(GO:"protein phosphatase type 2A complex"))
 complex(p(HGNC:PPME1),p(HGNC:PPP2CB)) -| act(complex(GO:"protein phosphatase type 2A complex"))
 UNSET Confidence
@@ -116,7 +114,7 @@ UNSET Confidence
 SET Evidence = "Significantly, downregulation of LCMT1 expression leads to a significant decrease of
 PP2A methylation and concomitant loss of PP2A holoenzymes containing the regulatory Bα (or PPP2R2A) subunit (PP2A/Bα;
 Lee and Pallas,2007; Sontag et al.,2008; MacKay et al.,2013)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:LCMT1) -> p(HGNC:PPP2CA,pmod(Me,Leu,309))
 p(HGNC:LCMT1) -> p(HGNC:PPP2CB,pmod(Me,Leu,309))
 p(HGNC:PPP2CA,pmod(Me,Leu,309)) -> complex(p(HGNC:PPP2CA),p(HGNC:PPP2CB),p(HGNC:PPP2R2A))
@@ -127,7 +125,7 @@ SET Evidence = "PP2A enzymes can also become transiently inactivated following
 tyrosine phosphorylation of the catalytic subunit at the putative
 Tyr-307 site,via activation of src kinase, epidermal growth factor
 receptor or insulin signaling (Chen et al.,1992)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:SRC) -> p(HGNC:PPP2CA,pmod(Ph,Tyr,307))
 p(HGNC:EGFR) -> p(HGNC:PPP2CA,pmod(Ph,Tyr,307))
 bp(GO:"insulin receptor signaling pathway") -> p(HGNC:PPP2CA,pmod(Ph,Tyr,307))
@@ -214,7 +212,7 @@ UNSET Confidence
 
 SET Evidence = "For instance, the Bα subunit specifically and markedly facilitates dephosphory-
 lation of tau by PP2A (Sontag et al.,1996; Xu et al.,2008)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:PPP2R2A) -> act(complex(GO:"protein phosphatase type 2A complex"))
 p(HGNC:PPP2R2A) -| p(HGNC:MAPT,pmod(Ph))
 complex(GO:"protein phosphatase type 2A complex") -| p(HGNC:MAPT,pmod(Ph))
@@ -237,7 +235,7 @@ UNSET Confidence
 
 SET Evidence = "Of particular relevance to the Alzheimer’s disease (AD) field, PP2A/Bα holoenzymes can
 directly bind to the microtubule-associated protein tau (Sontag et al.,1999, 2012; Xu et al.,2008)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R2A)) -> complex(p(HGNC:MAPT),p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R2A))
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CB),p(HGNC:PPP2R2A)) -> complex(p(HGNC:MAPT),p(HGNC:PPP2R1A),p(HGNC:PPP2CB),p(HGNC:PPP2R2A))
@@ -262,7 +260,7 @@ SET Evidence = "For instance, some B’ subunits target PP2A to the nucleus (McC
 et al.,2010); Bα subunits can direct some PP2A pools to microtubules, which could serve as a cytoskeletal reservoir of inac-
 tive enzymes (Sontag et al.,1995; Hiraga and Tamura,2000)."
 # B' subunit: PPP2R5 also known as Protein phosphatase 2A, regulatory B subunit, B56
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56") -> tloc(complex(GO:"protein phosphatase type 2A complex"),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
 p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56") -> tloc(complex(GO:"protein phosphatase type 2A complex"),fromLoc(GO:cytoplasm),toLoc(GO:centrosome))
 p(HGNC:PPP2R2A) -> complex(a(GO:"protein phosphatase type 2A complex"),a(GO:microtubule))
@@ -313,7 +311,7 @@ UNSET Confidence
 SET Evidence = "More specifically, decreased expression levels of PP2A regulatory Bγ
 (or PPP2R2C) and B’ε (or PPP2R5E) subunit mRNAs in the hippocampus (Vogelsberg-Ragaglia et al.,2001),
 and cortical Bα subunit (Sontag et al.,2004b) have been reported in AD."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 path(MESH:"Alzheimer Disease") neg r(HGNC:PPP2R2C)
 path(MESH:"Alzheimer Disease") neg r(HGNC:PPP2R5E)
@@ -326,7 +324,7 @@ UNSET Confidence
 SET Evidence = "Notably, the loss of neuronal PP2A/Bα holoenzymes correlates with the
 down-regulation of PP2A methylation and severity of phosphorylated tau (P-tau) pathology
 in AD-affected brain regions (Sontag et al.,2004 a,b)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R2A)) pos p(FPLX:PPP2,pmod(Me))
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CB),p(HGNC:PPP2R2A)) pos p(FPLX:PPP2,pmod(Me))
 SET MeSHDisease = "Alzheimer Disease"
@@ -337,7 +335,7 @@ UNSET Confidence
 
 SET Evidence = "Lastly, increased phosphorylation of PP2A at Tyr-307 has
 been found in P-tau-rich, tangle-bearing neurons from post-mortem brain (Liu et al.,2008b)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 p(FPLX:PPP2,pmod(Me,Tyr,307)) -- a(GO:"neurofibrillary tangle")
 p(FPLX:PPP2,pmod(Me,Tyr,307)) -- p(HGNC:MAPT,pmod(Ph))
@@ -429,7 +427,7 @@ p(HGNC:PPP2CB,var("p.Leu309Ala")) -> p(HGNC:MAPT,pmod(Ph))
 UNSET Confidence
 
 SET Evidence = "Moreover, expression of an I2 PP2A fragment can recapitulate AD-like pathology in rat brain (Wang et al.,2010)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Species = "10114"
 SET MeSHAnatomy = "Brain"
 p(HGNC:SET,frag("?")) -> path(MESH:"Alzheimer Disease")
@@ -504,7 +502,8 @@ p(HGNC:SRC) -> p(HGNC:PPP2CB,pmod(Ph,Tyr,307))
 p(HGNC:PPP2CA,pmod(Ph,Tyr,307)) -| act(complex(GO:"protein phosphatase type 2A complex"))
 p(HGNC:PPP2CB,pmod(Ph,Tyr,307)) -| act(complex(GO:"protein phosphatase type 2A complex"))
 act(complex(GO:"protein phosphatase type 2A complex")) -> p(HGNC:MAPT,pmod(Ph))
-## a decrease in phosphorylation was correct because the activation of PP2A leads to an increase in phosphorylation.
+p(HGNC:PPP2CA,pmod(Ph,Tyr,307)) -| p(HGNC:MAPT,pmod(Ph))
+p(HGNC:PPP2CB,pmod(Ph,Tyr,307)) -| p(HGNC:MAPT,pmod(Ph))
 ## the evidence mentions that the inactivation increases the phosphorylation
 UNSET Confidence
 
@@ -521,7 +520,7 @@ UNSET Confidence
 SET Evidence = "Specific inhibition of PP2A/Bα is associated with enhanced tau phosphorylation
 at many AD-like phospho epitopes, and subsequent inability of tau to bind to and stabilize microtubules
 (Sontag et al., 1996)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R2A)) -| p(HGNC:MAPT,pmod(Ph))
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R2A)) -> complex(p(HGNC:MAPT),a(GO:microtubule))
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CB),p(HGNC:PPP2R2A)) -| p(HGNC:MAPT,pmod(Ph))
@@ -530,7 +529,7 @@ UNSET Confidence
 
 SET Evidence = "Deregulation of PP2A/Bα alone also affects microtubule stability (Nunbhakdi-Craig et al., 2007)
 and neurite outgrowth (Sontag et al.,2010) in neuroblastoma cells"
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET MeSHDisease = "Neuroblastoma"
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R2A)) reg a(GO:microtubule)
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R2A)) reg bp(MESH:"Neuronal Outgrowth")
@@ -541,7 +540,7 @@ UNSET Confidence
 
 SET Evidence = "As described earlier, it is especially significant that the biogenesis of PP2A/Bα
 holoenzymes is intimately related to the methylation state of PP2A"
-SET Confidence = "Medium"
+SET Confidence = "High"
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R2A)) -- p(FPLX:PPP2,pmod(Me))
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CB),p(HGNC:PPP2R2A)) -- p(FPLX:PPP2,pmod(Me))
 UNSET Confidence
@@ -549,7 +548,7 @@ UNSET Confidence
 SET Evidence = "It is noteworthy that PP2A/Bα can directly bind to tau via a
 domain encompassing the microtubule-binding of tau; this interaction maximizes
 the efficiency of tau dephosphorylation by PP2A (Sontag et al.,1999; Xu et al.,2008; Figure 3A)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R2A)) -> complex(p(HGNC:MAPT),p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R2A))
 complex(p(HGNC:MAPT),p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R2A)) -| p(HGNC:MAPT,pmod(Ph))
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CB),p(HGNC:PPP2R2A)) -> complex(p(HGNC:MAPT),p(HGNC:PPP2R1A),p(HGNC:PPP2CB),p(HGNC:PPP2R2A))
@@ -559,7 +558,7 @@ UNSET Confidence
 SET Evidence = "Notably, tau missense mutations found in frontotemporal dementia with Parkinsonism
 linked to chromosome 17 (FTDP-17; Goedert et al.,2000) and AD-mimicking tau phosphorylation in proline-rich motifs
 (Eidenmuller et al.,2001) inhibit the association of tau with PP2A (Figure3B)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET MeSHDisease = {"Alzheimer Disease", "Parkinson Disease"}
 p(HGNC:MAPT,var("?")) -| complex(a(GO:"protein phosphatase type 2A complex"),p(HGNC:MAPT))
 p(HGNC:MAPT,pmod(Ph)) -| complex(a(GO:"protein phosphatase type 2A complex"),p(HGNC:MAPT))
@@ -575,7 +574,7 @@ UNSET Confidence
 SET Evidence = "This is potentially physiologically significant since phosphorylation of tau at Thr-231, a target site
 for ERK2, GSK3β, and cdk5, occurs early in AD and can further inhibit the ability of PP2A/Bα to dephosphorylate other
 major AD-tau phosphoepitopes (Landrieu et al.,2011)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ph,Thr,231))
 p(HGNC:MAPT,pmod(Ph,Thr,231)) -| act(complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R2A)))
 p(HGNC:MAPT,pmod(Ph,Thr,231)) -| act(complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CB),p(HGNC:PPP2R2A)))
@@ -584,7 +583,7 @@ UNSET Confidence
 SET Evidence = "Conversely, decreased PP2A methylation and PP2A/Bα levels in AD will disrupt normal PP2A-tau
 interactions (Sontag et al., 2007), thereby preventing PP2A-mediated tau dephosphorylation while allowing
 for enhanced binding of Fyn kinase or other regulators to the tau proteins."
-SET Confidence = "Medium"
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") neg p(FPLX:PPP2,pmod(Me))
 path(MESH:"Alzheimer Disease") neg complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R2A))
 path(MESH:"Alzheimer Disease") neg complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CB),p(HGNC:PPP2R2A))
@@ -601,7 +600,7 @@ UNSET Confidence
 SET Evidence = "The deregulation of PP2A methylation in AD is especially interesting, not only because it can lead to a loss of PP2A/Bα, a
 major tau regulator, but also because PP2A methylation state is intimately linked to the integrity of one-carbon metabolism,
 which regulates SAM supply (Reviewed in Fowler,2005)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") neg p(FPLX:PPP2,pmod(Me))
 path(MESH:"Alzheimer Disease") neg complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R2A))
 path(MESH:"Alzheimer Disease") neg complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CB),p(HGNC:PPP2R2A))
@@ -611,8 +610,9 @@ complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CB),p(HGNC:PPP2R2A)) reg p(FPLX:PPP2,pmod(Me)
 ## p(FPLX:PPP2,pmod(Me)) pos complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CB),p(HGNC:PPP2R2A))
 ## the evidence states that methylation is necessary for the complex formation.
 ## for me it doesn't make sense to change the annoation because the complex itself is not involved in th regulation of methylation
-## add: complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R2A)) reg p(HGNC:MAPT)
-## add: complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CB),p(HGNC:PPP2R2A)) reg p(HGNC:MAPT)
+## I dont clearly understand what you mean by the above comments. According to my understanding, you mean to state that methylation relates to complex and not the complex to metylation?
+complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R2A)) reg p(HGNC:MAPT)
+complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CB),p(HGNC:PPP2R2A)) reg p(HGNC:MAPT)
 p(FPLX:PPP2,pmod(Me)) -- bp(GO:"one-carbon metabolic process")
 UNSET Confidence
 
@@ -621,7 +621,7 @@ can reproduce AD-like pathological features: accumulation of P-tau (Sontag et al
 enhanced amyloidogenesis (Pacheco-Quinto et al.,2006; Zhang et al.,2009; Zhuo et al.,2010; Zhuo and Pratico,2010); increased
 phosphorylation of APP at the regulatory Thr-668 site (Sontag et al.,2007; Zhang et al.,2009); increased sensitivity to
 amyloid toxicity (Kruman et al.,2002); and cognitive impairment (Bernardo et al.,2007; Wei et al.,2011; Rhodehouse et al., 2013)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 bp(GO:"one-carbon metabolic process") -| p(HGNC:MAPT,pmod(Ph))
 bp(GO:"one-carbon metabolic process") -| bp(HBP:"amyloidogenesis")
 bp(GO:"one-carbon metabolic process") -| p(HGNC:APP,pmod(Ph,Thr,668))
