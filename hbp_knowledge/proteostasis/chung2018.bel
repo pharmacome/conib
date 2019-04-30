@@ -20,9 +20,9 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/export/hbp-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
-DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
 DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
 DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
@@ -94,6 +94,7 @@ path(MESH:"Alzheimer Disease") neg bp(GO:autophagy)
 UNSET Confidence
 
 #there is no way we can annotate the second half of the statemenet as no specific details given, right?
+## check my two suggestions below. i think this is how we could include it
 SET Evidence = "Other studies have also demonstrated the accumulation
 of autolysosomes in the AD brain and experimentally when lysosomal
 proteolysis is compromised via genetic knockdown of specific cathepsins
@@ -102,6 +103,8 @@ SET Confidence = "Low"
 SET MeSHAnatomy = "Brain"
 path(MESH:"Alzheimer Disease") pos a(GO:autolysosome)
 bp(GO:"lysosomal protein catabolic process") -| a(GO:autolysosome)
+# p(HGNCGENEFAMILY:Cathepsins) -> bp(GO:"lysosomal protein catabolic process")
+# a(GO:lysosome) -> bp(GO:"lysosomal protein catabolic process")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -190,14 +193,13 @@ SET Confidence = "High"
 a(HBP:"protein aggregates") pos path(MESH:"Neurodegenerative Diseases")
 UNSET Confidence
 
-#check whether the given statements in comments are correct or not
 SET Evidence = "Accumulation of misfolded proteins and damaged
 organelles is highly detrimental for neuronal homeostasis and survival."
-SET Confidence = "Low"
-#a(GO:"organelle") -> bp(GO:"neuron cellular homeostasis")
-#a(GO:"organelle") -> a(MESH:Neurons)
-p(MESH:Proteins,pmod(HBP:misfolding)) -| bp(GO:"neuron cellular homeostasis")
-p(MESH:Proteins,pmod(HBP:misfolding)) -| a(MESH:Neurons)
+SET Confidence = "Medium"
+a(GO:"organelle") -> bp(GO:"neuron cellular homeostasis")
+a(GO:"organelle") -> a(MESH:Neurons)
+p(MESH:Proteins,pmod(HBP:misfolded)) -| bp(GO:"neuron cellular homeostasis")
+p(MESH:Proteins,pmod(HBP:misfolded)) -| a(MESH:Neurons)
 
 SET Evidence = "Although the UPS is accountable for the degradation of up to 80–90% of
 proteins, misfolded proteins and aggregates are too large to be processed
@@ -363,11 +365,11 @@ SET Evidence = "Abnormal phosphorylation and truncation of tau are hallmarks
 of AD pathology and are targets of proteasome and autophagy pathways [27,44,45]."
 SET Confidence = "Medium"
 p(HGNC:MAPT,pmod(Ph)) -> path(MESH:"Alzheimer Disease")
-p(HGNC:MAPT,frag('?') -> path(MESH:"Alzheimer Disease")
+p(HGNC:MAPT,frag("?") -> path(MESH:"Alzheimer Disease")
 complex(GO:"proteasome complex") -- p(HGNC:MAPT,pmod(Ph))
-complex(GO:"proteasome complex") -- p(HGNC:MAPT,frag('?'))
+complex(GO:"proteasome complex") -- p(HGNC:MAPT,frag("?"))
 bp(GO:autophagy) -- p(HGNC:MAPT,pmod(Ph))
-bp(GO:autophagy) -- p(HGNC:MAPT,frag('?'))
+bp(GO:autophagy) -- p(HGNC:MAPT,frag("?"))
 UNSET Confidence
 
 SET Evidence = "Tau aggregates can be targeted by two protein clearance pathways,
@@ -562,6 +564,7 @@ SET Evidence = "Sphingolipids are also strongly implicated in AD pathology, with
 levels of ceramide, a key component in sphingolipid metabolism,
 detected in the early phase of AD [80]."
 SET Confidence = "Medium"
+path(MESH:"Alzheimer Disease") -- a(CHEBI:sphingolipid)
 a(CHEBI:ceramide) reg bp(GO:"sphingolipid metabolic process")
 a(CHEBI:ceramide) pos path(MESH:"Alzheimer Disease")
 UNSET Confidence
@@ -573,6 +576,7 @@ SET Confidence = "Medium"
 rxn(reactants(a(MESH:Sphingomyelins)),products(a(CHEBI:ceramide))) -> a(CHEBI:"amyloid-beta")
 a(CHEBI:sphingolipid) reg act(complex(GO:"gamma-secretase complex"))
 complex(GO:"gamma-secretase complex") -- a(CHEBI:"amyloid-beta")
+bp(GO:"amyloid-beta metabolic process") -- a(CHEBI:sphingolipid)
 UNSET Confidence
 
 SET Evidence = "Cytosolic tau is highest in density in
@@ -615,6 +619,7 @@ UNSET Species
 UNSET Confidence
 
 #is the phospjorylation linked to the inactivation of mTOR
+## no, i don't think so. For me it's just via the complex and not via the phosphorylation
 SET Evidence = "For instance, adenosine monophosphate-
 activated protein kinase (AMPK) phosphorylates ULK1 and
 inactivates mTOR through the raptor and tuberous sclerosis complex (TSC2)."
@@ -661,14 +666,15 @@ complex(p(INTERPRO:"cAMP response element binding (CREB) protein"),p(HGNC:TFEB))
 complex(p(INTERPRO:"cAMP response element binding (CREB) protein"),p(HGNC:TFEB)) -> a(GO:lysosome)
 UNSET Confidence
 
+## I changed two back to the original ones because upon degradation of Tau neuroinflammation and neuronal loss decreases
 SET Evidence = "TFEB has been shown to effectively clear phosphorylated tau proteins through A-LS, resulting in
 ameliorated neuronal loss and neuroinflammation, as well as improved cognitive performance [89]."
 SET Confidence = "Medium"
 p(HGNC:TFEB) -> bp(GO:autophagy)
 p(HGNC:TFEB) -> deg(p(HGNC:MAPT,pmod(Ph)))
 bp(GO:autophagy) -> deg(p(HGNC:MAPT,pmod(Ph)))
-deg(p(HGNC:MAPT,pmod(Ph))) -> bp(GO:"neuron death")
-deg(p(HGNC:MAPT,pmod(Ph))) -> path(HBP:neuroinflammation)
+deg(p(HGNC:MAPT,pmod(Ph))) -| bp(GO:"neuron death")
+deg(p(HGNC:MAPT,pmod(Ph))) -| path(HBP:neuroinflammation)
 deg(p(HGNC:MAPT,pmod(Ph))) -> bp(GO:cognition)
 UNSET Confidence
 
@@ -773,11 +779,13 @@ p(HGNC:TREM2,var("?")) -> path(MESH:"Alzheimer Disease")
 UNSET Confidence
 
 #it is phagocytosis of AB, can that be annotated in any way?
+## i made a suggestion maybe we can do it like this
 SET Evidence = "For example, Beclin 1 suppression results in impaired
 microglial phagocytosis of Aβ and reduced recycling of TREM2 [108]."
 SET Confidence = "Low"
 SET Cell = "microglial cell"
 p(HGNC:BECN1) -> bp(GO:phagocytosis)
+#p(HGNC:BECN1) -> tloc(a(CHEBI:"amyloid-beta"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
 UNSET Cell
 UNSET Confidence
 
@@ -879,7 +887,7 @@ vitro models of mutant APP, accompanied with abnormal accumulation of depoloariz
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Brain"
 path(MESH:"Alzheimer Disease") -> bp(GO:mitophagy)
-p(HGNC:"APP") -> bp(GO:mitophagy)
+p(HGNC:APP,var("?")) -> bp(GO:mitophagy)
 UNSET MeSHAnatomy
 UNSET Confidence
 
