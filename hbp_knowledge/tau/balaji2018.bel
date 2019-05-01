@@ -6,7 +6,7 @@ SET DOCUMENT Licenses    = "CC BY 4.0"
 SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
 
 SET DOCUMENT Name        = "Pathological missorting of endogenous MAPT/Tau in neurons caused by failure of protein degradation systems"
-SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Version     = "1.0.1"
 SET DOCUMENT Authors     = "Esther Wollert"
 SET DOCUMENT Description = ""
 
@@ -81,135 +81,164 @@ SET Citation = {"PubMed","Autophagy. 2018;14(12):2139-2154. doi: 10.1080/1554862
 SET Evidence = "At more mature ages (DIV14 - DIV21), MAPT localization is mainly
  found in the axons with only basal levels in the somatodendritic compartment,
  consistent with earlier findings [20]. "
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 bp(GO:aging) -> p(HGNC:MAPT),loc(MESH:Axons))
 bp(GO:aging) -| p(HGNC:MAPT),loc(MESH:Dendrites))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Our previous work showed that inhibition of either the proteasome or autophagy
 in primary neurons induces pronounced neurotoxicity [23,24], making it impossible to address this
 issue in conventional neuron cultures."
+SET Confidence = "High"
 act(p(FPLX:Proteasome)) -| path(HBP:neurotoxicity)
 bp(GO:autophagy) -| path(HBP:neurotoxicity)
+UNSET Confidence
 
 SET Evidence = "  In order to determine the impact of protein degradation systems on the sorting of MAPT, we
 sought to suppress their activity by treating neurons on the neuritic side of the MFCs with either
 autophagy inhibitors, wortmannin [25] and bafilomycin A 1  [26], or with proteasomal inhibitors,
 epoxomicin and lactacystin [27,28]."
+SET Confidence = "High"
 a(CHEBI:wortmannin) -| bp(GO:autophagy)
 a(CHEBI:"bafilomycin A1") -| bp(GO:autophagy)
 a(CHEBI:epoxomicin) -| act(p(FPLX:Proteasome))
 a(CHEBI:lactacystin) -| act(p(FPLX:Proteasome))
+UNSET Confidence
 
 SET Evidence = "In
 controls, the fraction of MAPT-containing dendrites on the neuritic side was low (~14%), but local
 treatment with inhibitors of either autophagy (wortmannin [Fig. 3B], bafilomycin A 1  [Fig. S3A]) or
 the proteasome (epoxomicin [Fig. 3C], lactacystin [Fig. S3B]) caused a pronounced 4-to 5-fold
 increase of MAPT-containing dendrites (to levels of ~50-76%) (Fig. 3D)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Dendrites"
 bp(GO:autophagy) -| p(HGNC:MAPT)
 act(p(FPLX:Proteasome)) -| p(HGNC:MAPT)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = " Compared with the MAPT-free
 dendrites of control neurons (Fig. S4A, 1.8±0.1), a substantial increase of SQSTM1 level
 (21.1±0.9) was observed in MAPT-containing dendrites upon wortmannin treatment (Fig. S4B). "
+SET Confidence = "High"
 SET MeSHAnatomy = "Dendrites"
 a(CHEBI:wortmannin) -> p(HGNC:MAPT)
 p(HGNC:MAPT) -> p(HGNC:SQSTM1)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Similarly, a dramatic elevation of ubiquitinated substrates (from 4.2±0.1 to 37±1) upon epoxomicin
 treatment was detected in dendrites containing MAPT (compare Fig. S4E and Fig. S4F)."
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Dendrites"
-a(CHEBI:epoxomicin) -> bp(GO:"protein ubiquitination")
+composite(p(HGNC:MAPT),a(CHEBI:epoxomicin)) -> bp(GO:"protein ubiquitination")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "MAPT in AD and other tauopathies is hyperphosphorylated [29] and the hyperphosphorylation has
 been proposed to drive the missorting of MAPT. "
+SET Confidence = "High"
 p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)) positiveCorrelation path(MESH:"Alzheimer Disease")
 p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)) positiveCorrelation path(MESH:"Tauopathies")
+UNSET Confidence
 
 SET Evidence = "In addition, it has been
 reported that in cultured neurons, Aβ oligomers induce MAPT missorting into the somatodendritic
 compartment, and the missorted MAPT is phosphorylated mainly at the 12E8 (p-S262/p-S356) and
 AT8 (p-S202/p-T205) sites [6]."
+SET Confidence = "High"
 a(HBP:"amyloid-beta oligomers") -> p(HGNC:MAPT, loc(MESH:Dendrites))
+UNSET Confidence
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Dendrites"
-a(HBP:"amyloid-beta oligomers") positiveCorrelation p(HGNC:MAPT, pmod(Ph,S,262))
-a(HBP:"amyloid-beta oligomers") positiveCorrelation p(HGNC:MAPT, pmod(Ph,S,356))
-a(HBP:"amyloid-beta oligomers") positiveCorrelation p(HGNC:MAPT, pmod(Ph,S,202))
-a(HBP:"amyloid-beta oligomers") positiveCorrelation p(HGNC:MAPT, pmod(Ph,T,205))
+a(HBP:"amyloid-beta oligomers") positiveCorrelation p(HGNC:MAPT, pmod(Ph,S,262), pmod(Ph,S,356))
+a(HBP:"amyloid-beta oligomers") positiveCorrelation p(HGNC:MAPT, pmod(Ph,S,202), pmod(Ph,T,205))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = " Missorted
 dendritic MAPT showed phosphorylation mainly at the 12E8 sites upon treatment with either the
 autophagy inhibitor wortmannin (Fig. 4B; 57.2±9.4% dendrites) or the proteasomal inhibitor
 epoxomicin (Fig. 4C, 62.9±7.4% dendrites) (Fig. 4A-C, quantification in Fig. 4D), but not at the
 AT8 and the PHF1 (p-S396/p-S404) sites (Fig. S5, Fig 4D)."
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Dendrites"
-a(CHEBI:wortmannin) positiveCorrelation p(HGNC:MAPT, pmod(Ph,S,262))
-a(CHEBI:wortmannin) positiveCorrelation p(HGNC:MAPT, pmod(Ph,S,356))
-a(CHEBI:epoxomicin) positiveCorrelation p(HGNC:MAPT, pmod(Ph,S,262))
-a(CHEBI:epoxomicin) positiveCorrelation p(HGNC:MAPT, pmod(Ph,S,356))
-a(CHEBI:wortmannin) causesNoChange p(HGNC:MAPT, pmod(Ph,S,202))
-a(CHEBI:wortmannin) causesNoChange p(HGNC:MAPT, pmod(Ph,T,205))
-a(CHEBI:epoxomicin) causesNoChange p(HGNC:MAPT, pmod(Ph,S,202))
-a(CHEBI:epoxomicin) causesNoChange p(HGNC:MAPT, pmod(Ph,T,205))
+a(CHEBI:wortmannin)  positiveCorrelation p(HGNC:MAPT, pmod(Ph,S,262), pmod(Ph,S,356))
+a(CHEBI:epoxomicin) positiveCorrelation p(HGNC:MAPT, pmod(Ph,S,262), pmod(Ph,S,356))
+a(CHEBI:wortmannin) causesNoChange p(HGNC:MAPT, pmod(Ph,S,202), pmod(Ph,T,205))
+a(CHEBI:epoxomicin) causesNoChange p(HGNC:MAPT, pmod(Ph,S,202), pmod(Ph,T,205))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = " Thus, the dendritic and axonal MAPT are differentially
 phosphorylated. Based on this observation, we can conclude that the dendritic MAPT degraded by
 autophagy or proteasomal pathways is phosphorylated mainly at the 12E8 site. "
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Dendrites"
-bp(GO:autophagy) -> deg(p(HGNC:MAPT, pmod(Ph,S,262)))
-bp(GO:autophagy) -> deg(p(HGNC:MAPT, pmod(Ph,S,356)))
-act(p(FPLX:Proteasome)) -> deg(p(HGNC:MAPT, pmod(Ph,S,262)))
-act(p(FPLX:Proteasome)) -> deg(p(HGNC:MAPT, pmod(Ph,S,356)))
+bp(GO:autophagy) -> deg(p(HGNC:MAPT, pmod(Ph,S,262), pmod(Ph,S,356)))
+act(p(FPLX:Proteasome)) -> deg(p(HGNC:MAPT, pmod(Ph,S,262), pmod(Ph,S,356)))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = " Our
 previous study [23] had shown that trehalose induces autophagy in primary neurons and in an N2a
 cell model of tauopathy, and efficiently reduces the level of MAPT and MAPT aggregation."
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 a(CHEBI:"alpha,alpha-trehalose") -> bp(GO:autophagy)
 a(CHEBI:"alpha,alpha-trehalose") -| p(HGNC:MAPT)
 a(CHEBI:"alpha,alpha-trehalose") -| a(HBP:"Tau aggregates")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = " Trehalose treatment indeed
 supressed the missorting of MAPT down to ~4±0.7% of dendrites, far less than the control level
 (~16% of dendrites) (Fig. 5B)."
+SET Confidence = "High"
 a(CHEBI:"alpha,alpha-trehalose") -| p(HGNC:MAPT, loc(MESH:Dendrites))
+UNSET Confidence
 
 SET Evidence = "Treatment with rolipram (10 µM) on the
 neuritic side for 24 h (Fig. 5C) supressed missorting of MAPT down to 4.5±0.4% dendrites, far
 below the control level (20.5±5.6% dendrites) (Fig. 5D), thereby confirming the role of the
 proteasome in degrading dendritic MAPT."
+SET Confidence = "Medium"
 a(CHEBI:rolipram) -> act(p(FPLX:Proteasome))
 a(CHEBI:rolipram) -| p(HGNC:MAPT, loc(MESH:Dendrites))
+act(p(FPLX:Proteasome)) -> deg(p(HGNC:MAPT, loc(MESH:Dendrites)))
+UNSET Confidence
 
 SET Evidence = "Previous studies had shown that the missorting of MAPT into dendrites can cause loss of spines
 [6,7]."
+SET Confidence = "High"
 p(HGNC:MAPT, loc(MESH:Dendrites)) -| a(MESH:"Dendritic Spines")
+UNSET Confidence
 
 SET Evidence = "MAPT-free dendrites in
 controls had a spine density of ~17 per 20-µm (17.2±0.5 per 20 µm) length, and there was a ~2-
 fold decrease in spine density in the MAPT-containing dendrites in neurons treated with
 wortmannin (7.4±1.0 per 20 µm) or epoxomicin (8.2±1.7 per 20 µm) (Fig. 6D). "
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Neurons"
-a(CHEBI:wortmannin) -| a(MESH:"Dendritic Spines")
-a(CHEBI:epoxomicin) -| a(MESH:"Dendritic Spines")
+composite(p(HGNC:MAPT), a(CHEBI:wortmannin)) -| a(MESH:"Dendritic Spines")
+composite(p(HGNC:MAPT), a(CHEBI:epoxomicin)) -| a(MESH:"Dendritic Spines")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Conversely, treatment with protein translation inhibitors, cycloheximide or anisomycin, alone (Fig.
 S8A and B) almost completely abrogated MAPT missorting (schematic in Fig. 2E). These results
 suggest that the dendritic MAPT is locally generated. "
+SET Confidence = "High"
 a(CHEBI:cycloheximide) -| bp(GO:translation)
 a(CHEBI:"(-)-anisomycin") -| bp(GO:translation)
 a(CHEBI:cycloheximide) -| p(HGNC:MAPT, loc(MESH:Dendrites))
 a(CHEBI:"(-)-anisomycin") -| p(HGNC:MAPT, loc(MESH:Dendrites))
+UNSET Confidence
 
 SET Evidence = "This observation, together with local synthesis of MAPT protein, confirms that Mapt mRNA
 is present in dendrites and is actively translated."
+SET Confidence = "High"
 r(HGNC:MAPT, loc(MESH:Dendrites)) -> p(HGNC:MAPT, loc(MESH:Dendrites))
+UNSET Confidence
