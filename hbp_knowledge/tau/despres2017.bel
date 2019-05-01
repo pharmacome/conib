@@ -7,7 +7,7 @@ SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
 
 SET DOCUMENT Name        = "Identification of the Tau phosphorylation pattern that drives its aggregation"
 SET DOCUMENT Authors     = "Kristian Kolpeja"
-SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Version     = "1.0.1"
 SET DOCUMENT Description = ""
 
 ###############
@@ -70,10 +70,13 @@ SET Method = {"NMR Spectroscopy", "Electron Microscopy, Transmission", "Thioflav
 SET Tau_Epitope = "AT8"
 SET Evidence = "Only very recently has the crystal structure of its fragment antigen body (Fab) with different
 phosphorylated peptides suggested that a third phosphorylation event at position Ser208 might lead to an epitope with an even better affinity (15)."
+SET Confidence = "High"
 p(HGNC:MAPT, pmod(Ph, Ser, 208)) partOf p(HBP:"Tau epitope, AT8")
+UNSET Confidence
 
 SET Evidence = "When combined with ERK2 catalyzed phosphorylation, the turn-like
 disrupting G207V mutation in TauF8 hence leads to fast aggregation that already occurs during the phosphorylation reaction."
+SET Confidence = "High"
 act(p(HGNC:MAPK1)) -> p(HGNC:MAPT, pmod(Ph, Ser, 202))
 act(p(HGNC:MAPK1)) -> p(HGNC:MAPT, pmod(Ph, Thr, 205))
 p(HGNC:MAPT, pmod(Ph, Ser, 202)) partOf p(HBP:"Tau epitope, AT8")
@@ -81,22 +84,29 @@ p(HGNC:MAPT, pmod(Ph, Thr, 205)) partOf p(HBP:"Tau epitope, AT8")
 p(HGNC:MAPT, var("pGly207Val")) -> a(HBP:"Tau aggregates")
 p(HGNC:MAPT, pmod(Ph, Ser, 202),  pmod(Ph, Thr, 205)) -> a(HBP:"Tau Protein Secondary Structure, Turn")
 p(HGNC:MAPT, var("p.Gly207Val")) -| a(HBP:"Tau Protein Secondary Structure, Turn")
+UNSET Confidence
 
 SET Evidence = "Our finding that the resulting Tau species with phosphorylation at Ser202/Th205, but with a disrupted turn-like structure,
 forms abundant fibers detectable by thioflavin fluorescence or electron microscopy (Figs. 2 and 4) suggests the initial
 turn-like structure induced by the phosphorylation of only Ser202 and Thr205 is protective against aggregation."
+SET Confidence = "High"
 a(HBP:"Tau Protein Secondary Structure, Turn") -| a(HBP:"Tau aggregates")
+UNSET Confidence
 
 SET Evidence = "Phosphorylation at Ser208 might be catalyzed by Casein kinase 1 (44), and its identification as a potential
 site for O-GlcNacylation (45) points to the important role of this residue."
+SET Confidence = "High"
 kin(p(FPLX:CSNK1)) -> p(HGNC:MAPT, pmod(Ph, Ser, 208))
+UNSET Confidence
 
 SET Evidence = "Indeed, Tau phosphorylation at the three positions, Ser202/Thr205/Ser208, while not at Ser262, is
 sufficient to induce aggregation without the addition of any exogenous aggregation inducer."
+SET Confidence = "High"
 p(HGNC:MAPT, pmod(Ph, Ser, 202),  pmod(Ph, Thr, 205), pmod(Ph, Thr, 208)) eq p(HBP:"Tau epitope, AT8")
 p(HBP:"Tau epitope, AT8") -> a(HBP:"Tau aggregates")
 p(HGNC:MAPT, pmod(Ph, Ser, 208)) -| a(HBP:"Tau Protein Secondary Structure, Turn")
 a(HBP:"Tau Protein Secondary Structure, Turn") -| a(HBP:"Tau aggregates")
+UNSET Confidence
 
 UNSET Tau_Epitope
 UNSET Method
