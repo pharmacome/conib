@@ -7,7 +7,7 @@ SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
 
 SET DOCUMENT Name        = "Carboxy terminus heat shock protein 70 interacting protein reduces tau-associated degenerative changes"
 SET DOCUMENT Version     = "1.0.0"
-SET DOCUMENT Authors     = "Sandra Spalek"
+SET DOCUMENT Authors     = "Sandra Spalek, Esther Wollert"
 SET DOCUMENT Description = ""
 
 ##############
@@ -77,177 +77,236 @@ DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifact
 SET Citation = {"PubMed","25374103"}
 
 SET Evidence = "The tau-protein is a natively soluble protein that plays a key role in the dynamics of microtubules"
+SET Confidence = "High"
 p(HGNC:MAPT) reg act(a(GO:microtubule))
+UNSET Confidence
 
 SET Evidence = "In the pathological case of Alzheimer’s disease (AD) tau becomes hyperphosphorylated, detaches from the
 microtubules, misfolds, and mislocalizes to the somatodendritic compartment where it aggregates into neurofibrillary tangles."
+SET Confidence = "Medium"
 SET MeSHDisease = "Alzheimer Disease"
 path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
-complex(p(HGNC:MAPT),a(GO:microtubule)) -| p(HGNC:MAPT,pmod(HBP:misfolded))
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> tloc(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),fromLoc(GO:axon),toLoc(GO:"somatodendritic compartment"))
-tloc(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),fromLoc(GO:axon),toLoc(GO:"somatodendritic compartment")) -> a(HBP:"Tau aggregates")
+path(MESH:"Alzheimer Disease") -| complex(p(HGNC:MAPT),a(GO:microtubule))
+path(MESH:"Alzheimer Disease") -| p(HGNC:MAPT,pmod(HBP:misfolded))
+path(MESH:"Alzheimer Disease") -> tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(GO:"somatodendritic compartment"))
+tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(GO:"somatodendritic compartment")) -> a(HBP:"Tau aggregates")
 a(HBP:"Tau aggregates") -> a(GO:"neurofibrillary tangle")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "The overexpression of full-length tau in Chinese hamster ovary (CHO) cells [3], N2A cells
 [4], cultured retinal ganglion cells [4], NB2a/d1 cells [5] H4-cells [6], and primary cortical neuron
 cultures [6] led to an impairment of anterograde transport of a variety of kinesin cargos, including mitochondria"
-p(HGNC:MAPT) neg bp(GO:"anterograde axonal transport")
+SET Confidence = "Medium"
+p(HGNC:MAPT) -| bp(GO:"anterograde axonal transport")
+UNSET Confidence
 
 SET Evidence = "This leads to accumulation of mitochondria in the cell body where they cluster near the microtubule center [6]."
 #this: impairment of anterograde transport
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Cell Body"
-bp(GO:"anterograde axonal transport") -| a(GO:microtubule)
+bp(GO:"anterograde axonal transport") -| a(MESH:Mitochondria)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Thies and Mandelkow [7] have shown previously that the co-expression of
 microtubule-associated protein/microtubule affinityregulating kinase 2 (MARK2) with tau can rescue these
 effects caused by tau overexpression in vitro."
+SET Confidence = "High"
 #these effects: impairment of anterograde transport
 composite(p(HGNC:MAPT),p(HGNC:MARK2)) pos bp(GO:"anterograde axonal transport")
+UNSET Confidence
 
 SET Evidence = "The two major pathways for protein degradation in cells are through the ubiquitin-proteasome system
 and the autophagy-lysosome system [10, 11], both of which have been implicated in tau degradation in AD [12]."
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(HGNC:MAPT))
 bp(GO:autophagy) -> deg(p(HGNC:MAPT))
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Misfolded tau proteins, like other natively unfolded molecules, can be detected and cleared by
 chaperone assisted mechanisms [13]."
+SET Confidence = "High"
 bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:MAPT,pmod(HBP:misfolded)))
+UNSET Confidence
 
 SET Evidence = "Recent data suggest that a critical mediator of refolding or clearance
 of hyperphosphorylated tau is via the HSP70/HSP90 heat shock pathways in which a specific E3 ubiquitin
 ligase, CHIP (carboxy terminus Hsp70 interacting protein), can recognize and target for degradation
 abnormal but not normal tau molecules [14–16]."
-p(FPLX:HSP90) reg deg(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)))
+SET Confidence = "Medium"
+p(FPLX:HSP90) -> deg(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)))
 p(HGNC:STUB1) -> deg(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)))
+UNSET Confidence
 
 SET Evidence = "CHIP is also implicated in regulation of Caspase 3 activity"
+SET Confidence = "High"
 p(HGNC:STUB1) reg act(p(HGNC:CASP3))
+UNSET Confidence
 
 SET Evidence = "In CHIP knockout mice, Caspase 3 activation is increased and caspase-cleaved tau levels are increased [17]."
+SET Confidence = "High"
 SET Species = "10090"
 p(MGI:Stub1) -| act(p(MGI:Casp3))
 p(MGI:Stub1) -| p(HBP:"Tau C3")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "CHIP interacts more strongly with tauΔC than
 full-length tau [18], suggesting it is involved in caspase cleaved tau degradation"
 # tauΔC: tau cleaved by Caspase 3 in the C terminus at Asp421 (tauΔC); Tau C3
-p(HGNC:STUB1) -> complex(p(HGNC:STUB1),p(HBP:"Tau C3"))
+SET Confidence = "Medium"
+composite(p(HGNC:STUB1),p(HBP:"Tau C3")) -> complex(p(HGNC:STUB1),p(HBP:"Tau C3"))
 p(HGNC:STUB1) -> deg(p(HBP:"Tau C3"))
+UNSET Confidence
 
 SET Evidence = "Densitometry analysis of total tau levels of H4- cell lysates on SDS-PAGE showed a 2.0
 to 2.5 fold lower levels of tau (4R-tau, tauC3, and K18ΔK280) with co-expression with CHIP, respectively (Fig. 1)."
+SET Confidence = "High"
 # 4R-tau: Tau isoform F (441 aa)
 composite(p(HGNC:STUB1),p(HBP:"Tau isoform F (441 aa)")) -| p(HBP:"Tau isoform F (441 aa)")
 composite(p(HBP:"Tau C3"),p(HGNC:STUB1)) -| p(HBP:"Tau C3")
 composite(p(HGNC:STUB1),p(HBP:"4R tau",var("p.Lys280del"))) -| p(HBP:"4R tau",var("p.Lys280del"))
+UNSET Confidence
 
 SET Evidence = "Toxicity assays revealed that neither CHIP nor any of the tau constructs caused cell death
 compared to the control GFP vector (Supplementary Fig. 1)."
+SET Confidence = "High"
 p(HGNC:STUB1) cnc bp(GO:"cell death")
 p(HBP:"Tau isoform F (441 aa)") cnc bp(GO:"cell death")
 p(HBP:"Tau C3") cnc bp(GO:"cell death")
 p(HBP:"4R tau",var("p.Lys280del")) cnc bp(GO:"cell death")
+UNSET Confidence
 
 SET Evidence = "Probing for phospho-tau with the 12E8 antibody in cell lysates from
 K18ΔK280 transfected cells reveals that tau phosphorylation is also decreased by
 CHIP overexpression (Fig. 1)."
+SET Confidence = "High"
 composite(p(HGNC:STUB1),p(HBP:"4R tau",var("p.Lys280del"))) neg p(HGNC:MAPT,pmod(Ph,Ser,262))
+UNSET Confidence
 
 SET Evidence = "Several publications suggest that molecular chaperones, e.g., heat shock protein 70 and 90
 (Hsp70, Hsp90) play a fundamental role in the clearance of misfolded proteins including tau [12]."
+SET Confidence = "High"
 a(MESH:"HSP70 Heat-Shock Proteins") -> deg(p(HGNC:MAPT,pmod(HBP:misfolded)))
 p(FPLX:HSP90) -> deg(p(HGNC:MAPT,pmod(HBP:misfolded)))
+UNSET Confidence
 
 SET Evidence = "The co-chaperone CHIP interacts with Hsp70/Hsp90 to bind unfolded and misfolded proteins"
-p(HGNC:STUB1) -> complex(p(HGNC:STUB1),p(FPLX:HSP90))
+SET Confidence = "Medium"
+composite(p(HGNC:STUB1),p(FPLX:HSP90)) -> complex(p(HGNC:STUB1),p(FPLX:HSP90))
 complex(p(HGNC:STUB1),p(FPLX:HSP90)) -> complex(p(HGNC:STUB1),p(FPLX:HSP90),p(MESH:Proteins,pmod(HBP:misfolded)))
-p(HGNC:STUB1) -> complex(p(HGNC:STUB1),a(MESH:"HSP70 Heat-Shock Proteins"))
+composite(p(HGNC:STUB1),a(MESH:"HSP70 Heat-Shock Proteins")) -> complex(p(HGNC:STUB1),a(MESH:"HSP70 Heat-Shock Proteins"))
 complex(p(HGNC:STUB1),a(MESH:"HSP70 Heat-Shock Proteins")) -> complex(p(HGNC:STUB1),a(MESH:"HSP70 Heat-Shock Proteins"),p(MESH:Proteins,pmod(HBP:misfolded)))
+UNSET Confidence
 
 SET Evidence = "Co-transfection of CHIP with 4R-tau leads to a significant increase in Hsp70 levels,
 however this is not the case with wither tauC3 or K18DK280 constructs (Supplementary Fig. 2) suggesting
 that increased HSP70 protein levels are not necessary for the observed reduction in tau levels."
-composite(p(HBP:"Tau isoform F (441 aa)"),p(HGNC:STUB1)) -> a(MESH:"HSP70 Heat-Shock Proteins")
+SET Confidence = "Medium"
+composite(p(HBP:"4R tau"),p(HGNC:STUB1)) -> a(MESH:"HSP70 Heat-Shock Proteins")
 composite(p(HBP:"Tau C3"),p(HGNC:STUB1)) cnc a(MESH:"HSP70 Heat-Shock Proteins")
 composite(p(HBP:"4R tau",var("p.Lys280del")),p(HGNC:STUB1)) cnc a(MESH:"HSP70 Heat-Shock Proteins")
+UNSET Confidence
 
 SET Evidence = "CHIP has two important domains for his chaperone activity: the amino terminus
 tetratricopeptide repeat (TPR) domain that links CHIP to Hsp70 and Hsp90 [24] and the carboxyl terminus
 containing the U-box that is important for the E3 ubiquitin ligase function of CHIP."
+SET Confidence = "High"
 p(PFAM:"CHIP_TPR_N") -> complex(p(HGNC:STUB1),p(FPLX:HSP90),a(MESH:"HSP70 Heat-Shock Proteins"))
+UNSET Confidence
 
 SET Evidence = "Either of these domains could be critical for degradation of tau since ubiquitination
 targets proteins for degradation and CHIP is known to interact with full-length tau in a complex
 with Hsc70/Hsp70 and poly-ubiquitinated tau [17]."
+SET Confidence = "High"
 p(HGNC:STUB1) -> complex(p(HGNC:MAPT,pmod(Ub)),p(HGNC:HSPA8),p(HGNC:STUB1))
+UNSET Confidence
 
 SET Evidence = "Interestingly, a significant decrease in tau levels was seen
 with the co-transfection of CHIPΔU (U-box deleted) when transfected with either K18ΔK280 or 4R-Tau."
+SET Confidence = "Low"
+#not sure if this can be coded like this
 complex(p(HGNC:STUB1),p(INTERPRO:"U box domain")) -> p(HBP:"Tau isoform F (441 aa)")
 complex(p(HGNC:STUB1),p(INTERPRO:"U box domain")) -> p(HBP:"4R tau",var("p.Lys280del"))
+UNSET Confidence
 
 SET Evidence = "After cyclohexamide treatment, we could still detect a significant
 decrease in tau levels in cells that were co-transfected with CHIP indicating that the reduction in tau levels
 due to CHIP is due to degradation and not to transcriptional down-regulation (Supplementary Fig. 3)."
+SET Confidence = "High"
 # tau (K18ΔK280)
 composite(p(HGNC:STUB1),p(HBP:"4R tau",var("p.Lys280del"))) -| p(HBP:"4R tau",var("p.Lys280del"))
 p(HGNC:STUB1) -> deg(p(HBP:"4R tau",var("p.Lys280del")))
+UNSET Confidence
 
 SET Evidence = "Recent data suggest that caspases are involved in the accumulation of tau pathology [10, 25, 26], and
 reductions in CHIP have been shown to cause caspase activation and increased caspase-cleaved tau levels [19]."
-p(FPLX:Caspase) pos path(MESH:Tauopathies)
-p(HGNC:STUB1) neg act(p(FPLX:Caspase))
-p(HGNC:STUB1) neg p(HBP:"Tau C3")
+SET Confidence = "Medium"
+p(FPLX:Caspase) -> path(MESH:Tauopathies)
+p(HGNC:STUB1) -| act(p(FPLX:Caspase))
+p(HGNC:STUB1) -| p(HBP:"Tau C3")
+UNSET Confidence
 
 SET Evidence = "Tau overexpression increased active caspase 3 levels, and
 co-expression of CHIP reduced cleaved caspase 3 levels compared to tau expression alone (Fig. 3)."
+SET Confidence = "Medium"
 # tau: p(HBP:"Tau isoform F (441 aa)") ; p(HBP:"Tau C3")
-p(HBP:"Tau isoform F (441 aa)") pos act(p(HGNC:CASP3))
+p(HBP:"Tau isoform F (441 aa)") -> act(p(HGNC:CASP3))
 composite(p(HGNC:STUB1),p(HBP:"Tau isoform F (441 aa)")) -| p(HGNC:CASP3,frag("?"))
-p(HBP:"Tau C3") pos act(p(HGNC:CASP3))
+p(HBP:"Tau C3") -> act(p(HGNC:CASP3))
 composite(p(HGNC:STUB1),p(HBP:"Tau C3")) -| p(HGNC:CASP3,frag("?"))
+UNSET Confidence
 
 SET Evidence = "Dolan et al. [20] showed that CHIP interacts more strongly with tauC3 than full length tau."
-p(HGNC:STUB1) -> complex(p(HGNC:STUB1),p(HBP:"Tau isoform F (441 aa)"))
-p(HGNC:STUB1) -> complex(p(HGNC:STUB1),p(HBP:"Tau C3"))
+SET Confidence = "Medium"
+composite(p(HGNC:STUB1),p(HBP:"Tau isoform F (441 aa)")) -> complex(p(HGNC:STUB1),p(HBP:"Tau isoform F (441 aa)"))
+composite(p(HGNC:STUB1),p(HBP:"Tau C3")) -> complex(p(HGNC:STUB1),p(HBP:"Tau C3"))
+UNSET Confidence
 
 SET Evidence = "Indeed, the co-expression of CHIP caused a significant decrease tauC3 in vitro (Fig. 4)."
+SET Confidence = "High"
 # co-expression of CHIP and 4R-tau
 composite(p(HGNC:STUB1),p(HBP:"Tau isoform F (441 aa)")) -| p(HBP:"Tau C3")
+UNSET Confidence
 
 SET Evidence = "These results indicate that CHIP is involved in degradation
 of caspases and caspase-cleaved tau."
+SET Confidence = "High"
 p(HGNC:STUB1) -> deg(p(FPLX:Caspase))
 p(HGNC:STUB1) -> deg(p(HBP:"Tau C3"))
+UNSET Confidence
 
 SET Evidence = "As expected, we observed a significant impairment of mitochondrial distribution with overexpression
 of all three tau constructs (p < 0.0001, Wilcoxon test for GFP control versus 4R-tau, GFP
 versus tauC3, and GFP versus K18ΔK280) (Fig. 5)."
+SET Confidence = "Medium"
 # mitochondrial distribution: mitochondrion transport along microtubule
-p(HBP:"Tau isoform F (441 aa)") neg bp(GO:"mitochondrion transport along microtubule")
-p(HBP:"Tau C3") neg bp(GO:"mitochondrion transport along microtubule")
-p(HBP:"4R tau",var("p.Lys280del")) neg bp(GO:"mitochondrion transport along microtubule")
+p(HBP:"Tau isoform F (441 aa)") -| bp(GO:"mitochondrion transport along microtubule")
+p(HBP:"Tau C3") -| bp(GO:"mitochondrion transport along microtubule")
+p(HBP:"4R tau",var("p.Lys280del")) -| bp(GO:"mitochondrion transport along microtubule")
+UNSET Confidence
 
 SET Evidence = "CHIP co-expression led to a significant recovery in the
 area of mitochondria around the nucleus (19–26%)."
+SET Confidence = "Medium"
 # cotransfection CHIP with 4R-tau/tauC3/K18ΔK280
 # mitochondrial distribution: mitochondrion transport along microtubule
-composite(p(HGNC:STUB1),p(HBP:"Tau isoform F (441 aa)")) pos bp(GO:"mitochondrion transport along microtubule")
-composite(p(HGNC:STUB1),p(HBP:"Tau C3")) pos bp(GO:"mitochondrion transport along microtubule")
-composite(p(HGNC:STUB1),p(HBP:"4R tau",var("p.Lys280del"))) pos bp(GO:"mitochondrion transport along microtubule")
+composite(p(HGNC:STUB1),p(HBP:"Tau isoform F (441 aa)")) -> bp(GO:"mitochondrion transport along microtubule")
+composite(p(HGNC:STUB1),p(HBP:"Tau C3")) -> bp(GO:"mitochondrion transport along microtubule")
+composite(p(HGNC:STUB1),p(HBP:"4R tau",var("p.Lys280del"))) -> bp(GO:"mitochondrion transport along microtubule")
+UNSET Confidence
 
 SET Evidence = "Taken together, these data indicate that tau-overexpression leads to abnormal mitochondrial
 trafficking that can be rescued by CHIP-co-expression"
+SET Confidence = "Medium"
 # tau: 4R-tau/tauC3/K18ΔK280
-p(HBP:"Tau isoform F (441 aa)") neg bp(GO:"mitochondrion transport along microtubule")
-p(HBP:"Tau C3") neg bp(GO:"mitochondrion transport along microtubule")
-p(HBP:"4R tau",var("p.Lys280del")) neg bp(GO:"mitochondrion transport along microtubule")
-composite(p(HGNC:STUB1),p(HBP:"Tau isoform F (441 aa)")) pos bp(GO:"mitochondrion transport along microtubule")
-composite(p(HGNC:STUB1),p(HBP:"Tau C3")) pos bp(GO:"mitochondrion transport along microtubule")
-composite(p(HGNC:STUB1),p(HBP:"4R tau",var("p.Lys280del"))) pos bp(GO:"mitochondrion transport along microtubule")
+p(HBP:"Tau isoform F (441 aa)") -| bp(GO:"mitochondrion transport along microtubule")
+p(HBP:"Tau C3") -| bp(GO:"mitochondrion transport along microtubule")
+p(HBP:"4R tau",var("p.Lys280del")) -| bp(GO:"mitochondrion transport along microtubule")
+composite(p(HGNC:STUB1),p(HBP:"Tau isoform F (441 aa)")) -> bp(GO:"mitochondrion transport along microtubule")
+composite(p(HGNC:STUB1),p(HBP:"Tau C3")) -> bp(GO:"mitochondrion transport along microtubule")
+composite(p(HGNC:STUB1),p(HBP:"4R tau",var("p.Lys280del"))) -> bp(GO:"mitochondrion transport along microtubule")
+UNSET Confidence 
