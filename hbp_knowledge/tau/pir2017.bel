@@ -78,54 +78,71 @@ SET Species = "6239"
 SET Evidence = "For example, the first transgenic C. elegans human disease model was based on the expression
 of the AD-associated Ab peptide in body wall muscles, resulting in paralysis that could be suppressed by
 coexpression of transthyretin (29)."
+SET Confidence = "High"
 composite(a(MESH:"Amyloid beta-Peptides"),a(PUBCHEM:160718443)) -| path(MESH:Paralysis)
+UNSET Confidence
 
 SET Evidence = "Genetic interaction studies involving ptl-1 and mutants in other genes associated with
 microtubules such as mec-12 (a-tubulin) and mec-7 (btubulin), suggested a larger functional role of PTL-1 in
 mechanosensation (45)."
+SET Confidence = "High"
 # ptl-1: MAPT
 p(HGNC:MAPT) -> complex(p(HGNC:MAPT),a(GO:microtubule))
 p(HGNC:MAPT) -> complex(p(HGNC:TUBA1A),p(HGNC:MAPT))
 p(HGNC:MAPT) -> complex(p(HGNC:TUBB),p(HGNC:MAPT))
+UNSET Confidence
 
 SET Evidence = "A recent study, Krieg et al. (49), established the role of PTL-1 in the maintenance and repair
 of the microtubule cytoskeleton after transient damage induced by mechanical stress.
 This process requires other microtubule-associated proteins such as b-spectrin."
+SET Confidence = "Medium"
 bp(GO:"cellular response to mechanical stimulus") -| a(GO:"microtubule cytoskeleton")
-composite(p(HGNC:SPTB),p(HGNC:MAPT)) reg a(GO:"microtubule cytoskeleton")
+composite(p(HGNC:SPTB),p(HGNC:MAPT)) -> a(GO:"microtubule cytoskeleton")
+UNSET Confidence
 
 SET Evidence = "Tien et al. (50) showed a physical interaction of PTL-1 with Kinesin-3/UNC-104, a
 major motor for synaptic vesicle proteins and dense core vesicles in C. elegans."
-p(HGNC:MAPT) => complex(p(HGNC:KLC3),p(HGNC:MAPT))
+SET Confidence = "Medium"
+composite(p(HGNC:MAPT),p(HGNC:KLC3)) -> complex(p(HGNC:KLC3),p(HGNC:MAPT))
 complex(p(HGNC:KLC3),p(HGNC:MAPT)) -- a(GO:"synaptic vesicle")
+UNSET Confidence
 
 SET Evidence = "Three transgenic lines were generated based on 1N4R wild-type MAPT or its FTD-17 mutant variants
 P301L and V337M. The mutant lines showed a stronger Unc phenotype than the wild-type tau lines and the severity
 of the Unc phenotype progressed with age"
+SET Confidence = "High"
 # uncoordinated (Unc) phenotype: defective locomotion
 p(HBP:"Tau isoform E (412 aa)",var("p.Pro301Leu")) -| bp(GO:locomotion)
 p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")) -| bp(GO:locomotion)
 bp(GO:aging) -| bp(GO:locomotion)
+UNSET Confidence
 
 SET Evidence = "This worm also shows reduced survival, accumulates detergent-insoluble tau, and undergoes
 late-onset neurodegeneration (66)"
+SET Confidence = "Medium"
 # this worm: Unc phenotype variants
 p(HBP:"Tau isoform E (412 aa)",var("p.Pro301Leu")) -| a(MESH:Survival)
 p(HBP:"Tau isoform E (412 aa)",var("p.Pro301Leu")) -> path(HBP:Neurodegeneration)
+p(HBP:"Tau isoform E (412 aa)",var("p.Pro301Leu")) -> a(HBP:"Tau aggregates")
 p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")) -| a(MESH:Survival)
 p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")) -> path(HBP:Neurodegeneration)
+p(HBP:"Tau isoform E (412 aa)",var("p.Pro301Leu")) -> a(HBP:"Tau aggregates")
+UNSET Confidence
 
 SET Evidence = "Frontotemporal dementia with parkinsonism–mutant tau
 expression (0N4R-tau P301L and 0N4R-tau R406W), on
 the other hand, resulted in a reduced touch response that worsened with age"
+SET Confidence = "High"
 # touch response by touch Neurons
 SET MeSHDisease = "Frontotemporal Dementia"
 p(HBP:"Tau isoform D (383 aa)",var("p.Pro301Leu")) -| act(a(MESH:Neurons))
 p(HBP:"Tau isoform D (383 aa)",var("p.Arg406Trp")) -| act(a(MESH:Neurons))
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "At the later stages, the mutant-tau lines showed microtubule loss
 and non-apoptotic neuronal death, paralleled by a complete loss of touch response (62)."
+SET Confidence = "High"
 # mutant-tau lines: 0N4R-tau P301L and 0N4R-tau R406W
 p(HBP:"Tau isoform D (383 aa)",var("p.Pro301Leu")) -| a(GO:microtubule)
 p(HBP:"Tau isoform D (383 aa)",var("p.Pro301Leu")) -> bp(GO:"neuron death")
@@ -133,109 +150,153 @@ p(HBP:"Tau isoform D (383 aa)",var("p.Pro301Leu")) -| act(a(MESH:Neurons))
 p(HBP:"Tau isoform D (383 aa)",var("p.Arg406Trp")) -| a(GO:microtubule)
 p(HBP:"Tau isoform D (383 aa)",var("p.Arg406Trp")) -> bp(GO:"neuron death")
 p(HBP:"Tau isoform D (383 aa)",var("p.Arg406Trp")) -| act(a(MESH:Neurons))
+UNSET Confidence
 
 SET Evidence = "The transgenic lines exhibited a progressive age-associated Unc phenotype,
 with or without phospho-mimicking mutations"
+SET Confidence = "High"
 # transgenic lines:wild-type human tau (0N3R) pan-neuronally (F25B3.3 gene promoter),pseudohyperphosphorylated (PHP) tau with 9 glutamate substitutions, tauAla10 construct with the same codons replaced by nonphosphorylatable alanine residues
 p(HBP:"Tau isoform Fetal-tau (352 aa)") -| bp(GO:locomotion)
 p(HBP:"Tau isoform Fetal-tau (352 aa)",pmod(HBP:hyperphosphorylation)) -| bp(GO:locomotion)
+UNSET Confidence
 
 SET Evidence = "Only PHP tau expression induced morphologic abnormalities in
 the motor neurons, but none of the lines developed substantial neurodegeneration"
+SET Confidence = "High"
 # PHP tau: pseudohyperphosphorylated 0N3R tau
 p(HBP:"Tau isoform Fetal-tau (352 aa)",pmod(HBP:hyperphosphorylation)) -| a(MESH:"Motor Neurons")
+UNSET Confidence
 
 SET Evidence = "As a result, the proaggregant lines showed a range of defects including paralysis, axonal degeneration
 of GABAergic and cholinergic motor neurons, presynaptic defects, synapse loss, and mitochondrial transport
 defects early in adulthood"
+SET Confidence = "High"
 #proaggregant lines: themutant1N4R-tau V337M coexpressed with proaggregant 4R-tau fragment (F3DK280)
 composite(p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")),p(HBP:"4R tau",var("p.Lys280del"))) -> path(MESH:Paralysis)
 composite(p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")),p(HBP:"4R tau",var("p.Lys280del"))) -| a(MESH:"GABAergic Neurons")
 composite(p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")),p(HBP:"4R tau",var("p.Lys280del"))) -| a(MESH:"Cholinergic Neurons")
 composite(p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")),p(HBP:"4R tau",var("p.Lys280del"))) -| a(GO:synapse)
 composite(p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")),p(HBP:"4R tau",var("p.Lys280del"))) -| bp(GO:"axonal transport of mitochondrion")
+UNSET Confidence
 
 SET Evidence = "Another MAPT polymorphism (A152T) was recently identified in patients diagnosed
 with progressive supranuclear palsy (PSP) (72–74)."
+SET Confidence = "High"
 p(HGNC:MAPT,var("p.Ala152Thr")) -- path(MESH:"Supranuclear Palsy, Progressive")
+UNSET Confidence
 
 SET Evidence = "Although the wild-type tau lines showed a mild late-onset
 dose-dependent Unc phenotype, TauA152T worms showed early-onset paralysis and acute neuronal dysfunction."
 # 2N4R-tau (wild-type or A152T mutant)
+SET Confidence = "High"
 p(HBP:"Tau isoform F (441 aa)",var("p.Ala152Thr")) -> path(MESH:Paralysis)
 p(HBP:"Tau isoform F (441 aa)",var("p.Ala152Thr")) -| act(a(MESH:Neurons))
+UNSET Confidence
 
 SET Evidence = "Thus, TauA152T affects both neuronal aging and whole organism lifespan"
 # 2N4R-tau ( A152T mutant)
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Neurons"
-p(HBP:"Tau isoform F (441 aa)",var("p.Ala152Thr")) neg bp(GO:"cell aging")
+p(HBP:"Tau isoform F (441 aa)",var("p.Ala152Thr")) -- bp(GO:"cell aging")
 p(HBP:"Tau isoform F (441 aa)",var("p.Ala152Thr")) -| bp(MESH:Longevity)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Comparison of the mitochondrial transport in the wildtype tau and TauA152T lines revealed striking differences;
 wild-type tau lines showed a late onset akin to both antero- and retrograde mitochondrial transport
 defects, whereas TauA152T lines showed mainly early-onset anterograde mitochondrial transport defects"
+SET Confidence = "High"
 # 2N4R-tau ( A152T mutant)
 p(HBP:"Tau isoform F (441 aa)") -| bp(GO:"anterograde axonal transport of mitochondrion")
 p(HBP:"Tau isoform F (441 aa)") -| bp(GO:"retrograde axonal transport of mitochondrion")
 p(HBP:"Tau isoform F (441 aa)",var("p.Ala152Thr")) -| bp(GO:"anterograde axonal transport of mitochondrion")
+UNSET Confidence
 
 SET Evidence = "One exception is the report of the accumulation of tau aggregates in presynaptic boutons in transgenic mice,
 whereby it induces synaptic dysfunction and loss of presynapses (77)."
+SET Confidence = "Medium"
+SET Species = "10090"
 SET MeSHAnatomy = "Presynaptic Terminals"
 a(HBP:"Tau aggregates") -| act(a(GO:synapse))
 a(HBP:"Tau aggregates") -| a(GO:presynapse)
 UNSET MeSHAnatomy
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "In a recent study, tau was reported to impair neurotransmission at the presynapse by binding and
 inhibiting synaptic vesicle transport and release, an effect mediated by the N-terminal domain (78)."
+SET Confidence = "High"
 complex(a(GO:"synaptic vesicle"),p(HGNC:MAPT)) -| bp(MESH:"Synaptic Transmission")
 complex(a(GO:"synaptic vesicle"),p(HGNC:MAPT)) -| act(a(GO:"synaptic vesicle"))
+UNSET Confidence
 
 SET Evidence = "Indeed, 2 of the candidates identified in an RNAi screen
 that worsened the Unc phenotype in the TauV337M worm, called enhancers of tauopathy, were postsynaptic (80)."
+SET Confidence = "High"
+SET Species = "6239"
 # candidates: acr-14 (homolog to human alpha7 nAChR subunits), aex-1 (homolog to human BAP3)
 composite(p(HGNC:CHRNA7),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -| bp(GO:locomotion)
 composite(p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met")),p(HGNC:BAIAP3)) -| bp(GO:locomotion)
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "acr-14 controls body movement by modulating the synaptic inputs and outputs of the ventral
 cord neural circuitry (83)."
+SET Confidence = "High"
+SET Species = "6239"
 p(HGNC:CHRNA7) reg bp(GO:"musculoskeletal movement")
 p(HGNC:CHRNA7) reg act(a(GO:synapse))
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "AD brains show an upregulation of CHRNA7 (acr-14 homolog in humans) (84), where it
 may mediate the Ab-induced tau pathology (85)."
+SET Confidence = "High"
+SET Species = "9606"
 SET MeSHAnatomy = "Brain"
 path(MESH:"Alzheimer Disease") pos p(HGNC:CHRNA7)
 p(HGNC:CHRNA7) reg act(a(CHEBI:"amyloid-beta"))
 UNSET MeSHAnatomy
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "AEX-1, predominantly expressed in muscles and intestine, regulates
 the retrograde signaling at neuromuscular junctions and is required for the normal
 localization of synaptic vesicle fusion protein UNC-13"
+SET Confidence = "High"
 # aex-1 (homolog to human BAP3)
 SET MeSHAnatomy = "Neuromuscular Junction"
 p(HGNC:BAIAP3) reg bp(GO:"retrograde trans-synaptic signaling")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Tau lines described by Miyasaka et al. show tau accumulations predominantly in
 the cell bodies as seen by immunostaining (62)."
+SET Confidence = "High"
 a(GO:"cell body") -- p(HGNC:MAPT)
+UNSET Confidence
 
 SET Evidence = "Indeed, evidence from both human and mouse studies indicates that soluble oligomers rather than
 insoluble aggregates are toxic to normal neurons (70)."
+SET Confidence = "High"
+SET Species = {"10090","9606"}
 # tau oligomers and aggregates
 a(HBP:"Tau oligomers") -| a(MESH:Neurons)
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Phosphorylation is generally increased in AD and can
 be recognized by diagnostic antibodies against phosphoepitopes"
+SET Confidence = "High"
 #phosphorylation of tau
 path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "The responsible kinases include 1) proline-directed protein kinases
 (PDPKs) targeting SP or TP motifs [e.g., GSK3b, cyclindependent kinase (CDK)-5, and MAPKs]; 2) non–proline directed
 protein kinases targeting KXGS-motifs [e.g., PKA, microtubule affinity-regulating kinase and synapses of the
 amphid defective (SADK)]; 3) protein kinases specific for tyrosines (e.g., Src, Lck, Syk, Fyn, and c-Abl kinase) (91)."
+SET Confidence = "High"
 # responsible for the phosphorylation of  tau
 p(HGNC:GSK3B) => p(HGNC:MAPT,pmod(Ph))
 p(HGNC:CDK5) => p(HGNC:MAPT,pmod(Ph))
@@ -246,112 +307,150 @@ p(HGNC:LCK) => p(HGNC:MAPT,pmod(Ph,Tyr))
 p(HGNC:SYK) => p(HGNC:MAPT,pmod(Ph,Tyr))
 p(HGNC:FYN) => p(HGNC:MAPT,pmod(Ph,Tyr))
 p(HGNC:ABL1) => p(HGNC:MAPT,pmod(Ph,Tyr))
+UNSET Confidence
 
 SET Evidence = "Dephosphorylation of tau is achieved mainly by protein
 phosphatase (PP)2A, PP2B (calcineurin), and PP-1 (92)."
+SET Confidence = "High"
 p(HGNC:PPP2CA) =| p(HGNC:MAPT,pmod(Ph))
 p(HGNC:PPP3CB) =| p(HGNC:MAPT,pmod(Ph))
 p(HGNC:PPP1R8) =| p(HGNC:MAPT,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "For example, AD brain tau is;4-fold more phosphorylated than normal adult brain tau(93), but
 a high state of phosphorylation can also occur physiologically (e.g., in fetal brain or in hibernating animals (94)."
+SET Confidence = "High"
+SET MeSHAnatomy = "Brain"
 path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ph))
+UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Nonetheless, it is assumed that tau aggregation may be driven by phosphorylation at certain sites (95),
 whereas phosphorylation at other sites may inhibit aggregation (96)."
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(Ph)) pos a(HBP:"Tau aggregates")
+UNSET Confidence
 
 SET Evidence = "For example, both soluble and insoluble tau from transgenic worms generated by Kraemer and colleagues
 (66) was phosphorylated at most of the sites examined; however, the insoluble tau did not show reactivity
 at the AT8 and pS422 epitopes, which are pronounced in human AD tau."
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ph,Ser,422))
 path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ph,Ser,202))
 path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(Ph,Thr,205))
+UNSET Confidence
 
 SET Evidence = "Similarly, elimination of CDK-5 improved the touch response in the mutant TauR406W-line,
 but failed to improve it inother line"
-composite(p(HGNC:CDK5),p(HBP:"Tau isoform D (383 aa)",var("p.Pro301Leu"))) -| a(MESH:Neurons)
+SET Confidence = "Medium"
+composite(p(HGNC:CDK5),p(HBP:"Tau isoform D (383 aa)",var("p.Arg406Trp"))) -| a(MESH:Neurons)
+UNSET Confidence
 
 SET Evidence = "For example, Fatouros et al. (68) tested several tau-aggregation
 inhibitor compounds such as methylene blue, a rhodanine derivative (bb14), and a phenylthiazolyl hydrazide derivative
 (BSc3094), which reduce the insoluble tau and partially suppress the Unc phenotype."
+SET Confidence = "Medium"
 a(CHEBI:"methylene blue") -| a(HBP:"Tau aggregates")
-a(CHEBI:"methylene blue") pos bp(GO:locomotion)
+a(CHEBI:"methylene blue") -> bp(GO:locomotion)
 a(PUBCHEM:6475963) -| a(HBP:"Tau aggregates")
-a(PUBCHEM:6475963) pos bp(GO:locomotion)
+a(PUBCHEM:6475963) -> bp(GO:locomotion)
 a(HBP:"Phenylthiazolyl-hydrazide") -| a(HBP:"Tau aggregates")
-a(HBP:"Phenylthiazolyl-hydrazide") pos bp(GO:locomotion)
+a(HBP:"Phenylthiazolyl-hydrazide") -> bp(GO:locomotion)
+UNSET Confidence
 
 SET Evidence = "Another compound of the ATPZ class also is protective and partially
 ameliorates the neurodegeneration in this tauopathy model."
+SET Confidence = "High"
 a(PUBCHEM:66766582) -| path(HBP:Neurodegeneration)
+UNSET Confidence
 
 SET Evidence = "The antipsychotic drug azaperone shows neuroprotective effects,
 improves locomotion, reduces the insoluble tau, and partially abates the neurodegeneration in this tauopathy model (104)."
+SET Confidence = "High"
 a(CHEBI:azaperone) -> bp(GO:locomotion)
 a(CHEBI:azaperone) -| p(HGNC:MAPT)
 a(CHEBI:azaperone) -| path(HBP:Neurodegeneration)
+UNSET Confidence
 
 SET Evidence = "In a recent study, the antiepileptic drug ethosuximide increased the
 lifespan and partially corrected the Unc phenotype in TauV337M worms with the effect dependent on the insulin signaling pathway (106)."
-composite(a(CHEBI:ethosuximide),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -> bp(MESH:Longevity)
-composite(a(CHEBI:ethosuximide),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -> bp(GO:locomotion)
-composite(a(CHEBI:ethosuximide),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) pos bp(GO:"insulin receptor signaling pathway")
+SET Confidence = "Medium"
+a(CHEBI:ethosuximide) -> bp(MESH:Longevity)
+a(CHEBI:ethosuximide) -> bp(GO:locomotion)
+a(CHEBI:ethosuximide) -- bp(GO:"insulin receptor signaling pathway")
+UNSET Confidence
 
 SET Evidence = "Some of these enhancer genes are specific only to the tau-induced
 disease phenotype and include genes encoding proteins like WNT2 (111), TTBK2 (112), GSK-3b (113),
 TAOK1 (114, 115), CTSE (116) and CHRNA7 (117), have been implicated in tau-mediated pathology."
+SET Confidence = "High"
 p(HGNC:WNT2) -- path(MESH:Tauopathies)
 p(HGNC:TTBK2) -- path(MESH:Tauopathies)
 p(HGNC:GSK3B) -- path(MESH:Tauopathies)
 p(HGNC:TAOK1) -- path(MESH:Tauopathies)
 p(HGNC:CTSE) -- path(MESH:Tauopathies)
 p(HGNC:CHRNA7) -- path(MESH:Tauopathies)
+UNSET Confidence
 
 SET Evidence = "A study from the same group whereby the knockdown of dynamin binding protein (DNMBP/TUBA), a
 known interactor of UNC-34 (120), elevated the toxicity induced by TauV337M(80), lends further support to this notion"
+SET Confidence = "High"
 # UNC-34 homolog of human ENAH
 p(HGNC:DNMBP) -> complex(p(HGNC:DNMBP),p(HGNC:ENAH))
 composite(p(HGNC:DNMBP),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -> path(MESH:Tauopathies)
+UNSET Confidence
 
 SET Evidence = "Eliminating sut-2 resulted in partial recovery of Unc phenotype, less neurodegeneration and reduction
 of insoluble tau in the TauV337M worm; whereas sut-2 overexpression exacerbated the pathology"
+SET Confidence = "Medium"
 # sut-2 homolog of human ZC3H14
-composite(p(HGNC:ZC3H14),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -| bp(GO:locomotion)
-composite(p(HGNC:ZC3H14),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -> path(HBP:Neurodegeneration)
-composite(p(HGNC:ZC3H14),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -> p(HGNC:MAPT)
+p(HGNC:ZC3H14) -| bp(GO:locomotion)
+p(HGNC:ZC3H14) -> path(HBP:Neurodegeneration)
+p(HGNC:ZC3H14) -> p(HGNC:MAPT)
+UNSET Confidence
 
 SET Evidence = "Homologs of SUT-2 exist in higher animals, including humans
 (MSUT-2), and reducing the MSUT-2 levels was found to be protective against tau-induced toxicity in a cell model (121)."
+SET Confidence = "High"
 # MSUT-2: ZC3H14
 p(HGNC:ZC3H14) -> path(MESH:Tauopathies)
+UNSET Confidence
 
 SET Evidence = "Although a direct mechanism by which SUT-2 acts is not known, functional evidence of its
 binding partner ZYG-12 (122) suggests that it may act via modulating the aggresome formation by ZYG-12 (123,124)."
+SET Confidence = "High"
 p(HGNC:ZC3H14) reg bp(GO:"aggresome assembly")
+UNSET Confidence
 
 SET Evidence = "Indeed, aggresome formation represents one such process employed by a cell to discard misfolded proteins
 (125) and has been implicated in neurodegenerative diseases (126)."
+SET Confidence = "High"
 bp(GO:"aggresome assembly") -- path(MESH:"Neurodegenerative Diseases")
 bp(GO:"aggresome assembly") -| p(MESH:Proteins,pmod(HBP:misfolding))
+UNSET Confidence
 
 SET Evidence = "A recent addition to the suppressors of tau-induced toxicity in C. elegans is the bas-1 gene (105), encoding the
 dopa decarboxylase, loss of which reduces the dopamine and serotonin levels (128–130)."
+SET Confidence = "High"
 # bas-1: DDC
 p(HGNC:DDC) -> a(CHEBI:dopamine)
 p(HGNC:DDC) -> a(CHEBI:serotonin)
+UNSET Confidence
 
 SET Evidence = "Loss of bas-1 function improved the motor function, reduced insoluble tau and its
 phosphorylation and ameliorated the tau-induced neurodegeneration without increasing the longevity in TauV337M worms"
+SET Confidence = "High"
 # bas-1: DDC
 composite(p(HGNC:DDC),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -| bp(GO:locomotion)
 composite(p(HGNC:DDC),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -> p(HGNC:MAPT)
 composite(p(HGNC:DDC),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -> p(HGNC:MAPT,pmod(Ph))
 composite(p(HGNC:DDC),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) -> path(HBP:Neurodegeneration)
+UNSET Confidence
 
 SET Evidence = "Loss of function in other genes (cat-2, cat-4, tph-1) that also regulate the dopamine or serotonin levels (130–132),did
 not affect the tau-induced toxicity in TauV337M; however, their activity is essential for bas-1-mediated suppression of
 tau-induced toxicity in TauV337M (105)"
+SET Confidence = "High"
 p(HGNC:TH) reg a(CHEBI:dopamine)
 p(HGNC:TH) reg a(CHEBI:serotonin)
 p(HGNC:TH) reg act(p(HGNC:DDC))
@@ -364,5 +463,4 @@ p(HGNC:TPH1) reg a(CHEBI:dopamine)
 p(HGNC:TPH1) reg a(CHEBI:serotonin)
 p(HGNC:TPH1) reg act(p(HGNC:DDC))
 composite(p(HGNC:TPH1),p(HBP:"Tau isoform E (412 aa)",var("p.Val337Met"))) cnc path(MESH:Tauopathies)
-
-UNSET Species
+UNSET Confidence
