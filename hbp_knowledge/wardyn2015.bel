@@ -126,8 +126,8 @@ degraded in the nucleus via the β-TrCP–GSK3β axis or
 alternatively it may translocate back to the cytoplasm where
 it is swiftly degraded by Keap1 [12,13]."
 p(HGNC:BTRC) -> deg(p(HGNC:NFE2L2))
-p(HGCN:GSK3B) -> deg(p(HGNC:NFE2L2))
-tloc(p(HGNC:NFE2L2),fromloc(MESH:"Cell Nucleus"),toloc(MESH:Cytosol)) -> deg(p(HGNC:NFE2L2))
+p(HGNC:GSK3B) -> deg(p(HGNC:NFE2L2))
+tloc(p(HGNC:NFE2L2), (MESH:"Cell Nucleus"), (MESH:Cytosol)) -> deg(p(HGNC:NFE2L2))
 SET MeSHAnatomy = "Cytosol"
 p(HGNC:KEAP1) -> deg(p(HGNC:NFE2L2))
 UNSET MeSHAnatomy
@@ -163,7 +163,7 @@ p(HGNC:NFKBIA) -| act(p(FPLX:NFkappaB))
 p(HGNC:NFKBIA, pmod(Ph)) -> complex(p(HGNC:NFKBIA),p(HGNC:CUL1),p(HGNC:BTRC),p(HGNC:SKP1))
 complex(p(HGNC:NFKBIA),p(HGNC:CUL1),p(HGNC:BTRC),p(HGNC:SKP1)) -> p(HGNC:NFKBIA, pmod(Ub))
 complex(p(HGNC:NFKBIA),p(HGNC:CUL1),p(HGNC:BTRC),p(HGNC:SKP1)) -> deg(p(HGNC:NFKBIA))
-deg(p(HGNC:NFKBIA)) -> tloc(p(FPLX:NFkappaB),fromloc(MESH:Cytosol),toloc(MESH:"Cell Nucleus"))
+deg(p(HGNC:NFKBIA)) -> tloc(p(FPLX:NFkappaB), (MESH:Cytosol), (MESH:"Cell Nucleus"))
 
 SET Evidence = "In order to respond effectively to acute inflammation, NF-
 κB also prompts an increase in mitochondrial activity and
@@ -182,7 +182,7 @@ knockout (KO) mice, which exhibit a neurodegenerative
 phenotype."
 SET Species = "10090"
 p(HGNC:NFE2L2) -| path(MESH:"Neurodegenerative Diseases")
-UNSET species
+UNSET Species
 
 SET Evidence = " Additionally, in the experimental model of
 brain injury the lack of Nrf2 has been associated with
@@ -269,7 +269,7 @@ SET Evidence = "The anti-inflammatory role of Nrf2 is well established;
 however, it should be noted that NF-κB activity also regulates
 Nrf2-mediated ARE expression."
 p(HGNC:NFE2L2) reg tscript(p(FPLX:NFkappaB))
-tscript(p(FPLX:NFkappaB)) reg g(MESH:"Antioxidant Response Elements")
+tscript(p(FPLX:NFkappaB)) reg bp(MESH:"Antioxidant Response Elements")
 
 SET Evidence = " Work by Yu et al. [31] has
 shown that p65 assists in increasing the abundance of nuclear
@@ -281,7 +281,7 @@ envelope does not permit free entry of proteins larger than
 40 kDa, Keap1 is thought to enter the nucleus by interactions
 with the import facilitating karyopherin alpha 6 (importin
 alpha 7) (otherwise known as KPNA6) [32]."
-complex(p(HGNC:KEAP1),p(HGNC:KPNA6)) -> tloc(p(HGNC:KEAP1),fromloc(MESH:Cytosol),toloc(MESH:"Cell Nucleus"))
+complex(p(HGNC:KEAP1),p(HGNC:KPNA6)) -> tloc(p(HGNC:KEAP1), (MESH:Cytosol), (MESH:"Cell Nucleus"))
 
 SET Evidence = " Consequently,
 KPNA6 overexpression results in decreased levels of HO-1
@@ -424,8 +424,8 @@ p62 to oligomerize, promotes ubiquitination and activation
 of TNFα receptor-associated factor 6 (TRAF6), enhancing
 nerve growth factor (NGF)-mediated NF-κB signalling [44]."
 p(HGNC:SQSTM1) -> p(HGNC:TRAF6, pmod(Ub))
-p(HGNC:SQSTM1) -> act(p(HGNC:TRAF))
-act(p(HGNC:TRAF)) -> act(p(HGNC:NGF))
+p(HGNC:SQSTM1) -> act(p(HGNC:TRAF6))
+act(p(HGNC:TRAF6)) -> act(p(HGNC:NGF))
 act(p(HGNC:NGF)) -> act(p(FPLX:NFkappaB))
 
 SET Evidence = "Finally, Nrf2 is thought to act mainly as a dimer with
