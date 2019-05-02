@@ -78,57 +78,74 @@ SET Citation = {"PubMed","25331948"}
 
 SET Evidence = "Following 24 h of treatment with the pure enantiomers or the racemic mixture of nilvadipine,
 a dose-dependent inhibition of Aβ production was observed (Fig. 1A)."
+SET Confidence = "High"
 a(CHEBI:Nilvadipine) -| a(CHEBI:"amyloid-beta")
+UNSET Confidence
 
 SET Evidence = "We have previously shown that racemic nilvadipine affects the β-cleavage of APP and reduces sAPPβ secretion"
+SET Confidence = "High"
 a(CHEBI:Nilvadipine) -| act(p(HGNC:APP))
 a(CHEBI:Nilvadipine) -| sec(p(HBP:"sAPP-beta"))
+UNSET Confidence
 
 SET Evidence = "Tumor necrosis factor-α (TNFα) has been shown to induce BACE-1 expression and to contribute to
 brain accumulation of Aβ peptides"
+SET Confidence = "High"
 p(HGNC:TNF) -> p(HGNC:BACE1)
 SET MeSHAnatomy = "Brain"
 p(HGNC:TNF) -> a(MESH:"Amyloid beta-Peptides")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "We found that both (-)-nilvadipine and racemic nilvadipine reduce BACE-1 mRNA expression (Fig. 1C)
 induced by TNFα"
+SET Confidence = "Medium"
 a(CHEBI:Nilvadipine) -| r(HGNC:BACE1)
-p(HGNC:TNF) -> p(HGNC:BACE1)
+p(HGNC:TNF) -> r(HGNC:BACE1)
+UNSET Confidence
 
 SET Evidence = "In addition, a reduction in BACE-1 protein levels was observed following treatment of HEK293 cells with
 (-)-nilvadipine or racemic nilvadipine (Fig. 1D) further suggesting that the inhibition of Aβ production observed following
 nilvadipine treatment is mediated in part by a reduction of BACE-1 expression."
+SET Confidence = "High"
 a(CHEBI:Nilvadipine) -| p(HGNC:BACE1)
 a(CHEBI:Nilvadipine) -| a(CHEBI:"amyloid-beta")
 p(HGNC:BACE1) -> a(CHEBI:"amyloid-beta")
+UNSET Confidence
 
 SET Evidence = "We found that both the (-)- and (+)-nilvadipine enantiomers enhance Aβ42 clearance
 from the brain to the peripheral side of the in vitro BBB model (Fig. 2A)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 a(CHEBI:Nilvadipine) -| a(CHEBI:"amyloid-beta polypeptide 42")
 a(CHEBI:Nilvadipine) -> bp(GO:"amyloid-beta clearance by transcytosis")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "We tested the effect of an acute treatment with (-)-nilvadipine or (+)-nilvadipine on brain Aβ levels using Tg
 PS1/APPsw mice, and we observed that both (-)-nilvadipine and (+)-nilvadipine acutely reduced brain Aβ levels with similar
 potency (Fig. 2, C and D)."
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = "Brain"
 a(CHEBI:Nilvadipine) -| a(CHEBI:"amyloid-beta")
 UNSET Species
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Data show that (-)-nilvadipine stimulated the clearance of human Aβ42 across the BBB as
 more human Aβ42 was detected in the plasma of (-)-nilvadipine-treated mice than control animals (Fig. 2B)."
+SET Confidence = "Medium"
 SET Species = "10090"
 SET MeSHAnatomy = "Blood-Brain Barrier"
-a(CHEBI:Nilvadipine) -> tloc(a(CHEBI:"amyloid-beta polypeptide 42"),fromLoc(GO:intracellular),toLoc(MESH:Plasma))
+a(CHEBI:Nilvadipine) -> tloc(a(CHEBI:"amyloid-beta polypeptide 42"),fromLoc(MESH:Brain),toLoc(MESH:Plasma))
 UNSET Species
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Western blot analyses of brain homogenates show that (-)-nilvadipine significantly reduces Tau phosphorylation
 in AT8 (phosphorylated Ser-199/Ser-202/Thr-205) and PHF-1 (phosphorylated Ser-396/Ser-404) epitopes (Fig. 3)."
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = "Brain"
 a(CHEBI:Nilvadipine) -| p(MGI:Mapt,pmod(Ph,Ser,199))
@@ -138,95 +155,126 @@ a(CHEBI:Nilvadipine) -| p(MGI:Mapt,pmod(Ph,Ser,396))
 a(CHEBI:Nilvadipine) -| p(MGI:Mapt,pmod(Ph,Ser,404))
 UNSET Species
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "As (-)-nilvadipine and racemic nilvadipine inhibit BACE-1 transcription, we evaluated
 whether (-)-nilvadipine was impacting NFkB activation because NFkB has been shown to play an important role in the
 regulation of BACE-1 transcription and expression (36, 37, 43, 44)"
-a(CHEBI:Nilvadipine) -| p(HGNC:BACE1)
+SET Confidence = "Medium"
+a(CHEBI:Nilvadipine) -| r(HGNC:BACE1)
+complex(GO:"NF-kappaB complex") reg r(HGNC:BACE1)
 complex(GO:"NF-kappaB complex") reg p(HGNC:BACE1)
+UNSET Confidence
 
-SET Evidence = "Weobserved that (-)-nilvadipine inhibits NFkB activation
+SET Evidence = "We observed that (-)-nilvadipine inhibits NFkB activation
 in response to TNFα (Fig. 4A) or phorbol 12-myristate 13-acetate (PMA) (Fig. 4B)
 by using an NFkB-luciferase reporter cell line to monitor NFkB activation, thus suggesting a possible
 mechanism responsible for the inhibition of BACE-1 transcription following nilvadipine treatment"
+SET Confidence = "High"
 composite(p(HGNC:TNF),a(CHEBI:Nilvadipine)) -| act(complex(GO:"NF-kappaB complex"))
 composite(a(CHEBI:"phorbol 13-acetate 12-myristate"),a(CHEBI:Nilvadipine)) -| act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
 
 SET Evidence = "For instance, the small GTPase Rho and its downstream effector
 Rho-associated coiled-coil containing protein kinase (ROCK)
 have been shown to contribute to TNFα induction of NFkB activation (45)."
+SET Confidence = "High"
 composite(p(HGNC:ROCK1),p(FPLX:RHO)) -> act(p(HGNC:TNF))
 composite(p(HGNC:ROCK1),p(FPLX:RHO)) -> act(complex(GO:"NF-kappaB complex"))
 p(HGNC:TNF) -> act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
 
 SET Evidence = "PMA is a known agonist of PKC, which leads to the activation of the PKC/RAS/RAF/MEK/MAPK pathway that
 ultimately induces NFkB activation (46–48)"
+SET Confidence = "High"
 # PMA:phorbol 13-acetate 12-myristate
 a(CHEBI:"phorbol 13-acetate 12-myristate") -> act(p(FPLX:PKC))
 a(CHEBI:"phorbol 13-acetate 12-myristate") -> act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
 
 SET Evidence = "In particular, we monitored RAF phosphorylation following treatment with (-)-nilvadipine and
 observed that (-)-nilvadipine prevents RAF phosphorylation induced by PMA (Fig. 4, C and D) suggesting that (-)-nilvadipine
 is impacting a target upstream of RAF"
+SET Confidence = "High"
 # PMA: phorbol 13-acetate 12-myristate
 a(CHEBI:Nilvadipine) -| p(HGNC:RAF1,pmod(Ph))
 a(CHEBI:"phorbol 13-acetate 12-myristate") -> p(HGNC:RAF1,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "Tyrosine kinases, including Syk and Bruton’s tyrosine kinase (BTK), are activated following PMA treatment
 (49, 50), act upstream of RAS/RAF (51, 52), and mediate the activation of the NFkB pathway (53)."
+SET Confidence = "High"
 # PMA:phorbol 13-acetate 12-myristate
 a(CHEBI:"phorbol 13-acetate 12-myristate") -> act(p(HGNC:SYK))
 a(CHEBI:"phorbol 13-acetate 12-myristate") -> act(p(HGNC:BTK))
 act(p(HGNC:BTK)) reg act(complex(GO:"NF-kappaB complex"))
 act(p(HGNC:SYK)) reg act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
 
-SET Evidence = "Wetested a selective BTK inhibitor (BTK inhibitor III, 1-(3-(4-amino-3-(4-phenyloxy
+SET Evidence = "We tested a selective BTK inhibitor (BTK inhibitor III, 1-(3-(4-amino-3-(4-phenyloxy
 phenyl)-1H-pyrazolo[3,4-d]pyrimidin-1-yl)piperidin-1-yl)prop-2-en-1-one, N-acryloyl-(3-(4-amino-3-(4-phenyloxyphenyl)-
 1H-pyrazolo[3,4-d]pyrimidin-1-yl)piperidine) on Aβ production, and we found that this compound was unable to
 significantly inhibit Aβ production (data not shown) suggesting that the Aβ-lowering properties of nilvadipine are not mediated
 via an inhibition of BTK."
+SET Confidence = "High"
 a(PUBCHEM:71656932) -| act(p(HGNC:BTK))
 a(PUBCHEM:71656932) cnc a(CHEBI:"amyloid-beta")
+UNSET Confidence
 
 SET Evidence = "Using a cell-free assay using human recombinant
 Syk, we observed that (-)-nilvadipine dose-dependently inhibits Syk activity (Fig. 5A)"
+SET Confidence = "High"
 a(CHEBI:Nilvadipine) -| act(p(HGNC:SYK))
+UNSET Confidence
 
 SET Evidence = "The Syk inhibitor BAY61-3606 was used as a positive control in the Syk activity assay, and a
 dose-dependent inhibition of Syk activity was observed with BAY61-3606 as expected (Fig. 5B)."
+SET Confidence = "High"
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -| act(p(HGNC:SYK))
+UNSET Confidence
 
 SET Evidence = "To ensure that the reduction in Syk activity observed was not due to an interaction of the
 peptide substrate with (-)-nilvadipine, we also verified that (-)-nilvadipine was able to directly bind to Syk."
+SET Confidence = "High"
 a(CHEBI:Nilvadipine) -> complex(a(CHEBI:Nilvadipine),p(HGNC:SYK))
+UNSET Confidence
 
 SET Evidence = "We measured the binding affinity of (-)-nilvadipine for Syk using biolayer
 interferometry and confirmed that (-)-nilvadipine binds to human recombinant Syk with a binding dissociation constant (KD)
 of 2.1 µM (Fig. 5C), further suggesting that Syk is the possible target impacted by nilvadipine."
+SET Confidence = "High"
 a(CHEBI:Nilvadipine) -> complex(a(CHEBI:Nilvadipine),p(HGNC:SYK))
+UNSET Confidence
 
 SET Evidence = "In addition, we verified that pharmacological inhibition of Syk with BAY61-3606 resulted
 in a blockade of NFkB activation and that genetic down-regulation of SYK using shRNA also prevented NFkB activation (data not
 shown) thus highlighting Syk as a key player of NFkB activation."
+SET Confidence = "High"
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -| act(complex(GO:"NF-kappaB complex"))
 p(HGNC:SYK) -> act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
 
 SET Evidence = "The magnitude of the NFkB inhibition following (-)-nilvadipine
 treatment was also reduced in clones of HEK293 NFkB luciferase
 reporter cells in which Syk expression had been silenced (data not
 shown) further suggesting that Syk is required to mediate the inhibition
 of NFkB activity induced by (-)-nilvadipine."
+SET Confidence = "High"
 a(CHEBI:Nilvadipine) -| act(complex(GO:"NF-kappaB complex"))
 p(HGNC:SYK) reg act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
 
 SET Evidence = "We found that Syk inhibition with the selective Syk inhibitor
 BAY61-3606 suppresses Aβ production in 7W CHO cells overexpressing APP (Fig. 6A)."
+SET Confidence = "High"
 p(HGNC:SYK) -> a(CHEBI:"amyloid-beta")
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -| a(CHEBI:"amyloid-beta")
+UNSET Confidence
 
 SET Evidence = "We found that, like (-)-nilvadipine, Syk inhibition
 with the selective Syk inhibitor BAY61-3606 resulted in decreased
 sAPPβ secretion, BACE-1 mRNA, and BACE-1 protein expression (data not shown)."
+SET Confidence = "High"
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -| act(p(HGNC:SYK))
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -| sec(p(HBP:"sAPP-beta"))
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -| r(HGNC:BACE1)
@@ -237,26 +285,33 @@ act(p(HGNC:SYK)) -> p(HGNC:BACE1)
 a(CHEBI:Nilvadipine) -| sec(p(HBP:"sAPP-beta"))
 a(CHEBI:Nilvadipine) -| r(HGNC:BACE1)
 a(CHEBI:Nilvadipine) -| p(HGNC:BACE1)
+UNSET Confidence
 
 SET Evidence = "As expected, RAF phosphorylation induced by PMA as well as basal RAF phosphorylation
 were reduced in 7W CHO cells transfected with SYK shRNA confirming a reduction in Syk activity (Fig. 6B)."
+SET Confidence = "High"
 a(CHEBI:"phorbol 13-acetate 12-myristate") -> p(HGNC:RAF1,pmod(Ph))
 act(p(HGNC:SYK)) -> p(HGNC:RAF1,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "Interestingly, Aβ production in 7W CHO cells transfected with SYK shRNA
 compared with 7W CHO cells (Fig. 6C) was significantly reduced, further demonstrating the involvement of Syk in the
 regulation of Aβ production."
 act(p(HGNC:SYK)) -> a(CHEBI:"amyloid-beta")
+UNSET Confidence
 
 SET Evidence = "We show that the selective Syk inhibitor BAY61-3606 stimulates
 the transport of Aβ across the BBB in vitro mimicking the biological activity of (-)-nilvadipine in this model (Fig. 7A)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Blood-Brain Barrier"
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -> tloc(a(CHEBI:"amyloid-beta"),fromLoc(GO:intracellular),toLoc(MESH:Plasma))
 act(p(HGNC:SYK)) -| tloc(a(CHEBI:"amyloid-beta"),fromLoc(GO:intracellular),toLoc(MESH:Plasma))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "We observed that BAY61-3606 significantly reduces brain Aβ38, Aβ40, and Aβ42 levels in Tg PS1/
 APPsw mice (Fig. 7, C and D)."
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = "Brain"
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -| p(MGI:App,frag("1_38"))
@@ -264,43 +319,55 @@ a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridi
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -| a(CHEBI:"amyloid-beta polypeptide 40")
 UNSET Species
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In addition, we found that BAY61-3606 stimulates the clearance of Aβ across the BBB in
 wild-type mice as demonstrated by increased circulating plasma levels of human Aβ42 in mice treated with the Syk inhibitor
 compared with vehicle-treated mice following the intracranial injection of human Aβ42 (Fig. 7B)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Blood-Brain Barrier"
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -> tloc(a(CHEBI:"amyloid-beta polypeptide 42"),fromLoc(GO:intracellular),toLoc(MESH:Plasma))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Syk has been shown to mediate the phosphorylation of Tau at Tyr-18 (56)."
+SET Confidence = "High"
 p(HGNC:SYK) reg p(HGNC:MAPT,pmod(Ph,Tyr,18))
+UNSET Confidence
 
 SET Evidence = "We observed a reduction in Tau phosphorylation at the Tyr-18 epitope as expected
 (Fig. 8) in BAY61-3606-treated mice."
+SET Confidence = "High"
 SET Species = "10090"
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -| p(MGI:Mapt,pmod(Ph,Tyr,18))
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Interestingly, we also detected a reduction in Tau phosphorylation at PHF-1 (Ser(P)-
 396/Ser(P)-404) and CP13 (Ser(P)-202) in epitopes following treatment of Tg Tau P301S mice with BAY61-3606, whereas
 the RZ3 (Thr(P)-231) Tau epitope was not significantly impacted (Fig. 8) suggesting that Syk inhibition may also control
 the activity of other downstream kinases involved in Tau hyperphosphorylation"
+SET Confidence = "High"
 SET Species = "10090"
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -| p(MGI:Mapt,pmod(Ph,Ser,396))
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -| p(MGI:Mapt,pmod(Ph,Ser,404))
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -| p(MGI:Mapt,pmod(Ph,Ser,202))
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") cnc p(MGI:Mapt,pmod(Ph,Tyr,231))
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "We observed that pharmacological inhibition of Syk with BAY61-3606 stimulates
 Ser-9 phosphorylation of GSK3β in SH-SY5Y cells (Fig. 9,Aand B) suggesting that blocking Syk activity results in GSK3β inhibition."
+SET Confidence = "High"
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -> p(HGNC:GSK3B,pmod(Ph,Ser,9))
 p(HGNC:GSK3B,pmod(Ph,Ser,9)) -| act(p(HGNC:GSK3B))
 act(p(HGNC:SYK)) -> act(p(HGNC:GSK3B))
+UNSET Confidence
 
 SET Evidence = "We further confirmed that possibility by showing that Tau phosphorylation at the typical GSK3β sites (PHF-1 and
 CP13) is reduced following treatment of SH-SY5Y cells with BAY61-3606, whereas Tau phosphorylation at the RZ3 site was
 not significantly impacted in SH-SY5Y cells (Fig. 9C)."
+SET Confidence = "High"
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -| p(HGNC:MAPT,pmod(Ph,Ser,396))
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -| p(HGNC:MAPT,pmod(Ph,Ser,404))
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -| p(HGNC:MAPT,pmod(Ph,Ser,202))
@@ -308,32 +375,43 @@ a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridi
 p(HGNC:GSK3B) -> p(HGNC:MAPT,pmod(Ph,Ser,396))
 p(HGNC:GSK3B) -> p(HGNC:MAPT,pmod(Ph,Ser,404))
 p(HGNC:GSK3B) -> p(HGNC:MAPT,pmod(Ph,Ser,202))
+UNSET Confidence
 
 SET Evidence = "GSK3β phosphorylation at Ser-9 has been shown to be mediated by
 PKA and AKT (protein kinase B) (57, 58)."
+SET Confidence = "High"
 p(FPLX:PKA) reg p(HGNC:GSK3B,pmod(Ph,Ser,9))
 p(FPLX:AKT) reg p(HGNC:GSK3B,pmod(Ph,Ser,9))
+UNSET Confidence
 
 SET Evidence = "We found that treatment of SH-SY5Y cells with BAY61-3606 inhibits
 AKT phosphorylation (Fig. 9, A and B), which is consistent with previous studies (59)
 investigating the impact of Syk inhibition on AKT activation."
+SET Confidence = "High"
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -| p(FPLX:AKT,pmod(Ph,Ser,473))
+UNSET Confidence
 
 SET Evidence = "We found that KT5270 effectively suppressed GSK3β phosphorylation at Ser-9 induced by
 BAY61-3606 (Fig. 10B) suggesting that this event is mediated by an activation of PKA."
+SET Confidence = "High"
 # KT5270: PKA inhibitor
 p(FPLX:PKA) -> p(HGNC:GSK3B,pmod(Ph,Ser,9))
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -> p(HGNC:GSK3B,pmod(Ph,Ser,9))
+UNSET Confidence
 
 SET Evidence = "PKA is a known substrate of Syk, and it has been shown that Syk inhibits PKA activity by phosphorylating
 Tyr-330 of the PKA catalytic subunit (60), further supporting our observation."
+SET Confidence = "High"
 p(HGNC:SYK) -| act(p(FPLX:PKA))
 p(HGNC:SYK) -> p(FPLX:PKA,pmod(Ph,Tyr,330))
 p(FPLX:PKA,pmod(Ph,Tyr,330)) -| act(p(FPLX:PKA))
+UNSET Confidence
 
 SET Evidence = "We found that Syk inhibition with BAY61-3606 induced CREB phosphorylation, although
 that event is inhibited in the presence of a selective PKA inhibitor (Fig. 10, A and B) further showing that Syk inhibition
 results in PKA activation."
+SET Confidence = "High"
 a(CHEBI:"2-[[7-(3,4-dimethoxyphenyl)-5-imidazo[1,2-c]pyrimidinyl]amino]-3-pyridinecarboxamide") -> p(HGNC:CREB1,pmod(Ph))
 act(p(FPLX:PKA)) -> p(HGNC:CREB1,pmod(Ph))
 p(HGNC:SYK) -| act(p(FPLX:PKA))
+UNSET Confidence
