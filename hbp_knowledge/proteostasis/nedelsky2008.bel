@@ -79,64 +79,83 @@ SET Citation = {"PubMed","18930136"}
 SET Evidence = "Considering the importance of protein catabolism in maintaining cell homeostasis,
 it is not surprising that dysregulation of protein turnover is associated with myriad disease
 states such as cancer and neurodegeneration [5]."
+SET Confidence = "High"
 bp(GO:"cellular protein catabolic process") reg bp(GO:"cellular homeostasis")
 bp(GO:"cellular protein catabolic process") neg path(MESH:Neoplasms)
 bp(GO:"cellular protein catabolic process") neg path(HBP:Neurodegeneration)
+UNSET Confidence
 
 SET Evidence = "UPS-mediated catabolism is also essential to mainten amino acid pools in acute starvation
 and contributes significantly to the degradation of defective proteins [1,2,7]."
+SET Confidence = "High"
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") reg bp(GO:"amino acid homeostasis")
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> bp(GO:"cellular protein catabolic process")
+UNSET Confidence
 
 SET Evidence = "Autophagy, by contrast, is primarily responsible for degrading long-lived proteins and maintaining amino acid
 pools in the setting of chronic starvation, although its contribution to the degradation of
 defective proteins may equal that of the UPS."
+SET Confidence = "High"
 bp(GO:autophagy) -> bp(GO:"cellular protein catabolic process")
 bp(GO:autophagy) reg bp(GO:"amino acid homeostasis")
+UNSET Confidence
 
 SET Evidence = "“Autophagy”, literally “self-eating”, describes a catabolic process in which cell constituents
 such as organelles and proteins are delivered to the lysosomal compartment for degradation."
+SET Confidence = "High"
 bp(GO:autophagy) -> tloc(a(GO:organelle),fromLoc(GO:cytoplasm),toLoc(GO:lysosome))
 bp(GO:autophagy) -> tloc(a(MESH:Proteins),fromLoc(GO:cytoplasm),toLoc(GO:lysosome))
 SET CellStructure = "Lysosomes"
 bp(GO:autophagy) -> deg(a(GO:organelle))
 bp(GO:autophagy) -> deg(a(MESH:Proteins))
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "Autophagy is an evolutionarily conserved process whose primary task in lower organisms is
 the maintenance of metabolic homeostasis in the face of changing nutrient availability [8]."
+SET Confidence = "High"
 bp(GO:autophagy) reg bp(GO:"metabolic process")
+UNSET Confidence
 
 SET Evidence = "This role in recycling is complementary to that of the UPS, which degrades proteins to generate
 oligopeptides that are subsequently degraded into amino acids while replenishing the cell’s supply of free ubiquitin."
+SET Confidence = "High"
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> rxn(reactants(a(MESH:Proteins)),products(a(CHEBI:oligopeptide)))
 deg(a(CHEBI:oligopeptide)) -> a(CHEBI:"amino acid")
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> bp(GO:"ubiquitin recycling")
+UNSET Confidence
 
 SET Evidence = "Recent advances have demonstrated that autophagy also serves a
 surprisingly diverse array of additional functions, including organelle clearance, antigen
 presentation, elimination of microbes, as well as regulation of development and cell death [9]."
+SET Confidence = "High"
 bp(GO:autophagy) -> deg(a(GO:organelle))
 bp(GO:autophagy) -- bp(GO:"antigen processing and presentation")
 bp(GO:autophagy) -| bp(MESH:Microbiota)
 bp(GO:autophagy) reg bp(GO:"cell death")
+UNSET Confidence
 
 SET Evidence = "Microautophagy consists of direct engulfment of small volumes of cytosol by lysosomes
 [10], whereas chaperone-mediated autophagy (CMA) involves selective, receptor-mediated
 translocation of proteins into the lysosomal lumen [11]."
+SET Confidence = "High"
 bp(GO:"lysosomal microautophagy") -> tloc(a(GO:cytoplasm),fromLoc(GO:intracellular),toLoc(GO:lysosome))
 bp(GO:"chaperone-mediated autophagy") -> tloc(a(MESH:Proteins),fromLoc(GO:cytoplasm),toLoc(GO:"lysosomal lumen"))
+UNSET Confidence
 
 SET Evidence = "These processes are distinguished from
 macroautophagy, in which an isolation membrane expands to engulf a portion of the cell,
 eventually fusing to form a new autophagic vacuole that subsequently fuses with a lysosome [12]."
+SET Confidence = "High"
 bp(GO:macroautophagy) -> bp(GO:"autophagosome-lysosome fusion")
+UNSET Confidence
 
 SET Evidence = "Even within the category of macroautophagy, there appears to be capability for selectivity,
 as autophagic processes have been observed that appear to be specific for mitochondria
 (mitophagy), portions of the nucleus (nucleophagy), peroxisomes (pexophagy), endoplasmic
 reticulum (reticulophagy), microorganisms (xenophagy), ribosomes (ribophagy) or protein
 aggregates (aggrephagy) (reviewed in [5])."
+SET Confidence = "High"
 bp(GO:mitophagy) isA bp(GO:macroautophagy)
 bp(GO:"autophagy of nucleus") isA bp(GO:macroautophagy)
 bp(GO:pexophagy) isA bp(GO:macroautophagy)
@@ -144,322 +163,454 @@ bp(GO:reticulophagy) isA bp(GO:macroautophagy)
 bp(GO:xenophagy) isA bp(GO:macroautophagy)
 bp(GO:ribophagy) isA bp(GO:macroautophagy)
 bp(GO:aggrephagy) isA bp(GO:macroautophagy)
+UNSET Confidence
 
 SET Evidence = "CMA is a process in which proteins
 harboring a pentapeptide motif related to the sequence KFERQ are specifically recognized by
 a cytosolic chaperone, the heat shock cognate protein of 70 kDa (hsc70)."
+SET Confidence = "Medium"
+bp(GO:"chaperone-mediated autophagy") -- p(HGNC:HSPA8)
 p(HGNC:HSPA8) -> complex(p(HGNC:HSPA8),a(MESH:Proteins))
-p(HGNC:HSPA8) -> complex(p(HGNC:HSPA8),a(MESH:Proteins)) -> bp(GO:"chaperone-mediated autophagy")
+complex(p(HGNC:HSPA8),a(MESH:Proteins)) -> bp(GO:"chaperone-mediated autophagy")
+UNSET Confidence
 
 SET Evidence = "The substrate-chaperone
 complex is then targeted to the lysosome by binding to lysosome-associated
 membrane protein 2A (LAMP-2A) which carries out receptor-mediated translocation of the
 substrate into the lysosome for degradation [11,13]"
-p(HGNC:HSPA8) -> complex(p(HGNC:HSPA8),a(MESH:Proteins)) -> complex(p(HGNC:HSPA8),a(MESH:Proteins),p(HGNC:LAMP2))
+SET Confidence = "Medium"
+complex(p(HGNC:HSPA8),a(MESH:Proteins)) -> complex(p(HGNC:HSPA8),a(MESH:Proteins),p(HGNC:LAMP2))
 p(HGNC:LAMP2) -> tloc(a(MESH:Proteins),fromLoc(GO:intracellular),toLoc(GO:lysosome))
 tloc(a(MESH:Proteins),fromLoc(GO:intracellular),toLoc(GO:lysosome)) -> deg(a(MESH:Proteins))
+UNSET Confidence
 
 SET Evidence = "The initial step in autophagy involves expansion of a membranous structure called the
 “isolation membrane” or “phagophore” that engulfs a portion of the cell; the membrane
 eventually fuses to form a new double-membraned structure known as an autophagosome (Figure 1)."
+SET Confidence = "High"
 a(GO:phagophore) -> a(GO:autophagosome)
 a(GO:autophagosome) -> bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "The process of autophagy is controlled by parallel activation cascades that involve
 ubiquitin-like (UBL) protein modification, strikingly similar to the activation cascade that
 regulates the UPS (Figure 2a)."
+SET Confidence = "High"
 bp(GO:"protein ubiquitination") reg bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "In the first arm of the Atg conjugation system, phagophore
 membrane elongation is triggered through the sequential action of an E1-like protein (Atg7)
 and an E2-like protein (Atg10) leading to an isopeptide linkage between the C-terminal glycine
 the UBL protein Atg12 and a lysine residue of Atg5 (Figure 2b)."
+SET Confidence = "High"
 composite(p(HGNC:ATG7),p(HGNC:ATG10)) -> complex(p(HGNC:ATG12),p(HGNC:ATG5))
 composite(p(HGNC:ATG7),p(HGNC:ATG10))  -> a(GO:phagophore)
+UNSET Confidence
 
 SET Evidence = "These Atg12-Atg5 conjugates
 are further cross-linked to Atg16 to form a large (~350 kDa) multimeric complex, which has
 been thought to act as a structural support for membrane expansion [15]."
+SET Confidence = "High"
 complex(p(HGNC:ATG12),p(HGNC:ATG5)) -> complex(p(HGNC:ATG12),p(HGNC:ATG5),p(HGNC:ATG16L1))
 complex(p(HGNC:ATG12),p(HGNC:ATG5),p(HGNC:ATG16L1)) -> a(GO:phagophore)
+UNSET Confidence
 
 SET Evidence = "More recent work has demonstrated that the Atg12-Atg5 conjugate can function as an E3-like enzyme in the
 second arm of the Atg conjugation cascade to promote lipidation of Atg8 [16]"
+#Atg8 : GABARAPL2
+SET Confidence = "High"
 complex(p(HGNC:ATG12),p(HGNC:ATG5)) -> p(HGNC:GABARAPL2,pmod(GO:"protein lipidation"))
+UNSET Confidence
 
 SET Evidence = "In a second arm of the Atg conjugation system, Atg4 cleaves the UBL protein
 Atg8 to promote interaction with Atg7."
+SET Confidence = "High"
 p(HGNC:ATG4A) -> p(HGNC:GABARAPL2,frag("?"))
 p(HGNC:ATG4A) -> complex(p(HGNC:ATG4A),p(HGNC:ATG7))
+UNSET Confidence
 
 SET Evidence = "Atg8 is then conjugated with the phospholipid phosphotidylethanolamine (PE) by the
 concerted action of the E2-like Atg3 and the E3-like Atg12-Atg5 conjugate"
 # then: after cleavage
+SET Confidence = "High"
 composite(p(HGNC:ATG12),p(HGNC:ATG5),p(HGNC:ATG3)) -> complex(p(HGNC:GABARAPL2,frag("?")),a(CHEBI:phosphatidylethanolamine))
+UNSET Confidence
 
 SET Evidence = "Once formed, new autophagosomes move through a stepwise maturation process that
 culminates with fusion to a lysosome permitting degradation of the lumenal contents."
+SET Confidence = "High"
 a(GO:autophagosome) -> bp(GO:"autophagosome-lysosome fusion")
 bp(GO:"autophagosome-lysosome fusion") -> bp(GO:"protein catabolic process")
+UNSET Confidence
 
 SET Evidence = "In mammals, autophagosomes first fuse with endosomes and multivesicular bodies to form
 amphisomes, which subsequently fuse with lysosomes to create degradative vacuoles termed
 autolysosomes [17]."
+SET Confidence = "High"
 a(GO:autophagosome) -> complex(a(GO:endosome),a(GO:autophagosome),a(GO:"multivesicular body"))
 complex(a(GO:endosome),a(GO:autophagosome),a(GO:"multivesicular body")) -> a(GO:amphisome)
 a(GO:amphisome) -> complex(a(GO:amphisome),a(GO:lysosome))
 complex(a(GO:amphisome),a(GO:lysosome)) -> a(GO:autolysosome)
+UNSET Confidence
 
 SET Evidence = "While GABARAP and GATE-16 may also be conjugated to PE in experimental systems, at present MAP-LC3
 (typically abbreviated LC3) is the only protein that is known to remain associated with the
 autophagosome in higher eukaryotes."
+#GATE-16 : GABARAPL2
+SET Confidence = "High"
 p(HGNC:MAP1LC3B) -> complex(p(HGNC:MAP1LC3B),a(GO:autophagosome))
 p(HGNC:GABARAP) -> complex(p(HGNC:GABARAP),a(CHEBI:phosphatidylethanolamine))
 p(HGNC:GABARAPL2) -> complex(p(HGNC:GABARAPL2),a(CHEBI:phosphatidylethanolamine))
+UNSET Confidence
 
 SET Evidence = "LC3-I becomes conjugated to PE to form “LC3-II” and thereby
 covalently associates with the phagophore"
+SET Confidence = "High"
 p(HGNC:MAP1LC3B) -> complex(p(HGNC:MAP1LC3B),a(CHEBI:phosphatidylethanolamine))
 complex(p(HGNC:MAP1LC3B),a(CHEBI:phosphatidylethanolamine)) -> complex(p(HGNC:MAP1LC3B),a(CHEBI:phosphatidylethanolamine),a(GO:phagophore))
+UNSET Confidence
 
 SET Evidence = "LC3-II staining is also used as
 a primary histological marker of autophagosomes."
+SET Confidence = "High"
 complex(p(HGNC:MAP1LC3B),a(CHEBI:phosphatidylethanolamine)) -- a(GO:autophagosome)
+UNSET Confidence
 
 SET Evidence = "Many neurodegenerative diseases are characterized by accumulation of misfolded protein
 deposits in affected brain regions, suggesting a failure in the cell’s degradative capacity [19]."
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 path(MESH:"Neurodegenerative Diseases") pos p(MESH:Proteins,pmod(HBP:misfolding))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Indeed, experimental evidence indicates that neurodegeneration
 is frequently associated with impaired UPS function, although whether this is a cause or
 consequence of neurodegeneration is a contested issue, as is reviewed elsewhere in this special issue"
+SET Confidence = "High"
 path(HBP:Neurodegeneration) neg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+UNSET Confidence
 
 SET Evidence = "It has also been suggested that autophagy plays a role in the initiation or progression of
 some neurodegenerative diseases [20]."
+SET Confidence = "High"
 bp(GO:autophagy) -- path(MESH:"Neurodegenerative Diseases")
+UNSET Confidence
 
 SET Evidence = "This suggestion originates from the observed
 accumulation of autophagic vacuoles in neurons from affected brain regions in a number of
 neurodegenerative diseases, including Alzheimer’s disease, Parkinson’s disease, Creutzfeldt-
 Jakob disease, and many of the polyglutamine diseases [21–24]."
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 a(GO:autophagosome) pos path(MESH:"Alzheimer Disease")
 a(GO:autophagosome) pos path(MESH:"Parkinson Disease")
 a(GO:autophagosome) pos path(MESH:"Creutzfeldt-Jakob Syndrome")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Alzheimer’s disease pathology features massive accumulation of autophagic vacuoles within large
 swellings along dystrophic and degenerating neurites in neocortical and hippocampal pyramidal neurons [21]."
+SET Confidence = "High"
 SET MeSHAnatomy = {"Neurites","Pyramidal Cells","Hippocampus","Neocortex"}
 a(GO:autophagosome) pos path(MESH:"Alzheimer Disease")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In Huntington’s disease, affected neurons show accumulation of
 huntingtin in cathepsin-D-positive vacuoles [24]. Cathepsin-D is a lysosomal protease enriched
 in neuronal tissues, suggesting that these are autolysosomes"
+SET Confidence = "Medium"
+path(MESH:"Huntington Disease") -> p(HGNC:CTSD)
+p(HGNC:CTSD) isA a(GO:autolysosome)
 path(MESH:"Huntington Disease") pos a(GO:autolysosome)
+UNSET Confidence
 
 SET Evidence = "Insight into the role of autophagy in neurodegeneration has been provided by studies indicating that: 1) some
 neurodegenerative disease-related proteins are degraded by autophagy, 2) impairment of
 autophagy promotes neurodegeneration in animal models and several human
 neurodegenerative diseases, and 3) manipulation of autophagy modifies phenotypes in animal models of neurodegeneration."
+SET Confidence = "High"
 path(MESH:"Neurodegenerative Diseases") neg bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "That neurodegenerative disease-causing proteins are frequently degraded by autophagy was
 demonstrated by a series of in vitro studies which showed that pharmacological induction or
 inhibition of macroautophagy alters the rate of turnover of a number of disease-related proteins
 including polyglutamine-expanded proteins, polyalanine-expanded proteins, as well as wild
 type and mutant forms of α-synuclein [25,26]"
+SET Confidence = "High"
 bp(GO:autophagy) -> deg(p(HGNC:SNCA))
 bp(GO:autophagy) -> deg(p(HGNC:SNCA,var("?")))
+UNSET Confidence
 
 SET Evidence = "CMA has also been found to contribute to the degradation of α-synuclein [29]."
+SET Confidence = "High"
 bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:SNCA))
+UNSET Confidence
 
 SET Evidence = "In the case of α-synuclein, for example, Webb et
 al. concluded that soluble forms of the disease protein are efficiently degraded by the UPS,
 while aggregated or oligomeric α-synuclein require autophagy for clearance [26]."
+SET Confidence = "Medium"
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(HGNC:SNCA))
-bp(GO:autophagy) -> a(HBP:"alpha-synuclein aggregates")
-bp(GO:autophagy) -> a(HBP:"alpha-synuclein oligomers")
+bp(GO:autophagy) -> deg(a(HBP:"alpha-synuclein aggregates"))
+bp(GO:autophagy) -> deg(a(HBP:"alpha-synuclein oligomers"))
+UNSET Confidence
 
 SET Evidence = "It is becoming increasingly evident that the autophagy-lysosomal system is essential to
 neuronal homeostasis, and may in some settings be neuroprotective"
+SET Confidence = "High"
 bp(GO:autophagy) reg bp(GO:"neuron cellular homeostasis")
 bp(GO:autophagy) -| path(HBP:Neurodegeneration)
+UNSET Confidence
 
 SET Evidence = "The consequences of impaired lysosome function, for example, may be observed in cathepsin D knockout mice and
 Drosophila melanogaster cathepsin D mutants which show neurodegeneration and associated
 accumulation of autophagosomes and lysosomes [33–35]."
+SET Confidence = "Medium"
+SET Species = {"7227","10090"}
 p(HGNC:CTSD) -| path(HBP:Neurodegeneration)
 p(HGNC:CTSD) neg a(GO:lysosome)
 p(HGNC:CTSD) neg a(GO:autophagosome)
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Indeed, primary lysosomal dysfunction in inherited congenital “lysosomal storage disorders” has long
 been recognized to cause severe neurodegenerative phenotypes characterized pathologically
 by accumulations of lysosomes and autophagic vacuoles [38]"
+SET Confidence = "High"
 act(a(GO:lysosome)) -| path(HBP:Neurodegeneration)
 act(a(GO:lysosome)) -> a(GO:autophagosome)
 act(a(GO:lysosome)) -> a(GO:lysosome)
+UNSET Confidence
 
 SET Evidence = "For example, the neuronal ceroid
 lipofuscinoses (NCLs) are a heterogeneous group of inherited, neurodegenerative disorders
 with onset ranging from infancy to late adulthood that are caused by a variety of defects in
 lysosomal function."
+SET Confidence = "High"
 act(a(GO:lysosome)) neg path(MESH:"Neuronal Ceroid-Lipofuscinoses")
+UNSET Confidence
 
 SET Evidence = "Mutations in CLN3, a transmembrane protein that localizes to
 the late endosomal/lysosomal membrane, cause a form of NCL"
+SET Confidence = "High"
 p(HGNC:CLN3,var("?")) -> path(MESH:"Neuronal Ceroid-Lipofuscinoses")
+UNSET Confidence
 
 SET Evidence = "CLN3-related neurodegeneration appears to be a consequence of reduced autophagosome-lysosome fusion [42]."
+SET Confidence = "High"
 a(GO:autolysosome) -| path(HBP:Neurodegeneration)
+UNSET Confidence
 
 SET Evidence = "Diseasecausing mutations in ATP13A2 result in protein retention in the endoplasmic reticulum and
 enhanced proteasomal degradation, suggesting that neurodegeneration could be caused by
 overwhelming the UPS and/or loss of function in lysosomal protein degradation [39]."
+SET Confidence = "High"
 p(HGNC:ATP13A2,var("?")) -> bp(GO:"proteasomal protein catabolic process")
 p(HGNC:ATP13A2,var("?")) -> path(HBP:Neurodegeneration)
+UNSET Confidence
 
 SET Evidence = "Rab7 participates in trafficking autophagosomes and fusion with lysosomes and disease-causing
 mutations are predicted to impair this process [43–45]."
+SET Confidence = "High"
 p(HGNC:RAB7A) -> bp(GO:"autophagosome-lysosome fusion")
 p(HGNC:RAB7A,var("?")) -| bp(GO:"autophagosome-lysosome fusion")
+UNSET Confidence
 
 SET Evidence = "Microtubule-based vesicular
 trafficking is essential for delivery of autophagosomes to lysosomes and subsequent fusion
 [46], and impaired dynein-mediated trafficking is associated with impaired autophagosome/
 lysosome fusion and reduced protein turnover [47,48]."
+SET Confidence = "High"
 a(GO:microtubule) -> bp(GO:"autophagosome-lysosome fusion")
 a(MESH:Dyneins) -> bp(GO:"autophagosome-lysosome fusion")
+UNSET Confidence
 
 SET Evidence = "Indeed, a mouse model of distal-SBMA that expresses mutant p150/dynactin is characterized by
 accumulation of ubiquitin-positive aggregates and autophagic vacuoles in affected neurons [49]."
+SET Confidence = "High"
 p(HGNC:DCTN1,var("?")) pos a(GO:autophagosome)
+UNSET Confidence
 
 SET Evidence = "For example, in a Drosophila model of X-linked spinobulbar
 muscular atrophy (SBMA), a polyglutamine disease, degeneration was strongly enhanced by
 genetic inhibition of autophagy [50]."
+SET Confidence = "Medium"
+SET Species = "7227"
 bp(GO:autophagy) neg path(MESH:"Bulbo-Spinal Atrophy, X-Linked")
+UNSET Species
+UNSTE Confidence
 
 SET Evidence = "Similarly, in transgenic mice expressing amyloid
 precursor protein, a mouse model of Alzheimer’s disease, genetic inhibition of autophagy by
 heterozygous depletion of beclin-1 results in enhancement of neurodegeneration [51]."
+SET Confidence = "Medium"
+SET Species = "10090"
 SET MeSHDisease = "Alzheimer Disease"
+p(HGNC:BECN1) -> bp(GO:autophagy)
 bp(GO:autophagy) -| path(HBP:Neurodegeneration)
 UNSET MeSHDisease
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Pharmacological upregulation of autophagy can be
 accomplished using the drug rapamycin, which works by inhibiting TOR (target of rapamycin),
 a pleiotropic molecule that negatively regulates autophagy, among other functions"
+SET Confidence = "Medium"
 a(CHEBI:sirolimus) -| act(p(HGNC:MTOR))
+p(HGNC:MTOR) neg bp(GO:autophagy)
 a(CHEBI:sirolimus) -> bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "Indeed, treatment with rapamycin ameliorates the degenerative phenotype in a Drosophila model of
 SBMA, as well as in Drosophila and mouse models of Huntington’s disease [48,50,52]."
+SET Confidence = "Meidum"
+SET Species = "7227"
 a(CHEBI:sirolimus) -| path(MESH:"Bulbo-Spinal Atrophy, X-Linked")
+SET Species = "10090"
 a(CHEBI:sirolimus) -| path(MESH:"Huntington Disease")
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "In addition, inducing autophagy in an TOR-independent manner using lithium [53] or trehalose
 [54–56] has been shown to accelerate clearance of disease proteins in vitro [56] and protect
 against neurodegeneration in mouse and Drosophila models of Huntington’s disease [53,54]."
+SET Confidence = "Medium"
+SET Species = {"7227","10090"}
 SET MeSHDisease = "Huntington Disease"
 a(CHEBI:"lithium(1+)") -> bp(GO:autophagy)
 a(CHEBI:"lithium(1+)") -| path(HBP:Neurodegeneration)
 a(CHEBI:"alpha,alpha-trehalose") -> bp(GO:autophagy)
 a(CHEBI:"alpha,alpha-trehalose") -| path(HBP:Neurodegeneration)
 UNSET MeSHDisease
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "There have been fewer efforts to manipulate UPS
 function for therapeutic benefit in neurodegenerative disease, but it was recently shown that
 use of a proteasome activator enhanced survival in an in vitro model of Huntington’s disease
 [58], suggesting that augmenting other routes of protein degradation may also provide
 neuroprotection."
+SET Confidence = "High"
 SET MeSHDisease = "Huntington Disease"
 act(complex(GO:"proteasome complex")) -| path(HBP:Neurodegeneration)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "For example, α-synuclein is degraded at least in part by CMA [29]."
+SET Confidence = "High"
 bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:SNCA))
+UNSET Confidence
 
 SET Evidence = "Mutations in α-synuclein that
 are causative of familial Parkinson’s disease are poorly transferred to the lysosomal lumen and
 accumulate on the lysosomal surface, resulting in blockade of receptor-mediated translocation."
+SET Confidence = "High"
 p(HGNC:SNCA,var("?")) -> path(MESH:"Parkinson Disease")
 p(HGNC:SNCA,var("?")) -| tloc(p(HGNC:SNCA,var("?")),fromLoc(GO:cytoplasm),toLoc(GO:"lysosomal lumen")))
+UNSET Confidence
 
 SET Evidence = "Several lines of evidence
 suggest that there is an impairment of autophagy resulting from impaired autophagosome-lysosome
 fusion combined with decreasing efficiency of the lysosomal system [60]."
 # with regard to Alzheimer's Disease
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 bp(GO:"autophagosome-lysosome fusion") -> bp(GO:autophagy)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Recent evidence suggests that the autophagic turnover of amyloid beta precursor protein (APP) may underlie
 the generation of toxic amyloid-β species [61]."
+SET Confidence = "High"
 a(CHEBI:"amyloid-beta") -- deg(p(HGNC:APP))
 bp(GO:autophagy) -> deg(p(HGNC:APP))
+UNSET Confidence
 
 SET Evidence = "This view was initially challenged by the observation that
 monoubiquitination operates as a key signal in endocytosis, a process important for numerous
 cell functions including lysosomal biogenesis [62]"
+SET Confidence = "High"
 bp(GO:"protein monoubiquitination") -> bp(GO:endocytosis)
 bp(GO:endocytosis) -> a(GO:lysosome)
+UNSET Confidence
 
 SET Evidence = "The neuronal protein α-synuclein, for example, can be degraded by the UPS, macroautophagy and
 chaperone-mediated autophagy [26,29]."
+SET Confidence = "High"
 bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:SNCA))
 bp(GO:macroautophagy) -> deg(p(HGNC:SNCA))
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(HGNC:SNCA))
+UNSET Confidence
 
 SET Evidence = "As mentioned above, dramatic illustration of the
 interrelatedness of the UPS and autophagy was provided by characterizations of mice with
 conditional knockout of the essential autophagy genes Atg5 or Atg7 in the central nervous
 system, which resulted in neurodegeneration with accumulation of ubiquitin-positive
 pathology [36,37]."
+SET Confidence = "Medium"
+SET Species = "10090"
+SET Cell = "central nervous system neuron"
 p(HGNC:ATG5) -| path(HBP:Neurodegeneration)
 p(HGNC:ATG7) -| path(HBP:Neurodegeneration)
+UNSET Cell
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "This model is consistent with an older study showing that inactivation of the
 ubiquitin-activating enzyme E1 leads to a defect in autolysosomal degradation and to an
 absence of ubiquitin-positive proteins within lysosomes [68]."
+SET Confidence = "High"
 p(HGNC:UBA1) -> bp(GO:autophagy)
 p(HGNC:UBA1) -> bp(GO:"protein ubiquitination")
+UNSET Confidence
 
 SET Evidence = "It has been inferred that aggresome formation in vitro is a cytoprotective response in cultured cells since
 their formation correlates inversely with cell death, whereas interventions that block aggresome
 formation enhance cytotoxicity and slow the rate of turnover of misfolded proteins [27,64,70–72]"
+SET Confidence = "High"
 a(GO:aggresome) neg bp(GO:"cell death")
+UNSET Confidence
 
 SET Evidence = "It has now been established that
 clearance of misfolded proteins from aggresomes is mediated at least in part by autophagy,
 implicating this pathway as a compensatory mechanism for degrading misfolded proteins when
 the proteasome is impaired [27,64,71,73]."
+SET Confidence = "High"
 bp(GO:autophagy) reg deg(p(MESH:Proteins,pmod(HBP:misfolding)))
+UNSET Confidence
 
 SET Evidence = "In addition to aggresome formation, impairment of the UPS in vitro has been found to induce
 autophagy [63,64]."
+SET Confidence = "High"
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") neg bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "Similar induction of autophagy is observed in response to genetic impairment of the proteasome
 in Drosophila [50]."
+SET Confidence = "Medium"
+SET Species = "7227"
 act(complex(GO:"proteasome complex")) neg bp(GO:autophagy)
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Similar results have recently been observed in vitro using the proteasome inhibitor lactacystin,
 as pre-treatment with rapamycin attenuates lactacystin-induced apoptosis and reduces
 lactacystin-induced ubiquitinated protein aggregation [74]."
-composite(a(CHEBI:lactacystin),a(CHEBI:sirolimus)) -| bp(GO:"apoptotic process")
+SET Confidence = "Medium"
+composite(a(CHEBI:lactacystin),a(CHEBI:sirolimus)) -> bp(GO:"apoptotic process")
 composite(a(CHEBI:lactacystin),a(CHEBI:sirolimus)) -| p(MESH:Proteins,pmod(ubiquitination))
+UNSET Confidence
 
 SET Evidence = "Although the mechanism whereby autophagy and UPS function are coordinated is little
 understood, several regulators have emerged as important players in mediating this crosstalk,
 including histone deacetylase 6 (HDAC6) [50,64,75], p62/sequestosome 1 (p62) [76], and the
 FYVE-domain containing protein Alfy [77]; notably, these proteins have all been found to
 regulate or be essential for aggresome formation"
+SET Confidence = "High"
 p(HGNC:HDAC6) reg bp(GO:autophagy)
 p(HGNC:HDAC6) reg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
 p(HGNC:HDAC6) reg a(GO:aggresome)
@@ -469,71 +620,100 @@ p(HGNC:SQSTM1) reg a(GO:aggresome)
 p(HGNC:WDFY3) reg bp(GO:autophagy)
 p(HGNC:WDFY3) reg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
 p(HGNC:WDFY3) reg a(GO:aggresome)
+UNSET Confidence
 
 SET Evidence = "HDAC6 activity
 appears to be important for trafficking ubiquitinated proteins and lysosomes in vitro and this
 has led to the suggestion that HDAC6 coordinates delivery of substrates to autophagic
 machinery [64,70,78]."
+SET Confidence = "High"
 p(HGNC:HDAC6) -> tloc(p(MESH:Proteins,pmod(ubiquitination)),fromLoc(GO:cytoplasm),toLoc(GO:lysosome))
+UNSET Confidence
 
 SET Evidence = "HDAC6 activity was also reported to regulate chaperone expression in
 response to heat shock by deacetylating Hsp90 leading to release and activation of the
 transcription factor HSF-1 [79]."
+SET Confidence = "High"
 p(HGNC:HDAC6) -> bp(GO:"Hsp90 deacetylation")
 p(HGNC:HDAC6)  reg complex(GO:"chaperone complex")
 bp(GO:"Hsp90 deacetylation") -> act(p(HGNC:HSF1))
+UNSET Confidence
 
 SET Evidence = "Cellular stresses such as polyQ
 expression, proteasome impairment, oxidative stress, and increased misfolded protein burden
 activate transcription and translation of p62, suggesting that it functions broadly in stress
 situations [83,84]"
+SET Confidence = "Medium"
 bp(GO:"cellular response to stress") -> p(HGNC:SQSTM1)
 bp(GO:"response to oxidative stress") -> p(HGNC:SQSTM1)
 p(MESH:Proteins,pmod(HBP:misfolding)) -> p(HGNC:SQSTM1)
 act(complex(GO:"proteasome complex")) -| p(HGNC:SQSTM1)
+bp(GO:"cellular response to stress") -> r(HGNC:SQSTM1)
+bp(GO:"response to oxidative stress") -> r(HGNC:SQSTM1)
+p(MESH:Proteins,pmod(HBP:misfolding)) -> r(HGNC:SQSTM1)
+act(complex(GO:"proteasome complex")) -| r(HGNC:SQSTM1)
+UNSET Confidence
 
 SET Evidence = "p62 localizes to a variety of ubiquitin-positive neuropathological inclusions
 including Lewy bodies in Parkinson’s disease, neurofibrillary tangles in tauopathies,
 polyglutamine-expanded huntingtin aggregates in Huntington’s disease, and aggregates of
 mutant SOD1 in familial amyotrophic lateral sclerosis [85–87]."
+SET Confidence = "Medium"
 SET MeSHDisease = "Parkinson Disease"
 p(HGNC:SQSTM1) -- a(GO:"Lewy body")
+UNSET MeSHDisease
 SET MeSHDisease = "Alzheimer Disease"
 p(HGNC:SQSTM1) -- a(GO:"neurofibrillary tangle")
+UNSET MeSHDisease
+SET MeSHDisease = "Huntington Disease"
+p(HGNC:SQSTM1) -- a(MESH:Huntingtin Protein)
+UNSET MeSHDisease
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 p(HGNC:SQSTM1) -- p(HGNC:SOD1,var("?"))
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Thus, it has been suggested that p62 provides a key link
 between autophagy and the UPS by facilitating autophagic degradation of ubiquitinated
 proteins."
+SET Confidence = "High"
 p(HGNC:SQSTM1) -> bp(GO:autophagy)
 p(HGNC:SQSTM1) -> deg(p(MESH:Proteins,pmod(ubiquitination)))
 p(HGNC:SQSTM1) -> bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+UNSET Confidence
 
 SET Evidence = "Recent models propose that p62 and HDAC6 function analogously to
 facilitate autophagic degradation of proteins that display specific polyubiquitin topology."
+SET Confidence = "High"
 p(HGNC:SQSTM1) -> bp(GO:autophagy)
 p(HGNC:SQSTM1) -> bp(GO:"ubiquitin-dependent protein catabolic process")
 p(HGNC:HDAC6) -> bp(GO:autophagy)
 p(HGNC:HDAC6) -> bp(GO:"ubiquitin-dependent protein catabolic process")
+UNSET Confidence
 
 SET Evidence = "Specifically, it is suggested that K63-linked polyubiquitin chains recruit p62 and
 HDAC6 providing a signal for autophagic degradation [92,93]."
+SET Confidence = "High"
 bp(GO:"protein K63-linked ubiquitination") -> act(p(HGNC:SQSTM1))
 bp(GO:"protein K63-linked ubiquitination") -> act(p(HGNC:HDAC6))
 bp(GO:"protein K63-linked ubiquitination") -> bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "In cells that are exposed
 to stressors such as starvation or UPS inhibition, Alfy relocalizes from the nuclear envelope
 to filamentous cytoplasmic structures that are near autophagic membranes and ubiquitinated
 protein inclusions, as well as within autophagosomes [77]."
+SET Confidence = "High"
 path(MESH:Starvation) -> tloc(p(HGNC:WDFY3),fromLoc(GO:nucleus),toLoc(GO:cytoplasm))
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -| tloc(p(HGNC:WDFY3),fromLoc(GO:nucleus),toLoc(GO:cytoplasm))
 tloc(p(HGNC:WDFY3),fromLoc(GO:nucleus),toLoc(GO:cytoplasm)) -> bp(GO:"protein ubiquitination")
+UNSET Confidence
 
 SET Evidence = "Mutations in blue cheese, the
 Drosophila homology of human Alfy, lead to reduced longevity and the accumulation of
 ubiquitinated neural aggregates, suggesting that its role in autophagic degradation may be
 involved in the clearance of ubiquitin aggregates [77,94]"
+SET Confidence = "Medium"
+SET Species = "7227"
 p(HGNC:WDFY3) -> bp(GO:"ubiquitin-dependent protein catabolic process")
+UNSET Confidence
