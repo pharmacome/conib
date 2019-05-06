@@ -108,6 +108,7 @@ C, inositol trisphosphate, cAMP, and free calcium."
 SET Confidence = "Medium"
 SET Species = "41956"
 a(CHEBI:Muscarine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic"))
+#Initially the Statement was a(TAXONOMY:41956) -> a(CHEBI:Muscarine) out of which species was extracted
 UNSET Species
 SET Species = "33113"
 a(CHEBI:atropine) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic"))
@@ -116,6 +117,7 @@ act(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic")) reg p(FPLX:PLC)
 act(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic")) reg a(CHEBI:"3',5'-cyclic AMP")
 act(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic")) reg a(CHEBI:"myo-inositol trisphosphate")
 act(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic")) reg a(CHEBI:"calcium ion")
+#species was set and unset
 UNSET Confidence
 
 SET Evidence = "The other subtype of AChR is the fast ionotropic
@@ -156,6 +158,7 @@ from choline and acetyl-CoA, through the action
 of choline acetyltransferase, that alters cell function."
 SET Confidence = "Medium"
 a(CHEBI:acetylcholine) -| bp(MESH:"Heart Rate" )
+#heart rate was converted from pathology to bp
 a(CHEBI:acetylcholine) -- bp(GO:signaling)
 act(p(HGNC:CHAT)) => rxn(reactants(a(CHEBI:choline), a(CHEBI:"acetyl-CoA")),products(a(CHEBI:acetylcholine)))
 UNSET Confidence
@@ -169,6 +172,7 @@ p(HGNC:CHRNB1, loc(MESH:Muscles))
 p(HGNC:CHRND, loc(MESH:Muscles))
 p(HGNC:CHRNG, loc(MESH:Muscles))
 p(HGNC:CHRNE, loc(MESH:Muscles))
+#CHRNA4 and CHRNG was added wrt evidence
 UNSET Confidence
 
 SET Evidence = "Neuronal nAChRs can be homopentamers
@@ -241,6 +245,7 @@ a(CHEBI:nicotine) cnc a(MESH:Manduca)
 SET Species = "7130"
 
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits", var("?")) -| bp(GO:"response to nicotine")
+#altered amino acid sequence in nAChR is stated
 a(MESH:Manduca) -- bp(GO:"establishment of blood-brain barrier")
 
 UNSET Species
@@ -269,6 +274,7 @@ and a near-covalent affinity, it was an invaluable tool in
 the purification of the first nAChRs (discussed above)."
 SET Confidence = "Medium"
 a(TAXONOMY:8616) -> a(HBP:"alpha-Bungarotoxin")
+#snake producing alphaBGT
 a(HBP:"alpha-Bungarotoxin") -> complex(a(HBP:"alpha-Bungarotoxin"), p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits", loc(MESH:Muscles)))
 UNSET Confidence
 
@@ -302,6 +308,7 @@ SET Confidence = "Medium"
 a(MESH:Conotoxins) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 a(MESH:Conotoxins) -| act(p(HGNCGENEFAMILY:"Potassium voltage-gated channels"))
 a(MESH:Conotoxins) -| act(p(MESH:"Voltage-Gated Sodium Channels"))
+#Sodium channels were shifted from abundance to protein
 UNSET Confidence
 
 SET Evidence = "In addition to nicotine, an nAChR agonist of considerable
@@ -395,11 +402,12 @@ transcript generally dominates in the prenatal brain or in
 injured neurons, whereas its expression tends to be
 downregulated in the adult or healthy neuron, and alpha4
 transcription is increased."
-SET Confidence = "Low"
+SET Confidence = "Medium"
 a(MESH:Fetus) -> r(HGNC:CHRNA3, loc(MESH:Brain))
 path(MESH:"Trauma, Nervous System") -> r(HGNC:CHRNA3, loc(MESH:Brain))
 a(MESH:Adult) -| r(HGNC:CHRNA3, loc(MESH:Neurons))
 a(MESH:Adult) -> r(HGNC:CHRNA4, loc(MESH:Neurons))
+#instead of stating neurons separately, they were added as location
 UNSET Confidence
 
 SET Evidence = "This is particularly true of the highly conserved gene
@@ -500,6 +508,7 @@ a(MESH:Muscles) -> r(HGNC:CHRNB1)
 a(MESH:Muscles) -> r(HGNC:CHRND)
 a(MESH:Muscles) -> r(HGNC:CHRNG)
 complex(p(HGNC:CHRNA1), p(HGNC:CHRNA1),p(HGNC:CHRNB1), p(HGNC:CHRND), p(HGNC:CHRNG)) -> complex(p(HGNC:CHRNA1), p(HGNC:CHRNA1),p(HGNC:CHRNB1), p(HGNC:CHRND), p(HGNC:CHRNG), loc(GO:"cell surface"))
+#CHRNB1 was written instead of CHRNA1
 UNSET Confidence
 
 SET Evidence = "In receptors
@@ -512,7 +521,9 @@ increases, transcription of the epsilon subunit is increased
 dramatically (183)."
 SET Confidence = "Medium"
 act(p(HGNC:CHRNG)) -> bp(GO:"long-term synaptic potentiation")
-bp(GO:"long-term synaptic potentiation") -> bp(GO:"depolarization of postsynaptic membrane"), bp(GO:"receptor clustering")
+bp(GO:"long-term synaptic potentiation") -> bp(GO:"depolarization of postsynaptic membrane")
+bp(GO:"long-term synaptic potentiation") -> bp(GO:"receptor clustering")
+#changed wrt evidence
 bp(GO:"depolarization of postsynaptic membrane") -> r(HGNC:CHRNE)
 UNSET Confidence
 
@@ -552,6 +563,7 @@ subsequently interact with the beta subunit to assemble the
 mature pentamer."
 SET Confidence = "Medium"
 composite(complex(p(HGNC:CHRNA1), p(HGNC:CHRNG)), complex(p(HGNC:CHRNA1), p(HGNC:CHRND))) -> complex(p(HGNC:CHRNA1), p(HGNC:CHRNB1), p(HGNC:CHRNG), p(HGNC:CHRND), p(HGNC:CHRNA1))
+#typo hence corrected wrt evidence
 UNSET Confidence
 
 SET Evidence = "A similar level of fidelity in nAChR assembly is
@@ -560,6 +572,7 @@ and beta2 nAChR interact with each other to form functional
 receptors in heterologous systems such as oocytes."
 SET Confidence = "Medium"
 a(MESH:Oocytes) -- complex(p(HGNC:CHRNA4), p(HGNC:CHRNA7), p(HGNC:CHRNB2))
+#complex used instead of composite
 UNSET Confidence
 
 SET Evidence = "However,
@@ -580,6 +593,7 @@ receptors of alpha3beta4 and alpha4beta2 subunit composition (150,
 471)."
 SET Confidence = "Medium"
 a(MESH:Ganglia) -> p(HBP:"alpha-3 beta-4 nAChR")
+#beta4 is there instead of beta3
 a(MESH:Ganglia) -> p(HBP:"alpha-4 beta-2 nAChR")
 UNSET Confidence
 
@@ -602,6 +616,7 @@ SET Confidence = "Medium"
 SET CellLine = "HEK293"
 
 composite(a(MESH:"HEK293 Cells"), g(HGNC:CHRNA7)) -> r(HGNC:CHRNA7))
+#transcripts of CHRNA7 increased
 composite(a(MESH:"HEK293 Cells"), g(HGNC:CHRNA7)) -| act(p(HGNC:CHRNA7))
 
 UNSET CellLine
@@ -623,11 +638,10 @@ SET Evidence = "Only two of these
 cell lines expressed alpha7 nAChRs: GH4C1 cells expressed
 substantially greater numbers of surface receptors than
 did SH-EP1 cells, which exhibited poor assembly efficiency."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET CellLine = "GH4-C1 cell"
-
 g(HGNC:CHRNA7) -> p(HGNC:CHRNA7)
-
+composite(g(HGNC:CHRNA4), g(HGNC:CHRNB2)) -> complex(p(HGNC:CHRNA4), p(HGNC:CHRNB2))
 UNSET CellLine
 UNSET Confidence
 
@@ -656,8 +670,9 @@ expression (131, 485). This might also be conditional,
 since reducing agents such as dithiothreitol (176) can
 disrupt the role of this structure in receptor assembly and
 expression."
-SET Confidence = "Low"
+SET Confidence = "Medium"
 p(MESH:"Cysteine Loop Ligand-Gated Ion Channel Receptors") isA p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+#p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") isA p(MESH:"Cysteine Loop Ligand-Gated Ion Channel Receptors")- this Statement was replaced by seemingly apt Statement
 UNSET Confidence
 
 SET Evidence = "Another significant assembly checkpoint to ensure
@@ -698,6 +713,7 @@ that are trafficked to the cell surface."
 SET Confidence = "Medium"
 a(CHEBI:"proteasome inhibitor") -| deg(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits", loc(GO:"endoplasmic reticulum")))
 a(CHEBI:"proteasome inhibitor") -> bp(HBP:"nAChR assembly")
+#added wrt evidence
 UNSET Confidence
 
 SET Evidence = "When
@@ -780,7 +796,7 @@ appears to upregulate the expression of receptors
 assembled from alpha4/alpha6/beta2/beta3 input cDNA (363), and this
 may depend on numerous factors including ligand concentrations
 (483)."
-SET Confidence = "Low"
+SET Confidence = "Medium"
 SET Species = {"9989", "7711"}
 SET MeSHAnatomy = "Brain"
 
@@ -793,7 +809,7 @@ composite(a(CHEBI:nicotine),g(HGNC:CHRNA4)) -> p(HGNC:CHRNA4)
 composite(a(CHEBI:nicotine),g(HGNC:CHRNA6)) -> p(HGNC:CHRNA6)
 composite(a(CHEBI:nicotine),g(HGNC:CHRNB2)) -> p(HGNC:CHRNB2)
 composite(a(CHEBI:nicotine),g(HGNC:CHRNB3)) -> p(HGNC:CHRNB3)
-
+#instead of all components together in composite, they were set differently
 UNSET Confidence
 
 SET Evidence = "Evidence from a
@@ -1049,6 +1065,7 @@ a(CHEBI:codeine) cnc a(MESH:Cholinesterases)
 a(CHEBI:codeine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 a(HBP:"FK1 antibody") -| a(CHEBI:codeine)
 a(CHEBI:"nicotinic antagonist") cnc a(CHEBI:codeine))
+#Statement added wrt evidence
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -1090,6 +1107,7 @@ a(CHEBI:galanthamine) -| path(HBP:Neurodegeneration)
 a(CHEBI:galanthamine) -> bp(GO:"synaptic transmission, cholinergic")
 bp(GO:"synaptic transmission, cholinergic") -> bp(GO:cognition)
 path(HBP:Neurodegeneration) -> bp(GO:cognition)
+#above two Statements added wrt evidence
 UNSET Confidence
 
 SET Evidence = "Of note is that in both of these catastrophic
@@ -1301,6 +1319,7 @@ a(CHEBI:galanthamine) -| p(HGNC:ACHE)
 a(CHEBI:donepezil) -| p(HGNC:ACHE)
 a(CHEBI:rivastigmine) -| p(HGNC:ACHE)
 act(p(HGNC:ACHE)) -| a(MESH:Acetylcholine)
+#Statement added wrt to evidence
 UNSET Confidence
 
 SET Evidence = "Other endogenous ligands that impact on the activity
@@ -1499,7 +1518,7 @@ protein (CREB) and the activating transcription factor 2
 factor Elk-1 in the rat hippocampus (349), and
 the signal transducer and activator of transcription
 (STAT3) in macrophages and skin cells (114, 354)."
-SET Confidence = "Low"
+SET Confidence = "Medium"
 SET MeSHAnatomy = "PC12 Cells"
 
 act(a(CHEBI:nicotine)) -> act(p(FPLX:CREB), ma(tscript))
@@ -1518,7 +1537,7 @@ UNSET Species
 SET MeSHAnatomy = {"Macrophages", "Skin"}
 
 act(a(CHEBI:nicotine)) -> act(p(HGNC:STAT3), ma(tscript))
-
+#transcription was added in Statements as molecular activity
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -1636,12 +1655,13 @@ Other receptors are clearly involved in this process,
 since atropine, a muscarinic and sometimes nAChR inhibitor
 (531, 532), reduces cell adhesion through decreasing
 desmoligein expression."
-SET Confidence = "Low"
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Keratinocytes"
 
 p(HGNC:CHRNA7) reg bp(GO:"cell cycle")
 p(HGNC:CHRNA7) reg bp(MESH:Apoptosis)
 p(HGNC:CHRNA7) reg bp(MESH:"Cell Differentiation")
+#above two Statements were added wrt evidence
 a(CHEBI:atropine) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic"))
 a(CHEBI:atropine) -| bp(GO:"cell adhesion")
 
@@ -1863,6 +1883,7 @@ antagonized by the coadministration of nicotine."
 SET Confidence = "Medium"
 p(HGNC:PTGS2) -- p(HGNC:CHRNA4)
 a(CHEBI:"NS-398") -> p(HGNC:CHRNA4)
+#instead of being blocked, CNRNA4 is increased
 a(CHEBI:nicotine) -| act(a(CHEBI:"NS-398"))
 UNSET Confidence
 
