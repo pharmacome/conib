@@ -75,67 +75,87 @@ these broadly distributed receptors participate in arousal, motivation,
 and numerous aspects of cognition (Gotti and Clementi,
 2004; Hogg et al., 2003; Le Nove` re et al., 2002; Lindstrom, 1997;
 Picciotto, 2003; Role and Berg, 1996)."
+SET Confidence = "High"
 p(FPLX:CHRN) -- path(MESH:Arousal)
 p(FPLX:CHRN) -- path(MESH:Motivation)
 p(FPLX:CHRN) -- bp(GO:cognition)
 UNSET Confidence
 
 SET Evidence = "nAChRs also underlie the behavioral and addictive properties of nicotine"
+SET Confidence = "High"
 a(CHEBI:nicotine) reg p(FPLX:CHRN)
+UNSET Confidence
 
 SET Evidence = "At the cellular level, nAChRs can underlie synaptic responses,
 neuronal excitability, and neurotransmitter release (Dajas-Bailador
 and Wonnacott, 2004; Gotti and Clementi, 2004; Hogg et al., 2003)"
+SET Confidence = "High"
 act(a(GO:synapse)) reg p(FPLX:CHRN)
 bp(GO:"neuronal action potential") reg p(FPLX:CHRN)
 bp(GO:"neurotransmitter secretion") reg p(FPLX:CHRN)
+UNSET Confidence
 
 SET Evidence = "In substantia nigra, postsynaptic nicotinic receptors
 induce inward currents to excite dopaminergic neurons that
 project to corpus striatum (Matsubayashi et al., 2003)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Substantia Nigra"
 act(p(FPLX:CHRN)) -> act(a(MESH:"Dopaminergic Neurons"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Through these postsynaptic effects and by influencing neural excitability, nAChRs
 can modulate or induce synaptic plasticity (Yakel, 2014)"
+SET Confidence = "High"
 p(FPLX:CHRN) -> bp(GO:"positive regulation of synaptic plasticity")
+UNSET Confidence
 
 SET Evidence = "Indeed, presynaptic effects of nAChRs in regulating dopamine release
 in basal ganglia and prefrontal cortex likely participate in nicotine’s
 addictive and cognitive effects, respectively (Jasinska et al., 2014)"
+SET Confidence = "Medium"
 SET MeSHAnatomy = {"Prefrontal Cortex","Basal Ganglia"}
 p(FPLX:CHRN) -> bp(GO:"dopamine secretion")
 UNSET MeSHAnatomy
-p(FPLX:CHRN) -> bp(GO:cognition)
+p(FPLX:CHRN) -- bp(GO:cognition)
+#participation of CHRN in cognition and Tobacco use disorder
 p(FPLX:CHRN) -- path(MESH:"Tobacco Use Disorder")
+UNSET Confidence
 
 SET Evidence = "The neuronal nAChR family comprises numerous subtypes of
 protein pentamers derived from nine alpha (alpha2–alpha10) and three beta
 (beta2–beta4) subunits (Gotti and Clementi, 2004; Hogg et al., 2003;
 Le Nove` re et al., 2002; Lindstrom, 1997; Picciotto, 2003; Role and Berg, 1996)"
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Neurons"
-p(FPLX:CHRN) hasMembers list(p(HGNC:CHRNA1),p(HGNC:CHRNA2),p(HGNC:CHRNA3),p(HGNC:CHRNA4),p(HGNC:CHRNA5),p(HGNC:CHRNA6),p(HGNC:CHRNA7),p(HGNC:CHRNA9),p(HGNC:CHRNA10))
+p(FPLX:CHRN) hasMembers list(p(HGNC:CHRNA2),p(HGNC:CHRNA3),p(HGNC:CHRNA4),p(HGNC:CHRNA5),p(HGNC:CHRNA6),p(HGNC:CHRNA7),p(HGNC:CHRNA9),p(HGNC:CHRNA10))
 p(FPLX:CHRN) hasMembers list(p(HGNC:CHRNB2),p(HGNC:CHRNB3),p(HGNC:CHRNB4))
+#CHRNA1 was not included in evidence
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Homomeric alpha7 receptors are also abundant and are of particular
 interest as they show very high calcium permeability and are
 linked to both physiological and disease processes (Gotti and
 Clementi, 2004; Hogg et al., 2003; Le Nove` re et al., 2002; Lindstrom,
 1997; Picciotto, 2003; Role and Berg, 1996"
+SET Confidence = "High"
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -> bp(GO:"calcium ion transport")
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -- bp(MESH:"Physiological Phenomena")
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -- path(MESH:Disease)
+UNSET Confidence
 
 SET Evidence = "Resistance to inhibitor of cholinesterase-3 (RIC-3) is
 required for nAChR function in C. elegans (Nguyen et al., 1995)"
+SET Confidence = "High"
 p(HGNC:RIC3) -> act(p(FPLX:CHRN))
+UNSET Confidence
 
 SET Evidence = "Whereas RIC-3 can enhance function of certain mammalian
 nAChRs, RIC-3 is not essential (Koperniak et al., 2013)"
+SET Confidence = "High"
 p(HGNC:RIC3) -> act(p(FPLX:CHRN))
-
+UNSET Confidence
 # NACHO: also known as TMEM35A
 
 SET Evidence = "Using a genomic cDNA screening strategy, we recently identified
@@ -143,158 +163,215 @@ NACHO (Gu et al., 2016), a small multi-pass transmembrane
 protein enriched in neuronal endoplasmic reticulum (ER)
 that can mediate functional reconstitution of alpha7 receptors in
 non-neuronal cell lines"
+SET Confidence = "High"
 p(HGNC:TMEM35A) reg act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+UNSET Confidence
 
 SET Evidence = "NACHO serves as a molecular chaperone
 to mediate folding, assembly, and surface expression of
 alpha7 receptors (Gu et al., 2016)"
+SET Confidence = "High"
 chap(p(HGNC:TMEM35A)) reg surf(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
 chap(p(HGNC:TMEM35A)) reg a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")
+UNSET Confidence
 
 SET Evidence = "Importantly, NACHO knockout mice show complete loss of alpha7 ligand binding and channel function
 indicating that NACHO is required for formation of alpha7 receptors (Gu et al., 2016)"
+SET Confidence = "High"
 SET Species = "10090"
 chap(p(MGI:Tmem35a)) -> a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "NACHO does not affect function of ion
 channels gated by numerous other ligands including glutamate,
 GABA, serotonin, and capsaicin, suggesting that NACHO represents
 the only essential client-specific chaperone yet identified
 for any mammalian neurotransmitter receptor (Gu et al., 2016)"
+SET Confidence = "High"
 p(HGNC:TMEM35A) causesNoChange act(p(FPLX:GABR))
 p(HGNC:TMEM35A) causesNoChange act(a(MESH:"Receptors, Serotonin"))
 p(HGNC:TMEM35A) causesNoChange act(p(HGNC:TRPV1))
 p(HGNC:TMEM35A) causesNoChange act(a(MESH:"Receptors, Glutamate"))
+UNSET Confidence
 
 SET Evidence = "As published previously (Gu et al., 2016), ACh evoked
 currents from alpha7 require NACHO, and currents from
 alpha4beta2 were augmented ~3-fold by NACHO, which did not alter
 the desensitization kinetics of alpha4beta2 receptors (Figures 1A and 1B)"
+SET Confidence = "High"
 chap(p(HGNC:TMEM35A)) -> act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
 chap(p(HGNC:TMEM35A)) -> act(a(HBP:HBP00174))
+#meaning of HBP00174 = alpha4beta2.
+UNSET Confidence
 
 SET Evidence = "We now also find that alpha3beta2 receptor function in HEK
 cells requires NACHO, and these channels showed desensitization
 kinetics generally similar to alpha4beta2 (Figures 1A and 1B)"
+SET Confidence = "High"
 chap(p(HGNC:TMEM35A)) -> act(a(MESH:"nicotinic receptor alpha3beta2"))
+UNSET Confidence
 
 SET Evidence = "For alpha3beta4 alone, ACh evoked large slowly-desensitizing responses,
 and NACHO amplified their magnitudes ~5-fold (Figures 1A and 1B)"
+SET Confidence = "Medium"
+a(CHEBI:acetylcholine) -> act(a(MESH:"nicotinic receptor alpha3beta4"))
+#acetylcholine gives response
 chap(p(HGNC:TMEM35A)) -> act(a(MESH:"nicotinic receptor alpha3beta4"))
+UNSET Confidence
 
 SET Evidence = "As previously published (Gu et al., 2016),
 robust surface alpha7 and alpha4beta2 expression required co-transfection
 with NACHO (Figures 1C and D), and we find that alpha3beta2 is also
 NACHO-dependent (Figures 1C and D)"
+SET Confidence = "High"
 chap(p(HGNC:TMEM35A)) -> surf(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
 chap(p(HGNC:TMEM35A)) -> surf(a(HBP:HBP00174))
 chap(p(HGNC:TMEM35A)) -> surf(a(MESH:"nicotinic receptor alpha3beta2"))
+UNSET Confidence
 
 SET Evidence = " For alpha3beta4 alone, we
 found abundant surface labeling and this was enhanced by
 NACHO (Figures 1C and 1D)"
+SET Confidence = "High"
 chap(p(HGNC:TMEM35A)) -> surf(a(MESH:"nicotinic receptor alpha3beta4"))
+UNSET Confidence
 
 SET Evidence = "Our previous studies demonstrated that NACHO promotes assembly
 of alpha7 receptors as evidenced by alpha-bungarotoxin labeling,
 (Gu et al., 2016) which in brain only binds with high affinity
 to properly folded pentameric alpha7 receptors (Couturier et al.,
 1990; Schoepfer et al., 1990)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 chap(p(HGNC:TMEM35A)) -> a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")
 complex(a(MESH:Bungarotoxins),a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "To assess whether NACHO facilitates
 assembly of heteromeric nAChRs, we used [3H]epibatidine,
 which binds with high affinity to most all neuronal nAChRs (Daly, 2005)."
+SET Confidence = "High"
 complex(p(FPLX:CHRN),a(CHEBI:epibatidine))
+UNSET Confidence
 
 SET Evidence = "In membranes from alpha7-transfected cells,
 [3H]epibatidine binding absolutely required NACHO (Figure 2A),
 which fits with an essential role for NACHO in alpha7 assembly"
+SET Confidence = "High"
 chap(p(HGNC:TMEM35A)) -> complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:epibatidine))
 chap(p(HGNC:TMEM35A)) -> a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")
+UNSET Confidence
 
 SET Evidence = "Similarly, quantifiable [3H]epibatidine binding to
 alpha3beta2 required cotransfection with NACHO (Figure 2C)"
+SET Confidence = "High"
 chap(p(HGNC:TMEM35A)) -> complex(a(MESH:"nicotinic receptor alpha3beta2"),a(CHEBI:epibatidine))
 chap(p(HGNC:TMEM35A)) -> a(MESH:"nicotinic receptor alpha3beta2")
+UNSET Confidence
 
 SET Evidence = "Cells transfected with
 alpha4beta2 or alpha3beta4 alone showed [3H]epibatidine binding, and this
 was markedly increased (5- to 10-fold) in presence of NACHO (Figures 2B and 2D)"
+SET Confidence = "High"
 chap(p(HGNC:TMEM35A)) -> complex(a(HBP:HBP00174),a(CHEBI:epibatidine))
 chap(p(HGNC:TMEM35A)) -> a(HBP:HBP00174)
 chap(p(HGNC:TMEM35A)) -> complex(a(MESH:"nicotinic receptor alpha3beta4"),a(CHEBI:epibatidine))
 chap(p(HGNC:TMEM35A)) -> a(MESH:"nicotinic receptor alpha3beta4")
+UNSET Confidence
 
 SET Evidence = "In C. elegans, RIC-3 protein is essential
 for nAChR function (Nguyen et al., 1995), and mammalian RIC-3 has modest and
 mixed effects on nAChRs (Halevi et al., 2003; Millar, 2008)"
+SET Confidence = "High"
 p(HGNC:RIC3) -> act(p(FPLX:CHRN))
+UNSET Confidence
 
 SET Evidence = "For alpha7 and alpha3beta2, RIC-3 did not enable
 detectable [3H]epibatidine binding, yet RIC-3 profoundly augmented the effects
 of NACHO on [3H]epibatidine binding to either receptor subtype (Figures 3A and S1A)"
+SET Confidence = "Medium"
 p(HGNC:RIC3) causesNoChange complex(a(MESH:"nicotinic receptor alpha3beta2"),a(CHEBI:epibatidine))
 p(HGNC:RIC3) causesNoChange complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:epibatidine))
+composite(p(HGNC:RIC3),p(HGNC:TMEM35A)) -> complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:epibatidine))
+composite(p(HGNC:RIC3),p(HGNC:TMEM35A)) -> complex(a(MESH:"nicotinic receptor alpha3beta2"),a(CHEBI:epibatidine))
+#effect of RIC3 and NACHO together was added in above two Statements
+UNSET Confidence
 
 SET Evidence = "Strikingly, we found that
 alpha-bungarotoxin did not completely displace [3H]epibatidine
 binding to alpha7 receptors with NACHO (Figure 3B)"
-a(MESH:Bungarotoxins) -| complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:epibatidine))
+SET Confidence = "Medium"
+composite(a(MESH:Bungarotoxins),p(HGNC:TMEM35A)) -| complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:epibatidine))
+#evidence suggests effect of bungarotoxin and NACHO together. But the evidence says that the effect is not complete.
+UNSET Confidence
 
 SET Evidence = "These experiments showed that NACHO is most concentrated
 in the heavy (P3) and light (P4) microsomal fractions
 (Figures 3C and 3D), which contain resident endoplasmic reticulum
 (ER) proteins including calnexin"
+SET Confidence = "High"
 SET Species = "10090"
 p(MGI:Tmem35a) -- p(MGI:Canx)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "As previously reported
 using fluorescently labeled alpha-bungarotoxin (Gu et al., 2016),
 NACHO enabled formation of assembled surface alpha7 receptors,
 and RIC-3 further enhanced this (Figures 3E and 3F)"
+SET Confidence = "High"
 chap(p(HGNC:TMEM35A)) -> surf(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
 p(HGNC:RIC3) -> surf(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+UNSET Confidence
 
 SET Evidence = "Numerous studies have shown that chronic nicotine exposure
 enhances surface expression of nAChRs, especially for the alpha4beta2
 subtype (Schwartz and Kellar, 1983)"
+SET Confidence = "High"
 a(CHEBI:nicotine) -> surf(p(HBP:HBP00174))
+UNSET Confidence
 
 SET Evidence = "We found that nicotine exposure does not affect alpha7 in
 absence and presence of NACHO (Figures S1C and S1D), and nicotine markedly
 enhanced alpha4beta2 surface in a manner additive with NACHO (Figures 3G and 3H)"
-a(CHEBI:nicotine) -> a(HBP:HBP00174)
+SET Confidence = "Medium"
+composite(a(CHEBI:nicotine),p(HGNC:TMEM35A))  -> a(HBP:HBP00174)
+#evidence points out joint effect of nicotine and NACHO
+UNSET Confidence
 
 SET Evidence = "However, we did find that NACHO enhances
 [3H]epibatidine binding to cells transfected with alpha6beta2beta3 (Figure
 4C) indicating that NACHO can enhance intracellular receptor assembly"
+SET Confidence = "High"
 p(HGNC:TMEM35A) -> complex(a(MESH:"alpha6beta2 nicotinic acetylcholine receptor"),a(CHEBI:epibatidine))
+UNSET Confidence
 
 SET Evidence = "Whereas this subunit combination is
 not competent to form a functional channel (Champtiaux et al.,
 2002; Dash et al., 2014; Kuryatov et al., 2000), NACHO still mediated
 partial receptor assembly as reflected by [3H]epibatidine binding (Figure 4D)"
 # this subunit combination: alpha6beta2
+SET Confidence = "High"
 p(HGNC:TMEM35A) -> a(MESH:"alpha6beta2 nicotinic acetylcholine receptor")
 p(HGNC:TMEM35A) -> complex(a(MESH:"alpha6beta2 nicotinic acetylcholine receptor"),a(CHEBI:epibatidine))
+UNSET Confidence
 
 SET Evidence = "This NACHO-mediated [3H]epibatidine binding
 to alpha6beta2 transfectants was also displaced by conotoxin MII (Figure 4E)"
+SET Confidence = "High"
 a(MESH:"alpha-conotoxin MII") -| complex(a(MESH:"alpha6beta2 nicotinic acetylcholine receptor"),a(CHEBI:epibatidine))
+UNSET Confidence
 
 SET Species = "10090"
 
 SET Evidence = "We previously showed that [125I]alpha-bungarotoxin binding is
 absent in NACHO knockout mice brain (Gu et al., 2016),
 which express normal levels of RIC-3 mRNA (Figure S1B)"
+SET Confidence = "High"
 p(MGI:Tmem35a) -> complex(a(MESH:Bungarotoxins),p(FPLX:CHRN))
-
+UNSET Confidence
 # KO of NACHO
 
 SET Evidence = "[125I]epibatidine binding
@@ -302,59 +379,76 @@ was decreased in all brain regions evaluated—it was reduced
 by 66% in cortex, 39% in striatum, and 51% in medial
 vestibular nucleus (MVN) (Figures 5A and 5D)"
 # binding to alpha6-containing receptors
+SET Confidence = "High"
 SET MeSHAnatomy = {"Cerebral Cortex","Corpus Striatum","Vestibular Nuclei"}
 p(MGI:Tmem35a) -> complex(a(CHEBI:epibatidine),a(HBP:HBP00180))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "This partial reduction fits with our data showing that
 NACHO enhances [3H]epibatidine binding to alpha4beta2 and other
 heteromeric nAChRs but that some [3H]epibatidine binding
 occurs to certain heteromeric nAChRs in the absence of NACHO (Figure 2B)"
+SET Confidence = "High"
 p(MGI:Tmem35a) -> complex(a(HBP:HBP00174),a(CHEBI:epibatidine))
+UNSET Confidence
 
 SET Evidence = "Labeling of alpha6-containing nAChRs in striatum by [125I]conotoxin
 MII is virtually abolished in NACHO knockout mice (Figures
 5B and 5D), indicating a vital role for NACHO in assembly of
 these presynaptic receptors"
+SET Confidence = "High"
 SET MeSHAnatomy = "Corpus Striatum"
 p(MGI:Tmem35a) -> a(HBP:HBP00180)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Consistent with our previous autoradiographic results
 (Gu et al., 2016), we found no detectable [3H]alpha-bungarotoxin
 binding to brain membranes from NACHO knockouts"
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Brain"
-p(MGI:Tmem35a) -> complex(a(MESH:Bungarotoxins),a(GO:membrane))
+p(MGI:Tmem35a) -> complex(a(MESH:Bungarotoxins),loc(GO:membrane))
+#membrane was set at location
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In membranes from cerebral cortex, hippocampus, and striatum, we
 found that levels of [3H]epibatidine binding sites are decreased by 50%–75%"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Cerebral Cortex","Corpus Striatum","Hippocampus"}
 p(MGI:Tmem35a) -> p(FPLX:CHRN)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "NACHO knockouts did not show
 changes in levels of [3H]epibatidine binding to membranes
 from superior cervical ganglia (wild-type [WT] 329.0 ± 17.2,
 knockout [KO] 322.8 ± 4.0 fmol/mg protein), which primarily express
 receptors containing alpha3beta4-containing receptors (David et al., 2010)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Superior Cervical Ganglion"
 p(MGI:Tmem35a) -> a(MESH:"nicotinic receptor alpha3beta4")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "General characterization showed that the
 knockout mice as compared to their wild-type littermates show
 no changes in body weight, have slight increases in body temperature
 (Figures S3A and S3B), and exhibit significantly
 enhanced locomotor activity (Figures S2A and S2B)"
+SET Confidence = "High"
 p(MGI:Tmem35a) -| bp(GO:locomotion)
 p(MGI:Tmem35a) -- bp(GO:"temperature homeostasis")
+UNSET Confidence
 
 SET Evidence = "Because nAChRs play important roles in cognition (Gotti and
 Clementi, 2004; Hogg et al., 2003; Le Nove` re et al., 2002; Lindstrom,
 1997; Picciotto, 2003; Role and Berg, 1996), we focused
 attention on this behavi"
+SET Confidence = "High"
 p(FPLX:CHRN) -- bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "In the Morris water maze,
 NACHO knockout mice were delayed in learning the task during
@@ -362,22 +456,30 @@ acquisition days 1–4 and showed fewer target crossings in the
 probe test (Figures S2Cand S2D), despite showing no significant
 difference for genotype on average speed through each acquisition
 day (ANOVA: F[1,28] = 0.004; p = 0.9492; data not shown)"
+SET Confidence = "High"
 p(MGI:Tmem35a) -> bp(GO:learning)
+UNSET Confidence
 
 SET Evidence = "A very recent study also reported memory defects in mice lacking
 NACHO/TMEM35 done by scientists unaware of NACHO’s
 role in controlling nAChRs (Kennedy et al., 2016)"
+SET Confidence = "High"
 p(MGI:Tmem35a) -> bp(GO:memory)
 p(MGI:Tmem35a) reg p(FPLX:CHRN)
+UNSET Confidence
 
 SET Evidence = "NACHO knockout mice also showed deficits of spontaneous alternation
 in the Y-maze compared to wild-type littermates (Figure S2E)"
+SET Confidence = "High"
 p(MGI:Tmem35a) -> path(MESH:"Spatial Learning")
 p(MGI:Tmem35a) -> path(MESH:"Spatial Memory")
+UNSET Confidence
 
 SET Evidence = "The NACHO knockouts showed
 increased total number of arm entries in the Y-maze, which fits
 with their enhanced locomotor activity (Figure S2F)"
+SET Confidence = "High"
 p(MGI:Tmem35a) -| bp(GO:locomotion)
+UNSET Confidence
 
 UNSET Species
