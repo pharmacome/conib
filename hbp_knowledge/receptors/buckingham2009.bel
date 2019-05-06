@@ -117,7 +117,7 @@ et al., 2005). In addition, mice transgenically overexpressing
 Abeta or with mutations that enhance Abeta aggregation
 show many of the symptoms of AD (Hsiao et al.,
 1996; van Groen et al., 2006)."
-SET Confidence = "Low"
+SET Confidence = "Medium"
 SET MeSHAnatomy="Brain"
 
 a(CHEBI:"amyloid-beta") -> path(MESH:"Alzheimer Disease")
@@ -125,7 +125,7 @@ path(MESH:"Alzheimer Disease") -- a(HBP:"amyloid-beta aggregates")
 a(CHEBI:"amyloid-beta") -> path(HBP:neurotoxicity)
 p(CHEBI:"amyloid-beta", var("?")) -> a(HBP:"amyloid-beta aggregates")
 a(HBP:"amyloid-beta aggregates") -> path(MESH:"Alzheimer Disease")
-#this was included because of the line in evidence "mice transgenically overexpressing Abeta or with mutations that enhance Abeta aggregation show many of the symptoms of AD"
+#above two Statements added- this was included because of the line in evidence "mice transgenically overexpressing Abeta or with mutations that enhance Abeta aggregation show many of the symptoms of AD"
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -322,6 +322,7 @@ SET Confidence = "Low"
 a(CHEBI:nicotine) -- p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
 a(CHEBI:nicotine) -> bp(MESH:Neuroprotection)
 a(CHEBI:nicotine) -> path(MESH:Cognition)
+#above statement was added
 a(CHEBI:nicotine) -| path(HBP:neurotoxicity)
 a(CHEBI:"dihydro-beta-erythroidine") -| act(a(CHEBI:nicotine))
 a(CHEBI:Mecamylamine) -| act(a(CHEBI:nicotine))
@@ -380,6 +381,7 @@ mRNA levels (Ke et al., 1998)."
 SET Confidence = "Low"
 SET CellLine="SH-SY5Y"
 SET MeSHAnatomy="Brain"
+#MeSHAnatomy set and UNSET
 a(CHEBI:nicotine) -> p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
 a(CHEBI:nicotine) -> a(CHEBI:acetylcholine)
 #R: binding to what?I assumed receptor. This question still persits.
@@ -397,10 +399,11 @@ in rat brain differs for receptors of different
 subtype composition (most pronounced up-regulation
 being observed for alpha4beta2 receptors) and for different
 brain regions (Nguyen et al., 2003)."
-SET Confidence = "Low"
+SET Confidence = "Medium"
 a(CHEBI:nicotine) reg composite(a(CHEBI:"3',5'-cyclic AMP"), p(FPLX:PKC))
 composite(a(CHEBI:"3',5'-cyclic AMP"), p(FPLX:PKC)) -> p(HGNC:CHRNA7)
 act(a(CHEBI:nicotine)) -> p(HBP:"alpha-4 beta-2 nAChR")
+#changes made wrt evidence
 UNSET Confidence
 
 SET Evidence="Donepezil, which
@@ -522,6 +525,7 @@ SET Confidence = "Medium"
 SET MeSHAnatomy="Dopaminergic Neurons"
 
 act(a(CHEBI:"N-methyl-4-phenylpyridinium")) -> path(HBP:neurotoxicity)
+#activity alteration of N-methyl-4-phenylpyridinium increases neurotoxicity
 act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -| act(a(CHEBI:"N-methyl-4-phenylpyridinium"))
 act(p(HGNC:CHRNA7)) causesNoChange act(a(CHEBI:"N-methyl-4-phenylpyridinium"))
 
@@ -608,7 +612,7 @@ of the proapoptotic protein Bcl2-associated X protein
 movement of BAX from the cytosol to the mitochondria
 and inhibiting its apoptotic activity (Xin and
 Deng, 2005)."
-SET Confidence = "Low"
+SET Confidence = "Medium"
 SET MeSHAnatomy="Neurons"
 
 a(CHEBI:donepezil) -> p(HGNC:BCL2)
@@ -616,6 +620,7 @@ a(CHEBI:galanthamine) -> p(HGNC:BCL2)
 a(CHEBI:tacrine) -> p(HGNC:BCL2)
 a(CHEBI:nicotine) -> act(p(FPLX:PI3K))
 act(p(FPLX:PI3K)) -> p(HGNC:BAX, pmod(Ph))
+#above two Statements added wrt evidence
 a(CHEBI:nicotine) -| bp(GO:"apoptotic process")
 a(CHEBI:nicotine) -| tloc(p(HGNC:BAX), fromLoc(GO:cytosol), toLoc(GO:mitochondrion))
 tloc(p(HGNC:BAX), fromLoc(GO:cytosol), toLoc(GO:mitochondrion)) -> bp(GO:"apoptotic process")
@@ -810,8 +815,10 @@ SET CellLine="PC12"
 
 a(CHEBI:estradiol) -| act(a(CHEBI:"amyloid-beta"))
 a(CHEBI:"amyloid-beta") -> path(HBP:neurotoxicity)
+#estradiol to amyloid beta change with ->
 a(MESH:methyllycaconitine) -| act(p(HGNC:CHRNA7))
 p(HGNC:CHRNA7) -> path(HBP:neurotoxicity)
+#methyllycaconitine changed to CHRNA7 with ->
 
 UNSET CellLine
 UNSET Confidence
@@ -831,10 +838,12 @@ Thus, the JAK-2/STAT-3 pathway is activated by exposure
 to nicotine."
 SET Confidence = "Medium"
 a(CHEBI:nicotine) -> act(p(HGNC:JAK2))
+#evidence suggested activation of JAK2 by nicotine
 act(a(CHEBI:nicotine)) -> bp(MESH:Neuroprotection)
 p(HGNC:JAK2) -- act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 p(HGNC:JAK2) -- act(p(HGNC:STAT3))
 a(CHEBI:nicotine) -- act(p(HGNC:STAT3))
+#instead of nicotine activity, nicotine itself affects activity of STAT3
 UNSET Confidence
 
 SET Evidence="Nicotine induced phosphorylation of STAT-3 (signal
@@ -904,7 +913,8 @@ SET Confidence = "Medium"
 SET Species="10116"
 SET Cell="microglial cell"
 
-a(CHEBI:nicotine) -> p(MESH:"Cyclooxygenase 2"))
+a(CHEBI:nicotine) -> p(MESH:"Cyclooxygenase 2")
+#act(g(HGNC:PTGS2)) was replaced by p(MESH:"Cyclooxygenase 2")
 a(CHEBI:nicotine) -> p(CHEBI:"prostaglandin E1(1-)")
 p(HGNC:CHRNA7) -> bp(GO:"MAPK cascade")
 bp(GO:"MAPK cascade") -> act(p(HGNC:MYC))
@@ -969,6 +979,7 @@ decreasing Abeta production (Liu et al., 2007)."
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Hippocampus"
 SET Anatomy = "cortex"
+#evidence suggests all following activities in hippocampus and cortex
 a(CHEBI:nicotine) -> bp(GO:"MAPK cascade")
 p(HGNC:CHRNA7) -> bp(GO:"MAPK cascade")
 bp(GO:"MAPK cascade") -> act(p(FPLX:NFkappaB))
@@ -1098,7 +1109,7 @@ SET Confidence = "Medium"
 SET CellLine="SH-SY5Y"
 
 composite(a(CHEBI:"amyloid-beta"), complex(p(HGNC:CHRNA3), p(HGNC:CHRNB2)),p(HGNC:CHRNA7)) -> bp(GO:"cellular calcium ion homeostasis")
-
+#CHRNA7 also included in the process
 UNSET CellLine
 UNSET Confidence
 
@@ -1242,10 +1253,11 @@ ApoE complex on PI hydrolysis were blocked by estrogen,
 and this disruption was itself blocked by wortmannin,
 suggesting that PI3K mediates estrogen’s effect
 on PI hydrolysis."
-SET Confidence = "Low"
+SET Confidence = "Medium"
 SET CellLine="SH-SY5Y"
 
 act(a(CHEBI:carbachol)) -> act(a(CHEBI:phosphatidylinositol),ma(MESH:Hydrolysis))
+#hydrolysis added
 p(HBP:"APOE e4") -| act(a(CHEBI:carbachol))
 a(CHEBI:"amyloid-beta") -| act(a(CHEBI:carbachol))
 complex(a(CHEBI:"amyloid-beta"), p(HBP:"APOE e4")) -| act(a(CHEBI:carbachol))
@@ -1253,7 +1265,7 @@ a(CHEBI:estrogen) -| act(a(CHEBI:"amyloid-beta"))
 a(CHEBI:estrogen) -| act(p(HBP:"APOE e4"))
 a(CHEBI:wortmannin) -| act(a(CHEBI:estrogen))
 p(FPLX:PI3K) reg act(a(CHEBI:estrogen))
-
+#changes made wrt evidence
 UNSET CellLine
 UNSET Confidence
 
@@ -1288,6 +1300,7 @@ SET Confidence = "Low"
 SET CellLine="PC12"
 
 a(CHEBI:nicotine) -> p(HGNC:CHRNA7)
+#nicotine stimulates CHRNA7 and not vice versa
 p(HGNC:CHRNA7) -> sec(a(HBP:"sAPP-beta"))
 a(HBP:"sAPP-beta") -| act(a(CHEBI:"amyloid-beta"))
 UNSET CellLine
@@ -1299,6 +1312,7 @@ SET CellLine="SH-SY5Y"
 
 a(CHEBI:galanthamine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 a(CHEBI:galanthamine) -| act(p(HGNC:ACHE))
+#Statements added wrt evidence
 act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> sec(a(HBP:"sAPP-beta"))
 
 UNSET CellLine
@@ -1350,7 +1364,9 @@ p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") reg act(a(CHEBI:"am
 act(a(CHEBI:"amyloid-beta")) -> path(HBP:neurotoxicity)
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -- path(HBP:neurotoxicity)
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -> act(a(CHEBI:"amyloid-beta"))
+#above statement was added wrt evidence
 act(a(CHEBI:"amyloid-beta")) -> bp(GO:"apoptotic process")
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -- bp(GO:"apoptotic process")
 UNSET Confidence
 
 SET Evidence="Paradoxically, in addition to their neuroprotective action,
@@ -1377,7 +1393,7 @@ alpha-bungarotoxin, which may indicate that alpha-bungarotoxin
 either inhibits binding of Abeta to the alpha7 receptor
 (and therefore that Abeta toxicity results from binding of
 Abeta to alpha7 nAChRs) or directly inhibits alpha7 nAChR internalization."
-SET Confidence = "Medium"
+SET Confidence = "Low"
 a(MESH:Bungarotoxins) -| act(a(CHEBI:"amyloid-beta"))
 #the evidence says alpha7 internalization and not amyloid-beta so should the above line be changed with the former?
 a(MESH:Bungarotoxins) -| complex(a(CHEBI:"amyloid-beta"), p(HGNC:CHRNA7))
@@ -1411,6 +1427,7 @@ a(CHEBI:"amyloid-beta") -> p(HGNC:MAPT, pmod(Ph))
 act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -| p(HGNC:MAPT, pmod(Ph))
 act(a(MESH:Bungarotoxins)) -| p(HGNC:MAPT, pmod(Ph))
 complex(a(CHEBI:"amyloid-beta"), p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> path(HBP:neurotoxicity)
+#above statement was added wrt evidence
 UNSET CellLine
 UNSET Confidence
 
@@ -1553,7 +1570,7 @@ on alpha3beta4 (Pym et al., 2005). However, in contrast to its
 reported transient enhancement when expressed in oocytes,
 an inhibition of alpha4beta2 has been reported when
 expressed in human SH-EP1 cells (Wu et al., 2004)."
-SET Confidence = "Medium"
+SET Confidence = "Low"
 a(CHEBI:"amyloid-beta") -| act(p(HGNC:CHRNA7))
 a(CHEBI:"amyloid-beta") -> act(complex(p(HGNC:CHRNA4), p(HGNC:CHRNB2)))
 #the line above and below seem to contrast each other. In evidence it is differentiated temporally. Is there any way to indicate that diffrence?
@@ -1621,7 +1638,7 @@ showed that at 10 pM, Abeta evoked an inward
 current mediated by rat alpha7 nAChRs expressed in X.
 laevis oocytes, whereas at 100 nM, Abeta blocked nicotine
 responses through desensitization (Dineley et al., 2002)."
-SET Confidence = "Medium"
+SET Confidence = "Low"
 SET Species="8355"
 
 a(CHEBI:"amyloid-beta") -| act(a(CHEBI:nicotine))
@@ -1850,13 +1867,14 @@ indicated that neurons near Abeta plaques retained alpha4 and
 alpha7 mRNA transcripts, whereas these transcripts were absent
 in neurons burdened with hyperphosphorylated tau
 protein (Wevers et al., 1999)."
-SET Confidence = "Low"
+SET Confidence = "Medium"
 SET Species="10116"
 
 a(CHEBI:"amyloid-beta") -| p(RGD:Chrna4)
 a(CHEBI:"amyloid-beta") -| p(RGD:Chrna7)
 a(CHEBI:"amyloid-beta") -> r(RGD:Chrna7)
 a(CHEBI:"amyloid-beta") -| p(RGD:Chrna7)
+#above statement was added wrt evidence
 
 UNSET Species
 
