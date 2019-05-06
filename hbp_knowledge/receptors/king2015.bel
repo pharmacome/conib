@@ -132,6 +132,7 @@ or expression of the nAChR."
 SET Confidence = "Medium"
 p(HGNC:CHRNA7) -> bp(HBP:"nAChR assembly")
 p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) cnc bp(HBP:"nAChR assembly")
+#-> to cnc because mutation in α7345–348A does not interfere
 UNSET Confidence
 
 SET Evidence = "Western blot analysis confirms that transfection of α7 nAChRs
@@ -145,7 +146,7 @@ SET MeSHAnatomy = "PC12 Cells"
 
 p(HGNC:CHRNA7) -> p(HGNC:CHRNA7)
 p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -> p(HGNC:CHRNA7)
-
+#percentage difference in different conditions hold importance and with above Statements it is difficult to do justice.
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -188,6 +189,7 @@ SET Confidence = "Medium"
 SET MeSHAnatomy = "PC12 Cells"
 p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) =| complex(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), p(HGNC:GNAQ))
 p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) =| complex(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), p(FPLX:"G_beta") ,p(FPLX:"G_gamma"))
+#MeSHAnatomy was set and UNSET
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -240,7 +242,8 @@ SET Confidence = "Medium"
 SET CellLine = "Neuro-2a cell"
 
 composite(p(HGNC:CHRNA7), a(CHEBI:choline)) -> a(CHEBI:"calcium(2+)")
-
+#composite(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")), a(CHEBI:choline)) -| a(CHEBI:"calcium(2+)")
+#above line was removed because it says that a weak calcium response is fostered
 UNSET CellLine
 UNSET Confidence
 
@@ -329,7 +332,7 @@ UNSET MeSHAnatomy
 SET MeSHAnatomy = {"Cell Membrane", "PC12 Cells"}
 
 p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -- bp(MESH:"Pleckstrin Homology Domains")
-
+#MeSHAnatomy was modified
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -343,6 +346,7 @@ SET Confidence = "Medium"
 SET MeSHAnatomy = "Cytosol"
 
 a(CHEBI:choline) -> a(CHEBI:"calcium(2+)")
+#above Statement was added
 a(CHEBI:choline) -> bp(MESH:"Pleckstrin Homology Domains")
 
 UNSET MeSHAnatomy
@@ -375,7 +379,7 @@ expressing cells (α7 to α7 + xestospongin C, p = 0.017; α7 to α7345–348A,
 p = 0.013; α7 to α7345-348A + xestospongin C, p = 0.017) (Fig. 7, B and C).
 The data underscores the inability of α7345–348A nAChRs to activate
 intracellular calcium via IP3Rs (18)."
-SET Confidence = "Low"
+SET Confidence = "High"
 a(MESH:"xestospongin C") -| act(p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")))
 p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) -| act(a(CHEBI:"calcium(2+)", loc(GO:intracellular)))
 UNSET Confidence
