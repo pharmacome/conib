@@ -66,6 +66,7 @@ SET MeSHAnatomy = "Post-Synaptic Density"
 p(FPLX:CHRN) reg bp(GO:"rhythmic excitation")
 p(FPLX:CHRN) reg bp(GO:"neuron remodeling")
 UNSET MeSHAnatomy
+#MeSHAnatomy was set and unset
 UNSET Confidence
 
 SET Evidence = "By modulating activity-dependent events, nAChRs participate in fundamental aspects of synaptic plasticity that are involved in attention, learning, memory, and development (3, 12–16)."
@@ -112,6 +113,7 @@ UNSET Confidence
 SET Evidence = "Unlike many neurotransmitter signals that are shaped by pumps that return the transmitter to the intracellular space, the spread of ACh from the release site is determined by diffusion and by acetylcholinesterase (AChE) hydrolysis of ACh."
 SET Confidence = "Medium"
 act(p(HGNC:ACHE), ma(pep)) => deg(a(CHEBI:acetylcholine))
+#initially the Statement was "pep(p(HGNC:ACHE)) => deg(a(CHEBI:acetylcholine))"
 deg(a(CHEBI:acetylcholine)) -| act(a(CHEBI:acetylcholine))
 UNSET Confidence
 
@@ -126,6 +128,7 @@ manner (54, 55)."
 SET Confidence = "Medium"
 act(p(HGNC:ACHE), ma(pep)) => rxn(reactants(a(CHEBI:acetylcholine)), products(a(CHEBI:choline),a(CHEBI:acetate)))
 a(CHEBI:choline) -> act(p(FPLX:CHRN))
+#pep() was replaced by act()
 UNSET Confidence
 
 SET Evidence = "The α7 nAChR has a relatively low afﬁnity for ACh activation, with an effective dose for half-activation at approximately 200 μM ACh."
@@ -223,6 +226,7 @@ UNSET Confidence
 SET Evidence = "Nicotinic stimulation enhances glutamate release on multiple timescales, extending from seconds to a few minutes (81), and contributes to the induction of synaptic plasticity (4, 13, 14, 16, 88)."
 SET Confidence = "Medium"
 a(CHEBI:nicotine) -> act(p(FPLX:CHRN))
+#above Statement was wrt evidence
 act(p(FPLX:CHRN)) -> sec(a(CHEBI:"glutamate(2-)"))
 act(p(FPLX:CHRN)) -> bp(GO:"regulation of synaptic plasticity")
 UNSET Confidence
@@ -300,6 +304,7 @@ SET MeSHAnatomy = {"Neocortex","Dendrites"}
 act(p(FPLX:CHRN)) -> bp(GO:"membrane depolarization")
 act(p(FPLX:CHRN)) -> bp(GO:"regulation of action potential firing rate")
 UNSET MeSHAnatomy
+#MeSHAnatomy was unset
 UNSET Confidence
 
 SET Evidence = "Acting through these excitatory and inhibitory inputs and nAChRs located on the DA neurons, nicotinic receptors inﬂuence the ﬁring modes and ﬁring frequency of DA neurons (119, 121)."
@@ -413,7 +418,6 @@ a(CHEBI:Mecamylamine) isA a(CHEBI:"nicotinic antagonist")
 a(CHEBI:Mecamylamine) -| path(MESH:Attention)
 a(CHEBI:"nicotinic acetylcholine receptor agonist") -> path(MESH:Attention)
 UNSET Confidence
-#SET MeSHDisease = "Alzheimer Disease". This sentence did not correlate with any evidence and hence was converted to evidence.
 
 SET Evidence = "The most well-appreciated neuronal loss, however, is in the cholinergic system (155, 156), particularly the basal forebrain cholinergic system comprised of the medial septal nucleus, the horizontal and vertical diagonal bands of Broca, and the nucleus basalis of Meynert (157)."
 SET Confidence = "High"
@@ -449,11 +453,11 @@ UNSET Confidence
 
 SET Evidence = "Although Aβ peptides negatively alter the cholinergic system at multiple sites, including ACh synthesis, ACh release, and muscarinic receptors (157), the discovery that Aβ1−42 binds to α7 nAChRs with high afﬁnity suggested the potential for
 a causal role of nAChRs in AD (159, 160)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 a(CHEBI:"amyloid-beta") -| a(CHEBI:acetylcholine)
 a(CHEBI:"amyloid-beta") -| sec(a(CHEBI:acetylcholine))
 a(CHEBI:"amyloid-beta") -| act(p(FPLX:CHRM))
-composite(a(CHEBI:"amyloid-beta polypeptide 42"),p(HGNC:CHRNA7)) -> complex(a(CHEBI:"amyloid-beta polypeptide 42"),p(HGNC:CHRNA7))
+complex(a(CHEBI:"amyloid-beta polypeptide 42"),p(HGNC:CHRNA7))
 complex(a(CHEBI:"amyloid-beta polypeptide 42"),p(HGNC:CHRNA7)) -- path(MESH:"Alzheimer Disease")
 UNSET Confidence
 
@@ -491,6 +495,7 @@ SET Evidence = " Moreover, although nicotine increases wakefulness in wild-type 
 SET Confidence = "Medium"
 a(CHEBI:nicotine) -> bp(GO:"circadian sleep/wake cycle, wakefulness")
 p(HGNC:CHRNB2) -> bp(GO:"circadian sleep/wake cycle, wakefulness")
+#wrt evidence above Statement was added
 act(p(FPLX:CHRN)) -> path(MESH:Arousal)
 act(p(FPLX:CHRN)) -> bp(GO:"circadian sleep/wake cycle, REM sleep")
 UNSET Confidence
