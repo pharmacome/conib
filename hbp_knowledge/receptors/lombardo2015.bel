@@ -79,57 +79,74 @@ consisting of an accumulation of Amyloid beta peptide (Ab) in extracellular
 plaques, intracellular deposits of tau protein, neuronal loss
 and, more recently, a prominent synaptic loss was identified (Braak
 and Braak,1991; Masliah et al., 2001; Selkoe,1991; Spires-Jones and Hyman, 2014)"
+SET Confidence = "High"
 bp(GO:aging) -- path(MESH:Dementia)
 path(MESH:"Alzheimer Disease") -- path(MESH:Dementia)
 path(MESH:"Alzheimer Disease") positiveCorrelation path(MESH:"Plaque, Amyloid")
 path(MESH:"Alzheimer Disease") positiveCorrelation p(HGNC:MAPT)
 path(MESH:"Alzheimer Disease") positiveCorrelation bp(GO:"neuron death")
 path(MESH:"Alzheimer Disease") negativeCorrelation a(GO:synapse)
+UNSET Confidence
 
 SET Evidence = "In addition, anatomical studies in AD patients
 showed a massive loss of brain white matter and a specific reduction
 of cholinergic neurons of the basal forebrain (Auld et al., 2002;
 Bowen et al., 1976; Coyle et al., 1983; Kim et al., 2013; Whitehouse et al., 1981, 1982)"
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Brain"
 path(MESH:"Alzheimer Disease") negativeCorrelation a(MESH:"White Matter")
+#MeSHAnatomy was unset
+UNSET MeSHAnatomy
 SET MeSHAnatomy = "Basal Forebrain"
 path(MESH:"Alzheimer Disease") negativeCorrelation a(HP:"cholinergic neuron")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Several studies demonstrated the pivotal role of these cholinergic nuclei in cognitive functions"
+SET Confidence = "High"
 a(HP:"cholinergic neuron") -- bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "Woolf (1998) proposed a model in
 which acetylcholine (ACh) release leads to the modulation of
 cortical circuitry that finally encodes for storage of long-term memory"
+SET Confidence = "High"
 tloc(a(CHEBI:acetylcholine),fromLoc(MESH:"Intracellular Space"),toLoc(MESH:"Extracellular Space")) reg bp(GO:"long-term memory")
+UNSET Confidence
 
 SET Evidence = "The cholinergic system is also involved in attention processes
 (Muir et al., 1993; Sarter and Bruno, 1997; Wenk, 1997)"
+SET Confidence = "High"
 a(HP:"cholinergic neuron") -- path(MESH:Attention)
+UNSET Confidence
 
 SET Evidence = "In a mouse model, the lack of ACh receptors in the prefrontal cortex
 (PFC) was demonstrated to be responsible for attention deficit,
 restored by the expression of the receptor in this area (Guillem et al., 2011)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Prefrontal Cortex"
 a(MESH:"Receptors, Cholinergic") -> path(MESH:Attention)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The neurotransmitter ACh binds to two families of receptors,
 nicotinic acetylcholine receptors (nAChRs) and muscarinic acetylcholine
 receptors (mAChRs). Both families of receptors regulate the
 cognitive processes mentioned above (Ghoneim and Mewaldt,
 1977; Petersen, 1977; Sarter and Paolone, 2011), and are both affected in AD"
+SET Confidence = "High"
 complex(a(CHEBI:acetylcholine),p(FPLX:CHRN))
 p(FPLX:CHRN) reg bp(GO:cognition)
 complex(a(CHEBI:acetylcholine),p(FPLX:CHRM))
 p(FPLX:CHRM) reg bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "Binding studies performed with the use of [3H]-nicotine and
 [3H]-ACh showed a significant reduction in nicotine and ACh
 binding sites in cerebral cortex of patients suffering from AD, demonstrating
 a decrease of both nAChR and mAChR populations (Gotti et al., 2006a; Paterson and Nordberg, 2000;
 Perry et al., 1981, 1985, 1987, 1988; Shimohama et al., 1986; Whitehouse et al., 1981, 1982, 1986)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Cerebral Cortex"
 path(MESH:"Alzheimer Disease") -| complex(a(CHEBI:acetylcholine),p(FPLX:CHRN))
 path(MESH:"Alzheimer Disease") -| complex(a(CHEBI:acetylcholine),p(FPLX:CHRM))
@@ -138,23 +155,28 @@ path(MESH:"Alzheimer Disease") -| complex(a(CHEBI:nicotine),p(FPLX:CHRM))
 path(MESH:"Alzheimer Disease") -| p(FPLX:CHRN)
 path(MESH:"Alzheimer Disease") -| p(FPLX:CHRM)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In addition to nAChRs and mAChRs, the enzyme
 choline acetyltransferase (ChAT), involved in ACh production, is
 also affected in AD. The activity of this ChAT enzyme, and consequently
 the synthesis of ACh, is decreased in AD brains"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 act(p(HGNC:CHAT)) -> a(CHEBI:acetylcholine)
 path(MESH:"Alzheimer Disease") -| act(p(HGNC:CHAT))
 path(MESH:"Alzheimer Disease") -| a(CHEBI:acetylcholine)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In addition,
 several authors observed a reduction in the activity of acetylcholinesterase
 (AChE), the enzyme that metabolises ACh after its
 release in the synaptic cleft (Auld et al., 2002; Bowen et al., 1976;
 Coyle et al., 1983; Davies and Maloney, 1976; Perry et al., 1978)"
+SET Confidence = "High"
 act(p(HGNC:ACHE)) -> bp(GO:"acetylcholine catabolic process")
+UNSET Confidence
 
 SET Evidence = "The role of the cholinergic system in cognition and the modification
 observed in neurodegenerative diseases, and in particular in the
@@ -162,16 +184,20 @@ case of AD, led to the formulation of the “cholinergic hypothesis” of
 geriatric disorders (Bartus et al., 1982; Contestabile, 2011), according
 to which the reduction in cholinergic innervation is
 responsible for the cognitive decline observed in AD patients"
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 a(HP:"cholinergic neuron") -> bp(GO:cognition)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Nicotinic receptors are transmembrane pentameric proteins
 that belong to the “cys-loop” superfamily of ligand-gated ion
 channels together with GABAA, GABAC, glycine and 5- hydroxytryptamine (5-HT3)
 ionotropic receptors (Changeux and Edelstein, 1998; Le Novère and Changeux, 1995)"
+SET Confidence = "High"
 p(FPLX:CHRN) isA a(MESH:"Cysteine Loop Ligand-Gated Ion Channel Receptors")
 a(MESH:"Cysteine Loop Ligand-Gated Ion Channel Receptors") hasMembers list(p(FPLX:CHRN),p(FPLX:GABR),a(MESH:"Receptors, Glycine"),a(MESH:"Receptors, Serotonin, 5-HT3"))
+UNSET Confidence
 
 SET Evidence = "The five subunits that compose the receptor are assembled around a central hydrophilic
 pore that mediates the flow of the cations K+, Na+ and Ca++. In the human nervous system, there are
@@ -180,21 +206,30 @@ three beta subunits (beta2-beta4) that assemble in different combinations
 to generate a variety of nAChR subtypes with distinct
 electrophysiological properties and brain localization (Albuquerque
 et al., 2009; Gotti et al., 2006b, 2007, 2009)"
+SET Confidence = "High"
 p(FPLX:CHRN) hasMembers list(p(HGNC:CHRNA2),p(HGNC:CHRNA3),p(HGNC:CHRNA4),p(HGNC:CHRNA5),p(HGNC:CHRNA6),p(HGNC:CHRNA7),p(HGNC:CHRNA9),p(HGNC:CHRNA10))
 p(FPLX:CHRN) hasMembers list(p(HGNC:CHRNB2),p(HGNC:CHRNB3),p(HGNC:CHRNB4))
 p(FPLX:CHRN) reg bp(GO:"potassium ion transport")
 p(FPLX:CHRN) reg bp(GO:"sodium ion transport")
 p(FPLX:CHRN) reg bp(GO:"calcium ion transport")
+UNSET Confidence
 
 SET Evidence = "In this context we will focus on these alpha7 and beta2 subunits, that were shown
 to interact with Abeta (Liu et al., 2009, 2012; Søderman et al., 2008; Sudweeks and Yakel, 2000; Wang et al., 2000a, 2000b)"
+SET Confidence = "High"
 complex(p(HGNC:CHRNA7),a(CHEBI:"amyloid-beta"))
 complex(p(HGNC:CHRNB2),a(CHEBI:"amyloid-beta"))
+UNSET Confidence
 
 SET Evidence = "The alpha7 homomeric receptor demonstrates a wide-spread
 localization in the brain and is characterized by a high calcium
 ion permeability and a fast desensitization rate (Dani and Bertrand, 2007; Quick and Lester, 2002)"
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Brain"
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -> bp(GO:"calcium ion transport")
+UNSET MeSHAnatomy
+#MeSHAnatomy was set and unset
+UNSET Confidence
 
 SET Evidence = "alpha7 nAChR on presynaptic terminals
 mediate release of others neurotransmitters (Wonnacott et al.,
@@ -203,141 +238,190 @@ changes in intracellular Ca++ concentration, that can activate
 second messenger pathways mediating cellular processes such as
 neuronal survival and gene expression (Berg and Conroy, 2002;
 Messi et al., 1997; Morley and Happe, 2000)"
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Presynaptic Terminals"
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") reg tloc(a(CHEBI:neurotransmitter),fromLoc(MESH:"Intracellular Space"),toLoc(MESH:"Extracellular Space"))
+#MeSHAnatomy was unset
+UNSET MeSHAnatomy
 SET MeSHAnatomy = "Cell Body"
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") reg bp(GO:"second-messenger-mediated signaling")
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") reg bp(GO:"neuron cellular homeostasis")
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") reg bp(GO:"gene expression")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Moreover, it was
 demonstrated that the activation of alpha7 nAChRs is important during
 development for the maturation of glutamatergic synapses (Lozada et al., 2012)"
+SET Confidence = "High"
 act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")) -> a(GO:"glutamatergic synapse")
+UNSET Confidence
 
 SET Evidence = "Historically, the first nAChR subunit identified to interact
 with Abeta was alpha7 (Wang et al., 2000a, 2000b)"
+SET Confidence = "High"
 complex(p(HGNC:CHRNA7),a(CHEBI:"amyloid-beta"))
+UNSET Confidence
 
 SET Evidence = "Later it was shown that Abeta is able to activate
 also beta2*-nAChRs (beta2 subunit-containing nAChRs)"
+SET Confidence = "High"
 a(CHEBI:"amyloid-beta") -> act(a(HBP:"beta-2-containing nAChR"))
+UNSET Confidence
 
 SET Evidence = "This subunit commonly forms heteropentameric
 receptors in combination with the alpha4 subunit"
+SET Confidence = "High"
 #this subunit: beta2
 complex(p(HGNC:CHRNB2),p(HGNC:CHRNA4)) -> a(HBP:"alpha-4 beta-2 nAChR")
+UNSET Confidence
 
 SET Evidence = "The subtype alpha4beta2 is characterized by lower calcium ion permeability and a slow
 desensitization rate compared to the homopentameric alpha7 nAChR (Quick and Lester, 2002)"
+SET Confidence = "High"
 a(HBP:"alpha-4 beta-2 nAChR") negativeCorrelation bp(GO:"calcium ion transport")
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") positiveCorrelation bp(GO:"calcium ion transport")
+UNSET Confidence
 
 SET Evidence = "In addition to the
 alpha4beta2 subtype, it was demonstrated that the alpha7 subunit is able to coassemble
 with the beta2 subunit to form a heteropentameric receptor"
+SET Confidence = "High"
 complex(p(HGNC:CHRNB2),p(HGNC:CHRNA7)) -> a(HBP:"alpha-7 beta-2 nAChR")
+UNSET Confidence
 
 SET Evidence = "This class of receptors seems to be particularly
 sensitive to Abeta-induced toxicity (Khiroug et al., 2002; Liu et al.,2009, 2012)"
+SET Confidence = "High"
 # this class: alpha7beta2* nAChR
 act(a(CHEBI:"amyloid-beta")) negativeCorrelation a(HBP:"alpha-7 beta-2 nAChR")
+UNSET Confidence
 
 SET Evidence = "Under these experimental conditions, alpha7
 and beta2 are able to co-assemble into a functional receptor that localizes at the cell surface"
+SET Confidence = "High"
 complex(p(HGNC:CHRNB2),p(HGNC:CHRNA7)) -> surf(a(HBP:"alpha-7 beta-2 nAChR"))
+UNSET Confidence
 
 SET Evidence = "The importance of beta2 in maintaining brain homeostasis during
 normal ageing was highlighted in the KO mouse for this subunit"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 p(MGI:Chrnb2) reg bp(MESH:Homeostasis)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Aged beta2 null mutant mice have a thinner cortex compared to agematched
 wild-type controls (Zoli et al., 1999). This work should be
 pursued further as it indicates a “neurotrophic” action of beta2 receptor
 activation by endogenous ACh (Zanardi et al., 2007)"
+SET Confidence = "High"
 p(MGI:Chrnb2) -> a(MESH:"Cerebral Cortex")
 a(CHEBI:acetylcholine) -> act(a(HBP:"beta-2-containing nAChR"))
+UNSET Confidence
 
 SET Evidence = "Null mutant beta2 mice were also tested to determine the role of this
 subunit in cognition. Guillem et al. (2011) showed that these mice
 exhibit an attention deficit which was restored by re-expression of
 this subunit with a lentiviral vector in the PFC"
+SET Confidence = "High"
 p(MGI:Chrnb2) -> path(MESH:Attention)
 p(MGI:Chrnb2) -> bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "The interaction between the alpha7 nAChR and Abeta is widely demonstrated"
+SET Confidence = "High"
 complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:"amyloid-beta"))
+UNSET Confidence
 
 SET Evidence = "They showed that alpha7 subunits co-localize with Abeta1-42 in senile plaques of brain slices
 obtained from patients that suffered from sporadic AD"
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 complex(p(HGNC:CHRNA7),a(CHEBI:"amyloid-beta polypeptide 42")) -- path(MESH:"Plaque, Amyloid")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "The same result was obtained with the reciprocal experiment,
 alpha7 immunoprecipitation and Abeta1-42 detection, meaning that the two proteins strongly interact"
+SET Confidence = "High"
 complex(p(HGNC:CHRNA7),a(CHEBI:"amyloid-beta polypeptide 42"))
+UNSET Confidence
 
 SET Evidence = "Experiments performed with
 fragments of Abeta helped identify the sequence responsible for the
 interaction with alpha7, which corresponds to the amino acid residues
 12-28 of the Abeta sequence (Wang et al., 2000b)"
+SET Confidence = "High"
 #: TODO replace with domain
 p(HGNC:APP, frag("12_28")) -> complex(p(HGNC:CHRNA7), p(HGNC:APP, frag("12_28")))
+UNSET Confidence
 
 SET Evidence = "Subsequently, competition studies performed by incubating alpha7 nAChRs with Abeta
 and alpha-Bungarotoxin showed that the application of alpha-Bungarotoxin is
 able to decrease the amount of Abeta bound to alpha7 nAChRs, suggesting that both molecules compete
 for the same ligand binding domain (Wang et al., 2000b)"
+SET Confidence = "High"
 a(MESH:Bungarotoxins) -| complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:"amyloid-beta"))
+UNSET Confidence
 
 SET Evidence = "Furthermore, studies using two selective
 nicotinic receptor ligands, namely [3H]methyllycaconitine and [3H]
 cytisine, clearly showed that alpha7 nAChRs bind the less toxic peptide
 Abeta1-40, but with lower affinity compared to the 1-42 form (Wang et al., 2000a)"
+SET Confidence = "High"
 complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:"amyloid-beta polypeptide 40"))
 complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:"amyloid-beta polypeptide 42"))
+UNSET Confidence
 
 SET Evidence = "Direct interaction between Abeta and alpha7 was further
 demonstrated in a transgenic mouse line, APPSwe/PS1DE9, where
 alpha7 was shown to immunoprecipitate with Ab1e40/42 (Søderman et al., 2008)"
+SET Confidence = "High"
 complex(p(MGI:Chrna7),a(CHEBI:"amyloid-beta"))
 complex(p(MGI:Chrna7),a(CHEBI:"amyloid-beta polypeptide 40"))
 complex(p(MGI:Chrna7),a(CHEBI:"amyloid-beta polypeptide 42"))
+UNSET Confidence
 
 SET Evidence = "Modulation of nAChRs by Abeta was also found in
 ex vivo studies: Pettit and colleagues (2001) used rat hippocampal
 slices to show that Abeta1-42 incubation is able to reduce postsynaptic
 currents and open probability of both alpha7 and non-alpha7 nAChRs
 subtypes, demonstrating an interaction between Abeta and other nAChR subunits"
+SET Confidence = "High"
 complex(a(CHEBI:"amyloid-beta"),p(FPLX:CHRN))
 complex(p(RGD:Chrna7),a(CHEBI:"amyloid-beta"))
 a(CHEBI:"amyloid-beta") reg act(p(FPLX:CHRN))
 a(CHEBI:"amyloid-beta polypeptide 42") -| bp(MESH:"Synaptic Potentials")
+UNSET Confidence
 
 SET Evidence = "Even though studies have mainly focused on the
 interaction between alpha7 nAChRs and Abeta and its functional consequences,
 it has been demonstrated that also beta2*-nAChRs bind to Abeta"
+SET Confidence = "High"
 complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:"amyloid-beta"))
 complex(a(CHEBI:"amyloid-beta"),a(HBP:"beta-2-containing nAChR"))
+UNSET Confidence
 
 SET Evidence = "In both hippocampal interneurons and oocytes they observed a block of beta2*-nAChRs,
 that could be prevented by the application of a positive allosteric
 modulator (PAM) specific for beta2 subunit containing receptors,
 desformylflustrabromine (dFBr) (Pandya and Yakel, 2011)"
+SET Confidence = "High"
 a(PUBCHEM:637026) -> act(a(HBP:"beta-2-containing nAChR"))
+UNSET Confidence
 
 SET Evidence = "Important evidence for a functional interaction between
 nAChRs and Abeta came from the work of Pettit et al. (2001)"
+SET Confidence = "High"
 complex(a(CHEBI:"amyloid-beta"),p(FPLX:CHRN))
+UNSET Confidence
 
 SET Evidence = "They demonstrated that Abeta1-42 drives a reversible inhibition of nAChR-mediated
 currents in hippocampal GABAergic neurons recorded from rat slices. In these experimental conditions
 the most effective Abeta1-42 concentration was 500 nM, but inhibition was found also at
 the lower concentration of 100 nM"
+SET Confidence = "High"
 #SET Dosage = {"100 nM","500 nM"}
 SET MeSHAnatomy = "Hippocampus"
 SET Cell = "GABAergic neuron"
@@ -347,54 +431,73 @@ a(CHEBI:"amyloid-beta polypeptide 42") -| bp(MESH:"Synaptic Potentials")
 
 UNSET MeSHAnatomy
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "With the use of selective antagonists
 it was possible to determine that inhibition operates on
 both alpha7 and non-alpha7 receptors (Pettit et al., 2001)"
+SET Confidence = "High"
 # inhibition by Abeta1-42
 a(CHEBI:"amyloid-beta polypeptide 42") -| act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
 a(CHEBI:"amyloid-beta polypeptide 42") -| act(p(FPLX:CHRN))
+UNSET Confidence
 
 SET Evidence = "Experiments performed on X. laevis oocytes transiently transfected with alpha7 or
 alpha4beta2 cDNA showed a concentration dependent effect of Abeta on receptor
 inhibition. In this case the peptide used was Abeta1-40 and the
 concentrations adopted were between 0.1 and 10 mM, with
 increased Abeta concentration resulting in a bigger inhibition of the receptor (Tozaki et al., 2002)"
+SET Confidence = "Medium"
 #SET Dosage = "0.1 and 10 mM"
 SET Cell = "oocyte"
 a(CHEBI:"amyloid-beta polypeptide 40") -| act(a(HBP:"alpha-4 beta-2 nAChR"))
 a(CHEBI:"amyloid-beta polypeptide 40") -| act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+#Cell was unset
+UNSET Cell
+UNSET Confidence
 
 SET Evidence = "A different set of experiments
 demonstrated that Abeta enhances ACh activation of the alpha4beta2 nAChRs
 expressed in oocytes, this first activation of the receptor was followed
 by its inhibition (Pym et al., 2005)"
+SET Confidence = "High"
 SET Cell = "oocyte"
 a(CHEBI:"amyloid-beta") -> act(a(CHEBI:acetylcholine))
 act(a(CHEBI:acetylcholine)) -> act(a(HBP:"alpha-4 beta-2 nAChR"))
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "However, alpha7 nAChR activation was observed in X. laevis oocytes when a range of Abeta
 concentration spanning from 1 to 100 pM was applied (Dineley et al., 2002)"
+SET Confidence = "High"
 #SET Dosage = "1 to 100 pM"
 a(CHEBI:"amyloid-beta") -> act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+UNSET Confidence
 
 SET Evidence = "The incubation of cultured
 rat hippocampal neurons with Abeta1-42 resulted in inhibition of alpha7
 nAChRs, more precisely of both somato-dendritic and presynaptic populations of receptors"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Neurons","Hippocampus"}
 a(CHEBI:"amyloid-beta polypeptide 42") -| act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
-
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Further studies showed an
 inhibitory effect of Abeta1-42 on human alpha4beta2 nAChRs transfected in
 the cell line (SHEP1) (Wu et al., 2004)"
+SET Confidence = "High"
 a(CHEBI:"amyloid-beta polypeptide 42") -| act(a(HBP:"alpha-4 beta-2 nAChR"))
+UNSET Confidence
 
 SET Evidence = "The oligomeric form of Abeta1-40 was able to activate alpha7 nAChR expressed
 in SH-SY5Y cell line (Lilja et al., 2011)"
+SET Confidence = "Medium"
+SET CellLine = "SH-SY5Y"
 a(HBP:"amyloid-beta 40 oligomers") -> act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+#CellLine was set and unset
+UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "Arora et al. (2013) investigated,
 in a cellular system, the effect of prolonged Abeta exposure on
@@ -404,65 +507,86 @@ transfected with alpha4beta2 nAChRs and treated for three days with
 led to receptor activation that caused a perturbation of intracellular
 calcium homeostasis followed by mitochondrial dysfunction and
 increased oxidative stress (Arora et al., 2013)"
+SET Confidence = "High"
 composite(a(CHEBI:"amyloid-beta"),a(CHEBI:nicotine)) -> act(a(HBP:"alpha-4 beta-2 nAChR"))
 act(a(HBP:"alpha-4 beta-2 nAChR")) -| bp(GO:"cellular calcium ion homeostasis")
 act(a(HBP:"alpha-4 beta-2 nAChR")) -> path(HBP:"mitochondrial dysfunction")
 act(a(HBP:"alpha-4 beta-2 nAChR")) -> bp(GO:"response to oxidative stress")
+UNSET Confidence
 
 SET Evidence = "In a different study, rat hippocampus and cortex were investigated and the activation of
 both alpha7 and non-alpha7 receptors was obtained with an enhancement
 of Ca++ influx into the neuron following the application of picomolar (pM) concentrations of Abeta1-42"
+SET Confidence = "High"
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -> tloc(a(CHEBI:"calcium(2+)"),fromLoc(MESH:"Extracellular Space"),toLoc(MESH:"Intracellular Space"))
+UNSET Confidence
 
 SET Evidence = "However, it is clear that nAChR-Aß interaction initiates intracellular
 signalling implicating a set of transduction cascades"
+SET Confidence = "High"
 complex(a(CHEBI:"amyloid-beta"),p(FPLX:CHRN)) -> bp(GO:"intracellular signal transduction")
+UNSET Confidence
 
 SET Evidence = "Akt phosphorylation mediates the downstream activation of an antiapoptotic
 pathway, which is also activated by nicotine treatment (Kihara et al., 2001)"
+SET Confidence = "High"
 p(FPLX:AKT,pmod(Ph)) -| bp(GO:"apoptotic process")
 a(CHEBI:nicotine) -| bp(GO:"apoptotic process")
+UNSET Confidence
 
 SET Evidence = "Subsequent to incubation with pM concentrations of Abeta1-42 monomers and
 oligomers, an increase of hippocampal LTP was observed"
+SET Confidence = "High"
 a(HBP:"amyloid-beta 42 oligomers") -> bp(GO:"long-term synaptic potentiation")
 a(CHEBI:"amyloid-beta polypeptide 42") -> bp(GO:"long-term synaptic potentiation")
+UNSET Confidence
 
 SET Evidence = "This enhancement of synaptic plasticity and the activation of intracellular
 pathways are mediated by the activation of alpha7 nAChRs
 (Dineley et al., 2001; Parri et al., 2011; Plant et al., 2003; Puzzo et al., 2008)"
-a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -> bp(GO:"positive regulation of synaptic plasticity")
-a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -> bp(GO:"intracellular signal transduction")
+SET Confidence = "Medium"
+act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")) -> bp(GO:"positive regulation of synaptic plasticity")
+act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")) -> bp(GO:"intracellular signal transduction")
+#activity of alpha 7 was added
+UNSET Confidence
 
 SET Evidence = "An in vivo Abeta infusion in mice was able to enhance hippocampal
 dependent memory, highlighted with memory tasks such
 as the Morris water maze and contextual fear conditioning, which
 are both hippocampus dependent behavioural tasks (Puzzo et al.,2008)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 a(CHEBI:"amyloid-beta") -> bp(GO:memory)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "On the other hand, an opposite effect was shown with Abeta-nAChR
 interaction being responsible for inhibition of survival pathways"
+SET Confidence = "High"
 complex(a(CHEBI:"amyloid-beta"),p(FPLX:CHRN)) -| bp(MESH:"Cell Survival")
+UNSET Confidence
 
 SET Evidence = "In this system enhancement of Akt phosphorylation and
 activation of ERK pathway was observed following alpha7 agonist
 treatment, suggesting that Abeta inhibits the neuroprotective effect of
 alpha7 nAChR activation (Zhi et al., 2014)"
+SET Confidence = "High"
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -> p(FPLX:AKT,pmod(Ph))
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -> bp(GO:"ERK1 and ERK2 cascade")
 a(CHEBI:"amyloid-beta") -| act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -| bp(HP:Neurodegeneration)
+UNSET Confidence
 
 SET Evidence = "It was then postulated that Abeta-nAChR
 interaction has a physiological role in neuronal homeostasis that is
 disrupted when Abeta concentrations increase in a pathological
 context, leading to receptor inhibition and possible cellular toxicity
 (Dineley et al., 2001; Parri et al., 2011)"
+SET Confidence = "High"
 complex(a(CHEBI:"amyloid-beta"),p(FPLX:CHRN)) -- bp(GO:"neuron cellular homeostasis")
 a(CHEBI:"amyloid-beta") -| act(p(FPLX:CHRN))
 a(CHEBI:"amyloid-beta") -| bp(GO:"neuron cellular homeostasis")
+UNSET Confidence
 
 SET MeSHDisease = "Alzheimer Disease"
 
@@ -474,206 +598,275 @@ deficit at 13-16 months of age, while APP-alpha7KO mice did not
 exhibit any memory deficit, suggesting that the absence of the alpha7
 subunit of the nicotinic receptor protects against the behavioural
 deficit caused by expression of the mutated forms of APP in this AD model"
+SET Confidence = "High"
 p(MGI:App, var("p.Lys670Asn"),var("p.Met671Leu"),var("p.Val717Phe")) -| path(MESH:"Spatial Memory")
 p(MGI:Chrna7) -| path(MESH:"Spatial Memory")
+UNSET Confidence
 
 SET Evidence = "In the APP-alpha7KO line the lack of alpha7 was sufficient to preserve synaptic
 terminals and dendrites, rescuing levels of synaptophysin and
 MAP2 to reach that of aged-matched WT controls"
+SET Confidence = "High"
 p(MGI:Chrna7) -| p(MGI:Syp)
 p(MGI:Chrna7) -| p(MGI:Map2)
+UNSET Confidence
 
 SET Evidence = "These experiments confirmed
 that the level of expression of APP and the consequent synthesis of
 Ab were comparable between mouse lines, demonstrating that the
 difference in cognitive deficit and neuropathology were mediated
 exclusively by the nicotinic recept"
+SET Confidence = "High"
 p(FPLX:CHRN) reg path(MESH:"Cognition Disorders")
+UNSET Confidence
 
 SET Evidence = "The authors postulated that the absence of alpha7 could
 prevent Abeta intracellular accumulation ameliorating the cognitive
 neuropathology and its phenotypic association (Dziewczapolski et al., 2009)"
+SET Confidence = "High"
 p(MGI:Chrna7) -> a(CHEBI:"amyloid-beta")
 p(MGI:Chrna7) -> bp(GO:cognition)
-
+UNSET Confidence
 # APP-alpha7KO: Swedish mutation crossed with alpha7 KO mouse
 
 SET Evidence = "The contextual fear conditioning and the novel object recognition tasks
 both showed that the cognitive deficits worsen when alpha7 is absent"
+SET Confidence = "High"
 p(MGI:Chrna7) -| path(MESH:"Cognition Disorders")
+UNSET Confidence
 
 SET Evidence = "In the hippocampus, it was shown that APP-alpha7KO mice had high
 levels of Abeta, although significantly less than APP mice, an effect
 which is not due to modification of the APP expression level,equivalent in the two lines"
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 p(MGI:Chrna7) -| a(CHEBI:"amyloid-beta")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "As a consequence of the lower Abeta concentration, the
 plaque load was clearly reduced in APP-alpha7KO mice"
+SET Confidence = "High"
 p(MGI:Chrna7) -> path(MESH:"Plaque, Amyloid")
+UNSET Confidence
 
 SET Evidence = "Signs of neuropathology were found in APP-alpha7KO illustrated
 by loss of MAP2 immunoreactivity in the hippocampus"
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 p(MGI:Chrna7) -> p(MGI:Map2)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The mechanism proposed is that the Aß-alpha7 nAChR interaction
 could activate neuroprotective downstream pathways (Parri et al., 2011), and that
 at the same time the interaction engages Abeta preventing its aggregation"
+SET Confidence = "High"
 complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:"amyloid-beta")) -| bp(HP:Neurodegeneration)
 complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:"amyloid-beta")) -| a(HBP:"amyloid-beta aggregates")
+UNSET Confidence
 
 SET Evidence = "With the progression of the disease the amount of Abeta increases, it starts
 to accumulate, and becomes toxic for the neurons (Hernandez et al., 2010)"
+SET Confidence = "High"
 # disease: Alzheimer Disease
 path(MESH:"Alzheimer Disease") positiveCorrelation a(CHEBI:"amyloid-beta")
 path(MESH:"Alzheimer Disease") positiveCorrelation a(HBP:"amyloid-beta aggregates")
+UNSET Confidence
 
 SET Evidence = "Cotinine is a nicotine metabolite known for its positive effects on memory
 and attention and lower toxicity compared to nicotine (Hatsukami et al., 1997)"
+SET Confidence = "High"
 a(CHEBI:"(-)-cotinine") -> path(MESH:Attention)
 a(CHEBI:"(-)-cotinine") -> bp(GO:memory)
+UNSET Confidence
 
 SET Evidence = "Methyllycaconitine (MLA), an alpha7 nAChR antagonist,
 showed neuroprotective effect on mouse and rat primary cell culture (Martin et al., 2004)"
+SET Confidence = "High"
 a(CHEBI:methyllycaconitine) -| act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
 a(CHEBI:methyllycaconitine) -| bp(HP:Neurodegeneration)
 act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")) -> bp(HP:Neurodegeneration)
+UNSET Confidence
 
 SET Evidence = "Another molecule investigated was 2-[2-(4- bromophenyl)-2-oxoethyl]-1-methyl pyridinium (S 24795), a
 partial alpha7 nAChR agonist. When this molecule was applied to synaptosomal preparations from rat frontal cortex and post mortem
 human AD samples it was able to dissociate Abeta in a concentration dependent manner"
+SET Confidence = "High"
 a(HBP:"S 24795") -| a(CHEBI:"amyloid-beta")
+UNSET Confidence
 
 SET Evidence = "The incubation with S 24795 was able to normalize Ca++ influx mediated
 by both alpha7 nAChR and NMDAR (Wang et al., 2009, 2010)"
+SET Confidence = "High"
 act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")) reg tloc(a(CHEBI:"calcium(2+)"),fromLoc(MESH:"Extracellular Space"),toLoc(MESH:"Intracellular Space"))
 a(MESH:"Receptors, N-Methyl-D-Aspartate") reg tloc(a(CHEBI:"calcium(2+)"),fromLoc(MESH:"Extracellular Space"),toLoc(MESH:"Intracellular Space"))
 a(HBP:"S 24795") -> tloc(a(CHEBI:"calcium(2+)"),fromLoc(MESH:"Extracellular Space"),toLoc(MESH:"Intracellular Space"))
+UNSET Confidence
 
 SET Evidence = "The analysis of the Abeta fraction reduced by nicotine
 showed that mainly insoluble Ab1-40/42 was affected while there
 was no change in soluble Abeta (Nordberg et al., 2002)"
+SET Confidence = "High"
 a(CHEBI:nicotine) -| a(CHEBI:"amyloid-beta polypeptide 42")
 a(CHEBI:nicotine) -| a(CHEBI:"amyloid-beta polypeptide 40")
+UNSET Confidence
 
 SET Evidence = "The short-term treatment of 10 days showed a significant
 reduction in cortical insoluble Abeta1-40/42"
+SET Confidence = "High"
 a(CHEBI:nicotine) -| a(CHEBI:"amyloid-beta polypeptide 42")
 a(CHEBI:nicotine) -| a(CHEBI:"amyloid-beta polypeptide 40")
+UNSET Confidence
 
 SET Evidence = "Long-term nicotine administration elicited a reduction in Abeta deposits in blood vessel"
+SET Confidence = "High"
 SET MeSHAnatomy = "Blood Vessels"
 a(CHEBI:nicotine) -| a(CHEBI:"amyloid-beta")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "APPSwe mice at 14.5 months have fewer alphaBungarotoxin binding sites, while in transgenic
 mice treated with nicotine the number of alphaBungarotoxin
 binding sites was recovered and comparable to non transgenic age-matched
-control mice, suggesting that there was an increase in the
+control mice, suggesting that there was an increase in theSET Confidence = "High"
 population of alpha7 nAChRs (Hellstrom-Lindahl et al., 2004)"
+SET Confidence = "High"
 a(CHEBI:nicotine) -> a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")
+UNSET Confidence
 
 SET Evidence = "Mice aged 6 months were treated for one month with nicotine
 injections, which led to an improvement in working and episodic
 memory compared to non-treated transgenic mice"
+SET Confidence = "High"
 # APP/PS1 double transgenic mouse
 a(CHEBI:nicotine) -> path(MESH:"Memory, Episodic")
+UNSET Confidence
 
 SET Evidence = "Like the young mice, they also displayed an improvement in spatial memory,
 demonstrating that nicotine enhances memory in both young and old mice"
+SET Confidence = "High"
 a(CHEBI:nicotine) -> path(MESH:"Spatial Memory")
+UNSET Confidence
 
 SET Evidence = "The amount of Abeta was quantified, and following
 nicotine injections a reduction in Abeta, particularly in the oligomeric form, was found"
+SET Confidence = "High"
 a(CHEBI:nicotine) -| a(HBP:"amyloid-beta oligomers")
+UNSET Confidence
 
 SET Evidence = "The explanation proposed by the authors is that alpha7 nAChR
 activation through nicotine binding could promote survival pathways
 and recover the synaptic damage caused by Abeta (Inestrosa et al., 2013)"
+SET Confidence = "High"
 a(CHEBI:nicotine) -> act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
 act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")) -> bp(MESH:"Cell Survival")
 act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")) -> a(GO:synapse)
 a(CHEBI:"amyloid-beta") -| a(GO:synapse)
+UNSET Confidence
 
 SET Evidence = "The long-term nicotine treatment caused faster tau aggregation in CA1 pyramidal neurons"
+SET Confidence = "High"
 SET MeSHAnatomy = {"CA1 Region, Hippocampal","Pyramidal Cells"}
 a(CHEBI:nicotine) -> a(HBP:"Tau aggregates")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The possible mechanism by which nicotine enhances the aggregation
 of tau is through the activation of p38-MAP kinase"
+SET Confidence = "High"
 a(CHEBI:nicotine) -> a(HBP:"Tau aggregates")
 a(CHEBI:nicotine) -> bp(GO:"p38MAPK cascade")
 bp(GO:"p38MAPK cascade") -> a(HBP:"Tau aggregates")
+UNSET Confidence
 
 SET Evidence = "This kinase is sensitive to Ca++, whose levels are increased following
 nAChR activation (Oddo et al., 2005)"
+SET Confidence = "High"
 act(p(FPLX:CHRN)) -> a(CHEBI:"calcium(2+)")
+UNSET Confidence
 
 SET Evidence = "Even though nicotine showed
 a positive effect reducing plaque load (Hellstrom-Lindahl et al.,
 2004; Inestrosa et al., 2013; Nordberg et al., 2002), its use in AD
 treatment should be limited due to its toxic effect on tau pathology"
+SET Confidence = "High"
 a(CHEBI:nicotine) -| path(MESH:"Plaque, Amyloid")
+UNSET Confidence
 
 SET Evidence = "Nicotine treatment improved the memory deficit, highlighted with
 the Morris water maze task. Surprisingly, this study showed a dose
 dependent increase of alpha7 nAChR, a result that is in contrast with the
 literature (Oddo et al., 2005)"
+SET Confidence = "High"
 a(CHEBI:nicotine) -> bp(GO:memory)
 a(CHEBI:nicotine) -> a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")
+UNSET Confidence
 
 SET Evidence = "In a mouse model of AD, cotinine treatment decreased the plaque load and was able to
 activate the Akt pathway, that was shown to be neuroprotective (Echeverria et al., 2011)"
+SET Confidence = "High"
 a(CHEBI:"(-)-cotinine") -| path(MESH:"Plaque, Amyloid")
 a(CHEBI:"(-)-cotinine") -> act(p(FPLX:AKT))
 act(p(FPLX:AKT)) -| bp(HP:Neurodegeneration)
+UNSET Confidence
 
 SET Evidence = "Cotinine is an alpha7 nAChR PAM (positive allosteric modulator)"
+SET Confidence = "High"
 a(CHEBI:"(-)-cotinine") -> act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+UNSET Confidence
 
 SET Evidence = "Whilst the spatial memory deficit
 was restored by 4OH-GTS-21 treatment, this molecule had no effect
 on neuronal density (Ren et al., 2007)"
+SET Confidence = "High"
 a(HBP:"4-OH-GTS-21") -> path(MESH:"Spatial Memory")
 a(HBP:"4-OH-GTS-21") causesNoChange bp(GO:"neuron cellular homeostasis")
+UNSET Confidence
 
 SET Evidence = "Wild-type mice treated with
 nicotine or with SSR180711, another partial agonist of alpha7 (Biton
 et al., 2006), showed increased LTP, while the transgenic AD
 model APPSwe/PS1DE9 showed no effect on LTP following SSR180711 treatment"
+SET Confidence = "High"
 a(CHEBI:nicotine) -> bp(GO:"long-term synaptic potentiation")
 a(PUBCHEM:9928899) -> bp(GO:"long-term synaptic potentiation")
+UNSET Confidence
 
 SET Evidence = "Pregnenolone sulfate (PREGS) is an endogenous steroid known
 to ameliorate cognitive performance in animals. PREGS is a
 modulator of synaptic plasticity, acting on the activation of glutamatergic
 transmission (Smith et al., 2014)"
+SET Confidence = "High"
 a(CHEBI:"pregnenolone sulfate") -> bp(GO:cognition)
 a(CHEBI:"pregnenolone sulfate") -> bp(GO:"positive regulation of synaptic plasticity")
 a(CHEBI:"pregnenolone sulfate") -> bp(GO:"synaptic transmission, glutamatergic")
+UNSET Confidence
 
 SET Evidence = "It was proposed that the positive action of PREGS is mediated by alpha7 nAChR"
+SET Confidence = "High"
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -> act(a(CHEBI:"pregnenolone sulfate"))
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -> bp(GO:cognition)
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -> bp(GO:"positive regulation of synaptic plasticity")
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -> bp(GO:"synaptic transmission, glutamatergic")
+UNSET Confidence
 
 SET Evidence = "The treatment improved spatial memory and reduced apoptosis in CA1 pyramidal cells"
 # treatment with pregnenolone sulfate
+SET Confidence = "High"
 a(CHEBI:"pregnenolone sulfate") -> path(MESH:"Spatial Memory")
 SET MeSHAnatomy = {"CA1 Region, Hippocampal","Pyramidal Cells"}
 a(CHEBI:"pregnenolone sulfate") -| bp(GO:"apoptotic process")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Simvastatin (SV) is a statin commonly used in the clinic to
 control cholesterol levels and it was shown to improve cognitive
 function in AD patients (Simons et al., 2002; Sparks et al., 2006)"
+SET Confidence = "High"
 a(CHEBI:simvastatin) reg bp(GO:"cholesterol homeostasis")
 a(CHEBI:simvastatin) -> bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "In a study conducted by Zhi et al. (2014), this molecule was used to
 treat a mouse model obtained with injections of the peptide
@@ -682,6 +875,7 @@ in the Morris water maze task and promoted survival of
 CA1 pyramidal cells. This effect was proposed to be promoted by alpha7
 nAChRs, since it is blocked by MLA administration (Zhi et al., 2014)"
 # MLA: Methyllycaconitine
+SET Confidence = "High"
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -> act(a(CHEBI:simvastatin))
 composite(a(CHEBI:simvastatin),p(MGI:App,frag("25_35"))) -> bp(GO:memory)
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -> bp(GO:memory)
@@ -692,22 +886,29 @@ a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -| bp(GO:"apoptotic process")
 UNSET MeSHAnatomy
 
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "The intracellular signalling
 initiated by the binding of Abeta to nAChR at the cell surface requires
 the recruitment of Filamin A (FLNA), a scaffold protein that is
 known to crosslink actin, and in addition could also have a function
 in certain intracellular pathways (Stossel et al., 2001)"
+SET Confidence = "High"
 complex(a(CHEBI:"amyloid-beta"),p(FPLX:CHRN),p(HGNC:FLNA)) -> bp(GO:"intracellular signal transduction")
+UNSET Confidence
 
 SET Evidence = "Wang et al. showed that the association between FLNA and the alpha7 subunit is
 elevated in AD samples compared to age matched controls"
+SET Confidence = "High"
 complex(p(HGNC:CHRNA7),p(HGNC:FLNA)) positiveCorrelation path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "A novel molecule called PTI-125 was used to interfere with the interaction
 of FLNA and alpha7. The treatment with PTI-125 prevents FLNA binding
 to alpha7 and as consequence reduces the affinity of Abeta for nAChRs,
 attenuating the toxic effect of Abeta (Wang et al., 2012)"
+SET Confidence = "High"
 a(HBP:"PTI-125") -| complex(p(HGNC:CHRNA7),p(HGNC:FLNA))
 a(HBP:"PTI-125") -| complex(p(FPLX:CHRN),a(CHEBI:"amyloid-beta"))
 a(HBP:"PTI-125") -> act(a(CHEBI:"amyloid-beta"))
+UNSET Confidence
