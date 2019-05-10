@@ -167,7 +167,7 @@ binding activity, and heat stability (Kosik et al. 1986; Nukina and Ihara 1986; 
 also Brion et al. 1985; Grundke-Iqbal et al. 1986; Wood et al. 1986; discovery of tau in
 PHF is reviewed in Mandelkow and Mandelkow 2011)."
 SET Confidence = "Medium"
-p(HGNC:MAPT) -| a(HBP:"paired helical filaments")
+p(HGNC:MAPT) -- a(HBP:"paired helical filaments")
 UNSET Confidence
 
 SET Evidence = "Besides the characteristic “PHF smear,” they also labeled
@@ -848,7 +848,7 @@ clearance (Lee et al. 2010)."
 SET Confidence = "Medium"
 p(HGNC:PSEN1,var("?")) -> path(MESH:"Alzheimer Disease")
 p(HGNC:PSEN1,var("?")) -| bp(GO:"lysosomal protein catabolic process")
-p(HGNC:PSEN1,var("?")) -> act(a(HBP:Neurites))
+p(HGNC:PSEN1,var("?")) -| act(a(HBP:Neurites))
 UNSET Confidence
 
 SET Evidence = "Beyond its role as a component of g-secretase, Presenilin 1 (PS1) is required for
@@ -869,6 +869,7 @@ SET MeSHAnatomy = "Lysosomes"
 p(HGNC:PSEN1) -> p(HGNC:ATP6V0A1,pmod(NGlyco))
 p(HGNC:ATP6V0A1,pmod(NGlyco)) -> bp(GO:"pH reduction")
 p(HGNC:ATP6V0A1) -> deg(p(HGNC:ATP6V0A1))
+# i wouldn'T annotate it like this because the evidence doesn't state that the protein itself can increase its own degradation. it's probably another process which is not mentioned here
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -892,6 +893,7 @@ to that seen at the earliest stages of sporadic AD, but beginning even earlier"
 SET Confidence = "Medium"
 SET MeSHDisease = "Down Syndrome"
 complex(p(HGNC:APP), p(HGNC:APP)) -> bp(GO:endocytosis)
+# the evidence doesn't state that APP forms a complex with itself
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -956,8 +958,8 @@ SET Evidence = "Indeed, when lysosomal proteolysis is inhibited by blocking
 acidification or directly inhibiting cathepsins,axonal transport of autophagy-related compartments
 is selectively slowed and intermittently interrupted."
 SET Confidence = "Medium"
-p(HGNCGENEFAMILY:Cathepsins) -| bp(GO:"lysosomal protein catabolic process")
-bp(GO:"pH reduction") -| bp(GO:"lysosomal protein catabolic process")
+p(HGNCGENEFAMILY:Cathepsins) -> bp(GO:"lysosomal protein catabolic process")
+bp(GO:"pH reduction") -> bp(GO:"lysosomal protein catabolic process")
 bp(GO:"lysosomal protein catabolic process") -> bp(GO:"axonal transport")
 UNSET Confidence
 
@@ -1156,6 +1158,7 @@ SET Confidence = "Medium"
 sec(a(MESH:Hydrolases)) -> path(MESH:Necrosis)
 sec(a(MESH:Cathepsins)) -> bp(GO:"apoptotic process")
 sec(a(MESH:Hydrolases)) -| sec(a(MESH:Cathepsins))
+# not mentioned in the evidence
 UNSET Confidence
 
 SET Evidence = "By up-regulating endocytosis, high dietary LDL-cholesterol and overexpression of its receptor
