@@ -289,6 +289,7 @@ p(HGNC:BAG4) -> complex(p(HGNC:DDX6),p(HGNC:BAG4))
 UNSET Confidence
 
 #check for statements in comment. Can they be annotated for the evidence?
+## yes, you can add them
 SET Evidence = "These three proteins localize to cytoplasmic structures known as processing bodies, or P
 bodies, which are involved in mRNA decapping, degradation, and translational silencing (Eulalio et al., 2007)"
 # these three:DCP1A, EDC3, and DDX6
@@ -334,6 +335,7 @@ p(HGNC:BAG4,var("p.Asp424Ala")) neg complex(GO:"P-body")
 UNSET Confidence
 
 #could you state the reference for SUGT1 reduction? According to figure 4A, no mention of this protein is there.
+# it's in the right image of the figure (SGT1 is SUGT1)
 SET Evidence = "Ganetespib treatment had a strong effect on most Hsp90-
 client interactions. Of the 630 unique proteins that we detected
 by LUMIER assay, 46% significantly decreased their interaction
@@ -391,14 +393,17 @@ p(INTERPRO:"Heat shock protein 70 family") => complex(p(INTERPRO:"Heat shock pro
 UNSET Confidence
 
 #i dont understand how PSMD4 and PFDN2 increase the complex formation
+## I think when we did this, we said we should annotate it like this but i think the complex annotation is enough
 SET Evidence = "Similarly, three components of the
 proteasome regulatory particle (PSMD4, PSMC1, and ADRM1)
 clustered together, as did the two subunits of the prefoldin complex,
 PFDN2 and PFDN5 (Figure 5A)"
 SET Confidence = "Low"
 p(HGNC:PSMD4) => complex(p(HGNC:PSMD4),p(HGNC:PSMC1),p(HGNC:ADRM1))
+# change to: complex(p(HGNC:PSMD4),p(HGNC:PSMC1),p(HGNC:ADRM1))
 complex(GO:"prefoldin complex") hasComponents list(p(HGNC:PFDN2),p(HGNC:PFDN5))
 p(HGNC:PFDN2) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5))
+# change to: complex(p(HGNC:PFDN2),p(HGNC:PFDN5))
 UNSET Confidence
 
 SET Evidence = "Hsp90beta interacted particularly strongly with kinases (Figure 5B, filled
@@ -426,6 +431,7 @@ p(HGNC:UNC45A) => complex(p(HGNC:UNC45A),p(HGNC:HSP90AB1))
 UNSET Confidence
 
 #evidence of the other proteosome subunit could be helpful.
+## i think it was only mentioned in the the figure, if not than delete the annotation
 SET Evidence = "BAG3 and BAG4 showed a strong association only
 with the small heat shock protein Hsp27 (Figure 5F) and the
 mRNA decapping complex member DCP1B, respectively (Figure
@@ -441,6 +447,7 @@ p(HGNC:BAG1) => complex(p(HGNC:BAG1),p(HGNC:PSMD2))
 UNSET Confidence
 
 #difficult in understanding the refernce.
+## everything that i annotated was possibly mentioned in the figure
 SET Evidence = "RPN1 interacted strongly with four BAG proteins and with the ubiquitin ligase CHIP. This
 was in contrast to the three other subunits (RPN10, RPN13,
 and RPT2) that primarily interacted with other proteasome subunits (Figures 5I, 5J, and S4E)"
@@ -547,6 +554,7 @@ p(HGNC:NUDCD3) => complex(p(HGNC:NUDCD3),p(HGNC:ENC1))
 UNSET Confidence
 
 #Doesn't it mean FBX024 is an RCC1 repeart protein?
+## yes
 SET Evidence = "For NUDCD2, the most significant interacting
 protein was FBXO24, an RCC1 repeat protein (Figure 6I)"
 # RCC1 repeat protein: SNX31
@@ -579,6 +587,7 @@ p(HGNC:NUDCD3) => complex(p(HGNC:NUDCD3),p(INTERPRO:"Kelch-type beta propeller")
 UNSET Confidence
 
 #does the interaction increse the complex SGT1 and FBXL2 abundance?
+## no, i don't think so
 SET Evidence = "As reported before (Taipale et al.,
 2012), CDC37 interacted with the kinase domain of ARAF, and
 SGT1 interacted with the LRR domain of FBXL2 (Figure 7B)"
