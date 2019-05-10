@@ -293,7 +293,7 @@ UNSET Confidence
 SET Evidence = "These three proteins localize to cytoplasmic structures known as processing bodies, or P
 bodies, which are involved in mRNA decapping, degradation, and translational silencing (Eulalio et al., 2007)"
 # these three:DCP1A, EDC3, and DDX6
-SET Confidence = "Low"
+SET Confidence = "Medium"
 p(HGNC:DCP1A) isA complex(GO:"P-body")
 p(HGNC:EDC3) isA complex(GO:"P-body")
 p(HGNC:DDX6) isA complex(GO:"P-body")
@@ -303,15 +303,15 @@ p(HGNC:EDC3) -- bp(GO:"cellular protein catabolic process")
 p(HGNC:EDC3) -- bp(GO:"gene silencing")
 p(HGNC:DDX6) -- bp(GO:"cellular protein catabolic process")
 p(HGNC:DDX6) -- bp(GO:"gene silencing")
-#p(HGNC:DDX6) -| bp(GO:"7-methylguanosine mRNA capping")
-#p(HGNC:EDC3) -| bp(GO:"7-methylguanosine mRNA capping")
-#p(HGNC:DCP1A) -| bp(GO:"7-methylguanosine mRNA capping")
-#p(HGNC:DDX6) -| bp(GO:"mRNA stabilization")
-#p(HGNC:EDC3) -| bp(GO:"mRNA stabilization")
-#p(HGNC:DCP1A) -| bp(GO:"mRNA stabilization")
-#p(HGNC:DDX6) -> bp(GO:"translational termination")
-#p(HGNC:EDC3) -> bp(GO:"translational termination")
-#p(HGNC:DCP1A) -> bp(GO:"translational termination")
+p(HGNC:DDX6) -| bp(GO:"7-methylguanosine mRNA capping")
+p(HGNC:EDC3) -| bp(GO:"7-methylguanosine mRNA capping")
+p(HGNC:DCP1A) -| bp(GO:"7-methylguanosine mRNA capping")
+p(HGNC:DDX6) -| bp(GO:"mRNA stabilization")
+p(HGNC:EDC3) -| bp(GO:"mRNA stabilization")
+p(HGNC:DCP1A) -| bp(GO:"mRNA stabilization")
+p(HGNC:DDX6) -> bp(GO:"translational termination")
+p(HGNC:EDC3) -> bp(GO:"translational termination")
+p(HGNC:DCP1A) -> bp(GO:"translational termination")
 UNSET Confidence
 
 SET Evidence = "Thus, BAG4 overexpression disrupted P body organization"
@@ -341,6 +341,7 @@ client interactions. Of the 630 unique proteins that we detected
 by LUMIER assay, 46% significantly decreased their interaction
 with Hsp90beta (change in LUMIER score > 1.5, adjusted p value <0.05; Figure 4A)"
 # Ganetespib: inhibitor of Hsp90
+#SGT1 : SUGT1
 SET Confidence = "Low"
 a(PUBCHEM:23624255) -| act(p(INTERPRO:"Heat shock protein Hsp90 family"))
 a(PUBCHEM:23624255) -| complex(p(HGNC:HSP90AB1),p(HGNC:RPAP3))
@@ -398,12 +399,10 @@ SET Evidence = "Similarly, three components of the
 proteasome regulatory particle (PSMD4, PSMC1, and ADRM1)
 clustered together, as did the two subunits of the prefoldin complex,
 PFDN2 and PFDN5 (Figure 5A)"
-SET Confidence = "Low"
-p(HGNC:PSMD4) => complex(p(HGNC:PSMD4),p(HGNC:PSMC1),p(HGNC:ADRM1))
-# change to: complex(p(HGNC:PSMD4),p(HGNC:PSMC1),p(HGNC:ADRM1))
+SET Confidence = "Medium"
+complex(p(HGNC:PSMD4),p(HGNC:PSMC1),p(HGNC:ADRM1))
 complex(GO:"prefoldin complex") hasComponents list(p(HGNC:PFDN2),p(HGNC:PFDN5))
-p(HGNC:PFDN2) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5))
-# change to: complex(p(HGNC:PFDN2),p(HGNC:PFDN5))
+complex(p(HGNC:PFDN2),p(HGNC:PFDN5))
 UNSET Confidence
 
 SET Evidence = "Hsp90beta interacted particularly strongly with kinases (Figure 5B, filled
@@ -561,7 +560,7 @@ protein was FBXO24, an RCC1 repeat protein (Figure 6I)"
 SET Confidence = "Low"
 p(HGNC:NUDCD2) => complex(p(HGNC:NUDCD2),p(HGNC:FBXO24))
 p(HGNC:NUDCD2) => complex(p(HGNC:NUDCD2),p(HGNC:SNX31))
-#p(HGNC:FBXO24) isA p(INTERPRO:"Regulator of chromosome condensation, RCC1")
+p(HGNC:FBXO24) isA p(INTERPRO:"Regulator of chromosome condensation, RCC1")
 UNSET Confidence
 
 SET Evidence = "As expected, CDC37 interacted virtually exclusively with kinases (p < 0.0001,
@@ -586,8 +585,6 @@ p(HGNC:NUDCD2) => complex(p(HGNC:NUDCD2),p(INTERPRO:"Regulator of chromosome con
 p(HGNC:NUDCD3) => complex(p(HGNC:NUDCD3),p(INTERPRO:"Kelch-type beta propeller"))
 UNSET Confidence
 
-#does the interaction increse the complex SGT1 and FBXL2 abundance?
-## no, i don't think so
 SET Evidence = "As reported before (Taipale et al.,
 2012), CDC37 interacted with the kinase domain of ARAF, and
 SGT1 interacted with the LRR domain of FBXL2 (Figure 7B)"
