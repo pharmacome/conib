@@ -103,8 +103,8 @@ SET Confidence = "Low"
 SET MeSHAnatomy = "Brain"
 path(MESH:"Alzheimer Disease") pos a(GO:autolysosome)
 bp(GO:"lysosomal protein catabolic process") -| a(GO:autolysosome)
-# p(HGNCGENEFAMILY:Cathepsins) -> bp(GO:"lysosomal protein catabolic process")
-# a(GO:lysosome) -> bp(GO:"lysosomal protein catabolic process")
+p(HGNCGENEFAMILY:Cathepsins) -> bp(GO:"lysosomal protein catabolic process")
+a(GO:lysosome) -> bp(GO:"lysosomal protein catabolic process")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -195,7 +195,7 @@ UNSET Confidence
 
 SET Evidence = "Accumulation of misfolded proteins and damaged
 organelles is highly detrimental for neuronal homeostasis and survival."
-SET Confidence = "Medium"
+SET Confidence = "High"
 a(GO:"organelle") -> bp(GO:"neuron cellular homeostasis")
 a(GO:"organelle") -> a(MESH:Neurons)
 p(MESH:Proteins,pmod(HBP:misfolded)) -| bp(GO:"neuron cellular homeostasis")
@@ -363,7 +363,7 @@ UNSET Confidence
 
 SET Evidence = "Abnormal phosphorylation and truncation of tau are hallmarks
 of AD pathology and are targets of proteasome and autophagy pathways [27,44,45]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(Ph)) -> path(MESH:"Alzheimer Disease")
 p(HGNC:MAPT,frag("?")) -> path(MESH:"Alzheimer Disease")
 complex(GO:"proteasome complex") -- p(HGNC:MAPT,pmod(Ph))
@@ -563,7 +563,7 @@ UNSET Confidence
 SET Evidence = "Sphingolipids are also strongly implicated in AD pathology, with upregulated
 levels of ceramide, a key component in sphingolipid metabolism,
 detected in the early phase of AD [80]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -- a(CHEBI:sphingolipid)
 a(CHEBI:ceramide) reg bp(GO:"sphingolipid metabolic process")
 a(CHEBI:ceramide) pos path(MESH:"Alzheimer Disease")
@@ -572,7 +572,7 @@ UNSET Confidence
 SET Evidence = "The finding of reduced Aβ generation when conversion of sphingomyelin
 to ceramide is blocked further substantiates the crucial involvement
 of sphingolipids in Aβ metabolism through modulation of γ-secretase [81,82]"
-SET Confidence = "Medium"
+SET Confidence = "High"
 rxn(reactants(a(MESH:Sphingomyelins)),products(a(CHEBI:ceramide))) -> a(CHEBI:"amyloid-beta")
 a(CHEBI:sphingolipid) reg act(complex(GO:"gamma-secretase complex"))
 complex(GO:"gamma-secretase complex") -- a(CHEBI:"amyloid-beta")
@@ -623,7 +623,7 @@ UNSET Confidence
 SET Evidence = "For instance, adenosine monophosphate-
 activated protein kinase (AMPK) phosphorylates ULK1 and
 inactivates mTOR through the raptor and tuberous sclerosis complex (TSC2)."
-SET Confidence = "Low"
+SET Confidence = "High"
 p(FPLX:AMPK) -> p(HGNC:ULK1,pmod(Ph))
 composite(p(FPLX:AMPK),p(HGNC:TSC2)) -| act(p(HGNC:MTOR))
 UNSET Confidence
@@ -669,7 +669,7 @@ UNSET Confidence
 ## I changed two back to the original ones because upon degradation of Tau neuroinflammation and neuronal loss decreases
 SET Evidence = "TFEB has been shown to effectively clear phosphorylated tau proteins through A-LS, resulting in
 ameliorated neuronal loss and neuroinflammation, as well as improved cognitive performance [89]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:TFEB) -> bp(GO:autophagy)
 p(HGNC:TFEB) -> deg(p(HGNC:MAPT,pmod(Ph)))
 bp(GO:autophagy) -> deg(p(HGNC:MAPT,pmod(Ph)))
@@ -782,10 +782,10 @@ UNSET Confidence
 ## i made a suggestion maybe we can do it like this
 SET Evidence = "For example, Beclin 1 suppression results in impaired
 microglial phagocytosis of Aβ and reduced recycling of TREM2 [108]."
-SET Confidence = "Low"
+SET Confidence = "Medium"
 SET Cell = "microglial cell"
 p(HGNC:BECN1) -> bp(GO:phagocytosis)
-#p(HGNC:BECN1) -> tloc(a(CHEBI:"amyloid-beta"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
+p(HGNC:BECN1) -> tloc(p(HGNC:TREM2),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
 UNSET Cell
 UNSET Confidence
 
@@ -884,7 +884,7 @@ UNSET Confidence
 
 SET Evidence = "A recent study reported that mitophagy is robustly induced in AD brains and in
 vitro models of mutant APP, accompanied with abnormal accumulation of depoloarized mitochondria [126]"
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 path(MESH:"Alzheimer Disease") -> bp(GO:mitophagy)
 p(HGNC:APP,var("?")) -> bp(GO:mitophagy)
