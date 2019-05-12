@@ -53,15 +53,17 @@ cognitive and memory decline and progressive
 impairment of activities of daily living, as well
 as a variety of neuropsychiatric symptoms and
 behavioral dysfunctions."
-
+SET Confidence = "Medium"
 #D000544 = Alzheimer Disease, D019636 = Neurodegenerative Diseases
 path(MESH:D000544) -- path(MESH:D019636)
 #D008568 = Memory
-path(MESH:D000544) -- path(MESH:D008568)
+path(MESH:D000544) -| path(MESH:D008568)
 #D003071 = Cognition
-path(MESH:D000544) -- path(MESH:D003071)
+path(MESH:D000544) -| path(MESH:D003071)
 #D001526 = Behavioral Symptoms
+#cognitive and memory decline is indicated
 path(MESH:D000544) -- path(MESH:D001526)
+UNSET Confidence
 
 SET Evidence="People with a clinical diagnosis of
 MCI comprise a heterogeneous cohort of which
@@ -77,7 +79,7 @@ and biochemical hallmarks of AD [5–9].
 These clinical pathobiologic studies suggest that MCI,
 in general, represents a prodromal or preclinical
 stage of AD."
-
+SET Confidence = "High"
 # D060825 = Cognitive Dysfunction, D008569=Memory Disorders
 path(HBP:aMCI) -- path(MESH:D008569)
 path(HBP:mdMCI) -- path(MESH:D060825)
@@ -90,12 +92,13 @@ SET Disease="Alzheimer's disease"
 path(MESH:D060825) -- path(MESH:D062706)
 
 UNSET Disease
+UNSET Confidence
 
 SET Evidence="Although there is a widespread decline in various neurotransmitter
 containing cell bodies in end-stage AD, the most consistent losses
 throughout the progression of AD are seen in long projection neurons,
 including cholinergic neurons of the basal forebrain [11–13]"
-
+SET Confidence = "High"
 SET Disease="Alzheimer's disease"
 SET MeSHAnatomy="Basal Forebrain"
 #D059329 = Cholinergic Neurons
@@ -103,12 +106,13 @@ path(MESH:D000544) -| a(MESH:D059329)
 
 UNSET MeSHAnatomy
 UNSET Disease
+UNSET Confidence
 
 SET Evidence="Cholinergic neurons within the nucleus basalis (NB) and the septal
 diagonal band complex provide the major source of cholinergic
 innervation to the cerebral cortex and hippocampus, respectively,
 and play a key role in memory and attentional function [11–13]."
-
+SET Confidence = "High"
 SET MeSHAnatomy={"Basal Nucleus of Meynert", "Cerebral Cortex", "Hippocampus"}
 #GO:0060384 = innervation
 a(MESH:D059329) => bp(GO:"GO:0060384")
@@ -117,6 +121,7 @@ a(MESH:D059329) -- path(MESH:D008568)
 a(MESH:D059329) -- path(MESH:D001288)
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="Cholinergic basal forebrain (CBF) cortical projection neurons contain
 the pathological AD hallmark, neurofibrillary tangles (NFTs),
@@ -126,17 +131,19 @@ mechanisms of cell death, survival and treatment approaches
 both in vitro and in vivo, including relevant animal models of
 neurodegeneration as well as human postmortem clinical pathological
 tissue studies [14]."
-
+SET Confidence = "High"
 SET MeSHAnatomy="Basal Forebrain"
 SET Disease="Alzheimer's disease"
 
-#D016874 = Neurofibrillary Tangles
+#GO:0060384 = innervation
+D001288 = Attention
 a(MESH:D059329) -- a(MESH:D016874)
 a(MESH:D016874) -- path(MESH:D000544)
 a(MESH:D059329) -- path(MESH:D000544)
 
 UNSET MeSHAnatomy
 UNSET Disease
+UNSET Confidence
 
 SET Evidence=" The regions of the forebrain that contain
 cholinobasal and septohippocampal CBF neurons also display various
@@ -146,7 +153,7 @@ often co-localize with CBF neurons. For example, the inhibitory
 neuropeptide galanin (GAL) is found in septohippocampal and
 NB neurons in rodents, but not in higher apes or humans where
 GAL fibers innvervate CBF neurons. [15]."
-
+SET Confidence = "High"
 SET MeSHAnatomy="Basal Forebrain"
 
 #D009479 = Neuropeptides
@@ -160,6 +167,7 @@ a(MESH:D059329) -- p(RGD:Gal)
 
 UNSET Species
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="Specifically, progressive phenotypic
 downregulation of markers within CBF neurons as well as frank
@@ -168,23 +176,25 @@ reduction of choline acetyltransferase (ChAT) and acetylcholinesterase
 (AChE) activity within the cortex in AD [16]. Most
 researchers presumed that progressive disruption of cholinergic
 function underlies much of the short-term memory loss seen in AD"
-
+SET Confidence = "High"
 path(MESH:D000544) -| a(MESH:D059329)
 path(MESH:D000544) -| p(HGNC:CHAT)
 path(MESH:D000544) -| p(HGNC:ACHE)
 #D008570 = Memory, Short-Term
 a(MESH:D059329) -- path(MESH:D008570)
+UNSET Confidence
 
 SET Evidence="Delaying or preventing cholinergic neurodegeneration or
 minimizing its consequences is the mechanism of action for most
 currently available US FDA-approved drugs for the treatment of
 cognitive dysfunction observed in AD [17]"
-
+SET Confidence = "High"
 SET MeSHAnatomy="Cholinergic Neurons"
 
 bp(HBP:Neurodegeneration) -- path(MESH:D060825)
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence=" Notably, reports that
 physostigmine and oral anticholinesterases have beneficial effects
@@ -195,7 +205,7 @@ ChAT and AChE enzyme deficits) in patients with this disease.
 Interestingly, recent studies have shown that ChAT activity,
 which results in acetylcholine (ACh) synthesis, is preserved in
 the neocortex of people with MCI [18,19]."
-
+SET Confidence = "High"
 SET Disease="Alzheimer's disease"
 a(CHEBI:physostigmine) -| path(MESH:D000544)
 #D002800 = Cholinesterase Inhibitors
@@ -212,6 +222,7 @@ act(p(HGNC:CHAT)) => a(CHEBI:acetylcholine)
 
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence="In
 fact, our group found elevated ChAT activity in the hippocampus
@@ -221,12 +232,13 @@ with a reduction in ChAT activity. Moreover, these data
 indicate that select components of the hippocampal and cortical
 cholinergic projection system are capable of compensatory and/
 or neuroplasticity responses during the early stages of AD."
-
+SET Confidence = "High"
 SET MeSHAnatomy={"Hippocampus","Frontal Lobe"}
 
 path(MESH:D060825) -> act(p(HGNC:CHAT))
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="In
 MCI, increased hippocampal and frontal cortex ChAT tone
@@ -242,7 +254,7 @@ in the disease process [21–23]. In this scenario, upregulation of
 hippocampal ChAT activity may be due to reactive synaptogenesis,
 the filling in of denervated glutamatergic synapses by
 cholinergic input arising from the septum [24]."
-
+SET Confidence = "High"
 SET MeSHDisease="Cognitive Dysfunction"
 SET MeSHAnatomy={"Hippocampus","Frontal Lobe"}
 
@@ -253,25 +265,31 @@ path(MESH:D060825) -> act(p(HGNC:CHAT))
 
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence="The enzyme that hydrolyzes ACh at the synapse, AChE, does
 not show a decline in cortical areas until at least moderately severe
 levels of dementia [28]. "
-
+SET Confidence = "High"
 path(MESH:D003704) -| p(HGNC:ACHE)
+UNSET Confidence
 
 SET Evidence="A recent functional MRI study demonstrated that people with
 MCI treated with the FDA-approved anticholinesterase donepezil
 demonstrated increased frontal cortex activation relative
 to untreated controls, which was positively correlated with task
 performance [31]."
-
+SET Confidence = "Medium"
 SET MeSHDisease="Cognitive Dysfunction"
 
 #D005625 = Frontal Lobe
 a(CHEBI:donepezil) -> act(a(MESH:D005625))
 #D011597 = Psychomotor Performance
 a(MESH:D005625) pos path(MESH:D011597)
+
+UNSET MeSHDisease
+#MeSHDisease unset
+UNSET Confidence
 
 SET Evidence="Butyrylcholinesterase (BChE) is a serine hydrolase similar to
 AChE that is widely distributed throughout the CNS and also
@@ -283,7 +301,7 @@ in the K variant of BChE, which effectively reduces serum BChE
 concentrations, and may be associated with cognitive decline [33].
 BChE activity also increases in AD brain whereas AChE activity
 remains unchanged or declines [34,35]."
-
+SET Confidence = "Medium"
 SET MeSHAnatomy={"Neurons", "Neuroglia"}
 SET Disease="Alzheimer's disease"
 
@@ -292,6 +310,8 @@ p(HGNC:BCHE) -- a(MESH:D016874)
 #D058225 = Plaque, Amyloid
 p(HGNC:BCHE) -- path(MESH:D058225)
 p(HGNC:BCHE, var(p.Ala539Thr)) -| p(HGNC:BCHE)
+p(HGNC:BCHE, var(p.Ala539Thr)) -- path(MESH:D060825)
+#BCHE with point mutation is said to have association with cognitibe decline
 p(HGNC:BCHE) -- path(MESH:D003071)
 path(MESH:D000544) -> act(p(HGNC:BCHE))
 path(MESH:D000544) causesNoChange act(p(HGNC:ACHE))
@@ -299,6 +319,7 @@ path(MESH:D000544) -| act(p(HGNC:ACHE))
 
 UNSET MeSHAnatomy
 UNSET Disease
+UNSET Confidence
 
 SET Evidence="For example,
 the vesicular ACh transporter (VAChT), which is co-expressed
@@ -309,10 +330,11 @@ studies of VAChT in postmortem AD tissue or in vivo imaging
 studies using vesamicol and its analogs, suggest that VAChT
 levels remain steady or are minimally decreased coincident with
 a severe decline in ChAT activity in cortical areas [41]."
-
+SET Confidence = "High"
 #SLC18A3 = VAChT
 path(MESH:D000544) causesNoChange p(HGNC:SLC18A3)
 path(MESH:D000544) -| act(p(HGNC:ACHE))
+UNSET Confidence
 
 SET Evidence="Moreover, there is evidence
 from experimental lesions in animals [43–45] and from postmortem
@@ -320,13 +342,14 @@ human brain studies [46,47] suggesting that many cholinergic neurons
 shrink, are depleted of phenotypic markers, and/or persist
 in an atrophic state after injury or during the pathological process,
 rather than degenerate."
-
+SET Confidence = "High"
 SET MeSHAnatomy="Cholinergic Neurons"
 
 #D001284 = Atrophy
 path(MESH:D000544) -> path(MESH:D001284)
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="NGF is synthesized as a precursor (proNGF) molecule that
 is proteolytically cleaved to a mature biologically active neurotrophin
@@ -337,7 +360,7 @@ receptor, which is a positive modulator of NGF/TrkA binding [50].
 However, p75NTR has multiple functions, including apoptotic or cell
 death actions [51–56], which are dependent upon its interaction with
 various receptor chaperones [57–59]."
-
+SET Confidence = "High"
 #D009414 = Nerve Growth Factors
 p(HGNC:NGF) isA a(MESH:D009414)
 #GO:0038180 = nerve growth factor signaling pathway
@@ -348,6 +371,7 @@ bp(GO:"GO:0038180") -> bp(GO:"GO:1990089")
 complex(p(HGNC:NGF),p(HGNC:NGFR)) -> complex(p(HGNC:NGF), p(HGNC:NTRK1))
 #GO:1901214 = regulation of neuron death
 p(HGNC:NGFR) -- bp(GO:"GO:1901214")
+UNSET Confidence
 
 SET Evidence=" In this regard, immunoblotting studies demonstrated
 that proNGF is the predominant form of NGF present in
@@ -360,8 +384,9 @@ literature suggests that recombinant proNGF binds TrkA and promotes
 neuronal survival and neurite outgrowth similar to mature
 NGF, but is approximately fivefold less active than the mature
 NGF peptide [62,63]."
-
+SET Confidence = "High"
 SET MeSHAnatomy="Cerebral Cortex"
+
 path(MESH:D060825) -> a(MESH:"pro-nerve growth factor, human")
 path(MESH:D000544) -> a(MESH:"pro-nerve growth factor, human")
 #GO:0031175 = neuron projection development
@@ -369,13 +394,14 @@ complex(a(MESH:"pro-nerve growth factor, human"), p(HGNC:NTRK1)) -> bp(GO:"GO:00
 complex(p(HGNC:NGF), p(HGNC:NTRK1)) -> bp(GO:"GO:0031175")
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="Significantly, while we have shown
 that reduced TrkA levels in the cortex were positively associated
 with lower cognitive performance as assessed by Mini-Mental State
 Exam (MMSE) test scores [64], increased cortical proNGF levels
 were negatively correlated with MMSE performance [61]."
-
+SET Confidence = "High"
 SET MeSHAnatomy="Cerebral Cortex"
 SET Disease="Alzheimer's disease"
 
@@ -386,6 +412,7 @@ a(MESH:"pro-nerve growth factor, human") pos path(MESH:D003072)
 
 UNSET Disease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="Thus, the
 concomitant reduction of TrkA and accumulation of proNGF in
@@ -393,7 +420,7 @@ the cortex may be an early pathobiological marker for the onset of
 AD (Figure 1A). In fact, significantly increased cerebrospinal fluid
 (CSF) levels of NGF are detectable in AD [65], demonstrating the
 potential utility of NGF as a diagnostic biomarker."
-
+SET Confidence = "High"
 p(HGNC:NTRK1) biomarkerFor path(MESH:D000544)
 a(MESH:"pro-nerve growth factor, human") biomarkerFor path(MESH:D000544)
 
@@ -402,6 +429,7 @@ SET MeSHAnatomy="Cerebrospinal Fluid"
 path(MESH:D000544) -> p(HGNC:NGF)
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="By contrast,
 several studies indicate that increases in cortical proNGF may result
@@ -409,9 +437,10 @@ in proapoptotic signaling through binding to the p75NTR receptor.
 In support of this, a different form of recombinant proNGF was
 shown to bind p75NTR with high affinity and promote neuronal
 apoptosis [55]."
-
+SET Confidence = "High"
 #GO:0006915 = apoptotic process
 complex(a(MESH:"pro-nerve growth factor, human"), p(HGNC:NGFR)) -> bp(GO:"GO:0006915")
+UNSET Confidence
 
 SET Evidence="It is also important to note that TrkA
 reduces and p75NTR activates β-secretase strike (BACE) cleavage of
@@ -421,7 +450,7 @@ activate beta-amyloid (Ab) generation in the brain by ‘switching’ from
 TrkA to p75NTR, suggesting that NGF receptor balance is a molecular
 link between normal aging of the brain and AD in relation to
 amyloid processing."
-
+SET Confidence = "High"
 SET Disease="Alzheimer's disease"
 
 act(p(HGNC:BACE1)) -> a(CHEBI:"amyloid-beta")
@@ -432,6 +461,7 @@ bp(MESH:D000375) -> p(HGNC:NGFR)
 p(HGNC:NGFR) -> a(CHEBI:"amyloid-beta")
 
 UNSET Disease
+UNSET Confidence
 
 SET Evidence="Recent findings indicate that the putative proapoptotic effect(s)
 of p75NTR-mediated proNGF signaling is dependent on interactions
@@ -446,9 +476,10 @@ neuronal viability in vivo [69]. Sortilin expression is required for
 p75NTR-mediated apoptosis following proNGF treatment [57],
 suggesting that sortilin is a p75NTR binding partner associated
 with the initiation of cell death [51,58]"
-
+SET Confidence = "High"
 composite(complex(p(HGNC:NGFR), p(HGNC:SORT1)), a(MESH:"pro-nerve growth factor, human")) -> bp(GO:"GO:0006915")
 path(MESH:D000544) -- p(HGNC:SORT1)
+UNSET Confidence
 
 SET Evidence="Bruno and Cuello reported
 that a protease cascade which converts proNGF to mature NGF
@@ -457,10 +488,11 @@ coordinated activity of plasminogen, tissue plasminogen activator
 (tPA), neuroserpin, matrix metalloproteinase (MMP)-9 and
 tissue inhibitor of MMP (TIMP)-1 may be defective in AD,
 resulting in NGF dysfunction [74]."
-
+SET Confidence = "High"
 #Since the protease invloved is not known or mentioned, not much can be encoded here
 #GO:0032455 = nerve growth factor processing
 path(MESH:D000544) -| bp(GO:"GO:0032455")
+UNSET Confidence
 
 SET Evidence="We found an upregulation of
 MMP-9 protein levels and activity in both AD and MCI brains,
@@ -471,7 +503,7 @@ as potential biomarkers to act as diagnostic measures to
 characterize the disease process that occurs in the brain [76–78].
 Interestingly, plasma MMP-9 was increased in MCI and AD
 [77]."
-
+SET Confidence = "High"
 SET MeSHAnatomy={"Brain", "Plasma"}
 
 path(MESH:D000544) -> act(p(HGNC:MMP9))
@@ -479,6 +511,7 @@ path(MESH:D060825) -> act(p(HGNC:MMP9))
 act(p(HGNC:MMP9)) pos path(MESH:D003072)
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="These studies have demonstrated a significant
 downregulation of trkA, trkB and trkC gene expression
@@ -493,7 +526,7 @@ lack of regulation of p75NTR expression [7] in CBF neurons. A
 CBF neuron demise associated with the clinical presentation of
 AD. Supporting this concept is the finding that trk downregulation
 is associated with measures of cognitive decline [7,14]"
-
+SET Confidence = "High"
 SET MeSHAnatomy={"Basal Forebrain", "Cholinergic Neurons"}
 
 path(MESH:D000544) -| g(HGNC:NTRK1)
@@ -507,6 +540,7 @@ g(HGNC:NTRK2) --  path(MESH:D003071)
 g(HGNC:NTRK3) --  path(MESH:D003071)
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence=" For example,
 NGF signal transduction activates the MAPK pathway, which
@@ -514,13 +548,14 @@ participates in a wide array of biologic functions, including cell
 survival, differentiation and apoptosis [82–84]. MAPK is a serine/
 threonine protein kinase which becomes activated upon phosphorylation
 and affects a wide variety of transcription factors [85]."
-
+SET Confidence = "High"
 #GO:0000165 = MAPK cascade
 act(p(HGNC:NGF)) -> bp(GO:"GO:0000165")
 bp(GO:"GO:0000165") -- bp(GO:"GO:0006915")
 #GO:0030182 = neuron differentiation
 bp(GO:"GO:0000165") -- bp(GO:"GO:0030182")
 p(HGNCGENEFAMILY:"Mitogen-activated protein kinases", pmod(Ph)) -> act(p(HGNCGENEFAMILY:"Mitogen-activated protein kinases"))
+UNSET Confidence
 
 SET Evidence="The
 classic MAPK cascade involves activation of the small GTPase
@@ -533,7 +568,7 @@ protein (CREB) [85]. The physiological significance of this elaborate
 NGF-induced network remains unclear, but the sustained
 activation of MAPK is linked to neurotrophin-mediated neurite
 outgrowth [88,89]"
-
+SET Confidence = "High"
 bp(GO:"GO:0000165") -> act(p(FPLX:RAS))
 bp(GO:"GO:0000165") -> act(p(FPLX:RAF))
 bp(GO:"GO:0000165") -> act(p(FPLX:MEK))
@@ -542,12 +577,13 @@ bp(GO:"GO:0000165") -> act(p(HGNC:MAPKAPK2))
 act(p(HGNC:MAPKAPK2)) -> p(HGNC:ELK1, pmod(Ph))
 act(p(HGNC:MAPKAPK2)) -> p(HGNC:CREB1, pmod(Ph))
 act(p(HGNCGENEFAMILY:"Mitogen-activated protein kinases")) -- bp(GO:"GO:0031175")
+UNSET Confidence
 
 SET Evidence="A second downstream pathway is the PI3K/Akt
 pathway that regulates neurotrophin-mediated survival responses
 in PC12 cells [90,91]. Regulation of this pathway involves upstream
 elements including Ras/Gab1/IRS1 [92,93]."
-
+SET Confidence = "High"
 SET CellLine="PC12"
 #GO:0014065 = phosphatidylinositol 3-kinase signaling
 #GO:0043491 = protein kinase B signaling
@@ -562,17 +598,19 @@ bp(GO:"GO:0014065") -- p(HGNC:GAB1)
 bp(GO:"GO:0043491") -- p(HGNC:GAB1)
 
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence=" A third downstream
 mediator is the PLCgamma pathway [94,95]. PLCgamma pathway dysfunction
 may play a role in Ca2+-mediated cellular degeneration in aging
 and disease by affecting oxidative stress systems [96]."
-
+SET Confidence = "High"
 #D018384 = Oxidative Stress
 act(p(HGNC:PLCG1)) -- bp(MESH:D018384)
 bp(MESH:D018384) -- path(MESH:D000375)
 #D009410 = Nerve Degeneration
 bp(MESH:D018384) -- path(MESH:D009410)
+UNSET Confidence
 
 SET Evidence="Recent evidence supports the notion that p75NTR has an intrinsic
 signaling capacity including:
@@ -581,7 +619,7 @@ signaling capacity including:
 •	 Activation of the NF-kappaB pathway [104–109]
 •	 Activation of the Akt pathway [110]
 •	 Activation of the MAPK pathway [97,111]"
-
+SET Confidence = "High"
 #GO:0006665 = sphingolipid metabolic process
 act(p(HGNC:NGFR)) -- bp(GO:"GO:0006665")
 #GO:0007254 = JNK cascade
@@ -590,6 +628,7 @@ act(p(HGNC:NGFR)) -> bp(GO:"GO:0007254")
 act(p(HGNC:NGFR)) -> bp(GO:"GO:0038061")
 act(p(HGNC:NGFR)) -> bp(GO:"GO:0043491")
 act(p(HGNC:NGFR)) -> bp(GO:"GO:0000165")
+UNSET Confidence
 
 SET Evidence="Gambogic amide binds selectively to
 TrkA (but not TrkB or TrkC), phosphorylates TrkA tyrosine
@@ -598,7 +637,7 @@ signaling pathways. Gambogic amide has been demonstrated to
 ameliorate excitotoxic damage and promote neurite outgrowth
 in PC12 cells [116], making this a potential lead compound for
 chemical modification and clinical trial assessment."
-
+SET Confidence = "High"
 #C545053 = gambogic amide
 complex(a(MESH:"gambogic amide"), p(HGNC:NTRK1)) => p(HGNC:NTRK1, pmod(Ph))
 p(HGNC:NTRK1, pmod(Ph)) -> bp(GO:"GO:0043491")
@@ -610,6 +649,7 @@ a(MESH:"gambogic amide") -| bp(HBP:Excitotoxicity)
 a(MESH:"gambogic amide") -> bp(GO:"GO:0031175")
 
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence="The ionotropic nicotinic ACh
 receptor (nAChR) is a pentameric membrane protein composed
@@ -618,7 +658,7 @@ which are expressed at varying levels throughout the CNS [117].
 The muscarinic ACh receptor (mAChR) family includes five
 members, M1, M2, M3, M4 and M5, which are also topographically
 distributed within the CNS [118]"
-
+SET Confidence = "High"
 SET MeSHAnatomy="Central Nervous System"
 
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") hasMembers list(p(HGNC:CHRNA1)\
@@ -630,6 +670,7 @@ p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic") hasMembers list(p(HGNC:CHRM
 p(HGNC:CHRM3), p(HGNC:CHRM4), p(HGNC:CHRM5))
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="Single cell expression via
 microarray analysis was used to determine whether expression
@@ -639,7 +680,7 @@ from NCI, MCI and AD cases. ChAT mRNA expression levels
 did not differ across clinical conditions (Table 1). However, there
 was a significant upregulation of alpha7 nAChR subunit expression
 in AD compared with NCI and MCI."
-
+SET Confidence = "High"
 SET MeSHAnatomy="Cholinergic Neurons"
 
 path(MESH:D000544) causesNoChange r(HGNC:CHAT)
@@ -647,6 +688,7 @@ path(MESH:D060825) causesNoChange r(HGNC:CHAT)
 path(MESH:D000544) -> r(HGNC:CHRNA7)
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="This increase in alpha7 nAChR expression levels within CBF
 neurons was inversely associated with cognitive performance.
@@ -660,7 +702,7 @@ AD [120–122]. The observed increase in alpha7 nAChR in early AD
 may regulate basocortical cholinergic tone through pre- and/or
 postsynaptic mechanisms within cholinergic NB neurons prior
 to their frank degeneration in the later stages of AD."
-
+SET Confidence = "High"
 SET Disease="Alzheimer's disease"
 SET MeSHAnatomy={"Hippocampus","Astrocytes","Leukocytes"}
 
@@ -675,6 +717,7 @@ r(HGNC:CHRNA7) reg act(a(MESH:D059329))
 
 UNSET MeSHAnatomy
 UNSET Disease
+UNSET Confidence
 
 SET Evidence="Despite a
 putative beneficial role for increased CBF neuron alpha7 nAChR
@@ -685,7 +728,7 @@ and/or interacts with APP and Ab peptides [123–125]. Increased
 NB neuronal alpha7 nAChR expression may arise as a compensatory
 response that is offset by aberrant Ab-alpha7 nAChR interactions,
 leading to cholinergic dysfunction."
-
+SET Confidence = "High"
 SET Disease="Alzheimer's disease"
 
 r(HGNC:CHRNA7) -> path(MESH:D009410)
@@ -695,13 +738,14 @@ complex(p(HGNC:CHRNA7), a(CHEBI:"amyloid-beta")) -> r(HGNC:CHRNA7)
 complex(p(HGNC:CHRNA7), a(CHEBI:"amyloid-beta")) -| bp(GO:"GO:0007271")
 
 UNSET Disease
+UNSET Confidence
 
 SET Evidence="Conversely, M1 subunit gene expression in single CBF neurons
 is preserved during the progression of AD (Table 1) [119,126]. The
 M1 receptor is a most interesting drug target as it links several
 of the major hallmarks of this disorder, including cholinergic
 deficiency, cognitive dysfunctions, Ab and tau pathologies."
-
+SET Confidence = "High"
 SET Disease="Alzheimer's disease"
 
 path(MESH:D000544) causesNoChange r(HGNC:CHRM1)
@@ -712,6 +756,7 @@ p(HGNC:CHRM1) -- path(MESH:D024801)
 p(HGNC:CHRM1) -- path(MESH:D000686)
 
 UNSET Disease
+UNSET Confidence
 
 SET Evidence="Recently, a novel group
 of M1 partial agonists was developed (AF102B, AF150(S) and
@@ -722,7 +767,7 @@ Abeta42 and tau pathologies in the cortex and hippocampus. These
 changes were associated with M1 mAChR-mediated activation
 of the TNFalpha-converting enzyme ADAM17/TACE, decreased
 BACE1 steady state levels and inhibition of GSK3beta [130]."
-
+SET Confidence = "High"
 SET MeSHAnatomy={"Hippocampus","Cerebral Cortex"}
 SET Disease="Alzheimer's disease"
 SET Species="10090"
@@ -740,6 +785,7 @@ a(MESH:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| act(p(MG
 UNSET Species
 UNSET Disease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="Single cell gene array studies have shown that synaptic
 transcripts are selectively downregulated in CBF neurons in AD,
@@ -752,7 +798,7 @@ event in vulnerable neuronal populations in AD. In contrast to
 synaptic transcripts, mRNAs encoding APP and Notch were
 unchanged between control and AD subjects, whereas acid
 hydrolase cathepsin D mRNA was upregulated in AD [134–136]."
-
+SET Confidence = "High"
 #D016708 = Synaptophysin
 path(MESH:D000544) -| r(HGNC:SYP)
 path(MESH:D000544) -| r(HGNCGENEFAMILY:"Synaptotagmins")
@@ -765,6 +811,7 @@ p(HGNCGENEFAMILY:"Synaptotagmins") -- bp(GO:"GO:0007269")
 path(MESH:D000544) causesNoChange r(HGNC:APP)
 path(MESH:D000544) causesNoChange r(HGNC:NOTCH1)
 path(MESH:D000544) -> r(HGNC:CTSD)
+UNSET Confidence
 
 SET Evidence="In addition, subunits of protein phosphatase PP1 (Unigene-NCBI
 annotation PPP1CA and PPP1CC) mRNAs were downregulated
@@ -773,7 +820,7 @@ light of the observation that PP1 can phosphorylate tau on several
 serine/threonine residues and experimental downregulation of
 PP1 activity leads to increased tau hyperphosphorylation [137,138],
 which may affect NFT formation in CBF neurons."
-
+SET Confidence = "High"
 SET MeSHAnatomy="Cholinergic Neurons"
 SET Disease="Alzheimer's disease"
 
@@ -785,6 +832,7 @@ bp(HBP:hyperphosphorylation) -- path(MESH:D016874)
 
 UNSET Disease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="Cortical and CBF neurons display NFT formation in the MCI
 brain [9,139,140], suggesting a concomitant alteration in tau gene
@@ -797,7 +845,7 @@ molecule (3Rtau), while three isoforms display four tandem
 repeats (4Rtau) in this region. Expression levels of the six tau
 transcripts within CBF neurons do not differ significantly during
 the progression of AD [6]"
-
+SET Confidence = "High"
 SET MeSHAnatomy={"Cerebral Cortex", "Cholinergic Neurons"}
 SET Disease="Alzheimer's disease"
 
@@ -810,6 +858,7 @@ path(MESH:D000544) causesNoChange r(HGNC:MAPT)
 
 UNSET Disease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence=" However, a calculation of the ratio
 of 3Rtau/4Rtau revealed a significant shift in the 3Rtau/4Rtau
@@ -823,13 +872,14 @@ may be a fundamental mechanism whereby normal tau function
 is dysregulated, not only in CBF neurons, but may be a more
 widespread process contributing to the selective vulnerability of
 neurons to NFT formation (Figure 1B) [143–145]. "
-
+SET Confidence = "High"
 SET Disease="Alzheimer's disease"
 
 path(MESH:D000544) -| a(HBP:"3R tau")
 path(MESH:D060825) -| a(HBP:"3R tau")
 
 UNSET Disease
+UNSET Confidence
 
 SET Evidence=" For example, the
 neuropeptide GAL, which functions via the interaction with
@@ -847,7 +897,7 @@ unclear. Gene expression studies of cholinergic transcripts have
 shown that GAL hyperinnervated, but not nonhyperinnervated,
 CBF neurons display an upregulation of ChAT expression in
 AD compared to controls [126]"
-
+SET Confidence = "High"
 act(p(HGNC:GAL)) -- path(MESH:D003071)
 #D009473 = Neuronal Plasticity
 act(p(HGNC:GAL)) -- bp(MESH:D009473)
@@ -862,6 +912,7 @@ act(p(HGNC:GAL)) -> r(HGNC:CHAT)
 
 UNSET Disease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="CBF neurons
 displaying the tau C3 epitope, a marker for early stage NFT formation,
@@ -872,7 +923,7 @@ cell gene expression studies have demonstrated that the levels of
 mRNAs encoding select subclasses of PP1 subunits (e.g., PP1alpha
 and PP1gamma) are stable in GAL hyperinnervated but downregulated
 in non-hyperinnervated CBF neurons in AD [149]"
-
+SET Confidence = "High"
 SET Disease="Alzheimer's disease"
 SET MeSHAnatomy="Cholinergic Neurons"
 
@@ -883,6 +934,7 @@ act(p(HGNC:GAL)) -> r(HGNC:PPP1CC)
 
 UNSET Disease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence=" In this
 vein, intraventricular infusion of NGF increased hippocampal
@@ -890,9 +942,10 @@ GAL mRNA expression in rats [158], suggesting that the use
 of NGF for the treatment of AD [113] may indirectly increase
 brain GAL providing a dual therapeutic benefit for the treatment
 of CBF dysfunction in AD."
-
+SET Confidence = "High"
 p(RGD:Ngf) -> r(RGD:Gal)
 p(RGD:Ngf) -| path(MESH:D060825)
+UNSET Confidence
 
 SET Evidence="Recent studies report that anticholinesterase
 drugs reduce circulating Ab deposition in several
@@ -901,7 +954,7 @@ dementia types, including AD [159]. Evidence from clinical trials
 research suggest that cholinesterase inhibitors might alter APP
 processing and therefore provide some degree of neuroprotection
 [162,163]"
-
+SET Confidence = "High"
 SET Disease="Alzheimer's disease"
 
 a(MESH:D002800) -| a(CHEBI:"amyloid-beta")
@@ -911,6 +964,7 @@ a(MESH:D002800) -> bp(MESH:D000066829)
 a(MESH:D002800) -- bp(GO:"GO:0050435")
 
 UNSET Disease
+UNSET Confidence
 
 SET Evidence="In this regard, AChE has been localized to SPs in
 the vicinity of cholinergic synapses, and experimental evidence
@@ -918,10 +972,11 @@ suggests that AChE promotes Ab fibrillization [164], suggesting
 that a further benefit from AChE inhibitor therapy may be
 to prevent continued Ab deposition in cholinergic projection
 sites. "
-
+SET Confidence = "High"
 p(HGNC:ACHE) -- path(MESH:D058225)
 #GO:1990000 = amyloid fibril formation
 p(HGNC:ACHE) -> bp(GO:"GO:1990000")
+UNSET Confidence
 
 SET Evidence="Since the cholinergic deficit is
 not an early defect in the progression of AD [18–20], the use of
@@ -931,7 +986,7 @@ treatment of cognitive decline in AD coupled with unwanted
 side effects such as diarrhea, nausea, insomnia, fatigue and loss
 of appetite indicates the need to move beyond this conventional
 drug treatment with somewhat circumscribed efficacy."
-
+SET Confidence = "High"
 SET Disease="Alzheimer's disease"
 
 #D007319 = Sleep Initiation and Maintenance Disorders
@@ -946,24 +1001,26 @@ a(MESH:D002800) -- path(MESH:D005221)
 a(MESH:D002800) -- path(MESH:D000855)
 
 UNSET Disease
+UNSET Confidence
 
 SET Evidence="NGF therapy has been tested in clinical trials of diabetic
 peripheral neuropathy and HIV-associated neuropathy, as well
 as patients with AD [177]. Each of these clinical trials met with
 disappointment owing to lack of efficacy, toxicity or both. "
-
+SET Confidence = "High"
 #D003929 = Diabetic Neuropathies
 p(HGNC:NGF) causesNoChange path(MESH:D003929)
 #D016263 = AIDS-Associated Nephropathy
 p(HGNC:NGF) causesNoChange path(MESH:D016263)
 p(HGNC:NGF) causesNoChange path(MESH:D000544)
+UNSET Confidence
 
 SET Evidence="In addition, indirect effects and unwanted side effects
 appeared with systemic administration including unregulated
 neurotransmitter release, hyperinnervation, sprouting of neurons,
 sympathetic stimulation, induction of antibodies, cachexia
 and hyperalgesia [178–181]."
-
+SET Confidence = "High"
 p(HGNC:NGF) -- bp(GO:"GO:0060384")
 #GO:0007269 = neurotransmitter secretion
 p(HGNC:NGF) -- bp(GO:"GO:0007269")
@@ -973,6 +1030,7 @@ p(HGNC:NGF) -- bp(GO:"GO:0048485")
 p(HGNC:NGF) -- path(MESH:D002100)
 #D006930 = Hyperalgesia
 p(HGNC:NGF) -- path(MESH:D006930)
+UNSET Confidence
 
 SET Evidence="The ex vivo Phase I trial attempted to move beyond currently
 available treatments for AD [113]. The goal of this NGF trial was
@@ -987,13 +1045,14 @@ within the region of the CBF neurons. Following a period
 of 22 months, no long-term post-surgical adverse effects were
 found and the rate of cognitive decline appeared to be reduced
 [113]. "
-
+SET Confidence = "High"
 SET MeSHAnatomy="Fibroblasts"
 
 g(HGNC:NGF) => p(HGNC:NGF)
 p(HGNC:NGF) -| path(MESH:D060825)
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="Recently, the
 novel non-selective antihistamine dimebon (2,3,4,5-tetrahydro2,8-dimethyl-5–2[-6methyl
@@ -1001,7 +1060,7 @@ novel non-selective antihistamine dimebon (2,3,4,5-tetrahydro2,8-dimethyl-5–2[
 indole) was shown to inhibit BChE and AChE, block the NMDA
 receptor signaling pathway, inhibit mitochondrial permeability
 and provide neuroprotective effects in models of AD [194]."
-
+SET Confidence = "High"
 SET Disease="Alzheimer's disease"
 #latrepirdine (i.e dimebon)
 a(MESH:"latrepirdine") -| act(p(HGNC:BCHE))
@@ -1013,3 +1072,4 @@ a(MESH:"latrepirdine") -| bp(GO:"GO:0046902")
 a(MESH:"latrepirdine") -> bp(MESH:D000066829)
 
 UNSET Disease
+UNSET Confidence
