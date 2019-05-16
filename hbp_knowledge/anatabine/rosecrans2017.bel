@@ -23,7 +23,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
 #DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
-#DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 #DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
 #DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
@@ -55,11 +55,11 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 
 # Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
 # --------------------------------------------------------------------------------
-#DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
 #DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 #DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
-#DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-#DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 #DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 #DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -102,7 +102,7 @@ SET Evidence = "Centrally, (-)-nicotine has affinity for all brain nAChR subtype
 preferentially and with high affinity to α4β2 nAChRs (e.g., [12, 13])"
 SET Confidence = "Medium"
 SET Anatomy = "brain"
-a(CHEBI:nicotine) -- complex(p(GO:I-kappaB/NF-kappaB complex))
+a(CHEBI:nicotine) -- complex(p(GO:"I-kappaB/NF-kappaB complex"))
 a(CHEBI:nicotine) -> complex(a(CHEBI:nicotine),a(MESH:"nicotinic receptor alpha4beta2"))
 UNSET Anatomy
 UNSET Confidence
@@ -133,8 +133,8 @@ SET Evidence = "In comparison, S(-)-nicotine was shown to be 7 times more toxic 
 SET Confidence = "Medium"
 SET Species = "10116"
 #(S)-nicotine being more toxic
-a(CHEBI:"(S)-nicotine") -> path(MESH:Toxic Actions)
-a(CHEBI:"(R)-nicotine") -> path(MESH:Toxic Actions)
+a(CHEBI:"(S)-nicotine") -> path(MESH:"Toxic Actions")
+a(CHEBI:"(R)-nicotine") -> path(MESH:"Toxic Actions")
 a(CHEBI:"(S)-nicotine") -> path(MESH:Death)
 a(CHEBI:"(R)-nicotine") -> path(MESH:Death)
 UNSET Species
@@ -161,7 +161,7 @@ UNSET Confidence
 SET Evidence = " In humans, about 70–80% of nicotine is converted to the primary metabolite (-)-cotinine, a lactam derivative (Fig. 2)."
 SET Confidence = "Medium"
 SET Species = "9606"
-#derivative 
+#derivative
 a(CHEBI:"(-)-cotinine") isA a(CHEBI:"lactam")
 bp(GO:"nicotine metabolic process") -> a(CHEBI:"(-)-cotinine")
 a(CHEBI:"(-)-cotinine") -- a(CHEBI:"lactam")
@@ -173,7 +173,7 @@ SET Evidence = "Lastly, S(-)-nornicotine is a minor metabolite of nicotine and, 
 mentioned previously, is considered a minor alkaloid of tobacco (Fig. 2)"
 SET Confidence = "Medium"
 bp(GO:"nicotine metabolic process") -> a(CHEBI:"nornicotine")
-a(MESH:Tobacco) hasComponent a(CHEBI:"nornicotine")
+a(MESH:"Tobacco") isA a(CHEBI:"nornicotine")
 UNSET Confidence
 
 SET Evidence = ". It is now well established that nicotine binds to nicotinic
@@ -238,9 +238,10 @@ UNSET Confidence
 
 SET Evidence = " Also, mecamylamine is sometimes
 used as an anti-addictive drug to help people stop smoking tobacco products (e.g.,[128, 129])"
+#6706 : mecamylamine
 SET Confidence = "Medium"
-a(CHEBI:Mecamylamine) -| path(MESH:Behavior, Addictive)
-a(CHEBI:Mecamylamine) -| path(MESH:Smoking)
+a(CHEBI:6706) -| path(MESH:"Behavior, Addictive")
+a(CHEBI:6706) -| path(MESH:Smoking)
 UNSET Confidence
 
 SET Evidence = "Biochemical and pharmacological studies have characterized mecamylamine as a
@@ -317,7 +318,7 @@ probably the result of penetration into the CNS of a small proportion of the
 administered dose of drug (e.g., [35, 38, 64, 106, 146])"
 #at high dosage negative effect
 SET Confidence = "Medium"
-a(CHEBI:"Hexamethonium") -> fromLoc(GO:"extracellular region"),toLoc(MESH:"Central Nervous System")
+a(CHEBI:"Hexamethonium") -> tloc(a(CHEBI:"Hexamethonium"),fromLoc(GO:"extracellular region"),toLoc(MESH:"Central Nervous System"))
 a(CHEBI:"Hexamethonium") neg act(a(CHEBI:nicotine))
 UNSET Confidence
 
