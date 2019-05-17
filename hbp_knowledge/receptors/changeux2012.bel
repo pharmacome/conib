@@ -98,11 +98,13 @@ SET Confidence = "Low"
 a(MESH:Bungarotoxins)  -| act(a(MESH:"Electric Organ"))
 a(MESH:Bungarotoxins) -| act(a(CHEBI:decamethonium))
 # the above line seems little ambiguous. Doesn't it say that Bungarotoxins block binding of decamethonium to detergent extract but not the decamethonium directly?
+## yes, it should be coded as a blocking of the complex of decamethonium and detergent extract
 UNSET Confidence
 
 SET Evidence ="Confirmation of the binding site organization has come from the crystal structure of a soluble snail protein that binds ACh, the ACh-binding protein, a close homolog of the nAChR extra- cellular domain (60) and of the full-length eukaryotic GluCl receptor (61) and the prokaryotic Erwinia chrysanthemi recep- tor (ELIC) bound with GABA (62) and ACh (as an antagonist)"
 SET Confidence = "Low"
 #not sure how to bring this to the triple.
+## i'm not sure either but I think it's not necessary to include it
 UNSET Confidence
 
 SET Evidence =" UV irradiation of the 3H-labeled 􏰀-toxin-Torpedo receptor complex resulted in the incorporation of covalently bound radioactivity not only into the alpha􏰀-subunit but also into the gamma􏰃- and delta􏰄-subunits"
@@ -119,6 +121,7 @@ complex(a(MESH:Bungarotoxins),p(HGNC:CHRNA10))
 complex(a(MESH:Bungarotoxins),p(HGNC:CHRND))
 complex(a(MESH:Bungarotoxins),p(HGNC:CHRNG))
 #the evidence does not mention about inclusion of all alpha subunits.
+## i would delete everything that is not mentioned in the evidence
 UNSET Confidence
 
 SET Evidence ="One of these compounds, chlorpromazine, displayed, in addi- tion, the remarkable property of covalently linking to the recep- tor protein by simple UV irradiation"
@@ -136,6 +139,7 @@ SET Evidence ="The kinetics of access of chlorpromazine to this site increased b
 SET Confidence = "Low"
 p(HGNC:ACHE) -> act(a(CHEBI:chlorpromazine))
 #the topic in the paper as well as evidence talks about ion channels and there is no mention of ACHE
+# i would maybe code it like this: composite(a(CHEBI:chlorpromazine),a(CHEBI:acetylcholine)) -> complex(a(CHEBI:chlorpromazine),p(MESH:"Receptors, Nicotinic")) . What do you think?
 UNSET Confidence
 
 SET Evidence ="It took more than a year to demonstrate that chlorpromazine labels serine 262, within the second transmembrane segment (TM2) of the delta􏰄-subunit"
