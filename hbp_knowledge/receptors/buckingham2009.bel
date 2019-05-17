@@ -326,7 +326,8 @@ a(CHEBI:nicotine) -> path(MESH:Cognition)
 a(CHEBI:nicotine) -| path(HBP:neurotoxicity)
 a(CHEBI:"dihydro-beta-erythroidine") -| act(a(CHEBI:nicotine))
 a(CHEBI:Mecamylamine) -| act(a(CHEBI:nicotine))
-#how make a statement out of the evidence " Nicotinic receptors play a particularly prominent role in nicotine protection"
+a(CHEBI:nicotine) -| act(a(CHEBI:"amyloid-beta"))
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -| act(a(CHEBI:"amyloid-beta"))
 UNSET Confidence
 
 SET Evidence="In addition to nicotine, donepezil and
@@ -817,7 +818,7 @@ a(CHEBI:estradiol) -| act(a(CHEBI:"amyloid-beta"))
 a(CHEBI:"amyloid-beta") -> path(HBP:neurotoxicity)
 #estradiol to amyloid beta change with ->
 a(MESH:methyllycaconitine) -| act(p(HGNC:CHRNA7))
-p(HGNC:CHRNA7) -> path(HBP:neurotoxicity)
+p(HGNC:CHRNA7) -| path(HBP:neurotoxicity)
 #methyllycaconitine changed to CHRNA7 with ->
 
 UNSET CellLine
@@ -913,9 +914,9 @@ SET Confidence = "Medium"
 SET Species="10116"
 SET Cell="microglial cell"
 
-a(CHEBI:nicotine) -> p(MESH:"Cyclooxygenase 2")
+a(CHEBI:nicotine) -> p(HGNC:PTGS2)
 #act(g(HGNC:PTGS2)) was replaced by p(MESH:"Cyclooxygenase 2")
-a(CHEBI:nicotine) -> p(CHEBI:"prostaglandin E1(1-)")
+a(CHEBI:nicotine) -> a(CHEBI:"prostaglandin E2(1-)")
 p(HGNC:CHRNA7) -> bp(GO:"MAPK cascade")
 bp(GO:"MAPK cascade") -> act(p(HGNC:MYC))
 act(p(HGNC:MYC)) -> bp(GO:"apoptotic process")
@@ -1301,7 +1302,8 @@ SET CellLine="PC12"
 
 a(CHEBI:nicotine) -> p(HGNC:CHRNA7)
 #nicotine stimulates CHRNA7 and not vice versa
-p(HGNC:CHRNA7) -> sec(a(HBP:"sAPP-beta"))
+a(CHEBI:nicotine) -> act(p(HGNC:CHRNA7))
+act(p(HGNC:CHRNA7)) -> sec(a(HBP:"sAPP-beta"))
 a(HBP:"sAPP-beta") -| act(a(CHEBI:"amyloid-beta"))
 UNSET CellLine
 
@@ -1393,7 +1395,7 @@ alpha-bungarotoxin, which may indicate that alpha-bungarotoxin
 either inhibits binding of Abeta to the alpha7 receptor
 (and therefore that Abeta toxicity results from binding of
 Abeta to alpha7 nAChRs) or directly inhibits alpha7 nAChR internalization."
-SET Confidence = "Low"
+SET Confidence = "Medium"
 a(MESH:Bungarotoxins) -| act(a(CHEBI:"amyloid-beta"))
 #the evidence says alpha7 internalization and not amyloid-beta so should the above line be changed with the former?
 a(MESH:Bungarotoxins) -| complex(a(CHEBI:"amyloid-beta"), p(HGNC:CHRNA7))
@@ -1568,7 +1570,7 @@ on alpha3beta4 (Pym et al., 2005). However, in contrast to its
 reported transient enhancement when expressed in oocytes,
 an inhibition of alpha4beta2 has been reported when
 expressed in human SH-EP1 cells (Wu et al., 2004)."
-SET Confidence = "Low"
+SET Confidence = "Medium"
 a(CHEBI:"amyloid-beta") -| act(p(HGNC:CHRNA7))
 a(CHEBI:"amyloid-beta") -> act(complex(p(HGNC:CHRNA4), p(HGNC:CHRNB2)))
 #the line above and below seem to contrast each other. In evidence it is differentiated temporally. Is there any way to indicate that diffrence?
@@ -1700,7 +1702,8 @@ mutations can contribute to neurodegeneration (O’Neil
 et al., 2007)."
 SET Confidence = "Low"
 #pass
-#not sure how to represnt "Chr21:27269939 G>T, Chr21:27269938 A>C". This is what they mean by Swedish mutant form of APP.
+p(HGNC:MAPT, var("p.Lys595Asp")) -> path(HP:Neurodegeneration)
+p(HGNC:MAPT, var("p.Met596Leu")) -> path(HP:Neurodegeneration)
 UNSET Confidence
 
 SET Evidence="A stereological approach, in which specific, identified
