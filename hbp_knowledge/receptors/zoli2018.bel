@@ -69,7 +69,7 @@ UNSET Confidence
 
 SET Evidence ="These receptors are also the targets of drugs such as nicotine (the main addictive agent delivered by cigarette smoke) and are involved in a variety of physiological and pathophysiological processes."
 SET Confidence = "Medium"
-complex(p(MESH:"Receptors, Nicotinic"),a(MESH:Nicotine)) -> complex(p(MESH:"Receptors, Nicotinic"),a(MESH:Nicotine))
+composite(p(MESH:"Receptors, Nicotinic"),a(MESH:Nicotine)) -> complex(p(MESH:"Receptors, Nicotinic"),a(MESH:Nicotine))
 #because nicotine is said to act as a ligand to nAChRs
 UNSET Confidence
 
@@ -142,7 +142,7 @@ UNSET Confidence
 SET Evidence ="CHRFAM7A mRNA expression is low in human brain, but abundant in peripheral lymphocytes and tissues"
 SET Confidence = "Medium"
 SET Anatomy = "peripheral nervous system"
-r(HGNC:CHRFAM7A,loc(MESH:Lymphocytes))
+r(HGNC:CHRFAM7A) -- a(MESH:Lymphocytes)
 #initially the location was set as "Leukemia, Large Granular Lymphocytic" but it did not match the evidence. Hence, anatomy was set and location was changed.
 UNSET Anatomy
 UNSET Confidence
@@ -181,7 +181,8 @@ UNSET Confidence
 SET Evidence ="nAChRs are particularly important in two critical periods of brain life: early pre- and post-natal circuit formation, and age-related cell degeneration. They are involved in neuronal survival, as it has been shown that nicotinic agonists are neu- roprotective in in vivo and in vitro models"
 SET Confidence = "Medium"
 p(MESH:"Receptors, Nicotinic") -- a(MESH:Neurons)
-a(MESH:Nicotine) -> a(MESH:Neurons)
+a(MESH:Nicotine) -| bp(GO:" neuron death")
+``
 #evidence says nicotinic agonists being neuro roprotective
 UNSET Confidence
 
@@ -216,7 +217,7 @@ SET Evidence ="Dopamine (DA) neurons, which project to the NAc receive both exci
 SET Confidence = "Low"
 a(MESH:"Dopaminergic Neurons") reg a(MESH:Nicotine)
 p(MESH:"Receptors, Nicotinic",loc(MESH:"GABAergic Neurons")) -- a(HBP:neurotransmitters)
-p(MESH:"Receptors, Nicotinic",loc(MESH:"Cholinergic Neurons")) -- a(HBP:neurotransmitters)
+p(MESH:"Receptors, Nicotinic") reg sec(a(HBP:neurotransmitters))
 #confusing statements
 UNSET Confidence
 
