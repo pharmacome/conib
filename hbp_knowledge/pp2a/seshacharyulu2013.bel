@@ -117,11 +117,10 @@ p(FPLX:PPP2) hasComponents list(p(FPLX:PPP2C), p(FPLX:"PPP2R_A"))
 p(FPLX:PPP2) hasComponents list(p(FPLX:PPP2C), p(FPLX:"PPP2R_A"), p(FPLX:"PPP2R_B"))
 UNSET Confidence
 
-#isoform notation?
 SET Evidence = "PP2Ac exists in
 two isoforms C α  and C β . They are encoded by two separate genes each comprised of seven
 exons and six introns."
-SET Confidence = "Low"
+SET Confidence = "High"
 p(FPLX:PPP2C) hasComponents list(p(HGNC:PPP2CA), p(HGNC:PPP2CB))
 UNSET Confidence
 
@@ -133,18 +132,16 @@ p(HGNC:PPP2CB) -- a(MESH:Cytosol)
 p(HGNC:PPP2CB) -- a(MESH:"Cell Nucleus")
 UNSET Confidence
 
-#these two genes encode for scaffold unit, ther aren't componenets of the subunit
 SET Evidence = "Similar to PP2Ac, the PP2A scaffold subunit is encoded by two distinct genes, PPP2R1A
 and PPP2R1B, resulting in two isoforms, A α  and A β ."
-SET Confidence = "Low"
+SET Confidence = "High"
 p(FPLX:"PPP2R_A") hasComponents list(p(HGNC:PPP2R1A), p(HGNC:PPP2R1B))
 UNSET Confidence
 
-#why only these genes included and not the other ones?
 SET Evidence = "The PP2A regulatory subunit is structurally diverse and has a
 minimum of 26 different transcript and splice variants encoded by 15 different genes in the
 human genome."
-SET Confidence = "Low"
+SET Confidence = "High"
 p(FPLX:"PPP2R_B") hasComponents list(p(HGNC:PPP2R2A), p(HGNC:PPP2R2B), p(HGNC:PPP2R2C), p(HGNC:PPP2R2D), p(HGNC:PPP2R3A), p(HGNC:PPP2R3B), p(HGNC:PTPA), p(HGNC:PPP2R5A), p(HGNC:PPP2R5B), p(HGNC:PPP2R5C), p(HGNC:PPP2R5D), p(HGNC:PPP2R5E))
 UNSET Confidence
 
@@ -158,7 +155,7 @@ UNSET Confidence
 SET Evidence = "In neurons,
 B55 α  and B55 β  are localized in the cytoplasm, whereas B55 γ  is localized in the
 cytoskeletal fraction."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Cell = "neuron"
 p(HGNC:PPP2R2A) -- a(MESH:Cytosol)
 p(HGNC:PPP2R2B) -- a(MESH:Cytosol)
@@ -255,7 +252,7 @@ UNSET Confidence
 SET Evidence = "Endogenous CIP2A (cancerous inhibitor of PP2A) inhibits PP2Ac
 activity via interacting with c-Myc (Ser62) and stabilizes it from proteolytic degradation
 [49]. "
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:CIP2A) -> composite(p(HGNC:CIP2A),p(HGNC:MYC))
 composite(p(HGNC:CIP2A),p(HGNC:MYC)) -| deg(p(HGNC:MYC))
 p(HGNC:MYC) -| act(p(FPLX:PPP2C))
@@ -265,7 +262,7 @@ UNSET Confidence
 SET Evidence = "Recently, a major indirect activation of PP2A by inhibiting CIP2A at both the
 transcriptional and translational levels through the drug bortezomib was shown in triple
 negative breast cancer cells [50]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET MeSHDisease = "Breast Neoplasms"
 a(CHEBI:bortezomib) -| p(HGNC:CIP2A)
 a(CHEBI:bortezomib) -| r(HGNC:CIP2A)
@@ -280,20 +277,18 @@ p(FPLX:PPP2, pmod(M)) -- act(p(FPLX:PPP2))
 p(FPLX:PPP2, pmod(Ph)) -- act(p(FPLX:PPP2))
 UNSET Confidence
 
-#can be annotated with respect to shi2009 subunit classification
 SET Evidence = "Phosphorylation of Y307 by
 receptor associated tyrosine kinases effectively decreases the PP2A activity by inhibiting the
 interaction of PP2Ac with the PP2A-PR55/PR61 subunit [54]."
-SET Confidence = "Low"
+SET Confidence = "High"
 p(FPLX:PPP2, pmod(Ph,Tyr,307)) -| act(p(FPLX:PPP2))
-#p(FPLX:PPP2, pmod(Ph,Tyr,307)) -| complex(p(HGNC:PPP2R2A),p(HGNC:PPP2R5B))
+p(FPLX:PPP2, pmod(Ph,Tyr,307)) -| complex(p(HGNC:PPP2R2A),p(HGNC:PPP2R5B))
 UNSET Confidence
 
-#annotation of the regulatory and core dimers
 SET Evidence = " The addition of a methyl group by LCMT1 at L309 enhances the binding affinity
 of the core dimer (A&C subunit) toward distinct regulatory subunits and provides specific
 activity to the holoenzyme [56]."
-SET Confidence = "Low"
+SET Confidence = "High"
 p(HGNC:LCMT1) -> p(FPLX:PPP2, pmod(M,Leu,309))
 p(FPLX:PPP2, pmod(M,Leu,309)) -> act(p(FPLX:PPP2))
 UNSET Confidence
@@ -319,7 +314,7 @@ SET Evidence = "Co-immunoprecipitation and in-vitro pull down assay
 using pro-lymphoid FL5.12 cells showed a direct association of the PP2A-B55 holoenzyme
 with Akt, which selectively regulates phosphorylation of Akt at Thr-308 and regulates cell
 proliferation and survival [58]."
-SET Confidence = "Low"
+SET Confidence = "High"
 p(FPLX:PPP2) reg p(FPLX:AKT, pmod(Ph,Thr,308))
 p(FPLX:PPP2) reg bp(GO:"cell population proliferation")
 p(FPLX:PPP2) reg bp(GO:"apoptotic process")
@@ -334,7 +329,7 @@ UNSET Confidence
 SET Evidence = "In Xenopus, PP2A-
 B56 is involved in  β -catenin dephosphorylation and degradation and its phosphorylation
 directs activation of the Wnt pathway [43]."
-SET Confidence = "Low"
+SET Confidence = "High"
 p(FPLX:PPP2) -| p(HGNC:CTNNB1, pmod(Ph))
 p(FPLX:PPP2) -> deg(p(HGNC:CTNNB1))
 p(HGNC:CTNNB1, pmod(Ph)) -> bp(GO:"Wnt signaling pathway")
@@ -344,7 +339,7 @@ SET Evidence = "Phosphorylation of BAD suppresses,
 and its dephosphorylation by PP2A promotes pro-apoptotic activity [59]. Additionally,
 phosphorylation of Bcl-2 activates, and its dephosphorylation by PP2A suppresses anti-
 apoptotic activity."
-SET Confidence  = "Medium"
+SET Confidence  = "High"
 p(HGNC:BAD, pmod(Ph)) -| bp(GO:"apoptotic process")
 p(FPLX:PPP2) -| p(HGNC:BAD, pmod(Ph))
 p(HGNC:BCL2, pmod(Ph)) -| bp(GO:"apoptotic process")
