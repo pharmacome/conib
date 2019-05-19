@@ -7,8 +7,8 @@ SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
 
 SET DOCUMENT Name        = "Meldonium improves Huntington's disease mitochondrial dysfunction by restoring peroxisome proliferator-activated receptor γ coactivator 1α expression."
 SET DOCUMENT Version     = "1.0.0"
-SET DOCUMENT Authors     = ""
-SET DOCUMENT Description = "Yojana Gadiya"
+SET DOCUMENT Authors     = "Yojana Gadiya"
+SET DOCUMENT Description = ""
 
 ##############
 # Namespaces #
@@ -109,7 +109,7 @@ path(MESH:"Huntington Disease") -> path(MESH:"Autophagy")
 UNSET MeSHAnatomy
 path(MESH:"Huntington Disease") -| path(MESH:"Mitochondrial Dynamics")
 path(MESH:"Huntington Disease") -| path(MESH:"Protein Transport")
-path(MESH:"Huntington Disease") -| a(CHEBI:15422)
+path(MESH:"Huntington Disease") -| a(CHEBI:"ATP")
 
 SET Evidence = "Mitochondrial dysfunction may also originate from
 mHtt‐dependent transcriptional dysregulation which results in
@@ -140,8 +140,8 @@ be detrimental to mitochondria since FA overloading might worsen
 mitochondrial impairment with an increase of reactive oxygen
 species (ROS) production."
 #26523 : ROS
-path(MESH:"Lipid Metabolism") -> a(HBP:"mitochondrial dysfunction")
-a(HBP:"mitochondrial dysfunction") -> a(CHEBI:26523)
+path(MESH:"Lipid Metabolism") -> path(HBP:"mitochondrial dysfunction")
+path(HBP:"mitochondrial dysfunction") -> a(CHEBI:26523)
 
 SET Evidence = "Meldonium (mildronate; 3‐(2,2,2‐trimethylhydrazinium) propionate;
 THP; MET‐88), is known as a cardioprotective drug whose
@@ -150,13 +150,13 @@ triphosphate production by optimizing energy metabolism during
 heart hypoxia (Dambrova, Liepinsh, & Kalvinsh, 2002)."
 #131843 : Meldonium
 #Cardiotonic Agents : Cardioprotective Agents
-a(CHEBI:131843) isA path(MESH:"Cardiotonic Agents")
-a(CHEBI:131843) -> a(CHEBI:26523)
+a(CHEBI:"meldonium") isA path(MESH:"Cardiotonic Agents")
+a(CHEBI:"meldonium") -> a(CHEBI:26523)
 
 SET Evidence = "Meldonium modulates cellular energy metabolism pathways by
 lowering intracellular l‐carnitine levels and by reducing the formation of
 long‐chain acylcarnitines."
-a(CHEBI:131843) reg path(MESH:"Energy Metabolism")
+a(CHEBI:"meldonium") reg path(MESH:"Energy Metabolism")
 
 SET Evidence = "These changes redirect the FA metabolism from
 mitochondria to peroxisomes, which in turn stimulates short‐ and
@@ -166,29 +166,29 @@ increases glucose metabolism (Dambrova et al., 2016)."
 #these changes : caused by Meldonium
 #26519 : radicals
 SET MeSHAnatomy = "Mitochondria"
-a(CHEBI:131843) -| path(MESH:"Lipid Metabolism")
+a(CHEBI:"meldonium") -| path(MESH:"Lipid Metabolism")
 path(MESH:"Lipid Metabolism") -> a(CHEBI:26519)
 path(MESH:"Lipid Metabolism") -| path(MESH:"Carbohydrate Metabolism")
 UNSET MeSHAnatomy
 SET MeSHAnatomy = "Peroxisomes"
-a(CHEBI:131843) -> path(MESH:"Lipid Metabolism")
+a(CHEBI:"meldonium") -> path(MESH:"Lipid Metabolism")
 UNSET MeSHAnatomy
 
 SET Evidence = "Researchers
 found that meldonium decreases protein expression related to inflammation
 and apoptosis in a Parkinson’s disease rat model and an
 azidothymidine neurotoxicity model in mice."
-SET MeSHDisease = "Parkinson dieseases"
+SET MeSHDisease = "Parkinson Disease"
 SET Species = "10116"
-a(CHEBI:131843) -| path(MESH:"Inflammation")
-a(CHEBI:131843) -| path(MESH:"Apoptosis")
+a(CHEBI:"meldonium") -| path(MESH:"Inflammation")
+a(CHEBI:"meldonium") -| path(MESH:"Apoptosis")
 UNSET Species
 UNSET MeSHDisease
 SET MeSHDisease = "Alzheimer Disease"
 SET Species = "10090"
-a(CHEBI:131843) -> path(MESH:"Neurotoxicity Syndromes")
+a(CHEBI:"meldonium") -> path(MESH:"Neurotoxicity Syndromes")
 UNSET Species
-UNSTE MeSHDisease
+UNSET MeSHDisease
 
 SET Evidence = "They also found that
 meldonium has several positive effects in Alzheimer’s disease‐model
@@ -197,9 +197,9 @@ a reduction of amyloid β peptide load (Beitnere et al., 2014; Isajevs et al.,
 2011; Pupure et al., 2008)."
 SET MeSHDisease = "Alzheimer Disease"
 SET Species = "10090"
-a(CHEBI:131843) -> path(MESH:"Recognition (Psychology)")
-a(CHEBI:131843) -> path(MESH:"Spatial Learning")
-a(CHEBI:131843) -| p(HGNC:APP)
+a(CHEBI:"meldonium") -> path(MESH:"Recognition (Psychology)")
+a(CHEBI:"meldonium") -> path(MESH:"Spatial Learning")
+a(CHEBI:"meldonium") -| p(HGNC:APP)
 UNSET Species
 UNSET MeSHDisease
 
@@ -217,14 +217,14 @@ SET Evidence = "The STHdhQ111/Q111 cell viability following
 serum deprivation was improved by meldonium (Figure 1d,e)."
 #in serum deprivation
 #Cell line : STHdh
-a(CHEBI:131843) -> path(MESH:"Cell Survival")
+a(CHEBI:"meldonium") -> path(MESH:"Cell Survival")
 
 SET Evidence  = "Interestingly, western blot analysis demonstrated that 50 μM
 meldonium significantly diminished (p < 0.01) the high molecular
 weight of mHtt aggregates in the STHdhQ111/111 cell line (Figure 2)."
 #in serum deprived conditions
 #Cell line : STHdh
-a(CHEBI:131843)  -| path(HBP:"huntingtin aggregates")
+a(CHEBI:"meldonium")  -| path(HBP:"huntingtin aggregates")
 
 SET Evidence = "We confirmed that PGC‐1α expression, at both the transcriptional
 level (Figure 3a) and translational level (Figure 3b), was
@@ -241,7 +241,7 @@ p < 0.01), and the augmented amount of the PGC‐1α protein also
 reflected this increment (Figure 3b; p<0.01)."
 #in serum deprived conditions
 #Cell line : STHdh
-a(CHEBI:131843) -> r(HGNC:PPARGC1A)
+a(CHEBI:"meldonium") -> r(HGNC:PPARGC1A)
 
 SET Evidence = "The fluorescent intensity
 changes, recorded and analyzed by Cytation 3 Multi‐Mode Reader
@@ -249,7 +249,7 @@ changes, recorded and analyzed by Cytation 3 Multi‐Mode Reader
 significant increase in mitochondrial mass levels (Figure 4a)."
 #Cell line : STHdh
 SET MeSHAnatomy = "Mitochondria"
-a(CHEBI:131843) -> path(MESH:"Cell Enlargement")
+a(CHEBI:"meldonium") -> path(MESH:"Cell Enlargement")
 UNSET MeSHAnatomy
 
 SET Species = "7227"
@@ -264,12 +264,12 @@ path(MESH:"Aging") -> path(MESH:"Ataxia")
 SET Evidence = "Our results clearly indicate that meldonium‐treated Q128HD‐FL
 flies had significantly extended lifespans compared with untreated
 sibling flies (Figure 5b)."
-a(CHEBI:131843) -> path(MESH:"Longevity")
+a(CHEBI:"meldonium") -> path(MESH:"Longevity")
 
 SET Evidence = "Our results show that meldonium treatment significantly improved
 the climbing ability of transgenic flies (Figure 5d)."
-a(CHEBI:131843) -| path(MESH:"Motor Skills Disorders")
-a(CHEBI:131843) -| path(MESH:"Ataxia")
+a(CHEBI:"meldonium") -| path(MESH:"Motor Skills Disorders")
+a(CHEBI:"meldonium") -| path(MESH:"Ataxia")
 
 SET Evidence = "Interestingly, we found that the
 level of the Spargel transcript decreased with the progression of HD
@@ -283,14 +283,14 @@ our results clearly indicate that in HD flies fed with meldonium,
 Spargel is significantly upregulated (about 1.6–1.8‐fold) in all time
 points tested (Figure 5f)."
 #Q128HD-Fl
-composite(p(HGNC:HTT,var("Glu")), a(CHEBI:131843)) -> r(HGNC:PPARGC1A)
+composite(p(HGNC:HTT,var("Glu")), a(CHEBI:"meldonium")) -> r(HGNC:PPARGC1A)
 
 SET Evidence = "In conclusion, the dPGC‐1α/Spargel gene in D. melanogaster was
 significantly upregulated in the head tissues of the HD flies after
 meldonium treatment, starting from the early stage of HD"
 #Q128HD-Fl
 SET MeSHAnatomy = "Brain"
-a(CHEBI:131843) -> r(HGNC:PPARGC1A)
+a(CHEBI:"meldonium") -> r(HGNC:PPARGC1A)
 UNSET MeSHAnatomy
 
 SET Evidence = "Our results clearly demonstrate that HD transgenic flies
@@ -298,12 +298,12 @@ have an increased level of ROS when compared with wild‐type flies
 (Figure 6), confirming the data obtained in other HD models (Scialò
 et al., 2016)"
 #26523 : ROS
-p(HGNC:HTT,var("Glu")) -> a(CHEBI:26523)
+p(HGNC:HTT,var("Glu")) -> a(CHEBI:"reactive oxygen species")
 
 SET Evidence = "In HD transgenic flies, meldonium supplementation
 reduced the level of oxidative stress in brain tissues (Figure 6)."
 SET MeSHAnatomy = "Brain"
-composite(p(HGNC:HTT,var("Glu")), a(CHEBI:131843)) -| a(CHEBI:26523)
+composite(p(HGNC:HTT,var("Glu")), a(CHEBI:"meldonium")) -| a(CHEBI:"reactive oxygen species")
 UNSET MeSHAnatomy
 
 UNSET Species
