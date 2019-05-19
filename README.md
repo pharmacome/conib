@@ -29,6 +29,13 @@ for the Human Brain Pharmacome (HBP) project.
 - [docs](https://github.com/pharmacome/knowledge/tree/master/docs): This folder contains automatically generated HTML summaries of the content that can best be accesed through https://pharmacome.github.io/knowledge.
 - [notebooks](https://github.com/pharmacome/knowledge/tree/master/notebooks): This folder contains various Jupyter notebooks associated with the repository. Since many of them use PyBEL-Jupyter, they may be best viewed using [NBViewer](https://nbviewer.jupyter.org/github/pharmacome/knowledge/tree/master/notebooks/).
 
+
+### Curation Planning
+
+Here are a few links for navigating the GitHub issues and pull requests:
+
+- [Pull requests approved by a reviewer](https://github.com/pharmacome/knowledge/pulls?q=is%3Apr+is%3Aopen+review%3Aapproved)
+
 ## Installation
 ``hbp_knowledge`` can be installed from [PyPI](https://pypi.org/project/hbp-knowledge/) with the following command:
 
