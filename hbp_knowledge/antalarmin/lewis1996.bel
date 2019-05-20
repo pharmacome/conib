@@ -71,16 +71,25 @@ DEFINE ANNOTATION MeasurementValue AS LIST {"1.9", "1.3", "1.4"}
 ##############
 
 SET Citation = {"PubMed", "8940412"}
+
+SET Species = "10116"
+
 SET Evidence = "Corticotropin-releasing hormone (CRH) secreted from the hypothalamus is the major regulator of
 pituitary ACTH release and consequent glucocorticoid secretion. CRH secreted in the periphery also acts as
 a proinflammatory modulator."
-SET Species = "10116"
+SET Confidence = "Medium"
+SET Anatomy = "hypothalamus"
+act(p(RGD:Crh)) reg a(MESH: "Adrenocorticotropic Hormone")
+act(p(RGD:Crh)) -> sec(a(MESH: "Glucocorticoids"))
 act(p(RGD:Crh)) pos bp(GO:"inflammatory response")
-act(p(RGD:Crh)) reg sec(p(RGD:Pomc))
+UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Antalarmin potently displaced 1251-oCRH binding, exhibiting respectively Ki values of 1. 9 f 0.9,. 1.3 f .4, and 1.4 f .6 nM (mean f SEM) in
 pituitary, cerebellum, and frontal cortex homogenates.Antalarmin, by effectively displacing IoCRH
 binding in tissues predominately expressing CRHRl but not in tissues expressing CRHR2, appears to be a specific CRHRl receptor antagonist."
+#IoCRH : Inhibition to binding of CRH
+SET Confidence = "Medium"
 SET AssayType = "B"
 SET MeasurementType = "Ki"
 SET MeasurementUnits = "nM"
@@ -105,21 +114,26 @@ a(CHEBI:antalarmin) =| act(p(RGD:Crh))
 act(p(RGD:Crh)) => act(p(RGD:Crhr1))
 a(CHEBI:antalarmin) =| act(p(RGD:Crhr1))
 UNSET MeasurementValue
+act(p(RGD:"Crhr2")) -| act(p(RGD:Crhr1))
 UNSET Anatomy
 UNSET MeasurementRelation
 UNSET MeasurementUnits
 UNSET MeasurementType
 UNSET AssayType
+UNSET Confidence
 
 SET Evidence = "These results raise the possibility that pyrrolopyrimidine compounds,
 such as antalarmin, which antagonize CRH at the level of its own receptor, have therapeutic
 potential in some forms of inflammation."
-
+SET Confidence = "High"
 a(CHEBI:antalarmin) neg bp(GO:"inflammatory response")
+UNSET Confidence
 
 SET Evidence = "Indeed, the compound significantly suppressed (XI-l-induced
 ACTH secretion to approximately the same extent as neutralizing polyclonal anti-CRH."
-
-a(CHEBI:antalarmin) -| sec(p(RGD:Pomc))
+#the compound : Antalarmin
+SET Confidence = "Medium"
+a(CHEBI:antalarmin) -| sec(p(RGD:Crh))
+UNSET Confidence
 
 UNSET Species
