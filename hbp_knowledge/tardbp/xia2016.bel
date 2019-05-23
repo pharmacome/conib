@@ -42,7 +42,7 @@ DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharma
 # -------------------------------------------
 #DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
 #DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
-DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+#DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
 #DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
 
 ###############
@@ -153,16 +153,14 @@ p18, p14, and MP1 proteins that reside directly on the lysosomal
 membrane surface (Sancak et al, 2008, 2010; Zoncu et al, 2011a;
 Bar-Peled et al, 2012)."
 p(HGNC:RPTOR) reg act(p(HGNC:MTOR))
-p(UNIPROT:A0A074S494) reg act(p(HGNC:MTOR))
-###################
+p(HGNC:RRAGA) reg act(p(HGNC:MTOR))
 complex(GO:"Ragulator complex") reg act(p(HGNC:MTOR))
 complex(GO:"Ragulator complex") hasComponents list(p(HGNC:LAMTOR1),p(HGNC:LAMTOR2),p(HGNC:LAMTOR3))
 
 SET Evidence = "In Ragulator–Rag–mTORC1 complex, Ragulator
 anchors the Rag GTPases to lysosomes, which is essential for
 Rag GTPases activation through an amino acids-dependent manner."
-complex(a(GO:"Ragulator complex"),p(UNIPROT:A0A074S494),p(HGNCGENEFAMILY:"MTOR complex 1")) -> complex(p(UNIPROT:A0A074S494),a(GO:lysosome))
-#####
+complex(a(GO:"Ragulator complex"),p(HGNC:RRAGA),p(HGNCGENEFAMILY:"MTOR complex 1")) -> complex(p(HGNC:RRAGA),a(GO:lysosome))
 
 SET Evidence = "Meanwhile, raptor interacts with active Rag GTPase heterodimers in
 which GTP-bound RagA or RagB (very similar to RagA) associates
@@ -233,8 +231,8 @@ SET Evidence = "Based on the studies that
 Rag GTPases functions in the recruitment of TFEB and mTOR to
 lysosomes (Martina & Puertollano, 2013), we next tested whether
 TDP-43 could influence the lysosomal localization of Rag GTPases."
-p(UNIPROT:A0A074S494) -> p(HGNC:TFEB,loc(GO:lysosome))
-p(UNIPROT:A0A074S494) -> p(HGNC:MTOR,loc(GO:lysosome))
+p(HGNC:RRAGA) -> p(HGNC:TFEB,loc(GO:lysosome))
+p(HGNC:RRAGA) -> p(HGNC:MTOR,loc(GO:lysosome))
 
 SET Evidence = "The enrichment of the active Rag GTPases (RagAGTP/RagCGDP)
 (Martina & Puertollano, 2013) on lysosomes was not disturbed after
@@ -264,13 +262,13 @@ could not associate with Rag GTPases and lysosomes, leading to a
 failure of phosphorylation of Ser211 by mTORC1 and subsequently
 being transported easily into the nucleus (Martina et al, 2012;
 Roczniak-Ferguson et al, 2012)."
-p(HGNC:TFEB,var("p.1_30del")) -| complex(a(GO:lysosome),p(HGNC:TFEB),p(UNIPROT:A0A074S494))
+p(HGNC:TFEB,var("p.1_30del")) -| complex(a(GO:lysosome),p(HGNC:TFEB),p(HGNC:RRAGA))
 p(HGNC:TFEB,var("p.1_30del")) -| p(HGNC:TFEB,pmod(Ph,Ser,211))
 p(HGNC:TFEB,var("p.1_30del")) -> p(HGNC:TFEB,loc(GO:nucleus))
-p(HGNC:TFEB,var("p.Gln10Ala"),var("p.Lys11Ala")) -| complex(a(GO:lysosome),p(HGNC:TFEB),p(UNIPROT:A0A074S494))
+p(HGNC:TFEB,var("p.Gln10Ala"),var("p.Lys11Ala")) -| complex(a(GO:lysosome),p(HGNC:TFEB),p(HGNC:RRAGA))
 p(HGNC:TFEB,var("p.Gln10Ala"),var("p.Lys11Ala")) -| p(HGNC:TFEB,pmod(Ph,Ser,211))
 p(HGNC:TFEB,var("p.Gln10Ala"),var("p.Lys11Ala")) -> p(HGNC:TFEB,loc(GO:nucleus))
-complex(a(GO:lysosome),p(HGNC:TFEB),p(UNIPROT:A0A074S494)) -> p(HGNC:TFEB,pmod(Ph,Ser,211))
+complex(a(GO:lysosome),p(HGNC:TFEB),p(HGNC:RRAGA)) -> p(HGNC:TFEB,pmod(Ph,Ser,211))
 p(HGNCGENEFAMILY:"MTOR complex 1") -> p(HGNC:TFEB,pmod(Ph,Ser,211))
 
 SET Evidence = "In our observations, knockdown of
