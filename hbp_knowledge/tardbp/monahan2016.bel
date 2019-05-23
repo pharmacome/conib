@@ -121,7 +121,7 @@ a(MESH:Viruses) -> complex(GO:"cytoplasmic stress granule")
 
 SET Evidence = "More generally, SGs may decrease protein stress
 through the global repression of translation by binding mRNAs that would otherwise be translated."
-complex(GO:"cytoplasmic stress granule") -| bp(GO:"Unfolded Protein Response")
+complex(GO:"cytoplasmic stress granule") -| bp(MESH:"Unfolded Protein Response")
 complex(a(GO:"cytoplasmic stress granule"), a(MESH:"RNA, Messenger")) -| bp(GO:translation)
 
 SET Evidence = "The apparently causal role of phosphorylated eIF2α in facilitating SG
@@ -221,8 +221,8 @@ p(HGNC:TARDBP) reg bp(GO:"autophagosome assembly")
 SET Evidence = "Interestingly, TDP-43 is managed by both proteasome and autophagy pathways where the soluble form of TDP-43 is degraded
 by the proteasome; and oligomeric and aggregated forms of TDP-43 are cleared by autophagy (Xia et al., 2016)."
 complex(GO:"proteasome complex") -> deg(p(HGNC:TARDBP))
-bp(GO:autophagy) -> a(HBP:"TDP-43 oligomers",frag("?"))
-bp(GO:autophagy) -> a(HBP:"TDP-43 aggregates",frag("?"))
+bp(GO:autophagy) -> p(HGNC:TARDBP,pmod(GO:"protein complex oligomerization"),frag("?"))
+bp(GO:autophagy) -> p(HGNC:TARDBP,pmod(HBP:"protein aggregation"),frag("?"))
 
 SET Evidence = "Given that TDP-43 is a highly aggregation-prone protein, it is not surprising to observe that impaired
 turn-over of TDP-43 directly correlates with motor dysfunctions and reduced autophagy-related proteins in a mouse model of
@@ -236,7 +236,7 @@ p(HGNC:FUS,var("?")) -| bp(GO:autophagy)
 UNSET MeSHDisease
 
 SET Evidence = "Moreover, many SG proteins are also found in the pathological inclusions in ALS patients’ motor neurons"
-path(MESH:"Amyotrophic Lateral Sclerosis") pos a(GO:"cytoplasmic stress granule",loc(MESH:"Motor Neurons"))
+path(MESH:"Amyotrophic Lateral Sclerosis") pos complex(GO:"cytoplasmic stress granule",loc(MESH:"Motor Neurons"))
 
 # Prion-like Mechanism refers to protein misfolding
 
@@ -297,7 +297,7 @@ path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:HNRNPA1)
 
 SET Evidence = "Matrin-3 was shown to interact with TDP-43 in cytosolic aggregates in spinal neurons."
 SET MeSHAnatomy = {"Spinal Cord","Neurons"}
-complex(p(HGNC:MATR3),a(HBP:"TDP-43 aggregates",loc(MESH:Cytosol)))
+complex(p(HGNC:MATR3),p(HGNC:TARDBP,pmod(HBP:"protein aggregation"),loc(MESH:Cytosol)))
 UNSET MeSHAnatomy
 
 SET Evidence = "While less well characterized than FUS and TDP-43, the potential for Matrin-3 to interact with SGs, perhaps even via
@@ -306,11 +306,11 @@ complex(p(HGNC:MATR3),a(GO:"cytoplasmic stress granule"))
 
 SET Evidence = "Indeed, the clearance of FUS and TDP-43 aggregates by autophagy has been reported (Caccamo et al., 2009; Ryu et al., 2014; Wang et al., 2010)."
 bp(GO:autophagy) -> deg(p(HGNC:FUS,pmod(MESH:"Protein Aggregation, Pathological")))
-bp(GO:autophagy) -> deg(a(HBP:"TDP-43 aggregates"))
+bp(GO:autophagy) -> deg(p(HGNC:TARDBP,pmod(HBP:"protein aggregation"))
 
 SET Evidence = "Recent reports suggest that autophagy of FUS aggregates can be enhanced by overexpression of the critical autophagy protein Rab1 (Soo et al., 2015)."
-p(HGNC:RAB) -> deg(a(HBP:"TDP-43 aggregates"))
-p(HGNC:RAB) -> bp(GO:autophagy)
+p(HGNC:RAB1A) -> deg(p(HGNC:TARDBP,pmod(HBP:"protein aggregation"))
+p(HGNC:RAB1A) -> bp(GO:autophagy)
 
 SET Evidence = "In fact, the most common genetic abnormality linked with familial ALS is a disordered intron in the nucleic acid sequence
 located on chromosome 9, open reading frame 72 (C9ORF72)."
@@ -355,14 +355,14 @@ p(HGNC:VCP) -| p(HGNC:TARDBP)
 
 SET Evidence = "Moreover, Buchan et al. showed that VCP helps target SGs to the autophagosome for disassembly, while Cherkasov and
 workers showed that this disassembly was chaperone mediated (Buchan et al., 2013; Cherkasov et al., 2013)."
-p(HGNC:VCP) -> a(GO:"cytoplasmic stress granule",loc(GO:autophagosome))
-a(GO:"cytoplasmic stress granule",loc(GO:autophagosome)) -> bp(GO:"stress granule disassembly")
+p(HGNC:VCP) -> complex(GO:"cytoplasmic stress granule",loc(GO:autophagosome))
+complex(GO:"cytoplasmic stress granule",loc(GO:autophagosome)) -> bp(GO:"stress granule disassembly")
 a(MESH:"Molecular Chaperones") reg bp(GO:"stress granule disassembly")
 
 SET Evidence = "Surprisingly, another report showed that impaired VCP led to a reduction in the size and formation of SGs, suggesting
 that VCP may play an important role in both SG assembly and targeting to the autophagosome (Seguin et al., 2014)"
 p(HGNC:VCP) -> bp(GO:"stress granule assembly")
-p(HGNC:VCP) -> a(GO:"cytoplasmic stress granule",loc(GO:autophagosome))
+p(HGNC:VCP) -> complex(GO:"cytoplasmic stress granule",loc(GO:autophagosome))
 
 SET Evidence = "This same study showed a concomitant accumulation of ubiquitinated proteins with a reduction in SG formation"
 p(MESH:Proteins,pmod(Ub)) neg bp(GO:"stress granule assembly")
@@ -396,18 +396,18 @@ SET Evidence = "Optineurin E478G, despite its reduced ability to bind ubiquitin,
 to associate with and trap wild-type optineurin in the cytosol. This prevents the association of wild-type
 optineurin to autophagic machinery, and therefore the appropriate maturation of autophagosomes."
 SET MeSHAnatomy = "Cytosol"
-p(HGNC:OPTN,var("p.Glu478Gly") -> complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly"))
+p(HGNC:OPTN,var("p.Glu478Gly")) -> complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly")))
 p(HGNC:OPTN,var("p.Glu478Gly")) -| complex(p(HGNC:OPTN),a(MESH:Ubiquitin))
-complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly")) -| act(p(HGNC:OPTN))
-complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly")) -| complex(p(HGNC:OPTN),a(GO:autophagosome))
-complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly")) -| bp(GO:autophagy)
+complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly"))) -| act(p(HGNC:OPTN))
+complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly"))) -| complex(p(HGNC:OPTN),a(GO:autophagosome))
+complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly"))) -| bp(GO:autophagy)
 UNSET MeSHAnatomy
 
 SET Evidence = "The authors used LC3 turnover as a measure of autophagic flux to show that this wild-type
 optineurin trapping effect of E478G led to measurable decreases in autophagy for the cell, as well as a
 subsequent increase the abundance of cytosolic aggregates (Shen et al., 2015)."
-complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly")) -| bp(GO:autophagy)
-complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly")) -> a(HBP:"protein aggregates",loc(MESH:Cytosol))
+complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly"))) -| bp(GO:autophagy)
+complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly"))) -> a(HBP:"protein aggregates",loc(MESH:Cytosol))
 
 SET Evidence = "Unsurprisingly, kinases like TBK1 have been implicated in diverse human pathologies
 from hepatic dysfunction to neurodegeneration (Bonnard et al., 2000; Freischmidt et al., 2015)."
@@ -447,7 +447,7 @@ p(HGNC:OPTN,var("?")) -- path(MESH:"Amyotrophic Lateral Sclerosis")
 SET Evidence = "Ubiquilin-2 has been well characterized for its function in delivering ubiquitin-tagged proteins to the proteasome for
 degradation (Deng et al., 2011; Walters et al., 2004) (Williams et al., 2012; Zhang et al., 2014)."
 p(HGNC:UBQLN2) -> p(MESH:Proteins,pmod(Ub),loc(GO:"proteasome complex"))
-p(HGNC:UBQLN2) -> deg(p(MESH:Proteins,pmod(Ub))
+p(HGNC:UBQLN2) -> deg(p(MESH:Proteins,pmod(Ub)))
 
 SET Evidence = "Reduction in ubiquilin-2 is associated with concomitant reduction in autophagosome formation (Rothenberg et al., 2010)"
 p(HGNC:UBQLN2) -> bp(GO:"autophagosome assembly")
@@ -473,7 +473,7 @@ though its precise effect remain unclear (Gal et al., 2013; Taes et al., 2013)."
 act(p(HGNC:HDAC6)) neg path(MESH:"Amyotrophic Lateral Sclerosis")
 
 SET Evidence = "Recent studies have shown that the autophagy-adapter p62 localizes with HDAC6 and controls its deacetylase activity (Yan et al., 2013)"
-complex(p(HGNC:SQSTM1),p(HGNC:HDAC6)) reg p(HGNC:HDAC6,ma(GO:"protein deacetylation"))
+complex(p(HGNC:SQSTM1),p(HGNC:HDAC6)) reg act(p(HGNC:HDAC6),ma(GO:"protein deacetylation"))
 
 SET Evidence = "Mutations in p62 itself have also been linked to cases of ALS in multiple studies (Fecto et al., 2011; Teyssou et al., 2013)."
 p(HGNC:SQSTM1,var("?")) -- path(MESH:"Amyotrophic Lateral Sclerosis")
