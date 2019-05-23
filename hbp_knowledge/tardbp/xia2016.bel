@@ -51,7 +51,7 @@ DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z
 
 # Annotations defined with regular expressions
 # --------------------------------------------
-#DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 
 # Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
 # --------------------------------------------------------------------------------
@@ -161,7 +161,7 @@ complex(GO:"Ragulator complex") hasComponents list(p(HGNC:LAMTOR1),p(HGNC:LAMTOR
 SET Evidence = "In Ragulator–Rag–mTORC1 complex, Ragulator
 anchors the Rag GTPases to lysosomes, which is essential for
 Rag GTPases activation through an amino acids-dependent manner."
-complex(a(GO:"Ragulator complex"),p(UNIPROT:A0A074S494),p(HGNCGENEFAMILY:"MTOR complex 1")) -> complex(Rag,a(GO:lysosome))
+complex(a(GO:"Ragulator complex"),p(UNIPROT:A0A074S494),p(HGNCGENEFAMILY:"MTOR complex 1")) -> complex(p(UNIPROT:A0A074S494),a(GO:lysosome))
 #####
 
 SET Evidence = "Meanwhile, raptor interacts with active Rag GTPase heterodimers in
@@ -175,7 +175,7 @@ complex(p(HGNC:RPTOR),p(HGNC:RRAGB),p(HGNC:RRAGC))
 complex(p(HGNC:RPTOR),p(HGNC:RRAGB),p(HGNC:RRAGD))
 p(HGNC:RPTOR) -> p(HGNC:MTOR,loc(GO:lysosome))
 SET CellStructure = "Lysosomes"
-p(HGNC:RHEB) -> act(p(HGNC:MTOR)
+p(HGNC:RHEB) -> act(p(HGNC:MTOR))
 UNSET CellStructure
 
 SET Evidence = "TDP-43-depleted cells showed a
@@ -233,8 +233,8 @@ SET Evidence = "Based on the studies that
 Rag GTPases functions in the recruitment of TFEB and mTOR to
 lysosomes (Martina & Puertollano, 2013), we next tested whether
 TDP-43 could influence the lysosomal localization of Rag GTPases."
-p(UBIPROT:A0A074S494) -> p(HGNC:TFEB,loc(GO:lysosome))
-p(UBIPROT:A0A074S494) -> p(HGNC:MTOR,loc(GO:lysosome))
+p(UNIPROT:A0A074S494) -> p(HGNC:TFEB,loc(GO:lysosome))
+p(UNIPROT:A0A074S494) -> p(HGNC:MTOR,loc(GO:lysosome))
 
 SET Evidence = "The enrichment of the active Rag GTPases (RagAGTP/RagCGDP)
 (Martina & Puertollano, 2013) on lysosomes was not disturbed after
@@ -319,9 +319,9 @@ SET Evidence = "As nuclear translocation of TFEB is associated with TFEB transcr
 activity, which is tightly involved in the regulation of
 lysosomal biogenesis and autophagic level, we wonder whether
 TDP-43 could regulate ALP"
-p(HGNC:TFEB,loc(GO:nucleus)) -- act(p(HGNC:TFEB), ma(GO:"nucleic acid binding transcription factor activity"))
-act(p(HGNC:TFEB), ma(GO:"nucleic acid binding transcription factor activity")) reg a(GO:lysosome)
-act(p(HGNC:TFEB), ma(GO:"nucleic acid binding transcription factor activity")) reg bp(GO:autophagy)
+p(HGNC:TFEB,loc(GO:nucleus)) -- act(p(HGNC:TFEB), ma(MESH:"Transcription, Genetic"))
+act(p(HGNC:TFEB), ma(MESH:"Transcription, Genetic")) reg a(GO:lysosome)
+act(p(HGNC:TFEB), ma(MESH:"Transcription, Genetic")) reg bp(GO:autophagy)
 
 #Lysotracker (a specific lysosomal fluorescent probe) as a marker to monitor lysosomal biogenesis
 
