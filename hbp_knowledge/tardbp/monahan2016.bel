@@ -22,11 +22,11 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/fb-names.belns"
 DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/export/hbp-names.belns"
-#DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc-names.belns"
 #DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc.genefamily-names.belns"
 #DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hp-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/go-names.belns"
-#DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/interpro-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/interpro-names.belns"
 DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mesh-names.belns"
 #DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
 #DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mirbase-names.belns"
@@ -91,46 +91,46 @@ act(a(MESH:"Respiratory Muscles")) -| path(MESH:Death)
 SET Evidence = "In the case of ALS, a number of different proteins and metabolic pathways have been linked to pathogenesis, but issues
 of proteostasis (e.g. protein folding, aggregation and quality-control) appear to be the most common pathogenic theme
 (Andersen and Al-Chalabi, 2011; Renton et al., 2014)."
-path(MESH:"Amyotrophic Lateral Sclerosis") neg bp(MESH:Proteostasis)
+path(MESH:"Amyotrophic Lateral Sclerosis") neg bp(HBP:Proteostasis)
 
 SET Evidence = "Ribonucleoprotein (RNP) granules are cellular sites dedicated to RNA processing.
 Well-characterized types of RNP granules include transport RNPs, processing bodies (P-bodies) and stress granules
 (SGs); all of which have distinct roles in mRNA regulation (Anderson and Kedersha, 2008; Kedersha et al., 2005)."
-a(GO:"ribonucleoprotein granule") -- bp(GO:"RNA processing")
-a(GO:"ribonucleoprotein granule") reg a(MESH:"RNA, Messenger")
-a(GO:"P-body") isA a(GO:"ribonucleoprotein granule")
-a(GO:"P-body") reg a(MESH:"RNA, Messenger")
-a(GO:"cytoplasmic stress granule") isA a(GO:"ribonucleoprotein granule")
-a(GO:"cytoplasmic stress granule") reg a(MESH:"RNA, Messenger")
+complex(GO:"ribonucleoprotein granule") -- bp(GO:"RNA processing")
+complex(GO:"ribonucleoprotein granule") reg a(MESH:"RNA, Messenger")
+complex(GO:"P-body") isA complex(GO:"ribonucleoprotein granule")
+complex(GO:"P-body") reg a(MESH:"RNA, Messenger")
+complex(GO:"cytoplasmic stress granule") isA complex(GO:"ribonucleoprotein granule")
+complex(GO:"cytoplasmic stress granule") reg a(MESH:"RNA, Messenger")
 
 SET Evidence = "Thus, P-bodies are classified as foci of RNA breakdown and turnover, and SGs are thought to be
 sites of paused translation initiation and global translation repression
 (Anderson and Kedersha, 2008; Li et al., 2013; Parker and Sheth, 2007; Thomas et al., 2011)."
-a(GO:"P-body") -- bp(GO:"RNA catabolic process")
-a(GO:"P-body") reg a(MESH:RNA)
-a(GO:"cytoplasmic stress granule") neg bp(GO:translation)
+complex(GO:"P-body") -- bp(GO:"RNA catabolic process")
+complex(GO:"P-body") reg a(MESH:RNA)
+complex(GO:"cytoplasmic stress granule") neg bp(GO:translation)
 
 SET Evidence = "The formation of SGs is believed to be a conserved, protective response to various cell stresses.
 Some example stresses include: oxidative (Anderson and Kedersha, 2002; Anderson and Kedersha, 2008; Bosco et al., 2010; Daigle et al., 2013),
 mitochondrial (Buchan et al., 2011; Chalupnikova et al., 2008; Stoecklin et al., 2004), proteasomal (Fournier et al., 2010; Mazroui et al., 2007)
 and viral (Emara and Brinton, 2007; Raaben et al., 2007)."
-bp(GO:"response to oxidative stress") -> a(GO:"cytoplasmic stress granule")
-path(HBP:"mitochondrial dysfunction") -> a(GO:"cytoplasmic stress granule")
-act(complex(GO:"proteasome complex")) neg a(GO:"cytoplasmic stress granule")
-a(MESH:Viruses) -> a(GO:"cytoplasmic stress granule")
+bp(GO:"response to oxidative stress") -> complex(GO:"cytoplasmic stress granule")
+path(HBP:"mitochondrial dysfunction") -> complex(GO:"cytoplasmic stress granule")
+act(complex(GO:"proteasome complex")) neg complex(GO:"cytoplasmic stress granule")
+a(MESH:Viruses) -> complex(GO:"cytoplasmic stress granule")
 
 SET Evidence = "More generally, SGs may decrease protein stress
 through the global repression of translation by binding mRNAs that would otherwise be translated."
-a(GO:"cytoplasmic stress granule") -| bp(GO:"Unfolded Protein Response")
+complex(GO:"cytoplasmic stress granule") -| bp(GO:"Unfolded Protein Response")
 complex(a(GO:"cytoplasmic stress granule"), a(MESH:"RNA, Messenger")) -| bp(GO:translation)
 
 SET Evidence = "The apparently causal role of phosphorylated eIF2α in facilitating SG
 formation supports this hypothesis, as eIF2α has an established role in translation repression (Kedersha et al., 1999)."
-p(HGNC:EIF2A,pmod(Ph)) -> a(GO:"cytoplasmic stress granule")
+p(HGNC:EIF2A,pmod(Ph)) -> complex(GO:"cytoplasmic stress granule")
 p(HGNC:EIF2A,pmod(Ph)) -| bp(GO:translation)
 
 SET Evidence = "The protein TIA1, for example, is critical to the early stages of SG assembly."
-p(HGNC:TIA1) -> a(GO:"cytoplasmic stress granule")
+p(HGNC:TIA1) -> complex(GO:"cytoplasmic stress granule")
 
 # selective autophagy refers to selective Macroautophagy
 
@@ -139,9 +139,9 @@ and RNP granules that need to be disassembled, in part because large protein agg
 to be resistant to ubiquitin-proteasome degradation (Venkatraman et al., 2004)."
 bp(GO:macroautophagy) isA bp(GO:"selective autophagy")
 bp(GO:macroautophagy) -> deg(a(HBP:"protein aggregates"))
-bp(GO:macroautophagy) -> deg(a(GO:"cytoplasmic stress granule"))
+bp(GO:macroautophagy) -> deg(complex(GO:"cytoplasmic stress granule"))
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") cnc deg(a(HBP:"protein aggregates"))
-bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") cnc deg(a(GO:"cytoplasmic stress granule"))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") cnc deg(complex(GO:"cytoplasmic stress granule"))
 
 SET Evidence = "The general model of selective autophagic engulfment of substrate is shown in Figure 1. Initially, the phospholipid-conjugated
 LC3 protein (Atg8 in yeast) facilitates the formation of membranous phagophore structures that recognize the targeted material through various
@@ -159,20 +159,20 @@ p(HGNC:NBR1) reg bp(GO:macroautophagy)
 
 SET Evidence = "Similarly, autophagy is involved in the clearance of RNP granules. Buchan and colleagues
 demonstrated that SG breakdown in particular was dependent on selective autophagy"
-bp(GO:autophagy) -> deg(a(GO:"ribonucleoprotein granule"))
-bp(GO:macroautophagy) -> deg(a(GO:"cytoplasmic stress granule"))
+bp(GO:autophagy) -> deg(complex(GO:"ribonucleoprotein granule"))
+bp(GO:macroautophagy) -> deg(complex(GO:"cytoplasmic stress granule"))
 
 SET Evidence = "Strikingly, and very similarly to previous experiments with huntingtin and alpha-synuclein, rapamycin
 administration promoted SG clearance, while selective autophagy inhibitors had the opposite effect (Buchan et al., 2013)."
 a(CHEBI:"sirolimus") -> deg(p(HGNC:HTT))
 a(CHEBI:"sirolimus") -> deg(p(HGNC:SNCA))
-a(CHEBI:"sirolimus") -> deg(a(GO:"cytoplasmic stress granule"))
-a(CHEBI:"autophagy inhibitor") -| deg(a(GO:"cytoplasmic stress granule"))
+a(CHEBI:"sirolimus") -> deg(complex(GO:"cytoplasmic stress granule"))
+a(CHEBI:"autophagy inhibitor") -| deg(complex(GO:"cytoplasmic stress granule"))
 
 SET Evidence = "When VCP is silenced with siRNA or with specific chemical inhibitors in stressed HeLa cells, SGs accumulate (Buchan et al., 2013)."
 # VCP: valosin-containing protein (p97)
 SET CellLine = "HeLa cell"
-p(HGNC:VCP) -| a(GO:"cytoplasmic stress granule")
+p(HGNC:VCP) -| complex(GO:"cytoplasmic stress granule")
 UNSET CellLine
 
 SET Evidence = "The first gene linked to familial ALS was superoxide dismutase 1 (SOD1)."
@@ -275,9 +275,9 @@ p(HGNC:FUS,pmod(Ph)) -> p(HGNC:FUS,loc(GO:cytoplasm))
 
 SET Evidence = "The subsequent cytosolic co-localization with SGs is perhaps a consequence of FUS/TDP-43 having prion-like
 domains similar to the domains found in many SG constituent proteins (Gilks et al., 2004; Udan and Baloh, 2011)."
-p(HGNC:FUS,loc(GO:cytosol)) -- a(GO:"cytoplasmic stress granule")
-p(HGNC:TARDBP,loc(GO:cytosol)) -- a(GO:"cytoplasmic stress granule")
-p(INTERPRO:"Prion/Doppel protein, beta-ribbon domain") -- a(GO:"cytoplasmic stress granule")
+p(HGNC:FUS,loc(GO:cytosol)) -- complex(GO:"cytoplasmic stress granule")
+p(HGNC:TARDBP,loc(GO:cytosol)) -- complex(GO:"cytoplasmic stress granule")
+p(INTERPRO:"Prion/Doppel protein, beta-ribbon domain") -- complex(GO:"cytoplasmic stress granule")
 
 SET Evidence = "Importantly, in a transgenic FUS mouse line, postnatal knockdown of FUS did not promote motor neuron degeneration,
 whereas expression of FUS mutants was dominant negative for motor neuron survival ((Sharma et al., 2016)."
@@ -336,8 +336,8 @@ g(HGNC:C9orf72) pos act(p(HGNC:NTRK2))
 g(HGNC:C9orf72) pos act(p(HGNC:MAP1LC3A))
 
 SET Evidence = "Moreover, pharmacological inhibition of the 26S proteasome in addition to C9ORF72 overexpression led to an accumulation of SGs (Farg et al., 2014)."
-g(HGNC:C9orf72) pos a(GO:"cytoplasmic stress granule")
-complex(GO:"proteasome complex") -| a(GO:"cytoplasmic stress granule")
+g(HGNC:C9orf72) pos complex(GO:"cytoplasmic stress granule")
+complex(GO:"proteasome complex") -| complex(GO:"cytoplasmic stress granule")
 
 SET Evidence = "Protein interaction by C9ORF72 also includes heterogeneous nuclear ribonucleoproteins, Matrin 3, hnRNPA2/B1 and hnRNPA1
 (Donnelly et al., 2013; Farg et al., 2014; Haeusler et al., 2014)"
@@ -461,7 +461,7 @@ bp(GO:"autophagosome-lysosome fusion") -> a(GO:autolysosome)
 SET Evidence = "Interestingly, HDAC6 physically interacts with G3BP, a known component of SGs,
 and is sequestered into SGs under different stress conditions"
 complex(p(HGNC:HDAC6),p(HGNC:G3BP1))
-a(GO:"cytoplasmic stress granule") -- p(HGNC:G3BP1)
+complex(GO:"cytoplasmic stress granule") -- p(HGNC:G3BP1)
 bp(GO:"response to stress") -> p(HGNC:HDAC6,loc(GO:"cytoplasmic stress granule"))
 
 SET Evidence = "Moreover, genetic or pharmacological inhibition of HDAC6 impairs SG formation, suggesting
