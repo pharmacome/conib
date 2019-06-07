@@ -88,8 +88,8 @@ composite(path(MESH:"Mitochondria"), path(MESH:"Endoplasmic Reticulum")) reg bp(
 SET Evidence = "In the case of UPR, mutant proteins are degraded
 via catabolic pathways characterized by the ubiquitin
 proteasome system and autophagic lysosomes"
-path(MESH:"Mutant Proteins") -> bp(GO:"ubiquitin-dependent protein catabolic process")
-path(MESH:"Mutant Proteins") -> bp(GO:"lysosomal protein catabolic process")
+p(MESH:"Mutant Proteins") -> bp(GO:"ubiquitin-dependent protein catabolic process")
+p(MESH:"Mutant Proteins") -> bp(GO:"lysosomal protein catabolic process")
 
 SET Evidence = "As an
 integral function, the ER wields the unfolded protein response
@@ -99,7 +99,7 @@ have their own protein quality control system, the UPR
 (mt).[3]"
 bp(GO:"endoplasmic reticulum unfolded protein response") -| path(HBP:"proteotoxicity")
 a(MESH:"Protein Aggregates") -> path(HBP:"proteotoxicity")
-a(MESH:"Proteins", pmod("misfolded")) ->  path(HBP:"proteotoxicity")
+p(MESH:"Proteins", pmod("misfolded")) ->  path(HBP:"proteotoxicity")
 bp(GO:"mitochondrial unfolded protein response") -| path(HBP:"proteotoxicity")
 
 SET Evidence = "ER buildup of unfolded proteins may be caused by such
@@ -123,7 +123,7 @@ SET MeSHAnatomy = "Endoplasmic Reticulum"
 path(MESH:"Unfolded Protein Response") -> path(MESH:"Organelle Biogenesis")
 UNSET MeSHAnatomy
 path(MESH:"Unfolded Protein Response") -> bp(GO:"ERAD pathway")
-path(MESH:"Unfolded Protein Response") -> bp(Go:"autophagy")
+path(MESH:"Unfolded Protein Response") -> bp(GO:"autophagy")
 
 SET Evidence = "ER related stress mechanisms are incriminated in numerous
 human diseases including neuropsychiatric disorders,
@@ -178,8 +178,8 @@ translation by phosphorylating the eukaryotic initiation
 factor 2alpha (eIF2alpha) and decreasing the total amount of secreted
 proteins in the ER lumen."
 #EIF2S1 : eIF2alpha
-path(MESH:"Unfolded Protein Response") -> act(p(HGNC:HGNC:"EIF2AK3"))
-p(HGNC:HGNC:"EIF2AK3") -> p(HGNC:"EIF2S1", pmod(Ph))
+path(MESH:"Unfolded Protein Response") -> act(p(HGNC:"EIF2AK3"))
+p(HGNC:"EIF2AK3") -> p(HGNC:"EIF2S1", pmod(Ph))
 p(HGNC:"EIF2S1", pmod(Ph)) -| path(MESH:"Protein Biosynthesis")
 SET MeSHAnatomy = "Endoplasmic Reticulum"
 p(HGNC:"EIF2S1", pmod(Ph)) -| bp(GO:"protein secretion")
@@ -225,7 +225,7 @@ cell survival."
 SET MeSHAnatomy = "Endoplasmic Reticulum"
 p(HGNC:"XBP1") -> bp(GO:"positive regulation of protein folding")
 UNSET MeSHAnatomy
-p(HGNC:"XBP1") -> deg(path(MESH:"Mutant Proteins"))
+p(HGNC:"XBP1") -> deg(p(MESH:"Mutant Proteins"))
 p(HGNC:"XBP1") -> path(MESH:"Cell Survival")
 
 SET Evidence = "GADD34
@@ -264,7 +264,7 @@ the activating transcription factor associated with stress-1
 nuclear transcription of mitochondrial chaperones
 and protective proteins.[20]"
 #C. elegans : Caenorhabditis elegans
-p(NCBIGENE:"atfs-1") reg bp(GO:"mitochondrial unfolded protein response")
+p(NCBIGENE:"179922") reg bp(GO:"mitochondrial unfolded protein response")
 
 SET Evidence = "ATFS-1 aids in cross-talk
 between mitochondria and nucleus; it is typically conveyed
@@ -291,8 +291,8 @@ kinase (JNK) pathway is activated and leads to amplified
 assembly of beta amyloid that exacerbates ER stress."
 #later senario: IRE1/XBP1 in C. elegans
 SET Species = "6239"
-composite(p(HGNC:"XBP1"), p(HGNC:"ERN1")) -> bp(GO:"	JNK cascade")
-bp(GO:"	JNK cascade")-> p(HBP:"amyloid-beta aggregates")
+composite(p(HGNC:"XBP1"), p(HGNC:"ERN1")) -> bp(GO:"JNK cascade")
+bp(GO:"JNK cascade")-> p(HBP:"amyloid-beta aggregates")
 p(HBP:"amyloid-beta aggregates") -> path(MESH:"Endoplasmic Reticulum Stress")
 UNSET Species
 
@@ -331,7 +331,7 @@ catabolism of misfolded superoxide dismutase 1 (SOD1).[35]"
 p(HGNC:"XBP1") -| p(HGNC:"FOXO1")
 p(HGNC:"FOXO1") -> path(MESH:"Autophagy")
 p(HGNC:"XBP1") -| path(MESH:"Autophagy")
-p(HGNC:"XBP1") -> deg(p(HGNC:"SOD1"), pmod(HBP:"misfolded"))
+p(HGNC:"XBP1") -> deg(p(HGNC:"SOD1", pmod(HBP:"misfolded")))
 
 SET Evidence = "Additionally, when
 salubrinal (an inhibitor of PPP1R15A/GADD34 phosphatase)
@@ -380,7 +380,7 @@ CSMNs is particularly vulnerable to ER stress which is induced
 by the deletion of the ALS-linked gene, Alsin."
 SET Species = "10090"
 p(HGNC:"UCHL1") -- path(MESH:"Endoplasmic Reticulum Stress")
-p(NCBIGENE:"Als2", frag("?")) -> path(MESH:"Endoplasmic Reticulum Stress")
+p(NCBIGENE:"74018", frag("?")) -> path(MESH:"Endoplasmic Reticulum Stress")
 UNSET Species
 
 SET Evidence = "In this vein, it
@@ -403,9 +403,9 @@ SOD1-ALS mouse model, sephin1 showed neuro-
 protective properties, improved behavior, and had no
 significant adverse effects."
 #mouse model : SOD1-Als
-SET Species = '10090'
+SET Species = "10090"
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
-a(PUBCHEM:9561611) -- path(MESH:"Neuroprotective Agents")
+a(PUBCHEM:9561611) -- a(MESH:"Neuroprotective Agents")
 a(PUBCHEM:9561611) -> path(MESH:"Memory and Learning Tests")
 UNSET MeSHDisease
 UNSET Species
@@ -422,7 +422,7 @@ SET Evidence = "Similar to ALS, in HD,
 a lack of XBP1 increased ER related compensatory mechanisms
 like autophagy and up-regulated FOXO1 expression."
 SET MeSHDisease = {"Huntington Disease", "Amyotrophic Lateral Sclerosis"}
-p(HGNC:"XBP1") -| bp(Go:"autophagy")
+p(HGNC:"XBP1") -| bp(GO:"autophagy")
 p(HGNC:"XBP1") -| p(HGNC:"FOXO1")
 UNSET MeSHDisease
 
