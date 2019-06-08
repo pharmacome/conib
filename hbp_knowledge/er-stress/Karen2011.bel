@@ -147,28 +147,11 @@ p(HGNC:BAX) -> act(p(HGNC:ERN1), ma(kin))
 p(HGNC:BAK1) -> act(p(HGNC:ERN1), ma(kin))
 complex(p(HGNC:ERN1),p(HGNC:BAX),p(HGNC:BAK1))
 
-SET Evidence = "Protein tyrosine phosphatase
-1B (PTP1B), which is present mostly in the ER, also influences
-IRE1 activity. The absence of PTP1B caused impaired XBP1
-splicing, JNK phosphorylation and attenuated up-regulation of
-XBP1 target genes such as ER degradation enhancing alpha-mannosidase–
-like protein (EDEM) [12]."
-## Unable to find PTP1B in databases
-
 SET Evidence = "ASK1-interacting protein 1 (AIP1)
 was recently shown to specifically regulate and enhance IRE1
 signalling. [12]."
 
 complex(GO:"AIP1-IRE1 complex") -> act((p(HGNC:ERN1)))
-
-
-SET Evidence = "The IRE1 pathway
-is negatively modulated by the ER-located protein BAX
-inhibitor-1 (BI-1). BI-1 forms a protein complex with IRE1, and
-BI-1-/- cells show hyperactivation of IRE1 and a subsequent
-increase in XBP1 mRNA splicing [12]."
-
-## Unable to find BI-1 in databases
 
 SET Evidence = "We have recently shown
 that the stress-inducible form of HSP70 (HSP72) can interact with
@@ -773,7 +756,6 @@ notably components of the ubiquitin–proteasome system
 
 a(GO:"Lewy body") hasComponent p(MESH:"alpha-Synuclein",pmod(HBP:misfolded))
 
-
 SET Evidence = "Genes associated with autosomal
 dominant PD include alpha-synuclein, ubiquitin carboxyl-terminal
 esterase L1 (UCHL1) and leucine-rich repeat kinase 2 (LRRK2);
@@ -885,13 +867,11 @@ SET Evidence = "However, prolonged stress will eventually
 lead to cell death with mutant Parkin potentially tipping the balance
 towards cell death [87]. More recently, the role of Parkin in
 mitophagy (selective degradation of mitochondria via the
-autophagy pathway) has been implicated in contributing to PD.
-Mitophagy is required for the removal of damaged mitochondria
-and to maintain cellular integrity."
+autophagy pathway) has been implicated in contributing to PD."
 
- 
-
-
+p(MESH:"parkin protein",var("?")) -> bp(MESH:"Cell Death")
+p(MESH:"parkin protein") -- bp(GO:mitophagy)
+composite(bp(GO:mitophagy),p(MESH:"parkin protein")) -- path(MESH:"Parkinson Disease")
 
 SET Evidence = "Parkin is recruited to depolarized
 mitochondria via PTEN-induced kinase-1 (PINK1) leading to
@@ -901,7 +881,257 @@ voltage-dependent anion channel 1 leading to mitochondrial clearance
 mitophagy at distinct steps highlighting the importance of
 Parkin-mediated mitophagy in PD [88]."
 
+p(HGNC:PINK1) -> composite(p(MESH:"parkin protein"),bp(GO:"mitochondrial depolarization"))
+composite(p(MESH:"parkin protein"),bp(GO:"mitochondrial depolarization")) -> bp(GO:mitophagy)
+p(MESH:"parkin protein") -> p(HGNCGENEFAMILY:"Voltage dependent anion channels",pmod(Ub))
+p(HGNCGENEFAMILY:"Voltage dependent anion channels",pmod(Ub)) -> bp(MESH:"Mitochondrial Degradation")
+p(MESH:"parkin protein",var("?")) -| bp(GO:"parkin-mediated stimulation of mitophagy in response to mitochondrial depolarization")
+p(MESH:"parkin-mediated stimulation of mitophagy in response to mitochondrial depolarization") -- path(MESH:"Parkinson Disease")
+
+SET Evidence = "Mutations in PINK1 have also been implicated in the recessive
+form of PD. Apart from its role in recruiting Parkin to mitochondria
+for subsequent mitophagy, PINK1 has also been implicated in
+protein stability and the wild-type protein may protect cells from
+oxidative stress, mitochondrial dysfunction and apoptosis [89]."
+
+p(HGNC:PINK1,var("?")) -> path(DOID:"autosomal recessive Parkinson's disease 14")
+p(HGNC:PINK1) -- bp(MESH:"Protein Stability")
+p(HGNC:PINK1) -| bp(MESH:"Oxidative Stress")
+p(HGNC:PINK1) -| path(HBP:"mitochondrial dysfunction")
+p(HGNC:PINK1) -| bp(MESH:Apoptosis)
+
+SET Evidence = "Mutations in DJ-1 are also linked to PD. DJ-1 has been suggested
+to act as an antioxidant or redox sensor protein and defective
+DJ-1 may predispose to oxidative stress and activation of the ER
+stress cascade [90]."
+
+p(HGNC:PARK7,var("?")) -- path(MESH:"Parkinson Disease")
+p(HGNC:PARK7) -> act(a(GO:"antioxidant activity"))
+p(HGNC:PARK7) -> act(bp(GO:"detection of redox state"))
+p(HGNC:PARK7,var("?")) -> bp(MESH:"Oxidative Stress")
+p(HGNC:PARK7,var("?")) -> bp(MESH:"Endoplasmic Reticulum Stress")
+
+SET Evidence = "Paraquat, an agricultural herbicide which is
+linked to sporadic PD, can induce expression of ER stress markers
+such as GRP78 and CHOP. Further investigation has revealed
+that paraquat activates IRE1/ASK1/JNK leading to apoptosis [91]."
+
+a(MESH:Paraquat) isA a(CHEBI:herbicide)
+a(MESH:Paraquat) -- path(MESH:"Parkinson Disease")
+a(MESH:Paraquat) -> p(MESH:"molecular chaperone GRP78")
+a(MESH:Paraquat) -> p(GO:"CHOP-C/EBP complex")
+p(GO:"CHOP-C/EBP complex") biomarkerFor bp(MESH:"Endoplasmic Reticulum Stress")
+p(MESH:"molecular chaperone GRP78") biomarkerFor bp(MESH:"Endoplasmic Reticulum Stress")
+a(MESH:Paraquat) -> act(p(HGNC:ERN1))
+a(MESH:Paraquat) -> act(p(MESH:"ASK1 protein, S cerevisiae"))
+a(MESH:Paraquat) -> act(bp(GO:"JNK cascade"))
+
+SET Evidence = "Therefore, significant evidence indicates that protein products
+of genes mutated in PD have a role in regulating protein stability
+such as alpha-synuclein (proteasome), Parkin (E3 ligase), DJ-1 (redox
+sensor) and PINK1 (protein stability) (Fig. 3B)."
+
+p(HGNCGENEFAMILY:"Parkinson disease associated genes") hasComponents list(p(MESH:"alpha-Synuclein"),p(HGNC:PARK7),p(HGNC:PINK1),p(MESH:"parkin protein"))
+p(MESH:"parkin protein") reg bp(MESH:"Protein Stability")
+p(HGNC:PINK1) reg bp(MESH:"Protein Stability")
+p(HGNC:PARK7) reg bp(MESH:"Protein Stability")
+p(MESH:"alpha-Synuclein") reg bp(MESH:"Protein Stability")
+p(MESH:"parkin protein",var("?")) -| bp(MESH:"Protein Stability")
+p(HGNC:PINK1,var("?")) -| bp(MESH:"Protein Stability")
+p(HGNC:PARK7,var("?")) -| bp(MESH:"Protein Stability")
+p(MESH:"alpha-Synuclein",var("?")) -| bp(MESH:"Protein Stability")
+
+SET Evidence = "In addition, drugs
+such as 6-hydroxydopamine (6-OHDA) and 1-methyl-4-
+phenylpyridinium (MPP+) which are used to develop animal models
+of PD, induce ER stress [92] (Fig. 3B). These studies therefore
+implicate protein quality control and the UPR as a key function that
+is disrupted in familial and sporadic PD leading to neuronal cell
+death. In addition, recent evidence points to the involvement of
+mitophagy influenced by the UPR playing a role in the development
+of PD."
+
+a(MESH:Hydroxydopamines) -> path(MESH:"Parkinson Disease")
+a(MESH:"1-Methyl-4-phenylpyridinium") -> path(MESH:"Parkinson Disease")
+a(MESH:"1-Methyl-4-phenylpyridinium") => bp(MESH:"Endoplasmic Reticulum Stress")
+a(MESH:Hydroxydopamines) => bp(MESH:"Endoplasmic Reticulum Stress")
+path(MESH:"Parkinson Disease") -| bp(GO:"protein quality control for misfolded or incompletely synthesized proteins")
+path(MESH:"Parkinson Disease") -| bp(MESH:"Unfolded Protein Response")
+path(MESH:"Parkinson Disease") -> bp(GO:"neuron death")
+composite(bp(MESH:"Unfolded Protein Response"),bp(GO:mitophagy)) -> path(MESH:"Parkinson Disease")
 
 UNSET Disease
+
+SET Disease = "amyotrophic lateral sclerosis"
+
+SET Evidence = "ALS is a progressive fatal neurodegenerative disease that principally
+affects motor neurones. Pathological mechanisms
+such as excitotoxicity, oxidative damage, mitochondrial dysfunction
+and defective axonal transport have all been implicated as
+causative factors in the apoptotic death of the motor neurones
+[93, 94]"
+
+path(MESH:"Amyotrophic Lateral Sclerosis") -- path(HBP:Neurodegeneration)
+path(MESH:"Amyotrophic Lateral Sclerosis") -- a(HBP:"Motor Neurons")
+path(HBP:Excitotoxicity) -> bp(GO:"motor neuron apoptotic process")
+bp(MESH:"Oxidative Stress") -> bp(GO:"motor neuron apoptotic process")
+path(HBP:"mitochondrial dysfunction") -> bp(GO:"motor neuron apoptotic process")
+bp(GO:"axonal transport") -- bp(GO:"motor neuron apoptotic process")
+
+SET Evidence = "Abnormal protein aggregation has also been reported in
+ALS. Bunina bodies, neurofilament cytoskeletal aggregation and
+deposition of aggregates of proteins such as ubiquitin, mutant superoxide dismutase 1 (mSOD1) and protein disulfide isomerase
+(PDI) are characteristics of the disease [95, 96]."
+
+path(MESH:"Amyotrophic Lateral Sclerosis") -> bp(HBP:"protein aggregation")
+a(GO:"Bunina body") -- path(MESH:"Amyotrophic Lateral Sclerosis")
+a(GO:"neurofilament cytoskeleton") -- path(MESH:"Amyotrophic Lateral Sclerosis")
+a(CHEBI:ubiquitin) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+a(MESH:"Superoxide Dismutase-1",var("?")) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:"Protein disulfide isomerases") -- path(MESH:"Amyotrophic Lateral Sclerosis")
+
+SET Evidence = "mSOD1 misfolds, aggregates and induces the UPR in transgenic
+mSOD1 mice, causing apoptosis [97] and has been implicated in
+the development of ALS. The protein level of the ER chaperone,
+PDI, in particular was increased, and was shown to co-localize
+with aggregated mSOD1 protein [97]."
+
+a(MGI:Sod1,pmod(HBP:misfolded)) -> bp(MESH:"Unfolded Protein Response")
+bp(MESH:"Unfolded Protein Response") -> bp(MESH:Apoptosis)
+a(MGI:Sod1,pmod(HBP:misfolded)) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- complex(p(HGNC:"Protein disulfide isomerases"),a(MESH:"Superoxide Dismutase-1",var("?")))
+
+SET Evidence = "As previously discussed, ERAD of misfolded proteins
+has been implicated in a range of neurodegenerative conditions,
+including ALS. Dysfunction of ERAD, causing ER stress has been
+shown to occur in mSOD1 containing motor neurones [99],
+through a mechanism involving Derilin-1, an ERAD-linked protein,
+subsequent ER stress–induced activation of the ASK1 pathway
+and ultimately apoptosis [99]. Specifically, mSOD1 was shown to
+interact with Derilin-1 causing dysregulation of ERAD leading to
+ER stress–induced ASK1 activation, apoptosis and disease progression
+(Fig. 3D)."
+
+bp(GO:"ERAD pathway") -- path(MESH:"Amyotrophic Lateral Sclerosis")
+
+SET Cell = "motor neuron"
+
+deg(bp(GO:"ERAD pathway")) -> bp(MESH:"Endoplasmic Reticulum Stress")
+deg(bp(GO:"ERAD pathway")) -> p(MESH:"derlin-1 protein, mouse")
+#typo- Derilin does not exist.
+p(MESH:"derlin-1 protein, mouse") -> p(MESH:"ASK1 protein, S cerevisiae")
+p(MESH:"ASK1 protein, S cerevisiae") -> bp(MESH:Apoptosis)
+
+UNSET Cell
+
+SET Evidence = "Mutation of the vesicle-associated membrane protein/synaptobrevin-
+associated protein B (VAPB), which associates with
+intracellular membranes, such as ER, has been implicated in the
+development of late-onset ALS [100]. It has been proposed that
+development of ALS may occur due to the disruption of the UPR
+caused by the mutation in VAPB, resulting in accumulation of misfolded
+protein in the ER [101]."
+
+p(HGNC:VAPB,var("?")) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:VAPB,var("?")) -| bp(MESH:"Unfolded Protein Response")
+p(HGNC:VAPB,var("?")) -> bp(HBP:"protein aggregation",loc(GO:"endoplasmic reticulum"))
+
+SET Evidence = "Native VAPB has been implicated in
+the UPR via the IRE1/XBP1[101], and ATF6 pathways [102], a
+function that is lost in mutants which contain abnormally highly
+ubiquitinated and misfolded VAPBP56S [101,102]. It was found
+that both VAPB and VAPBP56S directly interact with ATF6 reducing
+its ability to promote transcription of XBP1 with the mutant having
+more potent activity as an ATF6 inhibitor [102]."
+
+p(HGNC:VAPB) -- bp(MESH:"Unfolded Protein Response")
+p(HGNC:VAPB) -- p(HGNC:XBP1)
+p(HGNC:VAPB) -- p(HGNC:ERN1)
+p(HGNC:VAPB) -- p(HGNC:ATF6)
+p(HGNC:VAPB,pmod(Ub),var("p.Pro56Ser")) cnc p(HGNC:XBP1)
+p(HGNC:VAPB,pmod(Ub),var("p.Pro56Ser")) cnc p(HGNC:ERN1)
+p(HGNC:VAPB,pmod(Ub),var("p.Pro56Ser")) cnc p(HGNC:ATF6)
+complex(p(HGNC:VAPB),p(HGNC:ATF6)) -| act(p(HGNC:ATF6))
+act(p(HGNC:ATF6)) -> p(HGNC:XBP1)
+complex(p(HGNC:VAPB,pmod(Ub),var("p.Pro56Ser")),p(HGNC:ATF6)) -| act(p(HGNC:ATF6))
+
+SET Evidence = "In addition, mutations in the gene coding for the TAR DNAbinding
+protein (TARBP) also known as TDP-43 protein have
+recently been implicated in familial and sporadic ALS [103] and in
+frontotemporal lobar degeneration (FTLD) [104]. Abnormal and
+ubiquitinated TDP-43 has been identified as a key pathological
+hallmark of ALS and FTLD [105]."
+
+p(MESH:"TARBP1 protein, human") -- path(MESH:"Amyotrophic Lateral Sclerosis")
+p(MESH:"TARBP1 protein, human") -- path(MESH:"Frontotemporal Lobar Degeneration")
+p(MESH:"TARBP1 protein, human",var("?")) biomarkerFor path(MESH:"Amyotrophic Lateral Sclerosis")
+p(MESH:"TARBP1 protein, human",var("?")) biomarkerFor path(MESH:"Frontotemporal Lobar Degeneration")
+p(MESH:"TARBP1 protein, human",pmod(Ub)) biomarkerFor path(MESH:"Amyotrophic Lateral Sclerosis")
+p(MESH:"TARBP1 protein, human",pmod(Ub)) biomarkerFor path(MESH:"Frontotemporal Lobar Degeneration")
+
+SET Evidence = "UPR sensors IRE1, PERK
+and ATF6 show increased expression in spinal cord from sporadic
+human ALS patients [96]. However, conflicting evidence suggests
+that activation of the UPR may cause ER stress–induced apoptosis
+[96] or may actually be a neuroprotective response triggering
+increased levels of autophagy [12]."
+
+SET Anatomy = "Spinal cord"
+
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:ERN1)
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(MESH:"PERK kinase")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:ATF6)
+act(bp(MESH:"Unfolded Protein Response")) -> bp(MESH:Apoptosis)
+act(bp(MESH:"Unfolded Protein Response")) -> bp(GO:autophagy)
+
+UNSET Anatomy
+
+UNSET Disease
+
+SET Disease = "prion disease"
+
+SET Evidence = "Prion diseases such as new variant Creutzfeldt Jacob’s disease
+(CJD) are rare, fatal neurodegenerative diseases that are both
+inheritable and infectious. CJD causes a spongiform encephalopathy,
+reflecting neurodegeneration and an accumulation of abnormal
+protein aggregates in diffuse synaptic plaques containing
+prion protein and amyloid [84]."
+
+path(DOID:"variant Creutzfeldt-Jakob disease") isA path(DOID:"prion disease")
+path(DOID:"variant Creutzfeldt-Jakob disease") isA path(DOID:"neurodegenerative disease")
+path(DOID:"variant Creutzfeldt-Jakob disease") -> path(MESH:"Spongiform Encephalopathy with Neuropsychiatric Features")
+path(DOID:"variant Creutzfeldt-Jakob disease") -> bp(HBP:"protein aggregation")
+bp(HBP:"protein aggregation") hasComponents list(a(MESH:"Prion Proteins"),a(HBP:"amyloid-beta aggregates"))
+
+SET Evidence = "The mature prion protein contains 209
+amino acids, and the sequence of amino acids between residues
+106–126 can trigger apoptosis [86]."
+
+p(HGNC:PRNP,frag("106_126")) -> bp(MESH:Apoptosis)
+
+SET Evidence = "The physiological function of
+PrPc is not well established. It has been linked to neuronal growth
+and survival [109] and cytoprotection against a number of cellular
+stresses including oxidative stress [110], TNF-induced cell death
+[111], BAX-induced cell death [112] and serum deprivation in a
+BAX-dependent manner [113]."
+
+p(HGNC:PRNP) -- bp(GO:"neuron development")
+p(HGNC:PRNP) -- bp(GO:"neuron death")
+p(HGNC:PRNP) -| bp(MESH:"Oxidative Stress")
+p(HGNC:PRNP) -| p(HGNC:TNF)
+p(HGNC:PRNP) -| p(HGNC:BAX)
+
+##Aint sure of how to differentiate between Prpc and Prpsc.
+
+UNSET Disease
+
+SET Evidence = "There is evidence for the accumulation
+of misfolded proteins and also evidence for the involvement of
+the UPR in several human neurodegenerative conditions."
+
+path(MESH:"Neurodegenerative Diseases") -- bp(HBP:"protein aggregation")
+path(MESH:"Neurodegenerative Diseases") -- bp(MESH:"Unfolded Protein Response")
+
 #for unfolded and misfolded pr- p(MESH:Proteins , pmod(HBP"misfolded"))
 #never code structural info
