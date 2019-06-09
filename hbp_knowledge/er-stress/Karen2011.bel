@@ -120,9 +120,7 @@ endoribonuclease domain [9]. ER stress leads to dissociation
 of GRP78 from IRE1, resulting in autophosphorylation of IRE1alpha
 and activation of its RNAse activity [9]."
 
-p(HGNC:ERN1, frag("?_*")) -> bp(GO:"endoribonuclease activity")
 bp(MESH:"Endoplasmic Reticulum Stress") -> p(HGNC:ERN1, pmod(Ph))
-bp(MESH:"Endoplasmic Reticulum Stress") -> bp(GO:"ribonuclease activity")
 
 SET Evidence = "In addition, activated IRE1 can bind to tumour necrosis
 factor (TNF)-receptor-associated factor 2 (TRAF2), an adaptor
@@ -261,7 +259,7 @@ consequent release of pro-apoptotic factors, including
 cytochrome c (Fig. 2)."
 
 bp(MESH:"Unfolded Protein Response") -> bp(GO:"apoptotic signaling pathway")
-bp(GO:"apoptotic signaling pathway") -| bp(GO:"mitochondrial permeability transition pore complex")
+bp(GO:"apoptotic signaling pathway") -| complex(GO:"mitochondrial permeability transition pore complex")
 complex(GO:"mitochondrial permeability transition pore complex") => bp(GO:"regulation of mitochondrial membrane potential")
 bp(GO:"negative regulation of mitochondrial membrane potential") -> bp(GO:"release of cytochrome c from mitochondria")
 
@@ -390,7 +388,11 @@ p(MESH:Oxidoreductases) -> tloc(p(MESH:Proteins , pmod(HBP:misfolded)),fromLoc(G
 
 UNSET CellStructure
 
-p(HGNCGENEFAMILY:Proteasome) -> deg(p(MESH:Proteins,pmod(HBP:misfolded),loc(GO:cytoplasm))
+SET CellStructure = "Cytoplasm"
+
+p(HGNCGENEFAMILY:Proteasome) -> deg(p(MESH:Proteins,pmod(HBP:misfolded))
+
+UNSET CellStructure
 
 SET Evidence = "To
 remove the aggregates of misfolded proteins that cannot be
@@ -436,7 +438,7 @@ p(HGNC:PRKAA1) neg p(HGNC:MTOR)
 p(HGNC:PRKAA1) reg p(HGNCGENEFAMILY:"TSC complex")
 p(HGNCGENEFAMILY:"TSC complex") reg p(HGNC:MTOR)
 path(MESH:Hypoxia) -> act(p(HGNC:PRKAA1))
-path(MESH:Starvation) -> act(p(HGNC:PRKAAś1))
+path(MESH:Starvation) -> act(p(HGNC:PRKAA1))
 bp(MESH:"Heat-Shock Response") -> act(p(HGNC:PRKAA1))
 bp(MESH:"Endoplasmic Reticulum Stress") -> act(p(HGNC:PRKAA1))
 bp(MESH:"Endoplasmic Reticulum Stress") -> tloc(a(CHEBI:"calcium cation"),fromLoc(GO:"endoplasmic reticulum"),toLoc(GO:cytoplasm))
@@ -856,8 +858,6 @@ development of PD in people with this genetic mutation [85, 86]."
 
 p(MESH:"parkin protein") -- path(DOID:"autosomal recessive Parkinson's disease 14")
 p(MESH:"parkin protein") -> bp(GO:"proteasomal protein catabolic process")
-p(MESH:"parkin protein",var("?")) -| bp(GO:"ubiquitin protein ligase activity")
-bp(GO:"ubiquitin protein ligase activity") -> bp(GO:"protein folding")
 bp(GO:"negative regulation of ubiquitin protein ligase activity") -> p(MESH:Proteins , pmod(HBP:misfolded))
 p(MESH:Proteins , pmod(HBP:misfolded)) -> bp(HBP:"protein aggregation")
 
@@ -919,7 +919,6 @@ DJ-1 may predispose to oxidative stress and activation of the ER
 stress cascade [90]."
 
 p(HGNC:PARK7,var("?")) -- path(MESH:"Parkinson Disease")
-p(HGNC:PARK7) -> bp(GO:"antioxidant activity")
 p(HGNC:PARK7) -> bp(GO:"detection of redox state")
 p(HGNC:PARK7,var("?")) -> bp(MESH:"Oxidative Stress")
 p(HGNC:PARK7,var("?")) -> bp(MESH:"Endoplasmic Reticulum Stress")
@@ -1010,9 +1009,9 @@ the development of ALS. The protein level of the ER chaperone,
 PDI, in particular was increased, and was shown to co-localize
 with aggregated mSOD1 protein [97]."
 
-a(MESH:"Superoxide Dismutase-1",pmod(HBP:misfolded)) -> bp(MESH:"Unfolded Protein Response")
+a(MESH:"Superoxide Dismutase-1") -- bp(MESH:"Unfolded Protein Response")
 bp(MESH:"Unfolded Protein Response") -> bp(MESH:Apoptosis)
-a(MESH:"Superoxide Dismutase-1",pmod(HBP:misfolded)) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+a(MESH:"Superoxide Dismutase-1") -- path(MESH:"Amyotrophic Lateral Sclerosis")
 path(MESH:"Amyotrophic Lateral Sclerosis") -- complex(p(HGNCGENEFAMILY:"Protein disulfide isomerases"),a(MESH:"Superoxide Dismutase-1",var("?")))
 
 SET Evidence = "As previously discussed, ERAD of misfolded proteins
