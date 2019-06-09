@@ -120,9 +120,9 @@ endoribonuclease domain [9]. ER stress leads to dissociation
 of GRP78 from IRE1, resulting in autophosphorylation of IRE1alpha
 and activation of its RNAse activity [9]."
 
-p(HGNC:ERN1, frag("?_*")) -> act(GO:"endoribonuclease activity")
+p(HGNC:ERN1, frag("?_*")) -> bp(GO:"endoribonuclease activity")
 bp(MESH:"Endoplasmic Reticulum Stress") -> p(HGNC:ERN1, pmod(Ph))
-bp(MESH:"Endoplasmic Reticulum Stress") -> act(GO:"ribonuclease activity")
+bp(MESH:"Endoplasmic Reticulum Stress") -> bp(GO:"ribonuclease activity")
 
 SET Evidence = "In addition, activated IRE1 can bind to tumour necrosis
 factor (TNF)-receptor-associated factor 2 (TRAF2), an adaptor
@@ -261,7 +261,7 @@ consequent release of pro-apoptotic factors, including
 cytochrome c (Fig. 2)."
 
 bp(MESH:"Unfolded Protein Response") -> bp(GO:"apoptotic signaling pathway")
-bp(GO:"apoptotic signaling pathway") -> deg(bp(GO:"mitochondrial permeability transition pore complex"))
+bp(GO:"apoptotic signaling pathway") -| bp(GO:"mitochondrial permeability transition pore complex")
 complex(GO:"mitochondrial permeability transition pore complex") => bp(GO:"regulation of mitochondrial membrane potential")
 bp(GO:"negative regulation of mitochondrial membrane potential") -> bp(GO:"release of cytochrome c from mitochondria")
 
@@ -390,7 +390,7 @@ p(MESH:Oxidoreductases) -> tloc(p(MESH:Proteins , pmod(HBP:misfolded)),fromLoc(G
 
 UNSET CellStructure
 
-p(HGNCGENEFAMILY:Proteasome) -> deg(p(MESH:Proteins , pmod(HBP:misfolded)), loc(GO:cytoplasm))
+p(HGNCGENEFAMILY:Proteasome) -> deg(p(MESH:Proteins,pmod(HBP:misfolded),loc(GO:cytoplasm))
 
 SET Evidence = "To
 remove the aggregates of misfolded proteins that cannot be
@@ -433,10 +433,10 @@ stress via AMPK is an important event during ER stress for the
 induction of autophagy [45]."
 
 p(HGNC:PRKAA1) neg p(HGNC:MTOR)
-p(HGNC:PRKAA1) reg complex(HGNCGENEFAMILY:"TSC complex")
-complex(HGNCGENEFAMILY:"TSC complex") reg p(HGNC:MTOR)
+p(HGNC:PRKAA1) reg p(HGNCGENEFAMILY:"TSC complex")
+p(HGNCGENEFAMILY:"TSC complex") reg p(HGNC:MTOR)
 path(MESH:Hypoxia) -> act(p(HGNC:PRKAA1))
-bp(MESH:Starvation) -> act(p(HGNC:PRKAAś1))
+path(MESH:Starvation) -> act(p(HGNC:PRKAAś1))
 bp(MESH:"Heat-Shock Response") -> act(p(HGNC:PRKAA1))
 bp(MESH:"Endoplasmic Reticulum Stress") -> act(p(HGNC:PRKAA1))
 bp(MESH:"Endoplasmic Reticulum Stress") -> tloc(a(CHEBI:"calcium cation"),fromLoc(GO:"endoplasmic reticulum"),toLoc(GO:cytoplasm))
@@ -533,8 +533,8 @@ proteins.[38]."
 p(MESH:"Molecular Chaperones") -> bp(GO:"protein folding")
 bp(GO:"ERAD pathway") -> deg(p(MESH:Proteins , pmod(HBP:misfolded)))
 bp(GO:"lysosomal protein catabolic process") -> deg(p(MESH:Proteins , pmod(HBP:misfolded)))
-p(HGNC:Proteasome) -> deg(p(MESH:Proteins , pmod(HBP:misfolded)))
-bp(GO:autophagy) -> deg(p(MESH:Proteins , pmod(HBP:misfolded)))
+p(HGNCGENEFAMILY:Proteasome) -> deg(p(MESH:Proteins , pmod(HBP:misfolded)))
+bp(GO:autophagy) -> deg(p(MESH:Proteins,pmod(HBP:misfolded)))
 
 SET Evidence = "Neurons are
 heavily reliant on the removal of misfolded proteins to maintain
@@ -570,7 +570,9 @@ of extracellular beta-amyloid protein and intracellular neurofibrillary
 tangles containing hyperphosphorylated tau [62]."
 
 path(MESH:"Alzheimer Disease") -- path(HP:"Senile plaques")
-path(HP:"Senile plaques") hasComponents list(a(HBP:"amyloid-beta aggregates",a(MESH:"Neurofibrillary Tangles"))
+path(HP:"Senile plaques") -> a(HBP:"amyloid-beta aggregates")
+path(HP:"Senile plaques") -> a(MESH:"Neurofibrillary Tangles")
+
 a(MESH:"Neurofibrillary Tangles") -> p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
 
 SET Evidence = "These pathological
@@ -734,7 +736,6 @@ the removal of autophagic vacuoles may be deregulated [77]."
 
 path(MESH:"Alzheimer Disease") -- a(GO:autophagosome)
 path(MESH:"Alzheimer Disease") neg bp(GO:autophagy)
-path(HP:"Autophagic vacuoles") hasComponents list()
 
 UNSET Disease
 
@@ -810,7 +811,7 @@ activated UPR was shifting the balance towards apoptosis [80]."
 
 p(MESH:"alpha-Synuclein",var("?")) -> path(DOID:"autosomal dominant Parkinson's disease 1")
 p(MESH:"alpha-Synuclein",var("p.Ala53Thr")) -> bp(MESH:"Unfolded Protein Response")
-bp(MESH:"Unfolded Protein Response") -> p(GO:"CHOP-C/EBP complex")
+bp(MESH:"Unfolded Protein Response") -> complex(GO:"CHOP-C/EBP complex")
 bp(MESH:"Unfolded Protein Response") -> p(MESH:"molecular chaperone GRP78")
 bp(MESH:"Unfolded Protein Response") -> p(HGNC:EIF2A, pmod(Ph))
 composite(p(HGNC:EIF2A, pmod(Ph)),p(MESH:"alpha-Synuclein",var("p.Ala53Thr"))) -> bp(MESH:"Cell Death")
@@ -855,8 +856,8 @@ development of PD in people with this genetic mutation [85, 86]."
 
 p(MESH:"parkin protein") -- path(DOID:"autosomal recessive Parkinson's disease 14")
 p(MESH:"parkin protein") -> bp(GO:"proteasomal protein catabolic process")
-p(MESH:"parkin protein",var("?")) -| act(GO:"ubiquitin protein ligase activity")
-act(GO:"ubiquitin protein ligase activity") -> bp(GO:"protein folding")
+p(MESH:"parkin protein",var("?")) -| bp(GO:"ubiquitin protein ligase activity")
+bp(GO:"ubiquitin protein ligase activity") -> bp(GO:"protein folding")
 bp(GO:"negative regulation of ubiquitin protein ligase activity") -> p(MESH:Proteins , pmod(HBP:misfolded))
 p(MESH:Proteins , pmod(HBP:misfolded)) -> bp(HBP:"protein aggregation")
 
@@ -881,7 +882,8 @@ autophagy pathway) has been implicated in contributing to PD."
 
 p(MESH:"parkin protein",var("?")) -> bp(MESH:"Cell Death")
 p(MESH:"parkin protein") -- bp(GO:mitophagy)
-composite(bp(GO:mitophagy),p(MESH:"parkin protein")) -- path(MESH:"Parkinson Disease")
+bp(GO:mitophagy) -> p(MESH:"parkin protein")
+p(MESH:"parkin protein") -- path(MESH:"Parkinson Disease")
 
 SET Evidence = "Parkin is recruited to depolarized
 mitochondria via PTEN-induced kinase-1 (PINK1) leading to
@@ -897,7 +899,7 @@ p(MESH:"parkin protein") -> bp(GO:mitophagy)
 p(MESH:"parkin protein") -> p(HGNCGENEFAMILY:"Voltage dependent anion channels",pmod(Ub))
 p(HGNCGENEFAMILY:"Voltage dependent anion channels",pmod(Ub)) -> bp(MESH:"Mitochondrial Degradation")
 p(MESH:"parkin protein",var("?")) -| bp(GO:"parkin-mediated stimulation of mitophagy in response to mitochondrial depolarization")
-p(GO:"parkin-mediated stimulation of mitophagy in response to mitochondrial depolarization") -- path(MESH:"Parkinson Disease")
+bp(GO:"parkin-mediated stimulation of mitophagy in response to mitochondrial depolarization") -- path(MESH:"Parkinson Disease")
 
 SET Evidence = "Mutations in PINK1 have also been implicated in the recessive
 form of PD. Apart from its role in recruiting Parkin to mitochondria
@@ -917,7 +919,7 @@ DJ-1 may predispose to oxidative stress and activation of the ER
 stress cascade [90]."
 
 p(HGNC:PARK7,var("?")) -- path(MESH:"Parkinson Disease")
-p(HGNC:PARK7) -> act(GO:"antioxidant activity")
+p(HGNC:PARK7) -> bp(GO:"antioxidant activity")
 p(HGNC:PARK7) -> bp(GO:"detection of redox state")
 p(HGNC:PARK7,var("?")) -> bp(MESH:"Oxidative Stress")
 p(HGNC:PARK7,var("?")) -> bp(MESH:"Endoplasmic Reticulum Stress")
