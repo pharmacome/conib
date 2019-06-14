@@ -130,14 +130,14 @@ in HD patients (The Huntington’s Disease Collaborative
 Research Group 1993). This gene on chromosome 4 (4p63)
 encodes the protein huntingtin."
 
-g(REF:"NM_002111.8") >> p(HGNC:huntingtin)
-p(MESH:huntingtin, pmod(HBP:"CAG repeats")) -> path(MESH:"Huntington Disease")
+g(REF:"NM_002111.8") >> p(HGNC:HTT)
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> path(MESH:"Huntington Disease")
 
 SET Evidence = "This causes the mutant protein to interact abnormally with
 other cell proteins, leading to changes in its function"
 ##this causes = Insertion of expanded stretch of CAG
 
-complex(p(HGNC:huntingtin, pmod(HBP:"CAG repeats")),p(MESH:Proteins)) -| act(p(MESH:Proteins))
+complex(p(HGNC:HTT, pmod(HBP:"CAG repeats")),p(MESH:Proteins)) -| act(p(MESH:Proteins))
 
 SET Evidence = "All the cardinal features of HD are listed in
 the description: the adult onset, progressive course of the
@@ -171,17 +171,17 @@ leading to abnormal functioning but the exact pathway of
 cell death is still elusive."
 #protein = huntingtin
 
-act(p(HGNC:huntingtin)) -- bp(GO:"intracellular transport")
-act(p(HGNC:huntingtin)) -- bp(GO:endocytosis)
-act(p(HGNC:huntingtin)) -> bp(GO:"chemical synaptic transmission")
-act(p(HGNC:huntingtin)) -> bp(GO:"mRNA transcription")
-act(p(HGNC:huntingtin)) -- bp(GO:autophagy)
-act(p(HGNC:huntingtin, pmod(HBP:"CAG repeats"))) -| bp(GO:"mRNA transcription")
-act(p(HGNC:huntingtin, pmod(HBP:"CAG repeats"))) -> bp(MESH:"Oxidative Stress")
-act(p(HGNC:huntingtin, pmod(HBP:"CAG repeats"))) -> bp(GO:autophagy)
-act(p(HGNC:huntingtin, pmod(HBP:"CAG repeats"))) -> bp(HBP:"protein aggregation")
-act(p(HGNC:huntingtin, pmod(HBP:"CAG repeats"))) -| bp(GO:"cellular homeostasis")
-p(HGNC:huntingtin, pmod(HBP:"CAG repeats")) -> bp(GO:"cell death")
+act(p(HGNC:HTT)) -- bp(GO:"intracellular transport")
+act(p(HGNC:HTT)) -- bp(GO:endocytosis)
+act(p(HGNC:HTT)) -> bp(GO:"chemical synaptic transmission")
+act(p(HGNC:HTT)) -> bp(GO:"mRNA transcription")
+act(p(HGNC:HTT)) -- bp(GO:autophagy)
+act(p(HGNC:HTT, pmod(HBP:"CAG repeats"))) -| bp(GO:"mRNA transcription")
+act(p(HGNC:HTT, pmod(HBP:"CAG repeats"))) -> bp(MESH:"Oxidative Stress")
+act(p(HGNC:HTT, pmod(HBP:"CAG repeats"))) -> bp(GO:autophagy)
+act(p(HGNC:HTT, pmod(HBP:"CAG repeats"))) -> bp(HBP:"protein aggregation")
+act(p(HGNC:HTT, pmod(HBP:"CAG repeats"))) -| bp(GO:"cellular homeostasis")
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> bp(GO:"cell death")
 
 SET Evidence = "Motor abnormalities like bradykinesia,
 chorea, dystonia and oculomotor symptoms have been
@@ -252,8 +252,8 @@ dinucleotide phosphate (NADPH) diaphorase, acetylcholinesterase,
 calbindin and cytochrome oxidase."
 
 SET Anatomy = "striosome"
-a(MESH:"Corpus Striatum") hasComponents list(p(HGNCGENEFAMILY:"Opioid receptors"),a(CHEBI:"Substance P"),a(CHEBI:"MET-enkephalin"),p(MESH:Cholecystokinin))
-a(MESH:"Corpus Striatum") hasComponents list(a(CHEBI:somatostatin),a(CHEBI:Neuropeptide Y),p(MESH:Acetylcholinesterase),p(MESH:Calbindins),p(EC:"1.9.3.1"))
+a(MESH:"Corpus Striatum") hasComponents list(p(HGNCGENEFAMILY:"Opioid receptors"),p(HGNC:TAC1),a(CHEBI:"MET-enkephalin"),p(HGNC:CCK))
+a(MESH:"Corpus Striatum") hasComponents list(p(HGNC:SST),p(HGNC:NPY),p(HGNC:NQO1),p(HGNC:ACHE),p(HGNC:CALB1),p(EC:"1.9.3.1"))
 #EC:1.9.3.1= cytochrome oxidase
 UNSET Anatomy
 
@@ -266,11 +266,11 @@ enkephalin, calcineurin, calbindin and adenosine, together
 with failure of dopaminergic receptors in the striatum"
 
 a(MESH:"Corpus Striatum") -> a(MESH:"GABAergic Neurons")
-a(MESH:"GABAergic Neurons") -> p(PFAM:GAD)
-a(MESH:"GABAergic Neurons") -> a(CHEBI:"Substance P")
+a(MESH:"GABAergic Neurons") -> p(HGNC:GAD1)
+a(MESH:"GABAergic Neurons") -> p(HGNC:TAC1)
 a(MESH:"GABAergic Neurons") -> p(MESH:Enkephalins)
 a(MESH:"GABAergic Neurons") -> a(CHEBI:calcineurin)
-a(MESH:"GABAergic Neurons") -> p(MESH:Calbindins)
+a(MESH:"GABAergic Neurons") -> p(HGNC:CALB1)
 a(MESH:"GABAergic Neurons") -> a(CHEBI:"Adenosine 5'-phosphate disodium")
 
 SET Evidence = "In addition to the medium spiny neurons, the
@@ -281,8 +281,9 @@ diaphorase neurons."
 
 a(MESH:"Corpus Striatum") hasComponent a(MESH:Interneurons)
 a(MESH:"Corpus Striatum") hasComponent a(MESH:"Cholinergic Neurons")
-a(MESH:Interneurons) -> a(CHEBI:somatostatin)
-a(MESH:Interneurons) -> a(CHEBI:"Neuropeptide Y")
+a(MESH:Interneurons) -> p(HGNC:SST)
+a(MESH:Interneurons) -> p(HGNC:NPY)
+a(MESH:Interneurons) -> p(HGNC:NQO1)
 
 SET Evidence = "Although, the loss of neurons from nucleus caudatus
 putamen (NCP) is the most conspicuous feature of HD
@@ -304,9 +305,7 @@ Cerebellar atrophy has been reported in some cases ofHD
 in some cases (McCaughey 1961)."
 
 SET Anatomy = {"CA3 field of hippocampus","CA4 field of hippocampus","nucleus of ventral thalamus","centromedian nucleus of thalamus"}
-
 path(MESH:"Huntington Disease") -> bp(GO:"neuron death")
-
 UNSET Anatomy
 
 path(MESH:"Huntington Disease") -> path(HP:"Cerebellar atrophy")
@@ -322,11 +321,9 @@ demise is considered to be the neuropathological hallmark
 of HD (Vonsattel et al. 1985; DiFiglia 1990)."
 
 SET Anatomy = "corpus striatum"
-
 path(MESH:"Huntington Disease") -| a(CHEBI:"gamma-aminobutyric acid")
-path(MESH:"Huntington Disease") -| p(PFAM:GAD)
+path(MESH:"Huntington Disease") -| p(HGNC:GAD1)
 deg(a(MESH:"GABAergic Neurons")) prognosticBiomarkerFor path(MESH:"Huntington Disease")
-
 UNSET Anatomy
 
 SET Evidence = "Apart from
@@ -373,7 +370,7 @@ type 2 (VMAT2) expression was found in posterior putamen
 in post-mortem HD brains (Bohnen et al. 2000)."
 
 SET Anatomy = "corpus striatum"
-path(MESH:"Huntington Disease") cnc path(interpro:"Tyrosine hydroxylase, conserved site")
+path(MESH:"Huntington Disease") cnc p(HGNC:TH)
 UNSET Anatomy
 
 SET Anatomy = "putamen"
@@ -453,7 +450,7 @@ cortex, cerebellum, brain stem and spinal cord."
 
 SET MeSHAnatomy = "Brain Stem"
 SET Anatomy = {"corpus striatum","cerebral cortex","cerebellum","spinal cord"}
-p(MESH:huntingtin, pmod(HBP:"CAG repeats")) -> a(GO:"inclusion body",loc(MESH:"Neurons"))
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> a(GO:"inclusion body",loc(MESH:"Neurons"))
 UNSET Anatomy
 UNSET MeSHAnatomy
 
@@ -462,7 +459,7 @@ polyQ tracts of htt have been found to have increased
 propensity to form aggregates of mutant htt with ubiquitin
 positive proteins (Finkbeiner 2011)."
 
-p(MESH:HTT, pmod(HBP:"CAG repeats")) -> a(HBP:"huntingtin aggregates")
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> a(HBP:"huntingtin aggregates")
 
 
 SET Evidence = "It is possible that the disease specific enhancement of proteolysis
