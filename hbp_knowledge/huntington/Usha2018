@@ -112,7 +112,7 @@ degeneration occurring in the caudate nucleus and putamen
 (Vonsattel et al. 1985)."
 
 path(MESH:"Huntington Disease") -| bp(GO:"motor activity")
-path(MESH:"Huntington Disease") -> paaj(MESH:Dementia)
+path(MESH:"Huntington Disease") -> path(MESH:Dementia)
 
 SET Anatomy = "adult brain"
 path(MESH:"Huntington Disease") -> path(MESH:Neuropathology)
@@ -460,31 +460,24 @@ propensity to form aggregates of mutant htt with ubiquitin
 positive proteins (Finkbeiner 2011)."
 
 p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> a(HBP:"huntingtin aggregates")
-
-
-SET Evidence = "It is possible that the disease specific enhancement of proteolysis
-is an important step, as it leads to the generation
-of small N terminal fragments that contain polyQ stretch
-and helps to translocate into the nucleus where they are
-toxic as depicted infigure 1 (Graham et al. 2005)."
+a(HBP:"huntingtin aggregates") hasComponents list(p(HGNC:HTT, pmod(HBP:"CAG repeats")),p(MESH:Proteins,pmod(Ub)))
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> complex(p(HGNC:HTT, pmod(HBP:"CAG repeats")),p(MESH:Proteins,pmod(Ub)))
 
 SET Evidence = "However,
 recent reports suggest that soluble forms of mutant
-htt aggregates and insoluble formsmay have different level
+htt aggregates and insoluble forms may have different level
 of toxicities andmay regulate cell survival and death in different
 ways (Xi et al. 2016). Another recent study suggests
 that although, soluble htt aggregates lead to apoptotic cell
 death but insoluble aggregates of mutant htt lead to a
 delayed necrotic cell death (Ramdzan et al. 2017)."
 
-SET Evidence = "However,
-recent reports suggest that soluble forms of mutant
-htt aggregates and insoluble formsmay have different level
-of toxicities andmay regulate cell survival and death in different
-ways (Xi et al. 2016). Another recent study suggests
-that although, soluble htt aggregates lead to apoptotic cell
-death but insoluble aggregates of mutant htt lead to a
-delayed necrotic cell death (Ramdzan et al. 2017)."
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) reg bp(MESH:"Cell Survival")
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) reg bp(GO:"cell death")
+a(HBP:"huntingtin aggregates") reg bp(MESH:"Cell Survival")
+a(HBP:"huntingtin aggregates") reg bp(GO:"cell death")
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> bp(MESH:Apoptosis)
+a(HBP:"huntingtin aggregates") -> bp(GO:"necrotic cell death")
 
 SET Evidence = "It has also been
 observed that although, the N17 residues help the cleaved
@@ -496,14 +489,27 @@ secondarily modified such as dephosphorylated (Branco-
 Santos et al. 2017) and phosphorylation (DiGiovanni et al.
 2016)which regulates its aggregation, localization and toxicity."
 
+p(HGNC:HTT, pmod(HBP:"CAG repeats"),frag("1_17")) -> tloc(p(HGNC:HTT, pmod(HBP:"CAG repeats"),fromLoc(GO:"cytoplasm"),toLoc(GO:"nucleus"))
+p(HGNC:HTT, pmod(HBP:"CAG repeats"),pmod(Ph),frag("1_17")) reg a(HBP:"huntingtin aggregates")
+p(HGNC:HTT, pmod(HBP:"CAG repeats"),frag("1_17")) reg a(HBP:"huntingtin aggregates")
+
 SET Evidence = "Mutant htt has also been found to disrupt the nuclear
 pore complex (figure 1), which is important for nuclearcytoplasm
 transport of proteins and other molecules
 (Grima et al. 2017; Gasset-Rosa et al. 2017)."
 
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -| bp(GO:"nuclear pore complex assembly")
+bp(GO:"nuclear pore complex assembly") -> bp(GO:"nucleocytoplasmic transport")
+
 SET Evidence = "HTT is subjected to multiple posttranslational
 modificationswhich include phosphorylation, acetylation,
 palmitoylation, ubiquitinylation and sumoylation."
+
+p(HGNC:HTT) -> p(HGNC:HTT,pmod(Ph))
+p(HGNC:HTT) -> p(HGNC:HTT,pmod(Ac))
+p(HGNC:HTT) -> p(HGNC:HTT,pmod(Palm))
+p(HGNC:HTT) -> p(HGNC:HTT,pmod(Ub))
+p(HGNC:HTT) -> p(HGNC:HTT,pmod(Sumo))
 
 SET Evidence = "HTT interacts
 with HIP 14 and HIP14L that belong to the family
@@ -515,6 +521,11 @@ the enzymatic activity of HIP 14 on other substrates and
 therefore, regulate intracellular trafficking and synaptic
 localization of other neuronal proteins."
 
+complex(p(HGNC:ZDHHC17),p(HGNC:HTT))
+complex(p(HGNC:ZDHHC13),p(HGNC:HTT))
+p(HGNC:HTT,pmod(Palm, Cys, 214),pmod(HBP:"CAG repeats")) -| act(p(HGNC:ZDHHC17))
+act(p(HGNC:ZDHHC17)) reg bp(GO:"intracellular transport")
+
 SET Evidence = "Autophagy is an important cellular process which is
 responsible for the removal of damaged organelles and
 aggregated proteins by delivering them to lysosomes for
@@ -523,6 +534,11 @@ observed in HD (Steffan 2010; Martin et al. 2015). High
 amount of autophagosome formation a reduced capacity
 to degrade aggregated proteins and organelles has
 been found in HD models (Martin et al. 2015)."
+
+bp(GO:autophagy) -| a(MESH:"Proteins Aggregates")
+bp(GO:autophagy) -> tloc(a(MESH:"Proteins Aggregates"),fromLoc(GO:"cytoplasm"),toLoc(GO:"lysosome"))
+path(MESH:"Huntington Disease") -> a(GO:autophagosome)
+path(MESH:"Huntington Disease") -> path(MESH:"Protein Aggregation, Pathological")
 
 SET Evidence = "Studies
 also suggest that wild-type htt may play a significant
@@ -538,17 +554,36 @@ autophagosomes along the axon (Wong and Holzbaur
 which led to inefficient clearance ofmutant htt, suggesting
 that htt may regulate its own clearance."
 
+p(HGNC:HTT) -- bp(GO:autophagy)
+complex(p(HGNC:HTT),p(HGNC:OPTN)) -> bp(GO:"regulation of autophagosome assembly",loc(GO:"Golgi apparatus"))
+
+SET MeSHAnatomy = "Neurons"
+bp(GO:"retrograde axonal transport") -> tloc(a(MESH:Autophagosomes),fromLoc(GO:"distal axon"),toLoc(GO:"cell body")
+p(HGNC:HTT) -> tloc(a(MESH:Autophagosomes),fromLoc(GO:"distal axon"),toLoc(GO:"cell body")
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -| tloc(a(MESH:Autophagosomes),fromLoc(GO:"distal axon"),toLoc(GO:"cell body")
+p(HGNC:HTT) reg deg(p(HGNC:HTT))
+UNSET MeSHAnatomy
+
 SET Evidence = "mutant htt has been found to activate autophagy by
 sequestering and inactivating mTOR leading to an induction
-of autophagy (Ravikumar et al. 2004). Themechanistic
-defects in autophagy in HD are exaggerated by mutant
-htt. Mutant htt results in defective autophagy mediated
+of autophagy (Ravikumar et al. 2004)."
+
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -| p(HGNC:MTOR)
+p(HGNC:MTOR) -| bp(GO:autophagy)
+
+SET Evidence = " Mutant htt results in defective autophagy mediated
 degradation and aggregate formation,which leads to compensatory
 upregulation of autophagy and accumulation
 of mutant htt and neurotoxicity. Further due to decreased
 cargomovement of autophagosome to fuse with lysosomes
 leading to defective autophagy (Wong and Holzbaur
 2014)."
+
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> a(HBP:"huntingtin aggregates")
+a(HBP:"huntingtin aggregates") -> bp(GO:autophagy)
+a(HBP:"huntingtin aggregates") -> path(HBP:neurotoxicity)
+a(HBP:"huntingtin aggregates") -| composite(a(MESH:Autophagosomes),a(MESH:Lysosomes))
+composite(a(MESH:Autophagosomes),a(MESH:Lysosomes)) -> bp(GO:autophagy)
 
 SET Evidence = "In the caudate nucleus of HD patients, mRNA expression
 of LC3A, ULK2, and LAMP2 is significantly increased
@@ -558,19 +593,46 @@ the increased expression of LC3A and ULK2 correlate
 to early autophagy induction and autophagosome formation
 in HD (Martinez-Vicente et al. 2010)."
 
+SET Anatomy = "caudate nucleus"
+path(MESH:"Huntington Disease") -> r(HGNC:MAP1LC3A)
+path(MESH:"Huntington Disease") -> r(HGNC:ULK2)
+path(MESH:"Huntington Disease") -> r(HGNC:LAMP2)
+path(MESH:"Huntington Disease") -| r(HGNC:PINK1)
+path(MESH:"Huntington Disease") -| r(HGNC:WDFY3)
+path(MESH:"Huntington Disease") -| r(HGNC:FKBP1A)
+p(HGNC:MAP1LC3A) -> bp(GO:autophagy)
+p(HGNC:ULK2) -> bp(GO:autophagy)
+p(HGNC:MAP1LC3A) -> a(MESH:Autophagosomes)
+p(HGNC:ULK2) -> a(MESH:Autophagosomes)
+UNSET Anatomy
+
 SET Evidence = "A decrease in
 PINK1 expression induces mitochondrial fragmentation
-and mitophagy (Kamat et al. 2014).HDis associated with
+and mitophagy (Kamat et al. 2014).HD is associated with
 increased mitochondrial fragmentation and inefficient corporation
 of mitochondria into autophagosomes (Wong
 and Holzbaur 2014)."
 
-SET Evidence = "HTThas been found to be involved in a variety of vesicular
+p(HGNC:PINK1) -| bp(GO:"mitochondrial fragmentation involved in apoptotic process")
+p(HGNC:PINK1) -| bp(GO:mitophagy)
+path(MESH:"Huntington Disease") -> bp(GO:"mitochondrial fragmentation involved in apoptotic process")
+path(MESH:"Huntington Disease") -| composite(a(MESH:Mitochondria),a(MESH:Autophagosomes))
+
+SET Evidence = "HTT has been found to be involved in a variety of vesicular
 trafficking in neurons including synaptic precursor vesicles
 (Zala et al. 2013), autophagosomes (Wong and Holzbaur
 2014), lysosomes (Liot et al. 2013), BDNF-containing vesicles
 (Gauthier et al. 2004) and GABA-containing vesicles
 (Twelvetrees et al. 2010)."
+
+SET MeSHAnatomy = "Neurons"
+p(HGNC:HTT) -- bp(GO:"intracellular transport")
+p(HGNC:HTT) -- a(MESH:Autophagosomes)
+p(HGNC:HTT) -- a(MESH:Lysosomes)
+p(HGNC:HTT) -- a(MESH:"Synaptic Vesicles")
+p(HGNC:HTT) -- composite(a(MESH:"Cytoplasmic Vesicles"),p(HGNC:BDNF))
+p(HGNC:HTT) -- composite(a(MESH:"Cytoplasmic Vesicles"),a(CHEBI:"gamma-aminobutyric acid"))
+UNSET MeSHAnatomy
 
 SET Evidence = "HTT is also found to interact with
 several proteins involved in clathrin-mediated endocytosis
@@ -578,12 +640,18 @@ several proteins involved in clathrin-mediated endocytosis
 GTPaseRab11 that participates in vesicle recycling during
 endocytosis (Li et al. 2008)."
 
+p(HGNC:HTT) -- bp(GO:"clathrin-dependent endocytosis")
+p(HGNC:HTT) -> p(HGNC:RAB11A)
+p(HGNC:RAB11A) -> bp(GO:"synaptic vesicle recycling via endosome")
+
 SET Evidence = "Evidences suggest that HTT is required for ciliogenesis
-(Haremaki et al. 2015).HTTis found at the base of the cilia
-in neurons, photoreceptor cilia, and cilia in multiciliated
-cells (Keryer et al. 2011). Absence of HTT from mouse
+(Haremaki et al. 2015). Absence of HTT from mouse
 cells impairs the retrograde trafficking of the pericentriolar
 material 1 protein and the primary cilium is not formed."
+
+p(HGNC:HTT) -> bp(GO:"cytosolic ciliogenesis")
+p(HGNC:HTT) -> tloc(p(HGNC:PCM1),fromLoc(GO:"Golgi apparatus"),toLoc(GO:"plasma membrane"))
+p(HGNC:PCM1) -> a(GO:cilium)
 
 SET Evidence = "Post-mortem samples from HD brain and transgenic
 mouse models show transcriptional dysregulation (Valor
@@ -593,32 +661,60 @@ p53 tumour suppressor, nuclear factor-κB (Takano and
 Gusella 2002), PPAR-γ, vitamin D receptor, thyroid hormone
 receptor-α1 (Futter et al. 2009)."
 
+path(MESH:"Huntington Disease") -| bp(GO:"mRNA transcription")
+complex(p(HGNC:HTT),p(HGNC:CREBBP))
+complex(p(HGNC:HTT),p(HGNC:TP53))
+complex(p(HGNC:HTT),p(HGNC:RELA))
+complex(p(HGNC:HTT),p(HGNC:PPARG))
+complex(p(HGNC:HTT),p(HGNC:VDR))
+complex(p(HGNC:HTT),p(HGNC:THRA))
+
 SET Evidence = "RNA seq data
 from myeloid cells of HD patients revealed increases in
 proinflammatory cytokines in resting stage which indicates
 abnormal basal activation to an exaggerated immune
-response to a stimulus (Miller et al. 2016). In anotherRNA
+response to a stimulus (Miller et al. 2016).In anotherRNA
 seq study from HD brain samples, it was found that there
 was upregulation of developmental homeobox genes and
 neuroinflammatory genes (Labadorf et al. 2015)."
 
+SET Cell = "myeloid cell"
+path(MESH:"Huntington Disease") -> bp(GO:"cytokine production involved in inflammatory response")
+path(MESH:"Huntington Disease") -> path(HP:"Increased inflammatory response")
+UNSET Cell
+
+path(MESH:"Huntington Disease") -> p(HGNCGENEFAMILY:Homeoboxes)
+path(MESH:"Huntington Disease") -> bp(GO:"neuroinflammatory response")
+
 SET Evidence = "Multiple
-studies related to transcriptional dysregulation inHDsamples
+studies related to transcriptional dysregulation in HD samples
 reveal changes in inflammatory responses regulated
 by NF-kB, metabolic homeostasis related to mitochondrial
 oxidative phosphorylation and developmental genes
 related to neuronal growth and cell cycle regulation."
+
+path(MESH:"Huntington Disease") -- p(HGNCGENEFAMILY:"NF-kappa B complex subunits")
+p(HGNCGENEFAMILY:"NF-kappa B complex subunits") reg bp(GO:"inflammatory response")
+
+SET CellStructure = "Mitochondria"
+path(MESH:"Huntington Disease") -- bp(GO:"oxidative phosphorylation")
+UNSET CellStructure
+
+path(MESH:"Huntington Disease") -> bp(GO:"regulation of cell cycle")
 
 SET Evidence = "Mutant htt is prone to aggregate formation whose
 soluble and insoluble forms are neurotoxic to cells. Such
 misfolded forms of proteins are regulated by different proteostasis
 mechanisms such as chaperone-mediated folding
 or degraded by ubiquitin-mediated degradation or by
-lysosomal-autophagy degradation (figure 1). However,
-the increasing load of chaperons found in inclusion
-bodies such Hsp70 and ubiquitin related protein degradation
-machinery or accumulation of autophagosome
-related target proteins lead to altered proteostasis."
+lysosomal-autophagy degradation (figure 1)."
+
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> a(HBP:"huntingtin aggregates")
+a(HBP:"huntingtin aggregates") -> path(HBP:neurotoxicity)
+bp(GO:"chaperone-mediated protein folding") reg p(MESH:Proteins,pmod(HBP:"misfolded"))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") reg p(MESH:Proteins,pmod(HBP:"misfolded"))
+bp(GO:"lysosomal microautophagy") reg p(MESH:Proteins,pmod(HBP:"misfolded"))
+p(MESH:"HSP70 Heat-Shock Proteins")
 
 SET Evidence = "The
 expanded polyQ fibrils can deregulate proteostasis nodes
@@ -626,13 +722,24 @@ by sequestering transcription factors (Suhr et al. 2001)
 or physically obstruct neuronal extensions (Gunawardena
 et al. 2003)."
 
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -| bp(HBP:Proteostasis)
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> path(GO:"repressing transcription factor binding")
+
 SET Evidence = "Cerebellar neurons have been
 observed to induce Hsp70 expression upon mutant htt
 expression. However, striatal neurons cannot upregulate
 their chaperone expression to overcome this proteostasis
-stress (Tagawa et al. 2007). It is also possible that distinct
-nodes of proteostasis may have unique ways of handling
-proteostatic stress in HD."
+stress (Tagawa et al. 2007)."
+
+SET Cell = "cerebellar neuron"
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> p(MESH:"HSP70 Heat-Shock Proteins")
+UNSET Cell
+
+SET Anatomy = "corpus striatum"
+SET MeSHAnatomy = "Neurons"
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) cnc p(MESH:"HSP70 Heat-Shock Proteins")
+UNSET MeSHAnatomy
+UNSET Anatomy
 
 SET Evidence = "The cardinal features of HD like (i) movement disorder
 characterized initially by chorea and later by dystonia
@@ -641,12 +748,23 @@ disordered behaviour, and (iii) depression and agitation
 appear mostly during adulthood and progress relentlessly
 leading to functional disability."
 
+path(MESH:"Huntington Disease") -> path(MESH:"Movement Disorders")
+path(MESH:"Huntington Disease") -> path(MESH:Chorea)
+path(MESH:"Huntington Disease") -> path(DOID:dystonia)
+path(MESH:"Huntington Disease") -> path(HP:Parkinsonism)
+path(MESH:"Huntington Disease") -| bp(GO:cognition)
+path(MESH:"Huntington Disease") -> path(HP:"Behavioral abnormality")
+path(MESH:"Huntington Disease") -> path(MESH:Depression)
+path(MESH:"Huntington Disease") -> path(HP:Agitation)
+path(MESH:"Huntington Disease") -| bp(GO:"motor activity")
+
 SET Evidence = "Parkinsonism is frequently
 observed in the rare juvenile form, slowing saccadic movements
 of the eye and possible cerebellar dysfunction helps
-in differential diagnosis. Neuropsychiatric symptoms are
-common and do not show increased progression with disease
-severity."
+in differential diagnosis."
+
+path(HP:Parkinsonism) -> path(HP:"Abnormal saccadic eye movements")
+path(HP:Parkinsonism) -> path(DOID:"cerebellar ataxia")
 
 SET Evidence = "Most of the symptomatic drugs are directed against
 chorea, which is the most conspicuous feature of the disease.
@@ -657,20 +775,48 @@ providing temporary relief to the patient. Reserpine, tetrabenazine
 (such as chlorpromazines) and butyrophenones (such as haloperidol) have been used extensively for symptomatic
 relief in HD (Marsden 1973)."
 
+bp(GO:"cellular response to drug") -| path(MESH:Chorea)
+bp(GO:"cellular response to drug") -| a(CHEBI:dopamine)
+
+SET Anatomy = "adult brain"
+bp(GO:"cellular response to drug") -| p(HGNCGENEFAMILY:"Gamma-aminobutyric acid(GABA) receptors")
+UNSET Anatomy
+
+a(CHEBI:reserpine) -| path(MESH:"Huntington Disease")
+a(CHEBI:tetrabenazine) -| path(MESH:"Huntington Disease")
+a(CHEBI:phenothiazines) -| path(MESH:"Huntington Disease")
+a(CHEBI:chlorpromazines) -| path(MESH:"Huntington Disease")
+a(CHEBI:butyrophenones) -| path(MESH:"Huntington Disease")
+a(CHEBI:haloperidol) -| path(MESH:"Huntington Disease")
+
 SET Evidence = "In a double-blind
 crossover trial involving four treatments of haloperidol,
 haloperidol and lithium carbonate, lithium carbonate and
 placebo carried out for threeweeks, none of the treatments
 provided effective relief from choreiform movements."
 
+a(CHEBI:haloperidol) cnc path(MESH:Chorea)
+composite(a(CHEBI:haloperidol),a(CHEBI:"lithium carbonate")) cnc path(MESH:Chorea)
+a(CHEBI:"lithium carbonate") cnc path(MESH:Chorea)
+a(MESH:Placebos) cnc path(MESH:Chorea)
+
 SET Evidence = "Psychological
 variables like levels of irritability, outbursts of
 anger and depression did appear to have some effect due to
-these drugs.While threeHDpatients showed some relief in
+these drugs. While three HD patients showed some relief in
 haloperidol and lithium carbonate combination, the other
 three did not show any significant relief. Haloperidol itself
 increased the levels of depression when compared to other
 combinations including placebo (Leonard et al. 1975)."
+
+bp(GO:"response to drug") -| path(HP:Irritability)
+bp(GO:"response to drug") -| path(MESH:Anger)
+bp(GO:"response to drug") -| path(MESH:Depression)
+composite(a(CHEBI:haloperidol),a(CHEBI:"lithium carbonate")) -| path(HP:Irritability)
+path(MESH:Depression)
+composite(a(CHEBI:haloperidol),a(CHEBI:"lithium carbonate")) -| path(MESH:Anger)
+composite(a(CHEBI:haloperidol),a(CHEBI:"lithium carbonate")) -| path(MESH:Depression)
+a(CHEBI:haloperidol) -> path(MESH:Depression)
 
 SET Evidence = "In
 another study, 18 patients with Huntington’s chorea were
@@ -679,6 +825,11 @@ drugs, pimozide, haloperidol and tiapride. Pimozide and
 haloperidol gave relief from hyperkinesias but none of the
 drug improved motor performance significantly (Girotti
 et al. 1984)."
+
+a(CHEBI:pimozide) -| path(HP:Hyperkinesis)
+a(CHEBI:pimozide) cnc path(MESH:"Motor Disorders")
+a(CHEBI:haloperidol) cnc path(MESH:"Motor Disorders")
+a(CHEBI:"Tiapride hydrochloride") cnc path(MESH:"Motor Disorders")
 
 SET Evidence = "In an interesting study, HD patients having
 gait abnormalities and choreiform movements were
@@ -689,6 +840,13 @@ of haloperidol is knownto cause aggravated parkinsonism,
 tardive dyskinesis, difficulties in swallowing and dysphasia
 (Emerich et al. 1991)."
 
+a(CHEBI:haloperidol) -| path(MESH:Chorea)
+a(CHEBI:haloperidol) cnc bp(GO:"walking behavior")
+a(CHEBI:haloperidol) -> path(HP:Parkinsonism)
+a(CHEBI:haloperidol) -> path(HP:"Tardive dysphasia")
+a(CHEBI:haloperidol) -> path(HP:Dysphasia)
+a(CHEBI:haloperidol) -> path(HP:Dysphagia)
+
 SET Evidence = "Tetrabenazine, an inhibitor of
 vesicular monoamine transporter 2 (VMAT2) leading to
 depletion of dopamine and other monoamines like serotonin
@@ -696,17 +854,29 @@ and norepinephrine in the central nervous system has
 been used extensively in hyperkinetic disorders, especially
 HD."
 
+a(CHEBI:tetrabenazine) -| p(HGNC:SLC18A2)
+a(CHEBI:tetrabenazine) -| a(CHEBI:dopamine)
+a(CHEBI:tetrabenazine) -| a(CHEBI:serotonin)
+a(CHEBI:tetrabenazine) -| a(DRUGBANK:Norepinephrine)
+a(CHEBI:tetrabenazine) -| path(HP:Hyperkinesis)
+a(CHEBI:tetrabenazine) -| path(MESH:"Huntington Disease")
+
 SET Evidence = "In an open labelled study described by Kenney et al.
-(2007), over 400 patients suffering fromhyperkineticmovement
-disorders including 98HDpatients were treatedwith
+(2007), over 400 patients suffering from hyperkinetic movement
+disorders including 98 HD patients were treatedwith
 tetrabenazine at the Baylor College of Medicine Parkinson’s
 Disease Center and Movement Disorders Clinic.
 There was a marked improvement in patients with choreiform
 movements."
 
+a(CHEBI:tetrabenazine) -| path(HP:Hyperkinesis)
+a(CHEBI:tetrabenazine) -| path(MESH:Chorea)
+
 SET Evidence = "Based on the chorea
 score of the UHDRS, tetrabenazine was found to significantly
 reduce chorea."
+
+a(CHEBI:tetrabenazine) -| path(MESH:Chorea)
 
 SET Evidence = "GABAergic strategies have included
 muscimol, a potent GABA mimetic agonist (Shoulson
@@ -718,6 +888,14 @@ hyperkinetic patients. It also heightened dystonia, particularly
 in the early onset patients who had predominant
 parkinsonism and dystonic features."
 
+a(CHEBI:muscimol) -> complex(GO:"GABA receptor complex")
+a(CHEBI:muscimol) cnc path(MESH:"Huntington Disease")
+a(CHEBI:muscimol) cnc path(MESH:"Motor Disorders")
+a(CHEBI:muscimol) cnc path(HP:"Cognitive impairment")
+a(CHEBI:muscimol) -| path(MESH:Chorea)
+a(CHEBI:muscimol) -| path(HP:Hyperkinesis)
+a(CHEBI:muscimol) -> path(DOID:dystonia)
+
 SET Evidence = "Fluoxetine, an SSRI that is widely
 used as an antidepressant has been shown to be effective in
 HD transgenic mice (Grote et al. 2005) but when administered
@@ -727,18 +905,17 @@ patients, no differences between the treatment groups were
 found in total functional capacity, neurological, or cognitive
 ratings (Como et al. 1997)."
 
+a(CHEBI:fluoxetine) isA a(MESH:"Antidepressive Agents")
+a(CHEBI:fluoxetine) -| path(MESH:"Huntington Disease")
+a(CHEBI:fluoxetine) cnc bp(GO:cognition)
+
 SET Evidence = "Pridopidine, a dopamine
 D2 receptor antagonist was tested in three large multicentre
 clinical trials of HD which has been published
 (Lundin et al. 2010; de Yebenes et al. 2011; Huntington
 StudyGroupHART Investigators 2013)."
 
-SET Evidence = "Neuroprotective therapy is targeted at the level of genetic
-aetiology to slow down the progressive nature of the disease.
-Most of the drugs tested in this case have been
-targeted at the level of oxidative metabolism or glutamate
-transmission because of the metabolic decrease in activity
-or increased excitotoxic mechanisms in HD."
+a(DRUGBANK:Pridopidine) -| p(HGNC:DRD2)
 
 SET Evidence = "Coenzyme Q10, a principle mitochondrial cofactor
 involved in complex-I activity has been studied as a neuroprotective
@@ -754,35 +931,52 @@ increased frequency of nausea, vomiting and dizziness with
 remacemide; and increased frequency of stomach upset
 with coenzyme Q10."
 
-SET Evidence = "Creatine is a naturally
-occurring compound that, through its intermediate
-phosphocreatine, provides a necessary cellular reserve of
-high energy phosphates. There is a strong evidence to suggest
+p(HGNC:COQ10A) -- act(complex(GO:"mitochondrial respiratory chain complex I"))
+p(HGNC:COQ10A) -| path(MESH:"Huntington Disease")
+p(HGNC:COQ10A) isA a(MESH:"Neurodegenerative Agents")
+a(CHEBI:"N-methyl-D-aspartic acid") -| a(DRUGBANK:Remacemide)
+p(HGNC:COQ10A) cnc path(MESH:"Huntington Disease")
+a(DRUGBANK:Remacemide) cnc path(MESH:"Huntington Disease")
+a(DRUGBANK:Remacemide) -> path(HP:Nausea)
+a(DRUGBANK:Remacemide) -> path(HP:Vomiting)
+a(DRUGBANK:Remacemide) -> path(MESH:Dizziness)
+
+SET Evidence = "There is a strong evidence to suggest
 that a bioenergetic defect exists in HD as discussed
 earlier. Creatine supplementation is intended to augment
 cerebral reserves of phosphates and thereby reduce neuronal
 metabolic and oxidative stress, and to slow down
 neurodegeneration."
 
+path(MESH:"Huntington Disease") -| bp(GO:"energy homeostasis")
+a(CHEBI:creatine) -| bp(GO:"Oxidative Stress")
+a(CHEBI:creatine) -| path(HP:Neurodegeneration)
+
 SET Evidence = "Verbessem and colleagues treated 26 HD
 patients with 5mg/kg creatine and 15 patientswith placebo
 for one year and found no significant differences in measures
 of strength, neurological status, or cognitive function (Verbessem et al. 2003)."
 
-SET Evidence = "In an interesting study, Bender and
-colleagues usedmagnetic resonance spectroscopy to examine
-the levels of glutamate in HD patients treated with 20
-g/day for 5 days, followed by 6 g/day for 8–10 weeks. They
-demonstrated a significant reduction in glutamate levels
-in the parietooccipital cortex. This is of great significance
+a(CHEBI:creatine) cnc bp(MESH:"Muscle Strength")
+a(CHEBI:creatine) cnc bp(GO:cognition)
+
+SET Evidence = "This is of great significance
 because glutamate release and excitotoxicity are enhanced
 by energy deficiency and are considered to play an important
 role in the pathogenesis of HD (Bender et al. 2005)."
+
+bp(GO:"energy homeostasis") -| tloc(a(CHEBI:"D-glutamate residue"),fromLoc(GO:"cytoplasm"),toLoc(GO:"extracellular space"))
+bp(GO:"energy homeostasis") -| path(HBP:Excitotoxicity)
+path(MESH:"Huntington Disease") -> tloc(a(CHEBI:"D-glutamate residue"),fromLoc(GO:"cytoplasm"),toLoc(GO:"extracellular space"))
+path(MESH:"Huntington Disease") -> path(HBP:Excitotoxicity)
 
 SET Evidence = "Identification of peripheral markers or neurochemical
 agents such as BDNF, 8-OHdG and interleukins
 or other molecules that could also help in finding the efficacy
 and tracking down the neuroprotective role of drugs
 in clinics (Ross and Tabrizi 2011)."
+
+p(HGNC:BDNF) biomarkerFor bp(MESH:Neuroprotection)
+p(HGNCGENEFAMILY:Interleukins) biomarkerFor bp(MESH:Neuroprotection)
 
 UNSET Disease
