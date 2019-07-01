@@ -28,6 +28,8 @@ AUTHORS = [
     'Rana Al Disi',
     'Lingling Xu',
     'Kristian Kolpeja',
+    'Yojana Gadiya',
+    'Trusha Adeshara',
 ]
 
 # All metadata is grouped here
