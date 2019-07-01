@@ -4,7 +4,7 @@ SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
 
 SET DOCUMENT Name        = "Tau Effect on Mitochondria"
 SET DOCUMENT Version     = "1.0.3"
-SET DOCUMENT Authors     = "Kristian Kolpeja"
+SET DOCUMENT Authors     = "Kristian Kolpeja, Sandra Spalek"
 SET DOCUMENT Description = "Tau and mitochondria section of TauBase"
 
 ###############
@@ -17,7 +17,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/90e1cb9e5e882703380c9db8d4915ac6f3cba137/export/hbp-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/export/hbp-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -81,14 +81,17 @@ SET Citation = {"PubMed", "28173111"}
 SET Evidence = "Mitochondrial dysfunction found to be reduced in TauXDrp1þ/+- mice relative to Tau mice. Phosphorylated Tau levels were significantly reduced \
 in TauXDrp1þ/+- mice relative to Tau mice. These findings suggest that a partial reduction of Drp1 decreases the levels of phosphorylated Tau, reduces mitochondrial dysfunction,\
 and maintains mitochondrial dynamics, enhances mitochondrial biogenesis and synaptic activity in Tau mice."
+SET Confidence = "Medium"
 SET Method = {"Immunoblotting","Imunofluorescence","RT-PCR"}
 SET Species = "10090"
 SET MouseStrain = "Tau X Drp1+/-"
+r(MGI:Dnm1l) pos path(HBP:"mitochondrial dysfunction")
 r(MGI:Dnm1l) neg act(complex(GO:mitochondrion))
 r(MGI:Dnm1l) pos p(MGI:Mapt, pmod(Ph))
 r(MGI:Dnm1l) neg bp(MESH:"Mitochondrial Dynamics")
 r(MGI:Dnm1l) neg complex(GO:mitochondrion)
 r(MGI:Dnm1l) neg act(complex(GO:"neuron to neuron synapse"))
+UNSET Confidence
 
 SET Evidence = "Using real-time RT-PCR, immunoblotting and immunostaining analyses,
 we measured mRNA expressions and protein levels of genes related to the mitochondrial dynamics—Drp1 and Fis1
@@ -97,52 +100,65 @@ synaptophysin, PSD95, synapsin 1, synaptobrevin 1, neurogranin, GAP43 and synapt
 Drp1þ/+-, Tau, TauXDrp1þ/+- and wild-type mice. Decreased mRNA and protein levels of fission and matrix and increased
 levels of fusion, mitochondrial biogenesis, and synaptic genes were found in 6-month-old TauXDrp1þ/+- mice relative to Tau
 mice. Mitochondrial dysfunction was reduced in TauXDrp1þ/+- mice relative to Tau mice."
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Brain"
 
 r(MGI:Dnm1l) neg r(MGI:Syp)
+p(MGI:Dnm1l) neg p(MGI:Syp)
 r(MGI:Dnm1l) neg r(MGI:Dlg4)
+p(MGI:Dnm1l) neg p(MGI:Dlg4)
 r(MGI:Dnm1l) neg r(MGI:Syn1)
-r(MGI:Dnm1l) neg r(MGI:Syn2)
+p(MGI:Dnm1l) neg p(MGI:Syn1)
+r(MGI:Dnm1l) neg r(MGI:Vamp1)
+p(MGI:Dnm1l) neg p(MGI:Vamp1)
 r(MGI:Dnm1l) neg r(HGNCGENEFAMILY:"Vesicle associated membrane proteins")
-r(MGI:Dnm1l) neg r(MGI:Synpo2)
+p(MGI:Dnm1l) neg p(HGNCGENEFAMILY:"Vesicle associated membrane proteins")
+r(MGI:Dnm1l) neg r(MGI:Synpo)
+p(MGI:Dnm1l) neg p(MGI:Synpo)
 r(MGI:Dnm1l) neg r(MGI:Nrgn)
+p(MGI:Dnm1l) neg p(MGI:Nrgn)
 r(MGI:Dnm1l) neg r(MGI:Gap43)
+p(MGI:Dnm1l) neg p(MGI:Gap43)
 
-r(MGI:Syp) pos act(complex(GO:"neuron to neuron synapse"))
-r(MGI:Dlg4) pos act(complex(GO:"neuron to neuron synapse"))
-r(MGI:Syn1) pos act(complex(GO:"neuron to neuron synapse"))
-r(MGI:Syn2) pos act(complex(GO:"neuron to neuron synapse"))
-r(HGNCGENEFAMILY:"Vesicle associated membrane proteins") pos act(complex(GO:"neuron to neuron synapse"))
-r(MGI:Synpo2) pos act(complex(GO:"neuron to neuron synapse"))
-r(MGI:Nrgn) pos act(complex(GO:"neuron to neuron synapse"))
-r(MGI:Gap43) pos act(complex(GO:"neuron to neuron synapse"))
+p(MGI:Syp) -- act(complex(GO:"neuron to neuron synapse"))
+p(MGI:Dlg4) -- act(complex(GO:"neuron to neuron synapse"))
+p(MGI:Syn1) -- act(complex(GO:"neuron to neuron synapse"))
+p(MGI:Vamp1) -- act(complex(GO:"neuron to neuron synapse"))
+p(HGNCGENEFAMILY:"Vesicle associated membrane proteins") -- act(complex(GO:"neuron to neuron synapse"))
+p(MGI:Synpo) -- act(complex(GO:"neuron to neuron synapse"))
+p(MGI:Nrgn) -- act(complex(GO:"neuron to neuron synapse"))
+p(MGI:Gap43) -- act(complex(GO:"neuron to neuron synapse"))
 
 r(MGI:Dnm1l) pos r(MGI:Fis1)
-r(MGI:Dnm1l) pos p(MGI:Fis1)
-p(MGI:Fis1) pos bp(GO:"mitochondrial fission")
-p(MGI:Dnm1l) pos bp(GO:"mitochondrial fission")
+p(MGI:Dnm1l) pos p(MGI:Fis1)
+p(MGI:Fis1) -- bp(GO:"mitochondrial fission")
+p(MGI:Dnm1l) -- bp(GO:"mitochondrial fission")
 r(MGI:Dnm1l) pos r(MGI:Ppid)
-r(MGI:Dnm1l) pos p(MGI:Ppid)
-p(MGI:Ppid) pos complex(GO:"mitochondrial matrix")
+p(MGI:Dnm1l) pos p(MGI:Ppid)
+p(MGI:Ppid) -- complex(GO:"mitochondrial matrix")
 r(MGI:Dnm1l) neg r(MGI:Mfn1)
-r(MGI:Dnm1l) neg p(MGI:Mfn1)
+p(MGI:Dnm1l) neg p(MGI:Mfn1)
 r(MGI:Dnm1l) neg r(MGI:Mfn2)
-r(MGI:Dnm1l) neg p(MGI:Mfn2)
+p(MGI:Dnm1l) neg p(MGI:Mfn2)
 r(MGI:Dnm1l) neg r(MGI:Opa1)
-r(MGI:Dnm1l) neg p(MGI:Opa1)
-p(MGI:Mfn1) pos bp(GO:"mitochondrial fusion")
-p(MGI:Mfn2) pos bp(GO:"mitochondrial fusion")
-p(MGI:Opa1) pos bp(GO:"mitochondrial fusion")
+p(MGI:Dnm1l) neg p(MGI:Opa1)
+p(MGI:Mfn1) -- bp(GO:"mitochondrial fusion")
+p(MGI:Mfn2) -- bp(GO:"mitochondrial fusion")
+p(MGI:Opa1) -- bp(GO:"mitochondrial fusion")
 r(MGI:Dnm1l) neg r(MGI:Nrf1)
-r(MGI:Dnm1l) neg p(MGI:Nrf1)
+p(MGI:Dnm1l) neg p(MGI:Nrf1)
 r(MGI:Dnm1l) neg r(MGI:Nfe2l2)
-r(MGI:Dnm1l) neg p(MGI:Nfe2l2)
+p(MGI:Dnm1l) neg p(MGI:Nfe2l2)
 r(MGI:Dnm1l) neg r(MGI:Ppargc1a)
-r(MGI:Dnm1l) neg p(MGI:Ppargc1a)
+p(MGI:Dnm1l) neg p(MGI:Ppargc1a)
 r(MGI:Dnm1l) neg r(MGI:Tfam)
-r(MGI:Dnm1l) neg p(MGI:Tfam)
-p(MGI:Nrf1) pos complex(GO:mitochondrion)
-p(MGI:Nfe2l2) pos complex(GO:mitochondrion)
-p(MGI:Ppargc1a) pos complex(GO:mitochondrion)
+p(MGI:Dnm1l) neg p(MGI:Tfam)
+p(MGI:Nrf1) -- complex(GO:mitochondrion)
+p(MGI:Nfe2l2) -- complex(GO:mitochondrion)
+p(MGI:Ppargc1a) -- complex(GO:mitochondrion)
+p(MGI:Tfam) -- complex(GO:mitochondrion)
+UNSET MeSHAnatomy
+UNSET Confidence
 
 UNSET MouseStrain
 UNSET Species
