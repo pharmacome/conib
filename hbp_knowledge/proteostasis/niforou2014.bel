@@ -82,6 +82,7 @@ SET Evidence = "Excessive amounts of free radicals and
 radical-derived reactive species may also arise from the activity of
 NAD(P)H oxidases (NOx) and/or xanthine oxidase, as well as from
 nitric oxide synthase (NOS), P450 metabolism and peroxisomes."
+SET Confidence = "High"
 act(p(FPLX:"NADPH_oxidase")) -> a(CHEBI:radical)
 act(p(HGNC:XDH)) -> a(CHEBI:radical)
 act(p(FPLX:NOS)) -> a(CHEBI:radical)
@@ -91,30 +92,29 @@ act(p(FPLX:"NADPH_oxidase")) -> a(CHEBI:"reactive oxygen species")
 act(p(HGNC:XDH)) -> a(CHEBI:"reactive oxygen species")
 act(p(FPLX:NOS)) -> a(CHEBI:"reactive oxygen species")
 act(p(HGNCGENEFAMILY:"Cytochrome P450 family 1")) -> a(CHEBI:"reactive oxygen species")
-act(a(MESH:Peroxisomes)) -> a(CHEBI:"reactive oxygen species")
-act(p(FPLX:"NADPH_oxidase")) -> a(CHEBI:"reactive nitrogen species")
-act(p(HGNC:XDH)) -> a(CHEBI:"reactive nitrogen species")
-act(p(FPLX:NOS)) -> a(CHEBI:"reactive nitrogen species")
-act(p(HGNCGENEFAMILY:"Cytochrome P450 family 1")) -> a(CHEBI:"reactive nitrogen species")
-act(a(MESH:Peroxisomes)) -> a(CHEBI:"reactive nitrogen species")
+UNSET Confidence
 
 SET Evidence = " Notably, free radicals may also arise from exogenous sources
 including various types of radiations (e.g. UV light, X-rays or
 gamma rays), atmospheric pollutants and metal-catalyzed reac-
 tions [1–3]."
+SET Confidence = "High"
 bp(GO:"response to radiation") -> a(CHEBI:radical)
 a(MESH:"Air Pollution") -> a(CHEBI:radical)
+UNSET Confidence
 
 SET Evidence = "Free radicals were originally believed to be harmful, but it has
 been realized that in physiological concentrations they serve as
 redox messengers, which are essential in the regulation of intra-
 cellular signalling and significant cellular processes including meta-
 bolism, antioxidant defenses and responses to pathogens [1,4]."
+SET Confidence = "High"
 a(CHEBI:radical) -- bp(GO:"detection of redox state")
 a(CHEBI:radical) reg bp(GO:"intracellular receptor signaling pathway")
 a(CHEBI:radical) reg bp(MESH:Metabolism)
 a(CHEBI:radical) -| a(MESH:Antioxidants)
 a(CHEBI:radical) -- bp(MESH:"Host-Pathogen Interactions")
+UNSET Confidence
 
 SET Evidence = "Proteome is modified post-translationally by either numerous
 highly regulated enzymatic protein modifications (EPMs) (e.g.
@@ -122,68 +122,90 @@ phosphorylation, acetylation, ubiquitination, methylation, etc.) or
 by non-enzymatic protein modifications (NEPMs), which are mostly
 stochastic and increase with ageing or in age-related diseases
 (Fig. 1)."
+SET Confidence = "High"
 bp(HBP:"non-enzymatic protein modification") positiveCorrelation bp(GO:aging)
+UNSET Confidence
 
 SET Evidence = "EPMs alter the targeted proteins, which however
 remain fully functional, while NEPMs may induce protein unfolding
 or misfolding resulting in increased proteome instability."
+SET Confidence = "High"
 bp(HBP:"non-enzymatic protein modification") -> bp(HBP:misfolding)
+UNSET Confidence
 
 SET Evidence = " Free
 radicals-derived protein modification can result in either gain- or
 loss-of-function due to the protein misfolding or unfolding. "
+SET Confidence = "High"
 a(CHEBI:radical) -> bp(HBP:"non-enzymatic protein modification")
 a(CHEBI:radical) -> bp(HBP:misfolding)
+UNSET Confidence
 
 SET Evidence = "In those organismal states (e.g. ageing or diseases) where
 the chaperone network becomes deregulated, the accumulating
 non-native, misfolded or unfolded proteins can form (among
 others) fibrils, amyloids or large amorphous aggregates [15]. "
+SET Confidence = "High"
 bp(HBP:misfolding) -> path(MESH:"Protein Aggregation, Pathological")
+UNSET Confidence
 
 SET Evidence = "These
 chaperones provide high-affinity binding platforms for unfolded
 proteins and prevent protein aggregation specifically during stress
 conditions."
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Small heat shock proteins") -| path(MESH:"Protein Aggregation, Pathological")
+UNSET Confidence
 
 SET Evidence = "sHSPs are tightly
 regulated by EPMs (e.g. phosphorylation) that enable them to
 respond upon stress and to perform their chaperone activities
 [25,26]."
+SET Confidence = "High"
 bp(GO:"post-translational protein modification") reg p(HGNCGENEFAMILY:"Small heat shock proteins")
+UNSET Confidence
 
 SET Evidence = "Moreover, HSP22 stimu-
 lates autophagy-mediated degradation of protein aggregates in an
 eIF2α-dependent manner [30]."
+SET Confidence = "High"
 p(HGNC:HSPB8) -> bp(GO:"chaperone-mediated autophagy")
 bp(GO:"chaperone-mediated autophagy") -| path(MESH:"Protein Aggregation, Pathological")
 p(HGNC:HSPB8) -- p(HGNC:EIF2A)
+UNSET Confidence
 
 SET Evidence = "sHSPs are overexpressed upon
 many different types of stress as they are key components of the
 PN and PDR."
+SET Confidence = "High"
 bp(GO:"response to stress") -> p(HGNCGENEFAMILY:"Small heat shock proteins")
+UNSET Confidence
 
 SET Evidence = "Specifically, they have been found overexpressed in
 many different diseases including various types of cancer where
 they contribute in reducing proteotoxic stress [7]. "
+SET Confidence = "High"
 path(MESH:Neoplasms) -> p(HGNCGENEFAMILY:"Small heat shock proteins")
+UNSET Confidence
 
 SET Evidence = " HSP70 chaperones have a diverse
 array of cellular functions but their major role is to ensure correct
 folding of newly synthesized proteins and to perform the refolding
 of proteins that are misfolded and/or aggregated. "
+SET Confidence = "High"
 p(FPLX:HSPA) -> bp(GO:"'de novo' protein folding")
 p(FPLX:HSPA) -> bp(GO:"protein folding")
 p(FPLX:HSPA) -| bp(HBP:misfolding)
 p(FPLX:HSPA) -| path(MESH:"Protein Aggregation, Pathological")
+UNSET Confidence
 
 SET Evidence = "n general, HSP90s are more specialized than other
 chaperones and are essential for survival in eukaryotic cells as they
 also are capable of binding non-native polypeptides (at the late
 stages of their folding) and preventing their aggregation [14]."
+SET Confidence = "High"
 p(FPLX:HSP90) -| path(MESH:"Protein Aggregation, Pathological")
+UNSET Confidence
 
 SET Evidence = " Upon
 ER proteotoxic stress, GRP78 dissociates from its binding partners,
@@ -191,48 +213,61 @@ which are then free to trigger the Unfolded Protein Response (UPR) by
 regulating specific gene responses aiming to restore ER proteome
 stability. "
 #GRP78 is HSPA5
+SET Confidence = "High"
 bp(GO:"response to endoplasmic reticulum stress") -> act(p(HGNC:HSPA5))
+UNSET Confidence
 
 SET Evidence = " The three sensors of ER proteotoxic stress facilitate contra-
 dictory responses since they either promote cell survival by decreasing
 the misfolded protein and/or oxidative load, or, if UPR fails, they
 promote the activation of apoptotic pathways that eventually result in
 cell death [57]."
+SET Confidence = "Medium"
 bp(GO:"response to endoplasmic reticulum stress") -| bp(HBP:misfolding)
 bp(GO:"response to endoplasmic reticulum stress") -| bp(GO:"cell death")
 bp(GO:"response to endoplasmic reticulum stress") -> bp(GO:"apoptotic process")
 bp(GO:"response to endoplasmic reticulum stress") -> bp(GO:"cell death")
+bp(GO:"apoptotic process") -> bp(GO:"cell death")
+UNSET Confidence
 
 SET Evidence = "Moreover, it
 was shown that the concentration of the extracellular heat shock
 protein 72 (eHSP72) increases during exercise-heat stress [65]."
+SET Confidence = "High"
 bp(GO:"cellular response to heat") -> p(HGNC:HSPA1A, loc(MESH:"Extracellular Space"))
+UNSET Confidence
 
 SET Evidence = "Excessive amounts of ROS may also
 arise from inﬂammatory processes [75]."
+SET Confidence = "High"
 bp(GO:"inflammatory response") -> a(CHEBI:"reactive oxygen species")
+UNSET Confidence
 
 SET Evidence = "Specifically, ROS have been shown to
 regulate a wide variety of signalling pathways including anti-
 inﬂammatory responses and adaptation to hypoxia [77,78], autop-
 hagy [79], immune cell function [80], cellular differentiation [81],
 integrins [82], as well as oncogenes signalling [83]."
+SET Confidence = "High"
 a(CHEBI:"reactive oxygen species") -> bp(GO:"negative regulation of inflammatory response")
 a(CHEBI:"reactive oxygen species") reg bp(GO:"response to hypoxia")
 a(CHEBI:"reactive oxygen species") reg bp(GO:"autophagy")
 a(CHEBI:"reactive oxygen species") reg bp(GO:"leukocyte activation")
 a(CHEBI:"reactive oxygen species") reg bp(GO:"cell differentiation")
 a(CHEBI:"reactive oxygen species") reg bp(GO:"integrin activation")
+UNSET Confidence
 
 SET Evidence = " Primary cellular defensive
 mechanisms include enzymes like the superoxide dismutases,
 SOD1 (Cu–Zn SOD) and SOD2 (MnSOD) that convert superoxide
 to H 2 O 2 and catalase or glutathione peroxidase that convert H 2 O 2
 to H 2 O;"
+SET Confidence = "High"
 p(HGNC:SOD1) -> rxn(reactants(a(CHEBI:superoxide)),products(a(CHEBI:"hydrogen peroxide"), a(CHEBI:dioxygen)))
 p(HGNC:SOD2) -> rxn(reactants(a(CHEBI:superoxide)),products(a(CHEBI:"hydrogen peroxide"), a(CHEBI:dioxygen)))
 p(HGNC:CAT) -> rxn(reactants(a(CHEBI:"hydrogen peroxide")),products(a(CHEBI:"water"),a(CHEBI:dioxygen)))
 p(HGNC:GPX1) -> rxn(reactants(a(CHEBI:"hydrogen peroxide")),products(a(CHEBI:"water")))
+UNSET Confidence
 
 SET Evidence = "Oxidative stress abrogates the
 Keap1-mediated degradation of Nrf2 which in turn accumulates in
@@ -243,72 +278,95 @@ phase II and antioxidant enzymes including NAD(P)H quinone
 oxidoreductase 1 (Nqo1), heme oxygenase 1 (Hmox1), glutamane-
 cysteine ligase (GCL) and glutathione S transferases (GSTs)
 [84,85,87,88]."
+SET Confidence = "Medium"
 bp(GO:"response to oxidative stress") -| act(p(HGNC:KEAP1))
 act(p(HGNC:KEAP1)) -> deg(p(HGNC:NFE2L2))
-bp(GO:"response to oxidative stress") -> p(HGNC:NFE2L2)
+bp(GO:"response to oxidative stress") -> p(HGNC:NFE2L2, loc(MESH:"Cell Nucleus"))
 complex(p(HGNC:NFE2L2),p(HGNC:MAF)) -> p(HGNC:NQO1)
 complex(p(HGNC:NFE2L2),p(HGNC:MAF)) -> p(HGNC:HMOX1)
 complex(p(HGNC:NFE2L2),p(HGNC:MAF)) -> p(HGNC:GCLC)
 complex(p(HGNC:NFE2L2),p(HGNC:MAF)) -> p(FPLX:GST)
+UNSET Confidence
 
 SET Evidence = " Moreover, Nrf2 contributes to cellular proteostasis
 by regulating the expression of molecular chaperones [89], as well
 as of additional players of proteome stability and maintenance,
 namely the proteasome subunits [90–92]."
+SET Confidence = "High"
 p(HGNC:NFE2L2) -> bp(HBP:Proteostasis)
+UNSET Confidence
 
 SET Evidence = "Proteome oxidation and
 instability has been associated with ageing and the progression of
 several age-related diseases, including cardiovascular disorders, neu-
 rodegeneration, and cancer [7,95,96]."
-a(CHEBI:radical) -> bp(GO:"protein oxidation")
+SET Confidence = "Medium"
+#refernce for the comment statement?
+#a(CHEBI:radical) -> bp(GO:"protein oxidation")
 bp(GO:"protein oxidation") -- bp(GO:aging)
 bp(GO:"protein oxidation") -- path(MESH:"Cardiovascular Diseases")
 bp(GO:"protein oxidation") -- bp(HP:"Neurodegeneration")
 bp(GO:"protein oxidation") -- path(MESH:Neoplasms)
+UNSET Confidence
 
+#Cannot understand the relation of BEL statement with evidence statement
 SET Evidence = "A frequent
 oxidative modification of proteins is irreversible carbonylation which
 can occur by either direct oxidation where oxidants act and leave a
 functional carbonyl group on amino acid side chains or in the protein
 backbone, or, indirectly, by protein conjugation with oxidation pro-
 ducts of polyunsaturated fatty acids and carbohydrates [98]."
+SET Confidence = "Low"
 a(CHEBI:radical) -> bp(MESH:"Protein Carbonylation")
+UNSET Confidence
 
 SET Evidence = "Heavily carbonylated proteins tend to form
 aggregates that are resistant to degradation and accumulate as
 unfolded or damaged proteins [101]."
+SET Confidence = "High"
 bp(MESH:"Protein Carbonylation") -> a(MESH:"Protein Aggregates")
+UNSET Confidence
 
 SET Evidence = " HSF1 binds to a consensus heat shock
 element (HSE) within the promoter regions of HSP genes resulting
 in the activation of HSPs' gene expression and the control of cellular
 responses to oxidative and proteotoxic stress [108]."
+SET Confidence = "High"
 p(HGNC:HSF1) -> a(MESH:"Heat-Shock Proteins")
 a(MESH:"Heat-Shock Proteins") reg bp(GO:"response to oxidative stress")
+UNSET Confidence
 
 SET Evidence = "During elevated stress the chaperones within
 the repressive HSF1-containing multi-chaperone complexes bind
 the unfolded proteins and thus the liberated monomeric HSF1s
 undergo phosphorylation, trimerization and nuclear localization
 with increased transcriptional activity [109]."
+SET Confidence = "Medium"
 bp(GO:"response to stress") -> p(HGNC:HSF1, pmod(Ph))
+bp(GO:"response to stress") -> complex(p(HGNC:HSF1), p(HGNC:HSF1), p(HGNC:HSF1))
 bp(GO:"response to stress") -> p(HGNC:HSF1, loc(MESH:"Cell Nucleus"))
 bp(GO:"response to stress") -> tscript(p(HGNC:HSF1))
+UNSET Confidence
 
 SET Evidence = "PDI is a redox sensitive chaperone that acts not
 only as a sensor but also as a protein involved in the processing of
 oxidized proteins and in preventing misfolding and/or aggregation
 of proteins."
+#PDI: Protein disulfide isomerase
+SET Confidence = "High"
 SET MeSHAnatomy = "Endoplasmic Reticulum"
 p(HGNCGENEFAMILY:"Protein disulfide isomerases") -| bp(GO:"protein oxidation")
 p(HGNCGENEFAMILY:"Protein disulfide isomerases") -| bp(HBP:misfolding)
 p(HGNCGENEFAMILY:"Protein disulfide isomerases") -| a(MESH:"Protein Aggregates")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Additional studies in mammalian
 peroxiredoxins showed that over-oxidation induces the formation
 of high molecular weight oligomers which function as potent
 chaperones and prevent protein aggregation [128,129];"
+#PRDX: peroxiredoxins
+SET Confidence = "High"
 bp(GO:"response to oxidative stress") -> act(p(FPLX:PRDX))
 act(p(FPLX:PRDX)) -| a(MESH:"Protein Aggregates")
+UNSET Confidence
