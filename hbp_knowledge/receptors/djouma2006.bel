@@ -74,67 +74,117 @@ DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifact
 SET Citation ={"PubMed","16820021"}
 
 SET Evidence ="Autoradiographic detection of dopamine D1 receptors by [125I]- SCH 23982 was fully displaceable by the agonist SKF-77434."
+SET Confidence = "High"
 complex(p(RGD:Drd1),a(MESH:"8-iodo-2,3,4,5-tetrahydro-3-methyl-5-phenyl-1H-3-benzazepine-7-ol"))
 complex(p(RGD:Drd1),a(HBP:"SK and F 77434"))
 a(HBP:"SK and F 77434") -| a(MESH:"8-iodo-2,3,4,5-tetrahydro-3-methyl-5-phenyl-1H-3-benzazepine-7-ol")
+UNSET Confidence
 
 SET Evidence ="Overall, no changes were observed in dopamine D1 receptor binding in the brain regions examined following social isolation and ⁄ or antalarmin treatment under these conditions"
+SET Confidence = "High"
 a(MESH:antalarmin) cnc act(p(RGD:Drd1))
+UNSET Confidence
 
 SET Evidence ="As can be seen from Fig. 1A, binding was dense throughout the NAcc, caudate-putamen (CPu), olfactory tubercle (OT) and substantia nigra, pars reticulata (SNr)."
+SET Confidence = "High"
 SET MeSHAnatomy ={"Nucleus Accumbens","Neostriatum","Olfactory Tubercle","Substantia Nigra","Pars Reticulata"}
 complex(p(RGD:Drd1),a(HBP:"SK and F 77434"))
+UNSET Confidence
 
 SET Evidence ="Autoradiographic binding of [125I]-NCQ 298 to dopamine D2 ⁄ 3 receptors was specific and fully displaceable by raclopride."
+SET Confidence = "Medium"
 complex(a(HBP:"[125I]-NCQ"),p(RGD:Drd1))
 complex(p(RGD:Drd1),p(MESH:Raclopride))
+composite(p(MESH:Raclopride),complex(p(RGD:Drd1),a(HBP:"[125I]-NCQ"))) -> complex(p(RGD:Drd1),p(MESH:Raclopride)) #because the evidence says that [125I]-NCQ was displaceable by raclopride
+UNSET Confidence
 
 SET Evidence ="antalarmin increased dopamine D2 ⁄ 3 binding in the CPu (+7%, P < 0.001; Fig. 3C) and olfactory tubercle (OT; +15%, P 1⁄4 0.006; Fig. 3D) of group-housed rats."
+SET Confidence = "Low"
 SET MeSHAnatomy = {"Neostriatum","Olfactory Tubercle"}
 a(MESH:antalarmin) -> p(RGD:Drd2)
 a(MESH:antalarmin) -> p(RGD:Drd3)
+#evidence says dopamine D2/3 binding. Should it be written as a complex of dopamine and dopamine receptors?
+UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence ="Isolation rearing caused an up-regulation of dopamine D2 ⁄ 3 receptors in both the core (+20%; F1,144 1⁄4 31.176, P < 0.001; Fig. 3A) and shell (+25%; F1,148 1⁄4 35.233, P < 0.001; Fig. 3B) of the NAcc. "
+SET Confidence = "Medium"
 SET MeSHAnatomy ="Nucleus Accumbens"
 path(HBP:"isolation rearing") -> p(RGD:Drd2)
 path(HBP:"isolation rearing") -> p(RGD:Drd3)
+UNSET MeSHAnatomy
+#MeSHAnatomy was unset
+UNSET Confidence
 
 SET Evidence ="Antalar- min treatment reversed this effect and returned dopamine D2 ⁄ 3 receptor density levels back to those of the vehicle-treated GH rats."
+SET Confidence = "High"
 a(MESH:antalarmin) -| p(RGD:Drd2)
 a(MESH:antalarmin) -| p(RGD:Drd3)
+UNSET Confidence
 
 SET Evidence ="Furthermore a significant interaction was found between housing and treatment in both the central nucleus of the amygdala (CeA; F1,139 1⁄4 11.560, P < 0.001; Fig. 3F) and basolateral amygdala (BLA; F1,137 1⁄4 7.616, P 1⁄4 0.007; Fig. 3E).Thus, isolation caused an up-regulation in dopamine D2 ⁄ 3 receptors in these regions, an effect that was reversed by antalarmin treatment (but only reached statistical significance in the CeA)."
-
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Amygdala" #because the evidence indicates activities happening in amygdala
 path(HBP:"isolation rearing") -> p(RGD:Drd2)
 path(HBP:"isolation rearing") -> p(RGD:Drd3)
 a(MESH:antalarmin) -| path(HBP:"isolation rearing")
+UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence ="A significant decrease in BDNF mRNA expression resulting from ISO was found in the BLA ()25%; F1,102 1⁄4 77.937, P < 0.001), nucleus of the horizontal limb of the diagonal band (HB )75%; F1,67 1⁄4 259.106, P < 0.001) and dentate gyrus (DG )85%; F1,101 1⁄4 984.958,"
+SET Confidence = "Medium"
 SET MeSHAnatomy ={"Basolateral Nuclear Complex","Diagonal Band of Broca","Dentate Gyrus"}
 path(HBP:"isolation rearing") -| r(RGD:Bdnf)
+UNSET MeSHAnatomy #MeSHAnatomy was unset
+UNSET Confidence
 
 SET Evidence ="whilst isolation increased BDNF mRNA expression in the retrosplenial cortex"
-#SET MeSHAnatoomy =""
+SET Confidence = "Medium"
+SET Anatomy ="retrosplenial granular cortex"
 path(HBP:"isolation rearing") -> r(RGD:Bdnf)
+#MeSHAnatomy was set and unset
+UNSET Anatomy
+UNSET Confidence
 
 SET Evidence ="Treatment with antalarmin had no impact upon the isolation-induced alterations of BDNF expression."
+SET Confidence = "Medium"
+path(HBP:"isolation rearing") reg p(RGD:Bdnf)
+#above Statement was added because of "isolation-induced alterations of BDNF expression"
 a(MESH:antalarmin) cnc r(RGD:Bdnf)
 a(MESH:antalarmin) cnc path(HBP:"isolation rearing")
+UNSET Confidence
 
 SET Evidence ="ISO resulted in a decrease in TrkB mRNA expression in the cingulate cortex (Cg1–3; F1,124 1⁄4 7.582, P 1⁄4 0.014) and piriform cortex (Pir; F1,119 1⁄4 3.869"
+SET Confidence = "Medium"
 SET MeSHAnatomy ={"Gyrus Cinguli","Piriform Cortex"}
 path(HBP:"isolation rearing") -| r(RGD:Ntrk2)
+UNSET MeSHAnatomy
+#MeSHAnatomy was unset
+UNSET Confidence
 
 SET Evidence ="whereas an increase was observed in isolates compared to GH in the hippocampus (+38%; F1,59 1⁄4 14.131, P < 0.001), DG (+32%; F1,56 1⁄4 8.398, P 1⁄4 0.005) and RSc (+32%; F1,56 1⁄4 6.830, P 1⁄4 0.011). "
+SET Confidence = "Medium"
 SET MeSHAnatomy ={"Hippocampus","Dentate Gyrus"}
 path(HBP:"isolation rearing") -> r(RGD:Ntrk2)
+UNSET MeSHAnatomy
+#MeSHAnatomy was unset
+UNSET Confidence
 
 SET Evidence ="As was the case with BDNF expression, treatment with antalarmin had no impact upon the isolation-induced alterations in TrkB expression."
+SET Confidence = "Medium"
+path(HBP:"isolation rearing") reg p(RGD:Ntrk2)
+a(MESH:antalarmin) cnc p(RGD:Ntrk2)
+#above two Statements were added
 a(MESH:antalarmin) cnc path(HBP:"isolation rearing")
+UNSET Confidence
 
 SET Evidence ="Interestingly however, antalarmin treatment of GH rats caused a down-regulation of TrkB mRNA in the LC ()15%, P 1⁄4 0.012) and Pir ()26%, P 1⁄4 0.013) whilst increases were observed in the hippocampus (CA1–3; +36%, P 1⁄4 0.042) and RSc (+53%, P < 0.001)."
-
+SET Confidence = "Medium"
 SET MeSHAnatomy ={"Piriform Cortex"}
 a(MESH:antalarmin) -| r(RGD:Ntrk2)
+UNSET MeSHAnatomy
+#MeSHAnatomy was unset
 SET MeSHAnatomy ="Hippocampus"
 a(MESH:antalarmin) ->  r(RGD:Ntrk2)
+UNSET MeSHAnatomy
+UNSET Confidence
