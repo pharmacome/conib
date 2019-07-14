@@ -81,8 +81,8 @@ or distortion in performing voluntary movements)
 and dystonia (involuntary contraction ofmuscles)."
 
 path(MESH:"Huntington Disease") isA path(MESH:"Neurodegenerative Diseases")
-path(MESH:"Huntington Disease") -> bp(HP:"Autosomal dominant inheritance")
-path(MESH:"Huntington Disease") -| bp(GO:"motor activity")
+path(MESH:"Huntington Disease") -> path(HP:"Autosomal dominant inheritance")
+path(MESH:"Huntington Disease") -| path(GO:"motor activity")
 path(MESH:"Huntington Disease") -> path(HP:"Behavioral abnormality")
 path(MESH:"Huntington Disease") -| bp(GO:cognition)
 path(MESH:"Huntington Disease") -> path(MESH:Chorea)
@@ -111,7 +111,7 @@ show signs of neuropathology in HD, with the maximum
 degeneration occurring in the caudate nucleus and putamen
 (Vonsattel et al. 1985)."
 
-path(MESH:"Huntington Disease") -| bp(GO:"motor activity")
+path(MESH:"Huntington Disease") -| path(GO:"motor activity")
 path(MESH:"Huntington Disease") -> path(MESH:Dementia)
 
 SET Anatomy = "adult brain"
@@ -130,7 +130,7 @@ in HD patients (The Huntington’s Disease Collaborative
 Research Group 1993). This gene on chromosome 4 (4p63)
 encodes the protein huntingtin."
 
-g(REF:"NM_002111.8") >> p(HGNC:HTT)
+g(HGNC:HTT) >> p(HGNC:HTT)
 p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> path(MESH:"Huntington Disease")
 
 SET Evidence = "This causes the mutant protein to interact abnormally with
@@ -147,7 +147,7 @@ tendency and the pattern of inheritance."
 path(MESH:"Huntington Disease") -> path(MESH:Chorea)
 path(MESH:"Huntington Disease") -> path(HP:"Cognitive impairment")
 path(MESH:"Huntington Disease") -> path(MESH:"Suicidal Ideation")
-path(MESH:"Huntington Disease") -> bp(HP:"Autosomal dominant inheritance")
+path(MESH:"Huntington Disease") -> path(HP:"Autosomal dominant inheritance")
 
 SET Evidence = "In 1883, Westphal described juvenile symptoms
 resembling those seen in HD but he attributed it to a cause
@@ -158,7 +158,7 @@ HD."
 
 path(MESH:"Westphal disease") -- path(MESH:"Huntington Disease")
 path(MESH:"Westphal disease") -> path(HP:Hypokinesia)
-path(MESH:"Westphal disease") -| bp(GO:"motor activity")
+path(MESH:"Westphal disease") -| path(GO:"motor activity")
 
 SET Evidence = "Increasing
 evidence has converged to indicate that the normal protein
@@ -253,7 +253,7 @@ calbindin and cytochrome oxidase."
 
 SET Anatomy = "striosome"
 a(MESH:"Corpus Striatum") hasComponents list(p(HGNCGENEFAMILY:"Opioid receptors"),p(HGNC:TAC1),a(CHEBI:"MET-enkephalin"),p(HGNC:CCK))
-a(MESH:"Corpus Striatum") hasComponents list(p(HGNC:SST),p(HGNC:NPY),p(HGNC:NQO1),p(HGNC:ACHE),p(HGNC:CALB1),p(EC:"1.9.3.1"))
+a(MESH:"Corpus Striatum") hasComponents list(p(HGNC:SST),p(HGNC:NPY),p(HGNC:NQO1),p(HGNC:ACHE),p(HGNC:CALB1),p(ECCODE:"1.9.3.1"))
 #EC:1.9.3.1= cytochrome oxidase
 UNSET Anatomy
 
@@ -279,8 +279,8 @@ cholinergic neurons and the sparse medium spiny neurons
 containing somatostatin, neuropeptide Y and NADPH
 diaphorase neurons."
 
-a(MESH:"Corpus Striatum") hasComponent a(MESH:Interneurons)
-a(MESH:"Corpus Striatum") hasComponent a(MESH:"Cholinergic Neurons")
+a(MESH:"Corpus Striatum") hasComponents list(a(MESH:Interneurons))
+a(MESH:"Corpus Striatum") hasComponents list(a(MESH:"Cholinergic Neurons"))
 a(MESH:Interneurons) -> p(HGNC:SST)
 a(MESH:Interneurons) -> p(HGNC:NPY)
 a(MESH:Interneurons) -> p(HGNC:NQO1)
@@ -292,7 +292,7 @@ brain areas in HD neuropathology. Atrophy of the cerebral
 cortex has long been recognized as occurring in HD."
 
 path(MESH:"Huntington Disease") -> path(HP:"Abnormal putamen morphology")
-path(HP:"Abnormal putamen morphology") -> bp(GO:"neuron death",loc(MESH:Putamen))
+path(HP:"Abnormal putamen morphology") -> bp(GO:"neuron death", loc(MESHCS:Putamen))
 path(MESH:"Huntington Disease") -> path(HP:"Neuronal loss in the cerebral cortex")
 
 SET Evidence = "Hippocampal CA3, CA4 and granule cell layer of
@@ -309,7 +309,7 @@ path(MESH:"Huntington Disease") -> bp(GO:"neuron death")
 UNSET Anatomy
 
 path(MESH:"Huntington Disease") -> path(HP:"Cerebellar atrophy")
-path(HP:"Cerebellar atrophy") -| path(HBP:"Purkinje cell layer of cerebellar cortex")
+path(HP:"Cerebellar atrophy") -| a(HBP:"Purkinje cell layer of cerebellar cortex")
 
 SET Evidence = "The first neurotransmitter shown to be decreased in HD
 brain was GABA. Significant decrease in level of GABA
@@ -430,16 +430,16 @@ SET  Evidence = "However, the amino terminal region has been
 extensively studied, as it contains an expandable polyQ
 stretchwhich is considered pathogenic"
 
-p(MESH:huntingtin, pmod(HBP:"CAG repeats")) -> p(INTERPRO:"Pathogenicity locus")
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> p(INTERPRO:"Pathogenicity locus")
 
 SET Evidence = "HEAT repeat proteins generally mediate important
 protein–protein interactions involved in cytoplasmic
 and nuclear transport, microtubule dynamics, and chromosome
 segregation (Neuwald and Hirano 2000)."
 
-p(INTERPRO:"HEAT repeat") reg bp(MESH:"Nucleocytoplasmic Transport Proteins")
+p(INTERPRO:"HEAT repeat") reg a(MESH:"Nucleocytoplasmic Transport Proteins")
 p(INTERPRO:"HEAT repeat") reg a(GO:"cytoplasmic microtubule")
-p(INTERPRO:"HEAT repeat") reg a(GO:"chromosome segregation")
+p(INTERPRO:"HEAT repeat") reg bp(GO:"chromosome segregation")
 
 SET Evidence = "Post-mortem HD brain samples and transgenic HD mice
 models expressing mutant htt with increased polyQrepeats
@@ -489,7 +489,7 @@ secondarily modified such as dephosphorylated (Branco-
 Santos et al. 2017) and phosphorylation (DiGiovanni et al.
 2016)which regulates its aggregation, localization and toxicity."
 
-p(HGNC:HTT, pmod(HBP:"CAG repeats"),frag("1_17")) -> tloc(p(HGNC:HTT, pmod(HBP:"CAG repeats"),fromLoc(GO:"cytoplasm"),toLoc(GO:"nucleus"))
+p(HGNC:HTT, pmod(HBP:"CAG repeats"),frag("1_17")) -> tloc(p(HGNC:HTT, pmod(HBP:"CAG repeats"),fromLoc(GO:"cytoplasm"),toLoc(GO:"nucleus")))
 p(HGNC:HTT, pmod(HBP:"CAG repeats"),pmod(Ph),frag("1_17")) reg a(HBP:"huntingtin aggregates")
 p(HGNC:HTT, pmod(HBP:"CAG repeats"),frag("1_17")) reg a(HBP:"huntingtin aggregates")
 
@@ -535,8 +535,8 @@ amount of autophagosome formation a reduced capacity
 to degrade aggregated proteins and organelles has
 been found in HD models (Martin et al. 2015)."
 
-bp(GO:autophagy) -| a(MESH:"Proteins Aggregates")
-bp(GO:autophagy) -> tloc(a(MESH:"Proteins Aggregates"),fromLoc(GO:"cytoplasm"),toLoc(GO:"lysosome"))
+bp(GO:autophagy) -| a(MESH:"proteins aggregates")
+bp(GO:autophagy) -> tloc(a(MESH:"proteins aggregates"),fromLoc(GO:"cytoplasm"),toLoc(GO:"lysosome"))
 path(MESH:"Huntington Disease") -> a(GO:autophagosome)
 path(MESH:"Huntington Disease") -> path(MESH:"Protein Aggregation, Pathological")
 
@@ -555,12 +555,12 @@ which led to inefficient clearance ofmutant htt, suggesting
 that htt may regulate its own clearance."
 
 p(HGNC:HTT) -- bp(GO:autophagy)
-complex(p(HGNC:HTT),p(HGNC:OPTN)) -> bp(GO:"regulation of autophagosome assembly",loc(GO:"Golgi apparatus"))
+complex(p(HGNC:HTT),p(HGNC:OPTN)) -> bp(GO:"regulation of autophagosome assembly", loc(GOCC:"Golgi apparatus"))
 
 SET MeSHAnatomy = "Neurons"
-bp(GO:"retrograde axonal transport") -> tloc(a(MESH:Autophagosomes),fromLoc(GO:"distal axon"),toLoc(GO:"cell body")
-p(HGNC:HTT) -> tloc(a(MESH:Autophagosomes),fromLoc(GO:"distal axon"),toLoc(GO:"cell body")
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -| tloc(a(MESH:Autophagosomes),fromLoc(GO:"distal axon"),toLoc(GO:"cell body")
+bp(GO:"retrograde axonal transport") -> tloc(a(MESH:Autophagosomes),fromLoc(GOCC:"distal axon"),toLoc(GOCC:"cell body"))
+p(HGNC:HTT) -> tloc(a(MESH:Autophagosomes),fromLoc(GOCC:"distal axon"),toLoc(GOCC:"cell body"))
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -| tloc(a(MESH:Autophagosomes),fromLoc(GOCC:"distal axon"),toLoc(GOCC:"cell body"))
 p(HGNC:HTT) reg deg(p(HGNC:HTT))
 UNSET MeSHAnatomy
 
@@ -683,7 +683,6 @@ path(MESH:"Huntington Disease") -> bp(GO:"cytokine production involved in inflam
 path(MESH:"Huntington Disease") -> path(HP:"Increased inflammatory response")
 UNSET Cell
 
-path(MESH:"Huntington Disease") -> p(HGNCGENEFAMILY:Homeoboxes)
 path(MESH:"Huntington Disease") -> bp(GO:"neuroinflammatory response")
 
 SET Evidence = "Multiple
@@ -723,7 +722,7 @@ or physically obstruct neuronal extensions (Gunawardena
 et al. 2003)."
 
 p(HGNC:HTT, pmod(HBP:"CAG repeats")) -| bp(HBP:Proteostasis)
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> path(GO:"repressing transcription factor binding")
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> bp(GO:"repressing transcription factor binding")
 
 SET Evidence = "Cerebellar neurons have been
 observed to induce Hsp70 expression upon mutant htt
@@ -756,7 +755,7 @@ path(MESH:"Huntington Disease") -| bp(GO:cognition)
 path(MESH:"Huntington Disease") -> path(HP:"Behavioral abnormality")
 path(MESH:"Huntington Disease") -> path(MESH:Depression)
 path(MESH:"Huntington Disease") -> path(HP:Agitation)
-path(MESH:"Huntington Disease") -| bp(GO:"motor activity")
+path(MESH:"Huntington Disease") -| path(GO:"motor activity")
 
 SET Evidence = "Parkinsonism is frequently
 observed in the rare juvenile form, slowing saccadic movements
@@ -779,14 +778,14 @@ bp(GO:"cellular response to drug") -| path(MESH:Chorea)
 bp(GO:"cellular response to drug") -| a(CHEBI:dopamine)
 
 SET Anatomy = "adult brain"
-bp(GO:"cellular response to drug") -| p(HGNCGENEFAMILY:"Gamma-aminobutyric acid(GABA) receptors")
+bp(GO:"cellular response to drug") -| p(GO:"GABA receptor complex")
 UNSET Anatomy
 
 a(CHEBI:reserpine) -| path(MESH:"Huntington Disease")
 a(CHEBI:tetrabenazine) -| path(MESH:"Huntington Disease")
 a(CHEBI:phenothiazines) -| path(MESH:"Huntington Disease")
-a(CHEBI:chlorpromazines) -| path(MESH:"Huntington Disease")
-a(CHEBI:butyrophenones) -| path(MESH:"Huntington Disease")
+a(CHEBI:chlorpromazine) -| path(MESH:"Huntington Disease")
+a(MESH:Butyrophenones) -| path(MESH:"Huntington Disease")
 a(CHEBI:haloperidol) -| path(MESH:"Huntington Disease")
 
 SET Evidence = "In a double-blind
@@ -843,7 +842,7 @@ tardive dyskinesis, difficulties in swallowing and dysphasia
 a(CHEBI:haloperidol) -| path(MESH:Chorea)
 a(CHEBI:haloperidol) cnc bp(GO:"walking behavior")
 a(CHEBI:haloperidol) -> path(HP:Parkinsonism)
-a(CHEBI:haloperidol) -> path(HP:"Tardive dysphasia")
+a(CHEBI:haloperidol) -> path(HP:"Tardive dyskinesia")
 a(CHEBI:haloperidol) -> path(HP:Dysphasia)
 a(CHEBI:haloperidol) -> path(HP:Dysphagia)
 
@@ -933,7 +932,6 @@ with coenzyme Q10."
 
 p(HGNC:COQ10A) -- act(complex(GO:"mitochondrial respiratory chain complex I"))
 p(HGNC:COQ10A) -| path(MESH:"Huntington Disease")
-p(HGNC:COQ10A) isA a(MESH:"Neurodegenerative Agents")
 a(CHEBI:"N-methyl-D-aspartic acid") -| a(DRUGBANK:Remacemide)
 p(HGNC:COQ10A) cnc path(MESH:"Huntington Disease")
 a(DRUGBANK:Remacemide) cnc path(MESH:"Huntington Disease")
@@ -949,7 +947,7 @@ metabolic and oxidative stress, and to slow down
 neurodegeneration."
 
 path(MESH:"Huntington Disease") -| bp(GO:"energy homeostasis")
-a(CHEBI:creatine) -| bp(GO:"Oxidative Stress")
+a(CHEBI:creatine) -| bp(MESH:"Oxidative Stress")
 a(CHEBI:creatine) -| path(HP:Neurodegeneration)
 
 SET Evidence = "Verbessem and colleagues treated 26 HD
