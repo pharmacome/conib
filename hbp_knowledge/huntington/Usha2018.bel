@@ -130,7 +130,6 @@ in HD patients (The Huntington’s Disease Collaborative
 Research Group 1993). This gene on chromosome 4 (4p63)
 encodes the protein huntingtin."
 
-g(HGNC:HTT) >> p(HGNC:HTT)
 p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> path(MESH:"Huntington Disease")
 
 SET Evidence = "This causes the mutant protein to interact abnormally with
@@ -292,7 +291,7 @@ brain areas in HD neuropathology. Atrophy of the cerebral
 cortex has long been recognized as occurring in HD."
 
 path(MESH:"Huntington Disease") -> path(HP:"Abnormal putamen morphology")
-path(HP:"Abnormal putamen morphology") -> bp(GO:"neuron death", loc(MESHCS:Putamen))
+path(HP:"Abnormal putamen morphology") -> bp(GO:"neuron death", loc(MESH:Putamen))
 path(MESH:"Huntington Disease") -> path(HP:"Neuronal loss in the cerebral cortex")
 
 SET Evidence = "Hippocampal CA3, CA4 and granule cell layer of
@@ -489,7 +488,7 @@ secondarily modified such as dephosphorylated (Branco-
 Santos et al. 2017) and phosphorylation (DiGiovanni et al.
 2016)which regulates its aggregation, localization and toxicity."
 
-p(HGNC:HTT, pmod(HBP:"CAG repeats"),frag("1_17")) -> tloc(p(HGNC:HTT, pmod(HBP:"CAG repeats"),fromLoc(GO:"cytoplasm"),toLoc(GO:"nucleus")))
+p(HGNC:HTT, pmod(HBP:"CAG repeats"),frag("1_17")) -> tloc(p(HGNC:HTT), pmod(HBP:"CAG repeats"),fromLoc(GO:"cytoplasm"),toLoc(GO:"nucleus"))
 p(HGNC:HTT, pmod(HBP:"CAG repeats"),pmod(Ph),frag("1_17")) reg a(HBP:"huntingtin aggregates")
 p(HGNC:HTT, pmod(HBP:"CAG repeats"),frag("1_17")) reg a(HBP:"huntingtin aggregates")
 
@@ -535,8 +534,8 @@ amount of autophagosome formation a reduced capacity
 to degrade aggregated proteins and organelles has
 been found in HD models (Martin et al. 2015)."
 
-bp(GO:autophagy) -| a(MESH:"proteins aggregates")
-bp(GO:autophagy) -> tloc(a(MESH:"proteins aggregates"),fromLoc(GO:"cytoplasm"),toLoc(GO:"lysosome"))
+bp(GO:autophagy) -| a(MESH:"Proteins Aggregates")
+bp(GO:autophagy) -> tloc(a(MESH:"Proteins Aggregates"),fromLoc(GO:"cytoplasm"),toLoc(GO:"lysosome"))
 path(MESH:"Huntington Disease") -> a(GO:autophagosome)
 path(MESH:"Huntington Disease") -> path(MESH:"Protein Aggregation, Pathological")
 
@@ -555,12 +554,12 @@ which led to inefficient clearance ofmutant htt, suggesting
 that htt may regulate its own clearance."
 
 p(HGNC:HTT) -- bp(GO:autophagy)
-complex(p(HGNC:HTT),p(HGNC:OPTN)) -> bp(GO:"regulation of autophagosome assembly", loc(GOCC:"Golgi apparatus"))
+complex(p(HGNC:HTT),p(HGNC:OPTN)) -> bp((GO:"regulation of autophagosome assembly"), loc(GO:"Golgi apparatus"))
 
 SET MeSHAnatomy = "Neurons"
-bp(GO:"retrograde axonal transport") -> tloc(a(MESH:Autophagosomes),fromLoc(GOCC:"distal axon"),toLoc(GOCC:"cell body"))
-p(HGNC:HTT) -> tloc(a(MESH:Autophagosomes),fromLoc(GOCC:"distal axon"),toLoc(GOCC:"cell body"))
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -| tloc(a(MESH:Autophagosomes),fromLoc(GOCC:"distal axon"),toLoc(GOCC:"cell body"))
+bp(GO:"retrograde axonal transport") -> tloc(a(MESH:Autophagosomes),fromLoc(GO:"distal axon"),toLoc(GO:"cell body"))
+p(HGNC:HTT) -> tloc(a(MESH:Autophagosomes),fromLoc(GO:"distal axon"),toLoc(GO:"cell body"))
+p(HGNC:HTT, pmod(HBP:"CAG repeats")) -| tloc(a(MESH:Autophagosomes),fromLoc(GO:"distal axon"),toLoc(GO:"cell body"))
 p(HGNC:HTT) reg deg(p(HGNC:HTT))
 UNSET MeSHAnatomy
 
@@ -778,7 +777,7 @@ bp(GO:"cellular response to drug") -| path(MESH:Chorea)
 bp(GO:"cellular response to drug") -| a(CHEBI:dopamine)
 
 SET Anatomy = "adult brain"
-bp(GO:"cellular response to drug") -| p(GO:"GABA receptor complex")
+bp(GO:"cellular response to drug") -| complex(GO:"GABA receptor complex")
 UNSET Anatomy
 
 a(CHEBI:reserpine) -| path(MESH:"Huntington Disease")
