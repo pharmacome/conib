@@ -82,7 +82,7 @@ and dystonia (involuntary contraction ofmuscles)."
 
 path(MESH:"Huntington Disease") isA path(MESH:"Neurodegenerative Diseases")
 path(MESH:"Huntington Disease") -> path(HP:"Autosomal dominant inheritance")
-path(MESH:"Huntington Disease") -| path(GO:"motor activity")
+path(MESH:"Huntington Disease") -| bp(MESH:"Motor Activity")
 path(MESH:"Huntington Disease") -> path(HP:"Behavioral abnormality")
 path(MESH:"Huntington Disease") -| bp(GO:cognition)
 path(MESH:"Huntington Disease") -> path(MESH:Chorea)
@@ -111,7 +111,7 @@ show signs of neuropathology in HD, with the maximum
 degeneration occurring in the caudate nucleus and putamen
 (Vonsattel et al. 1985)."
 
-path(MESH:"Huntington Disease") -| path(GO:"motor activity")
+path(MESH:"Huntington Disease") -| bp(MESH:"Motor Activity")
 path(MESH:"Huntington Disease") -> path(MESH:Dementia)
 
 SET Anatomy = "adult brain"
@@ -157,7 +157,7 @@ HD."
 
 path(MESH:"Westphal disease") -- path(MESH:"Huntington Disease")
 path(MESH:"Westphal disease") -> path(HP:Hypokinesia)
-path(MESH:"Westphal disease") -| path(GO:"motor activity")
+path(MESH:"Westphal disease") -| bp(MESH:"Motor Activity")
 
 SET Evidence = "Increasing
 evidence has converged to indicate that the normal protein
@@ -291,7 +291,7 @@ brain areas in HD neuropathology. Atrophy of the cerebral
 cortex has long been recognized as occurring in HD."
 
 path(MESH:"Huntington Disease") -> path(HP:"Abnormal putamen morphology")
-path(HP:"Abnormal putamen morphology") -> bp(GO:"neuron death", loc(MESH:Putamen))
+path(HP:"Abnormal putamen morphology") -> bp(GO:"neuron death",loc(MESH:Putamen))
 path(MESH:"Huntington Disease") -> path(HP:"Neuronal loss in the cerebral cortex")
 
 SET Evidence = "Hippocampal CA3, CA4 and granule cell layer of
@@ -488,7 +488,7 @@ secondarily modified such as dephosphorylated (Branco-
 Santos et al. 2017) and phosphorylation (DiGiovanni et al.
 2016)which regulates its aggregation, localization and toxicity."
 
-p(HGNC:HTT, pmod(HBP:"CAG repeats"),frag("1_17")) -> tloc(p(HGNC:HTT), pmod(HBP:"CAG repeats"),fromLoc(GO:"cytoplasm"),toLoc(GO:"nucleus"))
+p(HGNC:HTT, pmod(HBP:"CAG repeats"),frag("1_17")) -> tloc(p(HGNC:HTT),fromLoc(GO:"cytoplasm"),toLoc(GO:"nucleus"))
 p(HGNC:HTT, pmod(HBP:"CAG repeats"),pmod(Ph),frag("1_17")) reg a(HBP:"huntingtin aggregates")
 p(HGNC:HTT, pmod(HBP:"CAG repeats"),frag("1_17")) reg a(HBP:"huntingtin aggregates")
 
@@ -534,8 +534,8 @@ amount of autophagosome formation a reduced capacity
 to degrade aggregated proteins and organelles has
 been found in HD models (Martin et al. 2015)."
 
-bp(GO:autophagy) -| a(MESH:"Proteins Aggregates")
-bp(GO:autophagy) -> tloc(a(MESH:"Proteins Aggregates"),fromLoc(GO:"cytoplasm"),toLoc(GO:"lysosome"))
+bp(GO:autophagy) -| a(MESH:"Protein Aggregates")
+bp(GO:autophagy) -> tloc(a(MESH:"Protein Aggregates"),fromLoc(GO:"cytoplasm"),toLoc(GO:"lysosome"))
 path(MESH:"Huntington Disease") -> a(GO:autophagosome)
 path(MESH:"Huntington Disease") -> path(MESH:"Protein Aggregation, Pathological")
 
@@ -554,7 +554,10 @@ which led to inefficient clearance ofmutant htt, suggesting
 that htt may regulate its own clearance."
 
 p(HGNC:HTT) -- bp(GO:autophagy)
-complex(p(HGNC:HTT),p(HGNC:OPTN)) -> bp((GO:"regulation of autophagosome assembly"), loc(GO:"Golgi apparatus"))
+
+SET CellStructure = "Golgi Apparatus"
+complex(p(HGNC:HTT),p(HGNC:OPTN)) -> bp(GO:"regulation of autophagosome assembly")
+UNSET CellStructure
 
 SET MeSHAnatomy = "Neurons"
 bp(GO:"retrograde axonal transport") -> tloc(a(MESH:Autophagosomes),fromLoc(GO:"distal axon"),toLoc(GO:"cell body"))
@@ -721,7 +724,6 @@ or physically obstruct neuronal extensions (Gunawardena
 et al. 2003)."
 
 p(HGNC:HTT, pmod(HBP:"CAG repeats")) -| bp(HBP:Proteostasis)
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> bp(GO:"repressing transcription factor binding")
 
 SET Evidence = "Cerebellar neurons have been
 observed to induce Hsp70 expression upon mutant htt
@@ -754,7 +756,7 @@ path(MESH:"Huntington Disease") -| bp(GO:cognition)
 path(MESH:"Huntington Disease") -> path(HP:"Behavioral abnormality")
 path(MESH:"Huntington Disease") -> path(MESH:Depression)
 path(MESH:"Huntington Disease") -> path(HP:Agitation)
-path(MESH:"Huntington Disease") -| path(GO:"motor activity")
+path(MESH:"Huntington Disease") -| bp(MESH:"Motor Activity")
 
 SET Evidence = "Parkinsonism is frequently
 observed in the rare juvenile form, slowing saccadic movements
