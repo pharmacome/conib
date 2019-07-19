@@ -85,7 +85,7 @@ p(HGNC:LAMP2,loc(GO:"lysosomal membrane")) -> tloc(a(MESH:Proteins),fromLoc(GO:c
 
 SET Evidence = " Furthermore, LAMP2A acts as the rate-limiting step for the activity of the CMA pathway, with rate of the assembly / disassembly of the LAMP2A complex in the lysosomal membrane being paramount for its function (Cuervo and Dice 1996;Bandyopadhyay et al. 2008)."
 
-p(HGNC:LAMP2) -> reg(bp(GO:"chaperone-mediated autophagy"))
+p(HGNC:LAMP2) reg bp(GO:"chaperone-mediated autophagy")
 p(HGNC:LAMP2,loc(GO:cytoplasm)) -| bp(GO:"chaperone-mediated autophagy")
 p(HGNC:LAMP2,loc(GO:"lysosomal membrane")) -> bp(GO:"chaperone-mediated autophagy")
 
@@ -93,15 +93,15 @@ SET Evidence = "In vivo evidence shows that age-related decline in CMA function 
 
 bp(GO:aging) neg p(HGNC:LAMP2)
 bp(GO:aging) -| bp(GO:"chaperone-mediated autophagy")
-bp(MESH:Starvation) -> bp(GO:"chaperone-mediated autophagy")
+path(MESH:Starvation) -> bp(GO:"chaperone-mediated autophagy")
 bp(GO:"cellular response to oxidative stress") -> bp(GO:"chaperone-mediated autophagy")
-deg(bp(GO:macroautophagy)) -> bp(GO:"chaperone-mediated autophagy")
+bp(GO:macroautophagy) neg bp(GO:"chaperone-mediated autophagy")
 
 SET Evidence = " Importantly, CMA dysfunction has been linked to a variety of neurodegenerative conditions, most notably Parkinson’s Disease (PD), as well as to the ageing process, as part of the generalized decline of the activity of the protein degradation systems (Xilouri and Stefanis 2016; Xilouri and Stefanis 2015). "
 
-deg(bp(GO:"chaperone-mediated autophagy")) -> path(MESH:"Neurodegenerative Diseases")
-deg(bp(GO:"chaperone-mediated autophagy")) -> path(DOID:"Parkinson's disease")
-deg(bp(GO:"chaperone-mediated autophagy")) -- bp(GO:aging)
+bp(GO:"chaperone-mediated autophagy")) -- path(MESH:"Neurodegenerative Diseases")
+bp(GO:"chaperone-mediated autophagy")) -- path(DOID:"Parkinson's disease")
+bp(GO:"chaperone-mediated autophagy")) -- bp(GO:aging)
 bp(GO:"chaperone-mediated autophagy") isA bp(GO:"cellular protein catabolic process")
 
 SET Evidence = "a recent in vivo study identified significant changes to large portions of the proteome upon LAMP2A knock-down and consequent CMA dysfunction in the aging liver (Schneider et al. 2014)."
