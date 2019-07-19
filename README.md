@@ -25,9 +25,15 @@ for the Human Brain Pharmacome (HBP) project.
 
 ## Content
 
-- [hbp_knowledge](https://github.com/pharmacome/knowledge/tree/master/hbp_knowledge): This folder contains curated BEL documents. Most have been organized by category (protein of interest, biological process of interest, pathway, etc.). AMost BEL documents correspond to a single publication, but a select few contain content from several due to topic-based curation.
-- [docs](https://github.com/pharmacome/knowledge/tree/master/docs): This folder contains automatically generated HTML summaries of the content that can best be accesed through https://pharmacome.github.io/knowledge.
-- [notebooks](https://github.com/pharmacome/knowledge/tree/master/notebooks): This folder contains various Jupyter notebooks associated with the repository. Since many of them use PyBEL-Jupyter, they may be best viewed using [NBViewer](https://nbviewer.jupyter.org/github/pharmacome/knowledge/tree/master/notebooks/).
+- [hbp_knowledge](https://github.com/pharmacome/knowledge/tree/master/hbp_knowledge): This folder contains curated BEL
+  documents. Most have been organized by category (protein of interest, biological process of interest, pathway, etc.).
+  Almost BEL documents correspond to a single publication, but a select few contain content from several due to
+  topic-based curation.
+- [docs](https://github.com/pharmacome/knowledge/tree/master/docs): This folder contains automatically generated HTML
+  summaries of the content that can best be accesed through https://pharmacome.github.io/knowledge.
+- [notebooks](https://github.com/pharmacome/knowledge/tree/master/notebooks): This folder contains various Jupyter
+  notebooks associated with the repository. Since many of them use PyBEL-Jupyter, they may be best viewed using
+  [NBViewer](https://nbviewer.jupyter.org/github/pharmacome/knowledge/tree/master/notebooks/).
 
 ### Curation Planning
 
@@ -55,14 +61,13 @@ $ pip install git+https://github.com/pharmacome/knowledge.git
 The graph can be loaded with:
 
 ```python
-from hbp_knowledge import get_graphs
-from pybel import union
+import hbp_knowledge
 
-# Get all graphs
-graphs = get_graphs()
+# Get a dictionary of names to graphs
+graphs = hbp_knowledge.get_graphs()
 
-# Combine them all using pybel.union
-graph = union(graphs.values())
+# Get all BEL documents as a single graph
+graph = hbp_knowledge.get_graph()
 ```
 
 ## Contributing

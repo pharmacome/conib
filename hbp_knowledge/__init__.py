@@ -17,7 +17,7 @@ __all__ = [
 ]
 
 HERE = os.path.dirname(__file__)
-VERSION = '0.0.5-dev'
+VERSION = '0.0.5'
 
 # Author list will be sorted by last name
 AUTHORS = [
@@ -28,6 +28,8 @@ AUTHORS = [
     'Rana Al Disi',
     'Lingling Xu',
     'Kristian Kolpeja',
+    'Yojana Gadiya',
+    'Trusha Adeshara',
 ]
 
 # All metadata is grouped here
