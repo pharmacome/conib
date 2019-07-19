@@ -114,7 +114,7 @@ path(HBP:aMCI) -- path(MESH:"Alzheimer Disease")
 
 SET Disease="Alzheimer's disease"
 # D060825 = Cognitive Dysfunction, D062706 = Prodormal Symptoms
-path(MESH:"Cognitive Dysfunction") -- path(MESH:"Prodormal Symptoms")
+path(MESH:"Cognitive Dysfunction") -- path(MESH:"Prodromal Symptoms")
 
 UNSET Disease
 UNSET Confidence
@@ -216,7 +216,7 @@ cognitive dysfunction observed in AD [17]"
 SET Confidence = "High"
 SET MeSHAnatomy="Cholinergic Neurons"
 
-bp(HBP:Neurodegeneration) -- path(MESH:"Cognitive Dysfunction")
+path(HBP:Neurodegeneration) -- path(MESH:"Cognitive Dysfunction")
 
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -283,7 +283,7 @@ SET Confidence = "High"
 SET MeSHDisease="Cognitive Dysfunction"
 SET MeSHAnatomy={"Hippocampus","Frontal Lobe"}
 
-act(p(HGNC:CHAT)) -| bp(HBP:Neurodegeneration)
+act(p(HGNC:CHAT)) -| path(HBP:Neurodegeneration)
 #Synapses
 path(MESH:"Cognitive Dysfunction") -| a(MESH:"Synapses")
 path(MESH:"Cognitive Dysfunction") -> act(p(HGNC:CHAT))
@@ -482,7 +482,7 @@ act(p(HGNC:BACE1)) -> a(CHEBI:"amyloid-beta")
 p(HGNC:NTRK1) -| act(p(HGNC:BACE1))
 p(HGNC:NGFR) -> act(p(HGNC:BACE1))
 #D000375 = Aging
-bp(GO:"Aging") -> p(HGNC:NGFR)
+bp(GO:"aging") -> p(HGNC:NGFR)
 p(HGNC:NGFR) -> a(CHEBI:"amyloid-beta")
 
 UNSET Disease
@@ -670,7 +670,7 @@ p(HGNC:NTRK1, pmod(Ph)) -> bp(GO:"MAPK cascade")
 
 SET CellLine="PC12"
 
-a(MESH:"gambogic amide") -| bp(HBP:Excitotoxicity)
+a(MESH:"gambogic amide") -| path(HBP:Excitotoxicity)
 a(MESH:"gambogic amide") -> bp(GO:"neuron projection development")
 
 UNSET CellLine
@@ -738,7 +738,7 @@ UNSET MeSHAnatomy
 
 SET MeSHAnatomy="Cholinergic Neurons"
 
-r(HGNC:CHRNA7) reg act(path(MESH:"Cholinergic Neurons"))
+r(HGNC:CHRNA7) reg act(a(MESH:"Cholinergic Neurons"))
 
 UNSET MeSHAnatomy
 UNSET Disease
@@ -778,7 +778,7 @@ p(HGNC:CHRM1) -- path(MESH:"Cognitive Dysfunction")
 #D024801 = Taupathies
 p(HGNC:CHRM1) -- path(MESH:Tauopathies)
 #D000686 = Amyloidosis
-p(HGNC:CHRM1) -- path(MESH:D000686)
+p(HGNC:CHRM1) -- path(MESH:Amyloidosis)
 
 UNSET Disease
 UNSET Confidence
@@ -852,8 +852,8 @@ SET Disease="Alzheimer's disease"
 path(MESH:"Alzheimer Disease") -| r(HGNC:PPP1CA)
 path(MESH:"Alzheimer Disease") -| r(HGNC:PPP1CC)
 p(HGNCGENEFAMILY:"Protein phosphatase catalytic subunits") -> p(HGNC:MAPT, pmod(Ph))
-act(p(HGNCGENEFAMILY:"Protein phosphatase catalytic subunits")) -| bp(HBP:hyperphosphorylation)
-bp(HBP:hyperphosphorylation) -- a(MESH:"Neurofibrillary Tangles")
+act(p(HGNCGENEFAMILY:"Protein phosphatase catalytic subunits")) -| p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -- a(MESH:"Neurofibrillary Tangles")
 
 UNSET Disease
 UNSET MeSHAnatomy
@@ -900,8 +900,8 @@ neurons to NFT formation (Figure 1B) [143–145]. "
 SET Confidence = "High"
 SET Disease="Alzheimer's disease"
 
-path(MESH:"Alzheimer Disease") -| a(HBP:"3R tau")
-path(MESH:"Cognitive Dysfunction") -| a(HBP:"3R tau")
+path(MESH:"Alzheimer Disease") -| p(HBP:"3R tau")
+path(MESH:"Cognitive Dysfunction") -| p(HBP:"3R tau")
 
 UNSET Disease
 UNSET Confidence
@@ -931,7 +931,7 @@ SET Disease="Alzheimer's disease"
 SET MeSHAnatomy={"Basal Forebrain", "Cholinergic Neurons"}
 #GO:0060384 = innervation
 act(p(HGNC:GAL)) -> bp(GO:"innervation")
-act(p(HGNC:GAL)) reg act(path(MESH:"Cholinergic Neurons"))
+act(p(HGNC:GAL)) reg act(a(MESH:"Cholinergic Neurons"))
 act(p(HGNC:GAL)) -| a(CHEBI:"amyloid-beta")
 act(p(HGNC:GAL)) -> r(HGNC:CHAT)
 
@@ -952,8 +952,8 @@ SET Confidence = "High"
 SET Disease="Alzheimer's disease"
 SET MeSHAnatomy="Cholinergic Neurons"
 
-a(HBP:"Tau C3") biomarkerFor a(MESH:"Cholinergic Neurons")
-act(p(HGNC:GAL)) causesNoChange a(HBP:"Tau MN423")
+p(HBP:"Tau C3") biomarkerFor a(MESH:"Cholinergic Neurons")
+act(p(HGNC:GAL)) causesNoChange p(HBP:"Tau MN423")
 act(p(HGNC:GAL)) -> r(HGNC:PPP1CA)
 act(p(HGNC:GAL)) -> r(HGNC:PPP1CC)
 
@@ -1019,7 +1019,7 @@ a(MESH:"Cholinesterase Inhibitors") -- path(MESH:"Sleep Initiation and Maintenan
 #D003967 = Diarrhea
 a(MESH:"Cholinesterase Inhibitors") -- path(MESH:Diarrhea)
 #D009325 = nausea
-a(MESH:"Cholinesterase Inhibitors") -- path(MESH:nausea)
+a(MESH:"Cholinesterase Inhibitors") -- path(MESH:Nausea)
 #D005221= Fatigue
 a(MESH:"Cholinesterase Inhibitors") -- path(MESH:Fatigue)
 #D000855 = Anorexia
