@@ -1,0 +1,813 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Molecular Mechanisms of TDP-43 Misfolding and Pathology in Amyotrophic Lateral Sclerosis."
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Yojana Gadiya"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+# DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+# DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+# DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+# DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
+ DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+ DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+# DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
+ DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
+ DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+ DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mesh-names.belns"
+# DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
+# DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
+# DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+# DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
+# DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+ DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+ DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+ DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+ DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+ DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+ DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+ DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+ DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+ DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+ DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+ DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+ DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+ DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+ DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "30837838"}
+
+SET Evidence = "TAR DNA binding protein-43 (TDP-43) was identified in 1995 as a repressor protein associated with HIV-1 transcription, which binds to the trans-active response element DNA sequence of the viral genome and is critical for the regulation of the viral gene expression (Ou et al., 1995)."
+p(HGNC:"TARDBP") -- path(MESH:"HIV-1")
+p(HGNC:"TARDBP") reg path(MESH:"Gene Expression Regulation, Viral")
+
+SET Evidence = "In 2001, TDP-43 was also reported to be involved in RNA splicing of cystic fibrosis transmembrane conductance regulator (CFTR) exons (Buratti and Baralle, 2001)."
+act(p(HGNC:"TARDBP"), ma(MESH:"RNA Splicing")) -- p(HGNC:"CFTR")
+
+SET Evidence = "TDP- 43 has since then been also shown to regulate mRNAs involved in the development of neurons and embryos (Polymenidou et al., 2011; Sephton et al., 2011; Tollervey et al., 2011)."
+p(HGNC:"TARDBP") -- path(MESH:"Embryonic Development")
+p(HGNC:"TARDBP") -- bp(GO:"neuron development")
+
+SET Evidence = "In 2006, TDP-43 was identified as a key component of the insoluble and ubiquitinated inclusions in the brains of patients suffering from amyotrophic lateral sclerosis (ALS) and frontotemporal lobar degeneration (FTLD or FTLD-TDP) diseases (Arai et al., 2006; Neumann et al., 2006)."
+SET MeSHAnatomy = "Brain"
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:"TARDBP", pmod("Ub"))
+path(MESH:"Frontotemporal Lobar Degeneration") -- p(HGNC:"TARDBP", pmod("Ub"))
+UNSET MeSHAnatomy
+
+SET Evidence = "Other diseases
+involving TDP-43 pathological developments are primary lateral
+sclerosis and progressive muscular atrophy, and together these
+four diseases are known as TDP-proteinopathies (Figure 1)
+(Dugger and Dickson, 2017)."
+#Muscular Atrophy, Spinal : progressive muscular atrophy
+path(MESH:"Motor Neuron Disease") -- p(HGNC:"TARDBP")
+path(MESH:"Muscular Atrophy, Spinal") -- p(HGNC:"TARDBP")
+
+SET Evidence = "In addition to the TDP-43 encoding TARDBP gene,mutations
+in several other genes have also been linked with ALS such
+as: SOD1 (Superoxide dismutase 1) (Rosen, 1993; Kunst et al.,
+1997), FUS (Fused in sarcoma) (Kwiatkowski et al., 2009; Vance
+et al., 2009), C9ORF72 (Hexanucleotide repeat expansion in
+C9ORF72) (Dejesus-Hernandez et al., 2011; Renton et al., 2011),
+ATXN2 (Ataxin-2) (Elden et al., 2010; Ross et al., 2011), OPTN
+(Optineurin) (Maruyama et al., 2010), VCP (Valosin-containing
+protein) (Johnson et al., 2010; Koppers et al., 2012), PFN1
+(Profilin 1) (Wu et al., 2012; Tanaka et al., 2016), UBQLN2 and
+UBQLN4 (Ubiquilin 2 and Ubiquilin 4) (Deng et al., 2011; Edens
+et al., 2017), NEK1 (NIMA-like kinase 1) (Brenner et al., 2016),
+MATR3 (Matrin 3) (Johnson et al., 2014b), CHCHD10 (Coiledcoil-
+helix-coiled-coil-helix domain containing 10) (Woo et al.,
+2017), SETX (Senataxin) (Hirano et al., 2011), TBK1 (TANKbinding
+kinase 1) (Oakes et al., 2017), and KIF5A (Kinesin heavy
+chain isoform 5A) (Nicolas et al., 2018) etc."
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:"SOD1")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:"FUS")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:"C9orf72")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:"ATXN2")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:"OPTN")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:"VCP")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:"PFN1")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:"UBQLN2")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:"UBQLN4")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:"NEK1")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:"MATR3")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:"CHCHD10")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:"SETX")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:"TBK1")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:"KIF5A")
+
+SET Evidence = "TDP-43 inclusions in FTLD-TDP are also hyper-phosphorylated,
+ubiquitinated and N-terminally truncated as observed in ALS
+(Neumann et al., 2007a; Hasegawa et al., 2008; Igaz et al., 2008)."
+#N-terminally truncated : aa 1-102
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", pmod(Ub))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", pmod(Ph))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", frag("1","102"))
+path(MESH:"Frontotemporal Lobar Degeneration") -> p(HGNC:"TARDBP", pmod(Ub))
+path(MESH:"Frontotemporal Lobar Degeneration") -> p(HGNC:"TARDBP", pmod(Ph))
+path(MESH:"Frontotemporal Lobar Degeneration") -> p(HGNC:"TARDBP", frag("1","102"))
+
+SET Evidence = "Also, mutations in the TARDBP gene can lead to ALS as well as
+the FTLD-TDP disease."
+p(HGNC:"TARDBP", var("?")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:"TARDBP", var("?")) -> path(MESH:"Frontotemporal Lobar Degeneration")
+
+SET Evidence = "In ALS, there is an increase in the cytoplasmic TDP-
+43 concentration leading to cytoplasmic inclusion formation
+(Neumann et al., 2006; Winton et al., 2008a)."
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+p(HGNC:"TARDBP", loc(MESH:"Cytoplasm")) -> path(MESH:"Inclusion Bodies")
+UNSET MeSHDisease
+
+SET Evidence = "TDP-43’s dimerization apparently occurs through
+interactions of the N-terminal residues and while several reports
+suggest that TDP-43 N-terminal domain’s (NTD) dimerization
+is necessary for its physiological functions like RNA splicing."
+#head - to -head N-terminal interactions
+complex(p(HGNC:"TARDBP", frag("1","102")),p(HGNC:"TARDBP", frag("1","102"))) -> path(MESH:"RNA Splicing")
+
+SET Evidence = "Others have also argued that the NTD’s dimerization may, in
+fact, be involved in its aggregation (Shiina et al., 2010; Zhang
+Y. J. et al., 2013; Afroz et al., 2017)."
+complex(p(HGNC:"TARDBP", frag("1","102")),p(HGNC:"TARDBP", frag("1","102"))) -- path(MESH:"Protein Aggregation, Pathological")
+
+SET Evidence = "Indeed, the dimeric TDP-43 NTD has been shown
+to enhance its pre-mRNA splicing activity, improve solubility
+and protect against the formation of the cytoplasmic TDP-
+43 inclusions (Jiang et al., 2017)."
+complex(p(HGNC:"TARDBP", frag("1","102")),p(HGNC:"TARDBP", frag("1","102"))) -> path(MESH:"RNA Splicing")
+complex(p(HGNC:"TARDBP", frag("1","102")),p(HGNC:"TARDBP", frag("1","102"))) -> path(MESH:"Solubility")
+complex(p(HGNC:"TARDBP", frag("1","102")),p(HGNC:"TARDBP", frag("1","102"))) -| path(MESH:"Inclusion Bodies")
+
+SET Evidence = "Deletion
+or mutation in the nuclear localization signal (NLS) sequence
+in the NTD induces cytoplasmic relocalization and aggregation
+of TDP-43 (Winton et al., 2008a; Barmada et al., 2010)."
+#NLS : aa 82 - 98
+p(HGNC:"TARDBP", frag("82","98"), var("?")) -> p(HGNC:"TARDBP", frag("1","102"), loc(MESH:"Cytoplasm"))
+p(HGNC:"TARDBP", frag("82","98"), var("?")) ->p(HBP:"TDP-43 aggregates")
+
+SET Evidence = "In
+fact, the ALS-associated A90V mutation present in the nuclear
+localization signal (NLS) can sequester the endogenous TDP-43
+into insoluble cytoplasmic aggregates (Winton et al., 2008b)."
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+p(HGNC:"TARDBP", frag("82","98"), var("p.Ala90Val")) -> p(HGNC:"TARDBP". pmod("Protein Aggregates"),loc(MESH:"Cytoplasm"))
+UNSET MeSHDisease
+
+SET Evidence = "These proteins are involved in several RNA
+metabolic processes like mRNA processing, RNA export and
+RNA stability."
+#These proteins - RNA binding proteins
+p(MESH:"RNA-Binding Proteins") -- path(MESH:"RNA Stability")
+p(MESH:"RNA-Binding Proteins") -- bp(GO:"mRNA processing")
+p(MESH:"RNA-Binding Proteins") -- path(MESH:"RNA Transport")
+
+SET Evidence = "Several mutations in the RRMs are shown to disrupt
+the RNA binding capability while not significantly interfering
+with the RNA recognition (Lukavsky et al., 2013)."
+#RRM1 (aa 104–176) and RRM2 (aa 192–262)
+p(HGNC:"TARDBP", frag("104","176"), var("?")) -| bp(GO:"RNA binding")
+p(HGNC:"TARDBP", frag("192","262"), var("?")) -| bp(GO:"RNA binding")
+p(HGNC:"TARDBP", frag("104","176"), var("?")) cnc path(MESH:"RNA Recognition Motif")
+p(HGNC:"TARDBP", frag("192","262"), var("?")) cnc path(MESH:"RNA Recognition Motif")
+
+SET Evidence = "Notably,
+two ALS-linked missense mutations have also been identified
+in this region: the P112H and the caspase cleavage susceptible,
+D169G (Buratti, 2015; Moreno et al., 2015; Chiang et al., 2016)."
+p(HGNC:"TARDBP", frag("104","176"), var("p.Pro112His")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:"TARDBP", frag("192","262"), var("p.Asp169Gly")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+
+SET Evidence = "Proposedly, the RRM2 domain may also contribute to the
+dimerization of the TDP-43 protein (Kuo et al., 2009)."
+p(HGNC:"TARDBP", frag("192","262")) -> complex(p(HGNC:"TARDBP", frag("1","102")),p(HGNC:"TARDBP", frag("1","102")))
+
+SET Evidence = "Binding to
+single-stranded DNA (ssDNA) or single-stranded RNA (ssRNA),
+and not to double-stranded DNA (dsDNA), has been shown to
+enhance the TDP-43’s solubility and expectedly also prevent its
+aggregation (Huang et al., 2013; Sun and Chakrabartty, 2017)."
+composite(p(HGNC:"TARDBP", frag("192","262")), p(MESH:"DNA, Single-Stranded")) -> path(MESH:"Solubility")
+composite(p(HGNC:"TARDBP", frag("192","262")), p(MESH:"DNA, Single-Stranded")) -|p(HBP:"TDP-43 aggregates")
+
+SET Evidence = "Importantly, TDP-43 actively binds to the 3′ untranslated regions
+(UTRs) of several thousand mRNA transcripts, and even to
+its own mRNA as an autoregulation mechanism to control
+its own cellular concentration and possibly also its solubility
+(Ayala et al., 2011)."
+composite(p(HGNC:"TARDBP", frag("192","262")),p(MESH:"3' Untranslated Regions")) reg  path(MESH:"Solubility")
+composite(p(HGNC:"TARDBP", frag("192","262")),p(MESH:"3' Untranslated Regions")) reg path(MESH:"Homeostasis")
+
+SET Evidence = "Thirdly, certain C-terminal fragments of sizes ∼25–35 kDa
+produced from TDP-43 through aberrant activity of caspases,
+are highly cytotoxic and are the prominent species found in
+the inclusion bodies identified from the ALS-affected brains
+(Zhang et al., 2007, 2009)."
+#C-terminal domain - aa 274-414
+p(HGNC:"TARDBP", frag("274","414")) -- path(MESH:"Cytotoxins")
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+SET MeSHAnatomy = "Brain"
+p(HGNC:"TARDBP", frag("274","414")) -- path(MESH:"Inclusion Bodies")
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+
+SET Evidence = "TDP-43 has versatile functions and it is involved in several
+steps of RNA metabolism such as: transcription, translation,
+mRNA transport, mRNA stabilization, microRNA (miRNA) and
+long non-coding RNA (lncRNA) processing etc. (Ling et al.,
+2013; Coyne et al., 2017) (Figure 3)."
+#Protein Biosynthesis : translation
+#Active Transport, Cell Nucleus : Nucleo-cytoplasmic shuttling
+p(HGNC:"TARDBP") -- path(MESH:"RNA Stability")
+p(HGNC:"TARDBP") -- path(MESH:"Transcription, Genetic")
+p(HGNC:"TARDBP") -- path(MESH:"Protein Biosynthesis")
+p(HGNC:"TARDBP") -- bp(GO:"primary miRNA processing")
+p(HGNC:"TARDBP") -- path(MESH:"RNA, Long Noncoding")
+p(HGNC:"TARDBP") -- path(MESH:"RNA Transport")
+p(HGNC:"TARDBP") -- path(MESH:"Active Transport, Cell Nucleus")
+p(HGNC:"TARDBP") -- a(GO:"cytoplasmic stress granule")
+
+###Question - TDP-43 and TARDBP
+SET Evidence = "It regulates the splicing patterns of transcripts of
+several important genes, such as Cystic fibrosis transmembrane
+conductance regulator (CFTR), TARDBP, FUS, SNCA (a-
+synuclein), HTT (Huntingtin), and APP (Amyloid precursor
+protein) etc."
+#It - TDP-43
+p(HGNC:"TARDBP") reg p(HGNC:"CFTR")
+p(HGNC:"TARDBP") reg p(HGNC:"FUS")
+p(HGNC:"TARDBP") reg p(HGNC:"SNCA")
+p(HGNC:"TARDBP") reg p(HGNC:"HTT")
+p(HGNC:"TARDBP") reg p(HGNC:"APP")
+
+SET Evidence = "In fact, nuclear depletion of TDP-43 results in
+mRNA splicing aberrations (Arnold et al., 2013; Highley et al.,
+2014; Yang et al., 2014)."
+p(HGNC:"TARDBP") reg path(MESH:"RNA Splicing")
+
+SET Evidence = "Indeed, imbalances caused by
+the overexpression of TDP-43 are detrimental to the neuronal
+cells (Cannon et al., 2012; Heyburn and Moussa, 2016; Lu
+et al., 2016)."
+p(HGNC:"TARDBP") neg p(MESH:"Neurons")
+
+SET Evidence = "Two ALS-associated
+mutations in TDP-43, Q331K, and M337V, have also been shown
+to alter mRNA splicing processes in a transgenic mice model
+(Polymenidou et al., 2011, 2012; Lagier-Tourenne et al., 2012;
+Arnold et al., 2013)."
+SET Species = "10090"
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+p(HGNC:"TARDBP", var("p.Gln133Arg")) -- path(MESH:"RNA Splicing")
+p(HGNC:"TARDBP", var("p.Met337Val")) -- path(MESH:"RNA Splicing")
+UNSET MeSHDisease
+UNSET Species
+
+SET Evidence = "TDP-43 associates with the RNA molecules to produce
+ribonucleoprotein (RNP) granules which transport mRNA to
+distant locations."
+complex(p(HGNC:"TARDBP"), p(MESH:"RNA")) -> p(MESH:"Ribonucleoproteins")
+p(MESH:"Ribonucleoproteins") -> path(MESH:"RNA Transport")
+
+SET Evidence = "In fact, ALS-associated TDP-43 mutants were found to impair the
+transportation of the RNP granules (Wang et al., 2008; Alami
+et al., 2014)."
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+p(HGNC:"TARDBP", var("?")) -| path(MESH:"RNA Transport")
+UNSET MeSHDisease
+
+SET Evidence = "Several of these interactions were unperturbed by the ALS-linked
+mutations, A315T and M337V (Freibaum et al., 2010; Kim et al.,
+2010)."
+#These interaction : RNA splicing and translation
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+p(HGNC:"TARDBP", var("p.Ala315Thr")) cnc path(MESH:"RNA Splicing")
+p(HGNC:"TARDBP", var("p.Ala315Thr")) cnc path(MESH:"Translations")
+p(HGNC:"TARDBP", var("p.Met337Val")) cnc path(MESH:"RNA Splicing")
+p(HGNC:"TARDBP", var("p.Met337Val")) cnc path(MESH:"Translations")
+UNSET MeSHDisease
+
+SET Evidence = "Recent studies in Drosophila, have reported that TDP-43
+regulates localization and translation of the Futsch (ortholog of
+Map1b) mRNA at the neuromuscular junctions (Coyne et al.,
+2014)."
+#5740544 : Futsch
+SET Species = "7215"
+SET CellStructure = "Neuromuscular Junction"
+p(HGNC:"TARDBP") reg p(NCBIGENE:"5740544")
+UNSET CellStructure
+UNSET Species
+
+SET Evidence = "In one study, an increase in cytoplasmic TDP-43 caused
+repression of the global protein synthesis in the neuroblastoma
+cells, which could be rescued by the over-expression of RACK1
+(Russo et al., 2017)."
+#TDP-43 and RACK1 form complex
+SET MeSHDisease = "Neuroblastoma"
+p(HGNC:"TARDBP") -| path(MESH:"Protein Biosynthesis")
+complex(p(HGNC:"TARDBP"), p(HGNC:"RACK1")) -> path(MESH:"Protein Biosynthesis")
+UNSET MeSHDisease
+
+SET Evidence = "In fact, TDP-43 is involved in
+both assembly and maintenance of SGs, and it also regulates the
+expression of key SG nucleating proteins, rasGAP SH3 domain
+binding protein 1 (G3BP) and T cell-restricted intracellular
+antigen-1 (TIA-1) (McDonald et al., 2011)."
+p(HGNC:"TARDBP") reg a(GO:"cytoplasmic stress granule")
+p(HGNC:"TARDBP") reg p(HGNC:"G3BP1")
+p(HGNC:"TARDBP") reg p(HGNC:"TIA1")
+
+###How to code?
+SET Evidence = "Under sorbitol-induced
+osmotic stress, the G348C mutant TDP-43 was found to be
+localized into progressively larger stress granules (Dewey et al.,
+2011)."
+
+SET Evidence = "On the contrary, the R361S mutant of TDP-43 was shown
+to disrupt the stress granule assembly (McDonald et al., 2011)."
+p(HGNC:"TARDBP", var("p.Arg361Ser")) -| a(GO:"cytoplasmic stress granule")
+
+SET Evidence = "TDP-43 also promotes biogenesis and processing of the noncoding
+RNAs, such as microRNA (miRNA) (Kawahara and
+Mieda-Sato, 2012)."
+p(HGNC:"TARDBP") -> p(MESH:"MicroRNAs")
+
+SET Evidence = "TDP-
+43 associates with the nuclear Drosha complex and binds
+directly to the primary miRNAs to facilitate the production
+of a subset of precursor miRNAs (pre-miRNAs) (Kawahara
+and Mieda-Sato, 2012)."
+complex(p(HGNC:"TARDBP"), p(HGNC:"DROSHA"), p(MESH:"MicroRNAs")) -> p(GO:"pre-miRNA processing")
+
+SET Evidence = "In human embryonic kidney 293 cells (HEK293), it is found that the cytoplasmic TDP-43
+interacts with the Dicer complex and promotes pre-miRNA
+processing (Kawahara and Mieda-Sato, 2012). "
+SET CellLine = "HEK293"
+complex(p(HGNC:"TARDBP"), p(HGNC:"DICER1")) -> p(GO:"pre-miRNA processing")
+UNSET CellLine
+
+SET Evidence = "Interestingly, NEAT1 and
+MALAT1 are also found at elevated levels in FTLD-TDP
+(Tollervey et al., 2011)."
+SET MeSHDisease = "Frontotemporal Lobar Degeneration"
+p(HGNC:"TARDBP") -> p(HGNC:"NEAT1")
+p(HGNC:"TARDBP") -> p(HGNC:"MALAT1")
+UNSET MeSHDisease
+
+###Proteinpathoies?
+###Localization?
+SET Evidence = "The pathological hallmarks of TDP-43 proteinopathies
+include nucleus to cytoplasmic mislocalization, deposition
+of ubiquitinated and hyper-phosphorylated TDP-43 into
+inclusion bodies, protein truncation leading to formation of
+toxic C-terminal TDP-43 fragments, and protein aggregation."
+p(HGNC:"TARDBP") -| p(HGNC:"TARDBP", pmod("Ph"), loc(GO:"inclusion body"))
+p(HGNC:"TARDBP") -| p(HGNC:"TARDBP", pmod("Ub"), loc(GO:"inclusion body"))
+p(HGNC:"TARDBP") -| path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP") -| path(MESH:"Peptide Fragments")
+
+SET Evidence = "The effects of these mutations on
+the TDP-43 protein include: increased propensity to aggregate,
+enhanced cytoplasmic mislocalization, altered protein stability,
+resistance to proteases or modified binding interactions with
+other proteins etc."
+#These mutations : Related to ALS and FTLD
+SET MeSHDisease = {"Frontotemporal Lobar Degeneration", "Amyotrophic Lateral Sclerosis"}
+p(HGNC:"TARDBP", var("?")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("?")) neg bp(GO:"regulation of cytoplasmic transport")
+p(HGNC:"TARDBP", var("?")) -| path(MESH:"Protein Stability")
+p(HGNC:"TARDBP", var("?")) -| path(MESH:"Proteolysis")
+p(HGNC:"TARDBP", var("?")) -| path(MESH:"Protein Binding")
+UNSET MeSHDisease
+
+SET Evidence = "Most of the ALS associated
+mutations appear in the exon 6 of the TARDBP gene which encodes for the C-terminal glycine-rich region of
+TDP-43."
+#Gly rich domain - 366-414aa
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", frag("336","414"))
+
+SET Evidence = "The most commonly occurring missense mutations
+are A382T and M337V and some of the most well-studied
+mutations are A315T, Q331K, M337V, D169G, G294A/V, and
+Q343R etc., for which several ALS-disease models have also
+been established (Buratti, 2015)."
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Ala382Thr"))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Met337Val"))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Ala315Thr"))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Gln331Lys"))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Met337Val"))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Asp169Gly"))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Gly294Ala"))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Gly294Val"))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Gln343Arg"))
+
+
+###fALS and sporadic ALS
+SET Evidence = "DP-43 mutations including
+A90V and N267S are observed in both cases of sporadic
+ALS as well as FTLD whereas R361T was reported in a patient case of fALS and FTLD."
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Ala90Val"))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Asn267Ser"))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Arg361Thr"))
+path(MESH:"Frontotemporal Lobar Degeneration") -> p(HGNC:"TARDBP", var("p.Ala90Val"))
+path(MESH:"Frontotemporal Lobar Degeneration") -> p(HGNC:"TARDBP", var("p.Asn267Ser"))
+path(MESH:"Frontotemporal Lobar Degeneration") -> p(HGNC:"TARDBP", var("p.Arg361Thr"))
+
+SET Evidence = "Mutations, such as G294V,
+G348C, A328T, and S393L are found in both the sporadic as
+well as familial cases of ALS."
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Gly348Cys"))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Ala328Thr"))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Ser393Leu"))
+
+SET Evidence = "Interestingly, TDP-43 mutation
+G295S encompasses various pathological conditions including
+sALS, fALS, and FTLD (Baumer et al., 2009; Xiong et al.,
+2010; Fujita et al., 2011; Janssens et al., 2011; Budini et al.,
+2012; Chiang et al., 2012; Cruts et al., 2012; Lattante et al.,
+2013; Moreno et al., 2015)."
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Gly295Ser"))
+path(MESH:"Frontotemporal Lobar Degeneration") -> p(HGNC:"TARDBP", var("p.Gly295Ser"))
+
+SET Evidence = "Of interest, a fALS associated
+phosphorylation-prone TDP-43 mutant, which contains G298S
+mutation in the mitochondrial localizing internal motif M5,
+was found to have increased import into the mitochondria
+(Wang et al., 2016)."
+SET MeSHDisease = "Frontotemporal Lobar Degeneration"
+p(HGNC:"TARDBP", var("p.Gly295Ser"), loc(GO:"mitochondrion")) -> bp(GO:"protein import into mitochondrial matrix")
+UNSET MeSHDisease
+
+SET Evidence = "Mutations in the TDP-43’s C-terminal region enhance
+its intrinsic aggregation propensity (Johnson et al., 2009)."
+#C-terminal - 274-414aa
+p(HGNC:"TARDBP", frag("274", "414")) -> path(MESH:"Protein Aggregation, Pathological")
+
+SET Evidence = "Recombinantly expressed TDP-43 protein harboring the ALSlinked
+mutations, such as Q331K, M337V, Q343R, N345K,
+R361S, and N390D, were found to have increased aggregation
+in vitro and also promoted cytotoxicity in the yeast cells
+(Johnson et al., 2009)."
+SET Species = "4932"
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+p(HGNC:"TARDBP", var("p.Gln331Lys")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("p.Gln331Lys")) -> path(MESH:"Cytotoxicity, Immunologic")
+p(HGNC:"TARDBP", var("p.Met337Val")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("p.Met337Val")) -> path(MESH:"Cytotoxicity, Immunologic")
+p(HGNC:"TARDBP", var("p.Arg361Ser")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("p.Arg361Ser")) -> path(MESH:"Cytotoxicity, Immunologic")
+p(HGNC:"TARDBP", var("p.Gln343Arg")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("p.Gln343Arg")) -> path(MESH:"Cytotoxicity, Immunologic")
+p(HGNC:"TARDBP", var("p.Asn345Lys")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("p.Asn345Lys")) -> path(MESH:"Cytotoxicity, Immunologic")
+p(HGNC:"TARDBP", var("p.Asn390Asp")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("p.Asn390Asp")) -> path(MESH:"Cytotoxicity, Immunologic")
+UNSET MeSHDisease
+UNSET Species
+
+SET Evidence = "Peptides from the TDP-43’s putative
+amyloidogenic core region (aa 286–366) containing the ALS associated mutations
+were also found to efficiently form amyloid like
+fibrils (Chen et al., 2010; Guo et al., 2011; Sun et al.,
+2011; Zhu et al., 2014) (Table 2)."
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+p(HGNC:"TARDBP", frag("286", "366"), var("?")) -> path(MESH:"Amyloid")
+UNSET MeSHDisease
+
+SET Evidence = "Interestingly, Zhu et al.
+have reported that an aggregated TDP-43 peptide with the
+A315E mutation is capable even of cross-seeding the aggregation
+of the amyloid-b 1–40 peptide (Zhu et al., 2014)."
+p(HGNC:"TARDBP", var("p.Ala315Glu"), loc(HBP:"TDP-43 aggregates")) -> p(HGNC:"APP", frag("1", "40"), loc(HBP:"amyloid-beta aggregates"))
+
+SET Evidence = "Also,
+Guo et al. have shown that TDP-43 A315T forms amyloid
+fibrils in vitro and causes neuronal death when added to the
+cultured neuronal cells (Guo et al., 2011)."
+p(HGNC:"TARDBP", var("p.Ala315Thr")) -> path(MESH:"Amyloid")
+p(HGNC:"TARDBP", var("p.Ala315Thr")) -> bp(GO:"neuron death")
+
+SET Evidence = "Certain mutations
+in TDP-43 like G294V, A315T, M337V, A382T, and G376D,
+are also found to enhance the cytoplasmic mislocalization
+of TDP-43 (Barmada et al., 2010; Mutihac et al., 2015;
+Mitsuzawa et al., 2018)."
+p(HGNC:"TARDBP", var("p.Gly294Val")) neg bp(GO:"regulation of cytoplasmic transport")
+p(HGNC:"TARDBP", var("p.Ala315Thr")) neg bp(GO:"regulation of cytoplasmic transport")
+p(HGNC:"TARDBP", var("p.Met337Val")) neg bp(GO:"regulation of cytoplasmic transport")
+p(HGNC:"TARDBP", var("Ala382Thr")) neg bp(GO:"regulation of cytoplasmic transport")
+p(HGNC:"TARDBP", var("Gly376Asp")) neg bp(GO:"regulation of cytoplasmic transport")
+
+
+###Granule erminology NAMESPACE??
+SET Evidence = "Additionally, the aggregation-enhancing A315T and Q343R
+mutations have been shown to increase TDP-43-containing RNA
+granule’s average sizes, decrease their distribution density and
+also hamper their mobility in the neuronal cells (Liu-Yesucevitz
+et al., 2014)."
+p(HGNC:"TARDBP", var("p.Ala315Thr")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("p.Gln343Arg")) -> path(MESH:"Protein Aggregation, Pathological")
+
+SET Evidence = "The mutations, D169G, G294A, Q343R, N390D,
+Q331K, and M337V, were found to enhance the formation of
+TDP-43-positive inclusion bodies in the neuronal cell line, SHSY5Y
+(Nonaka et al., 2009a)."
+#CellLine : SHSY5Y
+p(HGNC:"TARDBP", var("p.Asp169Gly")) -> path(MESH:"Inclusion Bodies")
+p(HGNC:"TARDBP", var("p.Gly294Ala")) -> path(MESH:"Inclusion Bodies")
+p(HGNC:"TARDBP", var("p.Gln343Arg")) -> path(MESH:"Inclusion Bodies")
+p(HGNC:"TARDBP", var("p.Asn390Asp")) -> path(MESH:"Inclusion Bodies")
+p(HGNC:"TARDBP", var("p.Gln331Lys")) -> path(MESH:"Inclusion Bodies")
+p(HGNC:"TARDBP", var("p.Met337Val")) -> path(MESH:"Inclusion Bodies")
+
+SET Evidence = "In one
+study, the ALS-linked TDP-43 with the mutations G298S,
+Q331K, and M337V, showed longer half-life and higher
+stability than the wild-type TDP-43 (half-life: ∼24–48 h vs.
+12 h for the wild-type TDP-43) in an isogenic cell line (Ling
+et al., 2010)."
+#isogenic cell line
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+p(HGNC:"TARDBP", var("p.Gln331Lys")) -> path(MESH:"Protein Stability")
+p(HGNC:"TARDBP", var("p.Gly298Ser")) -> path(MESH:"Protein Stability")
+p(HGNC:"TARDBP", var("p.Met337Val")) -> path(MESH:"Protein Stability")
+UNSET MeSHDisease
+
+SET Evidence = "Further evidence from the works of Watanabe
+et al. (2013) and Austin et al. (2014), has shown that the
+accelerated disease onset in the familial ALS patients is related
+to the TDP-43 mutations (such as: A315T, Q343R, N352S,
+M337V, G298S, G348C, A382T, D169G, and K263E) possibly
+via increase in the protein half-lives and the aggregation
+propensities, which may further influence their own mRNA’s
+processing and cause misregulation of the TDP-43’s translation
+(Watanabe et al., 2013; Austin et al., 2014)."
+p(HGNC:"TARDBP", var("p.Ala315Thr")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:"TARDBP", var("p.Gln343Arg")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:"TARDBP", var("p.Asn352Ser")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:"TARDBP", var("p.Met337Val")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:"TARDBP", var("p.Gly298Ser")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:"TARDBP", var("p.Gly348Cys")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:"TARDBP", var("p.Ala382Thr")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:"TARDBP", var("p.Asp169Gly")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:"TARDBP", var("p.Arg263Glu")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:"TARDBP", var("p.Ala315Thr")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("p.Gln343Arg")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("p.Asn352Ser")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("p.Met337Val")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("p.Gly298Ser")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("p.Gly348Cys")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("p.Ala382Thr")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("p.Asp169Gly")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("p.Arg263Glu")) -> path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:"TARDBP", var("p.Ala315Thr")) reg bp(GO:"mRNA processing")
+p(HGNC:"TARDBP", var("p.Gln343Arg")) reg bp(GO:"mRNA processing")
+p(HGNC:"TARDBP", var("p.Asn352Ser")) reg bp(GO:"mRNA processing")
+p(HGNC:"TARDBP", var("p.Met337Val")) reg bp(GO:"mRNA processing")
+p(HGNC:"TARDBP", var("p.Gly298Ser")) reg bp(GO:"mRNA processing")
+p(HGNC:"TARDBP", var("p.Gly348Cys")) reg bp(GO:"mRNA processing")
+p(HGNC:"TARDBP", var("p.Ala382Thr")) reg bp(GO:"mRNA processing")
+p(HGNC:"TARDBP", var("p.Asp169Gly")) reg bp(GO:"mRNA processing")
+p(HGNC:"TARDBP", var("p.Arg263Glu")) reg bp(GO:"mRNA processing")
+p(HGNC:"TARDBP", var("p.Ala315Thr")) neg bp(GO:"translation")
+p(HGNC:"TARDBP", var("p.Gln343Arg")) neg bp(GO:"translation")
+p(HGNC:"TARDBP", var("p.Asn352Ser")) neg bp(GO:"translation")
+p(HGNC:"TARDBP", var("p.Met337Val")) neg bp(GO:"translation")
+p(HGNC:"TARDBP", var("p.Gly298Ser")) neg bp(GO:"translation")
+p(HGNC:"TARDBP", var("p.Gly348Cys")) neg bp(GO:"translation")
+p(HGNC:"TARDBP", var("p.Ala382Thr")) neg bp(GO:"translation")
+p(HGNC:"TARDBP", var("p.Asp169Gly")) neg bp(GO:"translation")
+p(HGNC:"TARDBP", var("p.Arg263Glu")) neg bp(GO:"translation")
+
+SET Evidence = "Calpain-I could fragment the recombinant TDP-43 A315T and
+M337V mutant proteins more rapidly than the wild-type TDP-
+43, whereas the D169G mutant TDP-43 was more efficiently
+cleaved by caspase-3 in vitro (Yamashita et al., 2012; Chiang
+et al., 2016)."
+p(HGNC:"CAPN1") -> p(HGNC:"TARDBP", var("p.Ala315Thr"), frag("?"))
+p(HGNC:"CAPN1") -> p(HGNC:"TARDBP", var("p.Met337Val"), frag("?"))
+p(HGNC:"CASP3") -> p(HGNC:"TARDBP", var("p.Asp169Gly"), frag("?"))
+
+SET Evidence = "Interestingly, another mutation A90V in TDP-
+43 imparts partial resistance to the digestion by caspase-3
+(Wobst et al., 2017)."
+p(HGNC:"CASP3") -| p(HGNC:"TARDBP", var("p.Ala90Val"), frag("?"))
+
+SET Evidence = "One of the prominent features of ALS and FTLD-TDP, is the
+loss of functional TDP-43 in the nucleus and its increased
+deposition into cytoplasmic inclusion bodies in the brain and
+spinal cord neurons (Arai et al., 2006; Neumann et al., 2006)."
+path(MESH:"Frontotemporal Lobar Degeneration") neg act(p(HGNC:"TARDBP", loc(GO:"nucleus")))
+path(MESH:"Amyotrophic Lateral Sclerosis") neg act(p(HGNC:"TARDBP", loc(GO:"nucleus")))
+SET MeSHAnatomy = {"Brain", "Spinal Cord"}
+SET CellStructure = "Cytoplasm"
+path(MESH:"Frontotemporal Lobar Degeneration") -> p(HGNC:"TARDBP", loc(GO:"inclusion body"))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", loc(GO:"inclusion body"))
+UNSET CellStructure
+UNSET MeSHAnatomy
+
+SET Evidence = "It is accepted that
+the cytoplasmic accumulation and the aggregation of TDP-43
+into inclusion bodies confer both a loss-of-function as well as
+a gain-of-toxic-function (Vanden Broeck et al., 2015; Ederle
+and Dormann, 2017)."
+SET CellStructure = "Inclusion Bodies"
+p(HGNC:"TARDBP", loc(GO:"cytoplasm")) -| act(p(HGNC:"TARDBP"))
+p(HGNC:"TARDBP", loc(HBP:"TDP-43 aggregates")) -| act(p(HGNC:"TARDBP"))
+p(HGNC:"TARDBP", loc(GO:"cytoplasm")) -> path(MESH:"Toxic Actions")
+p(HGNC:"TARDBP", loc(HBP:"TDP-43 aggregates")) -> path(MESH:"Toxic Actions")
+UNSET CellStructure
+
+SET Evidence = "The cytoplasmic
+accumulation into inclusion bodies reduces the amount of
+TDP-43 necessary for mRNA transport."
+p(HGNC:"TARDBP", loc(MESH:"Inclusion Bodies")) -| p(HGNC:"TARDBP", ma(MESH:"RNA Transport"))
+
+SET Evidence = "Recently, TDP-43 has
+also been found to function as a translational repressor by
+interacting with the ribosomal protein, receptor of activated
+protein C kinase 1 (RACK1), thereby resulting in the global
+protein synthesis inhibition (Russo et al., 2017)."
+complex(p(HGNC:"TARDBP"), p(HGNC:"RACK1")) -| path(MESH:"Protein Biosynthesis")
+
+SET Evidence = "RACK1 was also found to be sequestered into the TDP-43
+inclusions in the motor neurons of the ALS patients (Russo et al.,
+2017)."
+SET Cell = "motor neuron"
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+p(HGNC:"RACK1") -> (p(HGNC:"TARDBP", loc(GO:"inclusion body"))
+UNSET MeSHDisease
+UNSET Cell
+
+SET Evidence = "Deletion of the nuclear localization signal (NLS) [or nuclear
+export signal (NES)] sequence impairs TDP-43’s functions."
+deg(p(MESH:"Nuclear Localization Signals")) -| act(p(HGNC:"TARDBP"))
+deg(p(MESH:"Nuclear Export Signals")) -| act(p(HGNC:"TARDBP"))
+
+
+###TDP-43 with del NLS how to code???
+SET Evidence = "Expectedly, TDP-43 with the nuclear localization signal (NLS)
+deletion accumulates as cytoplasmic aggregates and can
+even sequester the native TDP-43 thereby further depleting
+the TDP-43 pool, which consequently alters the transcripts
+that regulate chromatin assembly and histone processing
+(Winton et al., 2008a; Amlie-Wolf et al., 2015)."
+
+###???
+SET Evidence = "TDP-43 mutant with nuclear export signal (NES) deletion
+manifested a propensity to form nuclear aggregates (Winton
+et al., 2008a)."
+
+###CK2 namespace?
+SET Evidence = "The
+casein kinases, CK1 and CK2, have been shown to mediate
+phosphorylations at Ser-379, Ser-403, Ser-404, and especially
+Ser-409/Ser-410, which are now considered a signature
+of ALS pathology (Neumann et al., 2006, 2009)."
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+p(HGNC:"CSNK1A1") -> p(HGNC:"TARDBP", pmod(Ph, Ser, 379))
+p(HGNC:"CSNK1A1") -> p(HGNC:"TARDBP", pmod(Ph, Ser, 403))
+p(HGNC:"CSNK1A1") -> p(HGNC:"TARDBP", pmod(Ph, Ser, 404))
+p(HGNC:"CSNK1A1") -> p(HGNC:"TARDBP", pmod(Ph, Ser, 409))
+p(HGNC:"CSNK1A1") -> p(HGNC:"TARDBP", pmod(Ph, Ser, 410))
+UNSET MeSHDisease
+
+SET Evidence = "Another
+kinase, glycogen synthase kinase (GSK3) is also found to be
+involved in the TDP-43’s phosphorylation (Sreedharan et al.,
+2015)."
+#GSK3 : GSK3A
+p(HGNC:"GSK3A") -- p(HGNC:"TARDBP", pmod("Ph"))
+
+SET Evidence = "The TDP-43’s phosphorylation is associated with its
+increased cytoplasmic mislocalization and aggregation in the
+neuronal cells (Nonaka et al., 2009a, 2016; Barmada et al.,
+2010; Liachko et al., 2010; Choksi et al., 2014)."
+SET Cell = "neuron"
+p(HGNC:"TARDBP", pmod("Ph")) -> p(HGNC:"TARDBP", pmod("Protein Aggregates"))
+UNSET Cell
+
+SET Evidence = "While affected brain cortex shows
+accumulation of phosphorylated C-terminal fragments, the
+spinal-cord cells show a predominant deposition of the
+phosphorylated full-length TDP-43 (Neumann et al., 2009)."
+#Affected with ALS and FTLD
+#C-terminal domain - aa 274-414
+SET MeSHAnatomy = "Neocortex"
+path(MESH:"Frontotemporal Lobar Degeneration") -> p(HGNC:"TARDBP", frag("274", "414"), pmod("Ph"))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", frag("274", "414"), pmod("Ph"))
+UNSET MeSHAnatomy
+SET MeSHAnatomy = "Cord"
+path(MESH:"Frontotemporal Lobar Degeneration") -> p(HGNC:"TARDBP", pmod("Ph"))
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", pmod("Ph"))
+UNSET MeSHAnatomy
+
+SET Evidence = "The E3 ubiquitin ligase (Parkin) is shown to ubiquitinate TDP-43
+via the ubiquitin lysines, K-48, and K-63."
+p(HGNC:"PRKN") ->  p(HGNC:"TARDBP", pmod("Ub", Lys, 48))
+p(HGNC:"PRKN") ->  p(HGNC:"TARDBP", pmod("Ub", Lys, 63))
+
+SET Evidence = "The ubiquitin-conjugating enzyme
+UBE2E3 and ubiquitin-isopeptidase Y (UBPY) were identified,
+in a yeast two-hybrid screen, to interact with TDP-43 and
+this interaction is proposed to enhance the ubiquitination and
+accumulation of its insoluble high molecular weight aggregates
+(Hans et al., 2014)."
+complex(p(HGNC:"UBE2E3"), p(HGNC:"TARDBP")) -> p(HGNC:"TARDBP", pmod("Ub"))
+complex(p(HGNC:"UBE2E3"), p(HGNC:"TARDBP")) -> p(HGNC:"TARDBP", pmod("Protein Aggregates"))
+complex(p(HGNC:"USP8"), p(HGNC:"TARDBP")) -> p(HGNC:"TARDBP", pmod("Ub"))
+complex(p(HGNC:"USP8"), p(HGNC:"TARDBP")) -> p(HGNC:"TARDBP", pmod("Protein Aggregates"))
+
+SET Evidence = "Notably, an FTLD-associated TDP-43 with
+K263E mutation was observed to be excessively ubiquitinated,
+possibly as a consequence of its misfolding due to the substitution
+of the positively charged lysine residue with a negatively charged
+aspartate residue in the RRM2 domain (Hans et al., 2014)."
+SET MeSHDisease = "Frontotemporal Lobar Degeneration"
+p(HGNC:"TARDBP", var("p.Lys293Asp")) -> p(HGNC:"TARDBP", pmod("Ub"))
+UNSET MeSHDisease
+
+SET Evidence = "TDP-43 aggregates are labeled by both K-48- and K-63-linked
+polyubiquitin chains and subsequently directed toward different
+fates: ubiquitin proteasomal-mediated degradation of TDP-43 for
+the K-48-linked polyubiquitin chains, and autophagic removal of
+the TDP-43 with K-63-linked polyubiquitin chains (Scotter et al.,
+2014)."
+p(HGNC:"TARDBP", pmod("Ub", Lys, 48)) -> bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+p(HGNC:"TARDBP", pmod("Ub", Lys, 63)) -> path(MESH:"Autophagy")
+
+SET Evidence = "Moreover, mutations at these ubiquitination sites were also
+found to decrease the TDP-43’s accumulation thereby implicating
+the ubiquitination in modulating the TDP-43 aggregation
+(Dammer et al., 2012)."
+#These ubiquitination - K-48, K-63
+p(HGNC:"TARDBP", pmod("Ub", Lys, 48), var("?")) -| p(HGNC:"TARDBP", pmod("Protein Aggregates"))
+p(HGNC:"TARDBP", pmod("Ub", Lys, 63), var("?")) -| p(HGNC:"TARDBP", pmod("Protein Aggregates"))
+
+
+###mutated but location unknow how to code?
+SET Evidence = "Using an acetylation mimic, where
+lysine was mutated to glutamine residue, the TDP-43 acetylation
+was shown to impair RNA binding, disturb mitochondrial
+functions, and promote accumulation of the insoluble and hyperphosphorylated
+TDP-43 aggregates in the neuronal cell cultures
+(Cohen et al., 2015)."
+SET Cell = "neuron"
+p(HGNC:"TARDBP", pmod("Ac")) -> p(HGNC:"TARDBP", pmod("Ph"))
+p(HGNC:"TARDBP", pmod("Ac")) -| p(GO:"RNA binding")
+p(HGNC:"TARDBP", pmod("Ac")) -> path(HBP:"mitochondrial dysfunction")
+UNSET Cell
+
+SET Evidence = "In another study, arsenite-induced oxidative
+stress could trigger the TDP-43’s acetylation and formation of
+aggregates of ∼75–250 kDa (Cohen et al., 2015; Wang P. et al.,
+2017)."
+a(CHEBI:"arsenite ion") -> path(MESH:"Oxidative Stress")
+path(MESH:"Oxidative Stress") -> p(HGNC:"TARDBP", pmod("Ac"))
+path(MESH:"Oxidative Stress") -> p(HGNC:"TARDBP", pmod("Protein Aggregates"))
+
+SET Evidence = "The PARP enzyme, tankyrase,
+was shown to reduce the TDP-43’s aggregation by non-covalently
+attaching PAR via PAR-binding motif present in the TDP-43
+nuclear localization signal (NLS) sequence."
+#NLS of TARDBP : 82-98aa
+p(HGNC:"TNKS") -> complex(a(CHEBI:"cyclic ADP-ribose"), p(HGNC:"TARDBP", frag("82", "98")))
+complex(a(CHEBI:"cyclic ADP-ribose")), p(HGNC:"TARDBP", frag("82", "98"))) -| p(HGNC:"TARDBP", pmod("Protein Aggregates"))
+
+SET Evidence = ""
