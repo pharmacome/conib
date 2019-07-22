@@ -76,12 +76,14 @@ SET Citation = {"PubMed", "Cancer Lett. 2013 Jul 10;335(1):9-18. doi: 10.1016/j.
 SET Evidence = "In a typical cell, the functions of nearly one-third of the proteins are regulated via
 phosphorylation and it controls various biological functions like cell division, growth and
 development, survival, proliferation, and apoptosis."
+SET Confidence = "High"
 bp(GO:phosphorylation) reg bp(GO:"cell division")
 bp(GO:phosphorylation) reg bp(GO:"cell growth")
 bp(GO:phosphorylation) reg bp(GO:"cell development")
 bp(GO:phosphorylation) -> bp(GO:"negative regulation of apoptotic process")
 bp(GO:phosphorylation) reg bp(GO:"cell population proliferation")
 bp(GO:phosphorylation) reg bp(GO:"apoptotic process")
+UNSET Confidence
 
 SET Evidence = "PP2A is an important player in many cellular functions. It controls cell metabolism by
 regulating the activity of the enzymes involved in glycolysis, lipid metabolism and
@@ -89,6 +91,7 @@ catecholamine synthesis [8]. It also regulates various biological processes such
 cycle (by mediating cdc2 kinase activation), DNA replication, transcription and translation,
 signal transduction, cell proliferation, cytoskeleton dynamics and cell mobility and
 apoptosis. It has also been shown to play a role in cell transformation and cancer [9-12]."
+SET Confidence = "High"
 p(FPLX:PPP2) reg bp(GO:"glycolytic process")
 p(FPLX:PPP2) reg bp(GO:"lipid metabolic process")
 p(FPLX:PPP2) reg bp(GO:"catecholamine biosynthetic process")
@@ -103,98 +106,131 @@ p(FPLX:PPP2) reg bp(GO:"cell motility")
 p(FPLX:PPP2) reg bp(GO:"apoptotic process")
 p(FPLX:PPP2) -- path(MESH:"Cell Transformation, Neoplastic")
 p(FPLX:PPP2) -- path(MESH:Neoplasms)
+UNSET Confidence
 
 SET Evidence = "The dimeric
 form is known as the core enzyme and is composed of the catalytic and scaffold subunit,
 while the trimeric form is an active holoenzyme complex which consists of three subunits:
 catalytic (PP2Ac), scaffold (PP2AA) and regulatory subunits (PP2AB) [17](Figure.1)."
+SET Confidence = "High"
 p(FPLX:PPP2) hasComponents list(p(FPLX:PPP2C), p(FPLX:"PPP2R_A"))
 p(FPLX:PPP2) hasComponents list(p(FPLX:PPP2C), p(FPLX:"PPP2R_A"), p(FPLX:"PPP2R_B"))
+UNSET Confidence
 
 SET Evidence = "PP2Ac exists in
 two isoforms C α  and C β . They are encoded by two separate genes each comprised of seven
 exons and six introns."
+SET Confidence = "High"
 p(FPLX:PPP2C) hasComponents list(p(HGNC:PPP2CA), p(HGNC:PPP2CB))
+UNSET Confidence
 
 SET Evidence = "The isoform C α  is predominantly expressed in the plasma membrane and C β  in
 the cytoplasm and nucleus."
+SET Confidence = "High"
 p(HGNC:PPP2CA) -- a(MESH:"Cell Membrane")
 p(HGNC:PPP2CB) -- a(MESH:Cytosol)
 p(HGNC:PPP2CB) -- a(MESH:"Cell Nucleus")
+UNSET Confidence
 
 SET Evidence = "Similar to PP2Ac, the PP2A scaffold subunit is encoded by two distinct genes, PPP2R1A
 and PPP2R1B, resulting in two isoforms, A α  and A β ."
+SET Confidence = "High"
 p(FPLX:"PPP2R_A") hasComponents list(p(HGNC:PPP2R1A), p(HGNC:PPP2R1B))
+UNSET Confidence
 
 SET Evidence = "The PP2A regulatory subunit is structurally diverse and has a
 minimum of 26 different transcript and splice variants encoded by 15 different genes in the
 human genome."
+SET Confidence = "High"
 p(FPLX:"PPP2R_B") hasComponents list(p(HGNC:PPP2R2A), p(HGNC:PPP2R2B), p(HGNC:PPP2R2C), p(HGNC:PPP2R2D), p(HGNC:PPP2R3A), p(HGNC:PPP2R3B), p(HGNC:PTPA), p(HGNC:PPP2R5A), p(HGNC:PPP2R5B), p(HGNC:PPP2R5C), p(HGNC:PPP2R5D), p(HGNC:PPP2R5E))
+UNSET Confidence
 
 SET Evidence = " It is observed that the expression of B55 γ  increases
 and B55 β  decreases gradually after birth and are developmentally regulated [28]."
+SET Confidence = "High"
 bp(GO:aging) -> p(HGNC:PPP2R2C)
 bp(GO:aging) -| p(HGNC:PPP2R2B)
+UNSET Confidence
 
 SET Evidence = "In neurons,
 B55 α  and B55 β  are localized in the cytoplasm, whereas B55 γ  is localized in the
 cytoskeletal fraction."
+SET Confidence = "High"
+SET Cell = "neuron"
 p(HGNC:PPP2R2A) -- a(MESH:Cytosol)
 p(HGNC:PPP2R2B) -- a(MESH:Cytosol)
 p(HGNC:PPP2R2C) -- a(MESH:Cytoskeleton)
+UNSET Cell
+UNSET Confidence
 
 SET Evidence = " It has been shown in yeast that CDC55 (B55 in human) is essential for
 cytokinesis. "
+SET Confidence = "High"
 p(HGNC:PPP2R2A) -> bp(GO:cytokinesis)
 p(HGNC:PPP2R2B) -> bp(GO:cytokinesis)
 p(HGNC:PPP2R2C) -> bp(GO:cytokinesis)
+UNSET Confidence
 
 SET Evidence = "In mammals, B55 is associated with
 cytoskeletal dynamics and nuclear translocation."
+SET Confidence = "High"
 p(HGNC:PPP2R2A) -- bp(GO:"cytoskeleton organization")
 p(HGNC:PPP2R2B) -- bp(GO:"cytoskeleton organization")
 p(HGNC:PPP2R2C) -- bp(GO:"cytoskeleton organization")
+UNSET Confidence
 
 SET Evidence = " Intracellular localization of
 B56 isoforms vary, as B56 γ  is expressed in the nucleus while B56 α , B56 β , and B56 ε  are
 expressed in the cytoplasm, and PR61 δ  appears to be expressed in both the nucleus and
 cytoplasm [20]. "
+SET Confidence = "High"
 p(HGNC:PPP2R5C) -- a(MESH:"Cell Nucleus")
 p(HGNC:PPP2R5A) -- a(MESH:Cytosol)
 p(HGNC:PPP2R5B) -- a(MESH:Cytosol)
 p(HGNC:PPP2R5E) -- a(MESH:Cytosol)
 p(HGNC:PPP2R5D) -- a(MESH:Cytosol)
 p(HGNC:PPP2R5D) -- a(MESH:"Cell Nucleus")
+UNSET Confidence
 
 SET Evidence = " This group also requires ATP and Mg2+ to
 activate its own activity."
 #this group: PP2A-B”
+SET Confidence = "High"
 composite(a(CHEBI:ATP), a(CHEBI:"magnesium(2+)")) -> act(p(HGNC:PPP2R3A))
+UNSET Confidence
 
 SET Evidence = " During meiosis I, Shugoshins binds to PP2A and
 dephosphorylates cohesion, which prevents spindle microtubules disassembly [37].
 PP2APR55 also dephosphorylates vimentin (intermediate filament) and protects
 cytoskeleton disassembly [38]."
+SET Confidence = "High"
 complex(p(HGNC:SGO1), p(FPLX:PPP2)) -| p(FPLX:Cohesin, pmod(Ph))
 p(FPLX:Cohesin, pmod(Ph)) -> bp(GO:"spindle disassembly")
 p(FPLX:PPP2) -| p(HGNC:VIM, pmod(Ph))
 p(FPLX:PPP2) -> bp(GO:"cytoskeleton organization")
+UNSET Confidence
 
 SET Evidence = "The phosphoprotein SET is a
 potent inhibitor of PP2A activity [45]."
+SET Confidence = "High"
 p(HGNC:SET) -| act(p(FPLX:PPP2))
+UNSET Confidence
 
 SET Evidence = "In Alzheimer's disease, inhibition of PP2A
 activity by SET leads to hyper phosphorylation of the Tau protein [47]."
+SET Confidence = "Medium"
 path(MESH:"Alzheimer Disease") -> p(HGNC:SET)
+p(HGNC:SET) -| act(p(FPLX:PPP2))
 path(MESH:"Alzheimer Disease") -| act(p(FPLX:PPP2))
 act(p(FPLX:PPP2)) -| p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+UNSET Confidence
 
 SET Evidence = "Potent tumor promoter, Okadaic acid (a microbial toxin), inhibits the enzymatic activity of
 PP2Ac and thereby has facilitated various studies to understand the functional aspects of
 PP2A and other phosphatases [12]. Other than Okadaic acid, calyculin A, microcystin,
 cantharidin, nodularm, fostriecin and tautomycin are able to inhibit PP2A activity at
 different IC50 values [48]."
+SET Confidence = "High"
 a(CHEBI:"okadaic acid") -> path(MESH:Neoplasms)
 a(CHEBI:"okadaic acid") -| act(p(FPLX:PPP2C))
 a(PUBCHEM:"5311365") -| act(p(FPLX:PPP2))
@@ -203,80 +239,116 @@ a(CHEBI:cantharidin) -| act(p(FPLX:PPP2))
 a(PUBCHEM:"4162") -| act(p(FPLX:PPP2))
 a(PUBCHEM:"6913994") -| act(p(FPLX:PPP2))
 a(CHEBI:Tautomycin) -| act(p(FPLX:PPP2))
+UNSET Confidence
 
 SET Evidence = "In addition to microbial toxin, viral protein SV40 (potent
 oncogene) also inactivates PP2A action by binding to the AC dimer and displacing the PR56
 (PP2A-B’ γ ) subunit [35]."
+SET Confidence = "High"
 a(PUBCHEM:"71361092") -> path(MESH:Neoplasms)
 a(PUBCHEM:"71361092") -| act(p(FPLX:PPP2))
+UNSET Confidence
 
 SET Evidence = "Endogenous CIP2A (cancerous inhibitor of PP2A) inhibits PP2Ac
 activity via interacting with c-Myc (Ser62) and stabilizes it from proteolytic degradation
 [49]. "
+SET Confidence = "High"
+p(HGNC:CIP2A) -> composite(p(HGNC:CIP2A),p(HGNC:MYC))
+composite(p(HGNC:CIP2A),p(HGNC:MYC)) -| deg(p(HGNC:MYC))
+p(HGNC:MYC) -| act(p(FPLX:PPP2C))
 p(HGNC:CIP2A) -| act(p(FPLX:PPP2C))
+UNSET Confidence
 
 SET Evidence = "Recently, a major indirect activation of PP2A by inhibiting CIP2A at both the
 transcriptional and translational levels through the drug bortezomib was shown in triple
 negative breast cancer cells [50]."
+SET Confidence = "High"
+SET MeSHDisease = "Breast Neoplasms"
 a(CHEBI:bortezomib) -| p(HGNC:CIP2A)
+a(CHEBI:bortezomib) -| r(HGNC:CIP2A)
 a(CHEBI:bortezomib) -> act(p(FPLX:PPP2C))
+UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Methylation [52] and phosphorylation [53] are two major
 modifications that have been shown to modulate PP2A catalytic efficiency."
+SET Confidence = "High"
 p(FPLX:PPP2, pmod(M)) -- act(p(FPLX:PPP2))
 p(FPLX:PPP2, pmod(Ph)) -- act(p(FPLX:PPP2))
+UNSET Confidence
 
 SET Evidence = "Phosphorylation of Y307 by
 receptor associated tyrosine kinases effectively decreases the PP2A activity by inhibiting the
 interaction of PP2Ac with the PP2A-PR55/PR61 subunit [54]."
+SET Confidence = "High"
 p(FPLX:PPP2, pmod(Ph,Tyr,307)) -| act(p(FPLX:PPP2))
+p(FPLX:PPP2, pmod(Ph,Tyr,307)) -| complex(p(HGNC:PPP2R2A),p(HGNC:PPP2R5B))
+UNSET Confidence
 
 SET Evidence = " The addition of a methyl group by LCMT1 at L309 enhances the binding affinity
 of the core dimer (A&C subunit) toward distinct regulatory subunits and provides specific
 activity to the holoenzyme [56]."
+SET Confidence = "High"
 p(HGNC:LCMT1) -> p(FPLX:PPP2, pmod(M,Leu,309))
 p(FPLX:PPP2, pmod(M,Leu,309)) -> act(p(FPLX:PPP2))
+UNSET Confidence
 
 SET Evidence = " Akt plays an
 important role in cell growth, proliferation and apoptosis."
+SET Confidence = "High"
 p(FPLX:AKT) reg bp(GO:"cell growth")
 p(FPLX:AKT) reg bp(GO:"cell population proliferation")
 p(FPLX:AKT) reg bp(GO:"apoptotic process")
+UNSET Confidence
 
 SET Evidence = "Phosphorylation at Thr-308 and
 Ser-473 leads to activation of Akt and it was found that deregulation of Akt is associated
 with various human malignancies. "
+SET Confidence = "High"
 p(FPLX:AKT, pmod(Ph,Thr,308)) -> act(p(FPLX:AKT))
 p(FPLX:AKT, pmod(Ph,Ser,473)) -> act(p(FPLX:AKT))
+UNSET Confidence
 
+#core enzyme wih b55 together
 SET Evidence = "Co-immunoprecipitation and in-vitro pull down assay
 using pro-lymphoid FL5.12 cells showed a direct association of the PP2A-B55 holoenzyme
 with Akt, which selectively regulates phosphorylation of Akt at Thr-308 and regulates cell
 proliferation and survival [58]."
-p(FPLX:PPP2) -| p(FPLX:AKT, pmod(Ph,Thr,308))
+SET Confidence = "High"
+p(FPLX:PPP2) reg p(FPLX:AKT, pmod(Ph,Thr,308))
 p(FPLX:PPP2) reg bp(GO:"cell population proliferation")
 p(FPLX:PPP2) reg bp(GO:"apoptotic process")
+UNSET Confidence
 
 SET Evidence = "PP2A also plays a major role in the Wnt signaling pathway. "
+SET Confidence = "High"
 p(FPLX:PPP2) -- bp(GO:"Wnt signaling pathway")
+UNSET Confidence
 
+#complex used
 SET Evidence = "In Xenopus, PP2A-
 B56 is involved in  β -catenin dephosphorylation and degradation and its phosphorylation
 directs activation of the Wnt pathway [43]."
+SET Confidence = "High"
 p(FPLX:PPP2) -| p(HGNC:CTNNB1, pmod(Ph))
 p(FPLX:PPP2) -> deg(p(HGNC:CTNNB1))
 p(HGNC:CTNNB1, pmod(Ph)) -> bp(GO:"Wnt signaling pathway")
+UNSET Confidence
 
 SET Evidence = "Phosphorylation of BAD suppresses,
 and its dephosphorylation by PP2A promotes pro-apoptotic activity [59]. Additionally,
 phosphorylation of Bcl-2 activates, and its dephosphorylation by PP2A suppresses anti-
 apoptotic activity."
+SET Confidence  = "High"
 p(HGNC:BAD, pmod(Ph)) -| bp(GO:"apoptotic process")
 p(FPLX:PPP2) -| p(HGNC:BAD, pmod(Ph))
 p(HGNC:BCL2, pmod(Ph)) -| bp(GO:"apoptotic process")
 p(FPLX:PPP2) -| p(HGNC:BCL2, pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "PP2A is considered as a tumor suppressor and is thought to be functionally inactivated in
 cancer."
+SET Confidence = "High"
 p(FPLX:PPP2) -| path(MESH:Neoplasms)
 path(MESH:Neoplasms) neg act(p(FPLX:PPP2))
+UNSET Confidence
