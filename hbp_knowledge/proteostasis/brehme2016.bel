@@ -84,29 +84,34 @@ overall. However, in contrast with the broad spectrum of repressed
 chaperone families, sHSPs and the TPR co-chaperone proteins were
 the only families that were significantly induced."
 #induced by aging
+SET Confidence = "High"
 bp(MESH:Aging) -| p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins")
 bp(MESH:Aging) -| p(HGNC:HSPD1)
 bp(MESH:Aging) -| p(FPLX:HSPA)
 bp(MESH:Aging) -> p(HGNC:TPR)
 bp(MESH:Aging) -> p(FPLX:HSPB)
+UNSET Confidence
 
 SET Evidence = " Genetic approaches using
 these disease models demonstrate that the chaperome plays a crucial
 role in protecting cells from proteotoxicity."
+SET Confidence = "High"
 a(MESH:"Molecular Chaperones") -| path(HBP:proteotoxicity)
+UNSET Confidence
 
 SET Evidence = "Many studies based on model systems support a role for candidates
 from each of the major chaperome families; HSP100, HSP90,
 HSP70, HSP60, HSP40, sHSPs, and TPR-domain-containing
 proteins in proteostasis."
+SET Confidence = "Medium"
 bp(HBP:Proteostasis) -- p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins")
 bp(HBP:Proteostasis) -- p(HGNC:HSPD1)
 bp(HBP:Proteostasis) -- p(FPLX:HSPA)
 bp(HBP:Proteostasis) -- p(HGNC:TPR)
 bp(HBP:Proteostasis) -- p(FPLX:HSPB)
-bp(HBP:Proteostasis) -- p(FPLX:HSPB)
 bp(HBP:Proteostasis) -- p(FPLX:HSP90)
 bp(HBP:Proteostasis) -- p(HGNCGENEFAMILY:"AAA ATPases")
+UNSET Confidence
 
 SET Evidence = "Early studies demonstrated that overexpression of a specific
 human HSP70 (HSPA1L) in a Drosophila disease model
@@ -114,23 +119,34 @@ suppressed neurodegeneration associated with expression of
 polyQ-containing forms of both ataxin 3 or androgen receptor,
 and α -synuclein (Warrick et al., 1999; Chan et al., 2000, 2002;
 Auluck et al., 2002). "
+SET Confidence = "Medium"
+SET Species = "7227"
 p(HGNC:HSPA1L) -| path(HP:Neurodegeneration)
 path(HP:Neurodegeneration) -- p(HGNC:ATXN3, var("?"))
 path(HP:Neurodegeneration) -- p(HGNC:AR, var("?"))
 path(HP:Neurodegeneration) -- p(HGNC:SNCA, var("?"))
+UNSET Species
+UNSET Confidence
 
+#dominant - negative version?
 SET Evidence = " In a yeast model expressing the N-terminal
 fragment of a polyQ-containing huntingtin protein, overexpression
 of the yeast HSP70 (SSA1) reduced aggregate formation, whereas
 the dominant-negative version of the fly homolog to HSPA1L,
 Hsc4-K71S, enhanced neurodegeneration (Warrick et al., 1999;)"
+#SET Confidence = "Medium"
+SET Species = "4932"
 p(FPLX:HSPA) -| p(HBP:"huntingtin aggregates")
 p(HGNC:HSPA1L) -| path(HP:Neurodegeneration)
+UNSET Species
+#UNSET Confidence
 
 SET Evidence = " These studies revealed that an increase in levels of HSP70
 reduced aggregation of disease-associated proteins, thus playing a
 neuroprotective role."
+SET Confidence = "High"
 p(FPLX:HSPA) -| path(MESH:"Protein Aggregation, Pathological")
+UNSET Confidence
 
 SET Evidence = "For example,
 overexpression of the human TPR domain-containing co-
@@ -138,28 +154,38 @@ chaperone CHIP suppresses neurodegeneration in fly models
 expressing polyQ-containing versions of ataxin 1 and the
 N-terminal huntingtin fragment (Al-Ramahi et al., 2006)."
 #STUB1 is CHIP
+SET Confidence = "Medium"
 p(HGNC:STUB1) -| path(HP:Neurodegeneration)
+p(HGNC:STUB1) -| p(HGNC:ATXN3, var("?"))
+p(HGNC:STUB1) -| p(HGNC:HTT, var("?"))
+UNSET Confidence
 
 SET Evidence = "Likewise, overexpression of the yeast TPR-domain-containing co-
 chaperone STI1 suppresses toxicity in a yeast model expressing the
 expanded huntingtin fragment (Wolfe et al., 2013)."
+SET Confidence = "High"
 p(UNIPROT:P15705) -| path(HBP:proteotoxicity)
+UNSET Confidence
 
+#co-chaperone means as a complex with SSE1?
 SET Evidence = " The co-
 chaperone HSP40 (dHdj-1 and SIS1) and the nucleotide exchange
 factor SSE1 that specifically modulate HSP70 activity were also
 shown to suppress toxicity and aggregation in yeast and fly disease
 models (Chan et al., 2000; Krobitsch and Lindquist, 2000; Sadlish
 et al., 2008)."
+#SET Confidence = "High"
 p(UNIPROT:P32589) reg act(p(FPLX:HSPA))
 p(UNIPROT:P32589) -| path(HBP:proteotoxicity)
 p(UNIPROT:P32589) -| path(MESH:"Protein Aggregation, Pathological")
+#UNSET Confidence
 
 SET Evidence = " In addition to co-chaperones, overexpression of the
 human sHSP (HSPB7), a Caenorhabditis elegans HSP100
 homolog (tor-2), and the yeast HSP60 subunit (CCT-1) and
 HSP90 homolog (HSP82) reduced toxicity and aggregation (Cao
 et al., 2005; Tam et al., 2006; Liang et al., 2008; Vos et al., 2010)."
+SET Confidence = "High"
 p(HGNC:HSPB7) -| path(HBP:proteotoxicity)
 p(HGNC:HSPB7) -| a(MESH:"Protein Aggregates")
 p(UNIPROT:Q9XXG5) -| path(HBP:proteotoxicity)
@@ -168,56 +194,71 @@ p(UNIPROT:P12612) -| path(HBP:proteotoxicity)
 p(UNIPROT:P12612) -| a(MESH:"Protein Aggregates")
 p(UNIPROT:P02829) -| path(HBP:proteotoxicity)
 p(UNIPROT:P02829) -| a(MESH:"Protein Aggregates")
+UNSET Confidence
 
 SET Evidence = " HSP70s function
 in a variety of basic cellular quality control and maintenance
 processes, such as proper folding of newly synthesized proteins,
 along with preventing protein misfolding and aggregation through
 the binding of exposed hydrophobic residues."
+SET Confidence = "High"
 p(FPLX:HSPA) -> bp(GO:"'de novo' protein folding")
 p(FPLX:HSPA) -| bp(HBP:misfolding)
 p(FPLX:HSPA) -| a(MESH:"Protein Aggregates")
+UNSET Confidence
 
 SET Evidence = "Although HSP70 was not identified as a modifier of α -synuclein in
 the screen studies we selected, directed overexpression of HSP70
 has been shown to reduce α -synuclein-related proteotoxicity,
 supporting a central role for HSP70 in diseases of protein
 misfolding (Auluck et al., 2002)."
+SET Confidence = "Medium"
 p(FPLX:HSPA) -| path(HBP:proteotoxicity)
 p(FPLX:HSPA) -| a(HBP:"alpha-synuclein aggregates")
+p(FPLX:HSPA) -- bp(HBP:misfolding)
+UNSET Confidence
 
 SET Evidence = " HSP40s play a fundamental role
 as part of the HSP70-HSP40 system, as co-chaperones,
 stimulating HSP70 ATP hydrolysis (Fig. 3) (Kampinga and
 Craig, 2010; Kakkar et al., 2014)."
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins") -> act(p(FPLX:HSPA), ma(GO:"ATPase activity"))
+UNSET Confidence
 
 SET Evidence = "The HSP70 and HSP40
 family members exhibit significantly altered expression dynamics
 during aging in the human brain, both being consistently repressed
 with age (Brehme et al., 2014)."
+SET Confidence = "High"
 bp(GO:aging) -| p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins")
 bp(GO:aging) -| p(FPLX:HSPA)
+UNSET Confidence
 
 SET Evidence = " Among repressed genes, HSP40s
 were found to show significant changes as a family, with 62% of
 overall 48 HSP40 family members repressed in aging brain
 (superior frontal gyrus), 51% repressed in AD, and 41% repressed
 in both aging and AD. "
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -| p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins")
+UNSET Confidence
 
 SET Evidence = " Our summary (Table 1)
 points towards specific sHSPs that play a prominent role in
 misfolding diseases, as judged by frequency of observations,
 including CRYAB, HSPB1, HSPB3 and HSPB8 (each 7×), HSPB6
 (6×), and CRYAA (5×) (Fig. 1)."
+SET Confidence = "High"
 p(FPLX:HSPB) -- bp(HBP:misfolding)
+UNSET Confidence
 
 SET Evidence = "The importance of sHSPs in disease was
 originally noted from the observations that HSPB1 and CRYAB
 were overexpressed in AD brains (Shinohara et al., 1993; Renkawek
 et al., 1994a,b) and HSPB1, CRYAB, HSPB6 and HSPB8 were
 associated with AD plaques (Shao et al., 2012)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 path(MESH:"Alzheimer Disease") -> p(HGNC:HSPB1)
 path(MESH:"Alzheimer Disease") -> p(HGNC:CRYAB)
@@ -226,15 +267,18 @@ p(HGNC:HSPB1) -- a(HBP:"amyloid-beta aggregates")
 p(HGNC:CRYAB) -- a(HBP:"amyloid-beta aggregates")
 p(HGNC:HSPB6) -- a(HBP:"amyloid-beta aggregates")
 p(HGNC:HSPB8) -- a(HBP:"amyloid-beta aggregates")
+UNSET Confidence
 
 SET Evidence = "Furthermore, sHSPs
 were found to be consistently upregulated in the aging human brain
 and in the context of neurodegenerative diseases (Brehme et al.,
 2014). "
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 bp(GO:aging) -> p(FPLX:HSPB)
 path(MESH:"Alzheimer Disease") -> p(FPLX:HSPB)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Therapeutic approaches to
 overcome proteostasis deficiencies have largely focused on the
@@ -242,16 +286,23 @@ activation of HSF1, the heat shock transcription factor responsible
 for simultaneous upregulation of the expression of multiple
 molecular chaperones during stress (Calamini et al., 2011; Pierce
 et al., 2013)."
+SET Confidence = "High"
 p(HGNC:HSF1) -> bp(HBP:Proteostasis)
+UNSET Confidence
 
 SET Evidence = "Multiple studies in model systems demonstrate
 that overexpression of HSP70 can reduce toxicity and protein
 aggregation."
+SET Confidence = "High"
 p(FPLX:HSPA) -| path(HBP:proteotoxicity)
 p(FPLX:HSPA) -| a(MESH:"Protein Aggregates")
+UNSET Confidence
 
 SET Evidence = "Compounds such as the allosteric inhibitor of ATP-binding for the
 inducible HSP70 isoform HSPA1A/HSPA1B, called HS-72, will
 likely lead to beneficial consequences (Howe et al., 2014)."
+#HS-72 : 40009526
+SET Confidence = "Low"
 a(PUBCHEM:"40009526") -| complex(p(HGNC:HSPA1A), a(CHEBI:ATP))
 a(PUBCHEM:"40009526") -| complex(p(HGNC:HSPA1B), a(CHEBI:ATP))
+UNSET Confidence

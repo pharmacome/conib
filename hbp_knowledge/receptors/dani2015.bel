@@ -79,31 +79,43 @@ SET Evidence = " For example, those that contain the α 7 subunit ( α 7 * ) as 
 homomeric or heteromeric receptor most commonly also have accompany-
 ing characteristics. They bind α -bungarotoxin, have relatively low affinity
 for nicotine and have relatively fast kinetics."
+SET Confidence = "Medium"
 p(HBP:"alpha-7-containing nAChR") -> act(p(HGNC:CHRNA7))
+composite(p(HGNC:CHRNA7), p(HBP:"alpha-Bungarotoxin")) -> complex(p(HGNC:CHRNA7), p(HBP:"alpha-Bungarotoxin"))
+#Evidence suggests binding of alpha-bungarotoxin to CHRNA7
+UNSET Confidence
 
 SET Evidence = " Those that contain β 2 ( β 2 * )
 commonly have high affinity for nicotine, desensitize to low agonist con-
 centrations, have relatively slow kinetics, and do not bind α -bungarotoxin."
+SET Confidence = "Medium"
+composite(p(HGNC:CHRNB2), a(CHEBI:nicotine)) -> complex(p(HGNC:CHRNB2), a(CHEBI:nicotine))
+#Evidence suggests binding of CHRNB2 to nicotine
 a(CHEBI:nicotine) -> act(p(HGNC:CHRNA7))
+UNSET Confidence
 
 SET Evidence = "All the mammalian neuronal nAChR subtypes do share the general func-
 tional property of being permeable to small monovalent and divalent cations.
 The main conducting species under biological conditions are Na+, K+, and Ca2+. "
+SET Confidence = "High"
 p(FPLX:CHRN) -> tloc(a(CHEBI:"sodium(1+)"), MESH:"Extracellular Space", MESH:"Intracellular Space")
 p(FPLX:CHRN) -> tloc(a(CHEBI:"sodium(1+)"), MESH:"Intracellular Space", MESH:"Extracellular Space")
 p(FPLX:CHRN) -> tloc(a(CHEBI:"potassium(1+)"), MESH:"Extracellular Space", MESH:"Intracellular Space")
 p(FPLX:CHRN) -> tloc(a(CHEBI:"potassium(1+)"), MESH:"Intracellular Space", MESH:"Extracellular Space")
 p(FPLX:CHRN) -> tloc(a(CHEBI:"calcium(2+)"), MESH:"Extracellular Space", MESH:"Intracellular Space")
 p(FPLX:CHRN) -> tloc(a(CHEBI:"calcium(2+)"), MESH:"Intracellular Space", MESH:"Extracellular Space")
+UNSET Confidence
 
 SET Evidence = "Mammalian nAChRs are cation selective, being permeable to small
 monovalent and divalent cations that can fit through the narrowest hydro-
 philic region of the open pore (Albuquerque et al., 2009; Dani, 1989;
 Dani & Bertrand, 2007; Dani & Eisenman, 1987)."
+SET Confidence = "High"
 p(FPLX:CHRN) -> tloc(a(MESH:"Cations, Monovalent"), MESH:"Extracellular Space", MESH:"Intracellular Space")
 p(FPLX:CHRN) -> tloc(a(MESH:"Cations, Monovalent"), MESH:"Intracellular Space", MESH:"Extracellular Space")
 p(FPLX:CHRN) -> tloc(a(MESH:"Cations, Divalent"), MESH:"Extracellular Space", MESH:"Intracellular Space")
 p(FPLX:CHRN) -> tloc(a(MESH:"Cations, Divalent"), MESH:"Intracellular Space", MESH:"Extracellular Space")
+UNSET Confidence
 
 SET Evidence = " While nAChR
 activity causes depolarization, the divalent cation permeability plays an impor-
@@ -112,52 +124,66 @@ Galzi, Devillers-Thiery, Bertrand, & Changeux, 1993b; Dani & Bertrand,
 2007; Decker & Dani, 1990; Gray, Rajan, Radcliffe, Yakehiro, & Dani,
 1996; McGehee, Heath, Gelber, Devay, & Role, 1995; Vernino et al.,
 1992)."
+SET Confidence = "High"
 act(p(FPLX:CHRN)) -> bp(GO:"membrane depolarization")
 tloc(a(MESH:"Cations, Divalent"), MESH:"Extracellular Space", MESH:"Intracellular Space") -> bp(GO:"membrane depolarization")
 tloc(a(CHEBI:"calcium(2+)"), MESH:"Extracellular Space", MESH:"Intracellular Space") -> bp(GO:"membrane depolarization")
+UNSET Confidence
 
 SET Evidence = "Although calcium modulation can act intracellularly,
 nAChRs also are allosterically modulated by extracellular calcium, leading
 to dramatic changes in the channel opening probability (Amador & Dani,
 1995; Mulle, Lena, & Changeux, 1992; Vernino et al., 1992)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Extracellular Space"
 a(CHEBI:"calcium(2+)") reg act(p(FPLX:CHRN))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = " Although
 many areas of the brain participate, nicotinic receptors of the midbrain dopa-
 mine (DA) area are particularly important during the initiation of the addic-
 tion process (Dani et al., 2014; De Biasi & Dani, 2011)."
+SET Confidence = "High"
 SET Cell = "midbrain dopaminergic neuron"
 #path(MESH:"Tobacco Smoking") -> act(p(FPLX:CHRN))
 act(p(FPLX:CHRN)) -> path(MESH:"Behavior, Addictive")
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = " Activation of the presynaptic
 nAChRs (commonly but not exclusively α 7 * nAChRs) enhances the release
 of glutamate (Dani et al., 2000; Mansvelder & McGehee, 2000, 2002)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Presynaptic Terminals"
 act(p(FPLX:CHRN)) -> sec(a(CHEBI:"glutamate(2-)"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Simultaneously, activity of postsynaptic (and somatic) α 4 β 2 * nAChRs
 depolarizes DA neurons leading to enhanced action potential firing
 (Zhang et al., 2009)."
+SET Confidence = "High"
 SET Cell = "dopaminergic neuron"
 SET MeSHAnatomy = "Post-Synaptic Density"
 act(p(HBP:"alpha-4 beta-2 nAChR")) -> bp(GO:"depolarization of postsynaptic membrane")
 bp(GO:"depolarization of postsynaptic membrane") -> bp(GO:"regulation of action potential firing rate")
 UNSET MeSHAnatomy
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = " This depolarization and firing of the DA neurons helps
 to relieve the divalent cation block of NMDA receptors and, thus, enables
 the NMDA receptors to participate in long-term synaptic potentiation of
 glutamatergic afferents onto midbrain dopamine neurons."
+SET Confidence = "Low"
 SET Cell = "dopaminergic neuron"
-#bp(GO:"depolarization of postsynaptic membrane") -> bp(GO:"NMDA glutamate receptor activity")
+bp(GO:"depolarization of postsynaptic membrane") -| a(MESH:"Cations, Divalent")
+a(MESH:"Cations, Divalent") -| act(p(MESH:"Receptors, N-Methyl-D-Aspartate"), ma(GO:"NMDA glutamate receptor activity"))
+UNSET Cell
 SET Cell = "glutamatergic neuron"
 act(p(MESH:"Receptors, N-Methyl-D-Aspartate")) -> bp(GO:"long-term synaptic potentiation")
 UNSET Cell
+UNSET Confidence
 
 UNSET STATEMENT_GROUP
