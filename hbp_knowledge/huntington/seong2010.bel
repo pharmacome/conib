@@ -72,16 +72,17 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 ##############
 SET Citation = {"PubMed", "19933700"}
 
-SET MeSHAnatomy = "Embryoid Bodies"
-
+#whole experiment was performed in EB cells.
 SET Evidence = "PR65/A, for example, facilitates diverse phosphatase holoenzymes
 involved in cell signaling and metabolism (16), while
 importin-beta serves distinct nuclear transport complexes that
 engage a variety of cargos (17,18)."
 #KPNB1 : Importins beta
+SET MeSHAnatomy = "Embryoid Bodies"
 p(HGNC:"PPP2R1A") -- bp(GO:"cell-cell signaling")
 p(HGNC:"PPP2R1A") -- path(MESH:"Metabolism")
 p(HGNC:"KPNB1") -- bp(GO:"nuclear transport")
+UNSET MeSHAnatomy
 
 SET Evidence = "Consistent with a flexible segmental a-helical domain
 organization, limited tryptic digestion of the recombinant
@@ -90,7 +91,9 @@ protein readily yielded two large domains (approx 150 kDa and approx 200 kDa fra
 accessible hinge region between residues 1184–1254."
 #appox 150kDa seqment : 1-1184aa
 #approx. 200kDa seqment : 1254 - end
+SET MeSHAnatomy = "Embryoid Bodies"
 a(CHEBI:"Trypsin") -> complex(p(HGNC:"HTT", frag("1_1184")), p(HGNC:"HTT", frag("1254_*")))
+UNSET MeSHAnatomy
 
 SET Evidence = "Though Hdhex4/5 homozygote embryos at embryonic stage
 E7.5 have previously been shown to properly localize stage  appropriate
@@ -100,12 +103,14 @@ Figure 2A, revealed that huntingtin null embryos failed to
 properly repress PRC2 regulated Hox gene expression, as evidenced
 by ectopic Hoxb1, Hoxb2 and Hoxb9 mRNA"
 #Huntingtin null cells : Hdh ex4/5
+SET MeSHAnatomy = "Embryoid Bodies"
 p(HGNC:"HTT") -| r(HGNC:"HOXB1")
 p(HGNC:"HTT") -| r(HGNC:"HOXB2")
 p(HGNC:"HTT") -| r(HGNC:"HOXB9")
 p(HGNCGENEFAMILY:"Polycomb repressive complex 2") reg r(HGNC:"HOXB1")
 p(HGNCGENEFAMILY:"Polycomb repressive complex 2") reg r(HGNC:"HOXB2")
 p(HGNCGENEFAMILY:"Polycomb repressive complex 2") reg r(HGNC:"HOXB9")
+UNSET MeSHAnatomy
 
 SET Evidence = "Moreover,
 female huntingtin null embryos exhibited decreased
@@ -113,20 +118,22 @@ differentiation of trophoblast giant cells, marked by PL-1
 mRNA expression, which normally requires proper obligatory
 silencing of the paternally inherited X chromosome."
 #PL-1 : 2350
-SET Gender = "female"
+SET MeSHAnatomy = "Embryoid Bodies"
+SET Gender = "Female"
 SET Cell = "trophoblast giant cell"
 p(HGNC:"HTT") -> path(MESH:"Cell Differentiation")
 path(MESH:"Cell Differentiation") -> r(NCBIGENE:"2350")
 r(NCBIGENE:"2350") -> path(MESH:"X Chromosome Inactivation")
 UNSET Cell
 UNSET Gender
+UNSET MeSHAnatomy
 
 SET Evidence = "Investigation of histone H3K27 methylation in Hdhex4/5 null
 EBs, developing in cell culture from embryonic stem cells,
 demonstrated that huntingtin was required for efficient
 re-establishment of global tri-methylated histone H3K27."
 #Hdhex4/5 null
-SET MeSHAnatomy = "Embryonic Stem Cells"
+SET MeSHAnatomy = {"Embryonic Stem Cells", "Embryoid Bodies"}
 p(HGNC:"HTT") -- p(HBP:"Histone H3", pmod(Me3, Lys, 27))
 UNSET MeSHAnatomy
 
@@ -134,14 +141,18 @@ SET Evidence = "Notably, global levels of di-methylated histone
 H3K27 were not altered in huntingtin null EBs (Supplementary
 Material, Fig. S3B), indicating that lack of huntingtin
 specifically affected H3K27 tri-methylation."
+SET MeSHAnatomy = "Embryoid Bodies"
 p(HGNC:"HTT") cnc p(HBP:"Histone H3", pmod(Me2, Lys, 27))
+UNSET MeSHAnatomy
 
 SET Evidence = "Furthermore, the
 results of analysis of nuclear extracts by gel filtration chromatography
 demonstrated that full-length huntingtin was
 co-eluted with PRC2 subunits Ezh2 and Suz12 (Supplementary
 Material, Fig. S3D)."
+SET MeSHAnatomy = "Embryoid Bodies"
 p(HGNC:"HTT") -> complex(p(HGNC:"HTT"), p(HGNC:"EZH2"), p(HGNC:"SUZ12"))
+UNSET MeSHAnatomy
 
 SET Evidence = "As shown in the immunoblot in Figure 4A, full-length
 FLAG-tag Q23 huntingtin added to recombinant PRC2 was
@@ -151,6 +162,6 @@ PRC2-specific histone H3K27 methylation, as judged by the
 intensity of bands of incorporated tritium."
 #Q23 htt
 #tri-methylation of H3K27 enhanced
+SET MeSHAnatomy = "Embryoid Bodies"
 p(HGNCGENEFAMILY:"Polycomb repressive complex 2", var("?")) ->  p(HBP:"Histone H3", pmod(Me3, Lys, 27))
-
 UNSET MeSHAnatomy
