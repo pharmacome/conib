@@ -187,7 +187,7 @@ fact, the ALS-associated A90V mutation present in the nuclear
 localization signal (NLS) can sequester the endogenous TDP-43
 into insoluble cytoplasmic aggregates (Winton et al., 2008b)."
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
-p(HGNC:"TARDBP", frag("82_98"), var("p.Ala90Val")) -> p(HGNC:"TARDBP", pmod("Protein Aggregates"),loc(MESH:"Cytoplasm"))
+p(HGNC:"TARDBP", frag("82_98"), var("p.Ala90Val")) -> p(HBP:"TDP-43 aggregates", loc(MESH:"Cytoplasm"))
 UNSET MeSHDisease
 
 SET Evidence = "These proteins are involved in several RNA
@@ -202,8 +202,8 @@ SET Evidence = "Several mutations in the RRMs are shown to disrupt
 the RNA binding capability while not significantly interfering
 with the RNA recognition (Lukavsky et al., 2013)."
 #RRM1 (aa 104–176) and RRM2 (aa 192–262)
-p(HGNC:"TARDBP", frag("104_176"), var("?")) -| bp(GO:"RNA binding")
-p(HGNC:"TARDBP", frag("192_262"), var("?")) -| bp(GO:"RNA binding")
+p(HGNC:"TARDBP", frag("104_176"), var("?")) neg bp(GO:"regulation of RNA binding")
+p(HGNC:"TARDBP", frag("192_262"), var("?")) neg bp(GO:"regulation of RNA binding")
 p(HGNC:"TARDBP", frag("104_176"), var("?")) cnc path(MESH:"RNA Recognition Motif")
 p(HGNC:"TARDBP", frag("192_262"), var("?")) cnc path(MESH:"RNA Recognition Motif")
 
@@ -223,8 +223,8 @@ single-stranded DNA (ssDNA) or single-stranded RNA (ssRNA),
 and not to double-stranded DNA (dsDNA), has been shown to
 enhance the TDP-43’s solubility and expectedly also prevent its
 aggregation (Huang et al., 2013; Sun and Chakrabartty, 2017)."
-composite(p(HGNC:"TARDBP", frag("192_262")), p(MESH:"DNA, Single-Stranded")) -> path(MESH:"Solubility")
-composite(p(HGNC:"TARDBP", frag("192_262")), p(MESH:"DNA, Single-Stranded")) -|p(HBP:"TDP-43 aggregates")
+composite(p(HGNC:"TARDBP", frag("192_262")), path(MESH:"DNA, Single-Stranded")) -> path(MESH:"Solubility")
+composite(p(HGNC:"TARDBP", frag("192_262")), path(MESH:"DNA, Single-Stranded")) -|p(HBP:"TDP-43 aggregates")
 
 SET Evidence = "Importantly, TDP-43 actively binds to the 3′ untranslated regions
 (UTRs) of several thousand mRNA transcripts, and even to
@@ -507,7 +507,7 @@ were also found to efficiently form amyloid like
 fibrils (Chen et al., 2010; Guo et al., 2011; Sun et al.,
 2011; Zhu et al., 2014) (Table 2)."
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
-p(HGNC:"TARDBP", frag("286_366"), var("?")) -> path(MESH:"Amyloid")
+p(HGNC:"TARDBP", frag("286_366"), var("?")) -> p(MESH:"Amyloid")
 UNSET MeSHDisease
 
 SET Evidence = "Interestingly, Zhu et al.
@@ -790,7 +790,7 @@ TDP-43 aggregates in the neuronal cell cultures
 (Cohen et al., 2015)."
 SET Cell = "neuron"
 p(HGNC:"TARDBP", pmod(Ac)) -> p(HGNC:"TARDBP", pmod(Ph))
-p(HGNC:"TARDBP", pmod(Ac)) -| p(GO:"RNA binding")
+p(HGNC:"TARDBP", pmod(Ac)) neg bp(GO:"regulation of RNA binding")
 p(HGNC:"TARDBP", pmod(Ac)) -> path(HBP:"mitochondrial dysfunction")
 UNSET Cell
 
@@ -864,7 +864,7 @@ fibril core structure comprises of different C-terminal fragments
 spanning from the RRM1 to the C-terminal end (Furukawa et al.,
 2011)."
 #RRM1 : 104-176aa
-p(HGNC:"TARDBP", pmod("Protein Aggregates"), ma(GO:"protease binding")) -> p(HGNC:"TARDBP", frag("104_*"))
+p(HBP:"TDP-43 aggregates", ma(GO:"protease binding")) -> p(HGNC:"TARDBP", frag("104_*"))
 
 SET Evidence = "In yet another study, following the overexpression of TDP-
 43 in the bacterial cells, the TDP-43 inclusion bodies formed,
@@ -959,8 +959,8 @@ subjected to MG-132-induced stress and expressing wild-type
 and C-terminal region of TDP-43 (Ishii et al., 2017)."
 #MG-132 : N-benzyloxycarbonyl-L-leucyl-L-leucyl-L-leucinal
 a(CHEBI:"N-benzyloxycarbonyl-L-leucyl-L-leucyl-L-leucinal") -> path(MESH:"Stress, Physiological")
-path(MESH:"Stress, Physiological") -> p(HGNC:"TARDBP", pmod("Protein Aggregates"), pmod(Ph))
-path(MESH:"Stress, Physiological") -> p(HGNC:"TARDBP", pmod("Protein Aggregates"), pmod(Ub))
+path(MESH:"Stress, Physiological") -> p(HBP:"TDP-43 aggregates", pmod(Ph))
+path(MESH:"Stress, Physiological") -> p(HBP:"TDP-43 aggregates", pmod(Ub))
 
 SET Evidence = "In a
 separate study, 40 amino acid long peptides (spanning aa 274–
@@ -971,7 +971,7 @@ formations that contained phosphorylated C-terminal TDP-
 TDP-43 (Shimonaka et al., 2016)."
 #C-terminal domain - aa 274-414
 SET CellLine = "SH-SY5Y cell"
-a(MESH:"Amyloid") ->  p(HGNC:"TARDBP", frag("274_414"), pmod("Ph"), loc(GO:"inclusion body"))
+a(MESH:"Amyloid") ->  p(HGNC:"TARDBP", frag("274_414"), pmod(Ph), loc(GO:"inclusion body"))
 UNSET CellLine
 
 SET Evidence = "Interestingly, certain ALS-associated TDP-
@@ -1122,7 +1122,7 @@ path(MESH:"Transportation") -- path(MESH:"Nerve Degeneration")
 path(MESH:"Mitochondrial Size") -- bp(GO:"neuron fate commitment")
 path(MESH:"Mitochondrial Size") -- path(MESH:"Nerve Degeneration")
 a(CHEBI:"calcium(2+)") -- bp(GO:"neuron fate commitment")
-a(CHEBi:"calcium(2+)") -- path(MESH:"Nerve Degeneration")
+a(CHEBI:"calcium(2+)") -- path(MESH:"Nerve Degeneration")
 path(MESH:"Cell Respiration") -- bp(GO:"neuron fate commitment")
 path(MESH:"Cell Respiration") -- path(MESH:"Nerve Degeneration")
 bp(GO:"ATP biosynthetic process") -- bp(GO:"neuron fate commitment")
@@ -1219,8 +1219,8 @@ SET Evidence = "Of note, the addition
 of exogenous mutant SOD1 aggregates has been reported
 to cause cytoplasmic mislocalization of TDP-43 and enhance
 its aggregation (Zeineddine et al., 2017) (Figure 7)."
-p(HGNC:"SOD1", var("?"), pmod("Protein Aggregates")) -> p(HBP:"TDP-43 aggregates")
-p(HGNC:"SOD1", var("?"), pmod("Protein Aggregates")) neg p(HGNC:"TARDBP", loc(GO:"cytoplasm"))
+p(HGNC:"SOD1", var("?"), pmod(MESH:"Protein Aggregates")) -> p(HBP:"TDP-43 aggregates")
+p(HGNC:"SOD1", var("?"), pmod(MESH:"Protein Aggregates")) neg p(HGNC:"TARDBP", loc(GO:"cytoplasm"))
 
 SET Evidence = "Also
 mutant SOD1 expression has been found to increase the C terminal
@@ -1229,7 +1229,7 @@ interaction of the mutant SOD1 with TDP-43 fragments has been
 speculated to mediate toxicity via apoptosis (Jeon et al., 2018)."
 #C-terminal domain - aa 274-414
 p(HGNC:"SOD1", var("?")) -> p(HGNC:"TARDBP", frag("274_414"))
-complex(p(HGNC:"SOD1", var("?")), p(HGNC:"TARDBP", frag("274_414"))) -> path(NESH:"Toxic Actions")
+complex(p(HGNC:"SOD1", var("?")), p(HGNC:"TARDBP", frag("274_414"))) -> path(MESH:"Toxic Actions")
 
 SET Evidence = "Expression of
 mutant TDP-43 disrupts the ER-mitochondrial connection by
@@ -1473,7 +1473,7 @@ under clinical trials for ALS treatment (De Carvalho et al., 2010;
 Weiss et al., 2016)."
 a(CHEBI:"mexiletine") -| p(MESH:"Voltage-Gated Sodium Channels")
 a(CHEBI:"mexiletine") -| path(MESH:"Amyotrophic Lateral Sclerosis")
-a(CHEBI:"memantine") -| a(CEHBI:"glutamate(1−)")
+a(CHEBI:"memantine") -| a(CHEBI:"D-glutamate(1-)")
 a(CHEBI:"memantine") -| path(MESH:"Amyotrophic Lateral Sclerosis")
 
 SET Evidence = "In 2017, a new anti-oxidant drug,
@@ -1568,17 +1568,17 @@ a(PUBCHEM:"9577280") -| a(CHEBI:"copper(2+)")
 a(PUBCHEM:"137275684") -| a(CHEBI:"copper(2+)")
 UNSET MeSHAnatomy
 a(PUBCHEM:"9577280") -| complex(a(GO:"cytoplasmic stress granule"), p(HGNC:"TARDBP"))
-a(PUBCHEM:"9577280") -| p(HGNC:"TARDBP", frag("274_414"), pmod("Protein Aggregates"))
+a(PUBCHEM:"9577280") -| p(HGNC:"TARDBP", frag("274_414"), pmod(MESH:"Protein Aggregates"))
 a(PUBCHEM:"137275684") -| complex(a(GO:"cytoplasmic stress granule"), p(HGNC:"TARDBP"))
-a(PUBCHEM:"137275684") -| p(HGNC:"TARDBP", frag("274_414"), pmod("Protein Aggregates"))
+a(PUBCHEM:"137275684") -| p(HGNC:"TARDBP", frag("274_414"), pmod(MESH:"Protein Aggregates"))
 
 SET Evidence = "Using random mutagenesis, engineered Hsp104
 variants were obtained which showed capability of dissolving
 the aggregates of TDP-43, FUS, and alpha-synuclein (Jackrel et al.,
 2014)."
 p(NCBIGENE:"850633") -> deg(p(HBP:"TDP-43 aggregates"))
-p(NCBIGENE:"850633") -> deg(p(HGNC:"FUS", pmod("Protein Aggregates")))
-p(NCBIGENE:"850633") -> deg(p(HGNC:"SNCA"), pmod("Protein Aggregates"))
+p(NCBIGENE:"850633") -> deg(p(HGNC:"FUS", pmod(MESH:"Protein Aggregates")))
+p(NCBIGENE:"850633") -> deg(a(HBP:"alpha-synuclein aggregates"))
 
 SET Evidence = "In fact, the mutants of Hsp104, A503V/S/C and V426L, could reduce the toxicity, suppress the aggregation and promote
 the nuclear localization of wild-type TDP-43 and an ALS linked
@@ -1606,10 +1606,10 @@ and a-synuclein fibrillar aggregates (Jackrel and Shorter, 2014;
 Jackrel et al., 2014)."
 p(NCBIGENE:"850633", var("p.Ala503Val")) -> deg(p(HBP:"TDP-43 aggregates"))
 p(NCBIGENE:"850633", var("p.Ala503Ser")) -> deg(p(HBP:"TDP-43 aggregates"))
-p(NCBIGENE:"850633", var("p.Ala503Val")) -> deg(p(HGNC:"FUS", pmod("Protein Aggregates")))
-p(NCBIGENE:"850633", var("p.Ala503Ser")) -> deg(p(HGNC:"FUS", pmod("Protein Aggregates")))
-p(NCBIGENE:"850633", var("p.Ala503Val")) -> deg(p(HGNC:"SNCA"), pmod("Protein Aggregates"))
-p(NCBIGENE:"850633", var("p.Ala503Ser")) -> deg(p(HGNC:"SNCA"), pmod("Protein Aggregates"))
+p(NCBIGENE:"850633", var("p.Ala503Val")) -> deg(p(HGNC:"FUS", pmod(MESH:"Protein Aggregates")))
+p(NCBIGENE:"850633", var("p.Ala503Ser")) -> deg(p(HGNC:"FUS", pmod(MESH:"Protein Aggregates")))
+p(NCBIGENE:"850633", var("p.Ala503Val")) -> deg(a(HBP:"alpha-synuclein aggregates"))
+p(NCBIGENE:"850633", var("p.Ala503Ser")) -> deg(a(HBP:"alpha-synuclein aggregates"))
 
 SET Evidence = "Following overexpression of Sis1, a yeast
 Hsp40 chaperone, reduction in the deleterious effects of the
