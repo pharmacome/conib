@@ -72,52 +72,66 @@ DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifact
 ##############
 
 SET Citation = {"PubMed", "26010758"}
+SET Species = "10090"
 
 SET Evidence = " We have shown previously that
 anatabine displays some anti-inflammatory properties and reduces microgliosis and tau
 phosphorylation in a pure mouse model of tauopathy."
+SET Confidence = "High"
 a(CHEBI:Anatabine) -| bp(GO:"inflammatory response")
 a(CHEBI:Anatabine) -| path(MESH:Gliosis)
 SET MeSHDisease = "Tauopathies"
-SET Species = "10090"
 a(CHEBI:Anatabine) -| p(HGNC:MAPT, pmod(Ph))
-UNSET Species
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = " Anatabine has a chemical structure closely related to nicotine
 and is a full agonist of α7 and α4β2 nicotinic acetylcholine receptors (nAChR) but is a more
 potent α7 nAChR agonist than nicotine [15,16]."
+SET Confidence = "High"
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") hasMember p(HGNC:CHRNA7)
 a(CHEBI:Anatabine) -> act(p(HGNC:CHRNA7))
+UNSET Confidence
 
 SET Evidence =  "We have shown previously that anatabine
 displays some anti-inflammatory properties by reducing the activation of NFκB and STAT3
 [17,18]."
+SET Confidence = "High"
 a(CHEBI:Anatabine) -| bp(GO:"inflammatory response")
 a(CHEBI:Anatabine) -| act(p(FPLX:NFkappaB))
 a(CHEBI:Anatabine) -| act(p(HGNC:STAT3))
+UNSET Confidence
 
 SET Evidence = "Transgenic mouse models of AD overexpressing Aβ peptides generally show greater locomotor
 activity and disinhibition in the elevated plus maze compared to non-transgenic mice, suggest-
 ing hyperactivity and a lower level of anxiety [28–30]. "
-SET Species = "10090"
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 a(CHEBI:"amyloid-beta") -> bp(GO:locomotion)
 a(CHEBI:"amyloid-beta") -| path(MESH:Anxiety)
 UNSET MeSHDisease
+UNSET Confidence
+
 
 SET Evidence = "Interestingly, the hyper-
 active behavior of Tg PS1/APPswe mice was suppressed with the anatabine treatment at a dos-
 age of 20 mg/Kg/Day (Fig 2B and 2C). "
+#Mouse strain - Tg PS1/APPswe
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 a(CHEBI:Anatabine) -| bp(GO:locomotion)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "The disinhibition affecting Tg PS1/APPswe mice was suppressed following
 treatment with anatabine at a dosage of either 10 or 20 mg/Kg/Day at both the time points
 (Figs 2D and 3D)."
+#Mouse strain - Tg PS1/APPswe
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
-a(CHEBI:Anatabine) -> path(MESH:Anxiety)
+a(CHEBI:Anatabine) -| path(MESH:Anxiety)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Unlike wild-type mice, Tg PS1/APPswe mice elicited social interaction deficits and spent an
 equal amount of time in the chamber containing the empty cage or the chamber containing
@@ -125,36 +139,49 @@ the unfamiliar (Stranger 1) mouse (Fig 4A). Anatabine at a dosage of 20mg/Kg/Day
 sociability in Tg PS1/APPswe mice as Tg PS1/APPswe mice treated with anatabine spent
 significantly more time in the chamber containing the unfamiliar mouse (Stranger 1) and
 less time in the chamber containing the empty cage (Fig 4B)."
+#Mouse strain - Tg PS1/APPswe
+SET Confidence = "High"
 SET MeSHDisease= "Alzheimer Disease"
-a(CHEBI:"amyloid-beta") -| path(MESH:"Interpersonal Relations")
+a(CHEBI:"amyloid-beta") -- path(MESH:"Interpersonal Relations")
 a(CHEBI:Anatabine) -> path(MESH:"Interpersonal Relations")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = " A significant increase in Iba-1 bur-
 den was observed in the cortex and hippocampus of Tg PS1/APPswe mice compared to their
 control wild-type littermates, suggesting increased Iba-1 immunopositive microglia in the
 brain of Tg PS1/APPswe mice (Fig 5A). "
+#Mouse strain - Tg PS1/APPswe
+#Iba-1 : AIF1
+SET Confidence = "High"
 SET MeSHDisease= "Alzheimer Disease"
 SET MeSHAnatomy = {"Cerebral Cortex","Hippocampus"}
 a(CHEBI:"amyloid-beta") -> p(HGNC:AIF1)
 p(HGNC:AIF1) pos bp(GO:"microglial cell activation")
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Interestingly, Tg PS1/APPswe mice treated with anata-
 bine at a dosage of 20 mg/Kg/Day, but not 10mg/Kg/day showed a significant reduction in Iba-
 1 burden in the hippocampus compared to untreated Tg PS1/APPswe mice (Fig 5A and 5B),
 suggesting that anatabine suppresses microgliosis in the brain of Tg PS1/APPswe mice."
+#Mouse strain - Tg PS1/APPswe
+SET Confidence = "High"
 SET MeSHDisease= "Alzheimer Disease"
 SET MeSHAnatomy = "Hippocampus"
 a(CHEBI:Anatabine) -| p(HGNC:AIF1)
 a(CHEBI:Anatabine) -| bp(GO:"microglial cell activation")
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "A significant increase in CD45 immunopositive
 microglia/macrophage was observed in the cortex of Tg PS1/APPswe mice compared to wild-
 type mice (CD45 immunonegative) (Fig 5C). "
+#Mouse strain - Tg PS1/APPswe
+#CD45 : PTPRC
+SET Confidence = "High"
 SET MeSHDisease= "Alzheimer Disease"
 SET MeSHAnatomy = "Cerebral Cortex"
 SET Cell = {"microglial cell","macrophage"}
@@ -162,11 +189,14 @@ a(CHEBI:"amyloid-beta") -> p(HGNC:PTPRC)
 UNSET Cell
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = " However, we observed a significant reduction in
 CD45 immunopositive microglia/macrophage in Tg PS1/APPswe mice receiving anatabine at
 a dosage of 10 and 20 mg/Kg/Day compared to Tg PS1/APPswe mice receiving regular drink-
 ing water (Fig 5C and 5D)."
+#Mouse strain - Tg PS1/APPswe
+SET Confidence = "High"
 SET MeSHDisease= "Alzheimer Disease"
 SET MeSHAnatomy = "Cerebral Cortex"
 SET Cell = {"microglial cell","macrophage"}
@@ -174,9 +204,11 @@ a(CHEBI:Anatabine) -| p(HGNC:PTPRC)
 UNSET Cell
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "We have previously shown that anatabine inhibits STAT3 and NFκB activation [18] resulting
 in decreased neuroinflammation in a mouse model of multiple sclerosis."
+SET Confidence = "High"
 SET MeSHDisease = "Multiple Sclerosis"
 a(CHEBI:Anatabine) -| act(p(FPLX:NFkappaB))
 a(CHEBI:Anatabine) -| act(p(HGNC:STAT3))
@@ -184,56 +216,72 @@ SET MeSHAnatomy = "Neurons"
 a(CHEBI:Anatabine) -| bp(GO:"inflammatory response")
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
-SET Evidence = "We ob-
-served an elevation of STAT3 phosphorylation in the hippocampus and cortex of Tg PS1/
+SET Evidence = "We observed an elevation of STAT3 phosphorylation in the hippocampus and cortex of Tg PS1/
 APPswe compared to their control wild-type littermates (Fig 6A). "
+#Mouse strain - Tg PS1/APPswe
+SET Confidence = "High"
 SET MeSHDisease= "Alzheimer Disease"
 SET MeSHAnatomy = {"Cerebral Cortex","Hippocampus"}
 a(CHEBI:"amyloid-beta") -> p(HGNC:STAT3, pmod(Ph))
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "A significant reduction in
 STAT3 phosphorylation was observed in the hippocampus and cortex of Tg PS1/APPswe mice
 treated with 10 or 20 mg/Kg/Day of anatabine compared to Tg PS1/APPswe receiving regular
 drinking water (Fig 6B) showing that anatabine prevents STAT3 activation in the brain of Tg
 PS1/APPswe mice. "
+#Mouse strain - Tg PS1/APPswe
+SET Confidence = "High"
 SET MeSHDisease= "Alzheimer Disease"
-SET MeSHAnatomy = {"Cerebral Cortex","Hippocampus"}
+SET MeSHAnatomy = {"Cerebral Cortex","Hippocampus", "Brain"}
 a(CHEBI:Anatabine) -| p(HGNC:STAT3, pmod(Ph))
 a(CHEBI:Anatabine) -| act(p(HGNC:STAT3))
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "We also observed elevation of NFκB activation in the vicinity of Aβ deposits
 in the brain of Tg PS1/APPswe mice (Fig 7A)."
+#Mouse strain - Tg PS1/APPswe
+SET Confidence = "High"
 SET MeSHDisease= "Alzheimer Disease"
 SET MeSHAnatomy = "Brain"
 a(CHEBI:"amyloid-beta") -> act(p(FPLX:NFkappaB))
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = " Interestingly, we found a significant reduction in
 the expression of amyloid plaque associated phospho-p65 NFκB immunopositive cells in Tg
 PS1/APPswe mice treated with anatabine at either 10 or 20 mg/Kg/Day (Fig 7B) showing that
 anatabine prevents NFκB activation in the brain of Tg PS1/APPswe mice."
+#Mouse strain - Tg PS1/APPswe
 #Phospho-NF-κB p65 (Ser536)
+SET Confidence = "Medium"
 SET MeSHDisease= "Alzheimer Disease"
 SET MeSHAnatomy = "Brain"
+path(MESH: "Plaque, Amyloid") -- p(FPLX:NFkappaB, pmod(Ph,Ser,536))
 a(CHEBI:Anatabine) -| p(FPLX:NFkappaB, pmod(Ph,Ser,536))
 a(CHEBI:Anatabine) -| act(p(FPLX:NFkappaB))
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "We observed that anatabine reduces brain Aβ burden both
 in the cortex and the hippocampus of Tg PS1/APPswe mice using immunostaining with the
 antibody 4G8 which recognizes Aβ (Fig 8A and 8B)."
+#Mouse strain - Tg PS1/APPswe
+SET Confidence = "High"
 SET MeSHDisease= "Alzheimer Disease"
 SET MeSHAnatomy = {"Cerebral Cortex","Hippocampus"}
 a(CHEBI:Anatabine) -| a(CHEBI:"amyloid-beta")
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = " Additionally, we found that Bace1 mRNA
 expression is significantly increased in the brain of Tg PS1/APPswe mice compared to wild-
@@ -241,24 +289,36 @@ type littermates, whereas a significant reduction in Bace1 mRNA levels is observ
 APPswe receiving 20 mg/Kg/Day of anatabine in their drinking water showing that at this
 dosage anatabine can mitigate the upregulation of Bace1 expression in Tg PS1/APPswe mice
 (Fig 9)."
+#Mouse strain - Tg PS1/APPswe
+SET Confidence = "High"
 SET MeSHDisease= "Alzheimer Disease"
 SET MeSHAnatomy = "Brain"
 a(CHEBI:"amyloid-beta") -> r(HGNC:BACE1)
 a(CHEBI:Anatabine) -| r(HGNC:BACE1)
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "We found a significant reduction in Cox-2 mRNA expression in Tg PS1/
 APPswe mice treated with anatabine at a dosage of 20 mg/Kg/Day (Fig 10)."
+#Mouse strain - Tg PS1/APPswe
+#Cox-2 : PTGS2
+SET Confidence = "High"
 SET MeSHDisease= "Alzheimer Disease"
 SET MeSHAnatomy = "Brain"
 a(CHEBI:Anatabine) -| r(HGNC:PTGS2)
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "A dose dependent
 suppression of iNOS transcription was observed in Tg PS1/APPswe mice treated with anata-
 bine at a dosage of 10 or 20 mg/Kg/Day compared to untreated Tg PS1/APPswe mice (Fig 10)."
+#Mouse strain - Tg PS1/APPswe
+SET Confidence = "High"
 SET MeSHDisease= "Alzheimer Disease"
 a(CHEBI:Anatabine) -| r(HGNC:NOS2)
 UNSET MeSHDisease
+UNSET Confidence
+
+UNSET Species
