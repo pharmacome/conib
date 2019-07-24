@@ -17,7 +17,7 @@ SET DOCUMENT Description = ""
 # Namespaces hosted on https://github.com/pharmacome/terminology
 # --------------------------------------------------------------
  DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
-# DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+ DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
 # DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 # DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 # DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
@@ -30,7 +30,7 @@ DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharma
  DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mesh-names.belns"
 # DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
 # DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
-# DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+ DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
 # DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
 # DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
 
@@ -180,14 +180,14 @@ in the NTD induces cytoplasmic relocalization and aggregation
 of TDP-43 (Winton et al., 2008a; Barmada et al., 2010)."
 #NLS : aa 82 - 98
 p(HGNC:"TARDBP", frag("82","98"), var("?")) -> p(HGNC:"TARDBP", frag("1","102"), loc(MESH:"Cytoplasm"))
-p(HGNC:"TARDBP", frag("82","98"), var("?")) ->p(HBP:"TDP-43 aggregates")
+p(HGNC:"TARDBP", frag("82","98"), var("?")) -> p(HBP:"TDP-43 aggregates")
 
 SET Evidence = "In
 fact, the ALS-associated A90V mutation present in the nuclear
 localization signal (NLS) can sequester the endogenous TDP-43
 into insoluble cytoplasmic aggregates (Winton et al., 2008b)."
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
-p(HGNC:"TARDBP", frag("82","98"), var("p.Ala90Val")) -> p(HGNC:"TARDBP". pmod("Protein Aggregates"),loc(MESH:"Cytoplasm"))
+p(HGNC:"TARDBP", frag("82","98"), var("p.Ala90Val")) -> p(HGNC:"TARDBP", pmod("Protein Aggregates"),loc(MESH:"Cytoplasm"))
 UNSET MeSHDisease
 
 SET Evidence = "These proteins are involved in several RNA
@@ -1272,6 +1272,374 @@ model expressing the TDP-43 M337V mutant, inhibition of
 the mitochondrial localization could relieve the cognitive
 dysfunction and restore the mitochondrial function (Wang
 W. et al., 2017)."
+#transgenic mouse
 SET Species = "10090"
 p(HGNC:"TARDBP", var("p.Met337Val")) -| bp(GO:"mitochondrion localization")
-bp(GO:"mitochondrion localization") -|
+bp(GO:"mitochondrion localization") -> path(MESH:"Cognitive Dysfunction")
+SET MeSHAnatomy = "Mitochondria"
+bp(GO:"mitochondrion localization") -| path(MESH:"Recovery of Function")
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "TDP-
+43 overexpression alters the CHCHD10 localization from the
+mitochondria to the nucleus and loss-of-function mutations in
+CHCHD10 induces cytoplasmic accumulation of TDP-43 (Woo
+et al., 2017)."
+p(HGNC:"TARDBP") -> tloc(p(HGNC:"CHCHD10"), fromLoc(GO:"mitochondrion"), toLoc(GO:"nucleus"))
+p(HGNC:"CHCHD10") -| p(HGNC:"TARDBP", pmod("Protein Aggregates"), loc(GO:"cytoplasm"))
+
+SET Evidence = "Interestingly, loss of mitochondrial integrity caused
+bymutations in CHCHD10 has been shown to be independent of
+the mitochondrial localization of TDP-43 (Genin et al., 2018)."
+p(HGNC:"CHCHD10") -- a(MESH:"Mitochondria")
+
+SET Evidence = "Strikingly, increased iron
+and iron-associated protein levels have been found in the ALS
+patients’ brain cortex and blood sera (Veyrat-Durebex et al., 2014; Yu et al., 2014)."
+SET MeSHAnatomy = {"Neocortex", "Blood Cells"}
+a(CHEBI:"iron(3+)") -- path(MESH:"Amyotrophic Lateral Sclerosis")
+UNSET MeSHAnatomy
+
+####Ions which state not mentioned?
+SET Evidence = "Recently, in a TDP-43 mice model expressing the
+TDP-43 A315Tmutant, a significant increase in the levels of zinc,
+manganese and copper ions were observed as compared to the
+controlmice expressing the wild-type TDP-43 (Dang et al., 2014)."
+SET Species = "10090"
+p(HGNC:"TARDBP", var("p.Ala315Thr")) -> a(CHEBI:"zinc ion")
+p(HGNC:"TARDBP", var("p.Ala315Thr")) -> a(CHEBI:"manganese(2+)")
+p(HGNC:"TARDBP", var("p.Ala315Thr")) -> a(CHEBI:"copper(2+)")
+UNSET Species
+
+SET Evidence = "Notably, the zinc
+ions could induce inclusion bodies formation and aggregation
+in the neuronal cell cultures, and this effect was not observed
+with copper or iron, indicating zinc-specific effects (Caragounis
+et al., 2010)."
+a(CHEBI:"zinc ion") -> path(MESH:"Inclusion Bodies")
+a(CHEBI:"copper(2+)") cnc path(MESH:"Inclusion Bodies")
+a(CHEBI:"iron(3+)") cnc path(MESH:"Inclusion Bodies")
+SET Cell = "neuron"
+a(CHEBI:"zinc ion") -> path(MESH:"Protein Aggregation, Pathological")
+a(CHEBI:"copper(2+)") cnc path(MESH:"Protein Aggregation, Pathological")
+a(CHEBI:"iron(3+)") cnc path(MESH:"Protein Aggregation, Pathological")
+UNSET Cell
+
+SET Evidence = "Recently, Ash et al. demonstrated that heavy metals, such
+as lead, mercury and tin, can trigger aggregation and formation
+of nuclear inclusions of TDP-43 in the PC12 cell lines (Ash et al.,
+2018)"
+SET CellLine = "PC12"
+SET MeSHAnatomy = "Cell Nucleus"
+a(CHEBI:"lead atom") -> p(HGNC:"TARDBP", loc(GO:"inclusion body"))
+a(CHEBI:"mercury atom") -> p(HGNC:"TARDBP", loc(GO:"inclusion body"))
+a(CHEBI:"tin atom") -> p(HGNC:"TARDBP", loc(GO:"inclusion body"))
+UNSET MeSHAnatomy
+UNSET CellLine
+
+SET Evidence = "The exposure to lead and methyl mercury was found
+to disrupt the TDP-43’s homeostasis in the neuronal cells and
+dysregulate its splicing activity."
+SET Cell = "neuron"
+a(CHEBI:"lead atom") -|  p(HGNC:"TARDBP", ma(GO:"RNA splicing"))
+a(PUBCHEM:"6860") -|  p(HGNC:"TARDBP", ma(GO:"RNA splicing"))
+UNSET Cell
+
+######Code issue?
+SET Evidence = "TDP-43 was found to impair nucleosomal
+dynamics (Berson et al., 2017)."
+
+SET Evidence = "TDP-43 was linked with impaired expression of heat
+shock response proteins, thereby decreasing survival, whereas
+the upregulation of CHD1 could restore their survival."
+p(HGNC:"TARDBP") -| p(MESH:"Heat-Shock Proteins")
+p(HGNC:"CHD1") -> p(MESH:"Heat-Shock Proteins")
+
+SET Evidence = "Also,
+alteration of chromatin dynamics by TDP-43 due to abnormal
+histone clearance could be relieved upon CHD1 overexpression."
+p(HGNC:"TARDBP") -| p(NESH:"Histones")
+p(NESH:"Histones") -- path(MESH:"Chromatin Assembly and Disassembly")
+p(HGNC:"CHD1") pos path(MESH:"Chromatin Assembly and Disassembly")
+
+SET Evidence = "Strikingly, the cytoplasmic accumulation of TDP-43 in
+ALS and FTLD brain cortex, was also found to be associated
+with decreased levels of its human ortholog CHD2, thereby
+indicating that aberrant chromatin remodeling might be involved
+in ALS (Berson et al., 2017) (Figure 6)."
+SET MeSHDisease = {"Frontotemporal Lobar Degeneration", "Amyotrophic Lateral Sclerosis"}
+SET MeSHAnatomy = "Neocortex"
+p(HGNC:"CHD2") -| p(HGNC:"TARDBP", loc(GO:"cytoplasm"))
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+path(MESH:"Amyotrophic Lateral Sclerosis") -- path(MESH:"Chromatin Assembly and Disassembly")
+
+SET Evidence = "Additionally, levels
+of the functional subunits of neuronal Brg1-associated factor
+(nBAF), which is another chromatin remodeling protein critical
+for the neuronal differentiation, dendritic extension and synaptic
+function, was reduced by mutant TDP-43 in the cultured motor
+neurons and in the ALS spinal motor neurons (Tibshirani
+et al., 2017)."
+#SS18 : nBAF subunit
+SET Cell = "neuron"
+p(HGNC:"SS18") reg path(MESH:"Cell Differentiation")
+UNSET Cell
+p(HGNC:"SS18") reg bp(GO:"dendrite extension")
+p(HGNC:"SS18") reg path(MESH:"Synaptic Transmission")
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+SET Cell = {"spinal cord motor neuron", "motor neuron"}
+p(HGNC:"TARDBP", var("?")) -| p(HGNC:"SS18")
+UNSET Cell
+UNSET MeSHDisease
+
+SET Evidence = "Also, the nuclear loss of TDP-43, or FUS, has
+been linked with concomitant nuclear retention of the mRNAs
+encoding the proteins involved in the formation of the nBAF
+complex."
+p(HGNC:"TARDBP", loc(GO:"nucleus")) reg r(HGNC:"SS18")
+
+###encoding for multiple modifications
+SET Evidence = "Furthermore, an ALS-linked TDP-43 M337V mutant,
+was shown to decrease the global expression levels of a key
+epigenetic marker, H3S10Ph-K14Ac in neuronal cells, whereas,
+the overexpression of wild-type TDP-43 caused an increase in
+the histone H3K9Me3 levels (Masala et al., 2018)."
+
+
+SET Evidence = "Although, pathologically ubiquitinated and phosphorylated
+TDP-43 inclusions are commonly linked to neurodegeneration
+in ALS and FTLD-TDP patients (Arai et al., 2006; Neumann
+et al., 2006; Kwong et al., 2008), TDP-43-positive inclusion
+cross-immunoreactive pathology, has also been observed in
+the patients of several other neurological diseases such as:
+dementia with Lewy bodies (Higashi et al., 2007; Nakashima-
+Yasuda et al., 2007; Lin and Dickson, 2008), corticobasal
+degeneration (Uryu et al., 2008), progressive supranuclear
+palsy (PSP) (Yokota et al., 2010; Koga et al., 2017), dementia
+Parkinsonism ALS complex of guam (G-PDC) (Hasegawa
+et al., 2007; Geser et al., 2008), Pick’s disease (Freeman
+et al., 2008; Lin and Dickson, 2008; Dardis et al., 2016),
+hippocampal sclerosis (Amador-Ortiz et al., 2007; Yokota et al.,
+2010), Alzheimer’s disease, Huntington’s disease and Parkinson’s
+disease (Nakashima-Yasuda et al., 2007; Schwab et al., 2008;
+King et al., 2010b)."
+p(HGNC:"TARDBP", loc(GO:"inclusion body"), pmod("Ph")) -- path(MESH:"Lewy Body Disease")
+p(HGNC:"TARDBP", loc(GO:"inclusion body"), pmod("Ub")) -- path(MESH:"Lewy Body Disease")
+p(HGNC:"TARDBP", loc(GO:"inclusion body"), pmod("Ph")) -- path(MESH:"Supranuclear Palsy, Progressive")
+p(HGNC:"TARDBP", loc(GO:"inclusion body"), pmod("Ub")) -- path(MESH:"Supranuclear Palsy, Progressive")
+p(HGNC:"TARDBP", loc(GO:"inclusion body"), pmod("Ph")) -- path(MESH:"Pick Disease of the Brain")
+p(HGNC:"TARDBP", loc(GO:"inclusion body"), pmod("Ub")) -- path(MESH:"Pick Disease of the Brain")
+p(HGNC:"TARDBP", loc(GO:"inclusion body"), pmod("Ph")) -- path(MESH:"Sclerosis")
+p(HGNC:"TARDBP", loc(GO:"inclusion body"), pmod("Ub")) -- path(MESH:"Sclerosis")
+p(HGNC:"TARDBP", loc(GO:"inclusion body"), pmod("Ph")) -- path(MESH:"Alzheimer Disease")
+p(HGNC:"TARDBP", loc(GO:"inclusion body"), pmod("Ub")) -- path(MESH:"Alzheimer Disease")
+p(HGNC:"TARDBP", loc(GO:"inclusion body"), pmod("Ph")) -- path(MESH:"Huntington Disease")
+p(HGNC:"TARDBP", loc(GO:"inclusion body"), pmod("Ub")) -- path(MESH:"Huntington Disease")
+p(HGNC:"TARDBP", loc(GO:"inclusion body"), pmod("Ph")) -- path(MESH:"Parkinson Disease")
+p(HGNC:"TARDBP", loc(GO:"inclusion body"), pmod("Ub")) -- path(MESH:"Parkinson Disease")
+
+SET Evidence = "However, in vitro studies have found
+that pre-formed TDP-43 aggregates, in fact, can prevent the
+maturation of the aggregating A beta-42 into fibrils and rather arrest
+it into spherical oligomeric species (Fang et al., 2014)."
+p(HBP:"TDP-43 aggregates") -| p(HBP:"amyloid-beta aggregates")
+
+SET Evidence = "Excessive stimulation of glutamate receptors
+results in increased influx of Na+ and Ca2+ ions, which
+causes excitotoxicity, leading to neuronal injury or neuronal
+death (Heath and Shaw, 2002)."
+p(HGNCGENEFAMILY:"Glutamate metabotropic receptors") -> act(a(MESH:"Sodium Channels"))
+p(HGNCGENEFAMILY:"Glutamate metabotropic receptors") -> act(a(MESH:"Calcium Channels"))
+a(CHEBI:"sodium(1+)") -> bp(GO:"neuron death")
+a(CHEBI:"calcium(2+)") -> bp(GO:"neuron death")
+
+SET Evidence = "A small molecule, riluzole,
+can inhibit glutamate excitotoxicity by regulating the release
+of glutamate, suppressing post-synaptic receptor activation and
+blocking voltage-sensitive sodium channels."
+p(CHEBI:"Riluzole") -| p(HGNCGENEFAMILY:"Glutamate metabotropic receptors")
+p(CHEBI:"Riluzole") reg a(CEHBI:"glutamate(1−)")
+p(CHEBI:"Riluzole") reg bp(GO:"chemical synaptic transmission, postsynaptic")
+p(CHEBI:"Riluzole") -| path(MESH:"Voltage-Gated Sodium Channels")
+
+
+####used in ALS? How to code
+SET Evidence = "Also, a sodium channel
+blocker, mexiletine, which reduces the neuronal hyperexcitability
+and another glutamate antagonist, memantine, are presently
+under clinical trials for ALS treatment (De Carvalho et al., 2010;
+Weiss et al., 2016)."
+a(CHEBI:"mexiletine") -| path(MESH:"Voltage-Gated Sodium Channels")
+a(CHEBI:"mexiletine") -| path(MESH:"Amyotrophic Lateral Sclerosis")
+a(VHEBI:"memantine") -| a(CEHBI:"glutamate(1−)")
+a(CHEBI:"memantine") -| path(MESH:"Amyotrophic Lateral Sclerosis")
+
+SET Evidence = "In 2017, a new anti-oxidant drug,
+edaravone (also called: radicava), became the first new FDA approved
+drug for the treatment of ALS, in over two decades
+since riluzole. It is a free-radical scavenger and a potent antioxidant
+that alleviates the oxidative stress on the nerves and
+the vascular endothelial cells (Yoshino and Kimura, 2006;
+Takei et al., 2017)."
+a(CHEBI:"edaravone") isA a(MESH:"Antioxidants")
+a(CHEBI:"edaravone") -| path(MESH:"Amyotrophic Lateral Sclerosis")
+a(CHEBI:"Riluzole") -| path(MESH:"Amyotrophic Lateral Sclerosis")
+a(CHEBI:"edaravone") isA a(MESH:"Free Radical Scavengers")
+SET Cell = {"neuron", "microvascular endothelial cell"}
+a(CHEBI:"edaravone") -| path(MESH:"Oxidative Stress")
+UNSET Cell
+
+####how to code for targets?
+SET Evidence = "Masitinib
+is a selective tyrosine kinase inhibitor that mainly targets
+type III growth factor receptors like c-Kit, Lyn, and Fyn
+kinases, and is particularly effective in controlling the survival,
+differentiation, and degranulation of mast cells."
+a(CHEBI:"masitinib") -| act(a(MESH:"Protein-Tyrosine Kinases"))
+SET Cell = "mast cell"
+a(CHEBI:"masitinib") reg path(MESH:"Cell Degranulation")
+a(CHEBI:"masitinib") reg path(MESH:"Cell Differentiation")
+a(CHEBI:"masitinib") reg path(MESH:"Cell Survival")
+UNSET Cell
+
+SET Evidence = "Masitinib has
+been found to prevent the CNS neuro-inflammation by targeting
+the degranulation of the mast cells accumulating around the
+degenerating neuronal axons and by decreasing the release of
+inflammatory cytokines (Trias et al., 2016;Hammamet al., 2017)."
+a(CHEBI:"masitinib") -| path(MESH:"Neurogenic Inflammation")
+path(MESH:"Neurogenic Inflammation") -> bp(GO:"mast cell degranulation")
+a(CHEBI:"masitinib") -| a(MESH:"Cytokines")
+
+SET Evidence = "A small molecule,
+arimoclomol, is a potent activator of HSF1 which also amplifies
+Hsp70 and Hsp90 expressions."
+a(PUBCHEM:"9568077") -> p(HGNC:"HSF1")
+p(HGNC:"HSF1") -> p(HGNCGENEFAMILY:"Heat shock 70kDa proteins")
+p(HGNC:"HSF1") -> p(HGNCGENEFAMILY:"Heat shock 90kDa proteins")
+
+SET Evidence = "In a recent study, arimoclomol
+showed HSF1-mediated reduction in the TDP-43 aggregate levels
+(Kieran et al., 2004; Kalmar et al., 2014; Wang P. et al., 2017)."
+a(PUBCHEM:"9568077") -| p(HBP:"TDP-43 aggregates")
+
+SET Evidence = "Rapamycin, a small
+molecule inhibitor of mTOR, stimulates autophagy through
+the formation of autophagosomes from the phagophore and
+enhances protein degradation (Ravikumar et al., 2004; Bachar-
+Wikstrom et al., 2013)."
+a(CHEBI:"sirolimus") -| p(HGNC:"MTOR")
+a(CHEBI:"sirolimus") -> path(MESH:"Autophagy")
+a(CHEBI:"sirolimus") -> bp(GO:"autophagosome assembly")
+a(CHEBI:"sirolimus") -> path(MESH:"Proteolysis")
+
+SET Evidence = "Rapamycin was shown to induce
+autophagy, improve memory and rescue motor dysfunction
+in a TDP-43 mouse model which manifested a decrease in
+the caspase-3 levels and the amount of cytoplasmic TDP-43
+inclusions (Wang et al., 2012)."
+a(CHEBI:"sirolimus") -> path(MESH:"Memory")
+a(CHEBI:"sirolimus") -> path(MESH:"Motor Activity")
+a(CHEBI:"sirolimus") -| p(HGNC:"CASP3")
+a(CHEBI:"sirolimus") -| p(HGNC:"TARDBP", loc(GO:"cytoplasm"))
+
+SET Evidence = "Furthermore,
+4-aminoquinoline derivatives have been shown to alter the TDP-
+43’s nucleic acid binding properties and enhance its caspase mediated
+cleavage (Cassel et al., 2012)."
+a(PUBCHEM:"68476") neg p(HGNC:"TARDBP", ma(GO:"nucleic acid binding"))
+a(PUBCHEM:"68476") -> p(MESH:"Caspases")
+p(MESH:"Caspases") -> p(HGNC:"TARDBP", frag("?"))
+
+SET Evidence = "Also, inhibition of
+the TDP-43’s accumulation into stress granules and inhibition
+of the C-terminal fragment aggregation, were reported in
+the ALS models treated with copper complexes CuII(btsc)
+and CuII(atsm), which proposedly act by slowly releasing the
+CuII-ions within certain sub-cellular compartments like the
+stress granules (Donnelly et al., 2008; Crouch et al., 2009;
+Parker et al., 2012)."
+#CuII(btsc) : Bis(thiosemicarbazonato)-Copper
+#CuII(atsm) : diacetylbis(-methylthiosemicarbazonato)copperII
+SET MeSHAnatomy = "Cytoplasmic Granules"
+a(PUBCHEM:"	9577280") -| a(CHEBI:"copper(2+)")
+a(PUBCHEM:"137275684") -| a(CHEBI:"copper(2+)")
+UNSET MeSHAnatomy
+a(PUBCHEM:"	9577280") -| complex(a(GO:"cytoplasmic stress granule"), p(HGNC:"TARDBP"))
+a(PUBCHEM:"	9577280") -| p(HGNC:"TARDBP", frag("274","414"), pmod("Protein Aggregates"))
+a(PUBCHEM:"137275684") -| complex(a(GO:"cytoplasmic stress granule"), p(HGNC:"TARDBP"))
+a(PUBCHEM:"137275684") -| p(HGNC:"TARDBP", frag("274","414"), pmod("Protein Aggregates"))
+
+SET Evidence = "Using random mutagenesis, engineered Hsp104
+variants were obtained which showed capability of dissolving
+the aggregates of TDP-43, FUS, and alpha-synuclein (Jackrel et al.,
+2014)."
+p(NCBIGENE:"850633") -> deg(p(HBP:"TDP-43 aggregates"))
+p(NCBIGENE:"850633") -> deg(p(HGNC:"FUS", pmod("Protein Aggregates")))
+p(NCBIGENE:"850633") -> deg(p(HGNC:"SNCA"), pmod("Protein Aggregates"))
+
+SET Evidence = "In fact, the mutants of Hsp104, A503V/S/C and V426L, could reduce the toxicity, suppress the aggregation and promote
+the nuclear localization of wild-type TDP-43 and an ALS linked
+TDP-43 M337V mutant."
+p(NCBIGENE:"850633", var("p.Ala503Val")) -| p(HBP:"TDP-43 aggregates")
+p(NCBIGENE:"850633", var("p.Ala503Val")) -| p(HGNC:"TARDBP", loc(GO:"nucleus"))
+p(NCBIGENE:"850633", var("p.Ala503Ser")) -| p(HBP:"TDP-43 aggregates")
+p(NCBIGENE:"850633", var("p.Ala503Ser")) -| p(HGNC:"TARDBP", loc(GO:"nucleus"))
+p(NCBIGENE:"850633", var("p.Ala503Cys")) -| p(HBP:"TDP-43 aggregates")
+p(NCBIGENE:"850633", var("p.Ala503Cys")) -| p(HGNC:"TARDBP", loc(GO:"nucleus"))
+p(NCBIGENE:"850633", var("p.Val426Leu")) -| p(HBP:"TDP-43 aggregates")
+p(NCBIGENE:"850633", var("p.Val426Leu")) -| p(HGNC:"TARDBP", loc(GO:"nucleus"))
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+p(NCBIGENE:"850633", var("p.Ala503Val")) -| p(HGNC:"TARDBP", var("p.Met337Val"))
+p(NCBIGENE:"850633", var("p.Ala503Ser")) -| p(HGNC:"TARDBP", var("p.Met337Val"))
+p(NCBIGENE:"850633", var("p.Ala503Cys")) -| p(HGNC:"TARDBP", var("p.Met337Val"))
+p(NCBIGENE:"850633", var("p.Val426Leu")) -| p(HGNC:"TARDBP", var("p.Met337Val"))
+UNSET MeSHDisease
+
+SET Evidence = "Also, Hsp104 A503V and A503S
+variants, but not the wild-type Hsp104, displayed a propensity to
+dissolve the short TDP-43 filaments and amorphous structures in
+vitro, and similar observations were also documented for the FUS
+and a-synuclein fibrillar aggregates (Jackrel and Shorter, 2014;
+Jackrel et al., 2014)."
+p(NCBIGENE:"850633", var("p.Ala503Val")) -> deg(p(HBP:"TDP-43 aggregates"))
+p(NCBIGENE:"850633", var("p.Ala503Ser")) -> deg(p(HBP:"TDP-43 aggregates"))
+p(NCBIGENE:"850633", var("p.Ala503Val")) -> deg(p(HGNC:"FUS", pmod("Protein Aggregates")))
+p(NCBIGENE:"850633", var("p.Ala503Ser")) -> deg(p(HGNC:"FUS", pmod("Protein Aggregates")))
+p(NCBIGENE:"850633", var("p.Ala503Val")) -> deg(p(HGNC:"SNCA"), pmod("Protein Aggregates"))
+p(NCBIGENE:"850633", var("p.Ala503Ser")) -> deg(p(HGNC:"SNCA"), pmod("Protein Aggregates"))
+
+SET Evidence = "Following overexpression of Sis1, a yeast
+Hsp40 chaperone, reduction in the deleterious effects of the
+TDP-43 aggregation, was observed (Park et al., 2017)."
+p(NCBIGENE:"855725") -| p(HBP:"TDP-43 aggregates")
+
+SET Evidence = "Interestingly, overexpression of DNAJB6, another Hsp40
+protein, was found to suppress the formation of heat shock induced
+TDP-43 nuclear aggregates."
+p(HGNC:"DNAJB6") -| p(MESH:"Heat-Shock Proteins")
+p(MESH:"Heat-Shock Proteins") -> p(HBP:"TDP-43 aggregates", loc(Go:"nucleus"))
+
+SET Evidence = "In fact, karyopherin-
+beta 1 has shown an ability to decrease and reverse TDP-43
+fibrillization possibly by associating with its classic nuclear
+localization signal (cNLS) sequence."
+complex(p(HGNC:"KPNB1"), a(MESH:"Nuclear Localization Signals")) -> deg(p(HBP:"TDP-43 aggregates"))
+
+SET Evidence = "In an elegant study, heat shock factor1 (HSF1)
+was shown to reduce the levels of insoluble TDP-43 in the
+cell culture and mice ALS models (Chen H. J. et al., 2016)."
+SET Species = "10090"
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+p(HGNC:"HSF1") -|  p(HBP:"TDP-43 aggregates")
+UNSET MeSHDisease
+UNSET Species
+
+SET Evidence = "Chen et al. suggest that DNAJB2a recognizes the
+insoluble TDP-43 aggregates and directs them toward Hsp70 for
+refolding and solubilization (Chen H. J. et al., 2016)."
+p(HGNC:"DNAJB2") -> complex(p(HBP:"TDP-43 aggregates"), p(HGNCGENEFAMILY:"Heat shock 70kDa proteins"))
+complex(p(HBP:"TDP-43 aggregates"), p(HGNCGENEFAMILY:"Heat shock 70kDa proteins")) -> deg(p(HBP:"TDP-43 aggregates"))
+complex(p(HBP:"TDP-43 aggregates"), p(HGNCGENEFAMILY:"Heat shock 70kDa proteins")) -> p(HGNC:"TARDBP", pmod("Protein Refolding"))
