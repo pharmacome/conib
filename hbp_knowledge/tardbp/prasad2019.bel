@@ -263,7 +263,6 @@ p(HGNC:"TARDBP") -- path(MESH:"RNA Transport")
 p(HGNC:"TARDBP") -- path(MESH:"Active Transport, Cell Nucleus")
 p(HGNC:"TARDBP") -- complex(GO:"cytoplasmic stress granule")
 
-###Question - TDP-43 and TARDBP
 SET Evidence = "It regulates the splicing patterns of transcripts of
 several important genes, such as Cystic fibrosis transmembrane
 conductance regulator (CFTR), TARDBP, FUS, SNCA (a-
@@ -353,11 +352,11 @@ p(HGNC:"TARDBP") reg complex(GO:"cytoplasmic stress granule")
 p(HGNC:"TARDBP") reg p(HGNC:"G3BP1")
 p(HGNC:"TARDBP") reg p(HGNC:"TIA1")
 
-###How to code?
 SET Evidence = "Under sorbitol-induced
 osmotic stress, the G348C mutant TDP-43 was found to be
 localized into progressively larger stress granules (Dewey et al.,
 2011)."
+a(CHEBI:"D-sorbitol-(13)C6") -> p(HGNC:"TARDBP", var("p.Gly348Cys"), loc(GO:"cytoplasmic stress granule"))
 
 SET Evidence = "On the contrary, the R361S mutant of TDP-43 was shown
 to disrupt the stress granule assembly (McDonald et al., 2011)."
@@ -390,17 +389,16 @@ p(HGNC:"TARDBP") -> g(HGNC:"NEAT1")
 p(HGNC:"TARDBP") -> g(HGNC:"MALAT1")
 UNSET MeSHDisease
 
-###Proteinpathoies?
-###Localization?
 SET Evidence = "The pathological hallmarks of TDP-43 proteinopathies
 include nucleus to cytoplasmic mislocalization, deposition
 of ubiquitinated and hyper-phosphorylated TDP-43 into
 inclusion bodies, protein truncation leading to formation of
 toxic C-terminal TDP-43 fragments, and protein aggregation."
-p(HGNC:"TARDBP") -| p(HGNC:"TARDBP", pmod(Ph), loc(GO:"inclusion body"))
-p(HGNC:"TARDBP") -| p(HGNC:"TARDBP", pmod(Ub), loc(GO:"inclusion body"))
-p(HGNC:"TARDBP") -| path(MESH:"Protein Aggregation, Pathological")
-p(HGNC:"TARDBP") -| p(MESH:"Peptide Fragments")
+path(MESH:"TDP-43 Proteinopathies") -> tloc(p(HGNC:"TARDBP"), fromLoc(GO:"nucleus"), toLoc(GO:"cytoplasm"))
+path(MESH:"TDP-43 Proteinopathies") -| p(HGNC:"TARDBP", pmod(Ph), loc(GO:"inclusion body"))
+path(MESH:"TDP-43 Proteinopathies") -| p(HGNC:"TARDBP", pmod(Ub), loc(GO:"inclusion body"))
+path(MESH:"TDP-43 Proteinopathies") -| path(HBP:"TDP-43 aggregates")
+path(MESH:"TDP-43 Proteinopathies") -| p(HGNC:"TARDBP", frag("274_414"))
 
 SET Evidence = "The effects of these mutations on
 the TDP-43 protein include: increased propensity to aggregate,
@@ -694,7 +692,6 @@ SET Evidence = "TDP-43 mutant with nuclear export signal (NES) deletion
 manifested a propensity to form nuclear aggregates (Winton
 et al., 2008a)."
 
-###CK2 namespace?
 SET Evidence = "The
 casein kinases, CK1 and CK2, have been shown to mediate
 phosphorylations at Ser-379, Ser-403, Ser-404, and especially
@@ -706,6 +703,11 @@ p(HGNC:"CSNK1A1") -> p(HGNC:"TARDBP", pmod(Ph, Ser, 403))
 p(HGNC:"CSNK1A1") -> p(HGNC:"TARDBP", pmod(Ph, Ser, 404))
 p(HGNC:"CSNK1A1") -> p(HGNC:"TARDBP", pmod(Ph, Ser, 409))
 p(HGNC:"CSNK1A1") -> p(HGNC:"TARDBP", pmod(Ph, Ser, 410))
+p(HGNC:"CSNK2A2") -> p(HGNC:"TARDBP", pmod(Ph, Ser, 379))
+p(HGNC:"CSNK2A2") -> p(HGNC:"TARDBP", pmod(Ph, Ser, 403))
+p(HGNC:"CSNK2A2") -> p(HGNC:"TARDBP", pmod(Ph, Ser, 404))
+p(HGNC:"CSNK2A2") -> p(HGNC:"TARDBP", pmod(Ph, Ser, 409))
+p(HGNC:"CSNK2A2") -> p(HGNC:"TARDBP", pmod(Ph, Ser, 410))
 UNSET MeSHDisease
 
 SET Evidence = "Another
@@ -1400,13 +1402,16 @@ encoding the proteins involved in the formation of the nBAF
 complex."
 p(HGNC:"TARDBP", loc(GO:"nucleus")) reg r(HGNC:"SS18")
 
-###encoding for multiple modifications
 SET Evidence = "Furthermore, an ALS-linked TDP-43 M337V mutant,
 was shown to decrease the global expression levels of a key
 epigenetic marker, H3S10Ph-K14Ac in neuronal cells, whereas,
 the overexpression of wild-type TDP-43 caused an increase in
 the histone H3K9Me3 levels (Masala et al., 2018)."
-
+SET Cell = "neuron"
+p(HGNC:"TARDBP", var("Met337Val")) -| p(HBP:"	Histone H3", pmod(Ph, Ser, 10), pmod(Ac, Lys, 14))
+p(HGNC:"TARDBP", var("Met337Val")) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+UNSET Cell
+p(HGNC:"TARDBP") -> p(HBP:"	Histone H3", pmod(Me3, Lys, 9))
 
 SET Evidence = "Although, pathologically ubiquitinated and phosphorylated
 TDP-43 inclusions are commonly linked to neurodegeneration
@@ -1464,8 +1469,6 @@ p(CHEBI:"Riluzole") reg a(CHEBI:"glutamate(1−)")
 p(CHEBI:"Riluzole") reg bp(GO:"chemical synaptic transmission, postsynaptic")
 p(CHEBI:"Riluzole") -| p(MESH:"Voltage-Gated Sodium Channels")
 
-
-####used in ALS? How to code
 SET Evidence = "Also, a sodium channel
 blocker, mexiletine, which reduces the neuronal hyperexcitability
 and another glutamate antagonist, memantine, are presently
