@@ -96,16 +96,16 @@ SET Evidence = "In the mutant mice,
 neurons lacked Atg5 or Atg7, and animals experienced con-
 tinuous neurodegeneration (Koike et al., 2008)."
 SET Species = "10090"
-p(MGI:Atg5) -| bp(HP:Neurodegeneration)
-p(MGI:Atg7) -| bp(HP:Neurodegeneration)
+p(MGI:Atg5) -| path(HP:Neurodegeneration)
+p(MGI:Atg7) -| path(HP:Neurodegeneration)
 UNSET Species
 
 SET Evidence = " According
 to another experiment, rapamycin, which is involved in au-
 tophagy induction, conferred protection in animal models
 of neurodegenerative diseases (Sarkar et al., 2008)."
-a(CHEBI:sirolismus) -> bp(GO:autophagy)
-a(CHEBI:sirolismus) -| path(MESH:"Neurodegenerative Diseases")
+a(CHEBI:sirolimus) -> bp(GO:autophagy)
+a(CHEBI:sirolimus) -| path(MESH:"Neurodegenerative Diseases")
 
 SET Evidence = "Additionally, NIX, which is also known as beclin-2 (BCL2)/
 adenovirus E1B 19 kDa protein-interacting protein 3-like
@@ -216,14 +216,14 @@ function of neurons: dominant-negative dynamin-associated
 protein 1 (Drp1) mutation can cause a lethal infantile neuro-
 degenerative phenotype."
 bp(GO:"mitochondrial fission") -> act(a(MESH:Neurons))
-p(HGCN:DNM1L, var("?")) -> bp(HP:Neurodegeneration)
+p(HGNC:DNM1L, var("?")) -> path(HP:Neurodegeneration)
 
 SET Evidence = " Drp1 knockout mice revealed em-
 bryonic lethality characterized by aberrant development of the
 brain and failure of synapse formation (Dagda et al., 2009)."
 SET Species = "10090"
-p(HGCN:DNM1L) -> bp(GO:"brain development")
-p(HGCN:DNM1L) -> bp(GO:"synapse assembly")
+p(HGNC:DNM1L) -> bp(GO:"brain development")
+p(HGNC:DNM1L) -> bp(GO:"synapse assembly")
 
 SET Evidence = " A recent study showed that resveratrol
 weakened Aβ 1–42 -induced cell death and significantly in-
@@ -254,7 +254,7 @@ Aβ aggregation and neurodegeneration, highlighting the
 importance of mitophagy in AD-associated pathology."
 #Bcl1 is CCND1
 p(HGNC:CCND1) -| a(HBP:"amyloid-beta aggregates", loc(MESH:"Extracellular Space"))
-p(HGNC:CCND1) -| bp(HP:Neurodegeneration)
+p(HGNC:CCND1) -| path(HP:Neurodegeneration)
 
 SET Evidence = " Fur-
 thermore, a correlation between flavin adenine dinucleotide
@@ -270,8 +270,8 @@ p(HGNC:PSEN1, var("?")) -| bp(GO:autophagy)
 SET Evidence = "Hence, PS-1 alterations
 may indirectly affect mitochondrial function by impairing
 its recycling by mitophagy (García-Escudero et al., 2013). "
-p(HGNC:PSEN1, var("?")) -| act(a(MESH:Mitochondra))
-p(HGNC:PSEN1, var("?")) -| bp(GO:mitophagy)
+p(HGNC:PSEN1, var("?")) -| act(a(MESH:Mitochondria))
+p(HGNC:PSEN1, var("?")) -| path(GO:mitophagy)
 
 SET Evidence = "Using transgenic Drosophila expressing human tau, Iiji-
 ma-Ando et al. (2012) demonstrated that RNAi-mediated
@@ -283,7 +283,7 @@ SET Species = "7227"
 #PAR-1 is homolog of human MARK
 p(HGNCGENEFAMILY:"Miro like atypical Rho GTPases") -| p(HGNC:MAPT,pmod(Ph,Ser,262))
 p(HGNCGENEFAMILY:"Miro like atypical Rho GTPases") -| act(p(HGNC:MARK1))
-p(HGNCGENEFAMILY:"Miro like atypical Rho GTPases") -| bp(HP:Neurodegeneration)
+p(HGNCGENEFAMILY:"Miro like atypical Rho GTPases") -| path(HP:Neurodegeneration)
 
 SET Evidence = "In dopaminergic neurons of the
 substantia nigra (SN), PD proteins such as Parkin, PINK1,
@@ -327,7 +327,7 @@ SET Evidence = "The PD-related protein named Leucine-rich repeat kinase 2
 (LRRK2) was recently shown to bind to MIRO1, inducing
 its degradation."
 path(MESH:"Parkinson Disease") -- p(HGNC:LRRK2)
-complex(p(HGNC:LRRK2),p(HGNC:MIRO1)) -> deg(p(HGNC:MIRO1))
+complex(p(HGNC:LRRK2),p(HGNC:RHOT1)) -> deg(p(HGNC:RHOT1))
 
 SET Evidence = "In general, defects in the formation of autophagosomes
 cause impaired mitophagy, which causes PARKIN muta-
@@ -376,7 +376,7 @@ sequestration causes the aggregation of Huntington protein
 polymorphisms in the autophagy-related gene Atg7 that fur-
 ther causes HD (Barsoum et al., 2006; Jahani-Asl et al., 2007)
 (Figure 3)."
-a(CHEBI:sirolismus) -> a(HBP:"huntingtin aggregates")
+a(CHEBI:sirolimus) -> a(HBP:"huntingtin aggregates")
 a(HBP:"huntingtin aggregates") -> bp(GO:autophagy)
 a(HBP:"huntingtin aggregates") -> p(HGNC:ATG7, var("?"))
 p(HGNC:ATG7, var("?")) -> path(MESH:"Huntington Disease")
@@ -397,7 +397,7 @@ totic pathway (Julien, 2007)."
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 SET Cell = "motor neuron"
 path(HBP:"mitochondrial dysfunction") -> bp(GO:"cell death")
-path(HBP:"mitochondrial dysfunction") -> path(GO:"Excitotoxicity")
+path(HBP:"mitochondrial dysfunction") -> bp(GO:"calcium-mediated signaling")
 path(HBP:"mitochondrial dysfunction") -> a(CHEBI:"reactive oxygen species")
 path(HBP:"mitochondrial dysfunction") -> bp(GO:"apoptosic process")
 UNSET MeSHDisease
@@ -420,7 +420,7 @@ report of significantly lower levels of Miro1 present in spinal
 cord samples of ALS patients (Zhang et al., 2015)."
 act(p(HGNCGENEFAMILY:"Miro like atypical Rho GTPases")) neg path(MESH:"Amyotrophic Lateral Sclerosis")
 SET MeSHAnatomy = "Spinal Cord"
-path(MESH:"Amyotrophic Lateral Sclerosis") neg p(HGNC:MIRO2)
+path(MESH:"Amyotrophic Lateral Sclerosis") neg p(HGNC:RHOT1)
 UNSET MeSHAnatomy
 
 SET Evidence = "Mitochondrial fission and fusion hamper mitophagic
@@ -439,7 +439,7 @@ ALS mouse model (Vargas et al., 2011)."
 SET MeSHAnatomy = "Motor Cortex"
 a(PUBCHEM:124886) neg path(MESH:"Amyotrophic Lateral Sclerosis")
 a(PUBCHEM:124886) -> act(a(MESH:Neurons))
-UNSET MeSHAnatomy
+ SET MeSHAnatomy
 SET Species = "10090"
 a(PUBCHEM:124886) -| path(MESH:"Mitochondrial Diseases")
 UNSET MeSHAnatomy
@@ -449,15 +449,15 @@ been reported to impart Parkin-dependent degradation of
 MIRO1, which may explain the mitochondrial trafficking
 defect (Devine and Kittler, 2018)."
 p(HGNC:SOD1, var("?")) -> act(p(HGNC:PRKN))
-act(p(HGNC:PRKN)) -> deg(p(HGNC:MIRO1))
-p(HGNC:SOD1, var("?")) -> deg(p(HGNC:MIRO1))
-deg(p(HGNC:MIRO1)) -| bp(GO:"axonal transport of mitochondrion")
+act(p(HGNC:PRKN)) -> deg(p(HGNC:RHOT1))
+p(HGNC:SOD1, var("?")) -> deg(p(HGNC:RHOT1))
+deg(p(HGNC:RHOT1)) -| bp(GO:"axonal transport of mitochondrion")
 
 SET Evidence = "The same study also de-
 scribed Miro1-knockout mice, which exhibited upper motor
 neuron degeneration (Nguyen et al., 2014)."
 SET Cell = "motor neuron"
-p(HGNC:MIRO1) -| bp(HP:Neurodegeneration)
+p(HGNC:RHOT1) -| bp(HP:Neurodegeneration)
 UNSET Cell
 
 SET Evidence = "The expression of mutant TDP-43 in a motor neuron-like
