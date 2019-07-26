@@ -435,14 +435,12 @@ path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Gly294Ala"
 path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Gly294Val"))
 path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Gln343Arg"))
 
-
-###fALS and sporadic ALS
-SET Evidence = "DP-43 mutations including
+SET Evidence = "TDP-43 mutations including
 A90V and N267S are observed in both cases of sporadic
 ALS as well as FTLD whereas R361T was reported in a patient case of fALS and FTLD."
 path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Ala90Val"))
 path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Asn267Ser"))
-path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Arg361Thr"))
+path(HBP:"fALS") -> p(HGNC:"TARDBP", var("p.Arg361Thr"))
 path(MESH:"Frontotemporal Lobar Degeneration") -> p(HGNC:"TARDBP", var("p.Ala90Val"))
 path(MESH:"Frontotemporal Lobar Degeneration") -> p(HGNC:"TARDBP", var("p.Asn267Ser"))
 path(MESH:"Frontotemporal Lobar Degeneration") -> p(HGNC:"TARDBP", var("p.Arg361Thr"))
@@ -461,6 +459,7 @@ sALS, fALS, and FTLD (Baumer et al., 2009; Xiong et al.,
 2012; Chiang et al., 2012; Cruts et al., 2012; Lattante et al.,
 2013; Moreno et al., 2015)."
 path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:"TARDBP", var("p.Gly295Ser"))
+path(HBP:"fALS") -> p(HGNC:"TARDBP", var("p.Gly295Ser"))
 path(MESH:"Frontotemporal Lobar Degeneration") -> p(HGNC:"TARDBP", var("p.Gly295Ser"))
 
 SET Evidence = "Of interest, a fALS associated
@@ -468,9 +467,8 @@ phosphorylation-prone TDP-43 mutant, which contains G298S
 mutation in the mitochondrial localizing internal motif M5,
 was found to have increased import into the mitochondria
 (Wang et al., 2016)."
-SET MeSHDisease = "Frontotemporal Lobar Degeneration"
+path(HBP:"fALS") -- p(HGNC:"TARDBP", var("p.Gly295Ser"), loc(GO:"mitochondrion"))
 p(HGNC:"TARDBP", var("p.Gly295Ser"), loc(GO:"mitochondrion")) -> bp(GO:"protein import into mitochondrial matrix")
-UNSET MeSHDisease
 
 SET Evidence = "Mutations in the TDP-43’s C-terminal region enhance
 its intrinsic aggregation propensity (Johnson et al., 2009)."
@@ -676,19 +674,22 @@ export signal (NES)] sequence impairs TDP-43’s functions."
 path(MESH:"Nuclear Localization Signals")) reg act(p(HGNC:"TARDBP"))
 path(MESH:"Nuclear Export Signals")) reg act(p(HGNC:"TARDBP"))
 
-
-###TDP-43 with del NLS how to code??? : UNI-Prot data to be found.
 SET Evidence = "Expectedly, TDP-43 with the nuclear localization signal (NLS)
 deletion accumulates as cytoplasmic aggregates and can
 even sequester the native TDP-43 thereby further depleting
 the TDP-43 pool, which consequently alters the transcripts
 that regulate chromatin assembly and histone processing
 (Winton et al., 2008a; Amlie-Wolf et al., 2015)."
+#NLS: 82-98 aa
+p(HGNC:"TARDBP", frag("82_98")) -| p(HBP:"TDP-43 aggregates", loc(GO:"cytoplasm"))
+p(HGNC:"TARDBP", frag("82_98")) -> p(HGNC:"TARDBP")
+p(HGNC:"TARDBP") reg path(MESH:"Chromatin Assembly and Disassembly")
 
-###???
 SET Evidence = "TDP-43 mutant with nuclear export signal (NES) deletion
 manifested a propensity to form nuclear aggregates (Winton
 et al., 2008a)."
+#NES: 239-250 aa
+p(HGNC:"TARDBP", frag("239_250")) -| p(HBP:"TDP-43 aggregates", loc(GO:"nucleus"))
 
 SET Evidence = "The
 casein kinases, CK1 and CK2, have been shown to mediate
@@ -831,15 +832,13 @@ represent a crucial pathological pathway in ALS (Valle and Carri,
 2017; Buratti, 2018)."
 bp(GO:"peptidyl-cysteine oxidation") -- path(MESH:"Amyotrophic Lateral Sclerosis")
 
-###Disulfide bond fprmation? - protein-protei formation
 SET Evidence = "Using the in vitro and cell-based studies,
 Cohen et al. have reported that oxidative stress promotes the
 TDP-43’s cross-linking via cysteine oxidation into disulfide bond
 formation."
 path(MESH:"Oxidative Stress") -> bp(GO:"peptidyl-cysteine oxidation")
-bp(GO:"peptidyl-cysteine oxidation") -> p(HGNC:"TARDBP")
+bp(GO:"peptidyl-cysteine oxidation") -> complex(p(HGNC:"TARDBP"), p(HGNC:"TARDBP"))
 
-###Disulfe bonding????
 SET Evidence = "Importantly, the cysteine-generating ALS-linked
 missense mutations (G358C, S379C, and G295C) introduce
 additional cysteines which can potentially enhance the abnormal
@@ -847,6 +846,7 @@ TDP-43 disulfide cross-linking."
 p(HGNC:"TARDBP", var("p.Gly358Cys")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
 p(HGNC:"TARDBP", var("p.Ser379Cys")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
 p(HGNC:"TARDBP", var("p.Gly295Cys")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:"TARDBP", var("p.Gly295Cys")) -> complex(p(HGNC:"TARDBP", var("p.Gly295Cys")), p(HGNC:"TARDBP", var("p.Gly295Cys")))
 
 SET Evidence = "Structure-function analysis of the RRM1 domain has
 suggested that the cysteines (C-173 the C-175) in this domain,
@@ -906,7 +906,7 @@ proposed to be important for the TDP-43’s functional roles in the
 RNA binding, probably by its increased affinity and specificity for
 its RNA targets, and/or via optimal recruitment of the other RNA
 splicing factors."
-p(HGNC:"TARDBP", pmod("protein complex oligomerization")) -> p(HGNC:"TARDBP", ma("RNA binding"))
+p(HGNC:"TARDBP", pmod("protein complex oligomerization")) -> p(HGNC:"TARDBP", ma(GO:"RNA binding"))
 p(HGNC:"TARDBP", pmod("protein complex oligomerization")) -> path(MESH:"RNA Splicing Factors")
 
 SET Evidence = "Fang et al. have reported that the full-length TDP-43 forms
@@ -1009,7 +1009,7 @@ lysosomal pathway proteins in the neuronal cells (Xia et al.,
 2016)."
 SET Cell = "neuron"
 p(HGNC:"TFEB") reg path(MESH:"Autophagy")
-p(HGNC:"TARDBP") -- p(HGNC:"TFEB", ma("protein localization"))
+p(HGNC:"TARDBP") -- p(HGNC:"TFEB", ma(GO:"protein localization"))
 UNSET Cell
 
 SET Evidence = "Inclusion bodies positive for autophagy markers like
@@ -1287,7 +1287,6 @@ SET MeSHAnatomy = {"Neocortex", "Blood Cells"}
 a(CHEBI:"iron(3+)") -- path(MESH:"Amyotrophic Lateral Sclerosis")
 UNSET MeSHAnatomy
 
-####Ions which state not mentioned?
 SET Evidence = "Recently, in a TDP-43 mice model expressing the
 TDP-43 A315Tmutant, a significant increase in the levels of zinc,
 manganese and copper ions were observed as compared to the
@@ -1331,10 +1330,6 @@ SET Cell = "neuron"
 a(CHEBI:"lead atom") -| p(HGNC:"TARDBP", ma(GO:"RNA splicing"))
 a(PUBCHEM:"6860") -| p(HGNC:"TARDBP", ma(GO:"RNA splicing"))
 UNSET Cell
-
-######Code issue?
-SET Evidence = "TDP-43 was found to impair nucleosomal
-dynamics (Berson et al., 2017)."
 
 SET Evidence = "TDP-43 was linked with impaired expression of heat
 shock response proteins, thereby decreasing survival, whereas
@@ -1478,7 +1473,6 @@ SET Cell = {"neuron", "microvascular endothelial cell"}
 a(CHEBI:"edaravone") -| path(MESH:"Oxidative Stress")
 UNSET Cell
 
-####how to code for targets?
 SET Evidence = "Masitinib
 is a selective tyrosine kinase inhibitor that mainly targets
 type III growth factor receptors like c-Kit, Lyn, and Fyn
