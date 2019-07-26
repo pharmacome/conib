@@ -651,7 +651,7 @@ UNSET CellStructure
 SET Evidence = "The cytoplasmic
 accumulation into inclusion bodies reduces the amount of
 TDP-43 necessary for mRNA transport."
-p(HGNC:"TARDBP", loc(GO:"inclusion body")) -| p(HGNC:"TARDBP", ma(MESH:"RNA Transport"))
+p(HGNC:"TARDBP", loc(GO:"inclusion body")) -| act(p(HGNC:"TARDBP"), ma(MESH:"RNA Transport"))
 
 SET Evidence = "Recently, TDP-43 has
 also been found to function as a translational repressor by
@@ -789,7 +789,7 @@ TDP-43 aggregates in the neuronal cell cultures
 (Cohen et al., 2015)."
 SET Cell = "neuron"
 p(HGNC:"TARDBP", pmod(Ac)) -> p(HGNC:"TARDBP", pmod(Ph))
-p(HGNC:"TARDBP", pmod(Ac)) neg p(HGNC:TARDBP, ma(GO:"regulation of RNA binding"))
+p(HGNC:"TARDBP", pmod(Ac)) neg act(p(HGNC:TARDBP), ma(GO:"regulation of RNA binding"))
 p(HGNC:"TARDBP", pmod(Ac)) -> path(HBP:"mitochondrial dysfunction")
 UNSET Cell
 
@@ -862,7 +862,7 @@ fibril core structure comprises of different C-terminal fragments
 spanning from the RRM1 to the C-terminal end (Furukawa et al.,
 2011)."
 #RRM1 : 104-176aa
-p(HBP:"TDP-43 aggregates", ma(GO:"protease binding")) -> p(HGNC:"TARDBP", frag("104_*"))
+act(p(HBP:"TDP-43 aggregates"), ma(GO:"protease binding")) -> p(HGNC:"TARDBP", frag("104_*"))
 
 SET Evidence = "In yet another study, following the overexpression of TDP-
 43 in the bacterial cells, the TDP-43 inclusion bodies formed,
@@ -906,7 +906,7 @@ proposed to be important for the TDP-43’s functional roles in the
 RNA binding, probably by its increased affinity and specificity for
 its RNA targets, and/or via optimal recruitment of the other RNA
 splicing factors."
-p(HGNC:"TARDBP", pmod(GO:"protein complex oligomerization")) -> p(HGNC:TARDBP, ma(GO:"RNA binding"))
+p(HGNC:"TARDBP", pmod(GO:"protein complex oligomerization")) -> act(p(HGNC:TARDBP), ma(GO:"RNA binding"))
 p(HGNC:"TARDBP", pmod(GO:"protein complex oligomerization")) -> a(MESH:"RNA Splicing Factors")
 
 SET Evidence = "Fang et al. have reported that the full-length TDP-43 forms
@@ -1327,8 +1327,8 @@ SET Evidence = "The exposure to lead and methyl mercury was found
 to disrupt the TDP-43’s homeostasis in the neuronal cells and
 dysregulate its splicing activity."
 SET Cell = "neuron"
-a(CHEBI:"lead atom") -| p(HGNC:"TARDBP", ma(MESH:"RNA Splicing"))
-a(PUBCHEM:"6860") -| p(HGNC:"TARDBP", ma(MESH:"RNA Splicing"))
+a(CHEBI:"lead atom") -| act(p(HGNC:"TARDBP"), ma(MESH:"RNA Splicing"))
+a(PUBCHEM:"6860") -| act(p(HGNC:"TARDBP"), ma(MESH:"RNA Splicing"))
 UNSET Cell
 
 SET Evidence = "TDP-43 was linked with impaired expression of heat
@@ -1530,7 +1530,7 @@ SET Evidence = "Furthermore,
 4-aminoquinoline derivatives have been shown to alter the TDP-
 43’s nucleic acid binding properties and enhance its caspase mediated
 cleavage (Cassel et al., 2012)."
-a(PUBCHEM:"68476") neg p(HGNC:"TARDBP", ma(GO:"nucleic acid binding"))
+a(PUBCHEM:"68476") neg act(p(HGNC:"TARDBP"), ma(GO:"nucleic acid binding"))
 a(PUBCHEM:"68476") -> p(MESH:"Caspases")
 p(MESH:"Caspases") -> p(HGNC:"TARDBP", frag("?"))
 
