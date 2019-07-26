@@ -30,7 +30,12 @@ AUTHORS = [
     'Kristian Kolpeja',
     'Yojana Gadiya',
     'Trusha Adeshara',
+    'Stephan Gebel',
 ]
+
+description = "Mechanistic knowledge surrounding several neurodegenerative diseases," \
+              " with specific focus on protein aggregation, nicotinic receptor signalling," \
+              " proteostasis, and other mechanisms."
 
 # All metadata is grouped here
 metadata = BELMetadata(
@@ -38,8 +43,7 @@ metadata = BELMetadata(
     version=VERSION,
     authors=serialize_authors(AUTHORS),
     contact='charles.hoyt@scai.fraunhofer.de',
-    description="Mechanistic knowledge surrounding three biological phenomena: tau modification/aggregation, "
-                "nicotinic receptor signalling, and proteostasis in the context of neurodegenerative disease",
+    description=description,
     license='CC BY 4.0',
     copyright='Copyright © 2019 Fraunhofer SCAI, All rights reserved.',
 )
