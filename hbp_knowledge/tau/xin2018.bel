@@ -73,8 +73,10 @@ DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifact
 SET Citation = {"PubMed", "29626319"}
 
 SET Evidence = "Intracellular protein degradation is performed by UPS and ALS (Wong and Cuervo 2010"
+SET Confidence = "High"
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> bp(GO:"cellular protein catabolic process")
 bp(GO:"lysosomal microautophagy") -> bp(GO:"cellular protein catabolic process")
+UNSET Confidence
 
 SET Evidence = "Under physiological conditions,
 UPS, located in the cytosol and the nucleus in eukaryotic cells,
@@ -82,13 +84,19 @@ as a major intracellular short-lived protein degradation system (Schwartz and Ci
 misfolded or other abnormally modified proteins with the help of ubiquitin-activating enzyme (E1), ubiquitin-conjugating enzyme
 (E2), ubiquitin ligase (E3), and the 26S proteasome for the sake of preventing the accumulation of toxic substances
 (Shang and Taylor 2011)"
+SET Confidence = "Medium"
 SET MeSHAnatomy = {"Cytosol","Cell Nucleus"}
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") reg deg(a(MESH:Proteins))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> act(p(HGNC:UBA1))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> act(p(HGNC:UBE2))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> act(p(MESH:"Ubiquitin-Protein Ligases"))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> act(p(HGNC:PSMD7))
 p(HGNC:UBA1) -> deg(a(MESH:Proteins))
 p(FPLX:UBE2) -> deg(a(MESH:Proteins))
 a(MESH:"Ubiquitin-Protein Ligases") -> deg(a(MESH:Proteins))
 p(HGNC:PSMD7) -> deg(a(MESH:Proteins))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In addition, studies have shown that
 the 20S proteasome can play a key role in digesting proteins
