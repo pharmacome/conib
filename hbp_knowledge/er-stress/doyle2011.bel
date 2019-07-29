@@ -73,31 +73,36 @@ DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifact
 SET Citation = {"PubMed", "21722302"}
 
 SET Evidence = "They include Alzheimer’s disease (AD), Parkinson’s disease (PD), amyotrophic lateral sclerosis (ALS) and prion diseases [5]. Emerging evidence suggests that ER stress may play a pivotal role in the development or pathology of many neurodegenerative diseases."
-
+SET Confidence = "High"
 # they= neurodegenerative diseases
 path(MESH:"Alzheimer Disease") -- path(HBP:Neurodegeneration)
 path(MESH:"Parkinson Disease") -- path(HBP:Neurodegeneration)
 path(MESH:"Amyotrophic Lateral Sclerosis") -- path(HBP:Neurodegeneration)
 path(MESH:"Prion Diseases") -- path(HBP:Neurodegeneration)
 bp(MESH:"Endoplasmic Reticulum Stress") -> path(HBP:Neurodegeneration)
+UNSET Confidence
 
 SET Evidence = "Physiological or pathological processes that disturb protein folding in the ER cause ER stress. The cells initial and rapid response to ER stress is the activation of a set of pro-survival signalling pathways termed the UPR. Activation of the UPR causes a shutdown of global protein synthesis and activates mechanisms that allow the cell to deal with the accumulation of unfolded proteins. For example, it enhances the protein folding capacity by increasing the expression of ER chaperones and it up-regulates the degradation of misfolded proteins."
 #UPR= unfolded protein response
+SET Confidence = "High"
 p(MESH:Proteins , pmod(HBP:misfolded)) -- bp(MESH:"Endoplasmic Reticulum Stress")
 bp(MESH:"Endoplasmic Reticulum Stress") -> bp(MESH:"Unfolded Protein Response")
 bp(MESH:"Unfolded Protein Response") -| bp(GO:translation)
 bp(MESH:"Unfolded Protein Response") -| bp(GO:"mRNA transcription")
 #because protein synthesis includes transcription as well as translation
-bp(MESH:"Unfolded Protein Response") -> bp(GO:"protein folding")
+#bp(MESH:"Unfolded Protein Response") -> bp(GO:"protein folding")
 bp(MESH:"Unfolded Protein Response") -> p(MESH:"Molecular Chaperones")
 p(MESH:"Molecular Chaperones") -> bp(GO:"protein folding")
 bp(MESH:"Unfolded Protein Response") -> deg(p(MESH:Proteins , pmod(HBP:misfolded)))
+UNSET Confidence
 
 SET Evidence = "In mammals, the three major ER stress sensors are IRE1 (inositol requiring 1; ERN1, endoplasmic reticulum-to-nucleus signalling 1), PERK [double-stranded RNA-activated protein kinase (PKR)-like ER kinase; PEK, pancreatic eukaryotic initiation factor 2alpha kinase; EIF2AK3] and ATF6 (activating transcription factor 6)[6]."
-
+#EIF2AK3 : PERK
+SET Confidence = "Medium"
 bp(MESH:"Endoplasmic Reticulum Stress") -> p(HGNC:ERN1)
-bp(MESH:"Endoplasmic Reticulum Stress") -> p(MESH:"PERK kinase")
+bp(MESH:"Endoplasmic Reticulum Stress") -> p(HGNC:EIF2AK3)
 bp(MESH:"Endoplasmic Reticulum Stress") -> p(HGNC:ATF6)
+UNSET Confidence
 
 SET Evidence = "The ER-luminal
 domain of PERK, IRE1 and ATF6 interacts with the ER chaperone
@@ -106,21 +111,26 @@ of unfolded proteins, GRP78 dissociates from these molecules,
 leading to their activation [7]. Activation of PERK, IRE1 and
 ATF6 initiates a network of intracellular signalling pathways during
 the UPR (Fig. 1)"
-
-complex(p(HGNC:ERN1),p(MESH:"molecular chaperone GRP78")) -| act(p(HGNC:ERN1))
-complex(p(MESH:"PERK kinase"),p(MESH:"molecular chaperone GRP78")) -| act(p(MESH:"PERK kinase"))
-complex(p(HGNC:ATF6),p(MESH:"molecular chaperone GRP78")) -| act(p(HGNC:ATF6))
+SET Confidence = "Medium"
+complex(p(HGNC:ERN1),p(HGNC:HSPA5)) -| act(p(HGNC:ERN1))
+complex(p(HGNC:EIF2AK3),p(HGNC:HSPA5)) -| act(p(HGNC:EIF2AK3))
+complex(p(HGNC:ATF6),p(HGNC:HSPA5)) -| act(p(HGNC:ATF6))
 p(MESH:Proteins , pmod(HBP:misfolded)) -> act(p(HGNC:ERN1))
-p(MESH:Proteins , pmod(HBP:misfolded)) -> act(p(MESH:"PERK kinase"))
+p(MESH:Proteins , pmod(HBP:misfolded)) -> act(p(HGNC:EIF2AK3))
 p(MESH:Proteins , pmod(HBP:misfolded)) -> act(p(HGNC:ATF6))
+act(p(HGNC:ERN1)) -- bp(MESH:"Unfolded Protein Response")
+act(p(HGNC:EIF2AK3)) -- bp(MESH:"Unfolded Protein Response")
+act(p(HGNC:ATF6)) -- bp(MESH:"Unfolded Protein Response")
+UNSET Confidence
 
 SET Evidence = "The cytoplasmic domain
 of IRE1 contains a serine/threonine kinase domain and a C-terminal
 endoribonuclease domain [9]. ER stress leads to dissociation
 of GRP78 from IRE1, resulting in autophosphorylation of IRE1alpha
 and activation of its RNAse activity [9]."
-
-bp(MESH:"Endoplasmic Reticulum Stress") -> p(HGNC:ERN1, pmod(Ph))
+SET Confidence = "Medium"
+bp(MESH:"Endoplasmic Reticulum Stress") -> p(HGNC:ERN1, pmod(Ph), ma(MESH:Ribonucleases))
+UNSET Confidence
 
 SET Evidence = "In addition, activated IRE1 can bind to tumour necrosis
 factor (TNF)-receptor-associated factor 2 (TRAF2), an adaptor
@@ -128,10 +138,13 @@ protein that promotes activation of JUN N-terminal kinase (JNK)
 through apoptosis signal-regulating kinase 1 (ASK1) [10]. JNK
 activation results in enhanced autophagy [11]. This might allow
 cells to adapt to stress by initiating autophagy."
-
-complex(p(HGNC:ERN1),p(HGNC:TRAF2)) -> p(MESH:"ASK1 protein, S cerevisiae")
-p(MESH:"ASK1 protein, S cerevisiae") -> bp(GO:"JNK cascade")
+#MAP3K5 - ASK1
+SET Confidence = "Medium"
+#does the active IRE1 mean it is phorporylated? If yes,thie
+complex(p(HGNC:ERN1),p(HGNC:TRAF2)) -> p(HGNC:MAP3K5)
+p(HGNC:MAP3K5) -> bp(GO:"JNK cascade")
 bp(GO:"JNK cascade") -> bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "The pro-apoptotic B-cell lymphoma 2
 (BCL-2) family members BCL-2–associated X protein (BAX) and
@@ -139,17 +152,21 @@ BCL-2 antagonist/killer (BAK) augment both the kinase and
 endoribonuclease activities of IRE1. BAX and BAK form a protein
 complex with the cytosolic domain of IRE1, which requires their
 conserved BH1 and BH3 domains [12]."
-
+SET Confidence = "Medium"
 complex(GO:"BCL-2 complex") hasMembers list(p(HGNC:BAX),p(HGNC:BAK1))
 p(HGNC:BAX) -> act(p(HGNC:ERN1), ma(kin))
 p(HGNC:BAK1) -> act(p(HGNC:ERN1), ma(kin))
+p(HGNC:BAX) -> act(p(HGNC:ERN1), ma(MESH:Endoribonucleases))
+p(HGNC:BAK1) -> act(p(HGNC:ERN1), ma(MESH:Endoribonucleases))
 complex(p(HGNC:ERN1),p(HGNC:BAX),p(HGNC:BAK1))
+UNSET Confidence
 
 SET Evidence = "ASK1-interacting protein 1 (AIP1)
 was recently shown to specifically regulate and enhance IRE1
 signalling. [12]."
-
-complex(GO:"AIP1-IRE1 complex") -> act(p(HGNC:ERN1))
+SET Confidence = "Medium"
+p(HGNC:DAB2IP) -> act(p(HGNC:ERN1))
+UNSET Confidence
 
 SET Evidence = "We have recently shown
 that the stress-inducible form of HSP70 (HSP72) can interact with
@@ -157,9 +174,10 @@ IRE1 and increase XBP1 mRNA splicing, thus modulating the
 expression of XBP1’s target genes causing attenuated apoptosis
 under ER stress conditions [13]. It is likely that additional proteins
 can interact with IRE1 to alter its activity."
-
+SET Confidence = "High"
 composite(p(MESH:"HSP72 Heat-Shock Proteins"),p(HGNC:ERN1)) -> p(HGNC:XBP1)
 p(HGNC:XBP1) -| bp(MESH:Apoptosis)
+UNSET Confidence
 
 SET Evidence = "PERK-mediated phosphorylation
 of the alpha subunit of eukaryotic translation initiation factor 2 alpha
@@ -167,12 +185,13 @@ of the alpha subunit of eukaryotic translation initiation factor 2 alpha
 phosphorylation of eIF2alpha inhibits general translation initiation, it
 paradoxically increases translation of activating transcription factor
 4 (ATF4) [15] through a cap-independent process (Fig. 1)."
-
-p(MESH:"PERK kinase") -> p(HGNC:EIF2A, pmod(Ph,S,51))
+SET Confidence = "High"
+p(HGNC:EIF2AK3) -> p(HGNC:EIF2A, pmod(Ph,S,51))
 p(HGNC:EIF2A, pmod(Ph,S,51)) -| bp(GO:translation)
 p(HGNC:EIF2A, pmod(Ph,S,51)) -> bp(GO:"cap-independent translational initiation")
 bp(GO:"cap-independent translational initiation") -> p(HGNC:ATF4)
 p(HGNC:EIF2A, pmod(Ph,S,51)) -> p(HGNC:ATF4)
+UNSET Confidence
 
 SET Evidence = "NRF2 is retained in the cytoplasm
 through its association with the microtubule-associated protein
@@ -184,30 +203,36 @@ transcription of genes encoding detoxifying enzymes such as A1
 and A2 subunits of glutathione S-transferase, NAD(P)H:quinone
 oxidoreductase, gamma-glutamylcysteine synthetase, heme oxygenase-
 1 and UDP-glucoronosyl transferase [16]."
-
-complex(p(MESH:"Nrf2a protein, zebrafish"),p(HGNC:KEAP1),loc(MESH:Cytoplasm))
-p(MESH:"PERK kinase") -| complex(p(MESH:"Nrf2a protein, zebrafish"),p(HGNC:KEAP1))
-p(MESH:"PERK kinase") -> p(MESH:"Nrf2a protein, zebrafish", pmod(Ph),loc(MESH:"Cell Nucleus"))
-p(MESH:"Nrf2a protein, zebrafish", pmod(Ph)) -> p(HGNCGENEFAMILY:"Soluble glutathione S-transferases")
-p(MESH:"Nrf2a protein, zebrafish", pmod(Ph)) -> p(HGNCGENEFAMILY:"NADH:ubiquinone oxidoreductase core subunits")
-p(MESH:"Nrf2a protein, zebrafish", pmod(Ph)) -> p(MESH:"Heme Oxygenase-1")
-##was not able to find UDP-glucoronosyl transferase and gamma-glutamylcysteine synthetase
+#NFE2 - nuclear factor (erythroid-derived 2)/ NRF2
+SET Confidence = "Medium"
+complex(p(HGNC:NFE2),p(HGNC:KEAP1),loc(MESH:Cytoplasm))
+p(HGNC:EIF2AK3) -| complex(p(HGNC:NFE2),p(HGNC:KEAP1))
+p(HGNC:EIF2AK3) -> p(HGNC:NFE2, pmod(Ph),loc(MESH:"Cell Nucleus"))
+p(HGNC:NFE2, pmod(Ph)) -> r(HGNCGENEFAMILY:"Soluble glutathione S-transferases")
+p(HGNC:NFE2, pmod(Ph)) -> r(HGNCGENEFAMILY:"NADH:ubiquinone oxidoreductase core subunits")
+p(HGNC:NFE2, pmod(Ph)) -> r(MESH:"Heme Oxygenase-1")
+p(HGNC:NFE2, pmod(Ph)) -> r(MESH:"Glucuronosyltransferase")
+p(HGNC:NFE2, pmod(Ph)) -> r(MESH:"Glutamate-Cysteine Ligase")
+UNSET Confidence
 
 SET Evidence = "In response to ER3
 stress, GRP78 dissociation permits trafficking of ATF6 to the Golgi
 complex, where ATF6 is sequentially cleaved by two proteases
 [17]."
-
-bp(MESH:"Endoplasmic Reticulum Stress") -| complex(p(MESH:"molecular chaperone GRP78"),p(HGNC:ATF6))
+#HSPA5 : GRP78
+SET Confidence = "Medium"
+bp(MESH:"Endoplasmic Reticulum Stress") -| complex(p(HGNC:HSPA5),p(HGNC:ATF6))
 bp(MESH:"Endoplasmic Reticulum Stress") -> tloc(p(HGNC:ATF6), fromLoc(GO:"endoplasmic reticulum membrane"), toLoc(GO:"Golgi apparatus"))
+UNSET Confidence
 
 SET Evidence = "The processed forms of ATF6-alpha and ATF6-beta translocate to the
 nucleus and bind to the ATF/cAMP response element and to the ER
 stress responsive element to activate target genes (Fig. 1)."
-
+SET Confidence = "High"
 tloc(p(HGNC:ATF6B),fromLoc(GO:"Golgi apparatus"), toLoc(GO:nucleus))
 tloc(p(HGNC:ATF6),fromLoc(GO:"Golgi apparatus"), toLoc(GO:nucleus))
 ##ATF6 alpha is denother as ATF6 only.
+UNSET Confidence
 
 SET Evidence = "ATF6 is responsible for
 transcriptional induction of a cohort of ER proteins which includes
@@ -215,22 +240,29 @@ chaperones, folding enzymes and ER-associated degradation
 (ERAD) components [18]. A number of other bZIP transcription
 factors that localize to the ER have been identified including
 OASIS, CREBH, LUMAN/CREB3, CREB4 and BBF2H7 [12]."
-
+#CREB3L1 - OASIS
+#CREB3L3 - CREBH
+#CREB3L4 - CREB4
+#CREB3 - CREB3
+SET Confidence = "Medium"
 p(HGNC:ATF6) -> a(MESH:"Molecular Chaperones")
 p(HGNC:ATF6) -> bp(GO:"ERAD pathway")
-p(MESH:"OASIS protein, rat",loc(GO:"Golgi apparatus"))
-p(MESH:"CREBH protein, rat",loc(GO:"Golgi apparatus"))
-p(MESH:"CREB3 protein, human",loc(GO:"Golgi apparatus"))
-p(HGNC:CREB3L2,loc(GO:"Golgi apparatus"))
+p(HGNC:CREB3L1,loc(GO:"endoplasmic reticulum"))
+p(HGNC:CREB3L3,loc(GO:"endoplasmic reticulum"))
+p(HGNC:CREB3L4,loc(GO:"endoplasmic reticulum"))
+p(HGNC:CREB3,loc(GO:"endoplasmic reticulum"))
+p(HGNC:CREB3L2,loc(GO:"endoplasmic reticulum"))
 #BBF2H7= CREB3L2
+UNSET Confidence
 
 SET Evidence = "OASIS has been shown to be
 involved in bone formation [19] and BBF2H7 targets Sec23a,
 which governs protein transport from the ER to the Golgi."
-
-p(MESH:"OASIS protein, rat") -> bp(MESH:"Bone Development")
+SET Confidence = "High"
+p(HGNC:CREB3L1) -> bp(MESH:"Bone Development")
 p(HGNC:CREB3L2) reg p(HGNC:SEC23A)
 p(HGNC:SEC23A) -> tloc(a(MESH:Proteins),fromLoc(GO:"endoplasmic reticulum"),toLoc(GO:"Golgi apparatus"))
+UNSET Confidence
 
 SET Evidence = "The most salient feature of the UPR is to increase the transactivation
 function of an array of bZIP transcription factors such as
@@ -239,17 +271,19 @@ factors co-ordinate transcriptional induction of ER chaperones
 and genes involved in ERAD, to enhance the protein folding
 capacity of the cell and to decrease the unfolded protein load
 of the ER, respectively [6]."
-
+SET Confidence = "High"
 bp(MESH:"Unfolded Protein Response") -> act(p(HGNC:ATF6))
 bp(MESH:"Unfolded Protein Response") -> act(p(HGNC:ATF4))
 bp(MESH:"Unfolded Protein Response") -> act(p(HGNC:ATF3))
-bp(MESH:"Unfolded Protein Response") -> act(p(MESH:"Nrf2a protein, zebrafish"))
+bp(MESH:"Unfolded Protein Response") -> act(p(HGNC:NFE2))
 bp(MESH:"Unfolded Protein Response") -> act(p(HGNC:XBP1))
 p(HGNC:XBP1) -> a(MESH:"Molecular Chaperones")
-p(MESH:"Nrf2a protein, zebrafish") -> a(MESH:"Molecular Chaperones")
+p(HGNC:NFE2) -> a(MESH:"Molecular Chaperones")
 p(HGNC:ATF3) -> a(MESH:"Molecular Chaperones")
 p(HGNC:ATF4) -> a(MESH:"Molecular Chaperones")
 p(HGNC:ATF6) -> a(MESH:"Molecular Chaperones")
+a(MESH:"Molecular Chaperones") -- bp(GO:"ERAD pathway")
+UNSET Confidence
 
 SET Evidence = "Overall, it is thought that the apoptotic signals generated from
 excessive activation of the UPR converge on the mitochondria
@@ -257,11 +291,12 @@ resulting in opening of the permeability transmembrane pore
 (PTP) and loss of mitochondrial membrane potential (delta psi m) with
 consequent release of pro-apoptotic factors, including
 cytochrome c (Fig. 2)."
-
+SET Confidence = "High"
 bp(MESH:"Unfolded Protein Response") -> bp(GO:"apoptotic signaling pathway")
 bp(GO:"apoptotic signaling pathway") -| complex(GO:"mitochondrial permeability transition pore complex")
 complex(GO:"mitochondrial permeability transition pore complex") => bp(GO:"regulation of mitochondrial membrane potential")
 bp(GO:"negative regulation of mitochondrial membrane potential") -> bp(GO:"release of cytochrome c from mitochondria")
+UNSET Confidence
 
 SET Evidence = "In conjunction with apoptotic protease activating
 factor 1 (Apaf-1), pro-caspase-9 and cytochrome c form
@@ -271,36 +306,40 @@ caspases at the onset of apoptosis. Specifically it processes procaspase-
 9 to its active form, which then activates downstream
 effector caspases including caspase-3, -7 and -6 [24], leading to
 apoptosis."
-
+#doesnt downstream activation mean that CASP9 -> 3 -> 7 -> 6?
+SET Confidence = "Low"
 composite(p(HGNC:APAF1),p(HGNC:CASP9),p(HGNC:CYC1)) -> a(MESH:Apoptosomes)
 p(HGNC:CASP9) -> p(HGNC:CASP3)
 p(HGNC:CASP9) -> p(HGNC:CASP7)
 p(HGNC:CASP9) -> p(HGNC:CASP6)
 composite(p(HGNC:CASP6),p(HGNC:CASP7),p(HGNC:CASP3)) -> bp(MESH:Apoptosis)
-
+UNSET Confidence
 
 SET Evidence = "Caspase-4
 has high homology to caspase-12 and its expression and cleavage
 is increased during ER stress [2]."
-
+SET Confidence = "High"
 bp(MESH:"Endoplasmic Reticulum Stress") -> p(HGNC:CASP4)
+UNSET Confidence
 
 SET Evidence = "Caspase-2 is cleaved in
 response to excessive ER stress. Inhibition of caspase-2 confers
 resistance to ER stress–induced apoptosis [28]."
-
+SET Confidence = "High"
 bp(MESH:"Endoplasmic Reticulum Stress") -> p(HGNC:CASP2)
 p(HGNC:CASP2) -> bp(MESH:Apoptosis)
+UNSET Confidence
 
 SET Evidence = "Experimental evidence supports a role for
 the BCL-2 family in ER stress–induced apoptosis. Overexpression
 of BCL-2 can protect cells from ER stress–induced cell death [29].
 Also, many of the BCL-2 family members associate with the ER
 where they function to regulate Ca2+ homeostasis."
-
+SET Confidence = "Medium"
 bp(MESH:"Endoplasmic Reticulum Stress") -- p(HGNC:BCL2)
 p(HGNC:BCL2) -| bp(MESH:Apoptosis)
-p(HGNC:BCL2) -- bp(GO:"calcium ion homeostasis")
+p(HGNC:BCL2) reg bp(GO:"calcium ion homeostasis")
+UNSET Confidence
 
 SET Evidence = "Pro-apoptotic members BAX and BAK cause
 mitochondrial outer membrane permeabilization (MOMP) and formation
@@ -309,25 +348,30 @@ of pro-apoptotic molecules such as second mitochondria-derived
 activator of caspases and cytochrome c. Pro-apoptotic family
 members sequester anti-apoptotic members such as BCL-2,
 thereby tipping the balance towards death"
-
+SET Confidence = "Medium"
+p(HGNC:BAX) -- bp(MESH:Apoptosis)
+p(HGNC:BAK1) -- bp(MESH:Apoptosis)
 p(HGNC:BAX) -> bp(GO:"mitochondrial outer membrane permeabilization")
 p(HGNC:BAK1) -> bp(GO:"mitochondrial outer membrane permeabilization")
 p(HGNC:BAX) -> complex(GO:"mitochondrial permeability transition pore complex")
 p(HGNC:BAK1) -> complex(GO:"mitochondrial permeability transition pore complex")
 complex(GO:"mitochondrial permeability transition pore complex") -> bp(GO:"release of cytochrome c from mitochondria")
+complex(GO:"mitochondrial permeability transition pore complex") -> p(MESH:Caspases)
 p(HGNC:BCL2) -| bp(MESH:Apoptosis)
+UNSET Confidence
 
 SET Evidence = "ER stress induces expression of the BH3-only proteins BIM,
 PUMA and NOXA and can also down-regulate expression of BCL-
 2 and cause cell death. Overexpression of PUMA induced apoptosis,
 whereas PUMA-/- cells were resistant to ER stress–induced
 apoptosis [31]."
-
+SET Confidence = "High"
 bp(MESH:"Endoplasmic Reticulum Stress") -> complex(GO:"BIM-BCL-2 complex")
 bp(MESH:"Endoplasmic Reticulum Stress") -> complex(GO:"PUMA-BCL-2 complex")
 bp(MESH:"Endoplasmic Reticulum Stress") -> complex(GO:"NOXA-BCL-2 complex")
 bp(MESH:"Endoplasmic Reticulum Stress") -| p(HGNC:BCL2)
 complex(GO:"PUMA-BCL-2 complex") -> bp(MESH:Apoptosis)
+UNSET Confidence
 
 SET Evidence = "CHOP, also known as growth arrest and DNA damage-inducible
 gene 153 (GADD153), is a member of the C/EBP family that heterodimerizes
@@ -338,40 +382,52 @@ unstressed cells and is strongly induced in response to ER stress
 shown that mouse embryonic fibroblasts derived from CHOP-/-
 animals exhibited significantly less cell death when challenged
 with ER stress–inducing agents compared to wild type [33]."
-
-complex(GO:"CHOP-C/EBP complex") -> bp(MESH:"DNA Damage")
-bp(MESH:"Endoplasmic Reticulum Stress") -> complex(GO:"CHOP-C/EBP complex")
-bp(MESH:"Unfolded Protein Response") -> complex(GO:"CHOP-C/EBP complex")
-complex(GO:"CHOP-C/EBP complex") -> bp(MESH:"Cell Death")
+#DDIT3 - CHOP
+SET Confidence = "Medium"
+p(HGNC:DDIT3) -> bp(MESH:"DNA Damage")
+p(HGNC:DDIT3) -- complex(GO:"CHOP-C/EBP complex")
+bp(MESH:"Endoplasmic Reticulum Stress") -> p(HGNC:DDIT3)
+bp(MESH:"Unfolded Protein Response") -> p(HGNC:DDIT3)
+SET Species = "10090"
+SET Cell = "embryonic fibroblast"
+p(HGNC:DDIT3) -> bp(MESH:"Cell Death")
+UNSET Cell
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "CHOP’s pro-apoptotic effects are linked to down-regulation of
 BCL-2 and enhanced production of reactive oxygen species (ROS)
 [34]. Caspase-11 has been reported to act downstream of
 CHOP to induce cell death by activating death effector caspases-1 and -3 [35]."
-
-complex(GO:"CHOP-C/EBP complex") -| p(HGNC:BCL2)
-complex(GO:"CHOP-C/EBP complex") -> a(MESH:"Reactive Oxygen Species")
-complex(GO:"CHOP-C/EBP complex") -> p(MESH:"Casp11 protein, mouse")
+SET Confidence = "Low"
+p(HGNC:DDIT3) -| p(HGNC:BCL2)
+p(HGNC:DDIT3) -> a(MESH:"Reactive Oxygen Species")
+#not sure about the use of CASP11 mouse!
+p(HGNC:DDIT3) -> p(MESH:"Casp11 protein, mouse")
 p(MESH:"Casp11 protein, mouse") -> p(HGNC:CASP1)
 p(MESH:"Casp11 protein, mouse") -> p(HGNC:CASP3)
-p(HGNC:CASP1) -> bp(MESH:"Cell Death")
-p(HGNC:CASP3) -> bp(MESH:"Cell Death")
+act(p(HGNC:CASP1)) -> bp(MESH:"Cell Death")
+act(p(HGNC:CASP3)) -> bp(MESH:"Cell Death")
+UNSET Confidence
 
 SET Evidence = "CHOP can also bind to the promoter region of proapoptotic
 BIM, increasing its expression as well as transcriptionally
 down-regulating BCL-2 and in this way it induces cell death."
-
-complex(GO:"CHOP-C/EBP complex") -> complex(GO:"BIM-BCL-2 complex")
-complex(GO:"CHOP-C/EBP complex") -| r(HGNC:BCL2)
-complex (GO:"CHOP-C/EBP complex") -> bp(MESH:"Cell Death")
+SET Confidence = "High"
+p(HGNC:DDIT3) -> complex(GO:"BIM-BCL-2 complex")
+p(HGNC:DDIT3) -| r(HGNC:BCL2)
+complex(GO:"CHOP-C/EBP complex") -> bp(MESH:"Cell Death")
+UNSET Confidence
 
 SET Evidence = "Accumulating evidence indicates that autophagy may
 confer neuroprotection by enhancing clearance of soluble and
 aggregated misfolded proteins and conversely, deregulation of
 autophagy may lead to neurodegeneration [37]."
-
+SET Confidence = "Medium"
 bp(GO:autophagy) -> bp(MESH:Neuroprotection)
 bp(GO:autophagy) -| p(MESH:Proteins , pmod(HBP:misfolded))
+bp(GO:autophagy) -- path(MESH:"Neurodegenerative Diseases")
+UNSET Confidence
 
 SET Evidence = "misfolded or
 unassembled proteins are retained in the ER and subsequently
@@ -379,7 +435,7 @@ degraded by ERAD. In the ERAD pathway, ER-resident chaperones
 recognize the misfolded proteins and ER reductases remove disulfide
 bonds in these proteins to facilitate retrograde transport to the
 cytosol where they are degraded by the proteasome [38]."
-
+SET Confidence = "High"
 SET CellStructure = "Endoplasmic Reticulum"
 
 bp(GO:"ERAD pathway") -> deg(p(MESH:Proteins , pmod(HBP:misfolded)))
@@ -393,6 +449,7 @@ SET CellStructure = "Cytoplasm"
 p(HGNCGENEFAMILY:Proteasome) -| deg(p(MESH:Proteins,pmod(HBP:misfolded)))
 
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "To
 remove the aggregates of misfolded proteins that cannot be
@@ -405,22 +462,24 @@ ATG1/ULK induction complex [40]. This complex is essential for
 the formation of a small double membrane structure known as a
 phagophore, which will eventually mature into a double-membraned
 vacuole termed an autophagosome [41]."
-
+SET Confidence = "Medium"
 bp(MESH:"Unfolded Protein Response") -> bp(GO:autophagy)
-a(MESH:Autophagosomes) -> p(MESH:Proteins , pmod(HBP:misfolded))
+#a(MESH:Autophagosomes) -> p(MESH:Proteins , pmod(HBP:misfolded))
 composite(a(MESH:Autophagosomes),a(MESH:Lysosomes)) -> deg(a(MESH:Autophagosomes))
 complex(GO:"Atg1/ULK1 kinase complex") -> bp(GO:autophagy)
 complex(GO:"Atg1/ULK1 kinase complex") -> a(GO:phagophore)
 a(GO:phagophore) -> a(MESH:Autophagosomes)
+UNSET Confidence
 
 SET Evidence = "Mammalian target of rapamycin (mTOR) is a key kinase in the
 regulation of autophagy and activated mTOR inhibits autophagy.
 mTOR exists in two different complex forms, mTOR complex I
 (mTORC1) and mTOR complex II [42]."
-
+SET Confidence = "High"
 p(HGNC:MTOR) reg bp(GO:autophagy)
 act(p(HGNC:MTOR)) -| bp(GO:autophagy)
 p(HGNC:MTOR) hasComponents list(p(HGNCGENEFAMILY:"MTOR complex 1"),p(HGNCGENEFAMILY:"MTOR complex 2"))
+UNSET Confidence
 
 SET Evidence = "AMP-activated protein
 kinase (AMPK) negatively regulates mTOR via the tuberous sclerosis
@@ -433,7 +492,7 @@ activates AMPK, in turn inhibiting mTOR and activating the
 ATG/ULK induction complex. The inhibition of mTOR during ER
 stress via AMPK is an important event during ER stress for the
 induction of autophagy [45]."
-
+SET Confidence = "Medium"
 p(HGNC:PRKAA1) neg p(HGNC:MTOR)
 p(HGNC:PRKAA1) reg p(HGNCGENEFAMILY:"TSC complex")
 p(HGNCGENEFAMILY:"TSC complex") reg p(HGNC:MTOR)
@@ -441,47 +500,54 @@ path(MESH:Hypoxia) -> act(p(HGNC:PRKAA1))
 path(MESH:Starvation) -> act(p(HGNC:PRKAA1))
 bp(MESH:"Heat-Shock Response") -> act(p(HGNC:PRKAA1))
 bp(MESH:"Endoplasmic Reticulum Stress") -> act(p(HGNC:PRKAA1))
+bp(MESH:Ischemia) -> act(p(HGNC:PRKAA1))
 bp(MESH:"Endoplasmic Reticulum Stress") -> tloc(a(CHEBI:"calcium cation"),fromLoc(GO:"endoplasmic reticulum"),toLoc(GO:cytoplasm))
 a(CHEBI:"calcium cation",loc(GO:cytoplasm)) -> act(p(HGNC:CAMK2B))
 p(HGNC:CAMK2B) -> act(p(HGNC:PRKAA1))
+p(HGNC:PRKAA1) -| p(HGNC:MTOR)
 p(HGNC:CAMK2B) -> act(complex(GO:"Atg1/ULK1 kinase complex"))
 p(HGNC:MTOR) -| bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "Different conditions that induce ER stress lead to induction of
 autophagy [39]. Both the PERK/eIF2alpha and IRE1 arms of the UPR
 have been implicated in the regulation of autophagy [46, 47].
 Treatment of cells with tunicamycin, thapsigargin or proteasome
 inhibitors induces autophagy in an IRE1-dependent manner [47]."
-
+SET Confidence = "High"
 bp(MESH:"Endoplasmic Reticulum Stress") -> bp(GO:autophagy)
-p(MESH:"PERK kinase") reg bp(GO:autophagy)
+p(HGNC:EIF2AK3) reg bp(GO:autophagy)
 p(HGNC:ERN1) reg bp(GO:autophagy)
 a(CHEBI:tunicamycin) -> bp(GO:autophagy)
 a(CHEBI:thapsigargin) -> bp(GO:autophagy)
 a(MESH:"Proteasome Inhibitors") -> bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "The pro-autophagic actions of IRE1 seem to rely on the ability of
 IRE1 to activate JNK. JNK has been shown to regulate autophagy
 through BCL-2 phosphorylation, which disrupts its interaction
 with Beclin-1 [48]."
-
+SET Confidence = "High"
 p(HGNC:ERN1) -> bp(GO:"JNK cascade")
 bp(GO:"JNK cascade") reg bp(GO:autophagy)
 bp(GO:"JNK cascade") -> p(HGNC:BCL2,pmod(Ph))
 p(HGNC:BCL2,pmod(Ph)) -| composite(a(MESH:"Beclin-1"),p(HGNC:BCL2))
+UNSET Confidence
 
 SET Evidence = "Intriguingly, it has been recently shown that
 XBP1 ablation increases autophagy and protects cells from the
 toxicity induced by aggregates of the mutant form of enzyme
 superoxide dismutase 1 (mSOD1) in a model of ALS [49]."
+SET Confidence = "High"
 SET Disease = "amyotrophic lateral sclerosis"
 
 p(HGNC:XBP1) -| bp(GO:autophagy)
-p(HGNC:XBP1) -> p(MESH:"Superoxide Dismutase-1",pmod(MESH:"Mutant Proteins"))
-p(MESH:"Superoxide Dismutase-1",pmod(MESH:"Mutant Proteins")) -> bp(HBP:"protein aggregation")
+p(HGNC:XBP1) -> p(HGNC:SOD1,pmod(MESH:"Mutant Proteins"))
+p(HGNC:SOD1,pmod(MESH:"Mutant Proteins")) -> bp(HBP:"protein aggregation")
 bp(HBP:"protein aggregation") -> bp(MESH:"Cell Death")
 
 UNSET Disease
+UNSET Confidence
 
 SET Evidence = "It has been shown that PERK signalling is also required for
 autophagy following expression of the Huntington’s disease-associated
@@ -491,15 +557,16 @@ tract at the N-terminus of the encoded, ubiquitously
 expressed protein called huntingtin [50]. PERK-eIF2alpha–dependent
 ATG12 up-regulation is required for induction of autophagy in
 response to polyglutamine protein accumulation [51]."
-
+SET Confidence = "High"
 SET Disease = "Huntington's disease"
 
-p(MESH:"Huntingtin Protein",pmod(MESH:polyglutamine)) -> p(MESH:"PERK kinase")
-p(MESH:"PERK kinase") -> bp(GO:autophagy)
-p(MESH:"PERK kinase") -> p(HGNC:ATG12)
-composite(p(HGNC:ATG12),p(MESH:"Huntingtin Protein",pmod(MESH:polyglutamine))) -> bp(GO:autophagy)
+p(HGNC:HTT,pmod(MESH:polyglutamine)) -> p(HGNC:EIF2AK3)
+p(HGNC:EIF2AK3) -> bp(GO:autophagy)
+p(HGNC:EIF2AK3) -> p(HGNC:ATG12)
+composite(p(HGNC:ATG12),p(HGNC:HTT,pmod(MESH:polyglutamine))) -> bp(GO:autophagy)
 
 UNSET Disease
+UNSET Confidence
 
 SET Evidence = "PERKdependent
 transcription factors ATF4 and CHOP have been shown
@@ -507,36 +574,39 @@ to induce transcriptional activation of MAP1LC3B and ATG5 during
 hypoxia [52]. Further, eIF2alpha-dependent up-regulation of the
 transcription factors p8, ATF4, CHOP and TRB3 is required for
 induction of autophagy [53]."
-
+SET Confidence = "Medium"
 SET MeSHDisease = "Hypoxia"
 
-p(MESH:"PERK kinase") -> complex(GO:"CHOP-C/EBP complex")
-p(MESH:"PERK kinase") -> p(HGNC:ATF4)
+p(HGNC:EIF2AK3) -> p(HGNC:DDIT3)
+p(HGNC:EIF2AK3) -> p(HGNC:ATF4)
 p(HGNC:ATF4) -> p(HGNC:MAP1LC3B)
 p(HGNC:ATF4) -> p(HGNC:ATG5)
-complex(GO:"CHOP-C/EBP complex") -> p(HGNC:MAP1LC3B)
-complex(GO:"CHOP-C/EBP complex") -> p(HGNC:ATG5)
+p(HGNC:DDIT3) -> p(HGNC:MAP1LC3B)
+p(HGNC:DDIT3) -> p(HGNC:ATG5)
 
 p(HGNC:EIF2A) -> p(HGNC:NUPR1)
 p(HGNC:EIF2A) -> p(HGNC:ATF4)
-p(HGNC:EIF2A) -> complex(GO:"CHOP-C/EBP complex")
-complex(GO:"CHOP-C/EBP complex") -> bp(GO:autophagy)
+p(HGNC:EIF2A) -> p(HGNC:DDIT3)
+p(HGNC:EIF2A) -> p(HGNC:TRIB3)
+p(HGNC:DDIT3) -> bp(GO:autophagy)
 p(HGNC:NUPR1) -> bp(GO:autophagy)
 p(HGNC:ATF4) -> bp(GO:autophagy)
-
+p(HGNC:TRIB3) -> bp(GO:autophagy)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Protein folding in vivo is an inefficient process and is aided by
 molecular chaperones, which increase folding efficiency. In addition,
 degradation systems such as ERAD, the endo-lysosomal
 pathway, the proteasome and autophagy rapidly remove misfolded
 proteins.[38]."
-
+SET Confidence = "High"
 p(MESH:"Molecular Chaperones") -> bp(GO:"protein folding")
 bp(GO:"ERAD pathway") -> deg(p(MESH:Proteins , pmod(HBP:misfolded)))
 bp(GO:"lysosomal protein catabolic process") -> deg(p(MESH:Proteins , pmod(HBP:misfolded)))
 p(HGNCGENEFAMILY:Proteasome) -> deg(p(MESH:Proteins , pmod(HBP:misfolded)))
 bp(GO:autophagy) -> deg(p(MESH:Proteins,pmod(HBP:misfolded)))
+UNSET Confidence
 
 SET Evidence = "Neurons are
 heavily reliant on the removal of misfolded proteins to maintain
@@ -545,7 +615,7 @@ characteristic feature of many neurodegenerative diseases including
 AD [57], PD [58], transmissible spongiform encephalopathy
 [59] and also acute neurodegenerative disorders such as
 traumatic brain injury [60] and cerebral ischaemia [61]."
-
+SET Confidence = "High"
 p(MESH:Proteins , pmod(HBP:misfolded)) -> bp(HBP:"protein aggregation")
 
 SET Cell = "neuron"
@@ -554,28 +624,30 @@ bp(HBP:"protein aggregation") -- path(MESH:"Alzheimer Disease")
 bp(HBP:"protein aggregation") -- path(MESH:"Parkinson Disease")
 bp(HBP:"protein aggregation") -- path(MESH:"Amyloidosis, Cerebral, with Spongiform Encephalopathy")
 bp(HBP:"protein aggregation") -- path(MESH:"Brain Injuries, Traumatic")
-
+bp(HBP:"protein aggregation") -- path(MESH:"Brain Ischemia")
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Because
 misfolded proteins trigger the UPR, this has prompted several
 groups to investigate the involvement of ER stress in neurodegenerative
 disorders."
-
+SET Confidence = "High"
 p(MESH:Proteins , pmod(HBP:misfolded)) -> bp(MESH:"Unfolded Protein Response")
 bp(MESH:"Endoplasmic Reticulum Stress") -- path(MESH:"Neurodegenerative Diseases")
+UNSET Confidence
 
 SET Disease = "Alzheimer's disease"
 
 SET Evidence = "AD is characterized by the presence of senile plaques with a core
 of extracellular beta-amyloid protein and intracellular neurofibrillary
 tangles containing hyperphosphorylated tau [62]."
-
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -- path(HP:"Senile plaques")
 path(HP:"Senile plaques") -> a(HBP:"amyloid-beta aggregates")
 path(HP:"Senile plaques") -> a(MESH:"Neurofibrillary Tangles")
-
 a(MESH:"Neurofibrillary Tangles") -> p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+UNSET Confidence
 
 SET Evidence = "These pathological
 hallmarks are accompanied by ballooning of neurites and
@@ -584,7 +656,8 @@ amyloid precursor protein (APP), through the action of Gamma-secretase
 (BACE) and gamma-secretase that results in the production of
 beta-amyloid protein. Gamma-Secretase can produce beta-amyloid of different
 lengths, most notably Abeta40 and Abeta42 [63]."
-
+SET Confidence = "Medium"
+path(MESH:Neurites) -- path(MESH:"Alzheimer Disease")
 bp(GO:"neuron death") prognosticBiomarkerFor path(MESH:"Alzheimer Disease")
 p(HGNC:APP) -> a(CHEBI:"amyloid-beta")
 p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta")))
@@ -593,37 +666,41 @@ complex(FPLX:"Gamma_secretase") -> p(HGNC:APP, frag(672_713))
 #frag(672_713) is Abeta42
 complex(FPLX:"Gamma_secretase") -> p(HGNC:APP, frag(672_711))
 #frag(672_711) is Abeta40
+UNSET Confidence
 
 SET Evidence = "The Abeta42 form of
 the protein is the most amyloidogenic and is prevalent in senile
 plaques. The extracellular deposition of senile plaques may precede
 the development of neurofibrillary tangles, and has been the
 subject of much investigative interest [64]."
-
+SET Confidence = "High"
 p(HGNC:APP, frag(672_713)) isA a(MESH:"Amyloidogenic Proteins")
 p(HGNC:APP, frag(672_713)) -> path(HP:"Senile plaques")
 
 SET CellStructure = "Extracellular Space"
 path(HP:"Senile plaques") -> a(MESH:"Neurofibrillary Tangles")
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence= "Although the evolution
 of senile plaques is closely linked to the development of the neurodegeneration
 and onset and progression of symptoms in AD,
 there is arguably not a direct causal relationship between beta-amyloid
 deposition and neurodegeneration.[65]."
-
+SET Confidence = "High"
 path(HP:"Senile plaques") -- path(MESH:"Neurodegenerative Diseases")
 a(HBP:"amyloid-beta aggregates") -- path(HBP:Neurodegeneration)
+UNSET Confidence
 
 SET Evidence = "Neurofibrillary
 tangles contain twisted pairs of helical filaments formed by the
 aggregation of hyperphosphorylated tau [69]. Hyperphosphorylation
 of tau impairs its ability to interact with cytoskeletal microfilaments,
 resulting in disorganization of the cytoskeleton."
-
+SET Confidence = "High"
 a(MESH:"Neurofibrillary Tangles") -> p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
 p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -| bp(GO:"cytoskeleton organization")
+UNSET Confidence
 
 SET Evidence = "The presenilin protein is a component of the Gamma-secretase complex,
 which is widely expressed in the ER and Golgi apparatus
@@ -631,14 +708,14 @@ which is widely expressed in the ER and Golgi apparatus
 onset forms of AD [69] with presenilin 1 (PS1) being more highly
 expressed than PS2, and mutations in the genes coding for a presenilin
 protein reduce the average age of onset of AD [71]."
-
+SET Confidence = "Medium"
 SET CellStructure = {"Endoplasmic Reticulum","Golgi Apparatus"}
-
 complex(FPLX:"Gamma_secretase") hasComponent p(PFAM:Presenilin)
 p(PFAM:Presenilin,var("?")) -- path(MESH:"Alzheimer Disease")
-path(MESH:"Alzheimer Disease") -> p(MESH:"Presenilin-1")
-
+path(MESH:"Alzheimer Disease") -> p(HGNC:PSEN1)
+p(PFAM:Presenilin,var("?")) -| path(MESH:"Age of Onset")
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "Evidence also demonstrates that PS1 mutations render cells more
 susceptible to apoptosis induced by a range of insults [72].
@@ -648,27 +725,30 @@ the key ER stress sensors IRE1 and PERK (Fig. 3A). Presenilin
 mutations reduced phosphorylation of PERK and eIF2alpha, resulting
 in failure to attenuate protein synthesis causing protein accumulation
 in the ER [73]."
-
-p(MESH:"Presenilin-1",var("?")) -> bp(MESH:Apoptosis)
+#PSEN1 - PS1
+SET Confidence = "High"
+p(HGNC:PSEN1,var("?")) -> bp(MESH:Apoptosis)
 p(PFAM:Presenilin) isA complex(GO:"ER membrane protein complex")
 p(PFAM:Presenilin) -- p(HGNC:ERN1)
-p(PFAM:Presenilin) -- p(MESH:"PERK kinase")
-p(PFAM:Presenilin) -| p(MESH:"PERK kinase",pmod(Ph))
+p(PFAM:Presenilin) -- p(HGNC:EIF2AK3)
+p(PFAM:Presenilin) -| p(HGNC:EIF2AK3,pmod(Ph))
 p(PFAM:Presenilin) -| p(HGNC:EIF2A,pmod(Ph))
 
 SET CellStructure = "Endoplasmic Reticulum"
-p(MESH:"PERK kinase",pmod(Ph)) -> bp(HBP:"protein aggregation")
+p(HGNC:EIF2AK3,pmod(Ph)) -> bp(HBP:"protein aggregation")
 p(HGNC:EIF2A,pmod(Ph)) -> bp(HBP:"protein aggregation")
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "Mutant PS1 is also known to bind, and inhibit
 IRE1, thereby reducing, or delaying, the transcription of ER chaperones
 such as GRP78 which has consistently been found to
 be down-regulated in AD [73]."
-
-p(MESH:"Presenilin-1",var("?")) -| p(HGNC:ERN1)
-p(MESH:"Presenilin-1",var("?")) -| r(MESH:"molecular chaperone GRP78")
-path(MESH:"Alzheimer Disease") neg p(MESH:"molecular chaperone GRP78")
+SET Confidence = "High"
+p(HGNC:PSEN1,var("?")) -| p(HGNC:ERN1)
+p(HGNC:PSEN1,var("?")) -| r(HGNC:HSPA5)
+path(MESH:"Alzheimer Disease") neg p(HGNC:HSPA5)
+UNSET Confidence
 
 SET Evidence = "In fact, the increased sensitivity
 of neurons to ER stress is attributed to the decreased levels of
@@ -677,10 +757,11 @@ IRE1 activity and the resultant effect on XBP1 splicing can regulate
 cell fate [13]. Therefore, it is possible that mutant PS1, acting
 on IRE1, can reduce or delay splicing of XBP1, thus switching signalling
 to a pro-death response."
-
-bp(MESH:"Endoplasmic Reticulum Stress") -- r(MESH:"molecular chaperone GRP78")
+SET Confidence = "Medium"
+bp(MESH:"Endoplasmic Reticulum Stress") -| r(HGNC:HSPA5)
 p(HGNC:ERN1) reg p(HGNC:XBP1)
-p(MESH:"Presenilin-1",var("?")) -| r(HGNC:XBP1)
+p(HGNC:PSEN1,var("?")) -| r(HGNC:XBP1)
+UNSET Confidence
 
 SET Evidence = "XBP1 can bind to the promotors of at least
 one key component of the Gamma-secretase complex, namely UBQLN1
@@ -690,56 +771,65 @@ generation of Abeta. XBP1 can also bind to the promoter of genes
 involved in APP trafficking and processing as well as genes
 involved in AD pathogenesis, thereby implicating XBP1 in AD
 (Fig. 3A) [75]."
-
+SET Confidence = "High"
 p(HGNC:XBP1) reg g(FPLX:"Gamma_secretase")
 p(HGNC:UBQLN1) neg complex(FPLX:"Gamma_secretase")
 p(HGNC:UBQLN1) reg p(HGNC:APP)
 p(HGNC:UBQLN1) reg a(CHEBI:"amyloid-beta")
 p(HGNC:XBP1) reg p(HGNC:APP)
 p(HGNC:XBP1) -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "It is possible therefore that reduced expression of
 XBP1 in AD influences the generation of Abeta and affects cell fate
 decisions."
-
+SET Confidence = "High"
 p(HGNC:XBP1) neg path(MESH:"Alzheimer Disease")
 p(HGNC:XBP1) -- a(CHEBI:"amyloid-beta")
+UNSET Confidence
 
 SET Evidence = "Ca2+ homeostasis is important for proper functioning of ER
 chaperones and protein folding. Alterations in Ca2+ homeostasis
 lead to reduced chaperone activity, protein misfolding and initiation
 of the UPR. Abeta peptides have been shown to cause depletion
 of ER Ca2+ stores by triggering release of Ca2+ into the cytoplasm."
-
+SET Confidence = "High"
 bp(GO:"calcium ion homeostasis") -> p(MESH:"Molecular Chaperones",loc(GO:"endoplasmic reticulum"))
 bp(GO:"calcium ion homeostasis") -> act(p(MESH:"Molecular Chaperones",loc(GO:"endoplasmic reticulum")))
 bp(GO:"calcium ion homeostasis") -> bp(GO:"protein folding")
 bp(GO:"calcium ion homeostasis") -> bp(MESH:"Unfolded Protein Response")
 a(CHEBI:"amyloid-beta") -| tloc(a(CHEBI:"calcium cation"),fromLoc(GO:"endoplasmic reticulum"),toLoc(GO:cytoplasm))
+UNSET Confidence
 
 SET Evidence = "In addition, PS1 mutations increase Abeta42 levels and have also been shown to impair ER Ca2+ homeostasis. Cells containing
 human PS1 mutations exhibit increased Ca2+ release from intracellular
 stores in response to stress in vitro [76]. Therefore, current
 studies suggest that there is a perturbed UPR response in AD."
-
-p(MESH:"Presenilin-1",var("?")) -> p(HGNC:APP, frag(672_713))
+SET Confidence = "High"
+p(HGNC:PSEN1,var("?")) -> p(HGNC:APP, frag(672_713))
 
 SET CellStructure = "Endoplasmic Reticulum"
-p(MESH:"Presenilin-1",var("?")) -| bp(GO:"calcium ion homeostasis")
+p(HGNC:PSEN1,var("?")) -| bp(GO:"calcium ion homeostasis")
 UNSET CellStructure
 
-p(MESH:"Presenilin-1",var("?")) -> tloc(a(CHEBI:"calcium cation"),fromLoc(GO:"endoplasmic reticulum"),toLoc(GO:cytoplasm))
+p(HGNC:PSEN1,var("?")) -> tloc(a(CHEBI:"calcium cation"),fromLoc(GO:"endoplasmic reticulum"),toLoc(GO:cytoplasm))
 path(MESH:"Alzheimer Disease") -| bp(MESH:"Unfolded Protein Response")
+UNSET Confidence
 
 SET Evidence = "Autophagosomes and precursor autophagosomes (autophagic
 vacuoles) are abundant in swollen and dystrophic neurites from
 human AD brains, suggesting that the later stages of autophagy or
 the removal of autophagic vacuoles may be deregulated [77]."
-
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Brain"
 path(MESH:"Alzheimer Disease") -- a(GO:autophagosome)
 path(MESH:"Alzheimer Disease") neg bp(GO:autophagy)
+UNSET MeSHAnatomy
+UNSET Confidence
 
 UNSET Disease
+
+SET Disease = "Parkinson's disease"
 
 SET Evidence = "PD is characterized by motor symptoms such as dyskinesia, muscle
 rigidity, postural instability and resting tremor. In addition,
@@ -748,7 +838,7 @@ in PD sufferers. Degeneration of the dopaminergic neurones
 of the nigrostriatal pathway and the presence of alpha-synuclein containing
 Lewy bodies and Lewy neurites are characteristic of the
 disease [78]."
-
+SET Confidence = "High"
 path(HP:Dyskinesia) prognosticBiomarkerFor path(MESH:"Parkinson Disease")
 path(MESH:"Muscle Rigidity") prognosticBiomarkerFor path(MESH:"Parkinson Disease")
 path(HP:"Postural instability") prognosticBiomarkerFor path(MESH:"Parkinson Disease")
@@ -756,18 +846,18 @@ path(HP:"Resting tremor") prognosticBiomarkerFor path(MESH:"Parkinson Disease")
 path(DOID:"olfactory nerve disease") prognosticBiomarkerFor path(MESH:"Parkinson Disease")
 path(HBP:"Gastrointestinal dysfunctions") prognosticBiomarkerFor path(MESH:"Parkinson Disease")
 path(MESH:"Parkinson Disease") -| a(MESH:"Dopaminergic Neurons")
-a(GO:"Lewy body") -> p(MESH:"alpha-Synuclein")
+a(GO:"Lewy body") -> p(HGNC:SNCA)
 a(GO:"Lewy neurite") biomarkerFor path(MESH:"Parkinson Disease")
 a(GO:"Lewy body") biomarkerFor path(MESH:"Parkinson Disease")
-
-SET Disease = "Parkinson's disease"
+UNSET Confidence
 
 SET Evidence = "Within the Lewy plaques, diffuse deposits of misfolded
 alpha-synuclein form the core in association with other proteins,
 notably components of the ubiquitin–proteasome system
 [3]."
-
-a(GO:"Lewy body") -> p(MESH:"alpha-Synuclein",pmod(HBP:misfolded))
+SET Confidence = "High"
+a(GO:"Lewy body") -> p(HGNC:SNCA,pmod(HBP:misfolded))
+UNSET Confidence
 
 SET Evidence = "Genes associated with autosomal
 dominant PD include alpha-synuclein, ubiquitin carboxyl-terminal
@@ -775,14 +865,15 @@ esterase L1 (UCHL1) and leucine-rich repeat kinase 2 (LRRK2);
 autosomal recessive PD genes include Parkinson protein 2
 (PARK2/Parkin); PTEN-induced kinase 1 (PARK6/PINK1); PD(autosomal recessive, early onset) 7 (PARK7/DJ-1) and PD (autosomal
 recessive) 9; (PARK9/ATP13A2) [80]."
-
-path(DOID:"autosomal dominant Parkinson's disease 1") -- g(MESH:"alpha-Synuclein")
-path(DOID:"autosomal dominant Parkinson's disease 1") -- g(MESH:"UCHL1 protein, human")
-path(DOID:"autosomal dominant Parkinson's disease 1") -- g(MESH:"LRRK2 protein, human")
-path(DOID:"autosomal recessive Parkinson's disease 14") -- g(MESH:"parkin protein")
+SET Confidence = "High"
+path(DOID:"autosomal dominant Parkinson's disease 1") -- g(HGNC:SNCA)
+path(DOID:"autosomal dominant Parkinson's disease 1") -- g(HGNC:UCHL1)
+path(DOID:"autosomal dominant Parkinson's disease 1") -- g(HGNC:LRRK2)
+path(DOID:"autosomal recessive Parkinson's disease 14") -- g(HGNC:PRKN)
 path(DOID:"autosomal recessive Parkinson's disease 14") -- g(HGNC:PINK1)
 path(DOID:"autosomal recessive Parkinson's disease 14") -- g(HGNC:PARK7)
 path(DOID:"autosomal recessive Parkinson's disease 14") -- g(HGNC:ATP13A2)
+UNSET Confidence
 
 SET Evidence = "Alpha-Synuclein is expressed in synaptic vesicles and on cell membranes
 in nervous tissue. Post-translational modification of
@@ -790,18 +881,18 @@ alpha-synuclein such as phosphorylation and nitrosylation can cause
 misfolding and subsequent deposition of the protein [78]. There is a suggestion
 that alpha-synuclein, although normally contained within
 cells, may be released upon cell death [78]."
-
+SET Confidence = "High"
 SET Anatomy = "nervous system"
 SET CellStructure = {"Synaptic Vesicles","Cell Membrane"}
-
-p(MESH:"alpha-Synuclein")
-p(MESH:"alpha-Synuclein",pmod(Ph)) -> p(MESH:"alpha-Synuclein",pmod(HBP:misfolded))
-p(MESH:"alpha-Synuclein",pmod(NO)) -> p(MESH:"alpha-Synuclein",pmod(HBP:misfolded))
-p(MESH:"alpha-Synuclein",pmod(HBP:misfolded)) -> a(HBP:"alpha-synuclein aggregates")
-bp(MESH:"Cell Death") -> tloc(p(MESH:"alpha-Synuclein"),fromLoc(GO:"intracellular"), toLoc(GO:"extracellular space"))
+p(HGNC:SNCA)
+p(HGNC:SNCA,pmod(Ph)) -> p(HGNC:SNCA,pmod(HBP:misfolded))
+p(HGNC:SNCA,pmod(NO)) -> p(HGNC:SNCA,pmod(HBP:misfolded))
+p(HGNC:SNCA,pmod(HBP:misfolded)) -> a(HBP:"alpha-synuclein aggregates")
+bp(MESH:"Cell Death") -> tloc(p(HGNC:SNCA),fromLoc(GO:"intracellular"), toLoc(GO:"extracellular space"))
 
 UNSET CellStructure
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Missense mutations in the gene coding for
 alpha-synuclein cause dominant familial PD. The A53T mutation is
@@ -810,14 +901,15 @@ of CHOP and GRP78 and increased phosphorylation of eIF2alpha,
 suggesting the UPR is active in these cells (Fig. 3B) [80].Inhibition of phosphorylation of eIF2alpha protected the A53T alpha-
 synuclein-overexpressing cells from cell death, suggesting that the
 activated UPR was shifting the balance towards apoptosis [80]."
-
-p(MESH:"alpha-Synuclein",var("?")) -> path(DOID:"autosomal dominant Parkinson's disease 1")
-p(MESH:"alpha-Synuclein",var("p.Ala53Thr")) -> bp(MESH:"Unfolded Protein Response")
-bp(MESH:"Unfolded Protein Response") -> complex(GO:"CHOP-C/EBP complex")
-bp(MESH:"Unfolded Protein Response") -> p(MESH:"molecular chaperone GRP78")
+SET Confidence = "High"
+p(HGNC:SNCA,var("?")) -> path(DOID:"autosomal dominant Parkinson's disease 1")
+p(HGNC:SNCA,var("p.Ala53Thr")) -> bp(MESH:"Unfolded Protein Response")
+bp(MESH:"Unfolded Protein Response") -> p(HGNC:DDIT3)
+bp(MESH:"Unfolded Protein Response") -> p(HGNC:HSPA5)
 bp(MESH:"Unfolded Protein Response") -> p(HGNC:EIF2A, pmod(Ph))
-composite(p(HGNC:EIF2A, pmod(Ph)),p(MESH:"alpha-Synuclein",var("p.Ala53Thr"))) -> bp(MESH:"Cell Death")
+composite(p(HGNC:EIF2A, pmod(Ph)),p(HGNC:SNCA,var("p.Ala53Thr"))) -> bp(MESH:"Cell Death")
 bp(MESH:"Unfolded Protein Response") -> bp(MESH:Apoptosis)
+UNSET Confidence
 
 SET Evidence = "LRRK2 mutations also cause dominant familial PD, and may
 also account for a number of previously considered sporadic
@@ -827,7 +919,7 @@ accumulation of alpha-synuclein and ubiquitinated proteins,
 impairment of the autophagy-lysosomal pathway, accumulation
 of oxidised proteins, an inflammatory response and increased
 apoptosis [82]."
-
+SET Confidence = "High"
 p(HGNC:LRRK2,var("?")) -> path(DOID:"autosomal dominant Parkinson's disease 1")
 p(HGNC:LRRK2,var("?")) -| bp(GO:"protein catabolic process")
 p(HGNC:LRRK2,var("?")) -> a(HBP:"alpha-synuclein aggregates")
@@ -836,6 +928,7 @@ p(HGNC:LRRK2,var("?")) -| bp(GO:"lysosomal protein catabolic process")
 p(HGNC:LRRK2,var("?")) -| bp(GO:"regulation of protein oxidation")
 p(HGNC:LRRK2,var("?")) -> bp(GO:"inflammatory response")
 p(HGNC:LRRK2,var("?")) -> bp(MESH:Apoptosis)
+UNSET Confidence
 
 SET Evidence = "UCH-L1 mutations are linked to autosomal-dominant PD, however
 the mechanism by which it caused the disease is unclear, with
@@ -843,10 +936,12 @@ conflicting evidence reported for its in vivo functions. Recent studies
 reveal a role for UCH-L1 in chaperone-mediated autophagy
 (CMA) and mutant UCH-L1 was shown to inhibit CMA-mediated
 removal of alpha-synuclein [83]."
-
+SET Confidence = "Medium"
 p(HGNC:UCHL1,var("?")) -- path(DOID:"autosomal dominant Parkinson's disease 1")
 p(HGNC:UCHL1) -- bp(GO:"chaperone-mediated autophagy")
 p(HGNC:UCHL1,var("?")) -| bp(GO:"chaperone-mediated autophagy")
+bp(GO:"chaperone-mediated autophagy") -> deg(a(HBP:"alpha-synuclein aggregates"))
+UNSET Confidence
 
 SET Evidence = "Several genetic mutations have been linked to the recessive
 form of PD including Parkin, an E3 ligase which forms part of the
@@ -855,35 +950,40 @@ by the proteasome [84]. Mutations in Parkin result in loss of ubiquitin-
 protein ligase activity [85, 86], which can result in the accumulation
 of misfolded proteins within cells and may underpin the
 development of PD in people with this genetic mutation [85, 86]."
-
-p(MESH:"parkin protein") -- path(DOID:"autosomal recessive Parkinson's disease 14")
-p(MESH:"parkin protein") -> bp(GO:"proteasomal protein catabolic process")
+#PRKN - Parkin
+SET Confidence = "Medium"
+g(HGNC:PRKN, var("?")) -- path(DOID:"autosomal recessive Parkinson's disease 14")
+p(HGNC:PRKN) -> bp(GO:"proteasomal protein catabolic process")
+p(HGNC:PRKN, var("?")) -> bp(GO:"negative regulation of ubiquitin protein ligase activity")
 bp(GO:"negative regulation of ubiquitin protein ligase activity") -> p(MESH:Proteins , pmod(HBP:misfolded))
 p(MESH:Proteins , pmod(HBP:misfolded)) -> bp(HBP:"protein aggregation")
+UNSET Confidence
 
 SET Evidence = "Parkin has been shown to be up-regulated via AFT4, following ER
 stress and this event is associated with promotion of cell survival.
 A reciprocal relationship was also shown between JNK and Parkin.
 In addition, it was found that CHOP could down-regulate Parkin
 expression [87]."
-
+SET Confidence = "High"
 bp(MESH:"Endoplasmic Reticulum Stress") -> p(HGNC:ATF4)
 #AFT4 seems to be a typo. Replaced by ATF4
-p(HGNC:ATF4) -> p(MESH:"parkin protein")
-p(MESH:"parkin protein") -> bp(MESH:"Cell Survival")
-bp(GO:"JNK cascade") neg p(MESH:"parkin protein")
-complex(GO:"CHOP-C/EBP complex") -| p(MESH:"parkin protein")
+p(HGNC:ATF4) -> p(HGNC:PRKN)
+p(HGNC:PRKN) -> bp(MESH:"Cell Survival")
+bp(GO:"JNK cascade") neg p(HGNC:PRKN)
+p(HGNC:DDIT3) -| g(HGNC:PRKN)
+UNSET Confidence
 
 SET Evidence = "However, prolonged stress will eventually
 lead to cell death with mutant Parkin potentially tipping the balance
 towards cell death [87]. More recently, the role of Parkin in
 mitophagy (selective degradation of mitochondria via the
 autophagy pathway) has been implicated in contributing to PD."
-
-p(MESH:"parkin protein",var("?")) -> bp(MESH:"Cell Death")
-p(MESH:"parkin protein") -- bp(GO:mitophagy)
-bp(GO:mitophagy) -> p(MESH:"parkin protein")
-p(MESH:"parkin protein") -- path(MESH:"Parkinson Disease")
+SET Confidence = "Medium"
+p(HGNC:PRKN,var("?")) -> bp(MESH:"Cell Death")
+p(HGNC:PRKN) -- bp(GO:mitophagy)
+#bp(GO:mitophagy) -> p(HGNC:PRKN)
+p(HGNC:PRKN) -- path(MESH:"Parkinson Disease")
+UNSET Confidence
 
 SET Evidence = "Parkin is recruited to depolarized
 mitochondria via PTEN-induced kinase-1 (PINK1) leading to
@@ -892,66 +992,73 @@ voltage-dependent anion channel 1 leading to mitochondrial clearance
 [88]. Interestingly, disease-associated Parkin mutations disrupted
 mitophagy at distinct steps highlighting the importance of
 Parkin-mediated mitophagy in PD [88]."
-
+SET Confidence = "High"
 bp(GO:"mitochondrial depolarization") -> p(HGNC:PINK1)
-p(HGNC:PINK1) -> p(MESH:"parkin protein")
-p(MESH:"parkin protein") -> bp(GO:mitophagy)
-p(MESH:"parkin protein") -> p(HGNCGENEFAMILY:"Voltage dependent anion channels",pmod(Ub))
+p(HGNC:PINK1) -> p(HGNC:PRKN)
+p(HGNC:PRKN) -> bp(GO:mitophagy)
+p(HGNC:PRKN) -> p(HGNCGENEFAMILY:"Voltage dependent anion channels",pmod(Ub))
 p(HGNCGENEFAMILY:"Voltage dependent anion channels",pmod(Ub)) -> bp(MESH:"Mitochondrial Degradation")
-p(MESH:"parkin protein",var("?")) -| bp(GO:"parkin-mediated stimulation of mitophagy in response to mitochondrial depolarization")
+p(HGNC:PRKN,var("?")) -| bp(GO:"parkin-mediated stimulation of mitophagy in response to mitochondrial depolarization")
 bp(GO:"parkin-mediated stimulation of mitophagy in response to mitochondrial depolarization") -- path(MESH:"Parkinson Disease")
+UNSET Confidence
 
 SET Evidence = "Mutations in PINK1 have also been implicated in the recessive
 form of PD. Apart from its role in recruiting Parkin to mitochondria
 for subsequent mitophagy, PINK1 has also been implicated in
 protein stability and the wild-type protein may protect cells from
 oxidative stress, mitochondrial dysfunction and apoptosis [89]."
-
+SET Confidence = "Medium"
 p(HGNC:PINK1,var("?")) -> path(DOID:"autosomal recessive Parkinson's disease 14")
-p(HGNC:PINK1) -- bp(MESH:"Protein Stability")
+p(HGNC:PINK1, var("?")) -- bp(MESH:"Protein Stability")
 p(HGNC:PINK1) -| bp(MESH:"Oxidative Stress")
 p(HGNC:PINK1) -| path(HBP:"mitochondrial dysfunction")
 p(HGNC:PINK1) -| bp(MESH:Apoptosis)
+UNSET Confidence
 
 SET Evidence = "Mutations in DJ-1 are also linked to PD. DJ-1 has been suggested
 to act as an antioxidant or redox sensor protein and defective
 DJ-1 may predispose to oxidative stress and activation of the ER
 stress cascade [90]."
-
+SET Confidence = "High"
 p(HGNC:PARK7,var("?")) -- path(MESH:"Parkinson Disease")
 p(HGNC:PARK7) -> bp(GO:"detection of redox state")
 p(HGNC:PARK7,var("?")) -> bp(MESH:"Oxidative Stress")
 p(HGNC:PARK7,var("?")) -> bp(MESH:"Endoplasmic Reticulum Stress")
+UNSET Confidence
 
 SET Evidence = "Paraquat, an agricultural herbicide which is
 linked to sporadic PD, can induce expression of ER stress markers
 such as GRP78 and CHOP. Further investigation has revealed
 that paraquat activates IRE1/ASK1/JNK leading to apoptosis [91]."
-
+SET Confidence  = "High"
 a(MESH:Paraquat) isA a(CHEBI:herbicide)
 a(MESH:Paraquat) -- path(MESH:"Parkinson Disease")
-a(MESH:Paraquat) -> p(MESH:"molecular chaperone GRP78")
-a(MESH:Paraquat) -> complex(GO:"CHOP-C/EBP complex")
-complex(GO:"CHOP-C/EBP complex") biomarkerFor bp(MESH:"Endoplasmic Reticulum Stress")
-p(MESH:"molecular chaperone GRP78") biomarkerFor bp(MESH:"Endoplasmic Reticulum Stress")
+a(MESH:Paraquat) -> p(HGNC:HSPA5)
+a(MESH:Paraquat) -> p(HGNC:DDIT3)
+p(HGNC:DDIT3) biomarkerFor bp(MESH:"Endoplasmic Reticulum Stress")
+p(HGNC:HSPA5) biomarkerFor bp(MESH:"Endoplasmic Reticulum Stress")
 a(MESH:Paraquat) -> act(p(HGNC:ERN1))
-a(MESH:Paraquat) -> act(p(MESH:"ASK1 protein, S cerevisiae"))
+a(MESH:Paraquat) -> act(p(HGNC:MAP3K5))
 a(MESH:Paraquat) -> bp(GO:"JNK cascade")
+a(MESH:Paraquat) -> bp(MESH:Apoptosis)
+UNSET Confidence
 
 SET Evidence = "Therefore, significant evidence indicates that protein products
 of genes mutated in PD have a role in regulating protein stability
 such as alpha-synuclein (proteasome), Parkin (E3 ligase), DJ-1 (redox
 sensor) and PINK1 (protein stability) (Fig. 3B)."
-
-p(HGNCGENEFAMILY:"Parkinson disease associated genes") hasComponents list(p(MESH:"alpha-Synuclein"),p(HGNC:PARK7),p(HGNC:PINK1),p(MESH:"parkin protein"))
-p(MESH:"parkin protein") reg bp(MESH:"Protein Stability")
+#SNCA - alpha synuclein
+SET Confidence = "Medium"
+p(HGNCGENEFAMILY:"Parkinson disease associated genes") hasComponents list(p(HGNC:SNCA),p(HGNC:PARK7),p(HGNC:PINK1),p(HGNC:PRKN))
+p(HGNC:PRKN) reg bp(MESH:"Protein Stability")
 p(HGNC:PINK1) reg bp(MESH:"Protein Stability")
 p(HGNC:PARK7) reg bp(MESH:"Protein Stability")
-p(MESH:"alpha-Synuclein") reg bp(MESH:"Protein Stability")
-p(MESH:"parkin protein",var("?")) -| bp(MESH:"Protein Stability")
-p(HGNC:PINK1,var("?")) -| bp(MESH:"Protein Stability")
-p(HGNC:PARK7,var("?")) -| bp(MESH:"Protein Stability")
-p(MESH:"alpha-Synuclein",var("?")) -| bp(MESH:"Protein Stability")
+p(HGNC:SNCA) reg bp(MESH:"Protein Stability")
+g(HGNC:PRKN,var("?")) -| bp(MESH:"Protein Stability")
+g(HGNC:PINK1,var("?")) -| bp(MESH:"Protein Stability")
+g(HGNC:PARK7,var("?")) -| bp(MESH:"Protein Stability")
+g(HGNC:SNCA,var("?")) -| bp(MESH:"Protein Stability")
+UNSET Confidence
 
 SET Evidence = "In addition, drugs
 such as 6-hydroxydopamine (6-OHDA) and 1-methyl-4-
@@ -962,8 +1069,8 @@ is disrupted in familial and sporadic PD leading to neuronal cell
 death. In addition, recent evidence points to the involvement of
 mitophagy influenced by the UPR playing a role in the development
 of PD."
-
-a(MESH:Hydroxydopamines) -> path(MESH:"Parkinson Disease")
+SET Confidence = "High"
+a(CHEBI:oxidopamine) -> path(MESH:"Parkinson Disease")
 a(MESH:"1-Methyl-4-phenylpyridinium") -> path(MESH:"Parkinson Disease")
 a(MESH:"1-Methyl-4-phenylpyridinium") => bp(MESH:"Endoplasmic Reticulum Stress")
 a(MESH:Hydroxydopamines) => bp(MESH:"Endoplasmic Reticulum Stress")
@@ -972,6 +1079,7 @@ path(MESH:"Parkinson Disease") -| bp(MESH:"Unfolded Protein Response")
 path(MESH:"Parkinson Disease") -> bp(GO:"neuron death")
 bp(MESH:"Unfolded Protein Response") -> bp(GO:mitophagy)
 bp(GO:mitophagy) -> path(MESH:"Parkinson Disease")
+UNSET Confidence
 
 UNSET Disease
 
@@ -983,35 +1091,44 @@ such as excitotoxicity, oxidative damage, mitochondrial dysfunction
 and defective axonal transport have all been implicated as
 causative factors in the apoptotic death of the motor neurones
 [93, 94]"
-
+SET Confidence = "High"
 path(MESH:"Amyotrophic Lateral Sclerosis") -- path(HBP:Neurodegeneration)
 path(MESH:"Amyotrophic Lateral Sclerosis") -- a(HBP:"Motor Neurons")
 path(HBP:Excitotoxicity) -> bp(GO:"motor neuron apoptotic process")
 bp(MESH:"Oxidative Stress") -> bp(GO:"motor neuron apoptotic process")
 path(HBP:"mitochondrial dysfunction") -> bp(GO:"motor neuron apoptotic process")
 bp(GO:"axonal transport") -- bp(GO:"motor neuron apoptotic process")
+UNSET Confidence
 
 SET Evidence = "Abnormal protein aggregation has also been reported in
 ALS. Bunina bodies, neurofilament cytoskeletal aggregation and
 deposition of aggregates of proteins such as ubiquitin, mutant superoxide dismutase 1 (mSOD1) and protein disulfide isomerase
 (PDI) are characteristics of the disease [95, 96]."
-
+#SOD1 - superoxide dismutase 1
+SET Confidence = "High"
 path(MESH:"Amyotrophic Lateral Sclerosis") -> bp(HBP:"protein aggregation")
 a(GO:"Bunina body") -- path(MESH:"Amyotrophic Lateral Sclerosis")
 a(GO:"neurofilament cytoskeleton") -- path(MESH:"Amyotrophic Lateral Sclerosis")
 a(CHEBI:ubiquitin) -- path(MESH:"Amyotrophic Lateral Sclerosis")
-p(MESH:"Superoxide Dismutase-1",var("?")) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:SOD1,var("?")) -- path(MESH:"Amyotrophic Lateral Sclerosis")
 p(HGNCGENEFAMILY:"Protein disulfide isomerases") -- path(MESH:"Amyotrophic Lateral Sclerosis")
+UNSET Confidence
 
 SET Evidence = "mSOD1 misfolds, aggregates and induces the UPR in transgenic
 mSOD1 mice, causing apoptosis [97] and has been implicated in
 the development of ALS. The protein level of the ER chaperone,
 PDI, in particular was increased, and was shown to co-localize
 with aggregated mSOD1 protein [97]."
-
-a(MESH:"Superoxide Dismutase-1") -- bp(MESH:"Unfolded Protein Response")
+#transgenic mSOD1 mice
+SET Confidence = "Medium"
+SET Species = "10090"
+p(HGNC:SOD1, var("?")) -> bp(MESH:"Unfolded Protein Response")
 bp(MESH:"Unfolded Protein Response") -> bp(MESH:Apoptosis)
-a(MESH:"Superoxide Dismutase-1") -- path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:SOD1, var("?")) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:SOD1, var("?")) -> p(MESH:"Molecular Chaperones")
+complex(p(MESH:"Molecular Chaperones"), p(HGNC:SOD1, var("?")))
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "As previously discussed, ERAD of misfolded proteins
 has been implicated in a range of neurodegenerative conditions,
@@ -1023,18 +1140,19 @@ and ultimately apoptosis [99]. Specifically, mSOD1 was shown to
 interact with Derilin-1 causing dysregulation of ERAD leading to
 ER stress–induced ASK1 activation, apoptosis and disease progression
 (Fig. 3D)."
-
+#DERL1 - Derlin 1
+SET Confidence = "Medium"
 bp(GO:"ERAD pathway") -- path(MESH:"Amyotrophic Lateral Sclerosis")
-
 SET Cell = "motor neuron"
-
 bp(GO:"ERAD pathway") -| bp(MESH:"Endoplasmic Reticulum Stress")
-bp(GO:"ERAD pathway") -| p(MESH:"derlin-1 protein, mouse")
+p(HGNC:SOD1, var("?")) -> bp(MESH:"Endoplasmic Reticulum Stress")
+bp(GO:"ERAD pathway") -| p(HGNC:DERL1)
 #typo- Derilin does not exist.
-p(MESH:"derlin-1 protein, mouse") -> p(MESH:"ASK1 protein, S cerevisiae")
-p(MESH:"ASK1 protein, S cerevisiae") -> bp(MESH:Apoptosis)
-
+p(HGNC:DERL1) -> p(HGNC:MAP3K5)
+p(HGNC:MAP3K5) -> bp(MESH:Apoptosis)
+complex(p(HGNC:SOD1, var("?")),p(HGNC:DERL1)) neg bp(GO:"ERAD pathway")
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Mutation of the vesicle-associated membrane protein/synaptobrevin-
 associated protein B (VAPB), which associates with
@@ -1043,13 +1161,14 @@ development of late-onset ALS [100]. It has been proposed that
 development of ALS may occur due to the disruption of the UPR
 caused by the mutation in VAPB, resulting in accumulation of misfolded
 protein in the ER [101]."
-
+SET Confidence = "High"
 p(HGNC:VAPB,var("?")) -- path(MESH:"Amyotrophic Lateral Sclerosis")
 p(HGNC:VAPB,var("?")) -| bp(MESH:"Unfolded Protein Response")
 
 SET CellStructure = "Endoplasmic Reticulum"
 p(HGNC:VAPB,var("?")) -> bp(HBP:"protein aggregation")
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "Native VAPB has been implicated in
 the UPR via the IRE1/XBP1[101], and ATF6 pathways [102], a
@@ -1058,17 +1177,19 @@ ubiquitinated and misfolded VAPBP56S [101,102]. It was found
 that both VAPB and VAPBP56S directly interact with ATF6 reducing
 its ability to promote transcription of XBP1 with the mutant having
 more potent activity as an ATF6 inhibitor [102]."
-
+SET Confidence = "Medium"
 p(HGNC:VAPB) -- bp(MESH:"Unfolded Protein Response")
 p(HGNC:VAPB) -- p(HGNC:XBP1)
 p(HGNC:VAPB) -- p(HGNC:ERN1)
 p(HGNC:VAPB) -- p(HGNC:ATF6)
-p(HGNC:VAPB,pmod(Ub),var("p.Pro56Ser")) cnc p(HGNC:XBP1)
-p(HGNC:VAPB,pmod(Ub),var("p.Pro56Ser")) cnc p(HGNC:ERN1)
-p(HGNC:VAPB,pmod(Ub),var("p.Pro56Ser")) cnc p(HGNC:ATF6)
+#function is lost in mutant
+p(HGNC:VAPB,pmod(Ub),var("p.Pro56Ser")) -| p(HGNC:XBP1)
+p(HGNC:VAPB,pmod(Ub),var("p.Pro56Ser")) -| p(HGNC:ERN1)
+p(HGNC:VAPB,pmod(Ub),var("p.Pro56Ser")) -| p(HGNC:ATF6)
 complex(p(HGNC:VAPB),p(HGNC:ATF6)) -| act(p(HGNC:ATF6))
-act(p(HGNC:ATF6)) -> p(HGNC:XBP1)
+act(p(HGNC:ATF6)) -> r(HGNC:XBP1)
 complex(p(HGNC:VAPB,pmod(Ub),var("p.Pro56Ser")),p(HGNC:ATF6)) -| act(p(HGNC:ATF6))
+UNSET Confidence
 
 SET Evidence = "In addition, mutations in the gene coding for the TAR DNAbinding
 protein (TARBP) also known as TDP-43 protein have
@@ -1076,13 +1197,15 @@ recently been implicated in familial and sporadic ALS [103] and in
 frontotemporal lobar degeneration (FTLD) [104]. Abnormal and
 ubiquitinated TDP-43 has been identified as a key pathological
 hallmark of ALS and FTLD [105]."
-
-p(MESH:"TARBP1 protein, human") -- path(MESH:"Amyotrophic Lateral Sclerosis")
-p(MESH:"TARBP1 protein, human") -- path(MESH:"Frontotemporal Lobar Degeneration")
-p(MESH:"TARBP1 protein, human",var("?")) biomarkerFor path(MESH:"Amyotrophic Lateral Sclerosis")
-p(MESH:"TARBP1 protein, human",var("?")) biomarkerFor path(MESH:"Frontotemporal Lobar Degeneration")
-p(MESH:"TARBP1 protein, human",pmod(Ub)) biomarkerFor path(MESH:"Amyotrophic Lateral Sclerosis")
-p(MESH:"TARBP1 protein, human",pmod(Ub)) biomarkerFor path(MESH:"Frontotemporal Lobar Degeneration")
+#TARDBP - TARBP
+SET Confidence = "High"
+p(HGNC:TARDBP) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:TARDBP) -- path(MESH:"Frontotemporal Lobar Degeneration")
+p(HGNC:TARDBP,var("?")) biomarkerFor path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:TARDBP,var("?")) biomarkerFor path(MESH:"Frontotemporal Lobar Degeneration")
+p(HGNC:TARDBP,pmod(Ub)) biomarkerFor path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:TARDBP,pmod(Ub)) biomarkerFor path(MESH:"Frontotemporal Lobar Degeneration")
+UNSET Confidence
 
 SET Evidence = "UPR sensors IRE1, PERK
 and ATF6 show increased expression in spinal cord from sporadic
@@ -1090,16 +1213,16 @@ human ALS patients [96]. However, conflicting evidence suggests
 that activation of the UPR may cause ER stress–induced apoptosis
 [96] or may actually be a neuroprotective response triggering
 increased levels of autophagy [12]."
-
+SET Confidence = "Medium"
 SET Anatomy = "spinal cord"
-
-path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:ERN1)
-path(MESH:"Amyotrophic Lateral Sclerosis") -- p(MESH:"PERK kinase")
-path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:ATF6)
+#increased expression
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:ERN1)
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:EIF2AK3)
+path(MESH:"Amyotrophic Lateral Sclerosis") -> p(HGNC:ATF6)
 bp(MESH:"Unfolded Protein Response") -> bp(MESH:Apoptosis)
 bp(MESH:"Unfolded Protein Response") -> bp(GO:autophagy)
-
 UNSET Anatomy
+UNSET Confidence
 
 UNSET Disease
 
@@ -1111,19 +1234,21 @@ inheritable and infectious. CJD causes a spongiform encephalopathy,
 reflecting neurodegeneration and an accumulation of abnormal
 protein aggregates in diffuse synaptic plaques containing
 prion protein and amyloid [84]."
-
+SET Confidence = "High"
 path(DOID:"variant Creutzfeldt-Jakob disease") isA path(DOID:"prion disease")
 path(DOID:"variant Creutzfeldt-Jakob disease") isA path(DOID:"neurodegenerative disease")
 path(DOID:"variant Creutzfeldt-Jakob disease") -> path(MESH:"Spongiform Encephalopathy with Neuropsychiatric Features")
 path(DOID:"variant Creutzfeldt-Jakob disease") -> bp(HBP:"protein aggregation")
 bp(HBP:"protein aggregation") -> a(MESH:"Prion Proteins")
 bp(HBP:"protein aggregation") -> a(HBP:"amyloid-beta aggregates"))
+UNSET Confidence
 
 SET Evidence = "The mature prion protein contains 209
 amino acids, and the sequence of amino acids between residues
 106–126 can trigger apoptosis [86]."
-
+SET Confidence = "High"
 p(HGNC:PRNP,frag("106_126")) -> bp(MESH:Apoptosis)
+UNSET Confidence
 
 SET Evidence = "The physiological function of
 PrPc is not well established. It has been linked to neuronal growth
@@ -1131,13 +1256,13 @@ and survival [109] and cytoprotection against a number of cellular
 stresses including oxidative stress [110], TNF-induced cell death
 [111], BAX-induced cell death [112] and serum deprivation in a
 BAX-dependent manner [113]."
-
+SET Confidence = "High"
 p(HGNC:PRNP) -- bp(GO:"neuron development")
 p(HGNC:PRNP) -- bp(GO:"neuron death")
 p(HGNC:PRNP) -| bp(MESH:"Oxidative Stress")
 p(HGNC:PRNP) -| p(HGNC:TNF)
 p(HGNC:PRNP) -| p(HGNC:BAX)
-
+UNSET Confidence
 ##Aint sure of how to differentiate between Prpc and Prpsc.
 
 UNSET Disease
@@ -1145,6 +1270,7 @@ UNSET Disease
 SET Evidence = "There is evidence for the accumulation
 of misfolded proteins and also evidence for the involvement of
 the UPR in several human neurodegenerative conditions."
-
-path(MESH:"Neurodegenerative Diseases") -- bp(HBP:"protein aggregation")
+SET Confidence = "High"
+path(MESH:"Neurodegenerative Diseases") -> bp(HBP:"protein aggregation")
 path(MESH:"Neurodegenerative Diseases") -- bp(MESH:"Unfolded Protein Response")
+UNSET Confidence
