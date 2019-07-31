@@ -402,9 +402,9 @@ p(HGNC:DDIT3) -| p(HGNC:BCL2)
 p(HGNC:DDIT3) -> a(MESH:"Reactive Oxygen Species")
 #not sure about the use of CASP11 mouse!
 #CASP11 : SCAF11
-p(HGNC:DDIT3) -> p(MESH:"SCAF11")
-p(MESH:"SCAF11") -> p(HGNC:CASP1)
-p(MESH:"SCAF11") -> p(HGNC:CASP3)
+p(HGNC:DDIT3) -> p(HGNC:"SCAF11")
+p(HGNC:"SCAF11") -> p(HGNC:CASP1)
+p(HGNC:"SCAF11") -> p(HGNC:CASP3)
 act(p(HGNC:CASP1)) -> bp(MESH:"Cell Death")
 act(p(HGNC:CASP3)) -> bp(MESH:"Cell Death")
 UNSET Confidence
@@ -706,14 +706,12 @@ which is widely expressed in the ER and Golgi apparatus
 onset forms of AD [69] with presenilin 1 (PS1) being more highly
 expressed than PS2, and mutations in the genes coding for a presenilin
 protein reduce the average age of onset of AD [71]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET CellStructure = {"Endoplasmic Reticulum","Golgi Apparatus"}
 complex(FPLX:"Gamma_secretase") hasComponent p(PFAM:Presenilin)
 p(PFAM:Presenilin,var("?")) -- path(MESH:"Alzheimer Disease")
 path(MESH:"Alzheimer Disease") -> p(HGNC:PSEN1)
-SET Disease = "Alzheimer's disease"
 p(PFAM:Presenilin,var("?")) -| path(MESH:"Age of Onset")
-UNSET Disease
 UNSET CellStructure
 UNSET Confidence
 
