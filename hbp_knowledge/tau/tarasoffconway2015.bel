@@ -16,11 +16,11 @@ SET DOCUMENT Description = ""
 
 # Namespaces defined with regular expressions
 # -------------------------------------------
-DEFINE NAMESPACE HBP AS PATTERN ".*"
 DEFINE NAMESPACE TAXONOMY AS PATTERN "^\d+$"
 
 # Namespaces hosted on https://github.com/pharmacome/terminology
 # --------------------------------------------------------------
+DEFINE NAMESPACE CONSO    AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mesh-names.belns"
 DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
 DEFINE NAMESPACE DRUGBANK AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
@@ -75,13 +75,13 @@ bulk flow, and cerebro- spinal fluid (CSF) absorption into the circulatory and l
 systems."
 #amyloid-beta derived diffusible ligands
 SET Confidence = "Medium"
-deg(a(HBP:"amyloid-beta derived diffusible ligands")) -| a(HBP:"amyloid-beta derived diffusible ligands")
-tloc(a(HBP:"amyloid-beta derived diffusible ligands"),fromLoc(GO:"extracellular region"),toLoc(MESH:"Intracellular Space")) -| a(HBP:"amyloid-beta derived diffusible ligands")
-tloc(a(HBP:"amyloid-beta derived diffusible ligands"),fromLoc(MESH:Brain),toLoc(MESH:Blood)) -| a(HBP:"amyloid-beta derived diffusible ligands")
-tloc(a(HBP:"amyloid-beta derived diffusible ligands"),fromLoc(MESH:Blood),toLoc(MESH:"Cerebrospinal Fluid")) -| a(HBP:"amyloid-beta derived diffusible ligands")
-tloc(a(HBP:"amyloid-beta derived diffusible ligands"),fromLoc(MESH:Brain),toLoc(MESH:"Extracellular Fluid")) -| a(HBP:"amyloid-beta derived diffusible ligands")
-tloc(a(HBP:"amyloid-beta derived diffusible ligands"),fromLoc(MESH:"Cerebrospinal Fluid"),toLoc(MESH:"Cardiovascular System")) -| a(HBP:"amyloid-beta derived diffusible ligands")
-tloc(a(HBP:"amyloid-beta derived diffusible ligands"),fromLoc(MESH:"Cerebrospinal Fluid"),toLoc(MESH:"Lymphatic System")) -| a(HBP:"amyloid-beta derived diffusible ligands")
+deg(a(CONSO:"amyloid-beta derived diffusible ligands")) -| a(CONSO:"amyloid-beta derived diffusible ligands")
+tloc(a(CONSO:"amyloid-beta derived diffusible ligands"),fromLoc(GO:"extracellular region"),toLoc(MESH:"Intracellular Space")) -| a(CONSO:"amyloid-beta derived diffusible ligands")
+tloc(a(CONSO:"amyloid-beta derived diffusible ligands"),fromLoc(MESH:Brain),toLoc(MESH:Blood)) -| a(CONSO:"amyloid-beta derived diffusible ligands")
+tloc(a(CONSO:"amyloid-beta derived diffusible ligands"),fromLoc(MESH:Blood),toLoc(MESH:"Cerebrospinal Fluid")) -| a(CONSO:"amyloid-beta derived diffusible ligands")
+tloc(a(CONSO:"amyloid-beta derived diffusible ligands"),fromLoc(MESH:Brain),toLoc(MESH:"Extracellular Fluid")) -| a(CONSO:"amyloid-beta derived diffusible ligands")
+tloc(a(CONSO:"amyloid-beta derived diffusible ligands"),fromLoc(MESH:"Cerebrospinal Fluid"),toLoc(MESH:"Cardiovascular System")) -| a(CONSO:"amyloid-beta derived diffusible ligands")
+tloc(a(CONSO:"amyloid-beta derived diffusible ligands"),fromLoc(MESH:"Cerebrospinal Fluid"),toLoc(MESH:"Lymphatic System")) -| a(CONSO:"amyloid-beta derived diffusible ligands")
 UNSET Confidence
 
 SET Evidence ="In the early 2000s, mouse studies demonstrated that the majority (75%)
@@ -91,7 +91,7 @@ cleared by ISF bulk flow."
 SET Confidence = "Medium"
 SET Species = "10090"
 a(MESH:"Blood-Brain Barrier") -| a(CHEBI:"amyloid-beta",loc(GO:"extracellular region"))
-act(a(HBP:"Glymphatic System")) -| a(CHEBI:"amyloid-beta",loc(GO:"extracellular region"))
+act(a(CONSO:"Glymphatic System")) -| a(CHEBI:"amyloid-beta",loc(GO:"extracellular region"))
 UNSET Species
 UNSET Confidence
 
@@ -100,8 +100,8 @@ SET Evidence ="However, two-photon imaging studies from the past few years have 
  glymphatic (glial + lymphatic) system—contributes to a larger portion of eAβ clearance
  than previously thought."
 SET Confidence = "Medium"
-act(p(HGNC:AQP4)) -> act(a(HBP:"Glymphatic System"))
-act(a(HBP:"Glymphatic System")) -| a(CHEBI:"amyloid-beta",loc(GO:"extracellular region"))
+act(p(HGNC:AQP4)) -> act(a(CONSO:"Glymphatic System"))
+act(a(CONSO:"Glymphatic System")) -| a(CHEBI:"amyloid-beta",loc(GO:"extracellular region"))
 UNSET Confidence
 
 SET Evidence ="When characterized by autosomal dominant inheritance, EOAD is related to
@@ -120,7 +120,7 @@ UNSET Confidence
 
 SET Evidence="The strongest identified genetic risk factor for LOAD is the apolipoprotein E (APOE) ε4 allele (APOE*ε4),"
 SET Confidence = "Medium"
-p(HBP:"APOE e4") -> path(MESH:"Alzheimer Disease")
+p(CONSO:"APOE e4") -> path(MESH:"Alzheimer Disease")
 UNSET Confidence
 
 SET Evidence ="although genome-wide association studies have linked LOAD to several
@@ -163,10 +163,10 @@ SET Evidence ="Microscopic changes include accumulation of Aβ into parenchymal 
 as cerebral amyloid angiopathy, or CAA),as well as aggregation of hyperphosphorylated tau int
 o intracellular neurofibrillary tangles (NFTs) and neuropil #threads"
 SET Confidence = "Medium"
-a(HBP:"amyloid-beta aggregates") -- path(MESH:"Plaque, Amyloid")
-a(HBP:"amyloid-beta aggregates") -- path(MESH:"Cerebral Amyloid Angiopathy")
-p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)) -- a(MESH:"Neurofibrillary Tangles")
-p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)) -- a(MESH:"Neuropil Threads")
+a(CONSO:"amyloid-beta aggregates") -- path(MESH:"Plaque, Amyloid")
+a(CONSO:"amyloid-beta aggregates") -- path(MESH:"Cerebral Amyloid Angiopathy")
+p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation)) -- a(MESH:"Neurofibrillary Tangles")
+p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation)) -- a(MESH:"Neuropil Threads")
 UNSET Confidence
 
 SET Evidence ="Recent advances now enable several AD-related brain changes to be detected in
@@ -184,9 +184,9 @@ SET Evidence ="ecifically, Aβ accumulation into extracellular plaques is marked
 CSF levels of Aβ1–42, and tau accumulation into NFTs is marked by increased CSF levels of total
 tau and hyperphosphory- lated tau."
 SET Confidence = "Medium"
-a(CHEBI:"amyloid-beta polypeptide 42",loc(MESH:"Cerebrospinal Fluid")) neg a(HBP:"amyloid-beta aggregates",loc(GO:"extracellular region"))
+a(CHEBI:"amyloid-beta polypeptide 42",loc(MESH:"Cerebrospinal Fluid")) neg a(CONSO:"amyloid-beta aggregates",loc(GO:"extracellular region"))
 p(HGNC:MAPT,loc(MESH:"Neurofibrillary Tangles")) pos p(HGNC:MAPT,loc(MESH:"Cerebrospinal Fluid"))
-p(HGNC:MAPT,loc(MESH:"Neurofibrillary Tangles")) pos p(HGNC:MAPT, pmod(HBP:hyperphosphorylation),loc(MESH:"Cerebrospinal Fluid"))
+p(HGNC:MAPT,loc(MESH:"Neurofibrillary Tangles")) pos p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation),loc(MESH:"Cerebrospinal Fluid"))
 UNSET Confidence
 
 SET Evidence ="Extracellular degradation of ISF proteins mainly consists of degradation by
@@ -212,8 +212,8 @@ SET Evidence ="APP is cleaved by α-secretase, which precludes forma- tion of A�
 resulting carboxy-terminal fragment is then cleaved by γ-secretase.103 The resulting
 products do not aggregate.104"
 SET Confidence = "Medium"
-act(p(MESH:"Amyloid Precursor Protein Secretases")) -> reaction(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta"),a(HBP:"APP C-terminally truncated carboxyl-terminal fragments")))
-p(FPLX:"Gamma_secretase") -> deg(a(HBP:"APP C-terminally truncated carboxyl-terminal fragments"))
+act(p(MESH:"Amyloid Precursor Protein Secretases")) -> reaction(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta"),a(CONSO:"APP C-terminally truncated carboxyl-terminal fragments")))
+p(FPLX:"Gamma_secretase") -> deg(a(CONSO:"APP C-terminally truncated carboxyl-terminal fragments"))
 UNSET Confidence
 
 SET Evidence ="If APP is first cleaved by β-secretase 1 (also known as BACE1) instead of α-secretase,
@@ -227,7 +227,7 @@ and Aβ1-42 (10%)."
 SET Confidence = "High"
 a(CHEBI:"amyloid-beta polypeptide 40") isA a(CHEBI:"amyloid-beta")
 a(CHEBI:"amyloid-beta polypeptide 42") isA a(CHEBI:"amyloid-beta")
-a(HBP:"amyloid-beta polypeptide 38") isA a(CHEBI:"amyloid-beta")
+a(CONSO:"amyloid-beta polypeptide 38") isA a(CHEBI:"amyloid-beta")
 UNSET Confidence
 
 SET Evidence ="Intracellular Aβ (iAβ) can be degraded by proteasomes via the ubiquitin–proteasome
@@ -381,7 +381,7 @@ SET Evidence ="Inflammation, a common feature of AD, can affect ligand affinity 
 the pH more acidic, which promotes hyperphosphorylation of tau and induces conforma- tional
 changes in Aβ that hinder its clearance."
 SET Confidence = "Medium"
-path(MESH:Inflammation) -> p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+path(MESH:Inflammation) -> p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 path(MESH:Inflammation) -| deg(a(CHEBI:"amyloid-beta"))
 UNSET Confidence
 
@@ -403,8 +403,8 @@ SET Evidence ="Third, ApoE4 is also associated with lower antioxidant activity
 than other ApoE isoforms,154,155 and it mediates BBB breakdown through a
 proinflammatory pathway involving cyclophilin A in pericytes."
 SET Confidence = "Medium"
-p(HBP:"APOE e4") reg bp(GO:"establishment of blood-brain barrier")
-p(HBP:"APOE e4") -> act(p(HGNC:"PPIA"))
+p(CONSO:"APOE e4") reg bp(GO:"establishment of blood-brain barrier")
+p(CONSO:"APOE e4") -> act(p(HGNC:"PPIA"))
 act(p(HGNC:"PPIA")) -| bp(GO:"establishment of blood-brain barrier")
 UNSET Confidence
 
@@ -420,23 +420,23 @@ UNSET Confidence
 SET Evidence ="Aβ is cleared along perivascular drainage pathways.83 In both AD 44,160 and
 CAA 44 (commonly associated with AD84), perivascular drainage of Aβ is impaired."
 SET Confidence = "Medium"
-bp(HBP:"perivascular drainage pathways") -| a(CHEBI:"amyloid-beta")
-path(MESH:"Alzheimer Disease") neg bp(HBP:"perivascular drainage pathways")
-path(MESH:"Cerebral Amyloid Angiopathy") neg bp(HBP:"perivascular drainage pathways")
+bp(CONSO:"perivascular drainage pathways") -| a(CHEBI:"amyloid-beta")
+path(MESH:"Alzheimer Disease") neg bp(CONSO:"perivascular drainage pathways")
+path(MESH:"Cerebral Amyloid Angiopathy") neg bp(CONSO:"perivascular drainage pathways")
 UNSET Confidence
 
 SET Evidence ="The pres- ence of ApoE4 is associated with reduced perivascular
 drainage of Aβ,161 which in turn is linked to deposition of immune complexes."
 SET Confidence = "Medium"
-p(HBP:"APOE e4") neg bp(HBP:"perivascular drainage pathways")
-p(HBP:"APOE e4") pos a(CHEBI:"amyloid-beta")
+p(CONSO:"APOE e4") neg bp(CONSO:"perivascular drainage pathways")
+p(CONSO:"APOE e4") pos a(CHEBI:"amyloid-beta")
 UNSET Confidence
 
 SET Evidence ="Of note, a high-fat prenatal maternal diet has recently been
 reported to result in a failure of Aβ clearance along cerebrovascular basement
 membranes. "
 SET Confidence = "Medium"
-path(HBP:"high-fat prenatal maternal diet") -| deg(a(CHEBI:"amyloid-beta"))
+path(CONSO:"high-fat prenatal maternal diet") -| deg(a(CHEBI:"amyloid-beta"))
 UNSET Confidence
 
 SET Evidence ="Recent mouse studies suggest that the AQP4-dependent glymphatic
@@ -445,8 +445,8 @@ from the interstitium."
 SET Confidence = "Medium"
 SET Species = "10090"
 SET MeSHAnatomy = "Extracellular Space"
-p(MGI:Aqp4) -> act(a(HBP:"Glymphatic System"))
-act(a(HBP:"Glymphatic System")) -| a(CHEBI:"amyloid-beta")
+p(MGI:Aqp4) -> act(a(CONSO:"Glymphatic System"))
+act(a(CONSO:"Glymphatic System")) -| a(CHEBI:"amyloid-beta")
 UNSET Species
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -459,7 +459,7 @@ SET Confidence = "Medium"
 SET Species = "10090"
 path(MESH:Sleep) -> act(a(MESH:"Blood-Brain Barrier"))
 path(MESH:Sleep) -| a(CHEBI:"amyloid-beta")
-path(MESH:Sleep) -> bp(HBP:"glymphatic bulk flow")
+path(MESH:Sleep) -> bp(CONSO:"glymphatic bulk flow")
 path(MESH:Sleep) -> p(HGNC:LRP1)
 UNSET Species
 UNSET Confidence
@@ -486,10 +486,10 @@ SET Confidence = "Medium"
 SET MeSHAnatomy ="Choroid Plexus"
 path(MESH:"Alzheimer Disease") -> path(MESH:"Calcification, Physiologic")
 path(MESH:"Alzheimer Disease") -> path(MESH:"Fibrosis")
-path(MESH:"Alzheimer Disease") -> a(HBP:"amyloid-beta aggregates")
+path(MESH:"Alzheimer Disease") -> a(CONSO:"amyloid-beta aggregates")
 path(MESH:"Calcification, Physiologic") -| a(MESH:"Cerebrospinal Fluid")
 path(MESH:"Fibrosis") -| a(MESH:"Cerebrospinal Fluid")
-a(HBP:"amyloid-beta aggregates") -| a(MESH:"Cerebrospinal Fluid")
+a(CONSO:"amyloid-beta aggregates") -| a(MESH:"Cerebrospinal Fluid")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -514,8 +514,8 @@ SET Evidence ="These findings support the link between TBI and tau aggre- gation
 resulting neurodegeneration similar to that seen in AD and chronic traumatic
 encephalopathy"
 SET Confidence = "Medium"
-path(MESH:"Brain Injuries, Traumatic") -- p(HBP:"tau aggregates")
+path(MESH:"Brain Injuries, Traumatic") -- p(CONSO:"tau aggregates")
 SET MeSHDisease = "Brain Injuries, Traumatic"
-p(HBP:"tau aggregates") -> path(MESH:"Neurodegenerative Diseases")
+p(CONSO:"tau aggregates") -> path(MESH:"Neurodegenerative Diseases")
 UNSET MeSHDisease
 UNSET Confidence

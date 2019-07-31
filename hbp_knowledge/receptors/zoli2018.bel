@@ -17,11 +17,11 @@ SET DOCUMENT Authors     = "Lingling Xu"
 # Namespaces defined with regular expressions
 # -------------------------------------------
 DEFINE NAMESPACE DBSNP AS PATTERN "rs[0-9]+"
-DEFINE NAMESPACE HBP AS PATTERN ".*"
 DEFINE NAMESPACE TAXONOMY AS PATTERN "^\d+$"
 
 # Namespaces hosted on https://github.com/pharmacome/terminology
 # --------------------------------------------------------------
+DEFINE NAMESPACE CONSO    AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mesh-names.belns"
 DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
 DEFINE NAMESPACE DRUGBANK AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
@@ -83,7 +83,7 @@ UNSET Confidence
 SET Evidence ="but ACh is also released by non-neuronal tissues where it is involved in cell-to-cell communication, and con- trols essential functions such as cell proliferation, adhesion, migration, secretion, survival and apoptosis, in an autocrine, paracrine or juxtacrine manner"
 SET Confidence = "High"
 a(MESH:Acetylcholine) -- bp(GO:"cell-cell signaling")
-a(MESH:Acetylcholine) -- bp(HBP:"cell population proliferation")
+a(MESH:Acetylcholine) -- bp(CONSO:"cell population proliferation")
 a(MESH:Acetylcholine) -- bp(GO:"cell adhesion")
 a(MESH:Acetylcholine) -- bp(MESH:"Cell Movement")
 a(MESH:Acetylcholine) -- bp(GO:"secretion by cell")
@@ -91,7 +91,7 @@ a(MESH:Acetylcholine) -- bp(MESH:"Cell Survival")
 a(MESH:Acetylcholine) -- bp(MESH:Apoptosis)
 a(MESH:Acetylcholine) -- bp(MESH:"Autocrine Communication")
 a(MESH:Acetylcholine) -- bp(MESH:"Paracrine Communication")
-a(MESH:Acetylcholine) -- bp(HBP:"juxtacrine signaling")
+a(MESH:Acetylcholine) -- bp(CONSO:"juxtacrine signaling")
 UNSET Confidence
 
 SET Evidence ="Together with that re- leased by vagal nerve endings, ACh can also contribute to the cholinergic control of inflammation"
@@ -163,7 +163,7 @@ SET Confidence = "Medium"
 p(MESH:"Receptors, Nicotinic") -- bp(GO:"depolarization of postsynaptic membrane")
 #added on the basis of evidence
 p(MESH:"Receptors, Nicotinic") -- bp(GO:"action potential initiation")
-p(MESH:"Receptors, Nicotinic") -- bp(HBP:"cell population proliferation")
+p(MESH:"Receptors, Nicotinic") -- bp(CONSO:"cell population proliferation")
 p(MESH:"Receptors, Nicotinic") -- bp(GO:"cell differentiation")
 UNSET Confidence
 
@@ -198,7 +198,7 @@ UNSET Confidence
 
 SET Evidence ="The up- regulation of nAChRs has also been obtained using nicotinic agonists (cytisine, carbamylcholine and varenicline) [66, 67], antagonists (dihydro-β-erythroidine, mecamylamine) [68-70] and a partial agonist (CC4) "
 SET Confidence = "Medium"
-a(HBP:cytisine) -> p(MESH:"Receptors, Nicotinic")
+a(CONSO:cytisine) -> p(MESH:"Receptors, Nicotinic")
 a(MESH:Carbachol) -> p(MESH:"Receptors, Nicotinic")
 a(MESH:Varenicline) -> p(MESH:"Receptors, Nicotinic")
 a(MESH:"Dihydro-beta-Erythroidine") -> p(MESH:"Receptors, Nicotinic")
@@ -215,8 +215,8 @@ UNSET Confidence
 SET Evidence ="Dopamine (DA) neurons, which project to the NAc receive both excitatory glutamater- gic and cholinergic afferents that mediate nicotine reward, and inhibitory GABAergic afferents, that mediate aversion [77]. The release of these neurotransmitters is modulated by the nAChRs expressed in cholinergic, glutamatergic and GABAergic terminals "
 SET Confidence = "Low"
 a(MESH:"Dopaminergic Neurons") reg a(MESH:Nicotine)
-p(MESH:"Receptors, Nicotinic",loc(MESH:"GABAergic Neurons")) -- a(HBP:neurotransmitters)
-p(MESH:"Receptors, Nicotinic") reg sec(a(HBP:neurotransmitters))
+p(MESH:"Receptors, Nicotinic",loc(MESH:"GABAergic Neurons")) -- a(CONSO:neurotransmitters)
+p(MESH:"Receptors, Nicotinic") reg sec(a(CONSO:neurotransmitters))
 #confusing statements
 UNSET Confidence
 
@@ -255,10 +255,10 @@ UNSET Confidence
 
 SET Evidence ="The Hb-IPN system expresses the highest levels and va- riety of nAChR subunits and subtypes in mammalian brain [85], and is the only central system expressing high levels of α3, β4 and α5 subunits. "
 SET Confidence = "Low"
-bp(HBP:"habenulo-interpeduncular pathway") -> p(MESH:"Receptors, Nicotinic")
-bp(HBP:"habenulo-interpeduncular pathway") -> p(HGNC:CHRNA3)
-bp(HBP:"habenulo-interpeduncular pathway") -> p(HGNC:CHRNB4)
-bp(HBP:"habenulo-interpeduncular pathway") -> p(HGNC:CHRNA5)
+bp(CONSO:"habenulo-interpeduncular pathway") -> p(MESH:"Receptors, Nicotinic")
+bp(CONSO:"habenulo-interpeduncular pathway") -> p(HGNC:CHRNA3)
+bp(CONSO:"habenulo-interpeduncular pathway") -> p(HGNC:CHRNB4)
+bp(CONSO:"habenulo-interpeduncular pathway") -> p(HGNC:CHRNA5)
 UNSET Confidence
 
 SET Evidence ="The coding SNP α5 D398N is closely associated with nicotine consumption "
@@ -301,7 +301,7 @@ UNSET Confidence
 
 SET Evidence ="Non-neuronal cholinergic signalling uses the same nAChRs as neuronal cholinergic signalling and the nAChRs in both neuronal and non-neuronal networks are modulated by members of the ly-6 family of small proteins related to snake α-neurotoxins such as the α7 nAChR antagonist αBgtx"
 SET Confidence = "High"
-p(HBP:"LY6 family") reg p(MESH:"Receptors, Nicotinic")
+p(CONSO:"LY6 family") reg p(MESH:"Receptors, Nicotinic")
 UNSET Confidence
 
 SET Evidence ="These proteins include Lynx1, a glycophosphati- dylinositol- anchored membrane protein that can form a sta- ble complex, negatively regulates the responses of α4β2 and α7 nAChRs in heterologous systems and enhances the rate and extent of desensitisation of α4β2 nAChRs, thus acting as a molecular brake on nAChR function "
