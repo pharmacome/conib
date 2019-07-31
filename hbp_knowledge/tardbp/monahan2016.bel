@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc-names.belns"
 #DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc.genefamily-names.belns"
 #DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hp-names.belns"
@@ -91,7 +91,7 @@ act(a(MESH:"Respiratory Muscles")) -| path(MESH:Death)
 SET Evidence = "In the case of ALS, a number of different proteins and metabolic pathways have been linked to pathogenesis, but issues
 of proteostasis (e.g. protein folding, aggregation and quality-control) appear to be the most common pathogenic theme
 (Andersen and Al-Chalabi, 2011; Renton et al., 2014)."
-path(MESH:"Amyotrophic Lateral Sclerosis") neg bp(HBP:Proteostasis)
+path(MESH:"Amyotrophic Lateral Sclerosis") neg bp(CONSO:Proteostasis)
 
 SET Evidence = "Ribonucleoprotein (RNP) granules are cellular sites dedicated to RNA processing.
 Well-characterized types of RNP granules include transport RNPs, processing bodies (P-bodies) and stress granules
@@ -115,7 +115,7 @@ Some example stresses include: oxidative (Anderson and Kedersha, 2002; Anderson 
 mitochondrial (Buchan et al., 2011; Chalupnikova et al., 2008; Stoecklin et al., 2004), proteasomal (Fournier et al., 2010; Mazroui et al., 2007)
 and viral (Emara and Brinton, 2007; Raaben et al., 2007)."
 bp(GO:"response to oxidative stress") -> complex(GO:"cytoplasmic stress granule")
-path(HBP:"mitochondrial dysfunction") -> complex(GO:"cytoplasmic stress granule")
+path(CONSO:"mitochondrial dysfunction") -> complex(GO:"cytoplasmic stress granule")
 act(complex(GO:"proteasome complex")) neg complex(GO:"cytoplasmic stress granule")
 a(MESH:Viruses) -> complex(GO:"cytoplasmic stress granule")
 
@@ -138,9 +138,9 @@ SET Evidence = "Moreover, selective autophagy is particularly well-suited to cle
 and RNP granules that need to be disassembled, in part because large protein aggregates and persistent RNP granules are known
 to be resistant to ubiquitin-proteasome degradation (Venkatraman et al., 2004)."
 bp(GO:macroautophagy) isA bp(GO:"selective autophagy")
-bp(GO:macroautophagy) -> deg(a(HBP:"protein aggregates"))
+bp(GO:macroautophagy) -> deg(a(CONSO:"protein aggregates"))
 bp(GO:macroautophagy) -> deg(complex(GO:"cytoplasmic stress granule"))
-bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") cnc deg(a(HBP:"protein aggregates"))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") cnc deg(a(CONSO:"protein aggregates"))
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") cnc deg(complex(GO:"cytoplasmic stress granule"))
 
 SET Evidence = "The general model of selective autophagic engulfment of substrate is shown in Figure 1. Initially, the phospholipid-conjugated
@@ -151,7 +151,7 @@ p(HGNC:MAP1LC3A) -> a(GO:phagophore)
 SET Evidence = "The phagophore envelops the substrate to form an autophagosome that fuses with the
 lysosome, forming the autophagolysosome (Klionsky et al., 2014)"
 a(MESH:Proteins,loc(GO:phagophore)) -> a(GO:autophagosome)
- bp(GO:"autophagosome-lysosome fusion") -> a(GO:autolysosome)
+bp(GO:"autophagosome-lysosome fusion") -> a(GO:autolysosome)
 
 SET Evidence = "NBR1 in particular has been shown to mediate selective autophagy in plant cells dealing with otherwise
 intractable protein aggregates (Zhou et al., 2013a)."
@@ -222,7 +222,7 @@ SET Evidence = "Interestingly, TDP-43 is managed by both proteasome and autophag
 by the proteasome; and oligomeric and aggregated forms of TDP-43 are cleared by autophagy (Xia et al., 2016)."
 complex(GO:"proteasome complex") -> deg(p(HGNC:TARDBP))
 bp(GO:autophagy) -> p(HGNC:TARDBP,pmod(GO:"protein complex oligomerization"),frag("?"))
-bp(GO:autophagy) -> p(HGNC:TARDBP,pmod(HBP:"protein aggregation"),frag("?"))
+bp(GO:autophagy) -> p(HGNC:TARDBP,pmod(CONSO:"protein aggregation"),frag("?"))
 
 SET Evidence = "Given that TDP-43 is a highly aggregation-prone protein, it is not surprising to observe that impaired
 turn-over of TDP-43 directly correlates with motor dysfunctions and reduced autophagy-related proteins in a mouse model of
@@ -242,14 +242,14 @@ path(MESH:"Amyotrophic Lateral Sclerosis") pos complex(GO:"cytoplasmic stress gr
 
 SET Evidence = "Prion-like mechanisms have been implicated in a variety of neurodegenerative diseases, most
 notoriously the transmissible spongiform encephalopathies (TSEs) (Gielbert et al., 2015)."
-p(MESH:Proteins,pmod(HBP:misfolded)) -- path(MESH:"Prion Diseases")
+p(MESH:Proteins,pmod(CONSO:misfolded)) -- path(MESH:"Prion Diseases")
 
 SET Evidence = "In TSEs, auto-catalytic processes drive the propagation of misfolded protein isoforms within the nervous
 tissue of infected animals. This propagation results in the accumulation of insoluble protein aggregates that spatially
 correlates with cell death (Jeffrey et al., 1995)."
 # TSEs: transmissible spongiform encephalopathies
 SET MeSHAnatomy = "Nerve Tissue"
-path(MESH:"Prion Diseases") -> p(MESH:Proteins,pmod(HBP:misfolded))
+path(MESH:"Prion Diseases") -> p(MESH:Proteins,pmod(CONSO:misfolded))
 UNSET MeSHAnatomy
 
 SET Evidence = "The proteins fused-in-sarcoma (FUS) and TAR DNA binding protein-43 kDa (TDP-43) are well-established DNA/RNA-binding
@@ -297,7 +297,7 @@ path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:HNRNPA1)
 
 SET Evidence = "Matrin-3 was shown to interact with TDP-43 in cytosolic aggregates in spinal neurons."
 SET MeSHAnatomy = {"Spinal Cord","Neurons"}
-complex(p(HGNC:MATR3),p(HGNC:TARDBP,pmod(HBP:"protein aggregation"),loc(MESH:Cytosol)))
+complex(p(HGNC:MATR3),p(HGNC:TARDBP,pmod(CONSO:"protein aggregation"),loc(MESH:Cytosol)))
 UNSET MeSHAnatomy
 
 SET Evidence = "While less well characterized than FUS and TDP-43, the potential for Matrin-3 to interact with SGs, perhaps even via
@@ -306,10 +306,10 @@ complex(p(HGNC:MATR3),a(GO:"cytoplasmic stress granule"))
 
 SET Evidence = "Indeed, the clearance of FUS and TDP-43 aggregates by autophagy has been reported (Caccamo et al., 2009; Ryu et al., 2014; Wang et al., 2010)."
 bp(GO:autophagy) -> deg(p(HGNC:FUS,pmod(MESH:"Protein Aggregation, Pathological")))
-bp(GO:autophagy) -> deg(p(HGNC:TARDBP,pmod(HBP:"protein aggregation")))
+bp(GO:autophagy) -> deg(p(HGNC:TARDBP,pmod(CONSO:"protein aggregation")))
 
 SET Evidence = "Recent reports suggest that autophagy of FUS aggregates can be enhanced by overexpression of the critical autophagy protein Rab1 (Soo et al., 2015)."
-p(HGNC:RAB1A) -> deg(p(HGNC:TARDBP,pmod(HBP:"protein aggregation"))) 
+p(HGNC:RAB1A) -> deg(p(HGNC:TARDBP,pmod(CONSO:"protein aggregation")))
 p(HGNC:RAB1A) -> bp(GO:autophagy)
 
 SET Evidence = "In fact, the most common genetic abnormality linked with familial ALS is a disordered intron in the nucleic acid sequence
@@ -407,12 +407,12 @@ SET Evidence = "The authors used LC3 turnover as a measure of autophagic flux to
 optineurin trapping effect of E478G led to measurable decreases in autophagy for the cell, as well as a
 subsequent increase the abundance of cytosolic aggregates (Shen et al., 2015)."
 complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly"))) -| bp(GO:autophagy)
-complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly"))) -> a(HBP:"protein aggregates",loc(MESH:Cytosol))
+complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly"))) -> a(CONSO:"protein aggregates",loc(MESH:Cytosol))
 
 SET Evidence = "Unsurprisingly, kinases like TBK1 have been implicated in diverse human pathologies
 from hepatic dysfunction to neurodegeneration (Bonnard et al., 2000; Freischmidt et al., 2015)."
 p(HGNC:TBK1) -- path(MESH:"Liver Diseases")
-p(HGNC:TBK1) -- path(HBP:Neurodegeneration)
+p(HGNC:TBK1) -- path(CONSO:Neurodegeneration)
 
 SET Evidence = "Indeed, TBK1 was first linked to ALS in 2015 (Cirulli et al., 2015)."
 p(HGNC:TBK1) -- path(MESH:"Amyotrophic Lateral Sclerosis")
@@ -430,8 +430,8 @@ p(HGNC:OPTN,pmod(Ph)) -> bp(GO:autophagy)
 SET Evidence = "Optineurin and TBK1 have also been discovered co-localizing in protein aggregates, and the phosphorylation
 of optineurin at serine 177 has been shown to be critical to its function in mediating clearance of aggregated proteins
 via autophagy (Korac et al., 2013)."
-complex(p(HGNC:TBK1),p(HGNC:OPTN)) -- a(HBP:"protein aggregates")
-p(HGNC:OPTN,pmod(Ph,Ser,177)) reg deg(a(HBP:"protein aggregates"))
+complex(p(HGNC:TBK1),p(HGNC:OPTN)) -- a(CONSO:"protein aggregates")
+p(HGNC:OPTN,pmod(Ph,Ser,177)) reg deg(a(CONSO:"protein aggregates"))
 p(HGNC:OPTN,pmod(Ph,Ser,177)) reg bp(GO:autophagy)
 
 SET Evidence = "For instance, open-angle glaucoma has been associated with an E50K mutation in optineurin.

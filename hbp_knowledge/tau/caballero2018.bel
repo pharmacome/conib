@@ -27,7 +27,7 @@ DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/t
 DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
 DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
 DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
-DEFINE NAMESPACE HBP      AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso.belns"
 
 # Namespaces hosted on https://github.com/sorgerlab/famplex
 # ---------------------------------------------------------
@@ -113,20 +113,20 @@ into paired helical filaments (PHFs) (Barghorn et al., 2000), patients with
 the risk-associated A152T mutation display higher abundance of
 oligomers (Coppola et al., 2012)"
 SET Confidence = "High"
-p(MGI:Mapt, var("p.Pro301Leu")) -> a(HBP:HBP00006)
-p(MGI:Mapt, var("p.Pro301Leu")) -> a(HBP:HBP00100)
-p(MGI:Mapt, var("p.Ala152Thr")) -> a(HBP:HBP00009)
+p(MGI:Mapt, var("p.Pro301Leu")) -> a(CONSO:CONSO00006)
+p(MGI:Mapt, var("p.Pro301Leu")) -> a(CONSO:CONSO00100)
+p(MGI:Mapt, var("p.Ala152Thr")) -> a(CONSO:CONSO00009)
 
 SET CellStructure = "Lysosomes"
 
-# WT tau = HBP00053
+# WT tau = CONSO00053
 
 SET Evidence = "In agreement with our
 previous observations (Wang et al., 2009), we found that lysosomes
 contribute to degradation of WT tau (reflected as an increase in tau
 levels upon blockage of lysosomal proteolysis with inhibitors)"
 SET Confidence = "High"
-a(GO:lysosome) -> deg(a(HBP:HBP00053))
+a(GO:lysosome) -> deg(a(CONSO:CONSO00053))
 
 SET Evidence = "This lysosomal degradation occurred, in large part, through CMA, as genetic
 blockage of this pathway almost completely abolished lysosomal
@@ -135,7 +135,7 @@ is shown as an example of a well-characterized CMA substrate (Aniento
 et al., 1993) known to accumulate intracellularly upon blockage of CMA
 (Schneider et al., 2014))"
 SET Confidence = "High"
-bp(GO:"chaperone-mediated autophagy") -> deg(a(HBP:HBP00053))
+bp(GO:"chaperone-mediated autophagy") -> deg(a(CONSO:CONSO00053))
 
 SET Evidence = "Tau-A152T displayed very similar degradation
 dynamics, although this mutation slightly reduced tau’s rates of
@@ -167,7 +167,7 @@ with our previous findings (Wang et al., 2009), WT tau is a very efficient
 CMA substrate, to the point that binding is almost undetectable because
 the protein is rapidly internalized (Fig. 1c,d)"
 SET Confidence = "Medium"
-bp(GO:"chaperone-mediated autophagy") -> deg(a(HBP:HBP00053))
+bp(GO:"chaperone-mediated autophagy") -> deg(a(CONSO:CONSO00053))
 
 SET Evidence = "In contrast, the P301L
 mutation severely impaired lysosomal uptake of tau by CMA, resulting in
@@ -221,7 +221,7 @@ change in cells knocked down for Vps4, suggesting that both point
 mutations in tau compromise its ability to undergo degradation by this
 pathway (Fig. 2a,b)"
 SET Confidence = "High"
-bp(GO:"late endosomal microautophagy") -> deg(a(HBP:HBP00053))
+bp(GO:"late endosomal microautophagy") -> deg(a(CONSO:CONSO00053))
 p(MGI:Mapt, var("p.Pro301Leu")) -| bp(GO:"late endosomal microautophagy")
 p(MGI:Mapt, var("p.Pro301Leu")) -| deg(p(MGI:Mapt, var("p.Pro301Leu")))
 p(MGI:Mapt, var("p.Ala152Thr")) -| bp(GO:"late endosomal microautophagy")
@@ -281,8 +281,8 @@ paraquat (Fig. 3f) or thapsigargin (Fig. 3g)"
 SET Confidence = "High"
 a(CHEBI:paraquat) -> bp(GO:"response to oxidative stress")
 a(CHEBI:thapsigargin) -> bp(GO:"response to endoplasmic reticulum stress")
-composite(a(CHEBI:thapsigargin),a(HBP:HBP00053)) -> bp(GO:"chaperone-mediated autophagy")
-composite(a(CHEBI:paraquat),a(HBP:HBP00053)) -> bp(GO:"chaperone-mediated autophagy")
+composite(a(CHEBI:thapsigargin),a(CONSO:CONSO00053)) -> bp(GO:"chaperone-mediated autophagy")
+composite(a(CHEBI:paraquat),a(CONSO:CONSO00053)) -> bp(GO:"chaperone-mediated autophagy")
 
 SET Evidence = "However, cells expressing the
 mutant tau proteins failed to further upregulate CMA and even a
@@ -363,57 +363,57 @@ tau (Fig. 2c)"
 SET Confidence = "High"
 bp(GO:"late endosomal microautophagy") -> deg(p(MGI:Mapt))
 
-#HBP00053 = 2N4R = hTau40
-#HBP00054 = 0N3R
-#HBP00055 = 1N3R
-#HBP00057 = 2N3R
+#CONSO00053 = 2N4R = hTau40
+#CONSO00054 = 0N3R
+#CONSO00055 = 1N3R
+#CONSO00057 = 2N3R
 
 SET Evidence = "Analysis of their uptake by isolated
 CMA-active lysosomes revealed that 2N3R tau behaved similarly to 2N4R
 tau (which we have used in the rest of the study as control)"
 SET Confidence = "High"
-a(HBP:HBP00057) -> tloc(p(MGI:Mapt),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
-a(HBP:HBP00057) -> bp(GO:"chaperone-mediated autophagy")
+a(CONSO:CONSO00057) -> tloc(p(MGI:Mapt),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+a(CONSO:CONSO00057) -> bp(GO:"chaperone-mediated autophagy")
 
 SET Evidence = "Absence of the second N-terminal insert (in 1N3R tau) did not
 reduce CMA of tau, but instead this isoform displayed faster internalization
 (lower binding because of more efficient uptake) (Fig. 5b,c)"
 SET Confidence = "High"
-a(HBP:HBP00055) -> tloc(p(MGI:Mapt),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+a(CONSO:CONSO00055) -> tloc(p(MGI:Mapt),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
 
 SET Evidence = "In contrast, once the first N-terminal insert is lost (in 0N3R tau), we
 observed a very pronounced decrease in tau uptake (Fig. 5b,c)"
 SET Confidence = "High"
-a(HBP:HBP00054) -| tloc(p(MGI:Mapt),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+a(CONSO:CONSO00054) -| tloc(p(MGI:Mapt),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
 
 SET Evidence = "Absence of the second N-terminal insert also significantly
 reduced e-MI of tau (Fig. 5e,f)"
 SET Confidence = "High"
-a(HBP:HBP00055) -| bp(GO:"late endosomal microautophagy")
-a(HBP:HBP00055) -| deg(p(MGI:Mapt))
+a(CONSO:CONSO00055) -| bp(GO:"late endosomal microautophagy")
+a(CONSO:CONSO00055) -| deg(p(MGI:Mapt))
 
 SET Evidence = "Interestingly, a deletion of lysine 280 (hTau40 DK280), known to lead
 to tau aggregation (Khlistunova et al., 2006), turned this protein into a
 very poor CMA substrate (Fig. 6a,b)"
 SET Confidence = "Medium"
-p(HBP:HBP00053, var("p.Lys280del")) -> a(HBP:HBP00006)
-p(HBP:HBP00053, var("p.Lys280del")) -| deg(p(HGNC:MAPT))
+p(CONSO:CONSO00053, var("p.Lys280del")) -> a(CONSO:CONSO00006)
+p(CONSO:CONSO00053, var("p.Lys280del")) -| deg(p(HGNC:MAPT))
 
 SET Evidence = "Thus, insertion of two prolines in the DK280
 background (hTau40 DK280/2P), which prevents tau aggregation (Barghorn
 & Mandelkow, 2002), only partially rescued CMA uptake of the
 DK280 mutant (Fig. 6a,b)"
 SET Confidence = "High"
-p(HBP:HBP00053, var("p.Lys280delinsProPro")) -> tloc(p(HBP:HBP00053, var("p.Lys280del")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
-p(HBP:HBP00053, var("p.Lys280delinsProPro")) -| a(HBP:HBP00006)
+p(CONSO:CONSO00053, var("p.Lys280delinsProPro")) -> tloc(p(CONSO:CONSO00053, var("p.Lys280del")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+p(CONSO:CONSO00053, var("p.Lys280delinsProPro")) -| a(CONSO:CONSO00006)
 # hgvs nomenclature was used
 
 SET Evidence = "This conformational change, but not the
 aggregation itself, interferes also with tau degradation by e-MI, as we
 found a significant decrease in the uptake of both mutants by LE (Fig. 6d,e)"
 SET Confidence = "High"
-p(HBP:HBP00053, var("p.Lys280del")) -| tloc(p(HBP:HBP00053, var("p.Lys280del")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
-p(HBP:HBP00053, var("p.Lys280delinsProPro")) -| tloc(p(HBP:HBP00053, var("p.Lys280Pro")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+p(CONSO:CONSO00053, var("p.Lys280del")) -| tloc(p(CONSO:CONSO00053, var("p.Lys280del")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+p(CONSO:CONSO00053, var("p.Lys280delinsProPro")) -| tloc(p(CONSO:CONSO00053, var("p.Lys280Pro")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
 # hgvs nomenclature was used
 
 SET Evidence = "Previous studies have demonstrated that
@@ -434,10 +434,10 @@ pseudophosphorylated tau proteins (hTau40 AT8/AT100/PHF-1 and
 hTau40 4xKXGE) displayed significantly decreased lysosomal uptake
 when compared to hTau40 WT Tau (Fig. 7a,b)"
 SET Confidence = "High"
-p(HBP:HBP00053, pmod(Ph,Ser,202),pmod(Ph,Thr,205)) -| tloc(p(HBP:HBP00053, pmod(Ph,Ser,202),pmod(Ph,Thr,205)),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
-p(HBP:HBP00053, pmod(Ph,Thr,212),pmod(Ph,Ser,214)) -| tloc(p(HBP:HBP00053, pmod(Ph,Thr,212),pmod(Ph,Ser,214)),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
-p(HBP:HBP00053, pmod(Ph,Ser,396),pmod(Ph,Ser,404)) -| tloc(p(HBP:HBP00053, pmod(Ph,Ser,396),pmod(Ph,Ser,404)),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
-p(HBP:HBP00053, var("p.Ser262Glu"),var("p.Ser293Glu"),var("p.Ser324Glu"),var("p.Ser356Glu")) -| tloc(p(HBP:HBP00053, var("p.Ser262Glu"),var("p.Ser293Glu"),var("p.Ser324Glu"),var("p.Ser356Glu")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+p(CONSO:CONSO00053, pmod(Ph,Ser,202),pmod(Ph,Thr,205)) -| tloc(p(CONSO:CONSO00053, pmod(Ph,Ser,202),pmod(Ph,Thr,205)),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+p(CONSO:CONSO00053, pmod(Ph,Thr,212),pmod(Ph,Ser,214)) -| tloc(p(CONSO:CONSO00053, pmod(Ph,Thr,212),pmod(Ph,Ser,214)),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+p(CONSO:CONSO00053, pmod(Ph,Ser,396),pmod(Ph,Ser,404)) -| tloc(p(CONSO:CONSO00053, pmod(Ph,Ser,396),pmod(Ph,Ser,404)),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+p(CONSO:CONSO00053, var("p.Ser262Glu"),var("p.Ser293Glu"),var("p.Ser324Glu"),var("p.Ser356Glu")) -| tloc(p(CONSO:CONSO00053, var("p.Ser262Glu"),var("p.Ser293Glu"),var("p.Ser324Glu"),var("p.Ser356Glu")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
 
 # hTau40 4xKXGA : exchange of Ser262, Ser293, Ser324, and Ser356 to Ala
 
@@ -446,22 +446,22 @@ SET Evidence = "Changing glutamic acid for alanine (hTau40
 partially rescued the uptake of this form of tau (Fig. 7a,b"
 SET Confidence = "Low"
 #Glu to Ala
-p(HBP:HBP00053, var("p.Ser262Ala"),var("p.Ser293Ala"),var("p.Ser324Ala"),var("p.Ser356Ala")) -> tloc(p(HBP:HBP00053, var("p.Ser262Ala"),var("p.Ser293Ala"),var("p.Ser324Ala"),var("p.Ser356Ala")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
+p(CONSO:CONSO00053, var("p.Ser262Ala"),var("p.Ser293Ala"),var("p.Ser324Ala"),var("p.Ser356Ala")) -> tloc(p(CONSO:CONSO00053, var("p.Ser262Ala"),var("p.Ser293Ala"),var("p.Ser324Ala"),var("p.Ser356Ala")),fromLoc(MESH:"Extracellular Space"),toLoc(GO:lysosome))
 
 SET Evidence = "Analysis of e-MI of the pseudophosphorylated forms of tau using LE showed reduced
 uptake/degradation of hTau40 AT8/AT100/PHF-1 when compared to
 WT tau (Fig. 7d,e)"
 SET Confidence = "High"
-p(HBP:HBP00053, pmod(Ph,Ser,202),pmod(Ph,Thr,205)) -| deg(p(HBP:HBP00053, pmod(Ph,Ser,202),pmod(Ph,Thr,205)))
-p(HBP:HBP00053, pmod(Ph,Thr,212),pmod(Ph,Ser,214)) -| deg(p(HBP:HBP00053, pmod(Ph,Thr,212),pmod(Ph,Ser,214)))
-p(HBP:HBP00053, pmod(Ph,Ser,396),pmod(Ph,Ser,404)) -| deg(p(HBP:HBP00053, pmod(Ph,Ser,396),pmod(Ph,Ser,404)))
+p(CONSO:CONSO00053, pmod(Ph,Ser,202),pmod(Ph,Thr,205)) -| deg(p(CONSO:CONSO00053, pmod(Ph,Ser,202),pmod(Ph,Thr,205)))
+p(CONSO:CONSO00053, pmod(Ph,Thr,212),pmod(Ph,Ser,214)) -| deg(p(CONSO:CONSO00053, pmod(Ph,Thr,212),pmod(Ph,Ser,214)))
+p(CONSO:CONSO00053, pmod(Ph,Ser,396),pmod(Ph,Ser,404)) -| deg(p(CONSO:CONSO00053, pmod(Ph,Ser,396),pmod(Ph,Ser,404)))
 
 SET Evidence = "This effect was more pronounced in the case of
 hTau40 4xKXGE, whose uptake and degradation by LE was completely
 abolished (Fig. 7d,e), suggesting that phosphorylation in the microtubule-
 binding domain diminishes its degradation by e-MI"
 SET Confidence = "Low"
-p(HBP:HBP00053, var("p.Ser262Glu"),var("p.Ser293Glu"),var("p.Ser324Glu"),var("p.Ser356Glu")) -| deg(p(HBP:HBP00053, var("p.Ser262Glu"),var("p.Ser293Glu"),var("p.Ser324Glu"),var("p.Ser356Glu")))
+p(CONSO:CONSO00053, var("p.Ser262Glu"),var("p.Ser293Glu"),var("p.Ser324Glu"),var("p.Ser356Glu")) -| deg(p(CONSO:CONSO00053, var("p.Ser262Glu"),var("p.Ser293Glu"),var("p.Ser324Glu"),var("p.Ser356Glu")))
 
 
 ##########################################################

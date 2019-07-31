@@ -21,7 +21,7 @@ SET DOCUMENT Description = ""
 # DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 # DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 # DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 # DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 # DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -80,8 +80,8 @@ formation was comparable between these two proteins. ThS fluorescence,
 measured at 360min, alsowas comparable between hT40 aggregates
 (946.4 ± 73.8) and S422E aggregates (927.9 ± 63.7)."
 SET Confidence = "High"
-p(HGNC:MAPT) -> a(HBP:"Tau aggregates")
-p(HGNC:MAPT, var("p.Ser422Glu")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT) -> a(CONSO:"Tau aggregates")
+p(HGNC:MAPT, var("p.Ser422Glu")) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence="For both
@@ -92,16 +92,16 @@ F(2,12) = 86.64, p b 0.0001). S422E did not differ significantly from
 hT40 in the number of oligomers, short filaments, or long filaments
 formed (F(1,12) = 0.05, p = 0.83)."
 SET Confidence = "High"
-p(HGNC:MAPT) -> a(HBP:"Tau oligomers")
-p(HGNC:MAPT, var("p.Ser422Glu")) -> a(HBP:"Tau oligomers")
+p(HGNC:MAPT) -> a(CONSO:"Tau oligomers")
+p(HGNC:MAPT, var("p.Ser422Glu")) -> a(CONSO:"Tau oligomers")
 UNSET Confidence
 
 SET Evidence="Aggregation also significantly increased oligomer formation
 (TOC1 reactivity) compared to monomers in both hT40 and S422E
 samples (Fig. 3C; F(1,12) = 109.3, p b 0.0001)."
 SET Confidence = "High"
-composite(p(HGNC:MAPT, var("p.Ser422Glu")), a(HBP:"Tau aggregates")) -> a(HBP:"Tau oligomers")
-composite(p(HGNC:MAPT), a(HBP:"Tau aggregates")) -> a(HBP:"Tau oligomers")
+composite(p(HGNC:MAPT, var("p.Ser422Glu")), a(CONSO:"Tau aggregates")) -> a(CONSO:"Tau oligomers")
+composite(p(HGNC:MAPT), a(CONSO:"Tau aggregates")) -> a(CONSO:"Tau oligomers")
 UNSET Confidence
 
 SET Evidence="In contrast,
@@ -112,8 +112,8 @@ respective monomer samples. Furthermore, S422E aggregation significantly
 increased the amount of SDS-stable dimers compared to
 hT40 aggregation (p = 0.03)."
 SET Confidence = "High"
-composite(p(HGNC:MAPT, var("p.Ser422Glu")), a(HBP:"Tau aggregates")) -> a(HBP:"Tau dimers")
-composite(p(HGNC:MAPT), a(HBP:"Tau aggregates")) -> a(HBP:"Tau dimers")
+composite(p(HGNC:MAPT, var("p.Ser422Glu")), a(CONSO:"Tau aggregates")) -> a(CONSO:"Tau dimers")
+composite(p(HGNC:MAPT), a(CONSO:"Tau aggregates")) -> a(CONSO:"Tau dimers")
 UNSET Confidence
 
 SET Evidence="As previously reported, perfusion
@@ -124,9 +124,9 @@ monomer (Fig. 5B; Fig. 6A; p = 0.003) (LaPointe et al., 2009b).
 Neither hT40 monomers nor hT40 aggregates altered the rate of retrograde
 FAT (Fig. 5A, B; Fig. 6B)."
 SET Confidence = "Medium"
-a(HBP:"Tau aggregates") -| bp(GO:"anterograde axonal protein transport")
+a(CONSO:"Tau aggregates") -| bp(GO:"anterograde axonal protein transport")
 p(HGNC:MAPT) cnc bp(GO:"anterograde axonal protein transport")
-a(HBP:"Tau aggregates") cnc bp(GO:"retrograde axonal protein transport")
+a(CONSO:"Tau aggregates") cnc bp(GO:"retrograde axonal protein transport")
 p(HGNC:MAPT) cnc bp(GO:"retrograde axonal protein transport")
 UNSET Confidence
 
@@ -138,9 +138,9 @@ and retrograde FAT rates (Fig. 5D; Fig. 6A, B) compared to S422E
 monomer (anterograde, p = 0.012; retrograde, p = 0.002) and
 hT40 aggregates (retrograde only, p = 0.019)."
 SET Confidence = "High"
-composite(p(HGNC:MAPT, var("p.Ser422Glu")), a(HBP:"Tau aggregates")) -| bp(GO:"anterograde axonal protein transport")
+composite(p(HGNC:MAPT, var("p.Ser422Glu")), a(CONSO:"Tau aggregates")) -| bp(GO:"anterograde axonal protein transport")
 p(HGNC:MAPT, var("p.Ser422Glu")) -| bp(GO:"anterograde axonal protein transport")
-composite(p(HGNC:MAPT, var("p.Ser422Glu")), a(HBP:"Tau aggregates")) -| bp(GO:"retrograde axonal protein transport")
+composite(p(HGNC:MAPT, var("p.Ser422Glu")), a(CONSO:"Tau aggregates")) -| bp(GO:"retrograde axonal protein transport")
 p(HGNC:MAPT, var("p.Ser422Glu")) cnc bp(GO:"retrograde axonal protein transport")
 UNSET Confidence
 
@@ -154,8 +154,8 @@ SET Confidence = "Medium"
 SET MeSHDisease = "Alzheimer Disease"
 SET MeSHAnatomy = "Brain"
 #TOC1: oligomer-selective antibody
-p(HGNC:MAPT, pmod(Ph,Ser,422)) -- a(HBP:"Tau oligomers")
-p(HGNC:MAPT, pmod(Ph,Ser,422)) -- a(HBP:"Tau antibody, TNT1")
+p(HGNC:MAPT, pmod(Ph,Ser,422)) -- a(CONSO:"Tau oligomers")
+p(HGNC:MAPT, pmod(Ph,Ser,422)) -- a(CONSO:"Tau antibody, TNT1")
 UNSET MeSHDisease
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -171,5 +171,5 @@ higher in AD compared to control (Fig. 7G; t10 = 1.51, p =
 0.0029)."
 SET Confidence = "Medium"
 path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT, pmod(Ph,Ser,422))
-path(MESH:"Alzheimer Disease") pos a(HBP:"Tau aggregates")
+path(MESH:"Alzheimer Disease") pos a(CONSO:"Tau aggregates")
 UNSET Confidence

@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -121,10 +121,10 @@ SET Confidence = "Medium"
 SET MeSHAnatomy="Brain"
 
 a(CHEBI:"amyloid-beta") -> path(MESH:"Alzheimer Disease")
-path(MESH:"Alzheimer Disease") -- a(HBP:"amyloid-beta aggregates")
-a(CHEBI:"amyloid-beta") -> path(HBP:neurotoxicity)
-p(CHEBI:"amyloid-beta", var("?")) -> a(HBP:"amyloid-beta aggregates")
-a(HBP:"amyloid-beta aggregates") -> path(MESH:"Alzheimer Disease")
+path(MESH:"Alzheimer Disease") -- a(CONSO:"amyloid-beta aggregates")
+a(CHEBI:"amyloid-beta") -> path(CONSO:neurotoxicity)
+p(CHEBI:"amyloid-beta", var("?")) -> a(CONSO:"amyloid-beta aggregates")
+a(CONSO:"amyloid-beta aggregates") -> path(MESH:"Alzheimer Disease")
 #above two Statements added- this was included because of the line in evidence "mice transgenically overexpressing Abeta or with mutations that enhance Abeta aggregation show many of the symptoms of AD"
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -142,7 +142,7 @@ SET MeSHAnatomy="Brain"
 
 a(CHEBI:"amyloid-beta") -- bp(GO:"synaptic transmission, cholinergic")
 a(CHEBI:"amyloid-beta") -- p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
-p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -| path(HBP:neurotoxicity)
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -| path(CONSO:neurotoxicity)
 
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -183,7 +183,7 @@ of varying lengths, predominantly the 37-, 40-, and 42-
 residue forms."
 SET Confidence = "High"
 path(MESH:"Plaque, Amyloid") biomarkerFor path(MESH:"Alzheimer Disease")
-composite(p(HGNC:APP), p(HGNC:BACE1), p(HBP:"gamma-secretase")) => composite(a(CHEBI:"amyloid-beta polypeptide 40"), a(CHEBI:"amyloid-beta polypeptide 42"))
+composite(p(HGNC:APP), p(HGNC:BACE1), p(CONSO:"gamma-secretase")) => composite(a(CHEBI:"amyloid-beta polypeptide 40"), a(CHEBI:"amyloid-beta polypeptide 42"))
 UNSET Confidence
 
 SET Evidence="An increasing ratio of the full-length,
@@ -203,8 +203,8 @@ structures in vivo and in vitro, including monomers,
 oligomers, and fibrils (Luheshi et al., 2007;
 Roychaudhuri et al., 2009)."
 SET Confidence = "High"
-a(HBP:"amyloid-beta oligomers") isA a(CHEBI:"amyloid-beta")
-a(HBP:"amyloid-beta fibrils") isA a(CHEBI:"amyloid-beta")
+a(CONSO:"amyloid-beta oligomers") isA a(CHEBI:"amyloid-beta")
+a(CONSO:"amyloid-beta fibrils") isA a(CHEBI:"amyloid-beta")
 UNSET Confidence
 
 SET Evidence="Early work on AD considered
@@ -215,8 +215,8 @@ total soluble amyloid and cognitive decline pointing
 to soluble, oligomeric forms as the primary toxic
 factor (Walsh and Selkoe, 2007)."
 SET Confidence = "High"
-a(HBP:"amyloid-beta oligomers") pos path(MESH:"Cognitive Dysfunction")
-a(HBP:"amyloid-beta oligomers") -- path(HBP:neurotoxicity)
+a(CONSO:"amyloid-beta oligomers") pos path(MESH:"Cognitive Dysfunction")
+a(CONSO:"amyloid-beta oligomers") -- path(CONSO:neurotoxicity)
 UNSET Confidence
 
 SET Evidence="Considerable interest
@@ -229,7 +229,7 @@ maze performance (Lesne´ et al., 2006)."
 SET Confidence = "High"
 SET MeSHAnatomy="Cerebrospinal Fluid"
 
-a(HBP:"Abeta*56") -| path(MESH:"Maze Learning")
+a(CONSO:"Abeta*56") -| path(MESH:"Maze Learning")
 
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -241,7 +241,7 @@ evidence is accumulating that the capacity of Abeta, mutant
 Abeta, or fragments of Abeta to aggregate into oligomers
 is directly related to toxicity (Luheshi et al., 2007)."
 SET Confidence = "High"
-a(HBP:"amyloid-beta oligomers") => path(HBP:neurotoxicity)
+a(CONSO:"amyloid-beta oligomers") => path(CONSO:neurotoxicity)
 UNSET Confidence
 
 SET Evidence="Several lines of evidence point to a link between brain
@@ -280,7 +280,7 @@ al., 2006; Sabbagh et al., 2006)."
 SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -- g(HGNC:CHAT)
 path(MESH:"Alzheimer Disease") -- g(HGNC:ACHE)
-path(MESH:"Alzheimer Disease") -- a(HBP:"alpha-4 beta-2 nAChR")
+path(MESH:"Alzheimer Disease") -- a(CONSO:"alpha-4 beta-2 nAChR")
 p(HGNC:CHRNA7) -- path(MESH:"Alzheimer Disease")
 UNSET Confidence
 
@@ -323,7 +323,7 @@ a(CHEBI:nicotine) -- p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"
 a(CHEBI:nicotine) -> bp(MESH:Neuroprotection)
 a(CHEBI:nicotine) -> path(MESH:Cognition)
 #above statement was added
-a(CHEBI:nicotine) -| path(HBP:neurotoxicity)
+a(CHEBI:nicotine) -| path(CONSO:neurotoxicity)
 a(CHEBI:"dihydro-beta-erythroidine") -| act(a(CHEBI:nicotine))
 a(CHEBI:Mecamylamine) -| act(a(CHEBI:nicotine))
 a(CHEBI:nicotine) -| act(a(CHEBI:"amyloid-beta"))
@@ -342,8 +342,8 @@ whether these AChE inhibitors protect neurons by their
 actions on alpha7 nAChRs rather than by simply inhibiting
 AChE, thereby elevating ACh in the medium."
 SET Confidence = "High"
-a(CHEBI:donepezil) -| path(HBP:neurotoxicity)
-a(CHEBI:rivastigmine) -| path(HBP:neurotoxicity)
+a(CHEBI:donepezil) -| path(CONSO:neurotoxicity)
+a(CHEBI:rivastigmine) -| path(CONSO:neurotoxicity)
 a(CHEBI:donepezil) reg act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 a(CHEBI:rivastigmine) reg act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 UNSET Confidence
@@ -403,7 +403,7 @@ brain regions (Nguyen et al., 2003)."
 SET Confidence = "Medium"
 a(CHEBI:nicotine) reg composite(a(CHEBI:"3',5'-cyclic AMP"), p(FPLX:PKC))
 composite(a(CHEBI:"3',5'-cyclic AMP"), p(FPLX:PKC)) -> p(HGNC:CHRNA7)
-act(a(CHEBI:nicotine)) -> p(HBP:"alpha-4 beta-2 nAChR")
+act(a(CHEBI:nicotine)) -> p(CONSO:"alpha-4 beta-2 nAChR")
 #changes made wrt evidence
 UNSET Confidence
 
@@ -423,7 +423,7 @@ rons against Abeta toxicity is blocked by the alpha4beta2 antagonist,
 dihydro-beta-erythroidine (Kihara et al., 1998)."
 SET Confidence = "High"
 a(CHEBI:"dihydro-beta-erythroidine") -| act(a(CHEBI:nicotine))
-a(CHEBI:"dihydro-beta-erythroidine") -| act(a(HBP:"alpha-4 beta-2 nAChR"))
+a(CHEBI:"dihydro-beta-erythroidine") -| act(a(CONSO:"alpha-4 beta-2 nAChR"))
 a(CHEBI:"dihydro-beta-erythroidine") -| bp(MESH:Neuroprotection)
 UNSET Confidence
 
@@ -440,10 +440,10 @@ but in some cells, non-alpha7 subtypes are also
 likely to contribute."
 SET Confidence = "High"
 p(HGNC:CHRNA7) -| act(a(CHEBI:"amyloid-beta"))
-act(a(CHEBI:"amyloid-beta")) -> path(HBP:neurotoxicity)
+act(a(CHEBI:"amyloid-beta")) -> path(CONSO:neurotoxicity)
 p(HGNC:CHRNA7) -> act(a(CHEBI:galanthamine))
 act(a(CHEBI:galanthamine)) -> bp(MESH:Neuroprotection)
-a(CHEBI:donepezil) -| path(HBP:neurotoxicity)
+a(CHEBI:donepezil) -| path(CONSO:neurotoxicity)
 a(CHEBI:donepezil) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 p(HGNC:CHRNA7) reg act(a(CHEBI:nicotine))
 UNSET Confidence
@@ -461,7 +461,7 @@ SET Confidence = "High"
 SET CellLine="PC12"
 
 act(p(HGNC:CHRNA7)) -| act(a(CHEBI:ethanol))
-act(a(CHEBI:ethanol)) -> path(HBP:neurotoxicity)
+act(a(CHEBI:ethanol)) -> path(CONSO:neurotoxicity)
 act(p(HGNC:CHRNA7)) -| bp(GO:"cell death")
 a(MESH:Serum) -| bp(GO:"cell death")
 
@@ -469,7 +469,7 @@ UNSET CellLine
 
 SET MeSHAnatomy="Neurons"
 
-act(a(CHEBI:"glutamate(2-)")) -> bp(HBP:Excitotoxicity)
+act(a(CHEBI:"glutamate(2-)")) -> bp(CONSO:Excitotoxicity)
 act(p(HGNC:CHRNA7)) -| act(a(CHEBI:"glutamate(2-)"))
 
 UNSET MeSHAnatomy
@@ -511,7 +511,7 @@ act(p(HGNC:CHRNA4)) -| act(a(CHEBI:"L-glutamate(2-)"))
 UNSET Species
 
 act(p(HGNC:CHRNA7)) -| act(a(CHEBI:"L-glutamate(2-)"))
-act(a(CHEBI:"L-glutamate(2-)")) -> path(HBP:neurotoxicity)
+act(a(CHEBI:"L-glutamate(2-)")) -> path(CONSO:neurotoxicity)
 
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -525,7 +525,7 @@ by alpha7 receptors."
 SET Confidence = "Medium"
 SET MeSHAnatomy="Dopaminergic Neurons"
 
-act(a(CHEBI:"N-methyl-4-phenylpyridinium")) -> path(HBP:neurotoxicity)
+act(a(CHEBI:"N-methyl-4-phenylpyridinium")) -> path(CONSO:neurotoxicity)
 #activity alteration of N-methyl-4-phenylpyridinium increases neurotoxicity
 act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -| act(a(CHEBI:"N-methyl-4-phenylpyridinium"))
 act(p(HGNC:CHRNA7)) causesNoChange act(a(CHEBI:"N-methyl-4-phenylpyridinium"))
@@ -541,7 +541,7 @@ SET Confidence = "High"
 SET Species="10090"
 
 act(a(CHEBI:nicotine)) -| act(a(CHEBI:methamphetamine))
-act(a(CHEBI:methamphetamine)) -> bp(HBP:Neurodegeneration)
+act(a(CHEBI:methamphetamine)) -> bp(CONSO:Neurodegeneration)
 act(p(HGNC:CHRNA4)) -> act(a(CHEBI:nicotine))
 
 UNSET Species
@@ -777,9 +777,9 @@ SET Confidence = "High"
 SET CellLine="SH-SY5Y"
 
 a(CHEBI:genistein) -| act(a(CHEBI:"amyloid-beta"))
-act(a(CHEBI:"amyloid-beta")) -> path(HBP:neurotoxicity)
+act(a(CHEBI:"amyloid-beta")) -> path(CONSO:neurotoxicity)
 a(CHEBI:genistein) -| act(a(CHEBI:"L-glutamate(2-)"))
-act(a(CHEBI:"L-glutamate(2-)")) -> path(HBP:neurotoxicity)
+act(a(CHEBI:"L-glutamate(2-)")) -> path(CONSO:neurotoxicity)
 
 UNSET CellLine
 UNSET Confidence
@@ -815,10 +815,10 @@ SET Confidence = "Medium"
 SET CellLine="PC12"
 
 a(CHEBI:estradiol) -| act(a(CHEBI:"amyloid-beta"))
-a(CHEBI:"amyloid-beta") -> path(HBP:neurotoxicity)
+a(CHEBI:"amyloid-beta") -> path(CONSO:neurotoxicity)
 #estradiol to amyloid beta change with ->
 a(MESH:methyllycaconitine) -| act(p(HGNC:CHRNA7))
-p(HGNC:CHRNA7) -| path(HBP:neurotoxicity)
+p(HGNC:CHRNA7) -| path(CONSO:neurotoxicity)
 #methyllycaconitine changed to CHRNA7 with ->
 
 UNSET CellLine
@@ -1020,7 +1020,7 @@ p(HGNC:TNF) -> act(a(CHEBI:nicotine))
 act(a(CHEBI:nicotine)) -> bp(MESH:Neuroprotection)
 p(HGNC:TNF) -| act(a(CHEBI:"N-methyl-D-aspartic acid"))
 a(CHEBI:nicotine) -| act(a(CHEBI:"N-methyl-D-aspartic acid"))
-act(a(CHEBI:"N-methyl-D-aspartic acid")) -> path(HBP:neurotoxicity)
+act(a(CHEBI:"N-methyl-D-aspartic acid")) -> path(CONSO:neurotoxicity)
 UNSET Confidence
 
 SET Evidence="Nicotine may regulate the neuroprotective secretion
@@ -1169,8 +1169,8 @@ These animals nonetheless have swollen cholinergic nerve
 terminals at 12 months, suggesting defective nerve sprouting
 (Hernandez et al., 2001)."
 SET Confidence = "High"
-a(CHEBI:"amyloid-beta") causesNoChange path(HBP:Neurodegeneration)
-p(HGNC:PSEN1) causesNoChange path(HBP:Neurodegeneration)
+a(CHEBI:"amyloid-beta") causesNoChange path(CONSO:Neurodegeneration)
+p(HGNC:PSEN1) causesNoChange path(CONSO:Neurodegeneration)
 a(CHEBI:"amyloid-beta") -- path(MESH:"Alzheimer Disease")
 p(HGNC:PSEN1) -- path(MESH:"Alzheimer Disease")
 path(MESH:"Alzheimer Disease") -- path(MESH:"Plaque, Amyloid")
@@ -1259,11 +1259,11 @@ SET CellLine="SH-SY5Y"
 
 act(a(CHEBI:carbachol)) -> act(a(CHEBI:phosphatidylinositol),ma(MESH:Hydrolysis))
 #hydrolysis added
-p(HBP:"APOE e4") -| act(a(CHEBI:carbachol))
+p(CONSO:"APOE e4") -| act(a(CHEBI:carbachol))
 a(CHEBI:"amyloid-beta") -| act(a(CHEBI:carbachol))
-complex(a(CHEBI:"amyloid-beta"), p(HBP:"APOE e4")) -| act(a(CHEBI:carbachol))
+complex(a(CHEBI:"amyloid-beta"), p(CONSO:"APOE e4")) -| act(a(CHEBI:carbachol))
 a(CHEBI:estrogen) -| act(a(CHEBI:"amyloid-beta"))
-a(CHEBI:estrogen) -| act(p(HBP:"APOE e4"))
+a(CHEBI:estrogen) -| act(p(CONSO:"APOE e4"))
 a(CHEBI:wortmannin) -| act(a(CHEBI:estrogen))
 p(FPLX:PI3K) reg act(a(CHEBI:estrogen))
 #changes made wrt evidence
@@ -1303,11 +1303,11 @@ SET CellLine="PC12"
 a(CHEBI:nicotine) -> p(HGNC:CHRNA7)
 #nicotine stimulates CHRNA7 and not vice versa
 a(CHEBI:nicotine) -> act(p(HGNC:CHRNA7))
-act(p(HGNC:CHRNA7)) -> sec(a(HBP:"sAPP-beta"))
-a(HBP:"sAPP-beta") -| act(a(CHEBI:"amyloid-beta"))
+act(p(HGNC:CHRNA7)) -> sec(a(CONSO:"sAPP-beta"))
+a(CONSO:"sAPP-beta") -| act(a(CHEBI:"amyloid-beta"))
 UNSET CellLine
 
-a(CHEBI:nicotine) -| a(HBP:"sAPP-gamma")
+a(CHEBI:nicotine) -| a(CONSO:"sAPP-gamma")
 #can we write here also that nicotine stimulates cholinergic receptors, which in turn lowers aAPP-gamma? Nicotine does not do it directly after all.
 
 SET CellLine="SH-SY5Y"
@@ -1315,7 +1315,7 @@ SET CellLine="SH-SY5Y"
 a(CHEBI:galanthamine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 a(CHEBI:galanthamine) -| act(p(HGNC:ACHE))
 #Statements added wrt evidence
-act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> sec(a(HBP:"sAPP-beta"))
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> sec(a(CONSO:"sAPP-beta"))
 
 UNSET CellLine
 UNSET Confidence
@@ -1363,8 +1363,8 @@ also result in accelerated cell death through enhancing
 intracellular Abeta accumulation."
 SET Confidence = "Medium"
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") reg act(a(CHEBI:"amyloid-beta"))
-act(a(CHEBI:"amyloid-beta")) -> path(HBP:neurotoxicity)
-p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -- path(HBP:neurotoxicity)
+act(a(CHEBI:"amyloid-beta")) -> path(CONSO:neurotoxicity)
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -- path(CONSO:neurotoxicity)
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -> act(a(CHEBI:"amyloid-beta"))
 #above statement was added wrt evidence
 act(a(CHEBI:"amyloid-beta")) -> bp(GO:"apoptotic process")
@@ -1384,7 +1384,7 @@ a pathway that includes alpha7 nAChRs (Qi et al., 2007)."
 SET Confidence = "High"
 SET CellLine="SH-SY5Y"
 
-complex(p(HGNC:CHRNA7),a(CHEBI:"amyloid-beta")) -> path(HBP:neurotoxicity)
+complex(p(HGNC:CHRNA7),a(CHEBI:"amyloid-beta")) -> path(CONSO:neurotoxicity)
 
 UNSET CellLine
 UNSET Confidence
@@ -1459,8 +1459,8 @@ al., 2007)."
 SET Confidence = "High"
 SET MeSHAnatomy="Hippocampus"
 
-a(HBP:"amyloid-beta oligomers") -> act(p(FPLX:JNK))
-a(HBP:"amyloid-beta oligomers") -| act(p(FPLX:ERK))
+a(CONSO:"amyloid-beta oligomers") -> act(p(FPLX:JNK))
+a(CONSO:"amyloid-beta oligomers") -| act(p(FPLX:ERK))
 composite(p(HGNC:MAPK3), p(HGNC:MAPK1)) -- bp(GO:memory)
 
 UNSET MeSHAnatomy

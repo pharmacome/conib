@@ -16,7 +16,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/90e1cb9e5e882703380c9db8d4915ac6f3cba137/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -93,7 +93,7 @@ SET GOCC = "axon cytoplasm"
 p(HGNC:MAPT) => complex(GO:microtubule)
 p(HGNC:MAPT, frag("237_367")) => complex(GO:microtubule)
 p(HGNC:MAPT, frag("237_367")) partOf p(HGNC:MAPT)
-p(HGNC:MAPT, frag("237_367")) eq a(HBP:"microtubule-binding region")
+p(HGNC:MAPT, frag("237_367")) eq a(CONSO:"microtubule-binding region")
 UNSET GOCC
 p(HGNC:MAPT) pos complex(GO:axon)
 p(HGNC:MAPT) pos complex(GO:"neuron projection")
@@ -114,8 +114,8 @@ SET Species = {"7215","10090"}
 p(HGNC:MAPT) => complex(GO:"filamentous actin")
 p(HGNC:MAPT) -> complex(p(HGNC:MAPT), complex(GO:"filamentous actin"))
 complex(GO:"filamentous actin") -> complex(p(HGNC:MAPT), complex(GO:"filamentous actin"))
-p(HBP:"Tau isoform F (441 aa)", var("p.Val337Met")) -> a(HBP:Neurodegeneration)
-complex(p(HGNC:MAPT), complex(GO:"filamentous actin")) pos a(HBP:Neurodegeneration)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Val337Met")) -> a(CONSO:Neurodegeneration)
+complex(p(HGNC:MAPT), complex(GO:"filamentous actin")) pos a(CONSO:Neurodegeneration)
 UNSET Species
 UNSET Method
 UNSET TauIsoform
@@ -263,9 +263,9 @@ SET TauIsoform = "Isoform F (441 aa)"
 #ABac = PP2A
 
 SET Method = {"Enhanced Chemioluminescence visualization (ECL)", "SDS-PAGE", "Western Blot", "Microtubule Co-Sedimentation Assay", "Dephosphorylation Assay, Colorimetric"}
-act(complex(GO:"protein phosphatase type 2A complex")) -- p(HBP:"microtubule-binding region")
-p(HBP:"microtubule-binding region") isA p(HGNC:MAPT)
-act(complex(GO:microtubule)) pos p(HBP:"microtubule-binding region")
+act(complex(GO:"protein phosphatase type 2A complex")) -- p(CONSO:"microtubule-binding region")
+p(CONSO:"microtubule-binding region") isA p(HGNC:MAPT)
+act(complex(GO:microtubule)) pos p(CONSO:"microtubule-binding region")
 
 SET Evidence = "ABaC binds directly to MTs through a site that encompasses its catalytic subunit and is distinct from its
 binding site for tau, and ABaC and tau bind to different domains on MTs."
@@ -297,12 +297,12 @@ to microtubules through its N-terminus."
 #HSPA8 = Hsc70 (Heat-shock cognate 71 kDa)
 
 SET Method = {"Yeast Two-Hybrid Assay", "Co-Immunoprecipitation", "SDS-PAGE", "Western Blot", "Pull-down assay, GST", "Surface Plasmon Resonance"}
-p(HGNC:HSPA8) -- p(HBP:"microtubule-binding region")
+p(HGNC:HSPA8) -- p(CONSO:"microtubule-binding region")
 
 act(p(HGNC:HSPA8)) neg act(complex(GO:microtubule))
 
 p(INTERPRO:"Heat shock protein 70 family") -- complex(GO:microtubule)
-p(INTERPRO:"Heat shock protein 70kD, C-terminal domain superfamily") -- p(HBP:"microtubule-binding region")
+p(INTERPRO:"Heat shock protein 70kD, C-terminal domain superfamily") -- p(CONSO:"microtubule-binding region")
 
 UNSET Method
 
@@ -314,10 +314,10 @@ a hypothesis which is also supported by the fact that a tau variant deleted for 
 to interact with Hsp90 under immunoprecipitation conditions (Fig. 2B)."
 
 SET Method = {"SDS-PAGE", "Western Blot", "Immunoprecipitation", "Dot Blot"}
-p(FPLX:HSP90) -- p(HBP:"VQIVYK motif")
-p(HBP:"VQIVYK motif") isA p(HBP:"tubulin-binding repeat 4")
+p(FPLX:HSP90) -- p(CONSO:"VQIVYK motif")
+p(CONSO:"VQIVYK motif") isA p(CONSO:"tubulin-binding repeat 4")
 p(FPLX:HSP90) -> complex(p(FPLX:HSP90), p(HGNC:MAPT))
-p(HBP:"VQIVYK motif") -> complex(p(FPLX:HSP90), p(HGNC:MAPT))
+p(CONSO:"VQIVYK motif") -> complex(p(FPLX:HSP90), p(HGNC:MAPT))
 
 SET Evidence = "To test the effect of Hsp90 on tau phosphorylation, this protein
 was mixed with tau protein in the presence of GSK-3 and ATP. Figure 4 shows that tau phosphorylation increases
@@ -436,7 +436,7 @@ SET Evidence = "The ubiquitin-targeted protein was identified as tau in paired h
 the conjugation sites were localized to the microtubule-binding region."
 SET Method = {"Immunoblotting", "Mass Spectrometry", "SDS-PAGE", "RP HPLC"}
 p(HGNC:MAPT, pmod(Ub)) -> deg(p(HGNC:MAPT))
-p(FPLX:Ubiquitin) -- p(HBP:"microtubule-binding region")
+p(FPLX:Ubiquitin) -- p(CONSO:"microtubule-binding region")
 p(FPLX:Ubiquitin) => p(HGNC:MAPT, pmod(Ub))
 UNSET Method
 
@@ -656,7 +656,7 @@ SET Evidence = "The present studies show that the calcium-binding protein calmod
 interacts with a tubulin binding site on tau defined by the second repetitive sequence"
 
 SET TauIsoform = "Isoform F (441 aa)"
-p(FPLX:CALM) -- p(HBP:"tubulin-binding repeat 2")
+p(FPLX:CALM) -- p(CONSO:"tubulin-binding repeat 2")
 
 SET Evidence = "These findings provide new insights into the regulation
 of microtubule assembly, since Ca2+/calmodulin inhibition of tubulin polymerization into microtubules
@@ -707,7 +707,7 @@ Thus, DKK-1 inhibits Wnt signalling in a manner similar to Aβ, and thereby fost
 bp(GO:"inflammatory response") -> p(HGNC:DKK1)
 p(HGNC:DKK1) -> act(p(HGNC:GSK3B))
 p(HGNC:DKK1) -| bp(GO:"Wnt signaling pathway")
-act(p(HGNC:GSK3B)) -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+act(p(HGNC:GSK3B)) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 
 SET Evidence = "Utilizing Western blot, electrophoretic mobility shift assay, supershift and reverse transcriptase-polymerase chain reaction
 techniques, it has been demonstrated that micromolar S100B concentrations stimulate c-Jun N-terminal kinase (JNK) phosphorylation through
@@ -792,10 +792,10 @@ the R406W mutation exhibits a decreased phosphorylation at T205, T212, and the P
 affected or only slightly affected (T181, S199, S214, and S262)."
 
 SET Method = {"Immunocytochemistry", "RNA Interference, shRNA", "Confocal Microscopy, Laser Scanning", "Tandem Affinity Purification, TAP", "Mass Spectrometry", "Pull-down Assay, GFP"}
-p(HBP:"Tau isoform F (441 aa)", var("p.Arg406Tyr")) -| p(HGNC:MAPT, pmod(Ph, T, 205))
-p(HBP:"Tau isoform F (441 aa)", var("p.Arg406Tyr")) -| p(HGNC:MAPT, pmod(Ph, T, 212))
-p(HBP:"Tau isoform F (441 aa)", var("p.Arg406Tyr")) -| p(HGNC:MAPT, pmod(Ph, S, 396))
-p(HBP:"Tau isoform F (441 aa)", var("p.Arg406Tyr")) -| p(HGNC:MAPT, pmod(Ph, S, 404))
+p(CONSO:"Tau isoform F (441 aa)", var("p.Arg406Tyr")) -| p(HGNC:MAPT, pmod(Ph, T, 205))
+p(CONSO:"Tau isoform F (441 aa)", var("p.Arg406Tyr")) -| p(HGNC:MAPT, pmod(Ph, T, 212))
+p(CONSO:"Tau isoform F (441 aa)", var("p.Arg406Tyr")) -| p(HGNC:MAPT, pmod(Ph, S, 396))
+p(CONSO:"Tau isoform F (441 aa)", var("p.Arg406Tyr")) -| p(HGNC:MAPT, pmod(Ph, S, 404))
 
 SET Evidence = "The data suggest that tau’s membrane association causes retention of tau in the tip of neurites,
 which is compromised by the R406W mutation. Also, after BAPTA treatment, the difference in the retention of
@@ -806,7 +806,7 @@ p(HGNC:ANXA2) -- a(MESH:"Cell Membrane")
 p(HGNC:ANXA2) isA complex(p(HGNC:MAPT), p(HGNC:ANXA2), a(MESH:"Cell Membrane"))
 p(HGNC:MAPT) isA complex(p(HGNC:MAPT), p(HGNC:ANXA2), a(MESH:"Cell Membrane"))
 a(MESH:"Cell Membrane") isA complex(p(HGNC:MAPT), p(HGNC:ANXA2), a(MESH:"Cell Membrane"))
-p(HBP:"Tau isoform F (441 aa)", var("p.Arg406Tyr")) -| complex(p(HGNC:MAPT), p(HGNC:ANXA2), a(MESH:"Cell Membrane"))
+p(CONSO:"Tau isoform F (441 aa)", var("p.Arg406Tyr")) -| complex(p(HGNC:MAPT), p(HGNC:ANXA2), a(MESH:"Cell Membrane"))
 UNSET GOCC
 UNSET Method
 
@@ -819,8 +819,8 @@ that the association of tau with DRMs may be directly regulated by fyn (Suppleme
 SET Method = {"Immunofluorescence", "LDH Assay", "Western Blot"}
 SET Species = "10090"
 SET MeSHAnatomy = "Hippocampus"
-a(HBP:"amyloid-beta derived diffusible ligands") -> tloc(p(MGI:Fyn), fromLoc(GO:cytoplasm), toLoc(GO:"membrane raft"))
-a(HBP:"amyloid-beta derived diffusible ligands") -> tloc(p(MGI:Mapt), fromLoc(GO:cytoplasm), toLoc(GO:"membrane raft"))
+a(CONSO:"amyloid-beta derived diffusible ligands") -> tloc(p(MGI:Fyn), fromLoc(GO:cytoplasm), toLoc(GO:"membrane raft"))
+a(CONSO:"amyloid-beta derived diffusible ligands") -> tloc(p(MGI:Mapt), fromLoc(GO:cytoplasm), toLoc(GO:"membrane raft"))
 a(CHEBI:"2-bromohexadecanoic acid") -| p(MGI:Fyn, pmod(Palm))
 p(MGI:Fyn, pmod(Palm)) -> tloc(p(MGI:Fyn), fromLoc(GO:cytoplasm), toLoc(GO:"membrane raft"))
 SET GOCC = "membrane raft"

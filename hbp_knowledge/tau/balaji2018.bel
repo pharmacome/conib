@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/6ebac4dddc69402cb8fdd90c746ff6ee572c95af/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -79,8 +79,8 @@ SET STATEMENT_GROUP = "Esther"
 SET Citation = {"PubMed","Autophagy. 2018;14(12):2139-2154. doi: 10.1080/15548627.2018.1509607. Epub 2018 Sep 13.","30145931"}
 
 SET Evidence = "At more mature ages (DIV14 - DIV21), MAPT localization is mainly
- found in the axons with only basal levels in the somatodendritic compartment,
- consistent with earlier findings [20]. "
+found in the axons with only basal levels in the somatodendritic compartment,
+consistent with earlier findings [20]. "
 SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 bp(GO:aging) -> p(HGNC:MAPT),loc(MESH:Axons))
@@ -92,8 +92,8 @@ SET Evidence = "Our previous work showed that inhibition of either the proteasom
 in primary neurons induces pronounced neurotoxicity [23,24], making it impossible to address this
 issue in conventional neuron cultures."
 SET Confidence = "High"
-act(p(FPLX:Proteasome)) -| path(HBP:neurotoxicity)
-bp(GO:autophagy) -| path(HBP:neurotoxicity)
+act(p(FPLX:Proteasome)) -| path(CONSO:neurotoxicity)
+bp(GO:autophagy) -| path(CONSO:neurotoxicity)
 UNSET Confidence
 
 SET Evidence = "  In order to determine the impact of protein degradation systems on the sorting of MAPT, we
@@ -140,8 +140,8 @@ UNSET Confidence
 SET Evidence = "MAPT in AD and other tauopathies is hyperphosphorylated [29] and the hyperphosphorylation has
 been proposed to drive the missorting of MAPT. "
 SET Confidence = "High"
-p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)) positiveCorrelation path(MESH:"Alzheimer Disease")
-p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)) positiveCorrelation path(MESH:"Tauopathies")
+p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation)) positiveCorrelation path(MESH:"Alzheimer Disease")
+p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation)) positiveCorrelation path(MESH:"Tauopathies")
 UNSET Confidence
 
 SET Evidence = "In addition, it has been
@@ -149,12 +149,12 @@ reported that in cultured neurons, Aβ oligomers induce MAPT missorting into the
 compartment, and the missorted MAPT is phosphorylated mainly at the 12E8 (p-S262/p-S356) and
 AT8 (p-S202/p-T205) sites [6]."
 SET Confidence = "High"
-a(HBP:"amyloid-beta oligomers") -> p(HGNC:MAPT, loc(MESH:Dendrites))
+a(CONSO:"amyloid-beta oligomers") -> p(HGNC:MAPT, loc(MESH:Dendrites))
 UNSET Confidence
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Dendrites"
-a(HBP:"amyloid-beta oligomers") positiveCorrelation p(HGNC:MAPT, pmod(Ph,S,262), pmod(Ph,S,356))
-a(HBP:"amyloid-beta oligomers") positiveCorrelation p(HGNC:MAPT, pmod(Ph,S,202), pmod(Ph,T,205))
+a(CONSO:"amyloid-beta oligomers") positiveCorrelation p(HGNC:MAPT, pmod(Ph,S,262), pmod(Ph,S,356))
+a(CONSO:"amyloid-beta oligomers") positiveCorrelation p(HGNC:MAPT, pmod(Ph,S,202), pmod(Ph,T,205))
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -189,7 +189,7 @@ SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 a(CHEBI:"alpha,alpha-trehalose") -> bp(GO:autophagy)
 a(CHEBI:"alpha,alpha-trehalose") -| p(HGNC:MAPT)
-a(CHEBI:"alpha,alpha-trehalose") -| a(HBP:"Tau aggregates")
+a(CHEBI:"alpha,alpha-trehalose") -| a(CONSO:"Tau aggregates")
 UNSET MeSHAnatomy
 UNSET Confidence
 

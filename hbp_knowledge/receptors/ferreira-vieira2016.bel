@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -140,7 +140,7 @@ SET MeSHAnatomy = "Basal Nucleus of Meynert"
 a(MESH:"Cholinergic Neurons") positiveCorrelation bp(GO:memory)
 UNSET MeSHAnatomy
 SET MeSHDisease = "Alzheimer Disease"
-bp(HBP:"Neurodegeneration") negativeCorrelation bp(GO:memory)
+bp(CONSO:"Neurodegeneration") negativeCorrelation bp(GO:memory)
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -497,10 +497,10 @@ that nicotinic receptors agonists are neuroprotective in a
 mechanism that is Ca2+-dependent and that involves the glutamatergic system"
 SET Confidence = "High"
 bp(GO:"synaptic transmission, glutamatergic") -- bp(GO:cognition)
-bp(GO:"synaptic transmission, glutamatergic") -- bp(HBP:Neurodegeneration)
+bp(GO:"synaptic transmission, glutamatergic") -- bp(CONSO:Neurodegeneration)
 bp(GO:"synaptic transmission, cholinergic") -- bp(GO:cognition)
-bp(GO:"synaptic transmission, cholinergic") -- bp(HBP:Neurodegeneration)
-p(FPLX:CHRN) -| bp(HBP:Neurodegeneration)
+bp(GO:"synaptic transmission, cholinergic") -- bp(CONSO:Neurodegeneration)
+p(FPLX:CHRN) -| bp(CONSO:Neurodegeneration)
 UNSET Confidence
 
 SET Evidence = "It has been demonstrated that phosphorylation of nicotinic
@@ -705,7 +705,7 @@ particularly affected by Aβ oligomers early neurotoxicity
 [218, 219] and that synaptic loss is the major correlate of
 cognitive impairment"
 SET Confidence = "High"
-a(HBP:"amyloid-beta oligomers") -- act(a(GO:"cholinergic synapse"))
+a(CONSO:"amyloid-beta oligomers") -- act(a(GO:"cholinergic synapse"))
 path(MESH:"Cognitive Dysfunction") negativeCorrelation a(GO:synapse)
 UNSET Confidence
 
@@ -756,7 +756,7 @@ UNSET Confidence
 SET Evidence = "A molecular modeling study showed that AChE interacts with the Aβ
 peptide and promotes amyloid fibril formation"
 SET Confidence = "High"
-complex(p(HGNC:ACHE),a(MESH:"Amyloid beta-Peptides")) -> a(HBP:"amyloid-beta fibrils")
+complex(p(HGNC:ACHE),a(MESH:"Amyloid beta-Peptides")) -> a(CONSO:"amyloid-beta fibrils")
 UNSET Confidence
 
 SET Evidence = "In this work, kinetic analyses revealed that a structural motif in AChE (a
@@ -764,7 +764,7 @@ hydrophobic sequence of 35 resides peptides) was able to promote amyloid formati
 incorporation into the growing Aβ-fibrils"
 SET Confidence = "High"
 p(HGNC:ACHE) -> a(CHEBI:"amyloid-beta")
-a(CHEBI:"amyloid-beta") -> a(HBP:"amyloid-beta fibrils")
+a(CHEBI:"amyloid-beta") -> a(CONSO:"amyloid-beta fibrils")
 UNSET Confidence
 
 SET Evidence = "In addition, quantitative autoradiography assay revealed
@@ -844,7 +844,7 @@ SET Evidence = "It has been shown that activation
 of M1 receptors decreases tau hyperphosphorylation via
 activation of PKC and inhibition of GSK-3β"
 SET Confidence = "High"
-act(p(HGNC:CHRM1)) -| p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+act(p(HGNC:CHRM1)) -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 act(p(HGNC:CHRM1)) -> act(p(FPLX:PKC))
 act(p(HGNC:CHRM1)) -| act(p(HGNC:GSK3B))
 UNSET Confidence
@@ -928,7 +928,7 @@ UNSET Confidence
 
 SET Evidence = "In fact, memantine is able to reduce the excitotoxicity in AD"
 SET Confidence = "High"
-a(CHEBI:memantine) -| a(HBP:Excitotoxicity)
+a(CHEBI:memantine) -| a(CONSO:Excitotoxicity)
 UNSET MeSHDisease
 UNSET Confidence
 
