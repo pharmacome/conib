@@ -119,8 +119,8 @@ path(MESH:Aging) -> path(MESH:"Alzheimer Disease")
 UNSET Confidence
 
 SET Evidence="The strongest identified genetic risk factor for LOAD is the apolipoprotein E (APOE) ε4 allele (APOE*ε4),"
-SET Confidence = "Medium"
-p(CONSO:"APOE e4") -> path(MESH:"Alzheimer Disease")
+SET Confidence = "High"
+g(CONSO:"APOE e4") pos path(MESH:"Alzheimer Disease")
 UNSET Confidence
 
 SET Evidence ="although genome-wide association studies have linked LOAD to several
@@ -212,8 +212,8 @@ SET Evidence ="APP is cleaved by α-secretase, which precludes forma- tion of A�
 resulting carboxy-terminal fragment is then cleaved by γ-secretase.103 The resulting
 products do not aggregate.104"
 SET Confidence = "Medium"
-act(p(MESH:"Amyloid Precursor Protein Secretases")) -> reaction(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta"),a(CONSO:"APP C-terminally truncated carboxyl-terminal fragments")))
-p(FPLX:"Gamma_secretase") -> deg(a(CONSO:"APP C-terminally truncated carboxyl-terminal fragments"))
+act(p(MESH:"Amyloid Precursor Protein Secretases")) -> reaction(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta"),p(CONSO:"APP C-terminally truncated carboxyl-terminal fragments")))
+p(FPLX:"Gamma_secretase") -> deg(p(CONSO:"APP C-terminally truncated carboxyl-terminal fragments"))
 UNSET Confidence
 
 SET Evidence ="If APP is first cleaved by β-secretase 1 (also known as BACE1) instead of α-secretase,
@@ -403,8 +403,8 @@ SET Evidence ="Third, ApoE4 is also associated with lower antioxidant activity
 than other ApoE isoforms,154,155 and it mediates BBB breakdown through a
 proinflammatory pathway involving cyclophilin A in pericytes."
 SET Confidence = "Medium"
-p(CONSO:"APOE e4") reg bp(GO:"establishment of blood-brain barrier")
-p(CONSO:"APOE e4") -> act(p(HGNC:"PPIA"))
+g(CONSO:"APOE e4") reg bp(GO:"establishment of blood-brain barrier")
+g(CONSO:"APOE e4") -> act(p(HGNC:"PPIA"))
 act(p(HGNC:"PPIA")) -| bp(GO:"establishment of blood-brain barrier")
 UNSET Confidence
 
@@ -514,8 +514,8 @@ SET Evidence ="These findings support the link between TBI and tau aggre- gation
 resulting neurodegeneration similar to that seen in AD and chronic traumatic
 encephalopathy"
 SET Confidence = "Medium"
-path(MESH:"Brain Injuries, Traumatic") -- p(CONSO:"tau aggregates")
+path(MESH:"Brain Injuries, Traumatic") -- p(CONSO:"Tau aggregates")
 SET MeSHDisease = "Brain Injuries, Traumatic"
-p(CONSO:"tau aggregates") -> path(MESH:"Neurodegenerative Diseases")
+p(CONSO:"Tau aggregates") -> path(MESH:"Neurodegenerative Diseases")
 UNSET MeSHDisease
 UNSET Confidence

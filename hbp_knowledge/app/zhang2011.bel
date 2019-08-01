@@ -164,7 +164,7 @@ either cleaved by alpha-secretase to produce a soluble molecule,
 sAPPalpha [37], or re-internalized via an endosomal/
 lysosomal degradation pathway [38,39]"
 SET Confidence = "High"
-p(HGNC:ADAM10) -> rxn(reactants(p(HGNC:APP)),products(a(CONSO:CONSO00067)))
+p(HGNC:ADAM10) -> rxn(reactants(p(HGNC:APP)),products(p(CONSO:CONSO00067)))
 
 SET Evidence = "While Abeta is neurotoxic, studies
 suggest that sAPPalpha is neuroprotective, making the
@@ -172,14 +172,14 @@ subcellular distribution of APP an important factor in
 neurodegeneration [42-44]"
 SET Confidence = "Medium"
 a(CHEBI:"amyloid-beta") -> bp(CONSO:CONSO00061)
-a(CONSO:CONSO00067) -| bp(CONSO:CONSO00061)
+p(CONSO:CONSO00067) -| bp(CONSO:CONSO00061)
 
 SET Evidence = "Cleavage of APP by alpha-secretase precludes Abeta generation
 as the cleavage site is within the Abeta domain (at the Lys16-
 Leu17 bond), and releases a large soluble ectodomain of
 APP called sAPPalpha"
 SET Confidence = "Medium"
-p(HGNC:ADAM10) -> rxn(reactants(p(HGNC:APP)),products(a(CONSO:CONSO00067)))
+p(HGNC:ADAM10) -> rxn(reactants(p(HGNC:APP)),products(p(CONSO:CONSO00067)))
 p(HGNC:ADAM10) -> rxn(reactants(p(HGNC:APP)),products(p(HGNC:APP, frag("1_16")), p(HGNC:APP, frag("17_*"))))
 p(HGNC:ADAM10) -| a(CHEBI:"amyloid-beta")
 
@@ -188,13 +188,13 @@ and Abeta generation, with regulated alpha-cleavage abolished
 in ADAM17-deficient cells, suggesting that ADAM17 is
 likely the alpha-secretase responsible for regulated APP cleavage [47]"
 SET Confidence = "Medium"
-p(HGNC:ADAM17) -> rxn(reactants(p(HGNC:APP)),products(a(CONSO:CONSO00067)))
+p(HGNC:ADAM17) -> rxn(reactants(p(HGNC:APP)),products(p(CONSO:CONSO00067)))
 
 SET Evidence = "Co-expression of ADAM9 with APP promoted sAPPalpha
 production upon phorbol ester treatment, suggesting
 that ADAM9 possesses alpha-secretase activity [51]"
 SET Confidence = "High"
-composite(p(HGNC:ADAM9),p(HGNC:APP),a(CHEBI:"phorbol ester")) -> a(CONSO:CONSO00067)
+composite(p(HGNC:ADAM9),p(HGNC:APP),a(CHEBI:"phorbol ester")) -> p(CONSO:CONSO00067)
 
 SET Evidence = "A dramatically
 reduced ADAM10 protein level in the platelets of
@@ -206,7 +206,7 @@ SET Confidence = "Medium"
 SET MeSHAnatomy = "Blood Platelets"
 path(MESH:"Alzheimer Disease") negativeCorrelation p(HGNC:ADAM10)
 SET MeSHAnatomy = {"Blood Platelets", "Cerebrospinal Fluid"}
-path(MESH:"Alzheimer Disease") negativeCorrelation a(CONSO:CONSO00067)
+path(MESH:"Alzheimer Disease") negativeCorrelation p(CONSO:CONSO00067)
 SET MeSHAnatomy = "Temporal Lobe"
 path(MESH:"Alzheimer Disease") negativeCorrelation act(p(HGNC:ADAM10))
 
@@ -216,19 +216,19 @@ excitotoxicity [42,43]. sAPPalpha also regulates neural stem
 cell proliferation and is important for early CNS development
 [57,58]"
 SET Confidence = "High"
-a(CONSO:CONSO00067) -- bp(GO:"regulation of neuronal synaptic plasticity")
-a(CONSO:CONSO00067) reg bp(GO:"central nervous system formation")
-a(CONSO:CONSO00067) -| bp(CONSO:CONSO00068)
+p(CONSO:CONSO00067) -- bp(GO:"regulation of neuronal synaptic plasticity")
+p(CONSO:CONSO00067) reg bp(GO:"central nervous system formation")
+p(CONSO:CONSO00067) -| bp(CONSO:CONSO00068)
 SET MeSHAnatomy = "Neurons"
-a(CONSO:CONSO00067) reg bp(GO:"stem cell proliferation")
+p(CONSO:CONSO00067) reg bp(GO:"stem cell proliferation")
 
 SET Evidence = "We and others have also found that
 sAPPalpha can inhibit stress-induced CDK5 activation and
 participate in various neuroprotective reagent-mediated
 excitoprotection [44,59-61]"
 SET Confidence = "High"
-a(CONSO:CONSO00067) -| act(p(HGNC:CDK5))
-a(CONSO:CONSO00067) -| bp(CONSO:CONSO00068)
+p(CONSO:CONSO00067) -| act(p(HGNC:CDK5))
+p(CONSO:CONSO00067) -| bp(CONSO:CONSO00068)
 
 SET Evidence = "The first step in Abeta generation is cleavage of APP by the
 beta-secretase"
@@ -296,8 +296,8 @@ carboxyl-terminus, sAPPbeta was reported to function as a
 death receptor 6 ligand and mediate axonal pruning and
 neuronal cell death [94]"
 SET Confidence = "High"
-complex(a(CONSO:CONSO00042),p(HGNC:TNFRSF21)) -- bp(GO:"synapse pruning")
-complex(a(CONSO:CONSO00042),p(HGNC:TNFRSF21)) -- bp(GO:"neuron death")
+complex(p(CONSO:CONSO00042),p(HGNC:TNFRSF21)) -- bp(GO:"synapse pruning")
+complex(p(CONSO:CONSO00042),p(HGNC:TNFRSF21)) -- bp(GO:"neuron death")
 
 SET Evidence = "A recent report found that
 sAPPbeta can rescue gene expression of transthyretin and
@@ -307,14 +307,14 @@ synapse defects of these mice, suggesting a gene expression
 regulation function for sAPPbeta that is independent
 of developmental APP functions [95]"
 SET Confidence = "High"
-a(CONSO:CONSO00042) -> p(HGNC:TTR)
-a(CONSO:CONSO00042) -> p(HGNC:KL)
+p(CONSO:CONSO00042) -> p(HGNC:TTR)
+p(CONSO:CONSO00042) -> p(HGNC:KL)
 
 SET Evidence = "However, overexpression of APP betaCTF
 was found to be cytotoxic and cause neuronal degeneration,
 perhaps by perturbing APP signal transduction [96,97]"
 SET Confidence = "High"
-a(CONSO:CONSO00024) -> bp(CONSO:CONSO00027)
+p(CONSO:CONSO00024) -> path(CONSO:CONSO00027)
 
 SET Evidence = "It is also possible that APP betaCTF’s cytotoxic
 effect is actually mediated by the end products of
@@ -322,12 +322,12 @@ gamma- and/or caspase-cleavage including APP intracellular
 domain (AICD), C31 and Jcasp which are cytotoxic (see
 below)"
 SET Confidence = "Low"
-a(MESH:Caspases) -> rxn(reactants(p(CONSO:CONSO00071)),products(a(CONSO:CONSO00069),a(CONSO:CONSO00070)))
+a(MESH:Caspases) -> rxn(reactants(p(CONSO:CONSO00071)),products(p(CONSO:CONSO00069),p(CONSO:CONSO00070)))
 
 SET Evidence = "APP alphaCTF and betaCTF are further cleaved by gamma-secretase
 to generate p83 and Abeta, respectively"
 SET Confidence = "Medium"
-complex(FPLX:"Gamma_secretase") -> rxn(reactants(a(CONSO:CONSO00024)),products(a(CHEBI:"amyloid-beta"),a(CONSO:CONSO00072)))
+complex(FPLX:"Gamma_secretase") -> rxn(reactants(p(CONSO:CONSO00024)),products(a(CHEBI:"amyloid-beta"),p(CONSO:CONSO00072)))
 
 SET Evidence = "One study showed that the ectodomain of
 Nicastrin binds to APP and Notch and can recruit them
@@ -354,7 +354,7 @@ activating protein (GSAP) was identified and GSAP
 was found to selectively increase Abeta production through
 interaction with both gamma-secretase and the APP CTF substrate [117]"
 SET Confidence = "Medium"
-complex(p(HGNC:GSAP), complex(FPLX:"Gamma_secretase"),a(CONSO:CONSO00024)) -> a(CHEBI:"amyloid-beta")
+complex(p(HGNC:GSAP), complex(FPLX:"Gamma_secretase"),p(CONSO:CONSO00024)) -> a(CHEBI:"amyloid-beta")
 
 SET Evidence = "In addition to cleaving APP CTFs, gamma-secretase
 cleaves a series of functionally important transmembrane
@@ -374,19 +374,19 @@ transcription of multiple genes including APP, GSK-
 3b, KAI1, neprilysin, BACE1, p53, EGFR, and LRP1
 [127-132]"
 SET Confidence = "Medium"
-tscript(a(CONSO:CONSO00071)) reg p(HGNC:APP)
-tscript(a(CONSO:CONSO00071)) reg p(HGNC:GSK3B)
-tscript(a(CONSO:CONSO00071)) reg p(HGNC:CD82)
-tscript(a(CONSO:CONSO00071)) reg p(HGNC:MME)
-tscript(a(CONSO:CONSO00071)) reg p(HGNC:BACE1)
-tscript(a(CONSO:CONSO00071)) reg p(HGNC:EGFR)
-tscript(a(CONSO:CONSO00071)) reg p(HGNC:LRP1)
+tscript(p(CONSO:CONSO00071)) reg p(HGNC:APP)
+tscript(p(CONSO:CONSO00071)) reg p(HGNC:GSK3B)
+tscript(p(CONSO:CONSO00071)) reg p(HGNC:CD82)
+tscript(p(CONSO:CONSO00071)) reg p(HGNC:MME)
+tscript(p(CONSO:CONSO00071)) reg p(HGNC:BACE1)
+tscript(p(CONSO:CONSO00071)) reg p(HGNC:EGFR)
+tscript(p(CONSO:CONSO00071)) reg p(HGNC:LRP1)
 
 SET Evidence = "In addition, free AICD can induce apoptosis
 and may play a role in sensitizing neurons to toxic stimuli
 [133,134]"
 SET Confidence = "High"
-a(CONSO:CONSO00071) -> bp(GO:"apoptotic process")
+p(CONSO:CONSO00071) -> bp(GO:"apoptotic process")
 
 SET Evidence = "In addition to secretases, caspases (predominantly caspase-
 3) can directly cleave APP at position Asp664
@@ -394,21 +394,21 @@ SET Evidence = "In addition to secretases, caspases (predominantly caspase-
 tail during apoptosis to release a fragment containing
 the last 31 amino acids of APP (called C31)"
 SET Confidence = "High"
-a(MESH:Caspases) -> rxn(reactants(p(HGNC:APP)),products(a(CONSO:CONSO00069)))
+a(MESH:Caspases) -> rxn(reactants(p(HGNC:APP)),products(p(CONSO:CONSO00069)))
 
 SET Evidence = "Additional
 gamma-cleavage further generates the fragment (called Jcasp)
 containing the region between gamma- and caspase-cleavage
 sites"
 SET Confidence = "High"
-a(MESH:Caspases) -> rxn(reactants(p(HGNC:APP)),products(a(CONSO:CONSO00070)))
+a(MESH:Caspases) -> rxn(reactants(p(HGNC:APP)),products(p(CONSO:CONSO00070)))
 
 SET Evidence = "One
 possible mechanism for C31’s toxicity is that C31 complexes
 with APP to recruit the interacting partners that
 initiate the signals related to cellular toxicity [136]"
 SET Confidence = "High"
-complex(p(HGNC:APP),a(CONSO:CONSO00069)) -> bp(CONSO:CONSO00061)
+complex(p(HGNC:APP),p(CONSO:CONSO00069)) -> path(CONSO:CONSO00069)
 
 SET Evidence = "Multiple
 lines of evidence demonstrate that overproduction of Abeta
@@ -416,7 +416,7 @@ results in a neurodegenerative cascade leading to synaptic
 dysfunction, formation of intraneuronal fibrillary tangles
 and eventually neuron loss in affected areas of the brain [6,142]"
 SET Confidence = "High"
-a(CHEBI:"amyloid-beta") -> bp(CONSO:CONSO00027)
+a(CHEBI:"amyloid-beta") -> path(CONSO:CONSO00027)
 a(CHEBI:"amyloid-beta") -| bp(GO:"regulation of synapse structure or activity")
 a(CHEBI:"amyloid-beta") -> bp(GO:"neurofibrillary tangle assembly")
 a(CHEBI:"amyloid-beta") -> bp(GO:"neuron death")
@@ -460,7 +460,7 @@ a(CHEBI:"amyloid-beta") -- bp(GO:"ERK1 and ERK2 cascade")
 SET Evidence = "Inhibition of dynamin-mediated but not clathrin-mediated
 Abeta internalization was also found to reduce Abeta-induced neurotoxicity [154]"
 SET Confidence = "High"
-complex(p(HGNC:DNM1),a(CHEBI:"amyloid-beta")) -| bp(CONSO:CONSO00061)
+complex(p(HGNC:DNM1),a(CHEBI:"amyloid-beta")) -| path(CONSO:CONSO00069)
 
 SET Evidence = "Although excessive Abeta causes synaptic dysfunction and synapse
 loss [142], low levels of Abeta increase hippocampal longterm
@@ -498,16 +498,16 @@ interaction with mint proteins has been shown to affect
 APP processing by stabilizing cellular APP, altering both
 sAPPalpha and Abeta generation and secretion [166]"
 SET Confidence = "High"
-complex(p(HGNC:APP),p(HGNC:APBA1)) -- a(CONSO:CONSO00067)
-complex(p(HGNC:APP),p(HGNC:APBA1)) -- sec(a(CONSO:CONSO00067))
+complex(p(HGNC:APP),p(HGNC:APBA1)) -- p(CONSO:CONSO00067)
+complex(p(HGNC:APP),p(HGNC:APBA1)) -- sec(p(CONSO:CONSO00067))
 complex(p(HGNC:APP),p(HGNC:APBA1)) -- a(CHEBI:"amyloid-beta")
 complex(p(HGNC:APP),p(HGNC:APBA1)) -- sec(a(CHEBI:"amyloid-beta"))
-complex(p(HGNC:APP),p(HGNC:APBA2)) -- a(CONSO:CONSO00067)
-complex(p(HGNC:APP),p(HGNC:APBA2)) -- sec(a(CONSO:CONSO00067))
+complex(p(HGNC:APP),p(HGNC:APBA2)) -- p(CONSO:CONSO00067)
+complex(p(HGNC:APP),p(HGNC:APBA2)) -- sec(p(CONSO:CONSO00067))
 complex(p(HGNC:APP),p(HGNC:APBA2)) -- a(CHEBI:"amyloid-beta")
 complex(p(HGNC:APP),p(HGNC:APBA2)) -- sec(a(CHEBI:"amyloid-beta"))
-complex(p(HGNC:APP),p(HGNC:APBA3)) -- a(CONSO:CONSO00067)
-complex(p(HGNC:APP),p(HGNC:APBA3)) -- sec(a(CONSO:CONSO00067))
+complex(p(HGNC:APP),p(HGNC:APBA3)) -- p(CONSO:CONSO00067)
+complex(p(HGNC:APP),p(HGNC:APBA3)) -- sec(p(CONSO:CONSO00067))
 complex(p(HGNC:APP),p(HGNC:APBA3)) -- a(CHEBI:"amyloid-beta")
 complex(p(HGNC:APP),p(HGNC:APBA3)) -- sec(a(CHEBI:"amyloid-beta"))
 
@@ -561,7 +561,7 @@ sAPPalpha secretion [189]"
 SET Confidence = "High"
 SET CellStructure = "Cell Membrane"
 complex(p(HGNC:LRP1B),p(HGNC:APP)) -| a(CHEBI:"amyloid-beta")
-complex(p(HGNC:LRP1B),p(HGNC:APP)) -> sec(a(CONSO:CONSO00067))
+complex(p(HGNC:LRP1B),p(HGNC:APP)) -> sec(p(CONSO:CONSO00067))
 
 SET Evidence = "We have found that estrogen may reduce Abeta levels by
 stimulating the alpha-secretase pathway and thereby inhibit Abeta generation"
@@ -572,15 +572,15 @@ SET Evidence = "Interestingly, the stimulation of
 sAPPalpha secretion by estrogen can be blocked by a PKC
 inhibitor, suggesting the involvement of a PKC-dependent pathway [200]"
 SET Confidence = "High"
-a(CHEBI:estrogen) -> sec(a(CONSO:CONSO00067))
-act(p(HGNC:PRKCA)) -> sec(a(CONSO:CONSO00067))
+a(CHEBI:estrogen) -> sec(p(CONSO:CONSO00067))
+act(p(HGNC:PRKCA)) -> sec(p(CONSO:CONSO00067))
 
 SET Evidence = "Indeed, phorbol ester’s effect
 on sAPPalpha secretion and Abeta generation though activation
 of protein kinase C (PKC) has been known for a long
 time [201-203]"
 SET Confidence = "High"
-a(CHEBI:"phorbol ester") -- sec(a(CONSO:CONSO00067))
+a(CHEBI:"phorbol ester") -- sec(p(CONSO:CONSO00067))
 a(CHEBI:"phorbol ester") -- a(CHEBI:"amyloid-beta")
 a(CHEBI:"phorbol ester") -> act(p(HGNC:PRKCA))
 
@@ -589,7 +589,7 @@ Abeta levels, even when the phosphorylation sites on
 APP are mutated or the entire cytoplasmic domain is
 deleted [204]"
 SET Confidence = "High"
-p(HGNC:PRKCA) -> sec(a(CONSO:CONSO00067))
+p(HGNC:PRKCA) -> sec(p(CONSO:CONSO00067))
 p(HGNC:PRKCA) -| a(CHEBI:"amyloid-beta")
 
 SET Evidence = "While PKC can directly phosphorylate

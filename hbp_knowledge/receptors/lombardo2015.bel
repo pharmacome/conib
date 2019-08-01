@@ -266,20 +266,20 @@ UNSET Confidence
 SET Evidence = "Later it was shown that Abeta is able to activate
 also beta2*-nAChRs (beta2 subunit-containing nAChRs)"
 SET Confidence = "High"
-a(CHEBI:"amyloid-beta") -> act(a(CONSO:"beta-2-containing nAChR"))
+a(CHEBI:"amyloid-beta") -> act(p(CONSO:"beta-2-containing nAChR"))
 UNSET Confidence
 
 SET Evidence = "This subunit commonly forms heteropentameric
 receptors in combination with the alpha4 subunit"
 SET Confidence = "High"
 #this subunit: beta2
-complex(p(HGNC:CHRNB2),p(HGNC:CHRNA4)) -> a(CONSO:"alpha-4 beta-2 nAChR")
+complex(p(HGNC:CHRNB2),p(HGNC:CHRNA4)) -> p(CONSO:"alpha-4 beta-2 nAChR")
 UNSET Confidence
 
 SET Evidence = "The subtype alpha4beta2 is characterized by lower calcium ion permeability and a slow
 desensitization rate compared to the homopentameric alpha7 nAChR (Quick and Lester, 2002)"
 SET Confidence = "High"
-a(CONSO:"alpha-4 beta-2 nAChR") negativeCorrelation bp(GO:"calcium ion transport")
+p(CONSO:"alpha-4 beta-2 nAChR") negativeCorrelation bp(GO:"calcium ion transport")
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") positiveCorrelation bp(GO:"calcium ion transport")
 UNSET Confidence
 
@@ -287,20 +287,20 @@ SET Evidence = "In addition to the
 alpha4beta2 subtype, it was demonstrated that the alpha7 subunit is able to coassemble
 with the beta2 subunit to form a heteropentameric receptor"
 SET Confidence = "High"
-complex(p(HGNC:CHRNB2),p(HGNC:CHRNA7)) -> a(CONSO:"alpha-7 beta-2 nAChR")
+complex(p(HGNC:CHRNB2),p(HGNC:CHRNA7)) -> p(CONSO:"alpha-7 beta-2 nAChR")
 UNSET Confidence
 
 SET Evidence = "This class of receptors seems to be particularly
 sensitive to Abeta-induced toxicity (Khiroug et al., 2002; Liu et al.,2009, 2012)"
 SET Confidence = "High"
 # this class: alpha7beta2* nAChR
-act(a(CHEBI:"amyloid-beta")) negativeCorrelation a(CONSO:"alpha-7 beta-2 nAChR")
+act(a(CHEBI:"amyloid-beta")) negativeCorrelation p(CONSO:"alpha-7 beta-2 nAChR")
 UNSET Confidence
 
 SET Evidence = "Under these experimental conditions, alpha7
 and beta2 are able to co-assemble into a functional receptor that localizes at the cell surface"
 SET Confidence = "High"
-complex(p(HGNC:CHRNB2),p(HGNC:CHRNA7)) -> surf(a(CONSO:"alpha-7 beta-2 nAChR"))
+complex(p(HGNC:CHRNB2),p(HGNC:CHRNA7)) -> surf(p(CONSO:"alpha-7 beta-2 nAChR"))
 UNSET Confidence
 
 SET Evidence = "The importance of beta2 in maintaining brain homeostasis during
@@ -317,7 +317,7 @@ pursued further as it indicates a “neurotrophic” action of beta2 receptor
 activation by endogenous ACh (Zanardi et al., 2007)"
 SET Confidence = "High"
 p(MGI:Chrnb2) -> a(MESH:"Cerebral Cortex")
-a(CHEBI:acetylcholine) -> act(a(CONSO:"beta-2-containing nAChR"))
+a(CHEBI:acetylcholine) -> act(p(CONSO:"beta-2-containing nAChR"))
 UNSET Confidence
 
 SET Evidence = "Null mutant beta2 mice were also tested to determine the role of this
@@ -400,7 +400,7 @@ interaction between alpha7 nAChRs and Abeta and its functional consequences,
 it has been demonstrated that also beta2*-nAChRs bind to Abeta"
 SET Confidence = "High"
 complex(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"),a(CHEBI:"amyloid-beta"))
-complex(a(CHEBI:"amyloid-beta"),a(CONSO:"beta-2-containing nAChR"))
+complex(a(CHEBI:"amyloid-beta"),p(CONSO:"beta-2-containing nAChR"))
 UNSET Confidence
 
 SET Evidence = "In both hippocampal interneurons and oocytes they observed a block of beta2*-nAChRs,
@@ -408,7 +408,7 @@ that could be prevented by the application of a positive allosteric
 modulator (PAM) specific for beta2 subunit containing receptors,
 desformylflustrabromine (dFBr) (Pandya and Yakel, 2011)"
 SET Confidence = "High"
-a(PUBCHEM:637026) -> act(a(CONSO:"beta-2-containing nAChR"))
+a(PUBCHEM:637026) -> act(p(CONSO:"beta-2-containing nAChR"))
 UNSET Confidence
 
 SET Evidence = "Important evidence for a functional interaction between
@@ -450,7 +450,7 @@ increased Abeta concentration resulting in a bigger inhibition of the receptor (
 SET Confidence = "Medium"
 #SET Dosage = "0.1 and 10 mM"
 SET Cell = "oocyte"
-a(CHEBI:"amyloid-beta polypeptide 40") -| act(a(CONSO:"alpha-4 beta-2 nAChR"))
+a(CHEBI:"amyloid-beta polypeptide 40") -| act(p(CONSO:"alpha-4 beta-2 nAChR"))
 a(CHEBI:"amyloid-beta polypeptide 40") -| act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
 #Cell was unset
 UNSET Cell
@@ -463,7 +463,7 @@ by its inhibition (Pym et al., 2005)"
 SET Confidence = "High"
 SET Cell = "oocyte"
 a(CHEBI:"amyloid-beta") -> act(a(CHEBI:acetylcholine))
-act(a(CHEBI:acetylcholine)) -> act(a(CONSO:"alpha-4 beta-2 nAChR"))
+act(a(CHEBI:acetylcholine)) -> act(p(CONSO:"alpha-4 beta-2 nAChR"))
 UNSET Cell
 UNSET Confidence
 
@@ -487,7 +487,7 @@ SET Evidence = "Further studies showed an
 inhibitory effect of Abeta1-42 on human alpha4beta2 nAChRs transfected in
 the cell line (SHEP1) (Wu et al., 2004)"
 SET Confidence = "High"
-a(CHEBI:"amyloid-beta polypeptide 42") -| act(a(CONSO:"alpha-4 beta-2 nAChR"))
+a(CHEBI:"amyloid-beta polypeptide 42") -| act(p(CONSO:"alpha-4 beta-2 nAChR"))
 UNSET Confidence
 
 SET Evidence = "The oligomeric form of Abeta1-40 was able to activate alpha7 nAChR expressed
@@ -508,10 +508,10 @@ led to receptor activation that caused a perturbation of intracellular
 calcium homeostasis followed by mitochondrial dysfunction and
 increased oxidative stress (Arora et al., 2013)"
 SET Confidence = "High"
-composite(a(CHEBI:"amyloid-beta"),a(CHEBI:nicotine)) -> act(a(CONSO:"alpha-4 beta-2 nAChR"))
-act(a(CONSO:"alpha-4 beta-2 nAChR")) -| bp(GO:"cellular calcium ion homeostasis")
-act(a(CONSO:"alpha-4 beta-2 nAChR")) -> path(CONSO:"mitochondrial dysfunction")
-act(a(CONSO:"alpha-4 beta-2 nAChR")) -> bp(GO:"response to oxidative stress")
+composite(a(CHEBI:"amyloid-beta"),a(CHEBI:nicotine)) -> act(p(CONSO:"alpha-4 beta-2 nAChR"))
+act(p(CONSO:"alpha-4 beta-2 nAChR")) -| bp(GO:"cellular calcium ion homeostasis")
+act(p(CONSO:"alpha-4 beta-2 nAChR")) -> path(CONSO:"mitochondrial dysfunction")
+act(p(CONSO:"alpha-4 beta-2 nAChR")) -> bp(GO:"response to oxidative stress")
 UNSET Confidence
 
 SET Evidence = "In a different study, rat hippocampus and cortex were investigated and the activation of

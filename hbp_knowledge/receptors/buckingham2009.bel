@@ -280,7 +280,7 @@ al., 2006; Sabbagh et al., 2006)."
 SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -- g(HGNC:CHAT)
 path(MESH:"Alzheimer Disease") -- g(HGNC:ACHE)
-path(MESH:"Alzheimer Disease") -- a(CONSO:"alpha-4 beta-2 nAChR")
+path(MESH:"Alzheimer Disease") -- p(CONSO:"alpha-4 beta-2 nAChR")
 p(HGNC:CHRNA7) -- path(MESH:"Alzheimer Disease")
 UNSET Confidence
 
@@ -423,7 +423,7 @@ rons against Abeta toxicity is blocked by the alpha4beta2 antagonist,
 dihydro-beta-erythroidine (Kihara et al., 1998)."
 SET Confidence = "High"
 a(CHEBI:"dihydro-beta-erythroidine") -| act(a(CHEBI:nicotine))
-a(CHEBI:"dihydro-beta-erythroidine") -| act(a(CONSO:"alpha-4 beta-2 nAChR"))
+a(CHEBI:"dihydro-beta-erythroidine") -| act(p(CONSO:"alpha-4 beta-2 nAChR"))
 a(CHEBI:"dihydro-beta-erythroidine") -| bp(MESH:Neuroprotection)
 UNSET Confidence
 
@@ -469,7 +469,7 @@ UNSET CellLine
 
 SET MeSHAnatomy="Neurons"
 
-act(a(CHEBI:"glutamate(2-)")) -> bp(CONSO:Excitotoxicity)
+act(a(CHEBI:"glutamate(2-)")) -> path(CONSO:Excitotoxicity)
 act(p(HGNC:CHRNA7)) -| act(a(CHEBI:"glutamate(2-)"))
 
 UNSET MeSHAnatomy
@@ -541,7 +541,7 @@ SET Confidence = "High"
 SET Species="10090"
 
 act(a(CHEBI:nicotine)) -| act(a(CHEBI:methamphetamine))
-act(a(CHEBI:methamphetamine)) -> bp(CONSO:Neurodegeneration)
+act(a(CHEBI:methamphetamine)) -> path(CONSO:Neurodegeneration)
 act(p(HGNC:CHRNA4)) -> act(a(CHEBI:nicotine))
 
 UNSET Species
@@ -1259,11 +1259,11 @@ SET CellLine="SH-SY5Y"
 
 act(a(CHEBI:carbachol)) -> act(a(CHEBI:phosphatidylinositol),ma(MESH:Hydrolysis))
 #hydrolysis added
-p(CONSO:"APOE e4") -| act(a(CHEBI:carbachol))
+g(CONSO:"APOE e4") -| act(a(CHEBI:carbachol))
 a(CHEBI:"amyloid-beta") -| act(a(CHEBI:carbachol))
-complex(a(CHEBI:"amyloid-beta"), p(CONSO:"APOE e4")) -| act(a(CHEBI:carbachol))
+complex(a(CHEBI:"amyloid-beta"), g(CONSO:"APOE e4")) -| act(a(CHEBI:carbachol))
 a(CHEBI:estrogen) -| act(a(CHEBI:"amyloid-beta"))
-a(CHEBI:estrogen) -| act(p(CONSO:"APOE e4"))
+a(CHEBI:estrogen) -| act(g(CONSO:"APOE e4"))
 a(CHEBI:wortmannin) -| act(a(CHEBI:estrogen))
 p(FPLX:PI3K) reg act(a(CHEBI:estrogen))
 #changes made wrt evidence
@@ -1303,11 +1303,11 @@ SET CellLine="PC12"
 a(CHEBI:nicotine) -> p(HGNC:CHRNA7)
 #nicotine stimulates CHRNA7 and not vice versa
 a(CHEBI:nicotine) -> act(p(HGNC:CHRNA7))
-act(p(HGNC:CHRNA7)) -> sec(a(CONSO:"sAPP-beta"))
-a(CONSO:"sAPP-beta") -| act(a(CHEBI:"amyloid-beta"))
+act(p(HGNC:CHRNA7)) -> sec(p(CONSO:"sAPP-beta"))
+p(CONSO:"sAPP-beta") -| act(a(CHEBI:"amyloid-beta"))
 UNSET CellLine
 
-a(CHEBI:nicotine) -| a(CONSO:"sAPP-gamma")
+a(CHEBI:nicotine) -| p(CONSO:"sAPP-gamma")
 #can we write here also that nicotine stimulates cholinergic receptors, which in turn lowers aAPP-gamma? Nicotine does not do it directly after all.
 
 SET CellLine="SH-SY5Y"
@@ -1315,7 +1315,7 @@ SET CellLine="SH-SY5Y"
 a(CHEBI:galanthamine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 a(CHEBI:galanthamine) -| act(p(HGNC:ACHE))
 #Statements added wrt evidence
-act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> sec(a(CONSO:"sAPP-beta"))
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> sec(p(CONSO:"sAPP-beta"))
 
 UNSET CellLine
 UNSET Confidence

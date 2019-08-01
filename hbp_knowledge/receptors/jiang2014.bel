@@ -371,15 +371,15 @@ production and instead generates secreted sAPPalpha that
 has been shown to be neuroprotective"
 SET Confidence = "High"
 p(HGNC:BACE1) -> deg(p(HGNC:APP))
-p(HGNC:BACE1) -> a(CONSO:"sAPP-beta")
+p(HGNC:BACE1) -> p(CONSO:"sAPP-beta")
 #APP C-terminal fragment-beta = C99
-p(HGNC:BACE1) -> a(CONSO:C99)
-complex(FPLX:"Gamma_secretase") -> deg(a(CONSO:C99))
+p(HGNC:BACE1) -> p(CONSO:C99)
+complex(FPLX:"Gamma_secretase") -> deg(p(CONSO:C99))
 complex(FPLX:"Gamma_secretase") -> a(CHEBI:"amyloid-beta")
-complex(FPLX:"Gamma_secretase") -> a(CONSO:AICD)
+complex(FPLX:"Gamma_secretase") -> p(CONSO:AICD)
 p(HGNC:ADAM10) -> deg(p(HGNC:APP))
-p(HGNC:ADAM10) -> a(CONSO:"sAPP-alpha")
-a(CONSO:"sAPP-alpha") -> bp(MESH:Neuroprotection)
+p(HGNC:ADAM10) -> p(CONSO:"sAPP-alpha")
+p(CONSO:"sAPP-alpha") -> bp(MESH:Neuroprotection)
 UNSET Confidence
 
 SET Evidence="Interestingly, stimulation of M1 mAChR by agonists has been found to
@@ -389,7 +389,7 @@ stimulation of M1 mAChR. PKC may promote the activity
 of alpha-secretase[71] and the traffi cking of APP from the Golgi/
 trans-Golgi network to the cell surface"
 SET Confidence = "High"
-act(p(HGNC:CHRM1)) -> a(CONSO:"sAPP-alpha")
+act(p(HGNC:CHRM1)) -> p(CONSO:"sAPP-alpha")
 act(p(HGNC:CHRM1)) -| a(CHEBI:"amyloid-beta")
 act(p(HGNC:CHRM1)) -> act(p(FPLX:PKC))
 act(p(FPLX:PKC)) -> act(p(HGNC:ADAM10))
@@ -467,10 +467,10 @@ SET Confidence = "Medium"
 act(p(HGNC:CHRM1)) -| act(p(HGNC:GSK3B))
 act(p(HGNC:CHRM1)) -> act(p(FPLX:PKC))
 act(p(FPLX:PKC)) -| act(p(HGNC:GSK3B))
-act(p(HGNC:CHRM1)) -| bp(CONSO:neurotoxicity)
+act(p(HGNC:CHRM1)) -| path(CONSO:neurotoxicity)
 #above Statement was added on the basis of evidence
 act(p(HGNC:CHRM1)) -> bp(GO:"Wnt signaling pathway")
-bp(GO:"Wnt signaling pathway") -| bp(CONSO:neurotoxicity)
+bp(GO:"Wnt signaling pathway") -| path(CONSO:neurotoxicity)
 UNSET Confidence
 
 SET Evidence="Stimulation
@@ -544,7 +544,7 @@ SET MeSHDisease="Alzheimer Disease"
 
 a(CHEBI:"amyloid-beta") -| complex(p(HGNC:CHRM1), p(FPLX:"G_protein"))
 a(CHEBI:"amyloid-beta") -| act(p(HGNC:CHRM1))
-complex(p(HGNC:CHRM1), p(FPLX:"G_protein")) -> a(CONSO:"sAPP-alpha")
+complex(p(HGNC:CHRM1), p(FPLX:"G_protein")) -> p(CONSO:"sAPP-alpha")
 complex(p(HGNC:CHRM1), p(FPLX:"G_protein")) -| a(CHEBI:"amyloid-beta")
 complex(p(HGNC:CHRM1), p(FPLX:"G_protein")) -> bp(GO:"signal transduction")
 
@@ -616,7 +616,7 @@ SET MeSHAnatomy="Cerebrospinal Fluid"
 SET MeSHDisease="Alzheimer Disease"
 
 a(CHEBI:cevimeline) -| a(CHEBI:"amyloid-beta")
-a(CHEBI:cevimeline) cnc a(CONSO:"sAPP-alpha")
+a(CHEBI:cevimeline) cnc p(CONSO:"sAPP-alpha")
 a(CHEBI:cevimeline) -> path(MESH:Confusion)
 a(CHEBI:cevimeline) -> path(MESH:Diarrhea)
 a(CHEBI:cevimeline) -> path(MESH:Asthenia)
@@ -637,7 +637,7 @@ side-effects such as sweating and salivation"
 SET Confidence = "Medium"
 SET MeSHDisease = "Alzheimer Disease"
 #MeSHDisease was set
-a(MESH:"talsaclidine fumarate") -> a(CONSO:"sAPP-alpha")
+a(MESH:"talsaclidine fumarate") -> p(CONSO:"sAPP-alpha")
 
 SET MeSHAnatomy="Cerebrospinal Fluid"
 a(MESH:"talsaclidine fumarate") -| a(CHEBI:"amyloid-beta")
