@@ -18,12 +18,12 @@ SET DOCUMENT Description = ""
 # --------------------------------------------------------------
  DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
 # DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
-# DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+ DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 # DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
  DEFINE NAMESPACE EFO            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/5d2c2ea6f7112421cc8089a3f021a75ab60bb373/external/efo-names.belns"
 # DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
- DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/0816cb6686751420365441adc6a28ced2d272f14/export/conso-names.belns"
-DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+ DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/0816cb6686751420365441adc6a28ced2d272f14/export/conso-names.belns"
+ DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
  DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
  DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
  DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
@@ -174,7 +174,7 @@ proliferating B lymphocytes, plasma cells, helper T lymphocytes
 and a network of follicular dendritic cells (Serafini
 et al., 2004; Magliozzi et al., 2007)."
 SET Anatomy = "subarachnoid space"
-complex(p(HGNC:IL12A), p(HGNC:EBI3)) hasComponents list(a(MESH:"B-Lymphocytes"), a(MESH:"Plasma Cells"), a(MESH:"T-Lymphocytes, Helper-Inducer"), a(MESH:"Dendritic Cells, Follicular"))
+path(MESH:"Tertiary Lymphoid Structures") hasComponents list(a(MESH:"B-Lymphocytes"), a(MESH:"Plasma Cells"), a(MESH:"T-Lymphocytes, Helper-Inducer"), a(MESH:"Dendritic Cells, Follicular"))
 UNSET Anatomy
 
 SET Evidence = "Follicular dendritic cells within follicle-like
@@ -190,3 +190,547 @@ SET Evidence - "However, clonally-restricted
 B cells have been found in CSF from patients with RRMS
 (Kuenz et al., 2008) indicating intrathecal clonal expansion
 of B cells."
+SET Cell = "lymphocyte of B lineage"
+path(MESH:"Multiple Sclerosis, Relapsing-Remitting") -> path(CONSO:"Clonal Expansion")
+UNSET Cell
+
+SET Evidence = "Notably, follicle-
+like structures are probably able to sustain a high level
+of humoral response, as well as other autoimmune mechanisms
+within the CNS, in a manner independent of peripheral
+inflammation."
+path(MESH:"Immunity, Humoral") cnc path(MESH:"Tertiary Lymphoid Structures")
+SET Anatomy = "central nervous system"
+path(MESH:Autoimmunity) cnc path(MESH:"Tertiary Lymphoid Structures")
+UNSET Anatomy
+
+SET Evidence = "In multiple sclerosis, cortical demyelination, neurodegeneration and atrophy
+show positive correlation with diffuse inflammatory infiltrates and lymphoid follicle-like structure in leptomeninges, indicating immune activation in this compartment contributes to cortical pathology in multiple sclerosis (Lassmann et al., 2007; Magliozzi et al., 2007, 2010)."
+SET Disease = "multiple sclerosis"
+path(MESH:"Neurodegenerative Diseases") pos bp(GO:"inflammatory response")
+ath(MESH:"Neurodegenerative Diseases") pos path(MESH:"Tertiary Lymphoid Structures")
+path(MESH:Atrophy) pos bp(GO:"inflammatory response")
+path(MESH:Atrophy) pos path(MESH:"Tertiary Lymphoid Structures")
+SET Anatomy = "cortex"
+path(MESH:"Demyelinating Diseases") pos bp(GO:"inflammatory response")
+path(MESH:"Demyelinating Diseases") pos path(MESH:"Tertiary Lymphoid Structures")
+bp(GO:"inflammatory response") -> path(MESH:Pathology)
+UNSET Anatomy
+UNSET Disease
+
+SET Evidence = "Moreover, in SPMS meningeal inflammation is associated
+with damage to the glia limitants, and a gradient of neuronal
+loss is observed that is greater in superficial cortical
+layers nearer the pial surface than in inner cortical layers
+(Magliozzi et al., 2010)."
+#pial surface
+SET Disease = "multiple sclerosis"
+SET Anatomy = "cortex"
+path(MESH:Meningitis) -> bp(GO:"neuron death")
+UNSET Anatomy
+UNSET Disease
+
+SET Evidence = "Indeed, presence of follicle-like structure in patients with SPMS has
+been associated with lower age at disease onset, more
+severe disability and higher death rates (Magliozzi et al.,
+2007, 2010; Howell et al., 2011)."
+composite(p(MESH:"Tertiary Lymphoid Structures"), path(MESH:"Multiple Sclerosis, Chronic Progressive")) -| path(MESH:"Age of Onset")
+composite(p(MESH:"Tertiary Lymphoid Structures"), path(MESH:"Multiple Sclerosis, Chronic Progressive")) => bp(GO:"neuron death")
+
+SET Evidence = "In
+both cases, diffuse meningeal inflammation and cortical
+neuronal pathology may be significant contributors to clinical
+progression, suggesting similar pathogenic mechanisms,
+irrespective of a prior relapsing-remitting course or the presence of follicle-like structures (Choi et al., 2012)."
+#both cases - PPMS and SPMS
+path(MESH:Meningitis) -> path(MESH:"Multiple Sclerosis, Chronic Progressive")
+path(MESH:"Multiple Sclerosis, Relapsing-Remitting") cnc path(MESH:Meningitis)
+p(MESH:"Tertiary Lymphoid Structures") cnc path(MESH:Meningitis)
+SET Anatomy = "cortex"
+path(MESH:Pathology) -> path(MESH:"Multiple Sclerosis, Chronic Progressive")
+path(MESH:"Multiple Sclerosis, Relapsing-Remitting") cnc path(MESH:Pathology)
+p(MESH:"Tertiary Lymphoid Structures") cnc path(MESH:Pathology)
+UNSET Anatomy
+
+SET Evidence = "Furthermore, expression of EBV lytic
+proteins BZLF1 and BERF1 was found to be restricted to
+plasma cells located in active cortical lesions (Magliozzi
+et al., 2013)"
+#3783744 - BZLF1
+#7707 - BERF1
+SET Anatomy = "cortex"
+path(MESH:"Epstein-Barr Virus Infections") hasComponents list(p(NCBIGENE:3783744, loc(MESH:"Plasma Cells")),p(NCBIGENE:7707, loc(MESH:"Plasma Cells")))
+UNSET Anatomy
+
+SET Evidence = "It is interesting to note that early lytic EBV
+antigens elicited CD8-mediated immune responses, triggering
+strong cytotoxic effects on brain tissue (Hislop et al.,
+2007)."
+path(MESH:"Epstein-Barr Virus Infections") => bp(GO:"CD8-positive, alpha-beta T cell differentiation involved in immune response")
+SET MeSHAnatomy = "Brain"
+bp(GO:"CD8-positive, alpha-beta T cell differentiation involved in immune response") => a(MESH:Cytotoxins)
+UNSET MeSHAnatomy
+
+SET Evidence = "Indeed, the most active cortical multiple sclerosis
+lesions are crowded with CD8 + T cells and contain few
+B cells or plasma cells, suggesting cortical inflammation
+might correlate with reduction in EBV-infected B/plasma
+cells numbers (Magliozzi et al., 2013)."
+path(MESH:"Multiple Sclerosis") -> a(MESH:"CD8-Positive T-Lymphocytes")
+SET Anatomy = "cortex"
+SET Cell = {"lymphocyte of B lineage", "plasma cell"}
+path(MESH:Inflammation) =| path(MESH:"Epstein-Barr Virus Infections")
+UNSET Cell
+UNSET Anatomy
+
+SET Evidence = "Cytotoxic T lymphocytes release pro-inflammatory cytokines
+such as TNF-alpha and interferon (IFN)-gamma, as well as
+perforin, and granzymes A and B, among others (Huse
+et al., 2008; Mizuno et al., 2008; Meuth et al., 2009)."
+a(MESH:"T-Lymphocytes, Cytotoxic") -> sec(p(HGNC:TNF))
+a(MESH:"T-Lymphocytes, Cytotoxic") -> sec(p(HGNC:IFNG))
+a(MESH:"T-Lymphocytes, Cytotoxic") -> sec(p(HGNC:PRF1))
+a(MESH:"T-Lymphocytes, Cytotoxic") -> sec(p(HGNC:GZMA))
+a(MESH:"T-Lymphocytes, Cytotoxic") -> sec(p(HGNC:GZMB))
+
+SET Evidence = "TNF-alpha for instance, can trigger cell death via the p55 receptor on neurons (Venters et al., 2000)."
+#TNFRSF1A - TNF-alpha p55 receptor
+p(HGNC:TNFRSF1A, loc(MESH:Neurons)) -> bp(GO:"neuron death")
+
+SET Evidence = "IFN-gamma on the
+other hand, increases glutamate neurotoxicity and calcium
+influx into neurons through modulating the IFN-gamma/AMPA
+GluR1 complex (Mizuno et al., 2008)."
+p(HGNC:IFNG) neg bp(GO:"glutamate homeostasis")
+SET Cell = "neuron"
+complex(p(HGNC:IFNG), p(HGNCGENEFAMILY:"Glutamate ionotropic receptor AMPA type subunits")) reg bp(GO:"calcium ion import")
+UNSET Cell
+
+SET Evidence = "Perforin and granzyme
+directly damage the membrane, causing sodium and
+calcium influx that ultimately leads to energy breakdown
+within the cell."
+p(HGNC:PRF1) -> bp(GO:"sodium ion import across plasma membrane")
+p(HGNC:GZMA) -> bp(GO:"sodium ion import across plasma membrane")
+p(HGNC:GZMB) -> bp(GO:"sodium ion import across plasma membrane")
+p(HGNC:PRF1) -> bp(GO:"calcium ion import")
+p(HGNC:GZMA) -> bp(GO:"calcium ion import")
+p(HGNC:GZMB) -> bp(GO:"calcium ion import")
+bp(GO:"calcium ion import") -> path(MESH:"Energy Metabolism")
+bp(GO:"sodium ion import across plasma membrane") -> path(MESH:"Energy Metabolism")
+
+SET Evidence = "Furthermore, interaction of Fas
+antigen on cytotoxic T lymphocyte with Fas ligand on neurons
+is an additional mechanism activating the intracellular
+caspase cascade causing axonal/neuronal damage (Medana
+et al., 2000; Giuliani et al., 2003)."
+SET Cell = "neuron"
+p(HGNC:FASLG) -> composite(a(MESH:"T-Lymphocytes, Cytotoxic"), p(HGNC:FAS))
+composite(a(MESH:"T-Lymphocytes, Cytotoxic"), p(HGNC:FAS)) -> act(a(MESH:Caspases))
+act(a(MESH:Caspases)) -> path(MESH:"Nerve Degeneration")
+UNSET Cell
+
+SET Evidence = "Active demyelination and neurodegeneration have also been linked to microglial activation in early lesions with accumulation of macrophages in injured tissues (Lassmann, 2014)."
+path(MESH:"Nerve Degeneration") -- bp(GO:"microglial cell activation")
+path(MESH:"Demyelinating Diseases") -- bp(GO:"microglial cell activation")
+#in injured tissues
+bp(GO:"microglial cell activation") => a(MESH:Macrophages)
+
+SET Evidence = "Under normal circumstances, inactive microglia contributes to neuronal compartment
+homeostasis."
+SET Cell = "neuron"
+bp(GO:"microglial cell activation") -| bp(GO:"compartment boundary maintenance")
+UNSET Cell
+
+SET Evidence = "However, it also plays a central role in autoimmune disorders as it can sustain ongoing inflammation once activated (Correale, 2014)."
+#It - microglia
+bp(GO:"microglial cell activation") -- path(MESH:Inflammation)
+bp(GO:"microglial cell activation") -- path(MESH:"Autoimmune Diseases")
+
+SET Evidence = "In multiple sclerosis, activated microglia damage oligodendrocytes
+through different mechanisms including: secretion of pro-inflammatory cytokines such as IL-1, IL-6, TNF-alpha, and IFN-gamma, phagocytic activity, and presentation of antigens via MHC Class II to CD4+ T cells (Correale, 2014)."
+bp(GO:"microglial cell activation") =| a(MESH:Oligodendroglia)
+bp(GO:"microglial cell activation") -> sec(p(HGNC:IL1))
+bp(GO:"microglial cell activation") -> sec(p(HGNC:IL6))
+bp(GO:"microglial cell activation") -> sec(p(HGNC:TNF))
+bp(GO:"microglial cell activation") -> sec(p(HGNC:IFNG))
+bp(GO:"microglial cell activation") -> act(a(MESH:Phagocytes))
+bp(GO:"microglial cell activation") pos bp(GO:"regulation of antigen processing and presentation of peptide or polysaccharide antigen via MHC class II")
+p(HGNC:IL1) =| a(MESH:Oligodendroglia)
+p(HGNC:IL6) =| a(MESH:Oligodendroglia)
+p(HGNC:TNF) =| a(MESH:Oligodendroglia)
+p(HGNC:IFNG) =| a(MESH:Oligodendroglia)
+act(a(MESH:Phagocytes) =| a(MESH:Oligodendroglia)
+bp(GO:"regulation of antigen processing and presentation of peptide or polysaccharide antigen via MHC class II") =| a(MESH:Oligodendroglia)
+
+SET Evidence = "In addition, direct damage to neurons occurs through reactive
+oxygen and nitrogen species (ROS/NRS) produced by microglia, inducing mitochondrial dysfunction"
+a(CHEBI:"reactive oxygen species") => path(MESH:"Mitochondrial Diseases")
+a(CHEBI:"reactive nitrogen species") => path(MESH:"Mitochondrial Diseases")
+a(MESH:Microglia) => sec(a(CHEBI:"reactive oxygen species"))
+a(MESH:Microglia) => sec(a(CHEBI:"reactive nitrogen species"))
+
+SET Evidence = "It is interesting to note that activated microglia possess
+a puzzling array of neuroprotective functions as well, including debris phagocytosis and clearance, elaboration of growth factors and neuronal circuit-shaping (Arnett et al., 2001; Kotter et al., 2001; Correale, 2014)."
+bp(GO:"microglial cell activation") -> path(MESH:Neuroprotection)
+bp(GO:"microglial cell activation") -> path(MESH:Phagocytosis)
+bp(GO:"microglial cell activation") -> bp(GO:"neuron remodeling")
+
+SET Evidence = "Laquinimod, an emerging oral medication for multiple sclerosis (see below) with significant CNS impact, reduces astrocyte activation (Bruck et al., 2012), and inhibits microglial activation in human brain cell cultures."
+a(CHEBI:laquinimod) -| path(MESH:"Multiple Sclerosis")
+a(CHEBI:laquinimod) neg bp(GO:"central nervous system development")
+a(CHEBI:laquinimod) -| bp(GO:"astrocyte activation")
+SET Species = "9606"
+SET MeSHAnatomy = "Brain"
+a(CHEBI:laquinimod) =| bp(GO:"microglial cell activation")
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "It reduces both pro- and anti-inflammatory cytokine levels, while growth factor secretion remains high."
+# It - laquinimod
+a(CHEBI:laquinimod) -| a(MESH:"Anti-Inflammatory Agents")
+a(CHEBI:laquinimod) cnc sec(a(MESH:"Growth Differentiation Factors"))
+
+
+SET MeSHDisease = "Encephalomyelitis, Autoimmune, Experimental"
+
+SET Evidence = "Furthermore, a reduction in microglial/macrophage density has been
+observed in experimental autoimmune encephalomyelitis (EAE) animals treated with laquinimod, ultimately preventing axonal injury and demyelination progression (Mishra et al., 2014)."
+SET Cell = {"microglial cell", "macrophage"}
+a(CHEBI:laquinimod) -| path(MESH:"Population Density")
+UNSET Cell
+a(CHEBI:laquinimod) -| path(MESH:"Diffuse Axonal Injury")
+a(CHEBI:laquinimod) -| path(MESH:"Demyelinating Diseases")
+
+SET Evidence = "Recent investigations have demonstrated that in chronic phases of EAE, astrocyte depletion
+ameliorates disease severity, a deleterious effects mediated by preferential expression of 4-galactosyltransferase 5 and 6 (B4GALT5 and B4GALT6; Mayo et al., 2014)."
+bp(GO:"astrocyte activation") =| path(MESH:Disease)
+p(HGNC:B4GALT5) => path(MESH:Disease)
+p(HGMC:B4GALT6) => path(MESH:Disease)
+
+SET Evidence = "Notably, in human multiple sclerosis lesions BAGALT6 is expressed by reactive astrocytes."
+SET Species = "9606"
+SET Disease = "multiple sclerosis"
+bp(GO:"astrocyte activation") -> p(HGMC:B4GALT6)
+UNSET Disease
+UNSET Species
+
+SET Evidence = "These enzymes synthesize the signalling molecule lactosylceramide (LacCer), which is
+significantly increased in the CNS during progressive phases of EAE."
+#These enzymes : B4GALT5 and B4GALT6
+p(HGNC:B4GALT5) -> a(PUBCHEM:20057304)
+p(HGMC:B4GALT6) -> a(PUBCHEM:20057304)
+SET Anatomy = "central nervous system"
+path(MESH:"Encephalomyelitis, Autoimmune, Experimental") => a(PUBCHEM:20057304)
+UNSET Anatomy
+
+SET Evidence = "LacCer promotes astrocyte activation, leading to granulocyte-macrophage colony-stimulating factor (GMCSF, encoded by CSF2) and CCL2 gene induction, consequently activating microglia and causing infiltration of monocytes from the peripheral blood."
+a(PUBCHEM:20057304) => bp(GO:"astrocyte activation")
+bp(GO:"astrocyte activation") => g(HGNC:CSF2)
+bp(GO:"astrocyte activation") => g(HGNC:CCL2)
+g(HGNC:CSF2) -> bp(GO:"microglial cell activation")
+g(HGNC:CCL2) -> bp(GO:"microglial cell activation")
+bp(GO:"microglial cell activation") -> bp(GO:"monocyte migration into blood stream")
+
+SET Evidence = "Remarkably, inhibition of B4galt6 in mice suppresses disease progression and
+neurodegeneration in EAE (Mayo et al., 2014)."
+SET Species = "10090"
+p(HGMC:B4GALT6) -> path(MESH:"Encephalomyelitis, Autoimmune, Experimental")
+p(HGMC:B4GALT6) -> path(MESH:"Neurodegenerative Diseases")
+UNSET Species
+
+UNSET MeSHDisease
+
+SET Evidence = "Evidence from both imaging and pathology suggest that the inflammatory demyelinating
+process in early multiple sclerosis drives a pathogenic cascade of events causing neurodegeneration, which in turn is further amplified by brain ageing, microglial activation and accumulated disease burden (Popescu and Lucchinetti, 2012; Mahad et al., 2015)."
+path(MESH:"Demyelinating Diseases") -> path(MESH:"Neurodegenerative Diseases")
+bp(GO:"microglial cell activation") -> path(MESH:"Neurodegenerative Diseases")
+path(MESH:Aging) -> path(MESH:"Neurodegenerative Diseases")
+
+SET Evidence = "Because pathology findings and number of transected axons correlate with degree of
+inflammation in acute multiple sclerosis lesions (Trapp et al., 1998; Frischer et al., 2009), great interest has been focused on neurotoxic products released by innate immune cells, particularly ROS, RNS and nitric oxide (NO) produced by macrophages, microglia, and astrocytes, both in multiple sclerosis and in EAE (Haider et al., 2011)."
+SET Disease = "multiple sclerosis"
+bp(GO:"activation of innate immune response") => sec(a(CHEBI:"reactive oxygen species"))
+bp(GO:"activation of innate immune response") => sec(a(CHEBI:"reactive nitrogen species"))
+bp(GO:"activation of innate immune response") => sec(a(CHEBI:"nitric oxide"))
+a(CHEBI:"reactive oxygen species") isA a(MESH:Neurotoxins)
+a(CHEBI:"reactive nitrogen species") isA a(MESH:Neurotoxins)
+a(CHEBI:"nitric oxide") isA a(MESH:Neurotoxins)
+a(MESH:Macrophages) => a(CHEBI:"reactive oxygen species")
+a(MESH:Macrophages) => a(CHEBI:"reactive nitrogen species")
+a(MESH:Macrophages) => a(CHEBI:"nitric oxide")
+a(MESH:Microglia) => a(CHEBI:"reactive oxygen species")
+a(MESH:Microglia) => a(CHEBI:"reactive nitrogen species")
+a(MESH:Microglia) => a(CHEBI:"nitric oxide")
+a(MESH:Astrocytes) => a(CHEBI:"reactive oxygen species")
+a(MESH:Astrocytes) => a(CHEBI:"reactive nitrogen species")
+a(MESH:Astrocytes) => a(CHEBI:"nitric oxide")
+UNSET Disease
+
+SET Evidence  = "NO has been shown to cause irreversible conduction blockade in axons and to drive spinal cord degeneration in rats (Smith et al., 2001)."
+SET Species = "10114"
+a(CHEBI:"nitric oxide") =| path(MESH:"Neural Conduction")
+a(CHEBI:"nitric oxide") =| bp(GO:"spinal cord development")
+UNSET Species
+
+SET Evidence = "In turn, scavengers reducing ROS and RNS levels in EAE were able to attenuate focal
+axonal degeneration without altering the number of immune cells is EAE lesions."
+a(MESH:"Free Radical Scavengers") =| a(CHEBI:"reactive oxygen species")
+a(MESH:"Free Radical Scavengers") =| a(CHEBI:"reactive nitrogen species")
+a(MESH:"Free Radical Scavengers") cnc path(MESH:Immunity)
+
+SET Evidence = "Neuronal cell bodies in deeper layers of the cortex show evidence of impaired functional
+activity of mitochondrial respiratory chain complexes (Campbell et al., 2011), as well as alterations in motor proteins (encoded by nuclear DNA) responsible for the movement of the mitochondria from cell body to axons (Campbell et al., 2014)."
+#in case of disease
+SET Anatomy = "cortex"
+path(MESH:"Multiple Sclerosis") -| act(p(HGNC:"Electron Transport Chain Complex Proteins"))
+path(MESH:"Multiple Sclerosis") -| p(MESH:"Molecular Motor Proteins")
+p(MESH:"Molecular Motor Proteins") => tloc(p(MESH:Mitochondria),"cell body",axon)
+UNSET Anatomy
+
+SET Evidence = "First, mitochondrial dysfunction results in energy deficiency, which in mild forms
+will induce functional disturbances in the absence of structural damage."
+path(MESH:"Mitochondrial Diseases") -| path(MESH:"Energy Metabolism")
+path(MESH:"Mitochondrial Diseases") -| act(p(MESH:Mitochondria, ma(GO:"molecular_function")))
+
+SET Evidence = "However, when mitochondrial injury surpasses a certain threshold, energy deficiency will lead to axonal degeneration and cell death (Friese et al., 2014)."
+path(MESH:"Energy Metabolism") =| path(MESH:"Nerve Degeneration")
+path(MESH:"Energy Metabolism") =| bp(GO:"cell death")
+
+SET Evidence = "Second, mitochondrial injury may amplify oxidative stress through release of oxygen radicals generated as a result of impaired respiratory chain function, thus establishing a vicious
+cycle of tissue destruction (Murphy, 2009)"
+path(MESH:"Mitochondrial Diseases") -| act(p(HGNC:"Electron Transport Chain Complex Proteins"))
+act(p(HGNC:"Electron Transport Chain Complex Proteins")) =| sec(a(CHEBI:"reactive oxygen species"))
+sec(a(CHEBI:"reactive oxygen species")) => path(MESH:"Oxidative Stress")
+
+SET Evidence = "In addition, non-toxic ferric iron is released into the extracellular
+space from damaged oligodendrocytes in multiple sclerosis lesions, where it undergoes transformation to the divalent ferrous form, further increasing ROS toxicity (Hametner et al., 2013)."
+SET Disease = "multiple sclerosis"
+a(MESH:Oligodendroglia) =| a(CHEBI:"iron(3+)", loc(GO:"extracellular space"))
+a(CHEBI:"iron(3+)", loc(GO:"extracellular space")) -> a(CHEBI:"iron(2+)", loc(GO:"extracellular space"))
+a(CHEBI:"iron(2+)", loc(GO:"extracellular space")) => a(CHEBI:"reactive oxygen species")
+UNSET Disease
+
+SET Evidence = "If axonal Na+ rises above its nominal concentration, the Na+ /Ca2+ exchanger, normally exchanging axoplasmic Ca2+ for extracellular Na+ , will operate in a reverse Ca2+ importing mode."
+#above its norminal level
+a(CHEBI:"sodium(1+)", loc(GO:axon)) => a(CHEBI:"calcium(2+)", loc(GO:axon))
+p(MESH:"Sodium-Calcium Exchanger") =| a(CHEBI:"calcium(2+)", loc(GO:axon))
+p(MESH:"Sodium-Calcium Exchanger") => a(CHEBI:"sodium(1+)", loc(GO:axon))
+p(MESH:"Sodium-Calcium Exchanger") =| a(CHEBI:"calcium(2+)", loc(GO:"extracellular space"))
+
+SET Evidence = "With increasing electrical traffic, axoplasmic Ca2+ will rise and eventually a Ca2+-
+mediated degenerative response will be initiated (Trapp and Stys, 2009)."
+a(CHEBI:"calcium(2+)", loc(GO:axon)) => path(MESH:"Neurodegenerative Diseases")
+
+SET Evidence = "Excess of intra-axonal Ca2+ may stimulate a variety of Ca2+ dependent catabolic enzyme systems,
+including proteases, phospholipases and calpains, ultimately leading to progressive intra-axonal proteolytic degradation of cytoskeletal proteins and axonal degeneration (Stys, 2005)."
+a(CHEBI:"calcium(2+)", loc(GO:axon)) -> a(MESH:Calpain)
+a(CHEBI:"calcium(2+)", loc(GO:axon)) -> a(MESH:Phospholipases)
+a(MESH:Calpain) => path(MESH:"Nerve Degeneration")
+a(MESH:Phospholipases) => path(MESH:"Nerve Degeneration")
+a(MESH:Calpain) => deg(p(MESH:"Cytoskeletal Proteins"))
+a(MESH:Phospholipases) => deg(p(MESH:"Cytoskeletal Proteins"))
+
+SET Evidence = "Moreover, intracellular Ca2+ increase results in changes in microtubules and neurofilament phosphorylation, ultimately causing cytoskeleton breakdown (Nicholls, 2004)."
+a(CHEBI:"calcium(2+)", loc(GO:axon)) neg p(MESH:"Microtubule Proteins", pmod(Ph))
+a(CHEBI:"calcium(2+)", loc(GO:axon)) neg p(MESN:"Neurofilament Proteins", pmod(Ph))
+p(MESH:"Microtubule Proteins", pmod(Ph)) reg path(MESH:Cytoskeleton)
+p(MESN:"Neurofilament Proteins", pmod(Ph)) reg path(MESH:Cytoskeleton)
+
+
+SET Evidence = "Axons that lack Na+ /K + ATPase cannot exchange axoplasmic Na+ for K+ and are incapable of repolarizing the axolemma."
+p(MESH:"Sodium-Potassium-Exchanging ATPase") reg bp(GO:"membrane repolarization")
+
+SET Evidence = "Redistribution of voltage-gated Ca2+ channels, transient potential receptor melastatin 4 (TRPM4), and
+acid-sensing ion channel1 (ASIC1) induce neuroaxonal Ca2+ overload, eliciting deleterious effects on axons (Friese et al., 2014)."
+p(HGNC:TRPM4) -| bp(GO:" positive regulation of calcium ion import")
+p(MESH:"Calcium Channels") -| bp(GO:" positive regulation of calcium ion import")
+p(HGNC:ASIC1) -| bp(GO:" positive regulation of calcium ion import")
+
+SET Evidence = "Excitotoxicity is caused mainly by sustained activation of glutamate receptors
+and subsequent massive influx of Ca2+ into viable neurons."
+act(p(MESH:"Receptors, Glutamate")) -> path(CONSO:Excitotoxicity)
+bp(GO:" positive regulation of calcium ion import") -> path(CONSO:Excitotoxicity)
+
+#######code for Subpial cortical
+SET Evidence = "Subpial cortical demyelination appears to be specific to multiple sclerosis, as it is not present in any other inflammatory, neurodegenerative or metabolic disease affecting the cortex and meninges (Fischer et al., 2013)."
+
+
+#######white matter lensions?
+SET Evidence = "Subpial cortical lesions lack many of the pathologic hallmarks found in white
+matter lesions such as: blood–brain barrier breakdown, immune cell infiltrates, perivascular cuffs, loss of oligodendrocyte progenitor cells or complement activation (Dutta and Trapp, 2014)."
+
+SET Evidence = "MRI studies revealed more pronounced grey matter and central
+atrophy in males, and more advanced white matter atrophy in females (Antulov et al., 2009)."
+#with respect to PPMS
+SET Gender = "Male"
+SET Anatomy = "central nervous system gray matter layer"
+path(MESH:"Multiple Sclerosis, Chronic Progressive") -> path(MESH:Atrophy)
+UNSET Anatomy
+UNSET Gender
+SET Gender = "Female"
+SET Anatomy = "central nervous system white matter layer"
+path(MESH:"Multiple Sclerosis, Chronic Progressive") -> path(MESH:Atrophy)
+UNSET Anatomy
+UNSET Gender
+
+SET Evidence = "Increased sex hormone levels in females may protect against grey matter atrophy
+(Cutter et al., 2006). In contrast, testosterone was shown to amplify oligodendrocyte excitotoxicity, potentially
+limiting remyelination (Caruso et al., 2004)."
+SET Gender = "Female"
+SET Anatomy = "central nervous system gray matter layer"
+p(MESH:"Gonadal Steroid Hormones") =| path(MESH:Atrophy)
+UNSET Anatomy
+UNSET Gender
+p(MESH:Testosterone) => path(CONSO:Excitotoxicity)
+
+SET Evidence = "Global NAA measured across the whole brain is abnormally low in multiple sclerosis"
+#N-acetylaspartate (NAA)
+path(MESH:"Multiple Sclerosis") =| a(PUBCHEM:	65065)
+
+SET Evidence = "Because NAA is detected almost exclusively in neurons and their processes,
+decreased levels of this metabolite have been interpreted as evidence of axonal injury."
+a(PUBCHEM:	65065) -- path(MESH:"Nerve Degeneration")
+
+######how to code for NAA/Cr ratio and for healty control
+SET Evidence = "Whole brain MRS has successfully shown significant reduction in both NAA and
+NAA/creatine (NAA/Cr) ratio, in clinically isolated syndrome and RRMS, compared to healthy controls."
+path(MESH:"Multiple Sclerosis, Relapsing-Remitting") =| a(PUBCHEM:	65065)
+
+SET Evidence = "Notably, spinal cord grey matter atrophy seems to contribute more to patient
+disability than spinal cord white matter or brain grey matter atrophy (Schlaeger et al., 2014)."
+SET Anatomy = "spinal cord gray commissure"
+path(MESH:Atrophy) -> path(MESH:"Developmental Disabilities")
+UNSET Anatomy
+
+SET Evidence = "The mitoxantrone in multiple sclerosis (MIMS) study was a double-blind phase II study of mitoxantrone in patients with SPMS with and without relapses (Hartung et al., 2002)."
+a(PUBCHEM:4212) -| path(MESH:"Multiple Sclerosis")
+
+SET Evidence = "Unfortunately, risk of serious side effects such as cardiomyopathy and treatment-related acute leukaemia has substantially limited indication in clinical practice (Goodin et al., 2003)."
+a(PUBCHEM:4212) -> path(MESH:Cardiomyopathies)
+a(PUBCHEM:4212) -> path(MESH:"Leukemia, Promyelocytic, Acute")
+
+SET Evidence = "Several phase III clinical trials using IFNbeta1a and IFNbeta1b in SPMS did not show permanent disability delay, but did reduce relapses risk (SPECTRIMS Study Group, 2001; Cohen et al., 2002; Andersen et al., 2004; Panitch et al.,2004)."
+a(PUBCHEM:223370366) -| path(MESH:"Developmental Disabilities")
+a(PUBCHEM: 363907627) -| path(MESH:"Developmental Disabilities")
+a(PUBCHEM:223370366) =| path(MESH:"Multiple Sclerosis, Relapsing-Remitting")
+a(PUBCHEM: 363907627) =| path(MESH:"Multiple Sclerosis, Relapsing-Remitting")
+
+SET Evidence = "Natalizumab did show some positive effects on upper limb function, but
+did not slow down disability accumulation compared to rates observed in the placebo group (NCT01416181)."
+a(PUBCHEM:135314782) cnc path(MESH:"Developmental Disabilities")
+
+SET Evidence = "Ocrelizumab is a fully humanized monoclonal antibody that depletes B cells via antibody-dependent cell-mediated toxicity, more than complement-dependent cytotoxicity, which could reduce infusion-related toxic side effects (Buttmann, 2010)."
+a(PUBCHEM: 47206937) => bp(GO:"antibody-dependent cellular cytotoxicity")
+bp(GO:"antibody-dependent cellular cytotoxicity") -| a(MESH:"B-Lymphocytes")
+
+SET Evidence = "Thus, ocrelizumab becomes the first agent to have shown positive results in pivotal studies in PPMS (NCT 1194570)."
+a(PUBCHEM: 47206937) =| path(MESH:"Multiple Sclerosis, Chronic Progressive")
+
+SET Evidence = "Recently, two studies reported protective properties of MitoQ, a specific inhibitor for
+mitochondrial ROS production, in EAE (Davies et al.,2013)."
+SET MeSHDisease = "Encephalomyelitis, Autoimmune, Experimental"
+a(PUBCHEM:11388331) =| a(CHEBI:"reactive oxygen species", loc(GO:mitochondrion))
+UNSET MeSHDisease
+
+SET Evidence = "Because levels of inflammation were not affected by MitoQ, it is conceivable that increased mitochondrial protection against ROS is sufficient to reduce axonal damage."
+a(PUBCHEM:11388331) cnc path(MESH:Inflammation)
+a(PUBCHEM:11388331) =| path(MESH:"Nerve Degeneration")
+
+SET Evidence = "The antioxidant idebenone was proven to be beneficial in Leber’s hereditary optic neuropathy, a disorder caused by mitochondrial defects."
+a(PUBCHEM:3686) isA a(MESH:Antioxidants)
+a(PUBCHEM:3686) =| path(MESH:"Optic Atrophy, Hereditary, Leber")
+path(MESH:"Optic Atrophy, Hereditary, Leber") isA path(MESH:"Mitochondrial Diseases")
+
+SET Evidence = "However, in EAE, idebenone failed to affect disease incidence or onset when applied preventively,
+or to reduce disease severity when applied therapeutically."
+a(PUBCHEM:3686) cnc path(MESH:"Encephalomyelitis, Autoimmune, Experimental")
+
+SET Evidence = "In EAE systemic administration of flecainamide (Bechtold et al., 2004), or
+Na+ channel-blocking anticonvulsants (lamotrigine, phenytoin, carbamazepine) (Bechtold et al., 2004, 2006) reduced
+neurological disability."
+SET MeSHDisease = "Encephalomyelitis, Autoimmune, Experimental"
+a(PUBCHEM:3878) -| path(MESH:"Neurologic Manifestations")
+a(PUBCHEM:1775) -| path(MESH:"Neurologic Manifestations")
+a(PUBCHEM:2554) -| path(MESH:"Neurologic Manifestations")
+UNSET MeSHDisease
+
+SET Evidence = "However, clinical trials of lamotrigine in patients with progressive multiple sclerosis did not
+show advantages over placebo with respect to neuroprotection (Hayton et al., 2012)."
+a(PUBCHEM:3878) cnc path(MESH:"Multiple Sclerosis")
+
+SET Evidence = "Blocking these ion channels with amiloride or glibenclamide, respectively could be a new approach, as they provided neuroprotection in EAE and decreased neuronal and oligodendrocyte damage (Friese et al., 2007; Schattling et al., 2012)."
+#there channels - ASIC1 and TRPM4
+SET MeSHDisease = "Encephalomyelitis, Autoimmune, Experimental"
+a(PUBCHEM:16231) =| p(HGNC:ASIC1)
+a(PUBCHEM:16231) =| p(HGNC:TRPM4)
+a(PUBCHEM:3488) =| p(HGNC:ASIC1)
+a(PUBCHEM:3488) =| p(HGNC:TRPM4)
+a(PUBCHEM:16231) -> path(MESH:Neuroprotection)
+a(PUBCHEM:3488) -> path(MESH:Neuroprotection)
+a(PUBCHEM:16231) -> a(MESH:Oligodendroglia)
+a(PUBCHEM:3488) -> a(MESH:Oligodendroglia)
+a(PUBCHEM:16231) -| path(MESH:"Nerve Degeneration")
+a(PUBCHEM:3488) -| path(MESH:"Nerve Degeneration")
+
+#####Don't understand the relationship between Glut receptor and NBQX
+SET Evidence = "Treatment with the AMPA/kainate glutamate receptor NBQX decreased neurological disability, increased oligodendrocyte survival and reduced axonal damage in EAE (Pitt et al., 2000)."
+a(PUBCHEM:3272524) -| path(MESH:"Nerve Degeneration")
+a(PUBCHEM:3272524) -> a(MESH:Oligodendroglia)
+
+UNSET MeSHDisease
+
+ SET Evidence = "GDNF (glial-cell-line derived neurotrophic factor), IGF1, and BDNF are implicated in
+trophic support provided for axons by oligodendrocytes (Wilkins et al., 2003), which one would predict would be
+deficient in multiple sclerosis."
+a(MESH:Oligodendroglia) => sec(p(HGNC:GDNF))
+a(MESH:Oligodendroglia) => sec(p(HGNC:IGF1))
+a(MESH:Oligodendroglia) => sec(p(HGNC:BDNF))
+p(HGNC:GDNF) -- bp(GO:"axon development")
+p(HGNC:IGF1) -- bp(GO:"axon development")
+p(HGNC:BDNF) -- bp(GO:"axon development")
+
+SET Evidence = "Interestingly, some immunomodulatory agents used for multiple sclerosis, namely IFN-beta and glatiramer
+acetate have been shown to increase serum or immune cell levels of BDNF in patients with multiple sclerosis,
+suggested as a possible mechanism of action for these therapies (Kalinowska-Lyszczarz and Losy, 2012)."
+SET Disease = "multiple sclerosis"
+a(PUBCHEM:223370366) -> p(MESH:Serum)
+a(PUBCHEM:3081884) -> p(MESH:Serum)
+a(PUBCHEM:223370366) -> p(HGNC:BDNF)
+a(PUBCHEM:3081884) -> p(HGNC:BDNF)
+UNSET Disease
+
+SET Evidence = "Also laquinimod has neuroprotective potential that may depend, at least in part, on its effects on astrocytes and microglia (Bruck et al., 2012; Mishra et al., 2014)."
+a(PUBCEHM:54677946) isA a(MESH:"Neuroprotective Agents")
+a(PUBCHEM:54677946) -- a(MESH:Microglia)
+a(PUBCEHM:54677946) -- a(MESH:Astrocytes)
+
+SET Evidence = "MN-166 (ibudilast) is a non-selective phosphodiesterase inhibitor that suppresses pro-inflammatory cytokines, promotes neurotrophic factors, and attenuates activated glial cell (Suzumura et al., 2003; Feng et al., 2004)."
+a(PUBCHEM:3671) => a(MESH:"Nerve Growth Factors")
+a(PUBCHEM:3671) =| bp(GO:"glial cell activation")
+
+SET Evidence = "It is known that DMF reduces oxidative stress related to neuronal death and myelin damage, via
+the Nrf2 pathway, making DMF a potential therapeutic option for progressive multiple sclerosis (Strassburger-
+Krogias et al., 2014)."
+a(PUBCHEM:637568) -> p(HGNC:NFE2L2)
+p(HGNC:NFE2L2) -| path(MESH:"Oxidative Stress")
+path(MESH:"Oxidative Stress") -- bp(GO:"neuron death")
+path(MESH:"Oxidative Stress") neg bp(GO:"myelin maintenance")
+
+SET Evidence = "Masitinib is a selective tyrosine kinase inhibitor controlling mast cell degranulation, NO-mediated damage, and dendritic cell activity (Dubreuil et al., 2009)."
+a(PUBCHEM:10074640) =| p(MESH:"Receptor Protein-Tyrosine Kinases")
+a(PUBCHEM:10074640) reg bp(GO:"mast cell degranulation")
+a(PUBCHEM:10074640) reg bp(GO:"nitric oxide mediated signal transduction")
+a(PUBCHEM:10074640) reg bp(GO:"dendritic cell homeostasis")
+
+SET Evidence = "LINGO1, a CNS-specific membrane glycoprotein that suppresses oligodendrocyte differentiation
+and myelination, is possibly involved in failure of remyelination and axonal repair in multiple sclerosis
+(Yong, 2009); blockade of this protein may therefore be effective in promoting remyelination in a clinical setting."
+p(HGNC:LINGO1) =| bp(GO:"oligodendrocyte differentiation")
+p(HGNC:LINGO1) =| bp(GO:myelination)
+path(MESH:"Multiple Sclerosis") pos p(HGNC:LINGO1)
+
+SET Evidence = "BIIB033, a fully human monoclonal antibody that selectively antagonizes
+LINGO1, was found to be safe and well-tolerated in phase 1 studies (Tran et al., 2014)."
+#Phase I
+a(PUBCHEM:310264704) =| p(HGNC:LINGO1)
