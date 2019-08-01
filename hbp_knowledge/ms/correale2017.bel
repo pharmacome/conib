@@ -182,14 +182,12 @@ structure produce CXCL13, which is important for recruitment,
 as well as maturation and antigenic selection of B
 cells (Corsiero et al., 2012)."
 a(MESH:"Dendritic Cells, Follicular") -> sec(p(HGNC:CXCL13))
-p(HGNC:CXCL13) pos path(MESH:"B-Cell Maturation Antigen")
+p(HGNC:CXCL13) pos a(MESH:"B-Cell Maturation Antigen")
 p(HGNC:CXCL13) pos bp(GO:"regulation of B cell chemotaxis")
 p(HGNC:CXCL13) pos bp(GO:"B cell selection")
 
-SET Evidence - "However, clonally-restricted
-B cells have been found in CSF from patients with RRMS
-(Kuenz et al., 2008) indicating intrathecal clonal expansion
-of B cells."
+SET Evidence = "However, clonally-restricted B cells have been found in CSF from patients with RRMS
+(Kuenz et al., 2008) indicating intrathecal clonal expansion of B cells."
 SET Cell = "lymphocyte of B lineage"
 path(MESH:"Multiple Sclerosis, Relapsing-Remitting") -> path(CONSO:"Clonal Expansion")
 UNSET Cell
@@ -208,7 +206,7 @@ SET Evidence = "In multiple sclerosis, cortical demyelination, neurodegeneration
 show positive correlation with diffuse inflammatory infiltrates and lymphoid follicle-like structure in leptomeninges, indicating immune activation in this compartment contributes to cortical pathology in multiple sclerosis (Lassmann et al., 2007; Magliozzi et al., 2007, 2010)."
 SET Disease = "multiple sclerosis"
 path(MESH:"Neurodegenerative Diseases") pos bp(GO:"inflammatory response")
-ath(MESH:"Neurodegenerative Diseases") pos path(MESH:"Tertiary Lymphoid Structures")
+path(MESH:"Neurodegenerative Diseases") pos path(MESH:"Tertiary Lymphoid Structures")
 path(MESH:Atrophy) pos bp(GO:"inflammatory response")
 path(MESH:Atrophy) pos path(MESH:"Tertiary Lymphoid Structures")
 SET Anatomy = "cortex"
@@ -234,8 +232,8 @@ SET Evidence = "Indeed, presence of follicle-like structure in patients with SPM
 been associated with lower age at disease onset, more
 severe disability and higher death rates (Magliozzi et al.,
 2007, 2010; Howell et al., 2011)."
-composite(p(MESH:"Tertiary Lymphoid Structures"), path(MESH:"Multiple Sclerosis, Chronic Progressive")) -| path(MESH:"Age of Onset")
-composite(p(MESH:"Tertiary Lymphoid Structures"), path(MESH:"Multiple Sclerosis, Chronic Progressive")) => bp(GO:"neuron death")
+composite(path(MESH:"Tertiary Lymphoid Structures"), path(MESH:"Multiple Sclerosis, Chronic Progressive")) -| path(MESH:"Age of Onset")
+composite(path(MESH:"Tertiary Lymphoid Structures"), path(MESH:"Multiple Sclerosis, Chronic Progressive")) => bp(GO:"neuron death")
 
 SET Evidence = "In
 both cases, diffuse meningeal inflammation and cortical
@@ -245,11 +243,11 @@ irrespective of a prior relapsing-remitting course or the presence of follicle-l
 #both cases - PPMS and SPMS
 path(MESH:Meningitis) -> path(MESH:"Multiple Sclerosis, Chronic Progressive")
 path(MESH:"Multiple Sclerosis, Relapsing-Remitting") cnc path(MESH:Meningitis)
-p(MESH:"Tertiary Lymphoid Structures") cnc path(MESH:Meningitis)
+path(MESH:"Tertiary Lymphoid Structures") cnc path(MESH:Meningitis)
 SET Anatomy = "cortex"
 path(MESH:Pathology) -> path(MESH:"Multiple Sclerosis, Chronic Progressive")
 path(MESH:"Multiple Sclerosis, Relapsing-Remitting") cnc path(MESH:Pathology)
-p(MESH:"Tertiary Lymphoid Structures") cnc path(MESH:Pathology)
+path(MESH:"Tertiary Lymphoid Structures") cnc path(MESH:Pathology)
 UNSET Anatomy
 
 SET Evidence = "Furthermore, expression of EBV lytic
@@ -350,17 +348,17 @@ bp(GO:"microglial cell activation") -- path(MESH:"Autoimmune Diseases")
 SET Evidence = "In multiple sclerosis, activated microglia damage oligodendrocytes
 through different mechanisms including: secretion of pro-inflammatory cytokines such as IL-1, IL-6, TNF-alpha, and IFN-gamma, phagocytic activity, and presentation of antigens via MHC Class II to CD4+ T cells (Correale, 2014)."
 bp(GO:"microglial cell activation") =| a(MESH:Oligodendroglia)
-bp(GO:"microglial cell activation") -> sec(p(HGNC:IL1))
+bp(GO:"microglial cell activation") -> sec(p(HGNC:IL1A))
 bp(GO:"microglial cell activation") -> sec(p(HGNC:IL6))
 bp(GO:"microglial cell activation") -> sec(p(HGNC:TNF))
 bp(GO:"microglial cell activation") -> sec(p(HGNC:IFNG))
 bp(GO:"microglial cell activation") -> act(a(MESH:Phagocytes))
 bp(GO:"microglial cell activation") pos bp(GO:"regulation of antigen processing and presentation of peptide or polysaccharide antigen via MHC class II")
-p(HGNC:IL1) =| a(MESH:Oligodendroglia)
+p(HGNC:IL1A) =| a(MESH:Oligodendroglia)
 p(HGNC:IL6) =| a(MESH:Oligodendroglia)
 p(HGNC:TNF) =| a(MESH:Oligodendroglia)
 p(HGNC:IFNG) =| a(MESH:Oligodendroglia)
-act(a(MESH:Phagocytes) =| a(MESH:Oligodendroglia)
+act(a(MESH:Phagocytes)) =| a(MESH:Oligodendroglia)
 bp(GO:"regulation of antigen processing and presentation of peptide or polysaccharide antigen via MHC class II") =| a(MESH:Oligodendroglia)
 
 SET Evidence = "In addition, direct damage to neurons occurs through reactive
@@ -406,12 +404,12 @@ SET Evidence = "Recent investigations have demonstrated that in chronic phases o
 ameliorates disease severity, a deleterious effects mediated by preferential expression of 4-galactosyltransferase 5 and 6 (B4GALT5 and B4GALT6; Mayo et al., 2014)."
 bp(GO:"astrocyte activation") =| path(MESH:Disease)
 p(HGNC:B4GALT5) => path(MESH:Disease)
-p(HGMC:B4GALT6) => path(MESH:Disease)
+p(HGNC:B4GALT6) => path(MESH:Disease)
 
 SET Evidence = "Notably, in human multiple sclerosis lesions BAGALT6 is expressed by reactive astrocytes."
 SET Species = "9606"
 SET Disease = "multiple sclerosis"
-bp(GO:"astrocyte activation") -> p(HGMC:B4GALT6)
+bp(GO:"astrocyte activation") -> p(HGNC:B4GALT6)
 UNSET Disease
 UNSET Species
 
@@ -419,7 +417,7 @@ SET Evidence = "These enzymes synthesize the signalling molecule lactosylceramid
 significantly increased in the CNS during progressive phases of EAE."
 #These enzymes : B4GALT5 and B4GALT6
 p(HGNC:B4GALT5) -> a(PUBCHEM:20057304)
-p(HGMC:B4GALT6) -> a(PUBCHEM:20057304)
+p(HGNC:B4GALT6) -> a(PUBCHEM:20057304)
 SET Anatomy = "central nervous system"
 path(MESH:"Encephalomyelitis, Autoimmune, Experimental") => a(PUBCHEM:20057304)
 UNSET Anatomy
@@ -435,8 +433,8 @@ bp(GO:"microglial cell activation") -> bp(GO:"monocyte migration into blood stre
 SET Evidence = "Remarkably, inhibition of B4galt6 in mice suppresses disease progression and
 neurodegeneration in EAE (Mayo et al., 2014)."
 SET Species = "10090"
-p(HGMC:B4GALT6) -> path(MESH:"Encephalomyelitis, Autoimmune, Experimental")
-p(HGMC:B4GALT6) -> path(MESH:"Neurodegenerative Diseases")
+p(HGNC:B4GALT6) -> path(MESH:"Encephalomyelitis, Autoimmune, Experimental")
+p(HGNC:B4GALT6) -> path(MESH:"Neurodegenerative Diseases")
 UNSET Species
 
 UNSET MeSHDisease
@@ -483,9 +481,9 @@ SET Evidence = "Neuronal cell bodies in deeper layers of the cortex show evidenc
 activity of mitochondrial respiratory chain complexes (Campbell et al., 2011), as well as alterations in motor proteins (encoded by nuclear DNA) responsible for the movement of the mitochondria from cell body to axons (Campbell et al., 2014)."
 #in case of disease
 SET Anatomy = "cortex"
-path(MESH:"Multiple Sclerosis") -| act(p(HGNC:"Electron Transport Chain Complex Proteins"))
+path(MESH:"Multiple Sclerosis") -| act(p(MESH:"Electron Transport Chain Complex Proteins"))
 path(MESH:"Multiple Sclerosis") -| p(MESH:"Molecular Motor Proteins")
-p(MESH:"Molecular Motor Proteins") => tloc(p(MESH:Mitochondria),"cell body",axon)
+p(MESH:"Molecular Motor Proteins") => tloc(p(MESH:Mitochondria),cell body,axon)
 UNSET Anatomy
 
 SET Evidence = "First, mitochondrial dysfunction results in energy deficiency, which in mild forms
@@ -499,8 +497,8 @@ path(MESH:"Energy Metabolism") =| bp(GO:"cell death")
 
 SET Evidence = "Second, mitochondrial injury may amplify oxidative stress through release of oxygen radicals generated as a result of impaired respiratory chain function, thus establishing a vicious
 cycle of tissue destruction (Murphy, 2009)"
-path(MESH:"Mitochondrial Diseases") -| act(p(HGNC:"Electron Transport Chain Complex Proteins"))
-act(p(HGNC:"Electron Transport Chain Complex Proteins")) =| sec(a(CHEBI:"reactive oxygen species"))
+path(MESH:"Mitochondrial Diseases") -| act(p(MESH:"Electron Transport Chain Complex Proteins"))
+act(p(MESH:"Electron Transport Chain Complex Proteins")) =| sec(a(CHEBI:"reactive oxygen species"))
 sec(a(CHEBI:"reactive oxygen species")) => path(MESH:"Oxidative Stress")
 
 SET Evidence = "In addition, non-toxic ferric iron is released into the extracellular
@@ -533,9 +531,9 @@ a(MESH:Phospholipases) => deg(p(MESH:"Cytoskeletal Proteins"))
 
 SET Evidence = "Moreover, intracellular Ca2+ increase results in changes in microtubules and neurofilament phosphorylation, ultimately causing cytoskeleton breakdown (Nicholls, 2004)."
 a(CHEBI:"calcium(2+)", loc(GO:axon)) neg p(MESH:"Microtubule Proteins", pmod(Ph))
-a(CHEBI:"calcium(2+)", loc(GO:axon)) neg p(MESN:"Neurofilament Proteins", pmod(Ph))
+a(CHEBI:"calcium(2+)", loc(GO:axon)) neg p(MESH:"Neurofilament Proteins", pmod(Ph))
 p(MESH:"Microtubule Proteins", pmod(Ph)) reg path(MESH:Cytoskeleton)
-p(MESN:"Neurofilament Proteins", pmod(Ph)) reg path(MESH:Cytoskeleton)
+p(MESH:"Neurofilament Proteins", pmod(Ph)) reg path(MESH:Cytoskeleton)
 
 
 SET Evidence = "Axons that lack Na+ /K + ATPase cannot exchange axoplasmic Na+ for K+ and are incapable of repolarizing the axolemma."
@@ -543,14 +541,14 @@ p(MESH:"Sodium-Potassium-Exchanging ATPase") reg bp(GO:"membrane repolarization"
 
 SET Evidence = "Redistribution of voltage-gated Ca2+ channels, transient potential receptor melastatin 4 (TRPM4), and
 acid-sensing ion channel1 (ASIC1) induce neuroaxonal Ca2+ overload, eliciting deleterious effects on axons (Friese et al., 2014)."
-p(HGNC:TRPM4) -| bp(GO:" positive regulation of calcium ion import")
-p(MESH:"Calcium Channels") -| bp(GO:" positive regulation of calcium ion import")
-p(HGNC:ASIC1) -| bp(GO:" positive regulation of calcium ion import")
+p(HGNC:TRPM4) -| bp(GO:"positive regulation of calcium ion import")
+p(MESH:"Calcium Channels") -| bp(GO:"positive regulation of calcium ion import")
+p(HGNC:ASIC1) -| bp(GO:"positive regulation of calcium ion import")
 
 SET Evidence = "Excitotoxicity is caused mainly by sustained activation of glutamate receptors
 and subsequent massive influx of Ca2+ into viable neurons."
 act(p(MESH:"Receptors, Glutamate")) -> path(CONSO:Excitotoxicity)
-bp(GO:" positive regulation of calcium ion import") -> path(CONSO:Excitotoxicity)
+bp(GO:"positive regulation of calcium ion import") -> path(CONSO:Excitotoxicity)
 
 #######code for Subpial cortical
 SET Evidence = "Subpial cortical demyelination appears to be specific to multiple sclerosis, as it is not present in any other inflammatory, neurodegenerative or metabolic disease affecting the cortex and meninges (Fischer et al., 2013)."
@@ -701,9 +699,9 @@ a(PUBCHEM:3081884) -> p(HGNC:BDNF)
 UNSET Disease
 
 SET Evidence = "Also laquinimod has neuroprotective potential that may depend, at least in part, on its effects on astrocytes and microglia (Bruck et al., 2012; Mishra et al., 2014)."
-a(PUBCEHM:54677946) isA a(MESH:"Neuroprotective Agents")
+a(PUBCHEM:54677946) isA a(MESH:"Neuroprotective Agents")
 a(PUBCHEM:54677946) -- a(MESH:Microglia)
-a(PUBCEHM:54677946) -- a(MESH:Astrocytes)
+a(PUBCHEM:54677946) -- a(MESH:Astrocytes)
 
 SET Evidence = "MN-166 (ibudilast) is a non-selective phosphodiesterase inhibitor that suppresses pro-inflammatory cytokines, promotes neurotrophic factors, and attenuates activated glial cell (Suzumura et al., 2003; Feng et al., 2004)."
 a(PUBCHEM:3671) => a(MESH:"Nerve Growth Factors")
