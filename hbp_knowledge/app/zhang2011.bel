@@ -15,8 +15,8 @@ SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
 DEFINE NAMESPACE CHEBI   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/chebi/chebi-20180106.belns"
 DEFINE NAMESPACE GO      AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/go-names.belns"
 DEFINE NAMESPACE HGNC    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hgnc/hgnc-20180215.belns"
-DEFINE NAMESPACE MESH  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
-DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso.belns"
+DEFINE NAMESPACE MESH    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
+DEFINE NAMESPACE CONSO   AS URL "https://raw.githubusercontent.com/pharmacome/conso/4aa36980578c7d2cff07371abf768f15db89cd11/export/conso.belns"
 
 DEFINE NAMESPACE FPLX    AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
 
@@ -171,8 +171,8 @@ suggest that sAPPalpha is neuroprotective, making the
 subcellular distribution of APP an important factor in
 neurodegeneration [42-44]"
 SET Confidence = "Medium"
-a(CHEBI:"amyloid-beta") -> bp(CONSO:CONSO00061)
-p(CONSO:CONSO00067) -| bp(CONSO:CONSO00061)
+a(CHEBI:"amyloid-beta") -> path(CONSO:CONSO00061)
+p(CONSO:CONSO00067) -| path(CONSO:CONSO00061)
 
 SET Evidence = "Cleavage of APP by alpha-secretase precludes Abeta generation
 as the cleavage site is within the Abeta domain (at the Lys16-
@@ -218,7 +218,7 @@ cell proliferation and is important for early CNS development
 SET Confidence = "High"
 p(CONSO:CONSO00067) -- bp(GO:"regulation of neuronal synaptic plasticity")
 p(CONSO:CONSO00067) reg bp(GO:"central nervous system formation")
-p(CONSO:CONSO00067) -| bp(CONSO:CONSO00068)
+p(CONSO:CONSO00067) -| path(CONSO:CONSO00068)
 SET MeSHAnatomy = "Neurons"
 p(CONSO:CONSO00067) reg bp(GO:"stem cell proliferation")
 
@@ -228,7 +228,7 @@ participate in various neuroprotective reagent-mediated
 excitoprotection [44,59-61]"
 SET Confidence = "High"
 p(CONSO:CONSO00067) -| act(p(HGNC:CDK5))
-p(CONSO:CONSO00067) -| bp(CONSO:CONSO00068)
+p(CONSO:CONSO00067) -| path(CONSO:CONSO00068)
 
 SET Evidence = "The first step in Abeta generation is cleavage of APP by the
 beta-secretase"
@@ -403,12 +403,10 @@ sites"
 SET Confidence = "High"
 a(MESH:Caspases) -> rxn(reactants(p(HGNC:APP)),products(p(CONSO:CONSO00070)))
 
-SET Evidence = "One
-possible mechanism for C31’s toxicity is that C31 complexes
-with APP to recruit the interacting partners that
-initiate the signals related to cellular toxicity [136]"
-SET Confidence = "High"
-complex(p(HGNC:APP),p(CONSO:CONSO00069)) -> path(CONSO:CONSO00069)
+SET Evidence = "One possible mechanism for C31’s toxicity is that C31 complexes with APP to recruit the interacting partners that initiate the signals related to cellular toxicity [136]"
+SET Confidence = "Low"
+complex(p(HGNC:APP),p(CONSO:CONSO00069)) -> p(CONSO:CONSO00069)
+UNSET Confidence
 
 SET Evidence = "Multiple
 lines of evidence demonstrate that overproduction of Abeta
@@ -460,7 +458,7 @@ a(CHEBI:"amyloid-beta") -- bp(GO:"ERK1 and ERK2 cascade")
 SET Evidence = "Inhibition of dynamin-mediated but not clathrin-mediated
 Abeta internalization was also found to reduce Abeta-induced neurotoxicity [154]"
 SET Confidence = "High"
-complex(p(HGNC:DNM1),a(CHEBI:"amyloid-beta")) -| path(CONSO:CONSO00069)
+complex(p(HGNC:DNM1),a(CHEBI:"amyloid-beta")) -| p(CONSO:CONSO00069)
 
 SET Evidence = "Although excessive Abeta causes synaptic dysfunction and synapse
 loss [142], low levels of Abeta increase hippocampal longterm

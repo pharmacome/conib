@@ -15,15 +15,15 @@ SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
 
 # Namespaces hosted on https://github.com/pharmacome/terminology
 # --------------------------------------------------------------
-DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mesh-names.belns"
 DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE CONSO    AS URL "https://raw.githubusercontent.com/pharmacome/conso/4aa36980578c7d2cff07371abf768f15db89cd11/export/conso.belns"
 DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
-DEFINE NAMESPACE FPLX     AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
-DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
 DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/go-names.belns"
 DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE FPLX     AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/mesh-names.belns"
 DEFINE NAMESPACE MGI      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170725.belns"
-DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso.belns"
+DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
 
 # Annotations
 # -----------
@@ -72,7 +72,7 @@ neuro-protective"
 SET Confidence = "High"
 p(HGNC:ADAM10) -> rxn(reactants(p(HGNC:APP)),products(p(CONSO:CONSO00067)))
 p(HGNC:ADAM10) -> sec(p(HGNC:APP))
-p(CONSO:CONSO00067) -| bp(CONSO:CONSO00061)
+p(CONSO:CONSO00067) -| path(CONSO:CONSO00061)
 
 SET Evidence = "Plaques consisting of beta-amyloid (Abeta) peptide (Selkoe 1998),
 neurofibrillary tangles consisting largely of hyperphosphorylated
@@ -158,7 +158,7 @@ p(HGNC:ADAM10) -> rxn(reactants(p(HGNC:APP)),products(p(CONSO:CONSO00067),p(CONS
 SET Evidence  = "APP C83 is further cleaved by gamma-secretase to release a P3
 peptide and the AICD, both of which are degraded rapidly"
 SET Confidence = "Medium"
-complex(FPLX:"Gamma_secretase") -> rxn(reactants(p(CONSO:CONSO00072)),products(a(CONSO:CONSO00080),a(CONSO:CONSO00071)))
+complex(FPLX:"Gamma_secretase") -> rxn(reactants(p(CONSO:CONSO00072)),products(p(CONSO:CONSO00080),p(CONSO:CONSO00071)))
 
 SET Evidence = "In the amyloidogenic pathway, APP is primarily processed by
 beta-secretase at the first residue or at the 11th residue (so called
@@ -171,7 +171,7 @@ p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(p(CONSO:CONSO00042),p(CONSO
 SET Evidence = "gamma-Secretase further cleaves C99 to release AICD and the
 amyloidogenic Abeta peptide which aggregates and fibrillates to form amyloid plaques in the brain"
 SET Confidence = "Medium"
-complex(FPLX:"Gamma_secretase")  -> rxn(reactants(p(CONSO:CONSO00081)),products(a(CONSO:CONSO00071),a(MESH:"Amyloid beta-Peptides")))
+complex(FPLX:"Gamma_secretase")  -> rxn(reactants(p(CONSO:CONSO00081)),products(p(CONSO:CONSO00071),a(MESH:"Amyloid beta-Peptides")))
 a(CHEBI:"amyloid-beta") -> a(CONSO:CONSO00038)
 a(CHEBI:"amyloid-beta") -> a(CONSO:CONSO00018)
 a(CONSO:CONSO00018) -> path(MESH:"Plaque, Amyloid")
@@ -255,7 +255,7 @@ because of their very rapid degradation (Lu et al. 2000;
 Passer et al. 2000; Sastre et al. 2001; Yu et al. 2001; Sato
 et al. 2003)"
 SET Confidence = "Medium"
-complex(FPLX:"Gamma_secretase") -> a(CONSO:CONSO00071)
+complex(FPLX:"Gamma_secretase") -> p(CONSO:CONSO00071)
 
 SET Evidence = "In addition to cleavages involving secretases, APP can be
 cleaved by caspases independently at its C terminus (Asp664
@@ -269,8 +269,8 @@ SET Evidence = "Caspase-cleavages of APP are thought to be harmful because
 both C31 and the Jcasp fragment generated were found to be
 cytotoxic (Lu et al. 2003a)"
 SET Confidence = "High"
-p(CONSO:CONSO00069) -> bp(CONSO:CONSO00061)
-p(CONSO:CONSO00070) -> bp(CONSO:CONSO00061)
+p(CONSO:CONSO00069) -> path(CONSO:CONSO00061)
+p(CONSO:CONSO00070) -> path(CONSO:CONSO00061)
 
 SET Evidence = "Because of its highly similar structure to Notch, APP has
 been proposed to function as a cell surface receptor (reviewed in Zheng and Koo 2011)"
@@ -312,7 +312,7 @@ SET Evidence = "The constitutively secreted sAPP-alpha has been found to
 be neuro-protective (Mattson et al. 1993; Furukawa et al.
 1996a,b; Han et al. 2005; Ma et al. 2009)"
 SET Confidence = "Medium"
-sec(p(CONSO:CONSO00067)) -| bp(CONSO:CONSO00061)
+sec(p(CONSO:CONSO00067)) -| path(CONSO:CONSO00061)
 
 SET Evidence = "sAPP-alpha is thought
 to promote neurite outgrowth and synaptogenesis as well as
@@ -333,7 +333,7 @@ SET Evidence = "Although there are only 17 amino acids difference between
 sAPP-beta and sAPP-alpha, sAPP-beta reportedly lacks most of the
 neuroprotective effects of sAPP-a (Furukawa et al. 1996a,b)"
 SET Confidence = "High"
-p(CONSO:CONSO00042) -> bp(CONSO:CONSO00061)
+p(CONSO:CONSO00042) -> path(CONSO:CONSO00061)
 
 SET Evidence = "A recent study suggested that sAPP-beta can be cleaved to
 generate an N-terminal fragment that is a ligand for death
@@ -348,7 +348,7 @@ to neurotoxicity, neuronal tangle formation, synaptic damage
 and eventually neuron loss in the pathologically affected
 brain regions (Selkoe 1998; Shankar and Walsh 2009)"
 SET Confidence = "High"
-a(CHEBI:"amyloid-beta") -> bp(CONSO:CONSO00061)
+a(CHEBI:"amyloid-beta") -> path(CONSO:CONSO00061)
 a(CHEBI:"amyloid-beta") -> bp(GO:"neurofibrillary tangle assembly")
 a(CHEBI:"amyloid-beta") -| bp(GO:"regulation of synapse structure or activity")
 a(CHEBI:"amyloid-beta") -> bp(GO:"neuron death")
@@ -372,8 +372,8 @@ SET Evidence = "Although excessive Abeta causes neurotoxicity, some studies
 have shown that Abeta 40 protects neurons against Abeta 42- induced neuronal damage
 and is required for the viability of central neurons (Plant et al. 2003; Zou et al. 2003)"
 SET Confidence = "High"
-a(CHEBI:"amyloid-beta") -> bp(CONSO:CONSO00061)
-p(HGNC:APP, frag(672_711)) -| bp(CONSO:CONSO00061)
+a(CHEBI:"amyloid-beta") -> path(CONSO:CONSO00061)
+p(HGNC:APP, frag(672_711)) -| path(CONSO:CONSO00061)
 
 SET Evidence = "Many
 AICD-binding proteins have been identified. Some of the
