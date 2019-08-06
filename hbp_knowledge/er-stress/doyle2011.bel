@@ -129,7 +129,8 @@ endoribonuclease domain [9]. ER stress leads to dissociation
 of GRP78 from IRE1, resulting in autophosphorylation of IRE1alpha
 and activation of its RNAse activity [9]."
 SET Confidence = "High"
-bp(MESH:"Endoplasmic Reticulum Stress") -> p(HGNC:ERN1,pmod(Ph),ma(MESH:Ribonucleases))
+bp(MESH:"Endoplasmic Reticulum Stress") -> p(HGNC:ERN1,pmod(Ph))
+p(HGNC:ERN1,pmod(Ph)) -> p(HGNC:ERN1,ma(MESH:Ribonucleases))
 UNSET Confidence
 
 SET Evidence = "In addition, activated IRE1 can bind to tumour necrosis
@@ -976,10 +977,8 @@ lead to cell death with mutant Parkin potentially tipping the balance
 towards cell death [87]. More recently, the role of Parkin in
 mitophagy (selective degradation of mitochondria via the
 autophagy pathway) has been implicated in contributing to PD."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:PRKN,var("?")) -> bp(MESH:"Cell Death")
-p(HGNC:PRKN) -- bp(GO:mitophagy)
-#why the double assosiation? Isn't one sufficient?
 bp(GO:mitophagy) -- p(HGNC:PRKN)
 p(HGNC:PRKN) -- path(MESH:"Parkinson Disease")
 UNSET Confidence
@@ -1006,9 +1005,8 @@ form of PD. Apart from its role in recruiting Parkin to mitochondria
 for subsequent mitophagy, PINK1 has also been implicated in
 protein stability and the wild-type protein may protect cells from
 oxidative stress, mitochondrial dysfunction and apoptosis [89]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:PINK1,var("?")) -> path(DOID:"autosomal recessive Parkinson's disease 14")
-#why mutated form? - The statemnt states abputs PINK1 for protein stability and not it's mutated form.
 p(HGNC:PINK1, var("?")) -- bp(MESH:"Protein Stability")
 p(HGNC:PINK1) -| bp(MESH:"Oxidative Stress")
 p(HGNC:PINK1) -| path(HBP:"mitochondrial dysfunction")
