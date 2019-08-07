@@ -16,23 +16,23 @@ SET DOCUMENT Description = "ER stress response plays a role in neurodegenerative
 
 # Namespaces hosted on https://github.com/pharmacome/terminology
 # --------------------------------------------------------------
-DEFINE NAMESPACE CHEBI         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
 DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/4aa36980578c7d2cff07371abf768f15db89cd11/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
 DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
 DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mesh-names.belns"
-DEFINE NAMESPACE MGI           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
-DEFINE NAMESPACE MIRBASE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
 DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
 DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
-DEFINE NAMESPACE RGD           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
 
 # Namespaces hosted on https://github.com/sorgerlab/famplex
 # ---------------------------------------------------------
@@ -75,17 +75,17 @@ SET Citation = {"PubMed", "21722302"}
 SET Evidence = "They include Alzheimer’s disease (AD), Parkinson’s disease (PD), amyotrophic lateral sclerosis (ALS) and prion diseases [5]. Emerging evidence suggests that ER stress may play a pivotal role in the development or pathology of many neurodegenerative diseases."
 SET Confidence = "High"
 # they= neurodegenerative diseases
-path(MESH:"Alzheimer Disease") -- path(HBP:Neurodegeneration)
-path(MESH:"Parkinson Disease") -- path(HBP:Neurodegeneration)
-path(MESH:"Amyotrophic Lateral Sclerosis") -- path(HBP:Neurodegeneration)
-path(MESH:"Prion Diseases") -- path(HBP:Neurodegeneration)
-bp(MESH:"Endoplasmic Reticulum Stress") -> path(HBP:Neurodegeneration)
+path(MESH:"Alzheimer Disease") -- path(CONSO:Neurodegeneration)
+path(MESH:"Parkinson Disease") -- path(CONSO:Neurodegeneration)
+path(MESH:"Amyotrophic Lateral Sclerosis") -- path(CONSO:Neurodegeneration)
+path(MESH:"Prion Diseases") -- path(CONSO:Neurodegeneration)
+bp(MESH:"Endoplasmic Reticulum Stress") -> path(CONSO:Neurodegeneration)
 UNSET Confidence
 
 SET Evidence = "Physiological or pathological processes that disturb protein folding in the ER cause ER stress. The cells initial and rapid response to ER stress is the activation of a set of pro-survival signalling pathways termed the UPR. Activation of the UPR causes a shutdown of global protein synthesis and activates mechanisms that allow the cell to deal with the accumulation of unfolded proteins. For example, it enhances the protein folding capacity by increasing the expression of ER chaperones and it up-regulates the degradation of misfolded proteins."
 #UPR= unfolded protein response
 SET Confidence = "High"
-p(MESH:Proteins , pmod(HBP:misfolded)) -- bp(MESH:"Endoplasmic Reticulum Stress")
+p(MESH:Proteins , pmod(CONSO:misfolded)) -- bp(MESH:"Endoplasmic Reticulum Stress")
 bp(MESH:"Endoplasmic Reticulum Stress") -> bp(MESH:"Unfolded Protein Response")
 bp(MESH:"Unfolded Protein Response") -| bp(GO:translation)
 bp(MESH:"Unfolded Protein Response") -| bp(GO:"mRNA transcription")
@@ -93,7 +93,7 @@ bp(MESH:"Unfolded Protein Response") -| bp(GO:"mRNA transcription")
 #bp(MESH:"Unfolded Protein Response") -> bp(GO:"protein folding")
 bp(MESH:"Unfolded Protein Response") -> p(MESH:"Molecular Chaperones")
 p(MESH:"Molecular Chaperones") -> bp(GO:"protein folding")
-bp(MESH:"Unfolded Protein Response") -> deg(p(MESH:Proteins , pmod(HBP:misfolded)))
+bp(MESH:"Unfolded Protein Response") -> deg(p(MESH:Proteins , pmod(CONSO:misfolded)))
 UNSET Confidence
 
 SET Evidence = "In mammals, the three major ER stress sensors are IRE1 (inositol requiring 1; ERN1, endoplasmic reticulum-to-nucleus signalling 1), PERK [double-stranded RNA-activated protein kinase (PKR)-like ER kinase; PEK, pancreatic eukaryotic initiation factor 2alpha kinase; EIF2AK3] and ATF6 (activating transcription factor 6)[6]."
@@ -115,9 +115,9 @@ SET Confidence = "High"
 complex(p(HGNC:ERN1),p(HGNC:HSPA5)) -| act(p(HGNC:ERN1))
 complex(p(HGNC:EIF2AK3),p(HGNC:HSPA5)) -| act(p(HGNC:EIF2AK3))
 complex(p(HGNC:ATF6),p(HGNC:HSPA5)) -| act(p(HGNC:ATF6))
-p(MESH:Proteins , pmod(HBP:misfolded)) -> act(p(HGNC:ERN1))
-p(MESH:Proteins , pmod(HBP:misfolded)) -> act(p(HGNC:EIF2AK3))
-p(MESH:Proteins , pmod(HBP:misfolded)) -> act(p(HGNC:ATF6))
+p(MESH:Proteins , pmod(CONSO:misfolded)) -> act(p(HGNC:ERN1))
+p(MESH:Proteins , pmod(CONSO:misfolded)) -> act(p(HGNC:EIF2AK3))
+p(MESH:Proteins , pmod(CONSO:misfolded)) -> act(p(HGNC:ATF6))
 act(p(HGNC:ERN1)) -- bp(MESH:"Unfolded Protein Response")
 act(p(HGNC:EIF2AK3)) -- bp(MESH:"Unfolded Protein Response")
 act(p(HGNC:ATF6)) -- bp(MESH:"Unfolded Protein Response")
@@ -425,7 +425,7 @@ aggregated misfolded proteins and conversely, deregulation of
 autophagy may lead to neurodegeneration [37]."
 SET Confidence = "High"
 bp(GO:autophagy) -> bp(MESH:Neuroprotection)
-bp(GO:autophagy) -| p(MESH:Proteins , pmod(HBP:misfolded))
+bp(GO:autophagy) -| p(MESH:Proteins , pmod(CONSO:misfolded))
 bp(GO:autophagy) -- path(MESH:"Neurodegenerative Diseases")
 UNSET Confidence
 
@@ -438,15 +438,15 @@ cytosol where they are degraded by the proteasome [38]."
 SET Confidence = "High"
 SET CellStructure = "Endoplasmic Reticulum"
 
-bp(GO:"ERAD pathway") -> deg(p(MESH:Proteins , pmod(HBP:misfolded)))
-complex(p(MESH:Proteins , pmod(HBP:misfolded)),p(MESH:"Molecular Chaperones"))
-p(MESH:Oxidoreductases) -> tloc(p(MESH:Proteins , pmod(HBP:misfolded)),fromLoc(GO:"endoplasmic reticulum"),toLoc(GO:cytoplasm))
+bp(GO:"ERAD pathway") -> deg(p(MESH:Proteins , pmod(CONSO:misfolded)))
+complex(p(MESH:Proteins , pmod(CONSO:misfolded)),p(MESH:"Molecular Chaperones"))
+p(MESH:Oxidoreductases) -> tloc(p(MESH:Proteins , pmod(CONSO:misfolded)),fromLoc(GO:"endoplasmic reticulum"),toLoc(GO:cytoplasm))
 
 UNSET CellStructure
 
 SET CellStructure = "Cytoplasm"
 
-p(HGNCGENEFAMILY:Proteasome) -| deg(p(MESH:Proteins,pmod(HBP:misfolded)))
+p(HGNCGENEFAMILY:Proteasome) -| deg(p(MESH:Proteins,pmod(CONSO:misfolded)))
 
 UNSET CellStructure
 UNSET Confidence
@@ -542,8 +542,8 @@ SET Disease = "amyotrophic lateral sclerosis"
 
 p(HGNC:XBP1) -| bp(GO:autophagy)
 p(HGNC:XBP1) -> p(HGNC:SOD1,pmod(MESH:"Mutant Proteins"))
-p(HGNC:SOD1,pmod(MESH:"Mutant Proteins")) -> bp(HBP:"protein aggregation")
-bp(HBP:"protein aggregation") -> bp(MESH:"Cell Death")
+p(HGNC:SOD1,pmod(MESH:"Mutant Proteins")) -> bp(CONSO:"protein aggregation")
+bp(CONSO:"protein aggregation") -> bp(MESH:"Cell Death")
 
 UNSET Disease
 UNSET Confidence
@@ -601,10 +601,10 @@ pathway, the proteasome and autophagy rapidly remove misfolded
 proteins.[38]."
 SET Confidence = "High"
 p(MESH:"Molecular Chaperones") -> bp(GO:"protein folding")
-bp(GO:"ERAD pathway") -> deg(p(MESH:Proteins , pmod(HBP:misfolded)))
-bp(GO:"lysosomal protein catabolic process") -> deg(p(MESH:Proteins , pmod(HBP:misfolded)))
-p(HGNCGENEFAMILY:Proteasome) -> deg(p(MESH:Proteins , pmod(HBP:misfolded)))
-bp(GO:autophagy) -> deg(p(MESH:Proteins,pmod(HBP:misfolded)))
+bp(GO:"ERAD pathway") -> deg(p(MESH:Proteins , pmod(CONSO:misfolded)))
+bp(GO:"lysosomal protein catabolic process") -> deg(p(MESH:Proteins , pmod(CONSO:misfolded)))
+p(HGNCGENEFAMILY:Proteasome) -> deg(p(MESH:Proteins , pmod(CONSO:misfolded)))
+bp(GO:autophagy) -> deg(p(MESH:Proteins,pmod(CONSO:misfolded)))
 UNSET Confidence
 
 SET Evidence = "Neurons are
@@ -615,15 +615,15 @@ AD [57], PD [58], transmissible spongiform encephalopathy
 [59] and also acute neurodegenerative disorders such as
 traumatic brain injury [60] and cerebral ischaemia [61]."
 SET Confidence = "High"
-p(MESH:Proteins , pmod(HBP:misfolded)) -> bp(HBP:"protein aggregation")
+p(MESH:Proteins , pmod(CONSO:misfolded)) -> bp(CONSO:"protein aggregation")
 
 SET Cell = "neuron"
-bp(HBP:"protein aggregation") -- path(MESH:"Neurodegenerative Diseases")
-bp(HBP:"protein aggregation") -- path(MESH:"Alzheimer Disease")
-bp(HBP:"protein aggregation") -- path(MESH:"Parkinson Disease")
-bp(HBP:"protein aggregation") -- path(MESH:"Amyloidosis, Cerebral, with Spongiform Encephalopathy")
-bp(HBP:"protein aggregation") -- path(MESH:"Brain Injuries, Traumatic")
-bp(HBP:"protein aggregation") -- path(MESH:"Brain Ischemia")
+bp(CONSO:"protein aggregation") -- path(MESH:"Neurodegenerative Diseases")
+bp(CONSO:"protein aggregation") -- path(MESH:"Alzheimer Disease")
+bp(CONSO:"protein aggregation") -- path(MESH:"Parkinson Disease")
+bp(CONSO:"protein aggregation") -- path(MESH:"Amyloidosis, Cerebral, with Spongiform Encephalopathy")
+bp(CONSO:"protein aggregation") -- path(MESH:"Brain Injuries, Traumatic")
+bp(CONSO:"protein aggregation") -- path(MESH:"Brain Ischemia")
 UNSET Cell
 UNSET Confidence
 
@@ -632,7 +632,7 @@ misfolded proteins trigger the UPR, this has prompted several
 groups to investigate the involvement of ER stress in neurodegenerative
 disorders."
 SET Confidence = "High"
-p(MESH:Proteins , pmod(HBP:misfolded)) -> bp(MESH:"Unfolded Protein Response")
+p(MESH:Proteins , pmod(CONSO:misfolded)) -> bp(MESH:"Unfolded Protein Response")
 bp(MESH:"Endoplasmic Reticulum Stress") -- path(MESH:"Neurodegenerative Diseases")
 UNSET Confidence
 
@@ -643,9 +643,9 @@ of extracellular beta-amyloid protein and intracellular neurofibrillary
 tangles containing hyperphosphorylated tau [62]."
 SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -- path(HP:"Senile plaques")
-path(HP:"Senile plaques") -> a(HBP:"amyloid-beta aggregates")
+path(HP:"Senile plaques") -> a(CONSO:"amyloid-beta aggregates")
 path(HP:"Senile plaques") -> a(MESH:"Neurofibrillary Tangles")
-a(MESH:"Neurofibrillary Tangles") -> p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+a(MESH:"Neurofibrillary Tangles") -> p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 UNSET Confidence
 
 SET Evidence = "These pathological
@@ -688,7 +688,7 @@ there is arguably not a direct causal relationship between beta-amyloid
 deposition and neurodegeneration.[65]."
 SET Confidence = "High"
 path(HP:"Senile plaques") -- path(MESH:"Neurodegenerative Diseases")
-a(HBP:"amyloid-beta aggregates") -- path(HBP:Neurodegeneration)
+a(CONSO:"amyloid-beta aggregates") -- path(CONSO:Neurodegeneration)
 UNSET Confidence
 
 SET Evidence = "Neurofibrillary
@@ -697,8 +697,8 @@ aggregation of hyperphosphorylated tau [69]. Hyperphosphorylation
 of tau impairs its ability to interact with cytoskeletal microfilaments,
 resulting in disorganization of the cytoskeleton."
 SET Confidence = "High"
-a(MESH:"Neurofibrillary Tangles") -> p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -| bp(GO:"cytoskeleton organization")
+a(MESH:"Neurofibrillary Tangles") -> p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -| bp(GO:"cytoskeleton organization")
 UNSET Confidence
 
 SET Evidence = "The presenilin protein is a component of the Gamma-secretase complex,
@@ -734,8 +734,8 @@ p(PFAM:Presenilin) -| p(HGNC:EIF2AK3,pmod(Ph))
 p(PFAM:Presenilin) -| p(HGNC:EIF2A,pmod(Ph))
 
 SET CellStructure = "Endoplasmic Reticulum"
-p(HGNC:EIF2AK3,pmod(Ph)) -> bp(HBP:"protein aggregation")
-p(HGNC:EIF2A,pmod(Ph)) -> bp(HBP:"protein aggregation")
+p(HGNC:EIF2AK3,pmod(Ph)) -> bp(CONSO:"protein aggregation")
+p(HGNC:EIF2A,pmod(Ph)) -> bp(CONSO:"protein aggregation")
 UNSET CellStructure
 UNSET Confidence
 
@@ -843,7 +843,7 @@ path(MESH:"Muscle Rigidity") prognosticBiomarkerFor path(MESH:"Parkinson Disease
 path(HP:"Postural instability") prognosticBiomarkerFor path(MESH:"Parkinson Disease")
 path(HP:"Resting tremor") prognosticBiomarkerFor path(MESH:"Parkinson Disease")
 path(DOID:"olfactory nerve disease") prognosticBiomarkerFor path(MESH:"Parkinson Disease")
-path(HBP:"Gastrointestinal dysfunctions") prognosticBiomarkerFor path(MESH:"Parkinson Disease")
+path(CONSO:"Gastrointestinal dysfunctions") prognosticBiomarkerFor path(MESH:"Parkinson Disease")
 path(MESH:"Parkinson Disease") -| a(MESH:"Dopaminergic Neurons")
 a(GO:"Lewy body") -> p(HGNC:SNCA)
 a(GO:"Lewy neurite") biomarkerFor path(MESH:"Parkinson Disease")
@@ -855,7 +855,7 @@ alpha-synuclein form the core in association with other proteins,
 notably components of the ubiquitin–proteasome system
 [3]."
 SET Confidence = "High"
-a(GO:"Lewy body") -> p(HGNC:SNCA,pmod(HBP:misfolded))
+a(GO:"Lewy body") -> p(HGNC:SNCA,pmod(CONSO:misfolded))
 UNSET Confidence
 
 SET Evidence = "Genes associated with autosomal
@@ -884,9 +884,9 @@ SET Confidence = "High"
 SET Anatomy = "nervous system"
 SET CellStructure = {"Synaptic Vesicles","Cell Membrane"}
 p(HGNC:SNCA)
-p(HGNC:SNCA,pmod(Ph)) -> p(HGNC:SNCA,pmod(HBP:misfolded))
-p(HGNC:SNCA,pmod(NO)) -> p(HGNC:SNCA,pmod(HBP:misfolded))
-p(HGNC:SNCA,pmod(HBP:misfolded)) -> a(HBP:"alpha-synuclein aggregates")
+p(HGNC:SNCA,pmod(Ph)) -> p(HGNC:SNCA,pmod(CONSO:misfolded))
+p(HGNC:SNCA,pmod(NO)) -> p(HGNC:SNCA,pmod(CONSO:misfolded))
+p(HGNC:SNCA,pmod(CONSO:misfolded)) -> a(CONSO:"alpha-synuclein aggregates")
 bp(MESH:"Cell Death") -> tloc(p(HGNC:SNCA),fromLoc(GO:"intracellular"), toLoc(GO:"extracellular space"))
 
 UNSET CellStructure
@@ -921,7 +921,7 @@ apoptosis [82]."
 SET Confidence = "High"
 p(HGNC:LRRK2,var("?")) -> path(DOID:"autosomal dominant Parkinson's disease 1")
 p(HGNC:LRRK2,var("?")) -| bp(GO:"protein catabolic process")
-p(HGNC:LRRK2,var("?")) -> a(HBP:"alpha-synuclein aggregates")
+p(HGNC:LRRK2,var("?")) -> a(CONSO:"alpha-synuclein aggregates")
 p(HGNC:LRRK2,var("?")) -> a(MESH:"Ubiquitinated Proteins")
 p(HGNC:LRRK2,var("?")) -| bp(GO:"lysosomal protein catabolic process")
 p(HGNC:LRRK2,var("?")) -| bp(GO:"regulation of protein oxidation")
@@ -939,7 +939,7 @@ SET Confidence = "High"
 p(HGNC:UCHL1,var("?")) -- path(DOID:"autosomal dominant Parkinson's disease 1")
 p(HGNC:UCHL1) -- bp(GO:"chaperone-mediated autophagy")
 p(HGNC:UCHL1,var("?")) -| bp(GO:"chaperone-mediated autophagy")
-bp(GO:"chaperone-mediated autophagy") -> deg(a(HBP:"alpha-synuclein aggregates"))
+bp(GO:"chaperone-mediated autophagy") -> deg(a(CONSO:"alpha-synuclein aggregates"))
 UNSET Confidence
 
 SET Evidence = "Several genetic mutations have been linked to the recessive
@@ -954,8 +954,8 @@ SET Confidence = "High"
 g(HGNC:PRKN, var("?")) -- path(DOID:"autosomal recessive Parkinson's disease 14")
 p(HGNC:PRKN) -> bp(GO:"proteasomal protein catabolic process")
 p(HGNC:PRKN, var("?")) -> bp(GO:"negative regulation of ubiquitin protein ligase activity")
-bp(GO:"negative regulation of ubiquitin protein ligase activity") -> p(MESH:Proteins , pmod(HBP:misfolded))
-p(MESH:Proteins , pmod(HBP:misfolded)) -> bp(HBP:"protein aggregation")
+bp(GO:"negative regulation of ubiquitin protein ligase activity") -> p(MESH:Proteins , pmod(CONSO:misfolded))
+p(MESH:Proteins , pmod(CONSO:misfolded)) -> bp(CONSO:"protein aggregation")
 UNSET Confidence
 
 SET Evidence = "Parkin has been shown to be up-regulated via AFT4, following ER
@@ -1009,7 +1009,7 @@ SET Confidence = "High"
 p(HGNC:PINK1,var("?")) -> path(DOID:"autosomal recessive Parkinson's disease 14")
 p(HGNC:PINK1, var("?")) -- bp(MESH:"Protein Stability")
 p(HGNC:PINK1) -| bp(MESH:"Oxidative Stress")
-p(HGNC:PINK1) -| path(HBP:"mitochondrial dysfunction")
+p(HGNC:PINK1) -| path(CONSO:"mitochondrial dysfunction")
 p(HGNC:PINK1) -| bp(MESH:Apoptosis)
 UNSET Confidence
 
@@ -1090,11 +1090,11 @@ and defective axonal transport have all been implicated as
 causative factors in the apoptotic death of the motor neurones
 [93, 94]"
 SET Confidence = "High"
-path(MESH:"Amyotrophic Lateral Sclerosis") -- path(HBP:Neurodegeneration)
-path(MESH:"Amyotrophic Lateral Sclerosis") -- a(HBP:"Motor Neurons")
-path(HBP:Excitotoxicity) -> bp(GO:"motor neuron apoptotic process")
+path(MESH:"Amyotrophic Lateral Sclerosis") -- path(CONSO:Neurodegeneration)
+path(MESH:"Amyotrophic Lateral Sclerosis") -- a(CONSO:"Motor Neurons")
+path(CONSO:Excitotoxicity) -> bp(GO:"motor neuron apoptotic process")
 bp(MESH:"Oxidative Stress") -> bp(GO:"motor neuron apoptotic process")
-path(HBP:"mitochondrial dysfunction") -> bp(GO:"motor neuron apoptotic process")
+path(CONSO:"mitochondrial dysfunction") -> bp(GO:"motor neuron apoptotic process")
 bp(GO:"axonal transport") -- bp(GO:"motor neuron apoptotic process")
 UNSET Confidence
 
@@ -1104,7 +1104,7 @@ deposition of aggregates of proteins such as ubiquitin, mutant superoxide dismut
 (PDI) are characteristics of the disease [95, 96]."
 #SOD1 - superoxide dismutase 1
 SET Confidence = "High"
-path(MESH:"Amyotrophic Lateral Sclerosis") -> bp(HBP:"protein aggregation")
+path(MESH:"Amyotrophic Lateral Sclerosis") -> bp(CONSO:"protein aggregation")
 a(GO:"Bunina body") -- path(MESH:"Amyotrophic Lateral Sclerosis")
 a(GO:"neurofilament cytoskeleton") -- path(MESH:"Amyotrophic Lateral Sclerosis")
 a(CHEBI:ubiquitin) -- path(MESH:"Amyotrophic Lateral Sclerosis")
@@ -1164,7 +1164,7 @@ p(HGNC:VAPB,var("?")) -- path(MESH:"Amyotrophic Lateral Sclerosis")
 p(HGNC:VAPB,var("?")) -| bp(MESH:"Unfolded Protein Response")
 
 SET CellStructure = "Endoplasmic Reticulum"
-p(HGNC:VAPB,var("?")) -> bp(HBP:"protein aggregation")
+p(HGNC:VAPB,var("?")) -> bp(CONSO:"protein aggregation")
 UNSET CellStructure
 UNSET Confidence
 
@@ -1236,9 +1236,9 @@ SET Confidence = "High"
 path(DOID:"variant Creutzfeldt-Jakob disease") isA path(DOID:"prion disease")
 path(DOID:"variant Creutzfeldt-Jakob disease") isA path(DOID:"neurodegenerative disease")
 path(DOID:"variant Creutzfeldt-Jakob disease") -> path(MESH:"Spongiform Encephalopathy with Neuropsychiatric Features")
-path(DOID:"variant Creutzfeldt-Jakob disease") -> bp(HBP:"protein aggregation")
-bp(HBP:"protein aggregation") -> a(MESH:"Prion Proteins")
-bp(HBP:"protein aggregation") -> a(HBP:"amyloid-beta aggregates"))
+path(DOID:"variant Creutzfeldt-Jakob disease") -> bp(CONSO:"protein aggregation")
+bp(CONSO:"protein aggregation") -> a(MESH:"Prion Proteins")
+bp(CONSO:"protein aggregation") -> a(CONSO:"amyloid-beta aggregates"))
 UNSET Confidence
 
 SET Evidence = "The mature prion protein contains 209
@@ -1269,6 +1269,6 @@ SET Evidence = "There is evidence for the accumulation
 of misfolded proteins and also evidence for the involvement of
 the UPR in several human neurodegenerative conditions."
 SET Confidence = "High"
-path(MESH:"Neurodegenerative Diseases") -> bp(HBP:"protein aggregation")
+path(MESH:"Neurodegenerative Diseases") -> bp(CONSO:"protein aggregation")
 path(MESH:"Neurodegenerative Diseases") -- bp(MESH:"Unfolded Protein Response")
 UNSET Confidence
