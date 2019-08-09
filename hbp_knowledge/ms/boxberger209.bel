@@ -112,7 +112,7 @@ path(DOID:"multiple sclerosis") -- path(MESH:Autoimmunity)
 
 SET Evidence = "Several miRNAs can target mRNA transcripts of genes coding for components of inflammasome complexes
 or for regulators of the inflammasomes."
-a(MESH:MicroRNAs) reg a(MESH:Inflammasomes)
+r(MESH:MicroRNAs) reg a(MESH:Inflammasomes)
 
 SET Evidence = "The common function of the canonical inflammasomes is the proteolytic activation of IL-1beta and IL-18 and their secretion (2)"
 #canonical inflammasomes - NLRP1, NLRP3, NLRC4, AIM2, and pyrin subunits
@@ -195,5 +195,18 @@ a(PUBCHEM:223370366) reg a(MIRBASE:"hsa-mir-30a")
 a(PUBCHEM:223370366) reg a(MIRBASE:"hsa-mir-146a")
 UNSET Cell
 UNSET MeSHDisease
+
+SET Evidence = "The first step of canonical miRNA biogenesis is transcription into primary miRNAs (pri-miRNAs) by RNA polymerase II (24, 25)."
+act(p(MESH:"RNA Polymerase II"), ma(GO:"rRNA transcription")) -> r(NCIT:C25967)
+
+SET Evidence = "In a two-step process, the primiRNA is first cleaved into a precursor miRNA by Drosha/
+DGCR8 and additional RNA-binding proteins, translocated into the cytoplasm by exportin-5, and subsequently processed
+by Dicer/TRBP to form a short miRNA duplex (26–28)."
+p(HGNC:DGCR8) -> r(NCIT:C25967, frag("?"))
+p(HGNC:DROSHA) -> r(NCIT:C25967, frag("?"))
+r(NCIT:C25967, frag("?")) -> r(MESH:MicroRNAs)
+p(HGNC:XPO5) -> a(MESH:"RNA-Binding Proteins", loc(GO:cytoplasm))
+composite(a(MESH:"RNA-Binding Proteins"), p(HGNC:DICER1)) -> complex(p(MESH:MicroRNAs), p(MESH:MicroRNAs))
+composite(a(MESH:"RNA-Binding Proteins"), p(HGNC:NCOA6)) -> complex(p(MESH:MicroRNAs), p(MESH:MicroRNAs))
 
 SET Evidence = ""
