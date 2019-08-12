@@ -184,16 +184,16 @@ a(MESH:Brain) -> r(HGNC:NLRP3, loc(MESH:Microglia))
 
 SET Evidence = "For example, the miRNAs miR-20b-5p, miR-30a-5p, and miR-146a-5p are dysregulated in immunological and neurologic pathways in MS (22), and the miRNA levels in peripheral blood cells of MS patients change in response to IFN-beta treatment (23)."
 SET MeSHDisease = "Multiple Sclerosis"
-a(MIRBASE:"hsa-mir-20a") -- path(MESH:"Neural Pathways")
-a(MIRBASE:"hsa-mir-20a") -- path(MESH:"Immune System")
-a(MIRBASE:"hsa-mir-30a") -- path(MESH:"Neural Pathways")
-a(MIRBASE:"hsa-mir-30a") -- path(MESH:"Immune System")
-a(MIRBASE:"hsa-mir-146a") -- path(MESH:"Neural Pathways")
-a(MIRBASE:"hsa-mir-146a") -- path(MESH:"Immune System")
+m(MIRBASE:"hsa-mir-20a") -- path(MESH:"Neural Pathways")
+m(MIRBASE:"hsa-mir-20a") -- path(MESH:"Immune System")
+m(MIRBASE:"hsa-mir-30a") -- path(MESH:"Neural Pathways")
+m(MIRBASE:"hsa-mir-30a") -- path(MESH:"Immune System")
+m(MIRBASE:"hsa-mir-146a") -- path(MESH:"Neural Pathways")
+m(MIRBASE:"hsa-mir-146a") -- path(MESH:"Immune System")
 SET Cell = "blood cell"
-a(PUBCHEM:223370366) reg a(MIRBASE:"hsa-mir-20a")
-a(PUBCHEM:223370366) reg a(MIRBASE:"hsa-mir-30a")
-a(PUBCHEM:223370366) reg a(MIRBASE:"hsa-mir-146a")
+a(PUBCHEM:223370366) reg m(MIRBASE:"hsa-mir-20a")
+a(PUBCHEM:223370366) reg m(MIRBASE:"hsa-mir-30a")
+a(PUBCHEM:223370366) reg m(MIRBASE:"hsa-mir-146a")
 UNSET Cell
 UNSET MeSHDisease
 
@@ -203,9 +203,9 @@ act(p(MESH:"RNA Polymerase II"), ma(GO:"rRNA transcription")) -> r(NCIT:C25967)
 SET Evidence = "In a two-step process, the primiRNA is first cleaved into a precursor miRNA by Drosha/
 DGCR8 and additional RNA-binding proteins, translocated into the cytoplasm by exportin-5, and subsequently processed
 by Dicer/TRBP to form a short miRNA duplex (26–28)."
-p(HGNC:DGCR8) -> r(NCIT:C25967, frag("?"))
-p(HGNC:DROSHA) -> r(NCIT:C25967, frag("?"))
-r(NCIT:C25967, frag("?")) -> r(MESH:MicroRNAs)
+p(HGNC:DGCR8) -> m(NCIT:C25967, frag("?"))
+p(HGNC:DROSHA) -> m(NCIT:C25967, frag("?"))
+m(NCIT:C25967, frag("?")) -> r(MESH:MicroRNAs)
 p(HGNC:XPO5) -> p(MESH:"RNA-Binding Proteins", loc(GO:cytoplasm))
 composite(p(MESH:"RNA-Binding Proteins"), p(HGNC:DICER1)) -> complex(p(MESH:MicroRNAs), p(MESH:MicroRNAs))
 composite(p(MESH:"RNA-Binding Proteins"), p(HGNC:NCOA6)) -> complex(p(MESH:MicroRNAs), p(MESH:MicroRNAs))
@@ -252,7 +252,7 @@ and lowest in dendritic cells (48)."
 SET Evidence = "Moreover, a miRNA from EBV, a common virus that targets B cells and is considered essential for
 the development of the neurodegenerative disease MS (49), ebvmiR-BART15-3p, regulates NLRP3 expression (47)."
 m(MIRBASE:"ebv-mir-BART15") reg p(HGNC:NLRP3)
-m(MIRBASE:"ebv-mir-BART15") -> path(DODI:"multiple sclerosis")
+m(MIRBASE:"ebv-mir-BART15") -> path(DOID:"multiple sclerosis")
 
 SET Evidence = "Infected B cells can secrete ebv-miR-BART15-3p via exosomes and inhibit NLRP3 activity in noninfected cells, which may be a mechanism for the virus to evade host defense (47)."
 SET MeSHAnatomy = "B-Lymphocytes"
@@ -643,14 +643,14 @@ r(HGNC:FOXO3) -> r(HGNC:IL1B)
 r(HGNC:FOXO3) -> p(HGNC:IL1B)
 
 
-#####how to code for promoter region?
+#####how to code for promoter region? and hypermethylation?
 SET Evidence = "The promotor of miR-145a-5p can be hypermethylated during atherosclerotic plaque formation, which leads to a decreased expression of miR-145a-5p, an upregulation of its target genes CD137 and NFATc1, and this induces the activation of the NLRP3 inflammasome."
 #NCIT:C78739 - atherosclerotic plaque
-path(NCIT:C78739) -> m(MIRBASE:"hsa-mir-145", pmod(Me))
-m(MIRBASE:"hsa-mir-145", pmod(Me)) -| m(MIRBASE:"hsa-mir-145")
-m(MIRBASE:"hsa-mir-145", pmod(Me)) -> g(HGNC:TNFRSF9)
-m(MIRBASE:"hsa-mir-145", pmod(Me)) -> g(HGNC:NFATC1)
-m(MIRBASE:"hsa-mir-145", pmod(Me)) -> act(complex(GO:"NLRP3 inflammasome complex"))
+path(NCIT:C78739) -> m(MIRBASE:"hsa-mir-145")
+m(MIRBASE:"hsa-mir-145") -| m(MIRBASE:"hsa-mir-145")
+m(MIRBASE:"hsa-mir-145") -> g(HGNC:TNFRSF9)
+m(MIRBASE:"hsa-mir-145") -> g(HGNC:NFATC1)
+m(MIRBASE:"hsa-mir-145") -> act(complex(GO:"NLRP3 inflammasome complex"))
 g(HGNC:TNFRSF9) -> act(complex(GO:"NLRP3 inflammasome complex"))
 g(HGNC:NFATC1) -> act(complex(GO:"NLRP3 inflammasome complex"))
 
