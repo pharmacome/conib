@@ -1,8 +1,8 @@
 <h1 align="center">
   <br>
   Curation of Neurodegeneration in BEL (CONIB)
-  <a href="https://travis-ci.com/pharmacome/knowledge">
-    <img src="https://travis-ci.com/pharmacome/knowledge.svg?branch=master"
+  <a href="https://travis-ci.com/pharmacome/conib">
+    <img src="https://travis-ci.com/pharmacome/conib.svg?branch=master"
          alt="Travis CI">
   </a>
   <a href="https://zenodo.org/badge/latestdoi/159803376">
@@ -46,7 +46,7 @@ Here are a few links for navigating the GitHub issues and pull requests:
 ``hbp_knowledge`` can be installed from [PyPI](https://pypi.org/project/hbp-knowledge/) with the following command:
 
 ```bash
-$ pip install conib
+$ pip install hbp_knowledge
 ```
 
 or the latest version can be installed from [GitHub](https://github.com/pharmacome/conib) with:
