@@ -17,7 +17,7 @@ SET DOCUMENT Description = ""
 # Namespaces hosted on https://github.com/pharmacome/conso
 # --------------------------------------------------------
  DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
-# DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/4aa36980578c7d2cff07371abf768f15db89cd11/export/conso-names.belns"
+ DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/4aa36980578c7d2cff07371abf768f15db89cd11/export/conso-names.belns"
 # DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
  DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 # DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
@@ -110,7 +110,7 @@ SET Evidence = "In addition, low vitamin D levels have been implicated in risk f
 a(MESH:"Vitamin D") neg path(ORPHANET:477738)
 
 SET Evidence = "Several studies have assessed the role of vitamin D deficiency in the perinatal period (by utilization of biobanks and dried blood spot samples) upon risk for MS, with conflicting results. Swedish studies have looked at the relationship of 25-hydroxyvitamin D levels during gestation (25) and in the neonatal period (26) as it relates to risk of developing MS in these offspring."
-composite(a(CHEBI:"24,25-Dihydroxyvitamin D"), a(MESH:Pregnancy)) -- path(DOID:"multiple sclerosis")
+composite(a(CHEBI:"24,25-Dihydroxyvitamin D"), path(MESH:Pregnancy)) -- path(DOID:"multiple sclerosis")
 SET Anatomy = "neonate stage"
 a(CHEBI:"24,25-Dihydroxyvitamin D") -- path(DOID:"multiple sclerosis")
 UNSET Anatomy
@@ -148,7 +148,7 @@ SET Species = "9606"
 path(EFO:"human herpesvirus 6 seropositivity") -- path(DOID:"multiple sclerosis")
 SET Anatomy = "serum"
 SET MeSHDisease = "Herpesviridae Infections"
-path(DOID:"multiple sclerosis") -> a(MESH:Antibodies)
+path(DOID:"multiple sclerosis") -> p(MESH:Antibodies)
 UNSET MeSHDisease
 UNSET Anatomy
 
@@ -160,7 +160,7 @@ SET Evidence = "Smoking has been shown to increase risk of MS; furthermore, risk
 path(MESH:Smoking) -> path(DOID:"multiple sclerosis")
 
 SET Evidence = "Despite this, oral tobacco use has not been associated with elevated risk for MS, which suggests that nicotine is not the responsible agent (39)."
-path(MESH:"Tobacco, Smokeless") cnc path(DOID:"multiple sclerosis")
+a(MESH:"Tobacco, Smokeless") cnc path(DOID:"multiple sclerosis")
 a(CHEBI:nicotine) cnc path(DOID:"multiple sclerosis")
 
 SET Evidence = "The frequency of exposure to parental passive smoking was associated with an increased risk for MS (RR 2.12, 95% CI 1.43-3.15)."
@@ -198,7 +198,7 @@ a(MESH:"Th17 Cells", var("?")) -> path(EFO:"experimental autoimmune encephalomye
 bp(MESH:"Diet, Sodium-Restricted") -| path(EFO:"experimental autoimmune encephalomyelitis")
 
 SET Evidence = "The bacterial milieu within the gastrointestinal tract has a substantial influence on an individual’s immune profile and response – including development of the immune system, protection against pathogens, and maintenance of immune response (57)."
-path(MESH:"Gastrointestinal Microbiome") reg path(MESH:"Immune System")
+path(MESH:"Gastrointestinal Microbiome") reg a(MESH:"Immune System")
 path(MESH:"Gastrointestinal Microbiome") reg path(MESH:Immunity)
 path(MESH:"Gastrointestinal Microbiome") reg bp(GO:"immune response")
 
@@ -256,22 +256,22 @@ SET MeSHDisease = "Multiple Sclerosis"
 g(HGNC:IFNG ,var(NCIT:C121521)) -> g(HGNC:IFNG)
 g(HGNC:FOXP3 ,var(NCIT:C121521)) -> g(HGNC:FOXP3)
 g(HGNC:IL13 ,var(NCIT:C121521)) -> g(HGNC:IL13)
-g(HGNC:IL17 ,var(NCIT:C121521)) -> g(HGNC:IL17)
+g(HGNC:IL17A ,var(NCIT:C121521)) -> g(HGNC:IL17A)
 
 p(HGNC:IFNG) reg bp(GO:"immune response")
 p(HGNC:FOXP3) reg bp(GO:"immune response")
 p(HGNC:IL13) reg bp(GO:"immune response")
-p(HGNC:IL17) reg bp(GO:"immune response")
+p(HGNC:IL17A) reg bp(GO:"immune response")
 
 p(HGNC:IFNG) reg bp(GO:"T cell differentiation")
 p(HGNC:FOXP3) reg bp(GO:"T cell differentiation")
 p(HGNC:IL13) reg bp(GO:"T cell differentiation")
-p(HGNC:IL17) reg bp(GO:"T cell differentiation")
+p(HGNC:IL17A) reg bp(GO:"T cell differentiation")
 UNSET MeSHDisease
 
 SET Evidence = "Other studies have demonstrated evidence of hypermethylation in genes involved with immune system regulation (e.g. SHP-1), resulting in reduced genetic expression and a resultant increase in leukocyte-mediated inflammation (92)."
 #PTPN6 - SHP - 1
-g(HGNC:PTPN6) reg path(MESH:"Immune System")
+g(HGNC:PTPN6) reg a(MESH:"Immune System")
 g(HGNC:PTPN6, var(NCIT:C20102)) -| g(HGNC:PTPN6)
 SET Cell = "leukocyte"
 g(HGNC:PTPN6) -| path(MESH:Inflammation)
@@ -286,7 +286,7 @@ p(HGNCGENEFAMILY:"Histocompatibility complex") -- bp(GO:"immune response")
 UNSET Disease
 
 SET Evidence = "It also appears that viral infections may help to shape the early immune response, as early life herpes simplex virus-1 (HSV-1) infection appears to be protective in those who are HLA-DRB1*15 positive (100)."
-path(MESH:"Herpesvirus 1, Human") -| p(HGNC:"HLA-DRB1")
+p (MESH:"Herpesvirus 1, Human") -| p(HGNC:"HLA-DRB1")
 
 SET Evidence = "Smoking greatly increases MS risk in individuals who are positive for the HLA-DRB1*15 allele and negative for the HLA-A*02 allele (OR 13.5) compared to nonsmokers with the same HLA genotype (OR 4.9) (101)"
 #C150640 - HLA-A*0201 Negative
@@ -308,9 +308,9 @@ a(PUBCHEM:107970) -| path(ORPHANET:477738)
 a(PUBCHEM:54684141) -| path(ORPHANET:477738)
 a(PUBCHEM:637568) -| path(ORPHANET:477738)
 
-a(PUBCHEM:107970) isA a(MESH:"Administration, Oral")
-a(PUBCHEM:54684141) isA a(MESH:"Administration, Oral")
-a(PUBCHEM:637568) isA a(MESH:"Administration, Oral")
+a(PUBCHEM:107970) isA path(MESH:"Administration, Oral")
+a(PUBCHEM:54684141) isA path(MESH:"Administration, Oral")
+a(PUBCHEM:637568) isA path(MESH:"Administration, Oral")
 
 SET Evidence = "Similarly, the data regarding infusion therapies (e.g. natalizumab, rituximab, cyclophosphamide, alemtuzumab) and monoclonal antibody injection therapies (e.g. daclizumab) is limited in regards to safety and efficacy in pediatric MS."
 a(PUBCHEM:135314782) -| path(ORPHANET:477738)
@@ -323,7 +323,7 @@ a(PUBCHEM:135314782) isA path(MESH:"Home Infusion Therapy")
 a(PUBCHEM:135341754) isA path(MESH:"Home Infusion Therapy")
 a(PUBCHEM:2907) isA path(MESH:"Home Infusion Therapy")
 a(PUBCHEM:135330159) isA path(MESH:"Home Infusion Therapy")
-a(PUBCHEM:46504469) isA a(MESH:"Antibodies, Monoclonal")
+a(PUBCHEM:46504469) isA p(MESH:"Antibodies, Monoclonal")
 
 SET Evidence = "Along with the potential for accumulating physical disability, symptoms of co-morbid depression (125), fatigue (125), reduced physical activity (126,127), and cognitive dysfunction (128-130) are also highly prevalent."
 #for MS and pediatric MS
