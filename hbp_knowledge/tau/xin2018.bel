@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/7e4be528f12abd28be768b62402fba6e083eaf9e/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -94,7 +94,7 @@ SET Evidence = "In addition, studies have shown that
 the 20S proteasome can play a key role in digesting proteins
 directly via an ATP-independent and ubiquitin-independent
 pathway (Jariel-Encontre et al. 2008)"
-a(HBP:"20 S Proteasome") -> bp(GO:"proteasomal ubiquitin-independent protein catabolic process")
+p(CONSO:"20 S Proteasome") -> bp(GO:"proteasomal ubiquitin-independent protein catabolic process")
 
 SET Evidence = "And autophagy-lysosomal activity
 is induced via two signal pathways: mammalian target of
@@ -116,7 +116,7 @@ cytokines, stimulating inflammatory response
 and ultimately leading to neuronal injuries and death"
 act(a(MESH:Microglia)) -> bp(GO:"cytokine production involved in inflammatory response")
 act(a(MESH:Microglia)) -> bp(GO:"inflammatory response")
-act(a(MESH:Microglia)) -> bp(HBP:Neurodegeneration)
+act(a(MESH:Microglia)) -> path(CONSO:Neurodegeneration)
 
 SET Evidence = "On the other hand, they may show beneficial effects via facilitating
 aberrant protein clearance by means of microglial migration to
@@ -200,7 +200,7 @@ of Aβ also induces oxidative stress and mitochondrial dysfunction,
 which fails to offer ATP for the degradation of targeted
 proteins by UPS in yeast (Chen and Petranovic 2015)"
 a(CHEBI:"amyloid-beta") -> bp(GO:"response to oxidative stress")
-a(CHEBI:"amyloid-beta") -> bp(HBP:"mitochondrial dysfunction")
+a(CHEBI:"amyloid-beta") -> path(CONSO:"mitochondrial dysfunction")
 
 SET Evidence = "In addition, there is accumulating evidence to prove that
 Aβ can be cleared by ALS."
@@ -224,7 +224,7 @@ SET Evidence = "Recent evidence has
 indicated that autophagy is damaged in astrocytes accompanied
 by the expression of APOE4, which attenuates Aβ degradation
 (Simonovitch et al. 2016)"
-a(HBP:"APOE e4") -| deg(a(CHEBI:"amyloid-beta"))
+g(CONSO:"APOE e4") -| deg(a(CHEBI:"amyloid-beta"))
 
 SET Evidence = "The proteolytic degradation is also a major pathway of Aβ clearance"
 bp(GO:proteolysis) -> deg(a(CHEBI:"amyloid-beta"))
@@ -465,7 +465,7 @@ SET Evidence = "The expression of APOE ε4 allele is related to the
 reduction of Aβ clearance from the brain by impairing its arterial
 perivascular drainage, accompanied by changes of protein levels
 in cerebrovascular basement membrane (Hawkes et al. 2012)"
-a(HBP:"APOE e4") -| deg(a(CHEBI:"amyloid-beta"))
+g(CONSO:"APOE e4") -| deg(a(CHEBI:"amyloid-beta"))
 
 SET Evidence = "In addition, Jeffrey J. Iliff et al. have demonstrated that the Aβ in
 brain interstitium can be eliminated from the parenchyma by the
@@ -563,12 +563,12 @@ bp(GO:"proteasomal protein catabolic process") -> deg(p(HGNC:MAPT))
 SET Evidence = "Dysfunction of UPS brings about the
 deposition of hyperphosphorylated tau oligomers in synapses (Tai et al. 2012)"
 SET MeSHAnatomy = "Synapses"
-bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -| p(HBP:"Tau oligomers",pmod(HBP:hyperphosphorylation))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -| p(CONSO:"Tau oligomers",pmod(CONSO:hyperphosphorylation))
 UNSET MeSHAnatomy
 
 SET Evidence = "On the one hand, it is beneficial to the clearance of tau aggregates"
 # it:autophagy-lysosome system
-bp(GO:"lysosomal microautophagy") -| a(HBP:"Tau aggregates")
+bp(GO:"lysosomal microautophagy") -| a(CONSO:"Tau aggregates")
 
 SET Evidence = "On the other hand, it brings about tau fragmentation
 into pro-aggregating forms due to the failure of F1 to
@@ -603,7 +603,7 @@ tau cleavage can result in the generation of tau fragments, which
 may possess neurotoxicity in AD (Ferreira and Bigio 2011)"
 SET MeSHDisease = "Alzheimer Disease"
 p(FPLX:CAPN) -> p(HGNC:MAPT,frag("?"))
-p(HGNC:MAPT,frag("?")) -> bp(HBP:neurotoxicity)
+p(HGNC:MAPT,frag("?")) -> path(CONSO:neurotoxicity)
 UNSET MeSHDisease
 
 SET Evidence = "There was direct evidence to show that microglial phagocytosis

@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 #DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 #DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -85,23 +85,23 @@ SET Evidence = " Upon incubation
 with Lipofectamine, we were surprised to observe seeding by monomer and larger assemblies alike,
 whether FL WT or 2A. (Figure 1C,D)."
 SET Confidence = "High"
-a(PUBCHEM:"100984821") -> a(HBP:"Tau aggregates")
+a(PUBCHEM:"100984821") -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "However Ms induced amyloid forma-
 tion, albeit more slowly than trimer or unfractionated fibrils (Figure 1F)."
 #Ms is seeding active monomers
 SET Confidence = "Medium"
-act(p(HGNC:MAPT, var("?"))) -> a(HBP:"Tau aggregates")
-a(HBP:"Tau fibrils") -> a(HBP:"Tau aggregates")
-complex(p(HGNC:MAPT),p(HGNC:MAPT),p(HGNC:MAPT)) -> a(HBP:"Tau aggregates")
+act(p(HGNC:MAPT, var("?"))) -> a(CONSO:"Tau aggregates")
+a(CONSO:"Tau fibrils") -> a(CONSO:"Tau aggregates")
+complex(p(HGNC:MAPT),p(HGNC:MAPT),p(HGNC:MAPT)) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "After 15 min of heparin exposure, we detected low but significant amounts of seed-compe-
 tent monomer, and much fewer larger assemblies (Figure 6A)."
 SET Confidence = "Medium"
 a(CHEBI:heparin) -> act(p(HGNC:MAPT, var("?")))
-a(CHEBI:heparin) neg a(HBP:"Tau aggregates")
+a(CHEBI:heparin) neg a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 #SET Evidence = "In M s , we
@@ -113,7 +113,7 @@ from AD brain distributed across multiple fractions, corresponding to monomer an
 blies (Figure 8B). "
 SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
-path(MESH:"Alzheimer Disease") pos a(HBP:"Tau aggregates")
+path(MESH:"Alzheimer Disease") pos a(CONSO:"Tau aggregates")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -122,7 +122,7 @@ ity exclusively in the monomer fraction (Figure 8E). By contrast, AD-derived M s
 formed seed-competent assemblies of increasing size (Figure 8E)."
 SET Confidence = "Medium"
 SET MeSHDisease = "Alzheimer Disease"
-act(p(HGNC:MAPT, var("?"))) -> a(HBP:"Tau aggregates")
+act(p(HGNC:MAPT, var("?"))) -> a(CONSO:"Tau aggregates")
 UNSET MeSHDisease
 UNSET Confidence
 

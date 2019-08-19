@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc.genefamily-names.belns"
 #DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hp-names.belns"
@@ -55,11 +55,11 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 
 # Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
 # --------------------------------------------------------------------------------
-#DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
-#DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
-#DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-#DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 #DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 #DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -77,67 +77,83 @@ SET Citation = {"PubMed", "30061532"}
 SET Evidence = "Remarkably, further investigation on the
 autophagy pathway revealed that all these misfolded proteins are autophagy substrates depending
 on mTOR activity"
-bp(GO:autophagy) -> deg(p(MESH:Proteins,pmod(HBP:misfolded)))
-act(p(HGNC:MTOR)) reg deg(p(MESH:Proteins,pmod(HBP:misfolded)))
+SET Confidence = "High"
+bp(GO:autophagy) -> deg(p(MESH:Proteins,pmod(CONSO:misfolded)))
+act(p(HGNC:MTOR)) reg deg(p(MESH:Proteins,pmod(CONSO:misfolded)))
+UNSET Confidence
 
 SET Evidence = "In addition, most DLB patients show most features of AD (i.e., hyperphosphorylated tau deposits
 and Abeta) to various extents"
+SET Confidence = "High"
 # DLB: dementia with Lewy bodies
-path(MESH:"Lewy Body Disease") -- p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+path(MESH:"Lewy Body Disease") -- p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 path(MESH:"Lewy Body Disease") -- a(CHEBI:"amyloid-beta")
+UNSET Confidence
 
 SET Evidence = "Therefore, a common
 pathogenesis underlying all these NDDs disorders has been linked to autophagy inhibition due
 to mTOR hyperactivation"
+SET Confidence = "High"
 # NDDs: neurodegenerative disorders
 bp(GO:autophagy) -| path(MESH:"Neurodegenerative Diseases")
 act(p(HGNC:MTOR)) neg bp(GO:autophagy)
 act(p(HGNC:MTOR)) pos path(MESH:"Neurodegenerative Diseases")
+UNSET Confidence
 
 SET Evidence = "For instance, an increased mTOR activity correlates with
 accumulation of Abeta and hyperphosphorylated tau in AD brains"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 SET MeSHDisease = "Alzheimer Disease"
 act(p(HGNC:MTOR)) -> a(CHEBI:"amyloid-beta")
-act(p(HGNC:MTOR)) -> p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+act(p(HGNC:MTOR)) -> p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "On the other hand, some
 evidence indicates that suppressing mTOR activity ameliorates AD cognitive defects by decreasing
 Abeta and tau pathology"
+SET Confidence = "High"
 act(p(HGNC:MTOR)) -> path(MESH:"Alzheimer Disease")
-act(p(HGNC:MTOR)) -> a(HBP:"Tau aggregates")
+act(p(HGNC:MTOR)) -> a(CONSO:"Tau aggregates")
 SET MeSHDisease = "Alzheimer Disease"
 act(p(HGNC:MTOR)) -| bp(GO:cognition)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Again, rapamycin and rapalogs protect against toxicity produced by
 a number of misfolded proteins encompassing alpha synuclein, TDP43, and hyperphosphorylated tau "
-a(CHEBI:"sirolimus") -| act(p(HGNC:MTOR))
-a(CHEBI:"sirolimus") -| p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
-a(CHEBI:"sirolimus") -| p(HGNC:SNCA,pmod(HBP:misfolded))
-a(CHEBI:"sirolimus") -| p(HGNC:TARDBP,pmod(HBP:misfolded))
-a(CHEBI:"mTOR inhibitor") -| act(p(HGNC:MTOR))
-a(CHEBI:"mTOR inhibitor") -| p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
-a(CHEBI:"mTOR inhibitor") -| p(HGNC:SNCA,pmod(HBP:misfolded))
-a(CHEBI:"mTOR inhibitor") -| p(HGNC:TARDBP,pmod(HBP:misfolded))
+
+SET Confidence = "Medium"
+a(CHEBI:"sirolimus") -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+a(CHEBI:"sirolimus") -| p(HGNC:SNCA,pmod(CONSO:misfolded))
+a(CHEBI:"sirolimus") -| p(HGNC:TARDBP,pmod(CONSO:misfolded))
+a(CHEBI:"mTOR inhibitor") -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+a(CHEBI:"mTOR inhibitor") -| p(HGNC:SNCA,pmod(CONSO:misfolded))
+a(CHEBI:"mTOR inhibitor") -| p(HGNC:TARDBP,pmod(CONSO:misfolded))
+UNSET Confidence
 
 SET Evidence = "This is further supported by mounting evidence obtained in rodent models, which demonstrate that
 rapamycin normalizes impaired social interactions and reverses behavioral defects"
+SET Confidence = "High"
 a(CHEBI:"sirolimus") -> path(MESH:"Interpersonal Relations")
 a(CHEBI:"sirolimus") -> bp(GO:behavior)
+UNSET Confidence
 
 SET Evidence = "In schizophrenia, a progressive synaptic disorder is likely to promote neurodegeneration"
+SET Confidence = "High"
 SET MeSHDisease = "Schizophrenia"
-act(a(GO:"synapse")) -- path(HBP:Neurodegeneration)
+act(a(GO:"synapse")) -- path(CONSO:Neurodegeneration)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "As detailed in the following paragraph, METH exerts
 disruptive effects on DA neurotransmission, which translate into abnormal stimulation of post-synaptic
 DA receptors, mainly D1-type DA receptors (D1R), thus leading to non-canonical signaling cascades
 sustaining behavioral alterations that overlap with schizophrenia-like symptoms (i.e., visual and
 auditory hallucinations and delusions)"
+SET Confidence = "Medium"
 # DA: dopamine
 a(CHEBI:methamphetamine) -| bp(GO:"dopamine secretion, neurotransmission")
 a(CHEBI:methamphetamine) -| act(p(HGNCGENEFAMILY:"Dopamine receptors"))
@@ -145,24 +161,30 @@ a(CHEBI:methamphetamine) -| act(p(HGNC:DRD1))
 a(CHEBI:methamphetamine) -> bp(GO:"non-canonical Wnt signaling pathway")
 a(CHEBI:methamphetamine) -> path(MESH:Hallucinations)
 a(CHEBI:methamphetamine) -> path(MESH:Delusions)
-path(MESH:Schizophrenia) -- path(MESH:Hallucinations)
-path(MESH:Schizophrenia) -- path(MESH:Delusions)
+path(MESH:Schizophrenia) -> path(MESH:Hallucinations)
+path(MESH:Schizophrenia) -> path(MESH:Delusions)
+UNSET Confidence
 
 SET Evidence = "Increased activity of D1R is considered as a
 major determinant of neuropsychiatric alterations occurring in both METH models/abusers and
 in schizophrenia"
+SET Confidence = "High"
 path(MESH:Schizophrenia) pos act(p(HGNC:DRD1))
+UNSET Confidence
 
 SET Evidence = "This is key, because abnormal stimulation of D1R and subsequent
 signaling cascades were recently shown to produce an over-activation of mTOR and inhibition of the
 autophagy machinery"
+SET Confidence = "High"
 act(p(HGNC:DRD1)) -> act(p(HGNC:MTOR))
 act(p(HGNC:DRD1)) -| bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "In addition, several susceptibility genes for schizophrenia (e.g., DISC1,
 NRG1/ErbB4, and CRMP2), which are involved in either pre-synaptic DA release or post-synaptic
 D1R-related cascades, are similarly dysregulated by METH. Interestingly, they all converge on mTOR
 signaling (see Section 6, Table 1)."
+SET Confidence = "High"
 g(HGNC:DISC1) -- path(MESH:Schizophrenia)
 g(HGNC:NRG1) -- path(MESH:Schizophrenia)
 g(HGNC:DPYSL2) -- path(MESH:Schizophrenia)
@@ -172,199 +194,258 @@ a(CHEBI:methamphetamine) -| act(g(HGNC:DPYSL2))
 act(g(HGNC:DISC1)) -- act(p(HGNC:MTOR))
 act(g(HGNC:NRG1)) -- act(p(HGNC:MTOR))
 act(g(HGNC:DPYSL2)) -- act(p(HGNC:MTOR))
+UNSET Confidence
 
 SET Evidence = "In fact, mTOR-induced autophagy inhibition exacerbates the
 ultrastructural effects of METH [126,134–136], while rapamycin administration reverts both behavioral
 and morphological alterations induced by METH [137]."
+SET Confidence = "High"
 act(p(HGNC:MTOR)) -| bp(GO:autophagy)
 act(p(HGNC:MTOR)) -> act(a(CHEBI:methamphetamine))
 bp(GO:autophagy) -| act(a(CHEBI:methamphetamine))
 a(CHEBI:"sirolimus") -| act(a(CHEBI:methamphetamine))
+UNSET Confidence
 
 SET Evidence = "In humans, the sensitizing
 effects of prolonged chronic METH intake are considered a major determinant to the occurrence and
 relapse of psychoses, which mirror those occurring in schizophrenic patients"
+SET Confidence = "High"
 a(CHEBI:methamphetamine) -> path(MESH:"Psychoses, Substance-Induced")
 path(MESH:Schizophrenia) -- path(MESH:"Psychotic Disorders")
+UNSET Confidence
 
 SET Evidence = "Accordingly, clinical evidence points towards
 an elevation of pre-synaptic DA synthesis and release as a key event for schizophrenia"
+SET Confidence = "High"
 a(CHEBI:dopamine) pos path(MESH:Schizophrenia)
 sec(a(CHEBI:dopamine)) -- path(MESH:Schizophrenia)
+UNSET Confidence
 
 SET Evidence = "Likewise, the psychostimulant effects experienced by METH-addicted patients rely on increased
 DA synthesis and massive DA release from nerve terminals within limbic areas as occurring in
 the schizophrenic brain"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 path(MESH:Schizophrenia) -> a(CHEBI:dopamine)
 path(MESH:Schizophrenia) -> tloc(a(CHEBI:dopamine),fromLoc(MESH:"Nerve Endings"),toLoc(MESH:"Limbic System"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Such an abnormal DA release produces peaks of extracellular
 DA, which cannot be taken up within nerve terminals, because METH inhibits and reverts the
 direction of the dopamine transporter (DAT)."
+SET Confidence = "Medium"
 # DAT: SLC6A3
 a(CHEBI:methamphetamine) -| act(p(HGNC:SLC6A3))
 p(HGNC:SLC6A3) -> a(CHEBI:dopamine,loc(MESH:"Nerve Endings"))
 a(CHEBI:methamphetamine) -| a(CHEBI:dopamine,loc(MESH:"Nerve Endings"))
+UNSET Confidence
 
 SET Evidence = "In line with this, recent studies suggest that DAT
 expression is significantly reduced in the midbrain of postmortem schizophrenic samples [150],
 which is reminiscent of the METH-addicted brain [151,152]."
+SET Confidence = "High"
 SET MeSHAnatomy = "Mesencephalon"
 path(MESH:Schizophrenia) -| p(HGNC:SLC6A3)
+UNSET MeSHAnatomy
 SET MeSHAnatomy = "Brain"
 a(CHEBI:methamphetamine) -| p(HGNC:SLC6A3)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Likewise, rapamycin was found to be beneficial for ameliorating psychotic symptoms"
+SET Confidence = "High"
 a(CHEBI:"sirolimus") -| path(MESH:"Psychotic Disorders")
+UNSET Confidence
 
 SET Evidence = "The relevance of autophagy for sustaining these mTOR-induced
 effects is confirmed by drugs inducing autophagy independently of mTOR activation"
+SET Confidence = "High"
 # METH-induced behavioral sensitization
 bp(GO:autophagy) reg act(p(HGNC:MTOR))
+UNSET Confidence
 
 SET Evidence = "In fact, lithium
 is able to delay METH-induced sensitization, while being a powerful treatment in schizophrenia"
+SET Confidence = "High"
 a(CHEBI:"lithium(1+)") -| act(p(HGNC:MTOR))
 a(CHEBI:"lithium(1+)") -| path(MESH:Schizophrenia)
+UNSET Confidence
 
 SET Evidence = "Noteworthy, genetic ablation of autophagy was shown
 to produce an extremely powerful DA release upon electrical stimuli, suggesting that autophagy is
 key to restrain DA release both upon basal neural activity and mostly after rapamycin-induced
 autophagy"
+SET Confidence = "High"
 bp(GO:autophagy) -| sec(a(CHEBI:dopamine))
 a(CHEBI:"sirolimus") -> bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "These findings strongly suggest that an autophagy dysfunction acts both at
 pre- and post-synaptic level to alter DA neurotransmission during both METH administration
 and schizophrenia (Figure 2)"
+SET Confidence = "High"
 a(CHEBI:methamphetamine) -- bp(GO:"dopamine secretion, neurotransmission")
 a(CHEBI:methamphetamine) -| sec(a(CHEBI:dopamine))
 SET MeSHDisease = "Schizophrenia"
 bp(GO:autophagy) -- bp(GO:"dopamine secretion, neurotransmission")
 bp(GO:autophagy) -| sec(a(CHEBI:dopamine))
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "This confirms our previous studies showing that both genetic and
 pharmacological autophagy inhibition worsen the effects of METH administration"
+SET Confidence = "High"
 bp(GO:autophagy) -| act(a(CHEBI:methamphetamine))
+UNSET Confidence
 
 SET Evidence = "In line with this, METH produces ultrastructural alterations reflecting dysfunctional
 autophagy flux, which are DA-dependent"
+SET Confidence = "High"
 a(CHEBI:methamphetamine) -| bp(GO:autophagy)
 a(CHEBI:dopamine) reg bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "In fact, METH produces a massive increase of endogenous
 intra-cytosolic DA levels by inhibiting and reverting the direction of the vesicular monoamine
 transporter type 2 (VMAT-2), thus disrupting the physiological storage of DA"
+SET Confidence = "High"
 a(CHEBI:methamphetamine) -> a(CHEBI:dopamine,loc(GO:cytosol))
 a(CHEBI:methamphetamine) -| act(p(HGNC:SLC18A2))
 p(HGNC:SLC18A2) -- a(CHEBI:dopamine)
+UNSET Confidence
 
 SET Evidence = "A reduction in
 VMAT-2 gene expression and protein levels in DA neurons occurs in both METH models and
 schizophrenic patients, marking quite impressively the overlap between these disorders"
+SET Confidence = "High"
 SET Cell = "dopaminergic neuron"
 path(MESH:Schizophrenia) neg p(HGNC:SLC18A2)
 a(CHEBI:methamphetamine) neg p(HGNC:SLC18A2)
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "It is worth mentioning that freely diffusible intra-cytosolic DA can readily undergo auto-oxidation
 and produce a cascade of oxidative-related damage, which is bound to the neurotoxic effects of
 high doses of METH"
+SET Confidence = "High"
 a(CHEBI:dopamine) -> bp(GO:"response to oxidative stress")
 a(CHEBI:methamphetamine) -> bp(GO:"response to oxidative stress")
+UNSET Confidence
 
 SET Evidence = "Beyond METH,
 redox-related changes that result from an imbalance between reactive oxygen species (ROS)
 production and ROS clearance are implicated in schizophrenia"
+SET Confidence = "High"
 a(CHEBI:"reactive oxygen species") -- path(MESH:Schizophrenia)
+UNSET Confidence
 
 SET Evidence = "In addition, the occurrence of alpha synuclein gene (SNCA) polymorphisms is associated with human METH psychosis [166]."
+SET Confidence = "Medium"
 p(HGNC:SNCA,var("?")) -- path(MESH:"Psychotic Disorders")
-path(MESH:Schizophrenia) -> path(MESH:"Psychotic Disorders")
+UNSET Confidence
 
 SET Evidence = "In addition, cytoskeletal derangement appears as a prominent feature of the ultrastructural pathology
 of schizophrenia"
+SET Confidence = "High"
 path(MESH:Schizophrenia) neg bp(GO:"cytoskeleton organization")
+UNSET Confidence
 
 SET Evidence = "Cytoskeleton organization and dynamics depend on the fine control of
 microtubule assembly, which relies on the interaction of microtubules with a specific class of proteins
 known as microtubule-associated protein (MAP)."
+SET Confidence = "High"
 bp(GO:"microtubule polymerization") -> bp(GO:"cytoskeleton organization")
 complex(a(MESH:"Microtubule-Associated Proteins"),a(GO:microtubule)) -> bp(GO:"microtubule polymerization")
+UNSET Confidence
 
 SET Evidence = "Among various
 identified MAPs, microtubule-associated protein 2 (MAP2), which belongs to the MAP2/Tau family,
 is enriched in the brain and especially in dendrites, where it contributes to microtubule stabilization
 and overall dendritic architecture."
+SET Confidence = "High"
 SET MeSHAnatomy = {"Brain","Dendrites"}
 p(HGNC:MAP2) -> a(GO:microtubule)
 p(HGNC:MAP2) -> bp(GO:"dendritic spine organization")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Alterations in MAP2 immunoreactivity within the subiculum,
 entorhinal cortex, hippocampus, and prefrontal cortex have been suggested as the primary array
 of cytoskeletal abnormalities, which in turn result in impaired neurotransmission observed in
 schizophrenia"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Hippocampus","Entorhinal Cortex","Prefrontal Cortex"}
 p(HGNC:MAP2) -> bp(GO:"cytoskeleton organization")
 bp(GO:"cytoskeleton organization") -> bp(GO:"neuron-neuron synaptic transmission")
 path(MESH:Schizophrenia) neg bp(GO:"neuron-neuron synaptic transmission")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Notably, a marked reduction in MAP2 immunoreactivity, along with a
 decrease in dendritic arbor, is reported in the primary auditory cortex (BA41) of schizophrenic
 subjects compared with healthy controls"
+SET Confidence = "High"
 SET MeSHAnatomy = "Auditory Cortex"
 path(MESH:Schizophrenia) -| p(HGNC:MAP2)
 path(MESH:Schizophrenia) -| a(GO:dendrite)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Moreover, pathological deposition
 of hyperphosphorylated MAP-tau (MAPT), which is the hallmark of several neurodegenerative
 disorders such as AD and frontotemporal dementia (FTD), has been described in elderly subjects with
 schizophrenia"
-path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
-path(MESH:"Frontotemporal Dementia") pos p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
-path(MESH:Schizophrenia) pos p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+SET Confidence = "High"
+path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+path(MESH:"Frontotemporal Dementia") pos p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+path(MESH:Schizophrenia) pos p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+UNSET Confidence
 
 SET Evidence = "Momeni and colleagues (2010) recently reported
 two relatives with an early age at onset (27 and 29 years) of schizophrenic symptoms showing a marked
 neuronal tau deposition, as confirmed at pathological examination"
+SET Confidence = "High"
 path(MESH:Schizophrenia) -> p(HGNC:MAPT,loc(MESH:Neurons))
+UNSET Confidence
 
 SET Evidence = "Notably, post-mortem analysis performed in the prefrontal cortex of schizophrenic patients revealed
 oligodendrocyte ultrastructural abnormalities"
+SET Confidence = "High"
 SET MeSHAnatomy = "Prefrontal Cortex"
 path(MESH:Schizophrenia) -| bp(GO:"oligodendrocyte development")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Remarkably, a very recent neuropathological examination provided evidence for
 TDP-43-positive cytosolic inclusions and dystrophic neurites in the brain of a patient diagnosed
 with FTLD presenting brief psychotic episodes and catatonia, which is a syndrome related to
 schizophrenia"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 path(MESH:"Frontotemporal Lobar Degeneration") -- path(MESH:"Psychotic Disorders")
 path(MESH:"Frontotemporal Lobar Degeneration") -- path(MESH:Catatonia)
 p(HGNC:TARDBP,loc(GO:"inclusion body")) -- path(MESH:"Frontotemporal Lobar Degeneration")
-p(HGNC:TARDBP,loc(HBP:"dystrophic neurite")) -- path(MESH:"Frontotemporal Lobar Degeneration")
+p(HGNC:TARDBP,loc(CONSO:"dystrophic neurite")) -- path(MESH:"Frontotemporal Lobar Degeneration")
 path(MESH:Catatonia) -- path(MESH:Schizophrenia)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Preliminary in vitro studies demonstrated that two proteins, namely DISC1
 and dysbindin-1, which are encoded by two susceptibility genes for schizophrenia, can form insoluble
 protein aggregates that are reminiscent of those occurring in neurodegenerative disorders"
+SET Confidence = "Medium"
 p(HGNC:DISC1) -- path(MESH:Schizophrenia)
-p(HGNC:DISC1) -> a(HBP:"protein aggregates")
+p(HGNC:DISC1) -> a(CONSO:"protein aggregates")
 p(HGNC:DTNBP1) -- path(MESH:Schizophrenia)
-p(HGNC:DTNBP1) -> a(HBP:"protein aggregates")
+p(HGNC:DTNBP1) -> a(CONSO:"protein aggregates")
+a(CONSO:"protein aggregates") -> path(MESH:"Neurodegenerative Diseases")
+UNSET Confidence
 
 SET Evidence = "Intriguingly, the interactome analysis of both DISC1, dysbindin-1, and CRMP2, which is another
 susceptibility gene for schizophrenia, revealed common protein interactions with microtubules, actin
 cytoskeleton, and proteins involved in intracellular transport"
+SET Confidence = "High"
 p(HGNC:DISC1) -- path(MESH:Schizophrenia)
 complex(p(HGNC:DISC1),a(GO:microtubule))
 complex(p(HGNC:DISC1),a(GO:"actin cytoskeleton"))
@@ -374,172 +455,226 @@ complex(p(HGNC:DTNBP1),a(GO:"actin cytoskeleton"))
 p(HGNC:DPYSL2) -- path(MESH:Schizophrenia)
 complex(p(HGNC:DPYSL2),a(GO:microtubule))
 complex(p(HGNC:DPYSL2),a(GO:"actin cytoskeleton"))
+UNSET Confidence
 
 SET Evidence = "In particular, CRMP2 is
 a cytosolic protein enriched in the CNS, which has been implicated in microtubule stabilization,
 and thus in the regulation of cytoskeletal dynamics and vesicle trafficking"
+SET Confidence = "High"
 p(HGNC:DTNBP1) -- a(GO:"microtubule cytoskeleton")
 p(HGNC:DTNBP1) -- act(a(GO:cytoskeleton))
 p(HGNC:DTNBP1) -- bp(GO:"synaptic vesicle transport")
+UNSET Confidence
 
 SET Evidence = "The biological implication behind an impairment of microtubule dynamics is confirmed
 in post-mortem schizophrenic brain samples, as well as in mouse models of schizophrenia, where
 mTOR-dependent autophagy dysfunction is accompanied by an altered gene expression and protein
 levels of the microtubule-associated protein 6 (MAP6)"
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Brain"
 SET MeSHDisease = "Schizophrenia"
 path(MESH:Schizophrenia) neg act(a(GO:microtubule))
 p(HGNC:MTOR) -| bp(GO:autophagy)
+act(p(HGNC:MTOR)) -- r(HGNC:MAP6)
 act(p(HGNC:MTOR)) -- p(HGNC:MAP6)
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "This is the case of the disrupted in schizophrenia 1 (DISC1)
 gene, a schizophrenia-related gene, originally discovered in a large Scottish family with a
 high incidence of psychiatric symptoms"
+SET Confidence = "High"
 g(HGNC:DISC1) -- path(MESH:Schizophrenia)
+UNSET Confidence
 
 SET Evidence = "This gene encodes for the DISC1 ubiquitous
 protein, which is implicated in neurogenesis, neuronal migration, axon/dendrite, and synapse
 formation"
+SET Confidence = "High"
 p(HGNC:DISC1) -- bp(MESH:Neurogenesis)
 p(HGNC:DISC1) -- bp(GO:"neuron migration")
 p(HGNC:DISC1) -- bp(GO:"axon development")
 p(HGNC:DISC1) -- a(GO:dendrite)
 p(HGNC:DISC1) -- a(GO:synapse)
+UNSET Confidence
 
 SET Evidence = "Remarkably, DISC1 plays a key role in DA neurotransmission"
+SET Confidence = "High"
 p(HGNC:DISC1) -- bp(GO:"dopamine secretion, neurotransmission")
+UNSET Confidence
 
 SET Evidence = "In line with this, experimental models of DISC1 deficiency treated with METH show a significant potentiation
 of DA release, along with increased expression of D1R in the ventral striatum when compared with controls"
-a(CHEBI:methamphetamine) -- sec(a(CHEBI:dopamine))
-a(CHEBI:methamphetamine) -- p(HGNC:DRD1)
+SET Confidence = "Medium"
+SET Anatomy = "ventral striatum"
+a(CHEBI:methamphetamine) -> sec(a(CHEBI:dopamine))
+a(CHEBI:methamphetamine) -> p(HGNC:DRD1)
+UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "In addition, these findings strongly suggest that DISC1 alterations may
 increase the risk of schizophrenia by dysregulating DA release"
+SET Confidence = "High"
 p(HGNC:DISC1,var("?")) -> path(MESH:Schizophrenia)
 p(HGNC:DISC1,var("?")) -| sec(a(CHEBI:dopamine))
+UNSET Confidence
 
 SET Evidence = "In particular, DISC1 acts by blocking
 KIAA1212, an Akt-binding partner, which directly interacts with Akt and strengthens the activation of
 this kinase, which represents a major mediator of the mTOR pathway."
+SET Confidence = "High"
 p(HGNC:DISC1) -| act(p(HGNC:CCDC88A))
 complex(p(HGNC:CCDC88A),p(FPLX:AKT)) -> act(p(FPLX:AKT))
 p(FPLX:AKT) reg act(p(HGNC:MTOR))
+UNSET Confidence
 
 SET Evidence = "Therefore, the binding between
 DISC1 and KIAA1212 prevents KIAA1212-dependent Akt activation (Figure 3)."
+SET Confidence = "High"
 complex(p(HGNC:CCDC88A),p(HGNC:DISC1)) -| act(p(FPLX:AKT))
 p(HGNC:CCDC88A) -> act(p(FPLX:AKT))
+UNSET Confidence
 
 SET Evidence = "This decreases Akt
 activity, which in turn dampens mTOR signaling"
+SET Confidence = "Medium"
 # this: binding between DISC1 and KIAA1212
 complex(p(HGNC:CCDC88A),p(HGNC:DISC1)) -| act(p(FPLX:AKT))
 complex(p(HGNC:CCDC88A),p(HGNC:DISC1)) -| act(p(HGNC:MTOR))
+act(p(FPLX:AKT)) -> act(p(HGNC:MTOR))
+UNSET Confidence
 
 SET Evidence = "Therefore, disruption of DISC1 activity,
 due to genetic rearrangements (i.e., balanced (1;11) (q42;q14) chromosomal translocation) or
 missense mutations, produces schizophrenic-like behavior, which is bound to enhanced Akt activity,
 over-activation of mTOR signaling, and depressed autophagy"
+SET Confidence = "High"
 p(HGNC:DISC1,var("?")) -> path(MESH:Schizophrenia)
 p(HGNC:DISC1,var("?")) -> act(p(FPLX:AKT))
 p(HGNC:DISC1,var("?")) -> act(p(HGNC:MTOR))
 p(HGNC:DISC1,var("?")) -| bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "Likewise, administration of
 either D1R agonists or METH enhances Akt activity and over-activates mTOR signaling"
+SET Confidence = "High"
 act(p(HGNC:DRD1)) -> act(p(FPLX:AKT))
 act(p(HGNC:DRD1)) -> act(p(HGNC:MTOR))
 a(CHEBI:methamphetamine) -> act(p(FPLX:AKT))
 a(CHEBI:methamphetamine) -> act(p(HGNC:MTOR))
+UNSET Confidence
 
 SET Evidence = "Again, an impaired
 Akt signaling, achieved by neuronal deletion of rictor, a key regulatory subunit of mTORC2,
 contributes to schizophrenia-like phenotypes in rictor-null (KO) mice"
+SET Confidence = "High"
 SET Species = "10090"
 p(MGI:Rictor) -| bp(GO:"protein kinase B signaling")
 bp(GO:"protein kinase B signaling") -- path(MESH:Schizophrenia)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Dysregulation in Akt
 signaling and altered Akt protein levels were found in the frontal cortex and hippocampus of
 post-mortem brain samples from individuals affected by schizophrenia"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Hippocampus","Prefrontal Cortex"}
 path(MESH:Schizophrenia) -| p(FPLX:AKT)
 path(MESH:Schizophrenia) -| bp(GO:"protein kinase B signaling")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Furthermore, genetic linkage and association studies led to the identification of two additional
 susceptibility factors related to schizophrenia, such as neuregulin-1 (NRG1) and its receptor ErbB4"
+SET Confidence = "High"
 p(HGNC:NRG1) -- path(MESH:Schizophrenia)
 p(HGNC:ERBB4) -- path(MESH:Schizophrenia)
+UNSET Confidence
 
 SET Evidence = "In particular, NRG1, which is mostly
 involved in regulating neurodevelopment and neurotransmission, acts by binding ErbB4, a type I
 transmembrane receptor tyrosine kinase belonging to the family of ErbB proteins, which contain a
 binding site for PI3K kinase, an AKT upstream effector, in the C-terminal cytoplasmic tail (CYT)"
+SET Confidence = "High"
 complex(p(HGNC:NRG1),p(HGNC:ERBB4)) reg bp(GO:"generation of neurons")
 complex(p(HGNC:NRG1),p(HGNC:ERBB4)) reg bp(GO:"neuron-neuron synaptic transmission")
+UNSET Confidence
 
 SET Evidence = "The binding between ErbB4 and PI3K activates this latter kinase, which in turn can phosphorylate
 and activate its downstream target Akt"
+SET Confidence = "High"
 complex(p(FPLX:PI3K),p(HGNC:ERBB4)) -> act(p(FPLX:PI3K))
 kin(p(FPLX:PI3K)) -> p(FPLX:AKT,pmod(Ph))
 act(p(FPLX:PI3K)) -> act(p(FPLX:AKT))
+UNSET Confidence
 
 SET Evidence = "Moreover, it has been demonstrated that NRG1 also regulates DISC1 expression [230], thus further worsening the
 aberrancy of the Akt–mTOR pathway and the pathogenesis of schizophrenia and related behaviors."
+SET Confidence = "High"
 p(HGNC:NRG1) reg p(HGNC:DISC1)
 p(HGNC:NRG1) -- bp(GO:"protein kinase B signaling")
 p(HGNC:NRG1) -- act(p(HGNC:MTOR))
 p(HGNC:NRG1) -- path(MESH:Schizophrenia)
 act(p(HGNC:MTOR)) -- path(MESH:Schizophrenia)
 bp(GO:"protein kinase B signaling") -- path(MESH:Schizophrenia)
+UNSET Confidence
 
 SET Evidence = "Noteworthy, NRG1/ErbB4 signaling plays a key role in DA-related behaviors by increasing DA release
 within the hippocampus, striatum, and prefrontal cortex"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Hippocampus","Prefrontal Cortex","Corpus Striatum"}
 act(complex(p(HGNC:NRG1),p(HGNC:ERBB4))) -> sec(a(CHEBI:dopamine))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Another identified susceptibility gene for schizophrenia is the dihydropyrimidinase-like
 2 (DPYSL2) gene"
+SET Confidence = "High"
 g(HGNC:DPYSL2) -- path(MESH:Schizophrenia)
+UNSET Confidence
 
 SET Evidence = "This gene is located on chromosome 8p21 and it encodes the cytosolic
 microtubule-associated protein CRMP2 (collapsin response mediator protein-2), which is highly
 expressed in the CNS and plays a role in axonal growth"
+SET Confidence = "High"
 # this gene: DPYSL2
 g(HGNC:DPYSL2) -> p(HGNC:DPYSL2)
 p(HGNC:DPYSL2) -- bp(GO:"axon development")
+UNSET Confidence
 
 SET Evidence = "In line with this, the dendritic
 spine-regulating activity of CRMP2 is under the control of the cyclin-dependent kinase 5 (CDK5)"
+SET Confidence = "High"
 p(HGNC:CDK5) reg p(HGNC:DPYSL2)
 p(HGNC:DPYSL2) reg a(GO:"dendritic spine")
+UNSET Confidence
 
 SET Evidence = "Both administration of amphetamines and stimulation of D1R induce a significant increase of CDK5
 gene expression and protein levels, which, at molecular level, associates with increased dendritic spine
 density and hyper-phosphorylation of the cytoskeletal tau protein"
-act(p(HGNC:DRD1)) -> g(HGNC:CDK5)
+SET Confidence = "Medium"
+act(p(HGNC:DRD1)) -> r(HGNC:CDK5)
 act(p(HGNC:DRD1)) -> p(HGNC:CDK5)
-a(CHEBI:amphetamine) -> g(HGNC:CDK5)
+a(CHEBI:amphetamine) -> r(HGNC:CDK5)
 a(CHEBI:amphetamine) -> p(HGNC:CDK5)
 p(HGNC:CDK5) pos a(GO:"dendritic spine")
-p(HGNC:CDK5) pos p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+p(HGNC:CDK5) pos p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+UNSET Confidence
 
 SET Evidence = "In detail, the activation
 of CDK5 by D1R occurs via proteolysis of p35, the binding partner of CDK5"
+SET Confidence = "Medium"
 # p35: CDK5R1
-p(HGNC:DRD1) -> p(HGNC:CDK5)
+p(HGNC:DRD1) -> act(p(HGNC:CDK5))
 p(HGNC:CDK5R1,frag("?")) -> act(p(HGNC:CDK5))
 complex(p(HGNC:CDK5R1),p(HGNC:CDK5))
+UNSET Confidence
 
 SET Evidence = "Remarkably, the marked
 reduction of p35 levels in schizophrenic brains, which mirrors enhanced CDK5 activity [247], suggests
 a role for CDK5-CRMP2-dependent alterations of cytoskeleton architecture and psychiatric behavior"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 path(MESH:Schizophrenia) neg p(HGNC:CDK5R1)
 path(MESH:Schizophrenia) pos act(p(HGNC:CDK5))
@@ -547,17 +682,21 @@ p(HGNC:CDK5R1) neg act(p(HGNC:CDK5))
 complex(p(HGNC:DPYSL2),p(HGNC:CDK5)) -- bp(GO:"cytoskeleton organization")
 complex(p(HGNC:DPYSL2),p(HGNC:CDK5)) -- path(MESH:"Mental Disorders")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Remarkably, the identification of rare genetic variants of ULK1 in a cohort of schizophrenic patients by
 means of exome sequence analysis strengthens the idea of a key role of both disrupted mTOR signaling
 and autophagy in the pathophysiology and susceptibility to schizophrenia"
+SET Confidence = "High"
 p(HGNC:ULK1,var("?")) -- path(MESH:Schizophrenia)
 path(MESH:Schizophrenia) neg act(p(HGNC:MTOR))
 path(MESH:Schizophrenia) neg bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "In particular, at BA 22, the vast majority of abnormally expressed genes
 referred to key autophagy genes (i.e., BECN1, ULK2, ATG3), which were significantly down-regulated
 compared with controls"
+SET Confidence = "High"
 # downregulation in Schizophrenia
 # BA 22: Broadman area 22 (associated with is associated with positive symptoms, mainly auditory-verbal hallucinations or “hearing voices”)
 p(HGNC:BECN1) -- bp(GO:autophagy)
@@ -566,51 +705,65 @@ p(HGNC:ULK2) -- bp(GO:autophagy)
 path(MESH:Schizophrenia) -| p(HGNC:ULK2)
 p(HGNC:ATG3) -- bp(GO:autophagy)
 path(MESH:Schizophrenia) -| p(HGNC:ATG3)
+UNSET Confidence
 
 SET Evidence = "A few months later, another transcriptomic study reported a BA
 22-specific down-regulation in several autophagy-related genes, thus strengthening the link between
 impaired autophagy and schizophrenia positive symptoms"
+SET Confidence = "High"
 # positive symptoms: mainly auditory-verbal hallucinations or “hearing voices”
 path(MESH:Schizophrenia) neg bp(GO:autophagy)
 path(MESH:Hallucinations) neg bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "Later on,
 further analysis reported a disruption of the autophagy pathway also in the hippocampus of
 post-mortem schizophrenic patients"
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 path(MESH:Schizophrenia) neg bp(GO:autophagy)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In detail, the analysis of mRNA expression of a key
 protein for autophagy initiation, namely beclin1, revealed a significant region-specific reduction in
 hippocampal samples from 12 schizophrenic patients compared with 12 age-matched healthy controls."
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Hippocampus"
-path(MESH:Schizophrenia) -| p(HGNC:BECN1)
+path(MESH:Schizophrenia) -| r(HGNC:BECN1)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "ADNP is an essential protein for brain development and it has
 been shown to physically interact with a key protein in autophagosome biogenesis and maturation,
 namely LC3"
+SET Confidence = "High"
 p(HGNC:ADNP) -> bp(GO:"brain development")
 complex(p(HGNC:ADNP),p(HGNC:MAP1LC3A))
 p(HGNC:MAP1LC3A) -> bp(GO:"autophagosome assembly")
 p(HGNC:MAP1LC3A) -> bp(GO:"autophagosome maturation")
+UNSET Confidence
 
 SET Evidence = "A reduction of ADNP and its homologous
 protein, ADNP2, is observed in schizophrenic patients [254], and it is recapitulated in Map6-deficient
 (Map6+/-) mice, another transgenic model of schizophrenia"
+SET Confidence = "High"
 path(MESH:Schizophrenia) -| p(HGNC:ADNP)
 path(MESH:Schizophrenia) -| p(HGNC:ADNP2)
+UNSET Confidence
 
 SET Evidence = "Immuno-histochemical analysis
 showed a three-fold decrease in the number of beclin1-positive cells in Map6+/- mice"
+SET Confidence = "High"
 # Map6+/- mice, transgenic model of schizophrenia
 path(MESH:Schizophrenia)  -| p(HGNC:BECN1)
+UNSET Confidence
 
 SET Evidence = "On the other hand, chronic treatment with an eight-amino-acid peptide snippet from ADNP (NAP),
 also known as davunetide, restored both Beclin1 and ADNP mRNA levels along with ADNP-LC3
 interaction, thus providing neuroprotection while ameliorating schizophrenic-like behavioral and
 cognitive deficits in Map6+/- mice"
+SET Confidence = "High"
 SET MeSHDisease = "Schizophrenia"
 a(PUBCHEM:9832404) -> r(HGNC:BECN1)
 a(PUBCHEM:9832404) -> r(HGNC:ADNP)
@@ -619,69 +772,89 @@ a(PUBCHEM:9832404) -| bp(GO:"neuron death")
 a(PUBCHEM:9832404) -> bp(GO:cognition)
 a(PUBCHEM:9832404) -| path(MESH:"Mental Disorders")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "These pieces
 of evidence corroborate findings showing that several autophagy inducers, such as lithium, rapamycin,
 and Food and Drug Administration (FDA) approved antipsychotic drugs are effective to treat
 psychosis including schizophrenia"
+SET Confidence = "High"
 a(CHEBI:"lithium(1+)") -| path(MESH:Schizophrenia)
 a(CHEBI:"lithium(1+)") -| path(MESH:"Psychotic Disorders")
 a(CHEBI:"sirolimus") -| path(MESH:Schizophrenia)
 a(CHEBI:"sirolimus") -| path(MESH:"Psychotic Disorders")
 a(MESH:"Antipsychotic Agents") -| path(MESH:Schizophrenia)
 a(MESH:"Antipsychotic Agents") -| path(MESH:"Psychotic Disorders")
+UNSET Confidence
 
 SET Evidence = "Notably, high-throughput image-based
 screens performed by Zhang et al. (2007) [60] on a human glioblastoma H4 cell line expressing
 human LC3 coupled with green fluorescent protein (GFP) led us to disclose that three typical
 antipsychotic drugs (fluspirilene, trifluoperazine, and pimozide) are effective autophagy inducers."
+SET Confidence = "High"
 a(PUBCHEM:3396) -> bp(GO:autophagy)
 a(CHEBI:trifluoperazine) -> bp(GO:autophagy)
 a(CHEBI:pimozide) -> bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "In particular, pimozide provides an mTOR-independent autophagy induction, because it directly
 activates AMPK1, which in turn promotes autophagy through the phosphorylation of ULK1"
+SET Confidence = "High"
 # AMPK1 is PRKAA1
 a(CHEBI:pimozide) -> act(p(HGNC:PRKAA1))
 act(p(HGNC:PRKAA1)) -> p(HGNC:ULK1,pmod(Ph))
 p(HGNC:ULK1,pmod(Ph)) -> bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "In contrast, chlorpromazine, which is a typical antipsychotic agent, induces autophagy by inhibiting
 the Akt/mTOR pathway"
+SET Confidence = "High"
 a(CHEBI:chlorpromazine) -> bp(GO:autophagy)
 a(CHEBI:chlorpromazine) -| bp(GO:"protein kinase B signaling")
 a(CHEBI:chlorpromazine) -| act(p(HGNC:MTOR))
+UNSET Confidence
 
 SET Evidence = "Recently, in vitro studies on the effects of second-generation, atypical
 antipsychotics demonstrated that sertindole and clozapine are potent autophagy inducers in both
 neuronal and non-neuronal cell lines"
+SET Confidence = "High"
 a(CHEBI:sertindole) -> bp(GO:autophagy)
 a(CHEBI:clozapine) -> bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "Similar to pimozide, clozapine activates the autophagy
 process via the AMPK–ULK1–Beclin1 pathway, as evidenced by increased levels of autophagy markers
 (i.e., LC3-II and Atg5–Atg12 conjugate); increased phosphorylation of AMPK and its downstream
 substrates, namely ULK1 and beclin1; and an increased number of autophagosomes in the frontal cortex
 in clozapine-treated rats"
+SET Confidence = "High"
 a(CHEBI:clozapine) -> bp(GO:autophagy)
 a(CHEBI:clozapine) -> p(HGNC:PRKAA1,pmod(Ph)))
 a(CHEBI:clozapine) -> p(HGNC:ULK1,pmod(Ph))
 a(CHEBI:clozapine) -> p(HGNC:BECN1,pmod(Ph))
 SET MeSHAnatomy = "Frontal Lobe"
 a(CHEBI:clozapine) -> a(GO:autophagosome)
+UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "For instance, the increase
 in autophagy flux induced by pimozide occurs along with a depression of phosphorylated tau in a
 transgenic mouse model of AD "
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHDisease = "Alzheimer Disease"
 a(CHEBI:pimozide) -> bp(GO:autophagy)
 a(CHEBI:pimozide) -| p(MGI:Mapt,pmod(Ph))
 UNSET Species
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "For instance, haloperidol occludes huntingtin aggregation"
-a(CHEBI:haloperidol) -| a(HBP:"huntingtin aggregates")
+SET Confidence = "High"
+a(CHEBI:haloperidol) -| a(CONSO:"huntingtin aggregates")
+UNSET Confidence
 
 SET Evidence = "Chronic clozapine treatment (20 mg/kg/day) reduces Abeta deposition"
+SET Confidence = "High"
 a(CHEBI:clozapine) -| a(CHEBI:"amyloid-beta")
+UNSET Confidence

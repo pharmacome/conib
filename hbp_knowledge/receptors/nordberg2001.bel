@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/7e4be528f12abd28be768b62402fba6e083eaf9e/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/4aa36980578c7d2cff07371abf768f15db89cd11/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -155,8 +155,8 @@ fetal brain (Hellstro¨m-Lindahl et al 1998)"
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Brain"
 bp(GO:aging) causesNoChange r(HGNC:CHRNA3)
-bp(GO:aging) negativeCorrelation r(HBP:"alpha-4-containing nAChR")
-bp(GO:aging) negativeCorrelation r(HBP:"alpha-7-containing nAChR")
+bp(GO:aging) negativeCorrelation r(CONSO:"alpha-4-containing nAChR")
+bp(GO:aging) negativeCorrelation r(CONSO:"alpha-7-containing nAChR")
 #levels of mRNA changes in evidence
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -243,9 +243,9 @@ SET Evidence = "A decrease in protein levels of
 the alpha4 nAChR but not of the alpha3 and alpha7 nAChRs was
 reported by Martin-Ruiz et al (1999)"
 SET Confidence = "Medium"
-path(MESH:"Alzheimer Disease") negativeCorrelation p(HBP:"alpha-4-containing nAChR")
+path(MESH:"Alzheimer Disease") negativeCorrelation p(CONSO:"alpha-4-containing nAChR")
 path(MESH:"Alzheimer Disease") causesNoChange p(HGNC:CHRNA3)
-path(MESH:"Alzheimer Disease") causesNoChange p(HBP:"alpha-7-containing nAChR")
+path(MESH:"Alzheimer Disease") causesNoChange p(CONSO:"alpha-7-containing nAChR")
 #CHRNA7 and CHRNA3 added with changed from abundance to protein
 UNSET Confidence
 
@@ -253,7 +253,7 @@ SET Evidence = "Lee et al (2000) recently also reported a significant decrease i
 alpha7 nAChR protein level of the AD hippocampus"
 SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
-path(MESH:"Alzheimer Disease") negativeCorrelation p(HBP:"alpha-7-containing nAChR")
+path(MESH:"Alzheimer Disease") negativeCorrelation p(CONSO:"alpha-7-containing nAChR")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -263,8 +263,8 @@ schizophrenia (Guan et al 1999), whereas no decrease was
 measured in the alpha4 nAChR protein level (Guan et al 1999)"
 SET Confidence = "High"
 SET MeSHAnatomy = "Frontal Lobe"
-path(MESH:Schizophrenia) negativeCorrelation a(HBP:"alpha-7-containing nAChR")
-path(MESH:Schizophrenia) causesNoChange a(HBP:"alpha-4-containing nAChR")
+path(MESH:Schizophrenia) negativeCorrelation p(CONSO:"alpha-7-containing nAChR")
+path(MESH:Schizophrenia) causesNoChange p(CONSO:"alpha-4-containing nAChR")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -289,7 +289,7 @@ AD may be related to decreased protein levels of nAChRs
 (Farooqui et al 1995; Smith et al 1996)"
 SET Confidence = "High"
 a(MESH:"Amyloid beta-Peptides") negativeCorrelation p(FPLX:CHRN)
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) negativeCorrelation p(FPLX:CHRN)
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) negativeCorrelation p(FPLX:CHRN)
 bp(GO:"response to oxidative stress") negativeCorrelation p(FPLX:CHRN)
 UNSET Confidence
 
@@ -351,7 +351,7 @@ would be particularly preferable because the alpha4beta2 has
 been recognized as the predominant subtype that is deficient
 in AD (for a review, see Sihver et al 2000)"
 SET Confidence = "High"
-path(MESH:"Alzheimer Disease") -| a(HBP:"alpha-4 beta-2 nAChR")
+path(MESH:"Alzheimer Disease") -| p(CONSO:"alpha-4 beta-2 nAChR")
 UNSET Confidence
 
 SET Evidence = "Cholinergic therapy is based on the assumption
@@ -478,7 +478,7 @@ partly mediated by the alpha7 subtype nAChR (Svensson and Nordberg 1998)"
 SET Confidence = "High"
 a(CHEBI:estrogen) -| path(MESH:"Alzheimer Disease")
 a(CHEBI:estrogen) -| act(a(CHEBI:"amyloid-beta"))
-a(HBP:"alpha-7-containing nAChR") reg act(a(CHEBI:"amyloid-beta"))
+p(CONSO:"alpha-7-containing nAChR") reg act(a(CHEBI:"amyloid-beta"))
 UNSET Confidence
 
 UNSET MeSHDisease
