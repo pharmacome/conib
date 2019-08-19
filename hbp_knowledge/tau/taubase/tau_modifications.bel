@@ -17,7 +17,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 # DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 # DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -133,7 +133,7 @@ SET Tau_Antibody = "Tau-5"
 SET Tau_Structure = "projection domain"
 p(HGNC:MAPT, trunc(Ala2)) isA p(HGNC:MAPT)
 UNSET Tau_Antibody
-p(HGNC:MAPT, pmod(HBP:polyamination, Gln, 6)) isA p(HGNC:MAPT)
+p(HGNC:MAPT, pmod(CONSO:polyamination, Gln, 6)) isA p(HGNC:MAPT)
 
 p(HGNC:MAPT, trunc(Ala103)) isA p(HGNC:MAPT)
 p(HGNC:MAPT, trunc(Gln124)) isA p(HGNC:MAPT)
@@ -175,11 +175,11 @@ SET Evidence = "In agreement with this possibility, the investigation of another
 modification of tubulin, detyrosination, which is also representative of a stable population of microtubules, revealed that
 it was significantly increased with Gln124-Tau when compared to FL-Tau"
 SET Confidence = "Medium"
-p(HGNC:MAPT, trunc(Gln124)) -> p(INTERPRO:"Alpha tubulin", pmod(HBP:detyrosination))
+p(HGNC:MAPT, trunc(Gln124)) -> p(INTERPRO:"Alpha tubulin", pmod(CONSO:detyrosination))
 p(HGNC:MAPT, trunc(Gln124)) pos act(p(HGNC:VASH1))
 p(HGNC:MAPT, trunc(Gln124)) pos act(p(HGNC:VASH2))
-act(p(HGNC:VASH1)) -> p(INTERPRO:"Alpha tubulin", pmod(HBP:detyrosination))
-act(p(HGNC:VASH2)) -> p(INTERPRO:"Alpha tubulin", pmod(HBP:detyrosination))
+act(p(HGNC:VASH1)) -> p(INTERPRO:"Alpha tubulin", pmod(CONSO:detyrosination))
+act(p(HGNC:VASH2)) -> p(INTERPRO:"Alpha tubulin", pmod(CONSO:detyrosination))
 UNSET Confidence
 UNSET Anatomy
 UNSET Method
@@ -188,9 +188,9 @@ UNSET Method
 SET Evidence = "Hyperphosphorylation with Prostate-derived sterile 20-like kinase 1 alpha/beta (PSK1/TAOK2), Prostate-derived sterile 20-like kinase 2 (PSK2/TAOK1), CK1."
 SET Confidence = "Medium"
 SET Tau_Antibody = {"Tau-12", "Tau-13"}
-kin(p(HGNC:TAOK1)) => p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
-kin(p(HGNC:TAOK2)) => p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
-kin(p(HGNC:CSNK1A1)) => p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+kin(p(HGNC:TAOK1)) => p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+kin(p(HGNC:TAOK2)) => p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+kin(p(HGNC:CSNK1A1)) => p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 UNSET Tau_Antibody
 UNSET Confidence
 
@@ -199,7 +199,7 @@ SET Citation = {"PubMed", "16566606"}
 SET Evidence = "Previously, we showed that peroxynitrite (ONOO-) induces the oxidative 3,3¢-
 dityrosine (3,3¢-DT) cross-linking and site-selective nitration of tau monomers [Reynolds et al. (2005)"
 SET Confidence = "High"
-a(CHEBI:peroxynitrite) -> p(HGNC:MAPT, pmod(HBP:nitration))
+a(CHEBI:peroxynitrite) -> p(HGNC:MAPT, pmod(CONSO:nitration))
 UNSET Confidence
 
 SET Evidence = "Further, select nitration of residues Tyr18, Tyr29, Tyr197, and Tyr394, events known to stabilize the pathological Alz-50
@@ -207,16 +207,16 @@ conformation [Reynolds et al. (2005) Biochemistry 44, 13997-14009], inhibits the
 # Alz-50 conformation refers to a misfolded conformation of tau
 SET Confidence = "Medium"
 SET Tau_Antibody = {"9G3", "pY18", "Tau-12", "Tau-13"}
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 18)) -| bp(GO:"tubulin complex assembly")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 18)) -- p(HGNC:MAPT,pmod(HBP:misfolded))
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 29)) -| bp(GO:"tubulin complex assembly")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 29)) -- p(HGNC:MAPT,pmod(HBP:misfolded))
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 197)) -| bp(GO:"tubulin complex assembly")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 197)) -- p(HGNC:MAPT,pmod(HBP:misfolded))
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 394)) -| bp(GO:"tubulin complex assembly")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 394)) -- p(HGNC:MAPT,pmod(HBP:misfolded))
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 18)) -| bp(GO:"tubulin complex assembly")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 18)) -- p(HGNC:MAPT,pmod(CONSO:misfolded))
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 29)) -| bp(GO:"tubulin complex assembly")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 29)) -- p(HGNC:MAPT,pmod(CONSO:misfolded))
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 197)) -| bp(GO:"tubulin complex assembly")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 197)) -- p(HGNC:MAPT,pmod(CONSO:misfolded))
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 394)) -| bp(GO:"tubulin complex assembly")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 394)) -- p(HGNC:MAPT,pmod(CONSO:misfolded))
 p(HGNC:MAPT) -> bp(GO:"tubulin complex assembly")
-p(HGNC:MAPT,pmod(HBP:misfolded))
+p(HGNC:MAPT,pmod(CONSO:misfolded))
 UNSET Tau_Antibody
 UNSET Confidence
 
@@ -227,13 +227,13 @@ SET Citation = {"PubMed", "26671985"}
 SET Evidence = "Several lines of evidence in other tauopathies suggest that tau oligomer formation induces neurotoxicity and that tau oligomer-mediated neurotoxicity involves induction
 of axonal dysfunction through exposure of an N-terminal motif in tau, the phosphatase-activating domain (PAD)."
 SET Confidence = "Medium"
-act(a(HBP:"Tau oligomers")) -> path(HBP:neurotoxicity)
-act(a(HBP:"Tau oligomers")) -| act(complex(GO:axon))
-p(HBP:"phosphatase-activating domain") eq p(HGNC:MAPT, frag(2_18))
+act(a(CONSO:"Tau oligomers")) -> path(CONSO:neurotoxicity)
+act(a(CONSO:"Tau oligomers")) -| act(complex(GO:axon))
+p(CONSO:"phosphatase-activating domain") eq p(HGNC:MAPT, frag(2_18))
 p(HGNC:MAPT, frag(2_18)) partOf p(HGNC:MAPT, frag(1_151))
 #p(HGNC:MAPT, frag(1_151)) corresponds to the NTD
-p(HBP:"phosphatase-activating domain") neg act(complex(GO:axon))
-act(complex(GO:axon)) neg path(HBP:"neurotoxicity")
+p(CONSO:"phosphatase-activating domain") neg act(complex(GO:axon))
+act(complex(GO:axon)) neg path(CONSO:"neurotoxicity")
 UNSET Confidence
 
 SET Evidence = "We performed immunohistochemistry and immunofluorescence on fixed brain sections and biochemical analysis of fresh brain extracts to characterize the presence of
@@ -248,13 +248,13 @@ SET Method = {"Immunohistochemistry","Immunofluorescence","ELISA"}
 SET Tau_Antibody = {"TN1","TOC1","Anti-pS422","TauC3"}
 SET MeSHDisease = "Chronic Traumatic Encephalopathy"
 SET MeSHAnatomy = "Brain"
-p(HBP:"phosphatase-activating domain") biomarkerFor path(MESH:"Chronic Traumatic Encephalopathy")
+p(CONSO:"phosphatase-activating domain") biomarkerFor path(MESH:"Chronic Traumatic Encephalopathy")
 p(HGNC:MAPT, trunc(Asp421)) biomarkerFor path(MESH:"Chronic Traumatic Encephalopathy")
 p(HGNC:MAPT, pmod(Ph, Ser, 422)) biomarkerFor path(MESH:"Chronic Traumatic Encephalopathy")
-a(HBP:"Tau oligomers") biomarkerFor path(MESH:"Chronic Traumatic Encephalopathy")
-p(HBP:"phosphatase-activating domain") -| bp(GO:"axonal transport")
-a(HBP:"Tau oligomers") pos path(HBP:neurotoxicity)
-p(HGNC:MAPT, trunc(Asp421)) -- path(HBP:neurotoxicity)
+a(CONSO:"Tau oligomers") biomarkerFor path(MESH:"Chronic Traumatic Encephalopathy")
+p(CONSO:"phosphatase-activating domain") -| bp(GO:"axonal transport")
+a(CONSO:"Tau oligomers") pos path(CONSO:neurotoxicity)
+p(HGNC:MAPT, trunc(Asp421)) -- path(CONSO:neurotoxicity)
 p(HGNC:MAPT, pmod(Ph, Ser, 422)) -> path(MESH:"Cognitive Dysfunction")
 UNSET MeSHDisease
 UNSET Tau_Antibody
@@ -275,7 +275,7 @@ p(HGNC:MAPT, pmod(Me, Lys, 311)) -- path(MESH:"Alzheimer Disease")
 
 SET Tau_Structure = "microtubule-binding region"
 SET Tau_Motif = "PHF6"
-p(HGNC:MAPT, pmod(Me, Lys, 311)) -- p(HBP:"Tau aggregates")
+p(HGNC:MAPT, pmod(Me, Lys, 311)) -- p(CONSO:"Tau aggregates")
 UNSET Tau_Motif
 SET Tau_Motif = "KXGS"
 p(HGNC:MAPT, pmod(Me, Lys, 259)) reg complex(p(HGNC:MAPT),a(GO:microtubule))
@@ -304,8 +304,8 @@ SET Evidence = "These data indicate that Lys methylation depressed the intrinsic
 needed to support fibril formation."
 # fibril formation refers to Tau fibrils
 SET Confidence = "Medium"
-p(HGNC:MAPT, pmod(Me,Lys)) -| a(HBP:"Tau aggregates")
-p(HGNC:MAPT) -- a(HBP:"Tau fibrils")
+p(HGNC:MAPT, pmod(Me,Lys)) -| a(CONSO:"Tau aggregates")
+p(HGNC:MAPT) -- a(CONSO:"Tau fibrils")
 UNSET Confidence
 
 UNSET Method
@@ -323,18 +323,18 @@ SET Disease = "Alzheimer's disease"
 SET Anatomy = "hippocampal formation"
 SET Tau_State = "Paired Helical Filament"
 SET Tau_Structure = "projection domain"
-p(HGNC:MAPT, pmod(Me, Lys, 163)) partOf p(HBP:"proline-rich domain")
-p(HGNC:MAPT, pmod(Me, Lys, 174)) partOf p(HBP:"proline-rich domain")
-p(HGNC:MAPT, pmod(Me, Lys, 180)) partOf p(HBP:"proline-rich domain")
-p(HBP:"proline-rich domain") reg complex(p(FPLX:Actin),p(HGNC:MAPT))
-p(HBP:"proline-rich domain") reg complex(p(INTERPRO:"SH3 domain"),p(HGNC:MAPT))
-p(HBP:"proline-rich domain") reg complex(p(HGNCGENEFAMILY:"Src family tyrosine kinases"),p(HGNC:MAPT))
-p(HBP:"proline-rich domain") reg complex(p(HGNC:PLCG1),p(HGNC:MAPT))
+p(HGNC:MAPT, pmod(Me, Lys, 163)) partOf p(CONSO:"proline-rich domain")
+p(HGNC:MAPT, pmod(Me, Lys, 174)) partOf p(CONSO:"proline-rich domain")
+p(HGNC:MAPT, pmod(Me, Lys, 180)) partOf p(CONSO:"proline-rich domain")
+p(CONSO:"proline-rich domain") reg complex(p(FPLX:Actin),p(HGNC:MAPT))
+p(CONSO:"proline-rich domain") reg complex(p(INTERPRO:"SH3 domain"),p(HGNC:MAPT))
+p(CONSO:"proline-rich domain") reg complex(p(HGNCGENEFAMILY:"Src family tyrosine kinases"),p(HGNC:MAPT))
+p(CONSO:"proline-rich domain") reg complex(p(HGNC:PLCG1),p(HGNC:MAPT))
 SET Confidence = "Medium"
 SET Tau_Structure = "microtubule-binding region"
-p(HGNC:MAPT, pmod(Me, Lys, 254)) partOf p(HBP:"tubulin-binding repeat 1")
-p(HGNC:MAPT, pmod(Me, Lys, 267)) partOf p(HBP:"tubulin-binding repeat 1")
-p(HGNC:MAPT, pmod(Me, Lys, 290)) partOf p(HBP:"tubulin-binding repeat 2")
+p(HGNC:MAPT, pmod(Me, Lys, 254)) partOf p(CONSO:"tubulin-binding repeat 1")
+p(HGNC:MAPT, pmod(Me, Lys, 267)) partOf p(CONSO:"tubulin-binding repeat 1")
+p(HGNC:MAPT, pmod(Me, Lys, 290)) partOf p(CONSO:"tubulin-binding repeat 2")
 UNSET Tau_Structure
 UNSET Tau_State
 UNSET Anatomy
@@ -434,8 +434,8 @@ RAGE/GSK-3 pathway can improve AD-like changes."
 SET Confidence = "Medium"
 a(CHEBI:"advanced glycation end-product") => act(p(HGNC:AGER))
 act(p(HGNC:AGER)) -> kin(p(HGNC:GSK3B))
-kin(p(HGNC:GSK3B)) -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
-a(CHEBI:"advanced glycation end-product") -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+kin(p(HGNC:GSK3B)) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+a(CHEBI:"advanced glycation end-product") -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 UNSET Confidence
 
 SET Anatomy = "hippocampal formation"
@@ -472,8 +472,8 @@ A synthetic peptide, SKCGS, representing the actual tau sequence, identified the
 SET Confidence = "Medium"
 SET Method = {"Electron Microscopy, Transmission", "Mass Spectrometry"}
 SET ExpMethod = {"in vitro"}
-complex(p(HGNC:MAPT),a(CHEBI:cinnamaldehydes)) -| a(HBP:"Tau aggregates")
-complex(p(HGNC:MAPT),a(CHEBI:"(-)-epicatechin")) -| a(HBP:"Tau aggregates")
+complex(p(HGNC:MAPT),a(CHEBI:cinnamaldehydes)) -| a(CONSO:"Tau aggregates")
+complex(p(HGNC:MAPT),a(CHEBI:"(-)-epicatechin")) -| a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "The data (Fig. 8B) shows that no significant difference in the extent of tubulin assembly could
@@ -487,9 +487,9 @@ SET Evidence = "We found that CA (lane 4) and EC (lane 6) substantially prevente
 SET Confidence = "Medium"
 a(CHEBI:cinnamaldehydes) -| act(a(CHEBI:"hydrogen peroxide"))
 a(CHEBI:"(-)-epicatechin") -| act(a(CHEBI:"hydrogen peroxide"))
-act(a(CHEBI:"hydrogen peroxide")) -> a(HBP:"Tau aggregates")
-a(CHEBI:cinnamaldehydes) -| a(HBP:"Tau aggregates")
-a(CHEBI:"(-)-epicatechin") -| a(HBP:"Tau aggregates")
+act(a(CHEBI:"hydrogen peroxide")) -> a(CONSO:"Tau aggregates")
+a(CHEBI:cinnamaldehydes) -| a(CONSO:"Tau aggregates")
+a(CHEBI:"(-)-epicatechin") -| a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "We were prompted to carry out this study because Acr is mainly localized in the neurons [54], is found in association
@@ -500,13 +500,13 @@ GSK3beta and the stress activated kinase p38 [56], which possibly promotes tau a
 SET Confidence = "Medium"
 act(a(CHEBI:acrolein)) -- a(GO:"neurofibrillary tangle")
 act(a(CHEBI:acrolein)) -- path(MESH:"Plaque, Amyloid")
-act(a(CHEBI:acrolein)) -- a(HBP:"dystrophic neurite")
+act(a(CHEBI:acrolein)) -- a(CONSO:"dystrophic neurite")
 act(a(CHEBI:acrolein)) -> bp(GO:"neuron death")
 act(a(CHEBI:acrolein)) -> p(HGNC:MAPT,pmod(Ph))
 act(a(CHEBI:acrolein)) -> act(p(HGNC:GSK3B))
-act(p(HGNC:GSK3B)) -- a(HBP:"Tau aggregates")
+act(p(HGNC:GSK3B)) -- a(CONSO:"Tau aggregates")
 act(a(CHEBI:acrolein)) -> act(p(HGNC:MAPK14))
-act(p(HGNC:MAPK14)) -- a(HBP:"Tau aggregates")
+act(p(HGNC:MAPK14)) -- a(CONSO:"Tau aggregates")
 SET MeSHAnatomy = "Brain"
 act(a(CHEBI:acrolein)) pos path(MESH:"Alzheimer Disease")
 UNSET MeSHAnatomy
@@ -525,10 +525,10 @@ Pick's disease [14]. 3R Tau is a major Tau isoform in laser microdissected Pick 
 SET Confidence = "Medium"
 SET Anatomy = "dentate gyrus granule cell layer"
 SET Disease = "Alzheimer's disease"
-p(HBP:"3R tau") cnc a(HBP:"Tau aggregates")
+p(CONSO:"3R tau") cnc a(CONSO:"Tau aggregates")
 UNSET Disease
 SET Disease = "Pick's disease"
-p(HBP:"3R tau",loc(GO:"Pick body")) pos path(MESH:"Pick Disease of the Brain")
+p(CONSO:"3R tau",loc(GO:"Pick body")) pos path(MESH:"Pick Disease of the Brain")
 UNSET Disease
 UNSET Anatomy
 UNSET Confidence
@@ -537,28 +537,28 @@ SET Method = {"Thioflavin T Fluorescence Assay", "Liquid Chromatography", "Mass 
 SET Evidence = "The results show that 4R2N and 3R2N Tau increase their aggregation extent with
 glycation while 3R1N decreases aggregation properties with glycation"
 SET Confidence = "Medium"
-p(HBP:"Tau isoform F (441 aa)", pmod(HBP:glycation)) -> a(HBP:"Tau aggregates")
-p(HBP:"Tau isoform C (410 aa)", pmod(HBP:glycation)) -> a(HBP:"Tau aggregates")
-p(HBP:"Tau isoform B (381 aa)", pmod(HBP:glycation)) -| a(HBP:"Tau aggregates")
+p(CONSO:"Tau isoform F (441 aa)", pmod(CONSO:glycation)) -> a(CONSO:"Tau aggregates")
+p(CONSO:"Tau isoform C (410 aa)", pmod(CONSO:glycation)) -> a(CONSO:"Tau aggregates")
+p(CONSO:"Tau isoform B (381 aa)", pmod(CONSO:glycation)) -| a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "On the other hand, the MS analysis shows that in the combined reaction of 4R2N Tau the level of phosphorylation is increased and the level of glycation is decreased."
 SET Confidence = "High"
-p(HBP:"Tau isoform F (441 aa)", pmod(HBP:glycation)) neg p(HBP:"Tau isoform F (441 aa)", pmod(Ph))
+p(CONSO:"Tau isoform F (441 aa)", pmod(CONSO:glycation)) neg p(CONSO:"Tau isoform F (441 aa)", pmod(Ph))
 UNSET Confidence
 
 SET Evidence = "Glycation and phosphorylation of both 4R1N and 4R0N Tau reduce its aggregation."
 SET Confidence = "Medium"
-p(HBP:"Tau isoform D (383 aa)", pmod(HBP:glycation)) -| a(HBP:"Tau aggregates")
-p(HBP:"Tau isoform D (383 aa)", pmod(Ph)) -| a(HBP:"Tau aggregates")
-p(HBP:"Tau isoform E (412 aa)", pmod(HBP:glycation)) -| a(HBP:"Tau aggregates")
-p(HBP:"Tau isoform E (412 aa)", pmod(Ph)) -| a(HBP:"Tau aggregates")
+p(CONSO:"Tau isoform D (383 aa)", pmod(CONSO:glycation)) -| a(CONSO:"Tau aggregates")
+p(CONSO:"Tau isoform D (383 aa)", pmod(Ph)) -| a(CONSO:"Tau aggregates")
+p(CONSO:"Tau isoform E (412 aa)", pmod(CONSO:glycation)) -| a(CONSO:"Tau aggregates")
+p(CONSO:"Tau isoform E (412 aa)", pmod(Ph)) -| a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Despite 4R1N having no significant change, the same modified 4R2N Tau promotes its aggregation significantly (Fig. 6A, C, E)."
 SET Confidence = "Medium"
-p(HBP:"Tau isoform B (381 aa)", pmod(Ph)) -> a(HBP:"Tau aggregates")
-p(HBP:"Tau isoform B (381 aa)", pmod(HBP:glycation)) -> a(HBP:"Tau aggregates")
+p(CONSO:"Tau isoform B (381 aa)", pmod(Ph)) -> a(CONSO:"Tau aggregates")
+p(CONSO:"Tau isoform B (381 aa)", pmod(CONSO:glycation)) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 UNSET Method
 
@@ -578,8 +578,8 @@ UNSET Confidence
 
 SET Evidence = "GA dose-dependently increased the production of GA-AGEs in SH-SY5Y cells."
 SET Confidence = "High"
-a(CHEBI:glyceraldehyde) -> a(HBP:"GA-AGE")
-a(HBP:"GA-AGE") isA a(CHEBI:"advanced glycation end-product")
+a(CHEBI:glyceraldehyde) -> a(CONSO:"GA-AGE")
+a(CONSO:"GA-AGE") isA a(CHEBI:"advanced glycation end-product")
 UNSET Confidence
 
 SET Evidence = "Aβ 42 in the medium decreased in a GA dose-dependent manner (Fig. 3a). In contrast, GA significantly increased tau and its phosphorylated form, p-tauT181 (Fig. 3b,c) in the medium.
@@ -608,13 +608,13 @@ a(CHEBI:"D-ribose") -> a(CHEBI:"advanced glycation end-product")
 a(CHEBI:"D-ribose") -> p(MGI:Mapt, pmod(Ph, Ser, 214))
 a(CHEBI:"D-ribose") -> p(MGI:Mapt, pmod(Ph, Ser, 396))
 a(CHEBI:"D-ribose") -> p(MGI:Mapt, pmod(Ph, Ser, 214), pmod(Ph, Ser, 396))
-a(CHEBI:"D-ribose") -> p(MGI:Mapt,pmod(HBP:hyperphosphorylation))
+a(CHEBI:"D-ribose") -> p(MGI:Mapt,pmod(CONSO:hyperphosphorylation))
 UNSET Anatomy
 SET Cell_Line = "N2a"
 a(CHEBI:"D-ribose") -> p(HGNC:MAPT, pmod(Ph, Ser, 214))
 a(CHEBI:"D-ribose") -> p(HGNC:MAPT, pmod(Ph, Ser, 396))
 a(CHEBI:"D-ribose") -> p(HGNC:MAPT, pmod(Ph, Thr, 181))
-a(CHEBI:"D-ribose") -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+a(CHEBI:"D-ribose") -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 UNSET Confidence
 
 SET Evidence = "The treatment of 10 mM D-ribose for 24 h resulted in a significant increase in active form of CaMKII (p-Thr286/287), yet simultaneously
@@ -630,7 +630,7 @@ SET Evidence = "Thus, our results suggest that Tau hyperphosphorylation was a re
 SET Confidence = "Medium"
 a(CHEBI:"advanced glycation end-product") -> p(MGI:Mapt, pmod(Ph, Ser, 214))
 a(CHEBI:"advanced glycation end-product") -> p(MGI:Mapt, pmod(Ph, Ser, 396))
-a(CHEBI:"advanced glycation end-product") -> p(MGI:Mapt,pmod(HBP:hyperphosphorylation))
+a(CHEBI:"advanced glycation end-product") -> p(MGI:Mapt,pmod(CONSO:hyperphosphorylation))
 UNSET Cell_Line
 UNSET Method
 UNSET Confidence
@@ -665,7 +665,7 @@ kin(p(MGI:Gsk3b)) => p(MGI:Mapt, pmod(Ph, Ser, 202))
 kin(p(MGI:Gsk3b)) => p(MGI:Mapt, pmod(Ph, Thr, 231))
 kin(p(MGI:Gsk3b)) => p(MGI:Mapt, pmod(Ph, Ser, 396))
 kin(p(MGI:Gsk3b)) => p(MGI:Mapt, pmod(Ph, Thr, 205))
-kin(p(MGI:Gsk3b)) => p(MGI:Mapt, pmod(HBP:hyperphosphorylation))
+kin(p(MGI:Gsk3b)) => p(MGI:Mapt, pmod(CONSO:hyperphosphorylation))
 kin(p(MGI:Mapk14)) => p(MGI:Mapt, pmod(Ph, Ser, 404))
 kin(p(MGI:Mapk14)) => p(MGI:Mapt, pmod(Ph, Ser, 198))
 kin(p(MGI:Mapk14)) => p(MGI:Mapt, pmod(Ph, Ser, 199))
@@ -673,7 +673,7 @@ kin(p(MGI:Mapk14)) => p(MGI:Mapt, pmod(Ph, Ser, 202))
 kin(p(MGI:Mapk14)) => p(MGI:Mapt, pmod(Ph, Thr, 231))
 kin(p(MGI:Mapk14)) => p(MGI:Mapt, pmod(Ph, Ser, 396))
 kin(p(MGI:Mapk14)) => p(MGI:Mapt, pmod(Ph, Thr, 205))
-kin(p(MGI:Mapk14)) => p(MGI:Mapt, pmod(HBP:hyperphosphorylation))
+kin(p(MGI:Mapk14)) => p(MGI:Mapt, pmod(CONSO:hyperphosphorylation))
 UNSET Method
 UNSET Cell_Line
 UNSET Confidence
@@ -685,17 +685,17 @@ SET Evidence = "Tau is rapidly glycated in the presence of D-ribose, resulting i
 Advanced glycation end-products (AGEs) were formed during initial stages of glycation. Thioflavin T-positive (ThT-positive) aggregations (day 4) indicated the globular-like features.
 Atomic force microscopy revealed that the surface morphology of ribosylated Tau40 was globular-like."
 SET Confidence = "Medium"
-a(CHEBI:"D-ribose") -> p(HGNC:MAPT, pmod(HBP:glycation))
-p(HGNC:MAPT, pmod(HBP:glycation)) -> a(CHEBI:"advanced glycation end-product")
-p(HGNC:MAPT, pmod(HBP:glycation)) partOf p(HBP:"Tau aggregates")
-p(HGNC:MAPT, pmod(HBP:glycation)) -> a(HBP:"Tau oligomers")
-p(HGNC:MAPT, pmod(HBP:glycation)) -> complex(a(CHEBI:"advanced glycation end-product"),p(HGNC:MAPT, pmod(HBP:glycation)))
+a(CHEBI:"D-ribose") -> p(HGNC:MAPT, pmod(CONSO:glycation))
+p(HGNC:MAPT, pmod(CONSO:glycation)) -> a(CHEBI:"advanced glycation end-product")
+p(HGNC:MAPT, pmod(CONSO:glycation)) partOf p(CONSO:"Tau aggregates")
+p(HGNC:MAPT, pmod(CONSO:glycation)) -> a(CONSO:"Tau oligomers")
+p(HGNC:MAPT, pmod(CONSO:glycation)) -> complex(a(CHEBI:"advanced glycation end-product"),p(HGNC:MAPT, pmod(CONSO:glycation)))
 UNSET Confidence
 
 SET Evidence = "D-ribosylated Tau aggregates were highly toxic to SHSY5Y cells and resulted in both apoptosis and necrosis"
 SET Confidence = "High"
-p(HBP:"Tau aggregates") -> bp(GO:"apoptotic process")
-p(HBP:"Tau aggregates") -> bp(GO:"necrotic cell death")
+p(CONSO:"Tau aggregates") -> bp(GO:"apoptotic process")
+p(CONSO:"Tau aggregates") -> bp(GO:"necrotic cell death")
 UNSET Cell_Line
 UNSET Method
 UNSET Confidence
@@ -710,7 +710,7 @@ are characteristic in Alzheimer’s disease brains."
 SET Confidence = "Medium"
 act(p(INTERPRO:"Triosephosphate isomerase")) -> rxn(reactants(a(CHEBI:"dihydroxyacetone phosphate"),a(CHEBI:"D-glyceraldehyde 3-phosphate")), products(a(CHEBI:ATP)))
 p(INTERPRO:"Triosephosphate isomerase") partOf bp(GO:"canonical glycolysis")
-act(p(INTERPRO:"Triosephosphate isomerase")) neg path(HBP:Neurodegeneration)
+act(p(INTERPRO:"Triosephosphate isomerase")) neg path(CONSO:Neurodegeneration)
 bp(GO:"canonical glycolysis") neg path(MESH:"Alzheimer Disease")
 a(CHEBI:ATP) neg path(MESH:"Alzheimer Disease")
 UNSET Confidence
@@ -781,8 +781,8 @@ act(p(FPLX:JNK)) -> p(HGNC:DKK1)
 p(HGNC:DKK1) -> kin(p(HGNC:GSK3B))
 p(HGNC:DKK1) pos deg(p(HGNC:CTNNB1))
 p(HGNC:S100B) -| bp(GO:"Wnt signaling pathway")
-p(HGNC:S100B) -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
-kin(p(HGNC:GSK3B)) => p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+p(HGNC:S100B) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+kin(p(HGNC:GSK3B)) => p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 UNSET Confidence
 UNSET Method
 UNSET Cell_Line
@@ -795,16 +795,16 @@ with acrolein and methylglyoxal but not with glyoxal and malondialdehyde."
 SET Confidence = "Medium"
 SET Method = {"Western Blot", "SDS-PAGE", "Thioflavin T Assay", "Electron Microscopy"}
 a(CHEBI:acrolein) -> complex(p(HGNC:MAPT),p(HGNC:MAPT))
-a(CHEBI:acrolein) -> a(HBP:"Tau oligomers")
+a(CHEBI:acrolein) -> a(CONSO:"Tau oligomers")
 a(CHEBI:acrolein) -> a(GO:"neurofibrillary tangle")
 a(CHEBI:methylglyoxal) -> a(GO:"neurofibrillary tangle")
 a(CHEBI:methylglyoxal) -> complex(p(HGNC:MAPT),p(HGNC:MAPT))
-a(CHEBI:methylglyoxal) -> a(HBP:"Tau oligomers")
+a(CHEBI:methylglyoxal) -> a(CONSO:"Tau oligomers")
 a(CHEBI:glyoxal) -> complex(p(HGNC:MAPT),p(HGNC:MAPT))
-a(CHEBI:glyoxal) -> a(HBP:"Tau oligomers")
+a(CHEBI:glyoxal) -> a(CONSO:"Tau oligomers")
 a(CHEBI:glyoxal) cnc a(GO:"neurofibrillary tangle")
 a(CHEBI:malonaldehyde) -> complex(p(HGNC:MAPT),p(HGNC:MAPT))
-a(CHEBI:malonaldehyde) -> a(HBP:"Tau oligomers")
+a(CHEBI:malonaldehyde) -> a(CONSO:"Tau oligomers")
 a(CHEBI:malonaldehyde) cnc a(GO:"neurofibrillary tangle")
 UNSET Method
 UNSET Confidence
@@ -816,12 +816,12 @@ modulates phosphorylation of tau inversely (Liu et al.,2004a). We found that fas
 concurrent hyperphosphorylation of tau at most of the phosphorylation sites studied."
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Brain"
-p(HGNC:MAPT, pmod(HBP:"O-GlcNAcylation")) neg p(HGNC:MAPT, pmod(Ph))
+p(HGNC:MAPT, pmod(CONSO:"O-GlcNAcylation")) neg p(HGNC:MAPT, pmod(Ph))
 UNSET MeSHAnatomy
 SET Species = "10090"
 SET Method = {"Western Blot", "Immunohistochemistry"}
-path(MESH:Fasting) -| p(MGI:Mapt, pmod(HBP:"O-GlcNAcylation"))
-path(MESH:Fasting) -> p(MGI:Mapt, pmod(HBP:hyperphosphorylation))
+path(MESH:Fasting) -| p(MGI:Mapt, pmod(CONSO:"O-GlcNAcylation"))
+path(MESH:Fasting) -> p(MGI:Mapt, pmod(CONSO:hyperphosphorylation))
 UNSET Method
 UNSET Species
 UNSET Confidence
@@ -831,7 +831,7 @@ SET Citation = {"PubMed", "8063802"}
 SET Evidence = "Glycation by AGE (Advanced Glycation End products) decreases MT binding, promotes aggregation, activates RAGE"
 SET Confidence = "Medium"
 a(CHEBI:"advanced glycation end-product") -| complex(p(HGNC:MAPT),a(GO:microtubule))
-a(CHEBI:"advanced glycation end-product") -> a(HBP:"Tau aggregates")
+a(CHEBI:"advanced glycation end-product") -> a(CONSO:"Tau aggregates")
 a(CHEBI:"advanced glycation end-product") -> act(p(HGNC:AGER))
 UNSET Confidence
 
@@ -848,8 +848,8 @@ SET Confidence = "Medium"
 SET Anatomy = "globus pallidus"
 path(MESH:"Supranuclear Palsy, Progressive") -> p(HGNC:TGM1)
 path(MESH:"Supranuclear Palsy, Progressive") -> r(HGNC:TGM1)
-path(MESH:"Supranuclear Palsy, Progressive") -> p(HBP:"TGM2 Isoform 3 (349 aa)")
-p(HBP:"TGM2 Isoform 3 (349 aa)") isA r(HGNC:TGM2)
+path(MESH:"Supranuclear Palsy, Progressive") -> p(CONSO:"TGM2 Isoform 3 (349 aa)")
+p(CONSO:"TGM2 Isoform 3 (349 aa)") isA r(HGNC:TGM2)
 SET Anatomy = "dentate nucleus"
 path(MESH:"Supranuclear Palsy, Progressive") -> r(HGNC:TGM1)
 path(MESH:"Supranuclear Palsy, Progressive") -> r(HGNC:TGM2)
@@ -946,11 +946,11 @@ SET Cell_Line = "SH-SY5Y"
 p(HGNC:TGM2) pos p(HGNC:MAPT)
 p(HGNC:TGM2) partOf complex(p(HGNC:TGM2), p(HGNC:MAPT))
 p(HGNC:MAPT) partOf complex(p(HGNC:TGM2), p(HGNC:MAPT))
-a(HBP:maitotoxin) -> a(CHEBI:"calcium(2+)")
+a(CONSO:maitotoxin) -> a(CHEBI:"calcium(2+)")
 a(CHEBI:"calcium(2+)") pos complex(p(HGNC:TGM2), p(HGNC:MAPT))
-a(HBP:maitotoxin) -> act(p(HGNC:TGM2))
-act(p(HGNC:TGM2)) -- p(HBP:"microtubule-binding region")
-p(HBP:"microtubule-binding region") partOf p(HGNC:MAPT)
+a(CONSO:maitotoxin) -> act(p(HGNC:TGM2))
+act(p(HGNC:TGM2)) -- p(CONSO:"microtubule-binding region")
+p(CONSO:"microtubule-binding region") partOf p(HGNC:MAPT)
 UNSET Cell_Line
 UNSET Confidence
 
@@ -961,14 +961,14 @@ SET Citation = {"PubMed", "22057784"}
 SET Evidence = "Tau-nY18 did not label the classical pathological lesions of CBD or PSP but did label the neuronal lesions associated with PiD. Tau-nY29 revealed some, but not all classes of tau inclusions associated with both CBD and PSP but did label numerous Pick body inclusions in PiD.
 Tau-nY197 was restricted to the neuropil threads in both CBD and PSP; however, similar to Tau-nY29, extensive Pick body pathology was clearly labeled. Tau-nY394 did not detect any of the lesions associated with these disorders."
 SET Confidence = "High"
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 18)) pos path(MESH:"Pick Disease of the Brain")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 29)) pos path(MESH:"Pick Disease of the Brain")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 18)) pos path(MESH:"Pick Disease of the Brain")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 29)) pos path(MESH:"Pick Disease of the Brain")
 SET Disease = "progressive supranuclear palsy"
 SET HBP_Disease = "Corticobasal Degeneration"
 SET Anatomy = "neuropil"
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 197)) pos path(MESH:"Supranuclear Palsy, Progressive")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 197)) pos path(HBP:"Corticobasal Degeneration")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 197)) partOf a(MESH:"Neuropil Threads")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 197)) pos path(MESH:"Supranuclear Palsy, Progressive")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 197)) pos path(CONSO:"Corticobasal Degeneration")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 197)) partOf a(MESH:"Neuropil Threads")
 UNSET Anatomy
 SET MeSHDisease = "Pick Disease of the Brain"
 p(HGNC:MAPT, pmod(NO, Tyr, 29)) pos path(MESH:"Pick Disease of the Brain")
@@ -980,8 +980,8 @@ SET Citation = {"PubMed", "18562203"}
 SET Evidence = "This antibody detects nitrated tau in soluble preparations from both severe AD brains (Braak stage V, VI) and age-matched controls,
 suggesting that nitration at Tyr 18 may be linked to astrocyte activation, an early event associated with amyloid plaque formation"
 SET Confidence = "Medium"
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 18)) -- act(a(MESH:Astrocytes))
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 18)) pos path(MESH:"Plaque, Amyloid")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 18)) -- act(a(MESH:Astrocytes))
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 18)) pos path(MESH:"Plaque, Amyloid")
 act(a(MESH:Astrocytes)) -- path(MESH:"Plaque, Amyloid")
 UNSET Confidence
 
@@ -993,27 +993,27 @@ Intriguingly, although Tau-nY29 stains both the neuronal and glial tau pathology
 SET Confidence = "Medium"
 SET Disease = "Alzheimer's disease"
 SET MeSHAnatomy = "Brain"
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 29)) -- a(HBP:"paired helical filaments")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 29)) pos path(MESH:"Alzheimer Disease")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 29)) pos bp(GO:"neurofibrillary tangle assembly")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 29)) partOf a(GO:"neurofibrillary tangle")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 29)) partOf path(MESH:"Plaque, Amyloid")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 29)) partOf a(MESH:"Neuropil Threads")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 29)) -- path(HBP:"Corticobasal Degeneration")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 29)) -- path(MESH:"Supranuclear Palsy, Progressive")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 29)) -- a(CONSO:"paired helical filaments")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 29)) pos path(MESH:"Alzheimer Disease")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 29)) pos bp(GO:"neurofibrillary tangle assembly")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 29)) partOf a(GO:"neurofibrillary tangle")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 29)) partOf path(MESH:"Plaque, Amyloid")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 29)) partOf a(MESH:"Neuropil Threads")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 29)) -- path(CONSO:"Corticobasal Degeneration")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 29)) -- path(MESH:"Supranuclear Palsy, Progressive")
 UNSET MeSHAnatomy
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 29)) isA p(HGNC:MAPT, pmod(HBP:nitration))
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 18)) isA p(HGNC:MAPT, pmod(HBP:nitration))
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 197)) isA p(HGNC:MAPT, pmod(HBP:nitration))
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 29)) isA p(HGNC:MAPT, pmod(CONSO:nitration))
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 18)) isA p(HGNC:MAPT, pmod(CONSO:nitration))
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 197)) isA p(HGNC:MAPT, pmod(CONSO:nitration))
 UNSET Confidence
 
 SET Citation = {"PubMed", "21210655"}
 SET Evidence = "PN-treated wild-type tau and 5XY→F tau consistently displayed lysine formylation throughout tau in a non-sequence specific
 distribution. Lysine formylation likely results from reactive free radical exposure caused by PN treatment."
 SET Confidence = "Medium"
-a(CHEBI:peroxynitrite) -> p(HGNC:MAPT, pmod(HBP:formylation, Lys))
+a(CHEBI:peroxynitrite) -> p(HGNC:MAPT, pmod(CONSO:formylation, Lys))
 a(CHEBI:peroxynitrite) -> bp(GO:"response to nitrosative stress")
-bp(GO:"response to nitrosative stress") -> p(HGNC:MAPT, pmod(HBP:formylation, Lys))
+bp(GO:"response to nitrosative stress") -> p(HGNC:MAPT, pmod(CONSO:formylation, Lys))
 UNSET Confidence
 
 SET Citation = {"PubMed", "17768677"}
@@ -1022,7 +1022,7 @@ to Tyr 507 in rat tau (Table 1) in accordance with the data reported above for t
 SET Confidence = "Medium"
 SET ExpMethod = {"in vivo"}
 SET Species = "10116"
-p(RGD:Mapt, pmod(HBP:nitration, Tyr, 507)) partOf a(MESH:Brain)
+p(RGD:Mapt, pmod(CONSO:nitration, Tyr, 507)) partOf a(MESH:Brain)
 UNSET Species
 UNSET ExpMethod
 UNSET Confidence
@@ -1041,10 +1041,10 @@ SET ExpMethod = {"in vivo"}
 SET Species = "10116"
 SET Anatomy = "hippocampal formation"
 a(CHEBI:linsidomine) -> a(CHEBI:peroxynitrite)
-a(CHEBI:peroxynitrite) -> p(RGD:Mapt, pmod(HBP:hyperphosphorylation))
-a(CHEBI:peroxynitrite) -> p(RGD:Mapt, pmod(HBP:nitration))
-a(CHEBI:"uric acid") -| p(RGD:Mapt, pmod(HBP:hyperphosphorylation))
-a(CHEBI:"uric acid") -| p(RGD:Mapt, pmod(HBP:nitration))
+a(CHEBI:peroxynitrite) -> p(RGD:Mapt, pmod(CONSO:hyperphosphorylation))
+a(CHEBI:peroxynitrite) -> p(RGD:Mapt, pmod(CONSO:nitration))
+a(CHEBI:"uric acid") -| p(RGD:Mapt, pmod(CONSO:hyperphosphorylation))
+a(CHEBI:"uric acid") -| p(RGD:Mapt, pmod(CONSO:nitration))
 a(CHEBI:"uric acid") -| act(a(CHEBI:peroxynitrite))
 a(CHEBI:peroxynitrite) -> act(p(RGD:Gsk3b))
 a(CHEBI:peroxynitrite) -> act(p(RGD:Mapk14))
@@ -1053,12 +1053,12 @@ a(CHEBI:peroxynitrite) -> act(p(RGD:Mapk13))
 a(CHEBI:peroxynitrite) cnc act(p(RGD:Mapk12))
 a(CHEBI:peroxynitrite) cnc act(p(FPLX:ERK))
 a(CHEBI:peroxynitrite) cnc act(p(FPLX:JNK))
-p(RGD:Mapt, pmod(HBP:hyperphosphorylation)) -> a(HBP:"Tau aggregates")
-p(RGD:Mapt, pmod(HBP:nitration)) -> a(HBP:"Tau aggregates")
-a(CHEBI:linsidomine) -| act(p(HBP:"20 S Proteasome"))
-act(p(HBP:"20 S Proteasome")) -> deg(p(RGD:Mapt, pmod(HBP:hyperphosphorylation)))
-act(p(HBP:"20 S Proteasome")) -> deg(p(RGD:Mapt))
-a(CHEBI:peroxynitrite) -> a(HBP:"Tau aggregates")
+p(RGD:Mapt, pmod(CONSO:hyperphosphorylation)) -> a(CONSO:"Tau aggregates")
+p(RGD:Mapt, pmod(CONSO:nitration)) -> a(CONSO:"Tau aggregates")
+a(CHEBI:linsidomine) -| act(p(CONSO:"20 S Proteasome"))
+act(p(CONSO:"20 S Proteasome")) -> deg(p(RGD:Mapt, pmod(CONSO:hyperphosphorylation)))
+act(p(CONSO:"20 S Proteasome")) -> deg(p(RGD:Mapt))
+a(CHEBI:peroxynitrite) -> a(CONSO:"Tau aggregates")
 UNSET Anatomy
 UNSET Species
 UNSET ExpMethod
@@ -1084,29 +1084,29 @@ SET Evidence = "Select nitration of residues Tyr18, Tyr29, Tyr197, and Tyr394, e
 to promote tubulin assembly, effect specific for the 3-NT modification, as mutant tau proteins pseudophosphorylated at each Tyr residue are fully competent to stabilize MTs,
 suggesting that ONOO(-)-mediated modifications stabilize tau filaments via 3,3'-DT bonding and destabilize MTs by site-selective nitration of tau monomers."
 SET Confidence = "Medium"
-a(CHEBI:peroxynitrite) -> p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 18))
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 18)) -| bp(GO:"microtubule polymerization")
-a(CHEBI:peroxynitrite) -> p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 29))
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 29)) -| bp(GO:"microtubule polymerization")
-a(CHEBI:peroxynitrite) -> p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 197))
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 197)) -| bp(GO:"microtubule polymerization")
-a(CHEBI:peroxynitrite) -> p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 394))
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 394)) -| bp(GO:"microtubule polymerization")
+a(CHEBI:peroxynitrite) -> p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 18))
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 18)) -| bp(GO:"microtubule polymerization")
+a(CHEBI:peroxynitrite) -> p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 29))
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 29)) -| bp(GO:"microtubule polymerization")
+a(CHEBI:peroxynitrite) -> p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 197))
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 197)) -| bp(GO:"microtubule polymerization")
+a(CHEBI:peroxynitrite) -> p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 394))
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 394)) -| bp(GO:"microtubule polymerization")
 p(HGNC:MAPT) -> bp(GO:"microtubule polymerization")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 18)) pos a(HBP:"paired helical filaments")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 29)) pos a(HBP:"paired helical filaments")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 197)) pos a(HBP:"paired helical filaments")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 394)) pos a(HBP:"paired helical filaments")
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 18)) neg act(p(HGNC:MAPT))
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 29)) neg act(p(HGNC:MAPT))
-p(HGNC:MAPT, pmod(HBP:nitration, Tyr, 197)) neg act(p(HGNC:MAPT))
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 18)) pos a(CONSO:"paired helical filaments")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 29)) pos a(CONSO:"paired helical filaments")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 197)) pos a(CONSO:"paired helical filaments")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 394)) pos a(CONSO:"paired helical filaments")
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 18)) neg act(p(HGNC:MAPT))
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 29)) neg act(p(HGNC:MAPT))
+p(HGNC:MAPT, pmod(CONSO:nitration, Tyr, 197)) neg act(p(HGNC:MAPT))
 p(HGNC:MAPT, pmod(Ph, Tyr, 394)) neg act(p(HGNC:MAPT))
 p(HGNC:MAPT, pmod(Ph, Tyr, 18)) pos a(GO:microtubule)
 p(HGNC:MAPT, pmod(Ph, Tyr, 29)) pos a(GO:microtubule)
 p(HGNC:MAPT, pmod(Ph, Tyr, 197)) pos a(GO:microtubule)
 p(HGNC:MAPT, pmod(Ph, Tyr, 394)) pos a(GO:microtubule)
-a(CHEBI:peroxynitrite) -> a(HBP:"3-3 dityrosine cross-linking")
-a(HBP:"3-3 dityrosine cross-linking") pos a(HBP:"paired helical filaments")
+a(CHEBI:peroxynitrite) -> a(CONSO:"3-3 dityrosine cross-linking")
+a(CONSO:"3-3 dityrosine cross-linking") pos a(CONSO:"paired helical filaments")
 UNSET Confidence
 
 ####################################################################################Tau Hyperphosphorylation############################################################################
@@ -1125,9 +1125,9 @@ SET Confidence = "High"
 a(MESH:"Receptors, N-Methyl-D-Aspartate") -> act(p(HGNC:RAC1))
 a(MESH:"Receptors, N-Methyl-D-Aspartate") -> p(HGNC:TIAM1, pmod(Ph))
 p(HGNC:TIAM1, pmod(Ph)) -> act(p(HGNC:RAC1))
-p(HGNC:CAMK2B) -> p(HBP:"Kalirin 7", pmod(Ph, Thr, 95))
-p(HBP:"Kalirin 7", pmod(Ph, Thr, 95)) -> act(p(HBP:"Kalirin 7"))
-act(p(HBP:"Kalirin 7")) -> act(p(HGNC:RAC1))
+p(HGNC:CAMK2B) -> p(CONSO:"Kalirin 7", pmod(Ph, Thr, 95))
+p(CONSO:"Kalirin 7", pmod(Ph, Thr, 95)) -> act(p(CONSO:"Kalirin 7"))
+act(p(CONSO:"Kalirin 7")) -> act(p(HGNC:RAC1))
 p(HGNC:CAMK1) -> p(HGNC:ARHGEF7, pmod(Ph, Ser, 516))
 p(HGNC:ARHGEF7, pmod(Ph, Ser, 516)) -> act(p(HGNC:ARHGEF7))
 act(p(HGNC:ARHGEF7)) -> act(p(HGNC:RAC1))
@@ -1243,10 +1243,10 @@ SET Evidence = "Astrocytes displayed enlarged bodies and ramifications (Type B m
 Concerning microglia, TAUP301L expression induced a very significant increase in IBA1+ microglia at the ipsilateral hippocampal side of Nrf2+/+ and Nrf2−/− mice  (Fig. 7A), which was confirmed by stereological quantification (Fig. 7B).
 DMF treatment reduced significantly this microgliosis in Nrf2+/+ but not in Nrf2−/− mice, reinforcing the idea of NRF2-dependent anti-inflammatory effect"
 SET Confidence = "Medium"
-p(MGI:Mapt, var("p.Pro301Leu")) -> path(HBP:Astrogliosis)
-p(MGI:Mapt, var("p.Pro301Leu")) -> path(HBP:"Microgliosis")
-a(CHEBI:"dimethyl fumarate") -| path(HBP:Astrogliosis)
-a(CHEBI:"dimethyl fumarate") -| path(HBP:"Microgliosis")
+p(MGI:Mapt, var("p.Pro301Leu")) -> path(CONSO:Astrogliosis)
+p(MGI:Mapt, var("p.Pro301Leu")) -> path(CONSO:"Microgliosis")
+a(CHEBI:"dimethyl fumarate") -| path(CONSO:Astrogliosis)
+a(CHEBI:"dimethyl fumarate") -| path(CONSO:"Microgliosis")
 p(MGI:Nfe2l2) -| bp(GO:"inflammatory response")
 UNSET Confidence
 
@@ -1393,7 +1393,7 @@ SET Evidence = "We report here that tideglusib inhibits GSK-3β irreversibly, as
 the reaction medium and the fact that its dissociation rate constant is non-significantly different from zero."
 SET Confidence = "High"
 SET Ki = "5 nM"
-a(HBP:tideglusib) -| kin(p(HGNC:GSK3B))
+a(CONSO:tideglusib) -| kin(p(HGNC:GSK3B))
 UNSET Ki
 UNSET Confidence
 
@@ -1416,7 +1416,7 @@ SET Citation = {"PubMed", "11013232"}
 SET Evidence = "We report here that indirubins are also powerful inhibitors (IC(50): 5-50 nm) of an evolutionarily related kinase, glycogen synthase kinase-3beta (GSK-3 beta)."
 SET Confidence = "High"
 SET IC50 = "5-50 nM"
-a(HBP:indirubin) -| kin(p(HGNC:GSK3B))
+a(CONSO:indirubin) -| kin(p(HGNC:GSK3B))
 UNSET IC50
 UNSET Confidence
 
@@ -1472,12 +1472,12 @@ SET Evidence = "First, we verified the colocalization of p-WAVE1 and pCRMP2 with
 revealed the inclusion of p-WAVE1, p-CRMP2, and tau in the sarkosyl-insoluble fractions of hippocampal homogenates"
 SET Confidence = "Medium"
 SET Anatomy = "hippocampal formation"
-a(HBP:"Tau aggregates") -> complex(p(HBP:"Tau aggregates"), p(MGI:Wasf1, pmod(Ph)), p(MGI:Dpysl2, pmod(Ph)))
-p(MGI:Mapt,pmod(HBP:hyperphosphorylation)) -> complex(p(MGI:Mapt,pmod(HBP:hyperphosphorylation)), p(MGI:Wasf1, pmod(Ph)), p(MGI:Dpysl2, pmod(Ph)))
-p(MGI:Wasf1, pmod(Ph)) partOf complex(p(HBP:"Tau aggregates"), p(MGI:Wasf1, pmod(Ph)), p(MGI:Dpysl2, pmod(Ph)))
-p(MGI:Wasf1, pmod(Ph)) partOf complex(p(MGI:Mapt,pmod(HBP:hyperphosphorylation)), p(MGI:Wasf1, pmod(Ph)), p(MGI:Dpysl2, pmod(Ph)))
-p(MGI:Dpysl2, pmod(Ph)) partOf complex(p(HBP:"Tau aggregates"), p(MGI:Wasf1, pmod(Ph)), p(MGI:Dpysl2, pmod(Ph)))
-p(MGI:Dpysl2, pmod(Ph)) partOf complex(p(MGI:Mapt,pmod(HBP:hyperphosphorylation)), p(MGI:Wasf1, pmod(Ph)), p(MGI:Dpysl2, pmod(Ph)))
+a(CONSO:"Tau aggregates") -> complex(p(CONSO:"Tau aggregates"), p(MGI:Wasf1, pmod(Ph)), p(MGI:Dpysl2, pmod(Ph)))
+p(MGI:Mapt,pmod(CONSO:hyperphosphorylation)) -> complex(p(MGI:Mapt,pmod(CONSO:hyperphosphorylation)), p(MGI:Wasf1, pmod(Ph)), p(MGI:Dpysl2, pmod(Ph)))
+p(MGI:Wasf1, pmod(Ph)) partOf complex(p(CONSO:"Tau aggregates"), p(MGI:Wasf1, pmod(Ph)), p(MGI:Dpysl2, pmod(Ph)))
+p(MGI:Wasf1, pmod(Ph)) partOf complex(p(MGI:Mapt,pmod(CONSO:hyperphosphorylation)), p(MGI:Wasf1, pmod(Ph)), p(MGI:Dpysl2, pmod(Ph)))
+p(MGI:Dpysl2, pmod(Ph)) partOf complex(p(CONSO:"Tau aggregates"), p(MGI:Wasf1, pmod(Ph)), p(MGI:Dpysl2, pmod(Ph)))
+p(MGI:Dpysl2, pmod(Ph)) partOf complex(p(MGI:Mapt,pmod(CONSO:hyperphosphorylation)), p(MGI:Wasf1, pmod(Ph)), p(MGI:Dpysl2, pmod(Ph)))
 UNSET Anatomy
 UNSET Confidence
 
@@ -1494,11 +1494,11 @@ These results suggested that the administration of ATRA inhibited activity of Cd
 including p-CRMP2 and p-WAVE1 in the 33Tg mouse brain."
 SET Confidence = "Medium"
 a(CHEBI:"all-trans-retinoic acid") -| path(MESH:"Plaque, Amyloid")
-a(CHEBI:"all-trans-retinoic acid") -| bp(HBP:"APP processing")
+a(CHEBI:"all-trans-retinoic acid") -| bp(CONSO:"APP processing")
 a(CHEBI:"all-trans-retinoic acid") -| a(CHEBI:"amyloid-beta")
 a(CHEBI:"all-trans-retinoic acid") -| kin(p(MGI:Cdk5))
 a(CHEBI:"all-trans-retinoic acid") -| kin(p(MGI:Gsk3b))
-a(CHEBI:"all-trans-retinoic acid") -| a(HBP:"Tau aggregates")
+a(CHEBI:"all-trans-retinoic acid") -| a(CONSO:"Tau aggregates")
 a(CHEBI:"all-trans-retinoic acid") -| p(MGI:Mapt,pmod(Ph))
 UNSET Confidence
 
@@ -1511,9 +1511,9 @@ SET Confidence = "High"
 SET Ki = "39 nM"
 a(CHEBI:staurosporine) -| act(p(HGNC:CDK5))
 SET Ki = "38 μM"
-a(HBP:isopentanyladenine) -| act(p(HGNC:CDK5))
+a(CONSO:isopentanyladenine) -| act(p(HGNC:CDK5))
 SET Ki = "8 μM"
-a(HBP:olomoucine) -| act(p(HGNC:CDK5))
+a(CONSO:olomoucine) -| act(p(HGNC:CDK5))
 UNSET Ki
 UNSET Confidence
 
@@ -1546,16 +1546,16 @@ path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT, pmod(Ph, Ser, 202))
 path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT, pmod(Ph, Tyr, 197))
 path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT, pmod(Ph, Ser, 422))
 
-p(HGNC:MAPT, pmod(Ph, Ser, 202)) partOf p(HBP:"Tau epitope, AT8")
-p(HGNC:MAPT, pmod(Ph, Ser, 199)) partOf p(HBP:"Tau epitope, AT8")
+p(HGNC:MAPT, pmod(Ph, Ser, 202)) partOf p(CONSO:"Tau epitope, AT8")
+p(HGNC:MAPT, pmod(Ph, Ser, 199)) partOf p(CONSO:"Tau epitope, AT8")
 
 UNSET Confidence
 
 SET Evidence = "The pSer422 antibody displayed an almost identical pattern to that of AT8, in that it stained NFTs (Figure 5A–D), neuropil threads and neuritic plaques (Figure 5E–H)"
 SET Confidence = "High"
-p(HBP:"Tau epitope, AT8") -- a(GO:"neurofibrillary tangle")
-p(HBP:"Tau epitope, AT8") -- a(MESH:"Neuropil Threads")
-p(HBP:"Tau epitope, AT8") -- path(MESH:"Plaque, Amyloid")
+p(CONSO:"Tau epitope, AT8") -- a(GO:"neurofibrillary tangle")
+p(CONSO:"Tau epitope, AT8") -- a(MESH:"Neuropil Threads")
+p(CONSO:"Tau epitope, AT8") -- path(MESH:"Plaque, Amyloid")
 
 p(HGNC:MAPT, pmod(Ph, Ser, 422)) partOf a(GO:"neurofibrillary tangle")
 p(HGNC:MAPT, pmod(Ph, Ser, 422)) partOf a(MESH:"Neuropil Threads")
@@ -1565,11 +1565,11 @@ UNSET Confidence
 SET Evidence = "These data suggest a role for TTBK1 in pre-tangle formation prior to the formation of fibrillar tau and strengthen the idea that tau is phosphorylated at Ser422
 at an early intermediate stage in NFT formation."
 SET Confidence = "Medium"
-p(HGNC:TTBK1) -- a(HBP:pretangles)
-p(HGNC:TTBK1) -- a(HBP:"Tau fibrils")
-a(HBP:"Tau fibrils") -> a(HBP:pretangles)
-p(HGNC:MAPT, pmod(Ph, Ser, 422)) -- a(HBP:pretangles)
-a(HBP:pretangles) isA a(GO:"neurofibrillary tangle")
+p(HGNC:TTBK1) -- a(CONSO:pretangles)
+p(HGNC:TTBK1) -- a(CONSO:"Tau fibrils")
+a(CONSO:"Tau fibrils") -> a(CONSO:pretangles)
+p(HGNC:MAPT, pmod(Ph, Ser, 422)) -- a(CONSO:pretangles)
+a(CONSO:pretangles) isA a(GO:"neurofibrillary tangle")
 a(GO:"neurofibrillary tangle") -- p(HGNC:MAPT, pmod(Ph, Ser, 422))
 p(HGNC:TTBK1) -> p(HGNC:MAPT, pmod(Ph, Ser, 422))
 UNSET Confidence
@@ -1616,9 +1616,9 @@ SET Citation = {"PubMed", "21548880"}
 SET Evidence = "SCA11 truncating mutations promote TTBK2 protein expression, suppress kinase activity and lead to enhanced nuclear localization.
 Using a SCA11-mutation-carrying knockin mouse we show that this leads to inhibition of endogenous TTBK2 protein kinase activity."
 SET Confidence = "High"
-p(HGNC:TTBK2, trunc(Tyr448)) pos path(HBP:"Spinocerebellar Ataxia 11")
-p(HGNC:TTBK2, trunc(Asp449)) pos path(HBP:"Spinocerebellar Ataxia 11")
-p(HGNC:TTBK2, trunc(Glu450)) pos path(HBP:"Spinocerebellar Ataxia 11")
+p(HGNC:TTBK2, trunc(Tyr448)) pos path(CONSO:"Spinocerebellar Ataxia 11")
+p(HGNC:TTBK2, trunc(Asp449)) pos path(CONSO:"Spinocerebellar Ataxia 11")
+p(HGNC:TTBK2, trunc(Glu450)) pos path(CONSO:"Spinocerebellar Ataxia 11")
 
 p(HGNC:TTBK2, trunc(Tyr448)) -> p(HGNC:TTBK2)
 p(HGNC:TTBK2, trunc(Asp449)) -> p(HGNC:TTBK2)
@@ -1670,11 +1670,11 @@ SET Citation = {"PubMed", "25673844"}
 SET Evidence = "The CK1 group of eukaryotic protein kinases are composed of seven CK1 isoforms (CK1α, CK1α2, CK1δ, CK1ε, CK1γ1, CK1γ2, and CK1γ3),
 two Tau–tubulin kinase isoforms (TTBK1 and TTBK2), and three VRK isoforms (VRK1, VRK2, and VRK3)"
 SET Confidence = "High"
-p(HGNC:TTBK1) isA p(HBP:"CK1 superfamily")
-p(HGNC:TTBK2) isA p(HBP:"CK1 superfamily")
-p(HGNC:VRK1) isA p(HBP:"CK1 superfamily")
-p(HGNC:VRK2) isA p(HBP:"CK1 superfamily")
-p(HGNC:VRK3) isA p(HBP:"CK1 superfamily")
+p(HGNC:TTBK1) isA p(CONSO:"CK1 superfamily")
+p(HGNC:TTBK2) isA p(CONSO:"CK1 superfamily")
+p(HGNC:VRK1) isA p(CONSO:"CK1 superfamily")
+p(HGNC:VRK2) isA p(CONSO:"CK1 superfamily")
+p(HGNC:VRK3) isA p(CONSO:"CK1 superfamily")
 
 p(HGNC:CSNK1A1) isA p(FPLX:CSNK1)
 p(HGNC:CSNK1A1L) isA p(FPLX:CSNK1)
@@ -1684,7 +1684,7 @@ p(HGNC:CSNK1G1) isA p(FPLX:CSNK1)
 p(HGNC:CSNK1G2) isA p(FPLX:CSNK1)
 p(HGNC:CSNK1G3) isA p(FPLX:CSNK1)
 
-p(FPLX:CSNK1) isA p(HBP:"CK1 superfamily")
+p(FPLX:CSNK1) isA p(CONSO:"CK1 superfamily")
 UNSET Confidence
 
 SET Evidence = "We demonstrate that Casein kinase 1 family members, including isoforms of Tau-tubulin protein kinases (TTBK1 and TTBK2),
@@ -1734,7 +1734,7 @@ surf(p(HGNC:GRIK2)) pos act(p(HGNC:GRIK2))
 act(p(HGNC:RAB5A)) neg surf(p(HGNC:GRIK2))
 act(p(HGNC:RAB5A)) partOf bp(GO:"clathrin-dependent endocytosis")
 SET MeSHAnatomy = "Neurons"
-surf(p(HGNC:GRIK2)) neg path(HBP:Excitotoxicity)
+surf(p(HGNC:GRIK2)) neg path(CONSO:Excitotoxicity)
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -1792,7 +1792,7 @@ SET Species = "10090"
 p(MGI:Ttbk1) neg path(MESH:"Spatial Learning")
 p(MGI:Cdk5) neg path(MESH:"Spatial Learning")
 surf(p(MGI:Grin2b)) pos path(MESH:"Spatial Learning")
-p(MGI:Ttbk1) -> a(HBP:pretangles)
+p(MGI:Ttbk1) -> a(CONSO:pretangles)
 p(MGI:Ttbk1) -> deg(a(MESH:"Motor Neurons"))
 p(MGI:Ttbk1) -> bp(GO:"neuroinflammatory response")
 p(MGI:Ttbk1) pos act(p(MGI:Cdk5))
@@ -1809,7 +1809,7 @@ p(HGNC:MAPK12) -> p(HGNC:MAPT, pmod(Ph, T, 181))
 p(HGNC:MAPK13) -> p(HGNC:MAPT, pmod(Ph, T, 181))
 p(HGNC:MAPK8) -> p(HGNC:MAPT, pmod(Ph, T, 181))
 
-p(HGNC:MAPT, pmod(Ph, T, 181)) partOf p(HBP:"Tau epitope, AT270")
+p(HGNC:MAPT, pmod(Ph, T, 181)) partOf p(CONSO:"Tau epitope, AT270")
 UNSET Confidence
 
 SET Evidence = "For AT8, which recognises phosphorylated S202 and T205 in tau, SAPK3/p38gamma gave the strongest labelling"
@@ -1825,8 +1825,8 @@ p(HGNC:MAPK12) -> p(HGNC:MAPT, pmod(Ph, S, 404))
 p(HGNC:MAPK13) -> p(HGNC:MAPT, pmod(Ph, T, 396))
 p(HGNC:MAPK13) -> p(HGNC:MAPT, pmod(Ph, S, 404))
 
-p(HGNC:MAPT, pmod(Ph, T, 396)) partOf p(HBP:"Tau epitope, AD2")
-p(HGNC:MAPT, pmod(Ph, S, 404)) partOf p(HBP:"Tau epitope, AD2")
+p(HGNC:MAPT, pmod(Ph, T, 396)) partOf p(CONSO:"Tau epitope, AD2")
+p(HGNC:MAPT, pmod(Ph, S, 404)) partOf p(CONSO:"Tau epitope, AD2")
 UNSET Confidence
 
 SET Evidence = "Finally, phosphorylation of S422 in tau, as recognisedby antibody AP422, was generated most effciently by SAPK3/p38gamma, SAPK4/p38delta and SAPK2b/p38beta"
@@ -1835,7 +1835,7 @@ p(HGNC:MAPK12) -> p(HGNC:MAPT, pmod(Ph, S, 422))
 p(HGNC:MAPK13) -> p(HGNC:MAPT, pmod(Ph, S, 422))
 p(HGNC:MAPK11) -> p(HGNC:MAPT, pmod(Ph, S, 422))
 
-p(HGNC:MAPT, pmod(Ph, S, 422)) partOf p(HBP:"Tau epitope, AP422")
+p(HGNC:MAPT, pmod(Ph, S, 422)) partOf p(CONSO:"Tau epitope, AP422")
 UNSET Confidence
 
 #######################################################################################################################################################################################
@@ -1845,7 +1845,7 @@ SET Method = {"NMR Spectroscopy", "Electron Microscopy, Transmission", "Thioflav
 SET Evidence = "Only very recently has the crystal structure of its fragment antigen body (Fab) with different
 phosphorylated peptides suggested that a third phosphorylation event at position Ser208 might lead to an epitope with an even better affinity (15)."
 SET Confidence = "High"
-p(HGNC:MAPT, pmod(Ph, Ser, 208)) partOf p(HBP:"Tau epitope, AT8")
+p(HGNC:MAPT, pmod(Ph, Ser, 208)) partOf p(CONSO:"Tau epitope, AT8")
 UNSET Confidence
 
 SET Evidence = "When combined with ERK2 catalyzed phosphorylation, the turn-like
@@ -1853,20 +1853,20 @@ disrupting G207V mutation in TauF8 hence leads to fast aggregation that already 
 SET Confidence = "Medium"
 act(p(HGNC:MAPK1)) -> p(HGNC:MAPT, pmod(Ph, Ser, 202))
 act(p(HGNC:MAPK1)) -> p(HGNC:MAPT, pmod(Ph, Thr, 205))
-p(HGNC:MAPT, pmod(Ph, Ser, 202)) partOf p(HBP:"Tau epitope, AT8")
-p(HGNC:MAPT, pmod(Ph, Thr, 205)) partOf p(HBP:"Tau epitope, AT8")
-p(HGNC:MAPT, var("p.Gly207Val")) -> p(HBP:"Tau aggregates")
-p(HGNC:MAPT, pmod(Ph, Ser, 202),  pmod(Ph, Thr, 205)) -> a(HBP:"Tau Protein Secondary Structure, Turn")
-p(HGNC:MAPT, var("p.Gly207Val")) -| a(HBP:"Tau Protein Secondary Structure, Turn")
-p(HGNC:MAPT, pmod(Ph, Ser, 202)) -> p(HBP:"Tau aggregates")
-p(HGNC:MAPT, pmod(Ph, Thr, 205)) -> p(HBP:"Tau aggregates")
+p(HGNC:MAPT, pmod(Ph, Ser, 202)) partOf p(CONSO:"Tau epitope, AT8")
+p(HGNC:MAPT, pmod(Ph, Thr, 205)) partOf p(CONSO:"Tau epitope, AT8")
+p(HGNC:MAPT, var("p.Gly207Val")) -> p(CONSO:"Tau aggregates")
+p(HGNC:MAPT, pmod(Ph, Ser, 202),  pmod(Ph, Thr, 205)) -> a(CONSO:"Tau Protein Secondary Structure, Turn")
+p(HGNC:MAPT, var("p.Gly207Val")) -| a(CONSO:"Tau Protein Secondary Structure, Turn")
+p(HGNC:MAPT, pmod(Ph, Ser, 202)) -> p(CONSO:"Tau aggregates")
+p(HGNC:MAPT, pmod(Ph, Thr, 205)) -> p(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Our finding that the resulting Tau species with phosphorylation at Ser202/Th205, but with a disrupted turn-like structure,
 forms abundant fibers detectable by thioflavin fluorescence or electron microscopy (Figs. 2 and 4) suggests the initial
 turn-like structure induced by the phosphorylation of only Ser202 and Thr205 is protective against aggregation."
 SET Confidence = "High"
-a(HBP:"Tau Protein Secondary Structure, Turn") -| p(HBP:"Tau aggregates")
+a(CONSO:"Tau Protein Secondary Structure, Turn") -| p(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Phosphorylation at Ser208 might be catalyzed by Casein kinase 1 (44), and its identification as a potential
@@ -1878,10 +1878,10 @@ UNSET Confidence
 SET Evidence = "Indeed, Tau phosphorylation at the three positions, Ser202/Thr205/Ser208, while not at Ser262, is
 sufficient to induce aggregation without the addition of any exogenous aggregation inducer."
 SET Confidence = "High"
-p(HGNC:MAPT, pmod(Ph, Ser, 202),  pmod(Ph, Thr, 205), pmod(Ph, Thr, 208)) eq p(HBP:"Tau epitope, AT8")
-p(HBP:"Tau epitope, AT8") -> p(HBP:"Tau aggregates")
-p(HGNC:MAPT, pmod(Ph, Ser, 208)) -| a(HBP:"Tau Protein Secondary Structure, Turn")
-a(HBP:"Tau Protein Secondary Structure, Turn") -| p(HBP:"Tau aggregates")
+p(HGNC:MAPT, pmod(Ph, Ser, 202),  pmod(Ph, Thr, 205), pmod(Ph, Thr, 208)) eq p(CONSO:"Tau epitope, AT8")
+p(CONSO:"Tau epitope, AT8") -> p(CONSO:"Tau aggregates")
+p(HGNC:MAPT, pmod(Ph, Ser, 208)) -| a(CONSO:"Tau Protein Secondary Structure, Turn")
+a(CONSO:"Tau Protein Secondary Structure, Turn") -| p(CONSO:"Tau aggregates")
 UNSET Confidence
 UNSET Method
 
@@ -1938,37 +1938,37 @@ UNSET Confidence
 SET Evidence = "Apart from binding to MT, the repeat domains of tau also bind to tubulin deacetylase, histone deacetylase 6 (HDAC6) [68] and apolipoprotein E (apoE)
 more with the "3 than the "4 isovariant [69])."
 SET Confidence = "High"
-p(HBP:"microtubule-binding region") -- p(HGNC:HDAC6)
-p(HBP:"tubulin-binding repeat 1") -- g(HBP:"APOE e3")
+p(CONSO:"microtubule-binding region") -- p(HGNC:HDAC6)
+p(CONSO:"tubulin-binding repeat 1") -- g(CONSO:"APOE e3")
 
-p(HBP:"tubulin-binding repeat 1") partOf p(HBP:"microtubule-binding region")
-p(HBP:"microtubule-binding region") partOf p(HGNC:MAPT)
+p(CONSO:"tubulin-binding repeat 1") partOf p(CONSO:"microtubule-binding region")
+p(CONSO:"microtubule-binding region") partOf p(HGNC:MAPT)
 UNSET Confidence
 
 SET Evidence = "The projection domain of tau may be involved in cell signaling that occurs through the interaction with Lck, Fgr and cSrc (Src-family kinases),
 growth factor receptor-bound protein 2 (Grb2), phospholipase C- [70], phosphatidylinositol and phosphatidylinositol bisphosphate [71,72], peptidyl-prolyl cis/trans isomerase Pin 1,
 and many others (for review see [73]), making them potential therapeutic targets in tauopathies [74]."
 SET Confidence = "Medium"
-complex(p(HGNC:LCK),p(HBP:"projection domain")) -- bp(GO:"cell-cell signaling")
-complex(p(HGNC:FGR),p(HBP:"projection domain")) -- bp(GO:"cell-cell signaling")
-complex(p(HGNC:SRC),p(HBP:"projection domain")) -- bp(GO:"cell-cell signaling")
-complex(p(HGNC:GRB2),p(HBP:"projection domain")) -- bp(GO:"cell-cell signaling")
-complex(p(FPLX:PLC),p(HBP:"projection domain")) -- bp(GO:"cell-cell signaling")
-complex(a(CHEBI:phosphatidylinositol),p(HBP:"projection domain")) -- bp(GO:"cell-cell signaling")
-complex(a(CHEBI:"phosphatidylinositol bisphosphate"),p(HBP:"projection domain")) -- bp(GO:"cell-cell signaling")
-complex(p(HGNC:PIN1),p(HBP:"projection domain")) -- bp(GO:"cell-cell signaling")
+complex(p(HGNC:LCK),p(CONSO:"projection domain")) -- bp(GO:"cell-cell signaling")
+complex(p(HGNC:FGR),p(CONSO:"projection domain")) -- bp(GO:"cell-cell signaling")
+complex(p(HGNC:SRC),p(CONSO:"projection domain")) -- bp(GO:"cell-cell signaling")
+complex(p(HGNC:GRB2),p(CONSO:"projection domain")) -- bp(GO:"cell-cell signaling")
+complex(p(FPLX:PLC),p(CONSO:"projection domain")) -- bp(GO:"cell-cell signaling")
+complex(a(CHEBI:phosphatidylinositol),p(CONSO:"projection domain")) -- bp(GO:"cell-cell signaling")
+complex(a(CHEBI:"phosphatidylinositol bisphosphate"),p(CONSO:"projection domain")) -- bp(GO:"cell-cell signaling")
+complex(p(HGNC:PIN1),p(CONSO:"projection domain")) -- bp(GO:"cell-cell signaling")
 
-p(HBP:"projection domain")  partOf p(HGNC:MAPT)
+p(CONSO:"projection domain")  partOf p(HGNC:MAPT)
 UNSET Confidence
 
 SET Evidence = "In synapses, the projection domain of tau interacts with protein kinase Fyn (plays an important role during myelination [75]),
 postsynaptic density protein 95 (PSD-95) [76], and N-methyl-D-aspartate receptors (NMDAR)."
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Synapses"
-p(HBP:"projection domain") -- p(HGNC:FYN)
+p(CONSO:"projection domain") -- p(HGNC:FYN)
 p(HGNC:FYN) -- bp(GO:myelination)
-p(HBP:"projection domain") -- p(HGNC:DLG4)
-p(HBP:"projection domain") -- p(MESH:"Receptors, N-Methyl-D-Aspartate")
+p(CONSO:"projection domain") -- p(HGNC:DLG4)
+p(CONSO:"projection domain") -- p(MESH:"Receptors, N-Methyl-D-Aspartate")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -1988,11 +1988,11 @@ isoforms with 4R (class II tauopathies), whereas sarkosyl extracts from filament
 are characterized by the presence of pathological tau doublets of 60 and 64 kDa and contain mainly
 3R tau isoforms (class III tauopathy)."
 SET Confidence = "High"
-p(HBP:"4R tau") pos path(HBP:"Corticobasal Degeneration")
-p(HBP:"4R tau") pos path(HBP:"Argyrophilic Grain Disease")
-p(HBP:"4R tau") pos path(MESH:"Supranuclear Palsy, Progressive")
+p(CONSO:"4R tau") pos path(CONSO:"Corticobasal Degeneration")
+p(CONSO:"4R tau") pos path(CONSO:"Argyrophilic Grain Disease")
+p(CONSO:"4R tau") pos path(MESH:"Supranuclear Palsy, Progressive")
 
-p(HBP:"3R tau") pos path(MESH:"Niemann-Pick Diseases")
+p(CONSO:"3R tau") pos path(MESH:"Niemann-Pick Diseases")
 UNSET Confidence
 
 SET Evidence = "Poorkaj et al. reported two exonic mutations (P301L and
@@ -2022,8 +2022,8 @@ SET Evidence = "The tau fragment first isolated from the PHF core is approximate
 Its N-terminus was defined by sequence analysis [30,56], and its C-terminus was defined by epitope
 mapping of MN423. Immunoreactivity was shown to depend on a specific C-terminal trunctation at Glu391 [33,150]."
 SET Confidence = "High"
-p(HGNC:MAPT, trunc(Glu391)) -- p(HBP:"paired helical filaments")
-p(HBP:"paired helical filaments") partOf a(GO:"neurofibrillary tangle")
+p(HGNC:MAPT, trunc(Glu391)) -- p(CONSO:"paired helical filaments")
+p(CONSO:"paired helical filaments") partOf a(GO:"neurofibrillary tangle")
 UNSET Confidence
 
 SET Evidence = "In a prospective study three different synaptic protein (synaptophysin, SNAP-25 and syntaxin) were found
@@ -2041,8 +2041,8 @@ UNSET Confidence
 SET Evidence = "The most recent data obtained indicate that tau pathology indeed may be induced and propagated after the injection of tau oligomers or
 aggregates in either wild-type or mutated MAPT transgenic mice [164], and that tau aggregates can be transferred from cell to cell in vitro [164,165] and in vivo [166,167]."
 SET Confidence = "Medium"
-a(HBP:"Tau aggregates") pos tloc(a(HBP:"Tau aggregates"), fromLoc(MESH:Neurons), toLoc(MESH:Neurons))
-a(HBP:"Tau oligomers") -> a(HBP:"Tau aggregates")
+a(CONSO:"Tau aggregates") pos tloc(a(CONSO:"Tau aggregates"), fromLoc(MESH:Neurons), toLoc(MESH:Neurons))
+a(CONSO:"Tau oligomers") -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "In the case of soluble monomeric or small oligomeric tau protein, the endocytosis appears to be clathrin-dependent (reviewed in [169]).
@@ -2051,15 +2051,15 @@ As a result of exocytosis and endocytosis, the spreading of tau can occur in var
 Three plausible mechanisms of tau spreading are shown schematically in Figure 6. Additionally, it appears that
 microglial cells may facilitate tau propagation by phagocytosis and exocytosis of tau protein [171]."
 SET Confidence = "Medium"
-p(HBP:"Tau oligomers") -- bp(GO:"clathrin-dependent endocytosis")
-p(HBP:"Tau aggregates") partOf complex(p(HBP:"Tau aggregates"), a(CHEBI:heparin))
-a(CHEBI:heparin) partOf complex(p(HBP:"Tau aggregates"), a(CHEBI:heparin))
-complex(p(HBP:"Tau aggregates"), a(CHEBI:heparin)) -- bp(GO:macropinocytosis)
+p(CONSO:"Tau oligomers") -- bp(GO:"clathrin-dependent endocytosis")
+p(CONSO:"Tau aggregates") partOf complex(p(CONSO:"Tau aggregates"), a(CHEBI:heparin))
+a(CHEBI:heparin) partOf complex(p(CONSO:"Tau aggregates"), a(CHEBI:heparin))
+complex(p(CONSO:"Tau aggregates"), a(CHEBI:heparin)) -- bp(GO:macropinocytosis)
 
-bp(GO:macropinocytosis) isA tloc(a(HBP:"Tau aggregates"), fromLoc(MESH:Neurons), toLoc(MESH:Neurons))
-bp(GO:"clathrin-dependent endocytosis") isA tloc(a(HBP:"Tau aggregates"), fromLoc(MESH:Neurons), toLoc(MESH:Neurons))
-bp(GO:"cell-cell signaling via exosome") isA tloc(a(HBP:"Tau aggregates"), fromLoc(MESH:Neurons), toLoc(MESH:Neurons))
-a(CL:"0000129") -> tloc(a(HBP:"Tau aggregates"), fromLoc(MESH:Neurons), toLoc(MESH:Neurons))
+bp(GO:macropinocytosis) isA tloc(a(CONSO:"Tau aggregates"), fromLoc(MESH:Neurons), toLoc(MESH:Neurons))
+bp(GO:"clathrin-dependent endocytosis") isA tloc(a(CONSO:"Tau aggregates"), fromLoc(MESH:Neurons), toLoc(MESH:Neurons))
+bp(GO:"cell-cell signaling via exosome") isA tloc(a(CONSO:"Tau aggregates"), fromLoc(MESH:Neurons), toLoc(MESH:Neurons))
+a(CL:"0000129") -> tloc(a(CONSO:"Tau aggregates"), fromLoc(MESH:Neurons), toLoc(MESH:Neurons))
 UNSET Confidence
 
 SET Evidence = "Green coffee, a non-toxic small molecule, found to be an inhibitor of protein
@@ -2078,14 +2078,14 @@ immunotherapeutic approaches [176]."
 SET Confidence = "High"
 a(CHEBI:sirolimus) -> bp(GO:macroautophagy)
 bp(GO:macroautophagy) -| p(HGNC:MAPT)
-p(HBP:"Tau antibody, RG7345") -| p(HGNC:MAPT, pmod(Ph, S, 422))
-p(HGNC:MAPT, pmod(Ph, S, 422)) partOf p(HBP:"Tau aggregates")
+p(CONSO:"Tau antibody, RG7345") -| p(HGNC:MAPT, pmod(Ph, S, 422))
+p(HGNC:MAPT, pmod(Ph, S, 422)) partOf p(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "MB is a phenothiazine that crosses the blood brain barrier and acts as a redox cycler. Moreover, besides its beneficial properties as being able to improve
 energy metabolism and to act as an antioxidant, it is also able to reduce tau protein aggregation"
 SET Confidence = "Medium"
-a(CHEBI:"methylene blue") -| p(HBP:"Tau aggregates")
+a(CHEBI:"methylene blue") -| p(CONSO:"Tau aggregates")
 a(CHEBI:"methylene blue") -> bp(GO:"energy reserve metabolic process")
 a(CHEBI:"methylene blue") isA a(CHEBI:antioxidant)
 UNSET Confidence
@@ -2094,31 +2094,31 @@ SET Evidence = "Recently, it has been proposed that tau protein acetylation may 
 detected tau acetylation at Lys274 in all tauopathies (both primary and secondary), except in AgD"
 SET Confidence = "Medium"
 SET MeSHDisease = "Tauopathies"
-p(HGNC:MAPT, pmod(Ac, Lys, 274)) pos p(HBP:"Tau aggregates")
+p(HGNC:MAPT, pmod(Ac, Lys, 274)) pos p(CONSO:"Tau aggregates")
 UNSET MeSHDisease
 UNSET Confidence
 
 SET Evidence = "Other possible inhibitors of tau aggregation are rhodanine-based inhibitors, phenylthiazolyl-hydrazide inhibitors, N-phenylamines, phenothiazines
 and benzothiazoles, and polyphenols and anthraquinones"
 SET Confidence = "High"
-a(CHEBI:rhodanine) -| p(HBP:"Tau aggregates")
-a(HBP:thiohydantoin) -| p(HBP:"Tau aggregates")
-a(HBP:oxazolidinedione) -| p(HBP:"Tau aggregates")
-a(HBP:thioxooxazolidine) -| p(HBP:"Tau aggregates")
+a(CHEBI:rhodanine) -| p(CONSO:"Tau aggregates")
+a(CONSO:thiohydantoin) -| p(CONSO:"Tau aggregates")
+a(CONSO:oxazolidinedione) -| p(CONSO:"Tau aggregates")
+a(CONSO:thioxooxazolidine) -| p(CONSO:"Tau aggregates")
 
-a(CHEBI:thiostrepton) -| p(HBP:"Tau aggregates")
-a(HBP:sudoxicam) -| p(HBP:"Tau aggregates")
-a(CHEBI:isoniazide) -| p(HBP:"Tau aggregates")
-a(CHEBI:Iproniazid) -| p(HBP:"Tau aggregates")
-a(CHEBI:iproclozide) -| p(HBP:"Tau aggregates")
-a(HBP:isocarboxazide) -| p(HBP:"Tau aggregates")
+a(CHEBI:thiostrepton) -| p(CONSO:"Tau aggregates")
+a(CONSO:sudoxicam) -| p(CONSO:"Tau aggregates")
+a(CHEBI:isoniazide) -| p(CONSO:"Tau aggregates")
+a(CHEBI:Iproniazid) -| p(CONSO:"Tau aggregates")
+a(CHEBI:iproclozide) -| p(CONSO:"Tau aggregates")
+a(CONSO:isocarboxazide) -| p(CONSO:"Tau aggregates")
 
-a(CHEBI:myricetin) -| p(HBP:"Tau aggregates")
+a(CHEBI:myricetin) -| p(CONSO:"Tau aggregates")
 
-a(CHEBI:emodin) -| p(HBP:"Tau aggregates")
-a(CHEBI:daunorubicin) -| p(HBP:"Tau aggregates")
-a(CHEBI:doxorubicin) -| p(HBP:"Tau aggregates")
-a(CHEBI:quinalizarin) -| p(HBP:"Tau aggregates")
+a(CHEBI:emodin) -| p(CONSO:"Tau aggregates")
+a(CHEBI:daunorubicin) -| p(CONSO:"Tau aggregates")
+a(CHEBI:doxorubicin) -| p(CONSO:"Tau aggregates")
+a(CHEBI:quinalizarin) -| p(CONSO:"Tau aggregates")
 UNSET Confidence
 
 #######################################################################################################################################################################################
@@ -2130,8 +2130,8 @@ granulovacuolar degeneration bodies (GVDs) that progressively accumulate in AD."
 SET Confidence = "Medium"
 SET Disease = "Alzheimer's disease"
 p(HGNC:MARK4, pmod(Ph)) -- p(HGNC:MAPT, pmod(Ph, Ser, 262))
-complex(p(HGNC:MAPT, pmod(Ph, Ser, 262)),p(HGNC:MARK4, pmod(Ph))) -- path(HBP:"granulovacuolar degeneration")
-path(MESH:"Alzheimer Disease") pos path(HBP:"granulovacuolar degeneration")
+complex(p(HGNC:MAPT, pmod(Ph, Ser, 262)),p(HGNC:MARK4, pmod(Ph))) -- path(CONSO:"granulovacuolar degeneration")
+path(MESH:"Alzheimer Disease") pos path(CONSO:"granulovacuolar degeneration")
 UNSET Disease
 UNSET Confidence
 
@@ -2150,14 +2150,14 @@ SET Evidence = "MARK4 was extremely decreased in the brain regions with a mass o
 of PrPSc or without detectable PrPSc in a D178N FFI patient."
 SET Confidence = "High"
 SET MeSHDisease = {"Creutzfeldt-Jakob Syndrome", "Insomnia, Fatal Familial"}
-p(HGNC:MARK4) neg p(HBP:PrPSc)
+p(HGNC:MARK4) neg p(CONSO:PrPSc)
 UNSET MeSHDisease
 UNSET Confidence
 
 SET Evidence = "These finding highlight that treatment of PrP106-126 in cultured cells does not alter the level of total tau, but induces a reduction of p-tau262."
 SET Confidence = "High"
 SET Cell_Line = {"PC12", "SK-N-SH"}
-p(HBP:"PrP106-126") -| p(HGNC:MAPT, pmod(Ph, Ser, 262))
+p(CONSO:"PrP106-126") -| p(HGNC:MAPT, pmod(Ph, Ser, 262))
 UNSET Cell_Line
 UNSET Confidence
 
@@ -2167,7 +2167,7 @@ SET Evidence = "To probe the involvement of endogenous MARK kinases in mediating
 specifically inhibiting the activities of all PAR-1/MARK family members. This inhibitor abrogated the toxic effects of Aβ oligomers on dendritic spines and synapses as assayed
 at the morphological and electrophysiological levels."
 SET Confidence = "Medium"
-a(MESH:"Microtubule-Associated Proteins") pos act(a(HBP:"amyloid-beta oligomers"))
+a(MESH:"Microtubule-Associated Proteins") pos act(a(CONSO:"amyloid-beta oligomers"))
 UNSET Confidence
 
 SET Evidence = "We first confirmed that expression of an MKI-GFP fusion protein in rat hippocampal neurons effectively attenuated MARK4-mediated phosphorylation of both endogenous
@@ -2179,12 +2179,12 @@ SET Confidence = "Medium"
 SET Tau_Motif = "KXGS"
 p(HGNC:MARK4) -> p(HGNC:MAPT, pmod(Ph, Ser, 262))
 p(HGNC:MARK4) -> p(HGNC:MAPT, pmod(Ph, Ser, 356))
-p(HGNC:MAPT, pmod(Ph, Ser, 262)) partOf p(HBP:"Tau epitope, 12E8")
-p(HGNC:MAPT, pmod(Ph, Ser, 356)) partOf p(HBP:"Tau epitope, 12E8")
+p(HGNC:MAPT, pmod(Ph, Ser, 262)) partOf p(CONSO:"Tau epitope, 12E8")
+p(HGNC:MAPT, pmod(Ph, Ser, 356)) partOf p(CONSO:"Tau epitope, 12E8")
 UNSET Tau_Motif
-p(HBP:"Tau epitope, 12E8") pos p(HBP:"Tau epitope, PHF1")
-p(HGNC:MAPT, pmod(Ph, Ser, 396)) pos p(HBP:"Tau epitope, PHF1")
-p(HGNC:MAPT, pmod(Ph, Ser, 404)) pos p(HBP:"Tau epitope, PHF1")
+p(CONSO:"Tau epitope, 12E8") pos p(CONSO:"Tau epitope, PHF1")
+p(HGNC:MAPT, pmod(Ph, Ser, 396)) pos p(CONSO:"Tau epitope, PHF1")
+p(HGNC:MAPT, pmod(Ph, Ser, 404)) pos p(CONSO:"Tau epitope, PHF1")
 UNSET Confidence
 
 
@@ -2193,8 +2193,8 @@ SET Evidence = "Human microtubule affinity-regulating kinase 4S (hMARK4S),undete
 is up-regulated in both cell systems from the very early stages of neuronal differentiation, suggesting euronal commitment is marked by MARK4S up-regulation."
 SET Confidence = "High"
 SET Cell_Line = {"HNPC", "NT2"}
-p(HBP:"MARK4 isoform 2 (688 aa)") pos bp(GO:"neuron development")
-p(HBP:"MARK4 isoform 2 (688 aa)") isA p(HGNC:MARK4)
+p(CONSO:"MARK4 isoform 2 (688 aa)") pos bp(GO:"neuron development")
+p(CONSO:"MARK4 isoform 2 (688 aa)") isA p(HGNC:MARK4)
 UNSET Cell_Line
 UNSET Confidence
 
@@ -2231,8 +2231,8 @@ Treatment with staurosporine also significantly reduced PLA signals for tau phos
 for MARK4-mediated tau phosphorylation)"
 # MARK isoforms: MARK1, MARK2, MARK3 or MARK4.
 SET Confidence = "Medium"
-complex(p(HBP:"Tau antibody, AGG5759"),p(HGNC:MAPT, pmod(Ph, Ser, 262)))
-complex(p(HBP:"Tau antibody, Tau-13"),p(HGNC:MAPT, pmod(Ph, Ser, 262)))
+complex(p(CONSO:"Tau antibody, AGG5759"),p(HGNC:MAPT, pmod(Ph, Ser, 262)))
+complex(p(CONSO:"Tau antibody, Tau-13"),p(HGNC:MAPT, pmod(Ph, Ser, 262)))
 complex(p(HGNC:MAPT),p(HGNC:MARK1)) -> p(HGNC:MAPT, pmod(Ph, Ser, 262))
 complex(p(HGNC:MAPT),p(HGNC:MARK2)) -> p(HGNC:MAPT, pmod(Ph, Ser, 262))
 complex(p(HGNC:MAPT),p(HGNC:MARK3)) -> p(HGNC:MAPT, pmod(Ph, Ser, 262))
@@ -2245,8 +2245,8 @@ UNSET Confidence
 
 SET Evidence = "In cells, a CagA peptide inhibited tau phosphorylation at Ser²6² mediated by MARK4 but not other MARK isoforms. A strong and significant elevation of MARK4 expression and MARK4-tau interactions in AD brains correlated with the Braak stages of the disease."
 SET Confidence = "Medium"
-p(HBP:"CagA peptide") -| kin(p(HGNC:MARK4))
-p(HBP:"CagA peptide") -| p(HGNC:MAPT, pmod(Ph, Ser, 262))
+p(CONSO:"CagA peptide") -| kin(p(HGNC:MARK4))
+p(CONSO:"CagA peptide") -| p(HGNC:MAPT, pmod(Ph, Ser, 262))
 p(HGNC:MARK4) -> p(HGNC:MAPT, pmod(Ph, Ser, 262))
 p(HGNC:MARK4) pos path(MESH:"Alzheimer Disease")
 complex(p(HGNC:MAPT),p(HGNC:MARK4)) pos path(MESH:"Alzheimer Disease")
@@ -2293,8 +2293,8 @@ SET MeSHAnatomy = "Neurons"
 p(HGNC:DAPK1) -> sec(p(HGNC:APP, frag(672_713)))
 kin(p(HGNC:DAPK1)) pos sec(p(HGNC:APP, frag(672_713)))
 kin(p(HGNC:DAPK1)) -> p(HGNC:APP,pmod(Ph,Thr,668))
-p(HGNC:APP,pmod(Ph,Thr,668)) -- bp(HBP:"APP processing")
-bp(HBP:"APP processing") -> a(CHEBI:"amyloid-beta")
+p(HGNC:APP,pmod(Ph,Thr,668)) -- bp(CONSO:"APP processing")
+bp(CONSO:"APP processing") -> a(CHEBI:"amyloid-beta")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -2353,8 +2353,8 @@ SET Evidence = "In contrast, Pin1/PINN-1 (a DAPK interaction-partner and a pepti
 suppresses neurodegeneration in our excitotoxicity model."
 SET Confidence = "Medium"
 SET Species = "6239"
-p(HGNC:PIN1) -| path(HBP:Excitotoxicity)
-p(HGNC:PIN1) -| path(HBP:Neurodegeneration)
+p(HGNC:PIN1) -| path(CONSO:Excitotoxicity)
+p(HGNC:PIN1) -| path(CONSO:Neurodegeneration)
 complex(p(HGNC:DAPK1),p(HGNC:PIN1))
 UNSET Species
 UNSET Confidence
@@ -2381,10 +2381,10 @@ SET Citation = {"PubMed", "27133022"}
 SET Evidence = "Unexpectedly, impairment of the basic loop interaction site completely abolishes calcium/calmodulin binding and DAPK2 activity is reduced to a residual level,
 indicative of coupled binding to the two sites."
 SET Confidence = "Medium"
-p(HBP:"DAPK, basic loop (BL) motif") partOf p(HGNC:DAPK2)
-p(HBP:"DAPK, basic loop (BL) motif") pos act(p(HGNC:DAPK2))
-p(HBP:"DAPK, basic loop (BL) motif") pos complex(p(FPLX:CALM),p(HGNC:DAPK2))
-p(HBP:"DAPK, basic loop (BL) motif") pos complex(a(CHEBI:"calcium(2+)"),p(HGNC:DAPK2))
+p(CONSO:"DAPK, basic loop (BL) motif") partOf p(HGNC:DAPK2)
+p(CONSO:"DAPK, basic loop (BL) motif") pos act(p(HGNC:DAPK2))
+p(CONSO:"DAPK, basic loop (BL) motif") pos complex(p(FPLX:CALM),p(HGNC:DAPK2))
+p(CONSO:"DAPK, basic loop (BL) motif") pos complex(a(CHEBI:"calcium(2+)"),p(HGNC:DAPK2))
 UNSET Confidence
 
 
@@ -2492,9 +2492,9 @@ SET Confidence = "Medium"
 SET Species = "10090"
 SET Research_Model = "Ts65Dn mice"
 SET MeSHDisease = {"Alzheimer Disease", "Down Syndrome"}
-p(MGI:Dyrk1a) neg a(HBP:"granular layer of cerebellar cortex")
-p(MGI:Dyrk1a) neg a(HBP:"molecular layer of cerebellar cortex")
-p(MGI:Dyrk1a) neg a(HBP:"Purkinje cell layer of cerebellar cortex")
+p(MGI:Dyrk1a) neg a(CONSO:"granular layer of cerebellar cortex")
+p(MGI:Dyrk1a) neg a(CONSO:"molecular layer of cerebellar cortex")
+p(MGI:Dyrk1a) neg a(CONSO:"Purkinje cell layer of cerebellar cortex")
 p(MGI:Dyrk1a) neg bp(GO:"dendrite arborization")
 
 SET Evidence = "Normalizing the gene dosage of Dyrk1A in the TS mouse rescued the density of senescent cells in the cingulate cortex, hippocampus and septum,
@@ -2533,20 +2533,20 @@ ID-8 itself showed little activity against these kinases, or against DYRK3. Next
 using the same 33P incorporation assay (Table 1)."
 SET Confidence = "High"
 SET IC50 = "54 nM"
-a(HBP:"ID-8") -| kin(p(HGNC:DYRK1B))
+a(CONSO:"ID-8") -| kin(p(HGNC:DYRK1B))
 UNSET IC50
 SET IC50 = "450 nM"
-a(HBP:"ID-8") -| kin(p(HGNC:GSK3B))
+a(CONSO:"ID-8") -| kin(p(HGNC:GSK3B))
 UNSET IC50
 SET IC50 = "78 nM"
-a(HBP:"ID-8") -| kin(p(HGNC:DYRK1A))
+a(CONSO:"ID-8") -| kin(p(HGNC:DYRK1A))
 UNSET IC50
 UNSET Confidence
 
 SET Evidence = "Here we present evidence that the indole compound ID-8 and a series of related molecules act to inhibit the neural specification of hESC through inhibition of DYRK1A."
 SET Confidence = "High"
 kin(p(HGNC:DYRK1A)) pos bp(GO:"neuron differentiation")
-a(HBP:"ID-8") -| bp(GO:"neuron differentiation")
+a(CONSO:"ID-8") -| bp(GO:"neuron differentiation")
 UNSET Confidence
 
 
@@ -2600,8 +2600,8 @@ SET Confidence = "High"
 SET Species = "10090"
 SET Research_Model = "Ts65Dn mice"
 SET MeSHDisease = {"Alzheimer Disease", "Down Syndrome"}
-p(MGI:Dyrk1a) pos p(HBP:"3R tau")
-p(MGI:Dyrk1a) neg p(HBP:"4R tau")
+p(MGI:Dyrk1a) pos p(CONSO:"3R tau")
+p(MGI:Dyrk1a) neg p(CONSO:"4R tau")
 UNSET Confidence
 
 SET Evidence = "Treatment with Dyrk1A inhibitor, green tea flavonol epigallocatechin-gallate (EGCG), from gestation to adulthood suppressed 3R-tau expression
@@ -2609,7 +2609,7 @@ and rescued anxiety and memory deficits in Ts65Dn mouse brains."
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Brain"
 a(CHEBI:"(-)-epigallocatechin 3-gallate") -| p(MGI:Dyrk1a)
-a(CHEBI:"(-)-epigallocatechin 3-gallate") -| p(HBP:"3R tau")
+a(CHEBI:"(-)-epigallocatechin 3-gallate") -| p(CONSO:"3R tau")
 a(CHEBI:"(-)-epigallocatechin 3-gallate") -| path(MESH:Anxiety)
 a(CHEBI:"(-)-epigallocatechin 3-gallate") pos bp(GO:memory)
 p(MGI:Dyrk1a) pos path(MESH:Anxiety)
@@ -2641,7 +2641,7 @@ SET Citation = {"PubMed", "28167836"}
 SET Evidence = "We conclude that the Dyrk1a dosage is critical for proper neurite and axonal outgrowth and that the two nonsense mutations, R205X and E239X, are loss-of-function mutants."
 SET Confidence = "Medium"
 SET HBP_Disease = "Autism Spectrum Disorder (ASD)"
-act(p(HGNC:DYRK1A)) reg a(HBP:Neurites)
+act(p(HGNC:DYRK1A)) reg a(CONSO:Neurites)
 act(p(HGNC:DYRK1A)) reg a(GO:axon)
 
 p(HGNC:DYRK1A, var("p.Arg205del")) -| act(p(HGNC:DYRK1A))
@@ -2664,12 +2664,12 @@ further supporting a role of Syk in the formation of tau pathogenic species. Col
 SET Confidence = "Medium"
 SET Species = "9606"
 SET CellLine = "SH-SY5Y"
-p(HGNC:SYK) -> a(HBP:"Tau aggregates")
-p(HGNC:SYK) -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+p(HGNC:SYK) -> a(CONSO:"Tau aggregates")
+p(HGNC:SYK) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 UNSET Species
 UNSET CellLine
 a(CHEBI:"amyloid-beta") -> act(p(HGNC:SYK))
-a(HBP:"Tau aggregates") -> act(p(HGNC:SYK))
+a(CONSO:"Tau aggregates") -> act(p(HGNC:SYK))
 UNSET Confidence
 
 SET Evidence = "The upregulation of Syk activation observed in the brains of Tg APPsw and Tg PS1/APPsw is mainly attributable to pSyk accumulations in dystrophic neurites
@@ -2678,11 +2678,11 @@ SET Confidence = "Medium"
 SET Research_Model = "APPPS1 mice"
 SET MeSHAnatomy = "Brain"
 path(MESH:"Plaque, Amyloid")
-p(MGI:Syk, pmod(Ph)) partOf a(HBP:"dystrophic neurite")
+p(MGI:Syk, pmod(Ph)) partOf a(CONSO:"dystrophic neurite")
 p(MGI:Syk, pmod(Ph)) -> act(p(MGI:Syk))
-path(MESH:"Plaque, Amyloid") -- a(HBP:"dystrophic neurite")
-a(CHEBI:"amyloid-beta") -> a(HBP:"dystrophic neurite")
-bp(GO:aging) -> a(HBP:"dystrophic neurite")
+path(MESH:"Plaque, Amyloid") -- a(CONSO:"dystrophic neurite")
+a(CHEBI:"amyloid-beta") -> a(CONSO:"dystrophic neurite")
+bp(GO:aging) -> a(CONSO:"dystrophic neurite")
 UNSET Research_Model
 UNSET MeSHAnatomy
 
@@ -2726,13 +2726,13 @@ topology to granulovacuolar degeneration (GVD) bodies. Various combinations of t
 the neurons of AD patients, were found concurrently in neurons.These vesicles and GVD bodies were both immunopositive not only for PtdIns(4,5)P2,
 but also for several tau kinases such as glycogen synthase kinase-3ß and spleen tyrosine kinase."
 SET Confidence = "Medium"
-a(HBP:"paired helical filaments") partOf a(HBP:pretangles)
+a(CONSO:"paired helical filaments") partOf a(CONSO:pretangles)
 a(CHEBI:"1-phosphatidyl-1D-myo-inositol 4,5-bisphosphate") partOf a(GO:"synaptic vesicle")
-p(HGNC:SYK) partOf a(HBP:pretangles)
-a(CHEBI:"1-phosphatidyl-1D-myo-inositol 4,5-bisphosphate") partOf a(HBP:"GVD bodies")
-a(CHEBI:"1-phosphatidyl-1D-myo-inositol 4,5-bisphosphate") partOf a(HBP:pretangles)
-p(HGNC:SYK) partOf a(HBP:"GVD bodies")
-p(HGNC:GSK3B) partOf a(HBP:"GVD bodies")
+p(HGNC:SYK) partOf a(CONSO:pretangles)
+a(CHEBI:"1-phosphatidyl-1D-myo-inositol 4,5-bisphosphate") partOf a(CONSO:"GVD bodies")
+a(CHEBI:"1-phosphatidyl-1D-myo-inositol 4,5-bisphosphate") partOf a(CONSO:pretangles)
+p(HGNC:SYK) partOf a(CONSO:"GVD bodies")
+p(HGNC:GSK3B) partOf a(CONSO:"GVD bodies")
 UNSET Confidence
 
 
@@ -2755,13 +2755,13 @@ SET Confidence = "Medium"
 a(CHEBI:Nilvadipine) -| p(HGNC:MAPT, pmod(Ph, Ser, 199))
 a(CHEBI:Nilvadipine) -| p(HGNC:MAPT, pmod(Ph, Ser, 202))
 a(CHEBI:Nilvadipine) -| p(HGNC:MAPT, pmod(Ph, Thr, 205))
-p(HGNC:MAPT, pmod(Ph,Ser, 199)) partOf p(HBP:"Tau epitope, AT8")
-p(HGNC:MAPT, pmod(Ph, Ser, 202)) partOf p(HBP:"Tau epitope, AT8")
-p(HGNC:MAPT, pmod(Ph, Thr, 205)) partOf p(HBP:"Tau epitope, AT8")
+p(HGNC:MAPT, pmod(Ph,Ser, 199)) partOf p(CONSO:"Tau epitope, AT8")
+p(HGNC:MAPT, pmod(Ph, Ser, 202)) partOf p(CONSO:"Tau epitope, AT8")
+p(HGNC:MAPT, pmod(Ph, Thr, 205)) partOf p(CONSO:"Tau epitope, AT8")
 a(CHEBI:Nilvadipine) -| p(HGNC:MAPT, pmod(Ph, Ser, 396))
 a(CHEBI:Nilvadipine) -| p(HGNC:MAPT, pmod(Ph, Ser, 404))
-p(HGNC:MAPT, pmod(Ph, Ser, 396)) partOf p(HBP:"Tau epitope, PHF1")
-p(HGNC:MAPT, pmod(Ph, Ser, 404)) partOf p(HBP:"Tau epitope, PHF1")
+p(HGNC:MAPT, pmod(Ph, Ser, 396)) partOf p(CONSO:"Tau epitope, PHF1")
+p(HGNC:MAPT, pmod(Ph, Ser, 404)) partOf p(CONSO:"Tau epitope, PHF1")
 UNSET Confidence
 
 SET Evidence = "We further validated Syk as a target-regulating Aβ by showing that pharmacological inhibition of Syk or down-regulation of Syk expression reduces Aβ production
@@ -2774,9 +2774,9 @@ p(MGI:Syk) -| deg(a(CHEBI:"amyloid-beta"))
 p(MGI:Syk) pos p(MGI:Mapt, pmod(Ph, Tyr, 18))
 p(MGI:Syk) pos p(MGI:Mapt, pmod(Ph, Ser, 396))
 p(MGI:Syk) pos p(MGI:Mapt, pmod(Ph, Ser, 404))
-kin(p(HGNC:GSK3B)) -> p(HBP:"Tau epitope, PHF1")
+kin(p(HGNC:GSK3B)) -> p(CONSO:"Tau epitope, PHF1")
 p(MGI:Syk) pos p(MGI:Mapt, pmod(Ph, Ser, 202))
-p(HGNC:MAPT, pmod(Ph, Ser, 202)) eq p(HBP:"Tau epitope, CP13")
+p(HGNC:MAPT, pmod(Ph, Ser, 202)) eq p(CONSO:"Tau epitope, CP13")
 UNSET Species
 UNSET Confidence
 
@@ -2798,11 +2798,11 @@ SET Confidence = "Medium"
 path(MESH:"Alzheimer Disease") -> r(HGNC:GSK3B)
 SET MeSHDisease = "Alzheimer Disease"
 SET MeSHAnatomy = "Cerebral Cortex"
-a(HBP:"Braak_Stage I") pos kin(p(HGNC:GSK3B))
-a(HBP:"Braak_Stage II") pos kin(p(HGNC:GSK3B))
+a(CONSO:"Braak_Stage I") pos kin(p(HGNC:GSK3B))
+a(CONSO:"Braak_Stage II") pos kin(p(HGNC:GSK3B))
 
-a(HBP:"Braak_Stage V") neg kin(p(HGNC:GSK3B))
-a(HBP:"Braak_Stage V") neg kin(p(HGNC:GSK3B))
+a(CONSO:"Braak_Stage V") neg kin(p(HGNC:GSK3B))
+a(CONSO:"Braak_Stage V") neg kin(p(HGNC:GSK3B))
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -2811,7 +2811,7 @@ SET Citation = {"PubMed", "28176663"}
 SET Evidence = "Here, we show for the first time that the administration of D-ribose, the most active glycator among monosaccharides,
 produces high levels of advanced glycation end products (AGEs) and, importantly, triggers hyperphosphorylation of Tau in the brain of C57BL/6 mouse and neuroblastoma N2a cells."
 SET Confidence = "Medium"
-a(CHEBI:"D-ribose") -> a(HBP:"advanced glycation end product")
+a(CHEBI:"D-ribose") -> a(CONSO:"advanced glycation end product")
 a(CHEBI:"D-ribose") -> p(HGNC:MAPT, pmod(Ph, Thr, 181))
 a(CHEBI:"D-ribose") -> p(HGNC:MAPT, pmod(Ph, Ser, 214))
 a(CHEBI:"D-ribose") -> p(HGNC:MAPT, pmod(Ph, Ser, 396))
@@ -2819,9 +2819,9 @@ UNSET Confidence
 
 SET Evidence = "Thus, our results suggest that Tau hyperphosphorylation was a result of ribosylated AGEs, rather than due to a direct reaction involving D-ribose."
 SET Confidence = "High"
-a(HBP:"advanced glycation end product") -> p(HGNC:MAPT, pmod(Ph, Thr, 181))
-a(HBP:"advanced glycation end product") -> p(HGNC:MAPT, pmod(Ph, Ser, 214))
-a(HBP:"advanced glycation end product") -> p(HGNC:MAPT, pmod(Ph, Ser, 396))
+a(CONSO:"advanced glycation end product") -> p(HGNC:MAPT, pmod(Ph, Thr, 181))
+a(CONSO:"advanced glycation end product") -> p(HGNC:MAPT, pmod(Ph, Ser, 214))
+a(CONSO:"advanced glycation end product") -> p(HGNC:MAPT, pmod(Ph, Ser, 396))
 UNSET Confidence
 
 
@@ -2834,15 +2834,15 @@ p(HGNC:CDK5) -> complex(p(HGNC:CDK5), p(HGNC:CDK5R1))
 p(HGNC:CDK5R1) -> bp(GO:"neuron maturation")
 p(HGNC:CDK5R1) partOf complex(p(HGNC:CDK5), p(HGNC:CDK5R1))
 complex(p(HGNC:CDK5), p(HGNC:CDK5R1)) -> act(p(HGNC:CDK5))
-p(HGNC:CDK5R1) neg p(HBP:"CDK5R1 p25")
-p(HGNC:CDK5R1, frag(99_307)) eq p(HBP:"CDK5R1 p25")
-p(HBP:"CDK5R1 p25") pos path(MESH:"Alzheimer Disease")
+p(HGNC:CDK5R1) neg p(CONSO:"CDK5R1 p25")
+p(HGNC:CDK5R1, frag(99_307)) eq p(CONSO:"CDK5R1 p25")
+p(CONSO:"CDK5R1 p25") pos path(MESH:"Alzheimer Disease")
 UNSET Confidence
 
 SET Evidence = "The accumulation of p25 involves neurofibrillary tangle (NFT) formation via regulation of tau phosphorylation (Wen et al. 2007; Su and Tsai 2011)"
 SET Confidence = "Medium"
-p(HBP:"CDK5R1 p25") pos a(GO:"neurofibrillary tangle")
-p(HBP:"CDK5R1 p25") reg p(HGNC:MAPT, pmod(Ph))
+p(CONSO:"CDK5R1 p25") pos a(GO:"neurofibrillary tangle")
+p(CONSO:"CDK5R1 p25") reg p(HGNC:MAPT, pmod(Ph))
 UNSET Confidence
 
 SET Evidence = "We observed that 2VO leads to tau hyperphosphorylation at Ser202/Thr205, Ser262, Thr231, and Ser422 and to the conversion
@@ -2851,12 +2851,12 @@ SET Confidence = "High"
 #2VO is bilateral common carotid artery occlusion
 SET Species = "10116"
 SET Anatomy = "hippocampal formation"
-path(HBP:"Chronic cerebral hypoperfusion") -> p(RGD:Mapt, pmod(Ph, Ser, 202))
-path(HBP:"Chronic cerebral hypoperfusion") -> p(RGD:Mapt, pmod(Ph, Thr, 205))
-path(HBP:"Chronic cerebral hypoperfusion") -> p(RGD:Mapt, pmod(Ph, Ser, 262))
-path(HBP:"Chronic cerebral hypoperfusion") -> p(RGD:Mapt, pmod(Ph, Thr, 231))
-path(HBP:"Chronic cerebral hypoperfusion") -> p(RGD:Mapt, pmod(Ph, Ser, 422))
-path(HBP:"Chronic cerebral hypoperfusion") -> p(HBP:"CDK5R1 p25")
+path(CONSO:"Chronic cerebral hypoperfusion") -> p(RGD:Mapt, pmod(Ph, Ser, 202))
+path(CONSO:"Chronic cerebral hypoperfusion") -> p(RGD:Mapt, pmod(Ph, Thr, 205))
+path(CONSO:"Chronic cerebral hypoperfusion") -> p(RGD:Mapt, pmod(Ph, Ser, 262))
+path(CONSO:"Chronic cerebral hypoperfusion") -> p(RGD:Mapt, pmod(Ph, Thr, 231))
+path(CONSO:"Chronic cerebral hypoperfusion") -> p(RGD:Mapt, pmod(Ph, Ser, 422))
+path(CONSO:"Chronic cerebral hypoperfusion") -> p(CONSO:"CDK5R1 p25")
 UNSET Anatomy
 UNSET Confidence
 
@@ -2869,7 +2869,7 @@ m(MIRBASE:"rno-mir-195") -| p(HGNC:MAPT, pmod(Ph, Thr, 205))
 m(MIRBASE:"rno-mir-195") -| p(HGNC:MAPT, pmod(Ph, Ser, 262))
 m(MIRBASE:"rno-mir-195") -| p(HGNC:MAPT, pmod(Ph, Thr, 231))
 m(MIRBASE:"rno-mir-195") -| p(HGNC:MAPT, pmod(Ph, Ser, 422))
-m(MIRBASE:"rno-mir-195") -| act(p(HBP:"CDK5R1 p25"))
+m(MIRBASE:"rno-mir-195") -| act(p(CONSO:"CDK5R1 p25"))
 UNSET Confidence
 
 SET Evidence = "A dual luciferase reporter assay showed that miR-195 bound to the Cdk5r1 gene, which encodes p35 protein, in the 3'UTR and inhibited p35 expression."
@@ -2882,14 +2882,14 @@ SET Evidence = "Chronic Brain hypoperfusion (CBH) elevates nuclear factor-kB (NF
 Down-regulated miR-195 up-regulates APP and BACE1 and increases Aß levels. Some Aß then enter the intracellular space and activate calpain, promoting the conversion of Cdk5/p35 to
 Cdk5/p25 and catalyzes the degradation of IkB (inhibitor of NF-?B)and directly phosphorylates Tau. Down-regulated miR-195 up-regulates p35, which provides the active substrates of p25"
 SET Confidence = "Medium"
-path(HBP:"Chronic cerebral hypoperfusion") -> p(FPLX:NFkappaB)
+path(CONSO:"Chronic cerebral hypoperfusion") -> p(FPLX:NFkappaB)
 p(FPLX:NFkappaB) -> complex(p(FPLX:NFkappaB), g(MIRBASE:"rno-mir-195"))
 complex(p(FPLX:NFkappaB), g(MIRBASE:"rno-mir-195")) -| m(MIRBASE:"rno-mir-195")
 m(MIRBASE:"rno-mir-195") -| p(RGD:App)
 m(MIRBASE:"rno-mir-195") -| p(RGD:Bace1)
 m(MIRBASE:"rno-mir-195") -| a(CHEBI:"amyloid-beta")
 a(CHEBI:"amyloid-beta", loc(MESH:"Intracellular Space")) -> act(p(FPLX:CAPN))
-act(p(FPLX:CAPN)) pos reaction(reactants(p(RGD:Cdk5r1)),products(p(HBP:"CDK5R1 p25")))
+act(p(FPLX:CAPN)) pos reaction(reactants(p(RGD:Cdk5r1)),products(p(CONSO:"CDK5R1 p25")))
 act(p(FPLX:CAPN)) -> deg(p(HGNC:NFKBIA))
 act(p(FPLX:CAPN)) -> p(HGNC:MAPT, pmod(Ph))
 m(MIRBASE:"rno-mir-195") -| p(RGD:Cdk5r1)
@@ -2902,12 +2902,12 @@ SET Evidence = "The levels of CDK5, its regulatory subunits (p35 and p25) and ca
 SET Confidence = "High"
 SET Species = "10090"
 SET Research_Model = "E4FAD mice"
-g(HBP:"APOE e4") -> p(MGI:Cdk5)
-g(HBP:"APOE e4") -> p(HBP:"CDK5R1 p25")
-g(HBP:"APOE e4") -> p(MGI:Cdk5r1)
-g(HBP:"APOE e4") -> p(MGI:Capn1)
-g(HBP:"APOE e4") -> p(MGI:Capn2)
-g(HBP:"APOE e4") cnc p(MGI:Gsk3b)
+g(CONSO:"APOE e4") -> p(MGI:Cdk5)
+g(CONSO:"APOE e4") -> p(CONSO:"CDK5R1 p25")
+g(CONSO:"APOE e4") -> p(MGI:Cdk5r1)
+g(CONSO:"APOE e4") -> p(MGI:Capn1)
+g(CONSO:"APOE e4") -> p(MGI:Capn2)
+g(CONSO:"APOE e4") cnc p(MGI:Gsk3b)
 UNSET Research_Model
 UNSET Species
 UNSET Confidence
@@ -2922,10 +2922,10 @@ SET Confidence = "Medium"
 SET Species = "10090"
 SET MeSHDisease = "Alzheimer Disease"
 p(MGI:Cdk5) -| p(MGI:Cdk5r1)
-p(MGI:Cdk5) -| act(p(HBP:RAC1b))
+p(MGI:Cdk5) -| act(p(CONSO:RAC1b))
 p(MGI:Cdk5) -| path(MESH:Cognition)
 p(MGI:Cdk5r1) -| bp(GO:"neuron death")
-act(p(HBP:RAC1b)) -| bp(GO:"neuron death")
+act(p(CONSO:RAC1b)) -| bp(GO:"neuron death")
 p(MGI:Cdk5) -> bp(GO:"neuron death")
 UNSET Confidence
 
@@ -2934,8 +2934,8 @@ for 20 min induced the cleavage of p35 to produce the p25 fragment 6 h after glu
 and the maximal levels of p25 were detected at 12 h (Fig. 1A), which is consistent with a peak in tau hyperphosphorylation (AT8)."
 SET Confidence = "Medium"
 SET Cell = "hippocampal neuron"
-a(CHEBI:"glutamate(1-)") -> p(HBP:"CDK5R1 p25")
-p(HBP:"CDK5R1 p25") pos p(HBP:"Tau epitope, AT8")
+a(CHEBI:"glutamate(1-)") -> p(CONSO:"CDK5R1 p25")
+p(CONSO:"CDK5R1 p25") pos p(CONSO:"Tau epitope, AT8")
 UNSET Cell
 UNSET Species
 
@@ -2952,14 +2952,14 @@ SET Confidence = "Medium"
 SET Cell_Line = "PC12"
 p(HGNC:GLP1R) -| bp(MESH:"Oxidative Stress")
 p(HGNC:GLP1R) -> act(a(GO:"mitochondrion"))
-p(HGNC:GLP1R) -| p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+p(HGNC:GLP1R) -| p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 UNSET Cell_Line
 SET Species = "10090"
-act(a(HBP:"advanced glycation end product")) -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+act(a(CONSO:"advanced glycation end product")) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 act(p(MGI:Glp1r)) reg act(p(MGI:Ppargc1a))
 act(p(MGI:Ppargc1a)) pos act(a(GO:"mitochondrion"))
 act(p(MGI:Glp1r)) -| kin(p(MGI:Gsk3b))
-act(p(MGI:Glp1r)) -| p(MGI:Mapt, pmod(HBP:hyperphosphorylation))
+act(p(MGI:Glp1r)) -| p(MGI:Mapt, pmod(CONSO:hyperphosphorylation))
 UNSET Species
 UNSET Confidence
 
@@ -3043,22 +3043,22 @@ SET Evidence = "Hence, LTD-inducing NMDA receptor activation leads to an increas
 SET Confidence = "Medium"
 SET Species = "10116"
 SET Anatomy = "hippocampal formation"
-act(a(MESH:"Receptors, N-Methyl-D-Aspartate")) -> p(HBP:"Tau epitope, AT8")
+act(a(MESH:"Receptors, N-Methyl-D-Aspartate")) -> p(CONSO:"Tau epitope, AT8")
 #AT8:pSer202, pThr205, pSer208, pSer199
-p(HGNC:MAPT, pmod(Ph, Ser, 202)) partOf p(HBP:"Tau epitope, AT8")
-p(HGNC:MAPT, pmod(Ph, Thr, 205)) partOf p(HBP:"Tau epitope, AT8")
-p(HGNC:MAPT, pmod(Ph, Ser, 208)) partOf p(HBP:"Tau epitope, AT8")
-p(HGNC:MAPT, pmod(Ph, Ser, 199)) partOf p(HBP:"Tau epitope, AT8")
-act(a(MESH:"Receptors, N-Methyl-D-Aspartate")) -> p(HBP:"Tau epitope, PHF1")
+p(HGNC:MAPT, pmod(Ph, Ser, 202)) partOf p(CONSO:"Tau epitope, AT8")
+p(HGNC:MAPT, pmod(Ph, Thr, 205)) partOf p(CONSO:"Tau epitope, AT8")
+p(HGNC:MAPT, pmod(Ph, Ser, 208)) partOf p(CONSO:"Tau epitope, AT8")
+p(HGNC:MAPT, pmod(Ph, Ser, 199)) partOf p(CONSO:"Tau epitope, AT8")
+act(a(MESH:"Receptors, N-Methyl-D-Aspartate")) -> p(CONSO:"Tau epitope, PHF1")
 #PHF1: pSer396, pSer404
-p(HGNC:MAPT, pmod(Ph, Ser, 396)) partOf p(HBP:"Tau epitope, PHF1")
-p(HGNC:MAPT, pmod(Ph, Ser, 404)) partOf p(HBP:"Tau epitope, PHF1")
-act(a(MESH:"Receptors, N-Methyl-D-Aspartate")) -> p(HBP:"Tau epitope, AT180")
-p(HBP:"Tau epitope, AT180") eq p(HGNC:MAPT, pmod(Ph, Thr, 231))
-act(a(MESH:"Receptors, N-Methyl-D-Aspartate")) -| p(HBP:"Tau epitope, AT100")
-p(HGNC:MAPT, pmod(Ph, Thr, 214)) partOf p(HBP:"Tau epitope, AT100")
-p(HGNC:MAPT, pmod(Ph, Ser, 212)) partOf p(HBP:"Tau epitope, AT100")
-act(a(MESH:"Receptors, N-Methyl-D-Aspartate")) pos path(HBP:"Long-Term Depression")
+p(HGNC:MAPT, pmod(Ph, Ser, 396)) partOf p(CONSO:"Tau epitope, PHF1")
+p(HGNC:MAPT, pmod(Ph, Ser, 404)) partOf p(CONSO:"Tau epitope, PHF1")
+act(a(MESH:"Receptors, N-Methyl-D-Aspartate")) -> p(CONSO:"Tau epitope, AT180")
+p(CONSO:"Tau epitope, AT180") eq p(HGNC:MAPT, pmod(Ph, Thr, 231))
+act(a(MESH:"Receptors, N-Methyl-D-Aspartate")) -| p(CONSO:"Tau epitope, AT100")
+p(HGNC:MAPT, pmod(Ph, Thr, 214)) partOf p(CONSO:"Tau epitope, AT100")
+p(HGNC:MAPT, pmod(Ph, Ser, 212)) partOf p(CONSO:"Tau epitope, AT100")
+act(a(MESH:"Receptors, N-Methyl-D-Aspartate")) pos path(CONSO:"Long-Term Depression")
 UNSET Confidence
 
 SET Evidence = "This result is supported by recent studies showing that the interaction between Fyn and tau
@@ -3084,18 +3084,18 @@ O-GlcNAcylation, reduced the number of dystrophic neurons, and protected against
 tau species without altering the phosphorylation of non-pathological tau."
 SET Confidence = "Medium"
 SET Research_Model = "rTg4510 mice"
-a(HBP:"Thiamet G") =| act(p(ECCODE:"3.2.1.169"))
-act(p(ECCODE:"3.2.1.169")) -> p(HGNC:MAPT, pmod(HBP:"O-GlcNAcylation"))
-p(HGNC:MAPT, pmod(HBP:"O-GlcNAcylation")) pos p(HGNC:MAPT, pmod(Ph, Ser, 202))
-p(HGNC:MAPT, pmod(HBP:"O-GlcNAcylation")) pos p(HGNC:MAPT, pmod(Ph, Thr, 205))
-p(HGNC:MAPT, pmod(HBP:"O-GlcNAcylation")) pos p(HGNC:MAPT, pmod(Ph, Ser, 262))
-p(HGNC:MAPT, pmod(HBP:"O-GlcNAcylation")) pos p(HGNC:MAPT, pmod(Ph, Ser, 356))
-p(HGNC:MAPT, pmod(HBP:"O-GlcNAcylation")) pos p(HGNC:MAPT, pmod(Ph, Ser, 396))
+a(CONSO:"Thiamet G") =| act(p(ECCODE:"3.2.1.169"))
+act(p(ECCODE:"3.2.1.169")) -> p(HGNC:MAPT, pmod(CONSO:"O-GlcNAcylation"))
+p(HGNC:MAPT, pmod(CONSO:"O-GlcNAcylation")) pos p(HGNC:MAPT, pmod(Ph, Ser, 202))
+p(HGNC:MAPT, pmod(CONSO:"O-GlcNAcylation")) pos p(HGNC:MAPT, pmod(Ph, Thr, 205))
+p(HGNC:MAPT, pmod(CONSO:"O-GlcNAcylation")) pos p(HGNC:MAPT, pmod(Ph, Ser, 262))
+p(HGNC:MAPT, pmod(CONSO:"O-GlcNAcylation")) pos p(HGNC:MAPT, pmod(Ph, Ser, 356))
+p(HGNC:MAPT, pmod(CONSO:"O-GlcNAcylation")) pos p(HGNC:MAPT, pmod(Ph, Ser, 396))
 UNSET Confidence
 
 SET Evidence = "This indicates that O-GlcNAcylation prevents the aggregation of tau in a manner that does not affect its normal phosphorylation state."
 SET Confidence = "High"
-p(HGNC:MAPT, pmod(HBP:"O-GlcNAcylation")) -| a(HBP:"Tau aggregates")
+p(HGNC:MAPT, pmod(CONSO:"O-GlcNAcylation")) -| a(CONSO:"Tau aggregates")
 UNSET Research_Model
 UNSET Confidence
 
@@ -3111,7 +3111,7 @@ p(HGNC:MAPT, var("p.Pro301Ser")) pos p(HGNC:MAPT, pmod(Ph, Ser, 202))
 p(HGNC:MAPT, var("p.Pro301Ser")) pos p(HGNC:MAPT, pmod(Ph, Thr, 205))
 UNSET MeSHAnatomy
 p(HGNC:MAPT, var("p.Pro301Ser")) -| path(MESH:Cognition)
-p(HGNC:MAPT, var("p.Pro301Ser")) -> path(HBP:"mitochondrial dysfunction")
+p(HGNC:MAPT, var("p.Pro301Ser")) -> path(CONSO:"mitochondrial dysfunction")
 p(HGNC:MAPT, var("p.Pro301Ser")) -| bp(GO:"axonal transport")
 UNSET Research_Model
 UNSET Species
@@ -3148,7 +3148,7 @@ SET Confidence = "Medium"
 #phosphorylation sites in p25 transgenic mice from table 1
 SET Species = "10090"
 SET Research_Model = "p25 transgenic mice"
-p(HBP:"CDK5R1 p25") => kin(p(MGI:Cdk5))
+p(CONSO:"CDK5R1 p25") => kin(p(MGI:Cdk5))
 kin(p(MGI:Cdk5)) => p(MGI:Mapt, pmod(Ph, Thr, 175))
 kin(p(MGI:Cdk5)) => p(MGI:Mapt, pmod(Ph, Thr, 176))
 kin(p(MGI:Cdk5)) => p(MGI:Mapt, pmod(Ph, Ser, 178))
@@ -3196,7 +3196,7 @@ SET Research_Model = "LRRK2 transgenic mice"
 kin(p(HGNC:LRRK2)) => p(MGI:Mapt, pmod(Ph, Thr, 149))
 kin(p(HGNC:LRRK2)) => p(MGI:Mapt, pmod(Ph, Thr, 153))
 kin(p(HGNC:LRRK2)) => p(MGI:Mapt, pmod(Ph, Thr, 205))
-kin(p(HGNC:LRRK2)) => p(HBP:"Tau aggregates")
+kin(p(HGNC:LRRK2)) => p(CONSO:"Tau aggregates")
 kin(p(HGNC:LRRK2)) => p(MGI:Mapt, pmod(Ph, Ser, 199))
 kin(p(HGNC:LRRK2)) => p(MGI:Mapt, pmod(Ph, Ser, 202))
 UNSET Research_Model
@@ -3207,9 +3207,9 @@ UNSET Confidence
 SET Citation = {"PubMed", "24033439"}
 SET Evidence = "Finally, these data validate PHF-1 as an efficient marker for AD cytopathology following the progression of tau aggregation into NFT."
 SET Confidence = "Medium"
-p(HBP:"Tau epitope, PHF1") biomarkerFor path(MESH:"Alzheimer Disease")
-p(HBP:"Tau epitope, PHF1") -> p(HBP:"Tau aggregates")
-p(HBP:"Tau aggregates") -> a(GO:"neurofibrillary tangle")
+p(CONSO:"Tau epitope, PHF1") biomarkerFor path(MESH:"Alzheimer Disease")
+p(CONSO:"Tau epitope, PHF1") -> p(CONSO:"Tau aggregates")
+p(CONSO:"Tau aggregates") -> a(GO:"neurofibrillary tangle")
 UNSET Confidence
 
 
@@ -3230,7 +3230,7 @@ SET Confidence = "High"
 SET Disease_Progression = "Late Stage"
 p(HGNC:MAPT, pmod(Ph, Ser, 202)) partOf a(GO:"neurofibrillary tangle")
 p(HGNC:MAPT, pmod(Ph, Thr, 205)) partOf a(GO:"neurofibrillary tangle")
-p(HBP:"Tau epitope, AT8") pos a(MESH:Neuropil)
+p(CONSO:"Tau epitope, AT8") pos a(MESH:Neuropil)
 UNSET Disease_Progression
 UNSET MeSHDisease
 UNSET Confidence
@@ -3241,8 +3241,8 @@ SET Evidence = "Oligomers positive for pS202/pT205 accumulate at synapses in AD"
 SET Confidence = "Medium"
 SET MeSHDisease = "Alzheimer Disease"
 SET MeSHAnatomy = "Synapses"
-p(HGNC:MAPT, pmod(Ph, Ser, 202)) partOf a(HBP:"Tau oligomers")
-p(HGNC:MAPT, pmod(Ph, Thr, 205)) partOf a(HBP:"Tau oligomers")
+p(HGNC:MAPT, pmod(Ph, Ser, 202)) partOf a(CONSO:"Tau oligomers")
+p(HGNC:MAPT, pmod(Ph, Thr, 205)) partOf a(CONSO:"Tau oligomers")
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -3259,11 +3259,11 @@ kin(p(HGNC:MARK2)) => p(HGNC:MAPT, pmod(Ph, Ser, 262))
 kin(p(HGNC:MARK2)) => p(HGNC:MAPT, pmod(Ph, Ser, 324))
 kin(p(HGNC:MARK2)) => p(HGNC:MAPT, pmod(Ph, Ser, 356))
 kin(p(HGNC:MARK2)) => p(HGNC:MAPT, pmod(Ph, Ser, 293))
-p(HGNC:MAPT, pmod(Ph, Ser, 293)) partOf p(HBP:"tubulin-binding repeat 2")
+p(HGNC:MAPT, pmod(Ph, Ser, 293)) partOf p(CONSO:"tubulin-binding repeat 2")
 kin(p(HGNC:MARK2)) => p(HGNC:MAPT, pmod(Ph, Ser, 305))
-p(HGNC:MAPT, pmod(Ph, Ser, 305)) partOf p(HBP:"tubulin-binding repeat 2")
+p(HGNC:MAPT, pmod(Ph, Ser, 305)) partOf p(CONSO:"tubulin-binding repeat 2")
 kin(p(HGNC:MARK2)) => p(HGNC:MAPT, pmod(Ph, Ser, 352))
-p(HGNC:MAPT, pmod(Ph, Ser, 352)) partOf p(HBP:"tubulin-binding repeat 4")
+p(HGNC:MAPT, pmod(Ph, Ser, 352)) partOf p(CONSO:"tubulin-binding repeat 4")
 kin(p(HGNC:MARK2)) => p(HGNC:MAPT, pmod(Ph, Ser, 413))
 kin(p(HGNC:MARK2)) => p(HGNC:MAPT, pmod(Ph, Ser, 416))
 UNSET Confidence
@@ -3277,8 +3277,8 @@ and appears to prime tau for subsequent phosphorylation events"
 SET Confidence = "Medium"
 act(p(HGNC:HDAC6)) -> p(HGNC:MAPT, pmod(Ph, Ser, 262))
 act(p(HGNC:HDAC6)) -> p(HGNC:MAPT, pmod(Ph, Ser, 356))
-p(HBP:"Tau epitope, 12E8") partOf p(HBP:"KXGS motif")
-p(HBP:"KXGS motif", pmod(Ph)) -> a(GO:"neurofibrillary tangle")
+p(CONSO:"Tau epitope, 12E8") partOf p(CONSO:"KXGS motif")
+p(CONSO:"KXGS motif", pmod(Ph)) -> a(GO:"neurofibrillary tangle")
 UNSET Confidence
 
 SET Evidence = "In particular, previous studies have demonstrated that the tau ubiquitin ligase, CHIP, is unable to bind and ubiquitinate tau
@@ -3298,11 +3298,11 @@ UNSET Confidence
 
 SET Citation = {"PubMed", "22156579"}
 SET Evidence = "Overexpression of MARK4 led to tau hyperphosphorylation, reduced expression of synaptic markers, and loss of dendritic spines and
- synapses, phenotypes also observed after Aβ treatment."
+synapses, phenotypes also observed after Aβ treatment."
 SET Confidence = "Medium"
 SET Species = "10116"
 SET Anatomy = "hippocampal formation"
-p(HGNC:MARK4) -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+p(HGNC:MARK4) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 p(HGNC:MARK4) neg act(p(RGD:Dlg4))
 p(HGNC:MARK4) neg p(RGD:Gria1)
 p(HGNC:MARK4) neg a(GO:"dendritic spine")
@@ -3319,7 +3319,7 @@ SET MeSHAnatomy = "Neurons"
 a(CHEBI:"amyloid-beta") -> p(RGD:Mapt, pmod(Ph, Ser, 262))
 a(CHEBI:"amyloid-beta") -> p(RGD:Mapt, pmod(Ph, Ser, 356))
 a(CHEBI:"amyloid-beta") -> act(p(HGNC:MARK4))
-a(CHEBI:"amyloid-beta") -> p(HBP:"Tau epitope, PHF1", pmod(Ph))
+a(CHEBI:"amyloid-beta") -> p(CONSO:"Tau epitope, PHF1", pmod(Ph))
 UNSET Anatomy
 UNSET Species
 UNSET Confidence
@@ -3366,9 +3366,9 @@ composite(a(CHEBI:"sodium azide"), a(CHEBI:"hydrogen peroxide")) -> a(CHEBI:"glu
 composite(a(CHEBI:"sodium azide"), a(CHEBI:"hydrogen peroxide")) -> p(RGD:Gsk3b, pmod(Ph))
 composite(a(CHEBI:"sodium azide"), a(CHEBI:"hydrogen peroxide")) -> p(RGD:Mapt, pmod(Ph))
 composite(a(CHEBI:"sodium azide"), a(CHEBI:"hydrogen peroxide")) -> p(RGD:Bace1)
-composite(a(CHEBI:"sodium azide"), a(CHEBI:"hydrogen peroxide")) -> p(HBP:"CDK5R1 p25")
+composite(a(CHEBI:"sodium azide"), a(CHEBI:"hydrogen peroxide")) -> p(CONSO:"CDK5R1 p25")
 composite(a(CHEBI:"sodium azide"), a(CHEBI:"hydrogen peroxide")) -| bp(GO:"cellular metabolic process")
-composite(a(CHEBI:"L-ascorbic acid"), a(CHEBI:Trolox), a(CHEBI:glutathione)) -| p(RGD:Mapt, pmod(HBP:hyperphosphorylation))
+composite(a(CHEBI:"L-ascorbic acid"), a(CHEBI:Trolox), a(CHEBI:glutathione)) -| p(RGD:Mapt, pmod(CONSO:hyperphosphorylation))
 composite(a(CHEBI:"L-ascorbic acid"), a(CHEBI:Trolox), a(CHEBI:glutathione)) -> bp(GO:"cellular metabolic process")
 a(CHEBI:memantine) -| p(RGD:Mapt, pmod(Ph))
 a(CHEBI:memantine) -> bp(GO:"cellular metabolic process")
@@ -3389,11 +3389,11 @@ Furthermore, knockdown of milton or Miro increased the levels of active PAR-1."
 SET Confidence = "Medium"
 SET Species = "7227"
 p(HGNC:TRAK1) -> bp(GO:"axonal transport of mitochondrion")
-p(HGNC:TRAK1) -| path(HBP:Neurodegeneration)
+p(HGNC:TRAK1) -| path(CONSO:Neurodegeneration)
 p(HGNC:TRAK1) -| p(HGNC:MAPT, pmod(Ph, Ser, 262))
 kin(p(HGNC:MARK1)) => p(HGNC:MAPT, pmod(Ph, Ser, 262))
 p(HGNC:MAPT, pmod(Ph, Ser, 262)) -| complex(p(HGNC:MAPT),a(MESH:Microtubules))
-p(HGNC:MAPT, pmod(Ph, Ser, 262)) pos path(HBP:Neurodegeneration)
+p(HGNC:MAPT, pmod(Ph, Ser, 262)) pos path(CONSO:Neurodegeneration)
 p(HGNC:TRAK1) -| act(p(HGNC:MARK1))
 UNSET Species
 UNSET Confidence
@@ -3425,14 +3425,14 @@ TauF4 was phosphorylated by the proline-directed CDK2/CycA3 kinase on Thr231 (ge
 These modifications strongly decrease the capacity of TauF4 to polymerize tubulin into microtubules. While all the NMR parameters are consistent with a globally disordered Tau protein fragment, local clusters of structuration can be defined.
 The most salient result of our NMR analysis is that phosphorylation in the PRR stabilizes a short α-helix that runs from pSer235 till the very beginning of the microtubule-binding region (Tau[Thr245-Ser324] or MTBR of TauF4)."
 SET Confidence = "High"
-p(HGNC:CDK2) -> p(HBP:"Tau epitope, AT180")
+p(HGNC:CDK2) -> p(CONSO:"Tau epitope, AT180")
 kin(p(HGNC:CDK2)) => p(HGNC:MAPT, pmod(Ph, Ser, 235))
 kin(p(HGNC:CDK2)) => p(HGNC:MAPT, pmod(Ph, Thr, 212))
 kin(p(HGNC:CDK2)) => p(HGNC:MAPT, pmod(Ph, Thr, 217))
-p(HGNC:MAPT, pmod(Ph, Ser, 235)) partOf p(HBP:"proline-rich region 2", pmod(Ph))
-p(HGNC:MAPT, pmod(Ph, Thr, 212)) partOf p(HBP:"proline-rich region 2", pmod(Ph))
-p(HGNC:MAPT, pmod(Ph, Thr, 217)) partOf p(HBP:"proline-rich region 2", pmod(Ph))
-p(HBP:"proline-rich region 2", pmod(Ph)) pos bp(MESH:"Protein Conformation, alpha-Helical")
+p(HGNC:MAPT, pmod(Ph, Ser, 235)) partOf p(CONSO:"proline-rich region 2", pmod(Ph))
+p(HGNC:MAPT, pmod(Ph, Thr, 212)) partOf p(CONSO:"proline-rich region 2", pmod(Ph))
+p(HGNC:MAPT, pmod(Ph, Thr, 217)) partOf p(CONSO:"proline-rich region 2", pmod(Ph))
+p(CONSO:"proline-rich region 2", pmod(Ph)) pos bp(MESH:"Protein Conformation, alpha-Helical")
 bp(MESH:"Protein Conformation, alpha-Helical") -- p(HGNC:MAPT, frag(235_324))
 UNSET Confidence
 
@@ -3461,8 +3461,8 @@ SET Evidence = ">8 phosphates per tau molecules (vs 2 in adult healthy brain); c
 These phosphorylated states are detected by specific antibodies and are targets of proline-directed kinases (SP motifs), non-proline kinases (KXGS motif)
 Weakens tau-MT interaction especially S261 in R1 and S214 in proline-rich domain"
 SET Confidence = "Medium"
-bp(MESH:"Oxidative Stress") -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
-bp(MESH:"Hot Temperature") -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+bp(MESH:"Oxidative Stress") -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+bp(MESH:"Hot Temperature") -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 p(HGNC:MAPT, pmod(Ph, Ser, 261)) -| complex(p(HGNC:MAPT),a(MESH:Microtubules))
 p(HGNC:MAPT, pmod(Ph, Ser, 214)) -| complex(p(HGNC:MAPT),a(MESH:Microtubules))
 UNSET Confidence
@@ -3505,8 +3505,8 @@ SET MeSHDisease = "Alzheimer Disease"
 SET Anatomy = "cerebral cortex"
 path(MESH:"Alzheimer Disease") -> p(HGNC:ITPKB)
 p(HGNC:ITPKB) pos path(MESH:"Plaque, Amyloid")
-path(MESH:"Plaque, Amyloid") -- a(HBP:"dystrophic neurite")
-p(HGNC:ITPKB) pos a(HBP:"dystrophic neurite")
+path(MESH:"Plaque, Amyloid") -- a(CONSO:"dystrophic neurite")
+p(HGNC:ITPKB) pos a(CONSO:"dystrophic neurite")
 UNSET Anatomy
 UNSET MeSHDisease
 SET Species = "10090"
@@ -3523,12 +3523,12 @@ SET Research_Model = "5xFAD mice"
 p(MGI:Itpkb) -> act(p(MGI:Map2k1))
 p(MGI:Itpkb) -> act(p(MGI:Map2k2))
 p(MGI:Itpkb) -> act(p(MGI:Bace1))
-p(MGI:Itpkb) -> path(HBP:Astrogliosis)
+p(MGI:Itpkb) -> path(CONSO:Astrogliosis)
 p(MGI:Itpkb) -> p(HGNC:APP, frag(672_711))
-p(MGI:Itpkb) -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
-path(HBP:Astrogliosis) pos path(MESH:"Alzheimer Disease")
+p(MGI:Itpkb) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+path(CONSO:Astrogliosis) pos path(MESH:"Alzheimer Disease")
 p(HGNC:APP, frag(672_711)) pos path(MESH:"Alzheimer Disease")
-p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)) pos path(MESH:"Alzheimer Disease")
+p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation)) pos path(MESH:"Alzheimer Disease")
 UNSET Research_Model
 UNSET Species
 UNSET Confidence
@@ -3547,33 +3547,33 @@ SET Half_life = "30 min"
 SET IC50 = "30 nM"
 a(PUBCHEM:54581340) =| act(p(RGD:Cdk5))
 UNSET IC50
-a(PUBCHEM:54581340) -| p(HBP:"Tau epitope, PHF1")
-a(PUBCHEM:54581340) -| act(p(HBP:"CDK5R1 p25"))
+a(PUBCHEM:54581340) -| p(CONSO:"Tau epitope, PHF1")
+a(PUBCHEM:54581340) -| act(p(CONSO:"CDK5R1 p25"))
 SET IC50 = "45 nM"
 a(PUBCHEM:54581340) =| act(p(RGD:Gsk3b))
 UNSET Half_life
 UNSET IC50
-a(PUBCHEM:54581340) isA a(HBP:"diaminothiazole")
-a(HBP:"LDN-193665") isA a(HBP:"diaminothiazole")
-a(HBP:"LDN-213843") isA a(HBP:"diaminothiazole")
+a(PUBCHEM:54581340) isA a(CONSO:"diaminothiazole")
+a(CONSO:"LDN-193665") isA a(CONSO:"diaminothiazole")
+a(CONSO:"LDN-213843") isA a(CONSO:"diaminothiazole")
 SET Half_life = "29 min"
 SET IC50 = "62 nM"
-a(HBP:"LDN-193665") =| act(p(RGD:Cdk5))
+a(CONSO:"LDN-193665") =| act(p(RGD:Cdk5))
 UNSET IC50
 SET IC50 = "19 nM"
-a(HBP:"LDN-193665") =| act(p(RGD:Gsk3b))
+a(CONSO:"LDN-193665") =| act(p(RGD:Gsk3b))
 UNSET IC50
 UNSET Half_life
 SET Half_life = "70 min"
 SET IC50 = "90 nM"
-a(HBP:"LDN-213843") =| act(p(RGD:Cdk5))
+a(CONSO:"LDN-213843") =| act(p(RGD:Cdk5))
 UNSET IC50
 SET IC50 = "38 nM"
-a(HBP:"LDN-213843") =| act(p(RGD:Gsk3b))
+a(CONSO:"LDN-213843") =| act(p(RGD:Gsk3b))
 UNSET IC50
 UNSET Half_life
-a(HBP:"diaminothiazole") -| p(HGNC:MAPT, pmod(Ph, Ser, 404))
-a(HBP:"diaminothiazole") -> bp(GO:memory)
+a(CONSO:"diaminothiazole") -| p(HGNC:MAPT, pmod(Ph, Ser, 404))
+a(CONSO:"diaminothiazole") -> bp(GO:memory)
 UNSET Confidence
 
 
@@ -3589,11 +3589,11 @@ of T (htau23) that has only three repeats. Conversely, reducing agents or the se
 against PHF assembly.The synthetic PHFs bound the dye thioflavin S used in Alzheimer disease
 diagnostics."
 SET Confidence = "High"
-p(HGNC:MAPT, var("p.Cys291Ala")) -| a(HBP:"paired helical filaments")
-bp(MESH:"Oxidative Stress") -> a(HBP:"paired helical filaments")
-a(HBP:"Thioflavin S") pos a(HBP:"paired helical filaments")
+p(HGNC:MAPT, var("p.Cys291Ala")) -| a(CONSO:"paired helical filaments")
+bp(MESH:"Oxidative Stress") -> a(CONSO:"paired helical filaments")
+a(CONSO:"Thioflavin S") pos a(CONSO:"paired helical filaments")
 
-a(HBP:"paired helical filaments") partOf complex(GO:"neurofibrillary tangle")
+a(CONSO:"paired helical filaments") partOf complex(GO:"neurofibrillary tangle")
 UNSET Confidence
 
 #################################################################################################################################
@@ -3611,17 +3611,17 @@ Finally, we demonstrated that C-30-27 improved cognitive deficits, as well as th
 SET Confidence = "Medium"
 #PCAF is KAT2B
 SET Cell_Line = {"BV2", "N2a"}
-a(HBP:"C-30-27") =| act(p(HGNC:KAT2B))
-a(HBP:"C-30-27") -| p(FPLX:NFkappaB, pmod(Ac, Lys, 122))
+a(CONSO:"C-30-27") =| act(p(HGNC:KAT2B))
+a(CONSO:"C-30-27") -| p(FPLX:NFkappaB, pmod(Ac, Lys, 122))
 act(p(HGNC:KAT2B)) -> p(FPLX:NFkappaB, pmod(Ac, Lys, 122))
 a(CHEBI:lipopolysaccharide) -> bp(GO:"neuroinflammatory response")
 a(CHEBI:"amyloid-beta") -> bp(GO:"neuroinflammatory response")
-a(HBP:"C-30-27") -| bp(GO:"neuroinflammatory response")
+a(CONSO:"C-30-27") -| bp(GO:"neuroinflammatory response")
 UNSET Cell_Line
 SET Species = "10116"
-a(HBP:"C-30-27") -> path(MESH:Cognition)
-a(HBP:"C-30-27") -> bp(GO:locomotion)
-a(HBP:"C-30-27") -> bp(GO:"synaptic transmission, cholinergic")
+a(CONSO:"C-30-27") -> path(MESH:Cognition)
+a(CONSO:"C-30-27") -> bp(GO:locomotion)
+a(CONSO:"C-30-27") -> bp(GO:"synaptic transmission, cholinergic")
 UNSET Species
 UNSET Confidence
 
@@ -3651,14 +3651,14 @@ a(PUBCHEM:49850262) -> bp(GO:behavior)
 a(PUBCHEM:53340666) -> bp(GO:behavior)
 a(PUBCHEM:49850262) -| a(CHEBI:"amyloid-beta")
 a(PUBCHEM:53340666) -| a(CHEBI:"amyloid-beta")
-a(PUBCHEM:49850262) -| p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
-a(PUBCHEM:53340666) -| p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+a(PUBCHEM:49850262) -| p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+a(PUBCHEM:53340666) -| p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 a(PUBCHEM:49850262) -> p(FPLX:Tubulin, pmod(Ac))
 a(PUBCHEM:53340666) -> p(FPLX:Tubulin, pmod(Ac))
 a(PUBCHEM:49850262) -> bp(GO:autophagy)
 a(PUBCHEM:53340666) -> bp(GO:autophagy)
 bp(GO:autophagy) -> deg(a(CHEBI:"amyloid-beta"))
-bp(GO:autophagy) -> deg(p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)))
+bp(GO:autophagy) -> deg(p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation)))
 UNSET MeSHDisease
 UNSET Species
 UNSET Confidence
@@ -3703,7 +3703,7 @@ SET Citation = {"PubMed", "27917100"}
 SET Evidence = "In conclusion, ST7612AA1, prodrug of ST7464AA1, is the first of a new generation of HDAC inhibitors, very potent, orally administered, and well tolerated.
 It is a thiol derivative, pan-histone deacetylase inhibitor, active against a broad panel of cancer cell lines and in vivo tumor models."
 SET Confidence = "High"
-a(HBP:ST7612AA1) =| act(p(FPLX:HDAC))
+a(CONSO:ST7612AA1) =| act(p(FPLX:HDAC))
 UNSET Confidence
 
 
@@ -3711,7 +3711,7 @@ SET Citation = {"PubMed", "26890116"}
 SET Evidence = "Modification of the cap group of biphenylacrylohydroxamic acid-based HDAC inhibitors led to the
 identification of a new derivative (3) characterized by an indolyl-substituted 4-phenylcinnamic skeleton."
 SET Confidence = "High"
-a(HBP:"Biphenyl-4-yl-acrylohydroxamoc acids") =| act(p(FPLX:HDAC))
+a(CONSO:"Biphenyl-4-yl-acrylohydroxamoc acids") =| act(p(FPLX:HDAC))
 UNSET Confidence
 
 
@@ -3722,7 +3722,7 @@ comparable to that of suberoylanilide hydroxamic acid (SAHA) as an approved canc
 SET Confidence = "High"
 SET Ki = "110 nM"
 SET IC50 = "65 nM"
-a(HBP:Trithiocarbonates) =| act(p(HGNC:HDAC6))
+a(CONSO:Trithiocarbonates) =| act(p(HGNC:HDAC6))
 UNSET IC50
 UNSET Ki
 UNSET Confidence
@@ -3860,13 +3860,13 @@ We also demonstrate that methylene blue, a reported tau aggregation inhibitor, m
 SET Confidence = "Medium"
 p(HGNC:MAPT, pmod(Ac, Lys, 280), pmod(Ac, Lys, 281)) -| p(HGNC:MAPT, pmod(Ph, Ser, 202), pmod(Ph, Thr, 205))
 p(HGNC:MAPT, pmod(Ac, Lys, 280), pmod(Ac, Lys, 281)) -| complex(p(HGNC:MAPT, pmod(Ph)), a(MESH:Microtubules))
-p(HGNC:MAPT, pmod(Ac, Lys, 280), pmod(Ac, Lys, 281)) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT, pmod(Ac, Lys, 280), pmod(Ac, Lys, 281)) -> a(CONSO:"Tau aggregates")
 a(CHEBI:"methylene blue") -| p(HGNC:MAPT, pmod(Ac))
 UNSET Confidence
 
 SET Evidence = "Thus, K → Q substitutions within the critical PHF6* motif, in the apparent absence of other tau PTMs, appears sufficient to accelerate tau aggregation in vitro."
 SET Confidence = "High"
-p(HGNC:MAPT, var("p.Lys280Gln")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT, var("p.Lys280Gln")) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 
@@ -3876,16 +3876,16 @@ Notably, tau/MAP4 alignments showed conservation of critical tau residues K280/K
 of the 3rd repeat motif harboring tau lysine K311, 306VQIVYK311"
 SET Confidence = "Low"
 #not in evidence
-p(HGNC:MAP4, frag(992_999)) eq p(HBP:"VQIINK motif")
-p(HGNC:MAP4, frag(1023_1030)) eq p(HBP:"VQIINK motif")
-p(HGNC:MAP2, frag(332_339)) eq p(HBP:"VQIVYK motif")
+p(HGNC:MAP4, frag(992_999)) eq p(CONSO:"VQIINK motif")
+p(HGNC:MAP4, frag(1023_1030)) eq p(CONSO:"VQIINK motif")
+p(HGNC:MAP2, frag(332_339)) eq p(CONSO:"VQIVYK motif")
 UNSET Confidence
 
 SET Evidence = "Similar to tau, MAP2 acetylation can occur in a cysteine-dependent auto-regulatory manner in the presence of acetyl-CoA.
 Tubulin reduced MAP2 acetylation, suggesting tubulin binding dictates MAP acetylation status."
 SET Confidence = "Medium"
-a(CHEBI:"acetyl-CoA") -> bp(HBP:"cystein-dependent auto-acetylation")
-bp(HBP:"cystein-dependent auto-acetylation") -> p(HGNC:MAP2, pmod(Ac))
+a(CHEBI:"acetyl-CoA") -> bp(CONSO:"cystein-dependent auto-acetylation")
+bp(CONSO:"cystein-dependent auto-acetylation") -> p(HGNC:MAP2, pmod(Ac))
 p(FPLX:Tubulin) -| p(HGNC:MAP2, pmod(Ac))
 UNSET Confidence
 
@@ -3938,7 +3938,7 @@ SET Confidence = "High"
 #hTau-K280Q mimics acetylation at this residue
 SET Species = "7227"
 p(HGNC:MAPT, pmod(Ac, Lys, 280)) -> p(HGNC:MAPT, pmod(Ph, Ser, 262))
-p(HGNC:MAPT, pmod(Ac, Lys, 280)) -> path(HBP:Neurodegeneration)
+p(HGNC:MAPT, pmod(Ac, Lys, 280)) -> path(CONSO:Neurodegeneration)
 UNSET Species
 UNSET Confidence
 
@@ -3954,7 +3954,7 @@ p(HGNC:MAPT, pmod(Ac, Lys, 174)) -| deg(p(HGNC:MAPT))
 p(HGNC:MAPT, pmod(Ac, Lys, 174)) -| bp(GO:cognition)
 
 SET Anatomy = "hippocampal formation"
-p(HGNC:MAPT, pmod(Ac, Lys, 174)) -> path(HBP:Neurodegeneration)
+p(HGNC:MAPT, pmod(Ac, Lys, 174)) -> path(CONSO:Neurodegeneration)
 UNSET Anatomy
 
 SET Research_Model = "PS19 mice"
@@ -3968,8 +3968,8 @@ a(CHEBI:salicylate) -| p(HGNC:MAPT, pmod(Ac, Lys, 174))
 a(CHEBI:salicylate) -| p(HGNC:MAPT)
 a(CHEBI:salicylate) -> bp(GO:memory)
 SET Anatomy = "hippocampal formation"
-a(CHEBI:salsalate) -| path(HBP:Neurodegeneration)
-a(CHEBI:salicylate) -| path(HBP:Neurodegeneration)
+a(CHEBI:salsalate) -| path(CONSO:Neurodegeneration)
+a(CHEBI:salicylate) -| path(CONSO:Neurodegeneration)
 UNSET Anatomy
 UNSET Species
 UNSET Confidence
@@ -3992,14 +3992,14 @@ p(HGNC:MAPT, pmod(Ac, Lys, 347)) isA p(HGNC:MAPT, pmod(Ac))
 p(HGNC:MAPT, pmod(Ac, Lys, 369)) isA p(HGNC:MAPT, pmod(Ac))
 p(HGNC:MAPT, pmod(Ac, Lys, 385)) isA p(HGNC:MAPT, pmod(Ac))
 
-p(HGNC:MAPT, pmod(Ac, Lys, 259)) partOf p(HBP:"microtubule-binding region")
-p(HGNC:MAPT, pmod(Ac, Lys, 280)) partOf p(HBP:"microtubule-binding region")
-p(HGNC:MAPT, pmod(Ac, Lys, 317)) partOf p(HBP:"microtubule-binding region")
-p(HGNC:MAPT, pmod(Ac, Lys, 321)) partOf p(HBP:"microtubule-binding region")
-p(HGNC:MAPT, pmod(Ac, Lys, 331)) partOf p(HBP:"microtubule-binding region")
-p(HGNC:MAPT, pmod(Ac, Lys, 343)) partOf p(HBP:"microtubule-binding region")
-p(HGNC:MAPT, pmod(Ac, Lys, 347)) partOf p(HBP:"microtubule-binding region")
-p(HGNC:MAPT, pmod(Ac, Lys, 369)) partOf p(HBP:"microtubule-binding region")
+p(HGNC:MAPT, pmod(Ac, Lys, 259)) partOf p(CONSO:"microtubule-binding region")
+p(HGNC:MAPT, pmod(Ac, Lys, 280)) partOf p(CONSO:"microtubule-binding region")
+p(HGNC:MAPT, pmod(Ac, Lys, 317)) partOf p(CONSO:"microtubule-binding region")
+p(HGNC:MAPT, pmod(Ac, Lys, 321)) partOf p(CONSO:"microtubule-binding region")
+p(HGNC:MAPT, pmod(Ac, Lys, 331)) partOf p(CONSO:"microtubule-binding region")
+p(HGNC:MAPT, pmod(Ac, Lys, 343)) partOf p(CONSO:"microtubule-binding region")
+p(HGNC:MAPT, pmod(Ac, Lys, 347)) partOf p(CONSO:"microtubule-binding region")
+p(HGNC:MAPT, pmod(Ac, Lys, 369)) partOf p(CONSO:"microtubule-binding region")
 UNSET Confidence
 
 
@@ -4011,16 +4011,16 @@ Finally, PCAF is necessary for conditioning-dependent axonal regeneration and al
 SET Confidence = "Medium"
 #not in evidence..
 #SET Anatomy = "dorsal root ganglion"
-#a(HBP:"peripheral nervous system injury") -> p(HGNC:NGF)
+#a(CONSO:"peripheral nervous system injury") -> p(HGNC:NGF)
 #p(HGNC:NGF) -> p(FPLX:ERK, pmod(Ph))
 #p(FPLX:ERK, pmod(Ph)) -> act(p(FPLX:ERK))
-path(HBP:"peripheral nervous system injury") -> act(p(FPLX:ERK))
+path(CONSO:"peripheral nervous system injury") -> act(p(FPLX:ERK))
 act(p(FPLX:ERK)) -> act(p(HGNC:KAT2B))
 #p(HGNC:NGF) -> act(p(HGNC:KAT2B))
-act(p(HGNC:KAT2B)) -> p(HBP:"Histone H3", pmod(Ac, Lys, 9))
-#p(HBP:"Histone H3", pmod(Ac, Lys, 9)) -> r(HGNC:GAP43)
-#p(HBP:"Histone H3", pmod(Ac, Lys, 9)) -> r(HGNC:GAL)
-#p(HBP:"Histone H3", pmod(Ac, Lys, 9)) -> r(HGNC:BDNF)
+act(p(HGNC:KAT2B)) -> p(CONSO:"Histone H3", pmod(Ac, Lys, 9))
+#p(CONSO:"Histone H3", pmod(Ac, Lys, 9)) -> r(HGNC:GAP43)
+#p(CONSO:"Histone H3", pmod(Ac, Lys, 9)) -> r(HGNC:GAL)
+#p(CONSO:"Histone H3", pmod(Ac, Lys, 9)) -> r(HGNC:BDNF)
 #UNSET Anatomy
 UNSET Confidence
 
@@ -4031,7 +4031,7 @@ Using genetic screen, a histone deacetylase 6 (HDAC6) null mutation rescued tau-
 Genetic and pharmacological inhibition of the tubulin-specific deacetylase activity of HDAC6 indicates that the rescue effect may be mediated by increased MT acetylation."
 SET Confidence = "Medium"
 SET Species = "7227"
-p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)) -| a(GO:microtubule)
+p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation)) -| a(GO:microtubule)
 SET MeSHAnatomy = {"Neurons", "Muscles"}
 p(HGNC:HDAC6) -| a(GO:microtubule)
 UNSET MeSHAnatomy
@@ -4054,10 +4054,10 @@ UNSET Confidence
 SET Evidence = "Thus, K280 acetylation is a feature found in a variety of human 4R or 3R/4R tauopathies including AD, but not 3R-tauopathies such as PiD."
 SET Confidence = "Medium"
 p(HGNC:MAPT, pmod(Ac, Lys, 280)) pos path(MESH:"Alzheimer Disease")
-p(HGNC:MAPT, pmod(Ac, Lys, 280)) pos path(HBP:"Corticobasal Degeneration")
-path(MESH:"Alzheimer Disease") isA path(HBP:"4R tauopathy")
-path(HBP:"Corticobasal Degeneration") isA path(HBP:"4R tauopathy")
-p(HBP:"4R tau") -- path(HBP:"4R tauopathy")
+p(HGNC:MAPT, pmod(Ac, Lys, 280)) pos path(CONSO:"Corticobasal Degeneration")
+path(MESH:"Alzheimer Disease") isA path(CONSO:"4R tauopathy")
+path(CONSO:"Corticobasal Degeneration") isA path(CONSO:"4R tauopathy")
+p(CONSO:"4R tau") -- path(CONSO:"4R tauopathy")
 UNSET Confidence
 
 
@@ -4104,8 +4104,8 @@ SET Confidence = "Medium"
 p(HGNC:SIRT1) -| p(HGNC:MAPT, pmod(Ac))
 p(HGNC:MAPT, pmod(Ac)) pos p(HGNC:MAPT, pmod(Ph))
 SET Species = "10090"
-p(HGNC:MAPT, pmod(Ac)) pos p(HBP:"Tau epitope, AT8")
-act(p(HGNC:SIRT1)) neg p(HBP:"Tau epitope, AT8")
+p(HGNC:MAPT, pmod(Ac)) pos p(CONSO:"Tau epitope, AT8")
+act(p(HGNC:SIRT1)) neg p(CONSO:"Tau epitope, AT8")
 UNSET Species
 UNSET Confidence
 
@@ -4118,7 +4118,7 @@ SET Species = "10090"
 SET Research_Model = "P301S mice"
 SET Anatomy = "hippocampal formation"
 p(HGNC:SIRT1) -| p(HGNC:MAPT, pmod(Ac, Lys, 174))
-p(HGNC:SIRT1) -| path(HBP:"Pathological Tau Spreading")
+p(HGNC:SIRT1) -| path(CONSO:"Pathological Tau Spreading")
 UNSET Anatomy
 UNSET Research_Model
 UNSET Species
@@ -4143,7 +4143,7 @@ These results suggest that SIRT1 may serve as a therapeutic target for tauopathy
 SET Confidence = "High"
 act(p(HGNC:SIRT1)) =| p(HGNC:SRSF2, pmod(Ac, Lys, 52))
 p(HGNC:SRSF2, pmod(Ac, Lys, 52)) pos act(p(HGNC:SRSF2))
-act(p(HGNC:SRSF2)) -> p(HBP:"4R tau")
+act(p(HGNC:SRSF2)) -> p(CONSO:"4R tau")
 UNSET Confidence
 
 
@@ -4154,9 +4154,9 @@ Tau phosphorylation of Ser-324 (pSer-324) has not previously been evaluated in t
 These findings uncover a novel acetylation-phosphorylation switch at Lys-321/Ser-324 that coordinately regulates tau polymerization and function."
 SET Confidence = "Medium"
 p(HGNC:HDAC6) -> p(HGNC:MAPT, pmod(Ac, Lys, 321))
-p(HGNC:MAPT, pmod(Ac, Lys, 321)) -| p(HBP:"Tau aggregates")
+p(HGNC:MAPT, pmod(Ac, Lys, 321)) -| p(CONSO:"Tau aggregates")
 p(HGNC:MAPT, pmod(Ac, Lys, 321)) -| p(HGNC:MAPT, pmod(Ph, Ser, 324))
-p(HGNC:MAPT, pmod(Ph, Ser, 324)) pos p(HBP:"Tau aggregates")
+p(HGNC:MAPT, pmod(Ph, Ser, 324)) pos p(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "HDAC6 inhibition leads to a significant reduction in tau levels as detected by the human tau-specific antibody E1 (Fig. 6 (a and c) and supplemental Fig. S6).
@@ -4185,7 +4185,7 @@ SET Evidence = "RGFP966, a selective HDAC3 inhibitor, has been shown to affect s
 SET Confidence = "Medium"
 #RGFP966 is PUBCHEM:56650312
 a(PUBCHEM:56650312) =| act(p(HGNC:HDAC3))
-a(HBP:RGFP966) -- bp(GO:memory)
+a(CONSO:RGFP966) -- bp(GO:memory)
 UNSET Confidence
 
 
@@ -4199,8 +4199,8 @@ SET Confidence = "Medium"
 SET Cell_Line = {"N2a", "SH-SY5Y"}
 a(PUBCHEM:132157820) =| act(p(HGNC:HDAC6))
 a(PUBCHEM:132157820) -| p(HGNC:MAPT, pmod(Ph))
-a(PUBCHEM:132157820) -| a(HBP:"Tau aggregates")
-a(HBP:"Tau aggregates") pos a(GO:"neurofibrillary tangle")
+a(PUBCHEM:132157820) -| a(CONSO:"Tau aggregates")
+a(CONSO:"Tau aggregates") pos a(GO:"neurofibrillary tangle")
 a(PUBCHEM:132157820) -> p(INTERPRO:"Heat shock protein Hsp90 family", pmod(Ac))
 p(INTERPRO:"Heat shock protein Hsp90 family", pmod(Ac)) -| complex(p(INTERPRO:"Heat shock protein Hsp90 family"), p(HGNC:HDAC6))
 p(INTERPRO:"Heat shock protein Hsp90 family", pmod(Ac)) -> p(HGNC:MAPT, pmod(Ph), pmod(Ub))
@@ -4230,10 +4230,10 @@ SET Citation = {"PubMed", "19732809"}
 SET Evidence = " This post-translational modification is likely an indicator of good health since its intracellular level correlates with the availability of extracellular glucose.
 From a more practical point of view, it has been shown that O-GlcNAcylation impairments contribute to the etiology of cardiovascular diseases, type-2 diabetes and Alzheimer's disease (AD), three illnesses common in occidental societies."
 SET Confidence = "Medium"
-p(MESH:Proteins, pmod(HBP:"O-GlcNAcylation")) neg path(MESH:"Cardiovascular Diseases")
-p(MESH:Proteins, pmod(HBP:"O-GlcNAcylation")) neg path(MESH:"Alzheimer Disease")
-p(MESH:Proteins, pmod(HBP:"O-GlcNAcylation")) neg path(MESH:"Diabetes Mellitus, Type 2")
-bp(MESH:"Hot Temperature") -- p(MESH:Proteins, pmod(HBP:"O-GlcNAcylation"))
+p(MESH:Proteins, pmod(CONSO:"O-GlcNAcylation")) neg path(MESH:"Cardiovascular Diseases")
+p(MESH:Proteins, pmod(CONSO:"O-GlcNAcylation")) neg path(MESH:"Alzheimer Disease")
+p(MESH:Proteins, pmod(CONSO:"O-GlcNAcylation")) neg path(MESH:"Diabetes Mellitus, Type 2")
+bp(MESH:"Hot Temperature") -- p(MESH:Proteins, pmod(CONSO:"O-GlcNAcylation"))
 UNSET Confidence
 
 SET Evidence = "It has been reported that the proteasomal machinery is modified by O-GlcNAcylation [53,126] and that after modification by OGT, the
@@ -4245,7 +4245,7 @@ proteasomal degradation by directly modifying them [43,129,130]. The two phenome
 escape degradation by means of its own O-GlcNAcylation and by the inhibitory effect of glycosylation on the proteasome, leading to a
 considerable decrease in the turnover of proteins that in turn may aggregate and cause neuronal death."
 SET Confidence = "Medium"
-p(MESH:Proteins, pmod(HBP:"O-GlcNAcylation")) -| act(complex(GO:"proteasome complex"))
+p(MESH:Proteins, pmod(CONSO:"O-GlcNAcylation")) -| act(complex(GO:"proteasome complex"))
 g(HGNC:OGA, var("?")) -| act(complex(GO:"proteasome complex"))
 g(HGNC:OGA, var("?")) pos path(MESH:"Alzheimer Disease")
 UNSET Confidence
@@ -4255,7 +4255,7 @@ is associated with a decrease in its O-GlcNAcylation level. A recent observation
 the hypothesis that O-GlcNAcylation occurs first and that its
 modification reflects on the phosphorylation status."
 SET Confidence = "High"
-p(HGNC:MAPT, pmod(HBP:"O-GlcNAcylation")) neg p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+p(HGNC:MAPT, pmod(CONSO:"O-GlcNAcylation")) neg p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 UNSET Confidence
 
 #######################################################################################################################################
@@ -4268,8 +4268,8 @@ They efficiently elevated proteasomal activity, as determined by the increased d
 Additionally, proteasomal degradation of tau proteins was facilitated in the presence of the UPS14 aptamers in vitro."
 SET Confidence = "High"
 act(p(HGNC:USP14)) -| act(complex(GO:"proteasome complex"))
-act(complex(GO:"proteasome complex")) -| a(HBP:"Tau aggregates")
-a(HBP:"USP14 Aptamer") -| act(p(HGNC:USP14))
+act(complex(GO:"proteasome complex")) -| a(CONSO:"Tau aggregates")
+a(CONSO:"USP14 Aptamer") -| act(p(HGNC:USP14))
 UNSET Confidence
 
 
@@ -4277,37 +4277,37 @@ SET Citation = {"PubMed", "27325702"}
 SET Evidence = "the ACR (APP cytosolic region) interacts with the E3 ubiquitin-protein ligases Stub1, which binds the NH2 terminus of the ACR,
 and CRL4(CRBN), which is formed by Cul4a/b, Ddb1, and Crbn, and interacts with the COOH terminus of the ACR via Crbn."
 SET Confidence = "High"
-p(HBP:"APP, ACR") -- p(HGNC:STUB1)
+p(CONSO:"APP, ACR") -- p(HGNC:STUB1)
 p(HGNC:STUB1) isA complex(GO:"ubiquitin ligase complex")
-p(HBP:"APP, ACR") -- p(HBP:"CRL4 complex")
-p(HBP:"CRL4 complex") eq complex(p(HGNC:CUL4A), p(HGNC:CUL4B), p(HGNC:DDB1), p(HGNC:CRBN))
-p(HBP:"CRL4 complex") isA complex(GO:"ubiquitin ligase complex")
+p(CONSO:"APP, ACR") -- p(CONSO:"CRL4 complex")
+p(CONSO:"CRL4 complex") eq complex(p(HGNC:CUL4A), p(HGNC:CUL4B), p(HGNC:DDB1), p(HGNC:CRBN))
+p(CONSO:"CRL4 complex") isA complex(GO:"ubiquitin ligase complex")
 UNSET Confidence
 
 SET Evidence = "As reported in Table 6, several brain-derived proteins associated with the ACR bait were ubiquitinated.
 These proteins can be separated into four groups as follows: (a) group 1, proteins of the ubiquitin-conjugating system; (b) group 2, presynaptic proteins; (c) group 3, other proteins implicated in AD; and (d) group 4, phosphorylation-dependent ACR interactors."
 SET Confidence = "High"
 #table 6
-p(HBP:"APP, ACR") -> p(HGNC:SCAMP1, pmod(Ub))
-p(HBP:"APP, ACR") -> p(HGNC:SV2A, pmod(Ub))
-p(HBP:"APP, ACR") -> p(HGNC:SV2B, pmod(Ub))
-p(HBP:"APP, ACR") -> p(HGNC:VAMP2, pmod(Ub))
-p(HBP:"APP, ACR") -> p(HGNC:ATP6V0A1, pmod(Ub))
-p(HBP:"APP, ACR") -> p(HGNC:SLC17A7, pmod(Ub))
-p(HBP:"APP, ACR") -> p(HGNC:SYT1, pmod(Ub))
-p(HBP:"APP, ACR") -> p(HGNC:SYT2, pmod(Ub))
-p(HBP:"APP, ACR") -> p(HGNC:RAB14, pmod(Ub))
-p(HBP:"APP, ACR") -> p(HGNC:SNAP25, pmod(Ub))
-p(HBP:"APP, ACR") -> p(HGNC:SYN2, pmod(Ub))
-p(HBP:"APP, ACR") -> p(HGNC:SYN1, pmod(Ub))
-p(HBP:"APP, ACR") -> p(HGNC:RAB3A, pmod(Ub))
-p(HBP:"APP, ACR") -> p(HGNC:APOE, pmod(Ub))
-p(HBP:"APP, ACR") -> p(HGNC:MAPT, pmod(Ub))
+p(CONSO:"APP, ACR") -> p(HGNC:SCAMP1, pmod(Ub))
+p(CONSO:"APP, ACR") -> p(HGNC:SV2A, pmod(Ub))
+p(CONSO:"APP, ACR") -> p(HGNC:SV2B, pmod(Ub))
+p(CONSO:"APP, ACR") -> p(HGNC:VAMP2, pmod(Ub))
+p(CONSO:"APP, ACR") -> p(HGNC:ATP6V0A1, pmod(Ub))
+p(CONSO:"APP, ACR") -> p(HGNC:SLC17A7, pmod(Ub))
+p(CONSO:"APP, ACR") -> p(HGNC:SYT1, pmod(Ub))
+p(CONSO:"APP, ACR") -> p(HGNC:SYT2, pmod(Ub))
+p(CONSO:"APP, ACR") -> p(HGNC:RAB14, pmod(Ub))
+p(CONSO:"APP, ACR") -> p(HGNC:SNAP25, pmod(Ub))
+p(CONSO:"APP, ACR") -> p(HGNC:SYN2, pmod(Ub))
+p(CONSO:"APP, ACR") -> p(HGNC:SYN1, pmod(Ub))
+p(CONSO:"APP, ACR") -> p(HGNC:RAB3A, pmod(Ub))
+p(CONSO:"APP, ACR") -> p(HGNC:APOE, pmod(Ub))
+p(CONSO:"APP, ACR") -> p(HGNC:MAPT, pmod(Ub))
 UNSET Confidence
 
 SET Evidence = "Together with the evidence that CRBN and CUL4B are linked to intellectual disability suggests a pathogenic mechanism, in which APP acts as a modulator of E3 ubiquitin-protein ligase(s)."
 SET Confidence = "High"
-p(HBP:"APP, ACR") reg complex(GO:"ubiquitin ligase complex")
+p(CONSO:"APP, ACR") reg complex(GO:"ubiquitin ligase complex")
 UNSET Confidence
 
 
@@ -4319,7 +4319,7 @@ which provides a new insight into the AD-like tau accumulation."
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Cerebral Cortex"
 SET MeSHDisease = "Alzheimer Disease"
-p(HGNC:MAPT, pmod(Sumo, Lys, 340)) pos p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+p(HGNC:MAPT, pmod(Sumo, Lys, 340)) pos p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 UNSET MeSHAnatomy
 UNSET MeSHDisease
 p(HGNC:MAPT, pmod(Sumo, Lys, 340)) -> p(HGNC:MAPT, pmod(Ph))
@@ -4327,7 +4327,7 @@ p(HGNC:MAPT, pmod(Sumo, Lys, 340)) -| p(HGNC:MAPT, pmod(Ub))
 p(HGNC:MAPT, pmod(Ub)) -> deg(p(HGNC:MAPT))
 SET Species = "10116"
 SET Anatomy = "hippocampal formation"
-a(CHEBI:"amyloid-beta") -> p(RGD:Mapt, pmod(HBP:hyperphosphorylation), pmod(Sumo))
+a(CHEBI:"amyloid-beta") -> p(RGD:Mapt, pmod(CONSO:hyperphosphorylation), pmod(Sumo))
 UNSET Anatomy
 UNSET Species
 UNSET Confidence
@@ -4342,7 +4342,7 @@ a(CHEBI:rolipram) =| act(p(FPLX:PDE4))
 a(CHEBI:rolipram) -> a(CHEBI:"3',5'-cyclic AMP")
 a(CHEBI:rolipram) -> act(p(FPLX:PKA))
 a(CHEBI:rolipram) -> act(complex(GO:"proteasome complex"))
-a(CHEBI:rolipram) -| a(HBP:"Tau aggregates")
+a(CHEBI:rolipram) -| a(CONSO:"Tau aggregates")
 a(CHEBI:rolipram) -> p(HGNC:MAPT, pmod(Ph, Ser, 214))
 act(p(FPLX:PKA)) -> p(HGNC:MAPT, pmod(Ph, Ser, 214))
 UNSET Confidence
@@ -4350,7 +4350,7 @@ UNSET Confidence
 SET Evidence = "PKA stimulation attenuated proteasome dysfunction, probably through proteasome subunit phosphorylation resulting in lower levels of aggregated tau and improvements in cognitive performance."
 SET Confidence = "Medium"
 act(p(FPLX:PKA)) -> act(complex(GO:"proteasome complex"))
-act(p(FPLX:PKA)) -| a(HBP:"Tau aggregates")
+act(p(FPLX:PKA)) -| a(CONSO:"Tau aggregates")
 act(p(FPLX:PKA)) -> bp(GO:cognition)
 UNSET Confidence
 
@@ -4368,9 +4368,9 @@ UNSET Confidence
 SET Citation = {"PubMed", "8391280"}
 SET Evidence = "Ubiquitination occurs at lysines (K254, K257 K311) in repeat domain; participates in triage process"
 SET Confidence = "High"
-p(HGNC:MAPT, pmod(Ub, Lys, 254)) pos a(HBP:"paired helical filaments")
-p(HGNC:MAPT, pmod(Ub, Lys, 257)) pos a(HBP:"paired helical filaments")
-p(HGNC:MAPT, pmod(Ub, Lys, 311)) pos a(HBP:"paired helical filaments")
+p(HGNC:MAPT, pmod(Ub, Lys, 254)) pos a(CONSO:"paired helical filaments")
+p(HGNC:MAPT, pmod(Ub, Lys, 257)) pos a(CONSO:"paired helical filaments")
+p(HGNC:MAPT, pmod(Ub, Lys, 311)) pos a(CONSO:"paired helical filaments")
 UNSET Confidence
 
 #######################################################################################################################################
@@ -4385,8 +4385,8 @@ In contrast, other N-terminal antibodies, with slightly different epitopes, do n
 Here, we found that TNT1 and TNT2 appear in Braak I–II stages and do not colocalize with ThR in the diffuse, granular pre-tangle pathology conclusively demonstrating that PAD exposure is an early event."
 SET Confidence = "High"
 SET Braak_Stage = {"Stage I", "Stage II"}
-p(HBP:"Tau antibody, TNT1") -- p(HBP:"phosphatase-activating domain")
-p(HBP:"Tau antibody, TNT2") -- p(HBP:"phosphatase-activating domain")
+p(CONSO:"Tau antibody, TNT1") -- p(CONSO:"phosphatase-activating domain")
+p(CONSO:"Tau antibody, TNT2") -- p(CONSO:"phosphatase-activating domain")
 UNSET Braak_Stage
 UNSET Confidence
 
@@ -4395,7 +4395,7 @@ SET Citation = {"PubMed", "27574109"}
 SET Evidence = "Aggregation-induced increases in PAD exposure and oligomerization are common features among all tau isoforms.
 The extent of PAD exposure and oligomerization was larger for tau aggregates composed of 4-repeat isoforms compared with those made of 3-repeat isoforms."
 SET Confidence = "High"
-p(HBP:"phosphatase-activating domain") pos p(HBP:"4R tau")
+p(CONSO:"phosphatase-activating domain") pos p(CONSO:"4R tau")
 UNSET Confidence
 
 
@@ -4407,10 +4407,10 @@ In P301L tau-expressing Neuro2A cells, 8-nitro-cGMP reduced the amount of sarcos
 NO-linked chemical modification on cysteine residues of tau could block tau aggregation"
 SET Confidence = "High"
 SET Cell_Line = {"N2a", "HEK293T"}
-a(HBP:"8-nitro-cGMP") -| a(HBP:"Tau oligomers")
-a(CHEBI:"nitric oxide") pos a(HBP:"8-nitro-cGMP")
+a(CONSO:"8-nitro-cGMP") -| a(CONSO:"Tau oligomers")
+a(CHEBI:"nitric oxide") pos a(CONSO:"8-nitro-cGMP")
 act(p(ECCODE:"1.14.13.39")) => a(CHEBI:"nitric oxide")
-a(CHEBI:heparin) -> p(HBP:"Tau aggregates")
+a(CHEBI:heparin) -> p(CONSO:"Tau aggregates")
 UNSET Cell_Line
 UNSET Confidence
 
@@ -4419,8 +4419,8 @@ SET Citation = {"PubMed", "27373205"}
 SET Evidence = "Highlighting the relevance of these findings to human disease, pS422 tau was found to colocalize with tau oligomers and with a fraction of tau showing increased PAD exposure in the human AD brain.
 This study identifies novel effects of pS422 on tau biochemical properties, including prolonged nucleation and enhanced dimer formation, which correlate with a distinct inhibitory effect on FAT."
 SET Confidence = "High"
-p(HGNC:MAPT, pmod(Ph, Ser, 422)) pos p(HBP:"phosphatase-activating domain")
-p(HGNC:MAPT, pmod(Ph, Ser, 422)) pos p(HBP:"Tau dimers")
+p(HGNC:MAPT, pmod(Ph, Ser, 422)) pos p(CONSO:"phosphatase-activating domain")
+p(HGNC:MAPT, pmod(Ph, Ser, 422)) pos p(CONSO:"Tau dimers")
 p(HGNC:MAPT, pmod(Ph, Ser, 422)) -| bp(GO:"anterograde axonal transport")
 UNSET Confidence
 
@@ -4430,12 +4430,12 @@ SET Evidence = "We also show that two of the tau mutations found in hereditary f
 DeltaK280 and P301L, have a much stronger tendency for PHF aggregation which correlates with their high propensity for beta-structure around the hexapeptide motifs."
 SET Confidence = "High"
 p(HGNC:MAPT, var("p.Lys280del")) eq g(DBSNP:rs63750688)
-p(HGNC:MAPT, var("p.Lys280del")) pos p(HBP:"VQIINK motif")
-p(HGNC:MAPT, var("p.Lys280del")) pos p(HBP:"VQIVYK motif")
-p(HGNC:MAPT, var("p.Pro301Leu")) pos p(HBP:"VQIINK motif")
-p(HGNC:MAPT, var("p.Pro301Leu")) pos p(HBP:"VQIVYK motif")
-p(HBP:"VQIINK motif") -> p(HBP:"Tau aggregates")
-p(HBP:"VQIVYK motif") -> p(HBP:"Tau aggregates")
+p(HGNC:MAPT, var("p.Lys280del")) pos p(CONSO:"VQIINK motif")
+p(HGNC:MAPT, var("p.Lys280del")) pos p(CONSO:"VQIVYK motif")
+p(HGNC:MAPT, var("p.Pro301Leu")) pos p(CONSO:"VQIINK motif")
+p(HGNC:MAPT, var("p.Pro301Leu")) pos p(CONSO:"VQIVYK motif")
+p(CONSO:"VQIINK motif") -> p(CONSO:"Tau aggregates")
+p(CONSO:"VQIVYK motif") -> p(CONSO:"Tau aggregates")
 UNSET Confidence
 
 
@@ -4445,7 +4445,7 @@ In APP/PS1 cross with rTg4510 mice (P301L mutant human tau), tau seeding activit
 SET Confidence = "High"
 SET Species = "10090"
 SET Research_Model = "APP/PS1 x rTg4510 mice"
-a(CHEBI:"amyloid-beta") pos p(HBP:"Tau aggregates")
+a(CHEBI:"amyloid-beta") pos p(CONSO:"Tau aggregates")
 UNSET Research_Model
 UNSET Species
 UNSET Confidence
@@ -4455,20 +4455,20 @@ SET Citation = {"PubMed", "27716675"}
 SET Evidence = "The tauopathy mice that we used contained the P301L mutation, which is implicated in some genetic tauopathies.
 In addition, this mutation, along with the related P301S mutation, has been associated with increased inflammation in the brain as well as retinal deficits"
 SET Confidence = "Medium"
-p(HGNC:MAPT, var("p.Pro301Leu")) pos path(HBP:neuroinflammation)
+p(HGNC:MAPT, var("p.Pro301Leu")) pos path(CONSO:neuroinflammation)
 UNSET Confidence
 
 SET Evidence = "Tau Oligomers co-localize with astrocytes, microglia, and HMGB1, a pro-inflammatory cytokine, are present in the retina and are associated with inflammatory cells."
 SET Confidence = "High"
-a(HBP:"Tau oligomers") pos path(HBP:neuroinflammation)
+a(CONSO:"Tau oligomers") pos path(CONSO:neuroinflammation)
 UNSET Confidence
 
 
 SET Citation = {"PubMed", "27716675"}
 SET Evidence = "This work supports the hypothesis that tau oligomers are toxic species that can drive the spread of tau pathology and neurodegeneration."
 SET Confidence = "Medium"
-a(HBP:"Tau oligomers") -> path(HBP:"Pathological Tau Spreading")
-a(HBP:"Tau oligomers") -> path(HP:Neurodegeneration)
+a(CONSO:"Tau oligomers") -> path(CONSO:"Pathological Tau Spreading")
+a(CONSO:"Tau oligomers") -> path(HP:Neurodegeneration)
 UNSET Confidence
 
 ################################################################################################################################################
@@ -4609,8 +4609,8 @@ p(HGNC:SUMO3) -| a(CHEBI:"amyloid-beta")
 p(HGNC:SUMO3, var("p.Lys11Arg")) -> p(HGNC:APP, pmod(Sumo))
 p(HGNC:SUMO3, var("p.Lys11Arg")) -> a(CHEBI:"amyloid-beta")
 p(HGNC:APP, pmod(Sumo)) -> a(CHEBI:"amyloid-beta")
-p(HGNC:APP, pmod(HBP:polysumoylation)) -| a(CHEBI:"amyloid-beta")
-p(HGNC:SUMO3) -> p(HGNC:APP, pmod(HBP:polysumoylation))
+p(HGNC:APP, pmod(CONSO:polysumoylation)) -| a(CHEBI:"amyloid-beta")
+p(HGNC:SUMO3) -> p(HGNC:APP, pmod(CONSO:polysumoylation))
 UNSET Confidence
 
 
@@ -4625,7 +4625,7 @@ SET Citation = {"PubMed", "29334120"}
 SET Evidence = "We recently found that overexpression of TDP-43 enhances tau exon 10 inclusion and tau mRNA instability.
 Overexpression of PP1α and PP1γ, but not PP1β, suppressed TDP-43 phosphorylation at Ser403/404 and Ser409/410 and TDP-43-induced tau exon 10 inclusion."
 SET Confidence = "High"
-act(p(HGNC:TARDBP)) -> p(HBP:"4R tau")
+act(p(HGNC:TARDBP)) -> p(CONSO:"4R tau")
 p(HGNC:PPP1CC) =| p(HGNC:TARDBP, pmod(Ph, Ser, 403))
 p(HGNC:PPP1CC) =| p(HGNC:TARDBP, pmod(Ph, Ser, 404))
 p(HGNC:PPP1CC) =| p(HGNC:TARDBP, pmod(Ph, Ser, 409))
@@ -4661,8 +4661,8 @@ act(p(HGNC:PPP2CA)) =| p(HGNC:GSK3B, pmod(Ph, Ser, 9))
 p(HGNC:PPP2CA, pmod(Me)) -> complex(p(HGNC:PPP2CA), p(HGNC:PPP2CB))
 complex(p(HGNC:PPP2CA), p(HGNC:PPP2CB)) -| deg(p(HGNC:PPP2CB))
 complex(p(HGNC:PPP2CA), p(HGNC:PPP2CB)) -> complex(p(HGNC:PPP2CA), p(HGNC:PPP2CB), p(HGNC:MAPT))
-complex(p(HGNC:PPP2CA), p(HGNC:PPP2CB), p(HGNC:MAPT)) -| p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
-complex(p(HGNC:PPP2CA), p(HGNC:PPP2CB), p(HGNC:MAPT)) -| a(HBP:"paired helical filaments")
+complex(p(HGNC:PPP2CA), p(HGNC:PPP2CB), p(HGNC:MAPT)) -| p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+complex(p(HGNC:PPP2CA), p(HGNC:PPP2CB), p(HGNC:MAPT)) -| a(CONSO:"paired helical filaments")
 complex(p(HGNC:PPP2CA), p(HGNC:PPP2CB), p(HGNC:MAPT)) -| a(MESH:Axons)
 complex(p(HGNC:PPP2CA), p(HGNC:PPP2CB), p(HGNC:MAPT)) -| bp(GO:"cell death")
 UNSET Confidence
@@ -4707,8 +4707,8 @@ SET Citation = {"PubMed", "28720530"}
 SET Evidence = "Our results indicated a significant down-regulation of PPP2R5E gene expression and reduction in PP2A activity by ApoE4 compared with ApoE3.
 This may also explain an elevated Tau phosphorylation in AD human brains that featured at least one ApoE4 allele."
 SET Confidence = "Medium"
-g(HBP:"APOE e4") -| p(HGNC:PPP2R5E)
-g(HBP:"APOE e4") -| act(p(FPLX:PPP2))
+g(CONSO:"APOE e4") -| p(HGNC:PPP2R5E)
+g(CONSO:"APOE e4") -| act(p(FPLX:PPP2))
 UNSET Confidence
 
 
@@ -4733,9 +4733,9 @@ SET Evidence = "We found strong Tau hyperphosphorylation in brain samples from R
 SET Confidence = "High"
 SET Species = "10090"
 SET Research_Model = "HD murine model"
-p(MGI:Ppp1ca) neg p(MGI:Mapt, pmod(HBP:hyperphosphorylation))
-p(MGI:Ppp2ca) neg p(MGI:Mapt, pmod(HBP:hyperphosphorylation))
-p(MGI:Ppp1cb) neg p(MGI:Mapt, pmod(HBP:hyperphosphorylation))
+p(MGI:Ppp1ca) neg p(MGI:Mapt, pmod(CONSO:hyperphosphorylation))
+p(MGI:Ppp2ca) neg p(MGI:Mapt, pmod(CONSO:hyperphosphorylation))
+p(MGI:Ppp1cb) neg p(MGI:Mapt, pmod(CONSO:hyperphosphorylation))
 UNSET Research_Model
 UNSET Species
 UNSET Confidence
@@ -4749,7 +4749,7 @@ SET Species = "10116"
 a(CHEBI:"lead diacetate") -| p(RGD:Ppp2ca)
 a(CHEBI:"lead diacetate") -> p(RGD:Ppp1ca)
 a(CHEBI:"lead diacetate") -> p(RGD:Ppp5c)
-a(CHEBI:"lead diacetate") -> p(MGI:Mapt, pmod(HBP:hyperphosphorylation))
+a(CHEBI:"lead diacetate") -> p(MGI:Mapt, pmod(CONSO:hyperphosphorylation))
 UNSET Species
 UNSET Confidence
 
@@ -4766,12 +4766,12 @@ a(GO:"neurofibrillary tangle") -> act(p(FPLX:PPP1))
 a(GO:"neurofibrillary tangle") -> act(p(HGNC:GSK3B))
 act(p(FPLX:PPP1)) -| bp(GO:"axonal transport")
 act(p(HGNC:GSK3B)) -| bp(GO:"axonal transport")
-p(HBP:"phosphatase-activating domain") neg bp(GO:"axonal transport")
-p(HBP:"phosphatase-activating domain") pos p(HGNC:MAPT, pmod(Ph, Ser, 199))
-p(HBP:"phosphatase-activating domain") pos p(HGNC:MAPT, pmod(Ph, Ser, 202))
-p(HBP:"phosphatase-activating domain") pos p(HGNC:MAPT, pmod(Ph, Thr, 205))
-p(HBP:"phosphatase-activating domain") -> act(p(FPLX:PPP1))
-p(HBP:"phosphatase-activating domain") -> act(p(HGNC:GSK3B))
+p(CONSO:"phosphatase-activating domain") neg bp(GO:"axonal transport")
+p(CONSO:"phosphatase-activating domain") pos p(HGNC:MAPT, pmod(Ph, Ser, 199))
+p(CONSO:"phosphatase-activating domain") pos p(HGNC:MAPT, pmod(Ph, Ser, 202))
+p(CONSO:"phosphatase-activating domain") pos p(HGNC:MAPT, pmod(Ph, Thr, 205))
+p(CONSO:"phosphatase-activating domain") -> act(p(FPLX:PPP1))
+p(CONSO:"phosphatase-activating domain") -> act(p(HGNC:GSK3B))
 UNSET Confidence
 
 SET Citation = {"PubMed", "21489990"}
@@ -4799,7 +4799,7 @@ This increase in tau phosphorylation was paralleled by a substantial decrease in
 SET Confidence = "Medium"
 SET MeSHDisease = "Alzheimer Disease"
 SET Cell = "cerebral cortex neuron"
-a(CHEBI:"quinolinic acid") -- p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+a(CHEBI:"quinolinic acid") -- p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 UNSET MeSHDisease
 UNSET Cell
 SET MeSHAnatomy = "Neurons"
@@ -4845,7 +4845,7 @@ Knockdown of these phosphatases induces tau hyperphosphorylation, and overexpres
 Conversely, suppression of miR-125b in neurons by tough decoys reduces tau phosphorylation and kinase expression/activity. Injecting miR-125b into the hippocampus of mice impairs associative learning and is accompanied by downregulation of Bcl-W, DUSP6, and PPP1CA, resulting in increased tau phosphorylation in vivo.
 Importantly, DUSP6 and PPP1CA are also reduced in AD brains."
 SET Confidence = "Medium"
-m(MIRBASE:"hsa-mir-125b-1") -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+m(MIRBASE:"hsa-mir-125b-1") -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 m(MIRBASE:"hsa-mir-125b-1") -> act(p(HGNC:CDK5R1))
 m(MIRBASE:"hsa-mir-125b-1") -> kin(p(HGNC:CDK5))
 m(MIRBASE:"hsa-mir-125b-1") -> kin(p(HGNC:MAPK3))
@@ -4853,10 +4853,10 @@ m(MIRBASE:"hsa-mir-125b-1") -> kin(p(HGNC:MAPK1))
 m(MIRBASE:"hsa-mir-125b-1") -| p(HGNC:PPP1CA)
 m(MIRBASE:"hsa-mir-125b-1") -| p(HGNC:DUSP6)
 m(MIRBASE:"hsa-mir-125b-1") -| p(HGNC:BCL2L2)
-p(HGNC:PPP1CA) =| p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
-p(HGNC:DUSP6) =| p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
-p(HGNC:BCL2L2) -| p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
-m(MIRBASE:"hsa-mir-125b-1") -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+p(HGNC:PPP1CA) =| p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+p(HGNC:DUSP6) =| p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+p(HGNC:BCL2L2) -| p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+m(MIRBASE:"hsa-mir-125b-1") -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 SET MeSHAnatomy = "Brain"
 p(HGNC:DUSP6) neg path(MESH:"Alzheimer Disease")
 p(HGNC:PPP1CA) neg path(MESH:"Alzheimer Disease")
@@ -4868,7 +4868,7 @@ SET Confidence = "Medium"
 p(FPLX:ERK) ->  kin(p(HGNC:CDK5))
 m(MIRBASE:"hsa-mir-125b-1") -| p(HGNC:DUSP6)
 p(HGNC:DUSP6) -| p(FPLX:ERK)
-kin(p(HGNC:CDK5)) -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+kin(p(HGNC:CDK5)) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 UNSET Confidence
 
 
@@ -4923,9 +4923,9 @@ UNSET Confidence
 SET Citation = {"PubMed", "23157676"}
 SET Evidence = "Pin1 accelerates cis to trans conversion to prevent accumulation of pathogenic cis p-tau conformation in AD, providing the first structural evidence for how Pin1 protects against AD."
 SET Confidence = "Medium"
-act(p(HGNC:PIN1)) -| p(HBP:"cis p-tau")
-p(HBP:"cis p-tau") pos path(MESH:"Alzheimer Disease")
-p(HBP:"cis p-tau") -> a(HBP:"Tau aggregates")
+act(p(HGNC:PIN1)) -| p(CONSO:"cis p-tau")
+p(CONSO:"cis p-tau") pos path(MESH:"Alzheimer Disease")
+p(CONSO:"cis p-tau") -> a(CONSO:"Tau aggregates")
 act(p(HGNC:PIN1)) -| path(MESH:"Alzheimer Disease")
 UNSET Confidence
 
@@ -4934,7 +4934,7 @@ SET Citation = {"PubMed", "26903089"}
 SET Evidence = "We identified a novel molecular interaction implying the PHF6 peptide of Tau and the FK1/FK2 domains of FKBP52 independent of FK506 binding;
 suggesting a non-catalytic molecular interaction that might govern the effect of FKBP52 on Tau."
 SET Confidence = "High"
-act(p(HGNC:FKBP4)) -- p(HBP:"VQIVYK motif")
+act(p(HGNC:FKBP4)) -- p(CONSO:"VQIVYK motif")
 UNSET Confidence
 
 
@@ -4951,8 +4951,8 @@ FKBP12 also restored the oligomer of the peptide to its monomeric status. Mutati
 Assuming that the propensity of aggregation of the peptide is different in each cis-/trans-isomer, we propose that the aggregation behavior of the R3 peptide can be theoretically described with a simple kinetic scheme, in which only the cis-isomer can aggregate and FKBP12 catalyzes isomerization of the peptide in both the monomeric and aggregative states."
 SET Confidence = "Medium"
 p(HGNC:FKBP1A) -- a(GO:"neurofibrillary tangle")
-p(HGNC:FKBP1A) -| a(HBP:"Tau aggregates")
-p(HGNC:FKBP1A) -| a(HBP:"Tau oligomers")
+p(HGNC:FKBP1A) -| a(CONSO:"Tau aggregates")
+p(HGNC:FKBP1A) -| a(CONSO:"Tau oligomers")
 UNSET Confidence
 
 
@@ -4974,7 +4974,7 @@ tau is associated with the early events of tau aggregation and NFT (Augustinack 
 the proline imidic peptide bond following the phosphothreonine 231"
 SET Confidence = "Medium"
 complex(p(HGNC:PIN1), p(HGNC:MAPT, pmod(Ph, Thr, 231))) -| p(HGNC:MAPT, pmod(Ph, Thr, 231))
-p(HGNC:MAPT, pmod(Ph, Thr, 231)) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT, pmod(Ph, Thr, 231)) -> a(CONSO:"Tau aggregates")
 p(HGNC:MAPT, pmod(Ph, Thr, 231)) -> a(GO:"neurofibrillary tangle")
 UNSET Confidence
 

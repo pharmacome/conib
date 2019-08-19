@@ -25,7 +25,7 @@ DEFINE NAMESPACE MESH  AS URL "https://raw.githubusercontent.com/pharmacome/term
 DEFINE NAMESPACE CHEBI AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/chebi-names.belns"
 DEFINE NAMESPACE HGNC  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/hgnc-symbols.belns"
 DEFINE NAMESPACE GO    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/go-names.belns"
-DEFINE NAMESPACE HBP   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso.belns"
 
 # Namespaces hosted on https://github.com/sorgerlab/famplex
 # ---------------------------------------------------------
@@ -64,32 +64,32 @@ UNSET Confidence
 
 SET Evidence = "AD is a chronic neurodegenerative disease characterized by the progressive deposition of the amyloid b (Ab) in the parenchyma of the brain."
 SET Confidence = "High"
-path(MESH:"Alzheimer Disease") -- a(HBP:HBP00018)
+path(MESH:"Alzheimer Disease") -- a(CONSO:CONSO00018)
 UNSET Confidence
 
 SET Evidence = "It has been postulated that soluble or small oligomeric forms of Ab have deleterious effects in the brain, inducing impaired synaptic function\
 and promoting neuronal degeneration [5]. "
 SET Confidence = "High"
-a(HBP:HBP00022) -| bp(GO:"synaptic signaling")
-a(HBP:HBP00074) -| bp(GO:"synaptic signaling")
-a(HBP:HBP00022) ->  bp(GO:"neuron death")
-a(HBP:HBP00074) ->  bp(GO:"neuron death")
+a(CONSO:CONSO00022) -| bp(GO:"synaptic signaling")
+a(CONSO:CONSO00074) -| bp(GO:"synaptic signaling")
+a(CONSO:CONSO00022) ->  bp(GO:"neuron death")
+a(CONSO:CONSO00074) ->  bp(GO:"neuron death")
 UNSET Confidence
 
 SET Evidence = "The development of dense-core amyloid plaques is associated with a robust immune response mediated by microglial cells."
 SET Confidence = "High"
-a(HBP:HBP00089) -- bp(GO:"microglial cell activation")
+a(CONSO:CONSO00089) -- bp(GO:"microglial cell activation")
 UNSET Confidence
 
 SET Evidence = "The plaque-associated microglia secrete a variety of cytotoxic species including the inflammatory cytokines, INF-g, TNF-a, IL-1b and IL-6 and\
 chemokines, most prominently CCL2 [10-12]. "
 SET Confidence = "High"
 SET MeSHAnatomy= "Microglia"
-a(HBP:HBP00089) -> sec(p(HGNC:IFNG))
-a(HBP:HBP00089) -> sec(p(HGNC:TNF))
-a(HBP:HBP00089) -> sec(p(HGNC:IL1B))
-a(HBP:HBP00089) -> sec(p(HGNC:IL6))
-a(HBP:HBP00089) -> sec(p(HGNC:CCL2))
+a(CONSO:CONSO00089) -> sec(p(HGNC:IFNG))
+a(CONSO:CONSO00089) -> sec(p(HGNC:TNF))
+a(CONSO:CONSO00089) -> sec(p(HGNC:IL1B))
+a(CONSO:CONSO00089) -> sec(p(HGNC:IL6))
+a(CONSO:CONSO00089) -> sec(p(HGNC:CCL2))
 UNSET Confidence
 
 SET Evidence = "In the past decade, drugs targeting the NRs, peroxisome proliferator-activated receptor g (PPARg) and liver X receptor (LXR) have shown to \
@@ -162,12 +162,12 @@ UNSET Confidence
 
 SET Evidence = "The ApoE4 allele is most important genetic risk factor for AD, while the ApoE2 allele is thought to be protective. "
 SET Confidence = "High"
-a(HBP:HBP00030) positiveCorrelation path(MESH:"Alzheimer Disease")
+g(CONSO:CONSO00030) positiveCorrelation path(MESH:"Alzheimer Disease")
 UNSET Confidence
 
 SET Evidence = " Mice expressing the ApoE4 isoform exhibited higher levels of Ab deposition in comparison to ApoE3 or ApoE2 expressing animals [36]."
 SET Confidence = "High"
-a(HBP:HBP00030) -> a(HBP:HBP00018)
+g(CONSO:CONSO00030) -> a(CONSO:CONSO00018)
 UNSET Confidence
 
 SET Evidence = "ApoE acts to scaffold the formation of high-density lipoproteins (HDL) that function to transport cholesterol and lipids throughout the body and in the brain. "
@@ -203,7 +203,7 @@ UNSET Confidence
 
 SET Evidence = "Significantly, a 4-month treatment of Tg2576 mice with GW3965 reduced plaque deposition by > 50% and improved contextual memory in these animals [13]."
 SET Confidence = "High"
-a(CHEBI:"GW 3965") -| a(HBP:HBP00018)
+a(CHEBI:"GW 3965") -| a(CONSO:CONSO00018)
 a(CHEBI:"GW 3965") -> bp(GO:memory)
 UNSET Confidence
 
@@ -225,14 +225,14 @@ SET Evidence = "The loss of abca1 resulted in not only the reduction of ApoE lev
 brain parenchyma of these animals owing to enhanced deposition of poorly lipidated ApoE in the brain [50-52]."
 SET Confidence = "High"
 p(HGNC:ABCA1) -> p(HGNC:APOE)
-p(HGNC:ABCA1) -| a(HBP:HBP00018)
+p(HGNC:ABCA1) -| a(CONSO:CONSO00018)
 UNSET Confidence
 
 SET Evidence = " Conversely, overexpression of ABCA1 in a mouse model of AD was shown to decrease both soluble and fibrillar pools of Ab\
 in 12-month-old mice and reduce plaque burden [53]."
 SET Confidence = "Medium"
 p(MGI:Abca1) -| a(CHEBI:"amyloid-beta")
-p(MGI:Abca1) -| a(HBP:HBP00038)
+p(MGI:Abca1) -| a(CONSO:CONSO00038)
 UNSET Confidence
 
 SET Evidence = "Additionally, PPAR-g can also induce the expression of LXRa creating a metabolically linked cycle."
@@ -254,7 +254,7 @@ UNSET Confidence
 SET Evidence = " When a higher dose of pioglitazone (7 days/40 mg/kg/day) was used in 10-monthold transgenic mice overexpressing the APP V717I \
 mutation, a 20-- 25% decrease in plaque burden was observed with significant reduction in Ab42 levels within the brains of these animals [61]."
 SET Confidence = "High"
-a(CHEBI:pioglitazone) -| a(HBP:HBP00018)
+a(CHEBI:pioglitazone) -| a(CONSO:CONSO00018)
 a(CHEBI:pioglitazone) -| a(CHEBI:"amyloid-beta polypeptide 42")
 UNSET Confidence
 
@@ -263,7 +263,7 @@ the Tg2576 AD mouse model. However, these animals displayed no changes in plaque
 SET Confidence = "High"
 a(CHEBI:rosiglitazone) -> act(p(HGNC:PPARG))
 a(CHEBI:rosiglitazone) -> bp(GO:behavior)
-a(CHEBI:rosiglitazone) causesNoChange a(HBP:HBP00018)
+a(CHEBI:rosiglitazone) causesNoChange a(CONSO:CONSO00018)
 a(CHEBI:rosiglitazone) -| a(CHEBI:"amyloid-beta polypeptide 42")
 UNSET Confidence
 
@@ -271,7 +271,7 @@ SET Evidence = " These animals were treated with a low dose of rosiglitazone (3 
 behavior. These animals displayed an approximate 50% decrease in amyloid deposition, a decrease in Ab oligomers, preservation of pre and postsynaptic\
 proteins and the attenuation of cognitive deficits in the Morris water maze. "
 SET Confidence = "High"
-a(CHEBI:rosiglitazone) -| a(HBP:HBP00018)
+a(CHEBI:rosiglitazone) -| a(CONSO:CONSO00018)
 a(CHEBI:rosiglitazone) -| a(CHEBI:"amyloid-beta")
 a(CHEBI:rosiglitazone) -> bp(GO:"learning or memory")
 UNSET Confidence
@@ -292,7 +292,7 @@ UNSET Confidence
 SET Evidence = " Furthermore, the treatment of APP/PS1 mouse model of AD with pioglitazone (80 mg/kg/day) for 9 days lowered plaque burden by \
 ~ 50% and reversed behavioral deficits in contextual fear conditioning assay. "
 SET Confidence = "High"
-a(CHEBI:pioglitazone) -| a(HBP:HBP00018)
+a(CHEBI:pioglitazone) -| a(CONSO:CONSO00018)
 a(CHEBI:pioglitazone) -> bp(GO:behavior)
 UNSET Confidence
 
@@ -332,7 +332,7 @@ SET Evidence = "In a study reported by Kalinin et al., treatment of 5xFAD mice w
 and an increase in the expression of two Ab proteases, neprilysin and IDE [72]."
 #GW742 is similar to GW501516
 SET Confidence = "High"
-a(CHEBI:"GW 501516") -| a(HBP:HBP00018)
+a(CHEBI:"GW 501516") -| a(CONSO:CONSO00018)
 a(CHEBI:"GW 501516") -> p(HGNC:MME)
 a(CHEBI:"GW 501516") -> p(HGNC:IDE)
 UNSET Confidence
@@ -357,7 +357,7 @@ UNSET Confidence
 SET Evidence = " Treatment of 5-month-old APP/PS1 mice for 8 weeks with ATRA (20 mg/kg/day) resulted in significant decreases in Ab deposition and\
 tau phosphorylation in these mice. Additionally, it attenuated memory deficits seen in the Morris water maze [77]. "
 SET Confidence = "Medium"
-a(CHEBI:"all-trans-retinoic acid") -| a(HBP:HBP00018)
+a(CHEBI:"all-trans-retinoic acid") -| a(CONSO:CONSO00018)
 a(CHEBI:"all-trans-retinoic acid") -| p(HGNC:MAPT, pmod(Ph))
 a(CHEBI:"all-trans-retinoic acid") -> bp(GO:memory)
 UNSET Confidence
@@ -369,7 +369,7 @@ SET Confidence = "High"
 a(CHEBI:bexarotene) -> act(p(FPLX:RXR))
 a(CHEBI:bexarotene) -> p(HGNC:APOE)
 a(CHEBI:bexarotene) -> p(HGNC:ABCA1)
-a(CHEBI:bexarotene) -| a(HBP:HBP00018)
+a(CHEBI:bexarotene) -| a(CONSO:CONSO00018)
 a(CHEBI:bexarotene) -> bp(GO:behavior)
 UNSET Confidence
 
@@ -384,15 +384,15 @@ UNSET Confidence
 
 SET Evidence = "The appearance of amyloid deposition in the AD brain coincides with a dramatic phenotypic activation of microglial cells in the surrounding area."
 SET Confidence = "High"
-a(HBP:HBP00089) positiveCorrelation bp(GO:"microglial cell activation")
+a(CONSO:CONSO00089) positiveCorrelation bp(GO:"microglial cell activation")
 UNSET Confidence
 
 SET Evidence = "The deposition of fibrillar Ab in the AD brain results in the recruitment of microglia to the plaques owing to their expression of CCL2,\
 which acts to attract microglia [82]."
 SET Confidence = "Medium"
-a(HBP:HBP00038) -> p(HGNC:CCL2)
+a(CONSO:CONSO00038) -> p(HGNC:CCL2)
 p(HGNC:CCL2) -> bp(GO:"microglial cell activation")
-a(HBP:HBP00038) -> bp(GO:"microglial cell activation")
+a(CONSO:CONSO00038) -> bp(GO:"microglial cell activation")
 UNSET Confidence
 
 SET Evidence = "Indeed, treatment of AD mouse models with LXR or PPAR agonists has resulted in the suppression of microglial activation [44,45,47,59,63]."
@@ -421,9 +421,9 @@ promote fibrillar Ab stimulated phagocytosis [47]."
 SET Confidence = "Medium"
 a(CHEBI:"GW 3965") -> act(p(HGNC:NR1H3))
 a(CHEBI:"GW 3965") -| path(MESH:Inflammation)
-a(CHEBI:"GW 3965") -> act(a(HBP:HBP00038))
+a(CHEBI:"GW 3965") -> act(a(CONSO:CONSO00038))
 a(CHEBI:"GW 3965") -> bp(GO:phagocytosis)
-act(a(HBP:HBP00038)) -> bp(GO:phagocytosis)
+act(a(CONSO:CONSO00038)) -> bp(GO:phagocytosis)
 UNSET Confidence
 
 SET Evidence="The Ab peptide is generated by the sequential cleavage of the amyloid precursor protein (APP) by the b and g secretases, resulting in the generation of peptides 40 or 42 amino acids in length [2]."
@@ -463,7 +463,7 @@ UNSET Confidence
 
 SET Evidence="The ApoE4 allele is most important genetic risk factor for AD, while the ApoE2 allele is thought to be protective."
 SET Confidence = "Medium"
-p(HBP:HBP00030) -- path(MESH:"Alzheimer Disease")
+g(CONSO:CONSO00030) -- path(MESH:"Alzheimer Disease")
 UNSET Confidence
 
 SET Evidence="The M2c macrophages are thought to be in an ‘acquired deactivation’ state induced by IL-10, TGF-b, glucocorticoids or contact with apoptotic cells, and are associated with a suppression of the innate immune response."

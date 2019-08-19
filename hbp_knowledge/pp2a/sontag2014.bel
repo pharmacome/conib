@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cfd2ee89d1a71126da8b5f452544b7fe43be67e7/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
@@ -142,7 +142,7 @@ in endothelial cells (Wu and Wilson, 2009)."
 SET Confidence = "High"
 p(HGNC:PPP2CA,pmod(Ub)) -> deg(complex(GO:"protein phosphatase type 2A complex"))
 SET MeSHAnatomy = "Endothelial Cells"
-p(HGNC:PPP2CA,pmod(HBP:nitration,Tyr)) -> act(complex(GO:"protein phosphatase type 2A complex"))
+p(HGNC:PPP2CA,pmod(CONSO:nitration,Tyr)) -> act(complex(GO:"protein phosphatase type 2A complex"))
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -405,9 +405,9 @@ SET Confidence = "High"
 a(CHEBI:"okadaic acid") -| act(complex(GO:"protein phosphatase type 2A complex"))
 a(CHEBI:"okadaic acid") -| bp(GO:cognition)
 a(CHEBI:"okadaic acid") -> p(HGNC:MAPT,pmod(Ph))
-a(CHEBI:"okadaic acid") -> bp(HBP:"amyloidogenesis")
+a(CHEBI:"okadaic acid") -> bp(CONSO:"amyloidogenesis")
 a(CHEBI:"okadaic acid") -| a(GO:synapse)
-a(CHEBI:"okadaic acid") -> path(HBP:Neurodegeneration)
+a(CHEBI:"okadaic acid") -> path(CONSO:Neurodegeneration)
 UNSET Confidence
 
 SET Evidence = "Not surprisingly, inhibition of total cellular PP2A activity ultimately leads to neuronal cell death."
@@ -453,21 +453,21 @@ SET Confidence = "High"
 act(p(HGNC:GSK3B)) neg a(GO:"microtubule cytoskeleton")
 act(p(HGNC:GSK3B)) neg a(GO:"neurofilament cytoskeleton")
 act(p(HGNC:GSK3B)) neg p(HGNC:APP,pmod(Ph))
-act(p(HGNC:GSK3B)) neg bp(HBP:"APP processing")
+act(p(HGNC:GSK3B)) neg bp(CONSO:"APP processing")
 act(p(HGNC:GSK3B)) neg bp(GO:neurogenesis)
 act(p(HGNC:GSK3B)) pos bp(GO:"negative regulation of synaptic plasticity")
 act(p(HGNC:GSK3B)) pos bp(GO:"apoptotic process")
 act(p(HGNC:CDK5)) neg a(GO:"microtubule cytoskeleton")
 act(p(HGNC:CDK5)) neg a(GO:"neurofilament cytoskeleton")
 act(p(HGNC:CDK5)) neg p(HGNC:APP,pmod(Ph))
-act(p(HGNC:CDK5)) neg bp(HBP:"APP processing")
+act(p(HGNC:CDK5)) neg bp(CONSO:"APP processing")
 act(p(HGNC:CDK5)) neg bp(GO:neurogenesis)
 act(p(HGNC:CDK5)) pos bp(GO:"negative regulation of synaptic plasticity")
 act(p(HGNC:CDK5)) pos bp(GO:"apoptotic process")
 act(p(FPLX:ERK)) neg a(GO:"microtubule cytoskeleton")
 act(p(FPLX:ERK)) neg a(GO:"neurofilament cytoskeleton")
 act(p(FPLX:ERK)) neg p(HGNC:APP,pmod(Ph))
-act(p(FPLX:ERK)) neg bp(HBP:"APP processing")
+act(p(FPLX:ERK)) neg bp(CONSO:"APP processing")
 act(p(FPLX:ERK)) neg bp(GO:neurogenesis)
 act(p(FPLX:ERK)) pos bp(GO:"negative regulation of synaptic plasticity")
 act(p(FPLX:ERK)) pos bp(GO:"apoptotic process")
@@ -622,7 +622,7 @@ phosphorylation of APP at the regulatory Thr-668 site (Sontag et al.,2007; Zhang
 amyloid toxicity (Kruman et al.,2002); and cognitive impairment (Bernardo et al.,2007; Wei et al.,2011; Rhodehouse et al., 2013)."
 SET Confidence = "High"
 bp(GO:"one-carbon metabolic process") -| p(HGNC:MAPT,pmod(Ph))
-bp(GO:"one-carbon metabolic process") -| bp(HBP:"amyloidogenesis")
+bp(GO:"one-carbon metabolic process") -| bp(CONSO:"amyloidogenesis")
 bp(GO:"one-carbon metabolic process") -| p(HGNC:APP,pmod(Ph,Thr,668))
 bp(GO:"one-carbon metabolic process") -> bp(GO:cognition)
 bp(GO:"one-carbon metabolic process") -| act(a(CHEBI:"amyloid-beta"))
@@ -648,7 +648,7 @@ UNSET Confidence
 SET Evidence = "In cultured cells, deregulation of PP2A methylation also affects APP processing (Sontag et al.,2007), neurite outgrowth
 (Sontag et al.,2010) and tau distribution (Sontag et al.,2013)."
 SET Confidence = "High"
-p(FPLX:PPP2,pmod(Me)) reg bp(HBP:"APP processing")
+p(FPLX:PPP2,pmod(Me)) reg bp(CONSO:"APP processing")
 p(FPLX:PPP2,pmod(Me)) reg bp(MESH:"Neuronal Outgrowth")
 p(FPLX:PPP2,pmod(Me)) reg p(HGNC:MAPT)
 UNSET Confidence

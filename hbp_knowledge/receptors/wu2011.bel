@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/7e4be528f12abd28be768b62402fba6e083eaf9e/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -83,7 +83,7 @@ UNSET Confidence
 SET Evidence = "nAChRs that bind radiolabeled nicotine with the highest afﬁnity
 contain a4 subunits (a4*-nAChR; see reviews and/or tables by [1–7]."
 SET Confidence = "Medium"
-composite(a(HBP:"alpha-4-containing nAChR"),a(CHEBI:nicotine)) -> complex(a(HBP:"alpha-4-containing nAChR"),a(CHEBI:nicotine))
+composite(p(CONSO:"alpha-4-containing nAChR"),a(CHEBI:nicotine)) -> complex(p(CONSO:"alpha-4-containing nAChR"),a(CHEBI:nicotine))
 UNSET Confidence
 
 SET Evidence = " a4b2-nAChRs have been
@@ -100,8 +100,8 @@ UNSET Confidence
 SET Evidence = "a4 subunits can also assemble with b4 subunits to form
 a4b4-nAChRs that have comparably high nicotine afﬁnity [34–36]."
 SET Confidence = "Medium"
-composite(p(HGNC:CHRNA4),p(HGNC:CHRNB4)) -> a(HBP:"alpha-4 beta-4 nAChR")
-composite(a(HBP:"alpha-4 beta-4 nAChR"),a(CHEBI:nicotine)) -> complex(a(HBP:"alpha-4 beta-4 nAChR"),a(CHEBI:nicotine))
+composite(p(HGNC:CHRNA4),p(HGNC:CHRNB4)) -> p(CONSO:"alpha-4 beta-4 nAChR")
+composite(p(CONSO:"alpha-4 beta-4 nAChR"),a(CHEBI:nicotine)) -> complex(p(CONSO:"alpha-4 beta-4 nAChR"),a(CHEBI:nicotine))
 #making statements elaborate
 UNSET Confidence
 
@@ -130,7 +130,7 @@ based on their ability to bind the curaremimetic neurotoxin, a-
 bungarotoxin (Bgt) [74–78]."
 SET Confidence = "Medium"
 SET MeSHAnatomy = {"Central Nervous System","Autonomic Nervous System"}
-complex(a(HBP:"alpha-7-containing nAChR"),a(HBP:"alpha-Bungarotoxin"))
+complex(p(CONSO:"alpha-7-containing nAChR"),p(CONSO:"alpha-Bungarotoxin"))
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -142,7 +142,7 @@ in human ganglionic neuron-like clonal cells [85], or in rat CNS
 neurons [16,40–44,86–91]."
 SET Confidence = "High"
 SET Cell = "neuron"
-a(HBP:"alpha-7-containing nAChR") -| tloc(a(CHEBI:"calcium(2+)"), MESH:"Extracellular Space", MESH:"Intracellular Space")
+p(CONSO:"alpha-7-containing nAChR") -| tloc(a(CHEBI:"calcium(2+)"), MESH:"Extracellular Space", MESH:"Intracellular Space")
 UNSET Cell
 UNSET Confidence
 
@@ -151,7 +151,7 @@ kinetics and Ca2+ permeability, a7-nAChRs appear to have novel
 functional roles in addition to (i.e., distinct from) the mediation of
 classical excitatory neurotransmission. "
 SET Confidence = "High"
-a(HBP:"alpha-7-containing nAChR") reg bp(GO:"excitatory chemical synaptic transmission")
+p(CONSO:"alpha-7-containing nAChR") reg bp(GO:"excitatory chemical synaptic transmission")
 UNSET Confidence
 
 SET Evidence = "For example, Bgt-sensitive
@@ -162,12 +162,12 @@ potentiation [95,96], seizures [97], and neuronal viability/death
 [21–24]. These intriguing ﬁndings underscore the need for further
 characterization of functional a7-nAChRs."
 SET Confidence = "High"
-a(HBP:"alpha-7-containing nAChR") -- bp(GO:"neurotransmitter secretion")
-a(HBP:"alpha-7-containing nAChR") -- bp(GO:"maintenance of synapse structure")
-a(HBP:"alpha-7-containing nAChR") -- bp(GO:"neuron projection maintenance")
-a(HBP:"alpha-7-containing nAChR") -- bp(GO:"long-term synaptic potentiation")
-a(HBP:"alpha-7-containing nAChR") -- path(MESH:Seizures)
-a(HBP:"alpha-7-containing nAChR") -- bp(GO:"neuron death")
+p(CONSO:"alpha-7-containing nAChR") -- bp(GO:"neurotransmitter secretion")
+p(CONSO:"alpha-7-containing nAChR") -- bp(GO:"maintenance of synapse structure")
+p(CONSO:"alpha-7-containing nAChR") -- bp(GO:"neuron projection maintenance")
+p(CONSO:"alpha-7-containing nAChR") -- bp(GO:"long-term synaptic potentiation")
+p(CONSO:"alpha-7-containing nAChR") -- path(MESH:Seizures)
+p(CONSO:"alpha-7-containing nAChR") -- bp(GO:"neuron death")
 UNSET Confidence
 
 SET Evidence = " The fact that oligomeric amyloid-b
@@ -177,7 +177,7 @@ implications for disease etiopathogenesis."
 SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 SET MeSHAnatomy = "Brain"
-complex(a(HBP:"alpha-7 beta-2 nAChR"),a(CHEBI:"amyloid-beta"))
+complex(a(CONSO:"alpha-7 beta-2 nAChR"),a(CHEBI:"amyloid-beta"))
 UNSET MeSHAnatomy
 UNSET MeSHDisease
 UNSET Confidence
@@ -187,9 +187,9 @@ prevalent in midbrain dopaminergic (DAergic) regions associated
 with pleasure, reward, and mood control "
 SET Confidence = "High"
 SET Cell = "midbrain dopaminergic neuron"
-a(HBP:"alpha-6-containing nAChR") -- path(MESH:Pleasure)
-a(HBP:"alpha-6-containing nAChR") -- path(MESH:Reward)
-a(HBP:"alpha-6-containing nAChR") -- path(MESH:Affect)
+p(CONSO:"alpha-6-containing nAChR") -- path(MESH:Pleasure)
+p(CONSO:"alpha-6-containing nAChR") -- path(MESH:Reward)
+p(CONSO:"alpha-6-containing nAChR") -- path(MESH:Affect)
 UNSET Cell
 UNSET Confidence
 
@@ -200,7 +200,7 @@ nAChRs mediate nicotinic modulation of GABA release onto those
 DAergic neurons [122]."
 SET Confidence = "High"
 SET MeSHAnatomy =  {"Presynaptic Terminals","GABAergic Neurons"}
-a(HBP:"alpha-6-containing nAChR") reg sec(a(CHEBI:"gamma-aminobutyric acid"))
+p(CONSO:"alpha-6-containing nAChR") reg sec(a(CHEBI:"gamma-aminobutyric acid"))
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -208,7 +208,7 @@ SET Evidence = "Initially, a-CtxMII was
 thought to be highly selective for a3b2*-nAChRs [124] and became
 a useful tool for investigating receptor structure [125]."
 SET Confidence = "Medium"
-a(MESH:"alpha-conotoxin MII") -| act(a(HBP:"alpha-3 beta-2 nAChR"))
+a(MESH:"alpha-conotoxin MII") -| act(p(CONSO:"alpha-3 beta-2 nAChR"))
 #evidence uses the phrase highly selective
 UNSET Confidence
 
@@ -216,12 +216,12 @@ SET Evidence = "Other ‘‘a3b2-speciﬁc’’ antagonists, such as neuronal- 
 bungarotoxin and a-CtxPnIA, have also turned out to block a6*-
 nAChRs [129]."
 SET Confidence = "High"
-a(MESH:"neuronal bungarotoxin") -| act(a(HBP:"alpha-3 beta-2 nAChR"))
-a(HBP:"kappa-Bungarotoxin") -| act(a(HBP:"alpha-3 beta-2 nAChR"))
-a(MESH:"alpha-conotoxin PnIA") -| act(a(HBP:"alpha-3 beta-2 nAChR"))
-a(MESH:"neuronal bungarotoxin") -| act(a(HBP:"alpha-6-containing nAChR"))
-a(HBP:"kappa-Bungarotoxin") -| act(a(HBP:"alpha-6-containing nAChR"))
-a(MESH:"alpha-conotoxin PnIA") -| act(a(HBP:"alpha-6-containing nAChR"))
+a(MESH:"neuronal bungarotoxin") -| act(p(CONSO:"alpha-3 beta-2 nAChR"))
+p(CONSO:"kappa-Bungarotoxin") -| act(p(CONSO:"alpha-3 beta-2 nAChR"))
+a(MESH:"alpha-conotoxin PnIA") -| act(p(CONSO:"alpha-3 beta-2 nAChR"))
+a(MESH:"neuronal bungarotoxin") -| act(p(CONSO:"alpha-6-containing nAChR"))
+p(CONSO:"kappa-Bungarotoxin") -| act(p(CONSO:"alpha-6-containing nAChR"))
+a(MESH:"alpha-conotoxin PnIA") -| act(p(CONSO:"alpha-6-containing nAChR"))
 UNSET Confidence
 
 SET Evidence = "There is an emerging consensus that nAChR a6 subunit mRNA
@@ -242,14 +242,14 @@ UNSET Confidence
 SET Evidence = " This makes the hypothesis particularly intriguing
 that a6*-nAChRs play roles in nicotine dependence."
 SET Confidence = "High"
-a(HBP:"alpha-6-containing nAChR") -- path(MESH:"Tobacco Use Disorder")
+p(CONSO:"alpha-6-containing nAChR") -- path(MESH:"Tobacco Use Disorder")
 UNSET Confidence
 
 SET Evidence = "There is good evidence that a6*-nAChRs, in particular,
 modulate neurotransmitter release in multiple brain regions."
 SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
-a(HBP:"alpha-6-containing nAChR") reg bp(GO:"neurotransmitter secretion")
+p(CONSO:"alpha-6-containing nAChR") reg bp(GO:"neurotransmitter secretion")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -260,7 +260,7 @@ synaptic terminals of GABAergic neurons where they modulate
 GABA release."
 SET Confidence = "High"
 SET MeSHAnatomy =  {"Presynaptic Terminals","GABAergic Neurons"}
-a(HBP:"alpha-3 beta-2 nAChR") reg sec(a(CHEBI:"gamma-aminobutyric acid"))
+p(CONSO:"alpha-3 beta-2 nAChR") reg sec(a(CHEBI:"gamma-aminobutyric acid"))
 a(MESH:"alpha6beta2 nicotinic acetylcholine receptor") reg sec(a(CHEBI:"gamma-aminobutyric acid"))
 UNSET MeSHAnatomy
 UNSET Confidence

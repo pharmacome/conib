@@ -29,7 +29,7 @@ DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/t
 DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
 DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
 DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
-DEFINE NAMESPACE HBP      AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 
 # Namespaces hosted on https://github.com/sorgerlab/famplex
 # ---------------------------------------------------------
@@ -226,8 +226,8 @@ allele 4 (APOE4), a major risk allele for sporadic AD,
 is associated with increased generation and accumula-
 tion of Aβ42  (REFS59,60) ."
 SET Confidence = "High"
-g(HBP:"APOE e4") -> path(MESH:"Alzheimer Disease")
-g(HBP:"APOE e4") -> a(CHEBI:"amyloid-beta polypeptide 42")
+g(CONSO:"APOE e4") -> path(MESH:"Alzheimer Disease")
+g(CONSO:"APOE e4") -> a(CHEBI:"amyloid-beta polypeptide 42")
 UNSET Confidence
 
 SET Evidence = "In addition to decreased degradation, one
@@ -236,7 +236,7 @@ into the cytosol, where it generates toxic fragments of
 tau 61 . "
 SET Confidence = "High"
 SET MeSHAnatomy = "Cytosol"
-g(HBP:"APOE e4") -> p(HGNC:LGMN)
+g(CONSO:"APOE e4") -> p(HGNC:LGMN)
 p(HGNC:LGMN) -> p(HGNC:MAPT, frag("?"))
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -260,7 +260,7 @@ fragment of APP called C99  (REF.66) ."
 SET Confidence = "High"
 g(HGNC:APP, var("?")) -| act(a(GO:endosome))
 g(HGNC:APP, var("?")) -| act(a(GO:lysosome))
-g(HGNC:APP, var("?")) -> p(HBP:C99)
+g(HGNC:APP, var("?")) -> p(CONSO:C99)
 UNSET Confidence
 
 SET Evidence = "Sixth, Aβ42 compro-
@@ -282,14 +282,14 @@ block the proteasome, and its ability to degrade hyper-
 phosphorylated and oligomeric tau is reduced compared
 with its ability to degrade physiological tau 3,55,68 . "
 SET Confidence = "Medium"
-a(HBP:"Tau aggregates") -| act(complex(GO:"proteasome complex"))
+a(CONSO:"Tau aggregates") -| act(complex(GO:"proteasome complex"))
 p(HGNC:MAPT, var("?")) -| act(complex(GO:"proteasome complex"))
-complex(GO:"proteasome complex") -> deg(p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)))
-complex(GO:"proteasome complex") -> deg(a(HBP:"Tau oligomers"))
-a(HBP:"Tau aggregates") -| deg(p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)))
-a(HBP:"Tau aggregates") -| deg(a(HBP:"Tau oligomers"))
-p(HGNC:MAPT, var("?")) -| deg(p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)))
-p(HGNC:MAPT, var("?")) -| deg(a(HBP:"Tau oligomers"))
+complex(GO:"proteasome complex") -> deg(p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation)))
+complex(GO:"proteasome complex") -> deg(a(CONSO:"Tau oligomers"))
+a(CONSO:"Tau aggregates") -| deg(p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation)))
+a(CONSO:"Tau aggregates") -| deg(a(CONSO:"Tau oligomers"))
+p(HGNC:MAPT, var("?")) -| deg(p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation)))
+p(HGNC:MAPT, var("?")) -| deg(a(CONSO:"Tau oligomers"))
 UNSET Confidence
 
 SET Evidence = "Finally,
@@ -298,7 +298,7 @@ degraded by CMA, aggregates, mutant forms and frag-
 ments interfere with CMA 45,47 ."
 SET Confidence = "High"
 bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:MAPT))
-a(HBP:"Tau aggregates") -| bp(GO:"chaperone-mediated autophagy")
+a(CONSO:"Tau aggregates") -| bp(GO:"chaperone-mediated autophagy")
 p(HGNC:MAPT, var("?")) -| bp(GO:"chaperone-mediated autophagy")
 p(HGNC:MAPT, frag("?")) -| bp(GO:"chaperone-mediated autophagy")
 UNSET Confidence
@@ -333,7 +333,7 @@ ing of APP, providing an unexpected link to AD 69,71–73 . "
 SET Confidence = "High"
 p(HGNC:LRRK2, var("?")) -| bp(GO:autophagy)
 p(HGNC:LRRK2, var("?")) -| act(p(HGNC:BECN1))
-p(HGNC:LRRK2, var("?")) -- bp(HBP:"APP processing")
+p(HGNC:LRRK2, var("?")) -- bp(CONSO:"APP processing")
 UNSET Confidence
 
 SET Evidence = "Third, α-synuclein mutations, triplications or excesses
@@ -362,7 +362,7 @@ aggregates and mutant forms of α-synuclein disrupt the
 proteasome in dopaminergic neurons. "
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Dopaminergic Neurons"
-a(HBP:"alpha-synuclein aggregates") -| complex(GO:"proteasome complex")
+a(CONSO:"alpha-synuclein aggregates") -| complex(GO:"proteasome complex")
 p(HGNC:SNCA, var("?")) -| complex(GO:"proteasome complex")
 UNSET Confidence
 
@@ -450,7 +450,7 @@ SET Evidence = "For example, methylene blue coun-
 ters tau oligomerization and promotes autophagy 101,102
 (Supplementary Table 4)."
 SET Confidence = "High"
-a(CHEBI:"methylene blue") -| a(HBP:"Tau oligomers")
+a(CHEBI:"methylene blue") -| a(CONSO:"Tau oligomers")
 a(CHEBI:"methylene blue") -> bp(GO:autophagy)
 UNSET Confidence
 
@@ -568,7 +568,7 @@ neurochemical lesion model of PD in mice 119 ."
 SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 a(CHEBI:metformin) -| a(CHEBI:"amyloid-beta")
-a(CHEBI:metformin) -| p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+a(CHEBI:metformin) -| p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 UNSET MeSHAnatomy
 SET MeSHDisease = "Parkinson Disease"
 a(CHEBI:metformin) -| bp(GO:"neuron death")
@@ -594,10 +594,10 @@ aggregates, reduced neurodegeneration and ameliorated
 motor and cognitive performance 123–125 ."
 SET Confidence = "High"
 a(CHEBI:"alpha,alpha-trehalose") -| bp(HP:Neurodegeneration)
-a(CHEBI:"alpha,alpha-trehalose") -| a(HBP:"Tau aggregates")
-a(CHEBI:"alpha,alpha-trehalose") -| a(HBP:"alpha-synuclein aggregates")
-a(CHEBI:"alpha,alpha-trehalose") -| a(HBP:"huntingtin aggregates")
-a(CHEBI:"alpha,alpha-trehalose") -| a(HBP:"amyloid-beta aggregates")
+a(CHEBI:"alpha,alpha-trehalose") -| a(CONSO:"Tau aggregates")
+a(CHEBI:"alpha,alpha-trehalose") -| a(CONSO:"alpha-synuclein aggregates")
+a(CHEBI:"alpha,alpha-trehalose") -| a(CONSO:"huntingtin aggregates")
+a(CHEBI:"alpha,alpha-trehalose") -| a(CONSO:"amyloid-beta aggregates")
 a(CHEBI:"alpha,alpha-trehalose") -> bp(GO:"motor behavior")
 a(CHEBI:"alpha,alpha-trehalose") -> bp(GO:cognition)
 UNSET Confidence
@@ -689,10 +689,10 @@ PD and depleted mutant ataxin 3 in a mouse model
 of supraspinal cerebellar ataxia type 3  (REFS133,138,139) . "
 SET Confidence = "High"
 SET MeSHDisease = "Huntington Disease"
-a(CHEBI:Temsirolimus) -| a(HBP:"huntingtin aggregates")
+a(CHEBI:Temsirolimus) -| a(CONSO:"huntingtin aggregates")
 a(CHEBI:Temsirolimus) -> bp(GO:"motor behavior")
 SET MeSHDisease = "Parkinson Disease"
-a(CHEBI:Temsirolimus) -| a(HBP:"alpha-synuclein aggregates")
+a(CHEBI:Temsirolimus) -| a(CONSO:"alpha-synuclein aggregates")
 a(CHEBI:Temsirolimus) -| bp(HP:Neurodegeneration)
 SET MeSHDisease = "Machado-Joseph Disease"
 a(CHEBI:Temsirolimus) -| p(HGNC:ATXN3, var("?"))
@@ -717,9 +717,9 @@ in cellular and animal models of PD and AD, as well as
 reduced levels of α-synuclein aggregates 144  or Aβ and tau
 oligomers 145,146 ."
 SET Confidence = "High"
-a(CHEBI:curcumin) -| a(HBP:"alpha-synuclein aggregates")
-a(CHEBI:curcumin) -| a(HBP:"amyloid-beta oligomers")
-a(CHEBI:curcumin) -| a(HBP:"Tau oligomers")
+a(CHEBI:curcumin) -| a(CONSO:"alpha-synuclein aggregates")
+a(CHEBI:curcumin) -| a(CONSO:"amyloid-beta oligomers")
+a(CHEBI:curcumin) -| a(CONSO:"Tau oligomers")
 UNSET Confidence
 
 SET Evidence = "Indeed, TFEB over-
@@ -813,7 +813,7 @@ cerebroventricular injection of Aβ25–35 into mice 162,163 ."
 SET Confidence = "Medium"
 composite(a(MESH:"amyloid beta-protein (25-35)"),a(CHEBI:cilostazol)) -> bp(GO:cognition)
 composite(a(MESH:"amyloid beta-protein (25-35)"),a(CHEBI:cilostazol)) -| a(CHEBI:"amyloid-beta polypeptide 42")
-composite(a(MESH:"amyloid beta-protein (25-35)"),a(CHEBI:cilostazol)) -| p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+composite(a(MESH:"amyloid beta-protein (25-35)"),a(CHEBI:cilostazol)) -| p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 UNSET Confidence
 
 SET Evidence = "Spermidine inhibits
@@ -935,7 +935,7 @@ SET Confidence = "Medium"
 a(CHEBI:chlorohydroquinone) -| bp(GO:macroautophagy)
 a(CHEBI:"5-chloro-7-iodoquinolin-8-ol") -> bp(GO:macroautophagy)
 a(CHEBI:"5-chloro-7-iodoquinolin-8-ol") -| a(CHEBI:"amyloid-beta polypeptide 42")
-a(CHEBI:"5-chloro-7-iodoquinolin-8-ol") -| a(HBP:"amyloid-beta aggregates")
+a(CHEBI:"5-chloro-7-iodoquinolin-8-ol") -| a(CONSO:"amyloid-beta aggregates")
 UNSET Confidence
 
 SET Evidence = " It increased expression of βGCase, normalized
@@ -991,8 +991,8 @@ phosphorylated tau and oligomeric α-synuclein in cell
 lines 219,220 . "
 SET Confidence = "Medium"
 a(CHEBI:geldanamycin) -| act(p(FPLX:HSP90))
-a(CHEBI:geldanamycin) -| p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
-a(CHEBI:geldanamycin) -| a(HBP:"alpha-synuclein oligomers")
+a(CHEBI:geldanamycin) -| p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+a(CHEBI:geldanamycin) -| a(CONSO:"alpha-synuclein oligomers")
 UNSET Confidence
 
 SET Evidence = "The less cytotoxic
@@ -1009,7 +1009,7 @@ a(CHEBI:tanespimycin) -| a(CHEBI:"amyloid-beta")
 a(CHEBI:tanespimycin) -> bp(GO:memory)
 a(CHEBI:tanespimycin) -| p(HGNC:MAPT)
 UNSET MeSHDisease
-a(CHEBI:tanespimycin) -| a(HBP:"alpha-synuclein oligomers")
+a(CHEBI:tanespimycin) -| a(CONSO:"alpha-synuclein oligomers")
 UNSET Confidence
 
 SET Evidence = "Another HSP90 inhibitor, HSP990, has shown
@@ -1017,7 +1017,7 @@ promise in lowering Htt aggregates and improving
 motor performance in two mouse models of HD 225 ."
 SET Confidence = "Medium"
 a(PUBCHEM:46216556) -| act(p(FPLX:HSP90))
-a(PUBCHEM:46216556) -| a(HBP:"huntingtin aggregates")
+a(PUBCHEM:46216556) -| a(CONSO:"huntingtin aggregates")
 a(PUBCHEM:46216556) -> path(MESH:"Motor Activity")
 UNSET Confidence
 
@@ -1105,8 +1105,8 @@ UPS elimination 259 ."
 SET Confidence = "Medium"
 p(HGNC:IDE) -> deg(a(CHEBI:"amyloid-beta"))
 p(HGNC:IDE) -> deg(p(HGNC:IAPP))
-p(HGNC:IDE) -| a(HBP:"alpha-synuclein aggregates")
-p(HGNC:IDE) -| a(HBP:"amyloid-beta aggregates")
+p(HGNC:IDE) -| a(CONSO:"alpha-synuclein aggregates")
+p(HGNC:IDE) -| a(CONSO:"amyloid-beta aggregates")
 p(HGNC:IDE) -> bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
 p(HGNC:IDE) -> bp(GO:macroautophagy)
 UNSET Confidence
@@ -1131,8 +1131,8 @@ UNSET Confidence
 SET Evidence = " IDE also degrades and prevents the forma-
 tion of α-synuclein fibrils 259 ."
 SET Confidence = "Medium"
-p(HGNC:IDE) -| a(HBP:"alpha-synuclein fibrils")
-p(HGNC:IDE) -> deg(a(HBP:"alpha-synuclein fibrils"))
+p(HGNC:IDE) -| a(CONSO:"alpha-synuclein fibrils")
+p(HGNC:IDE) -> deg(a(CONSO:"alpha-synuclein fibrils"))
 UNSET Confidence
 
 SET Evidence = "Similar to IDE, neprilysin

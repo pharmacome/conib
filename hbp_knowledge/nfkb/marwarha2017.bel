@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 #DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -126,7 +126,7 @@ and 5), hippocampus (granule and pyramidal neurons of CA1 and CA3), and cerebell
 activity is indispensable for neuronal survival in response to glutamate-induced excitotoxicity"
 act(a(GO:"excitatory synapse")) -> act(complex(GO:"NF-kappaB complex"))
 act(complex(GO:"NF-kappaB complex")) -| bp(GO:"neuron death")
-path(HBP:Excitotoxicity) -> bp(GO:"neuron death")
+path(CONSO:Excitotoxicity) -> bp(GO:"neuron death")
 
 SET Evidence = "The molecular mechanism underlying constitutive activation
 of NF-κB by glutamate-induced excitatory synaptic neurotransmission has been ascribed to NMDA receptor mediated
@@ -263,8 +263,8 @@ SET MeSHAnatomy = "Hippocampus"
 act(complex(GO:"NF-kappaB complex")) -| bp(GO:"neuron death")
 bp(MESH:"Oxidative Stress") -> bp(GO:"apoptotic process")
 act(complex(GO:"NF-kappaB complex")) -> p(HGNC:SOD2)
-act(complex(GO:"NF-kappaB complex")) -| p(MESH:Proteins,pmod(HBP:nitration))
-a(CHEBI:peroxynitrite) -> p(MESH:Proteins,pmod(HBP:nitration))
+act(complex(GO:"NF-kappaB complex")) -| p(MESH:Proteins,pmod(CONSO:nitration))
+a(CHEBI:peroxynitrite) -> p(MESH:Proteins,pmod(CONSO:nitration))
 
 SET Evidence = "NF-κB induction and activation mediates the neuroprotection
 bestowed by pre-conditioning with a sub-optimal dose of
@@ -298,8 +298,8 @@ a(CHEBI:"reactive oxygen species") -> act(complex(GO:"NF-kappaB complex"))
 a(CHEBI:"reactive oxygen species") -> bp(GO:neurogenesis)
 path(MESH:Hypoxia) -> act(complex(GO:"NF-kappaB complex"))
 path(MESH:Hypoxia) -> bp(GO:neurogenesis)
-p(HBP:"sAPP-alpha") -> act(complex(GO:"NF-kappaB complex"))
-p(HBP:"sAPP-alpha") -> bp(GO:neurogenesis)
+p(CONSO:"sAPP-alpha") -> act(complex(GO:"NF-kappaB complex"))
+p(CONSO:"sAPP-alpha") -> bp(GO:neurogenesis)
 a(CHEBI:"sphingosine 1-phosphate") -> act(complex(GO:"NF-kappaB complex"))
 a(CHEBI:"sphingosine 1-phosphate") -> bp(GO:neurogenesis)
 
@@ -492,7 +492,7 @@ in TNFα expression and subsequently TNFα effectuated neurotoxicity"
 a(CHEBI:"amyloid-beta") -> complex(GO:"NF-kappaB complex")
 a(CHEBI:"amyloid-beta") -> p(HGNC:TNF)
 complex(GO:"NF-kappaB complex") -> p(HGNC:TNF)
-p(HGNC:TNF) -> path(HBP:neurotoxicity)
+p(HGNC:TNF) -> path(CONSO:neurotoxicity)
 
 SET Evidence = "Multiple studies have cogently shown that the inhibition of NF-κB
 activity results in the mitigation of secreted Amyloid-β by cultured cells in vitro"
@@ -505,7 +505,7 @@ act(complex(GO:"NF-kappaB complex")) -> a(CHEBI:"amyloid-beta")
 SET Evidence = "A multitude of studies have demonstrated that NF-κB directly regulates the transcription and
 expression of BACE1, thereby eliciting profound effects on AβPP processing and engenderment of Amyloid-β"
 complex(GO:"NF-kappaB complex") -> p(HGNC:BACE1)
-complex(GO:"NF-kappaB complex") reg bp(HBP:"APP processing")
+complex(GO:"NF-kappaB complex") reg bp(CONSO:"APP processing")
 complex(GO:"NF-kappaB complex") reg a(CHEBI:"amyloid-beta")
 
 SET Evidence = "NF-κB induced up-regulation in
@@ -523,9 +523,9 @@ complex(p(HGNC:RELA),p(HGNC:NFKB2),p(HGNC:BACE1)) -| p(HGNC:BACE1)
 
 SET Evidence = "Recent studies have unveiled a novel role of NF-κB in the regulation
 of the γ-secretase activity mediated processing of the C99 (CTFβ) fragment"
-complex(GO:"NF-kappaB complex") reg p(HBP:C99)
+complex(GO:"NF-kappaB complex") reg p(CONSO:C99)
 complex(GO:"NF-kappaB complex") reg act(complex(GO:"gamma-secretase complex"))
-complex(GO:"gamma-secretase complex") reg p(HBP:C99)
+complex(GO:"gamma-secretase complex") reg p(CONSO:C99)
 
 SET Evidence = "In addition to augmenting γ-secretase activity, NF-κB also regulates the expression
 of the PS1 subunit of the γ-secretase complex"
@@ -566,7 +566,7 @@ p(HGNC:SOD2) -| bp(GO:"apoptotic process")
 SET Evidence = "The three well characterized sensors of intracellular calcium – calmodulin/CamKII pathway, PI3K/
 Akt pathway, and protein kinase C (PKC) pathway – are known to induce NF-κB activation and couple upstream signal
 transduction pathways that induce calcium dyshomeostasis to NF-κB activation"
-bp(HBP:"PI3K-Akt signaling pathway") -> act(complex(GO:"NF-kappaB complex"))
+bp(CONSO:"PI3K-Akt signaling pathway") -> act(complex(GO:"NF-kappaB complex"))
 act(p(FPLX:PKC)) -> act(complex(GO:"NF-kappaB complex"))
 act(p(HGNC:CAMK2A)) -> act(complex(GO:"NF-kappaB complex"))
 act(complex(GO:"NF-kappaB complex")) -| bp(GO:"calcium ion homeostasis")
@@ -581,14 +581,14 @@ Amyloid-β in the modulation of PKC signaling pathway [335-338] and the PI3K/Akt
 [339-341], which are known to activate NF-κB signaling pathway"
 a(CHEBI:"amyloid-beta") reg act(p(FPLX:PKC))
 act(p(FPLX:PKC)) -> act(complex(GO:"NF-kappaB complex"))
-a(CHEBI:"amyloid-beta") reg bp(HBP:"PI3K-Akt signaling pathway")
-bp(HBP:"PI3K-Akt signaling pathway") -> act(complex(GO:"NF-kappaB complex"))
+a(CHEBI:"amyloid-beta") reg bp(CONSO:"PI3K-Akt signaling pathway")
+bp(CONSO:"PI3K-Akt signaling pathway") -> act(complex(GO:"NF-kappaB complex"))
 
 SET Evidence = "Furthermore, negative regulators of NF-κB such as
 the NAD+- dependent histone deacetylase – SIRT1, abolish the deleterious neurotoxic effects of Amyloid-β"
 p(HGNC:SIRT1) -| act(complex(GO:"NF-kappaB complex"))
-p(HGNC:SIRT1) -| path(HBP:neurotoxicity)
-a(CHEBI:"amyloid-beta") -> path(HBP:neurotoxicity)
+p(HGNC:SIRT1) -| path(CONSO:neurotoxicity)
+a(CHEBI:"amyloid-beta") -> path(CONSO:neurotoxicity)
 
 SET Evidence = "Emerging evidence has implicated Amyloid-β in augmenting cytosolic Ca2+ levels and causing NF-
 κB activation via calcineurin in astrocytes"

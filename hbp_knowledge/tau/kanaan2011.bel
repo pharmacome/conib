@@ -21,7 +21,7 @@ SET DOCUMENT Description = ""
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/9ebb3f418f589bca43c89915f5c29cd5b3689d0c/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 #DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 #DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -81,36 +81,36 @@ SET Evidence ="perfusion of full-length WT tau monomers (2 􏰊M) (Fig. 1 A) had
 SET Confidence = "Medium"
 SET MeSHAnatomy = {"Neurons","Cytoplasm"}
 tloc(p(HGNC:MAPT)) cnc bp(GO:"axonal transport")
-p(HBP:"Tau 6D") -| bp(GO:"anterograde axonal protein transport")
-p(HBP:"Tau 6P") -| bp(GO:"anterograde axonal protein transport")
+p(CONSO:"Tau 6D") -| bp(GO:"anterograde axonal protein transport")
+p(CONSO:"Tau 6P") -| bp(GO:"anterograde axonal protein transport")
 UNSET MeSHAnatomy
 UNSET Confidence
 
 SET Evidence =" Neither 6D nor 6P tau (Fig. 2D) had an effect on retrograde FAT"
 SET Confidence = "High"
-p(HBP:"Tau 6D") cnc bp(GO:"retrograde axonal protein transport")
-p(HBP:"Tau 6P") cnc bp(GO:"retrograde axonal protein transport")
+p(CONSO:"Tau 6D") cnc bp(GO:"retrograde axonal protein transport")
+p(CONSO:"Tau 6P") cnc bp(GO:"retrograde axonal protein transport")
 UNSET Confidence
 
 SET Evidence ="Together, these data demonstrate that, as posited for aggregated tau (LaPointe et al., 2009), short N-terminal isoforms of tau inhibit anterograde FAT by a mechanism involving activation of PP1 and GSK3 that is independent of microtubule binding."
 SET Confidence = "High"
-p(HBP:"Tau 6D") -| bp(GO:"anterograde axonal protein transport")
-p(HBP:"Tau 6D") -> act(p(MESH:"Protein Phosphatase 1"))
-p(HBP:"Tau 6D") -> act(p(MESH:"Glycogen Synthase Kinase 3"))
+p(CONSO:"Tau 6D") -| bp(GO:"anterograde axonal protein transport")
+p(CONSO:"Tau 6D") -> act(p(MESH:"Protein Phosphatase 1"))
+p(CONSO:"Tau 6D") -> act(p(MESH:"Glycogen Synthase Kinase 3"))
 act(p(MESH:"Protein Phosphatase 1")) -| bp(GO:"anterograde axonal protein transport")
 act(p(MESH:"Glycogen Synthase Kinase 3")) -| bp(GO:"anterograde axonal protein transport")
 UNSET Confidence
 
 SET Evidence ="As observed with Δ2–18 tau aggregates (LaPointe et al., 2009), monomeric Δ2–18 6D tau showed no effect on FAT (Fig. 4 A, D), demonstrating that PAD is necessary for 6D tau- mediated inhibition of anterograde FAT."
 SET Confidence = "Medium"
-p(HBP:"phosphatase-activating domain") -> act(p(HBP:"Tau 6D"))
-act(p(HBP:"Tau 6D")) -| bp(GO:"anterograde axonal protein transport")
+p(CONSO:"phosphatase-activating domain") -> act(p(CONSO:"Tau 6D"))
+act(p(CONSO:"Tau 6D")) -| bp(GO:"anterograde axonal protein transport")
 UNSET Confidence
 
 SET Evidence ="The PAD peptide selectively inhibited anterograde FAT (Fig. 4 B, D), but not retrograde FAT (Fig. 4B,E)."
 SET Confidence = "Medium"
-p(HBP:"phosphatase-activating domain") -| bp(GO:"anterograde axonal protein transport")
-p(HBP:"phosphatase-activating domain") cnc bp(GO:"retrograde axonal protein transport")
+p(CONSO:"phosphatase-activating domain") -| bp(GO:"anterograde axonal protein transport")
+p(CONSO:"phosphatase-activating domain") cnc bp(GO:"retrograde axonal protein transport")
 UNSET Confidence
 
 SET Evidence ="Again, coperfusion of the PAD peptide with either I-2 (50 nM)
@@ -119,30 +119,30 @@ anterograde FAT inhibition. "
 SET Confidence = "Medium"
 # I-2 , a specific PP1 inhibitor (HGNC:PPP1R2)
 # ING-135, a GSK-3 inhibitor
-composite(p(HGNC:PPP1R2),p(HBP:"phosphatase-activating domain")) -> bp(GO:"anterograde axonal protein transport")
+composite(p(HGNC:PPP1R2),p(CONSO:"phosphatase-activating domain")) -> bp(GO:"anterograde axonal protein transport")
 act(p(MESH:"Glycogen Synthase Kinase 3")) -| bp(GO:"anterograde axonal protein transport")
 UNSET Confidence
 
 SET Evidence ="P-c-Jun was dephosphorylated to a greater extent in PAD peptide-perfused axoplasms than their scrambled peptide- perfused counterpart (Fig. 5F ), suggesting that the PAD peptide induced activation of endogenous axoplasmic phosphatases."
 SET Confidence = "Medium"
 SET MeSHAnatomy = {"Neurons","Cytoplasm"}
-p(HBP:"phosphatase-activating domain") -| p(HGNC:JUN,pmod(Ph))
-p(HBP:"phosphatase-activating domain") -> act(p(MESH:"Phosphoprotein Phosphatases"))
+p(CONSO:"phosphatase-activating domain") -| p(HGNC:JUN,pmod(Ph))
+p(CONSO:"phosphatase-activating domain") -> act(p(MESH:"Phosphoprotein Phosphatases"))
 UNSET MeSHAnatomy
 UNSET Confidence
 
 SET Evidence ="A trend of elevated GSK3 activity (􏰈32%) relative to PKC activity ( p 􏰄 0.28, paired t test; n 􏰄 3) was observed for axoplasms incubated with the PAD peptide (mean 􏰄 4.9 􏰉 2.5), compared with those incubated with scrambled peptide (mean 􏰄 3.7 􏰉 1.7), which supports the results from vesicle motility assays. "
 SET Confidence = "Medium"
 SET MeSHAnatomy = {"Neurons","Cytoplasm"}
-p(HBP:"phosphatase-activating domain") -> act(p(MESH:"Glycogen Synthase Kinase 3"))
+p(CONSO:"phosphatase-activating domain") -> act(p(MESH:"Glycogen Synthase Kinase 3"))
 UNSET MeSHAnatomy
 UNSET Confidence
 
 SET Evidence =" Collectively, these data indicate that PAD is both necessary and sufficient to inhibit an-terograde FAT by activating the PP1–GSK3 cascade."
 SET Confidence = "Medium"
-p(HBP:"phosphatase-activating domain") -> act(p(MESH:"Glycogen Synthase Kinase 3"))
-p(HBP:"phosphatase-activating domain") -> act(p(MESH:"Protein Phosphatase 1"))
-p(HBP:"phosphatase-activating domain") -| bp(GO:"anterograde axonal protein transport")
+p(CONSO:"phosphatase-activating domain") -> act(p(MESH:"Glycogen Synthase Kinase 3"))
+p(CONSO:"phosphatase-activating domain") -> act(p(MESH:"Protein Phosphatase 1"))
+p(CONSO:"phosphatase-activating domain") -| bp(GO:"anterograde axonal protein transport")
 act(p(MESH:"Glycogen Synthase Kinase 3")) -| bp(GO:"anterograde axonal protein transport")
 act(p(MESH:"Protein Phosphatase 1")) -| bp(GO:"anterograde axonal protein transport")
 UNSET Confidence
@@ -151,41 +151,41 @@ SET Evidence ="Soluble AT8 tau monomers inhibited anterograde FAT (Fig. 6 A, C),
 These data indicate that phosphorylation of tau at the AT8 epitope, which is associated with hyperphosphorylation of tau in AD and
 other tauopathies, renders soluble monomeric tau capable of inhibiting antero- grade FAT."
 SET Confidence = "Medium"
-p(HBP:"Tau epitope, AT8") -| bp(GO:"anterograde axonal protein transport")
-p(HBP:"Tau epitope, AT8") cnc bp(GO:"retrograde axonal protein transport")
+p(CONSO:"Tau epitope, AT8") -| bp(GO:"anterograde axonal protein transport")
+p(CONSO:"Tau epitope, AT8") cnc bp(GO:"retrograde axonal protein transport")
 SET MeSHDisease = "Alzheimer Disease"
-p(HBP:"Tau epitope, AT8", pmod(Ph)) -- p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
-p(HBP:"Tau epitope, AT8", pmod(Ph)) -- path(MESH:Tauopathies)
+p(CONSO:"Tau epitope, AT8", pmod(Ph)) -- p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+p(CONSO:"Tau epitope, AT8", pmod(Ph)) -- path(MESH:Tauopathies)
 UNSET MeSHDisease
 UNSET Confidence
 
-SET Evidence =" Consistent with our model, Δ144 –273 tau monomers significantly inhibited anterograde FAT (Fig. 6 B, C), while retrograde FAT remained unaffected (Fig. 6 B, D)."
+SET Evidence = "Consistent with our model, Δ144 –273 tau monomers significantly inhibited anterograde FAT (Fig. 6 B, C), while retrograde FAT remained unaffected (Fig. 6 B, D)."
 SET Confidence = "Medium"
-p(HGNC:MAPT,var("p.144_273del")) -| bp(GO:"anterograde axonal protein transport")
-p(HGNC:MAPT,var("p.144_273del")) cnc bp(GO:"retrograde axonal protein transport")
+p(HGNC:MAPT,var("p.Gly144_Ser273del")) -| bp(GO:"anterograde axonal protein transport")
+p(HGNC:MAPT,var("p.Gly144_Ser273del")) cnc bp(GO:"retrograde axonal protein transport")
 UNSET Confidence
 
 SET Evidence = "Together, these data indicate that disease- associated modifications and mutations in tau
 that increase exposure of PAD promote activation of the PP1–GSK3 pathway and inhibition of anterograde FAT."
 SET Confidence = "Medium"
-p(HGNC:MAPT,var("?")) -> p(HBP:"phosphatase-activating domain")
-p(HBP:"phosphatase-activating domain") -> act(p(MESH:"Glycogen Synthase Kinase 3"))
-p(HBP:"phosphatase-activating domain") -> act(p(MESH:"Protein Phosphatase 1"))
-p(HBP:"phosphatase-activating domain") -| bp(GO:"anterograde axonal protein transport")
+p(HGNC:MAPT,var("?")) -> p(CONSO:"phosphatase-activating domain")
+p(CONSO:"phosphatase-activating domain") -> act(p(MESH:"Glycogen Synthase Kinase 3"))
+p(CONSO:"phosphatase-activating domain") -> act(p(MESH:"Protein Phosphatase 1"))
+p(CONSO:"phosphatase-activating domain") -| bp(GO:"anterograde axonal protein transport")
 UNSET Confidence
 
 SET Evidence ="To evaluate the relevance of these findings in human disease, we generated a novel monoclonal antibody, termed TNT1, which specifically recognizes PAD."
 SET Confidence = "Medium"
-a(HBP:"Tau antibody, TNT1") -- p(HBP:"phosphatase-activating domain")
+a(CONSO:"Tau antibody, TNT1") -- p(CONSO:"phosphatase-activating domain")
 UNSET Confidence
 
 SET Evidence ="These data indicated that increased PAD exposure, as revealed by TNT1 immunoreactivity, occurs early in AD and remains present throughout the disease process."
 SET Confidence = "Medium"
-path(MESH:"Alzheimer Disease") -> p(HBP:"phosphatase-activating domain")
+path(MESH:"Alzheimer Disease") -> p(CONSO:"phosphatase-activating domain")
 UNSET Confidence
 
 SET Evidence =" Together, these data suggest that increased PAD exposure represents an early event in AD pathogenesis and that AT8 may not be required for PAD exposure in situ."
 SET Confidence = "Medium"
-path(MESH:"Alzheimer Disease") -> p(HBP:"phosphatase-activating domain")
-p(HBP:"Tau epitope, AT8") cnc p(HBP:"phosphatase-activating domain")
+path(MESH:"Alzheimer Disease") -> p(CONSO:"phosphatase-activating domain")
+p(CONSO:"Tau epitope, AT8") cnc p(CONSO:"phosphatase-activating domain")
 UNSET Confidence

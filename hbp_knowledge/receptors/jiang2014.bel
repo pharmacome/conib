@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/7e4be528f12abd28be768b62402fba6e083eaf9e/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -91,8 +91,8 @@ lines of evidence suggest that the overproduction/
 aggregation of neurotoxic Abeta in vulnerable brain regions
 is the primary cause of AD"
 SET Confidence = "High"
-a(HBP:"amyloid-beta aggregates") -> path(MESH:"Plaque, Amyloid")
-a(HBP:"amyloid-beta aggregates") -> path(MESH:"Alzheimer Disease")
+a(CONSO:"amyloid-beta aggregates") -> path(MESH:"Plaque, Amyloid")
+a(CONSO:"amyloid-beta aggregates") -> path(MESH:"Alzheimer Disease")
 UNSET Confidence
 
 SET Evidence="NFTs are formed by
@@ -103,7 +103,7 @@ highly phosphorylated, tau dissociates from microtubules
 and is prone to aggregate, forming paired helical fi laments
 that aggregate into NFTs"
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -> path(MESH:"Neurofibrillary Tangles")
+a(CONSO:"Tau aggregates") -> path(MESH:"Neurofibrillary Tangles")
 p(HGNC:MAPT) reg bp(GO:"microtubule anchoring")
 p(HGNC:MAPT) reg bp(GO:"axonal transport")
 UNSET Confidence
@@ -371,15 +371,15 @@ production and instead generates secreted sAPPalpha that
 has been shown to be neuroprotective"
 SET Confidence = "High"
 p(HGNC:BACE1) -> deg(p(HGNC:APP))
-p(HGNC:BACE1) -> a(HBP:"sAPP-beta")
+p(HGNC:BACE1) -> p(CONSO:"sAPP-beta")
 #APP C-terminal fragment-beta = C99
-p(HGNC:BACE1) -> a(HBP:C99)
-complex(FPLX:"Gamma_secretase") -> deg(a(HBP:C99))
+p(HGNC:BACE1) -> p(CONSO:C99)
+complex(FPLX:"Gamma_secretase") -> deg(p(CONSO:C99))
 complex(FPLX:"Gamma_secretase") -> a(CHEBI:"amyloid-beta")
-complex(FPLX:"Gamma_secretase") -> a(HBP:AICD)
+complex(FPLX:"Gamma_secretase") -> p(CONSO:AICD)
 p(HGNC:ADAM10) -> deg(p(HGNC:APP))
-p(HGNC:ADAM10) -> a(HBP:"sAPP-alpha")
-a(HBP:"sAPP-alpha") -> bp(MESH:Neuroprotection)
+p(HGNC:ADAM10) -> p(CONSO:"sAPP-alpha")
+p(CONSO:"sAPP-alpha") -> bp(MESH:Neuroprotection)
 UNSET Confidence
 
 SET Evidence="Interestingly, stimulation of M1 mAChR by agonists has been found to
@@ -389,7 +389,7 @@ stimulation of M1 mAChR. PKC may promote the activity
 of alpha-secretase[71] and the traffi cking of APP from the Golgi/
 trans-Golgi network to the cell surface"
 SET Confidence = "High"
-act(p(HGNC:CHRM1)) -> a(HBP:"sAPP-alpha")
+act(p(HGNC:CHRM1)) -> p(CONSO:"sAPP-alpha")
 act(p(HGNC:CHRM1)) -| a(CHEBI:"amyloid-beta")
 act(p(HGNC:CHRM1)) -> act(p(FPLX:PKC))
 act(p(FPLX:PKC)) -> act(p(HGNC:ADAM10))
@@ -405,7 +405,7 @@ SET Confidence = "High"
 
 act(p(HGNC:CHRM1)) -> bp(GO:"ERK1 and ERK2 cascade")
 bp(GO:"ERK1 and ERK2 cascade") reg act(p(HGNC:ADAM10))
-bp(GO:"ERK1 and ERK2 cascade") reg bp(HBP:"APP processing")
+bp(GO:"ERK1 and ERK2 cascade") reg bp(CONSO:"APP processing")
 UNSET Confidence
 
 SET Evidence="though there are contradictory
@@ -421,7 +421,7 @@ act(p(HGNC:CHRM1)) cnc bp(GO:"ERK1 and ERK2 cascade")
 SET MeSHDisease="Alzheimer Disease"
 SET Species="10090"
 
-act(p(MGI:Chrm1)) -| bp(HBP:"APP processing")
+act(p(MGI:Chrm1)) -| bp(CONSO:"APP processing")
 act(p(MGI:Chrm1)) -| path(MESH:"Plaque, Amyloid")
 
 UNSET Species
@@ -467,10 +467,10 @@ SET Confidence = "Medium"
 act(p(HGNC:CHRM1)) -| act(p(HGNC:GSK3B))
 act(p(HGNC:CHRM1)) -> act(p(FPLX:PKC))
 act(p(FPLX:PKC)) -| act(p(HGNC:GSK3B))
-act(p(HGNC:CHRM1)) -| bp(HBP:neurotoxicity)
+act(p(HGNC:CHRM1)) -| path(CONSO:neurotoxicity)
 #above Statement was added on the basis of evidence
 act(p(HGNC:CHRM1)) -> bp(GO:"Wnt signaling pathway")
-bp(GO:"Wnt signaling pathway") -| bp(HBP:neurotoxicity)
+bp(GO:"Wnt signaling pathway") -| path(CONSO:neurotoxicity)
 UNSET Confidence
 
 SET Evidence="Stimulation
@@ -544,7 +544,7 @@ SET MeSHDisease="Alzheimer Disease"
 
 a(CHEBI:"amyloid-beta") -| complex(p(HGNC:CHRM1), p(FPLX:"G_protein"))
 a(CHEBI:"amyloid-beta") -| act(p(HGNC:CHRM1))
-complex(p(HGNC:CHRM1), p(FPLX:"G_protein")) -> a(HBP:"sAPP-alpha")
+complex(p(HGNC:CHRM1), p(FPLX:"G_protein")) -> p(CONSO:"sAPP-alpha")
 complex(p(HGNC:CHRM1), p(FPLX:"G_protein")) -| a(CHEBI:"amyloid-beta")
 complex(p(HGNC:CHRM1), p(FPLX:"G_protein")) -> bp(GO:"signal transduction")
 
@@ -616,7 +616,7 @@ SET MeSHAnatomy="Cerebrospinal Fluid"
 SET MeSHDisease="Alzheimer Disease"
 
 a(CHEBI:cevimeline) -| a(CHEBI:"amyloid-beta")
-a(CHEBI:cevimeline) cnc a(HBP:"sAPP-alpha")
+a(CHEBI:cevimeline) cnc p(CONSO:"sAPP-alpha")
 a(CHEBI:cevimeline) -> path(MESH:Confusion)
 a(CHEBI:cevimeline) -> path(MESH:Diarrhea)
 a(CHEBI:cevimeline) -> path(MESH:Asthenia)
@@ -637,7 +637,7 @@ side-effects such as sweating and salivation"
 SET Confidence = "Medium"
 SET MeSHDisease = "Alzheimer Disease"
 #MeSHDisease was set
-a(MESH:"talsaclidine fumarate") -> a(HBP:"sAPP-alpha")
+a(MESH:"talsaclidine fumarate") -> p(CONSO:"sAPP-alpha")
 
 SET MeSHAnatomy="Cerebrospinal Fluid"
 a(MESH:"talsaclidine fumarate") -| a(CHEBI:"amyloid-beta")
@@ -667,15 +667,15 @@ BQCA is effective in restoring discrimination reversal
 learning in a mouse model of AD and regulating nonamyloidogenic
 APP processing[117]."
 SET Confidence = "High"
-a(HBP:VU0029767) -> complex(p(HGNC:CHRM1), a(CHEBI:acetylcholine))
-a(HBP:VU0090157) -> complex(p(HGNC:CHRM1), a(CHEBI:acetylcholine))
+a(CONSO:VU0029767) -> complex(p(HGNC:CHRM1), a(CHEBI:acetylcholine))
+a(CONSO:VU0090157) -> complex(p(HGNC:CHRM1), a(CHEBI:acetylcholine))
 a(MESH:"1-(4-methoxybenzyl)-4-oxo-1,4-dihydroquinoline-3-carboxylic acid") -> complex(p(HGNC:CHRM1), a(CHEBI:acetylcholine))
 
 SET MeSHDisease="Alzheimer Disease"
 SET Species="10090"
 
 a(MESH:"1-(4-methoxybenzyl)-4-oxo-1,4-dihydroquinoline-3-carboxylic acid") -> bp(GO:learning)
-a(MESH:"1-(4-methoxybenzyl)-4-oxo-1,4-dihydroquinoline-3-carboxylic acid") reg bp(HBP:"APP processing")
+a(MESH:"1-(4-methoxybenzyl)-4-oxo-1,4-dihydroquinoline-3-carboxylic acid") reg bp(CONSO:"APP processing")
 
 UNSET Species
 UNSET MeSHDisease
@@ -698,7 +698,7 @@ SET MeSHAnatomy={"Hippocampus", "Pyramidal Cells"}
 a(MESH:"1-(1'-(2-methylbenzyl)-1,4'-bipiperidin-4-yl)-1H-benzo(d)imidazol-2-(3H)-one") -> bp(GO:"NMDA selective glutamate receptor signaling pathway")
 act(p(HGNC:CHRM1)) -> bp(GO:cognition)
 a(MESH:"1-(1'-(2-methylbenzyl)-1,4'-bipiperidin-4-yl)-1H-benzo(d)imidazol-2-(3H)-one") -| a(CHEBI:"amyloid-beta")
-a(CHEBI:"amyloid-beta") -> path(HBP:neurotoxicity)
+a(CHEBI:"amyloid-beta") -> path(CONSO:neurotoxicity)
 
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -738,11 +738,11 @@ Both compounds have high solubility in aqueous solutions
 as well as good CNS penetration, without any agonist or
 antagonist activity for the M2 and M5 subtypes"
 SET Confidence = "Medium"
-a(HBP:VU0184670) -> act(p(HGNC:CHRM1))
+a(CONSO:VU0184670) -> act(p(HGNC:CHRM1))
 a(MESH:VU0357017) -> act(p(HGNC:CHRM1))
-a(HBP:VU0184670) cnc act(p(HGNC:CHRM2))
+a(CONSO:VU0184670) cnc act(p(HGNC:CHRM2))
 a(MESH:VU0357017) cnc act(p(HGNC:CHRM2))
-a(HBP:VU0184670) cnc act(p(HGNC:CHRM5))
+a(CONSO:VU0184670) cnc act(p(HGNC:CHRM5))
 a(MESH:VU0357017) cnc act(p(HGNC:CHRM5))
 #last 4 Statements were added
 UNSET Confidence
@@ -757,7 +757,7 @@ learning[110, 123]."
 SET Confidence = "High"
 SET MeSHAnatomy="Hippocampus"
 
-a(HBP:VU0184670) -> bp(GO:"NMDA selective glutamate receptor signaling pathway")
+a(CONSO:VU0184670) -> bp(GO:"NMDA selective glutamate receptor signaling pathway")
 a(MESH:VU0357017) -| path(MESH:"Cognitive Dysfunction")
 a(MESH:VU0357017) -> bp(GO:learning)
 

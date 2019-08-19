@@ -20,7 +20,7 @@ DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -130,13 +130,13 @@ in HD patients (The Huntington’s Disease Collaborative
 Research Group 1993). This gene on chromosome 4 (4p63)
 encodes the protein huntingtin."
 
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> path(MESH:"Huntington Disease")
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) -> path(MESH:"Huntington Disease")
 
 SET Evidence = "This causes the mutant protein to interact abnormally with
 other cell proteins, leading to changes in its function"
 ##this causes = Insertion of expanded stretch of CAG
 
-complex(p(HGNC:HTT, pmod(HBP:"CAG repeats")),p(MESH:Proteins)) -| act(p(MESH:Proteins))
+complex(p(HGNC:HTT, pmod(CONSO:"CAG repeats")),p(MESH:Proteins)) -| act(p(MESH:Proteins))
 
 SET Evidence = "All the cardinal features of HD are listed in
 the description: the adult onset, progressive course of the
@@ -175,12 +175,12 @@ act(p(HGNC:HTT)) -- bp(GO:endocytosis)
 act(p(HGNC:HTT)) -> bp(GO:"chemical synaptic transmission")
 act(p(HGNC:HTT)) -> bp(GO:"mRNA transcription")
 act(p(HGNC:HTT)) -- bp(GO:autophagy)
-act(p(HGNC:HTT, pmod(HBP:"CAG repeats"))) -| bp(GO:"mRNA transcription")
-act(p(HGNC:HTT, pmod(HBP:"CAG repeats"))) -> bp(MESH:"Oxidative Stress")
-act(p(HGNC:HTT, pmod(HBP:"CAG repeats"))) -> bp(GO:autophagy)
-act(p(HGNC:HTT, pmod(HBP:"CAG repeats"))) -> bp(HBP:"protein aggregation")
-act(p(HGNC:HTT, pmod(HBP:"CAG repeats"))) -| bp(GO:"cellular homeostasis")
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> bp(GO:"cell death")
+act(p(HGNC:HTT, pmod(CONSO:"CAG repeats"))) -| bp(GO:"mRNA transcription")
+act(p(HGNC:HTT, pmod(CONSO:"CAG repeats"))) -> bp(MESH:"Oxidative Stress")
+act(p(HGNC:HTT, pmod(CONSO:"CAG repeats"))) -> bp(GO:autophagy)
+act(p(HGNC:HTT, pmod(CONSO:"CAG repeats"))) -> bp(CONSO:"protein aggregation")
+act(p(HGNC:HTT, pmod(CONSO:"CAG repeats"))) -| bp(GO:"cellular homeostasis")
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) -> bp(GO:"cell death")
 
 SET Evidence = "Motor abnormalities like bradykinesia,
 chorea, dystonia and oculomotor symptoms have been
@@ -308,7 +308,7 @@ path(MESH:"Huntington Disease") -> bp(GO:"neuron death")
 UNSET Anatomy
 
 path(MESH:"Huntington Disease") -> path(HP:"Cerebellar atrophy")
-path(HP:"Cerebellar atrophy") -| a(HBP:"Purkinje cell layer of cerebellar cortex")
+path(HP:"Cerebellar atrophy") -| a(CONSO:"Purkinje cell layer of cerebellar cortex")
 
 SET Evidence = "The first neurotransmitter shown to be decreased in HD
 brain was GABA. Significant decrease in level of GABA
@@ -357,7 +357,7 @@ path(MESH:"Huntington Disease") -> a(CHEBI:dopamine)
 UNSET Anatomy
 
 SET Anatomy = "corpus striatum"
-a(CHEBI:dopamine) -| path(HBP:Neurodegeneration)
+a(CHEBI:dopamine) -| path(CONSO:Neurodegeneration)
 a(CHEBI:dopamine) -| act(p(HGNCGENEFAMILY:"Mitochondrial complex II: succinate dehydrogenase subunits"))
 UNSET Anatomy
 
@@ -429,7 +429,7 @@ SET  Evidence = "However, the amino terminal region has been
 extensively studied, as it contains an expandable polyQ
 stretchwhich is considered pathogenic"
 
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> p(INTERPRO:"Pathogenicity locus")
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) -> p(INTERPRO:"Pathogenicity locus")
 
 SET Evidence = "HEAT repeat proteins generally mediate important
 protein–protein interactions involved in cytoplasmic
@@ -449,7 +449,7 @@ cortex, cerebellum, brain stem and spinal cord."
 
 SET MeSHAnatomy = "Brain Stem"
 SET Anatomy = {"corpus striatum","cerebral cortex","cerebellum","spinal cord"}
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> a(GO:"inclusion body",loc(MESH:"Neurons"))
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) -> a(GO:"inclusion body",loc(MESH:"Neurons"))
 UNSET Anatomy
 UNSET MeSHAnatomy
 
@@ -458,9 +458,9 @@ polyQ tracts of htt have been found to have increased
 propensity to form aggregates of mutant htt with ubiquitin
 positive proteins (Finkbeiner 2011)."
 
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> a(HBP:"huntingtin aggregates")
-a(HBP:"huntingtin aggregates") hasComponents list(p(HGNC:HTT, pmod(HBP:"CAG repeats")),p(MESH:Proteins,pmod(Ub)))
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> complex(p(HGNC:HTT, pmod(HBP:"CAG repeats")),p(MESH:Proteins,pmod(Ub)))
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) -> a(CONSO:"huntingtin aggregates")
+a(CONSO:"huntingtin aggregates") hasComponents list(p(HGNC:HTT, pmod(CONSO:"CAG repeats")),p(MESH:Proteins,pmod(Ub)))
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) -> complex(p(HGNC:HTT, pmod(CONSO:"CAG repeats")),p(MESH:Proteins,pmod(Ub)))
 
 SET Evidence = "However,
 recent reports suggest that soluble forms of mutant
@@ -471,12 +471,12 @@ that although, soluble htt aggregates lead to apoptotic cell
 death but insoluble aggregates of mutant htt lead to a
 delayed necrotic cell death (Ramdzan et al. 2017)."
 
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) reg bp(MESH:"Cell Survival")
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) reg bp(GO:"cell death")
-a(HBP:"huntingtin aggregates") reg bp(MESH:"Cell Survival")
-a(HBP:"huntingtin aggregates") reg bp(GO:"cell death")
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> bp(MESH:Apoptosis)
-a(HBP:"huntingtin aggregates") -> bp(GO:"necrotic cell death")
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) reg bp(MESH:"Cell Survival")
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) reg bp(GO:"cell death")
+a(CONSO:"huntingtin aggregates") reg bp(MESH:"Cell Survival")
+a(CONSO:"huntingtin aggregates") reg bp(GO:"cell death")
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) -> bp(MESH:Apoptosis)
+a(CONSO:"huntingtin aggregates") -> bp(GO:"necrotic cell death")
 
 SET Evidence = "It has also been
 observed that although, the N17 residues help the cleaved
@@ -488,16 +488,16 @@ secondarily modified such as dephosphorylated (Branco-
 Santos et al. 2017) and phosphorylation (DiGiovanni et al.
 2016)which regulates its aggregation, localization and toxicity."
 
-p(HGNC:HTT, pmod(HBP:"CAG repeats"),frag("1_17")) -> tloc(p(HGNC:HTT),fromLoc(GO:"cytoplasm"),toLoc(GO:"nucleus"))
-p(HGNC:HTT, pmod(HBP:"CAG repeats"),pmod(Ph),frag("1_17")) reg a(HBP:"huntingtin aggregates")
-p(HGNC:HTT, pmod(HBP:"CAG repeats"),frag("1_17")) reg a(HBP:"huntingtin aggregates")
+p(HGNC:HTT, pmod(CONSO:"CAG repeats"),frag("1_17")) -> tloc(p(HGNC:HTT),fromLoc(GO:"cytoplasm"),toLoc(GO:"nucleus"))
+p(HGNC:HTT, pmod(CONSO:"CAG repeats"),pmod(Ph),frag("1_17")) reg a(CONSO:"huntingtin aggregates")
+p(HGNC:HTT, pmod(CONSO:"CAG repeats"),frag("1_17")) reg a(CONSO:"huntingtin aggregates")
 
 SET Evidence = "Mutant htt has also been found to disrupt the nuclear
 pore complex (figure 1), which is important for nuclearcytoplasm
 transport of proteins and other molecules
 (Grima et al. 2017; Gasset-Rosa et al. 2017)."
 
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -| bp(GO:"nuclear pore complex assembly")
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) -| bp(GO:"nuclear pore complex assembly")
 bp(GO:"nuclear pore complex assembly") -> bp(GO:"nucleocytoplasmic transport")
 
 SET Evidence = "HTT is subjected to multiple posttranslational
@@ -522,7 +522,7 @@ localization of other neuronal proteins."
 
 complex(p(HGNC:ZDHHC17),p(HGNC:HTT))
 complex(p(HGNC:ZDHHC13),p(HGNC:HTT))
-p(HGNC:HTT,pmod(Palm, Cys, 214),pmod(HBP:"CAG repeats")) -| act(p(HGNC:ZDHHC17))
+p(HGNC:HTT,pmod(Palm, Cys, 214),pmod(CONSO:"CAG repeats")) -| act(p(HGNC:ZDHHC17))
 act(p(HGNC:ZDHHC17)) reg bp(GO:"intracellular transport")
 
 SET Evidence = "Autophagy is an important cellular process which is
@@ -562,7 +562,7 @@ UNSET CellStructure
 SET MeSHAnatomy = "Neurons"
 bp(GO:"retrograde axonal transport") -> tloc(a(MESH:Autophagosomes),fromLoc(GO:"distal axon"),toLoc(GO:"cell body"))
 p(HGNC:HTT) -> tloc(a(MESH:Autophagosomes),fromLoc(GO:"distal axon"),toLoc(GO:"cell body"))
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -| tloc(a(MESH:Autophagosomes),fromLoc(GO:"distal axon"),toLoc(GO:"cell body"))
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) -| tloc(a(MESH:Autophagosomes),fromLoc(GO:"distal axon"),toLoc(GO:"cell body"))
 p(HGNC:HTT) reg deg(p(HGNC:HTT))
 UNSET MeSHAnatomy
 
@@ -570,7 +570,7 @@ SET Evidence = "mutant htt has been found to activate autophagy by
 sequestering and inactivating mTOR leading to an induction
 of autophagy (Ravikumar et al. 2004)."
 
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -| p(HGNC:MTOR)
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) -| p(HGNC:MTOR)
 p(HGNC:MTOR) -| bp(GO:autophagy)
 
 SET Evidence = " Mutant htt results in defective autophagy mediated
@@ -581,10 +581,10 @@ cargomovement of autophagosome to fuse with lysosomes
 leading to defective autophagy (Wong and Holzbaur
 2014)."
 
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> a(HBP:"huntingtin aggregates")
-a(HBP:"huntingtin aggregates") -> bp(GO:autophagy)
-a(HBP:"huntingtin aggregates") -> path(HBP:neurotoxicity)
-a(HBP:"huntingtin aggregates") -| composite(a(MESH:Autophagosomes),a(MESH:Lysosomes))
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) -> a(CONSO:"huntingtin aggregates")
+a(CONSO:"huntingtin aggregates") -> bp(GO:autophagy)
+a(CONSO:"huntingtin aggregates") -> path(CONSO:neurotoxicity)
+a(CONSO:"huntingtin aggregates") -| composite(a(MESH:Autophagosomes),a(MESH:Lysosomes))
 composite(a(MESH:Autophagosomes),a(MESH:Lysosomes)) -> bp(GO:autophagy)
 
 SET Evidence = "In the caudate nucleus of HD patients, mRNA expression
@@ -710,11 +710,11 @@ mechanisms such as chaperone-mediated folding
 or degraded by ubiquitin-mediated degradation or by
 lysosomal-autophagy degradation (figure 1)."
 
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> a(HBP:"huntingtin aggregates")
-a(HBP:"huntingtin aggregates") -> path(HBP:neurotoxicity)
-bp(GO:"chaperone-mediated protein folding") reg p(MESH:Proteins,pmod(HBP:"misfolded"))
-bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") reg p(MESH:Proteins,pmod(HBP:"misfolded"))
-bp(GO:"lysosomal microautophagy") reg p(MESH:Proteins,pmod(HBP:"misfolded"))
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) -> a(CONSO:"huntingtin aggregates")
+a(CONSO:"huntingtin aggregates") -> path(CONSO:neurotoxicity)
+bp(GO:"chaperone-mediated protein folding") reg p(MESH:Proteins,pmod(CONSO:"misfolded"))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") reg p(MESH:Proteins,pmod(CONSO:"misfolded"))
+bp(GO:"lysosomal microautophagy") reg p(MESH:Proteins,pmod(CONSO:"misfolded"))
 p(MESH:"HSP70 Heat-Shock Proteins")
 
 SET Evidence = "The
@@ -723,7 +723,7 @@ by sequestering transcription factors (Suhr et al. 2001)
 or physically obstruct neuronal extensions (Gunawardena
 et al. 2003)."
 
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -| bp(HBP:Proteostasis)
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) -| bp(CONSO:Proteostasis)
 
 SET Evidence = "Cerebellar neurons have been
 observed to induce Hsp70 expression upon mutant htt
@@ -732,12 +732,12 @@ their chaperone expression to overcome this proteostasis
 stress (Tagawa et al. 2007)."
 
 SET Cell = "cerebellar neuron"
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) -> p(MESH:"HSP70 Heat-Shock Proteins")
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) -> p(MESH:"HSP70 Heat-Shock Proteins")
 UNSET Cell
 
 SET Anatomy = "corpus striatum"
 SET MeSHAnatomy = "Neurons"
-p(HGNC:HTT, pmod(HBP:"CAG repeats")) cnc p(MESH:"HSP70 Heat-Shock Proteins")
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) cnc p(MESH:"HSP70 Heat-Shock Proteins")
 UNSET MeSHAnatomy
 UNSET Anatomy
 
@@ -965,9 +965,9 @@ by energy deficiency and are considered to play an important
 role in the pathogenesis of HD (Bender et al. 2005)."
 
 bp(GO:"energy homeostasis") -| tloc(a(CHEBI:"D-glutamate residue"),fromLoc(GO:"cytoplasm"),toLoc(GO:"extracellular space"))
-bp(GO:"energy homeostasis") -| path(HBP:Excitotoxicity)
+bp(GO:"energy homeostasis") -| path(CONSO:Excitotoxicity)
 path(MESH:"Huntington Disease") -> tloc(a(CHEBI:"D-glutamate residue"),fromLoc(GO:"cytoplasm"),toLoc(GO:"extracellular space"))
-path(MESH:"Huntington Disease") -> path(HBP:Excitotoxicity)
+path(MESH:"Huntington Disease") -> path(CONSO:Excitotoxicity)
 
 SET Evidence = "Identification of peripheral markers or neurochemical
 agents such as BDNF, 8-OHdG and interleukins

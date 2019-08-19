@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -89,9 +89,9 @@ gene, or UBB+1 (Fig.2A) is selectively expressed in the brains of AD patients (v
 often found to be accumulated in NFT in Alzheimer’s disease and other tauopathies"
 SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
-p(HBP:"UBB+1") positiveCorrelation path(MESH:"Alzheimer Disease")
+p(CONSO:"UBB+1") positiveCorrelation path(MESH:"Alzheimer Disease")
 SET MeSHDisease = "Alzheimer Disease"
-p(HBP:"UBB+1") -- a(MESH:"Neurofibrillary Tangles")
+p(CONSO:"UBB+1") -- a(MESH:"Neurofibrillary Tangles")
 UNSET MeSHDisease
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -101,13 +101,13 @@ deubiquitination and inhibit proteasomal activity, which may mediate
 neurodegeneration through mitochondrial stress and p53 activation in
 neurites (Tan et al., 2007)."
 SET Confidence = "Medium"
-p(HBP:"UBB+1",pmod(Ub)) -| bp(GO:"protein deubiquitination")
-p(HBP:"UBB+1",pmod(Ub)) -| act(p(FPLX:Proteasome))
-p(HBP:"UBB+1",pmod(Ub)) reg path(HP:Neurodegeneration)
+p(CONSO:"UBB+1",pmod(Ub)) -| bp(GO:"protein deubiquitination")
+p(CONSO:"UBB+1",pmod(Ub)) -| act(p(FPLX:Proteasome))
+p(CONSO:"UBB+1",pmod(Ub)) reg path(HP:Neurodegeneration)
 SET MeSHAnatomy = {"Neurites","Mitochondria"}
-p(HBP:"UBB+1",pmod(Ub)) -> bp(MESH:"Stress, Physiological")
+p(CONSO:"UBB+1",pmod(Ub)) -> bp(MESH:"Stress, Physiological")
 SET MeSHAnatomy = "Neurites"
-p(HBP:"UBB+1",pmod(Ub)) -> act(p(HGNC:TP53))
+p(CONSO:"UBB+1",pmod(Ub)) -> act(p(HGNC:TP53))
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -160,7 +160,7 @@ related with tau degradation/aggregation and neurodedeneration in AD."
 SET Confidence = "Medium"
 SET MeSHDisease = "Alzheimer Disease"
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -- deg(p(HGNC:MAPT))
-bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -- a(HBP:"Tau aggregates")
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -- a(CONSO:"Tau aggregates")
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -- path(HP:Neurodegeneration)
 path(MESH:"Alzheimer Disease") neg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
 UNSET MeSHDisease
@@ -183,8 +183,8 @@ SET Evidence = "Blocking proteasomes using Ab oligomers also effectively facilit
 tau accumulation in AD mice (Tseng et al., 2008)."
 SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
-a(HBP:"amyloid-beta oligomers") -| act(p(FPLX:Proteasome))
-a(HBP:"amyloid-beta oligomers") -> p(HGNC:MAPT)
+a(CONSO:"amyloid-beta oligomers") -| act(p(FPLX:Proteasome))
+a(CONSO:"amyloid-beta oligomers") -> p(HGNC:MAPT)
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -298,7 +298,7 @@ SET Confidence = "High"
 a(CHEBI:"alpha,alpha-trehalose") -> bp(GO:autophagy)
 a(CHEBI:"alpha,alpha-trehalose") -| bp(GO:"neuron apoptotic process")
 SET MeSHAnatomy = "Brain"
-a(CHEBI:"alpha,alpha-trehalose") -| a(HBP:"Tau aggregates")
+a(CHEBI:"alpha,alpha-trehalose") -| a(CONSO:"Tau aggregates")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -307,7 +307,7 @@ inhibit tau aggregation, is also capable to induce autophagy and
 reduce total and phospho-tau levels with improved cognitive performance
 in tau transgenic mice by oral administration (Congdon et al., 2012)."
 SET Confidence = "Medium"
-a(CHEBI:"methylene blue") -| a(HBP:"Tau aggregates")
+a(CHEBI:"methylene blue") -| a(CONSO:"Tau aggregates")
 a(CHEBI:"methylene blue") -> bp(GO:autophagy)
 a(CHEBI:"methylene blue") -| p(HGNC:MAPT)
 a(CHEBI:"methylene blue") -| p(HGNC:MAPT, pmod(Ph))
@@ -317,7 +317,7 @@ UNSET Confidence
 SET Evidence = "Moreover, constitutive inactivation of p62 in mice
 resulted in aggregated tau proteins with Lys63–Ub chains (Babu et al., 2008)."
 SET Confidence = "High"
-p(HGNC:DCTN4) -| a(HBP:"Tau aggregates")
+p(HGNC:DCTN4) -| a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Aging, a major risk factor for AD, affects both the UPS and autophagy."

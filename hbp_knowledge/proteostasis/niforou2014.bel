@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/0c9853baf883545b922ff1b138a9f297a70b7951/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -123,22 +123,22 @@ by non-enzymatic protein modifications (NEPMs), which are mostly
 stochastic and increase with ageing or in age-related diseases
 (Fig. 1)."
 SET Confidence = "High"
-bp(HBP:"non-enzymatic protein modification") positiveCorrelation bp(GO:aging)
+bp(CONSO:"non-enzymatic protein modification") positiveCorrelation bp(GO:aging)
 UNSET Confidence
 
 SET Evidence = "EPMs alter the targeted proteins, which however
 remain fully functional, while NEPMs may induce protein unfolding
 or misfolding resulting in increased proteome instability."
 SET Confidence = "High"
-bp(HBP:"non-enzymatic protein modification") -> bp(HBP:misfolding)
+bp(CONSO:"non-enzymatic protein modification") -> bp(CONSO:misfolding)
 UNSET Confidence
 
 SET Evidence = " Free
 radicals-derived protein modification can result in either gain- or
 loss-of-function due to the protein misfolding or unfolding. "
 SET Confidence = "High"
-a(CHEBI:radical) -> bp(HBP:"non-enzymatic protein modification")
-a(CHEBI:radical) -> bp(HBP:misfolding)
+a(CHEBI:radical) -> bp(CONSO:"non-enzymatic protein modification")
+a(CHEBI:radical) -> bp(CONSO:misfolding)
 UNSET Confidence
 
 SET Evidence = "In those organismal states (e.g. ageing or diseases) where
@@ -146,7 +146,7 @@ the chaperone network becomes deregulated, the accumulating
 non-native, misfolded or unfolded proteins can form (among
 others) fibrils, amyloids or large amorphous aggregates [15]. "
 SET Confidence = "High"
-bp(HBP:misfolding) -> path(MESH:"Protein Aggregation, Pathological")
+bp(CONSO:misfolding) -> path(MESH:"Protein Aggregation, Pathological")
 UNSET Confidence
 
 SET Evidence = "These
@@ -195,7 +195,7 @@ of proteins that are misfolded and/or aggregated. "
 SET Confidence = "High"
 p(FPLX:HSPA) -> bp(GO:"'de novo' protein folding")
 p(FPLX:HSPA) -> bp(GO:"protein folding")
-p(FPLX:HSPA) -| bp(HBP:misfolding)
+p(FPLX:HSPA) -| bp(CONSO:misfolding)
 p(FPLX:HSPA) -| path(MESH:"Protein Aggregation, Pathological")
 UNSET Confidence
 
@@ -223,7 +223,7 @@ the misfolded protein and/or oxidative load, or, if UPR fails, they
 promote the activation of apoptotic pathways that eventually result in
 cell death [57]."
 SET Confidence = "Medium"
-bp(GO:"response to endoplasmic reticulum stress") -| bp(HBP:misfolding)
+bp(GO:"response to endoplasmic reticulum stress") -| bp(CONSO:misfolding)
 bp(GO:"response to endoplasmic reticulum stress") -| bp(GO:"cell death")
 bp(GO:"response to endoplasmic reticulum stress") -> bp(GO:"apoptotic process")
 bp(GO:"response to endoplasmic reticulum stress") -> bp(GO:"cell death")
@@ -293,7 +293,7 @@ by regulating the expression of molecular chaperones [89], as well
 as of additional players of proteome stability and maintenance,
 namely the proteasome subunits [90–92]."
 SET Confidence = "High"
-p(HGNC:NFE2L2) -> bp(HBP:Proteostasis)
+p(HGNC:NFE2L2) -> bp(CONSO:Proteostasis)
 UNSET Confidence
 
 SET Evidence = "Proteome oxidation and
@@ -356,7 +356,7 @@ of proteins."
 SET Confidence = "High"
 SET MeSHAnatomy = "Endoplasmic Reticulum"
 p(HGNCGENEFAMILY:"Protein disulfide isomerases") -| bp(GO:"protein oxidation")
-p(HGNCGENEFAMILY:"Protein disulfide isomerases") -| bp(HBP:misfolding)
+p(HGNCGENEFAMILY:"Protein disulfide isomerases") -| bp(CONSO:misfolding)
 p(HGNCGENEFAMILY:"Protein disulfide isomerases") -| a(MESH:"Protein Aggregates")
 UNSET MeSHAnatomy
 UNSET Confidence
