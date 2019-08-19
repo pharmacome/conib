@@ -76,7 +76,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 SET Citation = {"PubMed", "28843454"}
 
 SET Evidence = "Lifestyle and environmental factors are established contributors to risk for MS."
-path(MESH:Life Style) -- path(DOID:"multiple sclerosis")
+path(MESH:"Life Style") -- path(DOID:"multiple sclerosis")
 path(MESH:Environment) -- path(DOID:"multiple sclerosis")
 
 SET Evidence = "There is a positive association between latitude and prevalence of MS at a global level, unexplained by the genetic distribution of high-risk alleles (12)."
@@ -165,7 +165,7 @@ a(CHEBI:nicotine) cnc path(DOID:"multiple sclerosis")
 
 SET Evidence = "The frequency of exposure to parental passive smoking was associated with an increased risk for MS (RR 2.12, 95% CI 1.43-3.15)."
 #Tobacco Smoke Pollution - passive smoking
-path(MESH:"Tobacco Smoke Pollution") -> path(DOID:"multiple sclerosis")
+a(MESH:"Tobacco Smoke Pollution") -> path(DOID:"multiple sclerosis")
 
 SET Evidence = "Smoking has also been shown to increase the risk of MS disability progression (41)."
 SET MeSHDisease = "Multiple Sclerosis"
@@ -193,8 +193,8 @@ SET Evidence = "Though human studies are confounded due to reliance on patient r
 SET MeSHDisease = "Encephalomyelitis, Autoimmune, Experimental"
 bp(MESH:"Diet, Sodium-Restricted") pos path(EFO:"autoimmune disease")
 UNSET MeSHDisease
-bp(MESH:"Diet, Sodium-Restricted") -| a(MESH:"Th17 Cells", var("?"))
-a(MESH:"Th17 Cells", var("?")) -> path(EFO:"experimental autoimmune encephalomyelitis")
+bp(MESH:"Diet, Sodium-Restricted") -| p(MESH:"Th17 Cells", var("?"))
+p(MESH:"Th17 Cells", var("?")) -> path(EFO:"experimental autoimmune encephalomyelitis")
 bp(MESH:"Diet, Sodium-Restricted") -| path(EFO:"experimental autoimmune encephalomyelitis")
 
 SET Evidence = "The bacterial milieu within the gastrointestinal tract has a substantial influence on an individual’s immune profile and response – including development of the immune system, protection against pathogens, and maintenance of immune response (57)."
