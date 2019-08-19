@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/6ebac4dddc69402cb8fdd90c746ff6ee572c95af/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -82,21 +82,27 @@ SET Evidence = " A key
 role of molecular chaperones is preventing pro-
 tein aggregation, especially under conditions of
 cellular stress."
+SET Confidence = "High"
 a(MESH:"Molecular Chaperones") -| a(MESH:"Protein Aggregates")
+UNSET Confidence
 
 SET Evidence = "Indeed, studies using model organisms
 demonstrate that a gradual decline in cellular
 proteostasis capacity occurs with aging (10)."
-bp(GO:aging) -| bp(HBP:Proteostasis)
+SET Confidence = "High"
+bp(GO:aging) -| bp(CONSO:Proteostasis)
+UNSET Confidence
 
 SET Evidence = " Many are stress proteins
 or heat shock proteins (Hsps), as their synthesis
 is induced under conditions of stress (e.g., heat
 shock or oxidative stress), which structurally
 destabilize a subset of cellular proteins."
+SET Confidence = "High"
 bp(MESH:"Stress, Physiological") -> a(MESH:"Heat-Shock Proteins")
 bp(GO:"response to oxidative stress") -> a(MESH:"Heat-Shock Proteins")
 bp(MESH:"Heat-Shock Response") -> a(MESH:"Heat-Shock Proteins")
+UNSET Confidence
 
 SET Evidence = "Chaperones that function broadly in de novo
 folding and refolding (i.e., the chaperonins,
@@ -105,6 +111,7 @@ recognize segments of exposed hydropho-
 bic amino acid residues, which are later
 buried in the interior of the natively folded
 protein."
+SET Confidence = "High"
 act(p(HGNCGENEFAMILY:Chaperonins)) -- bp(GO:"'de novo' protein folding")
 act(p(HGNCGENEFAMILY:Chaperonins)) -- bp(GO:"protein refolding")
 act(p(FPLX:HSPA)) -- bp(GO:"'de novo' protein folding")
@@ -114,12 +121,15 @@ act(p(FPLX:HSP90)) -- bp(GO:"protein refolding")
 a(CHEBI:ATP) reg act(p(HGNCGENEFAMILY:Chaperonins))
 a(CHEBI:ATP) reg act(p(FPLX:HSPA))
 a(CHEBI:ATP) reg act(p(FPLX:HSP90))
+UNSET Confidence
 
 SET Evidence = "ATP-independent chaperones,
 such as the small Hsps, may function as
 additional holdases that buffer aggregation."
+SET Confidence = "High"
 a(CHEBI:ATP) cnc act(p(FPLX:HSPB))
 act(p(FPLX:HSPB)) -| a(MESH:"Protein Aggregates")
+UNSET Confidence
 
 SET Evidence = "TRiC binds to
 nascent chains and cooperates with Hsp70
@@ -127,7 +137,9 @@ in the cotranslational folding of multidomain
 proteins (78). Investigators have demonstrated
 a direct interaction between Hsp70 and TRiC
 (79)."
+SET Confidence = "High"
 complex(p(FPLX:"CCT_complex"),p(FPLX:HSPA)) -> bp(GO:"'de novo' protein folding")
+UNSET Confidence
 
 SET Evidence = "Accordingly, Hsp90 affects many key cellular
 processes, including cell cycle progression,
@@ -135,6 +147,7 @@ steroid signaling, calcium signaling, protein
 trafﬁcking, protein secretion, the immune re-
 sponse, and the heat shock response (HSR) (45,
 48, 82)."
+SET Confidence = "High"
 p(FPLX:HSP90) -- bp(GO:"cell cycle")
 p(FPLX:HSP90) -- bp(GO:"steroid hormone mediated signaling pathway")
 p(FPLX:HSP90) -- bp(GO:"calcium-mediated signaling")
@@ -142,6 +155,7 @@ p(FPLX:HSP90) -- bp(GO:"protein transport")
 p(FPLX:HSP90) -- bp(GO:"protein secretion")
 p(FPLX:HSP90) -- bp(GO:"immune response")
 p(FPLX:HSP90) -- bp(MESH:"Heat-Shock Response")
+UNSET Confidence
 
 SET Evidence = "Hsp70 chaperones are a ubiquitous class of
 proteins. They are involved in a wide range
@@ -149,22 +163,29 @@ of protein quality control functions, including
 de novo protein folding, refolding of stress-
 denatured proteins, protein transport, mem-
 brane translocation, and protein degradation."
+SET Confidence = "High"
 act(p(FPLX:HSPA)) -- bp(GO:"'de novo' protein folding")
 act(p(FPLX:HSPA)) -- bp(GO:"protein refolding")
 act(p(FPLX:HSPA)) -- bp(GO:"intracellular protein transmembrane transport")
 act(p(FPLX:HSPA)) -- bp(GO:"protein catabolic process")
+UNSET Confidence
 
 SET Evidence = " Hsp40 ( J protein) and NEF
 cochaperones regulate the Hsp70 reaction cy-
 cle (38, 100)."
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins") reg act(p(FPLX:HSPA))
 p(FPLX:RAPGEF) reg act(p(FPLX:HSPA))
+UNSET Confidence
 
 SET Evidence = " Hsp110 may function as holdases for
 nonnative proteins and cooperate with Hsp70
 and Hsp40 in protein disaggregation (104, 124,
 125)."
+#HSPH1 : Hsp110
+SET Confidence = "High"
 composite(p(HGNC:HSPH1), p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins"), p(FPLX:HSPA)) -| a(MESH:"Protein Aggregates")
+UNSET Confidence
 
 SET Evidence = "Binding to
 GroEL prevents aggregation of these ﬂexible
@@ -172,14 +193,20 @@ folding intermediates, and subsequent folding
 depends critically on the global encapsulation
 of the substrate in the chaperonin cavity by
 the cochaperone GroES (7, 132–135)."
+#GroEL : HSPD1
+#GroES : HSPE1
+SET Confidence = "High"
 p(HGNC:HSPD1) -| a(MESH:"Protein Aggregates")
 complex(p(HGNC:HSPD1),p(HGNC:HSPE1)) -> bp(GO:"protein refolding")
+UNSET Confidence
 
 SET Evidence = "GroEL and GroES undergo a complex
 binding-and-release cycle that is allosterically
 regulated by ATP binding and hydrolysis in the
 GroEL subunits (Figure 6b) (4, 77, 100, 136)."
+SET Confidence = "High"
 a(CHEBI:ATP) reg complex(p(HGNC:HSPD1),p(HGNC:HSPE1))
+UNSET Confidence
 
 SET Evidence = "Cooperative binding of ATP to GroEL initiates
 a series of conformational changes that trigger
@@ -187,7 +214,9 @@ the association of GroES, followed by substrate
 release from hydrophobic binding sites into a
 GroES-capped, hydrophilic folding chamber
 (137)."
+SET Confidence = "High"
 complex(a(CHEBI:ATP),p(HGNC:HSPD1)) -> complex(p(HGNC:HSPD1),p(HGNC:HSPE1))
+UNSET Confidence
 
 SET Evidence = "TRiC also interacts with N-terminal fragments
 of mutant huntingtin that contain an expanded
@@ -195,7 +224,9 @@ polyglutamine repeat sequence (165–168).
 Binding to TRiC modulates the aggregation
 properties of this protein and reduces its
 cytotoxicity."
-p(FPLX:"CCT_complex") -| a(HBP:"huntingtin aggregates")
+SET Confidence = "High"
+p(FPLX:"CCT_complex") -| a(CONSO:"huntingtin aggregates")
+UNSET Confidence
 
 SET Evidence = "Inhibition of ATP
 binding and hydrolysis either by mutagenesis
@@ -203,28 +234,39 @@ of the N domain or by speciﬁc inhibitors, such
 as geldanamycin and radicicol, demonstrated
 the functional requirement of the Hsp90
 ATPase (81, 169)."
+SET Confidence = "High"
+a(PUBCHEM:5288382) -| complex(a(CHEBI:ATP),p(FPLX:HSP90))
+a(PUBCHEM:6323491) -| complex(a(CHEBI:ATP),p(FPLX:HSP90))
 complex(a(CHEBI:ATP),p(FPLX:HSP90)) reg act(p(FPLX:HSP90))
+UNSET Confidence
 
 SET Evidence = "After hydrolysis
 the Hsp90 N termini separate, releasing the
 client protein in an active state (Figure 7b)."
+#Hydrolysis : ATP hydrolysis
+SET Confidence = "High"
 bp(GO:"ATP metabolic process") -> act(p(FPLX:HSP90))
 act(p(FPLX:HSP90)) -> bp(GO:"protein folding")
+UNSET Confidence
 
 SET Evidence = "Cochaperones HOP (Sti1) and
 Cdc37 (p50) stabilize the open conformation
 of the Hsp90 dimer (81, 174, 175, 188), inhibit
 ATP hydrolysis, and facilitate substrate protein
 binding."
+SET Confidence = "High"
 p(HGNC:STIP1) -| act(p(FPLX:HSP90), ma(GO:"ATPase activity"))
 p(HGNC:CDC37) -| act(p(FPLX:HSP90), ma(GO:"ATPase activity"))
+UNSET Confidence
 
 SET Evidence = " The activator
 of Hsp90 ATPase (Aha1) binds asymmetrically
 to the Hsp90 middle domain, stimulating ATP
 hydrolysis and inducing transition to the closed
 state (180, 181, 185, 190)."
+SET Confidence = "High"
 p(HGNC:AHSA1) -> act(p(FPLX:HSP90), ma(GO:"ATPase activity"))
+UNSET Confidence
 
 SET Evidence = "The PN is regulated by interconnected
 pathways that respond to speciﬁc forms of
@@ -233,33 +275,41 @@ shock response (HSR) (191), the unfolded
 protein response (UPR) in the endoplas-
 mic reticulum (192), and the mitochondrial
 UPR (193)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Cytosol"
-bp(MESH:"Heat-Shock Response") reg bp(HBP:Proteostasis)
+bp(MESH:"Heat-Shock Response") reg bp(CONSO:Proteostasis)
 SET MeSHAnatomy = {"Endoplasmic Reticulum","Mitochondria"}
-bp(GO:"response to unfolded protein") reg bp(HBP:Proteostasis)
+bp(GO:"response to unfolded protein") reg bp(CONSO:Proteostasis)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Additionally, PN regulation is
 integrated with pathways involved in inﬂam-
 mation, response to oxidative stress, caloric
 restriction/starvation, and longevity."
-bp(HBP:Proteostasis) -- bp(GO:"inflammatory response")
-bp(HBP:Proteostasis) -- bp(GO:"response to oxidative stress")
-bp(HBP:Proteostasis) -- bp(GO:"behavioral response to starvation")
-bp(HBP:Proteostasis) neg bp(GO:"cell death")
+SET Confidence = "High"
+bp(CONSO:Proteostasis) -- bp(GO:"inflammatory response")
+bp(CONSO:Proteostasis) -- bp(GO:"response to oxidative stress")
+bp(CONSO:Proteostasis) -- bp(GO:"behavioral response to starvation")
+bp(CONSO:Proteostasis) neg bp(GO:"cell death")
+UNSET Confidence
 
 SET Evidence = "The PN
 branch of degradation includes the ubiquitin-
 proteasome system (UPS) and machinery of
 autophagy (23, 196–200)."
+SET Confidence = "High"
 p(FPLX:Proteasome) -> bp(GO:"protein catabolic process")
 bp(GO:"autophagy") -> bp(GO:"protein catabolic process")
+UNSET Confidence
 
 SET Evidence = "Degradation via the UPS depends on pro-
 tein unfolding by the 26S proteasome (201) and
 generally requires that chaperones maintain
 target proteins in a nonaggregated state."
+SET Confidence = "High"
 p(FPLX:Proteasome) -> bp(GO:"protein unfolding")
+UNSET Confidence
 
 SET Evidence = " For
 example, Hsp70 and Hsp90 cooperate with the
@@ -268,36 +318,48 @@ terminus of Hsc70-interacting protein) and
 a variety of other cofactors (such as BAG1
 and BAG3) to ubiquitinate client proteins (23,
 86, 198)."
+SET Confidence = "High"
 composite(p(FPLX:HSPA), p(FPLX:HSP90), p(HGNC:STUB1), p(HGNC:BAG1), p(HGNC:BAG3)) -> bp(GO:"protein ubiquitination")
+UNSET Confidence
 
 SET Evidence = " BAG1 targets proteins
 for degradation by the UPS, whereas BAG3
 mediates degradation by macroautophagy."
+SET Confidence = "High"
 p(HGNC:BAG1) -> bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
 p(HGNC:BAG3) -> bp(GO:"macroautophagy")
+UNSET Confidence
 
 SET Evidence = "Aggregated proteins that cannot be un-
 folded for proteasomal degradation may be
 removed by autophagy and lysosomal/vacuolar
 degradation."
+SET Confidence = "High"
 bp(GO:"autophagy") -| a(MESH:"Protein Aggregates")
+UNSET Confidence
 
 SET Evidence = "As shown in Caenorhabditis elegans, Drosophila,
 and the mouse, the ability of cells and tissues
 to maintain proteostasis declines during aging,
 concurrent with the capacity to respond to
 conformational stresses (214–220)."
-bp(GO:aging) -| bp(HBP:Proteostasis)
+SET Confidence = "Medium"
+SET Species = {"7227", "10090", "6239"}
+bp(GO:aging) -| bp(CONSO:Proteostasis)
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "The antihypertensive
 drug guanabenz demonstrates this; besides be-
 ing an α2 receptor antagonist, it also stabilizes
 the translation initiation factor 2 (eIF2) in its
 inactive, phosphorylated state (226)."
+SET Confidence = "High"
 a(CHEBI:Guanabenz) -| act(p(FPLX:ADRA2))
 a(CHEBI:Guanabenz) -| act(p(FPLX:EIF2B))
 a(CHEBI:Guanabenz) -> p(FPLX:EIF2B, pmod(Ph))
 p(FPLX:EIF2B, pmod(Ph)) -| act(p(FPLX:EIF2B))
+UNSET Confidence
 
 SET Evidence = " For exam-
 ple, small molecules (e.g., geldanamycin) that
@@ -306,25 +368,31 @@ tional regulator of the cytosolic stress response,
 increase the effective concentration of cytosolic
 chaperones and suppress the aggregation of
 various disease proteins (8, 38, 228–230)."
+SET Confidence = "High"
 a(CHEBI:geldanamycin) -> act(p(HGNC:HSF1))
 p(HGNC:HSF1) reg bp(GO:"cellular response to stress")
 p(HGNC:HSF1) -> a(MESH:"Molecular Chaperones")
 p(HGNC:HSF1) -| a(MESH:"Protein Aggregates")
+UNSET Confidence
 
 SET Evidence = "This approach is based on multiple lines of
 evidence demonstrating that overexpression of
 chaperones such as Hsp70 and Hsp40 prevents
 the aggregation and toxicity of huntingtin
 and α-synuclein (38, 231–234)."
-p(FPLX:HSPA) -| a(HBP:"huntingtin aggregates")
-p(FPLX:HSPA) -| a(HBP:"alpha-synuclein aggregates")
-p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins") -| a(HBP:"huntingtin aggregates")
-p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins") -| a(HBP:"alpha-synuclein aggregates")
+SET Confidence = "High"
+p(FPLX:HSPA) -| a(CONSO:"huntingtin aggregates")
+p(FPLX:HSPA) -| a(CONSO:"alpha-synuclein aggregates")
+p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins") -| a(CONSO:"huntingtin aggregates")
+p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins") -| a(CONSO:"alpha-synuclein aggregates")
+UNSET Confidence
 
 SET Evidence = "The Hsp70
 system acts synergistically with the cytosolic
 chaperonin TRiC to prevent aggregation of
 proteins with expanded polyglutamine tracts
 (165–168)."
+SET Confidence = "High"
 composite(p(FPLX:HSPA),p(FPLX:"CCT_complex")) -| a(MESH:"Protein Aggregates")
-composite(p(FPLX:HSPA),p(FPLX:"CCT_complex")) -| a(HBP:"huntingtin aggregates")
+composite(p(FPLX:HSPA),p(FPLX:"CCT_complex")) -| a(CONSO:"huntingtin aggregates")
+UNSET Confidence

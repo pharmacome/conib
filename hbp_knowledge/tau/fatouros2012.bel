@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 #DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -79,8 +79,8 @@ SET Evidence = "For this purpose, we focused on the well-characterized
 DK280 mutation (10–13), which speciﬁcally leads to
 aggregation-mediated toxicity."
 SET Confidence = "High"
-p(HGNC:MAPT, var("p.Lys280del")) -> a(HBP:"Tau aggregates")
-a(HBP:"Tau aggregates") -> path(HBP:proteotoxicity)
+p(HGNC:MAPT, var("p.Lys280del")) -> a(CONSO:"Tau aggregates")
+a(CONSO:"Tau aggregates") -> path(CONSO:proteotoxicity)
 UNSET Confidence
 
 SET Evidence = "In one
@@ -90,9 +90,9 @@ whereas the other set harbours, in addition to DK280, the
 proline substitutions I277P and I308P (PP), which act as
 b-sheet breakers and prevent aggregation (15)."
 SET Confidence = "Medium"
-p(HGNC:MAPT, var("p.Lys280del")) -> a(HBP:"Tau aggregates")
-p(HGNC:MAPT, var("p.Ile277Pro")) -| a(HBP:"Tau aggregates")
-p(HGNC:MAPT, var("p.Ile308Pro")) -| a(HBP:"Tau aggregates")
+p(HGNC:MAPT, var("p.Lys280del")) -> a(CONSO:"Tau aggregates")
+p(HGNC:MAPT, var("p.Ile277Pro")) -| a(CONSO:"Tau aggregates")
+p(HGNC:MAPT, var("p.Ile308Pro")) -| a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "In addition, only FL Tau V337M was phosphorylated at the KXGS
@@ -148,9 +148,9 @@ data, we conclude that the continued expression of FL Tau
 V337M and F3DK280 is toxic for the neurons and as a conse-
 quence, the development of the nervous system is perturbed."
 SET Confidence = "High"
-p(HGNC:MAPT, var("p.Val277Met")) -> path(HBP:neurotoxicity)
+p(HGNC:MAPT, var("p.Val277Met")) -> path(CONSO:neurotoxicity)
 p(HGNC:MAPT, var("p.Val277Met")) -| bp(GO:"nervous system development")
-p(HGNC:MAPT, var("p.Lys280del")) -> path(HBP:neurotoxicity)
+p(HGNC:MAPT, var("p.Lys280del")) -> path(CONSO:neurotoxicity)
 p(HGNC:MAPT, var("p.Lys280del")) -| bp(GO:"nervous system development")
 UNSET Confidence
 
@@ -158,12 +158,12 @@ SET Evidence = "Aberrant phosphorylation and aggregation of Tau have been
 linked to axonal transport problems, synaptic malfunction
 and degeneration (6)."
 SET Confidence = "High"
-p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)) -| bp(GO:"axonal transport")
-p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)) -| bp(GO:"synaptic signaling")
-p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)) -| bp(GO:"maintenance of synapse structure")
-a(HBP:"Tau aggregates") -| bp(GO:"axonal transport")
-a(HBP:"Tau aggregates") -| bp(GO:"synaptic signaling")
-a(HBP:"Tau aggregates") -| bp(GO:"maintenance of synapse structure")
+p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation)) -| bp(GO:"axonal transport")
+p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation)) -| bp(GO:"synaptic signaling")
+p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation)) -| bp(GO:"maintenance of synapse structure")
+a(CONSO:"Tau aggregates") -| bp(GO:"axonal transport")
+a(CONSO:"Tau aggregates") -| bp(GO:"synaptic signaling")
+a(CONSO:"Tau aggregates") -| bp(GO:"maintenance of synapse structure")
 UNSET Confidence
 
 SET Evidence = "This indicated that
@@ -172,7 +172,7 @@ termini of young adult pro-aggregant worms. "
 SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 SET CellStructure = "Presynaptic Terminals"
-a(HBP:"Tau aggregates") -| p(UNIPROT:"O02495")
+a(CONSO:"Tau aggregates") -| p(UNIPROT:"O02495")
 UNSET CellStructure
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -185,14 +185,14 @@ ance to aldicarb, producing a paralysis proﬁle intermediate
 between the sensitive wild-type N2 and the resistant
 rab-3(js49) strain, which we used as controls (Fig. 5A)."
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -| bp(GO:"synaptic signaling")
+a(CONSO:"Tau aggregates") -| bp(GO:"synaptic signaling")
 UNSET Confidence
 
 SET Evidence = "We crossed WyEx2709 into the
 pro-aggregant strain (resulting in strain BR6011) and discov-
 ered that this regular mitochondrial distribution was distorted."
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -| bp(GO:"intracellular distribution of mitochondria")
+a(CONSO:"Tau aggregates") -| bp(GO:"intracellular distribution of mitochondria")
 UNSET Confidence
 
 SET Evidence = "The velocity
@@ -201,7 +201,7 @@ than in wild-type (mean + SD ¼ 171 + 111 versus 256 +
 117 nm/s), whereas the anti-aggregant strain (194 + 131 nm/
 s) did not substantially differ from wild- type (Fig. 7D)."
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -| bp(GO:"axonal transport of mitochondrion")
+a(CONSO:"Tau aggregates") -| bp(GO:"axonal transport of mitochondrion")
 UNSET Confidence
 
 SET Evidence = " We supplemented the growth medium of syn-
@@ -221,7 +221,7 @@ soluble Tau and reduced detergent-insoluble Tau by  35%
 in the pro-aggregant strain (Fig. 8A, quantitation in 8B), con-
 sistent with its anti-aggregation properties (31)."
 SET Confidence = "High"
-a(CHEBI:"methylene blue") -| a(HBP:"Tau aggregates")
+a(CHEBI:"methylene blue") -| a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "We then
@@ -234,7 +234,7 @@ terial, Fig. S6B)."
 SET Confidence = "High"
 SET MeSHDisease = "Tauopathies"
 a(PUBCHEM:"25096749") -> bp(GO:"locomotion")
-a(HBP:"bb14") -> bp(GO:"locomotion")
+a(CONSO:"bb14") -> bp(GO:"locomotion")
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -242,7 +242,7 @@ SET Evidence = "BSc3094 resulted in 40% decrease in the
 detergent-insoluble Tau (FA fraction) in pro-aggregant
 animals,"
 SET Confidence = "High"
-a(PUBCHEM:"25096749") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"25096749") -| a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "We next analysed the most
@@ -256,7 +256,7 @@ pound prevents Tau ﬁbril formation in vitro, and is able to
 cross the mammalian blood–brain barrier, an attribute that
 makes it favourable for clinical applications (33)."
 SET Confidence = "High"
-a(HBP:"cmp16") -| a(HBP:"Tau fibrils")
+a(CONSO:"cmp16") -| a(CONSO:"Tau fibrils")
 UNSET Confidence
 
 SET Evidence = "At 100 m M , we observed improved
@@ -265,7 +265,7 @@ approximately 1.6 times faster than DMSO-treated controls
 (Fig. 9A). "
 # 100 m M cmp16
 SET Confidence = "High"
-a(HBP:"cmp16") -> bp(GO:"locomotion")
+a(CONSO:"cmp16") -> bp(GO:"locomotion")
 UNSET Confidence
 
 SET Evidence = " Treatment with cmp16 diminished the
@@ -279,7 +279,7 @@ rodegeneration (22,58)."
 SET Confidence = "High"
 SET Cell = "motor neuron"
 SET MeSHDisease = "Tauopathies"
-a(HBP:"cmp16") -| path(HP:Neurodegeneration)
+a(CONSO:"cmp16") -| path(HP:Neurodegeneration)
 UNSET MeSHDisease
 UNSET Cell
 UNSET Confidence

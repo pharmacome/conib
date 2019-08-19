@@ -21,7 +21,7 @@ SET DOCUMENT Description = ""
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc.genefamily-names.belns"
 #DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hp-names.belns"
@@ -74,9 +74,9 @@ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifact
 SET Citation = {"PubMed","30640040"}
 
 SET Evidence = "As shown before, Tau aggregation (on the level of
- oligomeric and/or fibril aggregates) is toxic for cells."
+oligomeric and/or fibril aggregates) is toxic for cells."
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -> bp(GO:"cell killing")
+a(CONSO:"Tau aggregates") -> bp(GO:"cell killing")
 UNSET Confidence
 
 SET Evidence = "The dose response screening identified compounds
@@ -84,17 +84,17 @@ related to the inhibition of 3 major targets led to inhibition
 of Tau aggregation: p38 MAPK (7 out of 8 compounds in the initial
 library), VEGFR1/2 (3 of 8) and TGF (3 of 10). "
 SET Confidence = "High"
-act(p(HGNC:MAPK14)) -> a(HBP:"Tau aggregates")
-act(p(HGNC:FLT1)) -> a(HBP:"Tau aggregates")
-act(p(HGNC:KDR)) -> a(HBP:"Tau aggregates")
-act(p(FPLX:TGFB)) -> a(HBP:"Tau aggregates")
+act(p(HGNC:MAPK14)) -> a(CONSO:"Tau aggregates")
+act(p(HGNC:FLT1)) -> a(CONSO:"Tau aggregates")
+act(p(HGNC:KDR)) -> a(CONSO:"Tau aggregates")
+act(p(FPLX:TGFB)) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = " Conversely, compounds related to HDAC inhibition
 (16 of 20) led to enhanced Tau aggregation, suggesting that HDAC
 activity is important for suppressing aggregation"
 SET Confidence = "High"
-act(p(FPLX:HDAC)) -| a(HBP:"Tau aggregates")
+act(p(FPLX:HDAC)) -| a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Treatment with Givinostat (1.2 µM) lead to a
@@ -104,7 +104,7 @@ uninduced control, and 2.5-fold compared to the induced control. "
 #Givinostat is a HDAC inhibitors
 SET Confidence = "High"
 a(PUBCHEM:"9804992") -| act(p(FPLX:HDAC))
-a(PUBCHEM:"9804992") -> a(HBP:"Tau aggregates")
+a(PUBCHEM:"9804992") -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "The GO terms enrichment for the molecular function
@@ -124,63 +124,63 @@ activity (transferring phosphorus-containing groups), (8) purine
 nucleotide binding, (9) purine ribonucleotide binding, (10) adenyl
 nucleotide binding."
 #targets involved in the regulation of the Tau aggregation
-#a(GO:"deacetylase activity") pos a(HBP:"Tau aggregates")
-#a(GO:"hydrolase activity, acting on carbon-nitrogen (but not peptide) bonds") pos a(HBP:"Tau aggregates")
-#a(GO:"hydrolase activity, acting on carbon-nitrogen (but not peptide) bonds, in linear amides") pos a(HBP:"Tau aggregates")
-#a(GO:"histone deacetylase activity") pos a(HBP:"Tau aggregates")
-#a(GO:"protein deacetylase activity") pos a(HBP:"Tau aggregates")
-#a(GO:"protein kinase binding") pos a(HBP:"Tau aggregates")
-#a(GO:"transcription coregulator activity") pos a(HBP:"Tau aggregates")
-#a(GO:" DNA-binding transcription repressor activity ") pos a(HBP:"Tau aggregates")
-#a(GO:"kinase binding") pos a(HBP:"Tau aggregates")
-#a(GO:"protein kinase C binding") pos a(HBP:"Tau aggregates")
+#a(GO:"deacetylase activity") pos a(CONSO:"Tau aggregates")
+#a(GO:"hydrolase activity, acting on carbon-nitrogen (but not peptide) bonds") pos a(CONSO:"Tau aggregates")
+#a(GO:"hydrolase activity, acting on carbon-nitrogen (but not peptide) bonds, in linear amides") pos a(CONSO:"Tau aggregates")
+#a(GO:"histone deacetylase activity") pos a(CONSO:"Tau aggregates")
+#a(GO:"protein deacetylase activity") pos a(CONSO:"Tau aggregates")
+#a(GO:"protein kinase binding") pos a(CONSO:"Tau aggregates")
+#a(GO:"transcription coregulator activity") pos a(CONSO:"Tau aggregates")
+#a(GO:" DNA-binding transcription repressor activity ") pos a(CONSO:"Tau aggregates")
+#a(GO:"kinase binding") pos a(CONSO:"Tau aggregates")
+#a(GO:"protein kinase C binding") pos a(CONSO:"Tau aggregates")
 
-#a(GO:"protein kinase activity") neg a(HBP:"Tau aggregates")
-#a(GO:"phosphotransferase activity, alcohol group as acceptor") neg a(HBP:"Tau aggregates")
-#a(GO:"protein serine/threonine kinase activity") neg a(HBP:"Tau aggregates")
-#a(GO:"nucleotide binding") neg a(HBP:"Tau aggregates")
-#a(GO:"ribonucleotide binding") neg a(HBP:"Tau aggregates")
-#a(GO:"transferase activity") neg a(HBP:"Tau aggregates")
-#a(GO:"transferase activity, transferring phosphorus-containing groups") neg a(HBP:"Tau aggregates")
-#a(GO:"purine nucleotide binding") neg a(HBP:"Tau aggregates")
-#a(GO:"purine ribonucleotide binding") neg a(HBP:"Tau aggregates")
-#a(GO:"adenyl nucleotide binding") neg a(HBP:"Tau aggregates")
+#a(GO:"protein kinase activity") neg a(CONSO:"Tau aggregates")
+#a(GO:"phosphotransferase activity, alcohol group as acceptor") neg a(CONSO:"Tau aggregates")
+#a(GO:"protein serine/threonine kinase activity") neg a(CONSO:"Tau aggregates")
+#a(GO:"nucleotide binding") neg a(CONSO:"Tau aggregates")
+#a(GO:"ribonucleotide binding") neg a(CONSO:"Tau aggregates")
+#a(GO:"transferase activity") neg a(CONSO:"Tau aggregates")
+#a(GO:"transferase activity, transferring phosphorus-containing groups") neg a(CONSO:"Tau aggregates")
+#a(GO:"purine nucleotide binding") neg a(CONSO:"Tau aggregates")
+#a(GO:"purine ribonucleotide binding") neg a(CONSO:"Tau aggregates")
+#a(GO:"adenyl nucleotide binding") neg a(CONSO:"Tau aggregates")
 
 SET Evidence = "Tab. 1A-B: Summary of the Tau aggregation modulators
- (inhibitors = 18 (A), stimulators = 10 (B)) which show decrease /
- increase in the amount of ThS + cells without affecting the expression
- level of TauRD∆K compared to the compound untreated control. "
+(inhibitors = 18 (A), stimulators = 10 (B)) which show decrease /
+increase in the amount of ThS + cells without affecting the expression
+level of TauRD∆K compared to the compound untreated control. "
 SET Confidence = "High"
 #stimulators
-a(PUBCHEM:"9865515") -> a(HBP:"Tau aggregates")
-a(PUBCHEM:"4261") -> a(HBP:"Tau aggregates")
-a(PUBCHEM:"24756910") -> a(HBP:"Tau aggregates")
-a(PUBCHEM:"448537") -> a(HBP:"Tau aggregates")
-a(PUBCHEM:"5318517") -> a(HBP:"Tau aggregates")
-a(PUBCHEM:"71295844") -> a(HBP:"Tau aggregates")
-a(PUBCHEM:"42640") -> a(HBP:"Tau aggregates")
-a(PUBCHEM:"2746") -> a(HBP:"Tau aggregates")
-a(PUBCHEM:"71729974") -> a(HBP:"Tau aggregates")
-a(PUBCHEM:"53340666") -> a(HBP:"Tau aggregates")
+a(PUBCHEM:"9865515") -> a(CONSO:"Tau aggregates")
+a(PUBCHEM:"4261") -> a(CONSO:"Tau aggregates")
+a(PUBCHEM:"24756910") -> a(CONSO:"Tau aggregates")
+a(PUBCHEM:"448537") -> a(CONSO:"Tau aggregates")
+a(PUBCHEM:"5318517") -> a(CONSO:"Tau aggregates")
+a(PUBCHEM:"71295844") -> a(CONSO:"Tau aggregates")
+a(PUBCHEM:"42640") -> a(CONSO:"Tau aggregates")
+a(PUBCHEM:"2746") -> a(CONSO:"Tau aggregates")
+a(PUBCHEM:"71729974") -> a(CONSO:"Tau aggregates")
+a(PUBCHEM:"53340666") -> a(CONSO:"Tau aggregates")
 #inhibitors
-a(PUBCHEM:"11154925") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"4521392") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"11234052") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"46209426") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"6321424") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"11570805") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"156422") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"9880") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"3033825") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"5311272") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"49806720") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"9839311") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"447966") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"11655119") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"10435235") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"5833") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"10341154") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:"4878") -| a(HBP:"Tau aggregates")
+a(PUBCHEM:"11154925") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"4521392") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"11234052") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"46209426") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"6321424") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"11570805") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"156422") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"9880") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"3033825") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"5311272") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"49806720") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"9839311") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"447966") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"11655119") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"10435235") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"5833") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"10341154") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:"4878") -| a(CONSO:"Tau aggregates")
 #stimulator target
 a(PUBCHEM:"9865515") -- p(FPLX:HDAC)
 a(PUBCHEM:"4261") -- p(HGNC:HDAC1)
