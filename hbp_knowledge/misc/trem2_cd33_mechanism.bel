@@ -1,0 +1,607 @@
+##################################################################################
+# BEL Script template for BIT Lab
+##################################################################################
+SET DOCUMENT Name = "Task NeuroMMSig Lab - Inflammation"
+SET DOCUMENT Version = "1.0.1"
+SET DOCUMENT Description = "This network was created with the purpose of assembly all the knowledge around TREM2 and CD33 as a task for the lab of Mechanism enrichment using NeuroMMSig supervised by Daniel Domingo-Fernandez"
+ 
+SET DOCUMENT Copyright = "CC by 4.0"
+ 
+SET DOCUMENT Authors = "Students of the lab and Daniel Domingo-Fernandez"
+SET DOCUMENT Licenses = "MIT License"
+SET DOCUMENT ContactInfo = "daniel.domingo.fernandez@scai.fraunhofer.de"
+ 
+ 
+ 
+##################################################################################
+# Definitions
+##################################################################################
+ 
+# NAMESPACES
+ 
+DEFINE NAMESPACE CHEBI AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/chebi/chebi-20170511.belns"
+DEFINE NAMESPACE DO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170511.belns"
+DEFINE NAMESPACE GOBP AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/go-biological-process/go-biological-process-20170511.belns"
+DEFINE NAMESPACE GOCC AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/go-cellular-component/go-cellular-component-20170511.belns"
+DEFINE NAMESPACE HGNC AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hgnc-human-genes/hgnc-human-genes-20170511.belns"
+DEFINE NAMESPACE MESHC AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-chemicals/mesh-chemicals-20170511.belns"
+DEFINE NAMESPACE MESHCS AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-cell-structures/mesh-cell-structures-20170511.belns"
+DEFINE NAMESPACE MESHD AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-diseases/mesh-diseases-20170511.belns"
+DEFINE NAMESPACE MESHPP AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-processes/mesh-processes-20170511.belns"
+DEFINE NAMESPACE MGI AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170511.belns"
+DEFINE NAMESPACE RGD AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170511.belns"
+ 
+DEFINE NAMESPACE GFAM AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hgnc-gene-families/hgnc-gene-families-20170430.belns"
+ 
+DEFINE NAMESPACE ADO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/alzheimer-disease-ontology/alzheimer-disease-ontology-1.0.2.belns"
+DEFINE NAMESPACE BRCO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/brain-region-ontology/brain-region-ontology-1.0.0.belns"
+ 
+DEFINE NAMESPACE dbSNP AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE HP AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20170724.belns"
+ 
+DEFINE NAMESPACE CBP AS URL "http://belief-ptsd.scai.fraunhofer.de/BeliefDashboard/dicten/namespaces/cbp.belns"
+DEFINE NAMESPACE CA AS URL "http://belief-ptsd.scai.fraunhofer.de/BeliefDashboard/dicten/namespaces/ca.belns"
+DEFINE NAMESPACE CCHE AS URL "http://belief-ptsd.scai.fraunhofer.de/BeliefDashboard/dicten/namespaces/cche.belns"
+DEFINE NAMESPACE PTS AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/neurodegeneration-pathways/neurodegeneration-pathways-1.0.0.belns"
+ 
+# ANNOTATIONS
+ 
+DEFINE ANNOTATION Anatomy AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Disease AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION MeSHAnatomy AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Species AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/species-taxonomy-id/species-taxonomy-id-20170511.belanno"
+ 
+DEFINE ANNOTATION Gender AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION Confidence AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ 
+DEFINE ANNOTATION Subgraph AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.1.belanno"
+ 
+# ANNOTATION LISTS
+ 
+DEFINE ANNOTATION BRCO AS LIST {"Hippocampus","Parietal_Lobe","Cerebellum","Temporal_Lobe","Frontal_cortex","Striatum","Occipital_cortex"}
+DEFINE ANNOTATION Condition AS LIST {"Normal Healthy State"}
+ 
+DEFINE ANNOTATION DiseaseState AS LIST {"Early-onset AD","Late-onset AD","Mild AD","Moderate AD","Pre-dementia"}
+ 
+DEFINE ANNOTATION Encode_Feature_Types AS LIST {"CTCF","Enhancer","Open chromatin","Promoter","Promoter Flanking Region","TF binding site","TF binding site","CTCF", "Enhancer", "Open chromatin", "Promoter", "Promoter Flanking Region"}
+DEFINE ANNOTATION FDASTATUS AS LIST {"Approved","Discontinued","Inactive","Phase 1","Phase 2","Phase 2/3","Phase 3","Phase 4"}
+DEFINE ANNOTATION KnockoutMice AS LIST {"App transgenic","GLP1 KO mice","IDE KO mice","IGF1 KO mice","INSR knockout mice","IRS1 KO mice","IRS2 KO mice","KO Mapk8ip1","LID mice","NIRKO mice"}
+DEFINE ANNOTATION NIFT AS LIST {"Volumetric MRI","Positron Emission Tomography"}
+ 
+DEFINE ANNOTATION Patient AS LIST {"AD T2DM +ve","AD T2DM -ve","APOE e4 +ve","APOE e4 -ve"}
+DEFINE ANNOTATION UserdefinedCell AS LIST {"Astrocyte","Beta cell","Islets"}
+DEFINE ANNOTATION UserdefinedCellLine AS LIST {"293APPwt","App transgenic","CHOAPPsw","IDE APP transgenic","INS-1 cells","N2a695 cell","NT2N cells","Neuroblastoma cell","primary cortical neuron","primary neuron"}
+ 
+DEFINE ANNOTATION Transcriptionally_active_region AS LIST {"intron 1","exon 3","3 prime UTR","exon 41", "5 prime UTR"}
+DEFINE ANNOTATION Race AS LIST {"Caucasian", "silhouettes women", "Chinese", "Italian", "Swedish", "US women", "Colombian", "Han Chinese in Taiwan","Han Chinese in Singapore", "non-Hispanic white", "non-Hispanic black", "Hispanic", "Black", "White", "Japanese", "Taiwanese"}
+DEFINE ANNOTATION Developmental_Phase__of_patient AS LIST {"Adolescence", "Adult", "Young", "Old", "Developmental stage"}
+DEFINE ANNOTATION Duration_of_Chemical_Exposure AS LIST {"Subchronic", "Chronic"}
+DEFINE ANNOTATION Experimental_Group AS LIST {"Physical exercised group", "Sedentary group"}
+ 
+ 
+###############################################################################
+# Paper Number 12
+###############################################################################
+
+SET Citation = {"PubMed","Mol Neurodegener. 2015; 10: 52. Published online 2015 Oct 5. doi:  10.1186/s13024-015-0048-1","26438529"}
+
+SET SupportingText = "Analyses of these risk factors have focused attention upon the role of immune processes in AD, specifically microglial function. In this review, we discuss interpretation of genetic studies. We then focus upon six genes implicated by AD genetics that impact microglial function: TREM2, CD33, CR1, ABCA7, SHIP1, and APOE. We review the literature regarding the biological functions of these six proteins and their putative role in AD pathogenesis. "
+
+p(HGNC:TREM2) -- bp(GOBP:"microglial cell activation")
+p(HGNC:CD33) -- bp(GOBP:"microglial cell activation")
+p(HGNC:CR1) -- bp(GOBP:"microglial cell activation")
+p(HGNC:ABCA7) -- bp(GOBP:"microglial cell activation")
+p(HGNC:INPP5D) -- bp(GOBP:"microglial cell activation")
+p(HGNC:APOE) -- bp(GOBP:"microglial cell activation")
+
+SET SupportingText = "Most but not all human brain studies have suggested that TREM2 expression is within microglia [23–26]. TREM2 expression increases with IL-4 exposure [27], suggesting that TREM2 expression may be increased during alternative activation of microglia."
+
+p(HGNC:IL4) -> p(HGNC:TREM2)
+
+
+SET SupportingText = "Activated TREM2 stimulates DAP12 through an intramembrane lysine residue, resulting in phosphorylation of the DAP12 ITAM, and activation of the kinase Syk (Fig. 1, [24, 34]). This leads to activation of PI3K, resulting in actin rearrangement and phagocytic cup formation for target engulfment [35, 36]."
+
+act(p(HGNC:TREM2)) -> p(HGNC:TYROBP)
+act(p(HGNC:TYROBP)) -> p(HGNC:TYROBP, pmod(P, K))
+p(HGNC:TYROBP, pmod(P, K)) -> act(p(HGNC:SYK))
+act(p(HGNC:SYK)) -> act(p(HGNC:PIK3CD))
+act(p(HGNC:PIK3CD)) -- bp(GOBP: "regulation of actin cytoskeleton reorganization")
+act(p(HGNC:PIK3CD)) -- a(GOCC:"phagocytic cup")
+act(p(HGNC:PIK3CD)) -- bp(GOBP: "phagocytosis, engulfment")
+
+SET SupportingText = "Indeed, TREM2 activation actually decreases cytokine production that occurs in response to Toll-like receptor (TLR) activation [27, 38]. The activation of TREM2, Syk and phagocytosis is balanced by activation of phosphatases, most notably SHP-1, SHP-2, and SHIP1 (encoded by the AD-risk gene INPP5D, see below)."
+
+p(HGNC:TLR1) -> act(p(HGNC:TREM2))
+act(p(HGNC:TREM2)) -| bp(GOBP:"cytokine production")
+act(p(HGNC:PTPN6)) -- act(p(HGNC:TREM2))
+act(p(HGNC:PTPN6)) -- act(p(HGNC:SYK))
+act(p(HGNC:PTPN6)) -- bp(GOBP:"phagocytosis")
+act(p(HGNC:PTPN11)) -- act(p(HGNC:TREM2))
+act(p(HGNC:PTPN11)) -- act(p(HGNC:SYK))
+act(p(HGNC:PTPN11)) -- bp(GOBP:"phagocytosis")
+act(p(HGNC:INPP5D)) -- act(p(HGNC:TREM2))
+act(p(HGNC:INPP5D)) -- act(p(HGNC:SYK))
+act(p(HGNC:INPP5D)) -- bp(GOBP:"phagocytosis")
+
+SET SupportingText = "In 2012, a genome-wide search for AD risk factors based on the Icelandic population found that a TREM2 missense mutation, R47H (rs75932628), is a
+significant AD risk factor [43]. This finding was complemented by a large-scale companion study [44]."
+
+p(HGNC:TREM2, var("p.Arg47His")) -- path(DO:"Alzheimer's disease") 
+g(dbSNP:rs75932628) -- path(DO:"Alzheimer's disease") 
+
+SET SupportingText = "While the role of TREM2 in phagocytosis may have important implications for Abeta clearance in AD [53], the R47H variant has also been implicated in Parkinson's disease and frontotemporal dementia (FTD), neither of which centrally involves amyloid [54]. "
+
+p(HGNC:TREM2) -- path(MESHD:"Plaque, Amyloid")
+p(HGNC:TREM2, var("p.Arg47His")) -- path(DO:"Parkinson's disease") 
+p(HGNC:TREM2, var("p.Arg47His")) -- path(DO:"frontotemporal dementia") 
+
+SET SupportingText = "The Q33X nonsense mutation, which appears to lead to loss of TREM2
+function, is also associated with FTD risk"
+
+p(HGNC:TREM2, var("p.Gln33X")) -- path(DO:"frontotemporal dementia") 
+
+SET SupportingText = "Sialic acid binding activates CD33, resulting in phosphorylation
+of the CD33 immunoreceptor tyrosine-based inhibitory motif (ITIM) domains and activation of the SHP-1 and SHP-2 tyrosine phosphatases [66, 67]. These phosphatases act on multiple substrates, including Syk, to inhibit immune activation [68, 69]. Hence, CD33 activation leads to increased SHP-1 and SHP-2 activity that antagonizes Syk, inhibiting ITAM-signaling proteins, possibly including TREM2/DAP12 (Fig. 1, [70, 71])."
+
+bp(GOBP:"sialic acid binding") -> act(p(HGNC:CD33))
+act(p(HGNC:CD33)) -> p(HGNC:CD33, pmod(P))
+act(p(HGNC:CD33)) -> act(p(HGNC:PTPN6))
+act(p(HGNC:CD33)) -> act(p(HGNC:PTPN11))
+
+act(p(HGNC:PTPN6)) -| p(HGNC:SYK)
+act(p(HGNC:PTPN11)) -|  p(HGNC:SYK)
+
+act(p(HGNC:PTPN6)) negativeCorrelation  p(HGNC:TREM2)
+act(p(HGNC:PTPN6)) negativeCorrelation  p(HGNC:TYROBP)
+act(p(HGNC:PTPN11)) negativeCorrelation p(HGNC:TREM2)
+act(p(HGNC:PTPN11)) negativeCorrelation p(HGNC:TYROBP)
+
+SET SupportingText = "Recently, we and others sought to identify the mechanism whereby rs3865444 modulates CD33 to alter AD risk [60, 61, 74–76]. CD33 expression in the brain is modestly increased in AD and decreased with the minor, AD-protective rs3865444A allele [60, 61, 76]."
+
+SET MeSHAnatomy = "Brain"
+SET Disease = "Alzheimer's disease"
+
+g(dbSNP:rs3865444) -- path(DO:"Alzheimer's disease") 
+g(dbSNP:rs3865444A) negativeCorrelation p(HGNC:CD33)
+
+SET SupportingText = "Increased CD33 expression was associated with reduced Abeta phagocytosis [60, 76]. This is consistent with findings that CD33 activation by cell surface sialic acids in cis leads to reduced cellular activation [72, 77], as well as a report suggesting that CD33 negatively regulates CD14, an Abeta receptor [78–80]."
+
+p(HGNC:CD33) -- bp(GOBP:"negative regulation of phagocytosis")
+bp(GOBP:"sialic acid binding") -> act(p(HGNC:CD33))
+act(p(HGNC:CD33)) -| bp(GOBP:"cellular activation")
+
+p(HGNC:CD33) negativeCorrelation p(HGNC:CD14)
+
+UNSET MeSHAnatomy
+
+SET SupportingText = "SHIP1 has been shown to inhibit monocyte activation and phagocytosis [68, 84, 91–95], in part by transducing inhibitory signaling of FcγRIIB and other ITIM-containing proteins. In dendritic cells, SHIP1 complexes with the AD-relevant protein CD2AP to inhibit
+the ubiquitination of pro-inflammatory proteins Syk and FcγRIIa [96]."
+
+p(HGNC:INPP5D) -| bp(GOBP:"monocyte activation")
+p(HGNC:INPP5D) -| bp(GOBP:phagocytosis)
+
+SET Cell = "dendritic cell"
+
+complex(p(HGNC:INPP5D), p(HGNC:CD2AP)) -| p(HGNC:SYK, pmod(U))
+complex(p(HGNC:INPP5D), p(HGNC:CD2AP)) -| p(HGNC:FCGR2A , pmod(U))
+p(HGNC:SYK, pmod(U)) -| p(HGNC:SYK)
+p(HGNC:FCGR2A, pmod(U)) -> p(HGNC:FCGR2A)
+p(HGNC:CD2AP) -- path(DO:"Alzheimer's disease") 
+
+UNSET Cell
+
+SET SupportingText = "SHIP1 also reduces NF-κB activation, which has been shown to activate BACE1 expression in activated astrocytes [97, 98]. Perhaps most relevant to AD, SHIP1 inhibits TREM2 signaling through DAP12 in osteoclasts, dysfunction of which is another hallmark of Nasu-Hakola disease [99]."
+
+p(HGNC:INPP5D) -| act(complex(GOCC:"NF-kappaB complex"))
+act(complex(GOCC:"NF-kappaB complex")) -> p(HGNC:BACE1)
+p(HGNC:INPP5D) -| p(HGNC:TYROBP)
+
+SET SupportingText = "An INPP5D polymorphism, rs35349669, has recently been associated with AD risk [4]. SHIP1 transcription is initiated at multiple start sites; initiation at an internal site results in production of a protein lacking the SH2 domain [102]."
+
+g(dbSNP:rs35349669) -- path(DO:"Alzheimer's disease") 
+g(dbSNP:rs35349669) -- p(HGNC:INPP5D)
+
+SET SupportingText = "The complement pathway has been associated with AD since the 1982 when complement factors were found in amyloid plaques [105]. The complement protein C1q was subsequently shown to bind Abeta, leading to complement activation and inflammation [106]."
+
+bp(GOBP:"complement activation")  -- path(DO:"Alzheimer's disease") 
+complex(p(HGNC:C1QB),p(ADO:"Amyloid Beta")) -> bp(GOBP:"complement activation")
+complex(p(HGNC:C1QB),p(ADO:"Amyloid Beta")) -> bp(GOBP:"inflammatory response")
+
+SET SupportingText = "Subsequent studies found that complement pathway proteins are upregulated in AD brain [108], and that C3b binding to Abeta leads to inflammation and neuronal lysis (reviewed in [109])."
+
+complex(p(HGNC:C3),p(ADO:"Amyloid Beta")) -> bp(GOBP:"inflammatory response")
+complex(p(HGNC:C3),p(ADO:"Amyloid Beta")) -> bp(GOBP:"neuron death")
+
+SET SupportingText = "However, some studies have found that the complement cascade can
+have neuroprotective effects: the complement protein C5a has been shown to activate MAPK, protecting neurons and reducing hippocampal lesions in mouse models [109]."
+
+SET Species = "10090"
+
+p(HGNC:C5) -> p(HGNC:MAPK1)
+p(HGNC:MAPK1) -| bp(GOBP: "neuron death")
+
+UNSET Species
+
+
+SET SupportingText = "Consistent with the possibility that ABCA7 may modulate lipid transport and thereby contribute to phagocytosis, Rong et al. observed that inflammation modulates membrane phospholipid composition, thus affecting the function of membrane proteins [121]. Moreover, Kim et al. showed ABCA7 deficiency resulted in increased Abeta deposition, suggesting a decrease in phagocytic clearance [122]. Taken together, these findings support the possibility that ABCA7 reduces AD risk by contributing to phagocytic cup formation and Abeta clearance."
+
+p(HGNC:ABCA7) -- bp(GOBP: "lipid transport")
+p(HGNC:ABCA7) -| path(MESHD:"Plaque, Amyloid") 
+p(HGNC:ABCA7) -- bp(GOBP: phagocytosis)
+
+SET SupportingText = "We recently reported that the AD-protective rs3764650 allele was associated with increased ABCA7 expression [123], leading us to hypothesize that the SNP-associated increase in ABCA7 expression protects from AD."
+
+g(dbSNP:rs3764650) -> g(HGNC:ABCA7)
+g(dbSNP:rs3764650) -| path(DO:"Alzheimer's disease") 
+
+SET SupportingText = "Of the three common APOE alleles, APOE4 raises AD risk and reduces age of AD onset, while APOE2 lowers AD risk and increases age of onset [125]."
+
+p(HGNC:APOE,sub(R,132,S)) positiveCorrelation path(DO:"Alzheimer's disease") 
+p(HGNC:APOE,sub(R,158,C)) negativeCorrelation path(DO:"Alzheimer's disease") 
+
+SET SupportingText = "ApoE functions in the transport of cholesterol (reviewed in [128]), and is important for the redistribution of lipids within the CNS, including delivery of cholesterol and phospholipids to neurons."
+
+p(HGNC:APOE) -- bp(GOBP: "cholesterol transport")
+p(HGNC:APOE) -- bp(GOBP: "regulation of lipid transport")
+
+SET SupportingText = "In addition to its function in lipid transport, apoE is an anti-inflammatory agent. Evidence supporting this perspective includes that apoE deficiency exacerbates neuroinflammation in several rodent injury models including ischemia [129], experimental autoimmune encephalomyelitis [130], traumatic brain injury [131], and induced neuroinflammation [132]."
+
+p(HGNC:APOE) -| bp(GOBP: "inflammatory response")
+
+SET SupportingText = "Moreover, apoE deficiency was associated with a reduced clearance of neuronal debris in a model of entorhinal cortex lesion, suggesting that apoE contributes to the clearance of cholesterol-rich neuronal breakdown products [133]."
+
+p(HGNC:APOE) -- bp(GOBP: "regulation of amyloid-beta clearance")
+
+SET SupportingText = "Compared to APOE3, APOE4 is associated with a reduced ability to suppress inflammatory stimuli both in vivo and in vitro (reviewed in [137])"
+
+p(HGNC:APOE,sub(R,132,S)) -- bp(GOBP:"negative regulation of inflammatory response") 
+
+SET SupportingText = "Although the literature is sparse on APOE isoform-specific effects on Aß-induced neuroinflammation, evidence supports that APOE4 modulates Aß-induced neuroinflammation in vivo. E4FAD mice (APOE-TR mice crossed with 5xFAD mice) [142] exhibit
+greater microgliosis and astrogliosis around cortical Abeta deposits compared to E3FAD [143]."
+
+p(HGNC:APOE,sub(R,132,S)) -- bp(GOCC:"amyloid-beta complex") 
+p(HGNC:APOE,sub(R,132,S)) -- bp(GOBP:"regulation of microglia differentiation")
+p(HGNC:APOE,sub(R,132,S)) -- bp(GOBP:"regulation of astrocyte differentiation")
+bp(GOCC:"amyloid-beta complex")  -- bp(GOBP:"inflammatory response")
+
+SET SupportingText = "APOE deletion has also been shown to upregulate TLR4 and TLR2 and enhance TLR signaling [147, 148]. Compared to apoE3, apoE4 increases cytokine production in
+both LPS-treated peripheral immune cells [132, 133] and LPS- and Aß-treated mixed glial cultures [137, 149, 150]. LPS and oligomeric Abeta-induced TNFα secretion are inhibited by TLR4 antagonists in mixed glial cultures, consistent with APOE isoform specific effects on TLR4 signaling in vivo [137, 149, 150]. APOE4 alleles also dose-dependently increase nitric oxide production in microglial cultures [141]."
+
+p(HGNC:APOE) negativeCorrelation p(HGNC:TLR4)
+p(HGNC:APOE) negativeCorrelation p(HGNC:TLR2)
+p(HGNC:APOE) -- bp(GOBP: "negative regulation of toll-like receptor signaling pathway")
+
+p(HGNC:APOE,sub(R,132,S)) -> bp(GOBP: "cytokine production")
+p(HGNC:TLR4) -> sec(a(CHEBI:lipopolysaccharide))
+p(HGNC:TLR4) -> bp(GOBP: "tumor necrosis factor secretion")
+
+SET MeSHAnatomy= "Microglia"
+p(HGNC:APOE,sub(R,132,S)) -> a(CHEBI:"nitric oxide")
+UNSET MeSHAnatomy
+
+SET SupportingText = "Neuronal debris and perhaps other lipid-rich ligands activate TREM2, which promotes microglial phagocytosis through the ITAM domain of its co-factor, DAP12 and the downstream effector, Syk [28]. We hypothesize that enhanced TREM2 function reduces AD risk, although as discussed above, this hypothesis is not supported by all current data [29, 57, 58]"
+
+SET MeSHAnatomy= "Brain"
+
+bp(GOBP: "clearance of damaged tissue involved in inflammatory response wound healing") -> p(HGNC:TREM2)
+p(HGNC:TREM2) -> bp(GOBP:phagocytosis)
+
+
+SET SupportingText = "Sialic acid-rich areas, such as the vicinity of plaques, stimulate CD33 signaling, leading to activation of the CD33 ITIM, which, in turn activates SHP-1 to inhibit microglial activation, particularly TREM2 signaling via Syk [70, 71]. ApoE is an abundant sialylated protein in the vicinity of plaques and hence could contribute to this action [63 – 65]."
+
+act(p(HGNC:CD33)) -> act(p(HGNC:PTPN6))
+act(p(HGNC:PTPN6)) -| p(HGNC:SYK)
+SET MeSHAnatomy= "Microglia"
+act(p(HGNC:PTPN6)) -| bp(GOBP:"cell activation")
+UNSET MeSHAnatomy
+
+p(HGNC:APOE) -- act(p(HGNC:CD33))
+ 
+###############################################################################
+# Periphery nodes
+###############################################################################
+
+SET Citation = {"PubMed","J Biol Chem. 2016 Apr 1;291(14):7742-53. doi: 10.1074/jbc.M115.700914. Epub 2016 Feb 8.","26858248"}
+
+SET SupportingText = "Tau neuronal protein has a central role in neurodegeneration and is implicated in Alzheimer disease development."
+
+p(HGNC:MAPT,pmod(P))  -- path(DO:"Alzheimer's disease") 
+
+SET SupportingText = "Here, we characterize phosphorylation of Tau by extracellular-regulated kinase (ERK2), a mitogen-activated kinase (MAPK) that responds to extracellular signals."
+
+ p(HGNC:MAPK1) -> p(HGNC:MAPT,pmod(P)) 
+
+SET Citation = {"PubMed","Oxid Med Cell Longev. 2016;2016:4512309. doi: 10.1155/2016/4512309. Epub 2015 Nov 16..","26649137"}
+
+SET SupportingText = "In addition, acetaldehyde induced the activation of p38 mitogen-activated protein kinase (MAPK) while inhibiting the activation of extracellular signal-regulated kinases (ERKs, p44/p42MAPK)"
+
+a(CHEBI:acetaldehyde) -| p(HGNC:MAPK1)
+
+SET Citation = {"PubMed","J Biol Chem. 2015 Aug 28;290(35):21409-20. doi: 10.1074/jbc.M114.634162. Epub 2015 Jul 2.","26139609"}
+
+SET SupportingText = "Our results show substantial, progressive activation of ERK in response to nanomolar Abeta exposure, starting at the earliest time point. Increased ERK activation was followed by JNK activation as well as an increased expression of PHF-tau, paralleled by increased levels of reactive oxygen species (ROS)." 
+
+p(ADO:"Amyloid Beta") -> act(p(HGNC:MAPK1))
+act(p(HGNC:MAPK1)) -> act(p(HGNC:MAPK8))
+act(p(HGNC:MAPK1)) -> p(HGNC:MAPT)
+act(p(HGNC:MAPK1)) -> a(CHEBI: "reactive oxygen species")
+
+SET Citation = {"PubMed","Neurosci Lett. 2015 May 6;594:105-10. doi: 10.1016/j.neulet.2015.03.045. Epub 2015 Mar 25.","25818332"}
+
+SET SupportingText = "Besides, curcumin exerted an inhibitory effect on phosphorylation of ERK1/2 and p38 in Abeta42-activated microglia. Further experiments indicated that blockage of ERK1/2 and p38 pathways reduced inflammatory cytokines production from microglia. These results show that curcumin suppresses ERK1/2 and p38 signaling, thus, attenuating inflammatory responses of brain microglia."
+
+SET MeSHAnatomy= "Microglia"
+
+p(HGNC:MAPK1) -> p(HGNC:MAPK1, pmod(P))
+a(CHEBI: curcumin) -| p(HGNC:MAPK1, pmod(P))
+a(CHEBI: curcumin) -| p(HGNC:MAPK14, pmod(P))
+p(HGNC:MAPK1, pmod(P)) -> bp(GOBP:"inflammatory response")
+p(HGNC:MAPK1, pmod(P)) -> bp(GOBP: "cytokine production")
+p(HGNC:MAPK14, pmod(P)) -> bp(GOBP:"inflammatory response")
+p(HGNC:MAPK14, pmod(P)) -> bp(GOBP: "cytokine production")
+
+UNSET MeSHAnatomy
+
+SET Citation = {"PubMed","J Neuroinflammation. 2015 Aug 16;12:150. doi: 10.1186/s12974-015-0369-6.","26275910"}
+
+SET SupportingText = "Microglia cells, one of the major contributors in neuroinflammation, are activated in response to misfolded proteins such as amyloid beta and cell debris leading to a sustained release of pro-inflammatory mediators. Especially, complement factor C5a and its receptor have been found to be up-regulated in microglia in the immediate surroundings of cerebral amyloid plaques and blocking of C5aR resulted in a reduction of pathological markers in a model of AD." 
+
+SET MeSHAnatomy= "Microglia"
+p(ADO:"Amyloid Beta")  -> bp(GOBP: "cell activation") 
+p(ADO:"Amyloid Beta") -- p(HGNC:C5) 
+bp(GOBP:"cell activation") -> p(HGNC:C5)
+
+
+SET Citation = {"PubMed","Xi Bao Yu Fen Zi Mian Yi Xue Za Zhi. 2013 Mar;29(3):265-8.","23643083"}
+
+SET SupportingText = "CONCLUSION: C5a promotes the release of TNF-alpha from microglial cells; Abeta1-42 can further boost the release and C5aRA can inhibite TNF-alpha secretion of microglial cells significantly."
+
+p(HGNC:C5) -> p(HGNC:TNF)
+    
+
+SET Citation = {"PubMed","J Immunol. 2009 Jul 15;183(2):1375-83. doi: 10.4049/jimmunol.0901005. Epub 2009 Jun 26.","19561098"}
+
+SET SupportingText = "C5a, is known to recruit and activate microglia and astrocytes in vitro by activation of a G protein-coupled cell-surface C5aR."
+
+p(HGNC:C5) -> bp(GOBP: "cell activation")
+p(HGNC:C5) -> p(HGNC:C5AR1)
+    
+
+SET Citation = {"PubMed","J Neurosci. 2016 Jan 13;36(2):577-89. doi: 10.1523/JNEUROSCI.2117-15.2016","26758846"}
+
+SET SupportingText = "We show that in primary microglial cultures, acute C3 or C3a activation promotes, whereas chronic C3/C3a treatment attenuates, microglial phagocytosis and that the effect of chronic C3 exposure can be blocked by cotreatment with a C3aR antagonist and by genetic deletion of C3aR. We further demonstrate that Abeta pathology and neuroinflammation in amyloid precursor protein (APP) transgenic mice are worsened by astroglial NF-κB hyperactivation and resulting C3 elevation, whereas treatment with the C3aR antagonist (C3aRA) ameliorates plaque load and microgliosis. Our studies define a complement-dependent intercellular cross talk in which neuronal overproduction of Abeta activates astroglial NF-κB to elicit extracellular release of C3. This promotes a pathogenic cycle by which C3 in turn interacts with neuronal and microglial C3aR to alter cognitive function and impair Abeta phagocytosis."
+
+p(HGNC:C3) -> bp(GOBP: phagocytosis)
+p(ADO:"Amyloid Beta") -> complex(GOCC:"NF-kappaB complex"))
+complex(GOCC:"NF-kappaB complex") -> p(HGNC:C3)
+p(HGNC:C3) -> p(HGNC:C3AR1)
+p(HGNC:C3AR1) -| bp(GOBP: phagocytosis)
+
+SET Citation = {"PubMed","Acta Neuropathol. 2002 Feb;103(2):157-62. Epub 2001 Nov 24.","11810182"}
+
+SET SupportingText = "We report that overexpression of human (h) cyclooxygenase-2 h(COX-2) in the brain of a transgenic mouse line leads to selective induction of endogenous complement component C1qB expression in neurons. No detectable induction of the C3 and C4 complement components in the brain was found. Chronic treatment of mice with the selective COX-2 inhibitor nimesulide reduced the hCOX-2-mediated induction of hippocampal C1qB mRNA expression."
+
+p(HGNC:PTGS2)->p(HGNC:C1QB)
+
+SET Citation = {"PubMed","Neuroscience. 2000;101(2):313-21.","11074155"}
+
+SET SupportingText = "Interactions of transforming growth factor-beta1 with complement system gene expression are also indicated, because transforming growth factor-beta1 decreased C1qB messenger RNA in the cortex and hippocampus, after intraventricular infusion, and in cultured glia."
+
+p(HGNC:TGFB1) -> p(HGNC:C1QB)
+
+SET Citation = {"PubMed","J Alzheimers Dis. 2016 Mar 15;52(1):179-90. doi: 10.3233/JAD-150972.","27003210"}
+
+SET SupportingText = "BACKGROUND: Bridging integrator 1 (BIN1) has been identified as one of the most associated loci for Alzheimer's disease (AD), and recently was reported to modulate tau pathology to mediate AD in vitro."
+
+p(HGNC:BIN1) -- path(DO:"Alzheimer's disease") 
+p(HGNC:BIN1) -> p(HGNC:MAPT,pmod(P)) 
+
+SET Citation = {"PubMed","Sci Rep. 2016 Mar 21;6:23362. doi: 10.1038/srep23362.","26996954"}
+
+SET SupportingText = "Sortilin receptor 1 (SORL1) is involved in cellular trafficking of amyloid precursor protein and plays an essential role in amyloid-beta peptide generation in Alzheimer disease (AD). The major A allele in a SORL1 single nucleotide polymorphism (SNP), rs3824968, is associated with an increased AD risk. "
+
+p(HGNC:SORL1) -- bp(GOBP: amyloid-beta formation)
+
+
+###############################################################################
+# Paper Number 6
+###############################################################################
+
+SET Citation = {"PubMed","N Engl J Med. 2013 Jan 10;368(2):182-4. doi: 10.1056/NEJMe1213157. Epub 2012 Nov 14.","23151315"}
+
+SET SupportingText = "Current knowledge about the pathogenic mechanism of Alzheimer's disease is based mainly on rare, high-penetrance variants in genes encoding amyloid precursor protein, presenilin 1, and presenilin 2, which result in familial early-onset Alzheimer's disease. "
+
+g(HGNC:APP) -- path(ADO:"Early_onset_Alzheimer_s_Disease__")
+g(HGNC:PSEN1) -- path(ADO:"Early_onset_Alzheimer_s_Disease__") 
+g(HGNC:PSEN2) -- path(ADO:"Early_onset_Alzheimer_s_Disease__")
+
+SET SupportingText = "Genomewide association studies have recently identified several risk variants for late-onset Alzheimer's disease, but aside from the well-known ε4 allele of apolipoprotein E, these variants are generally associated with very low risk; in addition, such variants are noncoding and more challenging to link to molecular function."
+
+
+SET SupportingText = "Although the most compelling TREM2 variant (encoding a substitution of arginine by histidine at residue 47 [R47H] of the TREM2 protein) is rare, with an allelic prevalence of 0.63% in Iceland,1 these findings implicate a gene and naturally arising perturbation that may generate new insights into the pathogenesis of late-onset Alzheimer's disease."
+
+g(dbSNP:"rs75932628-T")  -- path(ADO:"Late_Onset_Alzheimer_s_Disease")
+
+SET SupportingText = "TREM2 is a member of the immunoglobulin family and has been shown to act as a phagocytic receptor of bacteria.
+It recognizes anionic lipopolysaccharides in the cell wall of bacteria and signals through a transmembrane adapter protein called TYROBP (also called DAP12). When a bacterium binds to TREM2 on macrophages, activation of the signaling pathway triggers the phagocytic uptake of bacteria and the release of reactive oxygen species." 
+
+p(HGNC:TREM2) -- bp(GOBP:phagocytosis)
+
+SET MeSHAnatomy = "Macrophages"
+
+bp(GOBP:"response to bacterial lipoprotein") -- act(p(HGNC:TREM2)) 
+act(p(HGNC:TREM2)) -> act(p(HGNC:TYROBP))
+act(p(HGNC:TYROBP)) -> act(a(CHEBI:"reactive oxygen species"))
+
+UNSET MeSHAnatomy
+
+SET SupportingText = "Recently, studies have provided convincing data that TYRO protein tyrosine kinase-binding protein (TYROBP), a key regulator in immune systems, is significantly upregulated in the brain of patients with Alzheimer's disease (AD)."
+
+p(HGNC:TYROBP) -- bp(GOBP:"immune system process") 
+path(DO:"Alzheimer's disease") -> p(HGNC:TYROBP)
+
+
+SET SupportingText = "TYROBP acts as a signaling adaptor protein for numerous cell surface receptors, playing important roles in signal transduction in dendritic cells, osteoclasts, macrophages, and microglia. Although several TYROBP-related cell surface receptors including triggering receptor expressed on myeloid 2 (TREM2), signal regulatory protein beta1 (SIRPbeta1), and complement receptor 3 (CR3) were found to participate in the pathogenesis of AD, the role of TYROBP in AD still remains elusive."
+
+SET MeSHAnatomy = {"Macrophages", "Microglia", "Osteoclasts", "Dendritic Cells"}
+
+UNSET MeSHAnatomy
+
+
+
+SET SupportingText = "Emerging piece of evidence has demonstrated that TYROBP could enhance phagocytic activity of microglia, which is responsible for the clearance of amyloid-beta (Abeta) peptides and apoptotic neurons. TYROBP also participates in suppression of inflammatory responses by repression of microglia-mediated cytokine production and secretion. In this article, we introduce the structure, localization, and function of TYROBP. Meanwhile, we review recent articles concerning the association of TYROBP and its related receptors with AD pathogenesis and speculate the possible roles of TYROBP in this disease. Based on the potential protective actions of TYROBP in AD pathogenesis, targeting TYROBP might provide new opportunities for AD treatment."
+
+p(HGNC:TREM2) -- bp(GOBP:"clearance of damaged tissue involved in inflammatory response wound healing") 
+
+SET SupportingText = "TREM2 on microglia is critical to the clearance of neural debris of the lesioned central nervous system. The endogenous ligand of the lesioned neural tissue that is recognized by TREM2 is still unknown. TREM2 signaling through TYROBP creates an antiinflammatory cytokine milieu while mediating the clearance of apoptotic neural tissue. TREM2 can thus be described as a receptor that clears the damaged or degenerated tissue and resolves damage-associated inflammation."
+
+SET MeSHAnatomy = "Microglia"
+
+p(HGNC:TREM2) -- bp(GOBP:"apoptotic cell clearance") 
+p(HGNC:TREM2) -- bp(GOBP:"clearance of damaged tissue involved in inflammatory response wound healing") 
+
+UNSET MeSHAnatomy
+
+SET SupportingText = "Patients with near-complete loss of function of either TREM2 or TYROBP have an autosomal recessive disorder called polycystic lipomembranous osteodysplasia with sclerosing leukoencephalopathy, or Nasu–Hakola disease, a disorder affecting both brain and bone. Patients with Nasu–Hakola disease show progressive presenile inflammatory neurodegeneration and formation of multifocal bone cysts. They often present with bone fractures or psychiatric symptoms in the second decade of life, which is followed by severe dementia with premature death in the fourth or fifth decade of life. "
+
+SET MeSHAnatomy = {"Brain", "Bone and Bones"}
+
+p(HGNC:TREM2) -- path(DO:"leukoencephalopathy with vanishing white matter")
+p(HGNC:TYROBP) -- path(DO:"leukoencephalopathy with vanishing white matter")
+path(DO:"leukoencephalopathy with vanishing white matter") -- bp(CBP:neuroinflammation)
+path(DO:"leukoencephalopathy with vanishing white matter") -- path(MESHD:"Schizophrenia Spectrum and Other Psychotic Disorders")
+path(DO:"leukoencephalopathy with vanishing white matter") -- path(MESHD:"Bone Cysts")
+path(DO:"leukoencephalopathy with vanishing white matter") -- path(MESHD:"Dementia")
+path(DO:"leukoencephalopathy with vanishing white matter") -- path(MESHD:"Death")
+
+UNSET MeSHAnatomy
+
+SET SupportingText = "Although patients with Nasu–Hakola disease carry two homozygous mutations, heterozygous carriers of the same TREM2 mutation (a variant encoding Q33X) are now known to be at increased risk for late-onset Alzheimer's disease,2 suggesting a similar mechanism in the two diseases. Although Q33X, a mutation that predicts the synthesis of a truncated protein, very likely confers loss of function on the TREM2 protein, the effect of the other mutations, including R47H, on protein function is not known."
+
+
+SET SupportingText = "Patients with partial loss-of-function mutations in CSF1R, encoding colony-stimulating factor 1 receptor, have a corticobasal syndrome called hereditary diffuse leukoencephalopathy with spheroids.CSF1R is a microglial receptor that binds CSF1 and has also been shown to cosignal through TYROBP.Thus, the innate immune-receptor complex consisting of TREM2, CSF1R, and the signaling molecule TYROBP in microglia, when dysfunctional, contributes to chronic neurodegeneration. "
+
+SET MeSHAnatomy = "Microglia"
+p(HGNC:CSF1R) -> p(HGNC:CSF1R) 
+p(HGNC:CSF1R) ->p(HGNC:TYROBP) 
+p(HGNC:CSF1R) -- path(MESHD:"Leukoencephalopathies") 
+UNSET MeSHAnatomy
+ 
+###############################################################################
+# Paper Number 10
+###############################################################################
+
+
+SET Citation = {"PubMed", "Microglial genes regulating neuroinflammation in the progression of Alzheimer's disease.Villegas-Llerena C1, Phillips A2, Garcia-Reitboeck P1, Hardy J3, Pocock JM4.", " 26517285"}
+ 
+SET SupportingText = "Neuroinflammation is a pathological hallmark of Alzheimer's disease (AD), and microglia, the brain's resident phagocyte, are pivotal for the immune response observed in AD."
+
+bp(CBP:neuroinflammation) -- path(DO:"Alzheimer's disease")
+ 
+SET SupportingText = "Recent Genome Wide Association Studies (GWAS) have identified more than 20 gene variants associated with an increased risk of late-onset AD (LOAD), the most prevalent form of AD [1]. The findings strongly implicate genes related to the immune response (CR1, CD33, MS4A, CLU, ABCA7, EPHA1 and HLA-DRB5-HLA-DRB1), endocytosis (BIN1, PICALM, CD2AP, EPHA1 and SORL1) and lipid biology (CLU, ABCA7 and SORL1) [2–8], and many encode proteins which are highly expressed in microglia [1]. "
+
+p(HGNC:CR1)  -- bp(GOBP:"immune response")
+p(HGNC:CD33)  --  bp(GOBP:"immune response")
+p(HGNC:CLU) -- bp(GOBP:"immune response")
+p(HGNC:ABCA7) --  bp(GOBP:"immune response")
+p(HGNC:EPHA1) --  bp(GOBP:"immune response")
+p(HGNC:BIN1) -- bp(GOBP:endocytosis)
+p(HGNC:PICALM) --  bp(GOBP:endocytosis)
+p(HGNC:CD2AP) --  bp(GOBP:endocytosis)
+p(HGNC:EPHA1) -- bp(GOBP:endocytosis)
+p(HGNC:SORL1) -- bp(GOBP:endocytosis)
+
+
+SET SupportingText = "One of the most significant recent findings to reinforce a role for immune dysfunction in AD is the association between enhanced LOAD risk and TREM2 gene mutations "
+
+g(HGNC:TREM2) -- path(ADO:"Late_Onset_Alzheimer_s_Disease")
+
+SET SupportingText = "TREM2 mRNA upregulated in AD transgenic mouse brains [14] Cells at Abeta plaques in AD transgenic mice express high levels of TREM2 [42]. TREM2−/− AD transgenic mice exhibit reduced microglial clustering around plaque [15,17]"
+
+p(HGNC:TREM2) -- g(dbSNP:rs75932628)
+p(HGNC:TREM2) -- g(dbSNP:rs143332484)
+ 
+SET SupportingText = "rs646817 and rs11803956 linked to elevated cerebrospinal fluid levels of Abeta42 in AD patients [20]. rs6656401 influences the severity of vascular amyloid deposition [43]. CR1-S AD cases have higher Braak stages than CR1-F homozygous carriers [22]."
+
+p(HGNC:CR1) -- g(dbSNP:rs6656401)
+p(HGNC:CR1) -- g(dbSNP:rs3818361)
+p(HGNC:CR1) -- g(dbSNP:rs6701713)
+p(HGNC:CR1) -- g(dbSNP:rs1408077)
+p(HGNC:CR1) -- g(dbSNP:rs6701710)
+p(HGNC:CR1) -- g(dbSNP:rs4844610)
+p(HGNC:CR1) -- g(dbSNP:rs116806486)
+p(HGNC:CR1) -- g(dbSNP:rs6691117)
+p(HGNC:CR1) -- g(dbSNP:rs11803956)
+
+SET SupportingText = "Conflicting results: reduced CD33 protein levels associated with this SNP [25] but overall increased CD33 expression in AD brain tissue [24].
+Upregulation of CD33 expression results in decreased AB phagocytosis whilst CD33−/− knockout murine microglia take up more AB42 versus WT cells [24]."
+
+p(HGNC:CD33) -- g(dbSNP:rs3865444)
+
+SET SupportingText = "CLU expression has been shown to be elevated in AD brains and is detected in amyloid [37] Clusterin directly interacts with Abeta and modifies fibril formation in vitro.
+rs11136000 associated with higher brain levels of clusterin [37]"
+
+p(HGNC:CLU) -- g(dbSNP:rs9331896)
+p(HGNC:CLU) -- g(dbSNP:rs11136000)
+
+SET SupportingText = "APP transgenic mice that are ABCA7-deficient show increased Abeta deposition compared to controls [39•]. ABCA7 expression is increased in AD but the rs3764650 T allele that decreases AD risk is associated with increased ABCA7 expression [49]. rs3764650 is associated with neuritic plaque burden. "
+
+p(HGNC:ABCA7) -- g(dbSNP:rs4147929)
+p(HGNC:ABCA7) -- g(dbSNP:rs3764650)
+
+SET SupportingText = "TREM2, a microglial/macrophage cell surface receptor, activates an ITAM (Immunoreceptor tyrosine-based activation motif) signalling pathway via its trans-membrane binding partner TYROBP (also called DAP-12) (reviewed in [12]."
+
+#p(HGNC:TREM2}  -> 
+
+SET SupportingText = "CD33 regulates innate immunity, possibly Abeta clearance and other neuroinflammatory processes"
+
+p(HGNC:CD33) regulates bp(GOBP: "innate immune response")
+p(HGNC:CD33) -- bp(GOBP: "beta-amyloid clearance")
+p(HGNC:CD33) -- bp(CBP:neuroinflammation)
+
+SET SupportingText = "The rs3865444 SNP proximal to CD33, found in LOAD GWAS studies [2,4,6] is associated with a lowered AD risk and is situated in the proximal promoter of CD33. It has been reported that the minor allele of this SNP, rs3865444A, is associated with decreased CD33 expression [24] (Table 1). Remarkably, CD33 expression is increased in AD brains [25] and CD33 expression in microglia is positively associated with plaque burden and more advanced cognitive decline [24]."
+
+g(dbSNP:rs3865444) -- path(DO:"Alzheimer's disease")
+g(dbSNP:rs3865444) -| p(HGNC:CD33)
+p(HGNC:CD33) -> path(DO:"Alzheimer's disease")
+p(HGNC:CD33) positiveCorrelation  path(MESHD:"Plaque, Amyloid")
+#p(HGNC:CD33) positiveCorrelation  cognitive decline
+
+SET SupportingText = "A number of SNPs have been identified near this cluster as AD risk alleles in LOAD GWAS [4,6,8]; rs983392 and rs610932 (minor T allele) (near MS4A6A) and rs4938933 (in intergenic region between MS4A4E and MS4A6A) associated with reduced AD risk, whilst rs670139 (in MS4A4E) and rs610932 (C allele near MS46A) associated with increased AD risk"
+
+
+g(dbSNP:rs983392) -- path(DO:"Alzheimer's disease")
+g(dbSNP:rs610932)  -- path(DO:"Alzheimer's disease")
+g(dbSNP:rs4938933) -- path(DO:"Alzheimer's disease")
+g(dbSNP:rs670139) -- path(DO:"Alzheimer's disease")
+g(dbSNP:rs610932) -- path(DO:"Alzheimer's disease")
+
+SET SupportingText = "In the brain, astrocytes and microglia are the major APOE-expressing cells [26•] and APOE has roles in lipoprotein metabolism, neuroplasticity, and inflammation"
+
+p(HGNC:APOE) -- bp(GOBP:"lipoprotein metabolic process")
+p(HGNC:APOE) -- bp(GOBP:"inflammatory response")
+
+SET SupportingText = "Additionally, APOE can bind Abeta peptides and influence the clearance of soluble Abeta and Abeta aggregation. Remarkably, Abeta peptides induce APOE expression and the increased levels of APOE promote Abeta clearance and prevent the subsequent neuroinflammatory response, functioning as a feedback mechanism. Overproduction of APOE, particularly APOE4, exacerbates the inflammatory response [33]. Additionally, APOE may modulate innate inflammatory responses through TLR4 and IL-4R receptor pathways, suggesting that APOE may have a more general role in inflammation [34]. Moreover, a recent study found reduced TREM2 expression in stimulated primary microglial cells expressing the APOE4/4 allele [35•]."
+
+p(HGNC:APOE) -> p(HGNC:APP, frag(672_713))
+p(HGNC:APOE) -- bp(GOBP:"inflammatory response")
+p(HGNC:APOE) -- bp(GOBP: "innate immune response")
+
+ 
+ 
+SET SupportingText = "Furthermore CLU expression is elevated in AD brain and directly interacts with Abeta plaques, modifying fibril formation (see reviews; [36–38]. APOE-deficient and clusterin-deficient APP transgenic mice exhibit earlier and more extensive Abeta deposition than control mice supporting the hypothesis that clusterin influences Abeta clearance. Clusterin may modulate neuroinflammation by inhibiting the inflammatory response associated with complement activation [36]. Clusterin is more highly expressed in astrocytes and oligodendrocytes than microglia [26•], but because of its similarity to APOE, its role in Abeta clearance and its association with the complement system, it could indirectly drive neuroinflammation in AD."
+ 
+p(HGNC:CLU) regulates p(HGNC:APP, frag(672_713))
+p(HGNC:CLU) -| bp(GOBP:"inflammatory response")
+bp(GOBP:"inflammatory response") -- bp(GOBP:"complement activation")
+
+SET SupportingText = "More recently, studies on the basis of genetic data indicate linkage between these two pathways. Moreover, genes like APOE, CLU and ABCA7 may represent a further crosstalk with the APP processing pathway, and gene mutations in TREM2 further implicate immune dysfunction in AD. "
+ 
+p(HGNC:ABCA7) -- bp(PTS:"amyloidogenic pathway")
+p(HGNC:CLU)  -- bp(PTS:"amyloidogenic pathway")
+p(HGNC:APOE)  -- bp(PTS:"amyloidogenic pathway")
+
