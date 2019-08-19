@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 #DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 #DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -75,7 +75,7 @@ SET Citation = {"PubMed", "30108137"}
 SET Evidence ="TFEB activation has been linked to lysosomal stress and the accumulation of aberrant protein aggregates, indicated by TFEB’s nuclear localization in lysosomal storage disorders"
 SET Confidence = "Medium"
 act(p(HGNC:TFEB,loc(GO:nucleus))) -| act(a(MESH:Lysosomes))
-act(p(HGNC:TFEB,loc(GO:nucleus))) -> a(HBP:"protein aggregates")
+act(p(HGNC:TFEB,loc(GO:nucleus))) -> a(CONSO:"protein aggregates")
 UNSET Confidence
 
 SET Evidence ="Transcriptional levels of TFEB and several of its well-known lysosomal targets were stratified by no dementia, mild cognitive impairment, and dementia,these transcript levels positively correlate with cognitive decline"
@@ -152,7 +152,7 @@ UNSET Confidence
 SET Evidence ="Our results demonstrate a statistically significant increase of 12% in the uptake of pffs in TFEB transduced astrocytes relative to control at the 1-h time point, with a 22% relative increase in up- take in the TFEB transduced cells at 4 h"
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Astrocytes"
-p(MGI:Tfeb) -> tloc(a(HBP:"Tau fibrils"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
+p(MGI:Tfeb) -> tloc(a(CONSO:"Tau fibrils"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -169,7 +169,7 @@ Thus, TFEB enhances phagocytic pathways in astrocytes, in particular increasing 
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Astrocytes"
 a(CHEBI:"torin 1") -| act(p(FPLX:mTORC1))
-composite(a(CHEBI:"torin 1"),p(MGI:Tfeb)) -> tloc(a(HBP:"Tau fibrils"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
+composite(a(CHEBI:"torin 1"),p(MGI:Tfeb)) -> tloc(a(CONSO:"Tau fibrils"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
 p(MGI:Tfeb) -> bp(MESH:Phagocytosis)
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -184,7 +184,7 @@ UNSET Confidence
 SET Evidence ="Recapitulating the uptake assay with dye-conjugated pffs in TFEB KO astrocytes, we observed a modest reduction pff uptake compared with primary astrocytes from littermate controls"
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Astrocytes"
-p(MGI:Tfeb) -> tloc(a(HBP:"Tau fibrils"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
+p(MGI:Tfeb) -> tloc(a(CONSO:"Tau fibrils"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -198,18 +198,18 @@ UNSET Confidence
 
 SET Evidence =" In sum, these data suggest that TFEB stimulates uptake and trafficking of pffs to the lysosome for degradation."
 SET Confidence = "Medium"
-p(MGI:Tfeb) -> tloc(a(HBP:"Tau fibrils"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
-p(MGI:Tfeb) -> a(HBP:"Tau fibrils",loc(GO:lysosome))
-a(HBP:"Tau fibrils",loc(GO:lysosome)) -> deg(p(MGI:Tfeb))
+p(MGI:Tfeb) -> tloc(a(CONSO:"Tau fibrils"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
+p(MGI:Tfeb) -> a(CONSO:"Tau fibrils",loc(GO:lysosome))
+a(CONSO:"Tau fibrils",loc(GO:lysosome)) -> deg(p(MGI:Tfeb))
 UNSET Confidence
 
 SET Evidence =" In addition, flow cytometry analysis demonstrated that heparin reduces dye-conjugated pff uptake in both TFEB and EGFP transduced astrocytes, suggesting that macropinocytosis is responsible for astroglial pff uptake"
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Astrocytes"
-a(CHEBI:heparin) -| tloc(a(HBP:"Tau fibrils"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
+a(CHEBI:heparin) -| tloc(a(CONSO:"Tau fibrils"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
 bp(GO:macropinocytosis) -> act(a(MESH:Astrocytes))
-act(a(MESH:Astrocytes)) -> tloc(a(HBP:"Tau fibrils"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
-bp(GO:macropinocytosis) -> tloc(a(HBP:"Tau fibrils"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
+act(a(MESH:Astrocytes)) -> tloc(a(CONSO:"Tau fibrils"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
+bp(GO:macropinocytosis) -> tloc(a(CONSO:"Tau fibrils"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
 UNSET MeSHAnatomy
 UNSET Confidence
 

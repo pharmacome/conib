@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/77c0796c3ca82a80cb0eaf1c8380d6ccd7f323af/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -213,8 +213,8 @@ UNSET Confidence
 SET Evidence = "Misfolded proteins can aggregate with time, and protein quality-control pathways
 are tasked with their ubiquitination and subsequent degradation [46,47]."
 SET Confidence = "High"
-p(MESH:Proteins,pmod(HBP:misfolding)) -> bp(HBP:"protein aggregation")
-complex(p(MESH:Proteins,pmod(HBP:misfolding)),a(MESH:Ubiquitin)) -> deg(p(MESH:Proteins,pmod(HBP:misfolding)))
+p(MESH:Proteins,pmod(CONSO:misfolding)) -> bp(CONSO:"protein aggregation")
+complex(p(MESH:Proteins,pmod(CONSO:misfolding)),a(MESH:Ubiquitin)) -> deg(p(MESH:Proteins,pmod(CONSO:misfolding)))
 UNSET Confidence
 
 SET Evidence = "For example, yeast Cdc48 (p97 in mammalian cells) is a conserved multisubunit enzyme that
@@ -239,8 +239,8 @@ and binds to long hydrophobic stretches of the polypeptide
 chain of misfolded proteins targeted by the ERAD (endoplasmic
 reticulum associated protein degradation) pathway [56–58]"
 SET Confidence = "High"
-p(HGNC:BAG6) -> complex(p(HGNC:BAG6),p(MESH:Proteins,pmod(HBP:misfolding)))
-bp(GO:"ERAD pathway") -- complex(p(HGNC:BAG6),p(MESH:Proteins,pmod(HBP:misfolding)))
+p(HGNC:BAG6) -> complex(p(HGNC:BAG6),p(MESH:Proteins,pmod(CONSO:misfolding)))
+bp(GO:"ERAD pathway") -- complex(p(HGNC:BAG6),p(MESH:Proteins,pmod(CONSO:misfolding)))
 UNSET Confidence
 
 SET Evidence = "Because Bag6 interacts with both E3 ligases as
@@ -248,11 +248,11 @@ well as the proteasome [57,58,60], it may promote both the
 ubiquitination and delivery of misfolded proteins to the
 proteasome while preventing their aggregation"
 SET Confidence = "High"
-complex(p(HGNC:BAG6),p(HGNC:UBA3)) -> deg(p(MESH:Proteins,pmod(HBP:misfolding)))
+complex(p(HGNC:BAG6),p(HGNC:UBA3)) -> deg(p(MESH:Proteins,pmod(CONSO:misfolding)))
 complex(p(HGNC:BAG6),p(HGNC:UBA3)) -> bp(GO:"protein ubiquitination")
-complex(p(HGNC:BAG6),p(HGNC:UBA3)) -| bp(HBP:"protein aggregation")
-complex(p(HGNC:BAG6),a(GO:"proteasome complex")) -> deg(p(MESH:Proteins,pmod(HBP:misfolding)))
-complex(p(HGNC:BAG6),a(GO:"proteasome complex")) -| bp(HBP:"protein aggregation")
+complex(p(HGNC:BAG6),p(HGNC:UBA3)) -| bp(CONSO:"protein aggregation")
+complex(p(HGNC:BAG6),a(GO:"proteasome complex")) -> deg(p(MESH:Proteins,pmod(CONSO:misfolding)))
+complex(p(HGNC:BAG6),a(GO:"proteasome complex")) -| bp(CONSO:"protein aggregation")
 complex(p(HGNC:BAG6),a(GO:"proteasome complex")) -> bp(GO:"protein ubiquitination")
 UNSET Confidence
 
@@ -317,7 +317,7 @@ of chains back into the free cellular pool of ubiquitin and
 creates space for the protein substrate to enter the 20S core."
 #this refers to activity of Psmd14
 SET Confidence = "High"
-act(p(HGNC:PSMD14)) -> tloc(a(MESH:Proteins),fromLoc(GO:cytosol),toLoc(HBP:"20 S Proteasome"))
+act(p(HGNC:PSMD14)) -> tloc(a(MESH:Proteins),fromLoc(GO:cytosol),toLoc(CONSO:"20 S Proteasome"))
 UNSET Confidence
 
 SET Evidence = "This observation suggests that chain
@@ -337,7 +337,7 @@ and was coupled to the translocation of the protein substrate
 into the 20S core"
 SET Confidence = "High"
 a(CHEBI:ATP) -| complex(a(MESH:Proteins),a(MESH:Ubiquitin))
-a(CHEBI:ATP) -> tloc(a(MESH:Proteins),fromLoc(GO:cytosol),toLoc(HBP:"20 S Proteasome"))
+a(CHEBI:ATP) -> tloc(a(MESH:Proteins),fromLoc(GO:cytosol),toLoc(CONSO:"20 S Proteasome"))
 UNSET Confidence
 
 SET Evidence = "Thus, the binding
@@ -345,8 +345,8 @@ of substrate to the 26S and its concomitant translocation
 into the 20S results in the activation of Rpn11 through
 a conformational change."
 SET Confidence = "High"
-complex(a(MESH:Proteins),a(GO:"proteasome complex")) -> tloc(a(MESH:Proteins),fromLoc(GO:cytosol),toLoc(HBP:"20 S Proteasome"))
-tloc(a(MESH:Proteins),fromLoc(GO:cytosol),toLoc(HBP:"20 S Proteasome")) -> act(p(HGNC:PSMD14))
+complex(a(MESH:Proteins),a(GO:"proteasome complex")) -> tloc(a(MESH:Proteins),fromLoc(GO:cytosol),toLoc(CONSO:"20 S Proteasome"))
+tloc(a(MESH:Proteins),fromLoc(GO:cytosol),toLoc(CONSO:"20 S Proteasome")) -> act(p(HGNC:PSMD14))
 UNSET Confidence
 
 ##########################################################

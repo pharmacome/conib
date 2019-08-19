@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/go-names.belns"
@@ -114,7 +114,7 @@ digestion followed by high-performance LC-ESI. A cohort of G proteins was
 identified in the F2 and F3 fractions (Fig. 1D). These G proteins were not
 detected in BgtxC from α7−/− mice (data not shown)."
 SET Confidence = "High"
-composite(p(HGNC:CHRNA7), p(MESH:"Heterotrimeric GTP-Binding Proteins"), p(HBP:"alpha-Bungarotoxin")) -> complex(p(MESH:"Heterotrimeric GTP-Binding Proteins"), a(HBP:"alpha-Bungarotoxin"))
+composite(p(HGNC:CHRNA7), p(MESH:"Heterotrimeric GTP-Binding Proteins"), p(CONSO:"alpha-Bungarotoxin")) -> complex(p(MESH:"Heterotrimeric GTP-Binding Proteins"), p(CONSO:"alpha-Bungarotoxin"))
 UNSET Confidence
 
 SET Evidence = "Sequence alignment of mammalian nAChRs revealed a conservation
@@ -123,15 +123,15 @@ similarity we found that α7 nAChRs possess 88% homology with the GyR1 at the
 GPBC (Fig. 2A)."
 # Typo here in GyR1 , should be GlyR1 which means Glycine Receptor 1 (GLRA1)
 SET Confidence = "High"
-p(HBP:"GPBC, alpha-7 nAChR") orthologous p(HBP:"GPBC, Glycine Receptor 1")
+p(CONSO:"GPBC, alpha-7 nAChR") orthologous p(CONSO:"GPBC, Glycine Receptor 1")
 UNSET Confidence
 
 SET Evidence = "The findings
 confirm that the mutation in α7345–348A does not interfere with the trafficking
 or expression of the nAChR."
 SET Confidence = "Medium"
-p(HGNC:CHRNA7) -> bp(HBP:"nAChR assembly")
-p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) cnc bp(HBP:"nAChR assembly")
+p(HGNC:CHRNA7) -> bp(CONSO:"nAChR assembly")
+p(HGNC:CHRNA7, var("p.345A"), var("p.346A"), var("p.347A"), var("p.348A")) cnc bp(CONSO:"nAChR assembly")
 #-> to cnc because mutation in α7345–348A does not interfere
 UNSET Confidence
 

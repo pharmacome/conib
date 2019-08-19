@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 # DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 # DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 # DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 # DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -106,11 +106,11 @@ in general, represents a prodromal or preclinical
 stage of AD."
 SET Confidence = "High"
 # D060825 = Cognitive Dysfunction, D008569=Memory Disorders
-path(HBP:aMCI) -- path(MESH:"Memory Disorders")
-path(HBP:mdMCI) -- path(MESH:"Cognitive Dysfunction")
+path(CONSO:aMCI) -- path(MESH:"Memory Disorders")
+path(CONSO:mdMCI) -- path(MESH:"Cognitive Dysfunction")
 # D003704 = Dementia
-path(HBP:aMCI) -- path(MESH:"Dementia")
-path(HBP:aMCI) -- path(MESH:"Alzheimer Disease")
+path(CONSO:aMCI) -- path(MESH:"Dementia")
+path(CONSO:aMCI) -- path(MESH:"Alzheimer Disease")
 
 SET Disease="Alzheimer's disease"
 # D060825 = Cognitive Dysfunction, D062706 = Prodormal Symptoms
@@ -216,7 +216,7 @@ cognitive dysfunction observed in AD [17]"
 SET Confidence = "High"
 SET MeSHAnatomy="Cholinergic Neurons"
 
-path(HBP:Neurodegeneration) -- path(MESH:"Cognitive Dysfunction")
+path(CONSO:Neurodegeneration) -- path(MESH:"Cognitive Dysfunction")
 
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -283,7 +283,7 @@ SET Confidence = "High"
 SET MeSHDisease="Cognitive Dysfunction"
 SET MeSHAnatomy={"Hippocampus","Frontal Lobe"}
 
-act(p(HGNC:CHAT)) -| path(HBP:Neurodegeneration)
+act(p(HGNC:CHAT)) -| path(CONSO:Neurodegeneration)
 #Synapses
 path(MESH:"Cognitive Dysfunction") -| a(MESH:"Synapses")
 path(MESH:"Cognitive Dysfunction") -> act(p(HGNC:CHAT))
@@ -670,7 +670,7 @@ p(HGNC:NTRK1, pmod(Ph)) -> bp(GO:"MAPK cascade")
 
 SET CellLine="PC12"
 
-a(MESH:"gambogic amide") -| path(HBP:Excitotoxicity)
+a(MESH:"gambogic amide") -| path(CONSO:Excitotoxicity)
 a(MESH:"gambogic amide") -> bp(GO:"neuron projection development")
 
 UNSET CellLine
@@ -852,8 +852,8 @@ SET Disease="Alzheimer's disease"
 path(MESH:"Alzheimer Disease") -| r(HGNC:PPP1CA)
 path(MESH:"Alzheimer Disease") -| r(HGNC:PPP1CC)
 p(HGNCGENEFAMILY:"Protein phosphatase catalytic subunits") -> p(HGNC:MAPT, pmod(Ph))
-act(p(HGNCGENEFAMILY:"Protein phosphatase catalytic subunits")) -| p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -- a(MESH:"Neurofibrillary Tangles")
+act(p(HGNCGENEFAMILY:"Protein phosphatase catalytic subunits")) -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -- a(MESH:"Neurofibrillary Tangles")
 
 UNSET Disease
 UNSET MeSHAnatomy
@@ -875,10 +875,10 @@ SET MeSHAnatomy={"Cerebral Cortex", "Cholinergic Neurons"}
 SET Disease="Alzheimer's disease"
 
 path(MESH:"Alzheimer Disease") -> a(MESH:"Neurofibrillary Tangles")
-p(HGNC:MAPT) hasMembers list (p(HBP:"Tau isoform A (316 aa)"),\
-p(HBP:"Tau isoform B (381 aa)"), p(HBP:"Tau isoform C (410 aa)"),\
-p(HBP:"Tau isoform D (383 aa)"), p(HBP:"Tau isoform E (412 aa)"),\
-p(HBP:"Tau isoform F (441 aa)"))
+p(HGNC:MAPT) hasMembers list (p(CONSO:"Tau isoform A (316 aa)"),\
+p(CONSO:"Tau isoform B (381 aa)"), p(CONSO:"Tau isoform C (410 aa)"),\
+p(CONSO:"Tau isoform D (383 aa)"), p(CONSO:"Tau isoform E (412 aa)"),\
+p(CONSO:"Tau isoform F (441 aa)"))
 path(MESH:"Alzheimer Disease") causesNoChange r(HGNC:MAPT)
 
 UNSET Disease
@@ -900,8 +900,8 @@ neurons to NFT formation (Figure 1B) [143–145]. "
 SET Confidence = "High"
 SET Disease="Alzheimer's disease"
 
-path(MESH:"Alzheimer Disease") -| p(HBP:"3R tau")
-path(MESH:"Cognitive Dysfunction") -| p(HBP:"3R tau")
+path(MESH:"Alzheimer Disease") -| p(CONSO:"3R tau")
+path(MESH:"Cognitive Dysfunction") -| p(CONSO:"3R tau")
 
 UNSET Disease
 UNSET Confidence
@@ -952,8 +952,8 @@ SET Confidence = "High"
 SET Disease="Alzheimer's disease"
 SET MeSHAnatomy="Cholinergic Neurons"
 
-p(HBP:"Tau C3") biomarkerFor act(a(MESH:"Cholinergic Neurons"))
-act(p(HGNC:GAL)) causesNoChange p(HBP:"Tau MN423")
+p(CONSO:"Tau C3") biomarkerFor act(a(MESH:"Cholinergic Neurons"))
+act(p(HGNC:GAL)) causesNoChange p(CONSO:"Tau MN423")
 act(p(HGNC:GAL)) -> r(HGNC:PPP1CA)
 act(p(HGNC:GAL)) -> r(HGNC:PPP1CC)
 

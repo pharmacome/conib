@@ -22,7 +22,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/bd0996a28201cad363557315043c6392e31abf58/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/go-names.belns"
@@ -146,7 +146,7 @@ that binds muscle-type nAChRs with near covalent affinity
 to inhibit their function and promote debilitating paralysis
 at the neuromuscular junction (6, 50, 149, 264)."
 SET Confidence = "High"
-a(HBP:"alpha-Bungarotoxin") -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+p(CONSO:"alpha-Bungarotoxin") -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 UNSET Confidence
 
 SET Evidence = "From the time of its discovery in 1914
@@ -202,7 +202,7 @@ that requires p38 mitogen-activated protein kinase
 (MAPK) signaling (163)."
 SET Confidence = "High"
 p(HGNC:TNF) -> bp(GO:"MAPK cascade")
-bp(GO:"MAPK cascade") -> act(p(HBP:"alpha-4 beta-2 nAChR"))
+bp(GO:"MAPK cascade") -> act(p(CONSO:"alpha-4 beta-2 nAChR"))
 UNSET Confidence
 
 SET Evidence = "In the basal ganglia,
@@ -214,7 +214,7 @@ identified where alpha6 and beta3 are coexpressed with alpha4 and
 beta2 nAChR subunits. This finding is highly relevant for
 Parkinson’s disease (385, 386)."
 SET Confidence = "High"
-p(HBP:"alpha-6 alpha-4 beta-2 beta-3 nAChR", loc(MESH:"Basal Ganglia")) -- path(MESH:"Parkinson Disease")
+p(CONSO:"alpha-6 alpha-4 beta-2 beta-3 nAChR", loc(MESH:"Basal Ganglia")) -- path(MESH:"Parkinson Disease")
 UNSET Confidence
 
 SET Evidence = "Receptors composed of alpha7 subunits are known to desensitize
@@ -227,7 +227,7 @@ nAChR channels can impact on several Ca2+-dependent
 mechanisms, including activation of second messenger
 pathways (328, 456)."
 SET Confidence = "High"
-p(HBP:"alpha-7-containing nAChR") -> bp(GO:"calcium ion transport into cytosol")
+p(CONSO:"alpha-7-containing nAChR") -> bp(GO:"calcium ion transport into cytosol")
 UNSET Confidence
 
 SET Evidence = "One insect has
@@ -263,7 +263,7 @@ hospital emergency room visits by smokers who concurrently
 use the transdermal nicotine patch (503)."
 SET Confidence = "High"
 a(MESH:Neurons) -> deg(a(CHEBI:nicotine))
-a(CHEBI:nicotine) -- path(HBP:neurotoxicity)
+a(CHEBI:nicotine) -- path(CONSO:neurotoxicity)
 UNSET Confidence
 
 SET Evidence = "The most
@@ -273,9 +273,9 @@ this toxin binds to the muscle nAChR with great specificity
 and a near-covalent affinity, it was an invaluable tool in
 the purification of the first nAChRs (discussed above)."
 SET Confidence = "Medium"
-a(TAXONOMY:8616) -> a(HBP:"alpha-Bungarotoxin")
+a(TAXONOMY:8616) -> p(CONSO:"alpha-Bungarotoxin")
 #snake producing alphaBGT
-a(HBP:"alpha-Bungarotoxin") -> complex(a(HBP:"alpha-Bungarotoxin"), p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits", loc(MESH:Muscles)))
+p(CONSO:"alpha-Bungarotoxin") -> complex(p(CONSO:"alpha-Bungarotoxin"), p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits", loc(MESH:Muscles)))
 UNSET Confidence
 
 SET Evidence = "Additional examples of snake toxins include alpha-cobratoxin
@@ -296,8 +296,8 @@ controlled by the subtype of beta nAChR subunit; beta2-containing
 nAChRs are less sensitive than beta4-containing
 nAChRs to inhibition by neuronal BGT."
 SET Confidence = "High"
-complex(a(HBP:"kappa-Bungarotoxin"), p(HBP:"alpha-3 beta-4 nAChR")) -| act(p(HBP:"alpha-3 beta-4 nAChR"))
-complex(a(HBP:"kappa-Bungarotoxin"), p(HGNC:CHRNB4)) -| act(p(HGNC:CHRNB4))
+complex(a(CONSO:"kappa-Bungarotoxin"), p(CONSO:"alpha-3 beta-4 nAChR")) -| act(p(CONSO:"alpha-3 beta-4 nAChR"))
+complex(a(CONSO:"kappa-Bungarotoxin"), p(HGNC:CHRNB4)) -| act(p(HGNC:CHRNB4))
 UNSET Confidence
 
 SET Evidence = "Not unlike snake toxins, conotoxins can
@@ -346,7 +346,7 @@ with various affinities (e.g., Ref. 507)."
 SET Confidence = "High"
 a(TAXONOMY:92736) -> a(CHEBI:epibatidine)
 complex(a(CHEBI:epibatidine), p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
-complex(a(CHEBI:epibatidine), p(HBP:"alpha-4 beta-2 nAChR")) -> act(p(HBP:"alpha-4 beta-2 nAChR"))
+complex(a(CHEBI:epibatidine), p(CONSO:"alpha-4 beta-2 nAChR")) -> act(p(CONSO:"alpha-4 beta-2 nAChR"))
 UNSET Confidence
 
 SET Evidence = "Finally, the alkaloid methyllycaconitine (MLA) emerged
@@ -581,7 +581,7 @@ beta2 nAChR subunits, the vast majority of functional
 nAChRs are pharmacologically identified as being distinctly
 alpha4beta2 and alpha7 nAChRs (12)."
 SET Confidence = "High"
-a(MESH:Hippocampus) -> p(HBP:"alpha-4 beta-2 nAChR")
+a(MESH:Hippocampus) -> p(CONSO:"alpha-4 beta-2 nAChR")
 a(MESH:Hippocampus) -> p(HGNC:CHRNA7)
 UNSET Confidence
 
@@ -592,9 +592,9 @@ in the brain as well as ganglia to form mostly
 receptors of alpha3beta4 and alpha4beta2 subunit composition (150,
 471)."
 SET Confidence = "Medium"
-a(MESH:Ganglia) -> p(HBP:"alpha-3 beta-4 nAChR")
+a(MESH:Ganglia) -> p(CONSO:"alpha-3 beta-4 nAChR")
 #beta4 is there instead of beta3
-a(MESH:Ganglia) -> p(HBP:"alpha-4 beta-2 nAChR")
+a(MESH:Ganglia) -> p(CONSO:"alpha-4 beta-2 nAChR")
 UNSET Confidence
 
 SET Evidence = "As was noted above, in different laboratories,
@@ -682,7 +682,7 @@ are not constitutively sent to lysosomes. Instead, they are
 retained in intracellular pools that range from 65 to 85%
 of the total receptor number in a cell (147, 359, 397, 496)."
 SET Confidence = "High"
-a(MESH:"Endoplasmic Reticulum") reg bp(HBP:"nAChR assembly")
+a(MESH:"Endoplasmic Reticulum") reg bp(CONSO:"nAChR assembly")
 UNSET Confidence
 
 SET Evidence = "In fact, 80% of
@@ -712,7 +712,7 @@ the availability of subunits for assembly into mature receptors
 that are trafficked to the cell surface."
 SET Confidence = "Medium"
 a(CHEBI:"proteasome inhibitor") -| deg(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits", loc(GO:"endoplasmic reticulum")))
-a(CHEBI:"proteasome inhibitor") -> bp(HBP:"nAChR assembly")
+a(CHEBI:"proteasome inhibitor") -> bp(CONSO:"nAChR assembly")
 #added wrt evidence
 UNSET Confidence
 
@@ -727,9 +727,9 @@ homomeric 5HT3A receptor (341)."
 SET Confidence = "High"
 SET Species = "8355"
 
-r(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -> bp(HBP:"nAChR assembly")
-bp(HBP:"nAChR assembly") -> p(HBP:"alpha-3 beta-4 nAChR", loc(GO:"cell surface"))
-bp(HBP:"nAChR assembly") -> complex(p(HGNC:CHRNA1), p(HGNC:CHRNB1), p(HGNC:CHRND), p(HGNC:CHRNG), loc(GO:"cell surface"))
+r(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -> bp(CONSO:"nAChR assembly")
+bp(CONSO:"nAChR assembly") -> p(CONSO:"alpha-3 beta-4 nAChR", loc(GO:"cell surface"))
+bp(CONSO:"nAChR assembly") -> complex(p(HGNC:CHRNA1), p(HGNC:CHRNB1), p(HGNC:CHRND), p(HGNC:CHRNG), loc(GO:"cell surface"))
 
 UNSET Species
 UNSET Confidence
@@ -752,8 +752,8 @@ nicotine binding site (151, 215) and account for the
 vast majority of upregulated sites in the brain of smokers
 (55)."
 SET Confidence = "High"
-a(CHEBI:nicotine) -> p(HBP:"alpha-4 beta-2 nAChR")
-a(CHEBI:nicotine) -> complex(p(HBP:"alpha-4 beta-2 nAChR"), a(CHEBI:nicotine))
+a(CHEBI:nicotine) -> p(CONSO:"alpha-4 beta-2 nAChR")
+a(CHEBI:nicotine) -> complex(p(CONSO:"alpha-4 beta-2 nAChR"), a(CHEBI:nicotine))
 UNSET Confidence
 
 SET Evidence = "As will be returned to below, it is also the first nAChR
@@ -761,8 +761,8 @@ subtype to exhibit measurable decline in expression in the
 aged mammalian brain and especially in neurodegenerative
 disorders such as AD (236, 374)."
 SET Confidence = "High"
-path(MESH:Aging) neg p(HBP:"alpha-4 beta-2 nAChR")
-path(MESH:"Alzheimer Disease") neg p(HBP:"alpha-4 beta-2 nAChR")
+path(MESH:Aging) neg p(CONSO:"alpha-4 beta-2 nAChR")
+path(MESH:"Alzheimer Disease") neg p(CONSO:"alpha-4 beta-2 nAChR")
 UNSET Confidence
 
 SET Evidence = "transfection of cells with the beta4 and alpha2 nAChR subunits
@@ -770,7 +770,7 @@ or expression of these in Xenopus oocytes leads to
 high-affinity nicotine-binding receptors that upregulate in
 response to prolonged exposure to nicotine (113, 184, 215)."
 SET Confidence = "High"
-a(CHEBI:nicotine) -> p(HBP:"alpha-4 beta-2 nAChR")
+a(CHEBI:nicotine) -> p(CONSO:"alpha-4 beta-2 nAChR")
 UNSET Confidence
 
 SET Evidence = "For instance, prolonged exposure of HEK293 cells
@@ -782,8 +782,8 @@ continuous exposure to nicotine."
 SET Confidence = "High"
 SET CellLine = "HEK293"
 
-a(CHEBI:nicotine) -> a(HBP:"alpha-3 beta-2 nAChR")
-a(CHEBI:nicotine) -> a(HBP:"alpha-3 beta-4 nAChR")
+a(CHEBI:nicotine) -> p(CONSO:"alpha-3 beta-2 nAChR")
+a(CHEBI:nicotine) -> p(CONSO:"alpha-3 beta-4 nAChR")
 
 UNSET CellLine
 UNSET Confidence
@@ -832,13 +832,13 @@ types."
 SET Confidence = "High"
 SET Anatomy = "hippocampus stratum lacunosum moleculare"
 
-act(a(HBP:"alpha-4 beta-2 nAChR")) -| act(a(MESH:Interneurons))
+act(p(CONSO:"alpha-4 beta-2 nAChR")) -| act(a(MESH:Interneurons))
 
 UNSET Anatomy
 
 SET Anatomy = "hippocampus stratum radiatum"
 
-act(a(HBP:"alpha-4 beta-2 nAChR")) -| act(a(MESH:Interneurons))
+act(p(CONSO:"alpha-4 beta-2 nAChR")) -| act(a(MESH:Interneurons))
 
 UNSET Anatomy
 UNSET Confidence
@@ -889,7 +889,7 @@ factor CREB, which in turn modifies gene expression
 (82)."
 SET Confidence = "High"
 act(p(HGNC:CHRNA7)) -> a(CHEBI:"calcium(2+)", loc(GO:intracellular))
-act(p(HBP:"alpha-3 beta-4 nAChR")) -> a(CHEBI:"calcium(2+)", loc(GO:intracellular))
+act(p(CONSO:"alpha-3 beta-4 nAChR")) -> a(CHEBI:"calcium(2+)", loc(GO:intracellular))
 a(CHEBI:"calcium(2+)", loc(GO:intracellular)) -> act(p(FPLX:CREB),ma(tscript))
 act(p(FPLX:CREB),ma(tscript)) reg bp(GO:"gene expression")
 UNSET Confidence
@@ -908,8 +908,8 @@ SET Evidence = "A concurrent activation of preterminal alpha4beta2
 nAChRs would hyperpolarize the neuron via GABAergic
 inhibition and prevent activation of the VGCC."
 SET Confidence = "High"
-act(p(HBP:"alpha-4 beta-2 nAChR")) -| bp(GO:"synaptic transmission, GABAergic")
-act(p(HBP:"alpha-4 beta-2 nAChR")) -| act(complex(GO:"voltage-gated calcium channel complex"))
+act(p(CONSO:"alpha-4 beta-2 nAChR")) -| bp(GO:"synaptic transmission, GABAergic")
+act(p(CONSO:"alpha-4 beta-2 nAChR")) -| act(complex(GO:"voltage-gated calcium channel complex"))
 UNSET Confidence
 
 SET Evidence = "In the basal
@@ -929,8 +929,8 @@ UNSET MeSHAnatomy
 
 SET MeSHAnatomy = {"Ventral Tegmental Area", "Dopaminergic Neurons"}
 
-p(HBP:"alpha-4-containing nAChR", loc(GO:"neuron projection terminus"))
-p(HBP:"alpha-6-containing nAChR", loc(GO:"neuron projection terminus"))
+p(CONSO:"alpha-4-containing nAChR", loc(GO:"neuron projection terminus"))
+p(CONSO:"alpha-6-containing nAChR", loc(GO:"neuron projection terminus"))
 p(HGNC:CHRNA7, loc(GO:"neuronal cell body"))
 
 UNSET MeSHAnatomy
@@ -943,8 +943,8 @@ action potential-independent dopamine release."
 SET Confidence = "High"
 act(p(HGNC:CHRNA7)) -> bp(GO:"neuronal action potential")
 bp(GO:"neuronal action potential") -> sec(a(CHEBI:dopamine))
-p(HBP:"alpha-4-containing nAChR") -> sec(a(CHEBI:dopamine))
-p(HBP:"alpha-6-containing nAChR") -> sec(a(CHEBI:dopamine))
+p(CONSO:"alpha-4-containing nAChR") -> sec(a(CHEBI:dopamine))
+p(CONSO:"alpha-6-containing nAChR") -> sec(a(CHEBI:dopamine))
 UNSET Confidence
 
 SET Evidence = "Other levels of
@@ -965,7 +965,7 @@ neurons (295, 380)."
 SET Confidence = "High"
 SET MeSHAnatomy = "Ventral Tegmental Area"
 
-act(p(HBP:"alpha-4 beta-2 nAChR", loc(MESH:"GABAergic Neurons"))) -> act(a(MESH:"Dopaminergic Neurons"))
+act(p(CONSO:"alpha-4 beta-2 nAChR", loc(MESH:"GABAergic Neurons"))) -> act(a(MESH:"Dopaminergic Neurons"))
 
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -1048,8 +1048,8 @@ a(CHEBI:galanthamine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic s
 a(CHEBI:physostigmine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 a(CHEBI:"nicotinic antagonist") cnc act(a(CHEBI:galanthamine))
 a(CHEBI:"nicotinic antagonist") cnc act(a(CHEBI:physostigmine))
-a(HBP:"FK1 antibody") -| act(a(CHEBI:galanthamine))
-a(HBP:"FK1 antibody") -| act(a(CHEBI:physostigmine))
+a(CONSO:"FK1 antibody") -| act(a(CHEBI:galanthamine))
+a(CONSO:"FK1 antibody") -| act(a(CHEBI:physostigmine))
 UNSET Confidence
 
 SET Evidence = "For instance, studies carried out in PC12
@@ -1063,7 +1063,7 @@ SET MeSHAnatomy="PC12 Cells"
 
 a(CHEBI:codeine) cnc a(MESH:Cholinesterases)
 a(CHEBI:codeine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
-a(HBP:"FK1 antibody") -| a(CHEBI:codeine)
+a(CONSO:"FK1 antibody") -| a(CHEBI:codeine)
 a(CHEBI:"nicotinic antagonist") cnc a(CHEBI:codeine))
 #Statement added wrt evidence
 UNSET MeSHAnatomy
@@ -1088,8 +1088,8 @@ AD patients (46)."
 SET Confidence = "High"
 g(HGNC:CHRNA7) -- path(MESH:"Sensory Gating")
 path(MESH:"Sensory Gating") -- path(MESH:Schizophrenia)
-p(HBP:"alpha-4 beta-2 nAChR") pos bp(GO:cognition)
-p(HBP:"alpha-4 beta-2 nAChR") neg path(MESH:"Alzheimer Disease")
+p(CONSO:"alpha-4 beta-2 nAChR") pos bp(GO:cognition)
+p(CONSO:"alpha-4 beta-2 nAChR") neg path(MESH:"Alzheimer Disease")
 p(HGNC:CHRNA7) pos bp(GO:cognition)
 p(HGNC:CHRNA7) neg path(MESH:"Alzheimer Disease")
 UNSET Confidence
@@ -1103,10 +1103,10 @@ essential for its cognitive-enhancing properties (40,
 108, 241, 409, 521)."
 SET Confidence = "Medium"
 a(CHEBI:galanthamine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
-a(CHEBI:galanthamine) -| path(HBP:Neurodegeneration)
+a(CHEBI:galanthamine) -| path(CONSO:Neurodegeneration)
 a(CHEBI:galanthamine) -> bp(GO:"synaptic transmission, cholinergic")
 bp(GO:"synaptic transmission, cholinergic") -> bp(GO:cognition)
-path(HBP:Neurodegeneration) -> bp(GO:cognition)
+path(CONSO:Neurodegeneration) -> bp(GO:cognition)
 #above two Statements added wrt evidence
 UNSET Confidence
 
@@ -1256,7 +1256,7 @@ SET MeSHAnatomy = "Corpus Striatum"
 
 act(p(HGNC:CHRNA7)) reg a(CHEBI:dopamine, loc(GO:"extracellular region"))
 a(CHEBI:"kynurenic acid") -| a(CHEBI:dopamine, loc(GO:"extracellular region"))
-a(HBP:"alpha-Bungarotoxin") -| a(CHEBI:dopamine, loc(GO:"extracellular region"))
+p(CONSO:"alpha-Bungarotoxin") -| a(CHEBI:dopamine, loc(GO:"extracellular region"))
 
 UNSET Species
 UNSET MeSHAnatomy
@@ -1341,7 +1341,7 @@ with alpha7 nAChRs (490). The Abeta1-42 peptide
 also displaces binding of [3H]MLA from alpha7 nAChRs in
 cerebral cortical and hippocampal synaptosomes (490)."
 SET Confidence = "High"
-p(HBP:"gamma-secretase") -> a(CHEBI:"amyloid-beta polypeptide 42")
+p(CONSO:"gamma-secretase") -> a(CHEBI:"amyloid-beta polypeptide 42")
 p(HGNC:BACE1) -> a(CHEBI:"amyloid-beta polypeptide 42")
 
 SET MeSHAnatomy = "Brain"
@@ -1372,7 +1372,7 @@ reported that alpha4beta2 nAChRs are more sensitive than alpha7
 nAChRs to inhibition by nanomolar concentrations of
 Abeta1-42 (506). "
 SET Confidence = "High"
-a(CHEBI:"amyloid-beta polypeptide 42") -| act(p(HBP:"alpha-4 beta-2 nAChR"))
+a(CHEBI:"amyloid-beta polypeptide 42") -| act(p(CONSO:"alpha-4 beta-2 nAChR"))
 UNSET Confidence
 
 SET Evidence = "It is noteworthy
@@ -1410,7 +1410,7 @@ a(CHEBI:anandamide) -- a(MESH:"Receptors, Serotonin")
 a(CHEBI:anandamide) -- p(HGNCGENEFAMILY:"Glutamate ionotropic receptor kainate type subunits")
 a(CHEBI:anandamide) -- p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
 a(CHEBI:anandamide) -| act(p(HGNC:CHRNA7))
-a(CHEBI:anandamide) -| act(p(HBP:"alpha-4 beta-2 nAChR"))
+a(CHEBI:anandamide) -| act(p(CONSO:"alpha-4 beta-2 nAChR"))
 UNSET Confidence
 
 SET Evidence = "There is evidence that anandamide is produced by
@@ -1442,11 +1442,11 @@ adjunct therapy for smoking cessation."
 # N-(1,2,3,4-tetrahydro-1-naphthyl)-4-nitroaniline = UCI-30002
 SET Confidence = "High"
 a(CHEBI:bupropion) -| act(p(HGNC:CHRNA7))
-a(CHEBI:bupropion) -| act(p(HBP:"alpha-4 beta-2 nAChR"))
-a(CHEBI:bupropion) -| act(p(HBP:"alpha-3 beta-4 nAChR"))
+a(CHEBI:bupropion) -| act(p(CONSO:"alpha-4 beta-2 nAChR"))
+a(CHEBI:bupropion) -| act(p(CONSO:"alpha-3 beta-4 nAChR"))
 a(MESH:"N-(1,2,3,4-tetrahydro-1-naphthyl)-4-nitroaniline") -| act(p(HGNC:CHRNA7))
-a(MESH:"N-(1,2,3,4-tetrahydro-1-naphthyl)-4-nitroaniline") -| act(p(HBP:"alpha-4 beta-2 nAChR"))
-a(MESH:"N-(1,2,3,4-tetrahydro-1-naphthyl)-4-nitroaniline") -| act(p(HBP:"alpha-3 beta-4 nAChR"))
+a(MESH:"N-(1,2,3,4-tetrahydro-1-naphthyl)-4-nitroaniline") -| act(p(CONSO:"alpha-4 beta-2 nAChR"))
+a(MESH:"N-(1,2,3,4-tetrahydro-1-naphthyl)-4-nitroaniline") -| act(p(CONSO:"alpha-3 beta-4 nAChR"))
 a(CHEBI:bupropion) -- path(MESH:"Smoking Cessation")
 UNSET Confidence
 
@@ -1769,7 +1769,7 @@ these mice experience early onset neurodegeneration
 SET Confidence = "High"
 SET Species = "10090"
 
-p(MGI:Chrnb2) neg path(HBP:Neurodegeneration)
+p(MGI:Chrnb2) neg path(CONSO:Neurodegeneration)
 
 UNSET Species
 UNSET Confidence
@@ -1819,7 +1819,7 @@ SET Evidence = "However, this appealing
 scenario is complicated by recent findings that beta-amyloid
 peptides directly modify alpha7 nAChR function (242, 278)."
 SET Confidence = "High"
-a(HBP:"amyloid-beta oligomers") reg act(p(HGNC:CHRNA7))
+a(CONSO:"amyloid-beta oligomers") reg act(p(HGNC:CHRNA7))
 UNSET Confidence
 
 SET Evidence = "Mouse strains, like humans, also exhibit a striking
@@ -1959,8 +1959,8 @@ including craving, anxiety, and a multitude of other less
 than desirable sensations of autonomic dysfunction when
 use is stopped."
 SET Confidence = "High"
-a(CHEBI:nicotine) -> p(HBP:"alpha-4 beta-2 nAChR")
-a(CHEBI:nicotine) -| act(p(HBP:"alpha-4 beta-2 nAChR"))
+a(CHEBI:nicotine) -> p(CONSO:"alpha-4 beta-2 nAChR")
+a(CHEBI:nicotine) -| act(p(CONSO:"alpha-4 beta-2 nAChR"))
 a(CHEBI:nicotine) -> path(MESH:Craving)
 a(CHEBI:nicotine) -> path(MESH:Anxiety)
 UNSET Confidence
@@ -1991,8 +1991,8 @@ those observed in wild-type mice led to the conclusion
 that beta2-containing nAChRs do not contribute to the physical
 dependence on nicotine (57)."
 SET Confidence = "High"
-a(HBP:"beta-2-containing nAChR") -- a(CHEBI:nicotine)
-a(HBP:"beta-2-containing nAChR") cnc act(a(CHEBI:nicotine))
+p(CONSO:"beta-2-containing nAChR") -- a(CHEBI:nicotine)
+p(CONSO:"beta-2-containing nAChR") cnc act(a(CHEBI:nicotine))
 UNSET Confidence
 
 SET Evidence = "Several possibilities exist for
@@ -2022,7 +2022,7 @@ beta4-containing nAChR and to require an alpha4-containing
 nAChR."
 SET Confidence = "High"
 p(HGNC:CHRNB4) -- path(MESH:"Drug Tolerance")
-a(HBP:"alpha-4-containing nAChR") -- path(MESH:"Drug Tolerance")
+p(CONSO:"alpha-4-containing nAChR") -- path(MESH:"Drug Tolerance")
 UNSET Confidence
 
 UNSET TextLocation

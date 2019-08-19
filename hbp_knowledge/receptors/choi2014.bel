@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/7e4be528f12abd28be768b62402fba6e083eaf9e/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -192,7 +192,7 @@ SET Evidence="The hallmarks of AD pathology are the accumulation of
 amyloid-beta (Abeta) peptide aggregates (neuritic plaques) and
 hyperphosphorylated tau protein (neurofibrillary tangles)."
 SET Confidence = "High"
-a(HBP:"amyloid-beta aggregates") -- path(MESH:"Plaque, Amyloid")
+a(CONSO:"amyloid-beta aggregates") -- path(MESH:"Plaque, Amyloid")
 path(MESH:"Plaque, Amyloid") biomarkerFor path(MESH:"Alzheimer Disease")
 path(MESH:"Neurofibrillary Tangles") biomarkerFor path(MESH:"Alzheimer Disease")
 UNSET Confidence
@@ -206,7 +206,7 @@ in cognition, learning, and memory."
 SET Confidence = "High"
 SET MeSHAnatomy={"Hippocampus", "Cerebral Cortex"}
 
-path(MESH:"Plaque, Amyloid") -> bp(HBP:neuroinflammation)
+path(MESH:"Plaque, Amyloid") -> path(CONSO:neuroinflammation)
 path(MESH:"Plaque, Amyloid") -> bp(GO:"cell death")
 a(MESH:Hippocampus) -- bp(GO:cognition)
 a(MESH:Hippocampus) -- bp(GO:learning)
@@ -550,8 +550,8 @@ which potentiate M1-mediated non-amyloidogenic amyloid precursor
 protein (APPsalpha) processing, suggesting disease-modifying potential in AD"
 SET Confidence = "High"
 a(MESH:"VU 0405652") -> act(p(HGNC:CHRM1))
-a(HBP:VU0456940) -> act(p(HGNC:CHRM1))
-act(p(HGNC:CHRM1)) -> deg(a(HBP:"sAPP-alpha"))
+a(CONSO:VU0456940) -> act(p(HGNC:CHRM1))
+act(p(HGNC:CHRM1)) -> deg(p(CONSO:"sAPP-alpha"))
 UNSET Confidence
 
 SET Evidence="Conversely, the nonselective mAChR agonist BuTAC
@@ -584,7 +584,7 @@ represented a breakthrough when they were described in 2008.84,85 VU10010
 is a potent M4-selective PAM that increases affinity/efficacy of ACh to
 promote M4 mAChR activation."
 SET Confidence = "Medium"
-a(HBP:VU10010) -> act(a(CHEBI:acetylcholine))
+a(CONSO:VU10010) -> act(a(CHEBI:acetylcholine))
 act(a(CHEBI:acetylcholine)) -> act(p(HGNC:CHRM4))
 #evidence talks about CHRM4 and not CHRM1
 UNSET Confidence
@@ -596,7 +596,7 @@ and possibly in modulating cognition."
 SET Confidence = "Medium"
 SET MeSHAnatomy="Hippocampus"
 
-a(HBP:VU10010) -> act(p(HGNC:CHRM4))
+a(CONSO:VU10010) -> act(p(HGNC:CHRM4))
 act(p(HGNC:CHRM4)) -| bp(GO:"synaptic transmission, glutamatergic")
 p(HGNC:CHRM4) reg bp(GO:cognition)
 #CHRM4 regulates cognition
@@ -609,7 +609,7 @@ in preclinical models."
 SET Confidence = "Medium"
 a(MESH:"3-amino-N-(4-methoxybenzyl)-4,6-dimethylthieno(2,3-b)pyridine-2-carboxamide") -| act(a(CHEBI:amphetamine))
 #amphetamine is blocked by VU0152100
-a(HBP:VU0152099) -| act(a(CHEBI:amphetamine))
+a(CONSO:VU0152099) -| act(a(CHEBI:amphetamine))
 act(a(CHEBI:amphetamine)) -> bp(GO:locomotion)
 UNSET Confidence
 

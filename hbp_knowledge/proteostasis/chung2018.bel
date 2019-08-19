@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
@@ -89,7 +89,7 @@ SET Evidence = "Robust AV accumulation in dystrophic neurites from biopsy
 tissues from patients with AD implicate a compromised state of autophagic flux"
 # AV: autophagosome
 SET Confidence = "High"
-path(MESH:"Alzheimer Disease") -> complex(a(HBP:"dystrophic neurite"),a(GO:autophagosome))
+path(MESH:"Alzheimer Disease") -> complex(a(CONSO:"dystrophic neurite"),a(GO:autophagosome))
 path(MESH:"Alzheimer Disease") neg bp(GO:autophagy)
 UNSET Confidence
 
@@ -190,7 +190,7 @@ UNSET Confidence
 
 SET Evidence = "The presence of aberrant protein aggregates is common to neurodegenerative diseases"
 SET Confidence = "High"
-a(HBP:"protein aggregates") pos path(MESH:"Neurodegenerative Diseases")
+a(CONSO:"protein aggregates") pos path(MESH:"Neurodegenerative Diseases")
 UNSET Confidence
 
 SET Evidence = "Accumulation of misfolded proteins and damaged
@@ -198,8 +198,8 @@ organelles is highly detrimental for neuronal homeostasis and survival."
 SET Confidence = "High"
 a(GO:"organelle") -> bp(GO:"neuron cellular homeostasis")
 a(GO:"organelle") -> a(MESH:Neurons)
-p(MESH:Proteins,pmod(HBP:misfolded)) -| bp(GO:"neuron cellular homeostasis")
-p(MESH:Proteins,pmod(HBP:misfolded)) -| a(MESH:Neurons)
+p(MESH:Proteins,pmod(CONSO:misfolded)) -| bp(GO:"neuron cellular homeostasis")
+p(MESH:Proteins,pmod(CONSO:misfolded)) -| a(MESH:Neurons)
 
 SET Evidence = "Although the UPS is accountable for the degradation of up to 80–90% of
 proteins, misfolded proteins and aggregates are too large to be processed
@@ -208,14 +208,14 @@ physical occlusion, leaving autophagic-lysosomal breakdown as the
 only effective pathway to clear these proteins [25,26]"
 #UPS : ubiquitin-proteasome system
 SET Confidence = "High"
-bp(GO:autophagy) -> deg(p(MESH:Proteins,pmod(HBP:misfolding)) )
-bp(GO:autophagy) -> deg(a(HBP:"protein aggregates"))
+bp(GO:autophagy) -> deg(p(MESH:Proteins,pmod(CONSO:misfolding)) )
+bp(GO:autophagy) -> deg(a(CONSO:"protein aggregates"))
 UNSET Confidence
 
 SET Evidence = "Impairment in the UPS is cardinal to the development of neurodegeneration, in part
 because of its reciprocal interplay with protein aggregation"
 SET Confidence = "High"
-bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") neg path(HBP:Neurodegeneration)
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") neg path(CONSO:Neurodegeneration)
 UNSET Confidence
 
 SET Evidence = "For instance, phosphorylated insoluble tau proteins dampen 26S proteasome
@@ -231,7 +231,7 @@ results in progressive neuronal death, a common feature in several
 neurodegenerative diseases [27]."
 SET Confidence = "Medium"
 SET Cell = "neuron"
-bp(GO:macroautophagy) -> deg(a(HBP:"protein aggregates"))
+bp(GO:macroautophagy) -> deg(a(CONSO:"protein aggregates"))
 bp(GO:proteolysis) -| bp(GO:"neuron death")
 bp(GO:"neuron death") -- path(MESH:"Neurodegenerative Diseases")
 UNSET Cell
@@ -242,7 +242,7 @@ SET Evidence = "Defective chaperone-mediated autophagy
 KFERQ-like motif recognizable to its chaperones, plays a significant role
 in aggregate formation of disease-related proteins [28]."
 SET Confidence = "High"
-bp(GO:"chaperone-mediated autophagy") -| a(HBP:"protein aggregates")
+bp(GO:"chaperone-mediated autophagy") -| a(CONSO:"protein aggregates")
 UNSET Confidence
 
 SET Evidence = "While misfolding of Aβ peptide and hyperphosphorylation of tau are recognized
@@ -250,8 +250,8 @@ as pathogenic mechanisms of AD, accumulation of α-synuclein,
 which is recognized more as a risk factor for Parkinson’s disease
 (PD), also plays a pathological role in AD [29]."
 SET Confidence = "High"
-p(MESH:"Amyloid beta-Peptides",pmod(HBP:misfolding)) -> path(MESH:"Alzheimer Disease")
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> path(MESH:"Alzheimer Disease")
+p(MESH:"Amyloid beta-Peptides",pmod(CONSO:misfolding)) -> path(MESH:"Alzheimer Disease")
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> path(MESH:"Alzheimer Disease")
 p(HGNC:SNCA) pos path(MESH:"Alzheimer Disease")
 p(HGNC:SNCA) -> path(MESH:"Parkinson Disease")
 UNSET Confidence
@@ -320,7 +320,7 @@ SET Evidence = "This inhibition of Aβ secretion during macroautophagy deficienc
 aberrant cytosolic accumulation of Aβ, which ultimately evokes neurodegeneration accompanied with memory loss."
 SET Confidence = "High"
 bp(GO:macroautophagy) -> sec(a(CHEBI:"amyloid-beta"))
-sec(a(CHEBI:"amyloid-beta")) -| path(HBP:Neurodegeneration)
+sec(a(CHEBI:"amyloid-beta")) -| path(CONSO:Neurodegeneration)
 sec(a(CHEBI:"amyloid-beta")) -> bp(GO:memory)
 UNSET Confidence
 
@@ -335,9 +335,9 @@ UNSET Confidence
 SET Evidence = "However, when tau becomes hyperphosphorylated, it detaches from microtubules and aggregates, resulting
 in depolymerization of microtubules and formation of insoluble tau deposits [40]"
 SET Confidence = "High"
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -| complex(a(GO:microtubule),p(HGNC:MAPT))
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> a(HBP:"Tau aggregates")
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> bp(GO:"microtubule depolymerization")
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -| complex(a(GO:microtubule),p(HGNC:MAPT))
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> a(CONSO:"Tau aggregates")
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> bp(GO:"microtubule depolymerization")
 UNSET Confidence
 
 SET Evidence = "Dysregulation of tau proteins can produce a spectrum of neurodegenerative
@@ -376,8 +376,8 @@ SET Evidence = "Tau aggregates can be targeted by two protein clearance pathways
 the UPS and the A-LS, with the latter pathway encompassing microautophagy,CMA and macroautophagy."
 # A-LS: autophagic-lysosomal system
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -- bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
-a(HBP:"Tau aggregates") -- bp(GO:autophagy)
+a(CONSO:"Tau aggregates") -- bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+a(CONSO:"Tau aggregates") -- bp(GO:autophagy)
 UNSET Confidence
 
 SET Evidence = "Evidence suggests that CMA can degrade tau via the chaperone heat shock cognate of 70 kDa
@@ -392,14 +392,14 @@ UNSET Confidence
 SET Evidence = "Wang et al., using an N2a neuroblastoma cell line that expresses the repeat domain of tau with an
 FTD-17 mutation (TauRDΔK280), has demonstrated that tau aggregates can be degraded by macroautophagy [48]"
 SET Confidence = "High"
-bp(GO:macroautophagy) -> deg(a(HBP:"Tau aggregates"))
+bp(GO:macroautophagy) -> deg(a(CONSO:"Tau aggregates"))
 UNSET Confidence
 
 SET Evidence = "Lastly, macroautophagy, but not UPS or CMA can clear protein aggregates."
 SET Confidence = "Medium"
-bp(GO:macroautophagy) -> deg(a(HBP:"protein aggregates"))
-bp(GO:"chaperone-mediated autophagy") cnc deg(a(HBP:"protein aggregates"))
-bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") cnc deg(a(HBP:"protein aggregates"))
+bp(GO:macroautophagy) -> deg(a(CONSO:"protein aggregates"))
+bp(GO:"chaperone-mediated autophagy") cnc deg(a(CONSO:"protein aggregates"))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") cnc deg(a(CONSO:"protein aggregates"))
 UNSET Confidence
 
 SET Evidence = "NBR1 colocalizes with tau and has primary sequence domains for binding [52]."
@@ -417,7 +417,7 @@ UNSET Confidence
 SET Evidence = "For example, Babu et al. has shown that p62−/− knockout mice have increased levels
 of hyperphosphorylated tau, reduction of synaptophysin and changes in short term memory compared to p62+/− [54]"
 SET Confidence = "High"
-p(HGNC:SQSTM1) -| p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+p(HGNC:SQSTM1) -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 p(HGNC:SQSTM1) -> p(HGNC:SYP)
 p(HGNC:SQSTM1) reg bp(GO:"short-term memory")
 UNSET Confidence
@@ -425,7 +425,7 @@ UNSET Confidence
 SET Evidence = "While AD is generally considered a disorder with two proteinopathies,
 other protein aggregates are also seen in AD, like α-synuclein"
 SET Confidence = "High"
-path(MESH:"Alzheimer Disease") -- a(HBP:"alpha-synuclein aggregates")
+path(MESH:"Alzheimer Disease") -- a(CONSO:"alpha-synuclein aggregates")
 UNSET Confidence
 
 SET Evidence = "Recent clinical and immunohistochemistry studies demonstrate the
@@ -438,16 +438,16 @@ SET Evidence = "Misfolded α-synuclein proteins form insoluble oligomers, which 
 lead to the cascade of pathogenic neurotoxicity-induced responses such
 as neuroinflammation and cell death [55]"
 SET Confidence = "High"
-p(HGNC:SNCA,pmod(HBP:misfolding)) -> a(HBP:"alpha-synuclein oligomers")
-a(HBP:"alpha-synuclein oligomers") -> path(HBP:neuroinflammation)
-a(HBP:"alpha-synuclein oligomers") -> bp(GO:"cell death")
+p(HGNC:SNCA,pmod(CONSO:misfolding)) -> a(CONSO:"alpha-synuclein oligomers")
+a(CONSO:"alpha-synuclein oligomers") -> path(CONSO:neuroinflammation)
+a(CONSO:"alpha-synuclein oligomers") -> bp(GO:"cell death")
 UNSET Confidence
 
 SET Evidence = "First identified as a nonamyloid component of Aβ plaques in the AD brain, α-synuclein aggregates
 are detected in the majority of the brains of patients with AD [56,57]."
 SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
-path(MESH:"Alzheimer Disease") pos a(HBP:"alpha-synuclein aggregates")
+path(MESH:"Alzheimer Disease") pos a(CONSO:"alpha-synuclein aggregates")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -486,8 +486,8 @@ SET Evidence = "Another common proteinopathy occurs from the misfolding of TARDN
 binding protein 43 kDa (TDP-43), which is primarily seen in
 amyotrophic lateral sclerosis (ALS) and FTD [67]"
 SET Confidence = "High"
-p(HGNC:TARDBP,pmod(HBP:misfolding)) pos path(MESH:"Amyotrophic Lateral Sclerosis")
-p(HGNC:TARDBP,pmod(HBP:misfolding)) pos path(MESH:"Frontotemporal Dementia")
+p(HGNC:TARDBP,pmod(CONSO:misfolding)) pos path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:TARDBP,pmod(CONSO:misfolding)) pos path(MESH:"Frontotemporal Dementia")
 UNSET Confidence
 
 SET Evidence = "Although exact relations remain
@@ -546,9 +546,9 @@ UNSET Confidence
 SET Evidence = "For instance, ApoE4–an important determinant of cholesterol metabolism
 and the strongest genetic risk factor for sporadic AD – regulates Aβ degradation [77]."
 SET Confidence = "High"
-g(HBP:"APOE e4") -> bp(GO:"cholesterol metabolic process")
-g(HBP:"APOE e4") -> path(MESH:"Alzheimer Disease")
-g(HBP:"APOE e4") reg deg(a(CHEBI:"amyloid-beta"))
+g(CONSO:"APOE e4") -> bp(GO:"cholesterol metabolic process")
+g(CONSO:"APOE e4") -> path(MESH:"Alzheimer Disease")
+g(CONSO:"APOE e4") reg deg(a(CHEBI:"amyloid-beta"))
 UNSET Confidence
 
 SET Evidence = "Cellular cholesterol can directly impact the level of
@@ -584,7 +584,7 @@ membrane-rich axons and growth cones where lipid interaction with
 cytosolic tau may contribute to fibrillary tau aggregation [84]."
 SET Confidence = "High"
 SET MeSHAnatomy = "Cytosol"
-complex(p(HGNC:MAPT),a(CHEBI:lipid)) -> a(HBP:"Tau aggregates")
+complex(p(HGNC:MAPT),a(CHEBI:lipid)) -> a(CONSO:"Tau aggregates")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -592,7 +592,7 @@ SET Evidence = "Furthermore, the membrane bilayer lipid can influence protein ag
 and subsequent tau pathology, with recent studies showing that tau
 binds to the membrane, which has subsequent effects on the formation of fibrillary tau aggregates [85,86]."
 SET Confidence = "High"
-complex(a(MESH:"Lipid Bilayers"),p(HGNC:MAPT)) -- a(HBP:"Tau aggregates")
+complex(a(MESH:"Lipid Bilayers"),p(HGNC:MAPT)) -- a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "In addition to the direct modulation
@@ -674,7 +674,7 @@ p(HGNC:TFEB) -> bp(GO:autophagy)
 p(HGNC:TFEB) -> deg(p(HGNC:MAPT,pmod(Ph)))
 bp(GO:autophagy) -> deg(p(HGNC:MAPT,pmod(Ph)))
 deg(p(HGNC:MAPT,pmod(Ph))) -| bp(GO:"neuron death")
-deg(p(HGNC:MAPT,pmod(Ph))) -| path(HBP:neuroinflammation)
+deg(p(HGNC:MAPT,pmod(Ph))) -| path(CONSO:neuroinflammation)
 deg(p(HGNC:MAPT,pmod(Ph))) -> bp(GO:cognition)
 UNSET Confidence
 
@@ -727,7 +727,7 @@ modulate macroautophagy, via its role in SNARE endocytosis to clear tau aggregat
 SET Confidence = "High"
 p(HGNC:PICALM) reg bp(GO:macroautophagy)
 p(HGNC:PICALM) -> tloc(complex(GO:"SNARE complex"),fromLoc(GO:"extracellular space"),toLoc(GO:intracellular))
-tloc(complex(GO:"SNARE complex"),fromLoc(GO:"extracellular space"),toLoc(GO:intracellular)) -> deg(a(HBP:"Tau aggregates"))
+tloc(complex(GO:"SNARE complex"),fromLoc(GO:"extracellular space"),toLoc(GO:intracellular)) -> deg(a(CONSO:"Tau aggregates"))
 UNSET Confidence
 
 SET Evidence = "BIN1 is involved in the endocytosis and the endosomal
@@ -853,7 +853,7 @@ mitochondrial function has been implicated in the pathogenesis of AD,
 leading to the mitochondrial cascade hypothesis of AD [121]."
 SET Confidence = "High"
 a(GO:mitochondrion) reg bp(GO:"energy homeostasis")
-path(HBP:"mitochondrial dysfunction") -> path(MESH:"Alzheimer Disease")
+path(CONSO:"mitochondrial dysfunction") -> path(MESH:"Alzheimer Disease")
 UNSET Confidence
 
 SET Evidence = "Dysfunctional mitochondria are
@@ -861,8 +861,8 @@ critically harmful to cells, as this leads to decreased synthesis of cellular
 ATP and accumulation of ROS, which further overburden and damage
 other functional mitochondria."
 SET Confidence = "High"
-path(HBP:"mitochondrial dysfunction") -| a(CHEBI:ATP)
-path(HBP:"mitochondrial dysfunction") -> a(CHEBI:"reactive oxygen species")
+path(CONSO:"mitochondrial dysfunction") -| a(CHEBI:ATP)
+path(CONSO:"mitochondrial dysfunction") -> a(CHEBI:"reactive oxygen species")
 UNSET Confidence
 
 SET Evidence = "Previous studies demonstrate impaired
@@ -870,8 +870,8 @@ mitochondrial function preceding the accumulation of hallmark proteins
 in AD, such as Aβ [123,124] and tau [125]."
 SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
-path(HBP:"mitochondrial dysfunction") -> a(CHEBI:"amyloid-beta")
-path(HBP:"mitochondrial dysfunction") -> p(HGNC:MAPT)
+path(CONSO:"mitochondrial dysfunction") -> a(CHEBI:"amyloid-beta")
+path(CONSO:"mitochondrial dysfunction") -> p(HGNC:MAPT)
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -879,7 +879,7 @@ SET Evidence = "Thus, as a quality control mechanism, mitophagy − a form of se
 that specifically targets mitochondria − occurs in response to damaged
 or dysfunctional mitochondria in order to prevent mitochondrial bioenergetic deficits."
 SET Confidence = "High"
-path(HBP:"mitochondrial dysfunction") -> bp(GO:mitophagy)
+path(CONSO:"mitochondrial dysfunction") -> bp(GO:mitophagy)
 UNSET Confidence
 
 SET Evidence = "A recent study reported that mitophagy is robustly induced in AD brains and in
@@ -894,7 +894,7 @@ UNSET Confidence
 SET Evidence = "Altogether, as with proteinopathy, accumulation of
 damaged or dysfunctional mitochondria is detrimental to the development of AD pathologies"
 SET Confidence = "High"
-path(HBP:"mitochondrial dysfunction") -> path(MESH:"Alzheimer Disease")
+path(CONSO:"mitochondrial dysfunction") -> path(MESH:"Alzheimer Disease")
 UNSET Confidence
 
 SET Evidence = "PSEN1 M146L and A246E mutant cortical neurons have been shown to possess decreased
@@ -970,7 +970,7 @@ by elevated Beclin 1 and LC3-II levels and reduced tau and p62 levels in
 organotypic neuronal cultures and a mouse model of FTD [159]"
 #LC3 - II : MAP1LC3B
 SET Confidence = "High"
-a(CHEBI:"methylene blue") -| p(HGNC:MAPT,pmod(HBP:misfolding))
+a(CHEBI:"methylene blue") -| p(HGNC:MAPT,pmod(CONSO:misfolding))
 a(CHEBI:"methylene blue") -> bp(GO:macroautophagy)
 a(CHEBI:"methylene blue") -> p(HGNC:BECN1)
 a(CHEBI:"methylene blue") -> p(HGNC:MAP1LC3B)
