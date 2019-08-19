@@ -1,0 +1,473 @@
+SET DOCUMENT Name = "Neurotransmitter and Insulin NeuroMMSig enrichments"
+SET DOCUMENT Description = "Enrichment of NeuroMMSig mechanisms: neurotransmitters and insuline signalling"
+SET DOCUMENT Version = "0.0.1"
+SET DOCUMENT Copyright = "© 2018 Fraunhofer Gesellschaft e.V., Munich, Germany. All rights reserved."
+SET DOCUMENT Authors = "Kristian Kolpeja, Daniel Domingo-Fernandez"
+SET DOCUMENT Licenses = "CC by 4.0"
+SET DOCUMENT ContactInfo = "daniel.domingo.fernandez@scai.fraunhofer.de"
+
+# NAMESPACES
+
+DEFINE NAMESPACE CHEBI AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/chebi/chebi-20170511.belns"
+DEFINE NAMESPACE CTO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/clinical-trial-ontology/clinical-trial-ontology-1.0.0.belns"
+DEFINE NAMESPACE DO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/disease-ontology/disease-ontology-20170511.belns"
+DEFINE NAMESPACE GOBP AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/go-biological-process/go-biological-process-20170511.belns"
+DEFINE NAMESPACE GOCC AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/go-cellular-component/go-cellular-component-20170511.belns"
+DEFINE NAMESPACE HGNC AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hgnc-human-genes/hgnc-human-genes-20170511.belns"
+DEFINE NAMESPACE HP AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+DEFINE NAMESPACE MESHA AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-anatomy/mesh-anatomy-20171030.belns"
+DEFINE NAMESPACE MESHF AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-psychology/mesh-psychology-20170419.belns"
+DEFINE NAMESPACE MESHC AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-chemicals/mesh-chemicals-20170511.belns"
+DEFINE NAMESPACE MESHCS AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-cell-structures/mesh-cell-structures-20170511.belns"
+DEFINE NAMESPACE MESHD AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-diseases/mesh-diseases-20170511.belns"
+DEFINE NAMESPACE MESHPP AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-processes/mesh-processes-20170511.belns"
+DEFINE NAMESPACE MGI AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mgi-mouse-genes/mgi-mouse-genes-20170511.belns"
+DEFINE NAMESPACE RGD AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/rgd-rat-genes/rgd-rat-genes-20170511.belns"
+DEFINE NAMESPACE SCOMP AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-named-complexes/selventa-named-complexes-20170511.belns"
+DEFINE NAMESPACE SFAM AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-protein-families/selventa-protein-families-20170511.belns"
+DEFINE NAMESPACE INTERPRO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/interpro/interpro-20170731.belns"
+DEFINE NAMESPACE FLYBASE AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/flybase/flybase-20180118.belns"
+
+DEFINE NAMESPACE GFAM AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hgnc-gene-families/hgnc-gene-families-20170430.belns"
+
+DEFINE NAMESPACE ADO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/alzheimer-disease-ontology/alzheimer-disease-ontology-1.0.2.belns"
+DEFINE NAMESPACE BRCO AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/brain-region-ontology/brain-region-ontology-1.0.0.belns"
+DEFINE NAMESPACE NIFT AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/imaging-ontology/imaging-ontology-1.0.6.belns"
+DEFINE NAMESPACE PTS AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/neurodegeneration-pathways/neurodegeneration-pathways-1.0.0.belns"
+
+DEFINE NAMESPACE dbSNP AS PATTERN "rs[0-9]+"
+
+DEFINE NAMESPACE PMIBP AS URL "http://belief-demo.scai.fraunhofer.de/BeliefDashboard/dicten/namespaces/pmibp.belns"
+DEFINE NAMESPACE PMICHEM AS URL "http://belief-demo.scai.fraunhofer.de/BeliefDashboard/dicten/namespaces/pmichem.belns"
+DEFINE NAMESPACE PMICOMP AS URL "http://belief-demo.scai.fraunhofer.de/BeliefDashboard/dicten/namespaces/pmicomp.belns"
+DEFINE NAMESPACE PMIDIS AS URL "http://belief-demo.scai.fraunhofer.de/BeliefDashboard/dicten/namespaces/pmidis.belns"
+DEFINE NAMESPACE PMIPFAM AS URL "http://belief-demo.scai.fraunhofer.de/BeliefDashboard/dicten/namespaces/pmipfam.belns"
+DEFINE NAMESPACE CL AS URL "https://owncloud.scai.fraunhofer.de/index.php/s/JsfpQvkdx3Y5EMx/download?path=CL.belns"
+DEFINE NAMESPACE CBP AS URL "http://belief-ptsd.scai.fraunhofer.de/BeliefDashboard/dicten/namespaces/cbp.belns"
+DEFINE NAMESPACE CA AS URL "http://belief-ptsd.scai.fraunhofer.de/BeliefDashboard/dicten/namespaces/ca.belns"
+DEFINE NAMESPACE CCHE AS URL "http://belief-ptsd.scai.fraunhofer.de/BeliefDashboard/dicten/namespaces/cche.belns"
+
+# ANNOTATIONS
+
+DEFINE ANNOTATION Anatomy AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170725.belanno"
+DEFINE ANNOTATION CellLine AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170725.belanno"
+DEFINE ANNOTATION Disease AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION MeSHAnatomy AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170725.belanno"
+DEFINE ANNOTATION MeSHDisease AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Species AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/species-taxonomy-id/species-taxonomy-id-20170511.belanno"
+
+DEFINE ANNOTATION Gender AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION Confidence AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Published AS LIST {"Epilepsy comorbidity paper", "CDR story"}
+
+DEFINE ANNOTATION Subgraph AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+
+# ANNOTATION LISTS
+
+DEFINE ANNOTATION BRCO AS LIST {"Hippocampus","Parietal_Lobe","Cerebellum","Temporal_Lobe","Frontal_cortex","Striatum","Occipital_cortex"}
+DEFINE ANNOTATION MESHF AS LIST {"Schizophrenia"}
+DEFINE ANNOTATION Condition AS LIST {"Normal Healthy State"}
+
+DEFINE ANNOTATION DiseaseState AS LIST {"Early-onset AD","Late-onset AD","Mild AD","Moderate AD","Pre-dementia"}
+
+DEFINE ANNOTATION Encode_Feature_Types AS LIST {"CTCF","Enhancer","Open chromatin","Promoter","Promoter Flanking Region","TF binding site","TF binding site","CTCF", "Enhancer", "Open chromatin", "Promoter", "Promoter Flanking Region"}
+DEFINE ANNOTATION FDASTATUS AS LIST {"Approved","Discontinued","Inactive","Phase 1","Phase 2","Phase 2/3","Phase 3","Phase 4"}
+DEFINE ANNOTATION KnockoutMice AS LIST {"App transgenic","GLP1 KO mice","IDE KO mice","IGF1 KO mice","INSR knockout mice","IRS1 KO mice","IRS2 KO mice","KO Mapk8ip1","LID mice","NIRKO mice"}
+DEFINE ANNOTATION NIFT AS LIST {"Volumetric MRI","Positron Emission Tomography"}
+
+DEFINE ANNOTATION Patient AS LIST {"AD T2DM +ve","AD T2DM -ve","APOE e4 +ve","APOE e4 -ve"}
+DEFINE ANNOTATION UserdefinedCell AS LIST {"Astrocyte","Beta cell","Islets"}
+DEFINE ANNOTATION UserdefinedCellLine AS LIST {"293APPwt","App transgenic","CHOAPPsw","IDE APP transgenic","INS-1 cells","N2a695 cell","NT2N cells","Neuroblastoma cell","primary cortical neuron","primary neuron"}
+
+DEFINE ANNOTATION Transcriptionally_active_region AS LIST {"intron 1","exon 3","3 prime UTR","exon 41", "5 prime UTR"}
+DEFINE ANNOTATION Race AS LIST {"Japanese", "Caucasian", "silhouettes women", "Chinese", "Italian", "Swedish", "US women", "Colombian", "Han Chinese in Taiwan","Han Chinese in Singapore", "non-Hispanic white", "non-Hispanic black", "Hispanic", "Black", "White", "Japanese", "Taiwanese"}
+DEFINE ANNOTATION Developmental_Phase__of_patient AS LIST {"Adolescence", "Adult", "Young", "Old", "Developmental stage"}
+DEFINE ANNOTATION Duration_of_Chemical_Exposure AS LIST {"Subchronic", "Chronic"}
+DEFINE ANNOTATION Experimental_Group AS LIST {"Physical exercised group", "Sedentary group"}
+
+SET STATEMENT_GROUP = "Neurotransmitters"
+
+
+SET Citation = {"PubMed","CNS Spectr. 2005 Nov;10(11 Suppl 18):6-9.","16273023"}
+SET Evidence = "Acetylcholine (ACh), a neurotransmitter essential for processing memory and learning, is
+decreased in both concentration and function in patients with Alzheimer's disease. This deficit and
+other presynaptic cholinergic deficits, including loss of cholinergic neurons and decreased
+acetylcholinesterase activity, underscore the cholinergic hypothesis of Alzheimer's disease."
+SET Species = "9606"
+path(MESHD:"Alzheimer Disease") -| a(CHEBI:acetylcholine)
+path(MESHD:"Alzheimer Disease") -| act(a(CHEBI:acetylcholine))
+a(CHEBI:acetylcholine) -- act(a(CHEBI:acetylcholine))
+a(CL:"cholinergic neuron") negativeCorrelation path(MESHD:"Alzheimer Disease")
+act(p(HGNC:ACHE)) negativeCorrelation path(MESHD:"Alzheimer Disease")
+UNSET Species
+
+
+SET Citation = {"PubMed","CNS Spectr. 2005 Nov;10(11 Suppl 18):6-9.","16273023"}
+SET Evidence = "Furthermore, the concentration of REST has been reported to influence the pathogenic
+outcome by neuronal diseases, including stroke, epilepsy and Alzheimer's disease. Experiments
+performed with PC12 pheochromocytoma cells indicate that REST may function as a key regulator of
+the neurosecretory phenotype. Moreover, transgenic mice overexpressing REST in pancreatic β-cells
+showed impaired insulin secretion leading to significantly reduced plasma insulin levels."
+SET Species = "9606"
+p(HGNC:REST) -- path(MESHD:"Alzheimer Disease")
+p(HGNC:REST) -- path(MESHD:Stroke)
+p(HGNC:REST) -- path(MESHD:Epilepsy)
+UNSET Species
+SET Species = "10090"
+SET Cell = "type B pancreatic cell"
+p(HGNC:REST) negativeCorrelation sec(a(CHEBI:"insulin (human)"))
+UNSET Cell
+SET Anatomy = "blood plasma"
+p(HGNC:REST) -| a(CHEBI:"insulin (human)")
+UNSET Anatomy
+UNSET Species
+
+
+SET Citation = {"PubMed","CNS Spectr. 2005 Nov;10(11 Suppl 18):6-9.","16273023"}
+SET Evidence = "Recently, GSK3β has also been linked to AMPAR trafficking and synaptic plasticity and it is a necessary component for LTD induction [38] (Figure 1). 
+During the induction of LTD, GSK3β is activated by protein phosphatase 1 via dephosphorylation of GSK3β Ser9 [38]. Active GSK3β is known to co-localize with AMPAR, 
+implying that it regulates the trafficking of AMPAR from the postsynaptic membrane."
+SET Species = "10116"
+p(RGD:Gsk3b) regulates p(GFAM:"Glutamate ionotropic receptor AMPA type subunits")
+p(RGD:Gsk3b) -> bp(MESHPP:"Long-Term Synaptic Depression")
+p(GFAM:"Protein phosphatase catalytic subunits") -> p(RGD:Gsk3b)
+UNSET Species
+
+SET Evidence = "Related to this, a recent study on the brain proteome revealed that SEPT2/3 levels were increased, while SEPT5 levels were decreased in the temporal neocortex 
+of AD patients as compared to non-AD subjects"
+SET Species = "9606"
+SET Anatomy = "temporal cortex"
+p(HGNC:SEPT2) positiveCorrelation path(MESHD:"Alzheimer Disease")
+p(HGNC:SEPT3) positiveCorrelation path(MESHD:"Alzheimer Disease")
+p(HGNC:SEPT5) negativeCorrelation path(MESHD:"Alzheimer Disease")
+UNSET Anatomy
+UNSET Species
+
+SET Evidence = "SEPT5 has also been shown to interact with syntaxin-1, resulting in decreased exocytosis [117,118] (Figure 3). SEPT5-syntaxin-1 interaction and the formation 
+of filamentous barricades is considered to be regulated by the CDK5-mediated changes in SEPT5 phosphorylation status [93]. CDK5 is able to phosphorylate SEPT5 at serine 161 
+(S161) and 327 (S327). Blocking the phosphorylation of SEPT5 at these sites resulted in enhanced binding of SEPT5 to syntaxin-1 in PC12 cells [93]. 
+The activity of CDK5 is deregulated in AD."
+SET Species = "10090"
+p(RGD:Sept5) -- p(RGD:Stx1a)
+p(RGD:Sept5) -| bp(GOBP:exocytosis)
+p(RGD:Stx1a) -- bp(GOBP:exocytosis)
+p(RGD:Cdk5) -> p(RGD:Sept5, pmod(Ph, Ser, 161))
+p(RGD:Cdk5) -> p(RGD:Sept5, pmod(Ph, Ser, 327))
+UNSET Species
+SET Species = "10116"
+act(p(RGD:Cdk5)) negativeCorrelation act(p(RGD:Sept5))
+UNSET Species
+
+SET Evidence = "SEPT2 is involved in synaptic plasticity and has been found to interact with the glutamate transporter EAAT1 and regulate its cellular localization (Figure 3)."
+p(HGNC:SEPT2) regulates bp(MESHPP:"Neuronal Plasticity")
+p(HGNC:SEPT2) -- p(HGNC:SLC1A3)
+
+
+SET Citation = {"PubMed","Journal of Cerebral Blood Flow & Metabolism (2013) 33, 684–691","23340677"}
+SET Evidence = "Here, the consequences of tau hyperphosphorylation on both neuronal and astrocytic metabolism and amino-acid neurotransmitter homeostasis were assessed in 
+transgenic mice expressing the pathogenic mutation P301L in the human tau gene (pR5 mice) compared with nontransgenic littermate controls. The glutamate level was reduced in 
+the hippocampus of pR5 mice, accompanied by reduced incorporation of 13C label derived from [1-13C]glucose in glutamate. Overall, we revealed that astrocytes as well as 
+glutamatergic and GABAergic neurons in the cortex of pR5 mice were in a hypermetabolic state, whereas in the hippocampus,where expression levels of mutant human tau are the 
+highest, glutamate homeostasis was impaired."
+SET Species = "10090"
+SET MeSHAnatomy = "Hippocampus"
+p(MGI:Mapt) positiveCorrelation a(CHEBI:"L-glutamic acid")
+UNSET MeSHAnatomy
+SET Anatomy = "cerebral cortex"
+SET Cell = {"astrocyte","glutamatergic neuron","GABAergic neuron"}
+p(MGI:Mapt) negativeCorrelation bp(MESHPP:Metabolism)
+UNSET Cell
+UNSET Anatomy
+
+
+SET Citation = {"PubMed","Neurobiol Aging. 2013 June ; 34(6): 1653–1661"," 23273601"}
+SET Evidence = "In AD, extensive response of genes regulating the synaptic vesicle release machinery was primarily apparent in the HC.
+In the HC, genes showing decreased expression included core SNAREs (synaptobrevin2/ VAMP2 and SNAP-25), synapsins I and II, synaptotagmins I and V, dynamin 1, 
+dynaminlike1, synaptopodin, RAB 3A, SEC22B, α and β synucleins, syntaxin binding protein 5-like and 6, syntaxin 6, bassoon, and piccolo (Supplementary Table 2). 
+Similar to the response in the aging neocortex, a few genes regulating synaptic vesicle trafficking and fusion showed increased mRNA levels in AD, including SNAP23 
+and synaptopodin 2 in the HC, and VAMP1 (synaptobrevin 1) in the HC and EC."
+SET Species = "9606"
+SET MeSHAnatomy = "Hippocampus"
+r(HGNC:VAMP2) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:SNAP25) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:SYN1) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:SYN2) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:SYT1) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:SYT5) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:DNM1) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:DNM1L) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:SYNPO) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:RAB3A) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:SEC22B) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:SNCA) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:SNCB) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:STXBP5L) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:STXBP6) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:BSN) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:PCLO) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:SNAP23) positiveCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:SYNPO2) positiveCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:VAMP1) positiveCorrelation path(MESHD:"Alzheimer Disease")
+SET Anatomy = "entorhinal cortex"
+r(HGNC:VAMP1) positiveCorrelation path(MESHD:"Alzheimer Disease")
+UNSET Anatomy
+UNSET Species
+
+
+SET Citation = {"PubMed","PLoS One. 2015 Jul 28;10(7):e0134385","26218288"}
+SET Evidence = "We found that: 1) Aβ down-regulated mRNA expression of ionotropic GluN1 and metabotropic mGlu1 glutamate receptor subunits as 
+previously reported in other AD models; 2) Aβ also reduced gene expression levels of GirK2, 3, and 4 subunits, and KCNQ2 and 3 subunits, but did not change expression levels 
+of its associated GABAB and M1 receptors, respectively."
+SET Species = "10116"
+SET MeSHAnatomy = "Hippocampus"
+p(RGD:App) -| r(RGD:Grin1)
+p(RGD:App) -| r(RGD:Grm1)
+p(RGD:App) -| r(RGD:Kcnj6)
+p(RGD:App) -| r(RGD:Kcnj9)
+p(RGD:App) -| r(RGD:Kcnj5)
+p(RGD:App) -| r(RGD:Kcnq2)
+p(RGD:App) -| r(RGD:Kcnq3)
+UNSET MeSHAnatomy
+UNSET Species
+
+
+SET Citation = {"PubMed","Biol. Pharm. Bull. 37(5) 826–833 (2014)","26218288"}
+SET Evidence = "In Alzheimer’s disease (AD), extensive neuronal loss and a deficiency of the neurotransmitter acetylcholine
+(ACh) are the major characteristics during pathogenesis in the brain."
+path(HP:"Neuronal loss in central nervous system") positiveCorrelation path(MESHD:"Alzheimer Disease")
+a(CHEBI:acetylcholine) negativeCorrelation path(MESHD:"Alzheimer Disease")
+
+SET Evidence = "Our results revealed that Re and Rd induced effectively the expression of ChAT/VAChT genes in Neuro-2a cells as well as ACh elevation. 
+Microtubule-associated protein-2 (MAP-2), nerve growth factor receptor (p75), p21, and TrkA genes and proteins were also significantly expressed." 
+SET Species = "10090"
+SET CellLine = "Neuro-2a cell"
+a(CHEBI:"ginsenoside Re") -> r(MGI:Chat)
+a(CHEBI:"ginsenoside Re") -> r(MGI:Slc18a3)
+a(CHEBI:"ginsenoside Re") positiveCorrelation a(CHEBI:acetylcholine)
+a(CHEBI:"ginsenoside Re") -> p(MGI:Map2)
+a(CHEBI:"ginsenoside Re") -> p(MGI:Ngfr)
+a(CHEBI:"ginsenoside Re") -> p(MGI:Cdkn1a)
+a(CHEBI:"ginsenoside Re") -> p(MGI:Ntrk1)
+a(CHEBI:"ginsenoside Rd") -> r(MGI:Chat)
+a(CHEBI:"ginsenoside Rd") -> r(MGI:Slc18a3)
+a(CHEBI:"ginsenoside Rd") positiveCorrelation a(CHEBI:acetylcholine)
+a(CHEBI:"ginsenoside Rd") -> p(MGI:Map2)
+a(CHEBI:"ginsenoside Rd") -> p(MGI:Ngfr)
+a(CHEBI:"ginsenoside Rd") -> p(MGI:Cdkn1a)
+a(CHEBI:"ginsenoside Rd") -> p(MGI:Ntrk1)
+
+SET Evidence = "Moreover, both activated extracelullar signalregulated protein kinase (ERK) and Akt were inhibited by K252a, a selective Trk receptor inhibitor. These findings strongly 
+indicate that Re and Rd play an important role in neuronal differentiation and the nerve growth factor (NGF)-TrkA signaling pathway. High performance liquid chromatography analysis showed
+that Re and Rd administered orally were transported successfully into brain tissue and increased the level of ChAT and VAChT mRNA."
+a(CHEBI:"K-252a") -| p(MGI:Mapk1)
+a(CHEBI:"K-252a") -| p(MGI:Akt1)
+a(CHEBI:"K-252a") -| p(MGI:Ntrk1)
+UNSET CellLine
+UNSET Species
+
+
+SET Citation = {"PubMed","Neurodegener Dis. 2014 ; 13(0): 61–63","24107444"}
+
+SET Evidence = "The presenilin (PS) genes harbor ~90% of the identified mutations linked to familial forms of Alzheimer’s disease (AD) and the presenilin proteins 
+are essential components of the γ-secretase complex involved in the proteolytic cleavage of type I receptors such as Notch and the amyloid precursor protein."
+g(HGNC:PSEN1) negativeCorrelation path(MESHD:"Alzheimer Disease")
+p(HGNC:PSEN1) isA complex(GOCC:"gamma-secretase complex")
+complex(GOCC:"gamma-secretase complex") -- p(HGNC:NOTCH1)
+complex(GOCC:"gamma-secretase complex") -- p(HGNC:APP)
+
+SET Evidence = "LTP and short-term plasticity are impaired after presynaptic but not postsynaptic deletion of PS, and probability of evoked
+glutamate release is also reduced by presynaptic inactivation of PS. Thus, presynaptic inactivation of PS alone is sufficient to impair glutamatergic neurotransmitter release 
+and LTP induction, even though NMDA receptor-mediated responses are normal. Interestingly, depletion of calcium internal stores by thapsigargin or inhibition of calcium release
+from these stores by ryanodine receptor inhibitors mimics and occludes the effects of presynaptic PS inactivation, suggesting that disrupted calcium homeostasis may underlie 
+the presynaptic defects caused by PS inactivation."
+SET Species = "10090"
+SET Anatomy = {"CA1 field of hippocampus","CA3 field of hippocampus"}
+p(MGI:Psen1) positiveCorrelation bp(GOBP:"long-term synaptic potentiation")
+p(MGI:Psen1) positiveCorrelation bp(MESHPP:"Neuronal Plasticity")
+p(MGI:Psen1) positiveCorrelation sec(a(CHEBI:"L-glutamic acid"))
+a(CHEBI:"calcium(2+)") positiveCorrelation bp(GOBP:"long-term synaptic potentiation")
+a(CHEBI:"calcium(2+)") positiveCorrelation bp(MESHPP:"Neuronal Plasticity")
+a(CHEBI:"calcium(2+)") positiveCorrelation sec(a(CHEBI:"L-glutamic acid"))
+UNSET Anatomy
+
+SET Evidence = "The findings that conditional inactivation of nicastrin, another component of the γ-secretase complex, in the adult cerebral cortex similarly resulted 
+in progressive memory impairment and neurodegeneration as PS cDKO mice suggest that PS promotes memory and neuronal survival in a γ-secretase-dependent manner."
+SET Anatomy = "cerebral cortex"
+p(MGI:Ncstn) isA complex(GOCC:"gamma-secretase complex")
+p(MGI:Ncstn) positiveCorrelation bp(GOBP:memory)
+p(MGI:Ncstn) negativeCorrelation path(HP:Neurodegeneration)
+UNSET Anatomy
+UNSET Species
+
+
+SET Citation = {"PubMed","CNS Neurol Disord Drug Targets. 2012 May;11(3):299-305.","22483294"}
+SET Evidence = "No statistically significant results were found in metaanalysis but one study reported that the rs4680 Val allele was associated with AD-related psychosis.
+The COMT rs4680 polymorphism was also found to modulate declarative episodic memory in normal people and schizophrenic subjects. COMT inhibitors, that are adjunctive drugs 
+in Parkinson's disease treatment, lower homocysteine levels and improve executive memory processes in normal subjects."
+SET Species = "9606"
+g(dbSNP:rs4680) -- g(HGNC:COMT)
+SET MeSHDisease = "Alzheimer Disease"
+g(dbSNP:rs4680) -- path(MESHF:"Psychotic Disorders")
+UNSET MeSHDisease
+SET MESHF = "Schizophrenia"
+g(dbSNP:rs4680) regulates path(MESHF:"Memory, Episodic")
+UNSET MESHF
+p(HGNC:COMT) positiveCorrelation a(CHEBI:homocysteine)
+p(HGNC:COMT) negativeCorrelation bp(GOBP:"short-term memory")
+UNSET Species
+
+
+SET Citation = {"PubMed","Front Pharmacol. 2012 Oct 12;3:182","23091460"}
+SET Evidence = "In PS1-lacking neurons, vacuolar ATPase (vATPase), the proton pump that acidifies lysosomes, is not delivered to lysosomes. Failed
+lysosome acidification blocks substrate proteolysis during autophagy causing incompletely degraded proteins to accumulate in autolysosomes."
+SET Species = "9606"
+p(HGNC:PSEN1) positiveCorrelation act(p(GFAM:"V-type ATPases"))
+act(p(GFAM:"V-type ATPases")) positiveCorrelation bp(GOBP:autophagy)
+p(HGNC:PSEN1) positiveCorrelation bp(GOBP:autophagy)
+UNSET Species
+
+
+SET Citation = {"PubMed","J Alzheimers Dis. 2007 Mar;11(1):97-116","17361039"}
+SET Evidence = "We found marked impairment in the expression of excitatory amino acid transporters (EAAT1 and EAAT 2) at both gene and protein
+levels in hippocampus and gyrus frontalis medialis of AD patients, already in early clinical stages of disease. In contrast, EAAT expression was up-regulated in the cerebellum
+of these patients."
+SET Species = "9606"
+SET Anatomy = {"hippocampal formation","middle frontal gyrus"}
+r(HGNC:SLC1A3) negativeCorrelation path(MESHD:"Alzheimer Disease")
+p(HGNC:SLC1A3) negativeCorrelation path(MESHD:"Alzheimer Disease")
+r(HGNC:SLC1A2) negativeCorrelation path(MESHD:"Alzheimer Disease")
+p(HGNC:SLC1A2) negativeCorrelation path(MESHD:"Alzheimer Disease")
+UNSET Anatomy
+SET Anatomy = "cerebellum"
+p(HGNC:SLC1A3) positiveCorrelation path(MESHD:"Alzheimer Disease")
+p(HGNC:SLC1A2) positiveCorrelation path(MESHD:"Alzheimer Disease")
+UNSET Anatomy
+
+SET Evidence = "Furthermore, a significant up-regulation of the glutamatergic kainate (GRIK4) receptor observed by
+gene arrays was confirmed by quantitative RT-PCR in late stages in the hippocampus of AD patients. Moreover, there were down-regulations of other glutamatergic receptors 
+such as NMDA (POLR2M) and AMPA (GRIA4) receptors."
+SET MeSHAnatomy = "Hippocampus"
+r(HGNC:GRIK4) positiveCorrelation path(MESHD:"Alzheimer Disease")
+p(HGNC:POLR2M) negativeCorrelation path(MESHD:"Alzheimer Disease")
+p(HGNC:GRIA4) negativeCorrelation path(MESHD:"Alzheimer Disease")
+UNSET MeSHAnatomy
+UNSET Species
+
+
+UNSET STATEMENT_GROUP
+
+
+
+SET STATEMENT_GROUP = "Insulin signalling and SKT11"
+
+
+SET Citation = {"PubMed","Curr Genet Med Rep. 2014 March ; 2(1)","24883238"}
+SET Evidence = "Among the most significant SNPs in the AD+P vs AD-P analysis was rs3764640 in serine/ threonine kinase 11 (STK11) [29]. STK11 deletions
+are known to cause Peutz-Jeghers syndrome. However, a case with an unusually large STK11 deletion has been described in which Peutz-Jeghers syndrome, 
+mental retardation, and schizophrenia co-occurred [33]. Similarly, a genome-wide screen in siblings co-affected by  schizophrenia found reduced 
+copy numbers of STK11 in 3/18 individuals, significantly more often than in controls [34].Finally, STK11, also known as liver kinase B1 (LKB1), 
+is a necessary intermediate in APP overexpression-induced tau phosphorylation"
+SET Species = "9606"
+SET MeSHDisease = "Alzheimer Disease"
+g(dbSNP:rs3764640) positiveCorrelation path(MESHF:"Psychotic Disorders")
+p(HGNC:STK11) -- g(dbSNP:rs3764640)
+UNSET MeSHDisease
+p(HGNC:STK11) negativeCorrelation path(MESHD:"Peutz-Jeghers Syndrome")
+p(HGNC:STK11) negativeCorrelation path(MESHD:"Intellectual Disability")
+p(HGNC:STK11) negativeCorrelation path(MESHF:Schizophrenia)
+p(HGNC:APP) -- p(HGNC:STK11)
+p(HGNC:STK11) -- p(HGNC:MAPT, pmod(Ph))
+p(HGNC:APP) -> p(HGNC:MAPT, pmod(Ph))
+UNSET Species
+
+
+SET Citation = {"PubMed","Mol Genet Metab. 2008 Feb;93(2):200-9. Epub 2007 Oct 18.","17950019"}
+SET Evidence = "Among the three genes investigated herein, gene-gene (SNP-SNP) interaction studies provided evidence for an interaction between STK11 
+and CRTC2 influencing susceptibility to type 2 diabetes"
+SET Species = "9606"
+SET Race = "Japanese"
+p(HGNC:STK11) -- p(HGNC:CRTC2)
+p(HGNC:STK11) positiveCorrelation path(MESHD:"Diabetes Mellitus, Type 2")
+p(HGNC:CRTC2) positiveCorrelation path(MESHD:"Diabetes Mellitus, Type 2")
+UNSET Race
+UNSET Species
+
+
+SET Citation = {"PubMed","Cell. 2013 June 20; 153(7): 1510–1525","23791179"}
+SET Evidence = "Conditional deletion of LKB1 after axon specification or knockdown of NUAK1 drastically reduced axon branching in vivo whereas their 
+overexpression was sufficient to increase axon branching."
+SET Species = "10090"
+p(HGNC:STK11) positiveCorrelation bp(GOBP:"collateral sprouting")
+p(HGNC:NUAK1) positiveCorrelation bp(GOBP:"collateral sprouting")
+UNSET Species
+
+
+SET Citation = {"PubMed","Ann Pediatr Endocrinol Metab. 2016 Jun;21(2):61-5","27462580"}
+SET Evidence = "Skeletal muscle LKB1, an upstream kinase of AMPK and AMPKrelated protein kinases, has been shown to regulate exercise stimulated
+glucose uptake. The underlying mechanisms appear to be AMPK-independent and still need to be elucidated."
+SET Species = "10090"
+SET Anatomy = "skeletal muscle tissue"
+SET Cell = "muscle cell"
+p(HGNC:STK11) regulates bp(GOBP:"glucose import")
+p(HGNC:STK11) -> a(MESHC:"AMP-Activated Protein Kinases")
+UNSET Cell
+UNSET Anatomy
+UNSET Species
+
+
+SET Citation = {"PubMed","Mol Psychiatry. 2012 December ; 17(12): 1316–1327","22005930"}
+SET Evidence = "An unusually large scale STK11 deletion has been described in one case in which Peutz-Jeghers syndrome, mental retardation, and 
+schizophrenia cooccurred and reduced copy numbers of STK11 have been reported in affected siblings with schizophrenia"
+SET Species = "9606"
+g(HGNC:STK11) negativeCorrelation path(MESHF:Schizophrenia)
+UNSET Species
+
+
+SET Citation = {"PubMed","Trends Mol Med. 2006 Apr;12(4):144-7. Epub 2006 Mar 10.","16530014"}
+SET Evidence = "Deletion of the gene encoding LKB1 in the liver leads to marked hyperglycaemia as a consequence of increased gluconeogenic gene 
+expression and hepatic glucose output. Importantly, the absence of LKB1 in the liver abolishes the effect of lowering glucose level caused by 
+metformin, a drug that is widely used for the treatment of type 2 diabetes."
+p(HGNC:STK11) negativeCorrelation tloc(a(CHEBI:glucose), fromLoc(MESHA:Liver), toLoc(MESHA:Blood))
+p(HGNC:STK11) negativeCorrelation path(MESHD:Hyperglycemia)
+a(CHEBI:metformin) -| a(CHEBI:glucose)
+p(HGNC:STK11) -| act(a(CHEBI:metformin))
+p(HGNC:STK11) negativeCorrelation a(CHEBI:glucose)
+
+
+SET Citation = {"PubMed","J Neurosci. 2007 Jan 17;27(3):574-81.","17234589"}
+SET Evidence = "Here we show that phosphorylation of PAR-1 by the tumor suppressor protein LKB1 is required for PAR-1 activation, which in turn 
+promotes tau phosphorylation in Drosophila. Diverse stress stimuli, such as high osmolarity and overexpression of the human beta-amyloid precursor 
+protein, can promote PAR-1 activation and tau phosphorylation in an LKB1-dependent manner."
+SET Species = "7227"
+bp(MESHPP:"Osmolar Concentration") -- p(FLYBASE:Lkb1)
+p(HGNC:APP) -- p(FLYBASE:Lkb1)
+bp(MESHPP:"Osmolar Concentration") -> p(FLYBASE:tau, pmod(Ph))
+bp(MESHPP:"Osmolar Concentration") -> p(FLYBASE:tau, pmod(Ph))
+p(FLYBASE:Lkb1) -> p(INTERPRO:"Serine/threonine-protein kinase MARK/par1", pmod(Ph))
+p(INTERPRO:"Serine/threonine-protein kinase MARK/par1", pmod(Ph)) positiveCorrelation act(p(INTERPRO:"Serine/threonine-protein kinase MARK/par1"))
+act(p(INTERPRO:"Serine/threonine-protein kinase MARK/par1")) -> p(FLYBASE:tau, pmod(Ph))
+UNSET Species
+
+
+SET Citation = {"PubMed","PLoS One. 2015 May 1;10(5)","25932647"}
+SET Evidence = "The Par1 kinases, also known as microtubule affinity-regulating kinases (MARKs), are important for the establishment of cell polarity 
+from worms to mammals. Dysregulation of these kinases has been implicated in autism, Alzheimer’s disease and 
+cancer. Here we show that MARK/Par1 is activated downstream of NMDA receptors in primary hippocampal neurons. Further, we show that this 
+activation is dependent on protein kinase A (PKA), through the phosphorylation of Ser431 of Par4/LKB1, the major upstream kinase of MARK/Par1."
+p(INTERPRO:"Serine/threonine-protein kinase MARK/par1") negativeCorrelation path(MESHD:"Alzheimer Disease")
+p(INTERPRO:"Serine/threonine-protein kinase MARK/par1") negativeCorrelation path(MESHF:"Autistic Disorder")
+p(INTERPRO:"Serine/threonine-protein kinase MARK/par1") negativeCorrelation path(MESHD:Neoplasms)
+SET Species = "10116"
+SET Cell = "hippocampal neuron"
+p(GFAM:"Glutamate ionotropic receptor NMDA type subunits") -> p(INTERPRO:"Serine/threonine-protein kinase MARK/par1")
+p(GFAM:"Glutamate ionotropic receptor NMDA type subunits") -- p(RGD:Prkaca)
+p(RGD:Prkaca) -> p(RGD:Stk11, pmod (Ph, Ser, 431))
+p(RGD:Stk11) -> p(INTERPRO:"Serine/threonine-protein kinase MARK/par1", pmod(Ph))
+p(INTERPRO:"Serine/threonine-protein kinase MARK/par1", pmod(Ph)) positiveCorrelation act(p(INTERPRO:"Serine/threonine-protein kinase MARK/par1"))
+UNSET Cell
+UNSET Species
+
+
+UNSET STATEMENT_GROUP
