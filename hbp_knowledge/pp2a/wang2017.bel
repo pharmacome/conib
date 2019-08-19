@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cfd2ee89d1a71126da8b5f452544b7fe43be67e7/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
@@ -75,149 +75,192 @@ SET Citation = {"PubMed","28083634"}
 
 SET Evidence = "We focused particularly on Tau deubiquitination and identified three major candidate deubiquitinating enzymes, including
 Otub1, USP5, and USP9x, with Otub1 as the strongest Tau interactor according to statistical analysis"
+SET Confidence = "High"
 p(HGNC:OTUB1) -| p(HGNC:MAPT,pmod(Ub))
 p(HGNC:OTUB1) -> complex(p(HGNC:OTUB1),p(HGNC:MAPT))
 p(HGNC:USP5) -| p(HGNC:MAPT,pmod(Ub))
 p(HGNC:USP5) -> complex(p(HGNC:USP5),p(HGNC:MAPT))
 p(HGNC:USP9X) -| p(HGNC:MAPT,pmod(Ub))
 p(HGNC:USP9X) -> complex(p(HGNC:USP9X),p(HGNC:MAPT))
+UNSET Confidence
 
 SET Evidence = "Expression of the candidate deubiquitinases Otub1, USP5, and USP9x in this assay demonstrated significantly
 increased Tau aggregation following expression of Otub1 (Fig. 2a; Fig. S3), not observed following expression of USP5 or USP9x (Fig. S3)."
-p(HGNC:OTUB1) -> a(HBP:"Tau aggregates")
-p(HGNC:USP5) cnc a(HBP:"Tau aggregates")
-p(HGNC:USP9X) cnc a(HBP:"Tau aggregates")
+SET Confidence = "High"
+p(HGNC:OTUB1) -> a(CONSO:"Tau aggregates")
+p(HGNC:USP5) cnc a(CONSO:"Tau aggregates")
+p(HGNC:USP9X) cnc a(CONSO:"Tau aggregates")
+UNSET Confidence
 
 SET Evidence = "Endogenous Otub1 depletion significantly inhibited Tau aggregation, with the level of inhibition correlating
 with the level of knockdown efficiency,while use of a control siRNA did not affect levels of Otub1 nor aggregation efficiency (Fig. 2b)."
-p(HGNC:OTUB1) -> a(HBP:"Tau aggregates")
+SET Confidence = "High"
+p(HGNC:OTUB1) -> a(CONSO:"Tau aggregates")
+UNSET Confidence
 
 SET Evidence = "Taken together, our data indicate that Otub1, a deubiquitinating enzyme, is a novel
 positive regulator of Tau aggregation and Tau stability in vitro, in a nonneuronal cell line."
-p(HGNC:OTUB1) -> a(HBP:"Tau aggregates")
+SET Confidence = "High"
+p(HGNC:OTUB1) -> a(CONSO:"Tau aggregates")
 p(HGNC:OTUB1) reg p(HGNC:MAPT)
+UNSET Confidence
 
 SET Evidence = "Immunocytological analysis with AT8 antibody against phosphorylated Tau (Ser202/Thr205) demonstrated
 that Otub1 expression drastically increased phospho-Tau (p-Tau Ser202/Thr205) in primary neurons compared with
 GFP expression (Fig. 3a)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 p(HGNC:OTUB1) -| p(HGNC:MAPT,pmod(Ph,Ser,202),pmod(Ph,Thr,205))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Biochemical analysis confirmed a sharp increase of phosphorylated Tau at Ser202/Thr205 in
 Otub1-infected primary neurons (Fig. 3b)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 p(HGNC:OTUB1) -| p(HGNC:MAPT,pmod(Ph,Ser,202),pmod(Ph,Thr,205))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Otub1 also significantly increased total Tau protein level compared with GFP control (Fig. 3b)."
+SET Confidence = "High"
 p(HGNC:OTUB1) -> p(HGNC:MAPT)
+UNSET Confidence
 
 SET Evidence = "Otub1 expression strikingly enhanced detergent-resistant AT8-positive
 Tau accumulation compared with GFP-infected neurons (Fig. 4b), indicating that Otub1 increased Tau-seeded Tau
 aggregation in primary neurons, corroborating the results obtained in a nonneuronal cell line."
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
-p(HGNC:OTUB1) -> a(HBP:"Tau aggregates")
+p(HGNC:OTUB1) -> a(CONSO:"Tau aggregates")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "This revealed a significant increase of oligomeric Tau forms in AAV–
 Otub1-infected neurons compared with AAV–GFP-infected neurons (Fig. 4c)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
-p(HGNC:OTUB1) -> a(HBP:"Tau oligomers")
+p(HGNC:OTUB1) -> a(CONSO:"Tau oligomers")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The induction of oligomeric Tau forms was further confirmed using dot-blot analysis with T22 antibody (Fig. 4d), revealing a
 significant increase in oligomeric Tau following expression of Otub1."
-p(HGNC:OTUB1) -> a(HBP:"Tau oligomers")
+SET Confidence = "High"
+p(HGNC:OTUB1) -> a(CONSO:"Tau oligomers")
+UNSET Confidence
 
 SET Evidence = "Since Otub1 interacts with Tau and promotes phosphorylated and aggregated Tau levels in primary neurons,
 we hypothesized that Otub1 could act as a Tau deubiquitinase, interfering with pathological Tau degradation
 and hence Tau aggregation."
+SET Confidence = "High"
 p(HGNC:OTUB1) -> complex(p(HGNC:OTUB1),p(HGNC:MAPT))
 complex(p(HGNC:OTUB1),p(HGNC:MAPT)) -> p(HGNC:MAPT,pmod(Ph))
-complex(p(HGNC:OTUB1),p(HGNC:MAPT)) -> a(HBP:"Tau aggregates")
+complex(p(HGNC:OTUB1),p(HGNC:MAPT)) -> a(CONSO:"Tau aggregates")
+UNSET Confidence
 
 SET Evidence = "Otub1 displayed strong preference for disassembling Lys48-linked
 polyubiquitin chains, while leaving Lys63-linked polyubiquitin chains unaffected (Fig. 5a)."
+SET Confidence = "High"
 p(HGNC:OTUB1) -| p(HGNC:MAPT,pmod(UbK48))
 p(HGNC:OTUB1) cnc p(HGNC:MAPT,pmod(UbK63))
+UNSET Confidence
 
 SET Evidence = "Analysis of a catalytically dead mutant with a C91A mutation revealed no effect on
 Lys48-linked polyubiquitination of Tau"
 # mutant: OTUB1
+SET Confidence = "High"
 p(HGNC:OTUB1,var("p.Cys91Ala")) cnc p(HGNC:MAPT,pmod(UbK48))
+UNSET Confidence
 
 SET Evidence = "Conversely, AAV-driven expression of N-terminally truncated Otub1 significantly
 decreased Lys48-linked polyubiquitin chains of Tau (Fig. 5b), demonstrating that the N-terminal domain
 of Otub1, which is crucial for its noncanonical role, is not involved in regulation of Tau ubiquitination."
+SET Confidence = "High"
 p(HGNC:OTUB1,frag("?")) -| p(HGNC:MAPT,pmod(UbK48))
+UNSET Confidence
 
 SET Evidence = "We found that Tau degradation was significantly impaired in primary neurons infected with Otub1 WT,
 but not with catalytically dead mutant C91A, compared with GFP control."
+SET Confidence = "High"
 p(HGNC:OTUB1) -| deg(p(HGNC:MAPT))
 p(HGNC:OTUB1,var("p.Cys91Ala")) cnc deg(p(HGNC:MAPT))
+UNSET Confidence
 
 SET Evidence = "These results indicate that Otub1 regulates Tau degradation, dependent on its catalytic activity (Fig. 5c)."
+SET Confidence = "High"
 p(HGNC:OTUB1) reg deg(p(HGNC:MAPT))
+UNSET Confidence
 
 SET Evidence = "AAV-driven expression of Otub1-C91A did not increase AT8-positive Tau, in contrast to
 expression of wild-type Otub1 and the N-terminally truncated form of Otub1. This was demonstrated by immunofluorescence
 staining (Fig. 6a) and confirmed by biochemical analysis (Fig. 6b)."
+#AT8 antibody against phosphorylated Tau (Ser202/Thr205)
+SET Confidence = "High"
 p(HGNC:OTUB1,var("p.Cys91Ala")) cnc p(HGNC:MAPT,pmod(Ph,Ser,202),pmod(Ph,Thr,205))
 p(HGNC:OTUB1) -> p(HGNC:MAPT,pmod(Ph,Ser,202),pmod(Ph,Thr,205))
 p(HGNC:OTUB1,frag("?")) -> p(HGNC:MAPT,pmod(Ph,Ser,202),pmod(Ph,Thr,205))
+UNSET Confidence
+
+SET Species = "10090"
 
 SET Evidence = "Immunostaining with AT8 antibody revealed abundant AT8-positive neurons in AAV–Otub1-injected mice,
 absent in AAV–GFP-infected mice (Fig. 7a), at 2 months postinjection."
-SET Species = "10090"
+SET Confidence = "Medium"
+SET Cell = "neuron"
 p(MGI:Otub1) -> p(MGI:Mapt,pmod(Ph,Ser,202),pmod(Ph,Thr,205))
-UNSET Species
+UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Biochemical analysis further confirmed increased AT8-positive Tau by Otub1 expression (Fig. 7b),
 with AT8 phosphorylated Tau more robustly increased than total Tau, as reflected by the AT8/total Tau ratio."
-SET Species = "10090"
+SET Confidence = "High"
 p(MGI:Otub1) -> p(MGI:Mapt,pmod(Ph,Ser,202),pmod(Ph,Thr,205))
-UNSET Species
+UNSET Confidence
 
 SET Evidence = "This revealed a significant increase of monomeric Tau and oligomeric Tau in AAV–
 Otub1-injected mice compared with AAV–GFP-injected mice (Fig. 7c)."
-SET Species = "10090"
+SET Confidence = "High"
 p(MGI:Otub1) -> p(MGI:Mapt)
-p(MGI:Otub1) -> a(HBP:"Tau oligomers")
-UNSET Species
+p(MGI:Otub1) -> a(CONSO:"Tau oligomers")
+UNSET Confidence
 
 SET Evidence = "This revealed significantly increased oligomeric Tau in AAV–
 Otub1-injected mice compared with AAV–GFP-injected control cases (Fig. 7d)."
-SET Species = "10090"
-p(MGI:Otub1) -> a(HBP:"Tau oligomers")
-UNSET Species
+SET Confidence = "High"
+p(MGI:Otub1) -> a(CONSO:"Tau oligomers")
+UNSET Confidence
 
 SET Evidence = "Immunostaining and biochemical analysis, 2 months postinjection, unambiguously
 revealed that the catalytically dead mutant C91A did not affect AT8-stained Tau in vivo, while N-terminal truncated
 mutant of Otub1 increased AT8-positive Tau in vivo, similarly as wild-type Otub1 (Fig. 8)."
-SET Species = "10090"
+SET Confidence = "High"
 p(MGI:Otub1,var("p.Cys91Ala")) cnc p(MGI:Mapt,pmod(Ph,Ser,202),pmod(Ph,Thr,205))
 p(MGI:Otub1) -> p(MGI:Mapt,pmod(Ph,Ser,202),pmod(Ph,Thr,205))
 p(MGI:Otub1,frag("?")) -> p(MGI:Mapt,pmod(Ph,Ser,202),pmod(Ph,Thr,205))
-UNSET Species
+UNSET Confidence
 
 SET Evidence = "This revealed significantly increased oligomeric Tau forms, following expression of wild-type Otub1, but
 not following expression of GFP or of the catalytically inactive form of Otub1 (C91A) (Fig. 8c)."
-SET Species = "10090"
-p(MGI:Otub1,var("p.Cys91Ala")) cnc a(HBP:"Tau oligomers")
-p(MGI:Otub1) -> a(HBP:"Tau oligomers")
+SET Confidence = "High"
+p(MGI:Otub1,var("p.Cys91Ala")) cnc a(CONSO:"Tau oligomers")
+p(MGI:Otub1) -> a(CONSO:"Tau oligomers")
+UNSET Confidence
+
 UNSET Species
 
 SET Evidence = "Interestingly, Otub1 expression is gradually downregulated with increasing Tau-seeded Tau aggregation (Fig. S4a), which
 could be considered as a protective mechanism."
-SET MeSHAnatomy = "Hippocampus"
-a(HBP:"Tau aggregates") neg p(HGNC:OTUB1)
-UNSET MeSHAnatomy
+SET Confidence = "Medium"
+a(CONSO:"Tau aggregates") neg p(HGNC:OTUB1)
+UNSET Confidence
 
 SET Evidence = "Furthermore, analysis of hippocampal gene expression in aging mice, using
 publicly available data (NCBI database GDS2082) [73], indicates a significant increase in Otub1 expression with aging (Fig. S4b)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 SET Species = "10090"
 bp(GO:aging) -> p(MGI:Otub1)
 UNSET MeSHAnatomy
-UNSET Species 
+UNSET Species
+UNSET Confidence

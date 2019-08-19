@@ -1,0 +1,512 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Upstream regulators and downstream effectors of NF-κBinAlzheimer's disease"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Esther Wollert"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+# DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+# DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+# DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+# DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+# DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
+# DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mesh-names.belns"
+# DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
+# DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+# DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
+# DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+# DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+# DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+# DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+# DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+# DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+# DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+# DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+# DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+# DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+SET Citation = {"PubMed", "27288790"}
+
+SET Evidence = " In the nervous system, NF-κB has been proposed
+to serve important function by acting as a transcription regulator: it
+has roles in inﬂammation, neuronal survival, differentiation, apoptosis,
+neurite outgrowth, and synaptic plasticity [5], which are impaired in
+the progression of various neurodegenerative diseases especially in
+AD."
+SET MeSHAnatomy = "Nervous System"
+p(FPLX:NFkappaB) -- path(MESH:Inflammation)
+p(FPLX:NFkappaB) -- bp(GO:"negative regulation of neuron apoptotic process")
+p(FPLX:NFkappaB) -- bp(GO:"neuron differentiation")
+p(FPLX:NFkappaB) -- bp(GO:"apoptotic process")
+p(FPLX:NFkappaB) -- bp(MESH:"Neuronal Outgrowth")
+p(FPLX:NFkappaB) -- bp(GO:"regulation of synaptic plasticity")
+bp(GO:"regulation of synaptic plasticity") neg path(MESH:"Alzheimer Disease")
+UNSET MeSHAnatomy
+
+SET Evidence = " Under different envi-
+ronmental conditions such as Aβ/ROS/cytokines accumulation, the IκB
+kinase (IKK) complex becomes activated and mediates the phosphoryla-
+tion of IκBs, then IκBs are degradated and the remaining NF-κB dimer is
+activated and thus translocates to the nucleus where it binds to the
+DNA consensus sequence of various target genes [9–11]."
+a(CONSO:"amyloid-beta aggregates") -> act(p(FPLX:"IKK_complex"))
+a(CHEBI:"reactive oxygen species") -> act(p(FPLX:"IKK_complex"))
+a(MESH:Cytokines) -> act(p(FPLX:"IKK_complex"))
+act(p(FPLX:"IKK_complex")) -> p(FPLX:IKB, pmod(Ph))
+p(FPLX:IKB, pmod(Ph)) -> deg(p(FPLX:IKB))
+deg(p(FPLX:IKB)) -> act(p(FPLX:NFkappaB))
+act(p(FPLX:NFkappaB)) -> tloc(p(FPLX:NFkappaB), MESH:"Cytosol", MESH:"Cell Nucleus")
+SET MeSHAnatomy = "Cell Nucleus"
+act(p(FPLX:NFkappaB)) -> complex(p(FPLX:NFkappaB), a(MESH:DNA))
+UNSET MeSHAnatomy
+
+SET Evidence = "In cell models triggering supraphysiological concentrations of Aβ pep-
+tides, NF-κB is activated, as well as in both neuronal cells and microglial
+cells, showing that NF-κB pathway has been linked to Aβ neurotoxicity
+[14]. "
+SET MeSHAnatomy = {"Neurons", "Microglia"}
+a(CHEBI:"amyloid-beta") -> act(p(FPLX:NFkappaB))
+UNSET MeSHAnatomy
+
+SET Evidence = " NF-κB activation has also been detected in the brains of AD pa-
+tients."
+SET MeSHAnatomy = "Brain"
+path(MESH:"Alzheimer Disease") pos act(p(FPLX:NFkappaB))
+UNSET MeSHAnatomy
+
+SET Evidence = " Results have shown a sig-
+niﬁcant increase in phosphorylation of IκB at serine 32–36 and NF-κB at
+serine 536 with Aβ 42 exposure, this phosphorylation enhances p65
+transactivation potential [16]."
+#p65 is RELA
+a(CHEBI:"amyloid-beta polypeptide 42") -> p(FPLX:IKB, pmod(Ph,Ser,32))
+a(CHEBI:"amyloid-beta polypeptide 42") -> p(FPLX:IKB, pmod(Ph,Ser,36))
+a(CHEBI:"amyloid-beta polypeptide 42") -> p(FPLX:NFkappaB, pmod(Ph,Ser,536))
+p(FPLX:NFkappaB, pmod(Ph,Ser,536)) -> act(p(HGNC:RELA))
+
+SET Evidence = " Further investigations conﬁrm that the
+activation of p50 and RelA subunit contributes to the apoptotic program
+in cells exposed to the Aβ [17]."
+#p50 is NFKB1
+a(CHEBI:"amyloid-beta") -> act(p(HGNC:NFKB1))
+a(CHEBI:"amyloid-beta") -> act(p(HGNC:RELA))
+act(p(HGNC:NFKB1)) -> bp(GO:"apoptotic process")
+act(p(HGNC:RELA)) -> bp(GO:"apoptotic process")
+
+SET Evidence = "Higher
+levels of ROS biomarkers are characteristic of AD patients in clinical
+and preclinical studies, resulting in the alteration of membrane proper-
+ties, such as ﬂuidity, ion transport, enzyme activities, protein cross-
+linking, tau protein hyperphosphorylation, autophagic dysfunction
+and eventually neuron cell death [20]."
+a(CHEBI:"reactive oxygen species") pos path(MESH:"Alzheimer Disease")
+a(CHEBI:"reactive oxygen species") -- bp(MESH:"Membrane Fluidity")
+a(CHEBI:"reactive oxygen species") -- bp(GO:"ion transport")
+a(CHEBI:"reactive oxygen species") -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+a(CHEBI:"reactive oxygen species") -| bp(GO:autophagy)
+
+SET Evidence = "Previous ﬁnd-
+ings have identiﬁed ROS as a common denominator of NF-κB activating
+signals, as Chetsawang B found that NF-κB was increased in H 2 O 2 -treat-
+ed SH-SY5Y cells [22,23]."
+SET CellLine = "SH-SY5Y"
+a(CHEBI:"reactive oxygen species") -> act(p(FPLX:NFkappaB))
+a(CHEBI:"hydrogen peroxide") -> act(p(FPLX:NFkappaB))
+UNSET CellLine
+
+SET Evidence = " ROS generation leads to phosphorylation of
+NF-κB cytoplasmic inhibitor IκBα. NF-κB is thus liberated and transports
+to the nucleus."
+#IkBa is NFKBIA
+a(CHEBI:"reactive oxygen species") -> p(HGNC:NFKBIA, pmod(Ph))
+p(HGNC:NFKBIA) -| act(p(FPLX:NFkappaB))
+p(HGNC:NFKBIA, pmod(Ph)) -> tloc(p(FPLX:NFkappaB), MESH:"Cytosol", MESH:"Cell Nucleus")
+
+SET Evidence = " TNF-α [27], IL-1β [28], IL-18 [29], CXCL10 [30] and
+TGF-β1 [31] are known to be elevated in the AD brain."
+SET MeSHAnatomy = "Brain"
+p(HGNC:TNF) pos path(MESH:"Alzheimer Disease")
+p(HGNC:IL1B) pos path(MESH:"Alzheimer Disease")
+p(HGNC:IL18) pos path(MESH:"Alzheimer Disease")
+p(HGNC:CXCL10) pos path(MESH:"Alzheimer Disease")
+p(HGNC:TGFB1) pos path(MESH:"Alzheimer Disease")
+UNSET MeSHAnatomy
+
+SET Evidence = "Nuclear local-
+ization of NF-κB in differentiated neuron progenitor cells (NPCs) is in-
+creasing following exposure to IL-1β and TNF-α, strong inducers of
+the NF-κB pathway with increase in the phosphorylation of IKK and
+p65 while decrease in the level of IκB [32]. "
+p(HGNC:TNF) -> tloc(p(FPLX:NFkappaB), MESH:"Cytosol", MESH:"Cell Nucleus")
+p(HGNC:IL1B) -> tloc(p(FPLX:NFkappaB), MESH:"Cytosol", MESH:"Cell Nucleus")
+p(HGNC:TNF) -> p(FPLX:"IKK_complex", pmod(Ph))
+p(HGNC:IL1B) -> p(FPLX:"IKK_complex", pmod(Ph))
+p(HGNC:TNF) -> p(HGNC:RELA, pmod(Ph))
+p(HGNC:IL1B) -> p(HGNC:RELA, pmod(Ph))
+p(HGNC:TNF) -| p(FPLX:IKB)
+p(HGNC:IL1B) -| p(FPLX:IKB)
+
+SET Evidence = "Cortical neurons stimulated
+with IL-18 also generated NF-κB activation [33]."
+SET Cell = "cerebral cortex neuron"
+p(HGNC:IL18) -> act(p(FPLX:NFkappaB))
+UNSET Cell
+
+SET Evidence = "NF-κB is a ubiquitous transcriptional factor, which can be activated
+by AKT pathway."
+bp(GO:"protein kinase B signaling") -> act(p(FPLX:NFkappaB))
+
+SET Evidence = "Activation of AKT augments the
+transactivating activity and produces higher nuclear levels of p65-NF-
+κB, which is important for neuroprotection. "
+act(p(FPLX:AKT)) -> p(HGNC:RELA)
+p(HGNC:RELA) -| bp(GO:"neuron apoptotic process")
+
+SET Evidence = "Reports
+have indicated that MAPK signaling pathways are excessively activated
+in AD."
+bp(GO:"MAPK cascade") pos path(MESH:"Alzheimer Disease")
+
+SET Evidence = " Evidence has shown that NF-κB can be activated by ERK pathway
+[44]. "
+bp(GO:"ERK1 and ERK2 cascade") -> act(p(FPLX:NFkappaB))
+
+SET Evidence = "Pharmacologic inhibition of ERK and p38 MAPK and dominant-
+negative mutation of both enzymes suppressed Aβ-induced NF-κB
+transactivation thus neurotoxicity by Aβ [45,46]. "
+p(FPLX:ERK) -> act(p(FPLX:NFkappaB))
+p(HGNC:MAPK14) -> act(p(FPLX:NFkappaB))
+
+SET Evidence = " Treatment with p38
+inhibitor, SB239063, prevents downstream phosphorylation of IκBα
+and p65 translocation to the nucleus in the ventral midbrain. "
+a(CHEBI:"SB-239063") -| act(p(HGNC:MAPK14))
+act(p(HGNC:MAPK14)) -> p(HGNC:NFKBIA, pmod(Ph))
+SET MeSHAnatomy = "Mesencephalon"
+act(p(HGNC:MAPK14)) -> tloc(p(HGNC:RELA), MESH:"Cytosol", MESH:"Cell Nucleus")
+UNSET MeSHAnatomy
+
+SET Evidence = "In contrast,
+SP600125 treatment, a JNK inhibitor, increases the p38 MAPK depen-
+dent phosphorylation of p65 NF-κB subunit in the nucleus [47]."
+SET MeSHAnatomy = "Cell Nucleus"
+a(CHEBI:"anthra[1,9-cd]pyrazol-6(2H)-one") -| p(FPLX:JNK)
+a(CHEBI:"anthra[1,9-cd]pyrazol-6(2H)-one") -> act(p(HGNC:MAPK14))
+act(p(HGNC:MAPK14)) -> p(HGNC:NFKBIA, pmod(Ph))
+UNSET MeSHAnatomy
+
+SET Evidence = "AGEs induce tau hyperphosphorylation,
+memory deterioration, decline of synaptic proteins, and impairment of
+long-term potentiation in rats [10]. "
+a(CHEBI:"advanced glycation end-product") -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+a(CHEBI:"advanced glycation end-product") -| bp(GO:memory)
+SET MeSHAnatomy = "Synapses"
+a(CHEBI:"advanced glycation end-product") -> bp(GO:"cellular protein catabolic process")
+UNSET MeSHAnatomy
+a(CHEBI:"advanced glycation end-product") -| bp(GO:"long-term synaptic potentiation")
+
+SET Evidence = "Two AGEs, such as pentosidine and
+glyceraldehyde derived pyridinium (GLAP), both found increased in
+AD brains, were able to upregulate BACE1 through their binding with
+RAGE and consequent activation of NF-κB, providing a pathologic link
+between diabetes and AD [49]."
+#RAGE is AGER
+a(CHEBI:"pentosidine") isA a(CHEBI:"advanced glycation end-product")
+a(CONSO:GLAP) isA a(CHEBI:"advanced glycation end-product")
+SET MeSHAnatomy = "Brain"
+SET Species = "10116"
+a(CHEBI:"pentosidine") pos path(MESH:"Alzheimer Disease")
+a(CONSO:GLAP) pos path(MESH:"Alzheimer Disease")
+UNSET MeSHAnatomy
+UNSET Species
+complex(a(CHEBI:"pentosidine"),p(HGNC:AGER)) -> p(HGNC:BACE1)
+complex(a(CONSO:GLAP),p(HGNC:AGER)) -> p(HGNC:BACE1)
+complex(a(CHEBI:"pentosidine"),p(HGNC:AGER)) -> act(p(FPLX:NFkappaB))
+complex(a(CONSO:GLAP),p(HGNC:AGER)) -> act(p(FPLX:NFkappaB))
+
+SET Evidence = " Then the stimulation of
+RAGE is able to activate the mitogen-activated protein kinase signaling
+cascades which converge in IκB kinase complex to phosphorylate IκB,
+thereby release and activate NF-κB, thus trigger NF-κB dependent
+gene transcription including IL-1β and TNF-α, which in turn induce
+the translocation of NF-κB to the nucleus [50]."
+act(p(HGNC:AGER)) -> bp(GO:"MAPK cascade")
+bp(GO:"MAPK cascade") -> p(FPLX:IKB, pmod(Ph))
+p(FPLX:IKB, pmod(Ph)) -> act(p(FPLX:NFkappaB))
+act(p(FPLX:NFkappaB)) -> p(HGNC:IL1B)
+act(p(FPLX:NFkappaB)) -> p(HGNC:TNF)
+p(HGNC:IL1B) -> tloc(p(FPLX:NFkappaB), MESH:"Cytosol", MESH:"Cell Nucleus")
+p(HGNC:TNF) -> tloc(p(FPLX:NFkappaB), MESH:"Cytosol", MESH:"Cell Nucleus")
+
+SET Evidence = "Stimulation of GSK3β
+but not GSK3α promoted BACE1 gene expression and BACE1-mediated
+APP processing in vitro by regulating BACE1 gene promoter activity,
+which was dependent on NF-κB p65-binding elements in the BACE1 pro-
+moter [51]. "
+p(HGNC:GSK3B) -> p(HGNC:BACE1)
+p(HGNC:GSK3A) cnc p(HGNC:BACE1)
+
+SET Evidence = "Disruption of NF-κB p65 expression in RelA-KO cells abolished
+GSK3β's effect on the transcriptional activation of the human BACE1 gene
+promoter."
+composite(p(HGNC:GSK3B),p(HGNC:RELA)) -> r(HGNC:BACE1)
+
+SET Evidence = " Aβ 42 mediated increase in BACE1 expression
+is accompanied by a decrease in Uch-L1 expression and activity in dif-
+ferent cellular models and in sporadic AD brains, which interferes
+with the lysosomal degradation of BACE1 [52,56]."
+a(CHEBI:"amyloid-beta polypeptide 42") -> p(HGNC:BACE1)
+SET MeSHAnatomy = "Brain"
+SET MeSHDisease = "Alzheimer Disease"
+p(HGNC:UCHL1) -| p(HGNC:BACE1)
+act(p(HGNC:UCHL1)) -| p(HGNC:BACE1)
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+
+SET Evidence = "The decrease in
+Uch-L1 depends on NF-κB pathway since NF-κB p65 can interact with
+the −300 bp and −109 bp NF-κB binding sequences of the Uch-L1
+gene promoter [55]. "
+act(p(FPLX:NFkappaB)) -| p(HGNC:UCHL1)
+
+SET Evidence = "ROS has been found not only the regulators of NF-κB, interestingly,
+iNOS is also regulated by NF-κB. "
+a(CHEBI:"reactive oxygen species") reg act(p(FPLX:NFkappaB))
+p(FPLX:NFkappaB) reg act(p(HGNC:NOS2))
+
+SET Evidence = "Inﬂammation is a key pathological hall mark of AD [61,62], NF-κB is
+considered as a primary regulator of inﬂammatory processes [10]. "
+path(MESH:Inflammation) pos path(MESH:"Alzheimer Disease")
+p(FPLX:NFkappaB) reg bp(GO:"inflammatory response")
+
+SET Evidence = " LPS
+treatment induced the nuclear translocation of NF-κB and increased
+the expression and secretion of TNF-α and IL-1β [63]. "
+a(MESH:Lipopolysaccharides) -> tloc(p(FPLX:NFkappaB), MESH:"Cytosol", MESH:"Cell Nucleus")
+a(MESH:Lipopolysaccharides) -> p(HGNC:TNF)
+a(MESH:Lipopolysaccharides) -> p(HGNC:IL1B)
+a(MESH:Lipopolysaccharides) -> sec(p(HGNC:TNF))
+a(MESH:Lipopolysaccharides) -> sec(p(HGNC:IL1B))
+
+SET Evidence = "Inhibition of NF-κB leads to decreased induction of cytokines and chemokines by IL-1β
+and TNF-α. "
+act(p(FPLX:NFkappaB)) -> a(MESH:Cytokines)
+act(p(FPLX:NFkappaB)) -> a(MESH:Chemokines)
+p(HGNC:TNF) -> a(MESH:Cytokines)
+p(HGNC:IL1B) -> a(MESH:Cytokines)
+p(HGNC:TNF) -> a(MESH:Chemokines)
+p(HGNC:IL1B) -> a(MESH:Chemokines)
+
+SET Evidence = " In addition, COX-2, mainly regulated by NF-κB,
+is notably upregulated in the brains of AD patients, which may be
+associated with the formation of Aβ plaque [65]."
+#COX-2 is PTGS2
+p(FPLX:NFkappaB) reg p(HGNC:PTGS2)
+SET MeSHAnatomy = "Brain"
+path(MESH:"Alzheimer Disease") pos p(HGNC:PTGS2)
+p(HGNC:PTGS2) -- a(CONSO:"amyloid-beta aggregates")
+UNSET MeSHAnatomy
+
+SET Evidence = "Inducible miRNAs and lncRNA perform critical regulatory roles in
+CNS development, several brain-enriched miRNAs are consistently up-
+regulated by NF-κB, including miRNA-125b [66], miRNA-146a [67]
+and miRNA-155 [68]."
+p(FPLX:NFkappaB) -> m(MIRBASE:"hsa-mir-125b-1")
+p(FPLX:NFkappaB) -> m(MIRBASE:"hsa-mir-125b-2")
+p(FPLX:NFkappaB) -> m(MIRBASE:"hsa-mir-146a")
+p(FPLX:NFkappaB) -> m(MIRBASE:"hsa-mir-155")
+
+SET Evidence = " Elevated miRNA-146a in AD brain has
+been shown to also speciﬁcally target the interleukin-1 associated ki-
+nase-1 (IRAK-1) mRNAs, it is believed to contribute to altered innate
+immune responses and neuroinﬂammation in degenerating human
+brain cells and tissues in inﬂammatory neurodegenerative diseases
+including AD and in primary human brain cells stressed with ROS-
+generating metal sulfates [69]. "
+SET MeSHAnatomy = "Brain"
+m(MIRBASE:"hsa-mir-146a") pos path(MESH:"Alzheimer Disease")
+SET MeSHDisease = "Neurodegenerative Diseases"
+m(MIRBASE:"hsa-mir-146a") -- r(HGNC:IRAK1)
+m(MIRBASE:"hsa-mir-146a") -- bp(GO:"immune response")
+m(MIRBASE:"hsa-mir-146a") -> path(HP:Neurodegeneration)
+UNSET MeSHDisease
+UNSET MeSHAnatomy
+
+SET Evidence = " Moreover, miRNA-155 is strongly
+and rapidly up-regulated by inﬂammatory cytokines and also is an
+inducible miRNA under transcriptional control by NF-κB."
+a(MESH:Cytokines) -> m(MIRBASE:"hsa-mir-155")
+tscript(p(FPLX:NFkappaB)) -> m(MIRBASE:"hsa-mir-155")
+
+SET Evidence = " Speciﬁc
+up-regulation of miRNA-155 is observed in related immunopatho-
+logic conditions including MS and AD [70]."
+m(MIRBASE:"hsa-mir-155") pos path(MESH:"Alzheimer Disease")
+m(MIRBASE:"hsa-mir-155") pos path(MESH:"Multiple Sclerosis")
+
+SET Evidence = "Pathogenic effects appear to be mediated via speciﬁc interaction of
+miRNA-125b with the 3′-UTR region of mRNA of 15-lipoxygenase
+(15-LOX) and the vitamin D3 receptor (VDR; VD3R), the downregula-
+tion of 15-LOX and VDR may therefore be explained by the actions of
+a single inducible, pro-inﬂammatory miRNA-125b in hippocampal
+CA1 of AD brain [71]."
+#15-LOX is ALOX15
+SET MeSHAnatomy = "CA1 Region, Hippocampal"
+SET MeSHDisease = "Alzheimer Disease"
+m(MIRBASE:"hsa-mir-125b-1") -| p(HGNC:ALOX15)
+m(MIRBASE:"hsa-mir-125b-2") -| p(HGNC:ALOX15)
+m(MIRBASE:"hsa-mir-125b-1") -| p(HGNC:VDR)
+m(MIRBASE:"hsa-mir-125b-2") -| p(HGNC:VDR)
+UNSET MeSHDisease
+UNSET MeSHAnatomy
+
+SET Evidence = " BACE1-AS regulates BACE1
+mRNA and subsequently BACE1 protein expression in vitro and in
+vivo. "
+r(HGNC:"BACE1-AS") reg r(HGNC:BACE1)
+r(HGNC:"BACE1-AS") reg p(HGNC:BACE1)
+
+SET Evidence = "Upon exposure to various cell stressors including Aβ 42 , expression
+of BACE1-AS becomes elevated, increasing BACE1 mRNA stability and
+generating additional Aβ 42 through a post-transcriptional feed-forward
+mechanism [74]."
+a(CHEBI:"amyloid-beta polypeptide 42") -> r(HGNC:"BACE1-AS")
+r(HGNC:"BACE1-AS") -| deg(r(HGNC:BACE1))
+r(HGNC:"BACE1-AS") -> a(CHEBI:"amyloid-beta polypeptide 42")
+
+SET Evidence = "Tetrandrine, is an herb-derived bisbenzylioquinoline alkaloid, may be
+a potent inhibitor of NF-κB activation and can inhibit the expression of
+iNOS and COX-2 which are involved in pro-inﬂammation."
+a(CHEBI:"(+)-Tetrandrine") -| act(p(FPLX:NFkappaB))
+a(CHEBI:"(+)-Tetrandrine") -| p(HGNC:NOS2)
+a(CHEBI:"(+)-Tetrandrine") -| p(HGNC:PTGS2)
+p(HGNC:NOS2) -> path(MESH:Inflammation)
+p(HGNC:PTGS2) -> path(MESH:Inflammation)
+
+SET Evidence = "The activity
+of NF-κB in the cell models was strongly inhibited by morphine, which
+was achieved by a marked up-regulation of the inhibitor of IκB."
+a(MESH:Morphine) -| act(p(FPLX:NFkappaB))
+a(MESH:Morphine) -> p(FPLX:IKB)
+
+SET Evidence = " L-Theanine, an amino acid in green tea, reduced Aβ 42 levels in
+the cortex and hippocampus of the brain, which is mediated by suppres-
+sion of ERK/p38 and NF-κB as well as the reduction of macromolecular
+oxidative damage [81]."
+SET MeSHAnatomy = {"Cerebral Cortex", "Hippocampus"}
+a(PUBCHEM:439378) -| a(CHEBI:"amyloid-beta polypeptide 42")
+a(PUBCHEM:439378) -| p(FPLX:ERK)
+a(PUBCHEM:439378) -| p(HGNC:MAPK14)
+a(PUBCHEM:439378) -| p(FPLX:NFkappaB)
+
+SET Evidence = " The antioxidants LY231617, and melatonin pro-
+tect the neurons against the insult and prevented the Tyr42
+phosphorylation of IκBα, which acts to protect the neurons against
+physiological injury by repressing the insult-induced oxidative stress
+activation of transcription factor NF-κB [86]."
+a(PUBCHEM:3968) -| p(HGNC:NFKBIA, pmod(Ph,Tyr,42))
+a(CHEBI:melatonin) -| p(HGNC:NFKBIA, pmod(Ph,Tyr,42))
+a(PUBCHEM:3968) -| act(p(FPLX:NFkappaB))
+a(CHEBI:melatonin) -| act(p(FPLX:NFkappaB))
+
+SET Evidence = " NSAIDs inhibit BACE1 tran-
+scriptional activation induced by strong NF-κB activator TNF-α."
+a(MESH:"Anti-Inflammatory Agents, Non-Steroidal") -| act(p(HGNC:BACE1))
+p(HGNC:TNF) -> act(p(HGNC:BACE1))
+p(HGNC:TNF) -> act(p(FPLX:NFkappaB))
+
+SET Evidence = " Further-
+more, naproxen and ibuprofen and perhaps other NSAIDs, can block the
+inﬂammation-induced BACE1 transcription and Aβ production [52,87]."
+a(CHEBI:naproxen) isA a(MESH:"Anti-Inflammatory Agents, Non-Steroidal")
+a(CHEBI:naproxen) -| r(HGNC:BACE1)
+a(CHEBI:naproxen) -| a(CHEBI:"amyloid-beta")
+a(CHEBI:ibuprofen) isA a(MESH:"Anti-Inflammatory Agents, Non-Steroidal")
+a(CHEBI:ibuprofen) -| r(HGNC:BACE1)
+a(CHEBI:ibuprofen) -| a(CHEBI:"amyloid-beta")
+
+SET Evidence = "Hydroxytyrosol is an orally bioavailable polyphenol, obtained from ol-
+ives, which inhibits NF-κB activity and has elicited promising efﬁcacy
+signals in several inﬂammatory diseases [88]."
+a(CHEBI:hydroxytyrosol) -| act(p(FPLX:NFkappaB))
+
+SET Evidence = "Nicorandil, ATP-sensitive potassium channel opener, reduced apo-
+ptosis and decreased oxidative stress, downregulated APP695 mRNA
+and APP695 protein expression, also reduced Aβ 42 levels in the medium
+[90]."
+a(CHEBI:nicorandil) -| bp(GO:"apoptotic process")
+a(CHEBI:nicorandil) -| path(MESH:"Oxidative Stress")
+a(CHEBI:nicorandil) -| p(CONSO:APP695)
+a(CHEBI:nicorandil) -| a(CHEBI:"amyloid-beta polypeptide 42")
+
+SET Evidence = "Omega-6 phospholipids, e.g. dilinoleoylphosphatidylcholine (DLPC),
+have been shown to block TNF-α and H 2 O 2 activation of MAPK as well
+as blocks IκBα phosphorylation in the SH-SY5Y cells and prevents the
+phosphorylation and activation of NF-κB."
+a(PUBCHEM:6440944) -| act(p(FPLX:ERK))
+p(HGNC:TNF) -> act(p(FPLX:ERK))
+a(CHEBI:"hydrogen peroxide") -> act(p(FPLX:ERK))
+SET CellLine = "SH-SY5Y"
+a(PUBCHEM:6440944) -| p(HGNC:NFKBIA, pmod(Ph))
+a(PUBCHEM:6440944) -| p(FPLX:NFkappaB, pmod(Ph))
+a(PUBCHEM:6440944) -| act(p(FPLX:NFkappaB))
+UNSET CellLine
+
+SET Evidence = "What's more, DLPC complete-
+ly abolishes TNF-α and H 2 O 2 induced neuronal tau phosphorylation, re-
+duces cellular APP levels and Aβ expression and secretion in SH-SY5Y
+cells [91,92] (Table 1)."
+SET CellLine = "SH-SY5Y"
+a(PUBCHEM:6440944) -| p(HGNC:MAPT, pmod(Ph))
+p(HGNC:TNF) -> p(HGNC:MAPT, pmod(Ph))
+a(CHEBI:"hydrogen peroxide") -> p(HGNC:MAPT, pmod(Ph))
+a(PUBCHEM:6440944) -| p(HGNC:APP)
+a(PUBCHEM:6440944) -| a(CHEBI:"amyloid-beta")
+a(PUBCHEM:6440944) -| sec(a(CHEBI:"amyloid-beta"))
+UNSET CellLine

@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -73,15 +73,20 @@ DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifact
 SET Citation = {"PubMed", "26813123"}
 
 SET Evidence = "Acetylcholine (ACh) was the first neurotransmitter to be identified"
+SET Confidence = "High"
 a(CHEBI:acetylcholine) isA a(CHEBI:neurotransmitter)
+UNSET Confidence
 
 SET Evidence = "Given its widespread distribution in the brain, it is not
 surprising that cholinergic neurotransmission is responsible
 for modulating important neural functions"
+SET Confidence = "High"
 bp(GO:"synaptic transmission, cholinergic") reg act(a(MESH:Neurons))
+UNSET Confidence
 
 SET Evidence = "The cholinergic system is involved in critical physiological processes, such
 as attention, learning, memory, stress response, wakefulness and sleep, and sensory information"
+SET Confidence = "High"
 bp(GO:"synaptic transmission, cholinergic") -- path(MESH:Attention)
 bp(GO:"synaptic transmission, cholinergic") -- bp(GO:learning)
 bp(GO:"synaptic transmission, cholinergic") -- bp(GO:memory)
@@ -89,179 +94,243 @@ bp(GO:"synaptic transmission, cholinergic") -- bp(GO:"response to stress")
 bp(GO:"synaptic transmission, cholinergic") -- bp(GO:"regulation of circadian sleep/wake cycle, wakefulness")
 bp(GO:"synaptic transmission, cholinergic") -- bp(GO:"regulation of circadian sleep/wake cycle, sleep")
 bp(GO:"synaptic transmission, cholinergic") -- bp(GO:"sensory processing")
+UNSET Confidence
 
 SET Evidence = "Experimental data using non-human primates and rodents have demonstrated that
 injuries introduced to basal forebrain cholinergic neurons that innervate the cortex lead to attention deficit"
+SET Confidence = "High"
 SET MeSHAnatomy = "Basal Forebrain"
 act(a(MESH:"Cholinergic Neurons")) -> path(MESH:Attention)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "On the other hand, the facilitation of the cholinergic
 transmission by using the cholinesterase inhibitors can improve attention in humans"
+SET Confidence = "Medium"
+a(CHEBI:"EC 3.1.1.7 (acetylcholinesterase) inhibitor") -> bp(GO:"synaptic transmission, cholinergic")
+#above Statement was added according to evidence
 bp(GO:"synaptic transmission, cholinergic") -> path(MESH:Attention)
+UNSET Confidence
 
 SET Evidence = "It has been demonstrated that the cholinergic system
 plays a role in the learning process"
+SET Confidence = "High"
 bp(GO:"synaptic transmission, cholinergic") positiveCorrelation bp(GO:learning)
+UNSET Confidence
 
 SET Evidence = "Moreover, published data indicate that ACh is involved in memory"
+SET Confidence = "High"
 a(CHEBI:acetylcholine) positiveCorrelation bp(GO:memory)
+UNSET Confidence
 
 SET Evidence = "Further studies have demonstrated that endogenous
 acetylcholine is important for modulation of acquisition [17],
 encoding [18], consolidation [19], reconsolidation [20],
 extinction [21] and retrieval of memory"
+SET Confidence = "High"
 a(CHEBI:acetylcholine) reg bp(GO:memory)
+UNSET Confidence
 
 SET Evidence = "The importance of the cholinergic neurons from the nucleus basalis of
 Meynert on memory is highlighted by the fact that the specific degeneration of these
 neurons takes place in Alzheimer’s disease (AD) and contributes to the memory
 loss exhibited by AD patients"
+SET Confidence = "High"
 SET MeSHAnatomy = "Basal Nucleus of Meynert"
 a(MESH:"Cholinergic Neurons") positiveCorrelation bp(GO:memory)
 UNSET MeSHAnatomy
 SET MeSHDisease = "Alzheimer Disease"
-bp(HBP:"Neurodegeneration") negativeCorrelation bp(GO:memory)
+path(CONSO:"Neurodegeneration") negativeCorrelation bp(GO:memory)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Stress is another factor that can regulate ACh release in
 the forebrain and its function on the hypothalamic-pituitaryadrenal
 (HPA) system can modulate biological and emotional outcomes"
+SET Confidence = "High"
 bp(GO:"response to stress") reg tloc(a(CHEBI:acetylcholine),fromLoc(GO:intracellular),toLoc(MESH:"Basal Forebrain"))
 a(CHEBI:acetylcholine) reg a(MESH:"Hypothalamo-Hypophyseal System")
+UNSET Confidence
 
 SET Evidence = "In a work that evaluated the
 function of the cholinergic system in mediating the response
 to stress it was found that treatment of rats with the antagonist
 of the nicotinic receptor, mecamylamine, attenuates the
 activation of the HPA axis in response to a stressor agent"
+SET Confidence = "High"
 SET Species = "10116"
 a(MESH:"Receptors, Nicotinic") -> act(a(MESH:"Hypothalamo-Hypophyseal System"))
 a(CHEBI:Mecamylamine) -| act(a(MESH:"Hypothalamo-Hypophyseal System"))
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Similarly, nicotine can mimic the ACh effects on the
 HPA axis by activating nicotinic receptors"
+SET Confidence = "High"
 a(CHEBI:nicotine) -> act(a(MESH:"Receptors, Nicotinic"))
 a(CHEBI:acetylcholine) -> act(a(MESH:"Receptors, Nicotinic"))
+UNSET Confidence
 
 SET Evidence = "Another important function of the cholinergic system is
 to regulate the sleep cycle"
+SET Confidence = "High"
 bp(GO:"synaptic transmission, cholinergic") reg bp(GO:"circadian sleep/wake cycle")
+UNSET Confidence
 
 SET Evidence = "It has been demonstrated that
 stimulation of cholinergic neurons in precise regions of the
 brainstem can promote REM (rapid eye movement) sleep, dose-dependently"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain Stem"
 a(MESH:"Cholinergic Neurons") -> bp(GO:"circadian sleep/wake cycle, REM sleep")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "ACh contributes to auditory synaptic transmission by facilitating thalamocortical communication"
+SET Confidence = "Medium"
+a(CHEBI:acetylcholine) -> bp(GO:"response to auditory stimulus")
+#response to auditory stimulus looked apt hence added
 a(CHEBI:acetylcholine) -> bp(GO:"synaptic transmission, cholinergic")
+UNSET Confidence
 
 SET Evidence = "Recent evidences also suggest the involvement
 of ACh in adult neurogenesis"
+SET Confidence = "High"
 a(CHEBI:acetylcholine) -> bp(GO:neurogenesis)
+UNSET Confidence
 
 SET Evidence = "ACh synthesis takes place in the cytoplasm of cholinergic neurons"
+SET Confidence = "High"
 SET MeSHAnatomy = "Cytoplasm"
 a(MESH:"Cholinergic Neurons") -> a(CHEBI:acetylcholine)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The enzyme choline acetyltransferase (ChAT) can
 synthesize ACh from choline and acetyl-coenzyme A (acetyl-CoA)"
+SET Confidence = "High"
 p(HGNC:CHAT) -> rxn(reactants(a(CHEBI:choline),a(CHEBI:"acetyl-CoA")),products(a(CHEBI:acetylcholine)))
+UNSET Confidence
 
 SET Evidence = "Following that, the neurotransmitter is
 transported by the vesicular acetylcholine transporter
 (VAChT) from the cytosol into synaptic vesicles"
+SET Confidence = "High"
 #the neurotransmitter: ACh
 p(HGNC:SLC18A3) -> tloc(a(CHEBI:acetylcholine),fromLoc(GO:cytosol),toLoc(MESH:"Synaptic Vesicles"))
+UNSET Confidence
 
 SET Evidence = "Although cholinergic neurons
 can synthesize choline, the de novo synthesis contributes
 only with a very small fraction of the total choline that is
 needed for ACh synthesis (see Fig. 1)"
+SET Confidence = "High"
 a(MESH:"Cholinergic Neurons") -> a(CHEBI:choline)
+UNSET Confidence
 
 SET Evidence = "ChAT activity is regulated by neuronal depolarization,
 influx of Ca2+ and phosphorylation of the enzyme by a wide variety of protein kinases"
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 bp(GO:"membrane depolarization") reg act(p(HGNC:CHAT))
 UNSET MeSHAnatomy
 bp(GO:"calcium ion import") reg act(p(HGNC:CHAT))
 p(HGNC:CHAT,pmod(Ph)) reg act(p(HGNC:CHAT))
+UNSET Confidence
 
 SET Evidence = "Each molecule of ACh transported
 by VAChT is in exchange for two vesicular protons,
 which leads to the fulfill of synaptic vesicles with the neurotransmitter"
+SET Confidence = "High"
 p(HGNC:SLC18A3) -> tloc(a(CHEBI:acetylcholine),fromLoc(GO:cytosol),toLoc(MESH:"Synaptic Vesicles"))
 p(HGNC:SLC18A3) -> tloc(a(CHEBI:proton),fromLoc(MESH:"Synaptic Vesicles"),toLoc(GO:cytosol))
+UNSET Confidence
 
 SET Evidence = "The vesicular transporter activity
 can be blocked by vesamicol, which is a non-competitive inhibitor"
+SET Confidence = "High"
 a(CHEBI:"2-(4-phenyl-1-piperidinyl)-1-cyclohexanol") -| act(p(HGNC:SLC18A3))
 a(CHEBI:"2-(4-phenyl-1-piperidinyl)-1-cyclohexanol") -|  tloc(a(CHEBI:acetylcholine),fromLoc(GO:cytosol),toLoc(MESH:"Synaptic Vesicles"))
+UNSET Confidence
 
 SET Evidence = "Interestingly, PKC can
 phosphorylate VAChT and regulate its vesicular localization"
+SET Confidence = "High"
 p(FPLX:PKC) -> p(HGNC:SLC18A3,pmod(Ph))
-
-SET Species = "10090"
+UNSET Confidence
 
 SET Evidence = "A VAChT knockdown mouse model, expressing
 about 68% less VAChT protein, shows major neuromuscular deficits"
+SET Confidence = "Medium"
+SET Species = "10090"
 p(MGI:Slc18a3) -| path(MESH:"Neuromuscular Diseases")
+#species was considerable from the current evidence to the next one
+UNSET Confidence
 
 SET Evidence = "Furthermore, cognitive impairment can take place even due to a mild
 decrease in VAChT protein expression (about 45%)"
+SET Confidence = "High"
 p(MGI:Slc18a3) -> bp(GO:cognition)
-
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "When cholinergic neurons are depolarized, ACh is
 exocytosed from synaptic vesicles and released into the
 synaptic cleft, where it can activate both muscarinic and nicotinic receptors"
+SET Confidence = "High"
 SET Cell = "cholinergic neuron"
 bp(GO:"membrane depolarization") -> tloc(a(CHEBI:acetylcholine),fromLoc(MESH:"Synaptic Vesicles"),toLoc(GO:"synaptic cleft"))
 UNSET Cell
 # in the synaptic cleft
 a(CHEBI:acetylcholine) -> act(p(FPLX:CHRM))
 a(CHEBI:acetylcholine) -> act(p(FPLX:CHRN))
+UNSET Confidence
 
 SET Evidence = "ACh present at the synaptic cleft is
 rapidly inactivated by the enzyme acetylcholinesterase
 (AChE), releasing choline and acetate"
+SET Confidence = "High"
 # in the synaptic cleft
 p(HGNC:ACHE) -| act(a(CHEBI:acetylcholine))
 p(HGNC:ACHE) -> rxn(reactants(a(CHEBI:acetylcholine)),products(a(CHEBI:choline),a(CHEBI:acetate)))
+UNSET Confidence
 
 SET Evidence = "Cholinergic neurons secrete AChE into the synaptic cleft, where the
 enzyme is normally associated with the plasma membrane (see Fig. 1)"
+SET Confidence = "High"
 a(MESH:"Cholinergic Neurons") -> tloc(p(HGNC:ACHE),fromLoc(MESH:"Synaptic Vesicles"),toLoc(GO:"synaptic cleft"))
+UNSET Confidence
 
 SET Evidence = "The organophosphate compounds are irreversible
 AChE inhibitors that are used as insecticides and nerve gases"
+SET Confidence = "High"
 a(CHEBI:"organophosphorus compound") -| act(p(HGNC:ACHE))
+UNSET Confidence
 
 SET Evidence = "Thus, antidotes, including doxylamine, can be used to
 speed enzyme regeneration"
+SET Confidence = "High"
 # regeneration of ACHE
 a(CHEBI:antidote) -> act(p(HGNC:ACHE))
 a(CHEBI:doxylamine) -> act(p(HGNC:ACHE))
+UNSET Confidence
 
 SET Evidence = "Moreover, AChE inhibitors
 that compete for the enzyme site, as succinylcholine, are
 used as anesthetic adjuvants since these drugs can promote
 neuromuscular blockage"
+SET Confidence = "High"
 a(CHEBI:succinylcholine) -| act(p(HGNC:ACHE))
+UNSET Confidence
 
 SET Evidence = "Choline that is released by ACh hydrolysis in the
 synaptic cleft is continuously reuptaken into the presynaptic
 cholinergic neuron by an active transport system (see Fig. 1)"
+SET Confidence = "High"
 # active transport system: SLC5A7
 deg(a(CHEBI:acetylcholine)) -> a(CHEBI:choline)
 p(HGNC:SLC5A7) -> tloc(a(CHEBI:choline),fromLoc(GO:"synaptic cleft"),toLoc(MESH:"Cholinergic Neurons"))
+UNSET Confidence
 
 SET Evidence = "Two choline transporters have been identified in
 neurons: a ubiquitous, low-affinity, sodium-independent
@@ -269,64 +338,83 @@ transporter that can only be inhibited by high concentrations
 of hemicholinium-3 (HC-3) (Ki of about 50 μM), and a highaffinity,
 sodium-dependent, HC-3-sensitive (Ki of 10-100
 nM) choline transporter (CHT1)"
+SET Confidence = "High"
 p(HGNC:SLC5A7) -> tloc(a(CHEBI:choline),fromLoc(GO:"synaptic cleft"),toLoc(MESH:"Cholinergic Neurons"))
+UNSET Confidence
 
 SET Evidence = "CHT1 is mainly found in cholinergic neurons [92-94] and is
 responsible for supplying choline for the synthesis of ACh"
+SET Confidence = "High"
 SET Cell = "cholinergic neuron"
 p(HGNC:SLC5A7) -> a(CHEBI:choline)
 a(CHEBI:choline) -> a(CHEBI:acetylcholine)
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Moreover, mice that display a
 disruption of CHT1 gene expression exhibit symptoms
 related to ACh deficit and inevitable death within an hour of birth"
+SET Confidence = "High"
 SET Species = "10090"
 p(MGI:Slc5a7) -| path(MESH:Death)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Interestingly, it has been demonstrated that an increase in
 neuronal firing can lead to an increase in choline uptake and in the synthesis of ACh"
+SET Confidence = "High"
 bp(GO:"action potential initiation") -> tloc(a(CHEBI:choline),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
 bp(GO:"action potential initiation") -> a(CHEBI:acetylcholine)
+UNSET Confidence
 
 SET Evidence = "It is possible that the presence of CHT1 in the membrane of synaptic
 vesicles and the consequent increase in CHT1 relocation to
 the plasma membrane following neuronal depolarization
 could explain why an increase in neuronal firing promotes
 increased choline reuptake and, thus, ACh synthesis"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Synaptic Vesicles","Membranes"}
 p(HGNC:SLC5A7) -> tloc(a(CHEBI:choline),fromLoc(GO:"synaptic cleft"),toLoc(MESH:"Cholinergic Neurons"))
 p(HGNC:SLC5A7) -> a(CHEBI:acetylcholine)
 bp(GO:"action potential initiation") -> tloc(a(CHEBI:choline),fromLoc(GO:"synaptic cleft"),toLoc(MESH:"Cholinergic Neurons"))
 bp(GO:"action potential initiation") -> a(CHEBI:acetylcholine)
+UNSET MeSHAnatomy
+
 SET MeSHAnatomy = "Neurons"
 bp(GO:"membrane depolarization") -> complex(p(HGNC:SLC5A7),a(GO:"plasma membrane"))
 complex(p(HGNC:SLC5A7),a(GO:"plasma membrane")) -- bp(GO:"action potential initiation")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Importantly, the neurons that form the nucleus basalis of
 Meynert undergo extensive degeneration in AD"
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -> deg(a(MESH:"Basal Nucleus of Meynert"))
+UNSET Confidence
 
 SET Evidence = "Nicotinic receptors are formed by five different
 subunits: α, β, δ, and γ (fetal) or ε (adult)"
+SET Confidence = "High"
 p(HGNC:CHRND) -> a(MESH:"Receptors, Nicotinic")
 p(HGNC:CHRNE) -> a(MESH:"Receptors, Nicotinic")
 p(HGNC:CHRNG) -> a(MESH:"Receptors, Nicotinic")
 p(HGNC:CHRNB1) -> a(MESH:"Receptors, Nicotinic")
 p(HGNC:CHRNA1) -> a(MESH:"Receptors, Nicotinic")
+UNSET Confidence
 
 SET Evidence = "Cholinergic nicotinic receptors expressed
 in muscle and ganglia are comprised of two α subunits plus
 each of the other three"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Muscles","Ganglia"}
 complex(p(HGNC:CHRNA1),p(HGNC:CHRNA1),p(HGNC:CHRNB1),p(HGNC:CHRNG),p(HGNC:CHRND)) -> p(FPLX:CHRN)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "On the other hand, neuronal nicotinic
 receptors are formed by the combination of only two types of
 subunits (α2-10 and β2-4)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 p(HGNC:CHRNA2) -> a(MESH:"Receptors, Nicotinic")
 p(HGNC:CHRNA3) -> a(MESH:"Receptors, Nicotinic")
@@ -340,26 +428,35 @@ p(HGNC:CHRNB2) -> a(MESH:"Receptors, Nicotinic")
 p(HGNC:CHRNB3) -> a(MESH:"Receptors, Nicotinic")
 p(HGNC:CHRNB4) -> a(MESH:"Receptors, Nicotinic")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In the peripheral nervous system, activation of nicotinic
 receptors leads to rapid synaptic transmission"
+SET Confidence = "High"
 SET MeSHAnatomy = "Peripheral Nervous System"
 act(a(MESH:"Receptors, Nicotinic")) -> bp(MESH:"Synaptic Transmission")
+UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In the CNS, most of the nicotinic receptors are expressed at the
 presynaptic neuronal membrane and their main role is to
 regulate the release of neurotransmitters, whereas nicotinic
 receptors expressed in the peripheral nervous system are mainly post-synaptic"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Neurons","Membranes","Central Nervous System"}
 a(MESH:"Receptors, Nicotinic") reg tloc(a(CHEBI:neurotransmitter),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Stimulation of nicotinic receptors present at the CNS presynaptic neuronal membrane
 leads to an increase in presynaptic Ca2+ concentration, which
 may facilitate the release of a number of neurotransmitters,
 such as glutamate, GABA, dopamine, serotonin, norepinephrine, as well as ACh"
+SET Confidence = "Medium"
 SET MeSHAnatomy = {"Neurons","Membranes","Central Nervous System"}
 act(a(MESH:"Receptors, Nicotinic")) -> tloc(a(CHEBI:"calcium(2+)"),fromLoc(GO:"extracellular region"),toLoc(GO:synapse))
+UNSET MeSHAnatomy
+#MeSHAnatomy looked relevant till the above line and hence was unset
 SET MeSHAnatomy = "Synapses"
 a(CHEBI:"calcium(2+)") -> tloc(a(CHEBI:"glutamate(2-)"),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
 a(CHEBI:"calcium(2+)") -> tloc(a(CHEBI:"gamma-aminobutyric acid"),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
@@ -368,73 +465,95 @@ a(CHEBI:"calcium(2+)") -> tloc(a(CHEBI:serotonin),fromLoc(GO:intracellular),toLo
 a(CHEBI:"calcium(2+)") -> tloc(a(CHEBI:noradrenaline),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
 a(CHEBI:"calcium(2+)") -> tloc(a(CHEBI:acetylcholine),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Thus, ACh can influence the strength and fidelity of various synapses and
 modulate overall CNS neurotransmission"
+SET Confidence = "High"
 SET MeSHAnatomy = "Central Nervous System"
 a(CHEBI:acetylcholine) reg bp(MESH:"Synaptic Transmission")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Agonists of nicotinic ACh receptors can improve, while
 antagonists for the receptor impair, performance in cognitive tasks"
+SET Confidence = "High"
 p(FPLX:CHRN) -> bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "It has been demonstrated that the role of
 ACh in learning and memory seems to be related to the
 regulation of glutamatergic neurotransmission"
+SET Confidence = "High"
 a(CHEBI:acetylcholine) reg bp(GO:"synaptic transmission, glutamatergic")
 a(CHEBI:acetylcholine) -- bp(GO:learning)
 a(CHEBI:acetylcholine) -- bp(GO:memory)
+UNSET Confidence
 
 SET Evidence = "Moreover, the interaction of the cholinergic and glutamatergic
 systems seems to be important not only for cognitive
 processes but also for neuroprotection, as it has been shown
 that nicotinic receptors agonists are neuroprotective in a
 mechanism that is Ca2+-dependent and that involves the glutamatergic system"
+SET Confidence = "High"
 bp(GO:"synaptic transmission, glutamatergic") -- bp(GO:cognition)
-bp(GO:"synaptic transmission, glutamatergic") -- bp(HBP:Neurodegeneration)
+bp(GO:"synaptic transmission, glutamatergic") -- path(CONSO:Neurodegeneration)
 bp(GO:"synaptic transmission, cholinergic") -- bp(GO:cognition)
-bp(GO:"synaptic transmission, cholinergic") -- bp(HBP:Neurodegeneration)
-p(FPLX:CHRN) -| bp(HBP:Neurodegeneration)
+bp(GO:"synaptic transmission, cholinergic") -- path(CONSO:Neurodegeneration)
+p(FPLX:CHRN) -| path(CONSO:Neurodegeneration)
+UNSET Confidence
 
 SET Evidence = "It has been demonstrated that phosphorylation of nicotinic
 receptors by protein kinase A, protein kinase C, and tyrosine
 kinase can regulate receptor activity"
+SET Confidence = "High"
 p(FPLX:PKA) -> p(FPLX:CHRN,pmod(Ph))
 p(FPLX:PKC) -> p(FPLX:CHRN,pmod(Ph))
 a(MESH:"Protein-Tyrosine Kinases") -> p(FPLX:CHRN,pmod(Ph))
 p(FPLX:CHRN,pmod(Ph)) reg act(p(FPLX:CHRN))
+UNSET Confidence
 
 SET Evidence = "Moreover,nicotinic receptors can also be regulated allosterically by Ca2+"
+SET Confidence = "High"
 a(CHEBI:"calcium(2+)") reg p(FPLX:CHRN)
+UNSET Confidence
 
 SET Evidence = "Not only nicotine, but also DMPP (1,1-Dimethyl-4-
 phenylpiperazinium) and cystine can act as nicotinic receptor agonists"
+SET Confidence = "High"
 complex(p(FPLX:CHRN),a(CHEBI:"1,1-dimethyl-4-phenylpiperazinium iodide")) -> act(p(FPLX:CHRN))
 complex(p(FPLX:CHRN),a(CHEBI:cystine)) -> act(p(FPLX:CHRN))
 complex(p(FPLX:CHRN),a(CHEBI:nicotine)) -> act(p(FPLX:CHRN))
+UNSET Confidence
 
 SET Evidence = "Curare is the best known
 antagonist for nicotinic receptors, although this drug is not
 capable of blocking central nicotinic receptors"
+SET Confidence = "High"
 a(CHEBI:tubocurarine) -| act(p(FPLX:CHRN))
+UNSET Confidence
 
 SET Evidence = "Muscarinic receptors are G protein coupled receptors that
 are capable of modulating a wide variety of ion channels"
+SET Confidence = "High"
 p(FPLX:CHRM) isA a(MESH:"Receptors, G-Protein-Coupled")
 p(FPLX:CHRM) reg a(MESH:"Ion Channels")
+UNSET Confidence
 
 SET Evidence = "M1, M3, and M5 are coupled to Gαq, whereas M2 and M4 are coupled to Gαi."
+SET Confidence = "High"
 complex(p(HGNC:CHRM1),p(INTERPRO:"G-protein alpha subunit, group Q"))
 complex(p(HGNC:CHRM3),p(INTERPRO:"G-protein alpha subunit, group Q"))
 complex(p(HGNC:CHRM5),p(INTERPRO:"G-protein alpha subunit, group Q"))
 complex(p(HGNC:CHRM2),p(INTERPRO:"G-protein alpha subunit, group I"))
 complex(p(HGNC:CHRM4),p(INTERPRO:"G-protein alpha subunit, group I"))
+UNSET Confidence
 
 SET Evidence = "Stimulation of Gαq coupled muscarinic receptors leads to
 activation of phospholipase C and formation of inositol
 phosphates and other second messengers, which can promote
 closure of K+ channels, thus facilitating cell excitability"
+SET Confidence = "High"
 complex(p(HGNC:CHRM1),p(INTERPRO:"G-protein alpha subunit, group Q")) -> act(p(FPLX:PLC))
 complex(p(HGNC:CHRM1),p(INTERPRO:"G-protein alpha subunit, group Q")) -> a(CHEBI:"myo-inositol")
 complex(p(HGNC:CHRM1),p(INTERPRO:"G-protein alpha subunit, group Q")) -| act(a(MESH:"Potassium Channels"))
@@ -444,93 +563,120 @@ complex(p(HGNC:CHRM3),p(INTERPRO:"G-protein alpha subunit, group Q")) -| act(a(M
 complex(p(HGNC:CHRM5),p(INTERPRO:"G-protein alpha subunit, group Q")) -> act(p(FPLX:PLC))
 complex(p(HGNC:CHRM5),p(INTERPRO:"G-protein alpha subunit, group Q")) -> a(CHEBI:"myo-inositol")
 complex(p(HGNC:CHRM5),p(INTERPRO:"G-protein alpha subunit, group Q")) -| act(a(MESH:"Potassium Channels"))
+UNSET Confidence
 
 SET Evidence = "Activation of Gαi coupled muscarinic receptors
 leads to inhibition of adenylyl cyclase and reduction of
 cyclic adenosine monophosphate (cAMP) levels, promoting
 inhibition of voltage-gated Ca2+ channels and, thus,
 diminishing cell excitability"
+SET Confidence = "High"
 complex(p(HGNC:CHRM2),p(INTERPRO:"G-protein alpha subunit, group I")) -| p(FPLX:ADCY)
 complex(p(HGNC:CHRM2),p(INTERPRO:"G-protein alpha subunit, group I")) -| a(CHEBI:"3',5'-cyclic AMP")
 complex(p(HGNC:CHRM2),p(INTERPRO:"G-protein alpha subunit, group I")) -| act(a(MESH:"Calcium Channels"))
 complex(p(HGNC:CHRM4),p(INTERPRO:"G-protein alpha subunit, group I")) -| p(FPLX:ADCY)
 complex(p(HGNC:CHRM4),p(INTERPRO:"G-protein alpha subunit, group I")) -| a(CHEBI:"3',5'-cyclic AMP")
 complex(p(HGNC:CHRM4),p(INTERPRO:"G-protein alpha subunit, group I")) -| act(a(MESH:"Calcium Channels"))
+UNSET Confidence
 
 SET Evidence = "As a consequence, stimulation
 of ACh muscarinic receptors can promote the opening or
 closing of Ca2+, K+, or Cl- channels, which might facilitate
 either depolarization or hyperpolarization, depending on the
 cell type where these receptors are expressed"
+SET Confidence = "High"
 p(FPLX:CHRM) reg act(a(MESH:"Calcium Channels"))
 p(FPLX:CHRM) reg act(a(MESH:"Potassium Channels"))
 p(FPLX:CHRM) reg act(a(MESH:"Chloride Channels"))
+UNSET Confidence
 
 SET Evidence = "Activation of muscarinic
 receptors can block various types of K+ currents by
 inhibiting many resting and voltage-gated K+ channels"
+SET Confidence = "High"
 act(p(FPLX:CHRM)) -| act(a(MESH:"Potassium Channels"))
+UNSET Confidence
 
 SET Evidence = "In addition to decreasing K+ currents, muscarinic
 receptors located at the presynaptic region can also inhibit GABAergic neurotransmission"
+SET Confidence = "High"
 act(p(FPLX:CHRM)) -| bp(GO:"synaptic transmission, glutamatergic")
+UNSET Confidence
 
 SET Evidence = "On the other hand, stimulation of Gαq coupled muscarinic receptors
 generates intracellular second messengers that can facilitate N-methyl-D-aspartate (NMDA) currents"
+SET Confidence = "High"
 complex(p(HGNC:CHRM1),p(INTERPRO:"G-protein alpha subunit, group Q")) -> a(MESH:"Receptors, N-Methyl-D-Aspartate")
 complex(p(HGNC:CHRM3),p(INTERPRO:"G-protein alpha subunit, group Q")) -> a(MESH:"Receptors, N-Methyl-D-Aspartate")
 complex(p(HGNC:CHRM5),p(INTERPRO:"G-protein alpha subunit, group Q")) -> a(MESH:"Receptors, N-Methyl-D-Aspartate")
+UNSET Confidence
 
 SET Evidence = "The first selective agonist identified for muscarinic
 receptors was muscarine and, so far, there is no agonist
 available with a specific selectivity for one particular
 subtype of muscarinic receptor"
+SET Confidence = "High"
 complex(a(CHEBI:Muscarine),p(FPLX:CHRM)) -> act(p(FPLX:CHRM))
+UNSET Confidence
 
 SET Evidence = "The two best known
 muscarinic receptor antagonists are atropine and quinuclidinyl
 benzilate, which block all muscarinic receptors"
+SET Confidence = "High"
 a(CHEBI:atropine) -| act(p(FPLX:CHRM))
 a(MESH:"Quinuclidinyl Benzilate") -| act(p(FPLX:CHRM))
+UNSET Confidence
 
 SET Evidence = "Because ACh has an important role
 in cognitive processes, the cholinergic system is pointed as
 an important factor in many forms of dementia, including AD"
+SET Confidence = "High"
 bp(GO:"synaptic transmission, cholinergic") -- path(MESH:"Alzheimer Disease")
 bp(GO:"synaptic transmission, cholinergic") -- path(MESH:Dementia)
 a(CHEBI:acetylcholine) --  bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "Disruption of cholinergic inputs to the cortex can
 impair attention and the use of instructive cues needed for
 decision-making related to ongoing behavior"
+SET Confidence = "High"
 bp(GO:"synaptic transmission, cholinergic") -> path(MESH:Attention)
+UNSET Confidence
 
 SET Evidence = "Moreover, it has been shown that blocking CA3 cholinergic
 receptors impairs the encoding of information and memory"
+SET Confidence = "High"
 SET MeSHAnatomy = "CA3 Region, Hippocampal"
 a(MESH:"Receptors, Cholinergic") -> bp(GO:memory)
+UNSET Confidence
 
 SET Evidence = "In addition to cognitive alterations, psychiatric
 symptoms are frequently observed in AD patients, including apathy and depression"
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") positiveCorrelation path(MESH:Apathy)
 path(MESH:"Alzheimer Disease") positiveCorrelation path(MESH:Depression)
 path(MESH:"Alzheimer Disease") positiveCorrelation path(MESH:"Cognitive Dysfunction")
+UNSET Confidence
 
 SET Evidence = "It has been postulated that the
 loss of cholinergic neurons and the consequent impairment
 in dopaminergic transmission could be the main factors
 underling AD-related psychiatric symptoms"
+SET Confidence = "High"
 a(MESH:"Cholinergic Neurons") -> bp(GO:"synaptic transmission, dopaminergic")
 SET MeSHDisease = "Alzheimer Disease"
 a(MESH:"Cholinergic Neurons") -| path(MESH:Apathy)
 a(MESH:"Cholinergic Neurons") -| path(MESH:Depression)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Corroborating this hypothesis, it has been demonstrated that
 dopamine efflux is increased in the nucleus accumbens of M4 knockout mice"
+SET Confidence = "High"
 SET Species = "10090"
 p(MGI:Chrm4) -| tloc(a(CHEBI:dopamine),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Further highlighting the importance of the cholinergic system in the
 CNS, cholinergic neuronal loss, especially in the basal
@@ -538,6 +684,7 @@ forebrain, occurs not only in AD, but also in Parkinson’s
 disease [190, 191], Down syndrome [192], amyotrophic
 lateral sclerosis [193, 194], progressive supranuclear palsy
 [195, 196], and olivopontocerebellar atrophy [197]"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Basal Forebrain","Central Nervous System"}
 path(MESH:"Alzheimer Disease") negativeCorrelation a(MESH:"Cholinergic Neurons")
 path(MESH:"Parkinson Disease") negativeCorrelation a(MESH:"Cholinergic Neurons")
@@ -546,65 +693,85 @@ path(MESH:"Amyotrophic Lateral Sclerosis") negativeCorrelation a(MESH:"Cholinerg
 path(MESH:"Supranuclear Palsy, Progressive") negativeCorrelation a(MESH:"Cholinergic Neurons")
 path(MESH:"Olivopontocerebellar Atrophies") negativeCorrelation a(MESH:"Cholinergic Neurons")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Moreover, Huntington’s disease appears to be associated with decreased ChAT activity"
+SET Confidence = "High"
 path(MESH:"Huntington Disease") negativeCorrelation act(p(HGNC:CHAT))
+UNSET Confidence
 
 SET Evidence = "It has been demonstrated that cholinergic synapses are
 particularly affected by Aβ oligomers early neurotoxicity
 [218, 219] and that synaptic loss is the major correlate of
 cognitive impairment"
-a(HBP:"amyloid-beta oligomers") -- act(a(GO:"cholinergic synapse"))
+SET Confidence = "High"
+a(CONSO:"amyloid-beta oligomers") -- act(a(GO:"cholinergic synapse"))
 path(MESH:"Cognitive Dysfunction") negativeCorrelation a(GO:synapse)
+UNSET Confidence
 
 SET Evidence = "In fact, the memory deficit and neuropathology severity observed in patients exhibiting
 AD highly correlate with changes in hippocampal synaptic transmission, especially with changes in
 synaptophysin expression, a presynaptic vesicle protein"
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 SET MeSHAnatomy = "Hippocampus"
 bp(MESH:"Synaptic Transmission") -- bp(GO:memory)
 p(HGNC:SYP) -- bp(GO:memory)
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "The loss of the nucleus basalis cholinergic neurons in AD patients is severe:
 from about 500,000 in the healthy adult to less than 100,000
 in patients displaying advanced AD"
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") negativeCorrelation a(MESH:"Basal Nucleus of Meynert")
+UNSET Confidence
 
 SET Evidence = "Moreover, it has
 been demonstrated that ChAT transcription is severely
 diminished in the remaining cholinergic neurons, which
 leads to decreased ChAT activity and progression of dementia"
+SET Confidence = "High"
 act(p(HGNC:CHAT)) -| path(MESH:Dementia)
 path(MESH:"Alzheimer Disease") -| act(p(HGNC:CHAT))
+UNSET Confidence
 
 SET Evidence = "All these cholinergic alterations
 that take place in AD closely correlates with impaired
 attention and memory observed in patients"
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 a(MESH:"Cholinergic Neurons") -> path(MESH:Attention)
 a(MESH:"Cholinergic Neurons") -> bp(GO:memory)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Furthermore, some evidences also suggest the involvement
 of AChE in the pathogenesis of AD"
+SET Confidence = "High"
 p(HGNC:ACHE) -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "A molecular modeling study showed that AChE interacts with the Aβ
 peptide and promotes amyloid fibril formation"
-complex(p(HGNC:ACHE),a(MESH:"Amyloid beta-Peptides")) -> a(HBP:"amyloid-beta fibrils")
+SET Confidence = "High"
+complex(p(HGNC:ACHE),a(MESH:"Amyloid beta-Peptides")) -> a(CONSO:"amyloid-beta fibrils")
+UNSET Confidence
 
 SET Evidence = "In this work, kinetic analyses revealed that a structural motif in AChE (a
 hydrophobic sequence of 35 resides peptides) was able to promote amyloid formation and its
 incorporation into the growing Aβ-fibrils"
+SET Confidence = "High"
 p(HGNC:ACHE) -> a(CHEBI:"amyloid-beta")
-a(CHEBI:"amyloid-beta") -> a(HBP:"amyloid-beta fibrils")
+a(CHEBI:"amyloid-beta") -> a(CONSO:"amyloid-beta fibrils")
+UNSET Confidence
 
 SET Evidence = "In addition, quantitative autoradiography assay revealed
 that choline uptake was reduced in the hippocampus of these
 animals and that the expression of muscarinic and nicotinic
 cholinergic receptors was diminished"
+SET Confidence = "High"
 # these animals: Tg2576 mice
 SET Species = "10090"
 SET MeSHAnatomy = "Hippocampus"
@@ -613,91 +780,117 @@ p(MGI:App,var("?")) -| p(FPLX:CHRM)
 p(MGI:App,var("?")) -| p(FPLX:CHRN)
 UNSET Species
 UNSET MeSHAnatomy
+UNSET Confidence
 
-SET MeSHDisease = "Alzheimer Disease"
+
 
 SET Evidence = "Cholinesterase inhibitors can increase ACh levels in the
 synaptic cleft and partially ameliorate cognitive symptoms,
 enhance quality of life and diminish caregiver burden for
 patients with mild to severe AD"
+SET Confidence = "High"
+SET MeSHDisease = "Alzheimer Disease"
 # in the synaptic cleft
 a(MESH:"Cholinesterase Inhibitors") -> a(CHEBI:acetylcholine)
 a(MESH:"Cholinesterase Inhibitors") -> bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "It has been demonstrated that treatment with donepezil
 is associated with significant cognitive and functional
 benefits over the course of 12 months in patients with
 moderate to severe AD"
+SET Confidence = "High"
 a(CHEBI:donepezil) -> bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "In a double-blind study
 designed to assess patients survival with mild to moderately
 severe AD, the long-term treatment (2 years) with galantamine
 significantly reduced mortality and cognition decline,
 besides improving daily live activities in mild to moderate AD patients"
+SET Confidence = "High"
 a(CHEBI:galanthamine) -| path(MESH:Death)
 a(CHEBI:galanthamine) -> bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "Rivastigmine has also been used for AD
 treatment due to its ease of use (transdermal patch) and good
 tolerability by patients"
+SET Confidence = "High"
 a(CHEBI:rivastigmine) negativeCorrelation path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "It has been demonstrated that M1 muscarinic
 receptors coupling to G-proteins is impaired in the neocortex
 of AD patients and that the extent of M1/G-protein
 uncoupling is related to the severity of cognitive symptoms in AD"
+SET Confidence = "High"
 SET MeSHAnatomy = "Neocortex"
 path(MESH:"Alzheimer Disease") negativeCorrelation complex(p(HGNC:CHRM1),p(INTERPRO:"G-protein alpha subunit, group Q"))
 complex(p(HGNC:CHRM1),p(INTERPRO:"G-protein alpha subunit, group Q")) -> bp(GO:cognition)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Interestingly, M1 receptor signaling affects several of AD major hallmarks,
 including cholinergic deficit, cognitive dysfunction, and tau and Aβ pathologies"
+SET Confidence = "High"
 act(p(HGNC:CHRM1)) -- a(MESH:"Cholinergic Neurons")
 act(p(HGNC:CHRM1)) -- path(MESH:"Cognitive Dysfunction")
 act(p(HGNC:CHRM1)) -- act(p(HGNC:MAPT))
 act(p(HGNC:CHRM1)) -- act(a(CHEBI:"amyloid-beta"))
+UNSET Confidence
 
 SET Evidence = "It has been shown that activation
 of M1 receptors decreases tau hyperphosphorylation via
 activation of PKC and inhibition of GSK-3β"
-act(p(HGNC:CHRM1)) -| p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+SET Confidence = "High"
+act(p(HGNC:CHRM1)) -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 act(p(HGNC:CHRM1)) -> act(p(FPLX:PKC))
 act(p(HGNC:CHRM1)) -| act(p(HGNC:GSK3B))
+UNSET Confidence
 
 SET Evidence = "Moreover, the M1 agonist AF267B can rescue the cognitive
 impairment and decrease Aβ42 and tau abnormalities in the
 cortex and hippocampus of a mouse model of AD"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Hippocampus","Neocortex"}
 a(PUBCHEM:10013505) -> act(p(HGNC:CHRM1))
 a(PUBCHEM:10013505) -> bp(GO:cognition)
 a(PUBCHEM:10013505) -| a(CHEBI:"amyloid-beta polypeptide 42")
 a(PUBCHEM:10013505) -| p(HGNC:MAPT,var("?"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Moreover, AF267B treatment leads to an increase in alpha
 secretase, which is an enzyme that can prevent the production of Aβ peptide"
+SET Confidence = "High"
 a(PUBCHEM:10013505) -> a(MESH:"Amyloid Precursor Protein Secretases")
 a(MESH:"Amyloid Precursor Protein Secretases") -| a(MESH:"Amyloid beta-Peptides")
+UNSET Confidence
 
 SET Evidence = "Moreover, the use of M2 antagonists, such as SCH-57790 and SC-72788, can lead to
 blockage of M2-mediated inhibition of presynaptic release of ACh, which can activate M1 and nicotinic receptors,
 ameliorating cognitive impairment in AD"
+SET Confidence = "High"
 a(PUBCHEM:9867750) -> tloc(a(CHEBI:acetylcholine),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
 p(HGNC:CHRM2) -| tloc(a(CHEBI:acetylcholine),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
 a(PUBCHEM:9867750) -> act(p(HGNC:CHRM1))
 a(PUBCHEM:9867750) -> act(a(MESH:"Receptors, Nicotinic"))
 a(PUBCHEM:9867750) -> bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "In addition, activation of M2 receptors can cause an increase in Aβ production"
+SET Confidence = "High"
 act(p(HGNC:CHRM2)) -> a(CHEBI:"amyloid-beta")
+UNSET Confidence
 
 SET Evidence = "However, further studies have
 demonstrated that nicotinic receptor activation can lead to an
 increase in Aβ-mediated tau phosphorylation"
+SET Confidence = "High"
 act(a(MESH:"Receptors, Nicotinic")) -> p(HGNC:MAPT,pmod(Ph))
 a(CHEBI:"amyloid-beta") reg p(HGNC:MAPT,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "In a large-scale placebo-controlled clinical trial, it was
 demonstrated that xanomeline, a muscarinic agonist with
@@ -705,11 +898,13 @@ reasonable selectivity for M1/M4 receptors, exhibits a
 positive effect in minimizing, in a dose-dependent manner,
 cognitive and psychiatric symptoms in AD, including memory
 deficit, mood disturbance, agitation and hallucinations"
+SET Confidence = "High"
 a(CHEBI:xanomeline) -> bp(GO:cognition)
 a(CHEBI:xanomeline) -> bp(GO:memory)
 a(CHEBI:xanomeline) -| path(MESH:"Mood Disorders")
 a(CHEBI:xanomeline) -| path(MESH:"Psychomotor Agitation")
 a(CHEBI:xanomeline) -| path(MESH:Hallucinations)
+UNSET Confidence
 
 SET Evidence = "For example, it has been shown that the benzyl
 quinolone carboxylic acid (BQCA), which is an M1-selective
@@ -717,28 +912,37 @@ allosteric agonist, is effective in increasing spontaneous
 excitatory postsynaptic currents in the medial prefrontal
 cortex (mPFC) pyramidal cells and improving memory in a
 transgenic mouse model of AD"
+SET Confidence = "High"
 SET MeSHAnatomy = "Pyramidal Cells"
 a(PUBCHEM:1476756) -> bp(GO:"excitatory postsynaptic potential")
 a(PUBCHEM:1476756) -> bp(GO:memory)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In fact, it has been shown that APP interacts
 with CHT1 proteins increasing their endocytosis from the cell surface [258] and that mice that display disruption of
 CHT1 gene expression exhibit symptoms related to ACh deficit"
+SET Confidence = "High"
 complex(p(HGNC:APP),p(HGNC:SLC5A7)) -> tloc(p(HGNC:APP),fromLoc(GO:"cell surface"),toLoc(GO:intracellular))
+UNSET Confidence
 
 SET Evidence = "In fact, memantine is able to reduce the excitotoxicity in AD"
-SET MeSHDisease = "Alzheimer Disease"
-a(CHEBI:memantine) -| a(HBP:Excitotoxicity)
+SET Confidence = "High"
+a(CHEBI:memantine) -| path(CONSO:Excitotoxicity)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Furthermore, it has also been
 proposed that the nerve growth factor (NGF) has the
 potential to preserve cholinergic neurons"
+SET Confidence = "High"
 a(MESH:"Nerve Growth Factor") -> a(MESH:"Cholinergic Neurons")
+UNSET Confidence
 
 SET Evidence = "Moreover, previous studies have shown that treatment
 with NGF can counteract cholinergic atrophy and memory
 deficits in aged rats"
+SET Confidence = "High"
 a(MESH:"Nerve Growth Factor") -> a(MESH:"Cholinergic Neurons")
 a(MESH:"Nerve Growth Factor") -> bp(GO:memory)
+UNSET Confidence
