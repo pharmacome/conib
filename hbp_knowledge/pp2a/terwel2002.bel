@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cfd2ee89d1a71126da8b5f452544b7fe43be67e7/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -81,23 +81,30 @@ tubules and involved in axonal transport. On the other
 hand, recent findings propose a direct role for
 APP in axonal transport, as APP can link to kinesins
 moving along the microtubules (Kamal et al., 2001)."
+SET Confidence = "Medium"
 p(HGNC:MAPT) -> bp(GO:"microtubule cytoskeleton organization")
 p(HGNC:MAPT) -- bp(GO:"axonal transport")
 p(HGNC:APP) -- bp(GO:"axonal transport")
+complex(p(HGNC:APP), p(HGNCGENEFAMILY:"Kinesins"))
+UNSET Confidence
 
 SET Evidence = "An important function of tau protein involves the
 stabilization and spacing of microtubules, proba-
 bly by linking to a number of tubulin subunits,
 thereby preventing or slowing microtubule depoly-
 merization (Drubin and Kirschner, 1986). "
+SET Confidence = "High"
 p(HGNC:MAPT) -| bp(GO:"microtubule depolymerization")
+UNSET Confidence
 
 SET Evidence = "The microtubule-binding properties of tau protein
 are believed to be important for a number of
 processes, e.g., the formation and maintenance of
 axons and for fast axonal transport (FAT)."
+SET Confidence = "High"
 p(HGNC:MAPT) -> bp(GO:"axon development")
 p(HGNC:MAPT) -> bp(GO:"axonal transport")
+UNSET Confidence
 
 SET Evidence = " Among the specific “proline-dependent”
 kinases that can phosphorylate protein tau at dif-
@@ -108,11 +115,14 @@ al., 1998), mitogen-activated protein kinase (MAPK)
 (SAPKs) (Goedert et al., 1997) and cyclin-dependent
 kinases (CDKs) including cdc2 and cdk5 (Baumann
 et al., 1993; Patrick et al., 1999)."
+#SAPK : MAPK9
+SET Confidence = "Medium"
 p(HGNC:GSK3B) -> p(HGNC:MAPT, pmod(Ph))
 p(FPLX:ERK) -> p(HGNC:MAPT, pmod(Ph))
 p(HGNC:MAPK9) -> p(HGNC:MAPT, pmod(Ph))
-p(HGNC:CDK1) -> p(HGNC:MAPT, pmod(Ph))
+p(HGNC:CDK2) -> p(HGNC:MAPT, pmod(Ph))
 p(HGNC:CDK5) -> p(HGNC:MAPT, pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "Other serine and threonine residues, not followed
 by proline, are phosphorylated by other protein
@@ -121,19 +131,25 @@ kinase (MARK) (Drewes et al., 1993), calcium/
 calmodulin kinase II (CAMKII), cAMP-dependent
 kinase (PKA) (Johnson et al., 1992), and casein kinase
 II (Greenwood et al., 1994)."
+SET Confidence = "High"
 p(HGNC:MARK1) -> p(HGNC:MAPT, pmod(Ph))
 p(HGNC:CAMK2B) -> p(HGNC:MAPT, pmod(Ph))
 p(FPLX:PKA) -> p(HGNC:MAPT, pmod(Ph))
 p(FPLX:CK2) -> p(HGNC:MAPT, pmod(Ph))
+UNSET Confidence
 
 SET Evidence = " Tau protein is rapidly
 dephosphorylated by endogenous phosphatases
 such as protein phosphatases 1, 2A, and 2B (cal-
 cineurin) that are all present in the brain, and effec-
 tively dephosphorylate tau protein in vitro. "
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Brain"
 p(FPLX:PPP1) -| p(HGNC:MAPT, pmod(Ph))
 p(FPLX:PPP2) -| p(HGNC:MAPT, pmod(Ph))
 p(FPLX:PPP3) -| p(HGNC:MAPT, pmod(Ph))
+UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = " TSubsequently, Wallerian degeneration and severe
 muscle wasting and motoric problems demon-
@@ -141,21 +157,25 @@ strated the extensive neurodegeneration caused by
 the overexpression of human tau protein in a gene-
 dosage fashion."
 #transgenic: overexpression of htau-2N, 4R
+SET Confidence = "High"
 SET Species = "10090"
-p(HBP:"4R tau") -> path(MESH:"Wallerian Degeneration")
-p(HBP:"4R tau") -> path(MESH:"Muscular Atrophy")
-p(HBP:"4R tau") -> path(HP:Neurodegeneration)
+p(CONSO:"4R tau") -> path(MESH:"Wallerian Degeneration")
+p(CONSO:"4R tau") -> path(MESH:"Muscular Atrophy")
+p(CONSO:"4R tau") -> path(HP:Neurodegeneration)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = ". In ALS,
 accumulation of NFs is a prominent feature
 (Rouleau et al., 1996), and it has been demonstrated
 that NFs contribute heavily to the axonopathy of
 tau transgenic mice (Ishihara et al., 2001a)."
+SET Confidence = "High"
 path(MESH:"Amyotrophic Lateral Sclerosis") pos a(MESH:"Intermediate Filaments")
 SET Species = "10090"
 a(MESH:"Intermediate Filaments") neg a(MESH:Axons)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "For the sake of completeness, we also refer to tau-
 3R transgenic mice that developed another type of
@@ -163,22 +183,30 @@ pathology in the hippocampus, e.g., straight fila-
 ments formed in aged mice older than 18 mo (Ishi-
 hara, 2001b), which was proposed to be relevant for
 AD, given the age-dependence."
+SET Confidence = "Medium"
 SET Species = "10090"
-p(HBP:"3R tau") -> a(HBP:"straight filaments")
-a(HBP:"straight filaments") -- path(MESH:"Alzheimer Disease")
+SET MeSHAnatomy = "Hippocampus"
+p(CONSO:"3R tau") -> a(CONSO:"straight filaments")
+a(CONSO:"straight filaments") -- path(MESH:"Alzheimer Disease")
+UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Evidently, this argues for critical levels of
 protein tau-4R in the pathology of FTD and by exten-
 sion, in AD."
-p(HBP:"4R tau") pos path(MESH:"Frontotemporal Dementia")
-p(HBP:"4R tau") pos path(MESH:"Alzheimer Disease")
+SET Confidence = "High"
+p(CONSO:"4R tau") pos path(MESH:"Frontotemporal Dementia")
+p(CONSO:"4R tau") pos path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "The following proposition has been recently reit-
 erated that axonal transport in AD could become
 disrupted by increased neuronal concentrations of
 tau protein"
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") neg bp(GO:"axonal transport")
+UNSET Confidence
 
 SET Evidence = "The amount of Aβ produced could
 be altered by delayed axonal transport, as well as
@@ -186,7 +214,9 @@ the precise species of metabolites of APPproduced—
 e.g., Aβ40 or 42, monomeric Aβ, or Aβ-oligomers or
 Aβ-derived diffusible ligands (ADDLs) (Lambert et
 al., 1998; Walsh et al., 2000)."
+SET Confidence = "High"
 bp(GO:"axonal transport") -- a(CHEBI:"amyloid-beta")
+UNSET Confidence
 
 SET Evidence = "Neuronally overexpressed GSK-3β was
 demonstrated to hyperphosphorylate tau protein
@@ -194,29 +224,37 @@ in vivo in the brain and spinal cord of double-
 transgenic mice (Spittaels et al., 2000) thereby
 reducing the amount of protein tau associated with
 microtubules by 50% (Spittaels et al., 2000)."
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = {"Brain", "Spinal Cord"}
-p(HGNC:GSK3B) -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+p(HGNC:GSK3B) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 p(HGNC:GSK3B) -| complex(p(HGNC:MAPT), a(MESH:Microtubules))
 UNSET Species
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = " More-
 over, the unbound tau protein was hyperphospho-
 rylated and especially at the AD-2 epitope, e.g., an
 epitope shown to contain serine 396 and serine 404."
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = {"Brain", "Spinal Cord"}
 p(HGNC:GSK3B) -> p(HGNC:MAPT, pmod(Ph,Ser,396), pmod(Ph,Ser,404))
 p(HGNC:MAPT, pmod(Ph,Ser,396), pmod(Ph,Ser,404)) -- path(MESH:"Alzheimer Disease")
 UNSET Species
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Surprisingly, the axonopathy was rescued in the
 tau x GSK-3β double-transgenic mice, together
 with a near-total normalization of the functional
 disabilities."
+SET Confidence = "Medium"
+SET Species = "10090"
 p(HGNC:GSK3B) -> a(MESH:Axons)
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Although much further work
 is needed, these additional data demonstrate that
@@ -224,13 +262,17 @@ GSK-3β is intimately involved in the architecture
 of axons and other neuronal processes, providing
 indirect support for its role in tau-mediated con-
 trol of axonal transport."
+SET Confidence = "High"
 p(HGNC:GSK3B) -- bp(GO:"axonal transport")
+UNSET Confidence
 
 SET Evidence = "However, it is believed that the secreted form of
 APP plays important roles in neuronal plasticity
 and survival (Mattson, 1997)."
+SET Confidence = "High"
 sec(p(HGNC:APP)) -- bp(GO:"regulation of neuronal synaptic plasticity")
 sec(p(HGNC:APP)) -- bp(GO:"negative regulation of neuron apoptotic process")
+UNSET Confidence
 
 SET Evidence = "Most recently, this role became even more puz-
 zling, since APP was implemented as a kinesin-1
@@ -239,11 +281,15 @@ binds to the light chain of kinesin-1, which itself is
 responsible for anterograde axonal transport and
 consists of two light chains (KLC) associated with
 two heavy chains (KIF5B)."
+SET Confidence = "High"
 complex(p(HGNC:APP),p(HGNC:KLC1))
 p(HGNC:KLC1) -> bp(GO:"anterograde axonal transport")
+UNSET Confidence
 
 SET Evidence = "Deletion  of  the
 C-terminus of APP695 or APPL, including the
 kinesin-binding region, disrupted axonal transport
 of APP695 and APPL."
+SET Confidence = "High"
 p(HGNC:APPL) -> bp(GO:"anterograde axonal transport")
+UNSET Confidence

@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/56d6631d06deeead416b3b5100d3b4b8d88c29c6/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -41,7 +41,6 @@ DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifact
 
 # Namespaces defined with regular expressions
 # -------------------------------------------
-DEFINE NAMESPACE DNSNP          AS PATTERN "rs[0-9]+"
 DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
 
 ###############
@@ -78,6 +77,7 @@ and memory (Gould, 2006; Couey et al., 2007; Levin and
 Rezvani, 2007), mood (anxiety, depression) (Picciotto et al.,
 2008), reward (addiction, craving) (Tang and Dani, 2009), and
 sensory processing (Heath and Picciotto, 2009)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 bp(GO:"synaptic transmission, cholinergic") -- bp(GO:cognition)
 bp(GO:"synaptic transmission, cholinergic") -- bp(GO:learning)
@@ -86,65 +86,83 @@ bp(GO:"synaptic transmission, cholinergic") -- path(MESH:Anxiety)
 bp(GO:"synaptic transmission, cholinergic") -- path(MESH:Depression)
 bp(GO:"synaptic transmission, cholinergic") -- bp(GO:"sensory processing")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "We now realize that acetylcholine liberated from cholinergic
 nerve terminals often activates both nAChRs and muscarinic receptors"
+SET Confidence = "High"
 a(CHEBI:acetylcholine) -> act(p(FPLX:CHRM))
 a(CHEBI:acetylcholine) -> act(p(FPLX:CHRN))
+UNSET Confidence
 
 SET Evidence = "A major subtype in the brain is alpha4beta2; the (alpha42beta23) stoichiometry exhibits
 at least 10-fold-higher sensitivity than (alpha43beta22), so that only
 the former has the high sensitivity (HS) that allows activation
 at nicotine concentrations in the 0.1–1 mM range, produced
 by moderate tobacco use and by the various nicotine replacement therapies"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 a(CHEBI:nicotine) -> complex(p(HGNC:CHRNA4),p(HGNC:CHRNA4),p(HGNC:CHRNB2),p(HGNC:CHRNB2),p(HGNC:CHRNB2))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "alpha7 nAChRs also respond to nicotine concentrations
 roughly an order of magnitude higher than alpha42beta23, and alpha7
 nAChRs have high Ca2+ permeability resembling that of NMDA receptors"
+SET Confidence = "High"
 a(CHEBI:nicotine) -> act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
 bp(GO:"calcium ion transport") -- act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+UNSET Confidence
 
 SET Evidence = "Most brain HS nAChRs reside on presynaptic terminals,
 where they stimulate neurotransmitter release (Gotti et al.,
 2006; Albuquerque et al., 2009)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Presynaptic Terminals"
 p(FPLX:CHRN) -> tloc(a(CHEBI:neurotransmitter),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The ‘‘volume transmission’’ hypothesis
 states that ACh released from presynaptic terminals spreads
 to more distant areas, reaching concentrations < 1 mM (Descarries
 et al., 1997), but that multiple presynaptic impulses produce
 enough summed release to activate receptors (Lester, 2004)"
+SET Confidence = "High"
 a(MESH:"Presynaptic Terminals") -> tloc(a(CHEBI:acetylcholine),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
+UNSET Confidence
 
 SET Evidence = "In most regions that receive cholinergic innervation, the high
 density of acetylcholinesterase (which can hydrolyze ACh at
 a rate of one per 100 ms!) might vitiate the volume transmission mechanism"
+SET Confidence = "High"
 p(HGNC:ACHE) -> deg(a(CHEBI:acetylcholine))
+UNSET Confidence
 
 SET Evidence = "As we will see below, the mystery of somatodendritic
 nAChRs can also be resolved by the sensitivity of alpha7
 nAChRs to constant levels of another agonist, choline"
+SET Confidence = "High"
 a(CHEBI:choline) -> act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+UNSET Confidence
 
 SET Evidence = "Mutations in nicotinic receptor subunits are linked to human disease,
 alpha4 and beta2 in some epilepsies, alpha7 in schizophrenia, and alpha5 in
 nicotine addiction; and each mutation ultimately manifests itself
 as an imbalance in the properties of neuronal circuits"
+SET Confidence = "High"
 p(HGNC:CHRNA4,var("?")) positiveCorrelation path(MESH:Epilepsy)
 p(HGNC:CHRNB2,var("?")) positiveCorrelation path(MESH:Epilepsy)
 p(HGNC:CHRNA7,var("?")) positiveCorrelation path(MESH:Schizophrenia)
 p(HGNC:CHRNA5,var("?")) positiveCorrelation path(MESH:"Tobacco Use Disorder")
+UNSET Confidence
 
 SET Evidence = "Finally, nAChRs exist in complexes in the brain; interacting proteins engage in
 complexes with nAChRs and aid in the assembly and trafficking
 of nAChR to the plasma membrane; examples are RIC-3 (Lansdell
 et al., 2005), 14-3-3 proteins (Jeanclos et al., 2001), neurexins
 (Cheng et al., 2009), and VILIP-1 (Lin et al., 2002)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 complex(p(FPLX:CHRN),p(HGNC:RIC3)) -> p(FPLX:CHRN)
 complex(p(FPLX:CHRN),p(HGNC:RIC3)) -> act(p(FPLX:CHRN))
@@ -155,42 +173,55 @@ complex(p(FPLX:CHRN),p(INTERPRO:Neurexin)) -> act(p(FPLX:CHRN))
 complex(p(FPLX:CHRN),p(HGNC:VSNL1)) -> p(FPLX:CHRN)
 complex(p(FPLX:CHRN),p(HGNC:VSNL1)) -> act(p(FPLX:CHRN))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Proteins that engage nAChRs within stable
 complexes, such as lynx family members, provide a homeostatic
 influence over nicotinic receptor systems"
+SET Confidence = "High"
 complex(p(FPLX:CHRN),p(HGNC:LYNX1)) reg act(p(FPLX:CHRN))
+UNSET Confidence
 
 SET Evidence = "These alpha-neurotoxins are secreted proteins
 with sub-nM affinity for nAChRs (Tsetlin et al., 2009) and other
 receptors (Auer et al., 2010)"
 # these alpha-neurotoxin: alpha-bungarotoxin
-complex(p(FPLX:CHRN),a(HBP:"alpha-Bungarotoxin"))
+SET Confidence = "High"
+complex(p(FPLX:CHRN),p(CONSO:"alpha-Bungarotoxin"))
+UNSET Confidence
 
 SET Evidence = "As GPI-anchored proteins can bind to transmembrane receptors intracellularly,
 the interactions of lynx with nAChRs could potentially
 alter receptor trafficking, stoichiometry, and surface number
 (Lester et al., 2009)"
+SET Confidence = "High"
 complex(p(FPLX:CHRN),p(HGNC:LYNX1)) -- act(p(FPLX:CHRN))
 complex(p(FPLX:CHRN),p(HGNC:LYNX1)) -- surf(p(FPLX:CHRN))
+UNSET Confidence
 
 SET Evidence = "Therefore, the evolutionary relationship between lynx
 modulators and the alpha-neurotoxins agrees with the view that
 lynx modulators govern critical control points in the pathway of
 nicotinic receptor signaling"
+SET Confidence = "High"
 p(HGNC:LYNX1) reg act(p(FPLX:CHRN))
+UNSET Confidence
 
 SET Evidence = "Lynx1, the first discovered member of this family expressed in
 the brain (Miwa et al., 1999), has an overall inhibitory effect on nAChR function"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 p(HGNC:LYNX1) -| act(p(FPLX:CHRN))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In an alpha4beta2* nAChR-expressing cell, coexpression
 of lynx1 results in reduced agonist sensitivity, accelerated
 onset of desensitization, and slower recovery from desensitization
 (Ibanez-Tallon et al., 2002)"
-composite(a(HBP:"alpha-4 beta-2 nAChR"),p(HGNC:LYNX1)) -| act(p(FPLX:CHRN))
+SET Confidence = "High"
+composite(p(CONSO:"alpha-4 beta-2 nAChR"),p(HGNC:LYNX1)) -| act(p(FPLX:CHRN))
+UNSET Confidence
 
 SET Evidence = "Each lynx paralog has a relative
 binding specificity and modulatory capability on alpha4beta2 (Miwa
@@ -199,16 +230,20 @@ et al., 1999; Iban˜ ez-Tallon et al., 2002; Levitin et al., 2008), alpha3
 et al., 2008; Hruska et al., 2009) nAChR subtypes; some interactions
 actually enhance nicotinic responses (Chimienti et al.,
 2003; Levitin et al., 2008), or their Ca2+ components (Darvas et al., 2009)"
-complex(a(HBP:"alpha-4 beta-2 nAChR"),p(HGNC:LYNX1)) reg act(a(HBP:"alpha-4 beta-2 nAChR"))
+SET Confidence = "High"
+complex(p(CONSO:"alpha-4 beta-2 nAChR"),p(HGNC:LYNX1)) reg act(p(CONSO:"alpha-4 beta-2 nAChR"))
 complex(p(HGNC:LYNX1),p(HGNC:CHRNA3)) reg act(p(HGNC:CHRNA3))
-complex(p(HGNC:LYNX1),a(HBP:"alpha-7-containing nAChR")) reg act(a(HBP:"alpha-7-containing nAChR"))
+complex(p(HGNC:LYNX1),p(CONSO:"alpha-7-containing nAChR")) reg act(p(CONSO:"alpha-7-containing nAChR"))
+UNSET Confidence
 
 SET Evidence = "Removal of the molecular brake provided by lynx proteins can
 lead to nicotinic receptor hypersensitivity—larger direct nicotinic
 responses, slowed desensitization kinetics (Miwa et al., 2006),
 and enhanced sensitivity of the EPSC frequency in the cortex
 to nicotine (Tekinay et al., 2009)"
+SET Confidence = "High"
 p(HGNC:LYNX1) -| act(p(FPLX:CHRN))
+UNSET Confidence
 
 SET Species = "10090"
 
@@ -217,23 +252,28 @@ hypersensitivity, lynx1 knockout mice display increased levels
 of Ca2+ in neurons, enhancements in synaptic efficacy, and
 improved learning and memory functions (Miwa et al., 2006;
 Darvas et al., 2009; Tekinay et al., 2009)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 p(MGI:Lynx1) -| a(CHEBI:"calcium(2+)")
 UNSET MeSHAnatomy
 p(MGI:Lynx1) -| bp(MESH:"Synaptic Transmission")
 p(MGI:Lynx1) -| bp(GO:learning)
 p(MGI:Lynx1) -| bp(GO:memory)
+UNSET Confidence
 
 SET Evidence = "For instance, adult lynx1KO
 mice display heightened ocular dominance plasticity after the
 normal close of the critical period (Morishita et al., 2010)"
+SET Confidence = "High"
 p(MGI:Lynx1) -| bp(MESH:"Dominance, Ocular")
+UNSET Confidence
 
 SET Evidence = "These findings indicate that suppression of the cholinergic system by
 lynx proteins stabilizes neural circuitry"
+SET Confidence = "High"
 p(MGI:Lynx1) -| bp(GO:"synaptic transmission, cholinergic")
 p(MGI:Lynx1) -> a(MESH:Neurons)
-
+UNSET Confidence
 UNSET Species
 
 SET Evidence = "Indeed, cholinergic
@@ -242,26 +282,34 @@ period for visual acuity in adult wild-type mice (Morishita et al.,
 2010), indicating that cellular mechanisms for robust plasticity
 are maintained in adulthood through the cholinergic system
 but are suppressed by the action of lynx."
+SET Confidence = "High"
 act(p(HGNC:ACHE)) -| bp(GO:"synaptic transmission, cholinergic")
 p(HGNC:LYNX1) -| bp(GO:"synaptic transmission, cholinergic")
+UNSET Confidence
 
 SET Evidence = "Abolishing receptor function through null mutations or pharmacological
 blockers of nAChRs abolished some of the gain-offunction
 phenotypes in lynx mouse models, indicating that
 nAChRs are necessary for the expression of lynx perturbations
 (Miwa et al., 2006)"
+SET Confidence = "High"
 p(FPLX:CHRN) reg p(HGNC:LYNX1)
+UNSET Confidence
 
 SET Evidence = "This indicates that lynx proteins exist, genetically,
 as upstream modulators of nicotinic receptor function and
 cholinergic signaling and can exert control over cholinergic-dependent processes"
+SET Confidence = "High"
 p(HGNC:LYNX1) reg act(p(FPLX:CHRN))
+UNSET Confidence
 
 SET Evidence = "Because excess activation of nAChRs
 damages neuronal health and brain function, organisms have
 a clear need to restrict the degree of nAChR activation"
+SET Confidence = "High"
 act(p(FPLX:CHRN)) negativeCorrelation act(a(MESH:Brain))
 act(p(FPLX:CHRN)) negativeCorrelation a(MESH:Neurons)
+UNSET Confidence
 
 SET Evidence = "Evidence thus far indicates that the lynx family is regulated in
 response to relatively strong perturbations: downregulation in
@@ -270,6 +318,7 @@ mutant mice (Wieczorek et al., 2010), and by alpha7 nAChR blockade
 (Hruska et al., 2009), whereas it is upregulated at the close of the
 critical period in the visual cortex, and by nicotine in the lung (Sekhon
 et al., 2005)"
+SET Confidence = "High"
 SET Species = "10090"
 p(MGI:Slc12a2) -> act(p(MGI:Lynx1))
 p(FPLX:ADCY,var("?")) -| act(p(MGI:Lynx1))
@@ -278,6 +327,7 @@ UNSET Species
 SET MeSHAnatomy = "Lung"
 a(CHEBI:nicotine) -> act(p(MGI:Lynx1))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "While genetic linkages of lynx family members to neurological disorders
 have not been found, evidence for cholinergic dysregulation
@@ -285,29 +335,39 @@ has been linked to a lynx family member expressed in nonneuronal
 tissues and involved in human disease (Chimienti et al.,
 2003), and as such, alterations in lynx dosage may be useful in
 ameliorating cognitive decline associated with neuropsychiatric disorders."
+SET Confidence = "High"
 p(HGNC:LYNX1) -- bp(GO:"synaptic transmission, cholinergic")
 p(HGNC:LYNX1) -- path(MESH:"Cognitive Dysfunction")
+UNSET Confidence
 
 SET Evidence = "For instance, early expression of lynx1 family member, PSCA,
 prevents programmed cell death of parasympathetic neurons
 (Hruska et al., 2009)"
+SET Confidence = "High"
 SET Cell = "parasympathetic neuron"
 p(HGNC:PSCA) -| bp(GO:"programmed cell death")
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Neuronal maturation and loss of synaptic
 lability appear to be correlated with the onset of lynx1 expression"
+SET Confidence = "High"
 p(HGNC:LYNX1) positiveCorrelation bp(GO:"neuron maturation")
 p(HGNC:LYNX1) negativeCorrelation bp(GO:"synapse maturation")
+UNSET Confidence
 
 SET Evidence = "The neurodevelopmental program depends in part on alpha7 signaling (Liu et al.,2006)"
+SET Confidence = "High"
 bp(GO:"generation of neurons") -- act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+UNSET Confidence
 
 SET Evidence = "Lynx1 upregulation during a critical neurodevelopmental
 period, the switch in the sign of GABAergic signaling, and
 coexpression of lynx with GABAergic subsets all indicate a
 possible role of lynx mediating the timing of such developmental transitions"
+SET Confidence = "High"
 p(HGNC:LYNX1) reg bp(GO:"generation of neurons")
+UNSET Confidence
 
 SET Evidence = "Nicotinic receptor control over GABAergic neuronal
 development and mature activity may represent a point of
@@ -315,218 +375,282 @@ convergence for diseases such as schizophrenia (see next
 section), some amblyopias (Bavelier et al., 2010), and some
 epilepsies (Klaassen et al., 2006), which distort the excitatory-inhibitory
 balance in general and implicate GABAergic signaling defects in particular"
+SET Confidence = "High"
 p(FPLX:CHRN) reg bp(GO:"GABAergic neuron differentiation")
 bp(GO:"GABAergic neuron differentiation") -- path(MESH:Schizophrenia)
 bp(GO:"GABAergic neuron differentiation") -- path(MESH:Amblyopia)
+UNSET Confidence
 
 SET Evidence = "Developmental changes in nAChR functions
 may play a role in nicotine addiction, as a central question in
 tobacco control is young adult smokers’ marked sensitivity to
 developing nicotine dependence (DSM-V Nicotine Workgroup,
 2010; DiFranza et al., 2000; Difranza, 2010)"
+SET Confidence = "High"
 act(p(FPLX:CHRN)) -- path(MESH:"Tobacco Use Disorder")
+UNSET Confidence
 
 SET Evidence = "In many persons with schizophrenia, cerebral evoked potential recording shows
 diminished inhibition of the response to repeated stimuli (Adler
 et al., 1982) (Figure 2A), and animal models of this phenomenon
 point to a defect in hippocampal inhibition"
+SET Confidence = "High"
 path(MESH:Schizophrenia) -> act(a(MESH:Hippocampus))
+UNSET Confidence
 
 SET Evidence = "Recent studies provide evidence both that nicotinic signaling partially underlies
 these schizophrenia-related inhibitory defects and that nicotinic drugs have possible therapeutic roles"
+SET Confidence = "High"
 act(p(FPLX:CHRN))  -- path(MESH:Schizophrenia)
+UNSET Confidence
 
 SET Evidence = "alpha7 nAChRs on inhibitory interneurons
 throughout the hippocampus and presynaptic alpha7 nAChRs on
 mossy fiber terminals in the dentate gyrus participate in the
 control of sensory response in the hippocampus (Gray et al.,
 1996; Alkondon et al., 1999"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Dentate Gyrus","Hippocampus"}
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") reg bp(GO:"sensory processing")
 a(HP:"inhibitory interneuron") reg bp(GO:"sensory processing")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Nicotinic activation of inhibitory
 interneurons increases their activity and activates nitric oxide synthetase"
+SET Confidence = "High"
 p(FPLX:CHRN) -> act(a(HP:"inhibitory interneuron"))
 act(a(HP:"inhibitory interneuron")) -> act(p(FPLX:NOS))
 p(FPLX:CHRN) -> act(p(FPLX:NOS))
+UNSET Confidence
 
 SET Evidence = "The neurons release additional GABA, activating
 presynaptic GABAB receptors on the excitatory inputs to pyramidal
 neurons, which diminish the release of glutamate onto the pyramidal neurons (Figure 2)"
+SET Confidence = "High"
 a(MESH:Neurons) -> tloc(a(CHEBI:"gamma-aminobutyric acid"),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
 SET MeSHAnatomy = "Pyramidal Cells"
 a(CHEBI:"gamma-aminobutyric acid") -> act(p(HGNC:GABBR1))
 a(CHEBI:"gamma-aminobutyric acid") -> act(p(HGNC:GABBR2))
 a(CHEBI:"gamma-aminobutyric acid") -| tloc(a(CHEBI:"glutamate(2-)"),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Thus, the brainstem can regulate hippocampal response in the presence
 of high sensory input."
+SET Confidence = "High"
 a(MESH:"Brain Stem") reg act(a(MESH:Hippocampus))
+UNSET Confidence
 
 SET Evidence = "Although alpha7 nAChRs have both presynaptic
 and postsynaptic expression (Frazier et al., 1998), their
 postsynaptic expression in humans is especially marked on
 inhibitory neurons of the hippocampus (Alkondon et al., 2000)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -- a(HP:"inhibitory interneuron")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET MeSHDisease = "Schizophrenia"
 
 SET Evidence = "Three lines of evidence support the possibility that the failure
 of sensory inhibition in schizophrenia results from decreased expression of alpha7 nAChRs"
+SET Confidence = "High"
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -> bp(GO:"sensory processing")
+UNSET Confidence
 
 SET Evidence = "First, postmortem studies of the
 hippocampus and thalamus show diminished labeling of putative
 inhibitory neurons by alpha-bungarotoxin, an antagonist of alpha7
 nAChRs (Court et al., 1999)"
-a(HBP:"alpha-Bungarotoxin") -> act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+SET Confidence = "Medium"
+p(CONSO:"alpha-Bungarotoxin") -| act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+#alpha-bungarotoxin is an antagonist of alpha7
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -> a(HP:"inhibitory interneuron")
+UNSET Confidence
 
 SET Evidence = "Polymorphisms in the alpha7 5' promoter
 and in a nearby partial duplication of the gene, FAM7A, are
 associated with both schizophrenia and the defect in inhibition
 (Leonard et al., 2002)"
+SET Confidence = "High"
 g(HGNC:CHRFAM7A, var("?")) -- path(MESH:Schizophrenia)
 g(HGNC:CHRFAM7A, var("?")) negativeCorrelation act(a(HP:"inhibitory interneuron"))
+UNSET Confidence
 
 SET Evidence = "Yet some of the other genes identified, such as NRG1, are involved in the
 assembly of alpha7 nAChRs, further supporting a potential link
 between alpha7 nAChRs and schizophrenia (Mathew et al., 2007)"
+SET Confidence = "High"
 g(HGNC:NRG1) -> a(MESH:"alpha7 Nicotinic Acetylcholine Receptor")
 a(MESH:"alpha7 Nicotinic Acetylcholine Receptor") -- path(MESH:Schizophrenia)
+UNSET Confidence
 
 SET Evidence = "Third, persons with schizophrenia have the greatest rate and
 intensity of cigarette smoking of any identifiable subgroup in
 the population"
+SET Confidence = "High"
 path(MESH:Schizophrenia) positiveCorrelation path(MESH:"Tobacco Use Disorder")
+UNSET Confidence
 
 SET Evidence = "While it is not yet possible to know precisely how well a7 nAChRs are activated
 by smoked nicotine, one can reasonably hypothesize that
 the patients’ higher dose of nicotine activates alpha7 nAChRs (Adler
 et al., 1993; Papke and Thinschmidt, 1998; Royal College of Physicians, 2007)"
+SET Confidence = "High"
 a(CHEBI:nicotine) -> act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+UNSET Confidence
 
 SET Evidence = "3-(2,4 dimethoxy)-benzylidene-anabaseine, derived from an
 alkaloid produced by nemertine worms, is a partial agonist at alpha7 nAChRs"
-a(HBP:"GTS-21") -> act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+SET Confidence = "High"
+a(CONSO:"GTS-21") -> act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+UNSET Confidence
 
 SET Evidence = "It improves sensory inhibition in schizophrenics
 and also moderately improves their neuropsychological deficits
 in attention (Olincy et al., 2006)"
+SET Confidence = "High"
 # it: 3-(2,4-dimethoxybenzylidene)anabaseine
-a(HBP:"GTS-21") -> path(MESH:Attention)
-a(HBP:"GTS-21") -> bp(GO:"sensory processing")
+a(CONSO:"GTS-21") -> path(MESH:Attention)
+a(CONSO:"GTS-21") -> bp(GO:"sensory processing")
+UNSET Confidence
 
 SET Evidence = "Clinical ratings of their negative
 symptoms, particularly anhedonia (absence of a sense of pleasure)
 and alogia (poverty of content in their speech), also improve
 during treatment"
-a(HBP:"GTS-21") -| path(MESH:Anhedonia)
-a(HBP:"GTS-21") -| path(MESH:Aphasia)
-
+SET Confidence = "High"
+a(CONSO:"GTS-21") -| path(MESH:Anhedonia)
+a(CONSO:"GTS-21") -| path(MESH:Aphasia)
+UNSET Confidence
 UNSET MeSHDisease
 
 SET Evidence = "One important role for alpha7 nAChRs, in conjunction
 with alpha3-containing nAChRs, is the induction of the KCC2
 chloride transporter in pyramidal neurons (Liu et al., 2006)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Pyramidal Cells"
-a(HBP:"alpha-7-containing nAChR") -> p(HGNC:SLC12A5)
+p(CONSO:"alpha-7-containing nAChR") -> p(HGNC:SLC12A5)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "This transporter lowers the internal Cl- concentration of the neuron
 and changes GABA from a depolarizing to a hyperpolarizing or inhibitory neurotransmitter"
+SET Confidence = "High"
 #this transporter: SLC12A5
 SET MeSHAnatomy = "Neurons"
 p(HGNC:SLC12A5) -| a(CHEBI:chloride)
 p(HGNC:SLC12A5) reg act(a(CHEBI:"gamma-aminobutyric acid"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "A specific role of alpha7 nAChRs was
 demonstrated by failure of the induction of KCC2 by treatment
 with alpha7 nAChR antagonists and in a7 KO mice (Zhang and Berg, 2007)"
-a(HBP:"alpha-7-containing nAChR") -> p(HGNC:SLC12A5)
+SET Confidence = "High"
+p(CONSO:"alpha-7-containing nAChR") -> p(HGNC:SLC12A5)
+UNSET Confidence
 
 SET Evidence = "A possible candidate is choline, which, in
 addition to its other development roles, activates alpha7 nAChRs at
 levels several fold higher than acetylcholine"
-a(CHEBI:acetylcholine) -> act(a(HBP:"alpha-7-containing nAChR"))
-a(CHEBI:choline) -> act(a(HBP:"alpha-7-containing nAChR"))
+SET Confidence = "High"
+a(CHEBI:acetylcholine) -> act(p(CONSO:"alpha-7-containing nAChR"))
+a(CHEBI:choline) -> act(p(CONSO:"alpha-7-containing nAChR"))
+UNSET Confidence
 
 SET Evidence = "Variants in the gene for phosphatidylethanolamine methyl transferase, which
 synthesizes phosphatidylcholine and thus provides a source of
 choline, are also associated with choline deficiency and with schizophrenia"
+SET Confidence = "High"
 p(HGNC:PEMT) -> a(CHEBI:phosphatidylcholine)
 a(CHEBI:phosphatidylcholine) -> a(CHEBI:choline)
 p(HGNC:PEMT,var("?")) -- path(MESH:"Choline Deficiency")
 p(HGNC:PEMT,var("?")) -- path(MESH:Schizophrenia)
+UNSET Confidence
 
 SET Evidence = "alpha7 nAChRs are involved in the macrophage and
 placental cytokine response, which may be an additional role
 for genetic variants in these receptors in the pathogenesis of
 schizophrenia (Wang et al., 2003)"
-a(HBP:"alpha-7-containing nAChR") -- bp(GO:"macrophage activation")
+SET Confidence = "High"
+p(CONSO:"alpha-7-containing nAChR") -- bp(GO:"macrophage activation")
 SET MeSHAnatomy = "Placenta"
-a(HBP:"alpha-7-containing nAChR") -- bp(GO:"response to cytokine")
+p(CONSO:"alpha-7-containing nAChR") -- bp(GO:"response to cytokine")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Nicotine both activates and desensitizes
 nAChRs in midbrain dopaminergic neurons (Brodie, 1991; Pidoplichko
 et al., 1997), and the pleasurable effects associated with
 nicotine intake occur in large part via the mesolimbic dopaminergic
 reward system (Corrigall et al., 1992; Koob and Volkow,2010)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Dopaminergic Neurons"
 a(CHEBI:nicotine) -> act(p(FPLX:CHRN))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "However, it is not known whether the nicotine-enhanced
 cognitive performance exceeds the level that would occur if the
 person had never begun to smoke, or after remaining abstinent
 for one year (the usual criterion for successful smoking cessation)
 (Levin et al., 2006)"
+SET Confidence = "High"
 a(CHEBI:nicotine) -> bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "In rodents and humans, the hippocampus is
 importantly implicated in cognitive sensitization, and alpha4beta2*
 nAChRs play key roles (Levin et al., 2006; Davis and Gould, 2009)"
-a(HBP:"alpha-4 beta-2 nAChR") positiveCorrelation bp(GO:cognition)
+SET Confidence = "High"
+p(CONSO:"alpha-4 beta-2 nAChR") positiveCorrelation bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "Chronic or acute nicotine enhances LTP in several regions
 of hippocampus, especially dentate gyrus (Nashmi et al., 2007;
 TangandDani, 2009;Pentonet al., 2011)"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Dentate Gyrus","Hippocampus"}
 a(CHEBI:nicotine) -> bp(GO:"long-term synaptic potentiation")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "For instance, dopamine increases in the extended
 amygdala during stress, fear, and nicotine withdrawal (Inglis
 and Moghaddam, 1999; Pape, 2005; Grace et al., 2007;
 Gallagher et al., 2008; Koob, 2009; Marcinkiewcz et al., 2009)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Amygdala"
 bp(MESH:"Stress, Physiological") -> a(CHEBI:dopamine)
 path(MESH:Fear) -> a(CHEBI:dopamine)
 a(CHEBI:nicotine) -| a(CHEBI:dopamine)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "This puzzle does not yet have a complete answer, but it is
 clear that chronic nicotine increases the number of nAChRs
 themselves (Marks et al., 1983; Schwartz and Kellar, 1983)"
+SET Confidence = "High"
 a(CHEBI:nicotine) -> p(FPLX:CHRN)
+UNSET Confidence
 
 SET Evidence = "At the level of whole brain, chronic nicotine causes selective
 upregulation of nAChRs among major brain regions. Upregulation
 occurs in cortex, midbrain, and hypothalamus, but not in
 thalamus or cerebellum (Pauly et al., 1991; Marks et al., 1992;
 Nguyen et al., 2003; Nashmi et al., 2007; Doura et al., 2008)"
+SET Confidence = "Medium"
 SET MeSHAnatomy = {"Cerebral Cortex","Mesencephalon","Hypothalamus"}
 a(CHEBI:nicotine) -> p(FPLX:CHRN)
+UNSET MeSHAnatomy
+#MeSHAnatomy was UNSET
 SET MeSHAnatomy = {"Thalamus","Cerebellum"}
 a(CHEBI:nicotine) causesNoChange p(FPLX:CHRN)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In the midbrain, both DA neurons (in substantia
 nigra pars compacta and ventral tegmental area [VTA]) and
@@ -534,24 +658,32 @@ GABAergic neurons (in substantia nigra pars reticulata and
 VTA) express high levels of alpha4beta2* nAChRs on their somata, but
 only GABAergic neurons display somatic upregulation (Nashmi
 et al., 2007; Xiao et al., 2009)"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Mesencephalon","Ventral Tegmental Area","Pars Compacta"}
-a(MESH:"Dopaminergic Neurons") positiveCorrelation a(HBP:"alpha-4 beta-2 nAChR")
-SET MeSHAnatomy = {"Mesencephalon","Ventral Tegmental Area","Pars Reticulata"}
-a(MESH:"GABAergic Neurons") positiveCorrelation a(HBP:"alpha-4 beta-2 nAChR")
+a(MESH:"Dopaminergic Neurons") positiveCorrelation p(CONSO:"alpha-4 beta-2 nAChR")
 UNSET MeSHAnatomy
+#MeSHAnatomy was UNSET
+SET MeSHAnatomy = {"Mesencephalon","Ventral Tegmental Area","Pars Reticulata"}
+a(MESH:"GABAergic Neurons") positiveCorrelation p(CONSO:"alpha-4 beta-2 nAChR")
+UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In the medial perforant path, which
 mainly arises from layer II stellate cells, chronic nicotine upregulates alpha4beta2* nAChRs"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Entorhinal Cortex","Dentate Gyrus"}
-a(CHEBI:nicotine) -> act(a(HBP:"alpha-4 beta-2 nAChR"))
+a(CHEBI:nicotine) -> act(p(CONSO:"alpha-4 beta-2 nAChR"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In midbrain, chronic nicotine treatment elicits
 a general increase in alpha4beta2* nAChRs in GABAergic neurons, but
 only in axon terminals of DA neurons"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Mesencephalon","GABAergic Neurons"}
-a(CHEBI:nicotine) -> act(a(HBP:"alpha-4 beta-2 nAChR"))
+a(CHEBI:nicotine) -> act(p(CONSO:"alpha-4 beta-2 nAChR"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Single-nucleotide polymorphisms found in the human alpha5, alpha3,
 beta4 gene cluster are associated with nicotine dependence and
@@ -561,6 +693,7 @@ sensitivity to the depressant effects of alcohol, and age of
 alcohol initiation; cocaine dependence; opioid dependence;
 lung cancer; and cognitive flexibility (Erlich et al., 2010; Hansen
 et al., 2010; Improgo et al., 2010; Saccone et al., 2010; Zhang et al., 2010)"
+SET Confidence = "High"
 p(HGNC:CHRNA5,var("?")) positiveCorrelation path(MESH:"Tobacco Use Disorder")
 p(HGNC:CHRNA5,var("?")) positiveCorrelation path(MESH:Alcoholism)
 p(HGNC:CHRNA5,var("?")) positiveCorrelation path(MESH:"Cocaine-Related Disorders")
@@ -579,77 +712,98 @@ p(HGNC:CHRNB4,var("?")) positiveCorrelation path(MESH:"Cocaine-Related Disorders
 p(HGNC:CHRNB4,var("?")) positiveCorrelation path(MESH:"Opioid-Related Disorders")
 p(HGNC:CHRNB4,var("?")) positiveCorrelation path(MESH:"Lung Neoplasms")
 p(HGNC:CHRNB4,var("?")) positiveCorrelation bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "Because alpha4beta2 nAChRs are
 the most susceptible to nicotine-induced upregulation, the
 data again seem consistent with the idea that selective upregulation
 of alpha4beta2 nAChRs underlies nicotine dependence"
-a(CHEBI:nicotine) -> act(a(HBP:"alpha-4 beta-2 nAChR"))
-path(MESH:"Tobacco Use Disorder") -> act(a(HBP:"alpha-4 beta-2 nAChR"))
+SET Confidence = "High"
+a(CHEBI:nicotine) -> act(p(CONSO:"alpha-4 beta-2 nAChR"))
+path(MESH:"Tobacco Use Disorder") -> act(p(CONSO:"alpha-4 beta-2 nAChR"))
+UNSET Confidence
 
 SET Evidence = "The upregulation of alpha4beta2*
 nAChRs by chronic nicotine treatment has been replicated
 many times in numerous systems—transfected cell lines,
 neurons in culture, brain slices, and smokers’ brains (Albuquerque
 et al., 2009; Fu et al., 2009; Lester et al., 2009; Srinivasan et al., 2011"
-a(CHEBI:nicotine) -> act(a(HBP:"alpha-4 beta-2 nAChR"))
+SET Confidence = "High"
+a(CHEBI:nicotine) -> act(p(CONSO:"alpha-4 beta-2 nAChR"))
+UNSET Confidence
 
 SET Evidence = "(3) Nicotine activates alpha4beta2 nAChRs ~400-fold more effectively
 than it activates muscle-type nAChRs, because of cation-π
 and H-bond interactions at the agonist binding site (Xiu et al., 2009)"
-a(CHEBI:nicotine) -> act(a(HBP:"alpha-4 beta-2 nAChR"))
+SET Confidence = "High"
+a(CHEBI:nicotine) -> act(p(CONSO:"alpha-4 beta-2 nAChR"))
+UNSET Confidence
 
 SET Evidence = "However, when all genetic factors are eliminated by studying
 monozygotic twins who are discordant for both tobacco use
 and Parkinson’s disease, tobacco smoking and chewing still
 decrease the risk of Parkinson’s disease (Tanner et al., 2002; Wirdefeldt et al., 2005)"
+SET Confidence = "High"
 path(MESH:Smoking) -| path(MESH:"Parkinson Disease")
 path(MESH:"Tobacco Use") -| path(MESH:"Parkinson Disease")
-
+UNSET Confidence
 SET Species = "10090"
 
 SET Evidence = "While chronic nicotine does not change the abundance or function of alpha4*
 nAChRs in the somata of substantia nigra pars compacta dopaminergic
 neurons, it does suppress baseline firing rates of these DA neurons."
+SET Confidence = "High"
 SET MeSHAnatomy = "Pars Compacta"
-a(CHEBI:nicotine) causesNoChange a(HBP:"alpha-4-containing nAChR")
+a(CHEBI:nicotine) causesNoChange p(CONSO:"alpha-4-containing nAChR")
 a(CHEBI:nicotine) -| act(a(MESH:"Dopaminergic Neurons"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In mice exposed to chronic nicotine, GABA neurons
 in substantia nigra pars reticulata have increased baseline firing
 rates, both in brain slices and in anesthetized animals"
+SET Confidence = "High"
 SET MeSHAnatomy = "Pars Reticulata"
 a(CHEBI:nicotine) -> act(a(MESH:"GABAergic Neurons"))
 UNSET MeSHAnatomy
-
+UNSET Confidence
 UNSET Species
 
 SET Evidence = "These contrasting effects on GABA and DA neurons are due to upregulated
 alpha4* nAChR responses in GABA neurons, at both somata and synaptic terminals"
+SET Confidence = "High"
 SET MeSHAnatomy = "GABAergic Neurons"
-a(CHEBI:nicotine) -> act(a(HBP:"alpha-4-containing nAChR"))
+a(CHEBI:nicotine) -> act(p(CONSO:"alpha-4-containing nAChR"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Chronic nicotine upregulates alpha4*
 nAChRs in dopaminergic presynaptic terminals, apparently
 leading to increased resting dopamine release from those terminals"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Presynaptic Terminals","Dopaminergic Neurons"}
-a(CHEBI:nicotine) -> act(a(HBP:"alpha-4-containing nAChR"))
+a(CHEBI:nicotine) -> act(p(CONSO:"alpha-4-containing nAChR"))
 a(CHEBI:nicotine) -> tloc(a(CHEBI:dopamine),fromLoc(MESH:"Presynaptic Terminals"),toLoc(GO:"extracellular region"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The chaperoning of nAChRs by nicotine
 enhances the export of alpha4beta2 nAChRs from the endoplasmic
 reticulum (ER), and this leads to a general increase in ER exit
 sites (Srinivasan et al., 2011)"
-a(CHEBI:nicotine) -> tloc(a(HBP:"alpha-4-containing nAChR"),fromLoc(GO:"endoplasmic reticulum"),toLoc(GO:"extracellular region"))
+SET Confidence = "High"
+a(CHEBI:nicotine) -> tloc(p(CONSO:"alpha-4-containing nAChR"),fromLoc(GO:"endoplasmic reticulum"),toLoc(GO:"extracellular region"))
+UNSET Confidence
 
 SET Evidence = "Autosomal-dominant nocturnal frontal lobe epilepsy (ADNFLE) is
 caused by missense mutations in either the alpha4 or the beta2 subunit"
-p(HGNC:CHRNA4,var("?")) -> path(HBP:"Autosomal Dominant Nocturnal Frontal Lobe Epilepsy")
-p(HGNC:CHRNB2,var("?")) -> path(HBP:"Autosomal Dominant Nocturnal Frontal Lobe Epilepsy")
+SET Confidence = "High"
+p(HGNC:CHRNA4,var("?")) -> path(CONSO:"Autosomal Dominant Nocturnal Frontal Lobe Epilepsy")
+p(HGNC:CHRNB2,var("?")) -> path(CONSO:"Autosomal Dominant Nocturnal Frontal Lobe Epilepsy")
+UNSET Confidence
 
 SET Evidence = "ADNFLE patients who use a nicotine patch or tobacco have fewer seizures
 (Willoughby et al., 2003; Brodtkorb and Picard, 2006)"
-a(CHEBI:nicotine) -| path(HBP:"Autosomal Dominant Nocturnal Frontal Lobe Epilepsy")
+SET Confidence = "High"
+a(CHEBI:nicotine) -| path(CONSO:"Autosomal Dominant Nocturnal Frontal Lobe Epilepsy")
+UNSET Confidence
