@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/77c0796c3ca82a80cb0eaf1c8380d6ccd7f323af/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -185,7 +185,7 @@ particle (CP) that carries out the catalytic activity and a
 regulatory 19S regulatory particle (RP)."
 # proteasome regulatory particle = 19S regulatory particle
 SET Confidence = "High"
-complex(GO:"proteasome complex") hasComponents list(p(HBP:"20 S Proteasome"),complex(GO:"proteasome regulatory particle"))
+complex(GO:"proteasome complex") hasComponents list(p(CONSO:"20 S Proteasome"),complex(GO:"proteasome regulatory particle"))
 UNSET Confidence
 
 SET Evidence = "Two ubiquitin binding subunits of the
@@ -315,7 +315,7 @@ UNSET Confidence
 SET Evidence = "Recent findings
 demonstrate that soluble aggregated proteins can inhibit the ubiquitin system (Bence et al., 2001)"
 SET Confidence = "High"
-a(HBP:"protein aggregates") -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+a(CONSO:"protein aggregates") -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
 UNSET Confidence
 
 SET Evidence = "In PD, the main neuropathological feature is the progressive death of neurons in the substantia nigra
@@ -370,8 +370,8 @@ UNSET Confidence
 SET Evidence = "Interestingly, mutation at R42
 abrogates the binding of Parkin to the proteasome, suggesting that it can cause AR-JP."
 SET Confidence = "High"
-p(HGNC:PRKN,var("p.Arg42")) -| complex(p(HGNC:PRKN),a(GO:"proteasome complex"))
-p(HGNC:PRKN,var("p.Arg42")) -> path(MESH:"Parkinsonian Disorders")
+p(HGNC:PRKN, var("p.Arg42?")) -| complex(p(HGNC:PRKN), a(GO:"proteasome complex"))
+p(HGNC:PRKN, var("p.Arg42?")) -> path(MESH:"Parkinsonian Disorders")
 complex(p(HGNC:PRKN),a(GO:"proteasome complex")) -| path(MESH:"Parkinsonian Disorders")
 UNSET Confidence
 
@@ -455,7 +455,7 @@ Parkin-associated endothelial-like (Pael) receptor, a putative G protein-coupled
 #PaelR : GPR37
 SET Confidence = "High"
 p(HGNC:PRKN) -- p(HGNC:GPR37)
-p(HGNC:GPR37) -> p(HGNC:GPR37,pmod(HBP:misfolding))
+p(HGNC:GPR37) -> p(HGNC:GPR37,pmod(CONSO:misfolding))
 UNSET Confidence
 
 SET Evidence = "It then aggregates, and the insoluble protein elicits cell death via the Unfolded
@@ -473,7 +473,7 @@ SET Confidence = "High"
 SET MeSHAnatomy = "Endoplasmic Reticulum"
 bp(GO:"response to unfolded protein") -> bp(GO:"response to endoplasmic reticulum stress")
 bp(GO:"response to unfolded protein") -> a(MESH:"Molecular Chaperones")
-p(MESH:Proteins,pmod(HBP:misfolding)) -> bp(GO:"response to unfolded protein")
+p(MESH:Proteins,pmod(CONSO:misfolding)) -> bp(GO:"response to unfolded protein")
 p(MESH:Proteins,var("?")) -> bp(GO:"response to unfolded protein")
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -643,7 +643,7 @@ SET Evidence = "Further supporting this hypothesis is the finding of Cummings an
 model of SCA-1 resulted in a reduced number of neurons containing intranuclear aggregates (see below)."
 #transgenic model SCA-1
 SET Confidence = "High"
-p(HGNC:UBE3A) -> complex(a(MESH:Neurons),a(HBP:"protein aggregates"))
+p(HGNC:UBE3A) -> complex(a(MESH:Neurons),a(CONSO:"protein aggregates"))
 UNSET Confidence
 
 SET Evidence = "Recent findings in a German family with PD have revealed a mutation in the gene coding for the ubiquitin
@@ -705,16 +705,16 @@ UNSET Confidence
 SET Evidence = "Wild-type alphaSYN is monomeric, but at high concentration, it oligomerizes
 to beta-pleated sheets known as protofibrils"
 SET Confidence = "High"
-p(HGNC:SNCA) pos bp(HBP:"Alpha-synuclein Oligomerization")
-bp(HBP:"Alpha-synuclein Oligomerization") -> a(HBP:"alpha-synuclein fibrils")
+p(HGNC:SNCA) pos bp(CONSO:"Alpha-synuclein Oligomerization")
+bp(CONSO:"Alpha-synuclein Oligomerization") -> a(CONSO:"alpha-synuclein fibrils")
 UNSET Confidence
 
 SET Evidence = "The protofibrils can further aggregate and
 precipitate as amyloid fibrils that are present in Lewy
 bodies, the hallmark of sporadic, late-onset PD"
 SET Confidence = "High"
-a(HBP:"alpha-synuclein fibrils") -> a(HBP:"alpha-synuclein aggregates")
-a(HBP:"alpha-synuclein aggregates") -- a(MESH:"Lewy Bodies")
+a(CONSO:"alpha-synuclein fibrils") -> a(CONSO:"alpha-synuclein aggregates")
+a(CONSO:"alpha-synuclein aggregates") -- a(MESH:"Lewy Bodies")
 a(MESH:"Lewy Bodies") -- path(MESH:"Parkinson Disease")
 UNSET Confidence
 
@@ -729,8 +729,8 @@ UNSET Confidence
 SET Evidence = "The mutant proteins have a higher tendency to generate protofibrils"
 #mutant proteins: alphaSYN A30P and alphaSYN  A53T
 SET Confidence = "High"
-p(HGNC:SNCA,var("p.Ala30Pro")) -> a(HBP:"alpha-synuclein fibrils")
-p(HGNC:SNCA,var("p.Ala53Thr")) -> a(HBP:"alpha-synuclein fibrils")
+p(HGNC:SNCA,var("p.Ala30Pro")) -> a(CONSO:"alpha-synuclein fibrils")
+p(HGNC:SNCA,var("p.Ala53Thr")) -> a(CONSO:"alpha-synuclein fibrils")
 UNSET Confidence
 
 SET Evidence = "Overexpression of wild-type, but in particular mutant alphaSYN in many cell types but not in all, induces
@@ -743,7 +743,7 @@ UNSET Confidence
 SET Evidence = "AR-JP is characterized by lack of LBs and alphaSYN aggregates"
 SET Confidence = "High"
 path(MESH:"Parkinsonian Disorders") neg a(MESH:"Lewy Bodies")
-path(MESH:"Parkinsonian Disorders") pos a(HBP:"alpha-synuclein aggregates")
+path(MESH:"Parkinsonian Disorders") pos a(CONSO:"alpha-synuclein aggregates")
 UNSET Confidence
 
 SET Evidence = "The suggestion that the glycosylated form of alphaSYN is targeted by Parkin (Shimura et al., 2001) may
@@ -758,14 +758,14 @@ in the Parkin E3 (see above)—develop neurodegeneration"
 SET Confidence = "High"
 SET MeSHDisease = "Parkinsonian Disorders"
 p(HGNC:PRKN,var("?")) cnc deg(p(HGNC:SNCA))
-path(MESH:"Parkinsonian Disorders") -> path(HBP:Neurodegeneration)
+path(MESH:"Parkinsonian Disorders") -> path(CONSO:Neurodegeneration)
 UNSET MeSHDisease
 UNSET Confidence
 
 SET Evidence = "An important finding, however, in that respect is that aggregated and even monomeric alphaSYN bind to the S6'
 proteasome subunit and inhibit proteasomal function (Snyder et al., 2003)."
 SET Confidence = "High"
-complex(p(HGNC:PSMC4),a(HBP:"alpha-synuclein aggregates")) -| act(complex(GO:"proteasome complex"))
+complex(p(HGNC:PSMC4),a(CONSO:"alpha-synuclein aggregates")) -| act(complex(GO:"proteasome complex"))
 complex(p(HGNC:PSMC4),p(HGNC:SNCA)) -| act(complex(GO:"proteasome complex"))
 UNSET Confidence
 
@@ -773,7 +773,7 @@ SET Evidence = "Thus, aggregation, which is the primary event, may lead to
 secondary damage by inhibiting the UPS (Bence et al., 2001)."
 #aggregation of SNCA
 SET Confidence = "High"
-a(HBP:"alpha-synuclein aggregates") -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+a(CONSO:"alpha-synuclein aggregates") -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
 UNSET Confidence
 
 SET Evidence = "Instead, impairment of alphaSYN function may disturb ubiquitination of alphaSYN-associated
@@ -832,7 +832,7 @@ Degradation (ERAD—a quality control mechanism that eliminates, via the UPS, mi
 membrane or lumenal ER proteins following their retrotranslocation to the cytosol via the Sec61 translocation channel)."
 SET Confidence = "High"
 bp(GO:"ERAD pathway") reg deg(p(HGNC:CFTR))
-p(HGNC:SEC61A1) -> tloc(p(MESH:Proteins,pmod(HBP:misfolding)),fromLoc(GO:"endoplasmic reticulum lumen"),toLoc(GO:cytosol))
+p(HGNC:SEC61A1) -> tloc(p(MESH:Proteins,pmod(CONSO:misfolding)),fromLoc(GO:"endoplasmic reticulum lumen"),toLoc(GO:cytosol))
 UNSET Confidence
 
 SET Evidence = "In AD, the dominant symptom is dementia, initially characterized by a loss of short-term memory
@@ -869,8 +869,8 @@ sites can result in fragments (Abeta1-40 or Abeta1-42) that can misfold and form
 SET Confidence = "High"
 p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta polypeptide 40"),a(CHEBI:"amyloid-beta polypeptide 42")))
 complex(GO:"gamma-secretase complex") -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta polypeptide 40"),a(CHEBI:"amyloid-beta polypeptide 42")))
-a(CHEBI:"amyloid-beta polypeptide 40") -> a(HBP:"amyloid-beta fibrils")
-a(CHEBI:"amyloid-beta polypeptide 42") -> a(HBP:"amyloid-beta fibrils")
+a(CHEBI:"amyloid-beta polypeptide 40") -> a(CONSO:"amyloid-beta fibrils")
+a(CHEBI:"amyloid-beta polypeptide 42") -> a(CONSO:"amyloid-beta fibrils")
 UNSET Confidence
 
 SET Evidence = "In contrast, the neurofibrillary tangles are intracellular and are rich in tau, a structural
@@ -884,7 +884,7 @@ SET Evidence = "In conjunction with the formation of neurofibrillary tangles, th
 undergoes an abnormal posttranslational modification characterized by hyperphosphorylation"
 SET Confidence = "High"
 a(MESH:"Neurofibrillary Tangles") -> p(HGNC:MAPT)
-a(MESH:"Neurofibrillary Tangles") -> p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+a(MESH:"Neurofibrillary Tangles") -> p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 UNSET Confidence
 
 SET Evidence = "Proteolytic processing/degradation of tau is also believed to be
@@ -912,7 +912,7 @@ sites, causing abnormal APP processing, or in the sequence coding for Abeta, giv
 more likely to self-aggregate"
 SET Confidence = "High"
 p(HGNC:APP,var("?")) -> path(MESH:"Alzheimer Disease")
-p(HGNC:APP,var("?")) -> a(HBP:"amyloid-beta aggregates")
+p(HGNC:APP,var("?")) -> a(CONSO:"amyloid-beta aggregates")
 UNSET Confidence
 
 SET Evidence = "Finally, some patients express
@@ -945,7 +945,7 @@ filaments coimmunoprecipitate with the proteasome (Keck et al., 2003)."
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Brain"
 SET MeSHDisease = "Alzheimer Disease"
-a(HBP:"paired helical filaments") -| act(complex(GO:"proteasome complex"))
+a(CONSO:"paired helical filaments") -| act(complex(GO:"proteasome complex"))
 UNSET MeSHDisease
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -1017,7 +1017,7 @@ amyloid aggregates."
 SET Confidence = "High"
 path(MESH:"Prion Diseases") -> bp(GO:"neuron death")
 path(MESH:"Prion Diseases") -> path(MESH:Gliosis)
-path(MESH:"Prion Diseases") -> a(HBP:"amyloid-beta aggregates")
+path(MESH:"Prion Diseases") -> a(CONSO:"amyloid-beta aggregates")
 UNSET Confidence
 
 SET Evidence = "PrPc is abundant in many cells throughout the body, particularly in the immune
@@ -1036,7 +1036,7 @@ UNSET Confidence
 SET Evidence = "Alternatively, if misfolded, it is believed to be directed to degradation via ERAD (Yedidia et al., 2001)."
 #it: PRNP
 SET Confidence = "High"
-bp(GO:"ERAD pathway") -> deg(p(HGNC:PRNP,pmod(HBP:misfolding)))
+bp(GO:"ERAD pathway") -> deg(p(HGNC:PRNP,pmod(CONSO:misfolding)))
 UNSET Confidence
 
 SET Evidence = "Recent work has highlighted a novel possible role for failure of the UPS in initiating prion disease, which can
@@ -1103,7 +1103,7 @@ implicating a role for the UPS in disease pathogenesis
 (Cleveland and Liu, 2000; Julien, 2001;Valentine and Hart, 2003)."
 #enzyme:SOD1
 SET Confidence = "High"
-p(HGNC:SOD1,pmod(HBP:misfolding)) -> a(HBP:"protein aggregates")
+p(HGNC:SOD1,pmod(CONSO:misfolding)) -> a(CONSO:"protein aggregates")
 UNSET Confidence
 
 SET Evidence = "The mutant SOD1 proteins, unlike the wild-type
@@ -1115,7 +1115,7 @@ UNSET Confidence
 SET Evidence = "Overexpression of the chaperone HSP70 has been found to
 reduce aggregate formation and death in nonneuronal cultured cells expressing mutant SOD1 (Bruening et al.,1999)."
 SET Confidence = "Medium"
-p(FPLX:HSPA) -| a(HBP:"protein aggregates")
+p(FPLX:HSPA) -| a(CONSO:"protein aggregates")
 p(FPLX:HSPA) -| bp(GO:"cell death")
 UNSET Confidence
 
@@ -1164,7 +1164,7 @@ UNSET Confidence
 SET Evidence = "Consequently, due to the increased stress, mutant SOD1 will misfold more rapidly"
 #stress: oxidative stress
 SET Confidence = "High"
-bp(GO:"response to oxidative stress") -> p(HGNC:SOD1,var("?"),pmod(HBP:misfolding))
+bp(GO:"response to oxidative stress") -> p(HGNC:SOD1,var("?"),pmod(CONSO:misfolding))
 UNSET Confidence
 
 SET Evidence = "Thus, exposure to lactacystin resulted in
@@ -1197,7 +1197,7 @@ been excluded in HD (Cattaneo et al., 2001), since the
 mutant protein not only aggregates itself but can also
 promote aggregation of the wild-type protein (Busch et al.,2003)."
 SET Confidence = "High"
-p(HGNC:HTT,var("?")) -> a(HBP:"huntingtin aggregates")
+p(HGNC:HTT,var("?")) -> a(CONSO:"huntingtin aggregates")
 UNSET Confidence
 
 SET Evidence = "In addition, other proteins, e.g., alphaSYN (Waelter et al., 2001) and the transcriptional
@@ -1267,16 +1267,16 @@ SET Evidence = "Administration of cystamine, a transglutaminase inhibitor, can r
 cells expressing atrophin-1 (DRPLA model) (Igarashi et al., 1998) and in cells expressing mutant androgen
 receptor (SBMA model) (Mandrusiak et al., 2003)."
 SET Confidence = "High"
-composite(a(CHEBI:cystamine),p(HGNC:ATN1)) -| a(HBP:"protein aggregates")
+composite(a(CHEBI:cystamine),p(HGNC:ATN1)) -| a(CONSO:"protein aggregates")
 composite(a(CHEBI:cystamine),p(HGNC:ATN1)) -| bp(GO:"cell death")
-composite(a(CHEBI:cystamine),p(HGNC:AR,var("?"))) -| a(HBP:"protein aggregates")
+composite(a(CHEBI:cystamine),p(HGNC:AR,var("?"))) -| a(CONSO:"protein aggregates")
 composite(a(CHEBI:cystamine),p(HGNC:AR,var("?"))) -| bp(GO:"cell death")
 UNSET Confidence
 
 SET Evidence = "If oligomerization of mutant Huntingtin is inhibited by administration
 of Congo red starting at this age, no aggregates can be detected in the brain 5weeks later (Sanchez et al., 2003)."
 SET Confidence = "High"
-a(CHEBI:"Congo Red") -| a(HBP:"huntingtin aggregates")
+a(CHEBI:"Congo Red") -| a(CONSO:"huntingtin aggregates")
 UNSET Confidence
 
 SET Evidence = "In a parallel experiment using a cell culture model,
@@ -1289,7 +1289,7 @@ UNSET Confidence
 
 SET Evidence = "Consequently, the formation of aggregates may increase when the UPS fails"
 SET Confidence = "High"
-bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -| a(HBP:"protein aggregates")
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -| a(CONSO:"protein aggregates")
 UNSET Confidence
 
 SET Evidence = "Lunkes and colleagues demonstrated that truncated Huntingtin, which has undergone proteolytic
@@ -1313,7 +1313,7 @@ showed that N-terminal mutant Huntingtin inhibited the
 proteasomal degradation of p53, subsequent loss of mitochondrial
 membrane potential, release of cytochrome c, caspase activation, and apoptosis (Jana et al., 2001) (Figure 2)."
 SET Confidence = "High"
-p(HGNC:HTT,var("?")) -| act(p(HBP:"20 S Proteasome"))
+p(HGNC:HTT,var("?")) -| act(p(CONSO:"20 S Proteasome"))
 p(HGNC:HTT,var("?")) -| deg(p(HGNC:TP53))
 p(HGNC:HTT,var("?")) -| bp(MESH:"Membrane Potential, Mitochondrial")
 p(HGNC:HTT,var("?")) -> sec(a(CHEBI:"cytochrome c"))

@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -88,7 +88,7 @@ protein MAP2, confirming that both forms of tau enter neurons"
 SET Confidence = "Medium"
 SET Cell = "neuron"
 p(HGNC:MAPT,var("p.Pro301Ser")) -> tloc(p(HGNC:MAPT,var("p.Pro301Ser")),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
-a(HBP:"Tau aggregates") -> tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+a(CONSO:"Tau aggregates") -> tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
 UNSET Cell
 UNSET Confidence
 
@@ -98,9 +98,9 @@ SET Confidence = "Medium"
 SET Cell = "neuron"
 #monomeric and aggregated tau-Dylight
 p(HGNC:MAPT,var("p.Pro301Ser")) -> tloc(p(HGNC:MAPT,var("p.Pro301Ser")),fromLoc(GO:"extracellular region"),toLoc(GO:"cell body"))
-a(HBP:"Tau aggregates") -> tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(GO:"cell body"))
-UNSET Cell
+a(CONSO:"Tau aggregates") -> tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(GO:"cell body"))
 UNSET Confidence
+UNSET Cell
 
 SET Evidence = "After a 4-hr incubation
 with extracellular tau, flow cytometry analysis (Figures 1B
@@ -111,7 +111,7 @@ neurons in culture"
 SET Confidence = "High"
 #in-vito study
 p(HGNC:MAPT,var("p.Pro301Ser")) -> tloc(p(HGNC:MAPT,var("p.Pro301Ser")),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
-a(HBP:"Tau aggregates") -> tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+a(CONSO:"Tau aggregates") -> tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
 UNSET Confidence
 
 SET Evidence = "Internalization of monomeric tau (P301S)
@@ -162,7 +162,7 @@ UNSET Confidence
 SET Evidence = "Internalization of aggregated tau-pHrodo (Figure 2D) was
 also found to be concentration dependent (Figure 2E)"
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -> tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(GO:"cell body"))
+a(CONSO:"Tau aggregates") -> tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(GO:"cell body"))
 UNSET Confidence
 
 SET Evidence = "These kinetics of
@@ -172,7 +172,7 @@ weight (10-kDa) dextran-pHrodo (same molarity as monomeric
 tau samples; Figures S5A–S5C"
 SET Confidence = "High"
 p(HGNC:MAPT,var("p.Pro301Ser")) -> tloc(p(HGNC:MAPT,var("p.Pro301Ser")),fromLoc(GO:"extracellular region"),toLoc(GO:"cell body"))
-a(HBP:"Tau aggregates") -> tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(GO:"cell body"))
+a(CONSO:"Tau aggregates") -> tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(GO:"cell body"))
 a(CHEBI:dextran) -> tloc(a(CHEBI:dextran)),fromLoc(GO:"extracellular region"),toLoc(GO:"cell body"))
 UNSET Confidence
 UNSET MeSHAnatomy
@@ -183,7 +183,7 @@ uptake of both monomeric and aggregated tau was unaffected
 in the presence of heparin (Figures S4C and S4D"
 SET Confidence = "High"
 a(CHEBI:heparin) cnc tloc(p(HGNC:MAPT,var("p.Pro301Ser")),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
-a(CHEBI:heparin) cnc tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+a(CHEBI:heparin) cnc tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
 UNSET Confidence
 
 SET Evidence = "In agreement with the monomeric tau-pHrodo experiments,
@@ -196,8 +196,8 @@ SET Evidence = "As early as 1 hr after the addition of extracellular tau, monome
 and aggregated tau-Dylight were co-localized in EEA1+ early endosomes"
 SET Confidence = "Medium"
 p(HGNC:MAPT,var("p.Pro301Ser")) -- a(GO:"early endosome")
-a(HBP:"Tau aggregates") -- a(GO:"early endosome")
-composite(p(HGNC:MAPT,var("p.Pro301Ser")),a(HBP:"Tau aggregates")) -- a(GO:"early endosome")
+a(CONSO:"Tau aggregates") -- a(GO:"early endosome")
+composite(p(HGNC:MAPT,var("p.Pro301Ser")),a(CONSO:"Tau aggregates")) -- a(GO:"early endosome")
 UNSET Confidence
 
 SET Evidence = "Monomeric and aggregated tau-Dylight were
@@ -207,8 +207,8 @@ before late endosomes and lysosomes"
 SET Confidence = "High"
 p(HGNC:MAPT,var("p.Pro301Ser")) -- a(GO:"late endosome")
 p(HGNC:MAPT,var("p.Pro301Ser")) -- a(GO:lysosome)
-a(HBP:"Tau aggregates") -- a(GO:"late endosome")
-a(HBP:"Tau aggregates") -- a(GO:lysosome)
+a(CONSO:"Tau aggregates") -- a(GO:"late endosome")
+a(CONSO:"Tau aggregates") -- a(GO:lysosome)
 UNSET Confidence
 
 SET Evidence = "Thus, monomeric and aggregated tau both efficiently enter neurons
@@ -218,8 +218,8 @@ SET Confidence = "Medium"
 SET Cell = "neuron"
 bp(GO:endocytosis) -> tloc(p(HGNC:MAPT,var("p.Pro301Ser")),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
 a(GO:lysosome) -> tloc(p(HGNC:MAPT,var("p.Pro301Ser")),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
-bp(GO:endocytosis) -> tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
-a(GO:lysosome) -> tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+bp(GO:endocytosis) -> tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+a(GO:lysosome) -> tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
 UNSET Cell
 UNSET Confidence
 
@@ -241,14 +241,14 @@ was consistently reduced by more than 70% at 1 and
 3 hr after tau addition (Figure 4E), and the number of taupHrodo-
 positive objects was reduced by 95% (Figure 4F)"
 SET Confidence = "High"
-a(CHEBI:dynasore) -| tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
-act(p(HGNC:DNM1)) -> tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+a(CHEBI:dynasore) -| tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+act(p(HGNC:DNM1)) -> tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
 UNSET Confidence
 
 SET Evidence = "These data indicate that, at the concentrations studied, aggregated tau
 enters neurons almost entirely via endocytosis"
 SET Confidence = "High"
-bp(GO:endocytosis) -> tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+bp(GO:endocytosis) -> tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
 UNSET Confidence
 
 SET Evidence = "Inhibition of actin
@@ -267,7 +267,7 @@ SET Evidence = "Disruption of actin polymerization
 has previously been shown to inhibit entry of fibrils
 formed of the tau repeat domain (Holmes et al., 2013)"
 SET Confidence = "High"
-bp(GO:"actin filament polymerization") -> tloc(a(HBP:"Tau fibrils"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+bp(GO:"actin filament polymerization") -> tloc(a(CONSO:"Tau fibrils"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
 UNSET Confidence
 
 SET Evidence = "Entry of monomeric tau was markedly reduced in the presence
@@ -283,7 +283,7 @@ contrast, disruption of actin polymerization with Cytochalasin D
 had little effect on the entry of aggregated tau (total fluorescent
 intensity and number of objects; Figures 5D–5F; Figure S5)"
 SET Confidence = "High"
-a(CHEBI:"cytochalasin D") cnc tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+a(CHEBI:"cytochalasin D") cnc tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
 UNSET Confidence
 
 SET Evidence = "These independent assays confirmed
@@ -301,9 +301,9 @@ SET Evidence = "Conversely, dynamin inhibition significantly reduced
 the entry of aggregated tau, with no significant effects of Cytochalasin
 D (Figure S6) at this relatively high molar concent of aggregated tau"
 SET Confidence = "High"
-a(CHEBI:dynasore) -| tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
-act(p(HGNC:DNM1)) -> tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
-a(CHEBI:"cytochalasin D") cnc tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+a(CHEBI:dynasore) -| tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+act(p(HGNC:DNM1)) -> tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+a(CHEBI:"cytochalasin D") cnc tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
 UNSET Confidence
 
 SET Evidence = "Pre-incubation with the polyclonal (anti-taupAb) tau antibody
@@ -311,27 +311,27 @@ reduced the amount of monomeric tau that entered neurons as assessed by the numb
 vesicles (Figure 6B; Figure S7)"
 SET Confidence = "Low"
 #anti-tau polyclonal antibody to the C-terminal half of tau
-#complex(a(HBP:"Tau antibody, 4E4"),p(HGNC:MAPT,var("p.Pro301Ser"))) -| tloc(p(HGNC:MAPT,var("p.Pro301Ser")),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+#complex(a(CONSO:"Tau antibody, 4E4"),p(HGNC:MAPT,var("p.Pro301Ser"))) -| tloc(p(HGNC:MAPT,var("p.Pro301Ser")),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
 UNSET Confidence
 
 SET Evidence = "Tau antibodies also reduced entry of aggregated tau uptake
 into human neurons (Figure 6C)"
 SET Confidence = "Low"
-#complex(a(HBP:"Tau antibody, 4E4"),a(HBP:"Tau aggregates")) -| tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+#complex(a(CONSO:"Tau antibody, 4E4"),a(CONSO:"Tau aggregates")) -| tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
 UNSET Confidence
 
 SET Evidence = "In the presence of anti-taupAb,
 the number of aggregated tau-pHrodo vesicles was reduced
 by more than half (Figure 6D; Figure S7)"
 SET Confidence = "Low"
-#complex(a(HBP:"Tau antibody, 4E4"),p(HGNC:MAPT,var("p.Pro301Ser"))) -| composite(p(HGNC:MAPT,var("p.Pro301Ser")),a(MESH:"Transport Vesicles"))
+#complex(a(CONSO:"Tau antibody, 4E4"),p(HGNC:MAPT,var("p.Pro301Ser"))) -| composite(p(HGNC:MAPT,var("p.Pro301Ser")),a(MESH:"Transport Vesicles"))
 UNSET Confidence
 
 SET Evidence = "These independent assays confirmed that tau-specific antibodies
 significantly reduced the amount of tau-Dylight entering
 neurons (Figure S7)"
 SET Confidence = "Low"
-#a(HBP:"Tau antibody, 4E4") -| tloc(p(HGNC:MAPT,var("p.Pro301Ser")),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+#a(CONSO:"Tau antibody, 4E4") -| tloc(p(HGNC:MAPT,var("p.Pro301Ser")),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
 UNSET Confidence
 
 SET Evidence = "To distinguish between
@@ -341,5 +341,5 @@ of incubation, antibodies were detected in the fixed neurons
 with a secondary antibody specific to the host species (antirabbit
 polyclonal; Figure 7) and also imaged for tau-Dylight."
 SET Confidence = "Low"
-#complex(a(HBP:"Tau antibody, 4E4"),a(HBP:"Tau aggregates")) -> tloc(a(HBP:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
+#complex(a(CONSO:"Tau antibody, 4E4"),a(CONSO:"Tau aggregates")) -> tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:"extracellular region"),toLoc(MESH:Neurons))
 UNSET Confidence

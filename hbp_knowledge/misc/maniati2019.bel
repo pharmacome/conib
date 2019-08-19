@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc-names.belns"
 #DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc.genefamily-names.belns"
 #DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hp-names.belns"
@@ -227,9 +227,9 @@ by the misfolding and aggregation of α‐synuclein
 synucleinopathy, which leads to the destruction of
 dopaminergic neurons within substantia nigra pars
 compacta."
-path(MESH:"Parkinson Disease") -- a(HBP:"alpha-synuclein aggregates")
+path(MESH:"Parkinson Disease") -- a(CONSO:"alpha-synuclein aggregates")
 SET MeSHAnatomy = "Pars Compacta"
-a(HBP:"alpha-synuclein aggregates") -| a(MESH:"Dopaminergic Neurons")
+a(CONSO:"alpha-synuclein aggregates") -| a(MESH:"Dopaminergic Neurons")
 UNSET MeSHAnatomy
 
 SET Evidence = "This protein is commonly found in the presynaptic terminus
@@ -303,8 +303,8 @@ decrease the expression of Hsp70 by increasing the
 aggregation of the α‐synuclein protein"
 g(NCBIGENE:406950) -- path(MESH:"Parkinson Disease")
 g(NCBIGENE:406950) -| a(MESH:"HSP70 Heat-Shock Proteins")
-g(NCBIGENE:406950) -> a(HBP:"alpha-synuclein aggregates")
-a(HBP:"alpha-synuclein aggregates") neg a(MESH:"HSP70 Heat-Shock Proteins")
+g(NCBIGENE:406950) -> a(CONSO:"alpha-synuclein aggregates")
+a(CONSO:"alpha-synuclein aggregates") neg a(MESH:"HSP70 Heat-Shock Proteins")
 
 SET Evidence = "By linking to the
 3′‐UTR sequence of Hsp70 mRNA, miR‐16‐1 configures
@@ -313,8 +313,8 @@ boosts the aggregation of α‐synuclein protein, and this
 increases the incidence of PD."
 complex(g(NCBIGENE:406950),a(MESH:"HSP70 Heat-Shock Proteins")) reg act(a(MESH:"HSP70 Heat-Shock Proteins"))
 g(NCBIGENE:406950) neg a(MESH:"HSP70 Heat-Shock Proteins")
-a(MESH:"HSP70 Heat-Shock Proteins") -| a(HBP:"alpha-synuclein aggregates")
-a(HBP:"alpha-synuclein aggregates") -> path(MESH:"Parkinson Disease")
+a(MESH:"HSP70 Heat-Shock Proteins") -| a(CONSO:"alpha-synuclein aggregates")
+a(CONSO:"alpha-synuclein aggregates") -> path(MESH:"Parkinson Disease")
 
 SET Evidence = "That is, in the event that miRNAs
 regulating α‐synuclein that reduce its accumulation
@@ -377,7 +377,7 @@ coding the DJ‐1 protein. This protein acts as chaperon in the
 neurons, thus preventing the aggregation of the α‐synuclein
 protein"
 SET MeSHAnatomy = "Neurons"
-p(HGNC:PARK7) -| a(HBP:"alpha-synuclein aggregates")
+p(HGNC:PARK7) -| a(CONSO:"alpha-synuclein aggregates")
 UNSET MeSHAnatomy
 
 SET Evidence = "It also inhibits apoptosis and prevents the death of

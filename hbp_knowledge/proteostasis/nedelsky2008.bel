@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
@@ -82,7 +82,7 @@ states such as cancer and neurodegeneration [5]."
 SET Confidence = "High"
 bp(GO:"cellular protein catabolic process") reg bp(GO:"cellular homeostasis")
 bp(GO:"cellular protein catabolic process") neg path(MESH:Neoplasms)
-bp(GO:"cellular protein catabolic process") neg path(HBP:Neurodegeneration)
+bp(GO:"cellular protein catabolic process") neg path(CONSO:Neurodegeneration)
 UNSET Confidence
 
 SET Evidence = "UPS-mediated catabolism is also essential to mainten amino acid pools in acute starvation
@@ -281,7 +281,7 @@ SET Evidence = "Many neurodegenerative diseases are characterized by accumulatio
 deposits in affected brain regions, suggesting a failure in the cell’s degradative capacity [19]."
 SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
-path(MESH:"Neurodegenerative Diseases") pos p(MESH:Proteins,pmod(HBP:misfolding))
+path(MESH:"Neurodegenerative Diseases") pos p(MESH:Proteins,pmod(CONSO:misfolding))
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -289,7 +289,7 @@ SET Evidence = "Indeed, experimental evidence indicates that neurodegeneration
 is frequently associated with impaired UPS function, although whether this is a cause or
 consequence of neurodegeneration is a contested issue, as is reviewed elsewhere in this special issue"
 SET Confidence = "High"
-path(HBP:Neurodegeneration) neg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+path(CONSO:Neurodegeneration) neg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
 UNSET Confidence
 
 SET Evidence = "It has also been suggested that autophagy plays a role in the initiation or progression of
@@ -355,15 +355,15 @@ al. concluded that soluble forms of the disease protein are efficiently degraded
 while aggregated or oligomeric α-synuclein require autophagy for clearance [26]."
 SET Confidence = "Medium"
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(HGNC:SNCA))
-bp(GO:autophagy) -> deg(a(HBP:"alpha-synuclein aggregates"))
-bp(GO:autophagy) -> deg(a(HBP:"alpha-synuclein oligomers"))
+bp(GO:autophagy) -> deg(a(CONSO:"alpha-synuclein aggregates"))
+bp(GO:autophagy) -> deg(a(CONSO:"alpha-synuclein oligomers"))
 UNSET Confidence
 
 SET Evidence = "It is becoming increasingly evident that the autophagy-lysosomal system is essential to
 neuronal homeostasis, and may in some settings be neuroprotective"
 SET Confidence = "High"
 bp(GO:autophagy) reg bp(GO:"neuron cellular homeostasis")
-bp(GO:autophagy) -| path(HBP:Neurodegeneration)
+bp(GO:autophagy) -| path(CONSO:Neurodegeneration)
 UNSET Confidence
 
 SET Evidence = "The consequences of impaired lysosome function, for example, may be observed in cathepsin D knockout mice and
@@ -371,7 +371,7 @@ Drosophila melanogaster cathepsin D mutants which show neurodegeneration and ass
 accumulation of autophagosomes and lysosomes [33–35]."
 SET Confidence = "Medium"
 SET Species = {"7227","10090"}
-p(HGNC:CTSD) -| path(HBP:Neurodegeneration)
+p(HGNC:CTSD) -| path(CONSO:Neurodegeneration)
 p(HGNC:CTSD) neg a(GO:lysosome)
 p(HGNC:CTSD) neg a(GO:autophagosome)
 UNSET Species
@@ -381,7 +381,7 @@ SET Evidence = "Indeed, primary lysosomal dysfunction in inherited congenital �
 been recognized to cause severe neurodegenerative phenotypes characterized pathologically
 by accumulations of lysosomes and autophagic vacuoles [38]"
 SET Confidence = "High"
-act(a(GO:lysosome)) -| path(HBP:Neurodegeneration)
+act(a(GO:lysosome)) -| path(CONSO:Neurodegeneration)
 act(a(GO:lysosome)) -> a(GO:autophagosome)
 act(a(GO:lysosome)) -> a(GO:lysosome)
 UNSET Confidence
@@ -402,7 +402,7 @@ UNSET Confidence
 
 SET Evidence = "CLN3-related neurodegeneration appears to be a consequence of reduced autophagosome-lysosome fusion [42]."
 SET Confidence = "High"
-a(GO:autolysosome) -| path(HBP:Neurodegeneration)
+a(GO:autolysosome) -| path(CONSO:Neurodegeneration)
 UNSET Confidence
 
 SET Evidence = "Diseasecausing mutations in ATP13A2 result in protein retention in the endoplasmic reticulum and
@@ -410,7 +410,7 @@ enhanced proteasomal degradation, suggesting that neurodegeneration could be cau
 overwhelming the UPS and/or loss of function in lysosomal protein degradation [39]."
 SET Confidence = "High"
 p(HGNC:ATP13A2,var("?")) -> bp(GO:"proteasomal protein catabolic process")
-p(HGNC:ATP13A2,var("?")) -> path(HBP:Neurodegeneration)
+p(HGNC:ATP13A2,var("?")) -> path(CONSO:Neurodegeneration)
 UNSET Confidence
 
 SET Evidence = "Rab7 participates in trafficking autophagosomes and fusion with lysosomes and disease-causing
@@ -451,7 +451,7 @@ SET Confidence = "Medium"
 SET Species = "10090"
 SET MeSHDisease = "Alzheimer Disease"
 p(HGNC:BECN1) -> bp(GO:autophagy)
-bp(GO:autophagy) -| path(HBP:Neurodegeneration)
+bp(GO:autophagy) -| path(CONSO:Neurodegeneration)
 UNSET MeSHDisease
 UNSET Species
 UNSET Confidence
@@ -482,9 +482,9 @@ SET Confidence = "Medium"
 SET Species = {"7227","10090"}
 SET MeSHDisease = "Huntington Disease"
 a(CHEBI:"lithium(1+)") -> bp(GO:autophagy)
-a(CHEBI:"lithium(1+)") -| path(HBP:Neurodegeneration)
+a(CHEBI:"lithium(1+)") -| path(CONSO:Neurodegeneration)
 a(CHEBI:"alpha,alpha-trehalose") -> bp(GO:autophagy)
-a(CHEBI:"alpha,alpha-trehalose") -| path(HBP:Neurodegeneration)
+a(CHEBI:"alpha,alpha-trehalose") -| path(CONSO:Neurodegeneration)
 UNSET MeSHDisease
 UNSET Species
 UNSET Confidence
@@ -496,7 +496,7 @@ use of a proteasome activator enhanced survival in an in vitro model of Huntingt
 neuroprotection."
 SET Confidence = "High"
 SET MeSHDisease = "Huntington Disease"
-act(complex(GO:"proteasome complex")) -| path(HBP:Neurodegeneration)
+act(complex(GO:"proteasome complex")) -| path(CONSO:Neurodegeneration)
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -554,8 +554,8 @@ pathology [36,37]."
 SET Confidence = "Medium"
 SET Species = "10090"
 SET Cell = "central nervous system neuron"
-p(HGNC:ATG5) -| path(HBP:Neurodegeneration)
-p(HGNC:ATG7) -| path(HBP:Neurodegeneration)
+p(HGNC:ATG5) -| path(CONSO:Neurodegeneration)
+p(HGNC:ATG7) -| path(CONSO:Neurodegeneration)
 UNSET Cell
 UNSET Species
 UNSET Confidence
@@ -580,7 +580,7 @@ clearance of misfolded proteins from aggresomes is mediated at least in part by 
 implicating this pathway as a compensatory mechanism for degrading misfolded proteins when
 the proteasome is impaired [27,64,71,73]."
 SET Confidence = "High"
-bp(GO:autophagy) reg deg(p(MESH:Proteins,pmod(HBP:misfolding)))
+bp(GO:autophagy) reg deg(p(MESH:Proteins,pmod(CONSO:misfolding)))
 UNSET Confidence
 
 SET Evidence = "In addition to aggresome formation, impairment of the UPS in vitro has been found to induce
@@ -646,11 +646,11 @@ situations [83,84]"
 SET Confidence = "Medium"
 bp(GO:"cellular response to stress") -> p(HGNC:SQSTM1)
 bp(GO:"response to oxidative stress") -> p(HGNC:SQSTM1)
-p(MESH:Proteins,pmod(HBP:misfolding)) -> p(HGNC:SQSTM1)
+p(MESH:Proteins,pmod(CONSO:misfolding)) -> p(HGNC:SQSTM1)
 act(complex(GO:"proteasome complex")) -| p(HGNC:SQSTM1)
 bp(GO:"cellular response to stress") -> r(HGNC:SQSTM1)
 bp(GO:"response to oxidative stress") -> r(HGNC:SQSTM1)
-p(MESH:Proteins,pmod(HBP:misfolding)) -> r(HGNC:SQSTM1)
+p(MESH:Proteins,pmod(CONSO:misfolding)) -> r(HGNC:SQSTM1)
 act(complex(GO:"proteasome complex")) -| r(HGNC:SQSTM1)
 UNSET Confidence
 

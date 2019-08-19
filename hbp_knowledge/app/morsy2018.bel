@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/209a3048003c8d92394e6b64778447bd996a21e6/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -107,8 +107,8 @@ in Apolipoprotein E4 (APOE4), which affects the clearance of Aβ, will experienc
 SET Confidence = "Medium"
 g(HGNC:APP, var("?")) -> path(MESH:"Alzheimer Disease")
 g(HGNC:APP, var("?")) -> bp(GO:"amyloid-beta formation")
-g(HBP:"APOE e4") -> path(MESH:"Alzheimer Disease")
-g(HBP:"APOE e4") -> bp(GO:"amyloid-beta clearance")
+g(CONSO:"APOE e4") -> path(MESH:"Alzheimer Disease")
+g(CONSO:"APOE e4") -> bp(GO:"amyloid-beta clearance")
 UNSET Confidence
 
 SET Evidence = " In
@@ -124,20 +124,20 @@ APP (695 to 770 amino acids in length), which is sequentially cleaved by the asp
 and  γ-secretase,  that  leads  to  the  formation  of  Aβ  peptide  (1-42)  and  a  degenerated  C-terminus. "
 #BACE1 : Beta - secretase
 SET Confidence = "High"
-p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta polypeptide 42"), p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")))
-p(FPLX:"Gamma_secretase") -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta polypeptide 42"), p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")))
+p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta polypeptide 42"), p(CONSO:"APP C-terminally truncated carboxyl-terminal fragments")))
+p(FPLX:"Gamma_secretase") -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta polypeptide 42"), p(CONSO:"APP C-terminally truncated carboxyl-terminal fragments")))
 UNSET Confidence
 
 SET Evidence = " Mitochondrial  dysfunction  is  the  hallmark  of  Aβ-induced
 toxicity. 50-52  "
 SET Confidence = "High"
-a(HBP:"amyloid-beta aggregates") -> path(HBP:"mitochondrial dysfunction")
+a(CONSO:"amyloid-beta aggregates") -> path(CONSO:"mitochondrial dysfunction")
 UNSET Confidence
 
 SET Evidence = "Accumulation of Aβ has also been associated with a decrease in the activity of
 cytochrome c oxidase, the terminal enzyme in the electron transport chain. "
 SET Confidence = "High"
-a(HBP:"amyloid-beta aggregates") -| act(p(FPLX:COX))
+a(CONSO:"amyloid-beta aggregates") -| act(p(FPLX:COX))
 UNSET Confidence
 
 SET Evidence = " Binding of Aβ to ABAD
@@ -188,7 +188,7 @@ UNSET Confidence
 SET Evidence = " For example, estradiol
 can reduce the generation of Aβ by altering the metabolism of APP and disrupting it’s trafficking."
 SET Confidence = "High"
-a(PUBCHEM:"5757") -| a(HBP:"amyloid-beta aggregates")
+a(PUBCHEM:"5757") -| a(CONSO:"amyloid-beta aggregates")
 UNSET Confidence
 
 SET Evidence = "Moreover,  estradiol  has  been  shown  to  inhibit  tau  hyperphosphorylation  and  can  also  modulate
@@ -196,7 +196,7 @@ glycogen  synthase  kinase-3β  (GSK-3β)  activity,  a  kinase  that  is  invol
 Estradiol  deactivates  GSK-3β  by  inducing  its  phosphorylation,  thereafter  reducing  tau
 phosphorylation. "
 SET Confidence = "High"
-a(PUBCHEM:"5757") -| p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+a(PUBCHEM:"5757") -| p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 a(PUBCHEM:"5757") -| act(p(HGNC:GSK3B))
 a(PUBCHEM:"5757") -> p(HGNC:GSK3B, pmod(Ph))
 act(p(HGNC:GSK3B)) -> p(HGNC:MAPT, pmod(Ph))
@@ -207,9 +207,9 @@ Aβ-ABAD interaction and decreases mitochondrial dysfunction by decreasing the e
 levels, in addition to decreasing Aβ levels."
 SET Confidence = "High"
 a(CHEBI:"methylene blue") -| complex(p(HGNC:HSD17B10),p(HGNC:APP))
-a(CHEBI:"methylene blue") -| path(HBP:"mitochondrial dysfunction")
+a(CHEBI:"methylene blue") -| path(CONSO:"mitochondrial dysfunction")
 a(CHEBI:"methylene blue") -| p(HGNC:HSD17B10)
-a(CHEBI:"methylene blue") -| a(HBP:"amyloid-beta aggregates")
+a(CHEBI:"methylene blue") -| a(CONSO:"amyloid-beta aggregates")
 UNSET Confidence
 
 SET Evidence = " Neurons from these animals exhibited increased oxidative stress, increased
@@ -325,14 +325,14 @@ reported. "
 #22174920
 #Comment ?
 SET Confidence = "High"
-a(HBP:"AG18051") -| act(p(HGNC:HSD17B10))
+a(CONSO:"AG18051") -| act(p(HGNC:HSD17B10))
 UNSET Confidence
 
 SET Evidence = " Moreover, it has been shown
 to ameliorate Aβ-induced toxicity at the cellular level. 7"
 #it : AG18051
 SET Confidence = "High"
-a(HBP:"AG18051") -| act(a(HBP:"amyloid-beta aggregates"))
+a(CONSO:"AG18051") -| act(a(CONSO:"amyloid-beta aggregates"))
 UNSET Confidence
 
 SET Evidence = "Interestingly, during the search for inhibitors of 17β-HSD isoforms for the treatment of estrogen-
@@ -340,7 +340,7 @@ related diseases, 127  Ayan et.al identified the steroidal compound RM-532-46 (8
 inhibitor (IC 50  = 0.55 M)."
 #22674910
 SET Confidence = "High"
-a(HBP:"RM-532-46") -| act(p(HGNC:HSD17B10))
+a(CONSO:"RM-532-46") -| act(p(HGNC:HSD17B10))
 UNSET Confidence
 
 SET Evidence = "Frentizole,  an  FDA  approved  immunosuppressant  drug,  was  identified  as  an  Aβ-ABAD
