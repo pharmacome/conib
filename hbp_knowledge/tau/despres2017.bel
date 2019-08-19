@@ -16,7 +16,6 @@ SET DOCUMENT Description = ""
 
 # Namespaces defined with regular expressions
 # -------------------------------------------
-DEFINE NAMESPACE DNSNP AS PATTERN "rs[0-9]+"
 DEFINE NAMESPACE TAXONOMY AS PATTERN "^\d+$"
 
 # Namespaces hosted on https://github.com/pharmacome/terminology
@@ -25,7 +24,7 @@ DEFINE NAMESPACE MESH     AS URL "https://raw.githubusercontent.com/pharmacome/t
 DEFINE NAMESPACE CHEBI    AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
 DEFINE NAMESPACE DRUGBANK AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
-DEFINE NAMESPACE HBP      AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
 DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
 DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
@@ -71,7 +70,7 @@ SET Tau_Epitope = "AT8"
 SET Evidence = "Only very recently has the crystal structure of its fragment antigen body (Fab) with different
 phosphorylated peptides suggested that a third phosphorylation event at position Ser208 might lead to an epitope with an even better affinity (15)."
 SET Confidence = "High"
-p(HGNC:MAPT, pmod(Ph, Ser, 208)) partOf p(HBP:"Tau epitope, AT8")
+p(HGNC:MAPT, pmod(Ph, Ser, 208)) partOf p(CONSO:"Tau epitope, AT8")
 UNSET Confidence
 
 SET Evidence = "When combined with ERK2 catalyzed phosphorylation, the turn-like
@@ -79,18 +78,18 @@ disrupting G207V mutation in TauF8 hence leads to fast aggregation that already 
 SET Confidence = "High"
 act(p(HGNC:MAPK1)) -> p(HGNC:MAPT, pmod(Ph, Ser, 202))
 act(p(HGNC:MAPK1)) -> p(HGNC:MAPT, pmod(Ph, Thr, 205))
-p(HGNC:MAPT, pmod(Ph, Ser, 202)) partOf p(HBP:"Tau epitope, AT8")
-p(HGNC:MAPT, pmod(Ph, Thr, 205)) partOf p(HBP:"Tau epitope, AT8")
-p(HGNC:MAPT, var("pGly207Val")) -> a(HBP:"Tau aggregates")
-p(HGNC:MAPT, pmod(Ph, Ser, 202),  pmod(Ph, Thr, 205)) -> a(HBP:"Tau Protein Secondary Structure, Turn")
-p(HGNC:MAPT, var("p.Gly207Val")) -| a(HBP:"Tau Protein Secondary Structure, Turn")
+p(HGNC:MAPT, pmod(Ph, Ser, 202)) partOf p(CONSO:"Tau epitope, AT8")
+p(HGNC:MAPT, pmod(Ph, Thr, 205)) partOf p(CONSO:"Tau epitope, AT8")
+p(HGNC:MAPT, var("p.Gly207Val")) -> a(CONSO:"Tau aggregates")
+p(HGNC:MAPT, pmod(Ph, Ser, 202),  pmod(Ph, Thr, 205)) -> a(CONSO:"Tau Protein Secondary Structure, Turn")
+p(HGNC:MAPT, var("p.Gly207Val")) -| a(CONSO:"Tau Protein Secondary Structure, Turn")
 UNSET Confidence
 
 SET Evidence = "Our finding that the resulting Tau species with phosphorylation at Ser202/Th205, but with a disrupted turn-like structure,
 forms abundant fibers detectable by thioflavin fluorescence or electron microscopy (Figs. 2 and 4) suggests the initial
 turn-like structure induced by the phosphorylation of only Ser202 and Thr205 is protective against aggregation."
 SET Confidence = "High"
-a(HBP:"Tau Protein Secondary Structure, Turn") -| a(HBP:"Tau aggregates")
+a(CONSO:"Tau Protein Secondary Structure, Turn") -| a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Phosphorylation at Ser208 might be catalyzed by Casein kinase 1 (44), and its identification as a potential
@@ -102,10 +101,10 @@ UNSET Confidence
 SET Evidence = "Indeed, Tau phosphorylation at the three positions, Ser202/Thr205/Ser208, while not at Ser262, is
 sufficient to induce aggregation without the addition of any exogenous aggregation inducer."
 SET Confidence = "High"
-p(HGNC:MAPT, pmod(Ph, Ser, 202),  pmod(Ph, Thr, 205), pmod(Ph, Thr, 208)) eq p(HBP:"Tau epitope, AT8")
-p(HBP:"Tau epitope, AT8") -> a(HBP:"Tau aggregates")
-p(HGNC:MAPT, pmod(Ph, Ser, 208)) -| a(HBP:"Tau Protein Secondary Structure, Turn")
-a(HBP:"Tau Protein Secondary Structure, Turn") -| a(HBP:"Tau aggregates")
+p(HGNC:MAPT, pmod(Ph, Ser, 202),  pmod(Ph, Thr, 205), pmod(Ph, Thr, 208)) eq p(CONSO:"Tau epitope, AT8")
+p(CONSO:"Tau epitope, AT8") -> a(CONSO:"Tau aggregates")
+p(HGNC:MAPT, pmod(Ph, Ser, 208)) -| a(CONSO:"Tau Protein Secondary Structure, Turn")
+a(CONSO:"Tau Protein Secondary Structure, Turn") -| a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 UNSET Tau_Epitope

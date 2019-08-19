@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
@@ -76,18 +76,18 @@ DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifact
 
 SET Citation = {"PubMed","28528849"}
 
-# Pro-aggregant tau: TauRDΔK280 : p(HBP:"Tau oligomers",var("p.Lys280del"))
+# Pro-aggregant tau: TauRDΔK280 : p(CONSO:"Tau oligomers",var("p.Lys280del"))
 # in this paper the mutant refers to Tau oligomers
-# general references and not results refer to p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del"))
+# general references and not results refer to p(CONSO:"Tau isoform F (441 aa)",var("p.Lys280del"))
 
 SET Evidence = "TauRDΔK comprises the structural elements required for the
 pathologic assembly of tau filaments, and it causes reversible
 memory deficits and synapse loss in regulatable transgenic mice [11,25]."
 SET Confidence = "Medium"
 SET Species = "10090"
-p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del")) -| bp(GO:memory)
-p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del")) -| a(GO:synapse)
-p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del")) -> a(HBP:"Tau fibrils")
+p(CONSO:"Tau isoform F (441 aa)",var("p.Lys280del")) -| bp(GO:memory)
+p(CONSO:"Tau isoform F (441 aa)",var("p.Lys280del")) -| a(GO:synapse)
+p(CONSO:"Tau isoform F (441 aa)",var("p.Lys280del")) -> a(CONSO:"Tau fibrils")
 UNSET Species
 UNSET Confidence
 
@@ -96,7 +96,7 @@ repeat domain TauRDΔK revealed that oligomers are present, partly in a disulfid
 SET Confidence = "Medium"
 SET Species = "10090"
 SET MeSHAnatomy = "Brain"
-p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del")) -> a(HBP:"Tau oligomers")
+p(CONSO:"Tau isoform F (441 aa)",var("p.Lys280del")) -> a(CONSO:"Tau oligomers")
 UNSET Species
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -107,14 +107,14 @@ SET Evidence = "During early stages of assembly, there is some increase in ThS i
 ANSfluorescence (Fig. 2Aand B), which is due to oligomers, indicating a change in conformation without increase in beta-structure"
 # monomeric TauRDΔK assembly to oligomers
 SET Confidence = "High"
-p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del")) -> p(HBP:"Tau oligomers",var("p.Lys280del"))
+p(CONSO:"Tau isoform F (441 aa)",var("p.Lys280del")) -> p(CONSO:"Tau oligomers",var("p.Lys280del"))
 UNSET Confidence
 
 SET Evidence = "During the transition from oligomers to polymers, the ANS fluorescence remains roughly constant, whereas
 ThS fluorescence increases strongly (Fig. 2B)"
 SET Confidence = "High"
 # high ThS signal: fibrils
-p(HBP:"Tau oligomers",var("p.Lys280del")) -> p(HBP:"Tau fibrils",var("p.Lys280del"))
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -> p(CONSO:"Tau fibrils",var("p.Lys280del"))
 UNSET Confidence
 
 SET Evidence = "To address this question, we first applied the oligomers directly after the purification of the protein eluting from the Butyl FF 16/
@@ -122,15 +122,15 @@ SET Evidence = "To address this question, we first applied the oligomers directl
 pronounced reduction in the cell viability (by MTT assay, Fig. 3A), increase in apoptotic cells (by Hoechst staining,
 Supplementary Fig. 4A), loss of mitochondrial membrane potential (by JC1 assay, Supplementary Fig. 4B), caspase 3/7 activation
 (Supplementary Fig. 4C-D), and cytochrome-c release (Supplementary Fig. 4), within 5 hours of incubation."
-#oligomers: p(HBP:"Tau oligomers",var("p.Lys280del"))
+#oligomers: p(CONSO:"Tau oligomers",var("p.Lys280del"))
 SET Confidence = "Medium"
 SET CellLine = "SH-SY5Y"
-p(HBP:"Tau oligomers",var("p.Lys280del")) -> bp(GO:"cell death")
-p(HBP:"Tau oligomers",var("p.Lys280del")) -> bp(GO:"apoptotic process")
-p(HBP:"Tau oligomers",var("p.Lys280del")) -> bp(GO:"negative regulation of mitochondrial membrane potential")
-p(HBP:"Tau oligomers",var("p.Lys280del")) -> act(p(HGNC:CASP3))
-p(HBP:"Tau oligomers",var("p.Lys280del")) -> act(p(HGNC:CASP7))
-p(HBP:"Tau oligomers",var("p.Lys280del")) -> sec(p(HGNC:CYCS))
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -> bp(GO:"cell death")
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -> bp(GO:"apoptotic process")
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -> bp(GO:"negative regulation of mitochondrial membrane potential")
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -> act(p(HGNC:CASP3))
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -> act(p(HGNC:CASP7))
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -> sec(p(HGNC:CYCS))
 UNSET CellLine
 UNSET Confidence
 
@@ -138,7 +138,7 @@ SET Evidence = "There was no significant change in the LDH release in oligomer-t
 indicating that TauRDΔK oligomers do not compromise the membrane integrity (Supplementary Fig. 5G-H)."
 SET Confidence = "Medium"
 SET CellLine = "SH-SY5Y"
-p(HBP:"Tau oligomers",var("p.Lys280del")) cnc a(GO:membrane)
+p(CONSO:"Tau oligomers",var("p.Lys280del")) cnc a(GO:membrane)
 UNSET CellLine
 UNSET Confidence
 
@@ -147,7 +147,7 @@ neurons in the CA3 and other regions of the hippocampus [11,24]."
 SET Confidence = "Medium"
 SET Species = "10090"
 SET MeSHAnatomy = "CA3 Region, Hippocampal"
-p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del")) -| a(MESH:Neurons)
+p(CONSO:"Tau isoform F (441 aa)",var("p.Lys280del")) -| a(MESH:Neurons)
 UNSET MeSHAnatomy
 UNSET Species
 UNSET Confidence
@@ -156,7 +156,7 @@ SET Evidence = "We reasoned that microglia and other cell types in the hippocamp
 cytotoxicity caused by TauRDΔK oligomers, which could explain why cytotoxicity was not observed in the cell
 culture systems."
 SET Confidence = "High"
-a(MESH:Microglia) reg act(p(HBP:"Tau oligomers",var("p.Lys280del")))
+a(MESH:Microglia) reg act(p(CONSO:"Tau oligomers",var("p.Lys280del")))
 UNSET Confidence
 
 SET Evidence = "Consistent with this, NeuN staining of the slices fixed after 48 hours of treatment with TauRDΔK oligomers
@@ -165,7 +165,7 @@ D, Supplementary Fig. 7), confirming that TauRDΔK oligomers do not cause cell d
 # OHSC model: ex vivo method to examine mechanisms of neuronal injury
 SET Confidence = "High"
 SET MeSHAnatomy = {"CA3 Region, Hippocampal","CA1 Region, Hippocampal","CA2 Region, Hippocampal"}
-p(HBP:"Tau oligomers",var("p.Lys280del")) cnc bp(GO:"cell death")
+p(CONSO:"Tau oligomers",var("p.Lys280del")) cnc bp(GO:"cell death")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -176,42 +176,42 @@ LDH when applied on the differentiated SH-SY5Y cells (Supplementary Fig. 8A), an
 reduction in cell viability by the MTTassay (Supplementary Fig. 8B)."
 SET Confidence = "Medium"
 SET CellLine = "SH-SY5Y"
-a(HBP:"Tau aggregates") cnc bp(GO:"cell death")
-a(HBP:"Tau aggregates") cnc a(GO:membrane)
+a(CONSO:"Tau aggregates") cnc bp(GO:"cell death")
+a(CONSO:"Tau aggregates") cnc a(GO:membrane)
 UNSET CellLine
 UNSET Confidence
 
 SET Evidence = "Recently, extracellular tau oligomers were shown to impair long term potentiation (LTP) and memory [40]."
 SET Confidence = "High"
 SET MeSHAnatomy = "Extracellular Space"
-a(HBP:"Tau oligomers") -| bp(GO:"long-term synaptic potentiation")
-a(HBP:"Tau oligomers") -| bp(GO:memory)
+a(CONSO:"Tau oligomers") -| bp(GO:"long-term synaptic potentiation")
+a(CONSO:"Tau oligomers") -| bp(GO:memory)
 UNSET MeSHAnatomy
 UNSET Confidence
 
 SET Evidence = "In this case, there was a dramatic loss (up to 50%) of spines in TauRDΔK oligomer-treated cells
 compared with monomer-treated cells (Fig. 4A and B, bar 3)."
 SET Confidence = "High"
-p(HBP:"Tau oligomers",var("p.Lys280del")) -| a(MESH:"Dendritic Spines")
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -| a(MESH:"Dendritic Spines")
 UNSET Confidence
 
 SET Evidence = "The fibril-treated cells (cross-linked with GA or not) did not reduce the spine density significantly (Fig 4C, bars
 8 and 9)."
 SET Confidence = "Medium"
-a(HBP:"Tau fibrils") cnc a(MESH:"Dendritic Spines")
+a(CONSO:"Tau fibrils") cnc a(MESH:"Dendritic Spines")
 UNSET Confidence
 
 SET Evidence = "For comparison, in the case of Ab oligomers, only higher concentrations
 (w1 mM) cause an appreciable spine reduction of w30% (Fig. 4C, bar 3) (Zempel et al., 2010 [30])."
 SET Confidence = "High"
-a(HBP:"AβOs") -| a(MESH:"Dendritic Spines")
+a(CONSO:"AβOs") -| a(MESH:"Dendritic Spines")
 UNSET Confidence
 
 SET Evidence = "PSD-95, a marker of postsynaptic spines, decreased
 up to 50% in the TauRDΔK oligomer-treated cells, compared with buffer- and monomer-treated cells"
 SET Confidence = "High"
 SET MeSHAnatomy = "Dendritic Spines"
-p(HBP:"Tau oligomers",var("p.Lys280del")) -| a(GO:postsynapse)
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -| a(GO:postsynapse)
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -219,23 +219,23 @@ SET Evidence = "Similarly, the GluR1 subunits of a-amino-3-hydroxy-5-methyl-4-is
 acid (AMPA) receptors (characteristic of mature spines and necessary for LTP and calcium signaling)
 decreased in the oligomer-treated samples up to 60%."
 SET Confidence = "High"
-p(HBP:"Tau oligomers",var("p.Lys280del")) -| p(HGNC:GRIA1)
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -| p(HGNC:GRIA1)
 UNSET Confidence
 
 SET Evidence = "Drebrin, a neuronal actin-binding protein involved in spinogenesis
 and synaptogenesis, was decreased by up to 60% consistent with the reduced number of spines (Fig. 4D,
 bars 3, 6, and 9)."
 SET Confidence = "High"
-p(HBP:"Tau oligomers",var("p.Lys280del")) -| p(HGNC:DBN1)
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -| p(HGNC:DBN1)
 p(HGNC:DBN1) -> bp(GO:"synapse assembly")
-p(HBP:"Tau oligomers",var("p.Lys280del")) -| a(MESH:"Dendritic Spines")
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -| a(MESH:"Dendritic Spines")
 UNSET Confidence
 
 SET Evidence = "We also looked at the presynaptic protein synaptophysin, which was not significantly altered in
 TauRDΔK oligomer-treated cells compared with buffer- or monomer-treated cells (Fig 4D, bar 12). However, at higher
 concentration, synaptophysin tends to be reduced."
 SET Confidence = "High"
-p(HBP:"Tau oligomers",var("p.Lys280del")) -| p(HGNC:SYP)
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -| p(HGNC:SYP)
 UNSET Confidence
 
 SET Evidence = "We observed an oligomer-dependent increase in the ROS production
@@ -243,35 +243,35 @@ in the mature rat primary hippocampal neurons in all cellular compartments (Fig.
 SET Confidence = "Medium"
 SET Species = "10116"
 SET Cell = "hippocampal neuron"
-p(HBP:"Tau oligomers",var("p.Lys280del")) -> a(CHEBI:"reactive oxygen species")
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -> a(CHEBI:"reactive oxygen species")
 UNSET Cell
 UNSET Confidence
 
 SET Evidence = "By contrast, monomers of TauRDΔK even at 10 mM concentration
 did not cause any significant ROS increase (Fig. 5B)."
 SET Confidence = "High"
-p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del")) cnc a(CHEBI:"reactive oxygen species")
+p(CONSO:"Tau isoform F (441 aa)",var("p.Lys280del")) cnc a(CHEBI:"reactive oxygen species")
 UNSET Confidence
 
 SET Evidence = "We indeed found that there is an overexpression (w15%) of Nox1 protein (a component of NADPH oxidase
 complex) by Western blot, suggesting the role of NADPH oxidase complex as a potential source of ROS"
 SET Confidence = "High"
-p(HBP:"Tau oligomers",var("p.Lys280del")) -> p(HGNC:NOX1)
-p(HBP:"Tau oligomers",var("p.Lys280del")) -> act(complex(GO:"NADPH oxidase complex"))
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -> p(HGNC:NOX1)
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -> act(complex(GO:"NADPH oxidase complex"))
 act(complex(GO:"NADPH oxidase complex")) -> a(CHEBI:"reactive oxygen species")
 UNSET Confidence
 
 SET Evidence = "However, we did not find significant changes in the expression level
 of Nox2 protein (another component of NADPH oxidase complex) (Fig. 5C)."
 SET Confidence = "High"
-p(HBP:"Tau oligomers",var("p.Lys280del")) cnc p(HGNC:CYBB)
+p(CONSO:"Tau oligomers",var("p.Lys280del")) cnc p(HGNC:CYBB)
 UNSET Confidence
 
 SET Evidence = "These findings suggest that the ROS production induced by extracellular TauRDΔK oligomers might
 cause the activation of NADPH oxidase complex"
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Extracellular Space"
-p(HBP:"Tau oligomers",var("p.Lys280del")) -> a(CHEBI:"reactive oxygen species")
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -> a(CHEBI:"reactive oxygen species")
 a(CHEBI:"reactive oxygen species") -> act(complex(GO:"NADPH oxidase complex"))
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -281,27 +281,27 @@ showed a steady concentration-dependent increase in the intracellular calcium wi
 of incubation with oligomers (10 mM) occurring in all cell compartments (Fig. 5D; arrows)."
 SET Confidence = "Medium"
 SET Cell = "hippocampal neuron"
-p(HBP:"Tau oligomers",var("p.Lys280del")) -> a(CHEBI:"calcium(2+)",loc(GO:intracellular))
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -> a(CHEBI:"calcium(2+)",loc(GO:intracellular))
 UNSET Cell
 UNSET Confidence
 
 SET Evidence = "By contrast, there was no significant increase in the calcium level in cells treated with
 TauRDΔK monomers even at higher concentration (10 mM) (Fig. 5E and F, green curves)."
 SET Confidence = "Medium"
-p(HBP:"Tau isoform F (441 aa)",var("p.Lys280del")) cnc a(CHEBI:"calcium(2+)",loc(GO:intracellular))
+p(CONSO:"Tau isoform F (441 aa)",var("p.Lys280del")) cnc a(CHEBI:"calcium(2+)",loc(GO:intracellular))
 UNSET Confidence
 
 SET Evidence = "We did not observe any increase in the phosphorylation of the tau
 repeat domain (as seen by the antibody 12E8) after treating the neurons with TauRDΔK oligomers."
 SET Confidence = "High"
-p(HBP:"Tau oligomers",var("p.Lys280del")) cnc p(HGNC:MAPT,pmod(Ph,Ser,262))
+p(CONSO:"Tau oligomers",var("p.Lys280del")) cnc p(HGNC:MAPT,pmod(Ph,Ser,262))
 UNSET Confidence
 
 SET Evidence = "We also checked the phosphorylation of tau at other sites (e.g., using the antibody AT8, reacting only with the endogenous
 tau) and did not observe an increase in the phosphorylation."
 SET Confidence = "High"
-p(HBP:"Tau oligomers",var("p.Lys280del")) cnc p(HGNC:MAPT,pmod(Ph,Ser,202))
-p(HBP:"Tau oligomers",var("p.Lys280del")) cnc p(HGNC:MAPT,pmod(Ph,Thr,205))
+p(CONSO:"Tau oligomers",var("p.Lys280del")) cnc p(HGNC:MAPT,pmod(Ph,Ser,202))
+p(CONSO:"Tau oligomers",var("p.Lys280del")) cnc p(HGNC:MAPT,pmod(Ph,Thr,205))
 UNSET Confidence
 
 SET Evidence = "Endogenous tau protein retained its normal axonal localization and did not missort into the
@@ -309,9 +309,9 @@ cell body and dendrites (Fig. 6A8), although there was a reduction in the spine 
 oligomer-treated neurons."
 SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
-p(HBP:"Tau oligomers",var("p.Lys280del")) cnc tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(GO:"cell body"))
-p(HBP:"Tau oligomers",var("p.Lys280del")) cnc tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines"))
-p(HBP:"Tau oligomers",var("p.Lys280del")) -| a(MESH:"Dendritic Spines")
+p(CONSO:"Tau oligomers",var("p.Lys280del")) cnc tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(GO:"cell body"))
+p(CONSO:"Tau oligomers",var("p.Lys280del")) cnc tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines"))
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -| a(MESH:"Dendritic Spines")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -319,14 +319,14 @@ SET Evidence = "The results revealed that both TauRDΔK and TauFLΔK oligomers r
 of spines up to 50% compared with the buffer-treated cells."
 # TauFLDK: full-length TauFLΔK
 SET Confidence = "High"
-p(HBP:"Tau oligomers",var("p.Lys280del")) -| a(MESH:"Dendritic Spines")
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -| a(MESH:"Dendritic Spines")
 UNSET Confidence
 
 SET Evidence = "Tau oligomers from TauRDΔK and TauFLΔK mice reduced the density of the synapses by
 w50%, whereas tau from wild-type mice had no effect on the density (Fig. 7G)."
 SET Confidence = "Medium"
 SET Species = "10090"
-p(HBP:"Tau oligomers",var("p.Lys280del")) -| a(GO:synapse)
+p(CONSO:"Tau oligomers",var("p.Lys280del")) -| a(GO:synapse)
 p(HGNC:MAPT) cnc a(GO:synapse)
 UNSET Species
 UNSET Confidence

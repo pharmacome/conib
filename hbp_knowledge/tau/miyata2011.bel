@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
@@ -80,7 +80,7 @@ SET Citation = {"PubMed","21882945"}
 SET Evidence = "Tauopathies are a family of neurodegenerative
 disorders characterized by the appearance of
 aggregates of the microtubule-associating protein, tau."
-a(HBP:"Tau aggregates") -> path(MESH:Tauopathies)
+a(CONSO:"Tau aggregates") -> path(MESH:Tauopathies)
 
 SET Evidence = "For example, tau pathology closely correlates to neuron loss and
 cognitive deficits"
@@ -112,7 +112,7 @@ p(HGNC:PPP2R5B) -| p(HGNC:MAPT,pmod(Ph))
 SET Evidence = "However, hyperphosphorylated forms of tau are
 more prone to aggregate, which might decrease
 their solubility and remove them from normal cycling"
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> a(CONSO:"Tau aggregates")
 
 SET Evidence = "There are no cures for any tauopathy.
 Neuroprotective agents, such as acetylcholinesterase
@@ -129,21 +129,21 @@ multiple different chemical classes, including
 rhodanine-based inhibitors, phenylthiazolylhydrazides,
 N-phenylamines, anthraquinones, benzothiazoles, phenothiazines and polyphenols [41]"
 # compounds that directly block the aggregation of tau
-a(CHEBI:rhodanine) -| a(HBP:"Tau aggregates")
-a(HBP:"Phenylthiazolyl-hydrazide") -| a(HBP:"Tau aggregates")
-a(PUBCHEM:53789478) -| a(HBP:"Tau aggregates")
-a(CHEBI:anthraquinone) -| a(HBP:"Tau aggregates")
-a(CHEBI:benzothiazoles) -| a(HBP:"Tau aggregates")
-a(CHEBI:phenothiazines) -| a(HBP:"Tau aggregates")
-a(CHEBI:polyphenol) -| a(HBP:"Tau aggregates")
+a(CHEBI:rhodanine) -| a(CONSO:"Tau aggregates")
+a(CONSO:"Phenylthiazolyl-hydrazide") -| a(CONSO:"Tau aggregates")
+a(PUBCHEM:53789478) -| a(CONSO:"Tau aggregates")
+a(CHEBI:anthraquinone) -| a(CONSO:"Tau aggregates")
+a(CHEBI:benzothiazoles) -| a(CONSO:"Tau aggregates")
+a(CHEBI:phenothiazines) -| a(CONSO:"Tau aggregates")
+a(CHEBI:polyphenol) -| a(CONSO:"Tau aggregates")
 
 SET Evidence = "All proteins, including tau,
 are subject to extensive regulation by the cellular
 quality control pathways, which carefully control
 the balance between protein expression and
 turnover to maintain healthy protein homeostasis (or proteostasis)"
-bp(HBP:Proteostasis) reg p(HGNC:MAPT)
-bp(HBP:Proteostasis) reg a(MESH:Proteins)
+bp(CONSO:Proteostasis) reg p(HGNC:MAPT)
+bp(CONSO:Proteostasis) reg a(MESH:Proteins)
 
 SET Evidence = "Interestingly, tau clearance
 is known to be impaired in the aging brain [45],
@@ -156,8 +156,8 @@ SET Evidence = "Furthermore, recent evidence suggests that tau
 is essential for the neurotoxicity of amyloid-b, providing a possible link between these classic
 AD targets and suggesting that reductions in tau levels might be important via multiple,
 beneficial mechanisms [46–48]"
-a(CHEBI:"amyloid-beta") -> path(HBP:neurotoxicity)
-p(HGNC:MAPT) -> path(HBP:neurotoxicity)
+a(CHEBI:"amyloid-beta") -> path(CONSO:neurotoxicity)
+p(HGNC:MAPT) -> path(CONSO:neurotoxicity)
 
 SET Evidence = "Molecular chaperones are abundant and highly
 conserved proteins that assume an important role in protein quality control"
@@ -245,11 +245,11 @@ a(CHEBI:celastrol) -- act(p(FPLX:HSP90))
 SET Evidence = "These proteins are ATP-independent chaperones that
 undergo homo-oligomerization in response to stress [97,98]"
 #these proteins: Hsp27 oligomers
-bp(GO:"cellular response to stress") -> a(HBP:"Hsp27 oligomers")
+bp(GO:"cellular response to stress") -> a(CONSO:"Hsp27 oligomers")
 
 SET Evidence = "To allow substrate release, Hsp27 oligomerization is
 reversible; a process that is regulated, at least in part, by phosphorylation"
-bp(GO:phosphorylation) reg a(HBP:"Hsp27 oligomers")
+bp(GO:phosphorylation) reg a(CONSO:"Hsp27 oligomers")
 
 SET Evidence = "During protein quality control, Hsp70, Hsp90 and Hsp27 (and their co-chaperones) often work
 in concert. If prolonged misfolding is detected, the chaperones shuttle the protein to a degradation
@@ -289,7 +289,7 @@ SET Evidence = "However, under potentially proteotoxic conditions, the
 post-translational modifications or mutations that damage tau’s affinity for microtubules and
 favor its aggregation are thought to generate a molecular ‘danger signal’ that specifically alerts
 the quality control system [112,113]."
-p(HGNC:MAPT,var("?")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,var("?")) -> a(CONSO:"Tau aggregates")
 p(HGNC:MAPT,var("?")) -| complex(p(HGNC:MAPT),a(GO:microtubule))
 
 SET Evidence = "Hsp70 has been shown to both stabilize binding
@@ -339,10 +339,10 @@ p(FPLX:HSP90) reg p(HGNC:MAPT,var("?"))
 
 SET Evidence = "Hsp27 has emerged as a potential target for tau regulation based on early findings that it
 preferentially binds to phosphorylated and hyperphosphorylated tau and promotes their clearance [125,126]"
-p(HGNC:HSPB1) => complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),p(HGNC:HSPB1))
+p(HGNC:HSPB1) => complex(p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)),p(HGNC:HSPB1))
 p(HGNC:HSPB1) => complex(p(HGNC:MAPT,pmod(Ph)),p(HGNC:HSPB1))
 complex(p(HGNC:MAPT,pmod(Ph)),p(HGNC:HSPB1)) -> deg(p(HGNC:MAPT,pmod(Ph)))
-complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),p(HGNC:HSPB1)) -> deg(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)))
+complex(p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)),p(HGNC:HSPB1)) -> deg(p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)))
 
 SET Evidence = "However, astrocyte-derived Hsp27 has been shown to promote tau accumulation
 and Hsp27 associates with tau tangles in a mouse model [127,128], suggesting a more complex relationship"
@@ -433,7 +433,7 @@ act(p(INTERPRO:"Heat shock protein 70 family")) -> p(HGNC:MAPT)
 SET Evidence = "This model is consistent with the data that hyperphosphorylated
 tau appears to be specifically selected for degradation by some chaperone
 machines, such as the Hsp90–FKBP51 complex, without effects on normal tau [132,136]."
-complex(p(HGNC:FKBP5),p(FPLX:HSP90)) -> deg(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)))
+complex(p(HGNC:FKBP5),p(FPLX:HSP90)) -> deg(p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)))
 
 SET Evidence = "For example, the Hsp90 inhibitor geldanamycin
 mimics ADP binding, but also inhibits recruitment
@@ -472,7 +472,7 @@ a(CHEBI:polyphenol) -| complex(p(INTERPRO:"Chaperone J-domain superfamily"),p(IN
 
 SET Evidence = "However, the mechanisms that link HSF1 induction to
 improved proteostasis are not yet clear"
-p(HGNC:HSF1) -> bp(HBP:Proteostasis)
+p(HGNC:HSF1) -> bp(CONSO:Proteostasis)
 
 ##########################################################
 

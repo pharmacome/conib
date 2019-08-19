@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 #DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -77,7 +77,7 @@ SET Citation = {"PubMed","25887395"}
 SET Evidence = "Tau RD fibrillizes very efficiently in vitro, making it ideal for
 fundamental studies (13)."
 SET Confidence = "High"
-p(HGNC:MAPT, frag("243_375")) -> a(HBP:"Tau fibrils")
+p(HGNC:MAPT, frag("243_375")) -> a(CONSO:"Tau fibrils")
 UNSET Confidence
 
 SET Evidence = "Heparan sulfate proteoglycans (HSPGs) are cell surface pro-
@@ -85,16 +85,16 @@ teins that bind Tau fibrils and are required for their uptake and
 seeding (10). "
 #Syndecans: Syndecan heparan sulfate proteoglycans
 SET Confidence = "High"
-complex(p(HGNCGENEFAMILY:"Syndecans"),a(HBP:"Tau fibrils")) -> tloc(a(HBP:"Tau fibrils"), MESH:"Extracellular Space", MESH:"Intracellular Space")
-complex(p(HGNCGENEFAMILY:"Syndecans"),a(HBP:"Tau fibrils")) -> a(HBP:"Tau aggregates")
+complex(p(HGNCGENEFAMILY:"Syndecans"),a(CONSO:"Tau fibrils")) -> tloc(a(CONSO:"Tau fibrils"), MESH:"Extracellular Space", MESH:"Intracellular Space")
+complex(p(HGNCGENEFAMILY:"Syndecans"),a(CONSO:"Tau fibrils")) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Heparin blocks Tau binding by masking HSPG binding
 sites on Tau, and sodium chlorate inhibits HSPG sulfation."
 SET Confidence = "Medium"
-a(CHEBI:heparin) -| complex(p(HGNCGENEFAMILY:"Syndecans"),a(HBP:"Tau fibrils"))
-a(CHEBI:"sodium chlorate") -| complex(p(HGNCGENEFAMILY:"Syndecans"),a(HBP:"Tau fibrils"))
-a(CHEBI:"sodium chlorate") -| p(HGNCGENEFAMILY:"Syndecans",pmod(Sulf)) 
+a(CHEBI:heparin) -| complex(p(HGNCGENEFAMILY:"Syndecans"),a(CONSO:"Tau fibrils"))
+a(CHEBI:"sodium chlorate") -| complex(p(HGNCGENEFAMILY:"Syndecans"),a(CONSO:"Tau fibrils"))
+a(CHEBI:"sodium chlorate") -| p(HGNCGENEFAMILY:"Syndecans",pmod(Sulf))
 UNSET Confidence
 
 SET Evidence = " Within
@@ -104,9 +104,9 @@ species were readily internalized, with trimer uptake being
 slightly less efficient (Fig. 5, A and B). We did not observe an
 upper limit of size in terms of uptake."
 SET Confidence = "Medium"
-p(HGNC:MAPT) cnc tloc(a(HBP:"Tau fibrils"), MESH:"Extracellular Space", MESH:"Intracellular Space")
-complex(p(HGNC:MAPT),p(HGNC:MAPT)) cnc tloc(a(HBP:"Tau fibrils"), MESH:"Extracellular Space", MESH:"Intracellular Space")
-complex(p(HGNC:MAPT),p(HGNC:MAPT),p(HGNC:MAPT)) -> tloc(a(HBP:"Tau fibrils"), MESH:"Extracellular Space", MESH:"Intracellular Space")
+p(HGNC:MAPT) cnc tloc(a(CONSO:"Tau fibrils"), MESH:"Extracellular Space", MESH:"Intracellular Space")
+complex(p(HGNC:MAPT),p(HGNC:MAPT)) cnc tloc(a(CONSO:"Tau fibrils"), MESH:"Extracellular Space", MESH:"Intracellular Space")
+complex(p(HGNC:MAPT),p(HGNC:MAPT),p(HGNC:MAPT)) -> tloc(a(CONSO:"Tau fibrils"), MESH:"Extracellular Space", MESH:"Intracellular Space")
 UNSET Confidence
 
 SET Evidence = "Only Tau RD oligomers of
@@ -114,8 +114,8 @@ n  3 increased luciferase signal, defining these assemblies as
 the minimal size sufficient for spontaneous cell uptake and
 seeding (Fig. 6C)."
 SET Confidence = "Medium"
-complex(p(HGNC:MAPT, frag("243_375")),p(HGNC:MAPT, frag("243_375")),p(HGNC:MAPT, frag("243_375"))) -> a(HBP:"Tau aggregates")
-complex(p(HGNC:MAPT, frag("243_375")),p(HGNC:MAPT, frag("243_375")),p(HGNC:MAPT, frag("243_375"))) -> tloc(a(HBP:"Tau fibrils"), MESH:"Extracellular Space", MESH:"Intracellular Space")
+complex(p(HGNC:MAPT, frag("243_375")),p(HGNC:MAPT, frag("243_375")),p(HGNC:MAPT, frag("243_375"))) -> a(CONSO:"Tau aggregates")
+complex(p(HGNC:MAPT, frag("243_375")),p(HGNC:MAPT, frag("243_375")),p(HGNC:MAPT, frag("243_375"))) -> tloc(a(CONSO:"Tau fibrils"), MESH:"Extracellular Space", MESH:"Intracellular Space")
 UNSET Confidence
 
 SET Evidence = "Whereas control brain homogenate exhibited mainly Tau
@@ -123,7 +123,7 @@ monomer, the AD brain contained a range of Tau assemblies
 ranging from n = 1 to n > 20 (Fig. 7, A and B). "
 SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
-path(MESH:"Alzheimer Disease") pos a(HBP:"Tau oligomers")
+path(MESH:"Alzheimer Disease") pos a(CONSO:"Tau oligomers")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -136,9 +136,9 @@ not monomer or dimer. "
 SET Confidence = "Medium"
 SET MeSHDisease = "Alzheimer Disease"
 SET MeSHAnatomy = "Brain"
-p(HGNC:MAPT) cnc a(HBP:"Tau aggregates")
-complex(p(HGNC:MAPT),p(HGNC:MAPT)) cnc a(HBP:"Tau aggregates")
-complex(p(HGNC:MAPT),p(HGNC:MAPT),p(HGNC:MAPT)) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT) cnc a(CONSO:"Tau aggregates")
+complex(p(HGNC:MAPT),p(HGNC:MAPT)) cnc a(CONSO:"Tau aggregates")
+complex(p(HGNC:MAPT),p(HGNC:MAPT),p(HGNC:MAPT)) -> a(CONSO:"Tau aggregates")
 UNSET MeSHDisease
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -148,6 +148,6 @@ BD Tau seeding, we titrated heparin and sodium chlorate,
 which inhibited seeding of all species (Fig. 8D)."
 # BD: Brain-derived
 SET Confidence = "High"
-a(CHEBI:heparin) -| a(HBP:"Tau aggregates")
-a(CHEBI:"sodium chlorate") -| a(HBP:"Tau aggregates")
+a(CHEBI:heparin) -| a(CONSO:"Tau aggregates")
+a(CHEBI:"sodium chlorate") -| a(CONSO:"Tau aggregates")
 UNSET Confidence

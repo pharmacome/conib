@@ -20,7 +20,7 @@ DEFINE NAMESPACE GO    AS URL "https://raw.githubusercontent.com/pharmacome/term
 DEFINE NAMESPACE HGNC  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hgnc/hgnc-20180215.belns"
 DEFINE NAMESPACE MESH  AS URL "https://raw.githubusercontent.com/pharmacome/terminology/1b20f0637c395f8aa89c2e2e342d7b704062c242/external/mesh-names.belns"
 DEFINE NAMESPACE HP    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
-DEFINE NAMESPACE HBP   AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 
 # ANNOTATIONS
 
@@ -48,7 +48,7 @@ SET Evidence = "These share a common histopathological hallmark known as neurofi
 (NFTs) that consist of an accumulation of fibrillar tau deposits initially produced from tau protein
 aggregation (Ballatore et al., 2007)"
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -> a(GO:"neurofibrillary tangle")
+a(CONSO:"Tau aggregates") -> a(GO:"neurofibrillary tangle")
 
 SET Evidence = "While functional tau is an unfolded monomeric protein that stabilizes microtubules, regulates
 neurite growth, and monitors axonal transport of organelles (Medina and Avila, 2014),
@@ -94,12 +94,12 @@ toxic, many studies suggest that the tau oligomer, an
 intermediate entity, is likely responsible for disease onset"
 SET Confidence = "Low"
 #which disease? AD?
-a(HBP:"Tau oligomers") -> path(MESH:Disease)
+a(CONSO:"Tau oligomers") -> path(MESH:Disease)
 
 SET Evidence = "Hyper-phosphorylated tau assembles into small aggregates
 known as tau oligomers in route of NFT formation"
 SET Confidence = "High"
-p(HGNC:MAPT,pmod(Ph)) -> a(HBP:"Tau oligomers")
+p(HGNC:MAPT,pmod(Ph)) -> a(CONSO:"Tau oligomers")
 p(HGNC:MAPT,pmod(Ph)) -> a(GO:"neurofibrillary tangle")
 
 SET Evidence = "As hyperphosphorylated
@@ -107,7 +107,7 @@ tau dislodges from microtubules, its affinity
 for other tau monomers leads individual tau to bind each
 other, forming oligomeric tau, a detergent-soluble aggregate"
 SET Confidence = "High"
-p(HGNC:MAPT,pmod(Ph)) -> a(HBP:"Tau oligomers")
+p(HGNC:MAPT,pmod(Ph)) -> a(CONSO:"Tau oligomers")
 
 SET Evidence = "These tau oligomers potentiate neuronal damage, leading
 to neurodegeneration and traumatic brain injury (Hawkins
@@ -116,39 +116,39 @@ Moreover, they have been implicated in synaptic loss as shown
 in studies of wild-type human tau transgenic mice (Spires
 et al., 2006; Berger et al., 2007; Clavaguera et al., 2013)"
 SET Confidence = "High"
-a(HBP:"Tau oligomers") -> bp(HP:Neurodegeneration)
-a(HBP:"Tau oligomers") -> path(MESH:"Brain Injuries, Traumatic")
-a(HBP:"Tau oligomers") -| a(GO:synapse)
+a(CONSO:"Tau oligomers") -> bp(HP:Neurodegeneration)
+a(CONSO:"Tau oligomers") -> path(MESH:"Brain Injuries, Traumatic")
+a(CONSO:"Tau oligomers") -| a(GO:synapse)
 
 SET Evidence = "When the oligomer lengthens, it adapts a beta-sheet structure and
 transforms into a detergent-insoluble aggregate with granular
 appearance under Atomic Force Microscopy (AFM)"
 SET Confidence = "Medium"
-#a(HBP:"Tau oligomers") -- bp(MESH:"Protein Conformation, beta-Strand")
-a(HBP:"Tau oligomers") -> a(HBP:"granular tau oligomers")
+#a(CONSO:"Tau oligomers") -- bp(MESH:"Protein Conformation, beta-Strand")
+a(CONSO:"Tau oligomers") -> a(CONSO:"granular tau oligomers")
 
 SET Evidence = "As these granular tau oligomers fuse together, they form tau fibrils, which
 ultimately form NFTs (Takashima, 2013)"
 SET Confidence = "Medium"
-a(HBP:"granular tau oligomers") -> a(HBP:"Tau fibrils")
-a(HBP:"Tau fibrils") -> a(GO:"neurofibrillary tangle")
+a(CONSO:"granular tau oligomers") -> a(CONSO:"Tau fibrils")
+a(CONSO:"Tau fibrils") -> a(GO:"neurofibrillary tangle")
 
 SET Evidence = "The onset of clinical symptoms in AD and PSP brains correlate
 with elevated levels of tau oligomer (Maeda et al., 2006, 2007;
 Patterson et al., 2011; Lasagna-Reeves et al., 2012b; Gerson et al.,
 2014a)"
 SET Confidence = "Medium"
-a(HBP:"Tau oligomers") positiveCorrelation path(MESH:"Alzheimer Disease")
-a(HBP:"Tau oligomers") positiveCorrelation path(MESH:"Supranuclear Palsy, Progressive")
+a(CONSO:"Tau oligomers") positiveCorrelation path(MESH:"Alzheimer Disease")
+a(CONSO:"Tau oligomers") positiveCorrelation path(MESH:"Supranuclear Palsy, Progressive")
 
 SET Evidence = "When tau oligomers, rather than tau monomers or
 fibrils, are injected into the brain of wild-type mice, cognitive,
 synaptic, and mitochondrial abnormalities follow (Lasagna-
 Reeves et al., 2011; Castillo-Carranza et al., 2014b)"
 SET Confidence = "High"
-a(HBP:"Tau oligomers") -| bp(GO:cognition)
-a(HBP:"Tau oligomers") -| bp(GO:"mitochondrion organization")
-a(HBP:"Tau oligomers") -| bp(GO:"maintenance of synapse structure")
+a(CONSO:"Tau oligomers") -| bp(GO:cognition)
+a(CONSO:"Tau oligomers") -| bp(GO:"mitochondrion organization")
+a(CONSO:"Tau oligomers") -| bp(GO:"maintenance of synapse structure")
 
 SET Evidence = "Additionally,
 studies have discovered that aggregated tau inhibits fast axonal
@@ -156,13 +156,13 @@ transport in the anterograde direction at all physiological tau
 levels, whereas tau monomers have had no effect in either
 direction (LaPointe et al., 2009; Morfini et al., 2009)"
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -| bp(GO:"anterograde axonal protein transport")
+a(CONSO:"Tau aggregates") -| bp(GO:"anterograde axonal protein transport")
 
 SET Evidence = "This indicates that tauopathies progress via a prion-like
 mechanism dependent upon tau oligomers (Gerson and Kayed,
 2013; Castillo-Carranza et al., 2014b)"
 SET Confidence = "High"
-a(HBP:"Tau oligomers") -> path(MESH:Tauopathies)
+a(CONSO:"Tau oligomers") -> path(MESH:Tauopathies)
 
 SET Evidence = "With this concept, tau
 may be able to translocate between neurons and augment toxic
@@ -170,7 +170,7 @@ tau components; in fact, evidence suggests probability of tau
 oligomer propagation between synaptically connected neurons
 (Gendreau and Hall, 2013; Pooler et al., 2013b)"
 SET Confidence = "Low"
-a(HBP:"Tau oligomers") -> tloc(p(HGNC:MAPT),fromLoc(GO:"neuron part"),toLoc(GO:"neuron part"))
+a(CONSO:"Tau oligomers") -> tloc(p(HGNC:MAPT),fromLoc(GO:"neuron part"),toLoc(GO:"neuron part"))
 
 SET Evidence = "Further, mice
 injected with tau oligomers in the proximity of the hippocampus
@@ -178,14 +178,14 @@ experienced immediate memory impairment (Lasagna-Reeves
 et al., 2011)"
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Hippocampus"
-a(HBP:"Tau oligomers") -| bp(GO:memory)
+a(CONSO:"Tau oligomers") -| bp(GO:memory)
 
 SET Evidence = "These studies demonstrate that tau oligomers
 may be the toxic entities responsible for neurodegeneration in
 tauopathies (Ward et al., 2012"
 SET Confidence = "Medium"
-a(HBP:"Tau oligomers") -> path(MESH:Tauopathies)
-a(HBP:"Tau oligomers") -> bp(HP:Neurodegeneration)
+a(CONSO:"Tau oligomers") -> path(MESH:Tauopathies)
+a(CONSO:"Tau oligomers") -> bp(HP:Neurodegeneration)
 
 SET Evidence = "Further, tau
 directly interacts with synaptic proteins, including the NMDA
@@ -230,7 +230,7 @@ decreasing synaptic connections weakens tau transfer and the
 subsequent aggregation on the acceptor cell (Calafate et al., 2015)"
 SET Confidence = "Low"
 bp(MESH:"Neuronal Plasticity") -> tloc(p(HGNC:MAPT),fromLoc(GO:cell),toLoc(GO:cell))
-bp(MESH:"Neuronal Plasticity") -- a(HBP:"Tau aggregates")
+bp(MESH:"Neuronal Plasticity") -- a(CONSO:"Tau aggregates")
 
 SET Evidence = "In AD, tau pathology has been
 found to spread from the transentorhinal cortex to the neocortex
@@ -291,7 +291,7 @@ toward tau secretion by exosomal vesicles (Dujardin et al.,
 SET Confidence = "Medium"
 a(GO:microvesicle) reg sec(p(HGNC:MAPT))
 SET MeSHAnatomy = "Exosomes"
-a(HBP:"Tau aggregates") -- sec(p(HGNC:MAPT))
+a(CONSO:"Tau aggregates") -- sec(p(HGNC:MAPT))
 
 SET Evidence = "Tau may be endocytosed, promoting an increase in intracellular
 calcium that results in neuronal death"
@@ -329,14 +329,14 @@ internalized aggregates are transported in endosomal vesicles and
 passed through the endosomal pathway to lysosomes (Wu et al.,
 2013)"
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -- a(CHEBI:dextran)
-bp(GO:endocytosis) -> tloc(a(HBP:"Tau aggregates"),fromLoc(GO:endosome),toLoc(GO:lysosome))
+a(CONSO:"Tau aggregates") -- a(CHEBI:dextran)
+bp(GO:endocytosis) -> tloc(a(CONSO:"Tau aggregates"),fromLoc(GO:endosome),toLoc(GO:lysosome))
 
 SET Evidence = "Previous studies suggest that uptake of aggregated tau from
 the extracellular space depends on interaction with heparan
 sulfate proteoglycans (HSPGs; Holmes and Diamond, 2014)"
 SET Confidence = "High"
-complex(a(HBP:"Tau aggregates"),a(MESH:"Heparan Sulfate Proteoglycans")) -> tloc(a(HBP:"Tau aggregates"), fromLoc(GO:"extracellular space"), toLoc(GO:"intracellular part"))
+complex(a(CONSO:"Tau aggregates"),a(MESH:"Heparan Sulfate Proteoglycans")) -> tloc(a(CONSO:"Tau aggregates"), fromLoc(GO:"extracellular space"), toLoc(GO:"intracellular part"))
 
 SET Evidence = "HSPGs are ubiquitously expressed in many cell types including
 neurons, and have been previously associated with dense core
@@ -344,15 +344,15 @@ plaques, cerebrovascular amyloid, and NFT formation (van
 Horssen et al., 2001)"
 SET Confidence = "High"
 a(MESH:"Heparan Sulfate Proteoglycans") -- bp(GO:"neurofibrillary tangle assembly")
-a(MESH:"Heparan Sulfate Proteoglycans") -- a(HBP:"dense core plaques")
+a(MESH:"Heparan Sulfate Proteoglycans") -- a(CONSO:"dense core plaques")
 a(MESH:"Heparan Sulfate Proteoglycans") -- path(MESH:"Cerebral Amyloid Angiopathy, Familial")
 
 SET Evidence = "Consistently, HSPGs have been implicated
 in amyloid as well as tau fibril formation in vitro, presumably
 facilitated by anionic moieties"
 SET Confidence = "High"
-a(MESH:"Heparan Sulfate Proteoglycans") -> a(HBP:"Tau fibrils")
-a(MESH:"Heparan Sulfate Proteoglycans") -> a(HBP:"amyloid-beta fibrils")
+a(MESH:"Heparan Sulfate Proteoglycans") -> a(CONSO:"Tau fibrils")
+a(MESH:"Heparan Sulfate Proteoglycans") -> a(CONSO:"amyloid-beta fibrils")
 
 SET Evidence = "However, regardless of
 the multiple “sizes” of tau aggregates that interact with the cell
@@ -360,7 +360,7 @@ surface via HSPGs, it is likely that an assembly of at least three tau
 molecules is required to initiate endocytosis via HSPGs (Mirbaha
 et al., 2015)"
 SET Confidence = "High"
-a(MESH:"Heparan Sulfate Proteoglycans") -> complex(a(HBP:"Tau aggregates"),a(GO:"cell surface"))
+a(MESH:"Heparan Sulfate Proteoglycans") -> complex(a(CONSO:"Tau aggregates"),a(GO:"cell surface"))
 
 SET Evidence = "In other words, the HSPGs serve as a receptor for the
 cellular uptake of tau, a critical step similar to prion-like
@@ -374,26 +374,26 @@ macropinocytosis, leading to propagation of aggregates between
 cells in culture and aggregate uptake in vivo (Holmes et al., 2013)"
 SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
-complex(a(MESH:"Heparan Sulfate Proteoglycans"),a(HBP:"Tau aggregates")) -> complex(a(HBP:"Tau aggregates"),a(GO:"cell surface"))
-complex(a(MESH:"Heparan Sulfate Proteoglycans"),a(HBP:"Tau aggregates")) -> bp(GO:macropinocytosis)
-complex(a(MESH:"Heparan Sulfate Proteoglycans"),a(HBP:"Tau aggregates")) -> a(HBP:"Tau aggregates")
+complex(a(MESH:"Heparan Sulfate Proteoglycans"),a(CONSO:"Tau aggregates")) -> complex(a(CONSO:"Tau aggregates"),a(GO:"cell surface"))
+complex(a(MESH:"Heparan Sulfate Proteoglycans"),a(CONSO:"Tau aggregates")) -> bp(GO:macropinocytosis)
+complex(a(MESH:"Heparan Sulfate Proteoglycans"),a(CONSO:"Tau aggregates")) -> a(CONSO:"Tau aggregates")
 
 SET Evidence = "The study discovered that APFs form after
 tau oligomer formation and bypass higher NFT aggregate
 formation"
 SET Confidence = "High"
-a(HBP:"Tau oligomers") -> a(HBP:"Tau annular protofibrils")
+a(CONSO:"Tau oligomers") -> a(CONSO:"Tau annular protofibrils")
 
 SET Evidence = "Hence, tau APFs may play a
 significant role in tauopathies by linking pore formation to cell
 death"
 SET Confidence = "High"
-a(HBP:"Tau annular protofibrils") -- path(MESH:Tauopathies)
+a(CONSO:"Tau annular protofibrils") -- path(MESH:Tauopathies)
 
 SET Evidence = "Oligomeric tau intermediates decrease cell viability (Flach et al.,
 2012)"
 SET Confidence = "High"
-a(HBP:"Tau oligomers") -| bp(MESH:"Cell Survival")
+a(CONSO:"Tau oligomers") -| bp(MESH:"Cell Survival")
 
 SET Evidence = "In aging, a protein involved in mitochondrial fission,
 dynamin-related protein 1 (DRP1), can bind tau abnormally,
@@ -415,33 +415,33 @@ p(HGNC:MAPT,frag("421_?")) -| bp(GO:"mitochondrion organization")
 SET Evidence = "Recently, data has shown that injected tau oligomers colocalize
 with the mitochondrial marker porin, suggesting a pathological relationship"
 SET Confidence = "High"
-a(HBP:"Tau oligomers") -- p(HGNC:PRNP)
+a(CONSO:"Tau oligomers") -- p(HGNC:PRNP)
 
 SET Evidence = "In fact, tau oligomers might disrupt
 microtubule stability and trafficking, thus affecting organelle
 distribution"
 SET Confidence = "High"
-a(HBP:"Tau oligomers") -| act(a(GO:microtubule))
+a(CONSO:"Tau oligomers") -| act(a(GO:microtubule))
 
 SET Evidence = "Also, data shows low levels of complex I in brain hemispheres
 injected with tau oligomers when compared to brains injected
 with monomers or fibrils"
 SET Confidence = "High"
-a(HBP:"Tau oligomers") -| a(MESH:"Electron Transport Complex I")
+a(CONSO:"Tau oligomers") -| a(MESH:"Electron Transport Complex I")
 
 SET Evidence = "These
 results imply that tau oligomers initially affect complex I activity
 and may directly or indirectly disturb the later stage of complex
 V ATP synthesis (Lasagna-Reeves et al., 2011)"
 SET Confidence = "High"
-a(HBP:"Tau oligomers") -| act(a(MESH:"Electron Transport Complex I"))
-a(HBP:"Tau oligomers") -| bp(GO:"ATP synthesis coupled proton transport")
+a(CONSO:"Tau oligomers") -| act(a(MESH:"Electron Transport Complex I"))
+a(CONSO:"Tau oligomers") -| bp(GO:"ATP synthesis coupled proton transport")
 
 SET Evidence = "Hemispheres injected with tau oligomers were found
 to have increased levels of caspase-9 activation (Lasagna-Reeves
 et al., 2011)"
 SET Confidence = "High"
-a(HBP:"Tau oligomers") -> act(p(HGNC:CASP9))
+a(CONSO:"Tau oligomers") -> act(p(HGNC:CASP9))
 
 SET Evidence = "Suggestively, as tau oligomers concentrate at the
 mitochondrial membrane, cytochrome C is released, leading to
@@ -449,7 +449,7 @@ caspase-9 activation via a complex with apoptotic-peptidase activating-
 factor-1 (Apaf-1; Li et al., 1997)"
 SET Confidence = "Medium"
 SET CellStructure = "Mitochondrial Membranes"
-a(HBP:"Tau oligomers") -> sec(p(HGNC:CYCS))
+a(CONSO:"Tau oligomers") -> sec(p(HGNC:CYCS))
 complex(p(HGNC:CYCS),p(HGNC:APAF1)) -> act(p(HGNC:CASP9))
 
 

@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
@@ -83,6 +83,7 @@ complexes (Figure 2, blue and orange squares, respectively). These two subnetwor
 STUB1, validating our approach (Brychzy et al., 2003; Schmid et al., 2012; Xu et al., 2002). Other bridging factors in this
 first tier of organization included members of the Hsp40 chaperone family (DNAJB1 and DNAJB6), HSP70-binding protein 1
 (HSPBP1), the TPR domain protein EDRF1, and the E3 ligase NRDP1/RNF41"
+SET Confidence = "High"
 p(HGNC:STIP1) -> complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:STIP1),p(INTERPRO:"Heat shock protein Hsp90 family"))
 p(HGNC:DNAJC7) -> complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:DNAJC7),p(INTERPRO:"Heat shock protein Hsp90 family"))
 p(HGNC:STUB1) -> complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:STUB1),p(INTERPRO:"Heat shock protein Hsp90 family"))
@@ -91,42 +92,56 @@ p(HGNC:DNAJB6) -> complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:DNAJ
 p(HGNC:HSPBP1) -> complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:HSPBP1),p(INTERPRO:"Heat shock protein Hsp90 family"))
 p(HGNC:EDRF1) -> complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:EDRF1),p(INTERPRO:"Heat shock protein Hsp90 family"))
 p(HGNC:RNF41) -> complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:RNF41),p(INTERPRO:"Heat shock protein Hsp90 family"))
+UNSET Confidence
 
 SET Evidence = "For example, we identified several protein kinases
 that copurified with CDC37, a known kinase-specific Hsp90 cochaperone
 (Taipale et al., 2012)"
+SET Confidence = "High"
 p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(INTERPRO:"Heat shock protein Hsp90 family"))
+UNSET Confidence
 
 SET Evidence = "CDC37L1/Harc, a protein that
 is 62% similar to CDC37 (Figure S3A; Scholz et al., 2001), similarly
 interacted very strongly with Hsp90 and several of its cochaperones (Figures 2 and 3B)"
+SET Confidence = "High"
 p(HGNC:CDC37L1) => complex(p(HGNC:CDC37L1),p(INTERPRO:"Heat shock protein Hsp90 family"))
+UNSET Confidence
 
 SET Evidence = "For example, CDC37L1 interacted with the bridging factor HOP, whereas
 CDC37 copurified with AHA1 (Figure 3B), but even more
 strikingly, CDC37L1 did not associate with any kinases in AP-MS (Figures 2 and 3B)"
+#HOP : STIP1
+SET Confidence = "High"
 p(HGNC:CDC37L1) => complex(p(HGNC:CDC37L1),p(HGNC:STIP1))
 p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:AHSA1))
+UNSET Confidence
 
 SET Evidence = "CDC37L1 lacks the very N terminus of
 CDC37, which is required for kinase interaction and the cellular
 function of CDC37 (Shao et al., 2003), and is able to mediate
 strong interaction with ARAF when fused to CDC37L1 (Figure S3B)"
+SET Confidence = "High"
 p(INTERPRO:"Cdc37, N-terminal domain") -> act(p(HGNC:CDC37))
 complex(p(INTERPRO:"Cdc37, N-terminal domain"),p(HGNC:CDC37L1)) reg complex(p(INTERPRO:"Cdc37, N-terminal domain"),p(HGNC:CDC37L1),p(HGNC:ARAF))
+UNSET Confidence
 
 SET Evidence = "These proteins share an FK506-binding
 domain and one or more TPR domains, which confer interaction with Hsp90 (Figure 3A)."
 #these proteins: FK506-binding protein family
+SET Confidence = "High"
 p(INTERPRO:"Tetratricopeptide repeat") -> complex(a(MESH:"Tacrolimus Binding Proteins"),p(INTERPRO:"Heat shock protein Hsp90 family"))
+UNSET Confidence
 
 SET Evidence = "First, FKBP51 interacted with a subset of the kinases that interacted with CDC37 (Figure 3B)"
+SET Confidence = "Medium"
 p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:AURKB))
 p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:CDK11A))
 p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:CDK1))
 p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:IKBKG))
 p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:CDK4))
 p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:FER))
+p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:IKBKB))
 p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:CHUK))
 p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:RAF1))
 p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:ABL2))
@@ -137,25 +152,30 @@ p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:CDK1))
 p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:IKBKG))
 p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:CDK4))
 p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:FER))
+p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:IKBKB))
 p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:CHUK))
 p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:RAF1))
 p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:ABL2))
 p(HGNC:CDC37) => complex(p(HGNC:CDC37),p(HGNC:ARAF))
 p(HGNC:FKBP5) -- p(HGNC:CDC37)
+UNSET Confidence
 
 SET Evidence = "Second, FKBP51 interacted with the Argonaute proteins AGO1
 and AGO2, which are known Hsp90 clients involved in small
 RNA biogenesis (Iwasaki et al., 2010)"
+SET Confidence = "High"
 p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:AGO1))
 p(HGNC:FKBP5) => complex(p(HGNC:FKBP5),p(HGNC:AGO2))
 p(HGNC:AGO1) => complex(p(HGNC:AGO1),p(INTERPRO:"Heat shock protein Hsp90 family"))
 p(HGNC:AGO1) => complex(p(HGNC:AGO2),p(INTERPRO:"Heat shock protein Hsp90 family"))
 p(HGNC:AGO1) pos bp(GO:"ribonucleoprotein complex biogenesis")
 p(HGNC:AGO2) pos bp(GO:"ribonucleoprotein complex biogenesis")
+UNSET Confidence
 
 SET Evidence = "Third, FKBP51 associated with three transcription factors (EGLN1, PDCD2, ANKMY2), all of
 which contain an MYND zinc finger domain, suggesting that this
 domain represents an Hsp90-interacting protein fold"
+SET Confidence  = "High"
 p(HGNC:FKBP5) -- p(HGNC:EGLN1)
 p(HGNC:EGLN1) -- p(INTERPRO:"Zinc finger, MYND-type")
 p(INTERPRO:"Zinc finger, MYND-type") -> complex(p(HGNC:EGLN1),p(INTERPRO:"Heat shock protein Hsp90 family"))
@@ -165,10 +185,12 @@ p(INTERPRO:"Zinc finger, MYND-type") ->  complex(p(HGNC:PDCD2),p(INTERPRO:"Heat 
 p(HGNC:FKBP5) -- p(HGNC:ANKMY2)
 p(HGNC:ANKMY2) -- p(INTERPRO:"Zinc finger, MYND-type")
 p(INTERPRO:"Zinc finger, MYND-type") -> complex(p(HGNC:ANKMY2),p(INTERPRO:"Heat shock protein Hsp90 family"))
+UNSET Confidence
 
 SET Evidence = "Perhaps most surprisingly, we found that FKBP51 interacted
 with MCM4 and MCMBP (Figure 3B), two subunits of the MCM
 complex that are involved in DNA replication initiation and fork progression"
+SET Confidence = "High"
 p(HGNC:FKBP5) -> complex(p(HGNC:FKBP5),p(HGNC:MCM4))
 p(HGNC:FKBP5) -> complex(p(HGNC:FKBP5),p(HGNC:MCMBP))
 complex(GO:"MCM complex") hasComponents list(p(HGNC:MCM4),p(HGNC:MCMBP))
@@ -176,169 +198,238 @@ p(HGNC:MCMBP) -> bp(GO:"DNA replication initiation")
 p(HGNC:MCMBP) -> bp(GO:"replication fork progression beyond termination site")
 p(HGNC:MCM4) -> bp(GO:"DNA replication initiation")
 p(HGNC:MCM4) ->  bp(GO:"replication fork progression beyond termination site")
+UNSET Confidence
 
 SET Evidence = "Indeed, MCMBP interacted with all members
 of the MCM complex and with FKBP51 (Figure S3C)"
-complex(GO:"MCM complex") hasComponents list(p(HGNC:MCM2),p(HGNC:MCM4),p(HGNC:MCM3),p(HGNC:MCM5),p(HGNC:MCM6),p(HGNC:MCM7))
+SET Confidence = "Medium"
+complex(GO:"MCM complex") hasComponents list(p(HGNC:MCM2),p(HGNC:MCM4),p(HGNC:MCM3),p(HGNC:MCM5),p(HGNC:MCM6),p(HGNC:MCM7), p(HGNC:MCM9),p(HGNC:MCM8),p(HGNC:KEAP1))
 p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:MCM2))
 p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:MCM3))
 p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:MCM4))
 p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:MCM5))
 p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:MCM6))
 p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:MCM7))
+p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:MCM9))
+p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:MCM8))
+p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:KEAP1))
 p(HGNC:MCMBP) -> complex(p(HGNC:MCMBP),p(HGNC:FKBP5))
+UNSET Confidence
 
 SET Evidence = "Corroborating our results, a recent systematic small
 interfering RNA (siRNA) screen identified FKBP51 as a factor in
 modulating the cellular response to DNA damage (Cotta-Ramusino et al., 2011)"
+SET Confidence = "High"
 p(HGNC:FKBP5) reg bp(GO:"cellular response to DNA damage stimulus")
+UNSET Confidence
 
 SET Evidence = "For example, the FKBP38 (aka FKBP8) interactome suggested a link to G protein
 signaling through interaction with PDCL, which acts as a chaperone
 for G protein g subunits (Lukov et al., 2006; Figure 3B)."
+SET Confidence = "High"
 p(HGNC:FKBP8) -> complex(p(HGNC:FKBP8),p(HGNC:PDCL))
 p(HGNC:FKBP8) -- bp(GO:"G protein-coupled receptor signaling pathway")
 p(HGNC:PDCL) -- p(INTERPRO:"G-protein, gamma subunit")
 p(HGNC:PDCL) isA a(MESH:"Molecular Chaperones")
+UNSET Confidence
 
 SET Evidence = "In contrast, the highly homologous cochaperone FKBP36 (aka
 FKBP6) did not interact with PDCL, but instead associated
 with the oxysterol-binding protein OSBP (Burgett et al., 2011;Figure 3B)"
+SET Confidence = "High"
 p(HGNC:FKBP6) -> complex(p(HGNC:FKBP6),p(HGNC:OSBP))
+UNSET Confidence
 
 SET Evidence = "Indeed, OSW-1 treatment led to the
 dissociation of OSBP from FKBP36 (Figure 3C)"
-a(HBP:"OSW-1") -| complex(p(HGNC:FKBP6),p(HGNC:OSBP))
+SET Confidence = "High"
+a(CONSO:"OSW-1") -| complex(p(HGNC:FKBP6),p(HGNC:OSBP))
+UNSET Confidence
 
 SET Evidence = "BAG proteins comprise a family of homologous cochaperones
 for Hsp70. All of these proteins regulate Hsp70’s ATPase activity,
 interacting with Hsp70 through a conserved BAG domain in their
 C termini (Figure 3D; Kampinga and Craig, 2010)"
+SET Confidence = "High"
 p(INTERPRO:"BAG domain") reg act(p(INTERPRO:"Heat shock protein 70 family"))
+UNSET Confidence
 
 SET Evidence = "BAG1 interacted with the E3 ubiquitin ligase Listerin (LTN1),
 which is involved in ribosomal quality control (RQC) of stalled
 polypeptides (Bengtson and Joazeiro, 2010)."
+SET Confidence = "High"
 p(HGNC:BAG1) -> complex(p(HGNC:BAG1),p(HGNC:LTN1))
 p(HGNC:LTN1) -- bp(GO:"protein quality control for misfolded or incompletely synthesized proteins")
+UNSET Confidence
 
 SET Evidence = "As previously reported (Fuchs et al., 2010), BAG3 associated
 with the small heat shock proteins Hsp22/HSPB8 and
 Hsp27/HSPB1. In addition, we detected a robust interaction
 with HSF1, the master regulator of the heat-shock response (Figure 3E)"
+SET Confidence = "High"
 p(HGNC:BAG3) -> complex(p(HGNC:HSPB8),p(HGNC:BAG3))
 p(HGNC:BAG3) -> complex(p(HGNC:HSPB1),p(HGNC:BAG3))
 p(HGNC:BAG3) -> complex(p(HGNC:HSF1),p(HGNC:BAG3))
+UNSET Confidence
 
 SET Evidence = "BAG5 purification revealed the spindle checkpoint components Mad1/
 MAD1L1 and Mad2/MAD2L1 as the most prominent interactors (Schuyler et al., 2012)."
+SET Confidence = "High"
 p(HGNC:BAG5) -> complex(p(HGNC:MAD1L1),p(HGNC:BAG5))
 p(HGNC:BAG5) -> complex(p(HGNC:MAD2L1),p(HGNC:BAG5))
+UNSET Confidence
 
 SET Evidence = "BAG4, in contrast, interacted with three central components of the These three proteins localize to
 cytoplasmic structures known as processing bodies, or P bodies, which are involved in mRNA decapping, degradation,
 and translational silencing (Eulalio et al., 2007): DCP1A, EDC3, and DDX6 (Figure 3E)"
+SET Confidence = "High"
 p(HGNC:BAG4) -> complex(p(HGNC:DCP1A),p(HGNC:BAG4))
 p(HGNC:BAG4) -> complex(p(HGNC:EDC3),p(HGNC:BAG4))
 p(HGNC:BAG4) -> complex(p(HGNC:DDX6),p(HGNC:BAG4))
+UNSET Confidence
 
 SET Evidence = "These three proteins localize to cytoplasmic structures known as processing bodies, or P
 bodies, which are involved in mRNA decapping, degradation, and translational silencing (Eulalio et al., 2007)"
 # these three:DCP1A, EDC3, and DDX6
+SET Confidence = "High"
+p(HGNC:DCP1A) isA complex(GO:"P-body")
+p(HGNC:EDC3) isA complex(GO:"P-body")
+p(HGNC:DDX6) isA complex(GO:"P-body")
 p(HGNC:DCP1A) -- bp(GO:"cellular protein catabolic process")
 p(HGNC:DCP1A) -- bp(GO:"gene silencing")
 p(HGNC:EDC3) -- bp(GO:"cellular protein catabolic process")
 p(HGNC:EDC3) -- bp(GO:"gene silencing")
 p(HGNC:DDX6) -- bp(GO:"cellular protein catabolic process")
 p(HGNC:DDX6) -- bp(GO:"gene silencing")
+p(HGNC:DDX6) -| bp(GO:"7-methylguanosine mRNA capping")
+p(HGNC:EDC3) -| bp(GO:"7-methylguanosine mRNA capping")
+p(HGNC:DCP1A) -| bp(GO:"7-methylguanosine mRNA capping")
+p(HGNC:DDX6) -| bp(GO:"mRNA stabilization")
+p(HGNC:EDC3) -| bp(GO:"mRNA stabilization")
+p(HGNC:DCP1A) -| bp(GO:"mRNA stabilization")
+p(HGNC:DDX6) -> bp(GO:"translational termination")
+p(HGNC:EDC3) -> bp(GO:"translational termination")
+p(HGNC:DCP1A) -> bp(GO:"translational termination")
+UNSET Confidence
 
 SET Evidence = "Thus, BAG4 overexpression disrupted P body organization"
+SET Confidence = "High"
 SET CellLine = "HeLa cell"
 p(HGNC:BAG4) neg complex(GO:"P-body")
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "We introduced a point mutation in the BAG domain
 of BAG4 (D424A) that disrupts its association with Hsp70 (Briknarova et al., 2002; Figure S3G)"
+SET Confidence = "High"
 p(HGNC:BAG4,var("p.Asp424Ala")) -| complex(p(HGNC:BAG4,var("p.Asp424Ala")),p(INTERPRO:"Heat shock protein 70 family"))
+UNSET Confidence
 
 SET Evidence = "However, mutant BAG4 still localized to P bodies and disrupted P body organization at
 high expression levels (Figure S3H)."
+SET Confidence = "High"
 p(HGNC:BAG4,var("p.Asp424Ala")) -- complex(GO:"P-body")
 p(HGNC:BAG4,var("p.Asp424Ala")) neg complex(GO:"P-body")
+UNSET Confidence
 
 SET Evidence = "Ganetespib treatment had a strong effect on most Hsp90-
 client interactions. Of the 630 unique proteins that we detected
 by LUMIER assay, 46% significantly decreased their interaction
 with Hsp90beta (change in LUMIER score > 1.5, adjusted p value <0.05; Figure 4A)"
 # Ganetespib: inhibitor of Hsp90
+#SGT1 : SUGT1
+SET Confidence = "Low"
 a(PUBCHEM:23624255) -| act(p(INTERPRO:"Heat shock protein Hsp90 family"))
 a(PUBCHEM:23624255) -| complex(p(HGNC:HSP90AB1),p(HGNC:RPAP3))
 a(PUBCHEM:23624255) -| complex(p(HGNC:HSP90AB1),p(HGNC:SUGT1))
 a(PUBCHEM:23624255) -| complex(p(HGNC:HSP90AB1),p(HGNC:FKBP4))
+UNSET Confidence
 
 SET Evidence = "The effect of ganetespib on Hsc70 interactions was more subtle
 but still clearly detectable: 16% of the tested proteins increased
 their interaction with Hsc70 upon ganetespib treatment. This
 was particularly noticeable for proteins that interacted strongly with Hsc70 (Figure 4B)."
+SET Confidence = "Medium"
 a(PUBCHEM:23624255) -> complex(p(HGNC:HSPA8),p(HGNC:BAG3))
 a(PUBCHEM:23624255) -> complex(p(HGNC:HSPA8),p(HGNC:BAG1))
 a(PUBCHEM:23624255) -> complex(p(HGNC:HSPA8),p(HGNC:BAG4))
 a(PUBCHEM:23624255) -> complex(p(HGNC:HSPA8),p(HGNC:BAG5))
+a(PUBCHEM:23624255) -> complex(p(HGNC:HSPA8),p(HGNC:BAG2))
+UNSET Confidence
 
 SET Evidence = "A few, mostly cochaperones, decreased
 their interaction with both Hsp90b and Hsc70 (blue circles, Figure 4C)."
-#effect of ganetespib on Hsp90 and Hsc70 interactions
+#effect of ganetespib on Hsp90 and Hsc70
+SET Confidence = "High"
 a(PUBCHEM:23624255) -| complex(p(HGNC:HSP90AB1),p(HGNC:SUGT1))
 a(PUBCHEM:23624255) -| complex(p(HGNC:HSP90AB1),p(HGNC:FKBP4))
 a(PUBCHEM:23624255) -| complex(p(HGNC:HSP90AB1),p(HGNC:FKBP5))
 a(PUBCHEM:23624255) -| complex(p(HGNC:HSPA8),p(HGNC:SUGT1))
 a(PUBCHEM:23624255) -| complex(p(HGNC:HSPA8),p(HGNC:FKBP4))
 a(PUBCHEM:23624255) -| complex(p(HGNC:HSPA8),p(HGNC:FKBP5))
+UNSET Confidence
 
 SET Evidence = "Interestingly, five proteins increased their interaction
 with both Hsp90 and Hsp70 after drug treatment (orange circles,Figure 4C)"
 #drug:ganetespib
+SET Confidence = "High"
 a(PUBCHEM:23624255) -> complex(p(HGNC:HSP90AB1),p(HGNC:SIRT6))
 a(PUBCHEM:23624255) -> complex(p(HGNC:HSP90AB1),p(HGNC:AR))
 a(PUBCHEM:23624255) -> complex(p(HGNC:HSPA8),p(HGNC:SIRT6))
 a(PUBCHEM:23624255) -> complex(p(HGNC:HSPA8),p(HGNC:AR))
+UNSET Confidence
 
 SET Evidence = "For example, Hsp70 and Hsp90 machineries formed distinct clusters: Hsp70
 clustered together with Hsc70, their nucleotide-exchange factor
 BAG2, and the E3 ligase CHIP (Figure 5A, orange cluster),
 whereas Hsp90 and many of its cochaperones formed a separate
 group (Figure 5A, blue cluster)"
-p(INTERPRO:"Heat shock protein 70 family") => complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:HSPA8),p(HGNC:BAG2),p(HGNC:STUB1))
+#Hsc70 : HSPA8
+SET Confidence = "Medium"
+p(INTERPRO:"Heat shock protein 70 family") => complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:HSPA8),p(HGNC:BAG2),p(HGNC:STUB1), p(HGNC:RPN1))
+UNSET Confidence
 
 SET Evidence = "Similarly, three components of the
 proteasome regulatory particle (PSMD4, PSMC1, and ADRM1)
 clustered together, as did the two subunits of the prefoldin complex,
 PFDN2 and PFDN5 (Figure 5A)"
-p(HGNC:PSMD4) => complex(p(HGNC:PSMD4),p(HGNC:PSMC1),p(HGNC:ADRM1))
+SET Confidence = "High"
+complex(p(HGNC:PSMD4),p(HGNC:PSMC1),p(HGNC:ADRM1))
 complex(GO:"prefoldin complex") hasComponents list(p(HGNC:PFDN2),p(HGNC:PFDN5))
-p(HGNC:PFDN2) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5))
+complex(p(HGNC:PFDN2),p(HGNC:PFDN5))
+UNSET Confidence
 
 SET Evidence = "Hsp90beta interacted particularly strongly with kinases (Figure 5B, filled
 blue circles), whereas the transcription factors p53 and HSF1
 were among the most Hsp70-biased interactors (Figure 5B,green circles)"
+SET Confidence = "High"
 p(HGNC:HSP90AB1) => complex(p(HGNC:HSP90AB1),a(MESH:"Protein Kinases"))
 p(INTERPRO:"Heat shock protein 70 family") => complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:TP53),p(HGNC:HSF1))
+UNSET Confidence
 
 SET Evidence = "BAG proteins interacted more
 strongly with Hsp70B' than with Hsp70 or Hsc70 (Figure S4B and data not shown)"
+#Hsp70B : HSPA7, HSPA6
+SET Confidence = "High"
 p(INTERPRO:"BAG domain superfamily") => complex(p(HGNC:HSPA6),p(INTERPRO:"BAG domain superfamily"))
 p(INTERPRO:"BAG domain superfamily") => complex(p(HGNC:HSPA8),p(INTERPRO:"BAG domain superfamily"))
+UNSET Confidence
 
 SET Evidence = "The Hsp90 cochaperone UNC45A, but
 not its homolog UNC45B, were previously described as an
 Hsp90beta-specific cochaperone (Chadli et al., 2008) and this
 held true in our assay. We detected a similar preference for sFKBP38 (Figure 5D)"
+SET Confidence = "High"
 p(HGNC:UNC45A) => complex(p(HGNC:UNC45A),p(HGNC:HSP90AB1))
+UNSET Confidence
 
+#evidence of the other proteosome subunit could be helpful.
+## i think it was only mentioned in the the figure, if not than delete the annotation
 SET Evidence = "BAG3 and BAG4 showed a strong association only
 with the small heat shock protein Hsp27 (Figure 5F) and the
 mRNA decapping complex member DCP1B, respectively (Figure
 5G), whereas BAG1 interacted with several proteasome subunits (Figure S4C)"
+SET Confidence = "Low"
 p(HGNC:BAG3) => complex(p(HGNC:BAG3),p(HGNC:HSPB1))
 p(HGNC:BAG3) => complex(p(HGNC:BAG3),p(HGNC:DCP1B))
 p(HGNC:BAG4) => complex(p(HGNC:BAG4),p(HGNC:HSPB1))
@@ -346,10 +437,14 @@ p(HGNC:BAG4) => complex(p(HGNC:BAG4),p(HGNC:DCP1B))
 p(HGNC:BAG1) => complex(p(HGNC:BAG1),p(HGNC:PSMA5))
 p(HGNC:BAG1) => complex(p(HGNC:BAG1),p(HGNC:PSMC4))
 p(HGNC:BAG1) => complex(p(HGNC:BAG1),p(HGNC:PSMD2))
+UNSET Confidence
 
+#difficult in understanding the refernce.
+## everything that i annotated was possibly mentioned in the figure
 SET Evidence = "RPN1 interacted strongly with four BAG proteins and with the ubiquitin ligase CHIP. This
 was in contrast to the three other subunits (RPN10, RPN13,
 and RPT2) that primarily interacted with other proteasome subunits (Figures 5I, 5J, and S4E)"
+SET Confidence = "Low"
 p(HGNC:PSMD2) => complex(p(HGNC:BAG1),p(HGNC:PSMD2))
 p(HGNC:PSMD2) => complex(p(HGNC:BAG2),p(HGNC:PSMD2))
 p(HGNC:PSMD2) => complex(p(HGNC:BAG3),p(HGNC:PSMD2))
@@ -366,22 +461,29 @@ p(HGNC:ADRM1) => complex(p(HGNC:PSMD1),p(HGNC:ADRM1))
 p(HGNC:ADRM1) => complex(p(HGNC:PSMD4),p(HGNC:ADRM1))
 p(HGNC:PSMC1) => complex(p(HGNC:PSMC2),p(HGNC:PSMC1))
 p(HGNC:PSMC1) => complex(p(HGNC:PSMD2),p(HGNC:PSMC1))
+UNSET Confidence
 
 SET Evidence = "Although all four subunits are
 part of the base of the proteasome regulatory particle (Lander
 et al., 2012), RPN1 clustered together with Hsp70 rather than
 with the other proteasome subunits (Figure 5A)"
+#RPN1 : PSMD2
+SET Confidence = "High"
 p(HGNC:PSMD2) => complex(p(INTERPRO:"Heat shock protein 70 family"),p(HGNC:PSMD2))
+UNSET Confidence
 
 SET Evidence = "CHIP binds Hsp90 and Hsp70 with
 similar affinities and can regulate the degradation of chaperone
 clients (Kundrat and Regan, 2010)."
+SET Confidence = "Medium"
 p(HGNC:STUB1) => complex(p(HGNC:STUB1),p(INTERPRO:"Heat shock protein 70 family"))
-p(HGNC:STUB1) => complex(p(HGNC:STUB1),p(FPLX:HSP90))
+p(HGNC:STUB1) => complex(p(HGNC:STUB1),p(INTERPRO:"Heat shock protein Hsp90 family"))
 p(HGNC:STUB1) reg bp(GO:"cellular protein catabolic process")
+UNSET Confidence
 
 SET Evidence = "For example, seven members of the cytoplasmic RNA
 polymerase assembly complex R2TP interacted with the prefoldin subunits PFDN2 and PFDN5"
+SET Confidence = "High"
 complex(GO:"R2TP complex") hasComponents list(p(HGNC:PFDN2),p(HGNC:VBP1),p(HGNC:UXT),p(HGNC:PDRG1),p(HGNC:RPAP3),p(HGNC:POLR3A),p(HGNC:URI1))
 p(HGNC:VBP1) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5),p(HGNC:VBP1))
 p(HGNC:PFDN2) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5))
@@ -390,9 +492,11 @@ p(HGNC:PDRG1) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5),p(HGNC:PDRG1))
 p(HGNC:RPAP3) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5),p(HGNC:RPAP3))
 p(HGNC:POLR3A) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5),p(HGNC:POLR3A))
 p(HGNC:URI1) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5),p(HGNC:URI1))
+UNSET Confidence
 
 SET Evidence = "The four proteins in the first cluster (PFDN2 itself, VBP1, UXT, and PDRG1) are all
 prefoldin-like proteins and interacted primarily with PFDN2 and PFDN5."
+SET Confidence = "High"
 p(HGNC:PFDN2) => complex(p(HGNC:PFDN2),p(HGNC:PFDN5))
 p(HGNC:PFDN2) => complex(p(HGNC:PFDN2),p(HGNC:PFDN2))
 p(HGNC:VBP1) => complex(p(HGNC:PFDN2),p(HGNC:VBP1))
@@ -401,79 +505,105 @@ p(HGNC:UXT) => complex(p(HGNC:PFDN2),p(HGNC:UXT))
 p(HGNC:UXT) => complex(p(HGNC:PFDN5),p(HGNC:UXT))
 p(HGNC:PDRG1) => complex(p(HGNC:PFDN2),p(HGNC:PDRG1))
 p(HGNC:PDRG1) => complex(p(HGNC:PFDN5),p(HGNC:PDRG1))
+UNSET Confidence
 
 SET Evidence = "The second cluster (URI1, POLR3A, and RPAP3) interacted
 also with RPAP3 and Hsp90 in addition to the prefoldins (Figure 6B)"
+SET Confidence = "High"
 p(HGNC:URI1) => complex(p(HGNC:RPAP3),p(HGNC:URI1))
 p(HGNC:URI1) => complex(p(FPLX:HSP90),p(HGNC:URI1))
 p(HGNC:POLR3A) => complex(p(HGNC:RPAP3),p(HGNC:POLR3A))
 p(HGNC:POLR3A) => complex(p(FPLX:HSP90),p(HGNC:POLR3A))
 p(HGNC:RPAP3) => complex(p(HGNC:RPAP3),p(HGNC:RPAP3))
 p(HGNC:RPAP3) => complex(p(FPLX:HSP90),p(HGNC:RPAP3))
+UNSET Confidence
 
 SET Evidence = "LRR proteins interacted particularly strongly with the SGT1 cochaperone,
 whereas Argonaute proteins bound the protein phosphatase
 PP5 and p23, both of which are well-characterized Hsp90 cochaperones (Figure 6A)"
+SET Confidence = "High"
 p(INTERPRO:"Leucine-rich repeat domain superfamily") => complex(p(INTERPRO:"Leucine-rich repeat domain superfamily"),p(HGNC:SUGT1))
 a(MESH:"Argonaute Proteins") => complex(a(MESH:"Argonaute Proteins"),p(HGNC:PPP5C))
 a(MESH:"Argonaute Proteins") => complex(a(MESH:"Argonaute Proteins"),p(HGNC:PTGES3))
+UNSET Confidence
 
 SET Evidence = "NUDC proteins have been found to associate with
 the Hsp90 complex, but the biological roles of these cochaperones
 are largely unknown (Zheng et al., 2011)"
+SET Confidence = "High"
 p(INTERPRO:"NudC family") -- p(INTERPRO:"Heat shock protein Hsp90 family")
+UNSET Confidence
 
 SET Evidence = "NUDC interacted strongly with WD40 repeat proteins (Table S1)"
+SET Confidence = "High"
 p(HGNC:NUDC) => complex(p(INTERPRO:"WD40-repeat-containing domain superfamily"),p(HGNC:NUDC))
+UNSET Confidence
 
 SET Evidence = "NUDCD3, in contrast, interacted with proteins with Kelch domains (Figure 6G; Table S1)"
+SET Confidence = "High"
 p(HGNC:NUDCD3) => complex(p(HGNC:NUDCD3),p(HGNC:KLHL13))
 p(HGNC:NUDCD3) => complex(p(HGNC:NUDCD3),p(HGNC:KLHL1))
 p(HGNC:NUDCD3) => complex(p(HGNC:NUDCD3),p(HGNC:ENC1))
+UNSET Confidence
 
 SET Evidence = "For NUDCD2, the most significant interacting
 protein was FBXO24, an RCC1 repeat protein (Figure 6I)"
 # RCC1 repeat protein: SNX31
+SET Confidence = "High"
 p(HGNC:NUDCD2) => complex(p(HGNC:NUDCD2),p(HGNC:FBXO24))
 p(HGNC:NUDCD2) => complex(p(HGNC:NUDCD2),p(HGNC:SNX31))
+p(HGNC:FBXO24) isA p(INTERPRO:"Regulator of chromosome condensation, RCC1")
+UNSET Confidence
 
 SET Evidence = "As expected, CDC37 interacted virtually exclusively with kinases (p < 0.0001,
 Mann-Whitney test; Figure 7A)"
+SET Confidence = "High"
 p(HGNC:CDC37) => complex(a(MESH:"Protein Kinases"),p(HGNC:CDC37))
+UNSET Confidence
 
 SET Evidence = "Similarly, although SGT1 interacted
 with some non-LRR proteins, it had significantly stronger
 interactions with LRR proteins than with other domains (p <0.0001)"
+SET Confidence = "High"
 p(HGNC:SUGT1) => complex(p(INTERPRO:"Leucine-rich repeat domain superfamily"),p(HGNC:SUGT1))
+UNSET Confidence
 
 SET Evidence = "NUDC selectively associated with WD40 repeats,
 NUDCD2 with RCC1 repeats, and NUDCD3 with Kelch domains
 (p < 0.0001 for each; Figure 7A)"
+SET Confidence = "High"
 p(HGNC:NUDC) => complex(p(INTERPRO:"WD40-repeat-containing domain"),p(HGNC:NUDC))
 p(HGNC:NUDCD2) => complex(p(HGNC:NUDCD2),p(INTERPRO:"Regulator of chromosome condensation, RCC1"))
 p(HGNC:NUDCD3) => complex(p(HGNC:NUDCD3),p(INTERPRO:"Kelch-type beta propeller"))
+UNSET Confidence
 
 SET Evidence = "As reported before (Taipale et al.,
 2012), CDC37 interacted with the kinase domain of ARAF, and
 SGT1 interacted with the LRR domain of FBXL2 (Figure 7B)"
+SET Confidence = "Low"
 p(HGNC:CFAP100) => complex(p(HGNC:ARAF),p(HGNC:CDC37))
 p(HGNC:SUGT1) => complex(p(INTERPRO:"Leucine-rich repeat"),p(HGNC:SUGT1))
+UNSET Confidence
 
 SET Evidence = "NUDC interacted with the WD40 domain of FBXW2, NUDCD2
 interacted with the RCC1 domain of FBXO24, and NUDCD3
 interacted with the Kelch domain of KLHL38 (Figure 7B)"
+SET Confidence = "High"
 p(HGNC:NUDC) => complex(p(INTERPRO:"WD40-repeat-containing domain"),p(HGNC:NUDC))
 p(HGNC:NUDCD2) => complex(p(INTERPRO:"Regulator of chromosome condensation, RCC1"),p(HGNC:NUDCD2))
 p(HGNC:NUDCD3) => complex(p(HGNC:NUDCD3),p(INTERPRO:"Kelch-type beta propeller"))
+UNSET Confidence
 
 SET Evidence = "However, AP-MS and LUMIER revealed that it did interact strongly
 with multiple DEAH/DEAD box RNA helicases and several subunits
 of the COPI complex, which regulates retrograde signaling
 between Golgi compartments (Figures 2 and 6E)"
+SET Confidence = "High"
 #it: NUDCD1
 p(HGNC:NUDCD1) => complex(p(HGNC:NUDCD1),p(INTERPRO:"DEAD/DEAH box helicase domain"))
 p(HGNC:NUDCD1) => complex(a(GO:"COPI-coated vesicle"),p(HGNC:NUDCD1))
 a(GO:"COPI-coated vesicle") reg bp(GO:"retrograde transport, vesicle recycling within Golgi")
+UNSET Confidence
 
 ##########################################################
 

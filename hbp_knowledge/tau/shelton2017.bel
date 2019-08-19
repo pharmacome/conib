@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc-names.belns"
 #DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc.genefamily-names.belns"
 #DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hp-names.belns"
@@ -111,7 +111,7 @@ proteins."
 SET Confidence = "Medium"
 a(MESH:"Molecular Chaperones") -- bp(GO:"protein folding")
 a(MESH:"Molecular Chaperones") -- bp(MESH:"Proteolysis")
-a(MESH:"Molecular Chaperones") -- deg(p(MESH:Proteins,pmod(HBP:misfolded)))
+a(MESH:"Molecular Chaperones") -- deg(p(MESH:Proteins,pmod(CONSO:misfolded)))
 UNSET Confidence
 
 SET Evidence = "Hsp90 requires
@@ -133,7 +133,7 @@ of diseases including Alzheimer’s disease (AD), progressive
 supranuclear palsy (PSP), Pick’s disease, and chronic traumatic
 encephalopathy (CTE; Guo et al., 2017)."
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -> path(MESH:Tauopathies)
+a(CONSO:"Tau aggregates") -> path(MESH:Tauopathies)
 path(MESH:"Alzheimer Disease") isA path(MESH:Tauopathies)
 path(MESH:"Supranuclear Palsy, Progressive") isA path(MESH:Tauopathies)
 path(MESH:"Pick Disease of the Brain") isA path(MESH:Tauopathies)
@@ -144,7 +144,7 @@ SET Evidence = " However, Hsp90
 regulates tau and other aggregating proteins in coordination
 with a diverse group of co-chaperones (Schopf et al., 2017)."
 SET Confidence = "High"
-p(FPLX:HSP90) reg a(HBP:"Tau aggregates")
+p(FPLX:HSP90) reg a(CONSO:"Tau aggregates")
 p(FPLX:HSP90) reg path(MESH:"Protein Aggregation, Pathological")
 UNSET Confidence
 
@@ -152,7 +152,7 @@ SET Evidence = "Hsp90 is critical to maintaining proteostasis (Brehme et al.,
 2014) and accounts for up to 6% of all protein within the cell
 during times of stress (Picard, 2002; Prodromou, 2016). "
 SET Confidence = "High"
-p(FPLX:HSP90) -- bp(HBP:Proteostasis)
+p(FPLX:HSP90) -- bp(CONSO:Proteostasis)
 UNSET Confidence
 
 SET Evidence = "Hsp90α is involved in growth
@@ -219,8 +219,8 @@ prevents toxic tau accumulation in vivo preserving memory,
 demonstrating a neuroprotective role for CyP40 in the brain
 (Baker et al., 2017)."
 SET Confidence = "High"
-p(HGNC:PPID) -| a(HBP:"Tau fibrils")
-p(HGNC:PPID) -| a(HBP:"Tau aggregates")
+p(HGNC:PPID) -| a(CONSO:"Tau fibrils")
+p(HGNC:PPID) -| a(CONSO:"Tau aggregates")
 p(HGNC:PPID) -> bp(GO:memory)
 SET MeSHAnatomy = "Brain"
 p(HGNC:PPID) -| bp(GO:"neuron apoptotic process")
@@ -233,7 +233,7 @@ aggregation (Blair et al., 2013; Giustiniani et al., 2015; Kamah
 et al., 2016). One of these, FKBP51, coordinates with Hsp90
 to preserve toxic tau oligomers in vivo (Blair et al., 2013)."
 SET Confidence = "Medium"
-complex(p(FPLX:HSP90),p(HGNC:FKBP5)) -> a(HBP:"Tau oligomers")
+complex(p(FPLX:HSP90),p(HGNC:FKBP5)) -> a(CONSO:"Tau oligomers")
 UNSET Confidence
 
 SET Evidence = " However, throughout aging,
@@ -252,7 +252,7 @@ and promotes tau aggregation in vitro (Giustiniani et al., 2015;
 Meduri et al., 2016). "
 SET Confidence = "Medium"
 complex(p(HGNC:MAPT),p(HGNC:FKBP4))
-complex(p(HGNC:MAPT),p(HGNC:FKBP4)) -> a(HBP:"Tau aggregates")
+complex(p(HGNC:MAPT),p(HGNC:FKBP4)) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = " However, it is interesting to note that FKBP52 levels are
@@ -271,7 +271,7 @@ been linked to pathogenic tau (Kekatpure et al., 2009; Cook et al.,
 2012; Selenica et al., 2014)."
 SET Confidence = "High"
 p(HGNC:HDAC6) -> act(p(HGNC:AIP))
-p(HGNC:HDAC6) -- a(HBP:"Tau aggregates")
+p(HGNC:HDAC6) -- a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = " In addition, XAP2 coordinates with
@@ -280,7 +280,7 @@ et al., 2009), which has also been implicated in the production
 of pathogenic tau (Pinheiro et al., 2016)."
 SET Confidence = "High"
 complex(p(FPLX:HSP90),p(HGNC:AIP)) reg bp(GO:"glucocorticoid receptor signaling pathway")
-bp(GO:"glucocorticoid receptor signaling pathway") -- a(HBP:"Tau aggregates")
+bp(GO:"glucocorticoid receptor signaling pathway") -- a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Another member of this family, protein phosphatase 5 (PP5), is
@@ -329,7 +329,7 @@ et al., 2007b)."
 SET Confidence = "Medium"
 SET Species = "10090"
 p(MGI:Stub1) -> deg(p(MGI:Mapt, pmod(Ph)))
-p(MGI:Stub1) -> deg(p(MGI:Mapt, pmod(HBP:misfolded)))
+p(MGI:Stub1) -> deg(p(MGI:Mapt, pmod(CONSO:misfolded)))
 UNSET Species
 UNSET Confidence
 
@@ -377,7 +377,7 @@ found that high levels of Aha1 in a tau transgenic mouse model
 increased tau oligomers as well as neuronal loss concomitant
 with cognitive deﬁcits (Shelton et al., 2017)."
 SET Confidence = "Medium"
-p(MGI:Ahsa1) -> a(HBP:"Tau oligomers")
+p(MGI:Ahsa1) -> a(CONSO:"Tau oligomers")
 p(MGI:Ahsa1) -> bp(GO:"neuron apoptotic process")
 bp(GO:"neuron apoptotic process") -| bp(GO:cognition)
 UNSET Confidence
@@ -390,7 +390,7 @@ SET Confidence = "High"
 bp(MESH:Aging) -| p(HGNC:AHSA1)
 SET MeSHDisease = "Alzheimer Disease"
 SET MeSHAnatomy = "Brain"
-p(HGNC:AHSA1) -> a(HBP:"Tau aggregates")
+p(HGNC:AHSA1) -> a(CONSO:"Tau aggregates")
 UNSET MeSHAnatomy
 UNSET MeSHDisease
 UNSET Confidence
@@ -431,7 +431,7 @@ by misfolded proteins, like tau (Rao et al., 2006; Abisambra et al.,
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Endoplasmic Reticulum"
 p(HGNC:PTGES3) -| bp(GO:"cell death in response to oxidative stress")
-p(HGNC:MAPT, pmod(HBP:misfolded)) -> bp(GO:"cell death in response to oxidative stress")
+p(HGNC:MAPT, pmod(CONSO:misfolded)) -> bp(GO:"cell death in response to oxidative stress")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -595,7 +595,7 @@ SET Evidence = "Previous studies have shown that Hsp90 inhibition decreased
 the levels of hyperphosphorylated and/or mutated tau species
 both in cells and mice."
 SET Confidence = "High"
-p(FPLX:HSP90) -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+p(FPLX:HSP90) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 p(FPLX:HSP90) -> p(HGNC:MAPT, var("?"))
 UNSET Confidence
 
@@ -604,7 +604,7 @@ inhibitor, EC102, was used to demonstrate degradation of
 hyperphosphorylated pathologically relevant tau in cells (Dickey
 et al., 2007a)."
 SET Confidence = "High"
-a(HBP:"EC102") -> deg(p(HGNC:MAPT, pmod(HBP:hyperphosphorylation)))
+a(CONSO:"EC102") -> deg(p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation)))
 UNSET Confidence
 
 SET Evidence = " Another N-terminal Hsp90 ATPase inhibitor, 17-
@@ -654,6 +654,6 @@ recently developed (Hall et al., 2014). One of these inhibitors,
 KU-177, reduced insoluble tauP301L levels in cells (Shelton et al.,
 2017). "
 SET Confidence = "Medium"
-a(HBP:"KU-177") -| act(p(HGNC:AHSA1))
-a(HBP:"KU-177") -| p(HGNC:MAPT, var("p.Pro301Leu"))
+a(CONSO:"KU-177") -| act(p(HGNC:AHSA1))
+a(CONSO:"KU-177") -| p(HGNC:MAPT, var("p.Pro301Leu"))
 UNSET Confidence
