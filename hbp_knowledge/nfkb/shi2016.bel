@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 # DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 # DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 # DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b689162f627a65a2a04f09fc62c80d7971198147/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 # DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -95,7 +95,7 @@ kinase (IKK) complex becomes activated and mediates the phosphoryla-
 tion of IκBs, then IκBs are degradated and the remaining NF-κB dimer is
 activated and thus translocates to the nucleus where it binds to the
 DNA consensus sequence of various target genes [9–11]."
-a(HBP:"amyloid-beta aggregates") -> act(p(FPLX:"IKK_complex"))
+a(CONSO:"amyloid-beta aggregates") -> act(p(FPLX:"IKK_complex"))
 a(CHEBI:"reactive oxygen species") -> act(p(FPLX:"IKK_complex"))
 a(MESH:Cytokines) -> act(p(FPLX:"IKK_complex"))
 act(p(FPLX:"IKK_complex")) -> p(FPLX:IKB, pmod(Ph))
@@ -148,7 +148,7 @@ and eventually neuron cell death [20]."
 a(CHEBI:"reactive oxygen species") pos path(MESH:"Alzheimer Disease")
 a(CHEBI:"reactive oxygen species") -- bp(MESH:"Membrane Fluidity")
 a(CHEBI:"reactive oxygen species") -- bp(GO:"ion transport")
-a(CHEBI:"reactive oxygen species") -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+a(CHEBI:"reactive oxygen species") -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 a(CHEBI:"reactive oxygen species") -| bp(GO:autophagy)
 
 SET Evidence = "Previous ﬁnd-
@@ -244,7 +244,7 @@ UNSET MeSHAnatomy
 SET Evidence = "AGEs induce tau hyperphosphorylation,
 memory deterioration, decline of synaptic proteins, and impairment of
 long-term potentiation in rats [10]. "
-a(CHEBI:"advanced glycation end-product") -> p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+a(CHEBI:"advanced glycation end-product") -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 a(CHEBI:"advanced glycation end-product") -| bp(GO:memory)
 SET MeSHAnatomy = "Synapses"
 a(CHEBI:"advanced glycation end-product") -> bp(GO:"cellular protein catabolic process")
@@ -258,17 +258,17 @@ RAGE and consequent activation of NF-κB, providing a pathologic link
 between diabetes and AD [49]."
 #RAGE is AGER
 a(CHEBI:"pentosidine") isA a(CHEBI:"advanced glycation end-product")
-a(HBP:GLAP) isA a(CHEBI:"advanced glycation end-product")
+a(CONSO:GLAP) isA a(CHEBI:"advanced glycation end-product")
 SET MeSHAnatomy = "Brain"
 SET Species = "10116"
 a(CHEBI:"pentosidine") pos path(MESH:"Alzheimer Disease")
-a(HBP:GLAP) pos path(MESH:"Alzheimer Disease")
+a(CONSO:GLAP) pos path(MESH:"Alzheimer Disease")
 UNSET MeSHAnatomy
 UNSET Species
 complex(a(CHEBI:"pentosidine"),p(HGNC:AGER)) -> p(HGNC:BACE1)
-complex(a(HBP:GLAP),p(HGNC:AGER)) -> p(HGNC:BACE1)
+complex(a(CONSO:GLAP),p(HGNC:AGER)) -> p(HGNC:BACE1)
 complex(a(CHEBI:"pentosidine"),p(HGNC:AGER)) -> act(p(FPLX:NFkappaB))
-complex(a(HBP:GLAP),p(HGNC:AGER)) -> act(p(FPLX:NFkappaB))
+complex(a(CONSO:GLAP),p(HGNC:AGER)) -> act(p(FPLX:NFkappaB))
 
 SET Evidence = " Then the stimulation of
 RAGE is able to activate the mitogen-activated protein kinase signaling
@@ -350,7 +350,7 @@ associated with the formation of Aβ plaque [65]."
 p(FPLX:NFkappaB) reg p(HGNC:PTGS2)
 SET MeSHAnatomy = "Brain"
 path(MESH:"Alzheimer Disease") pos p(HGNC:PTGS2)
-p(HGNC:PTGS2) -- a(HBP:"amyloid-beta aggregates")
+p(HGNC:PTGS2) -- a(CONSO:"amyloid-beta aggregates")
 UNSET MeSHAnatomy
 
 SET Evidence = "Inducible miRNAs and lncRNA perform critical regulatory roles in
@@ -482,7 +482,7 @@ and APP695 protein expression, also reduced Aβ 42 levels in the medium
 [90]."
 a(CHEBI:nicorandil) -| bp(GO:"apoptotic process")
 a(CHEBI:nicorandil) -| path(MESH:"Oxidative Stress")
-a(CHEBI:nicorandil) -| p(HBP:APP695)
+a(CHEBI:nicorandil) -| p(CONSO:APP695)
 a(CHEBI:nicorandil) -| a(CHEBI:"amyloid-beta polypeptide 42")
 
 SET Evidence = "Omega-6 phospholipids, e.g. dilinoleoylphosphatidylcholine (DLPC),

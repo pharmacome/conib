@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cf4d8bb88754f036b943b4d94ad96e103dcb7149/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
@@ -88,7 +88,7 @@ is the principal mechanism for degrading proteins with long half-lives and is th
 only system in cells for degrading organelles and large protein aggregates or inclusions."
 SET Confidence = "Medium"
 bp(GO:autophagy) -> deg(a(GO:organelle))
-bp(GO:autophagy) -> deg(a(HBP:"protein aggregates"))
+bp(GO:autophagy) -> deg(a(CONSO:"protein aggregates"))
 bp(GO:autophagy) -> deg(a(MESH:"Inclusion Bodies"))
 UNSET Confidence
 
@@ -111,7 +111,7 @@ with ubiquination for selective removal by autophagy (Narendra et al. 2009; Diki
 2010; Youle et al. 2011), a degradative process previously believed to be only nonselective"
 SET Confidence = "High"
 bp(GO:autophagy) -> deg(a(GO:organelle))
-bp(GO:autophagy) -> deg(a(HBP:"protein aggregates"))
+bp(GO:autophagy) -> deg(a(CONSO:"protein aggregates"))
 UNSET Confidence
 
 SET Evidence = "Interdependence of the proteasome and lysosomal system is also suggested by observations
@@ -126,7 +126,7 @@ sequestration machinery causes ubiquitinated protein aggregates to appear in neu
 additional negative effects on the UPS (Korolchuket al. 2009a,b)."
 SET Confidence  ="High"
 SET MeSHAnatomy = "Neurons"
-bp(GO:autophagy) -> deg(p(HBP:"protein aggregates",pmod(Ub)))
+bp(GO:autophagy) -> deg(p(CONSO:"protein aggregates",pmod(Ub)))
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -156,8 +156,8 @@ tangles and dystrophic neurites of AD were first raised in about 1982, allowing
 exploration of the component(s) of PHFs using immunochemical approaches (Ihara et al. 1983)"
 SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
-a(HBP:"paired helical filaments") -- a(GO:"neurofibrillary tangle")
-a(HBP:"paired helical filaments") -- a(HBP:"dystrophic neurite")
+a(CONSO:"paired helical filaments") -- a(GO:"neurofibrillary tangle")
+a(CONSO:"paired helical filaments") -- a(CONSO:"dystrophic neurite")
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -167,7 +167,7 @@ binding activity, and heat stability (Kosik et al. 1986; Nukina and Ihara 1986; 
 also Brion et al. 1985; Grundke-Iqbal et al. 1986; Wood et al. 1986; discovery of tau in
 PHF is reviewed in Mandelkow and Mandelkow 2011)."
 SET Confidence = "High"
-p(HGNC:MAPT) -- a(HBP:"paired helical filaments")
+p(HGNC:MAPT) -- a(CONSO:"paired helical filaments")
 UNSET Confidence
 
 SET Evidence = "Besides the characteristic “PHF smear,” they also labeled
@@ -175,7 +175,7 @@ a very small protein of ~8 kDa. Hiroshi Mori named these monoclonal antibodies D
 Filament) 1 and 2, of which the latter (DF2) was used for subsequent characterization (Mori et al. 1987)."
 #DF2: antibody recognizing ubiquitin
 SET Confidence = "High"
-a(MESH:Ubiquitin) -- a(HBP:"paired helical filaments")
+a(MESH:Ubiquitin) -- a(CONSO:"paired helical filaments")
 UNSET Confidence
 
 SET Evidence = "In AD cortical sections, we observed that NFTs and dystrophic neurites (Fig. 1) and,
@@ -185,8 +185,8 @@ SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 SET MeSHAnatomy = "Cerebral Cortex"
 a(GO:"neurofibrillary tangle") -- a(MESH:Ubiquitin)
-a(HBP:"dystrophic neurite") -- a(MESH:Ubiquitin)
-path(HBP:"granulovacuolar degeneration") -- a(MESH:Ubiquitin)
+a(CONSO:"dystrophic neurite") -- a(MESH:Ubiquitin)
+path(CONSO:"granulovacuolar degeneration") -- a(MESH:Ubiquitin)
 a(MESH:"Neuropil Threads") -- a(MESH:Ubiquitin)
 UNSET MeSHDisease
 UNSET MeSHAnatomy
@@ -202,7 +202,7 @@ SET Evidence = "Using well-characterized antibodies to various MAPs as well as P
 polyclonal antibodies, tau had recently been established as a major component of PHFs
 (see above and Mandelkow and Mandelkow 2011)."
 SET Confidence = "High"
-p(HGNC:MAPT) -- a(HBP:"paired helical filaments")
+p(HGNC:MAPT) -- a(CONSO:"paired helical filaments")
 UNSET Confidence
 
 SET Evidence = "By protein sequencing and MS, we identified four Ub-conjugated
@@ -211,11 +211,11 @@ et al. 1993)."
 # results obtained from Fig. 3
 SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
-a(HBP:"paired helical filaments") -- p(HBP:"Tau isoform F (441 aa)",pmod(Ub,Lys,254))
-a(HBP:"paired helical filaments") -- p(HBP:"Tau isoform F (441 aa)",pmod(Ub,Lys,257))
-a(HBP:"paired helical filaments") -- p(HBP:"Tau isoform F (441 aa)",pmod(Ub,Lys,311))
-a(HBP:"paired helical filaments") -- p(HBP:"Tau isoform F (441 aa)",pmod(Ub,Lys,317))
-a(HBP:"paired helical filaments") -- p(HBP:"Tau isoform F (441 aa)",pmod(UbK48))
+a(CONSO:"paired helical filaments") -- p(CONSO:"Tau isoform F (441 aa)",pmod(Ub,Lys,254))
+a(CONSO:"paired helical filaments") -- p(CONSO:"Tau isoform F (441 aa)",pmod(Ub,Lys,257))
+a(CONSO:"paired helical filaments") -- p(CONSO:"Tau isoform F (441 aa)",pmod(Ub,Lys,311))
+a(CONSO:"paired helical filaments") -- p(CONSO:"Tau isoform F (441 aa)",pmod(Ub,Lys,317))
+a(CONSO:"paired helical filaments") -- p(CONSO:"Tau isoform F (441 aa)",pmod(UbK48))
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -227,9 +227,9 @@ addition to monoubiquitination—was observed."
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Cerebral Cortex"
 SET MeSHDisease = "Alzheimer Disease"
-a(HBP:"paired helical filaments") -- p(HBP:"Tau isoform F (441 aa)",pmod(UbK48))
-a(HBP:"paired helical filaments") -- p(HBP:"Tau isoform F (441 aa)",pmod(UbPoly,Lys,6))
-a(HBP:"paired helical filaments") -- p(HBP:"Tau isoform F (441 aa)",pmod(UbPoly,Lys,11))
+a(CONSO:"paired helical filaments") -- p(CONSO:"Tau isoform F (441 aa)",pmod(UbK48))
+a(CONSO:"paired helical filaments") -- p(CONSO:"Tau isoform F (441 aa)",pmod(UbPoly,Lys,6))
+a(CONSO:"paired helical filaments") -- p(CONSO:"Tau isoform F (441 aa)",pmod(UbPoly,Lys,11))
 UNSET MeSHDisease
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -237,7 +237,7 @@ UNSET Confidence
 SET Evidence = "This finding suggests that neuropil threads may extend at both ends: Tau
 may aggregate and deposit first, followed by its ubiquitination."
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -> p(HBP:"Tau aggregates",pmod(Ub))
+a(CONSO:"Tau aggregates") -> p(CONSO:"Tau aggregates",pmod(Ub))
 UNSET Confidence
 
 SET Evidence = "In addition, DF2 intensely labeled the classical granulovacuolar changes
@@ -245,7 +245,7 @@ in the hippocampus in AD and other neurodegenerative disorders (Fig. 1, inset)."
 SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 SET MeSHDisease = {"Alzheimer Disease","Neurodegenerative Diseases"}
-a(MESH:Ubiquitin) -- path(HBP:"granulovacuolar degeneration")
+a(MESH:Ubiquitin) -- path(CONSO:"granulovacuolar degeneration")
 UNSET MeSHAnatomy
 UNSET MeSHDisease
 UNSET Confidence
@@ -356,7 +356,7 @@ deubiquitinating enzymes, unfolds the polypeptides and sends them to the narrow 
 of the 20S core particle."
 SET Confidence = "High"
 p(MESH:Proteins,pmod(Ub)) -> complex(a(GO:"proteasome regulatory particle"),p(MESH:Proteins,pmod(Ub)))
-complex(a(GO:"proteasome regulatory particle"),p(MESH:Proteins,pmod(Ub))) -> tloc(a(MESH:Proteins),fromLoc(GO:"proteasome regulatory particle"),toLoc(HBP:"20 S Proteasome"))
+complex(a(GO:"proteasome regulatory particle"),p(MESH:Proteins,pmod(Ub))) -> tloc(a(MESH:Proteins),fromLoc(GO:"proteasome regulatory particle"),toLoc(CONSO:"20 S Proteasome"))
 UNSET Confidence
 
 SET Evidence = "AD is the most common of numerous age-associated brain diseases,
@@ -370,7 +370,7 @@ UNSET Confidence
 SET Evidence = "PHF have been associated with inhibition of the activity
 of the proteasome in a brain region–specific manner (Keller et al. 2000)."
 SET Confidence = "High"
-a(HBP:"paired helical filaments") neg act(complex(GO:"proteasome complex"))
+a(CONSO:"paired helical filaments") neg act(complex(GO:"proteasome complex"))
 UNSET Confidence
 
 SET Evidence = "That is, in areas where NFTs formed abundantly, including hippocampus
@@ -389,36 +389,36 @@ presumably to the 19S cap portion, and the more tau that was bound, the more tha
 proteasomes appeared to be inhibited (Keck et al. 2003)."
 SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
-complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),a(GO:"proteasome regulatory particle")) neg act(complex(GO:"proteasome complex"))
+complex(p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)),a(GO:"proteasome regulatory particle")) neg act(complex(GO:"proteasome complex"))
 UNSET MeSHDisease
 UNSET Confidence
 
 SET Evidence = "In vitro experiments further showed that aggregated (recombinant) tau—but not
 nonaggregated (monomeric) tau—can inhibit the proteasome activity."
 SET Confidence = "Medium"
-a(HBP:"Tau aggregates") -| act(complex(GO:"proteasome complex"))
+a(CONSO:"Tau aggregates") -| act(complex(GO:"proteasome complex"))
 p(HGNC:MAPT) cnc act(complex(GO:"proteasome complex"))
 UNSET Confidence
 
 SET Evidence = "Based on these various findings, it has been speculated that small aggregates of
 PHFs may bind to the cap portion of the 26S proteasome and inhibit its activity"
 SET Confidence = "High"
-complex(a(HBP:"paired helical filaments"),a(GO:"proteasome regulatory particle")) -| act(complex(GO:"proteasome complex"))
+complex(a(CONSO:"paired helical filaments"),a(GO:"proteasome regulatory particle")) -| act(complex(GO:"proteasome complex"))
 UNSET Confidence
 
 SET Evidence = "The currently prevailing view of the temporal involvement of Ub in PHF evolution is that
 the aggregation of hyperphosphorylated tau is followed by ubiquitination"
 SET Confidence = "High"
-p(HBP:"Tau aggregates",pmod(HBP:hyperphosphorylation)) -> p(HBP:"Tau aggregates",pmod(HBP:hyperphosphorylation),pmod(Ub))
+p(CONSO:"Tau aggregates",pmod(CONSO:hyperphosphorylation)) -> p(CONSO:"Tau aggregates",pmod(CONSO:hyperphosphorylation),pmod(Ub))
 UNSET Confidence
 
 SET Evidence = "UBB+1 protein accumulates in brains affected by AD and
 other diseases such as Pick’s disease and Huntington’s disease (Fischer et al. 2003)."
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Brain"
-path(MESH:"Alzheimer Disease") pos p(HBP:"UBB+1")
-path(MESH:"Niemann-Pick Diseases") pos p(HBP:"UBB+1")
-path(MESH:"Huntington Disease") pos p(HBP:"UBB+1")
+path(MESH:"Alzheimer Disease") pos p(CONSO:"UBB+1")
+path(MESH:"Niemann-Pick Diseases") pos p(CONSO:"UBB+1")
+path(MESH:"Huntington Disease") pos p(CONSO:"UBB+1")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -426,9 +426,9 @@ SET Evidence = "The resulting polyubiquitinated UBB+1 cannot be
 degraded by proteasomes and impairs the UPS
 (Lam et al. 2000), which may induce neurotoxicity."
 SET Confidence = "Medium"
-p(HBP:"UBB+1",pmod(UbPoly)) -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
-p(HBP:"UBB+1",pmod(UbPoly)) -| deg(p(HBP:"UBB+1",pmod(UbPoly)))
-p(HBP:"UBB+1",pmod(UbPoly)) -> path(HBP:neurotoxicity)
+p(CONSO:"UBB+1",pmod(UbPoly)) -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+p(CONSO:"UBB+1",pmod(UbPoly)) -| deg(p(CONSO:"UBB+1",pmod(UbPoly)))
+p(CONSO:"UBB+1",pmod(UbPoly)) -> path(CONSO:neurotoxicity)
 UNSET Confidence
 
 SET Evidence = "Indeed, transgenic mice expressing UBB+1 have an impaired UPS and show contextual
@@ -436,8 +436,8 @@ memory deficits in both water maze and fear conditioning paradigms, without spec
 findings (Fischer et al. 2009)."
 SET Confidence = "Medium"
 SET Species = "10090"
-p(HBP:"UBB+1") -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
-p(HBP:"UBB+1") -| bp(GO:memory)
+p(CONSO:"UBB+1") -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+p(CONSO:"UBB+1") -| bp(GO:memory)
 UNSET Confidence
 
 SET Evidence = "Although UCH-L1 is genetically associated with Parkinson’s disease (i.e.,
@@ -562,24 +562,24 @@ SET Evidence = "Among the various molecular species of Abeta present in the
 brain, soluble oligomeric forms of Abeta are arguably the most plausible candidates to
 impair synaptic function (reviewed in Walsh and Selkoe 2004)."
 SET Confidence = "High"
-a(HBP:"AβOs") -| act(a(GO:synapse))
+a(CONSO:"AβOs") -| act(a(GO:synapse))
 UNSET Confidence
 
 SET Evidence = "Soluble Ab oligomers inhibit hippocampal long-term potentiation and alter
 memory and learning performance"
 SET Confidence = "High"
-a(HBP:"AβOs") -| bp(GO:"long-term synaptic potentiation")
-a(HBP:"AβOs") -| bp(GO:learning)
-a(HBP:"AβOs") -| bp(GO:memory)
+a(CONSO:"AβOs") -| bp(GO:"long-term synaptic potentiation")
+a(CONSO:"AβOs") -| bp(GO:learning)
+a(CONSO:"AβOs") -| bp(GO:memory)
 UNSET Confidence
 
 SET Evidence = "They also facilitate long-term depression by, among other
 effects, disrupting synaptic glutamate uptake (Li et al. 2009)."
 # they: soluble oligomeric Abeta
 SET Confidence = "High"
-a(HBP:"AβOs") -> bp(GO:"long-term synaptic depression")
+a(CONSO:"AβOs") -> bp(GO:"long-term synaptic depression")
 SET MeSHAnatomy = "Synapses"
-a(HBP:"AβOs") -| bp(GO:"L-glutamate import")
+a(CONSO:"AβOs") -| bp(GO:"L-glutamate import")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -589,8 +589,8 @@ degeneration (Jin et al. 2011)."
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Neocortex"
 SET MeSHDisease = "Alzheimer Disease"
-a(HBP:"AβOs") -> p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
-a(HBP:"AβOs") -> deg(a(MESH:Neurites))
+a(CONSO:"AβOs") -> p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+a(CONSO:"AβOs") -> deg(a(MESH:Neurites))
 UNSET MeSHDisease
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -610,7 +610,7 @@ UNSET Confidence
 SET Evidence = "Moreover, soluble Ab oligomers themselves can
 inhibit proteasomal activity (Tseng et al. 2008)."
 SET Confidence = "High"
-a(HBP:"AβOs") -| act(complex(GO:"proteasome complex"))
+a(CONSO:"AβOs") -| act(complex(GO:"proteasome complex"))
 UNSET Confidence
 
 SET Evidence = "It has been reported that tau is degraded by
@@ -628,7 +628,7 @@ ATP-independent 20S proteasome have been reported to degrade normal, soluble tau
 et al. 2002; Zhang et al. 2005)."
 SET Confidence = "High"
 complex(GO:"proteasome complex") -> deg(p(HGNC:MAPT))
-p(HBP:"20 S Proteasome") -> deg(p(HGNC:MAPT))
+p(CONSO:"20 S Proteasome") -> deg(p(HGNC:MAPT))
 UNSET Confidence
 
 SET Evidence = "On the other hand, it has been reported that the E3 ligase CHIP (carboxyl terminus
@@ -636,14 +636,14 @@ of the Hsc70-interacting protein) binds to tau and is involved in the degradatio
 abnormal forms of tau, including insoluble tau and hyperphosphorylated tau, coordinately
 with Hsp70 (Petrucelli et al. 2004; Dickey et al. 2006)."
 SET Confidence = "High"
-p(HGNC:STUB1) -> complex(p(HGNC:STUB1),p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)))
-complex(p(HGNC:STUB1),p(HGNC:HSPA8),p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))) -> deg(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)))
+p(HGNC:STUB1) -> complex(p(HGNC:STUB1),p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)))
+complex(p(HGNC:STUB1),p(HGNC:HSPA8),p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))) -> deg(p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)))
 UNSET Confidence
 
 SET Evidence = "As described above, it has also been found that the 20S proteasome interacts with
 tau aggregates (Keck et al. 2003)."
 SET Confidence = "High"
-p(HBP:"20 S Proteasome") -> complex(p(HBP:"20 S Proteasome"),a(HBP:"Tau aggregates"))
+p(CONSO:"20 S Proteasome") -> complex(p(CONSO:"20 S Proteasome"),a(CONSO:"Tau aggregates"))
 UNSET Confidence
 
 SET Evidence = "Thus, the accumulation of tau and of Ab, forming the two major protein lesions of
@@ -720,7 +720,7 @@ SET Evidence = "Autophagy is the cell’s principal degradative pathway for elim
 and long-lived proteins and for clearing damaged, aggregated, or obsolete proteins (Wong et al. 2010)."
 SET Confidence = "High"
 bp(GO:autophagy) -> deg(a(GO:organelle))
-bp(GO:autophagy) -> deg(a(HBP:"protein aggregates"))
+bp(GO:autophagy) -> deg(a(CONSO:"protein aggregates"))
 UNSET Confidence
 
 SET Evidence = "In CMA, cytosolic proteins containing a KFERQ motif
@@ -789,7 +789,7 @@ in brains of similarly aged individuals free of AD-like hippocampal pathology (C
 SET Confidence  = "High"
 SET MeSHAnatomy = {"Neurons","Pyramidal Cells","Neocortex"}
 path(MESH:"Neurodegenerative Diseases") -- bp(GO:"regulation of endosome size")
-a(HBP:"Braak_Stage II") -- bp(GO:"regulation of endosome size")
+a(CONSO:"Braak_Stage II") -- bp(GO:"regulation of endosome size")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -822,8 +822,8 @@ filled with AVs distinguish the pattern and magnitude of this pathology from tha
 other aging-related neurodegenerative diseases (Benzing et al. 1993)."
 # AV: autophagic vacuoles
 SET Confidence = "High"
-a(GO:autophagosome) -- a(HBP:"dystrophic neurite")
-path(MESH:"Alzheimer Disease") pos a(HBP:"dystrophic neurite")
+a(GO:autophagosome) -- a(CONSO:"dystrophic neurite")
+path(MESH:"Alzheimer Disease") pos a(CONSO:"dystrophic neurite")
 UNSET Confidence
 
 SET Evidence = "The profuse and selective accumulation of AVs in neurons in AD reflects a defect in the
@@ -848,7 +848,7 @@ clearance (Lee et al. 2010)."
 SET Confidence = "High"
 p(HGNC:PSEN1,var("?")) -> path(MESH:"Alzheimer Disease")
 p(HGNC:PSEN1,var("?")) -| bp(GO:"lysosomal protein catabolic process")
-p(HGNC:PSEN1,var("?")) -| act(a(HBP:Neurites))
+p(HGNC:PSEN1,var("?")) -| act(a(CONSO:Neurites))
 UNSET Confidence
 
 SET Evidence = "Beyond its role as a component of g-secretase, Presenilin 1 (PS1) is required for
@@ -904,7 +904,7 @@ be mediated specifically by the b-cleaved carboxy-terminal fragment of APP, bCTF
 et al. 2010), which binds to a complex of signaling molecules on endosomes that pathologically
 activates rab5 (S Kim and RA Nixon, unpubl.)."
 SET Confidence = "High"
-p(HBP:"APP C-terminally truncated carboxyl-terminal fragments") -> act(p(HGNC:RAB5A))
+p(CONSO:"APP C-terminally truncated carboxyl-terminal fragments") -> act(p(HGNC:RAB5A))
 UNSET Confidence
 
 SET Evidence = "It is this abnormal rab5 activation that causes protein and lipid accumulation in endosomes,
@@ -929,8 +929,8 @@ APOE, a key mediator of neuronal cholesterol transport and the major genetic ris
 late-onset AD (Cataldo et al. 2000)."
 SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
-g(HBP:"APOE e4") reg bp(GO:"cholesterol transport")
-g(HBP:"APOE e4") -- path(MESH:"Alzheimer Disease")
+g(CONSO:"APOE e4") reg bp(GO:"cholesterol transport")
+g(CONSO:"APOE e4") -- path(MESH:"Alzheimer Disease")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -940,8 +940,8 @@ these levels are also elevated in NPC, DS, and AD, particularly in early-onset f
 caused by certain mutations of APP."
 SET Confidence = "Medium"
 SET MeSHDisease = {"Alzheimer Disease", "Niemann-Pick Diseases",  "Down Syndrome"}
-g(HBP:"APOE e4") pos p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")
-a(CHEBI:"low-density lipoprotein cholesterol") pos p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")
+g(CONSO:"APOE e4") pos p(CONSO:"APP C-terminally truncated carboxyl-terminal fragments")
+a(CHEBI:"low-density lipoprotein cholesterol") pos p(CONSO:"APP C-terminally truncated carboxyl-terminal fragments")
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -989,13 +989,13 @@ dietary cholesterol, or overexpression of its receptor ApoE (particularly ApoE 1
 endocytosis and enlarge endosomes (Laifenfeld et al. 2007; Chen et al. 2010; Cossec
 et al. 2010), leading to impaired endosome retrograde transport (S Kim and RA Nixon, unpubl.)."
 SET Confidence = "High"
-p(HGNC:APP) pos p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")
+p(HGNC:APP) pos p(CONSO:"APP C-terminally truncated carboxyl-terminal fragments")
 p(HGNC:APP) pos bp(GO:endocytosis)
 p(HGNC:APP) -> a(GO:endosome)
-g(HBP:"APOE e4") pos p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")
-g(HBP:"APOE e4") pos bp(GO:endocytosis)
-g(HBP:"APOE e4") -> a(GO:endosome)
-a(CHEBI:cholesterol) pos p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")
+g(CONSO:"APOE e4") pos p(CONSO:"APP C-terminally truncated carboxyl-terminal fragments")
+g(CONSO:"APOE e4") pos bp(GO:endocytosis)
+g(CONSO:"APOE e4") -> a(GO:endosome)
+a(CHEBI:cholesterol) pos p(CONSO:"APP C-terminally truncated carboxyl-terminal fragments")
 a(CHEBI:cholesterol) pos bp(GO:endocytosis)
 a(CHEBI:cholesterol) -> a(GO:endosome)
 UNSET Confidence
@@ -1008,7 +1008,7 @@ SET MeSHAnatomy = "Endosomes"
 bp(GO:endocytosis) pos a(MESH:Proteins)
 bp(GO:endocytosis) pos a(CHEBI:lipid)
 bp(GO:endocytosis) neg bp(GO:"lysosomal protein catabolic process")
-bp(GO:"lysosomal protein catabolic process") -| path(HBP:Neurodegeneration)
+bp(GO:"lysosomal protein catabolic process") -| path(CONSO:Neurodegeneration)
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -1072,7 +1072,7 @@ equivalent to the elevated endocytosis associated with increased synaptic activi
 considered a source of Ab generation (Cirrito et al. 2008)."
 SET Confidence = "High"
 SET MeSHDisease = "Down Syndrome"
-p(HBP:"APP C-terminally truncated carboxyl-terminal fragments") -> act(p(HGNC:RAB5A))
+p(CONSO:"APP C-terminally truncated carboxyl-terminal fragments") -> act(p(HGNC:RAB5A))
 act(p(HGNC:RAB5A)) -> bp(GO:endocytosis)
 bp(GO:endocytosis) pos act(a(GO:synapse))
 bp(GO:endocytosis) pos a(CHEBI:"amyloid-beta")
@@ -1083,14 +1083,14 @@ SET Evidence = "The acidic environment in lysosomes is particularly favorable fo
 the initial stages of Ab oligomerization (Peralvarez-Marin et al. 2008)."
 SET Confidence = "High"
 SET MeSHAnatomy = "Lysosomes"
-bp(GO:"response to acidic pH") -> a(HBP:"amyloid-beta oligomers")
+bp(GO:"response to acidic pH") -> a(CONSO:"amyloid-beta oligomers")
 UNSET MeSHAnatomy
 UNSET Confidence
 
 SET Evidence = "Neurofibrillary tangles composed of tau proteins in a hyperphosphorylated state are rarely
 observed in abundance except in AD and a limited number of aging-related tauopathies."
 SET Confidence = "High"
-a(GO:"neurofibrillary tangle") -- p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+a(GO:"neurofibrillary tangle") -- p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 UNSET Confidence
 
 SET Evidence = "Incomplete charperone-mediated autophagy of tau generates fragments that
@@ -1113,7 +1113,7 @@ a(CHEBI:sirolimus) -| path(MESH:Tauopathies)
 UNSET Species
 UNSET MeSHDisease
 bp(GO:autophagy) -| path(MESH:Tauopathies)
-bp(GO:autophagy) -| path(HBP:neurotoxicity)
+bp(GO:autophagy) -| path(CONSO:neurotoxicity)
 UNSET Confidence
 
 SET Evidence = "Pathological Rab5 activation driving endocytic dysfunction in AD may negatively impact longterm
@@ -1149,7 +1149,7 @@ UNSET Confidence
 SET Evidence = "A close connection between lysosomal network dysfunction and mechanisms of neurodegeneration
 is well documented (McCray et al. 2008; Nixon et al. 2008; Bellettato et al. 2010; Cherra et al. 2010)."
 SET Confidence = "High"
-bp(GO:"lysosomal protein catabolic process") -| path(HBP:Neurodegeneration)
+bp(GO:"lysosomal protein catabolic process") -| path(CONSO:Neurodegeneration)
 UNSET Confidence
 
 SET Evidence = "Cataclysmic disruption of lysosomal membranes releases hydrolases that act as
@@ -1166,11 +1166,11 @@ ApoE (particularly ApoE 14) elevate bCTF levels and increase delivery of Ab1–4
 to lysosomes in cellular model systems (Ji et al. 2006; Cossec et al. 2010)."
 #bCTF : APP C-terminally truncated carboxyl-terminal fragments
 SET Confidence = "High"
-bp(GO:endocytosis) pos p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")
+bp(GO:endocytosis) pos p(CONSO:"APP C-terminally truncated carboxyl-terminal fragments")
 bp(GO:endocytosis) pos tloc(a(CHEBI:"amyloid-beta polypeptide 42"),fromLoc(GO:cytosol),toLoc(GO:lysosome))
-g(HBP:"APOE e4") pos p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")
-g(HBP:"APOE e4") pos tloc(a(CHEBI:"amyloid-beta polypeptide 42"),fromLoc(GO:cytosol),toLoc(GO:lysosome))
-a(CHEBI:"low-density lipoprotein cholesterol") pos p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")
+g(CONSO:"APOE e4") pos p(CONSO:"APP C-terminally truncated carboxyl-terminal fragments")
+g(CONSO:"APOE e4") pos tloc(a(CHEBI:"amyloid-beta polypeptide 42"),fromLoc(GO:cytosol),toLoc(GO:lysosome))
+a(CHEBI:"low-density lipoprotein cholesterol") pos p(CONSO:"APP C-terminally truncated carboxyl-terminal fragments")
 a(CHEBI:"low-density lipoprotein cholesterol") pos tloc(a(CHEBI:"amyloid-beta polypeptide 42"),fromLoc(GO:cytosol),toLoc(GO:lysosome))
 UNSET Confidence
 
@@ -1181,7 +1181,7 @@ SET Confidence = "Medium"
 SET Species = "7227"
 SET MeSHAnatomy = "Neurons"
 a(CHEBI:"amyloid-beta polypeptide 42") pos tloc(a(CHEBI:"amyloid-beta"), fromLoc(GO:cytosol), toLoc(GO:autolysosome))
-a(CHEBI:"amyloid-beta polypeptide 42") pos path(HBP:neurotoxicity)
+a(CHEBI:"amyloid-beta polypeptide 42") pos path(CONSO:neurotoxicity)
 UNSET MeSHAnatomy
 UNSET Species
 UNSET Confidence
@@ -1189,8 +1189,8 @@ UNSET Confidence
 SET Evidence = "Ab42-induced neurotoxicity is further enhanced by autophagy activation and is partially
 rescued by autophagy inhibition."
 SET Confidence = "High"
-a(CHEBI:"amyloid-beta polypeptide 42") -> path(HBP:neurotoxicity)
-bp(GO:autophagy) -> path(HBP:neurotoxicity)
+a(CHEBI:"amyloid-beta polypeptide 42") -> path(CONSO:neurotoxicity)
+bp(GO:autophagy) -> path(CONSO:neurotoxicity)
 UNSET Confidence
 
 SET Evidence = "Expression of the ApoE epsilon 4 allele, but not ApoE epsilon 3, in mice
@@ -1199,10 +1199,10 @@ neurodegeneration of hippocampal CA1, entorhinal,and septal neurons (Belinson et
 SET Confidence = "Medium"
 SET Species = "10090"
 SET MeSHAnatomy = "Lysosomes"
-g(HBP:"APOE e4") -> act(a(CHEBI:"amyloid-beta"))
+g(CONSO:"APOE e4") -> act(a(CHEBI:"amyloid-beta"))
 UNSET MeSHAnatomy
 SET MeSHAnatomy = {"CA1 Region, Hippocampal","Neurons"}
-g(HBP:"APOE e4") -> path(HBP:Neurodegeneration)
+g(CONSO:"APOE e4") -> path(CONSO:Neurodegeneration)
 UNSET MeSHAnatomy
 UNSET Species
 UNSET Confidence
@@ -1211,7 +1211,7 @@ SET Evidence = "ApoE epsilon4 that trafficks to lysosomes more readily than ApoE
 of acid hydrolases, and induces apoptosis in cultured neuronal cells by forming membrane-damaging
 intermediates in the low-pHenvironment (Ji et al. 2002)."
 SET Confidence = "High"
-g(HBP:"APOE e4") -> bp(GO:"apoptotic process")
+g(CONSO:"APOE e4") -> bp(GO:"apoptotic process")
 UNSET Confidence
 
 SET Evidence = "Beyond influencing Ab generation and toxicity, defective endosome functioning plays a
@@ -1221,7 +1221,7 @@ forebrain cholinergic neuron degeneration in the Ts65Dn mouse model of DS (Coope
 SET Confidence = "High"
 act(a(GO:endosome)) -> bp(GO:"nerve growth factor signaling pathway")
 SET Species = "10090"
-act(a(GO:endosome)) -| path(HBP:Neurodegeneration)
+act(a(GO:endosome)) -| path(CONSO:Neurodegeneration)
 UNSET Species
 UNSET Confidence
 

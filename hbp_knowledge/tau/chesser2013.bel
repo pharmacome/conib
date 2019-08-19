@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 #DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -83,7 +83,7 @@ staged based on the location and extent of tau pathology (1)."
 SET Confidence = "High"
 path(MESH:"Alzheimer Disease") pos path(MESH:"Neurofibrillary Tangles")
 path(MESH:"Alzheimer Disease") -- p(HGNC:MAPT)
-a(HBP:"Tau aggregates") -> path(MESH:"Neurofibrillary Tangles")
+a(CONSO:"Tau aggregates") -> path(MESH:"Neurofibrillary Tangles")
 UNSET Confidence
 
 SET Evidence="The predominant post-translational modification of tau in the
@@ -93,7 +93,7 @@ others (2–4)."
 SET Confidence = "High"
 path(MESH:"Neurofibrillary Tangles") -- p(HGNC:MAPT, pmod(Ph))
 path(MESH:"Neurofibrillary Tangles") -- p(HGNC:MAPT, pmod(Ac))
-path(MESH:"Neurofibrillary Tangles") -- p(HGNC:MAPT, pmod(HBP:nitration))
+path(MESH:"Neurofibrillary Tangles") -- p(HGNC:MAPT, pmod(CONSO:nitration))
 path(MESH:"Neurofibrillary Tangles") -- p(HGNC:MAPT, frag(1_?))
 path(MESH:"Neurofibrillary Tangles") -- p(HGNC:MAPT, frag(?_*))
 UNSET Confidence
@@ -162,7 +162,7 @@ path(MESH:"Frontotemporal Dementia") -- p(HGNC:MAPT, var("p.Pro301Leu"))
 SET MeSHAnatomy="Cerebral Cortex"
 SET Species="10090"
 
-p(MGI:Mapt, var("p.Pro301Leu")) -> path(HBP:Neurodegeneration)
+p(MGI:Mapt, var("p.Pro301Leu")) -> path(CONSO:Neurodegeneration)
 
 UNSET Species
 UNSET MeSHAnatomy
@@ -266,7 +266,7 @@ path(MESH:"Alzheimer Disease") -> a(CHEBI:Thrombin, loc(MESH:Microvessels))
 UNSET MeSHAnatomy
 
 path(MESH:"Alzheimer Disease") -> a(CHEBI:Thrombin, loc(MESH:"Cerebrospinal Fluid"))
-a(CHEBI:Thrombin) -> path(HBP:"neurite retraction")
+a(CHEBI:Thrombin) -> path(CONSO:"neurite retraction")
 a(CHEBI:Thrombin) -> bp(GO:"apoptotic process")
 UNSET Confidence
 
@@ -277,7 +277,7 @@ an increase in cell death at 72 h (37)."
 SET Confidence = "High"
 SET MeSHAnatomy="Hippocampus"
 
-a(CHEBI:Thrombin) -> a(HBP:"Tau aggregates")
+a(CHEBI:Thrombin) -> a(CONSO:"Tau aggregates")
 a(CHEBI:Thrombin) -> bp(GO:"apoptotic process")
 
 UNSET MeSHAnatomy
@@ -320,8 +320,8 @@ fragments that rapidly aggregated, which closely correlated with toxicity in
 cell culture (15). These fragments can also induce the aggregation of
 full-length tau (39). "
 SET Confidence = "High"
-deg(p(HGNC:MAPT, frag(561_685))) -> a(HBP:"Tau aggregates")
-a(HBP:"Tau aggregates") pos path(HBP:neurotoxicity)
+deg(p(HGNC:MAPT, frag(561_685))) -> a(CONSO:"Tau aggregates")
+a(CONSO:"Tau aggregates") pos path(CONSO:neurotoxicity)
 UNSET Confidence
 
 SET Evidence="A final point of interest relates to potential upstream modifications of
@@ -333,8 +333,8 @@ partitions to the insoluble fraction (30). Phosphorylation at T231 prevents the 
 Pin1 from converting cis-tau to trans-tau (30). "
 SET Confidence = "High"
 path(MESH:"Alzheimer Disease") reg p(HGNC:MAPT, pmod(Ph))
-p(HBP:"cis p-tau") -| deg(p(HBP:"cis p-tau"))
-p(HBP:"cis p-tau") -| act(p(HGNC:PIN1))
+p(CONSO:"cis p-tau") -| deg(p(CONSO:"cis p-tau"))
+p(CONSO:"cis p-tau") -| act(p(HGNC:PIN1))
 UNSET Confidence
 
 SET Evidence="Interestingly, phosphorylation of tau also appears to disrupt
@@ -351,8 +351,8 @@ system, although expression is low (40).Nonetheless, this enzyme was initially
 implicated in AD because it may play a role in amyloid processing (41).  "
 SET Confidence = "Medium"
 p(HGNC:HTRA1, loc(MESH:"Central Nervous System"))
-p(HGNC:HTRA1) -- bp(HBP:"APP processing")
-bp(HBP:"APP processing") -- path(MESH:"Alzheimer Disease")
+p(HGNC:HTRA1) -- bp(CONSO:"APP processing")
+bp(CONSO:"APP processing") -- path(MESH:"Alzheimer Disease")
 p(HGNC:HTRA1) -- path(MESH:"Alzheimer Disease")
 UNSET Confidence
 
@@ -365,8 +365,8 @@ SET Confidence = "Medium"
 act(p(HGNC:HTRA1)) -> deg(p(HGNCGENEFAMILY:Tubulins))
 act(p(HGNC:HTRA1)) reg act(a(MESH:Microtubules))
 act(p(HGNC:HTRA1)) -> deg(p(HGNC:MAPT))
-act(p(HGNC:HTRA1)) -> deg(a(HBP:"Tau fibrils"))
-act(p(HGNC:HTRA1)) -> deg(a(HBP:"Tau aggregates"))
+act(p(HGNC:HTRA1)) -> deg(a(CONSO:"Tau fibrils"))
+act(p(HGNC:HTRA1)) -> deg(a(CONSO:"Tau aggregates"))
 UNSET Confidence
 
 SET Evidence="Calpains are calcium-activated cytosolic cysteine proteases. Two
@@ -407,7 +407,7 @@ is ∼35 kDa and one that is ∼17 kDa (19, 20). "
 SET Confidence = "High"
 SET MeSHDisease={"Neurodegenerative Diseases", "Alzheimer Disease"}
 
-path(HBP:Excitotoxicity) -> a(CHEBI:"calcium(2+)", loc(GO:intracellular))
+path(CONSO:Excitotoxicity) -> a(CHEBI:"calcium(2+)", loc(GO:intracellular))
 a(CHEBI:"calcium(2+)", loc(GO:intracellular)) -> act(p(HGNCGENEFAMILY:Calpains))
 act(p(HGNCGENEFAMILY:Calpains)) -> deg(p(HGNC:MAPT))
 act(p(HGNCGENEFAMILY:Calpains)) -> p(HGNC:MAPT, frag(?,"35kD"))
@@ -425,7 +425,7 @@ SET CellLine="PC12"
 
 a(CHEBI:"calcium(2+)", loc(GO:intracellular)) -> act(p(HGNCGENEFAMILY:Calpains))
 act(p(HGNCGENEFAMILY:Calpains)) -> deg(p(HGNC:MAPT))
-act(p(HGNCGENEFAMILY:Calpains)) -- path(HBP:Excitotoxicity)
+act(p(HGNCGENEFAMILY:Calpains)) -- path(CONSO:Excitotoxicity)
 act(p(HGNCGENEFAMILY:Calpains)) -> p(HGNC:MAPT, frag(?,"17kD"))
 bp(GO:"apoptotic process") -> act(p(HGNCGENEFAMILY:Calpains))
 bp(GO:"apoptotic process") -> p(HGNC:MAPT, frag(?,"17kD"))
@@ -460,13 +460,13 @@ did expressing a calpain-resistant form of tau (54). "
 SET Confidence = "High"
 SET MeSHAnatomy="Hippocampus"
 
-p(HGNC:MAPT, frag(?,"17kD")) -> path(HBP:"neurite retraction")
+p(HGNC:MAPT, frag(?,"17kD")) -> path(CONSO:"neurite retraction")
 
 UNSET MeSHAnatomy
 
 SET MeSHDisease="Tauopathies"
 
-act(p(HGNCGENEFAMILY:Calpains)) -> path(HBP:Neurodegeneration)
+act(p(HGNCGENEFAMILY:Calpains)) -> path(CONSO:Neurodegeneration)
 
 UNSET MeSHDisease
 UNSET Confidence
@@ -477,7 +477,7 @@ the recombinant fragment utilized in the above studies (19). Expression of a
 recombinant form of the mass spectroscopy-identified fragment in hippocampal
 neurons was not toxic (19)."
 SET Confidence = "High"
-p(HGNC:MAPT, frag(?,"17kD")) cnc path(HBP:neurotoxicity)
+p(HGNC:MAPT, frag(?,"17kD")) cnc path(CONSO:neurotoxicity)
 UNSET Confidence
 
 SET Evidence="There is significant evidence that tau is a caspase substrate
@@ -501,7 +501,7 @@ SET Confidence = "High"
 act(p(HGNC:CASP6)) -> p(HGNC:MAPT, frag("1_?"))
 act(p(HGNC:CASP6)) -> bp(GO:"apoptotic process")
 act(p(HGNC:CASP6)) -> p(HGNC:MAPT, variant("p.Asp421*"))
-p(HGNC:MAPT, variant("p.Asp421*")) isA p(HBP:"Tau C3")
+p(HGNC:MAPT, variant("p.Asp421*")) isA p(CONSO:"Tau C3")
 UNSET Confidence
 
 SET Evidence="There may be reciprocity with the apoptosis
@@ -512,8 +512,8 @@ of neurotoxicity."
 SET Confidence = "High"
 bp(GO:"apoptotic process") -> act(p(HGNC:CASP6))
 act(p(HGNC:CASP3)) -> deg(p(HGNC:MAPT))
-act(p(HGNC:CASP3)) -> p(HBP:"Tau C3")
-p(HBP:"Tau C3") -> bp(GO:"apoptotic process")
+act(p(HGNC:CASP3)) -> p(CONSO:"Tau C3")
+p(CONSO:"Tau C3") -> bp(GO:"apoptotic process")
 UNSET Confidence
 
 SET Evidence="Furthermore, expressing a cleavage resistant form of tau (D421E)
@@ -522,8 +522,8 @@ inducing caspase-3 cleavage of tau is the presence of Aβ peptides. TauC3 is
 formed in primary cortical neurons after treatment with Aβ (23)."
 SET Confidence = "Medium"
 p(HGNC:MAPT, var("p.Asp421Glu")) -| bp(GO:"apoptotic process")
-composite(a(MESH:"Amyloid beta-Peptides"),p(HGNC:CASP3)) -> p(HBP:"Tau C3")
-a(CHEBI:"amyloid-beta") -> p(HBP:"Tau C3")
+composite(a(MESH:"Amyloid beta-Peptides"),p(HGNC:CASP3)) -> p(CONSO:"Tau C3")
+a(CHEBI:"amyloid-beta") -> p(CONSO:"Tau C3")
 UNSET Confidence
 
 SET Evidence="Caspase cleavage of tau may play a role in stimulating the tau
@@ -533,8 +533,8 @@ full-length tau (23, 55). "
 SET Confidence = "High"
 SET MeSHDisease="Alzheimer Disease"
 
-act(p(HGNC:CASP3)) -> p(HBP:"Tau C3")
-p(HBP:"Tau C3") -> a(HBP:"Tau aggregates")
+act(p(HGNC:CASP3)) -> p(CONSO:"Tau C3")
+p(CONSO:"Tau C3") -> a(CONSO:"Tau aggregates")
 
 UNSET MeSHDisease
 UNSET Confidence
@@ -577,8 +577,8 @@ SET MeSHAnatomy = "Neurons"
 act(p(HGNCGENEFAMILY:Caspases)) -- path(MESH:"Neurofibrillary Tangles")
 act(p(HGNC:CASP6)) -> p(HGNC:MAPT, frag("?_*"))
 act(p(HGNC:CASP6)) -> p(HGNC:MAPT, frag("1_?"))
-p(HBP:"Tau C3") neg bp(GO:cognition)
-p(HBP:"Tau C3") -- path(MESH:"Neurofibrillary Tangles")
+p(CONSO:"Tau C3") neg bp(GO:cognition)
+p(CONSO:"Tau C3") -- path(MESH:"Neurofibrillary Tangles")
 
 UNSET MeSHDisease
 UNSET MeSHAnatomy
@@ -612,7 +612,7 @@ mechanism is unclear, a possibility is that accumulating proteins might
 be a factor in initiating caspase activation."
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Neurons"
-act(p(HGNCGENEFAMILY:Caspases)) -> a(HBP:"Tau aggregates")
+act(p(HGNCGENEFAMILY:Caspases)) -> a(CONSO:"Tau aggregates")
 act(p(HGNCGENEFAMILY:Caspases)) -> p(HGNC:MAPT,frag("?"))
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -640,7 +640,7 @@ themselves may interfere with proteasomal degradative processes.
 Indeed, in vitro aggregated paired helical filament tau could inhibit
 proteasome activity (69)."
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -| act(p(HGNCGENEFAMILY:Proteasome))
+a(CONSO:"Tau aggregates") -| act(p(HGNCGENEFAMILY:Proteasome))
 UNSET Confidence
 
 SET Evidence="Not surprisingly, if recombinant tau is incubated with
@@ -660,7 +660,7 @@ transfected wild-type full-length tau (4R0N) after cycloheximide treatment
 halted protein synthesis (65). "
 SET Confidence = "Medium"
 a(CHEBI:lactacystin) -| deg(p(HGNC:MAPT))
-a(CHEBI:lactacystin) -| act(p(HBP:"20 S Proteasome"))
+a(CHEBI:lactacystin) -| act(p(CONSO:"20 S Proteasome"))
 UNSET Confidence
 
 SET Evidence=" Similarly, overexpressing the FTDP-17 mutant P301L tau
@@ -715,7 +715,7 @@ mouse models of AD. "
 SET Confidence = "High"
 SET MeSHDisease="Alzheimer Disease"
 #AVs = autophagic vacuoles
-a(MESH:Autophagosomes) pos a(HBP:"Tau aggregates")
+a(MESH:Autophagosomes) pos a(CONSO:"Tau aggregates")
 
 UNSET MeSHDisease
 UNSET Confidence
@@ -817,7 +817,7 @@ SET Species="7215"
 SET MeSHDisease="Tauopathies"
 act(p(HGNC:CTSD)) -> deg(p(HGNC:MAPT))
 act(p(HGNC:CTSD)) -> path(MESH:Neuroprotection)
-act(p(HGNC:CTSD)) -| path(HBP:neurotoxicity)
+act(p(HGNC:CTSD)) -| path(CONSO:neurotoxicity)
 UNSET MeSHDisease
 UNSET Species
 UNSET Confidence
@@ -830,7 +830,7 @@ autophagosomes led to an increase in both soluble and insoluble tau (94)."
 SET Confidence = "Medium"
 SET MeSHDisease="Frontotemporal Dementia"
 
-p(HGNC:MAPT, frag("561_685")) pos a(HBP:"Tau aggregates")
+p(HGNC:MAPT, frag("561_685")) pos a(CONSO:"Tau aggregates")
 a(MESH:"3-methyladenine") -| bp(GO:"autophagosome assembly")
 a(MESH:"3-methyladenine") -> p(HGNC:MAPT)
 
@@ -862,7 +862,7 @@ SET Confidence = "High"
 SET MeSHDisease="Frontotemporal Dementia"
 
 a(MESH:Trehalose) -> bp(MESH:Autophagy)
-a(MESH:Trehalose) -| a(HBP:"Tau aggregates")
+a(MESH:Trehalose) -| a(CONSO:"Tau aggregates")
 a(MESH:Trehalose) -| p(HGNC:MAPT)
 
 UNSET MeSHDisease
@@ -875,7 +875,7 @@ that was prevented by 3-MA (70). "
 SET Confidence = "High"
 a(CHEBI:sirolimus) -> bp(MESH:Autophagy)
 bp(MESH:Autophagy) -| p(HGNC:MAPT, var("p.Pro301Leu"))
-bp(MESH:Autophagy) -| a(HBP:"Tau aggregates")
+bp(MESH:Autophagy) -| a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence="In a mouse model expressing the FTDP-17 mutant P301S,
@@ -908,9 +908,9 @@ SET Confidence = "High"
 SET Species="10090"
 SET MeSHAnatomy="Neurons"
 
-p(MGI:Atg7) -| path(HBP:Neurodegeneration)
+p(MGI:Atg7) -| path(CONSO:Neurodegeneration)
 p(MGI:Atg7) -| p(MGI:Mapt, pmod(Ph))
-p(MGI:Mapt, pmod(Ph)) -> path(HBP:Neurodegeneration)
+p(MGI:Mapt, pmod(Ph)) -> path(CONSO:Neurodegeneration)
 p(MGI:Atg7) -| p(MGI:Mapt, pmod(Ph, Thr, 212), pmod(Ph, Ser, 214))
 p(MGI:Atg7) -| p(MGI:Mapt, pmod(Ph, Ser, 202), pmod(Ph, Thr, 205))
 p(MGI:Atg7) -| p(MGI:Mapt, pmod(Ph, Thr, 231))
@@ -925,8 +925,8 @@ cleaved tau, which is more aggregate prone, goes through autophagy (72). Also,
 aggregated tau can be cleared by inducing autophagy (70, 96)."
 SET Confidence = "High"
 p(HGNCGENEFAMILY:Proteasome) -> deg(p(HGNC:MAPT))
-bp(MESH:Autophagy) -> deg(p(HBP:"Tau C3"))
-bp(MESH:Autophagy) -> deg(a(HBP:"Tau aggregates"))
+bp(MESH:Autophagy) -> deg(p(CONSO:"Tau C3"))
+bp(MESH:Autophagy) -> deg(a(CONSO:"Tau aggregates"))
 UNSET Confidence
 
 SET Evidence="For example, if HEK cells are transfected with tau and ubiquitin,
@@ -1000,9 +1000,9 @@ SET Confidence = "High"
 SET Species="10116"
 
 a(MESH:Trehalose) -> bp(MESH:Autophagy)
-bp(MESH:Autophagy) -| p(HBP:"Tau epitope, AT8")
-bp(MESH:Autophagy) -| p(HBP:"Tau epitope, PHF1")
-bp(MESH:Autophagy) -| p(HBP:"Tau epitope, 12E8")
+bp(MESH:Autophagy) -| p(CONSO:"Tau epitope, AT8")
+bp(MESH:Autophagy) -| p(CONSO:"Tau epitope, PHF1")
+bp(MESH:Autophagy) -| p(CONSO:"Tau epitope, 12E8")
 
 UNSET Species
 UNSET Confidence
@@ -1010,7 +1010,7 @@ UNSET Confidence
 SET Evidence="Finally, caspase-3 cleaved tau has a shorter half-life than
 full-length tau and is preferentially degraded by autophagy (72)."
 SET Confidence = "High"
-bp(MESH:Autophagy) -| p(HBP:"Tau C3")
+bp(MESH:Autophagy) -| p(CONSO:"Tau C3")
 UNSET Confidence
 
 SET Evidence="Soluble, monomeric tau is an ideal proteasomal substrate. Indeed,
@@ -1025,8 +1025,8 @@ act(p(HGNCGENEFAMILY:Proteasome)) -> deg(p(HGNC:MAPT))
 
 SET MeSHDisease="Alzheimer Disease"
 
-act(p(HGNCGENEFAMILY:Proteasome)) cnc deg(a(HBP:"Tau aggregates"))
-bp(MESH:Autophagy) -> deg(a(HBP:"Tau aggregates"))
+act(p(HGNCGENEFAMILY:Proteasome)) cnc deg(a(CONSO:"Tau aggregates"))
+bp(MESH:Autophagy) -> deg(a(CONSO:"Tau aggregates"))
 
 UNSET MeSHDisease
 UNSET Confidence
@@ -1037,10 +1037,10 @@ begins to assemble into oligomers, it may become increasingly undesirable as a
 proteasomal substrate. These low-order, soluble oligomers may be preferentially
 degraded by autophagy. "
 SET Confidence = "High"
-p(HBP:"Tau C3") -> a(HBP:"Tau aggregates")
-act(p(HGNCGENEFAMILY:Proteasome)) cnc deg(a(HBP:"Tau oligomers"))
-bp(MESH:Autophagy) -> deg(a(HBP:"Tau aggregates"))
-bp(MESH:Autophagy) -> deg(a(HBP:"Tau oligomers"))
+p(CONSO:"Tau C3") -> a(CONSO:"Tau aggregates")
+act(p(HGNCGENEFAMILY:Proteasome)) cnc deg(a(CONSO:"Tau oligomers"))
+bp(MESH:Autophagy) -> deg(a(CONSO:"Tau aggregates"))
+bp(MESH:Autophagy) -> deg(a(CONSO:"Tau oligomers"))
 UNSET Confidence
 
 SET Evidence="However, as previously discussed, autophagy is likely impaired

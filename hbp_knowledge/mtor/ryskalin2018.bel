@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc.genefamily-names.belns"
 #DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hp-names.belns"
@@ -78,15 +78,15 @@ SET Evidence = "Remarkably, further investigation on the
 autophagy pathway revealed that all these misfolded proteins are autophagy substrates depending
 on mTOR activity"
 SET Confidence = "High"
-bp(GO:autophagy) -> deg(p(MESH:Proteins,pmod(HBP:misfolded)))
-act(p(HGNC:MTOR)) reg deg(p(MESH:Proteins,pmod(HBP:misfolded)))
+bp(GO:autophagy) -> deg(p(MESH:Proteins,pmod(CONSO:misfolded)))
+act(p(HGNC:MTOR)) reg deg(p(MESH:Proteins,pmod(CONSO:misfolded)))
 UNSET Confidence
 
 SET Evidence = "In addition, most DLB patients show most features of AD (i.e., hyperphosphorylated tau deposits
 and Abeta) to various extents"
 SET Confidence = "High"
 # DLB: dementia with Lewy bodies
-path(MESH:"Lewy Body Disease") -- p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+path(MESH:"Lewy Body Disease") -- p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 path(MESH:"Lewy Body Disease") -- a(CHEBI:"amyloid-beta")
 UNSET Confidence
 
@@ -106,7 +106,7 @@ SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 SET MeSHDisease = "Alzheimer Disease"
 act(p(HGNC:MTOR)) -> a(CHEBI:"amyloid-beta")
-act(p(HGNC:MTOR)) -> p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+act(p(HGNC:MTOR)) -> p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 UNSET MeSHAnatomy
 UNSET MeSHDisease
 UNSET Confidence
@@ -116,7 +116,7 @@ evidence indicates that suppressing mTOR activity ameliorates AD cognitive defec
 Abeta and tau pathology"
 SET Confidence = "High"
 act(p(HGNC:MTOR)) -> path(MESH:"Alzheimer Disease")
-act(p(HGNC:MTOR)) -> a(HBP:"Tau aggregates")
+act(p(HGNC:MTOR)) -> a(CONSO:"Tau aggregates")
 SET MeSHDisease = "Alzheimer Disease"
 act(p(HGNC:MTOR)) -| bp(GO:cognition)
 UNSET MeSHDisease
@@ -126,12 +126,12 @@ SET Evidence = "Again, rapamycin and rapalogs protect against toxicity produced 
 a number of misfolded proteins encompassing alpha synuclein, TDP43, and hyperphosphorylated tau "
 
 SET Confidence = "Medium"
-a(CHEBI:"sirolimus") -| p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
-a(CHEBI:"sirolimus") -| p(HGNC:SNCA,pmod(HBP:misfolded))
-a(CHEBI:"sirolimus") -| p(HGNC:TARDBP,pmod(HBP:misfolded))
-a(CHEBI:"mTOR inhibitor") -| p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
-a(CHEBI:"mTOR inhibitor") -| p(HGNC:SNCA,pmod(HBP:misfolded))
-a(CHEBI:"mTOR inhibitor") -| p(HGNC:TARDBP,pmod(HBP:misfolded))
+a(CHEBI:"sirolimus") -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+a(CHEBI:"sirolimus") -| p(HGNC:SNCA,pmod(CONSO:misfolded))
+a(CHEBI:"sirolimus") -| p(HGNC:TARDBP,pmod(CONSO:misfolded))
+a(CHEBI:"mTOR inhibitor") -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+a(CHEBI:"mTOR inhibitor") -| p(HGNC:SNCA,pmod(CONSO:misfolded))
+a(CHEBI:"mTOR inhibitor") -| p(HGNC:TARDBP,pmod(CONSO:misfolded))
 UNSET Confidence
 
 SET Evidence = "This is further supported by mounting evidence obtained in rodent models, which demonstrate that
@@ -144,7 +144,7 @@ UNSET Confidence
 SET Evidence = "In schizophrenia, a progressive synaptic disorder is likely to promote neurodegeneration"
 SET Confidence = "High"
 SET MeSHDisease = "Schizophrenia"
-act(a(GO:"synapse")) -- path(HBP:Neurodegeneration)
+act(a(GO:"synapse")) -- path(CONSO:Neurodegeneration)
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -397,9 +397,9 @@ of hyperphosphorylated MAP-tau (MAPT), which is the hallmark of several neurodeg
 disorders such as AD and frontotemporal dementia (FTD), has been described in elderly subjects with
 schizophrenia"
 SET Confidence = "High"
-path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
-path(MESH:"Frontotemporal Dementia") pos p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
-path(MESH:Schizophrenia) pos p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+path(MESH:"Frontotemporal Dementia") pos p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+path(MESH:Schizophrenia) pos p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 UNSET Confidence
 
 SET Evidence = "Momeni and colleagues (2010) recently reported
@@ -426,7 +426,7 @@ SET MeSHAnatomy = "Brain"
 path(MESH:"Frontotemporal Lobar Degeneration") -- path(MESH:"Psychotic Disorders")
 path(MESH:"Frontotemporal Lobar Degeneration") -- path(MESH:Catatonia)
 p(HGNC:TARDBP,loc(GO:"inclusion body")) -- path(MESH:"Frontotemporal Lobar Degeneration")
-p(HGNC:TARDBP,loc(HBP:"dystrophic neurite")) -- path(MESH:"Frontotemporal Lobar Degeneration")
+p(HGNC:TARDBP,loc(CONSO:"dystrophic neurite")) -- path(MESH:"Frontotemporal Lobar Degeneration")
 path(MESH:Catatonia) -- path(MESH:Schizophrenia)
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -436,10 +436,10 @@ and dysbindin-1, which are encoded by two susceptibility genes for schizophrenia
 protein aggregates that are reminiscent of those occurring in neurodegenerative disorders"
 SET Confidence = "Medium"
 p(HGNC:DISC1) -- path(MESH:Schizophrenia)
-p(HGNC:DISC1) -> a(HBP:"protein aggregates")
+p(HGNC:DISC1) -> a(CONSO:"protein aggregates")
 p(HGNC:DTNBP1) -- path(MESH:Schizophrenia)
-p(HGNC:DTNBP1) -> a(HBP:"protein aggregates")
-a(HBP:"protein aggregates") -> path(MESH:"Neurodegenerative Diseases")
+p(HGNC:DTNBP1) -> a(CONSO:"protein aggregates")
+a(CONSO:"protein aggregates") -> path(MESH:"Neurodegenerative Diseases")
 UNSET Confidence
 
 SET Evidence = "Intriguingly, the interactome analysis of both DISC1, dysbindin-1, and CRMP2, which is another
@@ -659,7 +659,7 @@ act(p(HGNC:DRD1)) -> p(HGNC:CDK5)
 a(CHEBI:amphetamine) -> r(HGNC:CDK5)
 a(CHEBI:amphetamine) -> p(HGNC:CDK5)
 p(HGNC:CDK5) pos a(GO:"dendritic spine")
-p(HGNC:CDK5) pos p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+p(HGNC:CDK5) pos p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 UNSET Confidence
 
 SET Evidence = "In detail, the activation
@@ -851,7 +851,7 @@ UNSET Confidence
 
 SET Evidence = "For instance, haloperidol occludes huntingtin aggregation"
 SET Confidence = "High"
-a(CHEBI:haloperidol) -| a(HBP:"huntingtin aggregates")
+a(CHEBI:haloperidol) -| a(CONSO:"huntingtin aggregates")
 UNSET Confidence
 
 SET Evidence = "Chronic clozapine treatment (20 mg/kg/day) reduces Abeta deposition"
