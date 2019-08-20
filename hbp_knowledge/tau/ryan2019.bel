@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hp-names.belns"
@@ -78,14 +78,14 @@ SET Citation = {"PubMed", "30985105"}
 SET Evidence = "The addition and removal of OGlcNAc onto protein substrates is governed entirely by two
 ubiquitously expressed enzymes: O-GlcNAc transferase [EC 2.4.1.255] (OGT) and O-GlcNAc hydrolase [EC
 3.2.1.169] (OGA) respectively (see Figure 2)."
-p(HGNC:OGT) -> p(MESH:Proteins,pmod(HBP:"O-GlcNAcylation"))
-p(HGNC:OGA) -> p(MESH:Proteins,pmod(HBP:"O-GlcNAcylation"))
+p(HGNC:OGT) -> p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation"))
+p(HGNC:OGA) -> p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation"))
 
 SET Evidence = "OGT-mediated transfer of O-GlcNAc onto proteins is therefore
 closely tied to cellular glucose concentrations, though
 notably glucosamine and GlcNAc may also be recycled via salvage pathways"
-p(HGNC:OGT) -> p(MESH:Proteins,pmod(HBP:"O-GlcNAcylation"))
-p(MESH:Proteins,pmod(HBP:"O-GlcNAcylation")) -- bp(GO:"cellular glucose homeostasis")
+p(HGNC:OGT) -> p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation"))
+p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation")) -- bp(GO:"cellular glucose homeostasis")
 
 SET Evidence = "In fact, it has been found that a
 decreased availability of glucose invokes a considerable
@@ -93,13 +93,13 @@ reduction in the level of O-GlcNAc present in the mouse
 brain"
 SET Species = "10090"
 SET MeSHAnatomy = "Brain"
-a(CHEBI:glucose) pos p(MESH:Proteins,pmod(HBP:"O-GlcNAcylation"))
+a(CHEBI:glucose) pos p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation"))
 UNSET MeSHAnatomy
 UNSET Species
 
 SET Evidence = "Furthermore, hyperglycaemic conditions yield
 increased levels of O-GlcNAc"
-path(MESH:Hyperglycemia) -> p(MESH:Proteins,pmod(HBP:"O-GlcNAcylation"))
+path(MESH:Hyperglycemia) -> p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation"))
 
 SET Evidence = "Knockout studies in mice suggest OGA
 plays a critical role in brain development"
@@ -123,22 +123,22 @@ a(PUBCHEM:135566354) -| act(p(HGNC:OGA))
 SET Evidence = "Furthermore, increased
 levels of O-GlcNAc via pharmacological OGA inhibition
 have frequently led to alterations in protein phosphorylation levels"
-act(p(HGNC:OGA)) neg p(MESH:Proteins,pmod(HBP:"O-GlcNAcylation"))
-p(MESH:Proteins,pmod(HBP:"O-GlcNAcylation")) -- bp(GO:"protein phosphorylation")
+act(p(HGNC:OGA)) neg p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation"))
+p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation")) -- bp(GO:"protein phosphorylation")
 
 SET Evidence = "A proteomics study conducted
 by Hart and co-workers found that globally elevated OGlcNAcylation
 levels lowered phosphorylation at 280 sites
 while actually increasing it at 148 other sites"
-p(MESH:Proteins,pmod(HBP:"O-GlcNAcylation")) -- bp(GO:"protein phosphorylation")
+p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation")) -- bp(GO:"protein phosphorylation")
 
 SET Evidence = "PD is characterised by the progressive degeneration of
 dopamine-producing neurons in the substantia nigra,
 resulting in impaired motor function"
 # PD: Parkinson’s disease
 SET MeSHAnatomy = "Substantia Nigra"
-path(MESH:"Parkinson Disease") pos deg(a(HBP:"Dopaminergic cell groups"))
-deg(a(HBP:"Dopaminergic cell groups")) neg bp(GO:"motor behavior")
+path(MESH:"Parkinson Disease") pos deg(a(CONSO:"Dopaminergic cell groups"))
+deg(a(CONSO:"Dopaminergic cell groups")) neg bp(GO:"motor behavior")
 UNSET MeSHAnatomy
 
 SET Evidence = "This impairment manifests compromised postural reflexes, muscular
@@ -177,13 +177,13 @@ complex(p(HGNC:SNCA),p(HGNC:VAMP2)) -> bp(GO:"SNARE complex assembly")
 
 SET Evidence = "It has been suggested that large ASyn aggregates actually work to
 sequester other harmful conformers, thus acting in a neuroprotective manner."
-a(HBP:"alpha-synuclein aggregates") -| bp(GO:"neuron death")
+a(CONSO:"alpha-synuclein aggregates") -| bp(GO:"neuron death")
 
 SET Evidence = "Notably, cleavages at the ASyn C-terminus
 typically increase the resultant truncated protein’s
 aggregation, as has been demonstrated in vitro and in
 overexpression experiments"
-p(HGNC:SNCA,frag("?_*")) -> a(HBP:"alpha-synuclein aggregates")
+p(HGNC:SNCA,frag("?_*")) -> a(CONSO:"alpha-synuclein aggregates")
 
 SET Evidence = "Specifically calpain, a
 cysteine protease, cleaves soluble ASyn at a number of
@@ -192,8 +192,8 @@ p(HGNCGENEFAMILY:Calpains) -> p(HGNC:SNCA,frag("?"))
 
 SET Evidence = "Calpain also cleaves ASyn fibres to generate C-truncated
 forms which promote seeded aggregation"
-p(HGNCGENEFAMILY:Calpains) -> p(HBP:"alpha-synuclein fibrils",frag("?"))
-p(HBP:"alpha-synuclein fibrils",frag("?")) -> a(HBP:"alpha-synuclein aggregates")
+p(HGNCGENEFAMILY:Calpains) -> p(CONSO:"alpha-synuclein fibrils",frag("?"))
+p(CONSO:"alpha-synuclein fibrils",frag("?")) -> a(CONSO:"alpha-synuclein aggregates")
 
 SET Evidence = "Calpain activity correlates with disease progression in PD
 mouse models"
@@ -211,36 +211,36 @@ p(HGNC:SNCA,pmod(Ph)) -> path(MESH:"Parkinson Disease")
 SET Evidence = "The O-GlcNAc
 modification has been shown to slow the aggregation rate
 of ASyn relative to the wild-type."
-p(HGNC:SNCA,pmod(HBP:"O-GlcNAcylation")) -| a(HBP:"alpha-synuclein aggregates")
+p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation")) -| a(CONSO:"alpha-synuclein aggregates")
 
 SET Evidence = "Initially it was
 found that semisynthetic ASyn bearing an O-GlcNAc unit
 at Thr72 (ASyngT72) displayed a reduced self-assembling
 propensity relative to the wild-type during thioflavin T
 (ThT) fluorescence assay"
-p(HGNC:SNCA,pmod(HBP:"O-GlcNAcylation",Thr,72)) -| complex(p(HGNC:SNCA),p(HGNC:SNCA))
+p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Thr,72)) -| complex(p(HGNC:SNCA),p(HGNC:SNCA))
 
 SET Evidence = "In fact, ASyngT72 did not form
 aggregates even after 7 days of incubation"
-p(HGNC:SNCA,pmod(HBP:"O-GlcNAcylation",Thr,72)) -| a(HBP:"alpha-synuclein aggregates")
+p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Thr,72)) -| a(CONSO:"alpha-synuclein aggregates")
 
 SET Evidence = "TEM found semisynthetic ASyngS87 forms shorter fibrils than the wildtype,
 while ASyngT72 formed only small, broken fibrils"
-p(HGNC:SNCA,pmod(HBP:"O-GlcNAcylation",Ser,87)) -> a(HBP:"alpha-synuclein fibrils")
-p(HGNC:SNCA,pmod(HBP:"O-GlcNAcylation",Thr,72)) -> a(HBP:"alpha-synuclein fibrils")
-p(HGNC:SNCA) -> a(HBP:"alpha-synuclein fibrils")
+p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Ser,87)) -> a(CONSO:"alpha-synuclein fibrils")
+p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Thr,72)) -> a(CONSO:"alpha-synuclein fibrils")
+p(HGNC:SNCA) -> a(CONSO:"alpha-synuclein fibrils")
 
 SET Evidence = "ASyngT75 and ASyngT81 formed rare, highly irregular
 aggregates, and the peptide tri-O-GlcNAcylated at all of
 Th72/Thr81/Ser87 did not aggregate at all."
-p(HGNC:SNCA,pmod(HBP:"O-GlcNAcylation",Thr,75)) -> a(HBP:"alpha-synuclein aggregates")
-p(HGNC:SNCA,pmod(HBP:"O-GlcNAcylation",Thr,81)) -> a(HBP:"alpha-synuclein aggregates")
-p(HGNC:SNCA,pmod(HBP:"O-GlcNAcylation",Thr,75),pmod(HBP:"O-GlcNAcylation",Thr,81),pmod(HBP:"O-GlcNAcylation",Ser,87)) cnc a(HBP:"alpha-synuclein aggregates")
+p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Thr,75)) -> a(CONSO:"alpha-synuclein aggregates")
+p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Thr,81)) -> a(CONSO:"alpha-synuclein aggregates")
+p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Thr,75),pmod(CONSO:"O-GlcNAcylation",Thr,81),pmod(CONSO:"O-GlcNAcylation",Ser,87)) cnc a(CONSO:"alpha-synuclein aggregates")
 
 SET Evidence = "An unmodified control, ASyn68-77, significantly
 accelerated wild-type aggregation while the GlcNAcylated
 analogue did not."
-p(HGNC:SNCA,frag("68_77")) -> a(HBP:"alpha-synuclein aggregates")
+p(HGNC:SNCA,frag("68_77")) -> a(CONSO:"alpha-synuclein aggregates")
 
 SET Evidence = "As mentioned
 previously, calpain activity correlates well with disease
@@ -249,23 +249,23 @@ of ASyn into aggregation-prone species"
 SET Species = "10090"
 act(p(HGNCGENEFAMILY:Calpains)) -- path(MESH:"Parkinson Disease")
 act(p(HGNCGENEFAMILY:Calpains)) -> p(HGNC:SNCA,frag("?"))
-p(HGNC:SNCA,frag("?")) -> a(HBP:"alpha-synuclein aggregates")
+p(HGNC:SNCA,frag("?")) -> a(CONSO:"alpha-synuclein aggregates")
 UNSET Species
 
 SET Evidence = "Both the synthetic
 ASyngT72 and ASyngS87 peptides exhibit strong resistances to
 cleavage from recombinant calpain, where unmodified
 ASyn is degraded rapidly"
-p(HGNCGENEFAMILY:Calpains) cnc deg(p(HGNC:SNCA,pmod(HBP:"O-GlcNAcylation",Thr,72)))
-p(HGNCGENEFAMILY:Calpains) cnc deg(p(HGNC:SNCA,pmod(HBP:"O-GlcNAcylation",Ser,87)))
+p(HGNCGENEFAMILY:Calpains) cnc deg(p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Thr,72)))
+p(HGNCGENEFAMILY:Calpains) cnc deg(p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Ser,87)))
 p(HGNCGENEFAMILY:Calpains) -> deg(p(HGNC:SNCA))
 
 SET Evidence = "The authors suggested that OGlcNAcylation
 as studied in their case, had promoted
 oligomer-formation underlying the reduced aggregation"
 # oligomers of SNCA
-p(HGNC:SNCA,pmod(HBP:"O-GlcNAcylation")) -> a(HBP:"alpha-synuclein oligomers")
-a(HBP:"alpha-synuclein aggregates") neg a(HBP:"alpha-synuclein oligomers")
+p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation")) -> a(CONSO:"alpha-synuclein oligomers")
+a(CONSO:"alpha-synuclein aggregates") neg a(CONSO:"alpha-synuclein oligomers")
 
 SET Evidence = "Zhang and co-workers found that OGA inhibition
 via acute Thiamet-G treatment promoted
@@ -320,11 +320,11 @@ oligomers, ultimately giving rise to the NFTs present in the
 AD brain."
 SET MeSHAnatomy = "Brain"
 SET MeSHDisease = "Alzheimer Disease"
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
 complex(p(HGNC:MAPT),a(GO:microtubule)) -> act(p(HGNC:MAPT))
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -| act(p(HGNC:MAPT))
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> a(HBP:"Tau oligomers")
-a(HBP:"Tau oligomers") -> a(GO:"neurofibrillary tangle")
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -| act(p(HGNC:MAPT))
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> a(CONSO:"Tau oligomers")
+a(CONSO:"Tau oligomers") -> a(GO:"neurofibrillary tangle")
 UNSET MeSHAnatomy
 UNSET MeSHDisease
 
@@ -334,7 +334,7 @@ addition in vitro, in tissue culture cells, and ex vivo
 in rat brain slices (Figure 4)"
 SET Species = "10116"
 SET MeSHAnatomy = "Brain"
-p(RGD:Mapt,pmod(HBP:"O-GlcNAcylation")) neg p(RGD:Mapt,pmod(Ph))
+p(RGD:Mapt,pmod(CONSO:"O-GlcNAcylation")) neg p(RGD:Mapt,pmod(Ph))
 UNSET MeSHAnatomy
 UNSET Species
 
@@ -348,7 +348,7 @@ O-GlcNAcylation consistent with tau hyperphosphorylation in the hippocampus."
 # triple-tg mice (3xTg-Ad)
 SET Species = "10090"
 SET MeSHAnatomy = "Hippocampus"
-p(MGI:Mapt,pmod(HBP:"O-GlcNAcylation")) neg p(MGI:Mapt,pmod(HBP:hyperphosphorylation))
+p(MGI:Mapt,pmod(CONSO:"O-GlcNAcylation")) neg p(MGI:Mapt,pmod(CONSO:hyperphosphorylation))
 UNSET MeSHAnatomy
 UNSET Species
 
@@ -357,8 +357,8 @@ identified that impaired brain glucose metabolism actually
 leads to neurofibrillary degeneration via downregulation of
 O-GlcNAcylation."
 SET MeSHAnatomy = "Brain"
-bp(GO:"glucose metabolic process") -- p(MESH:Proteins,pmod(HBP:"O-GlcNAcylation"))
-p(MESH:Proteins,pmod(HBP:"O-GlcNAcylation")) neg deg(a(GO:"neurofibrillary tangle"))
+bp(GO:"glucose metabolic process") -- p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation"))
+p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation")) neg deg(a(GO:"neurofibrillary tangle"))
 UNSET MeSHAnatomy
 
 SET Evidence = "Finally, AD patient cortical brain
@@ -371,24 +371,24 @@ UNSET MeSHAnatomy
 
 SET Evidence = "Beyond inhibiting its phosphorylation, the O-GlcNAc
 modification hinders tau oligomerization"
-p(HGNC:MAPT,pmod(HBP:"O-GlcNAcylation")) -| p(HGNC:MAPT,pmod(Ph))
-p(HGNC:MAPT,pmod(HBP:"O-GlcNAcylation")) -| a(HBP:"Tau oligomers")
+p(HGNC:MAPT,pmod(CONSO:"O-GlcNAcylation")) -| p(HGNC:MAPT,pmod(Ph))
+p(HGNC:MAPT,pmod(CONSO:"O-GlcNAcylation")) -| a(CONSO:"Tau oligomers")
 
 SET Evidence = "Vocadlo and co-workers demonstrated that a recombinantly produced
 O-GlcNAc-modified tau construct (spanning residues 244-
 441) formed oligomers at a slower rate, and to a lesser
 extent than the unmodified, recombinant control sequence during ThS fluorescence assays."
-p(HGNC:MAPT,pmod(HBP:"O-GlcNAcylation")) -| a(HBP:"Tau oligomers")
+p(HGNC:MAPT,pmod(CONSO:"O-GlcNAcylation")) -| a(CONSO:"Tau oligomers")
 
 SET Evidence = "Indeed, O-GlcNAc
 modification of tau-441 appeared to slow tau’s extension,
 perturbing the equilibrium position between oligomeric
 and free tau."
-p(HBP:"Tau isoform F (441 aa)",pmod(HBP:"O-GlcNAcylation")) -| a(HBP:"Tau oligomers")
+p(CONSO:"Tau isoform F (441 aa)",pmod(CONSO:"O-GlcNAcylation")) -| a(CONSO:"Tau oligomers")
 
 SET Evidence = "Results suggest O-GlcNAc modification at
 specifically Ser400 plays a critical role in hindering aggregation"
-p(HGNC:MAPT,pmod(HBP:"O-GlcNAcylation",Ser,400)) -- a(HBP:"Tau aggregates")
+p(HGNC:MAPT,pmod(CONSO:"O-GlcNAcylation",Ser,400)) -- a(CONSO:"Tau aggregates")
 
 SET Evidence = "Acute treatment with Thiamet-G effectively decreased
 phosphorylation of tau at pathologically relevant sites,
@@ -403,10 +403,10 @@ decrease effectively aggregation in tau-BiFC cells, even
 after treatment with BZX2, an OGT inhibitor reported to
 downregulate O-GlcNAcylation and promote
 phosphorylation and aggregation"
-a(PUBCHEM:135566354) -| a(HBP:"Tau aggregates")
-act(p(HGNC:OGT)) -> p(HGNC:MAPT,pmod(HBP:"O-GlcNAcylation"))
+a(PUBCHEM:135566354) -| a(CONSO:"Tau aggregates")
+act(p(HGNC:OGT)) -> p(HGNC:MAPT,pmod(CONSO:"O-GlcNAcylation"))
 act(p(HGNC:OGT)) -| p(HGNC:MAPT,pmod(Ph))
-act(p(HGNC:OGT)) -| a(HBP:"Tau aggregates")
+act(p(HGNC:OGT)) -| a(CONSO:"Tau aggregates")
 
 SET Evidence = "Thiamet-G remains
 effective in vivo, efficiently reducing phosphorylation at
@@ -425,8 +425,8 @@ G increased levels of O-GlcNAc modified tau while
 decreasing levels of tau aggregates and neuron death"
 # JNPL3 tau tg mice
 SET Species = "10090"
-a(PUBCHEM:135566354) -> p(MGI:Mapt,pmod(HBP:"O-GlcNAcylation"))
-a(PUBCHEM:135566354) -| a(HBP:"Tau aggregates")
+a(PUBCHEM:135566354) -> p(MGI:Mapt,pmod(CONSO:"O-GlcNAcylation"))
+a(PUBCHEM:135566354) -| a(CONSO:"Tau aggregates")
 a(PUBCHEM:135566354) -| bp(GO:"neuron death")
 UNSET Species
 
@@ -438,13 +438,13 @@ pathological tau aggregation"
 # rTg4510 mice
 # treatment with Thiamet-G
 SET Species = "10090"
-a(PUBCHEM:135566354) -> p(MGI:Mapt,pmod(HBP:"O-GlcNAcylation"))
+a(PUBCHEM:135566354) -> p(MGI:Mapt,pmod(CONSO:"O-GlcNAcylation"))
 a(PUBCHEM:135566354) -| p(MGI:Mapt,pmod(Ph,Ser,202),pmod(Ph,Ser,205))
 a(PUBCHEM:135566354) -| p(MGI:Mapt,pmod(Ph,Ser,626))
 a(PUBCHEM:135566354) -| p(MGI:Mapt,pmod(Ph,Ser,356))
 a(PUBCHEM:135566354) -| p(MGI:Mapt,pmod(Ph,Ser,396))
 a(PUBCHEM:135566354) cnc p(MGI:Mapt,pmod(Ph,Ser,400))
-a(PUBCHEM:135566354) -| a(HBP:"Tau aggregates")
+a(PUBCHEM:135566354) -| a(CONSO:"Tau aggregates")
 UNSET Species
 
 SET Evidence = "Subsequent studies on rTg4510 mice found their
@@ -453,7 +453,7 @@ besides total tau in the CSF also."
 # rTg4510 mice
 # treatment with Thiamet-G
 SET Species = "10090"
-a(PUBCHEM:135566354) -| a(HBP:"Tau aggregates",loc(MESH:Brain))
+a(PUBCHEM:135566354) -| a(CONSO:"Tau aggregates",loc(MESH:Brain))
 a(PUBCHEM:135566354) -| p(HGNC:MAPT,loc(MESH:"Cerebrospinal Fluid"))
 
 SET Evidence = "Gazit, Segal and co-workers
@@ -462,8 +462,8 @@ analogue, besides possessing reduced self-assembly
 propensity, seemed to inhibit unmodified PHF6 fibril
 formation upon co-incubation"
 # PHF6: PHF6 (306VQIVYK311)
-p(HBP:"VQIVYK motif",pmod(HBP:"O-GlcNAcylation")) -| complex(p(HBP:"VQIVYK motif"),p(HBP:"VQIVYK motif"))
-p(HBP:"VQIVYK motif",pmod(HBP:"O-GlcNAcylation")) -| a(HBP:"Tau fibrils")
+p(CONSO:"VQIVYK motif",pmod(CONSO:"O-GlcNAcylation")) -| complex(p(CONSO:"VQIVYK motif"),p(CONSO:"VQIVYK motif"))
+p(CONSO:"VQIVYK motif",pmod(CONSO:"O-GlcNAcylation")) -| a(CONSO:"Tau fibrils")
 
 SET Evidence = "Treatment of SH-SY5Y
 neuroblastoma with PUGNAc, an OGA inhibitor, has
@@ -471,15 +471,15 @@ increased levels of O-GlcNAc modified APP and secretion
 of sAPPα while decreasing secretion of Aβ40"
 SET CellLine = "SH-SY5Y"
 a(PUBCHEM:9576811) -| act(p(HGNC:OGA))
-a(PUBCHEM:9576811) -> p(HGNC:APP,pmod(HBP:"O-GlcNAcylation"))
-a(PUBCHEM:9576811) -> sec(p(HBP:"sAPP-alpha"))
+a(PUBCHEM:9576811) -> p(HGNC:APP,pmod(CONSO:"O-GlcNAcylation"))
+a(PUBCHEM:9576811) -> sec(p(CONSO:"sAPP-alpha"))
 a(PUBCHEM:9576811) -| sec(a(CHEBI:"amyloid-beta polypeptide 40"))
 UNSET CellLine
 
 SET Evidence = "An inverse
 correlation between O-GlcNAcylation and Aβ formation
 was reported"
-p(HGNC:APP,pmod(HBP:"O-GlcNAcylation")) neg a(CHEBI:"amyloid-beta")
+p(HGNC:APP,pmod(CONSO:"O-GlcNAcylation")) neg a(CHEBI:"amyloid-beta")
 
 SET Evidence = "Treatment of the 5xFAD Aβ mouse model
 with NButGT, another studied OGA inhibitor, impaired Aβ
@@ -498,8 +498,8 @@ SET Evidence = "Subsequent work indicated that O-GlcNAcylation of APP
 promotes its plasma membrane localization, facilitating its
 non-amyloidogenic processing"
 SET MeSHAnatomy = "Cell Membrane"
-a(PUBCHEM:9576811) -> p(HGNC:APP,pmod(HBP:"O-GlcNAcylation"))
-a(PUBCHEM:9576811) -> bp(HBP:"APP processing")
+a(PUBCHEM:9576811) -> p(HGNC:APP,pmod(CONSO:"O-GlcNAcylation"))
+a(PUBCHEM:9576811) -> bp(CONSO:"APP processing")
 UNSET MeSHAnatomy
 
 SET Evidence = "Thiamet-G treatment of tg TAPP (tau/APP) mice blocked
@@ -519,7 +519,7 @@ cleavage of secreted APP, is reported to increase overall
 levels of protein O-GlcNAcylation."
 a(CHEBI:"prostaglandin J2") reg path(MESH:Inflammation)
 a(CHEBI:"prostaglandin J2") -> p(HGNC:APP,frag("?"))
-a(CHEBI:"prostaglandin J2") -> p(HGNC:APP,pmod(HBP:"O-GlcNAcylation"))
+a(CHEBI:"prostaglandin J2") -> p(HGNC:APP,pmod(CONSO:"O-GlcNAcylation"))
 
 SET Evidence = "Normal huntingtin
 plays a role in vesicular transport, transcription of
@@ -533,13 +533,13 @@ p(HGNC:HTT) -| bp(GO:"apoptotic process")
 SET Evidence = "Instead, decreases in global O-GlcNAcylation levels is
 reported to be protective against huntingtin aggregation
 and cytotoxicity in neuroblastoma cells and fly models"
-p(HGNC:HTT,pmod(HBP:"O-GlcNAcylation")) -> a(HBP:"huntingtin aggregates")
+p(HGNC:HTT,pmod(CONSO:"O-GlcNAcylation")) -> a(CONSO:"huntingtin aggregates")
 
 SET Evidence = "Decreasing O-GlcNAcylation enhances autophagosomelysosome
 function, which leads to increased basal autophagy flux and clearance of toxic huntingtin aggregates"
-p(HGNC:HTT,pmod(HBP:"O-GlcNAcylation")) -| act(a(GO:autophagosome))
-p(HGNC:HTT,pmod(HBP:"O-GlcNAcylation")) -| bp(GO:autophagy)
-p(HGNC:HTT,pmod(HBP:"O-GlcNAcylation")) -| deg(a(HBP:"huntingtin aggregates"))
+p(HGNC:HTT,pmod(CONSO:"O-GlcNAcylation")) -| act(a(GO:autophagosome))
+p(HGNC:HTT,pmod(CONSO:"O-GlcNAcylation")) -| bp(GO:autophagy)
+p(HGNC:HTT,pmod(CONSO:"O-GlcNAcylation")) -| deg(a(CONSO:"huntingtin aggregates"))
 
 SET Evidence = "Inactivation of OGA
 dramatically promoted HD model toxicity while removal
@@ -552,7 +552,7 @@ levels in the spinal cord"
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 SET Species = "10090"
 SET MeSHAnatomy = "Spinal Cord"
-p(MGI:Sod1,var("?")) -| p(MGI:Sod1,pmod(HBP:"O-GlcNAcylation"))
+p(MGI:Sod1,var("?")) -| p(MGI:Sod1,pmod(CONSO:"O-GlcNAcylation"))
 UNSET Species
 UNSET MeSHAnatomy
 UNSET MeSHDisease
@@ -566,6 +566,6 @@ OGA inhibitor, NButGT, increased levels of O-GlcNAc in
 the spinal cord."
 SET Species = "10090"
 SET MeSHAnatomy = "Spinal Cord"
-a(MESH:"1,2-dideoxy-2'-propylglucopyranoso(2,1-d)-delta 2'-thiazoline") -> p(MGI:Sod1,pmod(HBP:"O-GlcNAcylation"))
+a(MESH:"1,2-dideoxy-2'-propylglucopyranoso(2,1-d)-delta 2'-thiazoline") -> p(MGI:Sod1,pmod(CONSO:"O-GlcNAcylation"))
 UNSET Species
 UNSET MeSHAnatomy

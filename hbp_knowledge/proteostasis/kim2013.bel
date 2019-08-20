@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/6ebac4dddc69402cb8fdd90c746ff6ee572c95af/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -90,7 +90,7 @@ SET Evidence = "Indeed, studies using model organisms
 demonstrate that a gradual decline in cellular
 proteostasis capacity occurs with aging (10)."
 SET Confidence = "High"
-bp(GO:aging) -| bp(HBP:Proteostasis)
+bp(GO:aging) -| bp(CONSO:Proteostasis)
 UNSET Confidence
 
 SET Evidence = " Many are stress proteins
@@ -225,7 +225,7 @@ Binding to TRiC modulates the aggregation
 properties of this protein and reduces its
 cytotoxicity."
 SET Confidence = "High"
-p(FPLX:"CCT_complex") -| a(HBP:"huntingtin aggregates")
+p(FPLX:"CCT_complex") -| a(CONSO:"huntingtin aggregates")
 UNSET Confidence
 
 SET Evidence = "Inhibition of ATP
@@ -277,9 +277,9 @@ mic reticulum (192), and the mitochondrial
 UPR (193)."
 SET Confidence = "High"
 SET MeSHAnatomy = "Cytosol"
-bp(MESH:"Heat-Shock Response") reg bp(HBP:Proteostasis)
+bp(MESH:"Heat-Shock Response") reg bp(CONSO:Proteostasis)
 SET MeSHAnatomy = {"Endoplasmic Reticulum","Mitochondria"}
-bp(GO:"response to unfolded protein") reg bp(HBP:Proteostasis)
+bp(GO:"response to unfolded protein") reg bp(CONSO:Proteostasis)
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -288,10 +288,10 @@ integrated with pathways involved in inﬂam-
 mation, response to oxidative stress, caloric
 restriction/starvation, and longevity."
 SET Confidence = "High"
-bp(HBP:Proteostasis) -- bp(GO:"inflammatory response")
-bp(HBP:Proteostasis) -- bp(GO:"response to oxidative stress")
-bp(HBP:Proteostasis) -- bp(GO:"behavioral response to starvation")
-bp(HBP:Proteostasis) neg bp(GO:"cell death")
+bp(CONSO:Proteostasis) -- bp(GO:"inflammatory response")
+bp(CONSO:Proteostasis) -- bp(GO:"response to oxidative stress")
+bp(CONSO:Proteostasis) -- bp(GO:"behavioral response to starvation")
+bp(CONSO:Proteostasis) neg bp(GO:"cell death")
 UNSET Confidence
 
 SET Evidence = "The PN
@@ -345,7 +345,7 @@ concurrent with the capacity to respond to
 conformational stresses (214–220)."
 SET Confidence = "Medium"
 SET Species = {"7227", "10090", "6239"}
-bp(GO:aging) -| bp(HBP:Proteostasis)
+bp(GO:aging) -| bp(CONSO:Proteostasis)
 UNSET Species
 UNSET Confidence
 
@@ -381,10 +381,10 @@ chaperones such as Hsp70 and Hsp40 prevents
 the aggregation and toxicity of huntingtin
 and α-synuclein (38, 231–234)."
 SET Confidence = "High"
-p(FPLX:HSPA) -| a(HBP:"huntingtin aggregates")
-p(FPLX:HSPA) -| a(HBP:"alpha-synuclein aggregates")
-p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins") -| a(HBP:"huntingtin aggregates")
-p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins") -| a(HBP:"alpha-synuclein aggregates")
+p(FPLX:HSPA) -| a(CONSO:"huntingtin aggregates")
+p(FPLX:HSPA) -| a(CONSO:"alpha-synuclein aggregates")
+p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins") -| a(CONSO:"huntingtin aggregates")
+p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins") -| a(CONSO:"alpha-synuclein aggregates")
 UNSET Confidence
 
 SET Evidence = "The Hsp70
@@ -394,5 +394,5 @@ proteins with expanded polyglutamine tracts
 (165–168)."
 SET Confidence = "High"
 composite(p(FPLX:HSPA),p(FPLX:"CCT_complex")) -| a(MESH:"Protein Aggregates")
-composite(p(FPLX:HSPA),p(FPLX:"CCT_complex")) -| a(HBP:"huntingtin aggregates")
+composite(p(FPLX:HSPA),p(FPLX:"CCT_complex")) -| a(CONSO:"huntingtin aggregates")
 UNSET Confidence
