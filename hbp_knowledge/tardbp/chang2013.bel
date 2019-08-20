@@ -106,20 +106,8 @@ disordered C-terminal domain (CTD) implicated in protein interactions [13–15]"
  p(HGNC:TARDBP, frag("192_265")) -- act(p(HGNC:TARDBP, frag("192_265")), ma(GO:"nucleic acid binding"))
  p(HGNC:TARDBP, frag("266_414")) -- bp(NCIT:C18469)
 
- SET Evidence = "The NTD, RRM1 and RRM2 contain two cysteines each, marking them as prime targets for oxidative attack."
- #NDT - C39, C50
- #RR1 - C173, C175
- #RRm2 - C198, C244
- #p(HGNC:TARDBP, frag("1_105"), pmod())
-
-
-
-SET Evidence = "Oxidation of cysteines located at RRM1 and RRM2 decreased protein solubility by promoting the formation of inter- and intra-molecular disulfide linkage [16], providing a strong link between inclusion
-formation and direct protein oxidation."
-
-SET Evidence = "Oxidized TDP-43 also lost the ability to inhibit splicing, suggesting that oxidation of TDP-43
-is a loss-of-function event."
-
+SET Evidence = "Oxidized TDP-43 also lost the ability to inhibit splicing, suggesting that oxidation of TDP-43 is a loss-of-function event."
+ p(HGNC:TARDBP, pmod(GO:"protein oxidation")) -| bp(GO:"RNA splicing")
 SET Evidence = "Addition of a reducing agent such as DTT to RRM1 10 min after the start of oxidation treatment prevented protein aggregation."
 composite(p(HGNC:TARDBP, frag("101_191")), a(CHEBI:"1,4-dithiothreitol")) =| p(CONSO:"TDP-43 aggregates")
 
@@ -133,6 +121,9 @@ composite(p(HGNC:TARDBP, frag("101_191")), p(HGNC:TARDBP, frag("192_265"))) => p
 
 SET Evidence = "Thus, oxidation of both cysteines in RRM1 is necessary, but not sufficient, to produce insoluble
 aggregates."
+#RRM1 - C173, C175
+p(HGNC:TARDBP, frag("101_191"), pmod(GO:"protein oxidation", Cys,173)) -- p(CONSO:"TDP-43 aggregates")
+p(HGNC:TARDBP, frag("101_191"), pmod(GO:"protein oxidation", Cys,175)) -- p(CONSO:"TDP-43 aggregates")
 
 SET Evidence = "On the other hand, the insoluble fraction was almost exclusively composed of disulfide-linked oligomers, with dimer being the predominant species, suggesting that inter-molecular disulfide bridge formation of RRM1 is necessary for aggregate formation."
 SET Interaction = "VariO:0281"
@@ -140,15 +131,10 @@ composite(p(HGNC:TARDBP, frag("101_191")), p(HGNC:TARDBP, frag("101_191"))) -> p
 UNSET Interaction
 
 SET Evidence = "These results indicate that oxidation of RRM1 cysteines impaired its nucleic acid-binding activity."
-
-
-SET Evidence = "NTD and RRM2 were completely oxidized after H2O2 treatment."
-
-#######second half encoding
-SET Evidence = "We also observed increasing formation of disulfide-linked species in a time-dependent manner after
-H2O2 treatment (Fig. 4B), which suggests that exposed hydrophobicity correlated with thiol oxidation in RRM1."
-a(CHEBI:"hydrogen peroxide") -> bp(NCIT:C14062)
-
+p(HGNC:TARDBP, frag("101_191"), pmod(GO:"protein oxidation", Cys,173)) neg act(p(HGNC:TARDBP, frag("101_191")), ma(GO:"nucleic acid binding"))
+p(HGNC:TARDBP, frag("101_191"), pmod(GO:"protein oxidation", Cys,175)) neg act(p(HGNC:TARDBP, frag("101_191")), ma(GO:"nucleic acid binding"))
 
 SET Evidence = "Between the two cysteines, Cys173 showed much stronger perturbation than Cys175, and since the soluble protein was primarily oxidized at a single cysteine (Fig. 2C), these results strongly suggested that Cys173 is preferentially oxidized over Cys175."
 #results in conformational change
+p(HGNC:TARDBP, frag("101_191"), pmod(GO:"protein oxidation", Cys,173)) neg path(MESH:"Protein Conformation")
+p(HGNC:TARDBP, frag("101_191"), pmod(GO:"protein oxidation", Cys,175)) -- path(MESH:"Protein Conformation")
