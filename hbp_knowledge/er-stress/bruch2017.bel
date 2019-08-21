@@ -23,8 +23,8 @@ SET DOCUMENT Description = ""
 # DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
  DEFINE NAMESPACE EFO            AS URL "https://raw.githubusercontent.com/pharmacome/conso/5d2c2ea6f7112421cc8089a3f021a75ab60bb373/external/efo-names.belns"
 # DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
-# DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+ DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+ DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 # DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
  DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/go-names.belns"
 # DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
@@ -130,7 +130,7 @@ a(PUBCHEM:354398) -- p(HGMC:MAPT, pmod(CONSO:hyperphosphorylation))
 a(PUBCHEM:354398) -- bp(GO:"cell death")
 a(PUBCHEM:354398) -> act(p(HGNCGENEFAMILY:"Mitochondrial complex I assembly complex"))
 act(p(HGNCGENEFAMILY:"Mitochondrial complex I assembly complex")) -> p(HGMC:MAPT, pmod(CONSO:hyperphosphorylation), loc(GO:"somatodendritic compartment"))
-a(PUBCHEM:354398) -> p(HGMC:MAPT, pmod(CONSO:hyperphosphorylation), loc(GO:"somatodendritic compartment"))
+a(PUBCHEM:354398) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation), loc(GO:"somatodendritic compartment"))
 
 SET Evidence = "Annonacin
 (25 nM for 48 h) increased pPERK, while total PERK and EIF2A
@@ -148,31 +148,31 @@ ng total mRNA; the specific increase of 4R and 3R tau protein was
 confirmed by Western blot (Appendix Fig S1A and B)."
 #2N4R - Tau 441aa isoform
 #2N3R - Tau 410aa isoform
-p(CONOS:"Tau isoform F (441 aa)") => r(CONSO:"4R tau")
-p(CONSO:"Tau isoform C (410 aa)") => r(CONOS:"3R tau")
+p(CONSO:"Tau isoform F (441 aa)") => r(CONSO:"4R tau")
+p(CONSO:"Tau isoform C (410 aa)") => r(CONSO:"3R tau")
 
 SET Evidence = "None of the lentiviral
 models significantly increased PERK or pPERK, showing that tau
 overload per se is not sufficient to activate the UPR."
 #2N4R, 2N3R, mCherry
 #X5DSL3 (X5DSL3_ANAMA) - mCherry
-p(CONOS:"Tau isoform F (441 aa)") cnc p(HGNC:EIF2AK3)
-p(CONOS:"Tau isoform F (441 aa)") cnc p(HGNC:EIF2AK3, pmod(Ph))
+p(CONSO:"Tau isoform F (441 aa)") cnc p(HGNC:EIF2AK3)
+p(CONSO:"Tau isoform F (441 aa)") cnc p(HGNC:EIF2AK3, pmod(Ph))
 p(CONSO:"Tau isoform C (410 aa)") cnc p(HGNC:EIF2AK3)
 p(CONSO:"Tau isoform C (410 aa)") cnc p(HGNC:EIF2AK3, pmod(Ph))
 p(UNIPROT:"X5DSL3 (X5DSL3_ANAMA)") cnc p(HGNC:EIF2AK3)
 p(UNIPROT:"X5DSL3 (X5DSL3_ANAMA)") cnc p(HGNC:EIF2AK3, pmod(Ph))
-p(HGMC:MAPT) -- bp(MESH:"Unfolded Protein Response")
+p(HGNC:MAPT) -- bp(MESH:"Unfolded Protein Response")
 
 SET Evidence = "However, similar
 to the situation in PSP, 4R tau (but not 3R tau or mCherry)
 suppressed EIF2A at the protein level. pEIF2A was reduced by both
 4R and 3R tau."
-p(CONOS:"Tau isoform F (441 aa)") =| p(HGNC:EIF2A)
+p(CONSO:"Tau isoform F (441 aa)") =| p(HGNC:EIF2A)
 p(CONSO:"Tau isoform C (410 aa)") cnc p(HGNC:EIF2A)
 p(UNIPROT:"X5DSL3 (X5DSL3_ANAMA)") cnc p(HGNC:EIF2A)
 p(CONSO:"4R tau") -| p(HGNC:EIF2A, pmod(Ph))
-p(CONOS:"3R tau") -| p(HGNC:EIF2A, pmod(Ph))
+p(CONSO:"3R tau") -| p(HGNC:EIF2A, pmod(Ph))
 
 UNSET Cell
 UNSET CellLine
@@ -293,7 +293,7 @@ overexpression increased the level of MC1-immunoreactive tau in
 LUHMES neurons."
 a(PUBCHEM:354398) -> a(CONSO:"Tau antibody, MC1")
 p(CONSO:"4R tau") cnc a(CONSO:"Tau antibody, MC1")
-p(CONOS:"3R tau") cnc a(CONSO:"Tau antibody, MC1")
+p(CONSO:"3R tau") cnc a(CONSO:"Tau antibody, MC1")
 
 SET Evidence = "This effect was reversed by PERK activator treatment
 (Fig 3A and B) and was confirmed on dot blots with non-denatured
@@ -304,19 +304,19 @@ SET Evidence = "Annonacin also increased phosphorylation of tau on the epitopes
 Ser-202 (CP13 antibody; Ishizawa et al, 2003) and Ser-396 and Ser-
 404 (AD2 antibody; Buee-Scherrer et al, 1996; Fig 3A and B). The
 PERK activator reduced this effect."
-a(PUBCHEM:354398) -> a(CONSO:"Tau epitope, CP13")
+a(PUBCHEM:354398) -> p(CONSO:"Tau epitope, CP13")
 a(PUBCHEM:354398) -> p(HGNC:MAPT, pmod(Ph, Ser, 396))
-a(PUBCHEM:354398) -> a(CONSO:"Tau epitope, AD2")
-a(PUBCHEM:3108148) -| a(CONSO:"Tau epitope, CP13")
+a(PUBCHEM:354398) -> p(CONSO:"Tau epitope, AD2")
+a(PUBCHEM:3108148) -| p(CONSO:"Tau epitope, CP13")
 a(PUBCHEM:3108148) -| p(HGNC:MAPT, pmod(Ph, Ser, 396))
-a(PUBCHEM:3108148) -| a(CONSO:"Tau epitope, AD2")
+a(PUBCHEM:3108148) -| p(CONSO:"Tau epitope, AD2")
 
 UNSET Cell
 UNSET CellLine
 
 SET Evidence = "Total tau protein (HT7 antibody) was not altered by treatment
 with annonacin or the PERK activator (Fig 3A and D)."
-a(PUBCHEM:354398) cnc a(CONOS:"Tau antibody, HT7")
+a(PUBCHEM:354398) cnc a(CONSO:"Tau antibody, HT7")
 a(PUBCHEM:3108148) cnc a(CONSO:"Tau antibody, HT7")
 
 SET Evidence = "Consistent
@@ -326,11 +326,9 @@ tau, but not 3R tau levels, both at the protein and mRNA level
 tau mRNA and protein, and almost completely reversed the effect of
 annonacin on the 3R/4R ratio (Fig 3A, D and E)."
 a(PUBCHEM:354398) -> p(CONSO:"4R tau")
-a(PUBCHEM:354398) -> r(CONSO:"4R tau")
 a(PUBCHEM:354398) cnc p(CONSO:"3R tau")
 a(PUBCHEM:354398) cnc r(CONSO:"3R tau")
 a(PUBCHEM:3108148) -| p(CONSO:"4R tau")
-a(PUBCHEM:3108148) -| r(CONSO:"4R tau")
 
 SET Evidence = "In the presence of annonacin, mRNA levels of the tau splicing
 factor SRSF2 increased (Fig 3F). Interestingly, the PERK activator
@@ -342,13 +340,13 @@ SET Evidence = "Cells transduced with 4R tau-overexpressing lentivirus showed
 increased levels in CP13-, AD2-, and HT7 tau (but not MC1). CP13-
 but not AD2- and HT7 tau were normalized by simultaneous PERK
 activator treatment (Fig 3G and H)."
-p(CONOS:"Tau isoform F (441 aa)") -> a(CONSO:"Tau epitope, CP13")
-p(CONOS:"Tau isoform F (441 aa)") -> a(CONSO:"Tau epitope, AD2")
-p(CONOS:"Tau isoform F (441 aa)") -> a(CONSO:"Tau antibody, HT7")
-p(CONOS:"Tau isoform F (441 aa)") cnc a(CONSO:"Tau antibody, MC1")
-composite(p(CONOS:"Tau isoform F (441 aa)"), a(PUBCHEM:3108148)) -| a(CONSO:"Tau epitope, CP13")
-composite(p(CONOS:"Tau isoform F (441 aa)"), a(PUBCHEM:3108148)) cnc a(CONSO:"Tau epitope, AD2")
-composite(p(CONOS:"Tau isoform F (441 aa)"), a(PUBCHEM:3108148)) cnc a(CONSO:"Tau antibody, HT7")
+p(CONSO:"Tau isoform F (441 aa)") -> a(CONSO:"Tau epitope, CP13")
+p(CONSO:"Tau isoform F (441 aa)") -> a(CONSO:"Tau epitope, AD2")
+p(CONSO:"Tau isoform F (441 aa)") -> a(CONSO:"Tau antibody, HT7")
+p(CONS0:"Tau isoform F (441 aa)") cnc a(CONSO:"Tau antibody, MC1")
+composite(p(CONSO:"Tau isoform F (441 aa)"), a(PUBCHEM:3108148)) -| a(CONSO:"Tau epitope, CP13")
+composite(p(CONSO:"Tau isoform F (441 aa)"), a(PUBCHEM:3108148)) cnc a(CONSO:"Tau epitope, AD2")
+composite(p(CONSO:"Tau isoform F (441 aa)"), a(PUBCHEM:3108148)) cnc a(CONSO:"Tau antibody, HT7")
 
 
 #in LUHMES neuron
@@ -385,7 +383,7 @@ in 4R MAPT mRNA (Fig EV5B) and protected LUHMES neurons
 against toxicity induced by annonacin (Fig EV5C and D) and 4R tau
 overexpression in a similar fashion to PERK activator treatment
 (Fig EV5E and F)."
-p(HGNC:EIF2AK3) -| r(CONSO:"4R tau")
+p(HGNC:EIF2AK3) -| p(CONSO:"4R tau")
 p(HGNC:EIF2AK3) -| act(composite(p(CONSO:"4R tau"), a(PUBCHEM:3108148)))
 
 
@@ -429,8 +427,8 @@ tau species (detected by CP13) were also decreased in
 the sarkosyl-insoluble tau fraction (Fig 4G)."
 composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:3108148)) -| a(CONSO:"Tau antibody, HT7")
 composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:3108148)) -| a(CONSO:"Tau antibody, MC1")
-composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:3108148)) -| a(CONSO:"Tau epitope, CP13")
-composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:3108148)) -| a(CONSO:"Tau epitope, AT180")
+composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:3108148)) -| p(CONSO:"Tau epitope, CP13")
+composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:3108148)) -| p(CONSO:"Tau epitope, AT180")
 
 
 #wild type and P301S tau transgenic mice with PERK activator from week 9 to 5 of age
