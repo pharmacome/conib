@@ -126,10 +126,10 @@ Escobar-Khondiker et al, 2007; Yamada et al, 2014)."
 #354398 - annonacin
 a(PUBCHEM:354398) -- path(DOID:tauopathy)
 a(PUBCHEM:354398) -> p(HGNC:MAPT)
-a(PUBCHEM:354398) -- p(HGMC:MAPT, pmod(CONSO:hyperphosphorylation))
+a(PUBCHEM:354398) -- p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 a(PUBCHEM:354398) -- bp(GO:"cell death")
 a(PUBCHEM:354398) -> act(p(HGNCGENEFAMILY:"Mitochondrial complex I assembly complex"))
-act(p(HGNCGENEFAMILY:"Mitochondrial complex I assembly complex")) -> p(HGMC:MAPT, pmod(CONSO:hyperphosphorylation), loc(GO:"somatodendritic compartment"))
+act(p(HGNCGENEFAMILY:"Mitochondrial complex I assembly complex")) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation), loc(GO:"somatodendritic compartment"))
 a(PUBCHEM:354398) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation), loc(GO:"somatodendritic compartment"))
 
 SET Evidence = "Annonacin
@@ -148,8 +148,8 @@ ng total mRNA; the specific increase of 4R and 3R tau protein was
 confirmed by Western blot (Appendix Fig S1A and B)."
 #2N4R - Tau 441aa isoform
 #2N3R - Tau 410aa isoform
-p(CONSO:"Tau isoform F (441 aa)") => r(CONSO:"4R tau")
-p(CONSO:"Tau isoform C (410 aa)") => r(CONSO:"3R tau")
+p(CONSO:"Tau isoform F (441 aa)") => p(CONSO:"4R tau")
+p(CONSO:"Tau isoform C (410 aa)") => p(CONSO:"3R tau")
 
 SET Evidence = "None of the lentiviral
 models significantly increased PERK or pPERK, showing that tau
@@ -258,9 +258,9 @@ clumps (Fig 2E) and reduced the density of the neuritic network
 (Fig 2F; quantified in Fig EV3). Counts of viable cells (Fig 2G) confirmed
 that the PERK activator mitigated the toxicity of both annonacin
 and 4R tau overexpression."
-act(composite(a(PUBCHEM:354398), p(CONSO:"4R tau"))) neg bp(GO:"chromatin organization")
-act(composite(a(PUBCHEM:354398), p(CONSO:"4R tau"))) -> path(MESH:"Neuronal Plasticity")
-a(PUBCHEM:3108148) -| act(composite(a(PUBCHEM:354398), p(CONSO:"4R tau")))
+composite(a(PUBCHEM:354398), p(CONSO:"4R tau")) neg bp(GO:"chromatin organization")
+composite(a(PUBCHEM:354398), p(CONSO:"4R tau")) -> path(MESH:"Neuronal Plasticity")
+a(PUBCHEM:3108148) -| composite(a(PUBCHEM:354398), p(CONSO:"4R tau"))
 a(PUBCHEM:3108148) -> bp(GO:"chromatin organization")
 a(PUBCHEM:3108148) -| path(MESH:"Neuronal Plasticity")
 
@@ -276,7 +276,7 @@ found a significant increase in HO-1 expression in neurons
 treated with the PERK activator (Fig EV4A and B), which indicates
 an activation of the PERK–NRF2 pathway."
 a(PUBCHEM:3108148) -> r(HGNC:HMOX1)
-a(PUBCHEM:3108148) -> act(composite(a(PUBCHEM:3108148),p(HGNC:NFE2L2)))
+a(PUBCHEM:3108148) -> composite(a(PUBCHEM:3108148),p(HGNC:NFE2L2))
 
 SET Evidence = "Indeed, the toxicity of
 LV-4R was significantly reduced by treatment with an activator of
@@ -327,7 +327,6 @@ tau mRNA and protein, and almost completely reversed the effect of
 annonacin on the 3R/4R ratio (Fig 3A, D and E)."
 a(PUBCHEM:354398) -> p(CONSO:"4R tau")
 a(PUBCHEM:354398) cnc p(CONSO:"3R tau")
-a(PUBCHEM:354398) cnc r(CONSO:"3R tau")
 a(PUBCHEM:3108148) -| p(CONSO:"4R tau")
 
 SET Evidence = "In the presence of annonacin, mRNA levels of the tau splicing
@@ -340,12 +339,12 @@ SET Evidence = "Cells transduced with 4R tau-overexpressing lentivirus showed
 increased levels in CP13-, AD2-, and HT7 tau (but not MC1). CP13-
 but not AD2- and HT7 tau were normalized by simultaneous PERK
 activator treatment (Fig 3G and H)."
-p(CONSO:"Tau isoform F (441 aa)") -> a(CONSO:"Tau epitope, CP13")
-p(CONSO:"Tau isoform F (441 aa)") -> a(CONSO:"Tau epitope, AD2")
+p(CONSO:"Tau isoform F (441 aa)") -> p(CONSO:"Tau epitope, CP13")
+p(CONSO:"Tau isoform F (441 aa)") -> p(CONSO:"Tau epitope, AD2")
 p(CONSO:"Tau isoform F (441 aa)") -> a(CONSO:"Tau antibody, HT7")
-p(CONS0:"Tau isoform F (441 aa)") cnc a(CONSO:"Tau antibody, MC1")
-composite(p(CONSO:"Tau isoform F (441 aa)"), a(PUBCHEM:3108148)) -| a(CONSO:"Tau epitope, CP13")
-composite(p(CONSO:"Tau isoform F (441 aa)"), a(PUBCHEM:3108148)) cnc a(CONSO:"Tau epitope, AD2")
+p(CONSO:"Tau isoform F (441 aa)") cnc a(CONSO:"Tau antibody, MC1")
+composite(p(CONSO:"Tau isoform F (441 aa)"), a(PUBCHEM:3108148)) -| p(CONSO:"Tau epitope, CP13")
+composite(p(CONSO:"Tau isoform F (441 aa)"), a(PUBCHEM:3108148)) cnc p(CONSO:"Tau epitope, AD2")
 composite(p(CONSO:"Tau isoform F (441 aa)"), a(PUBCHEM:3108148)) cnc a(CONSO:"Tau antibody, HT7")
 
 
@@ -384,7 +383,7 @@ against toxicity induced by annonacin (Fig EV5C and D) and 4R tau
 overexpression in a similar fashion to PERK activator treatment
 (Fig EV5E and F)."
 p(HGNC:EIF2AK3) -| p(CONSO:"4R tau")
-p(HGNC:EIF2AK3) -| act(composite(p(CONSO:"4R tau"), a(PUBCHEM:3108148)))
+p(HGNC:EIF2AK3) -| composite(p(CONSO:"4R tau"), a(PUBCHEM:3108148))
 
 
 #P301S tau transgenic mouse model
