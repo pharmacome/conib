@@ -47,7 +47,7 @@ SET DOCUMENT Description = ""
  DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
  DEFINE NAMESPACE NCIT           AS PATTERN "^C\d+$"
  DEFINE NAMESPACE ORPHANET       AS PATTERN "^\d+$"
-
+ DEFINE NAMESPACE IMGTHLA        AS PATTERN "	^[A-Z0-9*:]+$"
 ###############
 # Annotations #
 ###############
@@ -215,10 +215,10 @@ g(HGNCGENEFAMILY:"Histocompatibility complex") -> p(MESH:"Membrane Glycoproteins
 p(MESH:"Membrane Glycoproteins") -> bp(GO:"T cell antigen processing and presentation")
 
 SET Evidence = "Deeper investigation revealed these to be part of an HLA haplotype – in particular, the HLA-DRB1*15:01 allele has consistently been shown to be an independent risk factor for MS, particularly in populations of European ancestry, with an odds ratio (OR) of approximately 3 (75)."
-g(CONSO:"HLA-DRB1*15:01") -> path(DOID:"multiple sclerosis")
+g(IMGTHLA:HLA00865) -> path(DOID:"multiple sclerosis")
 
 SET Evidence = "the HLA-DRB1*15:03 allele is a risk factor in African Americans, while the HLA-A*02 allele appears to confer a protective effect against MS, with an OR of approximately 0.6 (79)."
-p(CONSO:"HLA-DRB1*15:03") -> path(DOID:"multiple sclerosis")
+p(IMGTHLA:HLA00870) -> path(DOID:"multiple sclerosis")
 path(NCIT:C69408) -| path(DOID:"multiple sclerosis")
 
 SET Evidence = "Given this, there has been exploration into the idea that genetic variants within the mitochondrial DNA (mtDNA) could play a role in MS risk. Mitochondrial haplogroups have been associated with adult-onset MS (82)."
@@ -272,10 +272,10 @@ UNSET MeSHDisease
 SET Evidence = "Other studies have demonstrated evidence of hypermethylation in genes involved with immune system regulation (e.g. SHP-1), resulting in reduced genetic expression and a resultant increase in leukocyte-mediated inflammation (92)."
 #PTPN6 - SHP - 1
 g(HGNC:PTPN6) reg a(MESH:"Immune System")
-g(HGNC:PTPN6, var(NCIT:C20102)) -| g(HGNC:PTPN6)
+g(HGNC:PTPN6, pmod(NCIT:C20102)) -| g(HGNC:PTPN6)
 SET Cell = "leukocyte"
 g(HGNC:PTPN6) -| path(MESH:Inflammation)
-g(HGNC:PTPN6, var(NCIT:C20102)) -> path(MESH:Inflammation)
+g(HGNC:PTPN6, pmod(NCIT:C20102)) -> path(MESH:Inflammation)
 UNSET Cell
 
 SET Evidence = "In pediatric MS cohorts, HLA-DRB1 is associated with the EBNA-1 antibody response, suggesting that HLA risk genes have an important influence on the immune response to viral infection (99)."
@@ -290,14 +290,18 @@ p(MESH:"Herpesvirus 1, Human") -| p(HGNC:"HLA-DRB1")
 
 SET Evidence = "Smoking greatly increases MS risk in individuals who are positive for the HLA-DRB1*15 allele and negative for the HLA-A*02 allele (OR 13.5) compared to nonsmokers with the same HLA genotype (OR 4.9) (101)"
 #C150640 - HLA-A*0201 Negative
-composite(p(HGNC:"HLA-DRB1"), path(MESH:Smoking)) -> path(DOID:"multiple sclerosis")
-composite(p(NCIT:C150640), path(MESH:Smoking)) -> path(DOID:"multiple sclerosis")
+SET MeSHDisease = "Smoking"
+p(HGNC:"HLA-DRB1") -> path(DOID:"multiple sclerosis")
+p(NCIT:C150640) -> path(DOID:"multiple sclerosis")
+UNSET MeSHDisease
 
 SET Evidence = "Obesity has been linked to HLA risk alleles, as obese (BMI≥27) individuals, who were positive for HLADRB1*
 15 and negative for HLA-A*02 exhibited an increased risk of MS (OR 16.2) compared to those with BMI < 27 with the same HLA genotype risk factors (OR 5.1) (103)."
 #BMI < 27
-composite(p(HGNC:"HLA-DRB1"), path(MESH:"Pediatric Obesity")) -> path(DOID:"multiple sclerosis")
-composite(p(NCIT:C150640), path(MESH:"Pediatric Obesity")) -> path(DOID:"multiple sclerosis")
+SET MeSHDisease = "Obesity"
+p(HGNC:"HLA-DRB1") -> path(DOID:"multiple sclerosis")
+p(NCIT:C150640) -> path(DOID:"multiple sclerosis")
+UNSET MeSHDisease
 
 SET Evidence = "Oral agents (i.e. fingolimod, teriflunomide, dimethyl fumarate) have been approved for relapsing adult MS, and many pediatric patients exhibit a desire for these therapies given the route of administration."
 a(PUBCHEM:107970) -| path(EFO:"relapsing-remitting multiple sclerosis")
