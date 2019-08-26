@@ -18,9 +18,9 @@ SET DOCUMENT Description = "Review describing all aspects of Huntington's diseas
 DEFINE NAMESPACE CHEBI         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
 DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
-#DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/4aa36980578c7d2cff07371abf768f15db89cd11/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -515,7 +515,7 @@ p(HGNC:HTT, pmod(CONSO:"CAG repeats")) reg bp(GO:"cell death")
 a(CONSO:"huntingtin aggregates") reg bp(MESH:"Cell Survival")
 a(CONSO:"huntingtin aggregates") reg bp(GO:"cell death")
 p(HGNC:HTT, pmod(CONSO:"CAG repeats")) -> bp(MESH:Apoptosis)
-a(CONSO:"huntingtin  aggregates") -| bp(GO:"necrotic cell death")
+a(CONSO:"huntingtin aggregates") -| bp(GO:"necrotic cell death")
 UNSET Confidence
 
 SET Evidence = "It has also been
@@ -528,7 +528,7 @@ secondarily modified such as dephosphorylated (Branco-
 Santos et al. 2017) and phosphorylation (DiGiovanni et al.
 2016)which regulates its aggregation, localization and toxicity."
 SET Confidence = "Medium"
-p(HGNC:HTT, pmod(CONSO:"CAG repeats"),frag("1_17")) -> tloc(p(HGNC:HTT),pmod(CONSO:"CAG repeats"),fromLoc(GO:"cytoplasm"),toLoc(GO:"nucleus"))
+p(HGNC:HTT, pmod(CONSO:"CAG repeats"),frag("1_17")) -> tloc(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),fromLoc(GO:"cytoplasm"),toLoc(GO:"nucleus"))
 p(HGNC:HTT, pmod(CONSO:"CAG repeats"),pmod(Ph),frag("1_17")) reg a(CONSO:"huntingtin aggregates")
 SET Species = {"10090","7955"}
 p(HGNC:HTT, pmod(CONSO:"CAG repeats"),frag("1_17")) reg a(CONSO:"huntingtin aggregates")
@@ -797,7 +797,7 @@ their chaperone expression to overcome this proteostasis
 stress (Tagawa et al. 2007)."
 SET Confidence = "Medium"
 SET Cell = "cerebellar neuron"
-r(HGNC:HTT, pmod(CONSO:"CAG repeats")) -> p(MESH:"HSP70 Heat-Shock Proteins")
+p(HGNC:HTT, pmod(CONSO:"CAG repeats")) -> p(MESH:"HSP70 Heat-Shock Proteins")
 UNSET Cell
 SET Anatomy = "corpus striatum"
 SET MeSHAnatomy = "Neurons"
