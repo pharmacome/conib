@@ -74,9 +74,12 @@ SET Citation = {"PubMed", "30988501"}
 
 SET Evidence = "Instead, an interplay between neurons, glial cells and the immune system contributes to functional properties, such as cognition, social behaviour and learning performance in the healthy brain."
 
-composite(bp(GO:"neuron-glial cell signaling"),bp(GO:"immune system process")) -> bp(GO:cognition)
-composite(bp(GO:"neuron-glial cell signaling"),bp(GO:"immune system process")) -> bp(GO:"social behavior")
-composite(bp(GO:"neuron-glial cell signaling"),bp(GO:"immune system process")) -> bp(GO:learning)
+bp(GO:"neuron-glial cell signaling") -> bp(GO:cognition)
+bp(GO:"immune system process") -> bp(GO:cognition)
+bp(GO:"neuron-glial cell signaling") -> bp(GO:"social behavior")
+bp(GO:"immune system process") -> bp(GO:"social behavior")
+bp(GO:"neuron-glial cell signaling") -> bp(GO:learning)
+bp(GO:"immune system process") -> bp(GO:learning)
 
 SET Evidence = "Microglia permanently survey their local environment with fine, motile processes 1 and, during brain development, they have an important role in synaptic pruning mediated by the complement proteins C1q and C3, as they phagocytose the complement-tagged synapses 2,3."
 
@@ -109,17 +112,16 @@ UNSET Anatomy
 SET Evidence = "Their expression of receptors for purines (such as ATP) and common neurotransmitters (such as glutamate) enables them to sense local neuronal activity 6."
 
 #their :microglia
-bp(GO:"neuron cellular homeostasis") -> p(HGNCGENEFAMILY:"Purinergic receptors",loc(MESH:Microglia))
-bp(GO:"neuron cellular homeostasis") -> p(HGNCGENEFAMILY:"Glutamate receptors",loc(MESH:Microglia))
-
+bp(GO:"neuron cellular homeostasis") -> p(HGNCGENEFAMILY:"Purinergic receptors P2X",loc(MESH:Microglia))
+bp(GO:"neuron cellular homeostasis") -> p(HGNCGENEFAMILY:"Glutamate metabotropic receptors",loc(MESH:Microglia))
 
 SET Evidence = "In response, microglia can directly contact neurons via outgrowth of processes 5 or can indirectly modulate neuronal firing rate via release of extracellular vesicles 7 or signalling molecules, such as tumour necrosis factor (TNF) 8."
 
 a(MESH:Microglia) -> sec(a(MESH:"Extracellular Vesicles"))
 a(MESH:Microglia) -> sec(p(HGNC:TNF))
 SET Cell = "neuron"
-a(MESH:"Extracellular Vesicles") -> bp(GO:"regulation of action potential firing rate ")
-p(HGNC:TNF) -> bp(GO:"regulation of action potential firing rate ")
+a(MESH:"Extracellular Vesicles") -> bp(GO:"regulation of action potential firing rate")
+p(HGNC:TNF) -> bp(GO:"regulation of action potential firing rate")
 UNSET Cell
 
 SET Evidence = "In this way, microglia contribute to activity-induced synaptic plasticity, for example, during motor learning and memory."
@@ -138,47 +140,47 @@ SET Evidence = "However, in healthy individuals, antigen-presenting cells and T�
 
 SET Anatomy = {"brain","brain meninx","choroid plexus","cerebrospinal fluid"}
 a(MESH:"Antigen-Presenting Cells") -> bp(MESH:"Immunologic Surveillance")
-a(MESH:"Lymphoma, T-Cell") -> bp(MESH:"Immunologic Surveillance")
+a(MESH:"T-Lymphocytes") -> bp(MESH:"Immunologic Surveillance")
 UNSET Anatomy
 
 SET Evidence = "Notably, evidence suggests that the choroid plexus has a role not only in transmigration but also in stimulation of T cells in response to peripheral inflammatory signals 13."
 
 SET Anatomy = {"peripheral nervous system","choroid plexus"}
-bp(GO:"inflammatory response") -> act(a(MESH:"Lymphoma, T-Cell"))
+bp(GO:"inflammatory response") -> act(a(MESH:"T-Lymphocytes"))
 UNSET Anatomy
 
 SET Evidence = "Although T cells do not generally penetrate the parenchyma in non-inflammatory conditions, they can release soluble cytokines that affect CNS function 14,15."
 
 SET Anatomy = "parenchyma of central nervous system"
-a(MESH:"Lymphoma, T-Cell") -> bp(GO:"cytokine secretion")
+a(MESH:"T-Lymphocytes") -> bp(GO:"cytokine secretion")
 bp(GO:"cytokine secretion") -- act(a(MESH:"Central Nervous System"))
 UNSET Anatomy
 
 SET Evidence = "Studies in mice have demonstrated that adaptive immunity is necessary for cognitive performance: mice with severe combined immune deficiency exhibited impaired spatial learning and memory, but symptoms were reversed by injection of exogenous T cells 16."
 
 SET Species = "10095"
-a(MESH:"Adaptive Immunity") -> bp(GO:cognition)
-a(MESH:"Adaptive Immunity") -> bp(GO:"learning or memory")
-a(MESH:"Lymphoma, T-Cell") -> bp(GO:"learning or memory")
+bp(MESH:"Adaptive Immunity") -> bp(GO:cognition)
+bp(MESH:"Adaptive Immunity") -> bp(GO:"learning or memory")
+a(MESH:"T-Lymphocytes") -> bp(GO:"learning or memory")
 
 SET Evidence = "From a neurobiological perspective, levels of neurogenesis in adult transgenic mice that overexpress a CNS-specific T cell receptor are higher than those in mice that overexpress a T cell receptor for a non-CNS-specific antigen 17."
 
-a(MESH:"Receptors, Antigen, T-Cell") -> bp(GO:neurogenesis)
+p(MESH:"Receptors, Antigen, T-Cell") -> bp(GO:neurogenesis)
 UNSET Species
 
 SET Evidence = "Further beneficial roles of the immune response in the CNS — again going against the anticipated pathogenic activity of inflammation — include protective roles for T helper 2 (TH2) cells in CNS injury and for IL-4 signalling in neurons in multiple sclerosis (MS) models 18,19."
 
-a(MESH:Th2 Cells) -- bp(MESH:Brain Injuries)
+a(MESH:"Th2 Cells") -- bp(MESH:Brain Injuries)
 SET Disease = "multiple sclerosis"
 SET Cell = "neuron"
-a(MESH:Th2 Cells) -> act(p(HGNC:IL4))
+a(MESH:"Th2 Cells") -> act(p(HGNC:IL4))
 UNSET Cell
 UNSET Disease
 
 SET Evidence = "The complex and diverse roles of adaptive immune cells are further underlined by the finding that a lack of B cells does not impair learning behaviour in mice 20."
 
 SET Species = "10095"
-a(MESH:"Lymphoma, B-Cell") cnc bp(GO:"learning or memory")
+a(MESH:"B-Lymphocytes") cnc bp(GO:"learning or memory")
 UNSET Species
 
 SET Evidence = "The first is the glymphatic system, a glial-dependent perivascular network that ensures provision of nutrients for neurons and glia and clearance of extracellular metabolites, such as lactate 21."
@@ -192,7 +194,7 @@ SET Evidence = "Activation of the glymphatic system is higher during sleep than 
 bp(MESH:Sleep) -> bp(MESH:"Glymphatic System")
 bp(MESH:Wakefulness) -> bp(MESH:"Glymphatic System")
 bp(MESH:Sleep) -| a(MESH:"Waste Products")
-bp(MESH:Sleep) -| path(HBP:neurotoxicity)
+bp(MESH:Sleep) -| path(CONSO:neurotoxicity)
 
 SET Evidence = "Consequently, disturbances in the equilibrium of immune cells, neurons and glial cells needed for healthy CNS function are likely to modify cognitive performance (Fig. 1a)."
 
@@ -207,7 +209,7 @@ SET Evidence = "A compelling example of the pathogenic influence of the immune s
 path(MESH:"Systemic Inflammatory Response Syndrome") -> path(MESH:"Illness Behavior")
 path(MESH:Infection) -> path(MESH:"Illness Behavior")
 bp(MESH:"Immunity, Cellular") -- path(MESH:"Mood Disorders")
-bp(MESH:"Immunity, Cellular") -- bp(MESH:"Social Behavior")
+bp(MESH:"Immunity, Cellular") -- path(MESH:"Social Behavior")
 bp(MESH:"Immunity, Cellular") -- bp(GO:cognition)
 path(MESH:"Illness Behavior") -> path(MESH:"Mood Disorders")
 path(MESH:"Illness Behavior") -> path(MESH:"Social Behavior Disorders")
@@ -217,10 +219,10 @@ bp(MESH:"Immunity, Cellular") -- path(MESH:"Illness Behavior")
 SET Evidence = "The release of pro-inflammatory cytokines, such as IL-1β, IL-6 and TNF, outside the CNS affects the brain via neural (mainly vagal) pathways, interaction with cytokine receptors on cerebral endothelial cells and/or microglial activation 26."
 
 #outside CNS
-p(HGNC:IL1B) -> bp(MESH:"Neural Pathways")
-p(HGNC:IL6) -> bp(MESH:"Neural Pathways")
-p(HGNC:TNF) -> bp(MESH:"Neural Pathways")
-bp(MESH:"Neural Pathways") -> act(a(MESH:Brain))
+p(HGNC:IL1B) -> a(MESH:"Neural Pathways")
+p(HGNC:IL6) -> a(MESH:"Neural Pathways")
+p(HGNC:TNF) -> a(MESH:"Neural Pathways")
+a(MESH:"Neural Pathways") -> act(a(MESH:Brain))
 
 SET Cell = "cerebral cortex endothelial cell"
 complex(p(HGNC:IL1B),p(MESH:"Receptors, Cytokine"))
@@ -247,22 +249,22 @@ UNSET Disease
 SET Evidence = " Sickness behaviour can be diminished after repeated subthreshold exposure to pathogens, a mechanism that is referred to as euflammation and that evidence suggests is the result of tolerogenic processes 29."
 
 a(MESH:"Pathogen-Associated Molecular Pattern Molecules") -| path(MESH:"Illness Behavior")
-bp(HBP:Euflammation) -| path(MESH:"Illness Behavior")
+bp(CONSO:Euflammation) -| path(MESH:"Illness Behavior")
 
 SET Evidence = "In contrast to this transient low-grade inflammation, chronic low-grade inflammation can occur and cause neurotoxicity and neurodegeneration 30."
 
 #chronic low-grade inflammation
-path(MESH:Inflammation) -> path(HBP:neurotoxicity)
-path(MESH:Inflammation) -> path(HBP:Neurodegeneration)
+path(MESH:Inflammation) -> path(CONSO:neurotoxicity)
+path(MESH:Inflammation) -> path(CONSO:Neurodegeneration)
 
 SET Evidence = "For example, cytokines can have neurotoxic effects by increasing production of reactive oxygen species, reducing monoamine transmission and potentiating glutamatergic transmission."
 
 a(MESH:Cytokines) -> a(CHEBI:"reactive oxygen species")
 a(MESH:Cytokines) -| bp(GO:"monoamine transport")
 a(MESH:Cytokines) -> bp(GO:"synaptic transmission, glutamatergic")
-a(CHEBI:"reactive oxygen species") -> path(HBP:neurotoxicity)
-bp(GO:"monoamine transport") -| path(HBP:neurotoxicity)
-bp(GO:"synaptic transmission, glutamatergic") -> path(HBP:neurotoxicity)
+a(CHEBI:"reactive oxygen species") -> path(CONSO:neurotoxicity)
+bp(GO:"monoamine transport") -| path(CONSO:neurotoxicity)
+bp(GO:"synaptic transmission, glutamatergic") -> path(CONSO:neurotoxicity)
 
 SET Evidence = "Chronic inflammation is implicated in schizophrenia and other psychiatric disorders32, and systemic inflammation, as well as acute infections, have been associated with an increased rate of cognitive decline and exacerbation of symptoms in patients with Alzheimer disease (AD) 33."
 
@@ -319,8 +321,8 @@ path(MESH:Inflammation) -> path(DOID:"learning disability")
 path(MESH:Infection) -> path(DOID:"learning disability")
 path(MESH:Inflammation) -| bp(GO:"learning or memory")
 path(MESH:Infection) -| bp(GO:"learning or memory")
-path(MESH:Inflammation) -| bp(MESH:Attention)
-path(MESH:Infection) -| bp(MESH:Attention)
+path(MESH:Inflammation) -| path(MESH:Attention)
+path(MESH:Infection) -| path(MESH:Attention)
 UNSET MeSHAnatomy
 UNSET Species
 
@@ -378,8 +380,8 @@ SET Evidence = "In the prospective Northern Manhattan Study, a high infectious b
 path(MESH:Infection) -| bp(GO:cognition)
 path(HP:"Helicobacter pylori infection") -| bp(GO:cognition)
 path(MESH:"Cytomegalovirus Infections") -| bp(GO:cognition)
-path(MESH:"Herpesvirus 1, Human") -| bp(GO:cognition)
-path(MESH:"Herpesvirus 2, Human") -| bp(GO:cognition)
+a(MESH:"Herpesvirus 1, Human") -| bp(GO:cognition)
+a(MESH:"Herpesvirus 2, Human") -| bp(GO:cognition)
 
 SET Evidence = "Evidence suggests that among patients with schizophrenia or bipolar disorder, infections with Toxoplasma gondii, HSV and CMV affect the cognitive dysfunction already present in these disorders, in particular working memory 50."
 
@@ -394,15 +396,15 @@ SET Evidence = "Another example of the intricate relationship between cognition 
 
 path(MESH:"HIV Infections") -> path(MESH:"Neurocognitive Disorders")
 SET MeSHDisease = "HIV Infections"
-a(MESH:"Antiretroviral Therapy, Highly Active") cnc path(MESH:"Neurocognitive Disorders")
+path(MESH:"Antiretroviral Therapy, Highly Active") cnc path(MESH:"Neurocognitive Disorders")
 UNSET MeSHDisease
 
 SET Evidence = "In addition to molecular mimicry that triggers autoimmune reactions, a possible mechanism is stress-induced potentiation of microglial inflammasome activation, which causes an increase in pro-inflammatory mediators 52,53."
 
 bp(MESH:"Molecular Mimicry") -> path(MESH:"Autoimmune Diseases")
 SET Cell = "microglial cell"
-bp(GO:"response to stress") -> act(a(MESH:inflammasomes))
-act(a(MESH:inflammasomes)) -> a(MESH:"Inflammation Mediators")
+bp(GO:"response to stress") -> act(a(MESH:Inflammasomes))
+act(a(MESH:Inflammasomes)) -> a(MESH:"Inflammation Mediators")
 UNSET Cell
 
 SET Evidence = "In this way, both innate (microglial activation with subsequent phagocytosis or cytokine production) and adaptive immune responses (antigen-specific responsiveness and production of antibodies) contribute to pathology."
@@ -413,7 +415,7 @@ bp(GO:phagocytosis) -> bp(GO:"activation of innate immune response")
 bp(GO:"cytokine production") -> bp(MESH:"Immunity, Innate")
 bp(MESH:"Immunity, Innate") -> path(MESH:"Pathology")
 bp(MESH:"Antibody Formation") -> bp(MESH:"Adaptive Immunity")
-act(a(MESH:Antibodies)) -> bp(MESH:"Adaptive Immunity")
+act(p(MESH:Antibodies)) -> bp(MESH:"Adaptive Immunity")
 bp(MESH:"Adaptive Immunity") -> path(MESH:"Pathology")
 
 SET Evidence = "In addition, infectious agents might act via epigenetic pathways to modulate the innate immune cell repertoire, thereby influencing the risk profile for neurodegenerative disorders 54."
@@ -443,27 +445,27 @@ p(HGNC:MAPT) biomarkerFor path(DOID:"Alzheimer's disease")
 
 SET Evidence = "In addition, HSV-1 DNA has been found in amyloid plaques in patients with AD, further underlining a link between the virus and pathological aggregations 57."
 
-a(MESH:"Plaque, Amyloid") --  path(MESH:"Herpesvirus 1, Human")
+path(MESH:"Plaque, Amyloid") --  a(MESH:"Herpesvirus 1, Human")
 
 SET Evidence = "For example, HSV-1 proteins debilitate neuronal autophagy and, consequently, antigen presentation 58."
 
 SET Cell = "neuron"
-path(MESH:"Herpesvirus 1, Human") -| bp(GO:autophagy)
-path(MESH:"Herpesvirus 1, Human") -| bp(MESH:"Antigen Presentation")
+a(MESH:"Herpesvirus 1, Human") -| bp(GO:autophagy)
+a(MESH:"Herpesvirus 1, Human") -| bp(MESH:"Antigen Presentation")
 UNSET Cell
 
 SET Evidence = "In mice, recurrent asymptomatic activation of HSV-1 leads to upregulation of markers of neuroinflammation (for example, Toll-like receptor-4, IFNα and IFNβ) and early neurodegeneration 59."
 
 SET Species = "10090"
-path(MESH:"Herpesvirus 1, Human") -> p(HGNC:TLR4)
-path(MESH:"Herpesvirus 1, Human") -> p(HGNC:IFN1@)
-path(MESH:"Herpesvirus 1, Human") -> p(HGNC:IFNB1)
-p(HGNC:TLR4) biomarkerFor path(HBP:neuroinflammation)
-p(HGNC:IFN1@) biomarkerFor path(HBP:neuroinflammation)
-p(HGNC:IFNB1) biomarkerFor path(HBP:neuroinflammation)
-p(HGNC:TLR4) biomarkerFor path(HBP:neurodegeneration)
-p(HGNC:IFN1@) biomarkerFor path(HBP:neurodegeneration)
-p(HGNC:IFNB1) biomarkerFor path(HBP:neurodegeneration)
+a(MESH:"Herpesvirus 1, Human") -> p(HGNC:TLR4)
+a(MESH:"Herpesvirus 1, Human") -> p(HGNC:IFN1@)
+a(MESH:"Herpesvirus 1, Human") -> p(HGNC:IFNB1)
+p(HGNC:TLR4) biomarkerFor path(CONSO:neuroinflammation)
+p(HGNC:IFN1@) biomarkerFor path(CONSO:neuroinflammation)
+p(HGNC:IFNB1) biomarkerFor path(CONSO:neuroinflammation)
+p(HGNC:TLR4) biomarkerFor path(CONSO:neurodegeneration)
+p(HGNC:IFN1@) biomarkerFor path(CONSO:neurodegeneration)
+p(HGNC:IFNB1) biomarkerFor path(CONSO:neurodegeneration)
 
 SET Evidence = "In addition, extracellular deposits of Aβ activate resting microglia and trigger them to attack neurons via various pathways, such as NADPH oxidase activation, inducible nitric oxide synthase expression and phagocytosis 60."
 
@@ -475,17 +477,17 @@ act(a(MESH:Microglia)) -> act(complex(GO:"NADPH oxidase complex"))
 act(a(MESH:Microglia)) -> bp(GO:phagocytosis)
 UNSET Cell
 UNSET Species
-UNSET MeSHDisease
 
 SET Evidence = "Nonspecific inflammatory processes underlie the low-grade inflammation described above, but neuroinflammation can also be driven by autoimmunity"
 
-path(HP:Autoimmunity) -> path(HBP:neuroinflammation)
+path(HP:Autoimmunity) -> path(CONSO:neuroinflammation)
 
 SET Evidence = "Autoimmune responses can be antibody driven or cell driven and, depending on the autoantigen involved, can involve antigen presentation by major histocompatibility complex (MHC) class II."
 
 bp(HP:"Autoimmune antibody positivity") -> path(HP:Autoimmunity)
 bp(MESH:"Immunity, Cellular") -> path(HP:Autoimmunity)
-composite(bp(MESH:"Antigen Presentation"),complex(GO:"MHC class II protein complex")) -> path(HP:Autoimmunity)
+bp(MESH:"Antigen Presentation") -> path(HP:Autoimmunity)
+complex(GO:"MHC class II protein complex") -> path(HP:Autoimmunity)
 
 SET Evidence = "These conditions include neuro myelitis optica and potentially disabling, or sometimes life-threatening, autoimmune encephalomyelitis."
 
@@ -500,7 +502,7 @@ SET Evidence = "MS is the  classical and most common chronic autoimmune encephal
 path(DOID:"multiple sclerosis") isA path(DOID:encephalomyelitis)
 path(DOID:"multiple sclerosis") isA path(MESH:Autoimmune Diseases)
 path(DOID:"multiple sclerosis") -> path(HP:"CNS demyelination")
-path(DOID:"multiple sclerosis") -> path(HBP:Neurodegeneration)
+path(DOID:"multiple sclerosis") -> path(CONSO:Neurodegeneration)
 
 SET Evidence = "In early MS, most patients experience transient physical deficits, such as optic neuritis, hemiparesis or sensory disturbances, in a relapsing–remitting presentation."
 
@@ -544,17 +546,18 @@ SET Evidence = "Relapses in patients with MS are influenced by stressful life ev
 
 #recurrences = relapses
 bp(MESH:"response to stress") -> bp(MESH:Recurrence)
-path(MESH:Infection) -> bp(MESH:Recurrence)
-path(HP:"Recurrent upper respiratory tract infections") -> bp(MESH:Recurrence)
+path(MESH:Infection) -> path(MESH:Recurrence)
+path(HP:"Recurrent upper respiratory tract infections") -> path(MESH:Recurrence)
 
 SET Evidence = "These observations underline the role of inflammation in relapse activity, as both systemic infection and stress induce a pro-inflammatory status, as discussed in more detail below."
 
 #recurrences = relapses
-path(MESH:Inflammation) -> bp(MESH:Recurrence)
+path(MESH:Inflammation) -> path(MESH:Recurrence)
 
 SET Evidence = "A specific autoantigen has not yet been identified in MS, but autoreactive T cells are widely assumed to target proteins of the myelin sheath, causing demyelination and, thereby, white matter damage."
 
-composite(bp(HP:"Autoimmune antibody positivity"),a(MESH:"T-Lymphocytes, Cytotoxic")) -> path(HP:"CNS demyelination")
+bp(HP:"Autoimmune antibody positivity") -> path(HP:"CNS demyelination")
+a(MESH:"T-Lymphocytes, Cytotoxic") -> path(HP:"CNS demyelination")
 path(HP:"CNS demyelination") -> deg(a(MESH:"White Matter"))
 
 SET Evidence = "Demyelination deprives neurons of protective factors and has been described to decrease axonal transport and synaptic density in demyelinated hippocampi from post-mortem MS brains 75."
@@ -562,7 +565,7 @@ SET Evidence = "Demyelination deprives neurons of protective factors and has bee
 path(HP:"CNS demyelination") -| bp(MESH:"Neuroprotection")
 path(HP:"CNS demyelination") -| bp(GO:"axonal transport")
 SET MeSHAnatomy = "Hippocampus"
-path(HP:"CNS demyelination") -| bp(GO:"postsynaptic density")
+path(HP:"CNS demyelination") -| a(GO:"postsynaptic density")
 UNSET MeSHAnatomy
 
 SET Evidence = "However, direct recognition of neurons by pathogenic T cells has also been proposed 76,77, and neuronal loss could occur as a result of Wallerian degene ration and mitochondrial dysfunction 78."
@@ -572,13 +575,220 @@ path(CONSO:"mitochondrial dysfunction") -> deg(a(MESH:Neurons))
 
 SET Evidence = "Grey matter damage, measured as the cortical lesion load or cortical thinning, is a key predictor of progressive disease and cognitive decline 79."
 
-path(DOID:"multiple sclerosis") -> deg(MESH:"Gray Matter")
-deg(MESH:"Gray Matter") -| bp(GO:cognition)
-deg(MESH:"Gray Matter") -> deg(a(MESH:"Cerebral Cortex"))
+path(DOID:"multiple sclerosis") -> deg(a(MESH:"Gray Matter"))
+deg(a(MESH:"Gray Matter")) -| bp(GO:cognition)
+deg(a(MESH:"Gray Matter")) -> deg(a(MESH:"Cerebral Cortex"))
 
 SET Evidence = "These findings underline the fact that active neuroinflammation detectable with gadolinium enhancement affects cognitive function and might cause detrimental effects on neuronal networks and connectivity."
 
-path(HBP:neuroinflammation) -| bp(GO:cognition)
-path(HBP:neuroinflammation) -| act(a(MESH:Neurons))
+path(CONSO:neuroinflammation) -| bp(GO:cognition)
+path(CONSO:neuroinflammation) -| act(a(MESH:Neurons))
 
 UNSET MeSHDisease
+
+SET Evidence = "A compelling example of the overlap between psychiatric and neurological pathologies is the occurrence of psychosis as a result of autoantibodies against neuropil, which can develop spontaneously in neoplastic diseases or after viral infections, particularly HSV encephalitis 86."
+
+path(HP:"Herpes simplex encephalitis") -> complex(a(MESH:Autoantibodies),a(MESH:Neuropil))
+complex(a(MESH:Autoantibodies),a(MESH:Neuropil)) -> path(HP:Psychosis)
+
+SET Evidence = "Some of these autoantibodies target intracellular antigens, such as onconeural proteins or 65 kDa glutamic acid decarboxylase (GAD65)."
+
+complex(a(MESH:Autoantibodies),p(HGNC:GAD2),loc(GO:intracellular))
+
+SET Evidence = "The presence of these antibodies is diagnostically useful but considered to be an epiphenomenon, as cytotoxic T cells are responsible for neuronal damage that is associated with neuropsychiatric symptoms 87."
+
+SET MeSHDisease = "Neuropsychiatry"
+a(MESH:"T-Lymphocytes, Cytotoxic") -> deg(a(MESH:Neurons))
+UNSET MeSHDisease
+
+SET Evidence = "One example of such an antibody is the autoantibody against the GABAA receptor, a postsynaptic chloride channel that mediates fast inhibitory neurotransmission in the mammalian brain; this autoantibody causes encephalitis with therapy-resistant epileptic seizures 88."
+
+complex(a(MESH:Autoantibodies),p(HGNCGENEFAMILY:"Gamma-aminobutyric acid type A receptor subunits")) -> path(DOID:encephalitis)
+
+SET Evidence = "Moreover, antibodies against the α-amino-3-hydroxy-5-methyl-4-isoxazole propionic acid (AMPA) receptor can have a pathological role: administration of human pathogenic antibodies against the AMPA receptor subunit GluA2 impairs long-term synaptic plasticity in vitro and affects learning and memory in mice in vivo89. "
+
+#in-vitro experiments
+complex(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor AMPA type subunits"),a(MESH:Autoantibodies)) -| bp(GO:"regulation of synaptic plasticity")
+SET Species = "10095"
+complex(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor AMPA type subunits"),a(MESH:Autoantibodies)) -| bp(GO:"learning or memory")
+UNSET Species
+
+SET Evidence = "Patients with this condition often present with anxiety, sleep disorders, mania, paranoia, memory impairment and disintegration of language, followed by a phase in which agitation and catatonia alternate, accompanied by abnormal movements and autonomic instability 90."
+
+#this condition =  autoimmune encephalitis
+SET MeSHDisease = "Encephalitis"
+path(HP:Autoimmunity) -> path(DOID:"anxiety disorder")
+path(HP:Autoimmunity) -> path(DOID:"sleep disorder")
+path(HP:Autoimmunity) -> path(HP:Mania)
+path(HP:Autoimmunity) -> path(HP:Paranoia)
+path(HP:Autoimmunity) -> path(HP:"Memory impairment")
+path(HP:Autoimmunity) -> path(MESH:"Language Disorders")
+path(HP:Autoimmunity) -> path(HP:Agitation)
+path(HP:Autoimmunity) -> path(MESH:Catatonia)
+UNSET MeSHDisease
+
+SET Evidence = "Furthermore, antibodies that cross-react with the NMDA receptor have been found in patients with neuropsychiatric systemic lupus erythematosus, and these antibodies cause neuronal damage via activated microglia and complement component C1q when administered to mice 93,94."
+
+path(DOID:"systemic lupus erythematosus") -> complex(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"),a(MESH:Autoantibodies))
+complex(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"),a(MESH:Autoantibodies)) -> act(a(MESH:Microglia))
+act(a(MESH:Microglia)) -> deg(a(MESH:Neurons))
+
+SET Evidence = "Independent of immune pathogenesis, glutamate receptor hypofunction has been proposed as a key factor in the development of schizophrenia 98."
+
+p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits") -- path(DOID:schizophrenia)
+
+SET Evidence = "Furthermore, extensive studies of cytokine profiles in disorders such as schizophrenia, depression, suicidal ideation and post-traumatic stress disorder reveal wide-ranging dysregulation of mainly pro-inflammatory markers, in particular IL-6, IL-2 receptor, IL-1β, IL-17 A and C-reactive protein (CRP) 103–107."
+
+path(DOID:schizophrenia) -- p(HGNC:IL6)
+path(DOID:schizophrenia) -- p(HGNC:IL2)
+path(DOID:schizophrenia) -- p(HGNC:IL1B)
+path(DOID:schizophrenia) -- p(HGNC:IL17A)
+path(DOID:schizophrenia) -- p(HGNC:CRP)
+
+SET Evidence = "Changes in the innate CNS immune compartment have also been associated with psychiatric disorders."
+
+SET Anatomy = "central nervous system"
+bp(MESH:"Immunity, Innate") -- path(MESH:Neuropsychiatry)
+UNSET Anatomy
+
+SET Evidence = "For example, genetic defects in microglial signalling pathways cause abnormal development of brain circuits and neuropsychiatric symptoms, as in hereditary diffuse leukoencephalopathy with spheroids (HDLS) 109."
+
+path(MESH:"Hereditary Diffuse Leukoencephalopathy with Spheroids") neg act(a(MESH:Microglia))
+act(a(MESH:Microglia)) -> a(MESH:"Neural Pathways")
+
+SET Evidence = "For example, in a mouse model, chronic stress with depressive behaviour has been associated with microglial loss in the hippocampus 110."
+
+SET Species = "10095"
+SET MeSHAnatomy = "Hippocampus"
+bp(GO:"response to stress") -> deg(a(MESH:Microglia))
+UNSET Anatomy
+UNSET Species
+
+SET Evidence = "In this model, IL-6 was identified as a key mediator of inflammatory effects on fetal brain development 114."
+#this model = rodent model
+SET Species = "9989"
+SET Anatomy = "embryonic brain"
+p(HGNC:IL6) -> path(MESH:Inflammation)
+UNSET Anatomy
+UNSET Species
+
+SET Evidence = "In mice, autism-like behaviour in offspring requires the presence of maternal RORgammat-positive TH17 cells and IL-17a downstream of IL-6 (reF.115)."
+
+SET Species = "10095"
+#RORgammat positive TH17 cells
+a(MESH:"Th17 Cells") -> path(HP:Autism)
+p(HGNC:IL6) -> p(HGNC:IL17A)
+p(HGNC:IL17A) -> path(HP:Autism)
+UNSET Species
+
+SET Evidence = "A study published in 2017 provides evidence that maternal gut commensal bacteria have a role in IL-17a production in mothers 117."
+
+SET Gender = "Female"
+#in mothers
+a(MESH:"Gastrointestinal Microbiome") -> p(HGNC"17A")
+UNSET Gender
+
+SET Evidence = "In rodents, the role of maternal immune activation in ASD was confirmed at the transcriptome level, in which immune activation in the mother caused dysregulation in the fetal brain expression of genes involved in developmental processes 120."
+
+SET Species = "9989"
+bp(MESH:"Immunity, Maternally-Acquired") -> path(DOID:"autism spectrum disorder")
+bp(MESH:"Immunity, Maternally-Acquired") -- bp(GO:"embryonic brain development")
+UNSET Species
+
+SET Evidence = "Cytokine signalling is not the only aspect of maternal immunity that affects the developing fetal brain — B cell-mediated immune responses and production of antibodies can also have effects."
+
+#maternal cytokines, maternal B cells and production of antibodies in mother
+act(a(MESH:Cytokine)) -- bp(GO:"embryonic brain development")
+act(a(MESH:"B-Lymphocytes")) -- bp(GO:"embryonic brain development")
+act(bp(MESH:"Antibody Formation")) -- bp(GO:"embryonic brain development")
+
+SET Evidence = "Targets for these antibodies include proteins with functions in neurodevelopment, such as contactin-associated protein-like 2 (CASPR2) 122,124."
+
+SET Species = "9539"
+#species = macaques
+#these antibodies = IgG from mothers of children with ASD
+#these antibodies lead to abnormal social behavior
+complex(p(MESH:"Immunoglobulin G"),p(HGNC:CNTNAP2)) -> path(MESH:"Neurodevelopmental Disorders")
+complex(p(MESH:"Immunoglobulin G"),p(HGNC:CNTNAP2)) -> path(MESH:"Social Behavior Disorders")
+UNSET Species
+
+SET Evidence = "For example, the MHC-resident complement C4 cluster has been implicated in the risk of schizophrenia 128,129."
+
+p(HGNC:C4A) -- path(DOID:schizophrenia)
+
+SET Evidence = "Routinely used treatments for acute exacerbations include steroids, plasmapheresis, intravenous immunoglobulin, cyclophosphamide and B cell-depleting monoclonal antibodies; a broadening range of disease-modifying drugs is emerging from the development of therapies for MS (Box 2)."
+
+a(MESH:Steroids) -| path(DOID:"multiple sclerosis")
+a(MESH:Plasmapheresis) -| path(DOID:"multiple sclerosis")
+complex(GO:"immunoglobulin complex") -| path(DOID:"multiple sclerosis")
+a(CHEBI:cyclophosphamide) -| path(DOID:"multiple sclerosis")
+
+SET Evidence = "Immunosuppression is also an established treatment strategy for autoimmune encephalitis, but clinical studies of such treatments for psychiatric diseases are still in progress."
+
+SET MeSHDisease = "Autoimmune Diseases"
+a(CHEBI:"immunosuppressive agent") -| path(DOID:encephalitis)
+UNSET MeSHDisease
+
+SET Evidence = "For example, a meta-analysis showed that SSRIs reduce levels of IL-1β and IL-6 in patients with depression 140."
+
+SET MeSHDisease = "Depression"
+a(MESH:"Serotonin Uptake Inhibitors") -| p(HGNC:IL6)
+a(MESH:"Serotonin Uptake Inhibitors") -| p(HGNC:IL1B)
+UNSET MeSHDisease
+
+SET Evidence = "In rats, the microglia inhibitor minocycline improved symptoms of depression in the forced swimming test143, an observation that is consistent with reports that microglia are overactivated in depression 112."
+
+SET Species = "10114"
+a(CHEBI:minocycline) -| a(MESH:Microglia)
+a(CHEBI:minocycline) -| path(DOID:"mental depression")
+path(DOID:"mental depression") -> a(MESH:Microglia)
+UNSET Species
+
+SET Evidence = "Minocycline also had positive effects as an adjunctive treatment to risperidone in children with ASD145, although not as a single medication in a small pilot study 146."
+
+#in children
+composite(a(CHEBI:minocycline),a(CHEBI:risperidone)) neg path(DOID:"autism spectrum disorder")
+a(CHEBI:minocycline) cnc path(DOID:"autism spectrum disorder")
+
+SET Evidence = "Furthermore, in depression, anti-inflammatory treatment with the TNF antagonist infliximab had beneficial effects in patients with treatment-resistant depression and high baseline levels of inflammatory biomarkers 147."
+
+a(DRUGBANK:infliximab) -| p(HGNC:TNF)
+a(DRUGBANK:infliximab) neg path(DOID:"mental depression")
+
+SET Evidence = "A well-recognized risk factor for exacerbation in MS and many psychiatric disorders is psychosocial stress."
+
+path(MESH:"Psychosocial Deprivation") -> path(MESH:"Mental Disorders")
+path(MESH:"Psychosocial Deprivation") -> path(DOID:"multiple sclerosis")
+
+SET Evidence = "Some evidence suggests that the association between psychiatric disorders and stress is mediated, at least in part, by neuroinflammatory processes, including microglial activation."
+
+path(MESH:"Psychosocial Deprivation") -> act(a(MESH:Microglia))
+act(a(MESH:Microglia)) -> bp(GO:"neuroinflammatory response")
+bp(GO:"neuroinflammatory response") -> path(MESH:"Mental Disorders")
+
+SET Evidence = "Accordingly, a meta-analysis of clinical studies demonstrated a pro-inflammatory status (high levels of CRP, IL-6 and TNF) in adults with a history of childhood trauma 151."
+
+a(MESH:"Adverse Childhood Experiences") -> p(HGNC:CRP)
+a(MESH:"Adverse Childhood Experiences") -> p(HGNC:IL6)
+a(MESH:"Adverse Childhood Experiences") -> p(HGNC:TNF)
+
+SET Evidence = "In a mouse model of chronic social defeat stress, BBB integrity was altered in the nucleus accumbens owing to downregulation of the tight junction protein claudin 5, thereby allowing influx of IL-6 into the brain parenchyma 153."
+
+SET Species = "10088"
+SET Anatomy = "nucleus accumbens"
+path(MESH:"Social Isolation") -> deg(a(MESH:"Blood-Brain Barrier"))
+deg(a(MESH:"Blood-Brain Barrier")) -> bp(GO:"transport across blood-brain barrier")
+deg(a(MESH:"Blood-Brain Barrier")) -| p(HGNC:CLDN5)
+SET Anatomy = {"parenchyma","brain"}
+p(HGNC:CLDN5) -| p(HGNC:IL6)
+UNSET Anatomy
+UNSET Anatomy
+UNSET Species
+
+SET Evidence = "Our recent studies indicate that the cortical network responds to an inflammatory attack with a TNF-dependent increase in cortical synaptic strength 65."
+
+SET Anatomy = "cerebral cortex"
+a(MESH:"Neural Pathways") -> p(HGNC:TNF)
+p(HGNC:TNF) -> a(MESH:"Synaptic Membranes")
+a(MESH:"Synaptic Membranes") -| path(MESH:Inflammation)
+UNSET Anatomy
