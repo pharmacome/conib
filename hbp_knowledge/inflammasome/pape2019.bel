@@ -170,7 +170,7 @@ UNSET Species
 
 SET Evidence = "Further beneficial roles of the immune response in the CNS — again going against the anticipated pathogenic activity of inflammation — include protective roles for T helper 2 (TH2) cells in CNS injury and for IL-4 signalling in neurons in multiple sclerosis (MS) models 18,19."
 
-a(MESH:"Th2 Cells") -- bp(MESH:"Brain Injuries")
+a(MESH:"Th2 Cells") -- path(MESH:"Brain Injuries")
 SET Disease = "multiple sclerosis"
 SET Cell = "neuron"
 a(MESH:"Th2 Cells") -> act(p(HGNC:IL4))
@@ -186,13 +186,15 @@ UNSET Species
 SET Evidence = "The first is the glymphatic system, a glial-dependent perivascular network that ensures provision of nutrients for neurons and glia and clearance of extracellular metabolites, such as lactate 21."
 
 SET Cell = {"neuron","glial cell"}
-bp(MESH:"Glymphatic System") -> a(MESH:Nutrients)
+#bp(MESH:"Glymphatic System") -> a(MESH:Nutrients)
+#"Glymphatic system" is there is MESH
 UNSET Cell
 
 SET Evidence = "Activation of the glymphatic system is higher during sleep than during wakefulness, underlining the importance of sleep for removal of potentially neurotoxic waste products 22."
 
-bp(MESH:Sleep) -> bp(MESH:"Glymphatic System")
-bp(MESH:Wakefulness) -> bp(MESH:"Glymphatic System")
+#bp(MESH:Sleep) -> bp(MESH:"Glymphatic System")
+#bp(MESH:Wakefulness) -> bp(MESH:"Glymphatic System")
+#"Glymphatic system" is there is MESH
 bp(MESH:Sleep) -| a(MESH:"Waste Products")
 bp(MESH:Sleep) -| path(CONSO:neurotoxicity)
 
@@ -249,7 +251,8 @@ UNSET Disease
 SET Evidence = " Sickness behaviour can be diminished after repeated subthreshold exposure to pathogens, a mechanism that is referred to as euflammation and that evidence suggests is the result of tolerogenic processes 29."
 
 a(MESH:"Pathogen-Associated Molecular Pattern Molecules") -| path(MESH:"Illness Behavior")
-bp(CONSO:Euflammation) -| path(MESH:"Illness Behavior")
+#bp(CONSO:Euflammation) -| path(MESH:"Illness Behavior")
+#euflammation to be added in conso or synonym to be found out
 
 SET Evidence = "In contrast to this transient low-grade inflammation, chronic low-grade inflammation can occur and cause neurotoxicity and neurodegeneration 30."
 
@@ -537,7 +540,8 @@ path(HP:Autoimmunity) -> path(MESH:Inflammation)
 
 SET Evidence = "Pro-inflammatory TH17 cells are thought to migrate into the CNS and subsequently increase BBB permeability, enabling invasion of other immune cells 71 (Fig. 1b). Other important players include regulatory T cells, which are functionally impaired in people with MS72, and B cells, the role of which is highlighted by the effects of B cell-depleting therapies 73."
 
-a(MESH:"Th17 Cells",loc(MESH:"Central Nervous System")) -> bp(GO:"transport across blood-brain barrier")
+#transport across BBB present in GO
+#a(MESH:"Th17 Cells",loc(MESH:"Central Nervous System")) -> bp(GO:"transport across blood-brain barrier")
 a(MESH:"Th17 Cells",loc(MESH:"Central Nervous System")) -> bp(MESH:"Immunity, Cellular")
 path(DOID:"multiple sclerosis") -| a(MESH:"T-Lymphocytes, Regulatory")
 path(DOID:"multiple sclerosis") -| a(MESH:"B-Lymphocytes, Regulatory")
@@ -545,7 +549,8 @@ path(DOID:"multiple sclerosis") -| a(MESH:"B-Lymphocytes, Regulatory")
 SET Evidence = "Relapses in patients with MS are influenced by stressful life events and by infections: a systematic meta-analysis has shown that upper respiratory tract infections have the most pronounced effect on relapse rates 74."
 
 #recurrences = relapses
-bp(MESH:"response to stress") -> bp(MESH:Recurrence)
+#response to stress present in MESH
+#bp(MESH:"response to stress") -> bp(MESH:Recurrence)
 path(MESH:Infection) -> path(MESH:Recurrence)
 path(HP:"Recurrent upper respiratory tract infections") -> path(MESH:Recurrence)
 
@@ -685,7 +690,7 @@ SET Evidence = "A study published in 2017 provides evidence that maternal gut co
 
 SET Gender = "Female"
 #in mothers
-bp(MESH:"Gastrointestinal Microbiome") -> p(HGNC"17A")
+bp(MESH:"Gastrointestinal Microbiome") -> p(HGNC:IL17A)
 UNSET Gender
 
 SET Evidence = "In rodents, the role of maternal immune activation in ASD was confirmed at the transcriptome level, in which immune activation in the mother caused dysregulation in the fetal brain expression of genes involved in developmental processes 120."
@@ -698,7 +703,8 @@ UNSET Species
 SET Evidence = "Cytokine signalling is not the only aspect of maternal immunity that affects the developing fetal brain — B cell-mediated immune responses and production of antibodies can also have effects."
 
 #maternal cytokines, maternal B cells and production of antibodies in mother
-act(a(MESH:Cytokine)) -- bp(GO:"embryonic brain development")
+#Cytokine is there in MESH
+#act(a(MESH:Cytokine)) -- bp(GO:"embryonic brain development")
 act(a(MESH:"B-Lymphocytes")) -- bp(GO:"embryonic brain development")
 bp(MESH:"Antibody Formation") -- bp(GO:"embryonic brain development")
 
@@ -752,8 +758,9 @@ a(CHEBI:minocycline) cnc path(DOID:"autism spectrum disorder")
 
 SET Evidence = "Furthermore, in depression, anti-inflammatory treatment with the TNF antagonist infliximab had beneficial effects in patients with treatment-resistant depression and high baseline levels of inflammatory biomarkers 147."
 
-a(DRUGBANK:infliximab) -| p(HGNC:TNF)
-a(DRUGBANK:infliximab) neg path(DOID:"mental depression")
+#infliximab is there in DRUGBANK
+#a(DRUGBANK:infliximab) -| p(HGNC:TNF)
+#a(DRUGBANK:infliximab) neg path(DOID:"mental depression")
 
 SET Evidence = "A well-recognized risk factor for exacerbation in MS and many psychiatric disorders is psychosocial stress."
 
@@ -768,22 +775,23 @@ bp(GO:"neuroinflammatory response") -> path(MESH:"Mental Disorders")
 
 SET Evidence = "Accordingly, a meta-analysis of clinical studies demonstrated a pro-inflammatory status (high levels of CRP, IL-6 and TNF) in adults with a history of childhood trauma 151."
 
-a(MESH:"Adverse Childhood Experiences") -> p(HGNC:CRP)
-a(MESH:"Adverse Childhood Experiences") -> p(HGNC:IL6)
-a(MESH:"Adverse Childhood Experiences") -> p(HGNC:TNF)
+#adverse childhood experience is there in MESH
+#a(MESH:"Adverse Childhood Experiences") -> p(HGNC:CRP)
+#a(MESH:"Adverse Childhood Experiences") -> p(HGNC:IL6)
+#a(MESH:"Adverse Childhood Experiences") -> p(HGNC:TNF)
 
 SET Evidence = "In a mouse model of chronic social defeat stress, BBB integrity was altered in the nucleus accumbens owing to downregulation of the tight junction protein claudin 5, thereby allowing influx of IL-6 into the brain parenchyma 153."
 
 SET Species = "10088"
 SET Anatomy = "nucleus accumbens"
 path(MESH:"Social Isolation") -> deg(a(MESH:"Blood-Brain Barrier"))
-deg(a(MESH:"Blood-Brain Barrier")) -> bp(GO:"transport across blood-brain barrier")
+#transport across BBB is there in GO
+#deg(a(MESH:"Blood-Brain Barrier")) -> bp(GO:"transport across blood-brain barrier")
 deg(a(MESH:"Blood-Brain Barrier")) -| p(HGNC:CLDN5)
 SET Anatomy = {"parenchyma","brain"}
 p(HGNC:CLDN5) -| p(HGNC:IL6)
 UNSET Anatomy
 UNSET Species
-UNSET Anatomy
 
 SET Evidence = "Our recent studies indicate that the cortical network responds to an inflammatory attack with a TNF-dependent increase in cortical synaptic strength 65."
 
