@@ -170,7 +170,7 @@ UNSET Species
 
 SET Evidence = "Further beneficial roles of the immune response in the CNS — again going against the anticipated pathogenic activity of inflammation — include protective roles for T helper 2 (TH2) cells in CNS injury and for IL-4 signalling in neurons in multiple sclerosis (MS) models 18,19."
 
-a(MESH:"Th2 Cells") -- bp(MESH:Brain Injuries)
+a(MESH:"Th2 Cells") -- bp(MESH:"Brain Injuries")
 SET Disease = "multiple sclerosis"
 SET Cell = "neuron"
 a(MESH:"Th2 Cells") -> act(p(HGNC:IL4))
@@ -403,8 +403,8 @@ SET Evidence = "In addition to molecular mimicry that triggers autoimmune reacti
 
 bp(MESH:"Molecular Mimicry") -> path(MESH:"Autoimmune Diseases")
 SET Cell = "microglial cell"
-bp(GO:"response to stress") -> act(a(MESH:Inflammasomes))
-act(a(MESH:Inflammasomes)) -> a(MESH:"Inflammation Mediators")
+bp(GO:"response to stress") -> act(complex(MESH:Inflammasomes))
+act(complex(MESH:Inflammasomes)) -> a(MESH:"Inflammation Mediators")
 UNSET Cell
 
 SET Evidence = "In this way, both innate (microglial activation with subsequent phagocytosis or cytokine production) and adaptive immune responses (antigen-specific responsiveness and production of antibodies) contribute to pathology."
@@ -458,14 +458,14 @@ SET Evidence = "In mice, recurrent asymptomatic activation of HSV-1 leads to upr
 
 SET Species = "10090"
 a(MESH:"Herpesvirus 1, Human") -> p(HGNC:TLR4)
-a(MESH:"Herpesvirus 1, Human") -> p(HGNC:IFN1@)
+a(MESH:"Herpesvirus 1, Human") -> p(HGNC:IFNA1)
 a(MESH:"Herpesvirus 1, Human") -> p(HGNC:IFNB1)
 p(HGNC:TLR4) biomarkerFor path(CONSO:neuroinflammation)
-p(HGNC:IFN1@) biomarkerFor path(CONSO:neuroinflammation)
+p(HGNC:IFNA1) biomarkerFor path(CONSO:neuroinflammation)
 p(HGNC:IFNB1) biomarkerFor path(CONSO:neuroinflammation)
-p(HGNC:TLR4) biomarkerFor path(CONSO:neurodegeneration)
-p(HGNC:IFN1@) biomarkerFor path(CONSO:neurodegeneration)
-p(HGNC:IFNB1) biomarkerFor path(CONSO:neurodegeneration)
+p(HGNC:TLR4) biomarkerFor path(CONSO:Neurodegeneration)
+p(HGNC:IFNA1) biomarkerFor path(CONSO:Neurodegeneration)
+p(HGNC:IFNB1) biomarkerFor path(CONSO:Neurodegeneration)
 
 SET Evidence = "In addition, extracellular deposits of Aβ activate resting microglia and trigger them to attack neurons via various pathways, such as NADPH oxidase activation, inducible nitric oxide synthase expression and phagocytosis 60."
 
@@ -500,7 +500,7 @@ SET MeSHDisease = "Multiple Sclerosis"
 SET Evidence = "MS is the  classical and most common chronic autoimmune encephalomyelitis; this disease leads to demyelination and progressive neurodegeneration."
 
 path(DOID:"multiple sclerosis") isA path(DOID:encephalomyelitis)
-path(DOID:"multiple sclerosis") isA path(MESH:Autoimmune Diseases)
+path(DOID:"multiple sclerosis") isA path(MESH:"Autoimmune Diseases")
 path(DOID:"multiple sclerosis") -> path(HP:"CNS demyelination")
 path(DOID:"multiple sclerosis") -> path(CONSO:Neurodegeneration)
 
@@ -661,7 +661,7 @@ SET Evidence = "For example, in a mouse model, chronic stress with depressive be
 SET Species = "10095"
 SET MeSHAnatomy = "Hippocampus"
 bp(GO:"response to stress") -> deg(a(MESH:Microglia))
-UNSET Anatomy
+UNSET MeSHAnatomy
 UNSET Species
 
 SET Evidence = "In this model, IL-6 was identified as a key mediator of inflammatory effects on fetal brain development 114."
@@ -685,7 +685,7 @@ SET Evidence = "A study published in 2017 provides evidence that maternal gut co
 
 SET Gender = "Female"
 #in mothers
-a(MESH:"Gastrointestinal Microbiome") -> p(HGNC"17A")
+bp(MESH:"Gastrointestinal Microbiome") -> p(HGNC"17A")
 UNSET Gender
 
 SET Evidence = "In rodents, the role of maternal immune activation in ASD was confirmed at the transcriptome level, in which immune activation in the mother caused dysregulation in the fetal brain expression of genes involved in developmental processes 120."
@@ -700,7 +700,7 @@ SET Evidence = "Cytokine signalling is not the only aspect of maternal immunity 
 #maternal cytokines, maternal B cells and production of antibodies in mother
 act(a(MESH:Cytokine)) -- bp(GO:"embryonic brain development")
 act(a(MESH:"B-Lymphocytes")) -- bp(GO:"embryonic brain development")
-act(bp(MESH:"Antibody Formation")) -- bp(GO:"embryonic brain development")
+bp(MESH:"Antibody Formation") -- bp(GO:"embryonic brain development")
 
 SET Evidence = "Targets for these antibodies include proteins with functions in neurodevelopment, such as contactin-associated protein-like 2 (CASPR2) 122,124."
 
@@ -719,7 +719,7 @@ p(HGNC:C4A) -- path(DOID:schizophrenia)
 SET Evidence = "Routinely used treatments for acute exacerbations include steroids, plasmapheresis, intravenous immunoglobulin, cyclophosphamide and B cell-depleting monoclonal antibodies; a broadening range of disease-modifying drugs is emerging from the development of therapies for MS (Box 2)."
 
 a(MESH:Steroids) -| path(DOID:"multiple sclerosis")
-a(MESH:Plasmapheresis) -| path(DOID:"multiple sclerosis")
+path(MESH:Plasmapheresis) -| path(DOID:"multiple sclerosis")
 complex(GO:"immunoglobulin complex") -| path(DOID:"multiple sclerosis")
 a(CHEBI:cyclophosphamide) -| path(DOID:"multiple sclerosis")
 
@@ -782,8 +782,8 @@ deg(a(MESH:"Blood-Brain Barrier")) -| p(HGNC:CLDN5)
 SET Anatomy = {"parenchyma","brain"}
 p(HGNC:CLDN5) -| p(HGNC:IL6)
 UNSET Anatomy
-UNSET Anatomy
 UNSET Species
+UNSET Anatomy
 
 SET Evidence = "Our recent studies indicate that the cortical network responds to an inflammatory attack with a TNF-dependent increase in cortical synaptic strength 65."
 
