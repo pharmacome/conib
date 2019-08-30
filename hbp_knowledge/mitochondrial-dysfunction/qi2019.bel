@@ -321,7 +321,7 @@ hippocampal injury."
 p(HGNC:CDK5) -> p(HGNC:DNM1L,pmod(Ph,Ser,616))
 path(MESH:"Wounds and Injuries") -- act(p(HGNC:CDK5))
 path(MESH:"Wounds and Injuries") -- p(HGNC:DNM1L,pmod(Ph,Ser,616))
-bp(MESH:Seizures) -> path(MESH:"Wounds and Injuries")
+path(MESH:Seizures) -> path(MESH:"Wounds and Injuries")
 SET MeSHAnatomy = {"Neuroglia","Dentate Gyrus"}
 a(CHEBI:seliciclib) -| bp(GO:"programmed cell death")
 act(p(HGNC:CDK5)) -> bp(GO:"programmed cell death")
@@ -412,7 +412,7 @@ effect toward mitochondrial fission, which was mediated by phosphorylation
 at Ser‐637, indicating the same function in mitochondrial
 dynamics with phosphorylation at Ser‐40, 44, 579, 585, 592, and 616."
 SET MeSHAnatomy = "CA1 Region, Hippocampal"
-a(CHEBi:"glutamate(1−)") -| p(HGNC:DNM1L,pmod(Ph,Ser,637))
+a(CHEBI:"glutamate(1−)") -| p(HGNC:DNM1L,pmod(Ph,Ser,637))
 p(HGNC:DNM1L,pmod(Ph,Ser,637)) -| complex(GO:"calcium- and calmodulin-dependent protein kinase complex")
 p(HGNC:DNM1L,pmod(Ph,Ser,637)) -| bp(GO:"necroptotic process")
 complex(GO:"calcium- and calmodulin-dependent protein kinase complex") -> bp(GO:"mitochondrial fission")
@@ -447,7 +447,7 @@ the number and the density of synapses."
 complex(p(FPLX:PKA),p(HGNC:AKAP1)) -> p(HGNC:DNM1L,pmod(Ph,Ser,656))
 complex(p(FPLX:PKA),p(HGNC:AKAP1)) reg path(MESH:"Mitochondrial Dynamics")
 complex(p(FPLX:PKA),p(HGNC:AKAP1)) -> bp(GO:"dendritic cell dendrite assembly")
-complex(p(FPLX:PKA),p(HGNC:AKAP1)) -| bp(GO:synapse)
+complex(p(FPLX:PKA),p(HGNC:AKAP1)) -| a(GO:synapse)
 
 UNSET Species
 
@@ -567,7 +567,7 @@ p(NCBIGENE:74006,pmod(NO,Cys,644)) -| path(MESH:"Wounds and Injuries")
 UNSET MeSHAnatomy
 UNSET Species
 SET Species = "9606"
-p(NCBIGENE:HTT,var("?")) -> a(CHEBI:"nitric oxide")
+p(HGNC:HTT,var("?")) -> a(CHEBI:"nitric oxide")
 a(CHEBI:"nitric oxide") -> p(HGNC:DNM1,pmod(NO,Cys,644))
 p(HGNC:DNM1,pmod(NO,Cys,644)) -| a(MESH:"Dendritic Spines")
 SET MeSHAnatomy = "Synapses"
@@ -802,7 +802,7 @@ SET MeSHDisease = "Parkinson Disease"
 SET Evidence = "LRRK2, a pathogenic gene of PD, has many functions including
 regulating the transportation of vesicles, the autophagy, oxidative
 stress, neurotoxicity, and mitochondrial dynamics."
-p(HGNC:LRRK2) reg bp(MESH:"Transport Vesicles")
+p(HGNC:LRRK2) reg a(MESH:"Transport Vesicles")
 p(HGNC:LRRK2) reg bp(GO:autophagy)
 p(HGNC:LRRK2) reg path(NCIT:C17741)
 p(HGNC:LRRK2) reg path(MESH:"Neurotoxicity Syndromes")
@@ -823,7 +823,7 @@ complex(p(HGNC:LRRK2,var("p.Gly2019Ser")),p(HGNC:DNM1)) -> p(HGNC:DNM1,pmod(Ph,T
 complex(p(HGNC:LRRK2,var("p.Gly2019Ser")),p(HGNC:DNM1)) -> p(HGNC:DNM1,pmod(Ph,Ser,616))
 p(HGNC:DNM1,pmod(Ph,Thr,595)) -> act(p(HGNC:DNM1))
 p(HGNC:DNM1,pmod(Ph,Ser,616)) -> act(p(HGNC:DNM1))
-act(p(HGNC:DNM1) -> bp(GO:"mitochondrial fission")
+act(p(HGNC:DNM1)) -> bp(GO:"mitochondrial fission")
 bp(GO:"mitochondrial fission") -> bp(GO:"programmed cell death")
 bp(GO:"programmed cell death") -> a(CHEBI:"reactive oxygen species")
 p(HGNC:LRRK2,var("p.Gly2019Ser")) -> path(DOID:"Parkinson's disease")
@@ -1097,8 +1097,8 @@ p(HGNC:TAT,frag("47_57")) cnc bp(GO:"mitochondrial fission")
 p(HGNC:TAT,frag("47_57")) -| a(CHEBI:"reactive oxygen species")
 p(HGNC:TAT,frag("47_57")) -| bp(GO:"neuron death")
 SET Species = "10090"
-p(HGNC:SOD1,var("p.Gly93Ala")) -> bp(GO:"muscular atrophy")
-p(HGNC:TAT,frag("47_57")) -| bp(GO:"muscular atrophy")
+p(HGNC:SOD1,var("p.Gly93Ala")) -> path(DOID:"muscular atrophy")
+p(HGNC:TAT,frag("47_57")) -| path(DOID:"muscular atrophy")
 p(HGNC:TAT,frag("47_57")) -| path(DOID:"amyotrophic lateral sclerosis")
 UNSET Species
 
