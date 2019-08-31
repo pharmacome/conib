@@ -57,7 +57,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 # Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
 # --------------------------------------------------------------------------------
 # DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
-# DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+ DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 # DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
 # DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
@@ -85,7 +85,7 @@ motor deficits, and loss of synaptic proteins [7]."
 p(CONSO:"Tau isoform F (441 aa)", frag("187_441")) neg p(HGNC:MAPT, pmod(Ph))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) neg act(p(HGNC:GSK3B))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> path(DOID:"cognitive disorder")
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> path(DOID:"Motor Disorders")
+p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> path(MESH:"Motor Disorders")
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) neg p(MESH:Proteins, loc(GO:"synaptic membrane"))
 
 SET Evidence = "Lysates of CHO cells stably expressing either
@@ -102,11 +102,11 @@ tau antibodies recognized multiple Tau35 bands (Fig.
 p(CONSO:"Tau isoform F (441 aa)", pmod(Ph,Thr,231))
 p(CONSO:"Tau isoform F (441 aa)", pmod(Ph,Ser,369))
 p(CONSO:"Tau isoform F (441 aa)", pmod(Ph,Ser,404))
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441")), pmod(Ph,Ser,202))
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441")), pmod(Ph,Thr,205))
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441")), pmod(Ph,Thr,231))
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441")), pmod(Ph,Ser,396))
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441")), pmod(Ph,Ser,404))
+p(CONSO:"Tau isoform F (441 aa)",frag("187_441"), pmod(Ph,Ser,202))
+p(CONSO:"Tau isoform F (441 aa)",frag("187_441"), pmod(Ph,Thr,205))
+p(CONSO:"Tau isoform F (441 aa)",frag("187_441"), pmod(Ph,Thr,231))
+p(CONSO:"Tau isoform F (441 aa)",frag("187_441"), pmod(Ph,Ser,396))
+p(CONSO:"Tau isoform F (441 aa)",frag("187_441"), pmod(Ph,Ser,404))
 
 SET Evidence = "Expression of FL-tau induced formation of
 microtubule bundles and robust co-localization of tau
@@ -126,7 +126,7 @@ p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| composite(p(CONSO:"Tau isof
 SET Evidence = "Thus, unlike FL-tau, Tau35 localizes
 predominantly in the cytosol, rather than binding to
 and stabilizing microtubules."
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441")), loc(GO:cytosol))
+p(CONSO:"Tau isoform F (441 aa)",frag("187_441"), loc(GO:cytosol))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| act(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")), ma(GO:"microtubule binding"))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| bp(GO:"microtubule cytoskeleton organization")
 
@@ -169,7 +169,7 @@ tau showed that exogenous expression of αTAT1 increased
 α-tubulin acetylation in all three cell lines (Fig. 3a)."
 #cell lines - CHO, CHO-Fl, CHO-Tau35
 #α-tubulin N-acetyltransferase 1 (αTAT1)
-p(HGNC:ATAT1) -> p(NCIT:C129386,pmod(Ac,Lys,40)
+p(HGNC:ATAT1) -> p(NCIT:C129386,pmod(Ac,Lys,40))
 
 SET Evidence = "Notably, αTAT1 significantly enhanced the formation of
 highly acetylated microtubule bundles that formed perinuclear
@@ -182,7 +182,7 @@ of co-localization of acetylated α-tubulin with tau was
 also limited in CHO-Tau35 cells (Fig. 3a), demonstrating
 that the reduced microtubule-binding ability of Tau35 in
 not restored by increasing tubulin acetylation."
-p(NCIT:C129386,pmod(Ac,Lys,40) cnc act(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),ma(GO:"microtubule binding"))
+p(NCIT:C129386,pmod(Ac,Lys,40)) cnc act(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),ma(GO:"microtubule binding"))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| bp(GO:"microtubule bundle formation")
 
 SET Evidence = "Phosphorylation of tau by kinases including GSK3,
@@ -352,8 +352,8 @@ activated by either Tau35 or FL-tau."
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) cnc p(HGNC:ERN1,pmod(Ph))
 p(CONSO:"Tau isoform F (441 aa)") cnc p(HGNC:ERN1,pmod(Ph))
 p(NCIT:C17421) cnc p(HGNC:ERN1,pmod(Ph))
-p(HGNC:ERN1,pmod(Ph)) -> act(p(HGND:ERN1))
-act(p(HGND:ERN1)) -> bp(GO:"IRE1-mediated unfolded protein response")
+p(HGNC:ERN1,pmod(Ph)) -> act(p(HGNC:ERN1))
+act(p(HGNC:ERN1)) -> bp(GO:"IRE1-mediated unfolded protein response")
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) cnc bp(GO:"IRE1-mediated unfolded protein response")
 p(CONSO:"Tau isoform F (441 aa)") cnc bp(GO:"IRE1-mediated unfolded protein response")
 p(NCIT:C17421) cnc bp(GO:"IRE1-mediated unfolded protein response")
