@@ -64,7 +64,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 # DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
-# DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+ DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
 # DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
 # DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
 
@@ -183,5 +183,46 @@ SET Evidence = "In addition, phosphorylation of HIF-1α by glycogen synthase kin
 HIF-1α for proteasomal degradation [26]."
 p(HGNC:GSK3B) -> p(HGNC:HIF1A,pmod(Ph))
 act(p(HGNC:HIF1A,pmod(Ph)),ma(GO:"proteasome binding")) -> deg(p(HGNC:HIF1A))
+
+SET Evidence = "Hydroxyl radical and hydrogen peroxide can destabilize
+HIF-1α protein in both normoxic and hypoxic conditions [27–28]."
+a(CHEBI:hydroxyl) -| p(HGNC:HIF1A)
+a(CHEBI:"hydrogen peroxide") -| p(HGNC:HIF1A)
+
+SET Evidence = "The oxidized HIF-1α protein might be recognized and degraded by the ubiquitin-independent
+20S proteasomal pathway, which primarily degrades cellular oxidized proteins under oxidative stress conditions [29]."
+#C13737 - 20S Proteasome
+p(HGNC:HIF1A,pmod(NCIT:C16944)) -> complex(p(HGNC:HIF1A),a(NCIT:C13737))
+complex(p(HGNC:HIF1A),a(NCIT:C13737)) -> deg(p(HGNC:HIF1A))
+
+SET Evidence = "Moreover, studies have revealed
+that S-nitrosation stabilizes HIF-1α protein and S-nitrosation of cysteine 800 of
+HIF-1α promotes its interaction with CBP/p300, thus enhancing HIF-1α activation
+[30]."
+p(HGNC:HIF1A,pmod(NO)) -> p(HGNC:HIF1A)
+p(HGNC:HIF1A,pmod(NO,Cys,800)) -> complex(p(HGNC:HIF1A),p(HGNC:CREBBP))
+p(HGNC:HIF1A,pmod(NO,Cys,800)) -> complex(p(HGNC:HIF1A),p(HGNC:EP300))
+p(HGNC:HIF1A,pmod(NO,Cys,800)) -> act(p(HGNC:HIF1A))
+
+SET Evidence = "Sumoylation of HIF-1α has been reported to regulate its protein level and
+transcriptional activity."
+p(HGNC:HIF1A,pmod(Sumo)) reg r(HGNC:HIF1A)
+p(HGNC:HIF1A,pmod(Sumo)) reg tscript(p(HGNC:HIF1A))
+
+SET Evidence = "Increasing the activity of RWD-containing sumoylation
+enhancer (RSUME) could promote the sumoylation of HIF-1α by Ubc9 SUMO
+conjugase and stabilize HIF-1α during hypoxia [32]."
+bp(GO:"response to hypoxia") -> act(p(HGNC:RWDD3))
+act(p(HGNC:RWDD3)) -> act(p(HGNC:UBE2I))
+p(HGNC:UBE2I) -> p(HGNC:HIF1A,pmod(Sumo))
+p(HGNC:HIF1A,pmod(Sumo)) -> p(HGNC:HIF1A)
+
+SET Evidence = "However, desumoylation by
+SUMO-Specific Protease 1 (SENP-1) has been shown to be essential for the
+stabilization of HIF-1α [33]."
+p(HGNCGENEFAMILY:"SUMO specific peptidases") -| p(HGNC:HIF1A,pmod(Sumo))
+p(HGNCGENEFAMILY:"SUMO specific peptidases") reg p(HGNC:HIF1A)
+
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 
 SET Evidence = ""
