@@ -28,13 +28,16 @@ DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharma
 # DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/go-names.belns"
 # DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
-# DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
 # DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
 # DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
 # DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
 # DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
 # DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
-DEFINE NAMESPACE NIFT            AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/nift/NIFT.belns"
+DEFINE NAMESPACE NIFT            AS URL "https://raw.githubusercontent.com/neurommsig/neurommsig-terminology/c45db68bb47b28023ec134049429320da6a9d631/terminologies/neuroimaging-feature-terminology.belns"
+DEFINE NAMESPACE SDIS AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/selventa-legacy-diseases/selventa-legacy-diseases-20150601.belns"
+DEFINE NAMESPACE MESHC AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-chemicals/mesh-chemicals-20170511.belns"
+DEFINE NAMESPACE MESHCS AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/mesh-cell-structures/mesh-cell-structures-20170511.belns"
 
 # Namespaces hosted on https://github.com/sorgerlab/famplex
 # ---------------------------------------------------------
@@ -86,8 +89,8 @@ r(HGNC:APOE, var(r.388u>c)) translatedTo p(HGNC:APOE, var(p.Cys130Arg))
 g(HGNC:CR1) hasVariant g(DBSNP:rs3818361)
 
 # Abeta
-p(HGNC:APP, frag(672_713)) isA a(CHEBI:"beta-amyloid")
-p(HGNC:APP, frag(672_711)) isA a(CHEBI:"beta-amyloid")
+p(HGNC:APP, frag(672_713)) isA a(CHEBI:"amyloid-beta")
+p(HGNC:APP, frag(672_711)) isA a(CHEBI:"amyloid-beta")
 
 #####
 SET Citation = {"PubMed","Supportive CSF biomarker evidence to enhance the National Institute on Aging-Alzheimer's Association criteria for diagnosis of Alzheimer's type dementia--a study from Southern India.","25468261"}
@@ -170,8 +173,8 @@ SET Citation = {"PubMed","26682680"}
 
 SET Evidence = "Hallucinations were associated with greater cognitive and functional impairments on the MMSE and CDR, while delusional patients showed less impairment on CDR, consistent across cAD and npAD groups."
 
-path(MESHD:Hallucinations) pos a(NIFT:"Clinical dementia rating")
-path(MESHD:Hallucinations) pos a(NIFT:"Mini mental state exam")
+path(MESH:Hallucinations) pos a(NIFT:"Clinical dementia rating")
+path(MESH:Hallucinations) pos a(NIFT:"Mini mental state exam")
 
 SET Evidence = " Consistently, neuropsychological examination (e.g., MMSE, CDR)
 also demonstrated significant correlations between the plasma PAI-1 levels and
@@ -239,10 +242,10 @@ a(NIFT:"Clinical dementia rating") pos a(CONSO:"CDR - Sum of Boxes")
 
 ###
 SET Citation = {"PubMed", "22701578"}
-SET Evidence = "Elevated P-Tau and P-Tau/Aβ42 levels were associated with lower recognition performance on the Rey Auditory Verbal Learning Test"
+SET Evidence = "Elevated P-Tau and P-Tau/Aβ42 levels were associated with lower recognition performance on the Rey auditory verbal learning test"
 
-p(HGNC:MAPT, pmod(Ph)) neg a(NIFT:"Rey Auditory Verbal Learning Test")
-a(NIFT:"Ratio phospho tau to abeta 42 test") neg a(NIFT:"Rey Auditory Verbal Learning Test")
+p(HGNC:MAPT, pmod(Ph)) neg a(NIFT:"Rey auditory verbal learning test")
+a(NIFT:"Ratio phospho tau to abeta 42 test") neg a(NIFT:"Rey auditory verbal learning test")
 UNSET {Evidence}
 
 ###
@@ -335,7 +338,7 @@ SET Citation = {"PubMed", "Neurobiol Aging. 2015 Jul;36(7):2232-2240.", "2604314
 SET Evidence = "In this analysis, we construct a δ ortholog representing the 'cognitive correlates of age' (cAGE). cAGE largely mediates age's effects on dementia severity, as rated by the Clinical Dementia Rating Scale Sum of boxes and has an area under the receiver operating curve = 0.96 for the diagnosis of Alzheimer's Disease versus controls."
 
 SET Species = "9606"
-a(CONSO:"CDR - Sum of Boxes") -- bp(MESHPP:"Cognitive Aging")
+a(CONSO:"CDR - Sum of Boxes") -- a(EFO:"cognitive decline measurement")
 UNSET Species
 
 #####
@@ -448,8 +451,6 @@ SET Evidence = "MOF (KAT8) regulates oxidative phosphorylation by controlling ex
 
 p(HGNC:KAT8) reg complex(GO:"respiratory chain complex")
 
-del(p(HGNC:KAT8)) -> path(SDIS:"mitochondrial damage")
-
 UNSET Published
 
 #####
@@ -463,14 +464,11 @@ SET Subgraph = "Reactive oxygen species subgraph"
 path(SDIS:"mitochondrial damage") -> a(CHEBI:"reactive oxygen species")
 path(SDIS:"mitochondrial damage") -> bp(GO:"cell death")
 path(SDIS:"mitochondrial damage") -> bp(GO:"apoptotic process")
-a(MESHCS:mitochondria) reg bp(GO:"apoptotic process")
 
 #####
 SET Citation = {"PubMed", "21034527"}
 
 SET Evidence = "Although the role of AICD as a gene transcription inducer is still controversial, several targets of AICD- or APP-mediated transcriptional activation are reportedly regulated by APP nuclear signaling, including APP itself, BACE, Tip60, GSK-3b¸, p53, Mn-SOD, KAI1, Neprilysin, transgelin, a2actin, S100a9, and other genes"
-
-#: TODO need a good way to represent the amyloid beta intracellular domain (AICD)
 
 p(HGNC:APP) reg p(HGNC:APP)
 p(HGNC:APP) reg p(HGNC:BACE1)
