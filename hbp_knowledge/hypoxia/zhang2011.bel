@@ -44,7 +44,7 @@ DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharma
 # DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
 # DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
 # DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
-# DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+ DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
  DEFINE NAMESPACE NCIT           AS PATTERN "^C\d+$"
 ###############
 # Annotations #
@@ -56,14 +56,14 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 
 # Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
 # --------------------------------------------------------------------------------
-# DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+ DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
 # DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 # DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
 # DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
-# DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+ DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
  DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
 # DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
 # DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
@@ -192,6 +192,7 @@ a(CHEBI:"hydrogen peroxide") -| p(HGNC:HIF1A)
 SET Evidence = "The oxidized HIF-1α protein might be recognized and degraded by the ubiquitin-independent
 20S proteasomal pathway, which primarily degrades cellular oxidized proteins under oxidative stress conditions [29]."
 #C13737 - 20S Proteasome
+#Oxidative stress condition
 p(HGNC:HIF1A,pmod(NCIT:C16944)) -> complex(p(HGNC:HIF1A),a(NCIT:C13737))
 complex(p(HGNC:HIF1A),a(NCIT:C13737)) -> deg(p(HGNC:HIF1A))
 
@@ -224,5 +225,104 @@ p(HGNCGENEFAMILY:"SUMO specific peptidases") -| p(HGNC:HIF1A,pmod(Sumo))
 p(HGNCGENEFAMILY:"SUMO specific peptidases") reg p(HGNC:HIF1A)
 
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+
+SET Evidence = "This lack of glucose and oxygen fails to meet
+the energy requirement of motor neurons, which will in turn induce neuronal death and lead
+to the occurrence of ALS."
+#deficits in glucose (hypoglycemia) and oxygen (hypoxia)
+SET MeSHAnatomy = "Motor Neurons"
+path(DOID:hypoglycemia) neg bp(GO:"energy homeostasis")
+path(EFO:hypoxia) neg bp(GO:"energy homeostasis")
+bp(GO:"energy homeostasis") -| bp(GO:"neuron death")
+path(DOID:hypoglycemia) -> bp(GO:"neuron death")
+path(EFO:hypoxia) -> bp(GO:"neuron death")
+bp(GO:"neuron death") -> path(DOID:"amyotrophic lateral sclerosis")
+UNSET MeSHAnatomy
+
+SET Evidence = "VEGF can induce angiogenesis
+and increase blood supply to motor neurons during hypoxia through action on endothelial
+cells [39]."
+SET MeSHAnatomy = "Motor Neurons"
+bp(GO:"response to hypoxia") -> act(p(HGNC:VEGFA))
+p(HGNC:VEGFA) -> bp(GO:"blood vessel development")
+UNSET MeSHAnatomy
+
+SET Evidence = "There is a negative
+correlation between the VEGF level and the severity of hypoxemia in patients with ALS,
+which suggests a deregulation of VEGF in ALS [40–41]."
+path(EFO:hypoxemia) neg p(HGNC:VEGFA)
+path(DOID:"amyotrophic lateral sclerosis") neg act(p(HGNC:VEGFA))
+
+SET Evidence = "ALS-like symptoms and neuropathology can be produced in mice by a targeted deletion of
+the hypoxia response element that eliminates the expression of VEGF in response to hypoxia
+[42]."
+SET Species = "10090"
+p(NCIT:C13718) -> p(HGNC:VEGFA)
+p(NCIT:C13718) -| path(DOID:neuropathy)
+UNSET Species
+
+SET Evidence = "This indicates that an impaired HIF-1-VEGF pathway may contribute to the
+pathogenesis of ALS. Furthermore, overexpression of VEGF in SOD1G93A mutant mice
+delays the degeneration of motor neurons and neuronal death and prolongs the survival of
+these ALS mice [43]."
+SET Species = "10090"
+path(DOID:"amyotrophic lateral sclerosis") neg act(p(NCIT:C13718))
+composite(p(NCIT:C13718),p(HGNC:SOD1,var("Gly93Ala"))) -| bp(GO:"neuron death")
+composite(p(NCIT:C13718),p(HGNC:SOD1,var("Gly93Ala"))) -| path(MESH:"Motor Disorders")
+UNSET Species
+
+SET Evidence = "By this mechanism, VEGF can prevent the
+death of motor neurons and postpone the occurrence of ALS."
+#This mechanism - angigensis in brain and spinal cord
+SET MeSHAnatomy = {"Brain","Spinal Cord"}
+p(HGNC:VEGFA) -> bp(GO:"blood vessel development")
+p(HGNC:VEGFA) -| path(DOID:"amyotrophic lateral sclerosis")
+UNSET MeSHAnatomy
+
+SET Evidence = "VEGF supports the survival
+of primary motor neurons and a motor-like cell line in vitro and could protect these motor
+neurons from hypoxia-induced cell death by binding with neuropilin-1, a receptor known to
+be involved in axon guidance during development [42, 45]."
+SET MeSHAnatomy = "Motor Neurons"
+bp(GO:"response to hypoxia") -> bp(GO:"cell death")
+complex(p(HGNC:VEGFA),p(HGNC:NRP1)) -| bp(GO:"cell death")
+p(HGNC:NRP1) -- bp(GO:"axon guidance")
+UNSET MeSHAnatomy
+
+SET Evidence = "It has
+been reported that EPO levels are significantly decreased in cerebrospinal fluids from
+patients with differing severity and duration of ALS [46], while EPO immunoreacitivity is
+significantly increased in midbrain, brain stem, and cortex of the SOD1G93A mutant mice
+[47]."
+SET MeSHAnatomy = "Cerebrospinal Fluid"
+path(DOID:"amyotrophic lateral sclerosis") -| p(HGNC:EPO)
+UNSET MeSHAnatomy
+SET Species = "10090"
+SET Anatomy = {"midbrain","brainstem","cortex"}
+p(HGNC:SOD1,var("Gly93Ala")) -> p(HGNC:EPO)
+UNSET Anatomy
+UNSET Species
+
+SET Evidence = "In this SOD1G93A mutant mouse ALS model, administration of EPO suppresses the
+onset and progression of ALS by preventing motor neuron death and inflammation [48–49]."
+SET Species = "10090"
+composite(p(HGNC:SOD1,var("Gly93Ala")),p(HGNC:EPO)) -| path(DOID:"amyotrophic lateral sclerosis")
+composite(p(HGNC:SOD1,var("Gly93Ala")),p(HGNC:EPO)) -| bp(GO:"neuron death")
+composite(p(HGNC:SOD1,var("Gly93Ala")),p(HGNC:EPO)) -| bp(GO:"inflammatory response")
+UNSET Species
+
+SET Evidence = "Indeed, the iron chelator M30, which up-regulates HIF-1 expression,
+protects NSC-34 motor neuron cells from oxidative damage in vitro and significantly delays
+the onset of ALS in SOD1G93A mutant mice [50] (Table 2)."
+#NSC-34 cell line
+a(PUBCHEM:6918822) pos r(HGNC:HIF1A)
+a(PUBCHEM:6918822) -| bp(GO:"neuron death in response to oxidative stress")
+SET Species = "10090"
+composite(p(HGNC:SOD1,var("Gly93Ala")),a(PUBCHEM:6918822)) -| path(DOID:"amyotrophic lateral sclerosis")
+UNSET Species
+
+UNSET MeSHDisease
+
+SET MeSHDisease = "Alzheimer Disease"
 
 SET Evidence = ""
