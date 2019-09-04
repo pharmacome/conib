@@ -67,6 +67,9 @@ graphs = hbp_knowledge.get_graphs()
 
 # Get all BEL documents as a single graph
 graph = hbp_knowledge.get_graph()
+
+# Get all knowledge as INDRA statements
+stmts = hbp_knowledge.get_indra_statements()
 ```
 
 ## Contributing

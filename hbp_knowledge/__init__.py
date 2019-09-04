@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""The Human Brain Pharmacome knowledge repository."""
+"""The Curation of Neurodegeneration in BEL (CONIB) repository."""
 
 import os
 
@@ -12,6 +12,7 @@ __all__ = [
     'metadata',
     'get_graph',
     'get_graphs',
+    'get_indra_statements',
     'get_summary_df',
     'main',
 ]
@@ -31,6 +32,7 @@ AUTHORS = [
     'Yojana Gadiya',
     'Trusha Adeshara',
     'Stephan Gebel',
+    'Sepehr Golriz',
 ]
 
 description = "Mechanistic knowledge surrounding several neurodegenerative diseases," \
@@ -39,7 +41,7 @@ description = "Mechanistic knowledge surrounding several neurodegenerative disea
 
 # All metadata is grouped here
 metadata = BELMetadata(
-    name='Human Brain Pharmacome Knowledge',
+    name='Curation of Neurodegeneration in BEL (CONIB)',
     version=VERSION,
     authors=serialize_authors(AUTHORS),
     contact='charles.hoyt@scai.fraunhofer.de',
@@ -55,6 +57,7 @@ repository = BELRepository(
 
 get_graph = repository.get_graph
 get_graphs = repository.get_graphs
+get_indra_statements = repository.get_indra_statements
 get_summary_df = repository.get_summary_df
 
 main = repository.build_cli()
