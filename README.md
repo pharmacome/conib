@@ -60,13 +60,13 @@ $ pip install git+https://github.com/pharmacome/conib.git
 The graph can be loaded with:
 
 ```python
-import conib
+import hbp_knowledge
 
 # Get a dictionary of names to graphs
-graphs = conib.get_graphs()
+graphs = hbp_knowledge.get_graphs()
 
 # Get all BEL documents as a single graph
-graph = conib.get_graph()
+graph = hbp_knowledge.get_graph()
 ```
 
 ## Contributing
