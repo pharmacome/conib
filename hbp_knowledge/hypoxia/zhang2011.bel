@@ -17,15 +17,15 @@ SET DOCUMENT Description = ""
 # Namespaces hosted on https://github.com/pharmacome/conso
 # --------------------------------------------------------
  DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
-# DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/4aa36980578c7d2cff07371abf768f15db89cd11/export/conso-names.belns"
+ DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/4aa36980578c7d2cff07371abf768f15db89cd11/export/conso-names.belns"
 # DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
-# DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+ DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 # DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
-# DEFINE NAMESPACE EFO            AS URL "https://raw.githubusercontent.com/pharmacome/conso/5d2c2ea6f7112421cc8089a3f021a75ab60bb373/external/efo-names.belns"
+ DEFINE NAMESPACE EFO            AS URL "https://raw.githubusercontent.com/pharmacome/conso/5d2c2ea6f7112421cc8089a3f021a75ab60bb373/external/efo-names.belns"
 # DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
  DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
-# DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
+ DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
  DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/go-names.belns"
 # DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
  DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
@@ -46,6 +46,8 @@ DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharma
 # DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
  DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
  DEFINE NAMESPACE NCIT           AS PATTERN "^C\d+$"
+
+
 ###############
 # Annotations #
 ###############
@@ -59,7 +61,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
  DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
 # DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
-# DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+ DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
 # DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
@@ -315,7 +317,7 @@ SET Evidence = "Indeed, the iron chelator M30, which up-regulates HIF-1 expressi
 protects NSC-34 motor neuron cells from oxidative damage in vitro and significantly delays
 the onset of ALS in SOD1G93A mutant mice [50] (Table 2)."
 #NSC-34 cell line
-a(PUBCHEM:6918822) pos r(HGNC:HIF1A)
+a(PUBCHEM:6918822) pos complex(MESH:"Hypoxia-Inducible Factor 1")
 a(PUBCHEM:6918822) -| bp(GO:"neuron death in response to oxidative stress")
 SET Species = "10090"
 composite(p(HGNC:SOD1,var("Gly93Ala")),a(PUBCHEM:6918822)) -| path(DOID:"amyotrophic lateral sclerosis")
@@ -325,4 +327,329 @@ UNSET MeSHDisease
 
 SET MeSHDisease = "Alzheimer Disease"
 
-SET Evidence = ""
+SET Evidence = "The HIF-1 inducer, M30, has been reported to increase the HIF-1α protein level and elevate
+expression of the HIF-1 target genes, VEGF and EPO."
+a(PUBCHEM:6918822) -> r(HGNC:HIF1A)
+a(PUBCHEM:6918822) -> r(HGNC:EPO)
+a(PUBCHEM:6918822) -> r(HGNC:VEGFA)
+
+#####Ab (25-35) toxiciy?
+SET Evidence = "It has been reported that M30
+simultaneously attenuates tau phosphorylation and protects cortical neurons against Aβ (25–
+35) toxicity [57]."
+a(PUBCHEM:6918822) -| p(HGNC:MAPT,pmod(Ph))
+SET Anatomy = "cortex"
+a(PUBCHEM:6918822) -| path(MESH:"Amyloid Neuropathies")
+UNSET Anatomy
+
+SET Evidence = "Overexpression of HIF-1α has been shown to protect the rat sympathetic
+nerves-like cell line PC12, the central nervous system cell line B12, and primary cultured
+cortical neurons from Aβ-induced neurotoxicity [58], possibly through activating glycolytic
+and hexose monophosphate shunt-related enzymes."
+SET CellLine = {"PC12","B12 cell"}
+p(HGNC:HIF1A) -> bp(GO:"glycolytic process")
+p(HGNC:HIF1A) -> bp(GO:"pentose-phosphate shunt")
+UNSET CellLine
+
+SET Evidence = "Deferoxamine
+(DFO), a widely used HIF-1 inducer, has been used in clinical trial in AD patients and
+slowed cognitive decline [59]."
+a(PUBCHEM:2973) -> complex(MESH:"Hypoxia-Inducible Factor 1")
+a(PUBCHEM:2973) -| bp(GO:cognition)
+a(PUBCHEM:2973) -| path(DOID:"Alzheimer's disease")
+
+SET Evidence = "HIF-1 activation promotes cellular
+response to low oxygen, reduced glucose supply, and oxidative stress."
+act(complex(MESH:"Hypoxia-Inducible Factor 1")) -> bp(GO:"cellular response to oxygen-glucose deprivation")
+act(complex(MESH:"Hypoxia-Inducible Factor 1")) -> bp(GO:"cellular response to oxidative stress")
+
+SET Evidence = "It is known that reduced cerebral blood flow [60], impaired
+glucose uptake and metabolism [61], and increased oxidative stress [62] are involved in the
+pathogenesis of AD."
+#NCIT:C94869 - Cerebral blood flow
+#NCIT:C17741 - oxidative stress
+path(DOID:"Alzheimer's disease") -| bp(NCIT:C94869)
+path(DOID:"Alzheimer's disease") neg bp(GO:"glucose metabolic process")
+path(DOID:"Alzheimer's disease") neg bp(GO:"glucose import")
+path(DOID:"Alzheimer's disease") -> bp(NCIT:C17741)
+
+SET Evidence = "It has been shown that individuals who have suffered severe hypoxia or ischemia
+are more susceptible to developing AD [63]."
+path(EFO:hypoxia) -> path(DOID:"Alzheimer's disease")
+path(DOID:ischemia) -> path(DOID:"Alzheimer's disease")
+
+SET Evidence = "In brains of transgenicAD mice, hypoxia
+elevates the β-cleavage of amyloid-β precursor protein and increases the expression
+of γ-secretase, which in turn increases Aβ generation and senile plaque formation
+[66]."
+#beta cleavge of APP by BACE1
+#amyloid-beta aggregates - senile plaque
+SET Species = "10090"
+SET MeSHAnatomy = "Brain"
+path(EFO:hypoxia) -> p(HGNC:BACE1)
+path(EFO:hypoxia) -> complex(GO:"gamma-secretase complex")
+complex(GO:"gamma-secretase complex") -> a(CHEBI:"amyloid-β")
+complex(GO:"gamma-secretase complex") -> a(CONSO:"amyloid-beta aggregates")
+path(EFO:hypoxia) -> a(CHEBI:"amyloid-β")
+path(EFO:hypoxia) -> a(CONSO:"amyloid-beta aggregates")
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "HIF-1 can induce the erythropoiesis and angiogenesis to increase oxygen
+delivery and supply [3]. Thus, an increase of HIF-1 activity might reduce the risk
+of AD by suppressing the Aβ generation and AD occurrence induced by hypoxia."
+act(complex(MESH:"Hypoxia-Inducible Factor 1")) -> bp(NCIT:C16559)
+act(complex(MESH:"Hypoxia-Inducible Factor 1")) -> bp(GO:angiogenesis)
+act(complex(MESH:"Hypoxia-Inducible Factor 1")) -| a(CHEBI:"amyloid-β")
+act(complex(MESH:"Hypoxia-Inducible Factor 1")) -| path(DOID:"Alzheimer's disease")
+
+SET Evidence = "The reduced glucose uptake is due to decreased
+expressions of neuronal glucose transporters (GLUT-1 and GLUT-3) [67]."
+#in case of AD
+path(DOID:"Alzheimer's disease") -| r(HGNC:SLC2A1)
+path(DOID:"Alzheimer's disease") -| r(HGNC:SLC2A3)
+p(HGNC:SLC2A1) reg bp(GO:"glucose import")
+p(HGNC:SLC2A3) reg bp(GO:"glucose import")
+
+SET Evidence = "Since
+GLUT-1 and GLUT-3 are target genes of HIF-1, induction of HIF-1α expression
+may restore the glucose uptake and postpone the progression of AD."
+p(HGNC:HIF1A) -> p(HGNC:SLC2A1)
+p(HGNC:HIF1A) -> p(HGNC:SLC2A3)
+p(HGNC:HIF1A) -| path(DOID:"Alzheimer's disease")
+
+SET Evidence = "It has been shown that EPO is able to block the Aβ-generated
+neuronal apoptosis and that this protection is completely abolished by co-treatment
+with an anti-EPO neutralizing antibody [70]."
+a(CONSO:"amyloid-beta aggregates") -> bp(GO:"neuron death")
+p(HGNC:EPO) -| bp(GO:"neuron death")
+p(HGNC:EPO) -| act(a(CONSO:"amyloid-beta aggregates"))
+
+UNSET MeSHDisease
+
+SET MeSHDisease = "Parkinson Disease"
+
+SET Evidence = "It is reported that MPTP treatment
+inhibits HIF-1α accumulation in dopaminergic cell lines PC12 and in mice [80], suggesting
+that HIF-1 activity is impaired in PD."
+#MPTP - 1-methyl-4-phenyl-1,2,3,6-tetrahydropyridine
+SET Species = {"10090","10116"}
+SET CellLine = "PC12"
+a(CHEBI:"1-methyl-4-phenyl-1,2,3,6-tetrahydropyridine") -| p(HGNC:HIF1A)
+path(DOID:"Parkinson's disease") neg act(complex(MESH:"Hypoxia-Inducible Factor 1"))
+UNSET CellLine
+UNSET Species
+
+SET Evidence = "Promoter activity studies suggest that the TH gene is under the
+control of a hypoxia response element [82–83]."
+#TH - tyrosine hydroxylase
+p(NCIT:C13718) reg r(HGNC:TH)
+
+SET Evidence = "Hypoxia and DFO, both are known to
+upregulate HIF-1, can increase TH expression in rat brains [84–85]."
+SET Species = "10116"
+SET MeSHAnatomy = "Brain"
+path(EFO:hypoxia) -> r(HGNC:TH)
+a(PUBCHEM:2973) -> r(HGNC:TH)
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "Meanwhile, a
+conditional knock-down of HIF-1α in mice results in a 40% decrease of TH expression in
+substantia nigra [86]."
+SET MeSHAnatomy = "Substantia Nigra"
+p(HGNC:HIF1A) -> r(HGNC:TH)
+UNSET MeSHAnatomy
+
+SET Evidence = "Injection of the PHD inhibitor FG0041 increases HIF-1 activity and
+the extracellular DA level in the striatum of the rat brain [87]."
+#DA - dopamine
+SET Species = "10116"
+SET MeSHAnatomy = "Neostriatum"
+a(PUBCHEM:137275695) -> act(complex(MESH:"Hypoxia-Inducible Factor 1"))
+a(PUBCHEM:137275695) -> a(CHEBI:dopamine,loc(GO:"extracellular region"))
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "Furthermore, administration
+of HIF-1 activator cobalt chloride raises the DA release [87]."
+a(CHEBI:"cobalt dichloride") -> sec(a(CHEBI:dopamine))
+a(CHEBI:"cobalt dichloride") -> complex(MESH:"Hypoxia-Inducible Factor 1")
+
+SET Evidence = "Therefore, through increasing synthesis and secretion
+of DA, HIF-1 may prevent the PD pathological process."
+complex(MESH:"Hypoxia-Inducible Factor 1") -> a(CHEBI:dopamine)
+complex(MESH:"Hypoxia-Inducible Factor 1") -> sec(a(CHEBI:dopamine))
+complex(MESH:"Hypoxia-Inducible Factor 1") -| path(DOID:"Parkinson's disease")
+
+SET Evidence = "It has been found that 3,4-DHB treatment is able to stabilize HIF-1α
+protein, leading to the elevation of HIF-1 target genes expression, such as ferroportin and
+heme oxygenase (HO)-1, in the substantia nigra."
+#DHB - 3,4-dihydroxybenzoate
+SET MeSHAnatomy = "Substantia Nigra"
+a(CHEBI:"3,4-dihydroxybenzoate") -> p(HGNC:HIF1A)
+a(CHEBI:"3,4-dihydroxybenzoate") -> g(HGNC:SLC40A1)
+a(CHEBI:"3,4-dihydroxybenzoate") -> g(HGNC:HMOX1)
+UNSET MeSHAnatomy
+
+SET Evidence = "The research
+group also reported that the iron chelator clioquinol increases HIF-1α within DAergic
+neurons and protects against MPTP-induced nigral cell death [88]."
+a(CHEBI:"5-chloro-7-iodoquinolin-8-ol") -> p(HGNC:HIF1A)
+SET MeSHAnatomy = "Substantia Nigra"
+a(CHEBI:"1-methyl-4-phenyl-1,2,3,6-tetrahydropyridine") -> bp(GO:"cell death")
+a(CHEBI:"5-chloro-7-iodoquinolin-8-ol") -| bp(GO:"cell death")
+UNSET MeSHAnatomy
+
+SET Evidence = "Moreover, DFO is shown
+to prevent neurotoxicity in the MPTP-mouse model of PD [89]."
+SET Species = "10090"
+a(CHEBI:"1-methyl-4-phenyl-1,2,3,6-tetrahydropyridine") -> path(MESH:"Neurotoxicity Syndromes")
+a(PUBCHEM:2973) -| path(MESH:"Neurotoxicity Syndromes")
+UNSET Species
+
+SET Evidence = "In addition, Ben-Shachar et
+al. have demonstrated that intracerebroventricular-injection of DFO protects the rat brain
+from DAergic neurodegeneration induced by 6-hydroxydopamine [90]."
+SET Species = "10116"
+SET MeSHAnatomy = "Cerebral Ventricles"
+a(CHEBI:oxidopamine) -> path(DOID:"neurodegenerative disease")
+a(PUBCHEM:2973) -| path(DOID:"neurodegenerative disease")
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "EPO is neuroprotective against the DAergic neurotoxin, 6-
+hydroxydopamine, in both the DAergic cell line MN9D and primary DAergic neurons [91]."
+SET CellLine = "MN9D"
+p(HGNC:EPO) -| a(CHEBI:oxidopamine)
+UNSET CellLine
+
+SET Evidence = "In an embryonic rat explant model, DAergic neurons, particularly, exhibit increased survival
+in response to VEGF application [92], suggesting that VEGF may promote the growth of
+DAergic neurons."
+SET Species = "10116"
+SET Cell = "dopaminergic neuron"
+p(HGNC:VEGFA) -> a(MESH:"dopaminergic neuron")
+UNSET Cell
+UNSET Species
+
+SET Evidence = "In addition, a mouse model of pan-neuronal overexpression of VEGF demonstrates
+that VEGF provides protection against MPTP toxicity in nigral cells [88]."
+SET MeSHAnatomy = "Substantia Nigra"
+p(HGNC:VEGFA) -| bp(GO:"cell death")
+UNSET MeSHAnatomy
+
+UNSET MeSHDisease
+
+SET MeSHDisease = "Huntington Disease"
+
+SET Evidence = "In this way,
+huntingtin protein-induced mitochondrial metabolism dysfunction in the brain serves as the
+primary cause of HD pathogenesis."
+p(HGNC:HTT,pmod(CONSO:"CAG repeats")) neg path(MESH:"Mitochondrial Dynamics")
+
+SET Evidence = "HIF-1 regulates glycolysis and hexose
+monophosphate shunt, which increases the production of adenosine triphosphate (ATP) and
+nicotinamide adenine dinucleotide phosphate (NADPH) for cell survival."
+#NCIT:C16407 - Cell survival
+complex(MESH:"Hypoxia-Inducible Factor 1") -> a(CHEBI:ATP)
+complex(MESH:"Hypoxia-Inducible Factor 1") -> a(CHEBI:NADPH)
+complex(MESH:"Hypoxia-Inducible Factor 1") -> bp(NCIT:C16407)
+
+SET Evidence = "Therefore, increasing HIF-1
+activity may prevent neurons from mutant huntingtin protein damage."
+SET MeSHAnatomy = "Neurons"
+act(complex(MESH:"Hypoxia-Inducible Factor 1")) -| act(p(HGNC:HTT,pmod(CONSO:"CAG repeats")))
+UNSET MeSHAnatomy
+
+SET Evidence = "Three HIF-1 inducers, CoCl2, mimosine, and DFO,
+have been reported to significantly attenuate cytotoxicity induced by 3-nitropropionic acid in
+glioma cells."
+#NCIT:C27988 - Cytotoxicity
+SET MeSHDisease = "Glioma"
+a(CHEBI:"cobalt dichloride") neg path(NCIT:C27988)
+a(CHEBI:"L-mimosine") neg path(NCIT:C27988)
+a(PUBCHEM:2973) neg path(NCIT:C27988)
+a(CHEBI:"3-nitropropanoic acid") -> path(NCIT:C27988)
+UNSET MeSHDisease
+
+SET Evidence = "Another metal chelator, clioquinol, increases HIF-1α expression and reduces
+cell death and mutant protein accumulation in both a tissue culture model and a transgenic
+Huntington’s animal model [101–102]."
+a(CHEBI:"5-chloro-7-iodoquinolin-8-ol") -| a(CONSO:"huntingtin aggregates")
+
+SET Evidence = "Therefore, HIF-1 induction may provide
+cytoprotection by increasing energy supply and contributing to cellular redox homeostasis."
+#with glycoltic pathway
+complex(MESH:"Hypoxia-Inducible Factor 1") -> bp(GO:"cell redox homeostasis")
+
+UNSET MeSHDisease
+
+SET Evidence = "PHDs can induce HIF-1α degradation while FIH inhibits HIF-1 activity. Inhibiting the
+hydroxylases has been shown to provide protective effects in neurodegenerative diseases"
+#FH - asparaginyl hydroxylase
+a(MESH:"Prolyl Hydroxylases") -> deg(p(HGNC:HIF1A))
+p(HGNC:ASPH) -| act(p(HGNC:HIF1A))
+a(MESH:"Prolyl Hydroxylases") -> path(DOID:"neurodegenerative disease")
+p(HGNC:ASPH) -> path(DOID:"neurodegenerative disease")
+
+SET Evidence = "Moreover, the preconditioning of rat C6 astroglia cells with
+the CoCl2 provides extensive cytoprotective effects against metabolic insults induced by
+mitochondrial toxin 3-nitropropionic acid [102]."
+SET Species = "10116"
+SET CellLine = "C6 cell"
+a(CHEBI:"cobalt dichloride") -> path(MESH:Cytoprotection)
+UNSET CellLine
+UNSET Species
+
+SET Evidence = "Iron chelators have been traditionally regarded to provide neuroprotection by sequestering
+redox-active iron and thereby prevent hydroxyl radical formation [106]."
+composite(a(CHEBI:"iron chelator"),a(CHEBI:"iron(2+)")) -| a(CHEBI:hydroxyl)
+
+SET Evidence = "The sequestering of ferrous ion by DFO
+prevents formation of a catalytically active center in the PHDs and induces HIF-1 activation
+[11]."
+composite(a(PUBCHEM:2973),a(CHEBI:"iron(2+)")) -> act(complex(MESH:"Hypoxia-Inducible Factor 1"))
+
+SET Evidence = "Preconditioning of C6
+astroglial cells with DFO can activate HIF-1 and thereby attenuate cytotoxicity induced by
+mitochondrial inhibitor 3-nitropropionic acid [102]."
+SET CellLine = "C6 cell"
+a(PUBCHEM:2973) -> act(complex(MESH:"Hypoxia-Inducible Factor 1"))
+a(PUBCHEM:2973) -| path(NCIT:C27988)
+UNSET CellLine
+
+SET Evidence = "Clioquinol-treated transgenic HD mice
+(R6/2) demonstrate improved behavioral and pathologic phenotypes, including decreased
+huntingtin aggregate accumulation as well as enhanced motor functions and survival [101]."
+#transgenic mice - R6/2
+SET Species = "10090"
+a(CHEBI:"5-chloro-7-iodoquinolin-8-ol") -| path(HP:"Behavioral abnormality")
+a(CHEBI:"5-chloro-7-iodoquinolin-8-ol") -> path(EFO:"physical activity")
+UNSET Species
+
+SET Evidence = "M30 and another iron chelator
+HLA20 (Fig. 1.4) are both designed from the brain-permeable iron chelator VK28 (Fig. 1.5)
+and chemically attached to the neuroprotective N-propargyl moiety of the anti-Parkinson
+drug rasageline."
+composite(a(PUBCHEM:3052776),a(PUBCHEM:6918822)) -| path(DOID:"Parkinson's disease")
+composite(a(PUBCHEM:3052776),a(PUBCHEM:6918819)) -| path(DOID:"Parkinson's disease")
+
+SET Evidence = "Furthermore, both M30 and HLA20 increase the levels of
+the endogenous HIF-1-dependent genes, including enolase-1, VEGF, and brain derived
+neurotrophic factor (BDNF) in NSC-34 cells [50]."
+#NSC-34 cells
+a(PUBCHEM:6918822) -> p(HGNC:ENO1)
+a(PUBCHEM:6918819) -> p(HGNC:ENO1)
+a(PUBCHEM:6918822) -> p(HGNC:VEGFA)
+a(PUBCHEM:6918819) -> p(HGNC:VEGFA)
+a(PUBCHEM:6918822) -> p(HGNC:BDNF)
+a(PUBCHEM:6918819) -> p(HGNC:BDNF)
+complex(MESH:"Hypoxia-Inducible Factor 1") -> p(HGNC:ENO1)
+complex(MESH:"Hypoxia-Inducible Factor 1") -> p(HGNC:VEGFA)
+complex(MESH:"Hypoxia-Inducible Factor 1") -> p(HGNC:BDNF)
+
+SET Evidence = "In addition, 3,4-DHB
+also elevates the expression of HIF-dependent genes such as heme oxygenase-1 and
+manganese superoxide dismutase in the presence of MPTP [88]."
+a(CHEBI:"3,4-dihydroxybenzoate") -> g(HGNC:SOD1)
