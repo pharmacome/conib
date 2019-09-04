@@ -59,7 +59,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 # Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
 # --------------------------------------------------------------------------------
  DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
-# DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+ DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
  DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
 # DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
@@ -78,30 +78,30 @@ SET Citation = {"PubMed", "21861815"}
 SET Evidence = "HIF-1 is a heterodimetric complex consisting of a constitutively expressed β subunit (also
 known as the aryl hydrocarbon receptor nuclear translocation, ARNT) and a hypoxia
 inducible subunit, α subunit [2]."
-complex(MESH:"Hypoxia-Inducible Factor 1") hasComponents list(p(HGNC:HIF1A),p(HGNC:ARNT))
+p(MESH:"Hypoxia-Inducible Factor 1") hasComponents list(p(HGNC:HIF1A),p(HGNC:ARNT))
 
 SET Evidence = "The bHLH and PAS motifs are required for dimerization between HIF-1α and HIF-1β."
 #bHLH - basic helix-loop-helix
 #PAS - PER-ARNT-SIM
-p(HGNCGENEFAMILY:"Basic helix-loop-helix proteins") -> complex(MESH:"Hypoxia-Inducible Factor 1")
-p(PFAM:PAS) -> complex(MESH:"Hypoxia-Inducible Factor 1")
+p(HGNCGENEFAMILY:"Basic helix-loop-helix proteins") -> p(MESH:"Hypoxia-Inducible Factor 1")
+p(PFAM:PAS) -> p(MESH:"Hypoxia-Inducible Factor 1")
 
 SET Evidence = "Under hypoxia, HIF-1α is stabilized and translocated to the nucleus where it dimerizes with HIF-1β
 [3]."
 bp(GO:"response to hypoxia") -> tloc(p(HGNC:HIF1A),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
 p(HGNC:HIF1A,loc(GO:nucleus)) -> complex(p(HGNC:HIF1A),p(HGNC:ARNT),loc(GO:nucleus))
-complex(p(HGNC:HIF1A),p(HGNC:ARNT),loc(GO:nucleus)) -> act(complex(MESH:"Hypoxia-Inducible Factor 1"))
+complex(p(HGNC:HIF1A),p(HGNC:ARNT),loc(GO:nucleus)) -> act(p(MESH:"Hypoxia-Inducible Factor 1"))
 
 SET Evidence = "The activated HIF-1 complex subsequently binds to hypoxic response elements (HREs)
 in the regulatory regions of genes and recruits co-transactivation factors such as CBP/p300
 [CBP: CREB (cAMP-response element-binding protein)-binding protein/E1A-binding
 protein]."
 #NCIT:C13718 - HRE
-complex(complex(MESH:"Hypoxia-Inducible Factor 1"),p(NCIT:C13718)) -> p(HGNC:CREBBP)
-complex(complex(MESH:"Hypoxia-Inducible Factor 1"),p(NCIT:C13718)) -> p(HGNC:EP300)
+complex(p(MESH:"Hypoxia-Inducible Factor 1"),p(NCIT:C13718)) -> p(HGNC:CREBBP)
+complex(p(MESH:"Hypoxia-Inducible Factor 1"),p(NCIT:C13718)) -> p(HGNC:EP300)
 
 SET Evidence = "The activity of HIF-1 is mainly controlled through regulating the protein level of HIF-1α [3]."
-p(HGNC:HIF1A) reg act(complex(MESH:"Hypoxia-Inducible Factor 1"))
+p(HGNC:HIF1A) reg act(p(MESH:"Hypoxia-Inducible Factor 1"))
 
 SET Evidence = "The hydroxylation is mediated by a family of prolyl hydroxylases, namely PHD1,
 PHD2, and PHD3 [12], among which PHD2 has the highest specificity for hydroxylation of HIF-1α [11]."
@@ -125,7 +125,7 @@ p(HGNC:HIF1A,pmod(Hy,Pro,402)) -> complex(p(HGNC:VHL),p(HGNC:HIF1A))
 p(HGNC:HIF1A,pmod(Hy,Pro,402)) -> complex(p(HGNC:VHL),p(HGNC:HIF1A))
 complex(p(HGNC:VHL),p(HGNC:HIF1A)) -> p(HGNC:HIF1A,pmod(Ub))
 p(HGNC:HIF1A,pmod(Ub)) -> composite(p(HGNC:HIF1A,pmod(Ub)),p(NCIT:C13970))
-composite(p(HGNC:HIF1A,pmod(Ub)),p(NCIT:C13970)) -> deg(p(HGNC:HIF1A)
+composite(p(HGNC:HIF1A,pmod(Ub)),p(NCIT:C13970)) -> deg(p(HGNC:HIF1A))
 
 SET Evidence = "Since the PHDs employ non-heme iron
 in the catalytic moiety, it can be predicted that shortage of intracellular iron will
@@ -160,7 +160,7 @@ SET Evidence = "Direct phosphorylation on threonine 796 by mitogen-activated pro
 (MAPK) has recently been identified as a novel modification on HIF-1α and is able
 to increase HIF-1 activity [23]."
 p(HGNCGENEFAMILY:"Mitogen-activated protein kinases") -> p(HGNC:HIF1A,pmod(Ph,Thr,796))
-p(HGNCGENEFAMILY:"Mitogen-activated protein kinases") -> act(complex(MESH:"Hypoxia-Inducible Factor 1"))
+p(HGNCGENEFAMILY:"Mitogen-activated protein kinases") -> act(p(MESH:"Hypoxia-Inducible Factor 1"))
 
 SET Evidence = "One mechanism to explain the increased transcriptional activity is that HIF-1β binds preferentially to the phosphorylated form of HIF-1α [24]."
 p(HGNC:HIF1A,pmod(Ph,Thr,796)) -> complex(p(HGNC:HIF1A),p(HGNC:ARNT))
@@ -317,7 +317,7 @@ SET Evidence = "Indeed, the iron chelator M30, which up-regulates HIF-1 expressi
 protects NSC-34 motor neuron cells from oxidative damage in vitro and significantly delays
 the onset of ALS in SOD1G93A mutant mice [50] (Table 2)."
 #NSC-34 cell line
-a(PUBCHEM:6918822) pos complex(MESH:"Hypoxia-Inducible Factor 1")
+a(PUBCHEM:6918822) pos p(MESH:"Hypoxia-Inducible Factor 1")
 a(PUBCHEM:6918822) -| bp(GO:"neuron death in response to oxidative stress")
 SET Species = "10090"
 composite(p(HGNC:SOD1,var("Gly93Ala")),a(PUBCHEM:6918822)) -| path(DOID:"amyotrophic lateral sclerosis")
@@ -333,7 +333,6 @@ a(PUBCHEM:6918822) -> r(HGNC:HIF1A)
 a(PUBCHEM:6918822) -> r(HGNC:EPO)
 a(PUBCHEM:6918822) -> r(HGNC:VEGFA)
 
-#####Ab (25-35) toxiciy?
 SET Evidence = "It has been reported that M30
 simultaneously attenuates tau phosphorylation and protects cortical neurons against Aβ (25–
 35) toxicity [57]."
@@ -354,14 +353,14 @@ UNSET CellLine
 SET Evidence = "Deferoxamine
 (DFO), a widely used HIF-1 inducer, has been used in clinical trial in AD patients and
 slowed cognitive decline [59]."
-a(PUBCHEM:2973) -> complex(MESH:"Hypoxia-Inducible Factor 1")
+a(PUBCHEM:2973) -> p(MESH:"Hypoxia-Inducible Factor 1")
 a(PUBCHEM:2973) -| bp(GO:cognition)
 a(PUBCHEM:2973) -| path(DOID:"Alzheimer's disease")
 
 SET Evidence = "HIF-1 activation promotes cellular
 response to low oxygen, reduced glucose supply, and oxidative stress."
-act(complex(MESH:"Hypoxia-Inducible Factor 1")) -> bp(GO:"cellular response to oxygen-glucose deprivation")
-act(complex(MESH:"Hypoxia-Inducible Factor 1")) -> bp(GO:"cellular response to oxidative stress")
+act(p(MESH:"Hypoxia-Inducible Factor 1")) -> bp(GO:"cellular response to oxygen-glucose deprivation")
+act(p(MESH:"Hypoxia-Inducible Factor 1")) -> bp(GO:"cellular response to oxidative stress")
 
 SET Evidence = "It is known that reduced cerebral blood flow [60], impaired
 glucose uptake and metabolism [61], and increased oxidative stress [62] are involved in the
@@ -390,7 +389,7 @@ path(EFO:hypoxia) -> p(HGNC:BACE1)
 path(EFO:hypoxia) -> complex(GO:"gamma-secretase complex")
 complex(GO:"gamma-secretase complex") -> a(CHEBI:"amyloid-β")
 complex(GO:"gamma-secretase complex") -> a(CONSO:"amyloid-beta aggregates")
-path(EFO:hypoxia) -> a(CHEBI:"amyloid-β")
+path(EFO:hypoxia) -> a(CHEBI:"amyloid-beta")
 path(EFO:hypoxia) -> a(CONSO:"amyloid-beta aggregates")
 UNSET MeSHAnatomy
 UNSET Species
@@ -398,10 +397,10 @@ UNSET Species
 SET Evidence = "HIF-1 can induce the erythropoiesis and angiogenesis to increase oxygen
 delivery and supply [3]. Thus, an increase of HIF-1 activity might reduce the risk
 of AD by suppressing the Aβ generation and AD occurrence induced by hypoxia."
-act(complex(MESH:"Hypoxia-Inducible Factor 1")) -> bp(NCIT:C16559)
-act(complex(MESH:"Hypoxia-Inducible Factor 1")) -> bp(GO:angiogenesis)
-act(complex(MESH:"Hypoxia-Inducible Factor 1")) -| a(CHEBI:"amyloid-β")
-act(complex(MESH:"Hypoxia-Inducible Factor 1")) -| path(DOID:"Alzheimer's disease")
+act(p(MESH:"Hypoxia-Inducible Factor 1")) -> bp(NCIT:C16559)
+act(p(MESH:"Hypoxia-Inducible Factor 1")) -> bp(GO:angiogenesis)
+act(p(MESH:"Hypoxia-Inducible Factor 1")) -| a(CHEBI:"amyloid-beta")
+act(p(MESH:"Hypoxia-Inducible Factor 1")) -| path(DOID:"Alzheimer's disease")
 
 SET Evidence = "The reduced glucose uptake is due to decreased
 expressions of neuronal glucose transporters (GLUT-1 and GLUT-3) [67]."
@@ -436,7 +435,7 @@ that HIF-1 activity is impaired in PD."
 SET Species = {"10090","10116"}
 SET CellLine = "PC12"
 a(CHEBI:"1-methyl-4-phenyl-1,2,3,6-tetrahydropyridine") -| p(HGNC:HIF1A)
-path(DOID:"Parkinson's disease") neg act(complex(MESH:"Hypoxia-Inducible Factor 1"))
+path(DOID:"Parkinson's disease") neg act(p(MESH:"Hypoxia-Inducible Factor 1"))
 UNSET CellLine
 UNSET Species
 
@@ -466,7 +465,7 @@ the extracellular DA level in the striatum of the rat brain [87]."
 #DA - dopamine
 SET Species = "10116"
 SET MeSHAnatomy = "Neostriatum"
-a(PUBCHEM:137275695) -> act(complex(MESH:"Hypoxia-Inducible Factor 1"))
+a(PUBCHEM:137275695) -> act(p(MESH:"Hypoxia-Inducible Factor 1"))
 a(PUBCHEM:137275695) -> a(CHEBI:dopamine,loc(GO:"extracellular region"))
 UNSET MeSHAnatomy
 UNSET Species
@@ -474,13 +473,13 @@ UNSET Species
 SET Evidence = "Furthermore, administration
 of HIF-1 activator cobalt chloride raises the DA release [87]."
 a(CHEBI:"cobalt dichloride") -> sec(a(CHEBI:dopamine))
-a(CHEBI:"cobalt dichloride") -> complex(MESH:"Hypoxia-Inducible Factor 1")
+a(CHEBI:"cobalt dichloride") -> p(MESH:"Hypoxia-Inducible Factor 1")
 
 SET Evidence = "Therefore, through increasing synthesis and secretion
 of DA, HIF-1 may prevent the PD pathological process."
-complex(MESH:"Hypoxia-Inducible Factor 1") -> a(CHEBI:dopamine)
-complex(MESH:"Hypoxia-Inducible Factor 1") -> sec(a(CHEBI:dopamine))
-complex(MESH:"Hypoxia-Inducible Factor 1") -| path(DOID:"Parkinson's disease")
+p(MESH:"Hypoxia-Inducible Factor 1") -> a(CHEBI:dopamine)
+p(MESH:"Hypoxia-Inducible Factor 1") -> sec(a(CHEBI:dopamine))
+p(MESH:"Hypoxia-Inducible Factor 1") -| path(DOID:"Parkinson's disease")
 
 SET Evidence = "It has been found that 3,4-DHB treatment is able to stabilize HIF-1α
 protein, leading to the elevation of HIF-1 target genes expression, such as ferroportin and
@@ -529,7 +528,7 @@ in response to VEGF application [92], suggesting that VEGF may promote the growt
 DAergic neurons."
 SET Species = "10116"
 SET Cell = "dopaminergic neuron"
-p(HGNC:VEGFA) -> a(MESH:"dopaminergic neuron")
+p(HGNC:VEGFA) -> a(MESH:"Dopaminergic Neurons")
 UNSET Cell
 UNSET Species
 
@@ -552,14 +551,14 @@ SET Evidence = "HIF-1 regulates glycolysis and hexose
 monophosphate shunt, which increases the production of adenosine triphosphate (ATP) and
 nicotinamide adenine dinucleotide phosphate (NADPH) for cell survival."
 #NCIT:C16407 - Cell survival
-complex(MESH:"Hypoxia-Inducible Factor 1") -> a(CHEBI:ATP)
-complex(MESH:"Hypoxia-Inducible Factor 1") -> a(CHEBI:NADPH)
-complex(MESH:"Hypoxia-Inducible Factor 1") -> bp(NCIT:C16407)
+p(MESH:"Hypoxia-Inducible Factor 1") -> a(CHEBI:ATP)
+p(MESH:"Hypoxia-Inducible Factor 1") -> a(CHEBI:NADPH)
+p(MESH:"Hypoxia-Inducible Factor 1") -> bp(NCIT:C16407)
 
 SET Evidence = "Therefore, increasing HIF-1
 activity may prevent neurons from mutant huntingtin protein damage."
 SET MeSHAnatomy = "Neurons"
-act(complex(MESH:"Hypoxia-Inducible Factor 1")) -| act(p(HGNC:HTT,pmod(CONSO:"CAG repeats")))
+act(p(MESH:"Hypoxia-Inducible Factor 1")) -| act(p(HGNC:HTT,pmod(CONSO:"CAG repeats")))
 UNSET MeSHAnatomy
 
 SET Evidence = "Three HIF-1 inducers, CoCl2, mimosine, and DFO,
@@ -581,16 +580,16 @@ a(CHEBI:"5-chloro-7-iodoquinolin-8-ol") -| a(CONSO:"huntingtin aggregates")
 SET Evidence = "Therefore, HIF-1 induction may provide
 cytoprotection by increasing energy supply and contributing to cellular redox homeostasis."
 #with glycoltic pathway
-complex(MESH:"Hypoxia-Inducible Factor 1") -> bp(GO:"cell redox homeostasis")
+p(MESH:"Hypoxia-Inducible Factor 1") -> bp(GO:"cell redox homeostasis")
 
 UNSET MeSHDisease
 
 SET Evidence = "PHDs can induce HIF-1α degradation while FIH inhibits HIF-1 activity. Inhibiting the
 hydroxylases has been shown to provide protective effects in neurodegenerative diseases"
 #FH - asparaginyl hydroxylase
-a(MESH:"Prolyl Hydroxylases") -> deg(p(HGNC:HIF1A))
+p(MESH:"Prolyl Hydroxylases") -> deg(p(HGNC:HIF1A))
 p(HGNC:ASPH) -| act(p(HGNC:HIF1A))
-a(MESH:"Prolyl Hydroxylases") -> path(DOID:"neurodegenerative disease")
+p(MESH:"Prolyl Hydroxylases") -> path(DOID:"neurodegenerative disease")
 p(HGNC:ASPH) -> path(DOID:"neurodegenerative disease")
 
 SET Evidence = "Moreover, the preconditioning of rat C6 astroglia cells with
@@ -609,13 +608,13 @@ composite(a(CHEBI:"iron chelator"),a(CHEBI:"iron(2+)")) -| a(CHEBI:hydroxyl)
 SET Evidence = "The sequestering of ferrous ion by DFO
 prevents formation of a catalytically active center in the PHDs and induces HIF-1 activation
 [11]."
-composite(a(PUBCHEM:2973),a(CHEBI:"iron(2+)")) -> act(complex(MESH:"Hypoxia-Inducible Factor 1"))
+composite(a(PUBCHEM:2973),a(CHEBI:"iron(2+)")) -> act(p(MESH:"Hypoxia-Inducible Factor 1"))
 
 SET Evidence = "Preconditioning of C6
 astroglial cells with DFO can activate HIF-1 and thereby attenuate cytotoxicity induced by
 mitochondrial inhibitor 3-nitropropionic acid [102]."
 SET CellLine = "C6 cell"
-a(PUBCHEM:2973) -> act(complex(MESH:"Hypoxia-Inducible Factor 1"))
+a(PUBCHEM:2973) -> act(p(MESH:"Hypoxia-Inducible Factor 1"))
 a(PUBCHEM:2973) -| path(NCIT:C27988)
 UNSET CellLine
 
@@ -645,9 +644,9 @@ a(PUBCHEM:6918822) -> p(HGNC:VEGFA)
 a(PUBCHEM:6918819) -> p(HGNC:VEGFA)
 a(PUBCHEM:6918822) -> p(HGNC:BDNF)
 a(PUBCHEM:6918819) -> p(HGNC:BDNF)
-complex(MESH:"Hypoxia-Inducible Factor 1") -> p(HGNC:ENO1)
-complex(MESH:"Hypoxia-Inducible Factor 1") -> p(HGNC:VEGFA)
-complex(MESH:"Hypoxia-Inducible Factor 1") -> p(HGNC:BDNF)
+p(MESH:"Hypoxia-Inducible Factor 1") -> p(HGNC:ENO1)
+p(MESH:"Hypoxia-Inducible Factor 1") -> p(HGNC:VEGFA)
+p(MESH:"Hypoxia-Inducible Factor 1") -> p(HGNC:BDNF)
 
 SET Evidence = "In addition, 3,4-DHB
 also elevates the expression of HIF-dependent genes such as heme oxygenase-1 and
