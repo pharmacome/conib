@@ -110,7 +110,8 @@ SET Evidence = "In addition, low vitamin D levels have been implicated in risk f
 a(MESH:"Vitamin D") neg path(ORPHANET:477738)
 
 SET Evidence = "Several studies have assessed the role of vitamin D deficiency in the perinatal period (by utilization of biobanks and dried blood spot samples) upon risk for MS, with conflicting results. Swedish studies have looked at the relationship of 25-hydroxyvitamin D levels during gestation (25) and in the neonatal period (26) as it relates to risk of developing MS in these offspring."
-complex(a(CHEBI:"24,25-Dihydroxyvitamin D"), path(MESH:Pregnancy)) -- path(DOID:"multiple sclerosis")
+#in Pregnancy
+a(CHEBI:"24,25-Dihydroxyvitamin D") -- path(DOID:"multiple sclerosis")
 SET Anatomy = "neonate stage"
 a(CHEBI:"24,25-Dihydroxyvitamin D") -- path(DOID:"multiple sclerosis")
 UNSET Anatomy
@@ -272,12 +273,10 @@ UNSET MeSHDisease
 SET Evidence = "Other studies have demonstrated evidence of hypermethylation in genes involved with immune system regulation (e.g. SHP-1), resulting in reduced genetic expression and a resultant increase in leukocyte-mediated inflammation (92)."
 #PTPN6 - SHP - 1
 g(HGNC:PTPN6) reg a(MESH:"Immune System")
-#hypermethylation
-g(HGNC:PTPN6, pmod(Me)) -| g(HGNC:PTPN6)
+p(HGNC:PTPN6,pmod(NCIT:C20102)) -| g(HGNC:PTPN6)
 SET Cell = "leukocyte"
 g(HGNC:PTPN6) -| path(MESH:Inflammation)
-#hypermethylation
-g(HGNC:PTPN6, pmod(Me)) -> path(MESH:Inflammation)
+p(HGNC:PTPN6,pmod(NCIT:C20102)) -> path(MESH:Inflammation)
 UNSET Cell
 
 SET Evidence = "In pediatric MS cohorts, HLA-DRB1 is associated with the EBNA-1 antibody response, suggesting that HLA risk genes have an important influence on the immune response to viral infection (99)."
