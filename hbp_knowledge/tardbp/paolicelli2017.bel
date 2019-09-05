@@ -74,6 +74,8 @@ DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifact
 ##############
 SET Citation = {"PubMed", "28669544"}
 
+SET Species = "10090"
+
 SET Evidence = "Microglia, the innate immune cells of the central nervous system (CNS), provide constant surveillance for neural functioning (Nimmerjahnet al., 2005; Davalos et al., 2005)."
 SET MeSHAnatomy = "Central Nervous System"
 a(MESH:Microglia) isA bp(MESH:"Immunity, Innate")
@@ -173,9 +175,7 @@ SET Evidence = "In addition, increased levels of lysosomal markers, such as LAMP
 #BV2 cell, primary microglia cultures
 p(HGNC:TARDBP) -| p(HGNC:LAMP1)
 p(HGNC:TARDBP) -| p(HGNC:LAMP2)
-SET CellStructure = "Organelles"
-p(HGNC:TARDBP) -| bp(GO:"pH reduction")
-UNSET CellStructure
+p(HGNC:TARDBP) -| bp(GO:"lysosomal lumen acidification")
 
 SET Evidence = "TDP-43 loss was recently shown to promote the nuclear translocation of TFEB, a transcription factor regulating lysosomal biogenesis (Xia et al., 2016)."
 p(HGNC:TARDBP) -| tloc(p(HGNC:TFEB), fromLoc(GO:cytosol), toLoc(GO:nucleus))
@@ -185,21 +185,20 @@ UNSET CellStructure
 
 SET Evidence = "We found that the expression of Lamp1, CtsD, CtsB, Clcn7, vATP6v1h, Psap, and Psen2 in TDP-43-depleted cells was higher than in scrambled control (Figure S3D)."
 #gene expression
-p(HGNC:TARDBP) -| g(HGNC:LAMP1)
-p(HGNC:TARDBP) -| g(HGNC:CTSD)
-p(HGNC:TARDBP) -| g(HGNC:CTSB)
-p(HGNC:TARDBP) -| g(HGNC:CLCN7)
-p(HGNC:TARDBP) -| g(HGNC:ATP6V1H)
-p(HGNC:TARDBP) -| g(HGNC:PSAP)
-p(HGNC:TARDBP) -| g(HGNC:PSEN2)
+p(HGNC:TARDBP) -| r(HGNC:LAMP1)
+p(HGNC:TARDBP) -| r(HGNC:CTSD)
+p(HGNC:TARDBP) -| r(HGNC:CTSB)
+p(HGNC:TARDBP) -| r(HGNC:CLCN7)
+p(HGNC:TARDBP) -| r(HGNC:ATP6V1H)
+p(HGNC:TARDBP) -| r(HGNC:PSAP)
+p(HGNC:TARDBP) -| r(HGNC:PSEN2)
+
 
 SET Evidence = "We confirmed that Tardbp transcript levels were significantly downregulated specifically in microglia isolated from cKO mice upon tamoxifen administration compared to WT controls, whereas overall cortical
 levels remained unchanged (Figures S4A and S4B)."
 #conditional TDP-43 knockout mouse line (cKO)
-SET Species = "10090"
 composite(a(CHEBI:tamoxifen), a(MESH:Microglia)) =| p(HGNC:TARDBP)
 composite(a(CHEBI:tamoxifen), a(MESH:Microglia)) cnc a(MESH:"Cerebral Cortex")
-UNSET Species
 
 SET Evidence = "These results definitely show that TDP-43 depletion in microglia promotes Abeta clearance,
 rather than affecting production."
@@ -276,3 +275,5 @@ SET Evidence = "In the MND cases, but not in the controls, we could observe exam
 #MND : motor neurodegenerative
 path(DOID:"motor neuron disease") -> composite(a(MESH:Microglia), p(HGNC:TARDBP))
 composite(a(MESH:Microglia), p(HGNC:TARDBP)) -> path(MESH:"TDP-43 Proteinopathies")
+
+UNSET Species
