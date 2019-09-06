@@ -173,7 +173,7 @@ SET Evidence = "Choo et al. (2004) showed that huntingtin was present in the mit
 purified from human neuroblastoma cells and clonal striatal cells and associated with the
 outer mitochondrial membrane."
 #also with clonal striatal cells
-path(DOID:neuroblastoma) -> p(HGNC:HTT,pmod(CONSO:"CAG repeats"),loc(GO:mitochondrial outer membrane))
+path(DOID:neuroblastoma) -> p(HGNC:HTT,pmod(CONSO:"CAG repeats"),loc(GO:"mitochondrial outer membrane"))
 
 SET Evidence = "A recombinant truncated mHtt directly added to isolated
 mouse liver mitochondria significantly decreased the Ca2+-threshold for mPTP opening, an
@@ -182,7 +182,7 @@ effect that was abolished by cyclosporin A (CsA), an mPTP inhibitor."
 SET MeSHAnatomy = "Mitochondria, Liver"
 p(HGNC:HTT,pmod(CONSO:"CAG repeats"),frag("?")) -| a(CHEBI:"calcium(2+)")
 a(CHEBI:"calcium(2+)") reg complex(GO:"mitochondrial permeability transition pore complex")
-a(CHEBI:"cyclosporin A") -| complex("mitochondrial permeability transition pore complex")
+a(CHEBI:"cyclosporin A") -| complex(GO:"mitochondrial permeability transition pore complex")
 UNSET MeSHAnatomy
 
 SET Evidence = "ADP treatment attenuated the mitochondrial membrane potential defect and CsA
@@ -230,8 +230,8 @@ SET Evidence = "In
 addition, inhibition of mPTP opening by treatment with CsA and bongkrekic acid
 significantly diminished NMDA-induced Ca2+ influx and mitochondrial membrane potential
 loss in MSNs of YAC128 mouse (Fernandes et al. 2007)."
-a(CHEBI:"cyclosporin A") -| complex("mitochondrial permeability transition pore complex")
-a(CHEBI:"bongkrekic acid") -| complex("mitochondrial permeability transition pore complex")
+a(CHEBI:"cyclosporin A") -| complex(GO:"mitochondrial permeability transition pore complex")
+a(CHEBI:"bongkrekic acid") -| complex(GO:"mitochondrial permeability transition pore complex")
 a(CHEBI:"cyclosporin A") -| act(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"))
 a(CHEBI:"bongkrekic acid") -| act(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"))
 act(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits")) -> bp(GO:"calcium ion import")
@@ -247,8 +247,8 @@ with the synaptic protein interaction (synprint) region of N-type VGCC (Swayne e
 and the α2/δ auxiliary subunit of VGCC (Kaltenbach et al. 2007), and MSNs from R6/2
 mice at 3–6 weeks of age show increases in voltage-gated Ca2+ conductances (Cepeda et al.
 2007)."
-complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNCGENEFAMILY:"Calcium voltage-gated channel alpha1 subunits")) -> bp(GO:"voltage-gated calcium channel activity ")
-complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNCGENEFAMILY:"Calcium voltage-gated channel auxiliary alpha2delta subunits")) -> bp(GO:"voltage-gated calcium channel activity ")
+complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNCGENEFAMILY:"Calcium voltage-gated channel alpha1 subunits")) -> bp(GO:"voltage-gated calcium channel activity")
+complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNCGENEFAMILY:"Calcium voltage-gated channel auxiliary alpha2delta subunits")) -> bp(GO:"voltage-gated calcium channel activity")
 
 SET Evidence = "Photoreceptor neurodegeneration in an HD fly model expressing a full length of mHtt
 with a polyglutamine stretch of 128 was rescued by removing one copy of Dmca1D (a Ltype
@@ -265,10 +265,10 @@ protein (CREB) mediated transcriptional processes through direct interaction wit
 (CREB-binding protein) (Steffan et al. 2000) and with TATA box-binding protein (TBP)-
 associated factor TAF4/ TAFII130 (Dunah et al. 2002; Shimohata et al. 2000), leading to an
 increase in mHtt-induced cytotoxicity (Steffan et al. 2001)."
-complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats"),p(HGNC:CREBBP),p(HGNC:TAF4)) neg tscript(p(HGNC:CREBBP))
-complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats"),p(HGNC:CREBBP),p(HGNC:TAF4)) -> path(MESH:"Cytotoxicity, Immunologic")
-complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats"),p(HGNC:CREBBP),p(HGNC:TAF4)) -> act(p(HGNC:HTT,pmod(CONSO:"CAG repeats"))
-p(HGNC:HTT,pmod(CONSO:"CAG repeats") -> path(MESH:"Cytotoxicity, Immunologic")
+complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:CREBBP),p(HGNC:TAF4)) neg tscript(p(HGNC:CREBBP))
+complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:CREBBP),p(HGNC:TAF4)) -> path(MESH:"Cytotoxicity, Immunologic")
+complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:CREBBP),p(HGNC:TAF4)) -> act(p(HGNC:HTT,pmod(CONSO:"CAG repeats"))
+p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -> path(MESH:"Cytotoxicity, Immunologic")
 
 SET Evidence = "The peroxisome proliferator-activated receptor γ (PPARγ) coactivator-1α (PGC-1α) is an
 orchestrator of mitochondrial function via integration of signals that regulate mitochondrial
@@ -293,7 +293,7 @@ p(HGNC:PPARG) reg bp(GO:"lipid metabolic process")
 SET Evidence = "The expression of PGC-1α is repressed in both in vitro and in vivo models of
 HD, at least partially due to the fact that mHtt directly interferes with the CREB/TAF4
 signaling pathway which is a predominant regulator of PGC-1α expression (Cui et al. 2006)."
-p(HGNC:HTT,pmod(CONSO:"CAG repeats") -| r(HGNC:PPARGC1A)
+p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -| r(HGNC:PPARGC1A)
 complex(p(HGNC:CREBBP),p(HGNC:TAF4)) reg r(HGNC:PPARGC1A)
 
 SET Evidence = "The reduced level of cAMP in HD mice and HD patients likely contributes to the significant
