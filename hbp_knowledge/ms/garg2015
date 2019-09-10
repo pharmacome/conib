@@ -1,0 +1,446 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "An update on immunopathogenesis, diagnosis, and treatment of multiple sclerosi"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Trusha Adeshara"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/conso
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
+DEFINE NAMESPACE MGI           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
+DEFINE NAMESPACE RGD           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "26445701"}
+
+SET Evidence = "Multiple sclerosis is an autoimmune inﬂammatory disorder of CNS of unknown etiology, characterized by demyelination and variable degrees of axonal loss."
+
+path(DOID:"multiple sclerosis") isA path(DOID:"autoimmune disease of central nervous system")
+path(DOID:"multiple sclerosis") -> path(MESH:Inflammation)
+path(DOID:"multiple sclerosis") -> path(HP:"CNS demyelination")
+path(DOID:"multiple sclerosis") -> path(HP:"Axonal loss")
+
+SET Evidence = " Linkage analysis studies have revealed several gene loci as risk factors, with the major histocompatibility complex (MHC) HLA DR15/DQ6 allele being the strongest one (Barcellos et al. 2003; Sawcer et al. 2011). More recently, alleles of interleukin-2 receptor alpha gene (IL2RA) and interleukin-7 receptor alpha gene (IL7RA) have also been identiﬁed as inheritable risk factors (Haﬂer et al. 2007; Sawcer et al. 2011)."
+
+path(DOID:"multiple sclerosis") -- complex(MESH:"Major Histocompatilibity Complex")
+path(DOID:"multiple sclerosis") -- g(HGNC:IL2RA)
+path(DOID:"multiple sclerosis") -- g(HGNC:IL7R)
+
+SET Evidence = "Among environmental factors, Epstein-Barr virus (EBV) infection and vitamin D deﬁciency have been extensively studied and strongly linked to MS risk (Ascherio and Munger 2007a,b)"
+
+path(MESH:"Epstein-Barr Virus Infections") -- path(DOID:"multiple sclerosis")
+path(MESH:"Vitamin D Deficiency") -- path(DOID:"multiple sclerosis")
+
+SET Evidence = "Studies have suggested that  higher levels of vitamin D have a possible protective role in certain susceptible patient populations (Munger et al. 2004, 2006)."
+
+#in susceptible population to multiple sclerosis
+a(CHEBI:"vitamin D") -| path(DOID:"multiple sclerosis")
+
+SET Evidence = "The “hygiene hypothesis,” supported by many epidemiological observations, suggests that improved sanitation and reduced childhood infections in developed countries may account for the increased rates of autoimmune diseases (T-helper 1 mediated) and allergy (T-helper 2 mediated) (Conradi et al. 2011)."
+
+#in childhood
+act(a(MESH:"Th1 Cells")) -> path(MESH:"Autoimmune Diseases")
+a(MESH:Sanitation) -> path(MESH:"Autoimmune Diseases")
+act(a(MESH:"Th2 Cells")) -> path(HP:Allergy)
+a(MESH:Sanitation) -> path(HP:Allergy)
+path(MESH:Infection) -| path(MESH:"Autoimmune Diseases")
+path(MESH:Infection) -| path(HP:Allergy)
+
+SET Evidence = "The odds ratio for developing MS is approximately 1.5 for smokers compared with nonsmokers (Wingerchuk 2012; Fragoso 2014)."
+
+a(MESH:Smoking) -> path(DOID:"multiple sclerosis")
+
+SET Evidence = "The role of dietary factors appears to be complex and related to the inﬂuence of multiple dietary components including vitamin A and D, salt, omega-3-unsaturated fatty acid, and polyphenol on immune regulation."
+
+a(CHEBI:"Vitamin A") reg bp(MESH:Immunity)
+a(CHEBI:"Vitamin D") reg bp(MESH:Immunity)
+a(CHEBI:salt) reg bp(MESH:Immunity)
+a(CHEBI:"omega-3 unsaturated fatty acyl-CoA(4-)") reg bp(MESH:Immunity)
+a(CHEBI:polyphenol) reg bp(MESH:Immunity)
+
+SET Evidence = "Some recent reports have suggested that salt modulates the differentiation of human and mouse Th17 cells (Kleinewietfeld et al. 2013; Wu et al. 2013). A more aggressive course of experimental autoimmune encephalomyelitis (EAE) was observed in mice fed a high sodium diet. In a small observational study, higher sodium intake was associated with increased clinical and radiological disease activity in patients with MS (Farez et al. 2015)."
+
+SET Species = {"10095","9606"}
+a(CHEBI:salt) reg a(MESH:"Th17 Cells")
+UNSET Species
+
+SET Species = "10095"
+a(CHEBI:"sodium salt") -> path(DOID:"encephalomyelitis")
+UNSET Species
+
+a(CHEBI:"sodium salt") -> path(DOID:"multiple sclerosis")
+
+SET Evidence = "The pathogenesis of MS involves immune attack against CNS antigens mediated through activated CD4+ myelinreactive T cells with a possible contribution by B cells."
+
+SET MeSHDisease = "Multiple Sclerosis"
+SET Anatomy = "central nervous system"
+act(a(MESH:"CD4-Positive T-Lymphocytes")) -> deg(a(GO:"myelin sheath"))
+act(a(MESH:"B-Lymphocytes")) -> deg(a(GO:"myelin sheath"))
+UNSET MeSHDisease
+
+SET Evidence = "The immunopathogenesis of MS is thought to involve a breach of self-tolerance toward myelin and other CNS antigens resulting in persistent peripheral activation of autoreactive T cells (Haﬂer et al. 2005; Selter and Hemmer 2013)."
+
+path(DOID:"multiple sclerosis") -> deg(a(GO:"myelin sheath"))
+deg(a(GO:"myelin sheath")) -> bp(MESH:"Self Tolerance")
+UNSET Anatomy
+bp(MESH:"Self Tolerance") -> path(MESH:Autoimmunity)
+bp(MESH:"Self Tolerance") -> act(a(MESH:"T-Lymphocytes"))
+
+SET Evidence = "The infection could cause bystander activation of T cells or result in release of autoantigens due to cellular damage, which can then lead to activation of T cells by cross reactivity between an endogenous protein (e.g., myelin basic protein) and the pathogenic exogenous protein (viral or bacterial antigen), a process known as molecular mimicry (Fujinami and Oldstone 1985; Wucherpfennig and Strominger 1995; Aichele et al. 1996; Gran et al. 1999; O’Connor et al. 2001)."
+
+#viral infection
+path(HP:"Disseminated viral infection") -> act(a(MESH:"T-Lymphocytes"))
+path(HP:"Disseminated viral infection") -> a(MESH:Autoantigens)
+a(MESH:Autoantigens) -> a(MESH:"Molecular Mimicry")
+a(MESH:"Molecular Mimicry") -> act(a(MESH:"T-Lymphocytes"))
+
+SET Evidence = "The transmigration process involves interaction between very late antigen-4 (VLA-4) present on T lymphocytes and the vascular cell adhesion molecule-1 (VCAM-1) expressed on capillary endothelial cells; this process is facilitated by expression and upregulation of various adhesion molecules, chemokines, and matrix metalloproteinases (MMPs) (Yong 2004; Gold and Wolinsky 2011)."
+
+complex(p(MESH:"Receptors, Very Late Antigen",loc(MESH:"T-Lymphocytes")),p(HGNC:VCAM1,loc(MESH:"Endothelial Cells"))) -> bp(MESH:"Transendothelial and Transepithelial Migration")
+a(MESH:"Cell Adhesion Molecules") -> complex(p(MESH:"Receptors, Very Late Antigen",loc(MESH:"T-Lymphocytes")),p(HGNC:VCAM1,loc(MESH:"Endothelial Cells")))
+a(MESH:Chemokines) -> complex(p(MESH:"Receptors, Very Late Antigen",loc(MESH:"T-Lymphocytes")),p(HGNC:VCAM1,loc(MESH:"Endothelial Cells")))
+a(MESH:"Matrix Metalloproteinases") -> complex(p(MESH:"Receptors, Very Late Antigen",loc(MESH:"T-Lymphocytes")),p(HGNC:VCAM1,loc(MESH:"Endothelial Cells")))
+
+SET Evidence = "Activation of resident CNS glial cells (such as microglia) results in persistent inﬂammation even in absence of further inﬁltration of exogenous inﬂammatory cells (O’Connor et al. 2001)."
+
+act(a(MESH:Microglia)) -> path(MESH:Inflammation)
+
+SET Evidence = "The evidence based on animal studies suggests that
+CD4+ T-helper 1 (TH1) cells which release proinﬂammatory cytokines such as interferon-gamma, interleukin-2 (IL-2), and tumor necrosis factor-a (TNF-a) are the key players in mediating inﬂammation in MS with some role for the novel CD4+ T-helper-17 (TH17) cell subset which secretes IL-17 (O’Connor et al. 2001; Selter and Hemmer 2013)."
+
+SET Disease = "multiple sclerosis"
+a(MESH:"Th1 Cells") -> p(HGNC:IL2)
+a(MESH:"Th1 Cells") -> p(HGNC:TNF)
+p(HGNC:IL2) -> path(MESH:Inflammation)
+p(HGNC:TNF) -> path(MESH:Inflammation)
+a(MESH:"Th1 Cells") -> p(HGNC:IL17A)
+p(HGNC:IL17A) -> path(MESH:Inflammation)
+
+SET Evidence = "The CD4+ T-helper 2 (TH2) cells, which secret interleukins 4, 5, and 10 are believed to have a counter regulatory role limiting the TH1-cell-mediated injury (Tzartos et al. 2008)."
+
+a(MESH:"Th2 Cells") -> p(HGNC:IL4)
+a(MESH:"Th2 Cells") -> p(HGNC:IL5)
+a(MESH:"Th2 Cells") -> p(HGNC:IL10)
+a(MESH:"Th2 Cells") -| act(a(MESH:"Th1 Cells"))
+
+SET Evidence = "CD8+ T cells are believed to be involved as well and can induce axonal pathology by direct injury to MHC I/antigen expressing cells such as neurons and oligodendrocytes (Batoulis et al. 2010)."
+
+a(MESH:"CD8-Positive T-Lymphocytes") -> path(DOID:"axonal neuropathy")
+a(MESH:"CD8-Positive T-Lymphocytes") -> deg(a(MESH:Neurons))
+
+SET Evidence = "The contribution of B cells to MS pathogenesis (possibly through autoantibody secretion and antigen presentation to T cells) has recently been recognized and is supported by observed pathologic heterogeneity of MS lesions, the presence of meningeal inﬂammation and B-cell follicle-like structures adjacent to subpial cortical lesions, and the success of B-cell-based immunotherapies (O’Connor et al. 2001; Batoulis et al. 2010; Naismith et al. 2010)."
+
+path(DOID:"multiple sclerosis") -- a(MESH:"B-Lymphocytes")
+a(MESH:"B-Lymphocytes") -> path(MESH:"Inflammation")
+
+SET Evidence = "Although demyelination is the hallmark of MS pathology, early axonal injury and axonal loss also occur and may drive disability progression (Trapp et al. 1998)."
+
+path(HP:"CNS demyelination") biomarkerFor path(DOID:"multiple sclerosis")
+path(DOID:"multiple sclerosis") -> path(HP:"Axonal loss")
+path(DOID:"multiple sclerosis") -> path(MESH:"Diffuse Axonal Injury")
+
+SET Evidence = " The exact mechanism(s) of both myelin and axonal injury are not completely understood, but are likely to include both direct injury to myelin and oligodendrocytes, and axons by CD4+ and CD8+ T lymphocytes, activated microglia/ macrophages, and/or antibody and complement as well as the indirect effects of proinﬂammatory cytokines such as IL-1beta, TNF-a, nitric oxide, and MMPs (Lucchinetti et al. 2000; Hemmer et al. 2002; Gold and Wolinsky 2011)."
+
+a(MESH:"CD4-Positive T-Lymphocytes") -> path(HP:"CNS demyelination")
+a(MESH:"CD4-Positive T-Lymphocytes") -> path(MESH:"Diffuse Axonal Injury")
+a(MESH:"CD4-Positive T-Lymphocytes") -> bp(GO:"positive regulation of oligodendrocyte apoptotic process")
+a(MESH:"CD8-Positive T-Lymphocytes") -> path(HP:"CNS demyelination")
+a(MESH:"CD8-Positive T-Lymphocytes") -> path(MESH:"Diffuse Axonal Injury")
+a(MESH:"CD8-Positive T-Lymphocytes") -> bp(GO:"positive regulation of oligodendrocyte apoptotic process")
+a(MESH:"Microglia") -> path(HP:"CNS demyelination")
+a(MESH:"Microglia") -> path(MESH:"Diffuse Axonal Injury")
+a(MESH:"Microglia") -> bp(GO:"positive regulation of oligodendrocyte apoptotic process")
+bp(GO:"complement activation") -> path(HP:"CNS demyelination")
+bp(GO:"complement activation") -> path(MESH:"Diffuse Axonal Injury")
+bp(GO:"complement activation") -> bp(GO:"positive regulation of oligodendrocyte apoptotic process")
+p(HGNC:IL1B) -> path(HP:"CNS demyelination")
+p(HGNC:IL1B) -> path(MESH:"Diffuse Axonal Injury")
+p(HGNC:IL1B) -> bp(GO:"positive regulation of oligodendrocyte apoptotic process")
+p(HGNC:TNF) -> path(HP:"CNS demyelination")
+p(HGNC:TNF) -> path(MESH:"Diffuse Axonal Injury")
+p(HGNC:TNF) -> bp(GO:"positive regulation of oligodendrocyte apoptotic process")
+a(CHEBI:"nitric oxide") -> path(HP:"CNS demyelination")
+a(CHEBI:"nitric oxide") -> path(MESH:"Diffuse Axonal Injury")
+a(CHEBI:"nitric oxide") -> bp(GO:"positive regulation of oligodendrocyte apoptotic process")
+a(MESH:"Matrix Metalloproteinases") -> path(HP:"CNS demyelination")
+a(MESH:"Matrix Metalloproteinases") -> path(MESH:"Diffuse Axonal Injury")
+a(MESH:"Matrix Metalloproteinases") -> bp(GO:"positive regulation of oligodendrocyte apoptotic process")
+
+SET Evidence = "The MS plaques or lesions are focal areas of demyelination associated with variable inﬂammation and axonal loss that predominantly affect the white matter of the brain, spinal cord, and optic nerves but can also involve the cerebral cortex including subpial regions (Sobel and Moore 2008; Popescu and Lucchinetti 2012)."
+
+path(HP:"CNS demyelination") -> a(HP:"Senile plaques")
+a(HP:"Senile plaques") -> path(MESH:Inflammation)
+SET Anatomy = {"brain white matter","spinal cord","root of optic nerve","cerebral cortex"}
+a(HP:"Senile plaques") -> path(HP:"Axonal loss")
+UNSET Anatomy
+
+SET Evidence = "The inﬂammatory inﬁltrates associated with plaques consist of activated T cells (predominantly CD8+ with variable presence of CD4+ cells), activated macrophages/microglia, plasma cells, and B cells (Hauser et al. 1986; O’Connor et al. 2001)."
+
+a(HP:"Senile plaques") hasComponents list(a(MESH:"CD4-Positive T-Lymphocytes"),a(MESH:"CD8-Positive T-Lymphocytes"),a(MESH:Microglia),a(MESH:"B-Lymphocytes"),a(MESH:"Plasma Cells"))
+
+SET Evidence = "Cortical lesions seen in early MS are usually highly inﬂammatory and correlate with cognitive impairment (Geurts and Barkhof 2008; Lucchinetti et al. 2011)."
+
+SET Anatomy = "cerebral cortex"
+a(HP:"Focal white matter lesions") -> path(MESH:Inflammation)
+a(HP:"Focal white matter lesions") -| bp(GO:cognition)
+UNSET Anatomy
+
+SET Evidence = "The clinical symptoms and signs of MS are variable and may result from involvement of sensory, motor, visual, and brainstem pathways."
+
+path(DOID:"multiple sclerosis") -- bp(GO:"sensory perception")
+path(DOID:"multiple sclerosis") -- bp(GO:"motor behavior")
+path(DOID:"multiple sclerosis") -- bp(GO:"visual behavior")
+
+SET Evidence = "The ﬁrst clinical event in these patients, termed clinically isolated syndrome (CIS), can be optic neuritis, incomplete myelitis, or brainstem syndrome (Miller et al. 2005)."
+
+#patients with relapsing and remitting MS
+path(DOID:"relapsing-remitting multiple sclerosis") -> path(DOID:"optic neuritis")
+path(DOID:"relapsing-remitting multiple sclerosis") -> path(DOID:"myelitis")
+path(DOID:"relapsing-remitting multiple sclerosis") -> path(HP:"Atrophy/Degeneration affecting the brainstem")
+
+SET Evidence = "CSF inﬂammatory markers are present in up to 85% patients with MS (Link and Huang 2006); IgG index is less sensitive and speciﬁc than oligoclonal bands Awad et al. 2010)."
+
+SET Anatomy = "cerebrospinal fluid"
+path(DOID:"multiple sclerosis") -> path(MESH:Inflammation)
+UNSET Anatomy
+
+SET Evidence = "The management of MS includes treatment with immunomodulatory agents that help alter the course of the disease, symptomatic management focusing on relieving speciﬁc symptoms such as fatigue, spasticity, bladder dysfunction, and pain (not discussed in this review)."
+
+path(DOID:"multiple sclerosis") -> path(HP:Fatigue)
+path(DOID:"multiple sclerosis") -> path(HP:Spasticity)
+path(DOID:"multiple sclerosis") -> path(HP:"Gallbladder dysfunction")
+path(DOID:"multiple sclerosis") -> path(DOID:"pain disorder")
+
+SET Evidence = "Corticosteroids (methylprednisolone) and adrenocorticotropic hormone (ACTH) have anti-inﬂammatory and immunomodulatory effects and are typically used to treat acute relapse to hasten the recovery (Berkovich 2013)."
+
+a(CHEBI:corticosteroid) -| path(DOID:"relapsing-remitting multiple sclerosis")
+a(DRUGBANK:Methylprednisolone) -| path(DOID:"relapsing-remitting multiple sclerosis")
+a(MESH:"Adrenocorticotropic Hormone") -| path(DOID:"relapsing-remitting multiple sclerosis")
+a(CHEBI:corticosteroid) -| path(MESH:Inflammation)
+a(DRUGBANK:Methylprednisolone) -| path(MESH:Inflammation)
+a(MESH:"Adrenocorticotropic Hormone") -| path(MESH:Inflammation)
+a(CHEBI:corticosteroid) isA a(CHEBI:immunomodulator)
+a(DRUGBANK:Methylprednisolone) isA a(CHEBI:immunomodulator)
+a(MESH:"Adrenocorticotropic Hormone") isA a(CHEBI:immunomodulator)
+
+SET Evidence = "Interferons (IFNs) are endogenous proteins that are involved in immune response against viral and bacterial agents and were the ﬁrst class of disease modifying agents developed for treatment of MS."
+
+p(HGNCGENEFAMILY:Interferons) isA a(CHEBI:"antiviral agent")
+p(HGNCGENEFAMILY:Interferons) isA a(CHEBI:"antibacterial agent")
+p(HGNCGENEFAMILY:Interferons) -| path(DOID:"multiple sclerosis")
+
+SET Evidence = "The beta-interferons (IFN-b) have multiple actions including stabilizing the BBB thereby limiting the entry of T cells into the CNS, modulating T- and B-cell function, and altering the expression of cytokines (Yong et al. 1998; Weber et al. 1999; Dhib-Jalbut 2002)."
+
+p(HGNC:IFNB1) -| tloc(a(MESH:"T-Lymphocytes"),fromLoc(MESH:"Peripheral Nervous System"),toLoc(MESH:" Central Nervous System "))
+p(HGNC:IFNB1) -- a(MESH:"Blood-Brain Barrier")
+p(HGNC:IFNB1) -- act(a(MESH:"T-Lymphocytes"))
+p(HGNC:IFNB1) -- act(a(MESH:"B-Lymphocytes"))
+p(HGNC:IFNB1) -- bp(GO:"B cell cytokine production")
+p(HGNC:IFNB1) -- bp(GO:"T cell cytokine production")
+
+SET Evidence = "Both IFNb1a and IFN-b1b have shown similar efﬁcacy and are considered ﬁrst line agents for treating patients with relapsing MS and CIS (Rudick et al. 1997)."
+
+p(HGNC:IFNB1) -| path(DOID:"relapsing-remitting multiple sclerosis")
+
+SET Evidence = "The side effects of beta-interferon include ﬂu-like symptoms, depression, liver enzyme elevation, thyroid abnormalities, leukopenia or anemia, and injection site reactions (Rudick et al. 1997)."
+
+p(HGNC:IFNB1) -> path(DOID:"mental depression")
+SET Anatomy = "liver"
+p(HGNC:IFNB1) -> p(MESH:Enzymes)
+UNSET Anatomy
+p(HGNC:IFNB1) -> path(DOID:"thyroid gland disease")
+p(HGNC:IFNB1) -> path(DOID:leukopenia)
+p(HGNC:IFNB1) -> path(MESH:"Injection Site Reaction")
+
+SET Evidence = "Glatiramer acetate (GA) or Copolymer 1 is a synthetic complex of four amino acids that mimics myelin basic protein (MBP), one of the autoantigens targeted by the T cells."
+
+a(MESH:"Glatiramer Acetate") -- p(HGNC:MBP)
+p(HGNC:MBP) isA a(MESH:Autoantigens)
+complex(a(MESH:"T-Lymphocytes"),p(HGNC:MBP))
+
+SET Evidence = "Due to its structural similarity to MBP, GA blocks the formation of myelin reactive T cells and induces GA-speciﬁc regulatory T-cell expression and Th2 antiinﬂammatory cytokine production (bystander suppression) (Wolinsky 1995; Rudick et al. 1997; Gran et al. 2000; Dhib-Jalbut 2002; Ruggieri et al. 2007)."
+
+a(MESH:"Glatiramer Acetate") -| complex(a(MESH:"T-Lymphocytes"),a(GO:"myelin sheath"))
+a(MESH:"Glatiramer Acetate") -| complex(a(MESH:"T-Lymphocytes"),a(MESH:"Glatiramer Acetate"))
+a(MESH:"Glatiramer Acetate") -> bp(GO:"T cell cytokine production")
+bp(GO:"T cell cytokine production") -| path(MESH:Inflammation)
+
+SET Evidence = "The side effect proﬁle of GA is, however, more favorable and includes local injection site reactions, post injection reaction (ﬂushing, chest tightness, palpitation, and dyspnea within minutes of injection with spontaneous resolution) and rare lipoatrophy with prolonged use."
+
+a(MESH:"Glatiramer Acetate") -> path(MESH:"Injection Site Reaction")
+a(MESH:"Glatiramer Acetate") -> path(HP:Flushing)
+a(MESH:"Glatiramer Acetate") -> path(HP:"Chest tightness")
+a(MESH:"Glatiramer Acetate") -> path(HP:"Palpitations")
+a(MESH:"Glatiramer Acetate") -> path(HP:Dyspnea)
+a(MESH:"Glatiramer Acetate") -> path(HP:Lipoatrophy)
+
+SET Evidence = "Natalizumab is a humanized monoclonal antibody that binds a4b1-integrin on lymphocytes blocking their interaction with VCAM-1 on endothelial cells thereby preventing the transmigration of lymphocytes across the BBB (Ransohoff 2007)."
+
+a(DRUGBANK:Natalizumab) isA a(MESH:"Antibodies, Monoclonal, Humanized")
+complex(a(DRUGBANK:Natalizumab),p(HGNC:ITGB1,loc(MESH:Lymphocytes)),p(HGNC:ITGA4,loc(MESH:Lymphocytes))) -| complex(p(HGNC:ITGB1,loc(MESH:Lymphocytes)),p(HGNC:ITGA4,loc(MESH:Lymphocytes)),p(HGNC:VCAM1,loc(MESH:"Endothelial Cells")))
+complex(p(HGNC:ITGB1,loc(MESH:Lymphocytes)),p(HGNC:ITGA4,loc(MESH:Lymphocytes)),p(HGNC:VCAM1,loc(MESH:"Endothelial Cells"))) -> bp(MESH:"Transendothelial and Transepithelial Migration")
+
+SET Evidence = "The major safety concern with natalizumab is progressive multifocal leukoencephalopathy (PML), a serious potentially fatal opportunistic brain infection caused by reactivation of JC virus (Yousry et al. 2006)."
+
+a(DRUGBANK:Natalizumab) -> path(DOID:"progressive multifocal leukoencephalopathy")
+SET Anatomy = "brain"
+a(MESH:"JC Virus") -> path(DOID:"progressive multifocal leukoencephalopathy")
+UNSET Anatomy
+
+SET Evidence = "Mitoxantrone is a synthetic anthracendione antineoplastic agent; its immunomodulatory effects include suppression of T and B lymphocytes and macrophage proliferation."
+
+a(CHEBI:mitoxantrone) isA a(CHEBI:"antineoplastic agent")
+a(CHEBI:mitoxantrone) -| a(MESH:"B-Lymphocytes")
+a(CHEBI:mitoxantrone) -| a(MESH:"T-Lymphocytes")
+a(CHEBI:mitoxantrone) -| bp(GO:"macrophage proliferation")
+
+SET Evidence = "Mitoxantrone is indicated for reducing disability and relapse frequency in patients with worsening relapsing remitting and secondary-progressive MS, however, its use has been limited due to risk of dose-related cardiotoxicity and treatment-related leukemia (Fox 2006)."
+
+
+a(CHEBI:mitoxantrone) -| path(DOID:"relapsing-remitting multiple sclerosis")
+a(CHEBI:mitoxantrone) -| path(DOID:"secondary progressive multiple sclerosis")
+a(CHEBI:mitoxantrone) -> path(MESH:Cardiotoxicity)
+a(CHEBI:mitoxantrone) -> path(DOID:leukemia)
+
+SET Evidence = "Three new oral medications have recently become available for treatment of relapsing MS: ﬁngolimod, teriﬂunomide, and dimethylfumarate."
+
+a(CHEBI:fingolimod) -| path(DOID:"relapsing-remitting multiple sclerosis")
+a(CHEBI:teriflunomide) -| path(DOID:"relapsing-remitting multiple sclerosis")
+a(CHEBI:"dimethyl fumarate") -| path(DOID:"relapsing-remitting multiple sclerosis")
+
+SET Evidence = "Fingolimod is a sphingosine-1-phosphate receptor (S1P1) modulator and was the ﬁrst oral drug approved for treatment of MS."
+
+a(CHEBI:fingolimod) reg p(HGNC:S1PR1)
+a(CHEBI:fingolimod) -| path(DOID:"multiple sclerosis")
+
+SET Evidence = "By binding to S1P1 receptor on the T cells, it prevents emigration of activated T cells from lymph nodes thereby limiting their entry into the CNS (Chiba et al. 1998; Pelletier and Haﬂer 2012)."
+
+complex(a(CHEBI:fingolimod),p(HGNC:S1PR1),loc(MESH:"T-Lymphocytes")) -| tloc(a(MESH:"T-Lymphocytes"),fromLoc(MESH:"Lymph Nodes"),toLoc(MESH:"Central Nervous System"))
+
+SET Evidence = "The potential side effects of ﬁngolimod include ﬁrst dose bradycardia, atrioventricular block, herpes virus infection, macular edema, elevated blood pressure, and a reported cases of PML (Cohen et al. 2010; Kappos et al. 2010; Samson 2013; Calic et al. 2015)."
+
+a(CHEBI:fingolimod) -> path(HP:Bradycardia)
+a(CHEBI:fingolimod) -> path(DOID:"atrioventricular block")
+a(CHEBI:fingolimod) -> path(DOID:"herpes simplex")
+a(CHEBI:fingolimod) -> path(HP:"Macular edema")
+a(CHEBI:fingolimod) -> bp(GO:"positive regulation of blood pressure")
+a(CHEBI:fingolimod) -> path(DOID:"progressive multifocal leukoencephalopathy")
+
+SET Evidence = "Teriﬂunomide is an active metabolite of leﬂunomide (a drug used to treat rheumatoid arthritis) and is an inhibitor of enzyme dihyrdro-orotate dehydrogenase (DHODH) which interferes with denovo synthesis of pyrimidine in rapidly dividing cells (Oh and O’Connor 2013)."
+
+a(CHEBI:leflunomide) -| path(HP:"Rheumatoid arthritis")
+a(CHEBI:leflunomide) -| p(HGNC:DHODH)
+p(HGNC:DHODH) -| a(MESH:Pyrimidines)
+
+SET Evidence = "Its antiinﬂammatory effect in MS is believed to be mediated by reducing the activity of proliferating T and B lymphocytes."
+
+a(CHEBI:teriflunomide) -| act(a(MESH:"T-Lymphocytes"))
+a(CHEBI:teriflunomide) -| act(a(MESH:"B-Lymphocytes"))
+a(CHEBI:teriflunomide) -| path(MESH:Inflammation)
+
+SET Evidence = "Leﬂunomide is converted almost entirely into teriﬂunomide after absorption and taken at the recommended doses, both drugs result in similar plasma concentration of teriﬂunomide (AUBAGIO (teriﬂunomide) Prescibing information. 2014)."
+
+a(CHEBI:leflunomide) -> a(CHEBI:teriflunomide)
+
+SET Evidence = "The short-term side effects of teriﬂunomide are relatively mild and include hair loss, headache, diarrhea, and elevated liver enzymes (O’Connor et al. 2011)."
+
+a(CHEBI:teriflunomide) -> path(MESH:Alopecia)
+a(CHEBI:teriflunomide) -> path(HP:Headache)
+a(CHEBI:teriflunomide) -> path(DOID:diarrhea)
+SET Anatomy = "liver"
+a(CHEBI:teriflunomide) -> p(MESH:Enzymes)
+UNSET Anatomy
+
+SET Evidence = "Reduction in lymphocyte and neutrophil counts, elevated blood pressure, and a single case of latent tuberculosis are some of the other side effects reported (O’Connor et al. 2011; Confavreux et al. 2014)."
+
+a(CHEBI:teriflunomide) -| a(MESH:Lymphocytes)
+a(CHEBI:teriflunomide) -| a(MESH:Neutrophils)
+a(CHEBI:teriflunomide) -> bp(GO:"positive regulation of blood pressure")
+a(CHEBI:teriflunomide) -> path(DOID:tuberculosis)
+
+SET Evidence = "Dimethylfumarate (DMF) or BG12 is the latest oral therapy to be approved for treatment of MS."
+
+a(CHEBI:"dimethyl fumarate") -| path(DOID:"multiple sclerosis")
+
+SET Evidence = "The mechanism of action of DMF involves inhibition of proinﬂammatory pathways via activation of nuclear factor erythroid 2-related factor 2 (Nrf-2) antioxidant response pathway (Linker et al. 2011)."
+
+a(CHEBI:"dimethyl fumarate") -| act(p(HGNC:NFE2L2))
+act(p(HGNC:NFE2L2)) -| path(MESH:Inflammation)
+
+SET Evidence = "The most common side effect with DMF include nausea, diarrhea, abdominal pain which can be minimized by taking the medication with food and ﬂushing which can be reduced by aspirin (Gold et al. 2012; Fox et al. 2014)."
+
+a(CHEBI:"dimethyl fumarate") -> path(HP:Nausea)
+a(CHEBI:"dimethyl fumarate") -> path(DOID:diarrhea)
+a(CHEBI:"dimethyl fumarate") -> path(HP:"Abdominal pain")
+composite(a(CHEBI"food"),a(CHEBI:"dimethyl fumarate")) -| path(HP:"Abdominal pain")
+a(CHEBI:"dimethyl fumarate") -> path(HP:Flushing)
+a(MESH:Aspirin) -| path(HP:Flushing)
+
+SET Evidence = "Lymphopenia may occur although no increased infection risk was observed in phase 3 studies (Fox et al. 2012; Gold et al. 2012)."
+
+a(CHEBI:"dimethyl fumarate") -> path(DOID:lymphopenia)
+
+SET Evidence = "There has been a recent report of a fatal case of PML in a patient with multiple sclerosis treated with dimethyl fumarate (FDA Drug Safety Communication,2014)"
+
+a(CHEBI:"dimethyl fumarate") -> path(DOID:"progressive multifocal leukoencephalopathy")
+
+UNSET Disease
