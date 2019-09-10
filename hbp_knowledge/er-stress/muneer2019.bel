@@ -1,0 +1,467 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Endoplasmic Reticulum Stress: Implications for Neuropsychiatric Disorders"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Yojana Gadiya"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+ DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+ DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+ DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+ DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
+ DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+ DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+ DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+ DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
+ DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
+ DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+ DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mesh-names.belns"
+# DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
+# DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.be##lns"
+ DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+ DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
+# DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+ DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+ DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+ DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+ DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+ DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+ DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+ DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+ DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+ DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+ DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+ DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+ DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+ DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+ DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "30740335"}
+
+SET Evidence = "Under both physiological conditions and cellular stress
+the unfolded protein response (UPR) embodies a conserved
+reaction ensuring protein quality control and cell survival.[1]"
+path(MESH:"Unfolded Protein Response") -- path(MESH:"Cell Survival")
+path(MESH:"Unfolded Protein Response") -- bp(GO:"protein stabilization")
+
+SET Evidence = "To perform its varied
+functions, the ER undertakes crucial interactions with
+other organelles, particularly mitochondria to regulate
+proteostasis and relegate misshapen proteins to degradation."
+composite(a(MESH:"Mitochondria"), a(MESH:"Endoplasmic Reticulum")) reg path(MESH:"Proteostasis")
+composite(a(MESH:"Mitochondria"), a(MESH:"Endoplasmic Reticulum")) reg bp(GO:"protein quality control for misfolded or incompletely synthesized proteins")
+
+SET Evidence = "In the case of UPR, mutant proteins are degraded
+via catabolic pathways characterized by the ubiquitin
+proteasome system and autophagic lysosomes"
+p(MESH:"Mutant Proteins") -> bp(GO:"ubiquitin-dependent protein catabolic process")
+p(MESH:"Mutant Proteins") -> bp(GO:"lysosomal protein catabolic process")
+
+SET Evidence = "As an
+integral function, the ER wields the unfolded protein response
+to protect the cell from toxicity of accumulated unfolded/
+misfolded proteins, whereas mitochondria also
+have their own protein quality control system, the UPR
+(mt).[3]"
+bp(GO:"endoplasmic reticulum unfolded protein response") -| path(HBP:"proteotoxicity")
+a(MESH:"Protein Aggregates") -> path(HBP:"proteotoxicity")
+p(MESH:"Proteins", pmod(HBP:"misfolded")) ->  path(HBP:"proteotoxicity")
+bp(GO:"mitochondrial unfolded protein response") -| path(HBP:"proteotoxicity")
+
+SET Evidence = "ER buildup of unfolded proteins may be caused by such
+diverse factors as genetic defects in protein folding, posttranslational
+modifications, intracellular calcium alterations,
+redox imbalance, and inflammatory signaling."
+SET MeSHAnatomy = "Endoplasmic Reticulum"
+path(MESH:"Protein Modification, Translational") -> path(MESH:"Protein Unfolding")
+bp(GO:"negative regulation of calcium ion transport") -> path(MESH:"Protein Unfolding")
+bp(GO:"cell redox homeostasis") -| path(MESH:"Protein Unfolding")
+bp(GO:"inflammatory response") -> path(MESH:"Protein Unfolding")
+UNSET MeSHAnatomy
+
+SET Evidence = "The
+UPR either results in reinstating cell homeostasis or consigning
+them to apoptosis; the adaptive processes are represented
+by ER associated biogenesis, the ubiquitin-proteasome
+system and autophagy.[4]"
+path(MESH:"Unfolded Protein Response") -> path(MESH:"Homeostasis")
+SET MeSHAnatomy = "Endoplasmic Reticulum"
+path(MESH:"Unfolded Protein Response") -> path(MESH:"Organelle Biogenesis")
+UNSET MeSHAnatomy
+path(MESH:"Unfolded Protein Response") -> bp(GO:"ERAD pathway")
+path(MESH:"Unfolded Protein Response") -> bp(GO:"autophagy")
+
+SET Evidence = "ER related stress mechanisms are incriminated in numerous
+human diseases including neuropsychiatric disorders,
+diabetes mellitus, cancer, cardiovascular, kidney,
+and pulmonary diseases."
+path(MESH:"Endoplasmic Reticulum Stress") -- path(MESH:"Nervous System Diseases")
+path(MESH:"Endoplasmic Reticulum Stress") -- path(MESH:"Diabetes Mellitus")
+path(MESH:"Endoplasmic Reticulum Stress") -- path(MESH:"Neoplasms")
+path(MESH:"Endoplasmic Reticulum Stress") -- path(MESH:"Heart Diseases")
+path(MESH:"Endoplasmic Reticulum Stress") -- path(MESH:"Lung Diseases")
+path(MESH:"Endoplasmic Reticulum Stress") -- path(MESH:"Kidney Diseases")
+
+SET Evidence = "Glucose related protein (GRP) 78, alternatively called BiP is an ER chaperone,
+closely associated with the launching of UPR, and is among the best studied in this family of
+proteins.[7]"
+#HSPA5 : GRP78
+p(HGNC:"HSPA5") -- path(MESH:"Unfolded Protein Response")
+
+SET Evidence = "The mediators of UPR are three bona fide effectors namely,
+inositol-requiring enzyme 1 (IRE1), activating transcription
+factor 6 (ATF6), and protein kinase RNA-like ER
+kinase (PERK) that regulate a multifaceted cascading
+pathway.[6]"
+#ERN1 : IRE1
+#EIF2AK3 : PERK
+p(HGNC:"ERN1") reg path(MESH:"Unfolded Protein Response")
+p(HGNC:"ATF6") reg path(MESH:"Unfolded Protein Response")
+p(HGNC:"EIF2AK3") reg path(MESH:"Unfolded Protein Response")
+
+SET Evidence = "When the misshapen protein load increases in
+ER lumen, GRP78 dissociates from trans-membrane sensors
+kicking off the UPR."
+p(MESH:"Proteins", pmod(HBP:"misfolded"), loc(GO:"endoplasmic reticulum")) -| complex(p(HGNC:"HSPA5"))
+
+SET Evidence = "In this regard, ATF6 leads to the
+transcription of main ER chaperones and X-box binding
+protein-1 (XBP1)."
+#thei regard : misshaped protein load
+p(HGNC:"ATF6") -> p(HGNC:"XBP1")
+
+SET Evidence = "The endonuclease action of IRE1 catalyzes
+the splicing of XBP1 mRNA, causing the formation
+of an active transcription factor that regulates the expression
+of genes involved in the execution of UPR"
+p(HGNC:"ERN1") -> p(HGNC:"ATF6", frag("?"))
+p(HGNC:"ATF6", frag("?")) reg path(MESH:"Unfolded Protein Response")
+
+SET Evidence = "Conversely, when this compensatory mechanism is overwhelmed,
+the pro-apoptotic branch of the UPR is triggered
+by activated PERK; initially it dampens overall protein
+translation by phosphorylating the eukaryotic initiation
+factor 2alpha (eIF2alpha) and decreasing the total amount of secreted
+proteins in the ER lumen."
+#EIF2S1 : eIF2alpha
+path(MESH:"Unfolded Protein Response") -> act(p(HGNC:"EIF2AK3"))
+p(HGNC:"EIF2AK3") -> p(HGNC:"EIF2S1", pmod(Ph))
+p(HGNC:"EIF2S1", pmod(Ph)) -| path(MESH:"Protein Biosynthesis")
+SET MeSHAnatomy = "Endoplasmic Reticulum"
+p(HGNC:"EIF2S1", pmod(Ph)) -| bp(GO:"protein secretion")
+UNSET MeSHAnatomy
+
+SET Evidence = "However, phosphorylated
+PERK also promotes the translation of some UPR-related
+genes including ATF4, inducing the activation of C/EBP
+homologous protein (CHOP)."
+#DDIT3 : CHOP
+p(HGNC:"EIF2AK3", pmod(Ph)) -> p(HGNC:"ATF4")
+p(HGNC:"ATF4") -> act(p(HGNC:"DDIT3"))
+
+SET Evidence = "The later acts as a transcription
+factor that provokes cell death by directly inhibiting
+the expression of anti-apoptotic factor, Bcl-2.[9]""
+#the later : CHOP
+p(HGNC:"DDIT3") -| act(p(HGNC:"BCL2"))
+p(HGNC:"BCL2") -| path(MESH:"Apoptosis")
+p(HGNC:"DDIT3") -> path(MESH:"Apoptosis")
+
+######???
+SET Evidence = "IRE1alpha has a reactive kinase region projecting in the cytosol
+and a luminal endoribonuclease domain; once activated
+by oligomerization and phosphorylation it plays a crucial
+role in protein quality control."
+
+SET Evidence = "Indeed, the endoribonuclease
+cuts out a 26 bp intron from the pre-mRNA of XBP-1
+resulting in the formation of a dynamic transcription
+factor."
+#endoribonuclease : IRE1alpha
+p(HGNC:"ERN1") -> p(HGNC:"XBP1", frag("?"))
+
+SET Evidence = "The latter has such major effects as up-regulation
+of ER chaperone genes and the modulation of ERAD.[10]"
+#later : XBP-1 fragment
+p(HGNC:"XBP1", frag("?")) reg bp(GO:"ERAD pathway")
+
+SET Evidence = "Thus, XBP-1 enhances the protein folding capacity of the
+ER and accelerates degradation of misfolded proteins, ensuring
+cell survival."
+SET MeSHAnatomy = "Endoplasmic Reticulum"
+p(HGNC:"XBP1") -> bp(GO:"positive regulation of protein folding")
+UNSET MeSHAnatomy
+p(HGNC:"XBP1") -> deg(p(MESH:"Mutant Proteins"))
+p(HGNC:"XBP1") -> path(MESH:"Cell Survival")
+
+SET Evidence = "GADD34
+(growth arrest and DNA damage-inducible protein), also
+referred to as PPP1R15A (protein phosphatase 1 regulatory
+subunit 15A) acts as a phosphatase for p-IF2alpha with
+the capacity to re-establish the translation of new proteins."
+p(HGNC:"PPP1R15A") -| p(HGNC:"EIF2S1", pmod(Ph))
+p(HGNC:"EIF2S1", pmod(Ph)) -| path(MESH:"Protein Biosynthesis")
+p(HGNC:"PPP1R15A") -> path(MESH:"Protein Biosynthesis")
+
+SET Evidence = "The activation of ATF6 is different from IRE1 and
+PERK, as initially its translocation takes place from the ER
+to the Golgi apparatus."
+act(p(HGNC:"ATF6")) -> tloc(p(HGNC:"ATF6"), fromLoc(GO:"endoplasmic reticulum"), toLoc(GO:"Golgi apparatus"))
+
+SET Evidence = "ATF6 akin to IRE1 induces gene expression of ER chaperons,
+ERAD constituents and XBP-1.[15]"
+p(HGNC:"ATF6") -- bp(GO:"ERAD pathway")
+p(HGNC:"ATF6") -> p(HGNC:"XBP1")
+
+#####???? procollagen formation : addition into HBP
+SET Evidence = "Experiments demonstrated that the deficiency of ATF6
+caused a plummeting of BiP and other ER chaperone levels,
+retarded the folding and secretion of pro-collagen, and
+gravely impaired the formation of vital organs.[16]"
+#HSPA5 : BiP
+p(HGNC:"ATF6") -> p(HGNC:"HSPA5")
+p(HGNC:"ATF6") -> path(MESH:"Organogenesis")
+
+SET Species = "6239"
+
+SET Evidence = "In C. elegans,
+the activating transcription factor associated with stress-1
+(ATFS-1) is a key regulator of UPR (mt) responsible for instigating
+nuclear transcription of mitochondrial chaperones
+and protective proteins.[20]"
+#C. elegans : Caenorhabditis elegans
+p(NCBIGENE:"179922") reg bp(GO:"mitochondrial unfolded protein response")
+
+SET Evidence = "ATFS-1 aids in cross-talk
+between mitochondria and nucleus; it is typically conveyed
+to the former, but under conditions of cellular stress the mitochondrial
+import mechanism is malfunctioning which
+increases ATFS-1 in the nucleus, causing expression of
+UPR (mt)-linked genes."
+SET MeSHAnatomy = "Mitochondria"
+bp(GO:"cellular response to stress") -| bp(GO:"protein transport")
+bp(GO:"protein transport") -> p(HGNC:"ATF6")
+UNSET MeSHAnatomy
+bp(GO:"cellular response to stress") -> p(HGNC:"ATF6", loc(GO:"nucleus"))
+SET MeSHAnatomy = "Cell Nucleus"
+p(HGNC:"ATF6") -> bp(GO:"mitochondrial unfolded protein response")
+UNSET MeSHAnatomy
+
+UNSET Species
+
+#UPR in AD
+SET MeSHDisease = "Alzheimer Disease"
+
+SET Evidence = "In the latter scenario c-jun N-terminal
+kinase (JNK) pathway is activated and leads to amplified
+assembly of beta amyloid that exacerbates ER stress."
+#later senario: IRE1/XBP1 in C. elegans
+SET Species = "6239"
+composite(p(HGNC:"XBP1"), p(HGNC:"ERN1")) -> bp(GO:"JNK cascade")
+bp(GO:"JNK cascade")-> p(HBP:"amyloid-beta aggregates")
+p(HBP:"amyloid-beta aggregates") -> path(MESH:"Endoplasmic Reticulum Stress")
+UNSET Species
+
+SET Evidence = "Contrarily, in an AD mouse model, dampening of PERK activity
+decreases the p-eIF2alpha levels and ameliorates memory
+deficits."
+SET Species = "10090"
+p(HGNC:"EIF2AK3") -> p(HGNC:"EIF2S1", pmod(Ph))
+p(HGNC:"EIF2S1", pmod(Ph)) -> path(MESH:"Memory Disorders")
+UNSET Species
+
+UNSET MeSHDisease
+
+SET Evidence = "In mouse models of prion diseases, UPR and the PERK
+pathway are highly stimulated and a persistent rise in
+phospho-eIF2alpha decreases the production of synaptic proteins
+leading to the loss of neurons."
+SET Species = "10090"
+path(MESH:"Prion Diseases") -> p(HGNC:"EIF2AK3")
+path(MESH:"Prion Diseases") -> path(MESH:"Unfolded Protein Response")
+p(HGNC:"EIF2S1", pmod(Ph)) -> path(MESH:"Nerve Degeneration")
+UNSET Species
+
+SET Evidence = "Contrarily, decreased
+activity of the PERK or increased expression of the
+GADD34 phosphatase reduces the level of p-eIF2alpha, resulting
+in improved synaptic functioning."
+#PPP1R15A : GADD34
+p(HGNC:"EIF2AK3") -> p(HGNC:"EIF2S1", pmod(Ph))
+p(HGNC:"EIF2AK3") -| bp(GO:"synaptic signaling")
+p(HGNC:"PPP1R15A") -| bp(GO:"synaptic signaling")
+
+SET Evidence = "Moreover, a lack of XBP1 increased autophagy via the forkhead
+box 01 (FOXO1) transcription factor, enhancing the
+catabolism of misfolded superoxide dismutase 1 (SOD1).[35]"
+p(HGNC:"XBP1") -| p(HGNC:"FOXO1")
+p(HGNC:"FOXO1") -> path(MESH:"Autophagy")
+p(HGNC:"XBP1") -| path(MESH:"Autophagy")
+p(HGNC:"XBP1") -> deg(p(HGNC:"SOD1", pmod(HBP:"misfolded")))
+
+SET Evidence = "Additionally, when
+salubrinal (an inhibitor of PPP1R15A/GADD34 phosphatase)
+was given to genetically engineered mice over expressing
+misfolded alpha-synuclein , p-eIF2alpha levels were increased,
+which was neuro-protective, signifying that the
+PERK pathway contributed to dopamine neuron degeneration.
+[37]."
+SET Species = "10090"
+a(CHEBI:"salubrinal") -| p(HGNC:"PPP1R15A")
+composite(a(CHEBI:"salubrinal"), p(HGNC:"SNCA", pmod(HBP:"misfolded"))) -> p(HGNC:"EIF2S1")
+p(HGNC:"EIF2S1") isA a(MESH:"Neuroprotective Agents")
+p(HGNC:"EIF2AK3") -- bp(GO:"negative regulation of dopamine receptor signaling pathway")
+UNSET Species
+
+SET Evidence = "Furthermore, XBP1 may also
+be implicated in crucial neuronal functions, including
+the formation of memories and new learning."
+p(HGNC:"XBP1") -- bp(GO:"learning or memory")
+
+SET Evidence = "Brain-derived
+neurotrophic factor (BDNF) is important in the vital
+processes regulating neuronal plasticity and long-term potentiation
+(LTP), and varying expression of XBP1 is incriminated
+in this function."
+p(HGNC:"BDNF") reg path(MESH:"Neuronal Plasticity")
+p(HGNC:"BDNF") reg path(MESH:"Long-Term Potentiation")
+p(HGNC:"BDNF") -- act(p(HGNC:"XBP1"))
+
+SET Evidence = "LTP is also influenced by the
+phosphorylation state of eIF2alpha which is controlled by
+PERK."
+p(HGNC:"EIF2S1", pmod(Ph)) -- path(MESH:"Long-Term Potentiation")
+
+SET Evidence = "Amytrophic lateral sclerosis, a catastrophic disease, is
+characterized by the degeneration of alpha-motoneurons in the
+spinal cord and corticospinal motor neurons (CSMNs) in
+the cerebral cortex."
+SET MeSHAnatomy = {"Spinal Cord", "Cerebral Cortex"}
+path(MESH:"Amyotrophic Lateral Sclerosis") -> deg(p(MESH:"Motor Neurons"))
+UNSET MeSHAnatomy
+
+SET Evidence = "Experiments in transgenic mice have
+shown that the ubiquitin C-terminal hydrolase-L1 in the
+CSMNs is particularly vulnerable to ER stress which is induced
+by the deletion of the ALS-linked gene, Alsin."
+SET Species = "10090"
+p(HGNC:"UCHL1") -- path(MESH:"Endoplasmic Reticulum Stress")
+p(NCBIGENE:"74018", frag("?")) -> path(MESH:"Endoplasmic Reticulum Stress")
+UNSET Species
+
+SET Evidence = "In this vein, it
+has been demonstrated that the chemical guanabenz is capable
+of prolonging eIF2alpha phosphorylation and buttressing
+proteostasis."
+a(CHEBI:"Guanabenz") -> p(HGNC:"EIF2S1", pmod(Ph))
+a(CHEBI:"Guanabenz") -- path(MESH:"Proteostasis")
+
+SET Evidence = "Further testing was instrumental
+in the recognition of a novel compound,
+Sephin1, which selectively inhibited a holophosphatase capable
+of modulating the PERK/p-elf2 pathway and reinstated
+proteostasis."
+a(PUBCHEM:9561611) -| p(HGNC:"EIF2AK3")
+a(PUBCHEM:9561611) -> path(MESH:"Proteostasis")
+
+SET Evidence = "In experimental conditions in the altered
+SOD1-ALS mouse model, sephin1 showed neuro-
+protective properties, improved behavior, and had no
+significant adverse effects."
+#mouse model : SOD1-Als
+SET Species = "10090"
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+a(PUBCHEM:9561611) -- a(MESH:"Neuroprotective Agents")
+a(PUBCHEM:9561611) -> path(MESH:"Behavior and Behavior Mechanisms")
+UNSET MeSHDisease
+UNSET Species
+
+SET Evidence = "Investigations into prototypes of HD revealed that the
+silencing of XBP1 was neuro-protective by decreasing the
+aggregation of the misshapen Huntingtin protein (Htt) and
+promoting the existence of neurons."
+p(HGNC:"XBP1") -> p(HGNC:"HTT", pmod(HBP:"misfolded"))
+p(HGNC:"XBP1") -> a(MESH:"Protein Aggregates")
+p(HGNC:"XBP1") -> bp(GO:"neuron death")
+
+SET Evidence = "Similar to ALS, in HD,
+a lack of XBP1 increased ER related compensatory mechanisms
+like autophagy and up-regulated FOXO1 expression."
+SET MeSHDisease = {"Huntington Disease", "Amyotrophic Lateral Sclerosis"}
+p(HGNC:"XBP1") -| bp(GO:"autophagy")
+p(HGNC:"XBP1") -| p(HGNC:"FOXO1")
+UNSET MeSHDisease
+
+SET Evidence = "Moreover, it has been revealed lately that the ubiquitin-
+specific protease 14 was instrumental in the catabolism
+of misfolded Htt by recruiting IRE1alpha and modulating
+the proteasome function, further adding to the complexity
+of HD pathology.[43]"
+#USP14 : ubiquitin-specific protease 14
+p(HGNC:"USP14") -> deg(p(HGNC:"HTT", pmod(HBP:"misfolded")))
+p(HGNC:"USP14") -> p(HGNC:"ERN1")
+p(HGNC:"ERN1") -> deg(p(HGNC:"HTT", pmod(HBP:"misfolded")))
+
+SET Evidence = "Studies employing BD patient-derived blood cells revealed
+that the response to ER stress activating compounds like
+tunicamycin or thapsigargin was abnormal compared with
+controls suggesting compromised cellular reaction to
+stress."
+a(CHEBI:"tunicamycin") -> path(MESH:"Endoplasmic Reticulum Stress")
+a(CHEBI:"thapsigargin") -> path(MESH:"Endoplasmic Reticulum Stress")
+
+SET Evidence = "MAM residing chaperone, the Sig-1R is a key mediator and plays
+an important role under stressful conditions by modulating
+inter-organelle Ca++ signaling."
+#Sig-1R : SIGMAR1
+bp(GO:"cellular response to stress") -- p(HGNC:"SIGMAR1")
+p(HGNC:"SIGMAR1") reg bp(GO:"calcium-mediated signaling")
+
+SET Evidence = "Thus, this diverse regulator modulates bioenergetics, redox balance,
+UPR, and cytokine signaling."
+#regulator - Sig-1R
+p(HGNC:"SIGMAR1") reg path(MESH:"Energy Metabolism")
+p(HGNC:"SIGMAR1") reg bp(GO:"cell redox homeostasis")
+p(HGNC:"SIGMAR1") reg path(MESH:"Unfolded Protein Response")
+p(HGNC:"SIGMAR1") reg bp(GO:"cytokine-mediated signaling pathway")
+
+#first statement annostation???
+SET Evidence = "A mutation caused by a single nucleotide
+polymorphism (SNP; −116C/G; rs2269577) in the promoter
+region of the XBP1 gene deregulated feedback loop
+in the ER response and was found to be linked to BD.[52]"
+p(DBSNP:"rs2269577") -- path(MESH:"Bipolar Disorder")
