@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/209a3048003c8d92394e6b64778447bd996a21e6/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -85,6 +85,7 @@ a N-methyl-D-aspartate (NMDA) receptor antagonist (memantine 19 ). a N-methyl-D-
 have  had  limited  effect  in  improving  the  cognitive  function  of  AD  patients  and  do  not  slow  the
 progression of the disease. Clinical studies have shown that these agents temporarily stabilize cognitive
 impairment and help to maintain global function, delaying the need for patient palliative care by only a few month"
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 #improved in contrast to disease
 a(CHEBI:tacrine) -> bp(GO:cognition)
@@ -98,117 +99,169 @@ a(CHEBI:donepezil) -| act(p(FPLX:Cholinesterase))
 a(CHEBI:rivastigmine) -| act(p(FPLX:Cholinesterase))
 a(CHEBI:galanthamine) -| act(p(FPLX:Cholinesterase))
 a(CHEBI:memantine) -| act(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"))
+UNSET Confidence
 
 SET Evidence = "Genetics have a role to play within AD; patients with a mutation in Amyloid Precursor Protein
 (APP), which results in overproduction of Aβ, will experience early onset AD. 36  Patients with a mutation
 in Apolipoprotein E4 (APOE4), which affects the clearance of Aβ, will experience late onset AD."
+SET Confidence = "Medium"
 g(HGNC:APP, var("?")) -> path(MESH:"Alzheimer Disease")
-g(HGNC:APP, var("?")) -> p(HGNC:MAPT)
-g(HBP:"APOE e4") -> path(MESH:"Alzheimer Disease")
-g(HBP:"APOE e4") -| deg(p(HGNC:APP))
+g(HGNC:APP, var("?")) -> bp(GO:"amyloid-beta formation")
+g(CONSO:"APOE e4") -> path(MESH:"Alzheimer Disease")
+g(CONSO:"APOE e4") -> bp(GO:"amyloid-beta clearance")
+UNSET Confidence
 
 SET Evidence = " In
 addition, several other gene mutations have been discovered such as Presenilin-1 and Presenilin-2
 mutations, which increase the risk for developing AD. 38  "
+SET Confidence = "High"
 g(HGNC:PSEN1, var("?")) -> path(MESH:"Alzheimer Disease")
 g(HGNC:PSEN2, var("?")) -> path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "The formation of Aβ starts by a transmembrane protein,
 APP (695 to 770 amino acids in length), which is sequentially cleaved by the aspartate proteases β-
 and  γ-secretase,  that  leads  to  the  formation  of  Aβ  peptide  (1-42)  and  a  degenerated  C-terminus. "
-p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta polypeptide 42"), p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")))
-p(FPLX:"Gamma_secretase") -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta polypeptide 42"), p(HBP:"APP C-terminally truncated carboxyl-terminal fragments")))
+#BACE1 : Beta - secretase
+SET Confidence = "High"
+p(HGNC:BACE1) -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta polypeptide 42"), p(CONSO:"APP C-terminally truncated carboxyl-terminal fragments")))
+p(FPLX:"Gamma_secretase") -> rxn(reactants(p(HGNC:APP)),products(a(CHEBI:"amyloid-beta polypeptide 42"), p(CONSO:"APP C-terminally truncated carboxyl-terminal fragments")))
+UNSET Confidence
 
 SET Evidence = " Mitochondrial  dysfunction  is  the  hallmark  of  Aβ-induced
 toxicity. 50-52  "
-a(HBP:"amyloid-beta aggregates") -> path(HBP:"mitochondrial dysfunction")
+SET Confidence = "High"
+a(CONSO:"amyloid-beta aggregates") -> path(CONSO:"mitochondrial dysfunction")
+UNSET Confidence
 
 SET Evidence = "Accumulation of Aβ has also been associated with a decrease in the activity of
 cytochrome c oxidase, the terminal enzyme in the electron transport chain. "
-a(HBP:"amyloid-beta aggregates") -| act(p(FPLX:COX))
+SET Confidence = "High"
+a(CONSO:"amyloid-beta aggregates") -| act(p(FPLX:COX))
+UNSET Confidence
 
 SET Evidence = " Binding of Aβ to ABAD
 has been implicated in the development of AD, recent studies detected elevated ABAD levels in the
 regions of the hippocampus and cerebral cortex which are generally affected by AD pathology"
+#ABAD : HSD17B10
+SET Confidence = "High"
 complex(p(HGNC:HSD17B10),p(HGNC:APP)) -> path(MESH:"Alzheimer Disease")
 SET MeSHAnatomy = {"Cerebral Cortex","Hippocampus"}
 path(MESH:"Alzheimer Disease") pos p(HGNC:HSD17B10)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The  enzyme  is  also  required  for  the
 catabolism of isoleucine, in which it catalyzes the conversion of 2-methyl-3-hydroxybutyryl-coA (MHB)
 to 2-methyl-acetoacetyl-coA. 72  "
+#The enxyme : ABAD
+SET Confidence = "High"
 act(p(HGNC:HSD17B10)) -> rxn(reactants(a(PUBCHEM:"440326")),products(a(PUBCHEM:"193425")))
+UNSET Confidence
 
 SET Evidence = "The enzyme catalyzes the third step of mitochondrial
 oxidation, converting  L -3-hydroxyacyl-CoA in the presence of NAD +  to 3-ketoacyl-CoA, NADH, and H + ."
+SET Confidence = "Medium"
+SET CellStructure = "Mitochondria"
 act(p(HGNC:HSD17B10)) -> rxn(reactants(a(PUBCHEM:"9543037"),a(CHEBI:"NAD(+)")),products(a(CHEBI:"3-oxo-fatty acyl-CoA(4-)"),a(CHEBI:NADH),a(PUBCHEM:"1038")))
+UNSET CellStructure
+UNSET Confidence
 
 SET Evidence ="The  oxidation  of  3-adiol  to  5-dihydrotestosterone  in
 androgen  metabolism  is  catalyzed  by  ABAD  and  it  converts  17β-estradiol  to  estrone  in  estrogen
 metabolism."
+#3-alpha-adiol : 3alpha-androstanediol
+SET Confidence = "High"
 act(p(HGNC:HSD17B10)) -> rxn(reactants(a(PUBCHEM:"15818")),products(a(PUBCHEM:"10635")))
 act(p(HGNC:HSD17B10)) -> rxn(reactants(a(PUBCHEM:"5757")),products(a(PUBCHEM:"5870")))
+UNSET Confidence
 
 SET Evidence = "Moreover,  function  of  ABAD  has  also  been  associated  with  GABA A   receptors,  as  it  catalyzes  the
 oxidation of the neurosteroids allopregnanolone and allotetrahydrodeoxycorticosterone, both of which
 are positive modulators of GABA A  receptors in the brain."
-act(p(HGNC:HSD17B10)) -- p(FPLX:GABR)
+SET Confidence = "Medium"
+act(p(HGNC:HSD17B10)) -- p(HGNCGENEFAMILY:"Gamma-aminobutyric acid type A receptor subunits")
+a(PUBCHEM:101790) pos act(p(HGNCGENEFAMILY:"Gamma-aminobutyric acid type A receptor subunits"))
+a(PUBCHEM:92786) pos act(p(HGNCGENEFAMILY:"Gamma-aminobutyric acid type A receptor subunits"))
+UNSET Confidence
 
 SET Evidence = " For example, estradiol
 can reduce the generation of Aβ by altering the metabolism of APP and disrupting it’s trafficking."
-a(PUBCHEM:"5757") -| a(HBP:"amyloid-beta aggregates")
+SET Confidence = "High"
+a(PUBCHEM:"5757") -| a(CONSO:"amyloid-beta aggregates")
+UNSET Confidence
 
 SET Evidence = "Moreover,  estradiol  has  been  shown  to  inhibit  tau  hyperphosphorylation  and  can  also  modulate
 glycogen  synthase  kinase-3β  (GSK-3β)  activity,  a  kinase  that  is  involved  in  tau  phosphorylation.
 Estradiol  deactivates  GSK-3β  by  inducing  its  phosphorylation,  thereafter  reducing  tau
 phosphorylation. "
-a(PUBCHEM:"5757") -| p(HGNC:MAPT, pmod(HBP:hyperphosphorylation))
+SET Confidence = "High"
+a(PUBCHEM:"5757") -| p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 a(PUBCHEM:"5757") -| act(p(HGNC:GSK3B))
 a(PUBCHEM:"5757") -> p(HGNC:GSK3B, pmod(Ph))
 act(p(HGNC:GSK3B)) -> p(HGNC:MAPT, pmod(Ph))
+UNSET Confidence
 
 SET Evidence = " In mechanistic studies, it was proposed that methylene blue inhibits the
 Aβ-ABAD interaction and decreases mitochondrial dysfunction by decreasing the expression of ABAD
 levels, in addition to decreasing Aβ levels."
+SET Confidence = "High"
 a(CHEBI:"methylene blue") -| complex(p(HGNC:HSD17B10),p(HGNC:APP))
-a(CHEBI:"methylene blue") -| path(HBP:"mitochondrial dysfunction")
+a(CHEBI:"methylene blue") -| path(CONSO:"mitochondrial dysfunction")
 a(CHEBI:"methylene blue") -| p(HGNC:HSD17B10)
-a(CHEBI:"methylene blue") -| a(HBP:"amyloid-beta aggregates")
+a(CHEBI:"methylene blue") -| a(CONSO:"amyloid-beta aggregates")
+UNSET Confidence
 
 SET Evidence = " Neurons from these animals exhibited increased oxidative stress, increased
 generation of ROS, DNA fragmentation, neuronal apoptosis, and impairment in learning, compared to
 single-transgenic mAPP mice."
+#which animal?
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Neurons"
 complex(p(HGNC:HSD17B10),p(HGNC:APP)) -> bp(GO:"response to oxidative stress")
 complex(p(HGNC:HSD17B10),p(HGNC:APP)) -> a(CHEBI:"reactive oxygen species")
 complex(p(HGNC:HSD17B10),p(HGNC:APP)) -> bp(GO:"apoptotic DNA fragmentation")
 complex(p(HGNC:HSD17B10),p(HGNC:APP)) -> bp(GO:"neuron death")
 complex(p(HGNC:HSD17B10),p(HGNC:APP)) -| bp(GO:learning)
+UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In another study, neurons from Tg mAPP/ABAD mice were shown to
 exhibit decreased activity of cyclooxygenase (COX) enzyme, spontaneous release of ROS, loss of
 mitochondrial membrane potential, a decrease in ATP production and release of cytochrome c from
 mitochondria with subsequent induction of caspase-3-like activity followed by apoptotic cell death."
+#mice model : Tg mAPP/ABAD
+SET Confidence = "Medium"
+SET Species = "10090"
 complex(p(HGNC:HSD17B10),p(HGNC:APP)) -| act(p(FPLX:COX))
 complex(p(HGNC:HSD17B10),p(HGNC:APP)) -> a(CHEBI:"reactive oxygen species")
 complex(p(HGNC:HSD17B10),p(HGNC:APP)) -| bp(GO:"regulation of mitochondrial membrane potential")
 complex(p(HGNC:HSD17B10),p(HGNC:APP)) -| a(CHEBI:ATP)
+SET CellStructure = "Mitochondria"
+complex(p(HGNC:HSD17B10),p(HGNC:APP)) -| sec(a(PUBCHEM:16057918))
 complex(p(HGNC:HSD17B10),p(HGNC:APP)) -> act(p(HGNC:CASP3))
 complex(p(HGNC:HSD17B10),p(HGNC:APP)) -> bp(GO:"apoptotic process")
+UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "However, it is well established that Aβ binding to ABAD induces a conformational change in the enzyme
 that  prevents  the  binding  of  NAD + ,  preventing  the  enzyme  performing  its  role  in  the  oxidation  of
 substrates, leading to changes in mitochondrial membrane permeability, which in turn has deleterious
 effects  on  mitochondrial  enzymes."
+SET Confidence = "High"
 complex(p(HGNC:HSD17B10),p(HGNC:APP)) -| complex(p(HGNC:HSD17B10),a(CHEBI:"NAD(+)"))
 complex(p(HGNC:HSD17B10),p(HGNC:APP)) -| act(p(HGNC:HSD17B10))
+UNSET Confidence
 
 SET Evidence = "  It  enhances  the  expression  of  anti-
 apoptotic proteins, such as Bcl-2 and Bcl-xL, and down-regulates the expression of Bim, a pro-apoptotic
 factor, preventing programmed cell death. 90, 100  Estradiol also activates antioxidant systems to protect
 neuronal cells from apoptosis by upregulating the expression of manganese superoxide dismutase and
 glutathione peroxidase. 101  "
+# It: Estradiol
+#Bcl-xl : BCL2L1
+#Bim: BCL2L11
+SET Confidence = "High"
 a(PUBCHEM:"5757") -> p(HGNC:BCL2)
 a(PUBCHEM:"5757") -> p(HGNC:BCL2L1)
 a(PUBCHEM:"5757") -| p(HGNC:BCL2L11)
@@ -217,74 +270,105 @@ p(HGNC:BCL2L1) -| bp(GO:"apoptotic process")
 p(HGNC:BCL2L11) -> bp(GO:"apoptotic process")
 a(PUBCHEM:"5757") -> p(HGNC:SOD2)
 a(PUBCHEM:"5757") -> p(FPLX:GPX)
+UNSET Confidence
 
 SET Evidence = "The first, peroxiredoxin-2 (Prdx-2), functions as an antioxidant and has been
 shown to  be inactivated  in  AD."
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") neg act(p(HGNC:PRDX2))
+UNSET Confidence
 
 SET Evidence = "In  transgenic  AD  mice  and  the  post-mortem  human  brain  of  AD
 patients, the expression of Prdx-2 is shown to be elevated, due to the attempted protection of neurons
 from Aβ-induced toxicity."
+SET Confidence = "Medium"
+SET Species = {"9606", "10090"}
 path(MESH:"Alzheimer Disease") pos p(HGNC:PRDX2)
+UNSET Species
+UNSET Confidence
 
 SET Evidence = " Inactivation of Prdx-2 is controlled by a kinase that has been shown to be
 elevated in AD, CDK5, 107, 108  which phosphorylates Thr 89  and results in deactivation of Prdx-2."
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") pos p(HGNC:CDK5)
 p(HGNC:CDK5) -> p(HGNC:PRDX2, pmod(Ph,Thr,89))
 p(HGNC:PRDX2, pmod(Ph,Thr,89)) -| act(p(HGNC:PRDX2))
+UNSET Confidence
 
 SET Evidence = "The second ABAD-related protein, endophilin-1 (Ep-1), is a member of a family of proteins that
 are responsible for synaptic vesicle endocytosis, mitochondrial function, and receptor trafficking. 110  This
 family of proteins has been implicated in a number of neurodegenerative diseases, 111  including in AD
 where it is overexpressed"
+#Endophilin 1 : SH3GL2
+SET Confidence = "High"
 p(HGNC:SH3GL2) -> bp(GO:"synaptic vesicle endocytosis")
 path(MESH:"Alzheimer Disease") pos p(HGNC:SH3GL2)
+UNSET Confidence
 
 SET Evidence = " This results in the activation of mitogen-activated
 protein kinase kinase kinase 1 (MAP3K1), 114  which then activates a cascade of kinases that eventually
 leads to the translocation of JNK to the nucleus or other target sites to phosphorylate downstream
 effectors,  thereby  affecting  significant  aspects  of  neuronal  function  such  as  neurite  outgrowth,
 mitochondrial  function,  synaptic  plasticity  and  apoptosis. 1"
+#This : Endophilin - 1
+SET Confidence = "Medium"
 p(HGNC:SH3GL2) -> act(p(HGNC:MAP3K1))
+act(p(HGNC:MAP3K1)) -> bp(GO:"JNK cascade")
 p(HGNC:SH3GL2) -- bp(GO:"neuron projection development")
 p(HGNC:SH3GL2) -- bp(GO:"regulation of synaptic plasticity")
 p(HGNC:SH3GL2) -- bp(GO:"neuron death")
+UNSET Confidence
 
 SET Evidence = "A potent ABAD inhibitor,
 AG18051 (1), containing a pyrazolo[3,4-d] pyrimidine-4(1H)-thione backbone (IC 50  = 92 nM) has been
 reported. "
 #22174920
-a(HBP:"AG18051") -| act(p(HGNC:HSD17B10))
+#Comment ?
+SET Confidence = "High"
+a(CONSO:"AG18051") -| act(p(HGNC:HSD17B10))
+UNSET Confidence
 
 SET Evidence = " Moreover, it has been shown
 to ameliorate Aβ-induced toxicity at the cellular level. 7"
-a(HBP:"AG18051") -| act(a(HBP:"amyloid-beta aggregates"))
+#it : AG18051
+SET Confidence = "High"
+a(CONSO:"AG18051") -| act(a(CONSO:"amyloid-beta aggregates"))
+UNSET Confidence
 
 SET Evidence = "Interestingly, during the search for inhibitors of 17β-HSD isoforms for the treatment of estrogen-
 related diseases, 127  Ayan et.al identified the steroidal compound RM-532-46 (8) as a reversible ABAD
 inhibitor (IC 50  = 0.55 M)."
 #22674910
-a(HBP:"RM-532-46") -| act(p(HGNC:HSD17B10))
+SET Confidence = "High"
+a(CONSO:"RM-532-46") -| act(p(HGNC:HSD17B10))
+UNSET Confidence
 
 SET Evidence = "Frentizole,  an  FDA  approved  immunosuppressant  drug,  was  identified  as  an  Aβ-ABAD
 interaction  inhibitor  (IC 50  =  200  M)  using  an  ELISA-based  screening  assay."
+SET Confidence = "High"
 a(PUBCHEM:"33334") -| complex(p(HGNC:HSD17B10),p(HGNC:APP))
+UNSET Confidence
 
 SET Evidence = " Isoforms  of  CK1  are  responsible  for  tau
 phosphorylation. 129   The  enzyme  can  modulate  the  activity  of  γ-secretase  and  consequently  the
 production of Aβ."
+SET Confidence = "Medium"
 p(HGNC:CSNK1A1) -> p(HGNC:MAPT, pmod(Ph))
 p(HGNC:CSNK1A1) reg act(p(FPLX:"Gamma_secretase"))
-p(HGNC:CSNK1A1) -- a(HBP:"amyloid-beta aggregates")
+p(HGNC:CSNK1A1) -> bp(GO:"amyloid-beta formation")
+UNSET Confidence
 
 SET Evidence = "Screening previously synthesized frentizole derivatives for their efficiency to inhibit
 CK1 activity as well as ABAD, identified compound 13 which possessed an ABAD IC 50  = 1.67 µM, the
 most  potent  inhibitor  of  this  chemotype  identified  to  date."
+SET Confidence = "High"
 a(PUBCHEM:"33334") -| act(p(HGNC:CSNK1A1))
+UNSET Confidence
 
 SET Evidence = "The frentizole scaffold has been combined with the known monoamine oxidase inhibitor (MAOI)
 ladostigil to identify a molecule that has a dual effect; inhibiting both ABAD and MAO. A library of
 synthesized derivatives demonstrated that the most potent inhibitor for MAO (IC 50  = 6.34 µM) lacked
 ABAD inhibition activity."
-a(PUBCHEM:"208907") -| act(p(HGNC:MAOA))
-a(PUBCHEM:"208907") cnc act(p(HGNC:CSNK1A1))
+SET Confidence = "Medium"
+composite(a(PUBCHEM:"208907"),a(PUBCHEM:"33334")) -| act(p(HGNC:MAOA))
+UNSET Confidence

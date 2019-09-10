@@ -28,7 +28,7 @@ DEFINE NAMESPACE ECCODE   AS URL "https://raw.githubusercontent.com/pharmacome/t
 DEFINE NAMESPACE NCBIGENE AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
 DEFINE NAMESPACE GO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
 DEFINE NAMESPACE HGNC     AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
-DEFINE NAMESPACE HBP      AS URL "https://raw.githubusercontent.com/pharmacome/terminology/785431732a26d6809b4162d98b95687d16404e63/export/hbp.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso.belns"
 
 # Namespaces hosted on https://github.com/sorgerlab/famplex
 # ---------------------------------------------------------
@@ -168,7 +168,7 @@ et al., 2003); and rapamycin, an inhibitor of the mammalian target of the rapamy
 with many downstream effects (Li et al., 2014)"
 SET Confidence = "High"
 a(CHEBI:staurosporine) -> bp(GO:"apoptotic process")
-a(CHEBI:rotenone) -> bp(HBP:HBP00037)
+a(CHEBI:rotenone) -> path(CONSO:CONSO00037)
 a(CHEBI:sirolimus) -| bp(GO:"TOR signaling")
 
 SET Evidence = "When measuring cell viability using the MTT assay, we found
@@ -257,14 +257,14 @@ a(CHEBI:"2-(2-amino-3-methoxyphenyl)chromen-4-one") causesNoChange p(HGNC:MMP2)
 SET Evidence = "As expected, the 4R/3R tau ratio is greatly increased in MAPT IVS10+16
 neurons (Figure S3F) but not in GRN mutant neurons (Figure S3G)"
 SET Confidence = "Medium"
-g(DBSNP:rs63751011) -> a(HBP:HBP00045)
-g(DBSNP:rs63751011) -| a(HBP:HBP00044)
+g(DBSNP:rs63751011) -> p(CONSO:CONSO00045)
+g(DBSNP:rs63751011) -| p(CONSO:CONSO00044)
 
 SET Evidence = "Interestingly, this ratio is also increased, but to a
 lesser extent, in tau-A152T neurons (Figure S3F)"
 SET Confidence = "Medium"
-p(HGNC:MAPT,var("p.Ala152Thr")) -> a(HBP:HBP00045)
-p(HGNC:MAPT,var("p.Ala152Thr")) -| a(HBP:HBP00044)
+p(HGNC:MAPT,var("p.Ala152Thr")) -> p(CONSO:CONSO00045)
+p(HGNC:MAPT,var("p.Ala152Thr")) -| p(CONSO:CONSO00044)
 
 UNSET MeSHAnatomy
 
@@ -276,17 +276,17 @@ SET CellLine = "HEK293"
 SET Evidence = "However, the secreted MMP-9 level and activity in conditioned medium
 was significantly higher in cultures of cells expressing tau-A152T than WT tau (Figure 4E)"
 SET Confidence = "High"
-p(HBP:HBP00045,var("p.Ala152Thr")) -> sec(p(HGNC:MMP9))
-p(HBP:HBP00045,var("p.Ala152Thr")) -> act(p(HGNC:MMP9))
+p(CONSO:CONSO00045,var("p.Ala152Thr")) -> sec(p(HGNC:MMP9))
+p(CONSO:CONSO00045,var("p.Ala152Thr")) -> act(p(HGNC:MMP9))
 
 SET Evidence = "The MMP-9 mRNA level was also higher in cells expressing tau-A152T (Figure 4F)"
 SET Confidence = "High"
-p(HBP:HBP00045,var("p.Ala152Thr")) -> r(HGNC:MMP9)
+p(CONSO:CONSO00045,var("p.Ala152Thr")) -> r(HGNC:MMP9)
 
 SET Evidence = "Correspondingly, the level of p-ERK was also elevated in
 HEK293 cells expressing tau-A152T (Figure 4E)"
 SET Confidence = "Medium"
-p(HBP:HBP00045,var("p.Ala152Thr")) -> p(FPLX:ERK,pmod(Ph))
+p(CONSO:CONSO00045,var("p.Ala152Thr")) -> p(FPLX:ERK,pmod(Ph))
 
 # WT Tau = 3R tau
 # mutant = 3R tau-A152T
@@ -294,13 +294,13 @@ p(HBP:HBP00045,var("p.Ala152Thr")) -> p(FPLX:ERK,pmod(Ph))
 SET Evidence = "Interestingly, the level and activity of secreted MMP-9 in HEK293
 cells expressing WT 3R tau and 3R tau-A152T are similar (Figures S4B and S4C)"
 SET Confidence = "High"
-p(HBP:HBP00044,var("p.Ala152Thr")) causesNoChange sec(p(HGNC:MMP9))
-p(HBP:HBP00044,var("p.Ala152Thr")) causesNoChange act(p(HGNC:MMP9))
+p(CONSO:CONSO00044,var("p.Ala152Thr")) causesNoChange sec(p(HGNC:MMP9))
+p(CONSO:CONSO00044,var("p.Ala152Thr")) causesNoChange act(p(HGNC:MMP9))
 
 SET Evidence = "ERK  phosphorylation is also not affected by A152T mutation
 in 3R tau (Figure S4D)"
 SET Confidence = "Medium"
-p(HBP:HBP00044,var("p.Ala152Thr")) causesNoChange p(FPLX:ERK,pmod(Ph))
+p(CONSO:CONSO00044,var("p.Ala152Thr")) causesNoChange p(FPLX:ERK,pmod(Ph))
 
 SET Evidence = "Taken together, these findings strongly suggest that 4R tau-A152T activates the ERK
 pathway more strongly, which in turn increases the level and activity of secreted MMP-9. 4R tau-A152T expression
@@ -308,11 +308,11 @@ pathway more strongly, which in turn increases the level and activity of secrete
 secreted MMP-2, suggesting that tau-A152T increases the level and activity of secreted MMP-2, likely through
 an ERK-independent pathway"
 SET Confidence = "High"
-p(HBP:HBP00045,var("p.Ala152Thr")) -> bp(GO:"ERK1 and ERK2 cascade")
-p(HBP:HBP00045,var("p.Ala152Thr")) -> sec(p(HGNC:MMP9))
-p(HBP:HBP00045,var("p.Ala152Thr")) -> act(p(HGNC:MMP9))
-p(HBP:HBP00045,var("p.Ala152Thr")) -> sec(p(HGNC:MMP2))
-p(HBP:HBP00045,var("p.Ala152Thr")) -> act(p(HGNC:MMP2))
+p(CONSO:CONSO00045,var("p.Ala152Thr")) -> bp(GO:"ERK1 and ERK2 cascade")
+p(CONSO:CONSO00045,var("p.Ala152Thr")) -> sec(p(HGNC:MMP9))
+p(CONSO:CONSO00045,var("p.Ala152Thr")) -> act(p(HGNC:MMP9))
+p(CONSO:CONSO00045,var("p.Ala152Thr")) -> sec(p(HGNC:MMP2))
+p(CONSO:CONSO00045,var("p.Ala152Thr")) -> act(p(HGNC:MMP2))
 
 
 ##########################################################

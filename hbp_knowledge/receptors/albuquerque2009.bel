@@ -22,7 +22,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/bd0996a28201cad363557315043c6392e31abf58/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/go-names.belns"
@@ -87,9 +87,10 @@ property of being activated by the endogenous neurotransmitter
 acetylcholine (ACh), and they are expressed
 by both neuronal and nonneuronal cells throughout the
 body (8, 113, 142, 184)."
-
+SET Confidence = "High"
 a(CHEBI:acetylcholine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic"))
 a(CHEBI:acetylcholine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+UNSET Confidence
 
 SET Evidence = "The metabotropic receptors are
 second messenger, G protein-coupled seven-transmembrane
@@ -104,23 +105,29 @@ of muscarinic AChRs is relatively slow (milliseconds
 to seconds) and, depending on the subtypes present (M1-
 M5), they directly alter cellular homeostasis of phospholipase
 C, inositol trisphosphate, cAMP, and free calcium."
-
-a(TAXONOMY:41956) -> a(CHEBI:Muscarine)
+SET Confidence = "Medium"
+SET Species = "41956"
 a(CHEBI:Muscarine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic"))
-a(TAXONOMY:33113) -> a(CHEBI:atropine)
+#Initially the Statement was a(TAXONOMY:41956) -> a(CHEBI:Muscarine) out of which species was extracted
+UNSET Species
+SET Species = "33113"
 a(CHEBI:atropine) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic"))
+UNSET Species
 act(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic")) reg p(FPLX:PLC)
 act(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic")) reg a(CHEBI:"3',5'-cyclic AMP")
 act(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic")) reg a(CHEBI:"myo-inositol trisphosphate")
 act(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic")) reg a(CHEBI:"calcium ion")
+#species was set and unset
+UNSET Confidence
 
 SET Evidence = "The other subtype of AChR is the fast ionotropic
 cationic nicotinic receptor channel (nAChR). These receptors
 are sensitive to activation by nicotine and have
 ion channels whose activity is induced in the micro- to
 submicrosecond range."
-
+SET Confidence = "High"
 a(CHEBI:nicotine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+UNSET Confidence
 
 SET Evidence = "The first was the finding that the electric organ
 of a fish that produces an electric pulse to stun its prey,
@@ -129,16 +136,18 @@ a crystalline array (245, 438). This provided an
 unprecedented source of starting material for receptor
 purification since nAChRs comprise 40% of the protein
 from this organ."
-
+SET Confidence = "High"
 a(MESH:"Electric Fish") -- p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+UNSET Confidence
 
 SET Evidence = "The second was the discovery of alpha-bungarotoxin
 (alpha-BGT), a component of krait snake venom
 that binds muscle-type nAChRs with near covalent affinity
 to inhibit their function and promote debilitating paralysis
 at the neuromuscular junction (6, 50, 149, 264)."
-
-a(HBP:"alpha-Bungarotoxin") -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+SET Confidence = "High"
+p(CONSO:"alpha-Bungarotoxin") -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+UNSET Confidence
 
 SET Evidence = "From the time of its discovery in 1914
 by Henry H. Dale (109) and Otto Loewi (283) (the two
@@ -147,18 +156,24 @@ shared the Nobel Prize in Physiology and Medicine in
 recognized as an endogenous signaling compound, synthesized
 from choline and acetyl-CoA, through the action
 of choline acetyltransferase, that alters cell function."
-
-a(CHEBI:acetylcholine) -| path(MESH:"Heart Rate")
+SET Confidence = "Medium"
+a(CHEBI:acetylcholine) -| bp(MESH:"Heart Rate" )
+#heart rate was converted from pathology to bp
 a(CHEBI:acetylcholine) -- bp(GO:signaling)
 act(p(HGNC:CHAT)) => rxn(reactants(a(CHEBI:choline), a(CHEBI:"acetyl-CoA")),products(a(CHEBI:acetylcholine)))
+UNSET Confidence
 
 SET Evidence = "Muscle nAChRs consist of five subunits: alpha1 and 4
 non-alpha subunits named beta1, delta, gamma, and epsilon."
-
+SET Confidence = "Medium"
 p(HGNC:CHRNA1, loc(MESH:Muscles))
+p(HGNC:CHRNA4, loc(MESH:Muscles))
 p(HGNC:CHRNB1, loc(MESH:Muscles))
 p(HGNC:CHRND, loc(MESH:Muscles))
+p(HGNC:CHRNG, loc(MESH:Muscles))
 p(HGNC:CHRNE, loc(MESH:Muscles))
+#CHRNA4 and CHRNG was added wrt evidence
+UNSET Confidence
 
 SET Evidence = "Neuronal nAChRs can be homopentamers
 or heteropentamers. To date, seven alpha-like subunits,
@@ -167,7 +182,7 @@ identified from avian libraries and has not been found in
 mammals; Refs. 113, 184, 215) and 3 non-alpha subunits
 (termed beta2, beta3, and beta4) have been cloned from neuronal
 tissues."
-
+SET Confidence = "High"
 p(HGNC:CHRNA2, loc(MESH:Neurons))
 p(HGNC:CHRNA3, loc(MESH:Neurons))
 p(HGNC:CHRNA4, loc(MESH:Neurons))
@@ -179,14 +194,16 @@ p(HGNC:CHRNA10, loc(MESH:Neurons))
 p(HGNC:CHRNB2, loc(MESH:Neurons))
 p(HGNC:CHRNB3, loc(MESH:Neurons))
 p(HGNC:CHRNB4, loc(MESH:Neurons))
+UNSET Confidence
 
 SET Evidence = "Furthermore, TNF-alpha strongly promotes ligand-mediated
 upregulation of alpha4beta2 nAChRs through a mechanism
 that requires p38 mitogen-activated protein kinase
 (MAPK) signaling (163)."
-
+SET Confidence = "High"
 p(HGNC:TNF) -> bp(GO:"MAPK cascade")
-bp(GO:"MAPK cascade") -> act(p(HBP:"alpha-4 beta-2 nAChR"))
+bp(GO:"MAPK cascade") -> act(p(CONSO:"alpha-4 beta-2 nAChR"))
+UNSET Confidence
 
 SET Evidence = "In the basal ganglia,
 including the ventral tegmental area (VTA) and substantia
@@ -196,8 +213,9 @@ receptors. At present, this is the only brain area
 identified where alpha6 and beta3 are coexpressed with alpha4 and
 beta2 nAChR subunits. This finding is highly relevant for
 Parkinson’s disease (385, 386)."
-
-p(HBP:"alpha-6 alpha-4 beta-2 beta-3 nAChR", loc(MESH:"Basal Ganglia")) -- path(MESH:"Parkinson Disease")
+SET Confidence = "High"
+p(CONSO:"alpha-6 alpha-4 beta-2 beta-3 nAChR", loc(MESH:"Basal Ganglia")) -- path(MESH:"Parkinson Disease")
+UNSET Confidence
 
 SET Evidence = "Receptors composed of alpha7 subunits are known to desensitize
 rapidly and to have a high Ca2+:Na+ permeability
@@ -208,8 +226,9 @@ other ligand-activated ion channels, the opening of alpha7
 nAChR channels can impact on several Ca2+-dependent
 mechanisms, including activation of second messenger
 pathways (328, 456)."
-
-p(HBP:"alpha-7-containing nAChR") -> bp(GO:"calcium ion transport into cytosol")
+SET Confidence = "High"
+p(CONSO:"alpha-7-containing nAChR") -> bp(GO:"calcium ion transport into cytosol")
+UNSET Confidence
 
 SET Evidence = "One insect has
 escaped the ill effects of nicotine, Manduca sextans or the
@@ -220,15 +239,17 @@ adaptations to tolerate the effects of nicotine. The first is
 altered nAChR amino acid sequences that limit the affinity
 of nicotine for the nAChR (136). The second is the development
 of the functional equivalent to a blood-brain barrier."
-
+SET Confidence = "Medium"
 a(CHEBI:nicotine) cnc a(MESH:Manduca)
 
 SET Species = "7130"
 
-p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -| bp(GO:"response to nicotine")
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits", var("?")) -| bp(GO:"response to nicotine")
+#altered amino acid sequence in nAChR is stated
 a(MESH:Manduca) -- bp(GO:"establishment of blood-brain barrier")
 
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Metabolic degradation of nicotine and rapid
 clearance is a mechanism that protects neurons from
@@ -240,9 +261,10 @@ of magnitude. Nevertheless, neurotoxicity to nicotine
 is not uncommon, as attested to by the recent increase in
 hospital emergency room visits by smokers who concurrently
 use the transdermal nicotine patch (503)."
-
+SET Confidence = "High"
 a(MESH:Neurons) -> deg(a(CHEBI:nicotine))
-a(CHEBI:nicotine) -- path(HBP:neurotoxicity)
+a(CHEBI:nicotine) -- path(CONSO:neurotoxicity)
+UNSET Confidence
 
 SET Evidence = "The most
 valuable of these toxins to researchers proved to be
@@ -250,14 +272,18 @@ alpha-BGT from the snake Bungarus multicinctus. Because
 this toxin binds to the muscle nAChR with great specificity
 and a near-covalent affinity, it was an invaluable tool in
 the purification of the first nAChRs (discussed above)."
-
-a(HBP:"alpha-Bungarotoxin") -> complex(a(HBP:"alpha-Bungarotoxin"), p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits", loc(MESH:Muscles)))
+SET Confidence = "Medium"
+a(TAXONOMY:8616) -> p(CONSO:"alpha-Bungarotoxin")
+#snake producing alphaBGT
+p(CONSO:"alpha-Bungarotoxin") -> complex(p(CONSO:"alpha-Bungarotoxin"), p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits", loc(MESH:Muscles)))
+UNSET Confidence
 
 SET Evidence = "Additional examples of snake toxins include alpha-cobratoxin
 (Fig. 3), which binds to the agonist binding site of the
 receptor and blocks receptor activation."
-
+SET Confidence = "High"
 complex(a(MESH:"alpha-cobratoxin"), p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+UNSET Confidence
 
 SET Evidence = "Such toxins are
 not limited to the muscle receptor as seen in the Taiwanese
@@ -269,18 +295,21 @@ this case, the specificity of the toxin appears to in part be
 controlled by the subtype of beta nAChR subunit; beta2-containing
 nAChRs are less sensitive than beta4-containing
 nAChRs to inhibition by neuronal BGT."
-
-complex(a(HBP:"kappa-Bungarotoxin"), p(HBP:"alpha-3 beta-4 nAChR")) -| act(p(HBP:"alpha-3 beta-4 nAChR"))
-complex(a(HBP:"kappa-Bungarotoxin"), p(HGNC:CHRNB4)) -| act(p(HGNC:CHRNB4))
+SET Confidence = "High"
+complex(a(CONSO:"kappa-Bungarotoxin"), p(CONSO:"alpha-3 beta-4 nAChR")) -| act(p(CONSO:"alpha-3 beta-4 nAChR"))
+complex(a(CONSO:"kappa-Bungarotoxin"), p(HGNC:CHRNB4)) -| act(p(HGNC:CHRNB4))
+UNSET Confidence
 
 SET Evidence = "Not unlike snake toxins, conotoxins can
 disrupt multiple components of neurotransmission including
 voltage-gated Na+ and K+ channels in addition to
 nAChRs (132, 351)."
-
+SET Confidence = "Medium"
 a(MESH:Conotoxins) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 a(MESH:Conotoxins) -| act(p(HGNCGENEFAMILY:"Potassium voltage-gated channels"))
-a(MESH:Conotoxins) -| act(a(MESH:"Voltage-Gated Sodium Channels"))
+a(MESH:Conotoxins) -| act(p(MESH:"Voltage-Gated Sodium Channels"))
+#Sodium channels were shifted from abundance to protein
+UNSET Confidence
 
 SET Evidence = "In addition to nicotine, an nAChR agonist of considerable
 commercial importance is anatoxin-a (Fig. 3). This
@@ -295,7 +324,7 @@ central nervous system (CNS) neurons nicotinic currents
 sensitive to alpha-BGT was among the first indicators that
 functional alpha7 nAChRs could be distinguished from other
 nAChRs in neurons of the mammalian brain (38)."
-
+SET Confidence = "High"
 a(TAXONOMY:1163) -> a(CHEBI:"Anatoxin a")
 
 SET MeSHAnatomy = {"Ganglia", "Central Nervous System", "Muscles"}
@@ -303,6 +332,7 @@ SET MeSHAnatomy = {"Ganglia", "Central Nervous System", "Muscles"}
 complex(a(CHEBI:"Anatoxin a"), p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "More recently, epibatidine, an alkaloid from the skin
 of the Ecuadorain tree frog Epipedobates tricolor, revealed
@@ -313,10 +343,11 @@ low dose (0.4 microg/mouse), this compound produced straub
 tail reaction. The major target of epibatidine is the alpha4beta2
 high-affinity nAChR, although other nAChRs are targeted
 with various affinities (e.g., Ref. 507)."
-
+SET Confidence = "High"
 a(TAXONOMY:92736) -> a(CHEBI:epibatidine)
 complex(a(CHEBI:epibatidine), p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
-complex(a(CHEBI:epibatidine), p(HBP:"alpha-4 beta-2 nAChR")) -> act(p(HBP:"alpha-4 beta-2 nAChR"))
+complex(a(CHEBI:epibatidine), p(CONSO:"alpha-4 beta-2 nAChR")) -> act(p(CONSO:"alpha-4 beta-2 nAChR"))
+UNSET Confidence
 
 SET Evidence = "Finally, the alkaloid methyllycaconitine (MLA) emerged
 as a potent and specific competitive antagonist that inhibits
@@ -328,20 +359,22 @@ exceeds many millions of dollars annually. Similar to
 most nAChR poisons, MLA binds to the receptor agonistbinding
 site (Fig. 3) in a manner similar to that of alpha-BGT
 to block agonist binding and receptor activation."
-
+SET Confidence ="High"
 complex(a(MESH:methyllycaconitine), p(HGNC:CHRNA7, loc(MESH:Muscles))) -| act(p(HGNC:CHRNA7, loc(MESH:Muscles)))
 complex(a(MESH:methyllycaconitine), p(HGNC:CHRNA6, loc(MESH:Muscles))) -| act(p(HGNC:CHRNA6, loc(MESH:Muscles)))
 complex(a(MESH:methyllycaconitine), p(HGNC:CHRNA3, loc(MESH:Muscles))) -| act(p(HGNC:CHRNA3, loc(MESH:Muscles)))
+UNSET Confidence
 
 SET Evidence = "The autonomic nervous system is characterized by
 abundant expression of alpha3 and beta4 nAChR transcripts,
 whereas alpha4 and beta2 nAChR subunit expression dominates
 in the CNS."
-
+SET Confidence = "High"
 r(HGNC:CHRNA3, loc(MESH:"Autonomic Nervous System"))
 r(HGNC:CHRNB4, loc(MESH:"Autonomic Nervous System"))
 r(HGNC:CHRNA4, loc(MESH:"Central Nervous System"))
 r(HGNC:CHRNB2, loc(MESH:"Central Nervous System"))
+UNSET Confidence
 
 SET Evidence = "Some brain regions, including the medial
 habenula and the hippocampus, express multiple transcripts
@@ -349,7 +382,7 @@ where many subunits (alpha3, alpha4, alpha5, beta2, and exceptionally
 abundant beta4) are colocalized. Other brain regions
 (e.g., VTA) exhibit highly restricted expression of certain
 subunits such as alpha6 and beta3."
-
+SET Confidence = "High"
 r(HGNC:CHRNA3, loc(MESH:Habenula))
 r(HGNC:CHRNA4, loc(MESH:Habenula))
 r(HGNC:CHRNA5, loc(MESH:Habenula))
@@ -362,19 +395,20 @@ r(HGNC:CHRNB2, loc(MESH:Hippocampus))
 r(HGNC:CHRNB4, loc(MESH:Hippocampus))
 r(HGNC:CHRNA6, loc(MESH:"Ventral Tegmental Area"))
 r(HGNC:CHRNB3, loc(MESH:"Ventral Tegmental Area"))
+UNSET Confidence
 
 SET Evidence = "For instance, the alpha3 nAChR
 transcript generally dominates in the prenatal brain or in
 injured neurons, whereas its expression tends to be
 downregulated in the adult or healthy neuron, and alpha4
 transcription is increased."
-
+SET Confidence = "Medium"
 a(MESH:Fetus) -> r(HGNC:CHRNA3, loc(MESH:Brain))
 path(MESH:"Trauma, Nervous System") -> r(HGNC:CHRNA3, loc(MESH:Brain))
-a(MESH:Adult) -| r(HGNC:CHRNA3)
-a(MESH:Adult) -> r(HGNC:CHRNA4)
-a(MESH:Neurons) -| r(HGNC:CHRNA3)
-a(MESH:Neurons) -> r(HGNC:CHRNA4)
+a(MESH:Adult) -| r(HGNC:CHRNA3, loc(MESH:Neurons))
+a(MESH:Adult) -> r(HGNC:CHRNA4, loc(MESH:Neurons))
+#instead of stating neurons separately, they were added as location
+UNSET Confidence
 
 SET Evidence = "This is particularly true of the highly conserved gene
 cluster consisting of the alpha3, alpha5, and beta4 subunits that
@@ -382,8 +416,9 @@ together form the dominant nAChR subtype in the peripheral
 nervous system (93, 94), and whose coordinate transcriptional
 regulation has been examined in detail by
 several groups (66, 217, 317, 510)."
-
+SET Confidence = "High"
 complex(p(HGNC:CHRNA3), p(HGNC:CHRNA5), p(HGNC:CHRNB4), loc(MESH:"Peripheral Nervous System"))
+UNSET Confidence
 
 SET Evidence = "In cell lines, this interaction
 of trans-activating components is also under the
@@ -392,38 +427,42 @@ to phosphoinositide-3-kinase (PI3K) and MEK activation
 whose response to trophic factors such as nerve
 growth factor (NGF) contributes to regulating transcript
 initiation."
-
+SET Confidence = "High"
 bp(GO:"phosphatidylinositol 3-kinase signaling") reg r(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
 bp(GO:"MAPK cascade") reg r(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
 act(p(HGNC:NGF)) -> bp(GO:"MAPK cascade")
+UNSET Confidence
 
 SET Evidence = "Subsequent studies have revealed that the DNA binding
 Sp-1 transcriptional factor interacts in response
 to NGF with the c-Jun coactivator (317) to increase beta4
 transcription."
-
+SET Confidence = "High"
 act(p(HGNC:NGF)) -> complex(p(HGNC:SP1), p(HGNC:JUN))
 act(complex(p(HGNC:SP1), p(HGNC:JUN)), ma(tscript))-> r(HGNC:CHRNB4)
+UNSET Confidence
 
 SET Evidence = "Also central to restricting (or at least limiting)
 the expression of these transcripts to predominantly
 neuronal-like cell lines (Neuro2A and NGF-treated PC12)
 are interactions among other factors including SCIP/Tst-
 1/Oct-6 and transactivation by Sox10 (66, 268, 317, 513)."
-
+SET Confidence = "High"
 act(p(HGNC:SOX10)) -> r(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+UNSET Confidence
 
 SET Evidence = "For example, in
 the original PC12 line (194), NGF is a potent inducer of beta4
 transcription (217), but in PC12 lines that are defective in
 the expression of functional alpha7 nAChRs, NGF decreases
 beta4 nAChR subunit transcription (60, 397)."
-
+SET Confidence = "High"
 SET MeSHAnatomy="PC12 Cells"
 
 composite(p(HGNC:NGF), p(HGNC:CHRNA7)) -> r(HGNC:CHRNB4)
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Several E26 transformation-specific sequence
 (ETS) factor binding sites were identified that upon deletion
@@ -431,20 +470,22 @@ led to substantially diminished expression of both alpha3
 and beta4, and to direct transgene expression of the reporter
 gene, LacZ, to major sites of gene cluster expression in
 multiple brain regions, ganglia, and peripheral systems."
-
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"ETS transcription factor family") -- r(HGNC:CHRNA3)
 p(HGNCGENEFAMILY:"ETS transcription factor family") -- r(HGNC:CHRNB4)
+UNSET Confidence
 
 SET Evidence = "For example, while the alpha7 nAChR is primarily a
 homomeric receptor in neurons (127), combinations of alpha7
 nAChR subunits with alpha5, beta2, or beta3 nAChR subunits have
 been reported to form functional heteromeric receptors
 in some systems (240, 360, 515)."
-
+SET Confidence = "High"
 a(MESH:Neurons) -- p(HGNC:CHRNA7)
 p(HGNC:CHRNA7) -- complex(p(HGNC:CHRNA7), p(HGNC:CHRNA5))
 p(HGNC:CHRNA7) -- complex(p(HGNC:CHRNA7), p(HGNC:CHRNB2))
 p(HGNC:CHRNA7) -- complex(p(HGNC:CHRNA7), p(HGNC:CHRNB3))
+UNSET Confidence
 
 SET Evidence = "In the
 muscle, for example, despite the coexpression of as many
@@ -452,20 +493,23 @@ as five distinct subunits, only receptors of well-defined
 stoichiometries are expressed: (alpha1)2beta1deltagamma in noninnervated
 muscle and (alpha1)2beta1deltaepsilon at mature neuromuscular
 synapses."
-
+SET Confidence = "High"
 a(MESH:Muscles) -- complex(p(HGNC:CHRNA1), p(HGNC:CHRNA1),p(HGNC:CHRNB1), p(HGNC:CHRND), p(HGNC:CHRNG))
 a(MESH:Muscles) -- complex(p(HGNC:CHRNA1), p(HGNC:CHRNA1),p(HGNC:CHRNB1), p(HGNC:CHRND), p(HGNC:CHRNE), loc(MESH:"Neuromuscular Junction"))
+UNSET Confidence
 
 SET Evidence = "In the
 immature muscle alpha1, beta1, delta and gamma nAChR subunit transcripts
 are made and receptors from these subunits are
 synthesized and transported to the cell surface."
-
+SET Confidence = "Medium"
 a(MESH:Muscles) -> r(HGNC:CHRNA1)
 a(MESH:Muscles) -> r(HGNC:CHRNB1)
 a(MESH:Muscles) -> r(HGNC:CHRND)
 a(MESH:Muscles) -> r(HGNC:CHRNG)
-complex(p(HGNC:CHRNA1), p(HGNC:CHRNA1),p(HGNC:CHRNB1), p(HGNC:CHRND), p(HGNC:CHRNG)) -> complex(p(HGNC:CHRNA1), p(HGNC:CHRNB1),p(HGNC:CHRNB1), p(HGNC:CHRND), p(HGNC:CHRNG), loc(GO:"cell surface"))
+complex(p(HGNC:CHRNA1), p(HGNC:CHRNA1),p(HGNC:CHRNB1), p(HGNC:CHRND), p(HGNC:CHRNG)) -> complex(p(HGNC:CHRNA1), p(HGNC:CHRNA1),p(HGNC:CHRNB1), p(HGNC:CHRND), p(HGNC:CHRNG), loc(GO:"cell surface"))
+#CHRNB1 was written instead of CHRNA1
+UNSET Confidence
 
 SET Evidence = "In receptors
 harboring the gamma subunit, agonist-induced receptor
@@ -475,10 +519,13 @@ depolarization and adjustments to protein-protein
 interactions that favor receptor clustering. As the depolarization
 increases, transcription of the epsilon subunit is increased
 dramatically (183)."
-
+SET Confidence = "Medium"
 act(p(HGNC:CHRNG)) -> bp(GO:"long-term synaptic potentiation")
 bp(GO:"long-term synaptic potentiation") -> bp(GO:"depolarization of postsynaptic membrane")
+bp(GO:"long-term synaptic potentiation") -> bp(GO:"receptor clustering")
+#changed wrt evidence
 bp(GO:"depolarization of postsynaptic membrane") -> r(HGNC:CHRNE)
+UNSET Confidence
 
 SET Evidence = "The epsilon subunit protein outcompetes
 the gamma subunit for assembly into the receptor.
@@ -486,10 +533,11 @@ The receptors assembled with the epsilon subunit are more
 stable to degradation, aggregate at the neuromuscular
 junction to greater density and exhibit a more rapid response
 to agonist (96, 275, 324)."
-
+SET Confidence = "High"
 r(HGNC:CHRNE) -| complex(p(HGNC:CHRNA1), p(HGNC:CHRNA1),p(HGNC:CHRNB1), p(HGNC:CHRND), p(HGNC:CHRNG))
 r(HGNC:CHRNE) -> complex(p(HGNC:CHRNA1), p(HGNC:CHRNA1),p(HGNC:CHRNB1), p(HGNC:CHRND), p(HGNC:CHRNE))
 complex(p(HGNC:CHRNA1), p(HGNC:CHRNA1),p(HGNC:CHRNB1), p(HGNC:CHRND), p(HGNC:CHRNE)) -| deg(complex(p(HGNC:CHRNA1), p(HGNC:CHRNA1),p(HGNC:CHRNB1), p(HGNC:CHRND), p(HGNC:CHRNE)))
+UNSET Confidence
 
 SET Evidence = "Green and
 colleagues (191, 365, 485) report that nAChR assembly
@@ -501,10 +549,11 @@ polypeptide folding favors the rapid recognition and interaction
 between alpha-beta-gamma subunits to produce trimers that
 in turn form a structure favorable to the addition of the delta
 subunit and finally the second alpha subunit."
-
+SET Confidence = "High"
 composite(p(HGNC:CHRNA1), p(HGNC:CHRNB1), p(HGNC:CHRNG), loc(GO:"endoplasmic reticulum")) -> complex(p(HGNC:CHRNA1), p(HGNC:CHRNB1), p(HGNC:CHRNG))
 complex(p(HGNC:CHRNA1), p(HGNC:CHRNB1), p(HGNC:CHRNG), loc(GO:"endoplasmic reticulum")) -> complex(p(HGNC:CHRNA1), p(HGNC:CHRNB1), p(HGNC:CHRNG), p(HGNC:CHRND))
 complex(p(HGNC:CHRNA1), p(HGNC:CHRNB1), p(HGNC:CHRNG), p(HGNC:CHRND), loc(GO:"endoplasmic reticulum")) -> complex(p(HGNC:CHRNA1), p(HGNC:CHRNB1), p(HGNC:CHRNG), p(HGNC:CHRND), p(HGNC:CHRNA1))
+UNSET Confidence
 
 SET Evidence = "In another
 model, a somewhat different route to assembly is proposed
@@ -512,24 +561,29 @@ model, a somewhat different route to assembly is proposed
 and alpha-delta subunits are formed before these paired subunits
 subsequently interact with the beta subunit to assemble the
 mature pentamer."
-
-composite(complex(p(HGNC:CHRNA1), p(HGNC:CHRNG)), complex(p(HGNC:CHRNA1), p(HGNC:CHRND)), p(HGNC:CHRNB1)) -> complex(p(HGNC:CHRNA1), p(HGNC:CHRNB1), p(HGNC:CHRNG), p(HGNC:CHRND), p(HGNC:CHRNA1))
+SET Confidence = "Medium"
+composite(complex(p(HGNC:CHRNA1), p(HGNC:CHRNG)), complex(p(HGNC:CHRNA1), p(HGNC:CHRND))) -> complex(p(HGNC:CHRNA1), p(HGNC:CHRNB1), p(HGNC:CHRNG), p(HGNC:CHRND), p(HGNC:CHRNA1))
+#typo hence corrected wrt evidence
+UNSET Confidence
 
 SET Evidence = "A similar level of fidelity in nAChR assembly is
 achieved by cells of the brain. For example, the alpha4, alpha7,
 and beta2 nAChR interact with each other to form functional
 receptors in heterologous systems such as oocytes."
-
-a(MESH:Oocytes) -- composite(p(HGNC:CHRNA4), p(HGNC:CHRNA7), p(HGNC:CHRNB2))
+SET Confidence = "Medium"
+a(MESH:Oocytes) -- complex(p(HGNC:CHRNA4), p(HGNC:CHRNA7), p(HGNC:CHRNB2))
+#complex used instead of composite
+UNSET Confidence
 
 SET Evidence = "However,
 in hippocampal neurons expressing the alpha7, alpha4, and
 beta2 nAChR subunits, the vast majority of functional
 nAChRs are pharmacologically identified as being distinctly
 alpha4beta2 and alpha7 nAChRs (12)."
-
-a(MESH:Hippocampus) -> p(HBP:"alpha-4 beta-2 nAChR")
+SET Confidence = "High"
+a(MESH:Hippocampus) -> p(CONSO:"alpha-4 beta-2 nAChR")
 a(MESH:Hippocampus) -> p(HGNC:CHRNA7)
+UNSET Confidence
 
 SET Evidence = "This is also true of alpha3,
 alpha4, beta2, and beta4 nAChR subunits, which can freely interact
@@ -537,17 +591,20 @@ to form receptors but appear to exhibit considerable preference
 in the brain as well as ganglia to form mostly
 receptors of alpha3beta4 and alpha4beta2 subunit composition (150,
 471)."
-
-a(MESH:Ganglia) -> p(HBP:"alpha-3 beta-2 nAChR")
-a(MESH:Ganglia) -> p(HBP:"alpha-4 beta-2 nAChR")
+SET Confidence = "Medium"
+a(MESH:Ganglia) -> p(CONSO:"alpha-3 beta-4 nAChR")
+#beta4 is there instead of beta3
+a(MESH:Ganglia) -> p(CONSO:"alpha-4 beta-2 nAChR")
+UNSET Confidence
 
 SET Evidence = "As was noted above, in different laboratories,
 these cells were reported to regulate nAChR mRNA
 expression differently in response to nerve growth factor,
 and to exhibit dramatically different expression of alpha7
 nAChRs."
-
+SET Confidence = "High"
 p(HGNC:NGF) reg r(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+UNSET Confidence
 
 SET Evidence = "Upon transfection of the cDNA encoding
 alpha7 nAChR subunits, HEK293 cells reportedly express
@@ -555,12 +612,15 @@ the corresponding transcripts and even make considerable
 protein. Yet, the number of functional receptors
 expressed on the cell surface was low and could vary by
 three orders of magnitude."
-
+SET Confidence = "Medium"
 SET CellLine = "HEK293"
 
+composite(a(MESH:"HEK293 Cells"), g(HGNC:CHRNA7)) -> r(HGNC:CHRNA7))
+#transcripts of CHRNA7 increased
 composite(a(MESH:"HEK293 Cells"), g(HGNC:CHRNA7)) -| act(p(HGNC:CHRNA7))
 
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "For example, Loring
 and colleagues (458) compared the relative expression
@@ -570,28 +630,29 @@ Each cell line expressed appropriate mRNAs
 (indicating successful transfection); however, the relative
 levels of expression of each receptor subtype varied significantly
 among the various cell lines."
-
+SET Confidence = "High"
 a(MESH:"Cell Line") reg r(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+UNSET Confidence
 
 SET Evidence = "Only two of these
 cell lines expressed alpha7 nAChRs: GH4C1 cells expressed
 substantially greater numbers of surface receptors than
 did SH-EP1 cells, which exhibited poor assembly efficiency."
-
+SET Confidence = "High"
 SET CellLine = "GH4-C1 cell"
-
 g(HGNC:CHRNA7) -> p(HGNC:CHRNA7)
 composite(g(HGNC:CHRNA4), g(HGNC:CHRNB2)) -> complex(p(HGNC:CHRNA4), p(HGNC:CHRNB2))
-
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "All cell lines appeared to produce alpha4beta2 nAChRs,
 although at considerably variable levels relative to each
 other. Therefore, cell and receptor identity combine to
 collectively determine the efficiency of nAChR expression
 on the cell surface."
-
+SET Confidence = "High"
 a(MESH:"Cell Line") reg complex(p(HGNC:CHRNA4), p(HGNC:CHRNB2))
+UNSET Confidence
 
 SET Evidence = "Studies of recombinant chimeric subunits containing
 sequences of the NH2-terminal domains of the alpha7 and
@@ -599,8 +660,9 @@ the alpha3 (M1-S232) nAChR subunits indicated that a 23-
 amino acid region (glycine-23 to asparagine-46) contained
 residues required for correct association of the alpha7 subunit
 into a homopentameric receptor."
-
+SET Confidence = "High"
 p(HGNC:CHRNA7, frag("23_46")) -> complex(p(HGNC:CHRNA7), p(HGNC:CHRNA7))
+UNSET Confidence
 
 SET Evidence = "Not surprisingly, the
 Cys-loop is required for proper domain folding and receptor
@@ -608,10 +670,10 @@ expression (131, 485). This might also be conditional,
 since reducing agents such as dithiothreitol (176) can
 disrupt the role of this structure in receptor assembly and
 expression."
-
-p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") isA p(MESH:"Cysteine Loop Ligand-Gated Ion Channel Receptors")
-
-#: TODO
+SET Confidence = "Medium"
+p(MESH:"Cysteine Loop Ligand-Gated Ion Channel Receptors") isA p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+#p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") isA p(MESH:"Cysteine Loop Ligand-Gated Ion Channel Receptors")- this Statement was replaced by seemingly apt Statement
+UNSET Confidence
 
 SET Evidence = "Another significant assembly checkpoint to ensure
 only correctly assembled nAChRs are transported to the
@@ -619,8 +681,9 @@ cell surface is the endoplasmic reticulum. Most nAChRs
 are not constitutively sent to lysosomes. Instead, they are
 retained in intracellular pools that range from 65 to 85%
 of the total receptor number in a cell (147, 359, 397, 496)."
-
-a(MESH:"Endoplasmic Reticulum") reg bp(HBP:"nAChR assembly")
+SET Confidence = "High"
+a(MESH:"Endoplasmic Reticulum") reg bp(CONSO:"nAChR assembly")
+UNSET Confidence
 
 SET Evidence = "In fact, 80% of
 the synthesized subunits appear to improperly assemble
@@ -628,25 +691,30 @@ or never leave the endoplasmic reticulum where they are
 then degraded (485). The process of retaining subunits
 and possibly fully assembled receptors and then degrading
 them may be an important component of regulating
-receptor number."
-
+receptor number'."
+SET Confidence = "High"
 a(MESH:"Endoplasmic Reticulum") reg p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
 a(MESH:"Endoplasmic Reticulum") -> deg(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits", loc(GO:"endoplasmic reticulum")))
+UNSET Confidence
 
 SET Evidence = "Also, the continuous exposure of cells to
 nicotine increases nAChR surface expression by reducing
 degradation of the intracellular pool of receptors (367,
 394)."
-
+SET Confidence = "High"
 a(CHEBI:nicotine) -| deg(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits", loc(GO:"endoplasmic reticulum")))
+UNSET Confidence
 
 SET Evidence = "Thus inhibitors of proteasome function
 block endoplasmic reticulum-associated degradation
 of unassembled AChR subunits, which in turn increases
 the availability of subunits for assembly into mature receptors
 that are trafficked to the cell surface."
-
+SET Confidence = "Medium"
 a(CHEBI:"proteasome inhibitor") -| deg(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits", loc(GO:"endoplasmic reticulum")))
+a(CHEBI:"proteasome inhibitor") -> bp(CONSO:"nAChR assembly")
+#added wrt evidence
+UNSET Confidence
 
 SET Evidence = "When
 cRNAs encoding specific nAChR subunits are introduced
@@ -656,14 +724,15 @@ and expressed on the cell surface (341). In Xenopus
 oocytes, these heteromeric nAChRs are assembled
 and expressed with almost equivalent efficiencies as the
 homomeric 5HT3A receptor (341)."
-
+SET Confidence = "High"
 SET Species = "8355"
 
-r(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -> bp(HBP:"nAChR assembly")
-bp(HBP:"nAChR assembly") -> p(HBP:"alpha-3 beta-4 nAChR", loc(GO:"cell surface"))
-bp(HBP:"nAChR assembly") -> complex(p(HGNC:CHRNA1), p(HGNC:CHRNB1), p(HGNC:CHRND), p(HGNC:CHRNG), loc(GO:"cell surface"))
+r(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -> bp(CONSO:"nAChR assembly")
+bp(CONSO:"nAChR assembly") -> p(CONSO:"alpha-3 beta-4 nAChR", loc(GO:"cell surface"))
+bp(CONSO:"nAChR assembly") -> complex(p(HGNC:CHRNA1), p(HGNC:CHRNB1), p(HGNC:CHRND), p(HGNC:CHRNG), loc(GO:"cell surface"))
 
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In the smoker’s
 brain, upregulation can increase high-affinity nicotine binding
@@ -672,8 +741,9 @@ controls that have not been exposed to nicotine (373, 421).
 The mechanism by which nicotine increases the total number
 of high-affinity nAChRs, though poorly defined, is highly
 conserved among species."
-
+SET Confidence = "High"
 a(CHEBI:nicotine) -> p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+UNSET Confidence
 
 SET Evidence = "The receptor that exhibits the greatest upregulation
 when exposed to nicotine is the alpha4beta2 nAChR. Receptors
@@ -681,31 +751,27 @@ assembled from this subunit combination form the highaffinity
 nicotine binding site (151, 215) and account for the
 vast majority of upregulated sites in the brain of smokers
 (55)."
-
-a(CHEBI:nicotine) -> p(HBP:"alpha-4 beta-2 nAChR")
-a(CHEBI:nicotine) -> complex(p(HBP:"alpha-4 beta-2 nAChR"), a(CHEBI:nicotine))
+SET Confidence = "High"
+a(CHEBI:nicotine) -> p(CONSO:"alpha-4 beta-2 nAChR")
+a(CHEBI:nicotine) -> complex(p(CONSO:"alpha-4 beta-2 nAChR"), a(CHEBI:nicotine))
+UNSET Confidence
 
 SET Evidence = "As will be returned to below, it is also the first nAChR
 subtype to exhibit measurable decline in expression in the
 aged mammalian brain and especially in neurodegenerative
 disorders such as AD (236, 374)."
-
-path(MESH:Aging) neg p(HBP:"alpha-4 beta-2 nAChR")
-path(MESH:"Alzheimer Disease") neg p(HBP:"alpha-4 beta-2 nAChR")
-
-SET Evidence = "Genetic deletion of the alpha4
-or the alpha2 nAChR subunit abolishes essentially all high-affinity
-nicotine binding to brain tissue and upregulation in response
-to chronic exposure to nicotine (151, 311)."
-
-p(HBP:"alpha-4 beta-2 nAChR") -> complex(p(HBP:"alpha-4 beta-2 nAChR"), a(CHEBI:nicotine))
+SET Confidence = "High"
+path(MESH:Aging) neg p(CONSO:"alpha-4 beta-2 nAChR")
+path(MESH:"Alzheimer Disease") neg p(CONSO:"alpha-4 beta-2 nAChR")
+UNSET Confidence
 
 SET Evidence = "transfection of cells with the beta4 and alpha2 nAChR subunits
 or expression of these in Xenopus oocytes leads to
 high-affinity nicotine-binding receptors that upregulate in
 response to prolonged exposure to nicotine (113, 184, 215)."
-
-a(CHEBI:nicotine) -> p(HBP:"alpha-4 beta-2 nAChR")
+SET Confidence = "High"
+a(CHEBI:nicotine) -> p(CONSO:"alpha-4 beta-2 nAChR")
+UNSET Confidence
 
 SET Evidence = "For instance, prolonged exposure of HEK293 cells
 to saturating nicotine concentrations increased by 6- and
@@ -713,15 +779,14 @@ to saturating nicotine concentrations increased by 6- and
 nAChRs.Similarly, while alpha4beta2 nAChRs upregulate
 strongly, alpha4beta4 nAChRs upregulate poorly in response to
 continuous exposure to nicotine."
-
-#Discuss
-
+SET Confidence = "High"
 SET CellLine = "HEK293"
 
-a(CHEBI:nicotine) -> a(HBP:"alpha-3 beta-2 nAChR")
-a(CHEBI:nicotine) -> a(HBP:"alpha-3 beta-4 nAChR")
+a(CHEBI:nicotine) -> p(CONSO:"alpha-3 beta-2 nAChR")
+a(CHEBI:nicotine) -> p(CONSO:"alpha-3 beta-4 nAChR")
 
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "Prolonged treatment of rodents
 and monkeys with nicotine downregulates the expression
@@ -731,7 +796,7 @@ appears to upregulate the expression of receptors
 assembled from alpha4/alpha6/beta2/beta3 input cDNA (363), and this
 may depend on numerous factors including ligand concentrations
 (483)."
-
+SET Confidence = "Medium"
 SET Species = {"9989", "7711"}
 SET MeSHAnatomy = "Brain"
 
@@ -740,7 +805,12 @@ a(CHEBI:nicotine) -| complex(p(HGNC:CHRNA6), p(HGNC:CHRNB3))
 UNSET Species
 UNSET MeSHAnatomy
 
-composite(a(CHEBI:nicotine), g(HGNC:CHRNA4), g(HGNC:CHRNA6), g(HGNC:CHRNB2), g(HGNC:CHRNB3)) -> composite(p(HGNC:CHRNA4), p(HGNC:CHRNA6), p(HGNC:CHRNB2), p(HGNC:CHRNB3))
+composite(a(CHEBI:nicotine),g(HGNC:CHRNA4)) -> p(HGNC:CHRNA4)
+composite(a(CHEBI:nicotine),g(HGNC:CHRNA6)) -> p(HGNC:CHRNA6)
+composite(a(CHEBI:nicotine),g(HGNC:CHRNB2)) -> p(HGNC:CHRNB2)
+composite(a(CHEBI:nicotine),g(HGNC:CHRNB3)) -> p(HGNC:CHRNB3)
+#instead of all components together in composite, they were set differently
+UNSET Confidence
 
 SET Evidence = "Evidence from a
 multitude of studies converge to the conclusion that nAChRs
@@ -748,36 +818,40 @@ are located at one of five primary locations: the cell soma,
 dendrites, preterminal axon regions, axon terminals, and
 myelinated axons on the neurons (e.g., Figs. 4 and 5 and
 Refs. 8, 15, 186, 214, 288, 502)."
-
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits", loc(GO:"neuronal cell body"))
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits", loc(MESH:Dendrites))
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits", loc(GO:"axon terminus"))
+UNSET Confidence
 
 SET Evidence = "On the other hand, when alpha4beta2 nAChRs are activated,
 both SR and SLM interneurons are inhibited, resulting in
 disinhibition of dendritic areas innervated by both neuron
 types."
 #SR  =  stratum radiatum, SLM  =  stratum lacunosum moleculare
+SET Confidence = "High"
 SET Anatomy = "hippocampus stratum lacunosum moleculare"
 
-act(a(HBP:"alpha-4 beta-2 nAChR")) -| act(a(MESH:Interneurons))
+act(p(CONSO:"alpha-4 beta-2 nAChR")) -| act(a(MESH:Interneurons))
 
 UNSET Anatomy
 
 SET Anatomy = "hippocampus stratum radiatum"
 
-act(a(HBP:"alpha-4 beta-2 nAChR")) -| act(a(MESH:Interneurons))
+act(p(CONSO:"alpha-4 beta-2 nAChR")) -| act(a(MESH:Interneurons))
 
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Third,
 nAChR-mediated GABA release can cause neuronal hyperpolarization,
 which in turn affects neuronal function
 via several mechanisms, including removal of inactivation
 of inward currents (89)."
-
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -> sec(a(CHEBI:"gamma-aminobutyric acid"))
 sec(a(CHEBI:"gamma-aminobutyric acid")) -> bp(GO:"hyperpolarization of postsynaptic membrane")
+UNSET Confidence
 
 SET Evidence = "It is noteworthy that, via such
 mechanisms, alpha7 nAChR activation could trigger rebound
@@ -787,23 +861,25 @@ spikes in pyramidal neurons evoked by stimulation
 of Schaffer collaterals (134), and, thereby allows
 selective activation of the pyramidal cells via the perforant
 pathway."
-
+SET Confidence = "High"
 SET Anatomy = "hippocampus stratum lacunosum moleculare"
 act(p(HGNC:CHRNA7)) -> bp(GO:"action potential initiation")
 bp(GO:"action potential initiation") -| a(MESH:"Electric Stimulation", loc(GO:"Schaffer axon collateral"))
 bp(GO:"action potential initiation") -> act(a(MESH:"Perforant Pathway"))
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "In CA1 and CA3 pyramidal neurons of the developed
 hippocampus, alpha7 nAChRs are expressed primarily on
 axon terminals whereby their activation modulates the
 efficacy of glutamate synaptic transmission."
-
+SET Confidence = "High"
 SET MeSHAnatomy = {"Pyramidal Cells", "CA1 Region, Hippocampal", "CA3 Region, Hippocampal"}
 
 act(p(HGNC:CHRNA7, loc(GO:"axon terminus"))) reg  bp(GO:"synaptic transmission, glycinergic")
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "For example, during a low
 degree of activation of alpha7 and alpha3beta4 nAChRs, Ca2+ can
@@ -811,27 +887,30 @@ enter the cells through nAChRs or NMDA receptors and
 favor activation (i.e., phosphorylation) of the transcription
 factor CREB, which in turn modifies gene expression
 (82)."
-
+SET Confidence = "High"
 act(p(HGNC:CHRNA7)) -> a(CHEBI:"calcium(2+)", loc(GO:intracellular))
-act(p(HBP:"alpha-3 beta-4 nAChR")) -> a(CHEBI:"calcium(2+)", loc(GO:intracellular))
+act(p(CONSO:"alpha-3 beta-4 nAChR")) -> a(CHEBI:"calcium(2+)", loc(GO:intracellular))
 a(CHEBI:"calcium(2+)", loc(GO:intracellular)) -> act(p(FPLX:CREB),ma(tscript))
 act(p(FPLX:CREB),ma(tscript)) reg bp(GO:"gene expression")
+UNSET Confidence
 
 SET Evidence = "If there is intense stimulation of all three nAChRs,
 the resulting depolarization can trigger activation of voltage-
 gated Ca2+ channels (VGCC), which in turn would
 activate the calcineurin pathway and prevent CREB activation."
-
+SET Confidence = "High"
 bp(GO:"depolarization of postsynaptic membrane") -> act(complex(GO:"voltage-gated calcium channel complex"))
 act(complex(GO:"voltage-gated calcium channel complex")) -> bp(GO:"calcineurin-mediated signaling")
 act(complex(GO:"voltage-gated calcium channel complex")) -| act(p(FPLX:CREB),ma(tscript))
+UNSET Confidence
 
 SET Evidence = "A concurrent activation of preterminal alpha4beta2
 nAChRs would hyperpolarize the neuron via GABAergic
 inhibition and prevent activation of the VGCC."
-
-act(p(HBP:"alpha-4 beta-2 nAChR")) -| bp(GO:"synaptic transmission, GABAergic")
-act(p(HBP:"alpha-4 beta-2 nAChR")) -| act(complex(GO:"voltage-gated calcium channel complex"))
+SET Confidence = "High"
+act(p(CONSO:"alpha-4 beta-2 nAChR")) -| bp(GO:"synaptic transmission, GABAergic")
+act(p(CONSO:"alpha-4 beta-2 nAChR")) -| act(complex(GO:"voltage-gated calcium channel complex"))
+UNSET Confidence
 
 SET Evidence = "In the basal
 ganglia, for instance, dopaminergic transmission is ultimately
@@ -841,7 +920,7 @@ exists that in the VTA,alpha6- andalpha4-containing nAChRs are
 mainly located on dopaminergic nerve terminals, whereas alpha7
 nAChRs are primarily expressed on the soma of dopaminergic
 neurons (Fig. 5)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Basal Ganglia"
 
 act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) reg bp(GO:"synaptic transmission, dopaminergic")
@@ -850,21 +929,23 @@ UNSET MeSHAnatomy
 
 SET MeSHAnatomy = {"Ventral Tegmental Area", "Dopaminergic Neurons"}
 
-p(HBP:"alpha-4-containing nAChR", loc(GO:"neuron projection terminus"))
-p(HBP:"alpha-6-containing nAChR", loc(GO:"neuron projection terminus"))
+p(CONSO:"alpha-4-containing nAChR", loc(GO:"neuron projection terminus"))
+p(CONSO:"alpha-6-containing nAChR", loc(GO:"neuron projection terminus"))
 p(HGNC:CHRNA7, loc(GO:"neuronal cell body"))
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Activation of somatodendritic alpha7 nAChRs
 increases the action potential-dependent release of dopamine,
 while activation of presynaptic alpha6 and/or alpha4 nAChRs increases
 action potential-independent dopamine release."
-
+SET Confidence = "High"
 act(p(HGNC:CHRNA7)) -> bp(GO:"neuronal action potential")
 bp(GO:"neuronal action potential") -> sec(a(CHEBI:dopamine))
-p(HBP:"alpha-4-containing nAChR") -> sec(a(CHEBI:dopamine))
-p(HBP:"alpha-6-containing nAChR") -> sec(a(CHEBI:dopamine))
+p(CONSO:"alpha-4-containing nAChR") -> sec(a(CHEBI:dopamine))
+p(CONSO:"alpha-6-containing nAChR") -> sec(a(CHEBI:dopamine))
+UNSET Confidence
 
 SET Evidence = "Other levels of
 regulation of dopaminergic transmission arise from alpha7 nAChRs
@@ -872,20 +953,22 @@ located on cortical glutamatergic terminals; activation of these
 receptors increases glutamate release onto dopaminergic neurons
 in the VTA and, consequently, increases the their firing
 (344)."
-
+SET Confidence = "High"
 act(p(HGNC:CHRNA7, loc(GO:"glutamatergic synapse"))) reg bp(GO:"synaptic transmission, dopaminergic")
 act(p(HGNC:CHRNA7, loc(GO:"glutamatergic synapse"))) -> a(CHEBI:"glutamate(2-)", loc(MESH:"Dopaminergic Neurons"))
 a(CHEBI:"glutamate(2-)", loc(MESH:"Dopaminergic Neurons")) -> bp(GO:"synaptic transmission, dopaminergic")
+UNSET Confidence
 
 SET Evidence = "Activation of alpha4beta2 nAChRs on GABAergic interneurons
 in the VTA relieves the inhibitory control they exert on dopaminergic
 neurons (295, 380)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Ventral Tegmental Area"
 
-act(p(HBP:"alpha-4 beta-2 nAChR", loc(MESH:"GABAergic Neurons"))) -> act(a(MESH:"Dopaminergic Neurons"))
+act(p(CONSO:"alpha-4 beta-2 nAChR", loc(MESH:"GABAergic Neurons"))) -> act(a(MESH:"Dopaminergic Neurons"))
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Neuronal nAChRs are not expressed exclusively in
 neurons. Instead, they are expressed by multiple cell
@@ -893,28 +976,31 @@ types of diverse origins and functions including glia (165,
 167, 425), keratinocytes (44, 86, 95, 426), endothelial cells
 (290, 495), and multiple cell types of the digestive system,
 lungs, and immune system (e.g., Refs. 95, 309, 492, 495)."
-
+SET Confidence = "High"
 a(MESH:Neuroglia) -> p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
 a(MESH:Keratinocytes) -> p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
 a(MESH:"Endothelial Cells") -> p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+UNSET Confidence
 
 SET Evidence = "At the neuromuscular junction, nicotinic function is
 enhanced by inhibition of acetylcholinesterase (AChE),
 the enzyme that metabolizes the endogenous neurotransmitter
 ACh."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Neuromuscular Junction"
 
 p(HGNC:ACHE) -| act(a(CHEBI:nicotine))
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In fact, as described
 above, AChE inhibitors do not affect alpha7 nAChR-mediated
 synaptic transmission evoked by low-frequency stimulation
 of cholinergic fibers in chick ciliary ganglia (522)."
-
+SET Confidence = "High"
 a(MESH:"Cholinesterase Inhibitors") cnc act(p(HGNC:CHRNA7))
+UNSET Confidence
 
 SET Evidence = "An alternative means to increase nicotinic functions
 in the brain is to sensitize the nAChRs to activation by the
@@ -922,21 +1008,23 @@ endogenous agonist(s) using the so-called nicotinic allosteric
 potentiating ligands (APLs), which include drugs
 such as physostigmine and galantamine, a drug currently
 approved for the treatment of AD."
-
+SET Confidence = "High"
 a(CHEBI:physostigmine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 a(CHEBI:galanthamine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+UNSET Confidence
 
 SET Evidence = "Studies from the early
 1980s provided evidence that the cholinesterase (ChE)
 inhibitor physostigmine could interact directly with
 nAChRs at the frog neuromuscular junction and induce
 nicotinic single-channel currents (428, 429)."
-
+SET Confidence = "High"
 SET Species = "8342"
 
 a(CHEBI:physostigmine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits", loc(MESH:"Neuromuscular Junction")))
 
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In the early
 1990s, galantamine, an alkaloid originally extracted from
@@ -944,8 +1032,9 @@ the bulbs and flowers of the wild Caucasian snowdrop
 Galanthus nivalis and other related Amaryllidacea species,
 was found to act like physostigmine on muscle and
 neuronal nAChRs (370, 372)."
-
+SET Confidence = "High"
 a(CHEBI:galanthamine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+UNSET Confidence
 
 SET Evidence = "Surprisingly, however, activation
 of nAChRs by galantamine or physostigmine was
@@ -954,13 +1043,14 @@ was detected even when the receptors were desensitized
 by high agonist concentrations, and was inhibited
 by the monoclonal antibody FK1 (350, 370, 372, 413, 428,
 429)."
-
+SET Confidence = "High"
 a(CHEBI:galanthamine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 a(CHEBI:physostigmine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 a(CHEBI:"nicotinic antagonist") cnc act(a(CHEBI:galanthamine))
 a(CHEBI:"nicotinic antagonist") cnc act(a(CHEBI:physostigmine))
-a(HBP:"FK1 antibody") -| act(a(CHEBI:galanthamine))
-a(HBP:"FK1 antibody") -| act(a(CHEBI:physostigmine))
+a(CONSO:"FK1 antibody") -| act(a(CHEBI:galanthamine))
+a(CONSO:"FK1 antibody") -| act(a(CHEBI:physostigmine))
+UNSET Confidence
 
 SET Evidence = "For instance, studies carried out in PC12
 cells demonstrated that codeine, a drug with no significant
@@ -968,22 +1058,25 @@ effect on ChE, can activate nicotinic single-channel
 currents and that this nicotinic agonist effect is sensitive
 to inhibition by FK1 while unaffected by classical nAChR
 antagonists (450)."
-
+SET Confidence = "Medium"
 SET MeSHAnatomy="PC12 Cells"
 
 a(CHEBI:codeine) cnc a(MESH:Cholinesterases)
 a(CHEBI:codeine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
-a(HBP:"FK1 antibody") -| a(CHEBI:codeine)
-
+a(CONSO:"FK1 antibody") -| a(CHEBI:codeine)
+a(CHEBI:"nicotinic antagonist") cnc a(CHEBI:codeine))
+#Statement added wrt evidence
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Reduced nAChR function/expression in the brain has
 been associated with the pathophysiology of catastrophic
 disorders, including AD and schizophrenia (discussed in
 later sections, and see Refs. 277, 432)."
-
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") neg act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 path(MESH:Schizophrenia) neg act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+UNSET Confidence
 
 SET Evidence = "In particular, the
 association of the alpha7 nAChR gene with a sensory gating
@@ -992,13 +1085,14 @@ schizophrenia (157), and the degree of alpha4beta2 nAChR loss
 and altered alpha7 expresson correlate well with the magnitude
 of progressive cognitive decline in mild-to-moderate
 AD patients (46)."
-
+SET Confidence = "High"
 g(HGNC:CHRNA7) -- path(MESH:"Sensory Gating")
 path(MESH:"Sensory Gating") -- path(MESH:Schizophrenia)
-p(HBP:"alpha-4 beta-2 nAChR") pos bp(GO:cognition)
-p(HBP:"alpha-4 beta-2 nAChR") neg path(MESH:"Alzheimer Disease")
+p(CONSO:"alpha-4 beta-2 nAChR") pos bp(GO:cognition)
+p(CONSO:"alpha-4 beta-2 nAChR") neg path(MESH:"Alzheimer Disease")
 p(HGNC:CHRNA7) pos bp(GO:cognition)
 p(HGNC:CHRNA7) neg path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "The nicotinic APL action of galantamine
 appears to be an important determinant of its clinical
@@ -1007,19 +1101,24 @@ as a nicotinic APL, galantamine improves synaptic
 transmission and decreases neurodegeneration, two effects
 essential for its cognitive-enhancing properties (40,
 108, 241, 409, 521)."
-
+SET Confidence = "Medium"
 a(CHEBI:galanthamine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
-a(CHEBI:galanthamine) -| path(HBP:Neurodegeneration)
+a(CHEBI:galanthamine) -| path(CONSO:Neurodegeneration)
 a(CHEBI:galanthamine) -> bp(GO:"synaptic transmission, cholinergic")
+bp(GO:"synaptic transmission, cholinergic") -> bp(GO:cognition)
+path(CONSO:Neurodegeneration) -> bp(GO:cognition)
+#above two Statements added wrt evidence
+UNSET Confidence
 
 SET Evidence = "Of note is that in both of these catastrophic
 disorders, reduced nAChR activity/expression is
 accompanied by increased levels of kynurenic acid
 (KYNA), a tryptophan metabolite that in the brain is primarily
 produced and released by astrocytes (244, 419)."
-
+SET Confidence = "High"
 act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) neg a(CHEBI:"kynurenic acid")
 a(MESH:Astrocytes) -> a(CHEBI:"kynurenic acid")
+UNSET Confidence
 
 SET Evidence = "The neuroactive properties of KYNA have long been
 attributed to the inhibition of NMDA receptors (329).
@@ -1027,9 +1126,10 @@ Electrophysiological studies, however, have demonstrated
 that physiologically relevant concentrations of
 KYNA block alpha7 nAChR activity noncompetitively and
 voltage independently (210)."
-
+SET Confidence = "High"
 a(CHEBI:"kynurenic acid") -| act(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"))
 a(CHEBI:"kynurenic acid") -| act(p(HGNC:CHRNA7))
+UNSET Confidence
 
 SET Evidence = "KYNA is formed enzymatically by the irreversible transamination
 of L-kynurenine, a major peripheral tryptophan metabolite
@@ -1037,19 +1137,21 @@ with ready access to the brain. Immunohistochemical and
 lesion studies demonstrated that cerebral KYNA synthesis
 takes place almost exclusively in astrocytes (129, 187,
 199)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Astrocytes"
 
 a(CHEBI:"L-kynurenine") -> a(CHEBI:"kynurenic acid")
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Because of the absence of reuptake
 or degradation mechanisms, subsequent KYNA
 removal is accomplished exclusively by probenecid-sensitive
 brain efflux (330, 473)."
-
+SET Confidence = "High"
 a(MESH:Probenecid) -| a(CHEBI:"kynurenic acid")
+UNSET Confidence
 
 SET Evidence = "Interestingly, astrocytic
 KYNA production is regulated by neuronal activity (187)
@@ -1059,9 +1161,10 @@ between neurons and astrocytes is in line with the
 postulated neuromodulatory role of KYNA (418) and adds
 to the complexity of the neurochemical networks in the
 brain."
-
+SET Confidence = "High"
 bp(GO:"energy homeostasis") reg a(CHEBI:"kynurenic acid")
 a(MESH:Neurons) reg a(CHEBI:"kynurenic acid")
+UNSET Confidence
 
 SET Evidence = "In the normal brain, 70% of KYNA formation is
 catalyzed by KAT II, one of the three cerebral KATs (199,
@@ -1071,7 +1174,7 @@ intermediates, including KYNA, the free radical
 generator 3-hydroxykynurenine, and the excitotoxic quinolinic
 acid (419)."
 #AADAT  =  KAT II
-
+SET Confidence = "High"
 cat(p(HGNC:AADAT)) -> a(CHEBI:"kynurenic acid")
 
 SET Species = {"10116", "10090"}
@@ -1081,6 +1184,7 @@ a(CHEBI:kynurenine) -> a(CHEBI:"3-hydroxykynurenine")
 a(CHEBI:kynurenine) -> a(CHEBI:"quinolinic acid")
 
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Mice with a null mutation in the gene that encodes
 KAT II became a unique tool to resolve this issue (31, 410,
@@ -1088,7 +1192,7 @@ KAT II became a unique tool to resolve this issue (31, 410,
 nAChR disinhibition in hippocampal CA1 SR interneurons,
 thereby increasing the activity of GABAergic interneurons
 impinging onto CA1 pyramidal neurons (31)"
-
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = "CA1 Region, Hippocampal"
 
@@ -1097,27 +1201,30 @@ act(p(MGI:Chrna7, loc(MESH:Interneurons))) -> act(a(MESH:"GABAergic Neurons"))
 
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "This constituted the first evidence that
 in the hippocampus endogenous levels of KYNA are sufficient
 to directly modulate the activity of alpha7 nAChRs, but
 not that of NMDA receptors (31)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 
 a(CHEBI:"kynurenic acid") reg act(p(HGNC:CHRNA7))
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Acting as an endogenous regulator of the alpha7 nAChR
 activity, astrocyte-derived KYNA can modulate synaptic
 transmission, synaptic plasticity, neuronal viability, and
 neuronal connectivity in different areas of the brain (Fig. 8)."
-
+SET Confidence = "High"
 a(CHEBI:"kynurenic acid") reg act(p(HGNC:CHRNA7))
 a(CHEBI:"kynurenic acid") reg bp(MESH:"Neuronal Plasticity")
 a(CHEBI:"kynurenic acid") reg bp(GO:"synaptic transmission, cholinergic")
 a(CHEBI:"kynurenic acid") reg path(MESH:"Cell Survival")
+UNSET Confidence
 
 SET Evidence = "Activation of alpha7 nAChRs in somatodendritic and preterminal/
 terminal areas of interneurons in various strata of
@@ -1126,7 +1233,7 @@ quantal release of GABA (14, 25). Glutamate release
 from mossy fibers onto CA3 pyramidal neurons is
 also modulated by alpha7 nAChRs present in the mossy fiber
 terminals (190)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "CA1 Region, Hippocampal"
 
 act(p(HGNC:CHRNA7)) -> sec(a(CHEBI:"gamma-aminobutyric acid"))
@@ -1134,6 +1241,7 @@ a(MESH:"Mossy Fibers, Hippocampal") -> a(CHEBI:"glutamate(2-)", loc(MESH:"Pyrami
 p(HGNC:CHRNA7, loc(MESH:"Mossy Fibers, Hippocampal")) reg a(CHEBI:"glutamate(2-)", loc(MESH:"Pyramidal Cells"))
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Activation of alpha7 nAChRs is known to contribute to
 the regulation of extracellular dopamine levels in the rat
@@ -1142,22 +1250,23 @@ alpha-BGT to the rat striatum significantly reduces the extracellular
 levels of dopamine, and the magnitude of the
 effect of either antagonist alone is comparable to that of
 both antagonists together (285)."
-
+SET Confidence = "High"
 SET Species = "10116"
 SET MeSHAnatomy = "Corpus Striatum"
 
 act(p(HGNC:CHRNA7)) reg a(CHEBI:dopamine, loc(GO:"extracellular region"))
 a(CHEBI:"kynurenic acid") -| a(CHEBI:dopamine, loc(GO:"extracellular region"))
-a(HBP:"alpha-Bungarotoxin") -| a(CHEBI:dopamine, loc(GO:"extracellular region"))
+p(CONSO:"alpha-Bungarotoxin") -| a(CHEBI:dopamine, loc(GO:"extracellular region"))
 
 UNSET Species
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In contrast, the NMDA
 receptor antagonist 7-chloro-KYNA has no significant ef-
 fect on the extracellular levels of dopamine in the rat
 striatum (391). "
-
+SET Confidence = "High"
 SET Species = "10116"
 SET MeSHAnatomy = "Corpus Striatum"
 
@@ -1165,6 +1274,7 @@ a(MESH:"7-chlorothiokynurenic acid") cnc a(CHEBI:dopamine, loc(GO:"extracellular
 
 UNSET Species
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "As illustrated in Figure 8, KYNA-induced
 reduction of extracellular dopamine levels can be explained
@@ -1173,13 +1283,14 @@ the dopaminergic neurons within the VTA and/or in cortical
 glutamatergic terminals that synapse onto striatal
 neurons. VTA dopaminergic neurons represent the major
 dopaminergic input to the nucleus accumbens."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Dopaminergic Neurons"
 
 act(p(HGNC:CHRNA7)) -> a(CHEBI:dopamine, loc(GO:"extracellular region"))
 a(CHEBI:"kynurenic acid") -| act(p(HGNC:CHRNA7))
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Chronic alpha7 nAChR inhibition in the hippocampus by elevated
 levels of KYNA can contribute to auditory gating
@@ -1188,7 +1299,7 @@ of schizophrenia (156). It is also feasible that KYNAinduced
 inhibition of alpha7 nAChRs contributes to the cognitive
 impairment observed in patients with AD and
 schizophrenia (273)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 
 a(CHEBI:"kynurenic acid") -| act(p(HGNC:CHRNA7))
@@ -1198,22 +1309,27 @@ act(p(HGNC:CHRNA7)) -- bp(GO:cognition)
 bp(GO:cognition) neg path(MESH:"Alzheimer Disease")
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Drugs currently approved to treat mild-to-moderate
 AD, including galantamine, donepezil, and rivastigmine, all
 inhibit AChE, the enzyme that hydrolyzes ACh (462)."
-
+SET Confidence = "Medium"
 a(CHEBI:galanthamine) -| p(HGNC:ACHE)
 a(CHEBI:donepezil) -| p(HGNC:ACHE)
 a(CHEBI:rivastigmine) -| p(HGNC:ACHE)
+act(p(HGNC:ACHE)) -| a(MESH:Acetylcholine)
+#Statement added wrt to evidence
+UNSET Confidence
 
 SET Evidence = "Other endogenous ligands that impact on the activity
 of nAChRs noncompetitively and voltage independently
 include the amyloid beta peptide 1-42 (Abeta1-42; Refs. 123,
 376) and the canabinoid anandamide (356, 442)."
-
+SET Confidence = "High"
 a(CHEBI:"amyloid-beta polypeptide 42") -- act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 a(CHEBI:anandamide) -- act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+UNSET Confidence
 
 SET Evidence = "The
 Abeta1-42 peptide is one of the breakdown products of the
@@ -1224,8 +1340,8 @@ overexpressing either alpha7 nAChRs or APP, Abeta1-42 coimmunoprecipitates
 with alpha7 nAChRs (490). The Abeta1-42 peptide
 also displaces binding of [3H]MLA from alpha7 nAChRs in
 cerebral cortical and hippocampal synaptosomes (490)."
-
-p(HBP:"gamma-secretase") -> a(CHEBI:"amyloid-beta polypeptide 42")
+SET Confidence = "High"
+p(CONSO:"gamma-secretase") -> a(CHEBI:"amyloid-beta polypeptide 42")
 p(HGNC:BACE1) -> a(CHEBI:"amyloid-beta polypeptide 42")
 
 SET MeSHAnatomy = "Brain"
@@ -1236,6 +1352,7 @@ a(CHEBI:"amyloid-beta polypeptide 42") -| complex(a(MESH:methyllycaconitine), p(
 
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "More functional studies reported that while at picomolar
 concentrations Abeta1-42 activates alpha7 nAChRs ectopically
@@ -1246,22 +1363,24 @@ Abeta1-42 is noncompetitive with respect to the agonist, is
 voltage independent, and is therefore likely to be mediated
 by the interaction of the peptide with a site different
 from that for ACh on the nAChRs."
-
+SET Confidence = "High"
 a(CHEBI:"amyloid-beta polypeptide 42") -| act(p(HGNC:CHRNA7))
+UNSET Confidence
 
 SET Evidence = "Other studies have
 reported that alpha4beta2 nAChRs are more sensitive than alpha7
 nAChRs to inhibition by nanomolar concentrations of
 Abeta1-42 (506). "
-
-a(CHEBI:"amyloid-beta polypeptide 42") -| act(p(HBP:"alpha-4 beta-2 nAChR"))
+SET Confidence = "High"
+a(CHEBI:"amyloid-beta polypeptide 42") -| act(p(CONSO:"alpha-4 beta-2 nAChR"))
+UNSET Confidence
 
 SET Evidence = "It is noteworthy
 that the alpha7 nAChR activity increases intracellular accumulation
 of Abeta in neurons (336), and Abeta peptides, in
 addition to modulating nAChR activity, downregulate the
 expression of nAChRs (197)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 
 act(p(HGNC:CHRNA7)) -> a(CHEBI:"amyloid-beta", loc(GO:intracellular))
@@ -1269,6 +1388,7 @@ a(CHEBI:"amyloid-beta polypeptide 42") reg act(p(HGNCGENEFAMILY:"Cholinergic rec
 a(CHEBI:"amyloid-beta polypeptide 42") -| r(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Anandamide, a compound originally isolated from
 porcine brain extracts, is known to interact with canabinoid
@@ -1281,7 +1401,7 @@ anandamine blocks noncompetitively and voltage independently
 the activation of alpha7 nAChRs ectopically expressed
 in Xenopus oocytes (356). It also inhibits the
 activity of alpha4beta2 nAChRs expressed in SH-EP1 cells (443)."
-
+SET Confidence = "High"
 a(CHEBI:anandamide) -- p(HGNC:CNR1)
 a(CHEBI:anandamide) -- p(HGNC:CNR2)
 a(CHEBI:anandamide) -- complex(GO:"voltage-gated calcium channel complex")
@@ -1290,7 +1410,8 @@ a(CHEBI:anandamide) -- a(MESH:"Receptors, Serotonin")
 a(CHEBI:anandamide) -- p(HGNCGENEFAMILY:"Glutamate ionotropic receptor kainate type subunits")
 a(CHEBI:anandamide) -- p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
 a(CHEBI:anandamide) -| act(p(HGNC:CHRNA7))
-a(CHEBI:anandamide) -| act(p(HBP:"alpha-4 beta-2 nAChR"))
+a(CHEBI:anandamide) -| act(p(CONSO:"alpha-4 beta-2 nAChR"))
+UNSET Confidence
 
 SET Evidence = "There is evidence that anandamide is produced by
 postsynaptic neurons in response to elevated intracellular
@@ -1300,7 +1421,7 @@ anandamine in postsynaptic neurons (448). Anandamine,
 then, functions as a retrograde messenger and regulates
 synaptic transmission by interacting with specific receptors
 in the presynaptic neurons/terminals (498)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 
 a(CHEBI:"calcium(2+)", loc(GO:intracellular)) -> a(CHEBI:anandamide)
@@ -1309,6 +1430,7 @@ act(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits")) -> a(C
 a(CHEBI:anandamide) reg bp(GO:"chemical synaptic transmission, postsynaptic")
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Finally, bupropion (16, 294, 433) and UCI-30002 (514)
 are examples of synthetic compounds that act as noncompetitive
@@ -1318,25 +1440,27 @@ effectively decrease nicotine self-administration
 in rats (280, 514). Bupropion is presently approved as an
 adjunct therapy for smoking cessation."
 # N-(1,2,3,4-tetrahydro-1-naphthyl)-4-nitroaniline = UCI-30002
-
+SET Confidence = "High"
 a(CHEBI:bupropion) -| act(p(HGNC:CHRNA7))
-a(CHEBI:bupropion) -| act(p(HBP:"alpha-4 beta-2 nAChR"))
-a(CHEBI:bupropion) -| act(p(HBP:"alpha-3 beta-4 nAChR"))
+a(CHEBI:bupropion) -| act(p(CONSO:"alpha-4 beta-2 nAChR"))
+a(CHEBI:bupropion) -| act(p(CONSO:"alpha-3 beta-4 nAChR"))
 a(MESH:"N-(1,2,3,4-tetrahydro-1-naphthyl)-4-nitroaniline") -| act(p(HGNC:CHRNA7))
-a(MESH:"N-(1,2,3,4-tetrahydro-1-naphthyl)-4-nitroaniline") -| act(p(HBP:"alpha-4 beta-2 nAChR"))
-a(MESH:"N-(1,2,3,4-tetrahydro-1-naphthyl)-4-nitroaniline") -| act(p(HBP:"alpha-3 beta-4 nAChR"))
+a(MESH:"N-(1,2,3,4-tetrahydro-1-naphthyl)-4-nitroaniline") -| act(p(CONSO:"alpha-4 beta-2 nAChR"))
+a(MESH:"N-(1,2,3,4-tetrahydro-1-naphthyl)-4-nitroaniline") -| act(p(CONSO:"alpha-3 beta-4 nAChR"))
 a(CHEBI:bupropion) -- path(MESH:"Smoking Cessation")
+UNSET Confidence
 
 SET Evidence = "It has long been recognized that nAChR activation in
 mammalian sympathetic neurons induces the opening of
 a nonselective cation channel that leads to Na+ influx,
 membrane depolarization, and consequently activation of
 voltage-gated Ca2+ channels (92, 119)."
-
+SET Confidence = "High"
 act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> bp(GO:"cation transport")
 act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> a(MESH:Sodium, loc(GO:intracellular))
 act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> bp(GO:"membrane depolarization")
 act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> bp(GO:"positive regulation of voltage-gated calcium channel activity")
+UNSET Confidence
 
 SET Evidence = "Long before the
 identification of the high Ca2+ permeability of alpha7 nAChR
@@ -1344,7 +1468,7 @@ channels, different studies reported significant Ca2+ influx
 through nAChRs in muscle, parasympathetic neurons,
 pheochromocytoma cells, and human neuroblastoma
 cells (115, 321, 347, 407, 411, 459, 468)."
-
+SET Confidence = "High"
 act(p(HGNC:CHRNA7)) -> a(CHEBI:"calcium(2+)", loc(GO:intracellular))
 
 SET MeSHAnatomy = {"Muscles", "Parasympathetic Nervous System", "PC12 Cells"}
@@ -1352,17 +1476,19 @@ SET MeSHAnatomy = {"Muscles", "Parasympathetic Nervous System", "PC12 Cells"}
 act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> a(CHEBI:"calcium(2+)", loc(GO:intracellular))
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "It was then recognized that Ca2+ flux directly
 through nAChR channels or indirectly via voltage-gated
 Ca2+ channels is relevant for nicotinic modulation of
 transmitter release, synaptic plasticity, as well as neuronal
 viability, differentiation, and migration."
-
+SET Confidence = "High"
 a(CHEBI:"calcium(2+)", loc(GO:intracellular)) reg bp(GO:"signal release")
 a(CHEBI:"calcium(2+)", loc(GO:intracellular)) reg bp(MESH:"Neuronal Plasticity")
 a(CHEBI:"calcium(2+)", loc(GO:intracellular)) reg bp(GO:"neuron migration")
 a(CHEBI:"calcium(2+)", loc(GO:intracellular)) reg bp(GO:"neuron differentiation")
+UNSET Confidence
 
 SET Evidence = "An ever-growing body of evidence indicates that in
 CNS and parasympathetic nervous system neurons and in
@@ -1372,7 +1498,7 @@ including PI3K, protein kinase C (PKC), protein
 kinase A (PKA), calmodulin-dependent protein kinase II
 (CAM kinase II), and extracellular signal-regulated kinases
 (ERKs; Refs. 108, 112, 146, 318, 469)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = {"Central Nervous System", "Parasympathetic Nervous System"}
 
 a(CHEBI:nicotine) -> act(p(FPLX:PI3K))
@@ -1381,6 +1507,7 @@ a(CHEBI:nicotine) -> act(p(FPLX:PKC))
 a(CHEBI:nicotine) -> act(p(FPLX:"CAMK2_complex"))
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Downstream
 from the nicotine-stimulated kinases, a number of transcription
@@ -1391,27 +1518,28 @@ protein (CREB) and the activating transcription factor 2
 factor Elk-1 in the rat hippocampus (349), and
 the signal transducer and activator of transcription
 (STAT3) in macrophages and skin cells (114, 354)."
-
+SET Confidence = "Medium"
 SET MeSHAnatomy = "PC12 Cells"
 
-act(a(CHEBI:nicotine)) -> act(p(FPLX:CREB))
-act(a(CHEBI:nicotine)) -> act(p(HGNC:ATF2))
+act(a(CHEBI:nicotine)) -> act(p(FPLX:CREB), ma(tscript))
+act(a(CHEBI:nicotine)) -> act(p(HGNC:ATF2), ma(tscript))
 
 UNSET MeSHAnatomy
 
 SET Species = "10116"
 SET MeSHAnatomy = "Hippocampus"
 
-act(a(CHEBI:nicotine)) -> act(p(RGD:Elk1))
+act(a(CHEBI:nicotine)) -> act(p(RGD:Elk1), ma(tscript))
 
 UNSET MeSHAnatomy
 UNSET Species
 
 SET MeSHAnatomy = {"Macrophages", "Skin"}
 
-act(a(CHEBI:nicotine)) -> act(p(HGNC:STAT3))
-
+act(a(CHEBI:nicotine)) -> act(p(HGNC:STAT3), ma(tscript))
+#transcription was added in Statements as molecular activity
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Recent
 studies have supported a role for ERK and CREB activity
@@ -1421,7 +1549,7 @@ JAK-2/STAT-3 signaling pathways contribute to the toxic
 effects of nicotine in skin cells (42), and other pathways
 contribute to the effects of nicotine and other nicotinic
 ligands on inflammatory responses as described below."
-
+SET Confidence = "High"
 bp(MESH:"Neuronal Plasticity") -- act(p(FPLX:CREB))
 bp(MESH:"Neuronal Plasticity") -- act(p(HGNC:MAPK1))
 act(p(HGNC:MAPK1)) -- path(MESH:"Tobacco Use Disorder")
@@ -1434,6 +1562,7 @@ bp(GO:"ERK1 and ERK2 cascade") -> act(a(CHEBI:nicotine))
 act(a(CHEBI:nicotine)) -- a(MESH:Skin)
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In fact, the relationship
 between tobacco abuse (including smokeless) and difficulty
@@ -1441,11 +1570,12 @@ in healing, increased susceptibility to infection (especially
 oral), enhanced expression of indicators of skin
 aging, and increased cancer risk are all well-documented
 (383, 452)."
-
+SET Confidence = "High"
 path(MESH:"Tobacco Use Disorder") -| path(MESH:"Wound Healing")
 path(MESH:"Tobacco Use Disorder") -- path(MESH:Infection)
 path(MESH:"Tobacco Use Disorder") -- path(MESH:"Skin Aging")
 path(MESH:"Tobacco Use Disorder") -- path(MESH:Neoplasms)
+UNSET Confidence
 
 SET Evidence = "Modulation by nicotine of inflammatory
 responses in the intestines is much better reported.
@@ -1457,7 +1587,7 @@ was ameliorated by either returning to smoking (58, 401,
 transdermal patches (313).In contrast, patients with
 Crohn’s disease experience much more severe disease
 when smoking (401)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Intestines"
 
 act(a(CHEBI:nicotine)) reg bp(GO:"inflammatory response")
@@ -1466,6 +1596,7 @@ a(CHEBI:nicotine) -| path(MESH:"Colitis, Ulcerative")
 path(MESH:"Tobacco Use Disorder") -> path(MESH:"Crohn Disease")
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Notably, mice with a null mutation in
 the gene that encodes the alpha5 nAChR subunit exhibit
@@ -1476,20 +1607,21 @@ nicotine remains effective in attenuating the disease process.
 Therefore, again nicotine appears to impact on inflammatory
 processes with considerable specificity and
 tissue dependency."
-
+SET Confidence = "High"
 SET Species = "10090"
 
 p(HGNC:CHRNA5) -| path(MESH:"Inflammatory Bowel Diseases")
 a(CHEBI:nicotine) -| path(MESH:"Inflammatory Bowel Diseases")
 
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "There is current evidence that nAChRs present in
 skin cells modulate the responses triggered by inflammatory
 stimuli applied to the skin (354). Smoking is a welldefined
 risk factor in delayed wound healing and possibly
 the development of premature facial wrinkling (226)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Skin"
 
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") reg bp(GO:"inflammatory response")
@@ -1497,12 +1629,13 @@ path(MESH:"Tobacco Use Disorder") -| path(MESH:"Wound Healing")
 path(MESH:"Tobacco Use Disorder") -> path(MESH:"Skin Aging")
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Mechanistically, nicotine,
 acting through nAChRs, decreases keratinocyte migration
 (188, 189) and modifies the activity of PI3K/Akt, ERK,
 MEK, and JAK signaling pathways."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Keratinocytes"
 
 a(CHEBI:nicotine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
@@ -1512,6 +1645,7 @@ act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) reg bp(GO:"ERK
 act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) reg bp(GO:"receptor signaling pathway via JAK-STAT")
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Furthermore, pharmacological
 dissection of nicotine’s influence on cell cycle
@@ -1521,30 +1655,35 @@ Other receptors are clearly involved in this process,
 since atropine, a muscarinic and sometimes nAChR inhibitor
 (531, 532), reduces cell adhesion through decreasing
 desmoligein expression."
-
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Keratinocytes"
 
 p(HGNC:CHRNA7) reg bp(GO:"cell cycle")
+p(HGNC:CHRNA7) reg bp(MESH:Apoptosis)
+p(HGNC:CHRNA7) reg bp(MESH:"Cell Differentiation")
+#above two Statements were added wrt evidence
 a(CHEBI:atropine) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic"))
 a(CHEBI:atropine) -| bp(GO:"cell adhesion")
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "It has long been
 known that smokers tend to be leaner, and yet approximately
 four times more likely to become insulin resistant
 and develop type I diabetes (497), a condition that is more
 commonly observed in obese patients."
-
+SET Confidence = "High"
 path(MESH:"Tobacco Use Disorder") -- path(MESH:"Insulin Resistance")
 path(MESH:"Insulin Resistance") -> path(MESH:"Diabetes Mellitus, Type 1")
+UNSET Confidence
 
 SET Evidence = "Notably, nicotine pretreatment
 of rat adipocytes (279) reduces the release of
 TNF-alpha as well as free fatty acids and the adipokine adiponectin
 (whose function is not known, although its levels
 change in metabolic syndrome)."
-
+SET Confidence = "High"
 SET Species = "10116"
 SET MeSHAnatomy = "Adipocytes"
 
@@ -1552,23 +1691,25 @@ a(CHEBI:nicotine) -| sec(p(HGNC:TNF))
 
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Mice are particularly well-defined for their
 strain-specific complex genetic traits related to the effects
 of nicotine (105, 302) and morphological variations in the
 brain (e.g., Refs. 166, 167, 169)."
-
+SET Confidence = "High"
 SET Species = "10090"
 
 act(a(CHEBI:nicotine)) -- path(MESH:"Genetic Variation")
 
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "For instance, substantial strain-specific variability in
 nAChR expression has been observed in the striatum (34),
 retina (227), cerebellum (471), and dorsal hippocampus
 (164, 165, 167, 169) of mice."
-
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = {"Corpus Striatum", "Retina", "Cerebellum", "Hippocampus"}
 
@@ -1576,10 +1717,11 @@ a(MESH:"Mice, Inbred Strains") -- p(HGNCGENEFAMILY:"Cholinergic receptors nicoti
 
 UNSET Species
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Strain-dependent variations in nAChR density in regions
 of the rat brain have also been reported. "
-
+SET Confidence = "High"
 SET Species = "10116"
 SET MeSHAnatomy = "Brain"
 
@@ -1587,6 +1729,7 @@ a(MESH:"Rats, Inbred Strains") -- p(HGNCGENEFAMILY:"Cholinergic receptors nicoti
 
 UNSET Species
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "AD is the most common form of dementia in the
 elderly population. The histopathology of this disease is
@@ -1595,12 +1738,13 @@ cholinergic neurotransmission, 2) deposition of extracellular
 Abeta peptides into plaques, 3) hyperphosphorylation
 of the tau protein that leads to excessive formation of
 neurofibrillar tangles, and 4) increased local inflammation."
-
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") pos path(MESH:Dementia)
 path(MESH:"Alzheimer Disease") neg bp(GO:"synaptic transmission, cholinergic")
 path(MESH:"Alzheimer Disease") pos path(MESH:"Plaque, Amyloid")
 path(MESH:"Alzheimer Disease") pos path(MESH:"Neurofibrillary Tangles")
 path(MESH:"Alzheimer Disease") pos path(MESH:"Neurogenic Inflammation")
+UNSET Confidence
 
 SET Evidence = "However, loss of brain
 nAChRs precedes that of muscarinic receptors during
@@ -1609,10 +1753,11 @@ human brains afflicted with AD relative to age-matched
 controls (236, 308, 373, 374, 416, 519). In fact, alpha4 nAChR
 expression can decrease by >80% in the AD brain (306,
 374)."
-
+SET Confidence = "High"
 path(MESH:Aging) neg p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
 path(MESH:"Alzheimer Disease") neg p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
 path(MESH:"Alzheimer Disease") neg p(HGNC:CHRNA4)
+UNSET Confidence
 
 SET Evidence = "The importance of retaining the high-affinity nicotine
 binding sites to brain integrity has been demonstrated in
@@ -1621,12 +1766,13 @@ encodes the beta2 nAChR subunit, a structural subunit of the
 high-affinity nicotine binding site (150, 184, 215, 311);
 these mice experience early onset neurodegeneration
 (528)."
-
+SET Confidence = "High"
 SET Species = "10090"
 
-p(MGI:Chrnb2) neg path(HBP:Neurodegeneration)
+p(MGI:Chrnb2) neg path(CONSO:Neurodegeneration)
 
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In human
 trials, nicotine showed little efficacy in ameliorating AD
@@ -1634,8 +1780,9 @@ symptoms (437). However, treatment was initiated after
 diagnosis of symptoms, and there is both epidemiological
 data and direct evidence from animal models that this is
 too late (106, 346, 396)."
-
+SET Confidence = "High"
 a(CHEBI:nicotine) cnc path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "First, age-related
 nAChR subunit expression decline was observed in both
@@ -1648,36 +1795,39 @@ than age-matched controls (165, 396).
 Acute nicotine treatment (alpha6 wk of oral nicotine) of aged mice had
 no measurable influence on nAChR expression, neuronal
 viability, or dendritic complexity (e.g., Ref. 396)"
-
+SET Confidence = "High"
 path(MESH:Aging) -| p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
 path(MESH:Aging) -| p(MGI:Chrna4)
 a(CHEBI:nicotine) cnc p(MGI:Chrna4)
 a(CHEBI:nicotine) cnc p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+UNSET Confidence
 
 SET Evidence = "It is noteworthy that nAChR expression by astrocytes in
 brains afflicted with AD is increased (463, 518), and astrocytes
 in general have been reported to be more plentiful
 in the hippocampus of some rat strains with age (35,
 284)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Astrocytes"
 
 path(MESH:"Alzheimer Disease") pos p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "However, this appealing
 scenario is complicated by recent findings that beta-amyloid
 peptides directly modify alpha7 nAChR function (242, 278)."
-
-a(HBP:"amyloid-beta oligomers") reg act(p(HGNC:CHRNA7))
+SET Confidence = "High"
+a(CONSO:"amyloid-beta oligomers") reg act(p(HGNC:CHRNA7))
+UNSET Confidence
 
 SET Evidence = "Mouse strains, like humans, also exhibit a striking
 age-related decline in nAChR expression. For instance, in
 the hippocampus of aged CBA and B6 mice, expression of
 alpha4 and alpha7 nAChR subunits decreases with age (166).
 "
-
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = "Hippocampus"
 
@@ -1686,12 +1836,14 @@ path(MESH:Aging) neg p(MGI:Chrna7)
 
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "These results suggest that mouse strains of different
 genetic backgrounds undergo dissimilar age-related
 changes in the expression of nAChR subunits."
-
+SET Confidence = "High"
 a(MESH:"Mice, Inbred Strains") -- p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+UNSET Confidence
 
 SET Evidence = "NSAIDs [e.g., drugs such as ibuprofen and NS398
 (celecoxib or Celebrex)] antagonize to varying degrees
@@ -1700,24 +1852,26 @@ Cox2 (also termed, prostaglandin-endoperoxide synthase
 2), that are rate-limiting in converting arachidonic acid to
 prostaglandin H2, a precursor to many additional prostaglandins
 (for review, see Ref. 436)."
-
+SET Confidence = "High"
 a(MESH:"Anti-Inflammatory Agents, Non-Steroidal") -| act(p(HGNC:PTGS1))
 a(MESH:"Anti-Inflammatory Agents, Non-Steroidal") -| act(p(HGNC:PTGS2))
 act(p(HGNC:PTGS1)) -> a(CHEBI:"prostaglandin H2")
 act(p(HGNC:PTGS2)) -> a(CHEBI:"prostaglandin H2")
+UNSET Confidence
 
 SET Evidence = "In the brain, however,
 Cox2 is constitutively expressed by neurons (212, 512),
 participates in modulating synaptic plasticity (53, 464),
 and conditionally can either inhibit or promote cell death
 (74, 85, 237, 322, 451)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 
 p(HGNC:PTGS2, loc(MESH:Neurons)) reg path(MESH:"Neuronal Plasticity")
 p(HGNC:PTGS2, loc(MESH:Neurons)) reg bp(GO:"cell death")
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "A link between alpha4 nAChRs and
 Cox2 was suggested by the observation that interneurons
@@ -1726,10 +1880,12 @@ mechanistic connection was inferred when long-term
 treatment of aged animals with NS398 promoted retention
 of alpha4 nAChR expression in the brain, an effect that was
 antagonized by the coadministration of nicotine."
-
+SET Confidence = "Medium"
 p(HGNC:PTGS2) -- p(HGNC:CHRNA4)
-a(CHEBI:"NS-398") -| p(HGNC:CHRNA4)
+a(CHEBI:"NS-398") -> p(HGNC:CHRNA4)
+#instead of being blocked, CNRNA4 is increased
 a(CHEBI:nicotine) -| act(a(CHEBI:"NS-398"))
+UNSET Confidence
 
 SET Evidence = "Parkinson’s disease (PD) is characterized by selective
 damage to dopaminergic nigrostriatal neurons and is
@@ -1737,7 +1893,7 @@ clinically revealed by motor deficits, including rigidity,
 tremor, and bradykinesia. Dopamine replacement therapy
 (usually with L-dopa) is the most common treatment,
 although this drug loses efficacy over time."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Dopaminergic Neurons"
 
 path(MESH:"Parkinson Disease") pos path(MESH:Tremor)
@@ -1746,36 +1902,40 @@ path(MESH:"Parkinson Disease") pos path(MESH:"Muscle Rigidity")
 a(CHEBI:dopamine) -| path(MESH:"Parkinson Disease")
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "However, epidemiological
 studies have reported that heavy smokers are less
 likely to experience PD (see reviews in Refs. 384, 385)."
-
+SET Confidence = "High"
 path(MESH:"Parkinson Disease") neg path(MESH:"Tobacco Use Disorder")
+UNSET Confidence
 
 SET Evidence = "More direct evidence of the protective
 effects of nicotine in this disease process comes
 from studies in primates, where oral nicotine reduces the
 nigrostriatal neuronal loss observed in chemically induced
 PD (384, 385)."
-
+SET Confidence = "High"
 SET MeSHDisease = "Parkinson Disease"
 
 a(CHEBI:nicotine) -| bp(GO:"neuron death")
 
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "However, in rodent and nonprimate animal models,
 nicotine has been shown to enhance striatal dopamine
 release and to prevent toxin-induced degeneration of dopaminergic
 neurons (384, 385)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Corpus Striatum"
 
 a(CHEBI:nicotine) -> sec(a(CHEBI:dopamine))
 a(CHEBI:nicotine) -| bp(GO:"neuron death")
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Nicotine is perhaps the most addictive drug that is
 widely used; 95% or more of its users with a strong desire
@@ -1783,10 +1943,11 @@ to stop using it relapse within 1 yr (47, 203). Chronic
 nicotine use and the phenotypes of addiction are closely
 associated in humans and other animals with concurrent
 physiological changes in nAChR function and expression"
-
+SET Confidence = "High"
 a(CHEBI:nicotine) -> path(MESH:"Behavior, Addictive")
 a(CHEBI:nicotine) reg p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
 a(CHEBI:nicotine) reg act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+UNSET Confidence
 
 SET Evidence = "In particular, repeated self-administration produces the
 upregulation of high-affinity (alpha4beta2) nAChR expression,
@@ -1797,11 +1958,12 @@ to physical discomfort associated with withdrawal
 including craving, anxiety, and a multitude of other less
 than desirable sensations of autonomic dysfunction when
 use is stopped."
-
-a(CHEBI:nicotine) -> p(HBP:"alpha-4 beta-2 nAChR")
-a(CHEBI:nicotine) -| act(p(HBP:"alpha-4 beta-2 nAChR"))
+SET Confidence = "High"
+a(CHEBI:nicotine) -> p(CONSO:"alpha-4 beta-2 nAChR")
+a(CHEBI:nicotine) -| act(p(CONSO:"alpha-4 beta-2 nAChR"))
 a(CHEBI:nicotine) -> path(MESH:Craving)
 a(CHEBI:nicotine) -> path(MESH:Anxiety)
+UNSET Confidence
 
 SET Evidence = "A principle component of genetic
 analysis of the contribution of alpha7 and alpha4beta2 nAChRs
@@ -1809,12 +1971,13 @@ to the effects of nicotine was reported 15 years ago. The
 number of alpha-BGT binding sites (presumably alpha7 nAChRs)
 was shown to be highly correlated with sensitivity to
 nicotinic-induced seizures (105, 301, 303)."
-
+SET Confidence = "High"
 SET MeSHDisease = "Seizures"
 
 a(CHEBI:nicotine) -- act(p(HGNC:CHRNA7))
 
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "The
 concept that beta2-containing nAChRs are involved in the
@@ -1827,9 +1990,10 @@ symptoms of the nicotine withdrawal syndrome similar to
 those observed in wild-type mice led to the conclusion
 that beta2-containing nAChRs do not contribute to the physical
 dependence on nicotine (57)."
-
-a(HBP:"beta-2-containing nAChR") -- a(CHEBI:nicotine)
-a(HBP:"beta-2-containing nAChR") cnc act(a(CHEBI:nicotine))
+SET Confidence = "High"
+p(CONSO:"beta-2-containing nAChR") -- a(CHEBI:nicotine)
+p(CONSO:"beta-2-containing nAChR") cnc act(a(CHEBI:nicotine))
+UNSET Confidence
 
 SET Evidence = "Several possibilities exist for
 the identity of the nAChR important to tolerance development.
@@ -1838,15 +2002,17 @@ site number and sensitivity to nicotine-induced seizures
 among multiple mouse strains led to the suggestion that
 alpha7 nAChRs are critical to limit oral nicotine self-administration
 in mice (105, 301)."
-
+SET Confidence = "High"
 p(HGNC:CHRNA7) reg a(CHEBI:nicotine)
+UNSET Confidence
 
 SET Evidence = "While development of tolerance does not
 seem to be regulated by alpha7 nAChRs, a recent study of alpha7
 nAChR-null mice indicates that these receptors control
 the severity of the nicotine withdrawal syndrome (402)."
-
+SET Confidence = "High"
 p(HGNC:CHRNA7) reg path(MESH:"Substance Withdrawal Syndrome")
+UNSET Confidence
 
 SET Evidence = "In summary, while nicotine-induced upregulation
 requires at least the beta2 nAChR subunit, development of
@@ -1854,8 +2020,9 @@ tolerance to nicotine requires neither the beta2 nor the alpha7
 nAChR subunit; instead, it appears to be modulated by a
 beta4-containing nAChR and to require an alpha4-containing
 nAChR."
-
+SET Confidence = "High"
 p(HGNC:CHRNB4) -- path(MESH:"Drug Tolerance")
-a(HBP:"alpha-4-containing nAChR") -- path(MESH:"Drug Tolerance")
+p(CONSO:"alpha-4-containing nAChR") -- path(MESH:"Drug Tolerance")
+UNSET Confidence
 
 UNSET TextLocation

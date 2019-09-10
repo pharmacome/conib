@@ -1,0 +1,802 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Immunoneuropsychiatry — novel perspectives on brain disorders"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Trusha Adeshara"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/conso
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
+DEFINE NAMESPACE MGI           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
+DEFINE NAMESPACE RGD           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "30988501"}
+
+SET Evidence = "Instead, an interplay between neurons, glial cells and the immune system contributes to functional properties, such as cognition, social behaviour and learning performance in the healthy brain."
+
+bp(GO:"neuron-glial cell signaling") -> bp(GO:cognition)
+bp(GO:"immune system process") -> bp(GO:cognition)
+bp(GO:"neuron-glial cell signaling") -> bp(GO:"social behavior")
+bp(GO:"immune system process") -> bp(GO:"social behavior")
+bp(GO:"neuron-glial cell signaling") -> bp(GO:learning)
+bp(GO:"immune system process") -> bp(GO:learning)
+
+SET Evidence = "Microglia permanently survey their local environment with fine, motile processes 1 and, during brain development, they have an important role in synaptic pruning mediated by the complement proteins C1q and C3, as they phagocytose the complement-tagged synapses 2,3."
+
+a(MESH:Microglia) -> bp(MESH:"Immunologic Surveillance")
+bp(GO:"brain development") -> bp(GO:"complement-mediated synapse pruning")
+a(MESH:Microglia) -> bp(GO:"complement-mediated synapse pruning")
+p(HGNC:C1QBP) -> bp(GO:"complement-mediated synapse pruning")
+p(HGNC:C3) -> bp(GO:"complement-mediated synapse pruning")
+complex(a(MESH:Microglia),p(HGNC:C1QBP))
+complex(a(MESH:Microglia),p(HGNC:C3))
+
+SET Evidence = "In addition to microglia, soluble factors such as chemokines and chemokine receptors also contribute to physiological developmental processes in the CNS; for example, CXC-chemokine receptor 4 (CXCR4) and CXCR7 are involved in the migration of cortical interneurons 4."
+
+a(MESH:Microglia) -> bp(GO:"central nervous system development")
+a(MESH:Chemokines) -> bp(GO:"central nervous system development")
+p(INTERPRO:"Chemokine receptor family") -> bp(GO:"central nervous system development")
+SET Anatomy = "cortex"
+SET Cell = "interneuron"
+p(HGNC:CXCR4) -> bp(GO:"cell migration")
+p(HGNC:ACKR3) -> bp(GO:"cell migration")
+UNSET Cell
+UNSET Anatomy
+
+SET Evidence = "In the healthy adult brain, microglia have a role in the homeostasis of synaptic circuits in the CNS 5."
+
+SET Anatomy = "central nervous system"
+a(MESH:Microglia) -- bp(GO:"synaptic signaling")
+UNSET Anatomy
+
+SET Evidence = "Their expression of receptors for purines (such as ATP) and common neurotransmitters (such as glutamate) enables them to sense local neuronal activity 6."
+
+#their :microglia
+bp(GO:"neuron cellular homeostasis") -> p(HGNCGENEFAMILY:"Purinergic receptors P2X",loc(MESH:Microglia))
+bp(GO:"neuron cellular homeostasis") -> p(HGNCGENEFAMILY:"Glutamate metabotropic receptors",loc(MESH:Microglia))
+
+SET Evidence = "In response, microglia can directly contact neurons via outgrowth of processes 5 or can indirectly modulate neuronal firing rate via release of extracellular vesicles 7 or signalling molecules, such as tumour necrosis factor (TNF) 8."
+
+a(MESH:Microglia) -> sec(a(MESH:"Extracellular Vesicles"))
+a(MESH:Microglia) -> sec(p(HGNC:TNF))
+SET Cell = "neuron"
+a(MESH:"Extracellular Vesicles") -> bp(GO:"regulation of action potential firing rate")
+p(HGNC:TNF) -> bp(GO:"regulation of action potential firing rate")
+UNSET Cell
+
+SET Evidence = "In this way, microglia contribute to activity-induced synaptic plasticity, for example, during motor learning and memory."
+
+a(MESH:Microglia) -> bp(GO:"regulation of neuronal synaptic plasticity")
+a(MESH:Microglia) -> bp(GO:"motor learning")
+a(MESH:Microglia) -> bp(GO:"learning or memory")
+
+SET Evidence = "During systemic inflammation, microglia can become activated and produce pro-inflammatory mediators and induce phagocytosis 9."
+
+bp(GO:"inflammatory response") -> act(a(MESH:Microglia))
+act(a(MESH:Microglia)) -> a(MESH:"Inflammation Mediators")
+act(a(MESH:Microglia)) -> bp(GO:"phagocytosis")
+
+SET Evidence = "However, in healthy individuals, antigen-presenting cells and T cells patrol the brain’s borders, residing in the meninges, the choroid plexus and the cerebro spinal fluid (CSF) 10."
+
+SET Anatomy = {"brain","brain meninx","choroid plexus","cerebrospinal fluid"}
+a(MESH:"Antigen-Presenting Cells") -> bp(MESH:"Immunologic Surveillance")
+a(MESH:"T-Lymphocytes") -> bp(MESH:"Immunologic Surveillance")
+UNSET Anatomy
+
+SET Evidence = "Notably, evidence suggests that the choroid plexus has a role not only in transmigration but also in stimulation of T cells in response to peripheral inflammatory signals 13."
+
+SET Anatomy = {"peripheral nervous system","choroid plexus"}
+bp(GO:"inflammatory response") -> act(a(MESH:"T-Lymphocytes"))
+UNSET Anatomy
+
+SET Evidence = "Although T cells do not generally penetrate the parenchyma in non-inflammatory conditions, they can release soluble cytokines that affect CNS function 14,15."
+
+SET Anatomy = "parenchyma of central nervous system"
+a(MESH:"T-Lymphocytes") -> bp(GO:"cytokine secretion")
+bp(GO:"cytokine secretion") -- act(a(MESH:"Central Nervous System"))
+UNSET Anatomy
+
+SET Evidence = "Studies in mice have demonstrated that adaptive immunity is necessary for cognitive performance: mice with severe combined immune deficiency exhibited impaired spatial learning and memory, but symptoms were reversed by injection of exogenous T cells 16."
+
+SET Species = "10095"
+bp(MESH:"Adaptive Immunity") -> bp(GO:cognition)
+bp(MESH:"Adaptive Immunity") -> bp(GO:"learning or memory")
+a(MESH:"T-Lymphocytes") -> bp(GO:"learning or memory")
+
+SET Evidence = "From a neurobiological perspective, levels of neurogenesis in adult transgenic mice that overexpress a CNS-specific T cell receptor are higher than those in mice that overexpress a T cell receptor for a non-CNS-specific antigen 17."
+
+p(MESH:"Receptors, Antigen, T-Cell") -> bp(GO:neurogenesis)
+UNSET Species
+
+SET Evidence = "Further beneficial roles of the immune response in the CNS — again going against the anticipated pathogenic activity of inflammation — include protective roles for T helper 2 (TH2) cells in CNS injury and for IL-4 signalling in neurons in multiple sclerosis (MS) models 18,19."
+
+a(MESH:"Th2 Cells") -- path(MESH:"Brain Injuries")
+SET Disease = "multiple sclerosis"
+SET Cell = "neuron"
+a(MESH:"Th2 Cells") -> act(p(HGNC:IL4))
+UNSET Cell
+UNSET Disease
+
+SET Evidence = "The complex and diverse roles of adaptive immune cells are further underlined by the finding that a lack of B cells does not impair learning behaviour in mice 20."
+
+SET Species = "10095"
+a(MESH:"B-Lymphocytes") cnc bp(GO:"learning or memory")
+UNSET Species
+
+SET Evidence = "The first is the glymphatic system, a glial-dependent perivascular network that ensures provision of nutrients for neurons and glia and clearance of extracellular metabolites, such as lactate 21."
+
+SET Cell = {"neuron","glial cell"}
+#bp(MESH:"Glymphatic System") -> a(MESH:Nutrients)
+#"Glymphatic system" is there is MESH
+UNSET Cell
+
+SET Evidence = "Activation of the glymphatic system is higher during sleep than during wakefulness, underlining the importance of sleep for removal of potentially neurotoxic waste products 22."
+
+#bp(MESH:Sleep) -> bp(MESH:"Glymphatic System")
+#bp(MESH:Wakefulness) -> bp(MESH:"Glymphatic System")
+#"Glymphatic system" is there is MESH
+bp(MESH:Sleep) -| a(MESH:"Waste Products")
+bp(MESH:Sleep) -| path(CONSO:neurotoxicity)
+
+SET Evidence = "Consequently, disturbances in the equilibrium of immune cells, neurons and glial cells needed for healthy CNS function are likely to modify cognitive performance (Fig. 1a)."
+
+SET Cell = {"neuron","glial cell"}
+bp(MESH:"Immunity, Cellular") -- bp(GO:cognition)
+UNSET Cell
+
+SET MeSHDisease = "Inflammation"
+
+SET Evidence = "A compelling example of the pathogenic influence of the immune system on brain function is the change in mood, social behaviour and cognitive abilities — known as sickness behaviour — upon infection and systemic inflammation."
+
+path(MESH:"Systemic Inflammatory Response Syndrome") -> path(MESH:"Illness Behavior")
+path(MESH:Infection) -> path(MESH:"Illness Behavior")
+bp(MESH:"Immunity, Cellular") -- path(MESH:"Mood Disorders")
+bp(MESH:"Immunity, Cellular") -- path(MESH:"Social Behavior")
+bp(MESH:"Immunity, Cellular") -- bp(GO:cognition)
+path(MESH:"Illness Behavior") -> path(MESH:"Mood Disorders")
+path(MESH:"Illness Behavior") -> path(MESH:"Social Behavior Disorders")
+path(MESH:"Illness Behavior") -- bp(GO:cognition)
+bp(MESH:"Immunity, Cellular") -- path(MESH:"Illness Behavior")
+
+SET Evidence = "The release of pro-inflammatory cytokines, such as IL-1β, IL-6 and TNF, outside the CNS affects the brain via neural (mainly vagal) pathways, interaction with cytokine receptors on cerebral endothelial cells and/or microglial activation 26."
+
+#outside CNS
+p(HGNC:IL1B) -> a(MESH:"Neural Pathways")
+p(HGNC:IL6) -> a(MESH:"Neural Pathways")
+p(HGNC:TNF) -> a(MESH:"Neural Pathways")
+a(MESH:"Neural Pathways") -> act(a(MESH:Brain))
+
+SET Cell = "cerebral cortex endothelial cell"
+complex(p(HGNC:IL1B),p(MESH:"Receptors, Cytokine"))
+complex(p(HGNC:IL6),p(MESH:"Receptors, Cytokine"))
+complex(p(HGNC:TNF),p(MESH:"Receptors, Cytokine"))
+p(MESH:"Receptors, Cytokine") -> act(a(MESH:Brain))
+UNSET Cell
+
+p(HGNC:IL1B) -> act(a(MESH:Microglia))
+p(HGNC:IL6) -> act(a(MESH:Microglia))
+p(HGNC:TNF) -> act(a(MESH:Microglia))
+
+SET Evidence = "The behavioural effects, such as social withdrawal and fatigue, are assumed to be adaptive responses that increase survival of the host 27."
+
+path(MESH:"Social Behavior Disorders") -> bp(MESH:Survival)
+path(HP:Fatigue) -> bp(MESH:Survival)
+
+SET Evidence = "Similarly, treatment with the cytokine IFNβ, for MS or chronic viral hepatitis, for example, has been associated with depressive symptoms as an adverse effect 28."
+
+SET Disease = {"multiple sclerosis","viral hepatitis"}
+p(HGNC:IFNB1) -> path(DOID:"mental depression")
+UNSET Disease
+
+SET Evidence = " Sickness behaviour can be diminished after repeated subthreshold exposure to pathogens, a mechanism that is referred to as euflammation and that evidence suggests is the result of tolerogenic processes 29."
+
+a(MESH:"Pathogen-Associated Molecular Pattern Molecules") -| path(MESH:"Illness Behavior")
+#bp(CONSO:Euflammation) -| path(MESH:"Illness Behavior")
+#euflammation to be added in conso or synonym to be found out
+
+SET Evidence = "In contrast to this transient low-grade inflammation, chronic low-grade inflammation can occur and cause neurotoxicity and neurodegeneration 30."
+
+#chronic low-grade inflammation
+path(MESH:Inflammation) -> path(CONSO:neurotoxicity)
+path(MESH:Inflammation) -> path(CONSO:Neurodegeneration)
+
+SET Evidence = "For example, cytokines can have neurotoxic effects by increasing production of reactive oxygen species, reducing monoamine transmission and potentiating glutamatergic transmission."
+
+a(MESH:Cytokines) -> a(CHEBI:"reactive oxygen species")
+a(MESH:Cytokines) -| bp(GO:"monoamine transport")
+a(MESH:Cytokines) -> bp(GO:"synaptic transmission, glutamatergic")
+a(CHEBI:"reactive oxygen species") -> path(CONSO:neurotoxicity)
+bp(GO:"monoamine transport") -| path(CONSO:neurotoxicity)
+bp(GO:"synaptic transmission, glutamatergic") -> path(CONSO:neurotoxicity)
+
+SET Evidence = "Chronic inflammation is implicated in schizophrenia and other psychiatric disorders32, and systemic inflammation, as well as acute infections, have been associated with an increased rate of cognitive decline and exacerbation of symptoms in patients with Alzheimer disease (AD) 33."
+
+#inflammation = chronic Inflammation
+path(DOID:schizophrenia) -> path(MESH:Inflammation)
+path(MESH:"Mental Disorders") -> path(MESH:Inflammation)
+#inflammation = systemic inflammation
+#infection = acute infection
+path(MESH:Inflammation) -| bp(GO:cognition)
+path(MESH:Infection) -| bp(GO:cognition)
+SET Disease = "Alzheimer's disease"
+path(MESH:Inflammation) -> path(MESH:"Signs and Symptoms")
+path(MESH:Infection) -> path(MESH:"Signs and Symptoms")
+UNSET Disease
+
+SET Evidence = "Chronic low-grade inflammation is also present in people who are obese34, and this inflammation influences cognitive performance by damaging neuronal circuits and the BBB and by activating pro-inflammatory immune cells 35."
+
+#inflammation = chronic Inflammation
+path(MESH:Inflammation) -- path(DOID:obesity)
+path(MESH:Inflammation) -| bp(GO:cognition)
+path(MESH:Inflammation) -| act(a(MESH:Neurons))
+path(MESH:Inflammation) -| a(MESH:"Blood-Brain Barrier")
+
+SET Evidence = "These obesity-related mechanisms were initially observed in the hypothalamus, but some evidence suggests that they can also occur in the hippocampus, cortex, brainstem and amygdala 36."
+
+SET Anatomy = {"hypothalamus","cortex","brainstem","amygdala"}
+SET MeSHAnatomy = "Hippocampus"
+path(DOID:obesity) -| act(a(MESH:Neurons))
+UNSET MeSHAnatomy
+UNSET Anatomy
+
+SET Evidence = "The right balance of inflammation is needed for optimal CNS function."
+
+path(MESH:Inflammation) -> act(a(MESH:"Central Nervous System"))
+UNSET MeSHDisease
+
+SET Evidence = "Infection can initiate chronic inflammation that alters cognitive function."
+
+SET MeSHDisease = "Infection"
+#inflammation = chronic infection
+path(MESH:Infection) -> path(MESH:Inflammation)
+path(MESH:Inflammation) -- bp(GO:cognition)
+
+SET Evidence = "In rodents, even infection and systemic inflammation in the fetus during the prenatal or perinatal period can cause long-term cognitive damage, including learning, memory and attention abnormalities, a model that explains why early infection increases the risk of psychosis in young adulthood 38,39."
+
+SET Species = "9989"
+SET MeSHAnatomy = "Fetus"
+#prenatal or perinatal period
+#inflammation = systemic inflammation
+#infection = acute infection
+path(MESH:Inflammation) -| bp(GO:cognition)
+path(MESH:Infection) -| bp(GO:cognition)
+path(MESH:Inflammation) -> path(DOID:"learning disability")
+path(MESH:Infection) -> path(DOID:"learning disability")
+path(MESH:Inflammation) -| bp(GO:"learning or memory")
+path(MESH:Infection) -| bp(GO:"learning or memory")
+path(MESH:Inflammation) -| path(MESH:Attention)
+path(MESH:Infection) -| path(MESH:Attention)
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "Similarly, a viral infection in the mother during the first trimester of pregnancy and bacterial infection during the second trimester of pregnancy were associated with the development of autism spectrum disorder (ASD), a pervasive neurodevelopmental disorder defined by impairments in social skills and stereotypical behaviour, among the children in a large Danish cohort40."
+
+SET Disease = "viral infectious disease"
+#first trimester of pregnancy
+path(MESH:Infection) -> path(DOID:"autism spectrum disorder")
+UNSET Disease
+SET MeSHDisease = "Bacterial Infections"
+#second trimester of pregnancy
+path(MESH:Infection) -> path(DOID:"autism spectrum disorder")
+UNSET MeSHDisease
+#in children
+path(DOID:"autism spectrum disorder") isA path(MESH:"Neurodevelopmental Disorders")
+path(DOID:"autism spectrum disorder") -| bp(GO:"social behavior")
+
+SET Evidence = "In children, throat infection with Streptococcus pyogenes has repeatedly been associated with subsequent neuropsychiatric disorders 41."
+
+#in children
+SET Anatomy = "pharynx"
+a(MESH:"Streptococcus pyogenes") -> path(MESH:Infection)
+a(MESH:"Streptococcus pyogenes") -> path(MESH:"Pediatric Autoimmune Neuropsychiatric Disorders Associated with Streptococcal infections")
+UNSET Anatomy
+
+SET Evidence = "In particular, these disorders include Sydenham chorea, a movement disorder related to rheumatic fever that occurs in temporal relationship to group A streptococcal infection42, and conditions encompassed by the umbrella term of paediatric autoimmune neuropsychiatric disorders associated with S. pyogenes (PANDAS) and concomitant with obsessive–compulsive disorder, tic disorder or choreiform motoric hyperactivity 43."
+
+a(MESH:"Streptococcus pyogenes") -> path(MESH:Chorea)
+path(MESH:Chorea) -> path(MESH:"Movement Disorders")
+path(MESH:Chorea) -- path(DOID:"rheumatic fever")
+a(MESH:"Streptococcus pyogenes") -> path(MESH:"Pediatric Autoimmune Neuropsychiatric Disorders Associated with Streptococcal infections")
+path(MESH:"Streptococcal Infections") -> path(MESH:"Obsessive-Compulsive Disorder")
+path(MESH:"Streptococcal Infections") -> path(DOID:"tic disorder")
+path(MESH:"Streptococcal Infections") -> path(MESH:"Motor Disorders")
+
+SET Evidence = "The suspected pathophysiology of PANDAS is cross reactivity of anti-streptococcus A antibodies with brain tissue due to molecular mimicry44 that initiates an adaptive immune cell response."
+
+SET Anatomy = "brain"
+path(MESH:"Pediatric Autoimmune Neuropsychiatric Disorders Associated with Streptococcal infections") -> bp(MESH:"Molecular Mimicry")
+bp(MESH:"Molecular Mimicry") -> bp(GO:"activation of immune response")
+UNSET Anatomy
+
+SET Evidence = "Severe infections, such as herpes simplex virus (HSV) encephalitis at any time in the lifespan, have been associated with long-term impairment of memory and brain atrophy 47."
+
+path(HP:"Herpes simplex encephalitis") -| bp(GO:"learning or memory")
+path(HP:"Herpes simplex encephalitis") -| path(HP:"Brain atrophy")
+
+SET Evidence = "For example, latent cytomegalovirus (CMV) infection leads to accumulation of functionally exhausted effector T cells while the naive T cell pool is diminished 48."
+
+path(MESH:"Cytomegalovirus Infections") -> path(HP:"Abnormal proportion of CD4+ effector memory cells")
+path(MESH:"Cytomegalovirus Infections") -> path(HP:"Reduced proportion of naive T cells")
+
+SET Evidence = "In the prospective Northern Manhattan Study, a high infectious burden (assessed with serological markers for Chlamydia pneumoniae, Helicobacter pylori, CMV, HSV-1 and HSV-2) was associated with cognitive decline independently of cardiovascular risk among a cohort of 1,625 patients 49."
+
+path(MESH:Infection) -| bp(GO:cognition)
+path(HP:"Helicobacter pylori infection") -| bp(GO:cognition)
+path(MESH:"Cytomegalovirus Infections") -| bp(GO:cognition)
+a(MESH:"Herpesvirus 1, Human") -| bp(GO:cognition)
+a(MESH:"Herpesvirus 2, Human") -| bp(GO:cognition)
+
+SET Evidence = "Evidence suggests that among patients with schizophrenia or bipolar disorder, infections with Toxoplasma gondii, HSV and CMV affect the cognitive dysfunction already present in these disorders, in particular working memory 50."
+
+SET MeSHDisease = {"Schizophrenia","Bipolar Disorder"}
+path(MESH:"Toxoplasmosis") -| bp(GO:cognition)
+a(MESH:"Herpesvirus 1, Human") -| bp(GO:cognition)
+a(MESH:"Herpesvirus 2, Human") -| bp(GO:cognition)
+path(MESH:"Cytomegalovirus Infections") -| bp(GO:cognition)
+UNSET MeSHDisease
+
+SET Evidence = "Another example of the intricate relationship between cognition and chronic infection is HIV-associated neurocognitive disorder, which emerges in patients with HIV infection despite highly active antiretroviral therapy 51."
+
+path(MESH:"HIV Infections") -> path(MESH:"Neurocognitive Disorders")
+SET MeSHDisease = "HIV Infections"
+path(MESH:"Antiretroviral Therapy, Highly Active") cnc path(MESH:"Neurocognitive Disorders")
+UNSET MeSHDisease
+
+SET Evidence = "In addition to molecular mimicry that triggers autoimmune reactions, a possible mechanism is stress-induced potentiation of microglial inflammasome activation, which causes an increase in pro-inflammatory mediators 52,53."
+
+bp(MESH:"Molecular Mimicry") -> path(MESH:"Autoimmune Diseases")
+SET Cell = "microglial cell"
+bp(GO:"response to stress") -> act(complex(MESH:Inflammasomes))
+act(complex(MESH:Inflammasomes)) -> a(MESH:"Inflammation Mediators")
+UNSET Cell
+
+SET Evidence = "In this way, both innate (microglial activation with subsequent phagocytosis or cytokine production) and adaptive immune responses (antigen-specific responsiveness and production of antibodies) contribute to pathology."
+
+bp(GO:"microglial cell activation") -> bp(GO:phagocytosis)
+bp(GO:"microglial cell activation") -> bp(GO:"cytokine production")
+bp(GO:phagocytosis) -> bp(GO:"activation of innate immune response")
+bp(GO:"cytokine production") -> bp(MESH:"Immunity, Innate")
+bp(MESH:"Immunity, Innate") -> path(MESH:"Pathology")
+bp(MESH:"Antibody Formation") -> bp(MESH:"Adaptive Immunity")
+act(p(MESH:Antibodies)) -> bp(MESH:"Adaptive Immunity")
+bp(MESH:"Adaptive Immunity") -> path(MESH:"Pathology")
+
+SET Evidence = "In addition, infectious agents might act via epigenetic pathways to modulate the innate immune cell repertoire, thereby influencing the risk profile for neurodegenerative disorders 54."
+
+bp(GO:pathogenesis) -> bp(GO:"regulation of gene expression, epigenetic")
+bp(GO:"regulation of gene expression, epigenetic") -> bp(MESH:"Immunity, Innate")
+bp(GO:pathogenesis) -- path(DOID:"neurodegenerative disease")
+
+SET Evidence = "In addition to the cumulative effect of infectious burden, pathogens contribute directly to neurodegeneration, and therefore cognitive decline, in elderly people."
+
+#in elderly people
+bp(GO:pathogenesis) -> path(DOID:"neurodegenerative disease")
+bp(GO:pathogenesis) -| bp(GO:cognition)
+
+SET Evidence = "On a population level, data from a Swedish cohort suggest that reactivation of HSV-1, indicated by high serum levels of anti-HSV immunoglobulin M (IgM) antibodies, increases the risk of developing AD 55."
+
+#popolaution level studies
+a(MESH:"Herpesvirus 1, Human") -> path(DOID:"Alzheimer's disease")
+
+SET Evidence = "In vitro experiments have shown that HSV-1 induces increases in intracellular amyloid-β (Aβ) levels and tau phosphorylation, both of which are markers of AD 56."
+
+#in-vitro experiments
+a(MESH:"Herpesvirus 1, Human") -> p(MESH:"Amyloid beta-Peptides",loc(GO:intracellular))
+a(MESH:"Herpesvirus 1, Human") -> p(HGNC:MAPT,pmod(Ph))
+p(MESH:"Amyloid beta-Peptides") biomarkerFor path(DOID:"Alzheimer's disease")
+p(HGNC:MAPT) biomarkerFor path(DOID:"Alzheimer's disease")
+
+SET Evidence = "In addition, HSV-1 DNA has been found in amyloid plaques in patients with AD, further underlining a link between the virus and pathological aggregations 57."
+
+path(MESH:"Plaque, Amyloid") --  a(MESH:"Herpesvirus 1, Human")
+
+SET Evidence = "For example, HSV-1 proteins debilitate neuronal autophagy and, consequently, antigen presentation 58."
+
+SET Cell = "neuron"
+a(MESH:"Herpesvirus 1, Human") -| bp(GO:autophagy)
+a(MESH:"Herpesvirus 1, Human") -| bp(MESH:"Antigen Presentation")
+UNSET Cell
+
+SET Evidence = "In mice, recurrent asymptomatic activation of HSV-1 leads to upregulation of markers of neuroinflammation (for example, Toll-like receptor-4, IFNα and IFNβ) and early neurodegeneration 59."
+
+SET Species = "10090"
+a(MESH:"Herpesvirus 1, Human") -> p(HGNC:TLR4)
+a(MESH:"Herpesvirus 1, Human") -> p(HGNC:IFNA1)
+a(MESH:"Herpesvirus 1, Human") -> p(HGNC:IFNB1)
+p(HGNC:TLR4) biomarkerFor path(CONSO:neuroinflammation)
+p(HGNC:IFNA1) biomarkerFor path(CONSO:neuroinflammation)
+p(HGNC:IFNB1) biomarkerFor path(CONSO:neuroinflammation)
+p(HGNC:TLR4) biomarkerFor path(CONSO:Neurodegeneration)
+p(HGNC:IFNA1) biomarkerFor path(CONSO:Neurodegeneration)
+p(HGNC:IFNB1) biomarkerFor path(CONSO:Neurodegeneration)
+
+SET Evidence = "In addition, extracellular deposits of Aβ activate resting microglia and trigger them to attack neurons via various pathways, such as NADPH oxidase activation, inducible nitric oxide synthase expression and phagocytosis 60."
+
+p(MESH:"Amyloid beta-Peptides",loc(GO:"extracellular matrix")) -> act(a(MESH:Microglia))
+act(a(MESH:Microglia)) -| a(MESH:Neurons)
+SET Cell = "neuron"
+act(a(MESH:Microglia)) -> act(p(INTERPRO:"Flavodoxin/nitric oxide synthase"))
+act(a(MESH:Microglia)) -> act(complex(GO:"NADPH oxidase complex"))
+act(a(MESH:Microglia)) -> bp(GO:phagocytosis)
+UNSET Cell
+UNSET Species
+
+SET Evidence = "Nonspecific inflammatory processes underlie the low-grade inflammation described above, but neuroinflammation can also be driven by autoimmunity"
+
+path(HP:Autoimmunity) -> path(CONSO:neuroinflammation)
+
+SET Evidence = "Autoimmune responses can be antibody driven or cell driven and, depending on the autoantigen involved, can involve antigen presentation by major histocompatibility complex (MHC) class II."
+
+bp(HP:"Autoimmune antibody positivity") -> path(HP:Autoimmunity)
+bp(MESH:"Immunity, Cellular") -> path(HP:Autoimmunity)
+bp(MESH:"Antigen Presentation") -> path(HP:Autoimmunity)
+complex(GO:"MHC class II protein complex") -> path(HP:Autoimmunity)
+
+SET Evidence = "These conditions include neuro myelitis optica and potentially disabling, or sometimes life-threatening, autoimmune encephalomyelitis."
+
+#these conditions = neurological autoimmune diseases
+path(DOID:"neuromyelitis optica") isA path(DOID:"autoimmune disease of the nervous system")
+path(DOID:encephalomyelitis) isA path(DOID:"autoimmune disease of the nervous system")
+
+SET MeSHDisease = "Multiple Sclerosis"
+
+SET Evidence = "MS is the  classical and most common chronic autoimmune encephalomyelitis; this disease leads to demyelination and progressive neurodegeneration."
+
+path(DOID:"multiple sclerosis") isA path(DOID:encephalomyelitis)
+path(DOID:"multiple sclerosis") isA path(MESH:"Autoimmune Diseases")
+path(DOID:"multiple sclerosis") -> path(HP:"CNS demyelination")
+path(DOID:"multiple sclerosis") -> path(CONSO:Neurodegeneration)
+
+SET Evidence = "In early MS, most patients experience transient physical deficits, such as optic neuritis, hemiparesis or sensory disturbances, in a relapsing–remitting presentation."
+
+path(DOID:"relapsing-remitting multiple sclerosis") -> path(DOID:"optic neuritis")
+path(DOID:"relapsing-remitting multiple sclerosis") -> path(HP:Hemiparesis)
+
+SET Evidence = "Although these physical deficits are the most obvious consequences, an increasing body of evidence illustrates that cognitive deficits are abundant and extensive in MS 62."
+
+path(DOID:"multiple sclerosis") -| bp(GO:cognition)
+
+SET Evidence = "Patients with MS can experience neuropsychological symptoms, such as mild cognitive alterations or depression, related not only to relapses but also to phases of remission 63."
+
+path(DOID:"relapsing-remitting multiple sclerosis") -| bp(GO:cognition)
+path(DOID:"relapsing-remitting multiple sclerosis") -> path(DOID:"mental depression")
+
+SET Evidence = "The most common cognitive deficits, which occur in 40–60% of patients with MS, are reduced processing speed and impaired memory and/or executive function, and these symptoms can improve to some extent with immunomodulatory treatment 64."
+
+path(DOID:"multiple sclerosis") -| bp(GO:"learning or memory")
+
+SET Evidence = "Notably, cognitive impairment at the time of MS diagnosis predicts disability progression, transition to secondary progressive MS and cortical thinning 66."
+
+path(DOID:"multiple sclerosis") -| bp(GO:cognition)
+path(DOID:"multiple sclerosis") -> path(DOID:"secondary progressive multiple sclerosis")
+path(DOID:"multiple sclerosis") -> deg(a(MESH:"Cerebral Cortex"))
+
+SET Evidence = "Inflammation in MS, the local effects of which include microglial activation and myelin and neuronal damage, is thought to be primarily mediated by auto reactive T cells."
+
+path(MESH:Inflammation) -> act(a(MESH:Microglia))
+path(MESH:Inflammation) -> deg(a(GO:"myelin sheath"))
+path(MESH:Inflammation) -> deg(a(MESH:Neurons))
+path(HP:Autoimmunity) -> path(MESH:Inflammation)
+
+SET Evidence = "Pro-inflammatory TH17 cells are thought to migrate into the CNS and subsequently increase BBB permeability, enabling invasion of other immune cells 71 (Fig. 1b). Other important players include regulatory T cells, which are functionally impaired in people with MS72, and B cells, the role of which is highlighted by the effects of B cell-depleting therapies 73."
+
+#transport across BBB present in GO
+#a(MESH:"Th17 Cells",loc(MESH:"Central Nervous System")) -> bp(GO:"transport across blood-brain barrier")
+a(MESH:"Th17 Cells",loc(MESH:"Central Nervous System")) -> bp(MESH:"Immunity, Cellular")
+path(DOID:"multiple sclerosis") -| a(MESH:"T-Lymphocytes, Regulatory")
+path(DOID:"multiple sclerosis") -| a(MESH:"B-Lymphocytes, Regulatory")
+
+SET Evidence = "Relapses in patients with MS are influenced by stressful life events and by infections: a systematic meta-analysis has shown that upper respiratory tract infections have the most pronounced effect on relapse rates 74."
+
+#recurrences = relapses
+#response to stress present in MESH
+#bp(MESH:"response to stress") -> bp(MESH:Recurrence)
+path(MESH:Infection) -> path(MESH:Recurrence)
+path(HP:"Recurrent upper respiratory tract infections") -> path(MESH:Recurrence)
+
+SET Evidence = "These observations underline the role of inflammation in relapse activity, as both systemic infection and stress induce a pro-inflammatory status, as discussed in more detail below."
+
+#recurrences = relapses
+path(MESH:Inflammation) -> path(MESH:Recurrence)
+
+SET Evidence = "A specific autoantigen has not yet been identified in MS, but autoreactive T cells are widely assumed to target proteins of the myelin sheath, causing demyelination and, thereby, white matter damage."
+
+bp(HP:"Autoimmune antibody positivity") -> path(HP:"CNS demyelination")
+a(MESH:"T-Lymphocytes, Cytotoxic") -> path(HP:"CNS demyelination")
+path(HP:"CNS demyelination") -> deg(a(MESH:"White Matter"))
+
+SET Evidence = "Demyelination deprives neurons of protective factors and has been described to decrease axonal transport and synaptic density in demyelinated hippocampi from post-mortem MS brains 75."
+
+path(HP:"CNS demyelination") -| bp(MESH:"Neuroprotection")
+path(HP:"CNS demyelination") -| bp(GO:"axonal transport")
+SET MeSHAnatomy = "Hippocampus"
+path(HP:"CNS demyelination") -| a(GO:"postsynaptic density")
+UNSET MeSHAnatomy
+
+SET Evidence = "However, direct recognition of neurons by pathogenic T cells has also been proposed 76,77, and neuronal loss could occur as a result of Wallerian degene ration and mitochondrial dysfunction 78."
+
+path(MESH:"Wallerian Degeneration") -> deg(a(MESH:Neurons))
+path(CONSO:"mitochondrial dysfunction") -> deg(a(MESH:Neurons))
+
+SET Evidence = "Grey matter damage, measured as the cortical lesion load or cortical thinning, is a key predictor of progressive disease and cognitive decline 79."
+
+path(DOID:"multiple sclerosis") -> deg(a(MESH:"Gray Matter"))
+deg(a(MESH:"Gray Matter")) -| bp(GO:cognition)
+deg(a(MESH:"Gray Matter")) -> deg(a(MESH:"Cerebral Cortex"))
+
+SET Evidence = "These findings underline the fact that active neuroinflammation detectable with gadolinium enhancement affects cognitive function and might cause detrimental effects on neuronal networks and connectivity."
+
+path(CONSO:neuroinflammation) -| bp(GO:cognition)
+path(CONSO:neuroinflammation) -| act(a(MESH:Neurons))
+
+UNSET MeSHDisease
+
+SET Evidence = "A compelling example of the overlap between psychiatric and neurological pathologies is the occurrence of psychosis as a result of autoantibodies against neuropil, which can develop spontaneously in neoplastic diseases or after viral infections, particularly HSV encephalitis 86."
+
+path(HP:"Herpes simplex encephalitis") -> complex(a(MESH:Autoantibodies),a(MESH:Neuropil))
+complex(a(MESH:Autoantibodies),a(MESH:Neuropil)) -> path(HP:Psychosis)
+
+SET Evidence = "Some of these autoantibodies target intracellular antigens, such as onconeural proteins or 65 kDa glutamic acid decarboxylase (GAD65)."
+
+complex(a(MESH:Autoantibodies),p(HGNC:GAD2),loc(GO:intracellular))
+
+SET Evidence = "The presence of these antibodies is diagnostically useful but considered to be an epiphenomenon, as cytotoxic T cells are responsible for neuronal damage that is associated with neuropsychiatric symptoms 87."
+
+SET MeSHDisease = "Neuropsychiatry"
+a(MESH:"T-Lymphocytes, Cytotoxic") -> deg(a(MESH:Neurons))
+UNSET MeSHDisease
+
+SET Evidence = "One example of such an antibody is the autoantibody against the GABAA receptor, a postsynaptic chloride channel that mediates fast inhibitory neurotransmission in the mammalian brain; this autoantibody causes encephalitis with therapy-resistant epileptic seizures 88."
+
+complex(a(MESH:Autoantibodies),p(HGNCGENEFAMILY:"Gamma-aminobutyric acid type A receptor subunits")) -> path(DOID:encephalitis)
+
+SET Evidence = "Moreover, antibodies against the α-amino-3-hydroxy-5-methyl-4-isoxazole propionic acid (AMPA) receptor can have a pathological role: administration of human pathogenic antibodies against the AMPA receptor subunit GluA2 impairs long-term synaptic plasticity in vitro and affects learning and memory in mice in vivo89. "
+
+#in-vitro experiments
+complex(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor AMPA type subunits"),a(MESH:Autoantibodies)) -| bp(GO:"regulation of synaptic plasticity")
+SET Species = "10095"
+complex(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor AMPA type subunits"),a(MESH:Autoantibodies)) -| bp(GO:"learning or memory")
+UNSET Species
+
+SET Evidence = "Patients with this condition often present with anxiety, sleep disorders, mania, paranoia, memory impairment and disintegration of language, followed by a phase in which agitation and catatonia alternate, accompanied by abnormal movements and autonomic instability 90."
+
+#this condition =  autoimmune encephalitis
+SET MeSHDisease = "Encephalitis"
+path(HP:Autoimmunity) -> path(DOID:"anxiety disorder")
+path(HP:Autoimmunity) -> path(DOID:"sleep disorder")
+path(HP:Autoimmunity) -> path(HP:Mania)
+path(HP:Autoimmunity) -> path(HP:Paranoia)
+path(HP:Autoimmunity) -> path(HP:"Memory impairment")
+path(HP:Autoimmunity) -> path(MESH:"Language Disorders")
+path(HP:Autoimmunity) -> path(HP:Agitation)
+path(HP:Autoimmunity) -> path(MESH:Catatonia)
+UNSET MeSHDisease
+
+SET Evidence = "Furthermore, antibodies that cross-react with the NMDA receptor have been found in patients with neuropsychiatric systemic lupus erythematosus, and these antibodies cause neuronal damage via activated microglia and complement component C1q when administered to mice 93,94."
+
+path(DOID:"systemic lupus erythematosus") -> complex(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"),a(MESH:Autoantibodies))
+complex(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"),a(MESH:Autoantibodies)) -> act(a(MESH:Microglia))
+act(a(MESH:Microglia)) -> deg(a(MESH:Neurons))
+
+SET Evidence = "Independent of immune pathogenesis, glutamate receptor hypofunction has been proposed as a key factor in the development of schizophrenia 98."
+
+p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits") -- path(DOID:schizophrenia)
+
+SET Evidence = "Furthermore, extensive studies of cytokine profiles in disorders such as schizophrenia, depression, suicidal ideation and post-traumatic stress disorder reveal wide-ranging dysregulation of mainly pro-inflammatory markers, in particular IL-6, IL-2 receptor, IL-1β, IL-17 A and C-reactive protein (CRP) 103–107."
+
+path(DOID:schizophrenia) -- p(HGNC:IL6)
+path(DOID:schizophrenia) -- p(HGNC:IL2)
+path(DOID:schizophrenia) -- p(HGNC:IL1B)
+path(DOID:schizophrenia) -- p(HGNC:IL17A)
+path(DOID:schizophrenia) -- p(HGNC:CRP)
+
+SET Evidence = "Changes in the innate CNS immune compartment have also been associated with psychiatric disorders."
+
+SET Anatomy = "central nervous system"
+bp(MESH:"Immunity, Innate") -- path(MESH:Neuropsychiatry)
+UNSET Anatomy
+
+SET Evidence = "For example, genetic defects in microglial signalling pathways cause abnormal development of brain circuits and neuropsychiatric symptoms, as in hereditary diffuse leukoencephalopathy with spheroids (HDLS) 109."
+
+path(MESH:"Hereditary Diffuse Leukoencephalopathy with Spheroids") neg act(a(MESH:Microglia))
+act(a(MESH:Microglia)) -> a(MESH:"Neural Pathways")
+
+SET Evidence = "For example, in a mouse model, chronic stress with depressive behaviour has been associated with microglial loss in the hippocampus 110."
+
+SET Species = "10095"
+SET MeSHAnatomy = "Hippocampus"
+bp(GO:"response to stress") -> deg(a(MESH:Microglia))
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "In this model, IL-6 was identified as a key mediator of inflammatory effects on fetal brain development 114."
+#this model = rodent model
+SET Species = "9989"
+SET Anatomy = "embryonic brain"
+p(HGNC:IL6) -> path(MESH:Inflammation)
+UNSET Anatomy
+UNSET Species
+
+SET Evidence = "In mice, autism-like behaviour in offspring requires the presence of maternal RORgammat-positive TH17 cells and IL-17a downstream of IL-6 (reF.115)."
+
+SET Species = "10095"
+#RORgammat positive TH17 cells
+a(MESH:"Th17 Cells") -> path(HP:Autism)
+p(HGNC:IL6) -> p(HGNC:IL17A)
+p(HGNC:IL17A) -> path(HP:Autism)
+UNSET Species
+
+SET Evidence = "A study published in 2017 provides evidence that maternal gut commensal bacteria have a role in IL-17a production in mothers 117."
+
+SET Gender = "Female"
+#in mothers
+bp(MESH:"Gastrointestinal Microbiome") -> p(HGNC:IL17A)
+UNSET Gender
+
+SET Evidence = "In rodents, the role of maternal immune activation in ASD was confirmed at the transcriptome level, in which immune activation in the mother caused dysregulation in the fetal brain expression of genes involved in developmental processes 120."
+
+SET Species = "9989"
+bp(MESH:"Immunity, Maternally-Acquired") -> path(DOID:"autism spectrum disorder")
+bp(MESH:"Immunity, Maternally-Acquired") -- bp(GO:"embryonic brain development")
+UNSET Species
+
+SET Evidence = "Cytokine signalling is not the only aspect of maternal immunity that affects the developing fetal brain — B cell-mediated immune responses and production of antibodies can also have effects."
+
+#maternal cytokines, maternal B cells and production of antibodies in mother
+#Cytokine is there in MESH
+#act(a(MESH:Cytokine)) -- bp(GO:"embryonic brain development")
+act(a(MESH:"B-Lymphocytes")) -- bp(GO:"embryonic brain development")
+bp(MESH:"Antibody Formation") -- bp(GO:"embryonic brain development")
+
+SET Evidence = "Targets for these antibodies include proteins with functions in neurodevelopment, such as contactin-associated protein-like 2 (CASPR2) 122,124."
+
+SET Species = "9539"
+#species = macaques
+#these antibodies = IgG from mothers of children with ASD
+#these antibodies lead to abnormal social behavior
+complex(p(MESH:"Immunoglobulin G"),p(HGNC:CNTNAP2)) -> path(MESH:"Neurodevelopmental Disorders")
+complex(p(MESH:"Immunoglobulin G"),p(HGNC:CNTNAP2)) -> path(MESH:"Social Behavior Disorders")
+UNSET Species
+
+SET Evidence = "For example, the MHC-resident complement C4 cluster has been implicated in the risk of schizophrenia 128,129."
+
+p(HGNC:C4A) -- path(DOID:schizophrenia)
+
+SET Evidence = "Routinely used treatments for acute exacerbations include steroids, plasmapheresis, intravenous immunoglobulin, cyclophosphamide and B cell-depleting monoclonal antibodies; a broadening range of disease-modifying drugs is emerging from the development of therapies for MS (Box 2)."
+
+a(MESH:Steroids) -| path(DOID:"multiple sclerosis")
+path(MESH:Plasmapheresis) -| path(DOID:"multiple sclerosis")
+complex(GO:"immunoglobulin complex") -| path(DOID:"multiple sclerosis")
+a(CHEBI:cyclophosphamide) -| path(DOID:"multiple sclerosis")
+
+SET Evidence = "Immunosuppression is also an established treatment strategy for autoimmune encephalitis, but clinical studies of such treatments for psychiatric diseases are still in progress."
+
+SET MeSHDisease = "Autoimmune Diseases"
+a(CHEBI:"immunosuppressive agent") -| path(DOID:encephalitis)
+UNSET MeSHDisease
+
+SET Evidence = "For example, a meta-analysis showed that SSRIs reduce levels of IL-1β and IL-6 in patients with depression 140."
+
+SET MeSHDisease = "Depression"
+a(MESH:"Serotonin Uptake Inhibitors") -| p(HGNC:IL6)
+a(MESH:"Serotonin Uptake Inhibitors") -| p(HGNC:IL1B)
+UNSET MeSHDisease
+
+SET Evidence = "In rats, the microglia inhibitor minocycline improved symptoms of depression in the forced swimming test143, an observation that is consistent with reports that microglia are overactivated in depression 112."
+
+SET Species = "10114"
+a(CHEBI:minocycline) -| a(MESH:Microglia)
+a(CHEBI:minocycline) -| path(DOID:"mental depression")
+path(DOID:"mental depression") -> a(MESH:Microglia)
+UNSET Species
+
+SET Evidence = "Minocycline also had positive effects as an adjunctive treatment to risperidone in children with ASD145, although not as a single medication in a small pilot study 146."
+
+#in children
+composite(a(CHEBI:minocycline),a(CHEBI:risperidone)) neg path(DOID:"autism spectrum disorder")
+a(CHEBI:minocycline) cnc path(DOID:"autism spectrum disorder")
+
+SET Evidence = "Furthermore, in depression, anti-inflammatory treatment with the TNF antagonist infliximab had beneficial effects in patients with treatment-resistant depression and high baseline levels of inflammatory biomarkers 147."
+
+#infliximab is there in DRUGBANK
+#a(DRUGBANK:infliximab) -| p(HGNC:TNF)
+#a(DRUGBANK:infliximab) neg path(DOID:"mental depression")
+
+SET Evidence = "A well-recognized risk factor for exacerbation in MS and many psychiatric disorders is psychosocial stress."
+
+path(MESH:"Psychosocial Deprivation") -> path(MESH:"Mental Disorders")
+path(MESH:"Psychosocial Deprivation") -> path(DOID:"multiple sclerosis")
+
+SET Evidence = "Some evidence suggests that the association between psychiatric disorders and stress is mediated, at least in part, by neuroinflammatory processes, including microglial activation."
+
+path(MESH:"Psychosocial Deprivation") -> act(a(MESH:Microglia))
+act(a(MESH:Microglia)) -> bp(GO:"neuroinflammatory response")
+bp(GO:"neuroinflammatory response") -> path(MESH:"Mental Disorders")
+
+SET Evidence = "Accordingly, a meta-analysis of clinical studies demonstrated a pro-inflammatory status (high levels of CRP, IL-6 and TNF) in adults with a history of childhood trauma 151."
+
+#adverse childhood experience is there in MESH
+#a(MESH:"Adverse Childhood Experiences") -> p(HGNC:CRP)
+#a(MESH:"Adverse Childhood Experiences") -> p(HGNC:IL6)
+#a(MESH:"Adverse Childhood Experiences") -> p(HGNC:TNF)
+
+SET Evidence = "In a mouse model of chronic social defeat stress, BBB integrity was altered in the nucleus accumbens owing to downregulation of the tight junction protein claudin 5, thereby allowing influx of IL-6 into the brain parenchyma 153."
+
+SET Species = "10088"
+SET Anatomy = "nucleus accumbens"
+path(MESH:"Social Isolation") -> deg(a(MESH:"Blood-Brain Barrier"))
+#transport across BBB is there in GO
+#deg(a(MESH:"Blood-Brain Barrier")) -> bp(GO:"transport across blood-brain barrier")
+deg(a(MESH:"Blood-Brain Barrier")) -| p(HGNC:CLDN5)
+SET Anatomy = {"parenchyma","brain"}
+p(HGNC:CLDN5) -| p(HGNC:IL6)
+UNSET Anatomy
+UNSET Species
+
+SET Evidence = "Our recent studies indicate that the cortical network responds to an inflammatory attack with a TNF-dependent increase in cortical synaptic strength 65."
+
+SET Anatomy = "cerebral cortex"
+a(MESH:"Neural Pathways") -> p(HGNC:TNF)
+p(HGNC:TNF) -> a(MESH:"Synaptic Membranes")
+a(MESH:"Synaptic Membranes") -| path(MESH:Inflammation)
+UNSET Anatomy
