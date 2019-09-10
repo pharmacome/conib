@@ -81,7 +81,7 @@ path(DOID:"multiple sclerosis") -> path(HP:"Axonal loss")
 
 SET Evidence = " Linkage analysis studies have revealed several gene loci as risk factors, with the major histocompatibility complex (MHC) HLA DR15/DQ6 allele being the strongest one (Barcellos et al. 2003; Sawcer et al. 2011). More recently, alleles of interleukin-2 receptor alpha gene (IL2RA) and interleukin-7 receptor alpha gene (IL7RA) have also been identiﬁed as inheritable risk factors (Haﬂer et al. 2007; Sawcer et al. 2011)."
 
-path(DOID:"multiple sclerosis") -- complex(MESH:"Major Histocompatilibity Complex")
+path(DOID:"multiple sclerosis") -- bp(MESH:"Major Histocompatilibity Complex")
 path(DOID:"multiple sclerosis") -- g(HGNC:IL2RA)
 path(DOID:"multiple sclerosis") -- g(HGNC:IL7R)
 
@@ -107,12 +107,12 @@ path(MESH:Infection) -| path(HP:Allergy)
 
 SET Evidence = "The odds ratio for developing MS is approximately 1.5 for smokers compared with nonsmokers (Wingerchuk 2012; Fragoso 2014)."
 
-a(MESH:Smoking) -> path(DOID:"multiple sclerosis")
+path(MESH:Smoking) -> path(DOID:"multiple sclerosis")
 
 SET Evidence = "The role of dietary factors appears to be complex and related to the inﬂuence of multiple dietary components including vitamin A and D, salt, omega-3-unsaturated fatty acid, and polyphenol on immune regulation."
 
-a(CHEBI:"Vitamin A") reg bp(MESH:Immunity)
-a(CHEBI:"Vitamin D") reg bp(MESH:Immunity)
+a(CHEBI:"vitamin A") reg bp(MESH:Immunity)
+a(CHEBI:"vitamin D") reg bp(MESH:Immunity)
 a(CHEBI:salt) reg bp(MESH:Immunity)
 a(CHEBI:"omega-3 unsaturated fatty acyl-CoA(4-)") reg bp(MESH:Immunity)
 a(CHEBI:polyphenol) reg bp(MESH:Immunity)
@@ -150,15 +150,15 @@ SET Evidence = "The infection could cause bystander activation of T cells or res
 #viral infection
 path(HP:"Disseminated viral infection") -> act(a(MESH:"T-Lymphocytes"))
 path(HP:"Disseminated viral infection") -> a(MESH:Autoantigens)
-a(MESH:Autoantigens) -> a(MESH:"Molecular Mimicry")
-a(MESH:"Molecular Mimicry") -> act(a(MESH:"T-Lymphocytes"))
+a(MESH:Autoantigens) -> bp(MESH:"Molecular Mimicry")
+bp(MESH:"Molecular Mimicry") -> act(a(MESH:"T-Lymphocytes"))
 
 SET Evidence = "The transmigration process involves interaction between very late antigen-4 (VLA-4) present on T lymphocytes and the vascular cell adhesion molecule-1 (VCAM-1) expressed on capillary endothelial cells; this process is facilitated by expression and upregulation of various adhesion molecules, chemokines, and matrix metalloproteinases (MMPs) (Yong 2004; Gold and Wolinsky 2011)."
 
 complex(p(MESH:"Receptors, Very Late Antigen",loc(MESH:"T-Lymphocytes")),p(HGNC:VCAM1,loc(MESH:"Endothelial Cells"))) -> bp(MESH:"Transendothelial and Transepithelial Migration")
 a(MESH:"Cell Adhesion Molecules") -> complex(p(MESH:"Receptors, Very Late Antigen",loc(MESH:"T-Lymphocytes")),p(HGNC:VCAM1,loc(MESH:"Endothelial Cells")))
 a(MESH:Chemokines) -> complex(p(MESH:"Receptors, Very Late Antigen",loc(MESH:"T-Lymphocytes")),p(HGNC:VCAM1,loc(MESH:"Endothelial Cells")))
-a(MESH:"Matrix Metalloproteinases") -> complex(p(MESH:"Receptors, Very Late Antigen",loc(MESH:"T-Lymphocytes")),p(HGNC:VCAM1,loc(MESH:"Endothelial Cells")))
+p(MESH:"Matrix Metalloproteinases") -> complex(p(MESH:"Receptors, Very Late Antigen",loc(MESH:"T-Lymphocytes")),p(HGNC:VCAM1,loc(MESH:"Endothelial Cells")))
 
 SET Evidence = "Activation of resident CNS glial cells (such as microglia) results in persistent inﬂammation even in absence of further inﬁltration of exogenous inﬂammatory cells (O’Connor et al. 2001)."
 
@@ -221,9 +221,9 @@ p(HGNC:TNF) -> bp(GO:"positive regulation of oligodendrocyte apoptotic process")
 a(CHEBI:"nitric oxide") -> path(HP:"CNS demyelination")
 a(CHEBI:"nitric oxide") -> path(MESH:"Diffuse Axonal Injury")
 a(CHEBI:"nitric oxide") -> bp(GO:"positive regulation of oligodendrocyte apoptotic process")
-a(MESH:"Matrix Metalloproteinases") -> path(HP:"CNS demyelination")
-a(MESH:"Matrix Metalloproteinases") -> path(MESH:"Diffuse Axonal Injury")
-a(MESH:"Matrix Metalloproteinases") -> bp(GO:"positive regulation of oligodendrocyte apoptotic process")
+p(MESH:"Matrix Metalloproteinases") -> path(HP:"CNS demyelination")
+p(MESH:"Matrix Metalloproteinases") -> path(MESH:"Diffuse Axonal Injury")
+p(MESH:"Matrix Metalloproteinases") -> bp(GO:"positive regulation of oligodendrocyte apoptotic process")
 
 SET Evidence = "The MS plaques or lesions are focal areas of demyelination associated with variable inﬂammation and axonal loss that predominantly affect the white matter of the brain, spinal cord, and optic nerves but can also involve the cerebral cortex including subpial regions (Sobel and Moore 2008; Popescu and Lucchinetti 2012)."
 
@@ -290,7 +290,7 @@ p(HGNCGENEFAMILY:Interferons) -| path(DOID:"multiple sclerosis")
 
 SET Evidence = "The beta-interferons (IFN-b) have multiple actions including stabilizing the BBB thereby limiting the entry of T cells into the CNS, modulating T- and B-cell function, and altering the expression of cytokines (Yong et al. 1998; Weber et al. 1999; Dhib-Jalbut 2002)."
 
-p(HGNC:IFNB1) -| tloc(a(MESH:"T-Lymphocytes"),fromLoc(MESH:"Peripheral Nervous System"),toLoc(MESH:" Central Nervous System "))
+p(HGNC:IFNB1) -| tloc(a(MESH:"T-Lymphocytes"),fromLoc(MESH:"Peripheral Nervous System"),toLoc(MESH:"Central Nervous System"))
 p(HGNC:IFNB1) -- a(MESH:"Blood-Brain Barrier")
 p(HGNC:IFNB1) -- act(a(MESH:"T-Lymphocytes"))
 p(HGNC:IFNB1) -- act(a(MESH:"B-Lymphocytes"))
@@ -335,7 +335,7 @@ a(MESH:"Glatiramer Acetate") -> path(HP:Lipoatrophy)
 
 SET Evidence = "Natalizumab is a humanized monoclonal antibody that binds a4b1-integrin on lymphocytes blocking their interaction with VCAM-1 on endothelial cells thereby preventing the transmigration of lymphocytes across the BBB (Ransohoff 2007)."
 
-a(DRUGBANK:Natalizumab) isA a(MESH:"Antibodies, Monoclonal, Humanized")
+a(DRUGBANK:Natalizumab) isA p(MESH:"Antibodies, Monoclonal, Humanized")
 complex(a(DRUGBANK:Natalizumab),p(HGNC:ITGB1,loc(MESH:Lymphocytes)),p(HGNC:ITGA4,loc(MESH:Lymphocytes))) -| complex(p(HGNC:ITGB1,loc(MESH:Lymphocytes)),p(HGNC:ITGA4,loc(MESH:Lymphocytes)),p(HGNC:VCAM1,loc(MESH:"Endothelial Cells")))
 complex(p(HGNC:ITGB1,loc(MESH:Lymphocytes)),p(HGNC:ITGA4,loc(MESH:Lymphocytes)),p(HGNC:VCAM1,loc(MESH:"Endothelial Cells"))) -> bp(MESH:"Transendothelial and Transepithelial Migration")
 
@@ -431,7 +431,7 @@ SET Evidence = "The most common side effect with DMF include nausea, diarrhea, a
 a(CHEBI:"dimethyl fumarate") -> path(HP:Nausea)
 a(CHEBI:"dimethyl fumarate") -> path(DOID:diarrhea)
 a(CHEBI:"dimethyl fumarate") -> path(HP:"Abdominal pain")
-composite(a(CHEBI"food"),a(CHEBI:"dimethyl fumarate")) -| path(HP:"Abdominal pain")
+composite(a(CHEBI:"food"),a(CHEBI:"dimethyl fumarate")) -| path(HP:"Abdominal pain")
 a(CHEBI:"dimethyl fumarate") -> path(HP:Flushing)
 a(MESH:Aspirin) -| path(HP:Flushing)
 
