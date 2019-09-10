@@ -1,0 +1,492 @@
+###############################
+# Document Properties Section #
+###############################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved"
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "CDR-SB Associations"
+SET DOCUMENT Version     = "1.0.5"
+SET DOCUMENT Description = "Literature Associations between the Clinical Dementia Rating Sum of Boxes (CDR-SB) and biological entities related to Alzheimer's disease"
+SET DOCUMENT Authors     = "Lukas Beniusis, Charles Tapley Hoyt, and Daniel Domingo-Fernández"
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/conso
+# --------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/3c93a65dc48e6786fe29ae55aa36cf9a902fe8c6/export/conso-names.belns"
+DEFINE NAMESPACE EFO            AS URL "https://raw.githubusercontent.com/pharmacome/conso/5d2c2ea6f7112421cc8089a3f021a75ab60bb373/external/efo-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/go-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
+DEFINE NAMESPACE NIFT            AS URL "https://raw.githubusercontent.com/neurommsig/neurommsig-terminology/c45db68bb47b28023ec134049429320da6a9d631/terminologies/neuroimaging-feature-terminology.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+# DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+# DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+# DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+# DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+DEFINE NAMESPACE InChI        AS PATTERN ".*"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+# DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+# DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+# DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+# DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+# DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+DEFINE ANNOTATION Condition AS LIST {"increasing severity", "early moderate stage"}
+DEFINE ANNOTATION Published AS LIST {"CDR story"}
+
+SET Citation = {"URL","https://www.ncbi.nlm.nih.gov/clinvar/RCV000019448/"}
+
+SET Evidence = "Extracted from ClinVar"
+
+# APOE E4
+g(HGNC:APOE, var(c.388T>C)) eq g(DBSNP:rs429358)
+g(HGNC:APOE, var(c.388T>C)) transcribedTo r(HGNC:APOE, var(r.388u>c))
+r(HGNC:APOE, var(r.388u>c)) translatedTo p(HGNC:APOE, var(p.Cys130Arg))
+
+g(HGNC:CR1) hasVariant g(DBSNP:rs3818361)
+
+# Abeta
+p(HGNC:APP, frag(672_713)) isA a(CHEBI:"amyloid-beta")
+p(HGNC:APP, frag(672_711)) isA a(CHEBI:"amyloid-beta")
+
+#####
+SET Citation = {"PubMed", "Supportive CSF biomarker evidence to enhance the National Institute on Aging-Alzheimer's Association criteria for diagnosis of Alzheimer's type dementia--a study from Southern India.","25468261"}
+
+SET Evidence = "The present study was undertaken to validate the measurement of biomarkers as a supplement to the latest diagnostic criteria for Alzheimer disease (AD) dementia by National Institute on Aging-Alzheimer's Association (NIA-AA) work group using a sample attending a tertiary care center in Southern India. A total of 20 subjects diagnosed clinically as Alzheimer's dementia according to the NIA-AA criteria for AD were included in the study. The CSF biomarkers Abeta42, t-tau, and p-tau181 were assessed. The biomarker results were compared among mild and moderate to severe AD as defined in the NIA-AA work group guidelines. The results revealed that the amount of Abeta42 was very low in all the 20 samples (<50pg/ml) collected from mild AD cases with CDR score of 1 (n=8), and moderate to severe AD cases with CDR >1 (n=12). t-tau and p-tau levels were in the range of 39.45+/-5.09pg/ml and 13.06+/-7.32pg/ml for CDR 1 group. t-tau and p-tau levels were in the range of 49.9+/-11.28pg/ml and 33.94+/-15.13pg/ml for moderate to severe cases. Analysis of the data revealed statistically significant differences in the p-tau/t-tau ratio and p-tau/Abeta ratio between CDR 1and CDR >1 AD cases (p<0.001) suggesting that p-tau/t-tau and p-tau/Abeta ratio are good indicators of severity of dementia with discriminative value in differentiating mild AD from moderate to severe AD."
+
+a(CONSO:"CDR - Sum of Boxes") pos p(HGNC:APP, frag(672_713))
+a(CONSO:"CDR - Sum of Boxes") pos p(HGNC:MAPT, pmod(Ph))
+
+#####
+SET Citation = {"PubMed", "Variants in PPP3R1 and MAPT are associated with more rapid functional decline in Alzheimer's disease: the Cache County Dementia Progression Study.","23727081"}
+
+SET Evidence = "Although we observed no association between rs3785883 or rs1868402 alone and change in CDR-sb (P > .10), there was a significant association between a combined genotype model and change in CDR-sb: carriers of the high-risk genotypes at both loci progressed >2.9 times faster than noncarriers (P = .015). "
+
+composite(g(DBSNP:rs1868402),g(DBSNP:rs3785883)) pos a(CONSO:"CDR - Sum of Boxes")
+g(DBSNP:rs1868402) cnc a(CONSO:"CDR - Sum of Boxes")
+g(DBSNP:rs3785883) cnc a(CONSO:"CDR - Sum of Boxes")
+
+#####
+SET Citation = {"PubMed", " Diffusion tensor imaging of idiopathic normal-pressure hydrocephalus and the cerebrospinal fluid tap test.","27084223"}
+
+SET Evidence = "In the right left cingulum-hippocampus (CgH), FA (Fractional anisotropy) values showed significant positive correlations with Korean-Mini Mental State Examination scores and negative correlations with Clinical Dementia Rating Scale scores."
+
+#: Korean Minimental state is not belonging to any ontology
+
+SET Anatomy = "hippocampus cortex cingulum"
+a(NIFT:"Fractional anisotropy") neg a(NIFT:"Clinical dementia rating")
+UNSET Anatomy
+
+#####
+SET Citation = {"PubMed", "27018940"}
+
+SET Evidence = "The CSF neurogranin levels correlated with brain atrophy (normalized whole-brain volumes: adjusted r = -0.38, P = .02; hippocampal volumes: adjusted r = -0.36, P = .03; entorhinal volumes: adjusted r = -0.46, P = .006; and parahippocampal volumes: adjusted r = -0.47, P = .005, n = 38) in AD and with amyloid load (r = 0.39, P = .02, n = 36) in preclinical AD."
+
+SET Anatomy = "cerebrospinal fluid"
+
+SET Subgraph = "MAPK-ERK subgraph"
+
+p(HGNC:NRGN) pos a(NIFT:"Brain atrophy")
+complex(p(HGNC:MAPK1),p(HGNC:NRGN))
+
+#####
+SET Citation = {"PubMed", "25207744"}
+
+SET Evidence = "The Heidelberg Retina Tomograph (HRT). assessed CDR was significantly correlated with the MD in HEP (Heidelberg Edge Perimetry, HEP)  II (r = -0.281, p = 0.04). In HEP I, VF defects on CPA testing were found in 38 study eyes (58.5%)."
+
+a(NIFT:"Clinical dementia rating") pos a(NIFT:"Heidelberg edge perimetry")
+
+#####
+SET Citation = {"PubMed", "28499950"}
+
+SET Evidence = "Our research group has developed two solid phase competitive ELISA assays detecting proteolytic fragments of tau in serum. One assay detects the caspase-generated fragment cleaved at Asp421 (Tau-C) and the other measures an ADAM10-generated fragment cleaved at Ala152 (Tau-A) of tau."
+
+# Ala152 is TauA
+# Asp421 is TauC
+
+act(p(HGNC:ADAM10)) => rxn(reactants(p(HGNC:MAPT)), products(p(HGNC:MAPT, frag(421_*))))
+act(p(HGNC:CASP3)) => rxn(reactants(p(HGNC:MAPT)), products(p(HGNC:MAPT, frag(152_*))))
+
+UNSET Evidence
+UNSET Citation
+
+#####
+SET Citation = {"PubMed", "25171717"}
+
+SET Evidence = "We did not find any significant relationship to baseline ADAS-Cog11, CDR-SB, or MMSE for either Tau-A, Tau-C, or the ratio between these, a finding which indicates that these markers do not have diagnostic potential in this population of putative early AD patients, which is somewhat different from the relationship between Tau-A and MDRS score previously observed in a small study of late stage AD"
+
+p(HGNC:MAPT, frag(152_*)) cnc a(CONSO:"CDR - Sum of Boxes")
+p(HGNC:MAPT, frag(421_*)) cnc a(CONSO:"CDR - Sum of Boxes")
+
+p(HGNC:MAPT, frag(152_*)) cnc a(NIFT:"Mini mental state exam")
+p(HGNC:MAPT, frag(421_*)) cnc a(NIFT:"Mini mental state exam")
+
+p(HGNC:MAPT, frag(152_*)) cnc a(NIFT:"Alzheimers disease assessment scale")
+p(HGNC:MAPT, frag(421_*)) cnc a(NIFT:"Alzheimers disease assessment scale")
+
+#####
+SET Citation = {"PubMed", "26682680"}
+
+SET Evidence = "Hallucinations were associated with greater cognitive and functional impairments on the MMSE and CDR, while delusional patients showed less impairment on CDR, consistent across cAD and npAD groups."
+
+path(MESH:Hallucinations) pos a(NIFT:"Clinical dementia rating")
+path(MESH:Hallucinations) pos a(NIFT:"Mini mental state exam")
+
+SET Evidence = "Consistently, neuropsychological examination (e.g., MMSE, CDR)
+also demonstrated significant correlations between the plasma PAI-1 levels and
+cognitive function. In conclusion, the level of plasma PAI-1 is a potential
+biomarker for the early detection and diagnosis of AD. "
+
+###
+SET Citation = {"PubMed", "25304332"}
+
+SET Evidence = "Our results show that plasma PAI-1 levels gradually increased as dementia progressed. The mean levels of plasma PAI-1 in patients with MCI and AD patients were significantly higher than those of in healthy controls. Consistently, neuropsychological examination (e.g., MMSE, CDR) also demonstrated significant correlations between the plasma PAI-1 levels and cognitive function. "
+
+SET MeSHAnatomy = "Plasma"
+SET Subgraph = "Plasminogen activator subgraph"
+p(HGNC:SERPINE1) pos a(NIFT:"Clinical dementia rating")
+p(HGNC:SERPINE1) pos a(NIFT:"Mini mental state exam")
+
+UNSET Subgraph
+UNSET MeSHAnatomy
+
+###
+SET Citation = {"PubMed", "23138174"}
+
+SET Evidence = "The Alzheimer Questionnaire (AQ) correlated strongly with the CDR Sum of Boxes (r=0.79)
+and demonstrated similar diagnostic accuracy with the MoCA and MMSE. These
+results suggest that the AQ is comparable with other established informant-based
+ and patient-based measures. "
+
+a(CONSO:"CDR - Sum of Boxes") pos a(NIFT:"Alzheimer questionnaire")
+
+###
+SET Citation = {"PubMed", "23567436"}
+
+SET Evidence = "Different sets of ESR1 polymorphisms were associated with cognitive decline
+from CDR 0 to 0.5 and CDR 0.5 to 1. ESR1 polymorphisms (rs3853248, rs22334693 [ESR1+397],
+rs9340799 [ESR1+351], rs9397456, rs1801132 [ESR1+975], rs2179922, rs932477, and rs9341016)
+were associated with the deterioration of episodic memory among subjects with baseline
+CDR 0, indicating these polymorphisms might be markers for episodic memory decline
+at an earlier stage."
+
+p(HGNC:ESR1) hasVariant g(DBSNP:rs3853248)
+p(HGNC:ESR1) hasVariant g(DBSNP:rs22334693)
+p(HGNC:ESR1) hasVariant g(DBSNP:rs9340799)
+p(HGNC:ESR1) hasVariant g(DBSNP:rs9397456)
+p(HGNC:ESR1) hasVariant g(DBSNP:rs1801132)
+p(HGNC:ESR1) hasVariant g(DBSNP:rs2179922)
+p(HGNC:ESR1) hasVariant g(DBSNP:rs932477)
+p(HGNC:ESR1) hasVariant g(DBSNP:rs9341016)
+
+a(NIFT:"Clinical dementia rating") pos g(DBSNP:rs3853248)
+a(NIFT:"Clinical dementia rating") pos g(DBSNP:rs22334693)
+a(NIFT:"Clinical dementia rating") pos g(DBSNP:rs9340799)
+a(NIFT:"Clinical dementia rating") pos g(DBSNP:rs9397456)
+a(NIFT:"Clinical dementia rating") pos g(DBSNP:rs1801132)
+a(NIFT:"Clinical dementia rating") pos g(DBSNP:rs2179922)
+a(NIFT:"Clinical dementia rating") pos g(DBSNP:rs932477)
+a(NIFT:"Clinical dementia rating") pos g(DBSNP:rs9341016)
+
+###
+SET Citation = {"PubMed", "16254429"}
+
+SET Evidence = "The Clinical Dementia Rating (CDR) scale is a widely used dementia
+ staging instrument, yielding a global score and a summated score (sum of box score). "
+
+a(NIFT:"Clinical dementia rating") pos a(CONSO:"CDR - Sum of Boxes")
+
+###
+SET Citation = {"PubMed", "22701578"}
+SET Evidence = "Elevated P-Tau and P-Tau/Aβ42 levels were associated with lower recognition performance on the Rey auditory verbal learning test"
+
+p(HGNC:MAPT, pmod(Ph)) neg a(NIFT:"Rey auditory verbal learning test")
+a(NIFT:"Ratio phospho tau to abeta 42 test") neg a(NIFT:"Rey auditory verbal learning test")
+UNSET {Evidence}
+
+###
+SET Citation = {"PubMed", "25429309"}
+SET Evidence = "DAT concentration in putamen and in caudate were similar in PD and DLB groups and
+significantly lower than in HCS. Reduced caudate DAT concentration was associated
+with worse Clinical Dementia Rating Scale-sum of boxes (CDR-SB) scores and
+visuospatial skills in DLB but not in PD or HCS groups."
+
+SET MeSHDisease = {"Parkinson Disease","Lewy Body Disease"}
+
+a(NIFT:"Dopamine transporter scan") pos a(CONSO:"CDR - Sum of Boxes")
+
+UNSET MeSHDisease
+
+###
+SET Citation = {"PubMed", "25116835"}
+
+SET Evidence = "In a subgroup of patients with early AD (CDR=0.5), lower DYRK1A
+expression was confirmed. In contrast, no difference was found in levels of DYRK1B,
+the closest relative of DYRK1A, between AD patients and controls.
+Further, AD patients exhibited a positive correlation between plasma DYRK1A
+levels and cerebrospinal fluid tau and phosphorylated-tau proteins,
+but no correlation with amyloid-β42 levels and Pittsburgh compound B
+cortical binding."
+
+SET Subgraph = "DYRK1A subgraph"
+p(HGNC:DYRK1A) neg a(NIFT:"Clinical dementia rating")
+p(HGNC:DYRK1B) cnc a(NIFT:"Clinical dementia rating")
+
+SET Published = "CDR story"
+SET Anatomy = "cerebrospinal fluid"
+SET MeSHDisease = "Alzheimer Disease"
+SET Subgraph = "DYRK1A subgraph"
+p(HGNC:DYRK1A) neg p(HGNC:MAPT)
+p(HGNC:DYRK1A) neg p(HGNC:MAPT, pmod(Ph))
+p(HGNC:DYRK1A) cnc p(HGNC:APP, frag(672_713))
+UNSET {MeSHDisease, Anatomy, Subgraph}
+
+###
+SET Citation = {"PubMed", "24961945"}
+
+SET Evidence = "In the study, we recruited 40 Chinese elders with different
+cognitive statuses and investigated concentrations of Mn in whole blood and
+plasma amyloid-β (Aβ) peptides. Surprisingly, there were significant correlations
+of Mn with Mini-Mental State Examination score and Clinical Dementia Rating
+Scale score. In addition, plasma Aβ peptides increased with elevated Mn. "
+
+SET Confidence = "Low"
+a(CHEBI:"manganese(2+)") pos a(NIFT:"Mini mental state exam")
+a(CHEBI:"manganese(2+)") pos a(NIFT:"Clinical dementia rating")
+UNSET Confidence
+
+
+############################
+# SNPs associated with APOE
+############################
+
+#####
+SET Citation = {"PubMed", "Genetic evidence for the involvement of variants at APOE, BIN1, CR1, and PICALM loci in risk of late-onset Alzheimer's disease and evaluation for interactions with APOE genotypes.","25022885"}
+
+SET Evidence = "Alleles and genotypes of APOE, PICALM rs3851179 and rs541458, and the BIN1 gene rs744373 polymorphism were significantly different between LOAD and control groups."
+
+g(HGNC:PICALM) hasVariant g(DBSNP:rs3851179)
+g(HGNC:PICALM) hasVariant g(DBSNP:rs541458)
+g(HGNC:BIN1) hasVariant g(DBSNP:rs744373)
+
+g(DBSNP:rs3851179) -- path(EFO:"late-onset Alzheimers disease")
+g(DBSNP:rs541458) -- path(EFO:"late-onset Alzheimers disease")
+g(DBSNP:rs744373) -- path(EFO:"late-onset Alzheimers disease")
+
+#####
+SET Citation = {"PubMed", "Systematic meta-analyses of Alzheimer disease genetic association studies: the AlzGene database.","17192785"}
+
+SET Evidence = "The researchers found that on testing DNA samples from 1,086 well-characterized Alzheimer's disease cases, a single SNP (rs4420638) lying 14 kb distal to the ApoE locus has a powerful association with late-onset AD (corrected p value was 5.3 x 10 e-34)."
+
+g(DBSNP:rs4420638) -- path(EFO:"late-onset Alzheimers disease")
+path(EFO:"late-onset Alzheimers disease") eq path(EFO:"late-onset Alzheimers disease")
+
+#####
+SET Citation = {"PubMed", "23175194"}
+SET Evidence = "OBJECTIVE: To evaluate the combination of two factors: clinical dementia rating sum of boxes scores (CDR-SB) and hippocampal volume (HV) as predictors of conversion from mild cognitive impairment (MCI) to dementia.
+METHODS: Twenty-eight individuals (9 normal and 19 with MCI) were classified according to their CDR sum of boxes scores into 3 groups.
+RESULTS: The hippocampal volume was significantly lower in the high-risk group and in those who developed dementia after two years. The rate of conversion was crescent among the three groups."
+
+a(CONSO:"CDR - Sum of Boxes") neg a(NIFT:"Hippocampus volume")
+
+#####
+SET Citation = {"PubMed", "Neurobiol Aging. 2015 Jul;36(7):2232-2240.", "26043140"}
+SET Evidence = "In this analysis, we construct a δ ortholog representing the 'cognitive correlates of age' (cAGE). cAGE largely mediates age's effects on dementia severity, as rated by the Clinical Dementia Rating Scale Sum of boxes and has an area under the receiver operating curve = 0.96 for the diagnosis of Alzheimer's Disease versus controls."
+
+SET Species = "9606"
+a(CONSO:"CDR - Sum of Boxes") -- a(EFO:"cognitive decline measurement")
+UNSET Species
+
+#####
+SET Citation = {"PubMed", "Clin Chim Acta. 2015 Feb 20;441:115-21", "25542982"}
+SET Evidence = "Among these three markers, the lower 3-HPMA/Cre ratio was most strongly correlated with the decline of MMSE (Mini-Mental State Examination) and the increase in CDRsob (Clinical Dementia Rating Scale Sum of Boxes Scores)."
+
+SET Species = "9606"
+SET Anatomy = "urine"
+a(CONSO:"CDR - Sum of Boxes") neg a(NIFT:"3-HPMA/Cre ratio")
+a(NIFT:"Mini mental state exam") neg a(NIFT:"3-HPMA/Cre ratio")
+UNSET {Anatomy, Species, Evidence}
+
+SET Evidence = "In addition, urinary Cre in AD subjects was significantly higher than that in MCI subjects, and 3-HPMA/Cre and AC-Acro/Cre in AD subjects were significantly lower than that in MCI subjects."
+
+SET Evidence = "Furthermore, reduction in 3-HPMA/Cre in urine was well correlated with increase in Aβ40/42 in plasma in demented subjects."
+
+a(NIFT:"3-HPMA/Cre ratio") neg a(NIFT:"Abeta_40_42_ratio")
+
+# Inferred by definition
+a(NIFT:"3-HPMA/Cre ratio") pos a(InChI:"InChI=1S/C8H15NO4S/c1-6(11)9-7(8(12)13)5-14-4-2-3-10/h7,10H,2-5H2,1H3,(H,9,11)(H,12,13)/t7-/m0/s1")
+a(NIFT:"3-HPMA/Cre ratio") neg a(CHEBI:"creatinine") 
+
+UNSET Citation
+
+#####
+SET Citation = {"PubMed", "Ann Neurol. 2014 Jan;75(1):116-26.", "24242746"}
+
+SET Evidence = "CSF NfL, but not other CSF measures, correlated with CDRsb and neuropsychological measures in FTD, but not in other diagnostic groups."
+
+SET Species = "9606"
+SET Anatomy = "cerebrospinal fluid"
+SET MeSHDisease = "Frontotemporal Dementia"
+p(HGNC:NEFL) pos a(CONSO:"CDR - Sum of Boxes")
+UNSET {MeSHDisease, Anatomy, Species, Evidence}
+UNSET Citation
+
+#####
+SET Citation = {"PubMed", "Alzheimers Res Ther. 2014 Aug 27;6(5-8):52.", "25429309"}
+SET Evidence = "Reduced caudate DAT concentration was associated with worse Clinical Dementia Rating Scale-sum of boxes (CDR-SB) scores and visuospatial skills in DLB but not in PD or HCS groups."
+
+SET Species = "9606"
+SET MeSHDisease = "Lewy Body Disease"
+SET Anatomy = "caudate nucleus"
+p(HGNC:SLC6A3) neg a(CONSO:"CDR - Sum of Boxes")
+UNSET {MeSHDisease, Species, Anatomy, Evidence}
+UNSET Citation
+
+#####
+SET Citation = {"PubMed", "Brain. 2013 Jul;136(Pt 7):2228-38.", "23775979"}
+SET Evidence = "(11)C-PBR28 binding inversely correlated with performance on Folstein Mini-Mental State Examination, Clinical Dementia Rating Scale Sum of Boxes, Logical Memory Immediate (Wechsler Memory Scale Third Edition), Trail Making part B and Block Design (Wechsler Adult Intelligence Scale Third Edition) tasks, with the largest correlations observed in the inferior parietal lobule."
+
+SET Species = "9606"
+SET Anatomy = "inferior parietal cortex"
+
+# N-[(2-methoxyphenyl)methyl]-N-(2-phenoxyphenyl)acetamide is a (11)C-PBR28 radio ligand which cant be found in chebi or meshc
+#: See: https://pubchem.ncbi.nlm.nih.gov/compound/16126816#section=Names-and-Identifiers
+
+complex(p(HGNC:TSPO), a(InChI:"InChI=1S/C22H21NO3/c1-17(24)23(16-18-10-6-8-14-21(18)25-2)20-13-7-9-15-22(20)26-19-11-4-3-5-12-19/h3-15H,16H2,1-2H3/i2-1")) neg a(CONSO:"CDR - Sum of Boxes")
+complex(p(HGNC:TSPO), a(InChI:"InChI=1S/C22H21NO3/c1-17(24)23(16-18-10-6-8-14-21(18)25-2)20-13-7-9-15-22(20)26-19-11-4-3-5-12-19/h3-15H,16H2,1-2H3/i2-1")) neg a(NIFT:"Mini mental state exam")
+complex(p(HGNC:TSPO), a(InChI:"InChI=1S/C22H21NO3/c1-17(24)23(16-18-10-6-8-14-21(18)25-2)20-13-7-9-15-22(20)26-19-11-4-3-5-12-19/h3-15H,16H2,1-2H3/i2-1")) neg a(NIFT:"Logical Memory Immediate")
+
+UNSET {Anatomy, Species, Evidence}
+UNSET Citation
+
+#####
+SET Citation = {"PubMed", "BMC Psychol. 2013 Dec 23;1(1):30.", "25566378"}
+SET Evidence = "Poorer performance on the memory composite was also associated with worse performance on the Mini Mental State Exam and increasing severity on the Clinical Dementia Rating Scale sum of boxes score."
+
+SET Species = "9606"
+SET Condition = "increasing severity"
+path(GO:"short-term memory") pos a(NIFT:"Mini mental state exam")
+path(GO:"short-term memory") neg a(CONSO:"CDR - Sum of Boxes")
+UNSET Species
+UNSET Condition
+
+
+#####
+SET Citation = {"PubMed", "Neurobiol Aging. 2009 Dec;30(12):1902-9", "18346821"}
+SET Evidence = "The linear regression analyses showed that the CDR-SOB explained approximately 11-22% of the variance of [11C]PIB uptake. The association attained statistical significance in both frontal, in both anterior cingulate cortices, and in both putamina."
+
+SET Species = "9606"
+SET MeSHDisease = "Alzheimer Disease"
+SET Anatomy = {"anterior cingulate cortex", "cingulate cortex", "putamen"}
+a(CONSO:"CDR - Sum of Boxes") pos a(MESH:"2-(4'-(methylamino)phenyl)-6-hydroxybenzothiazole")
+# "2-(4'-(methylamino)phenyl)-6-hydroxybenzothiazole" is a [11C]PIB another radio ligand which cant be found in chebi
+
+UNSET {Anatomy, MeSHDisease, Species, Evidence}
+UNSET Citation
+
+#####
+SET Citation = {"PubMed", "15895461"}
+SET Evidence = "Inheritance of the rs1799724(T) allele appears to synergistically increase the risk of Alzheimer's in APOE-ε4 carriers and is associated with altered CSF Abeta42 levels"
+#: TODO
+UNSET Evidence
+UNSET Citation
+
+######
+SET Citation = {"PubMed", "27768893"}
+
+SET Evidence = "We report that the well-known nuclear MYST family acetyl transferase MOF and a subset of its non-specific lethal complex partners reside in mitochondria. MOF regulates oxidative phosphorylation by controlling expression of respiratory genes from both nuclear and mtDNA in aerobically respiring cells"
+
+# MOF is KAT8 
+
+SET Published = "CDR story"
+SET CellStructure = {"Mitochondria", "Cell Nucleus"}
+p(HGNC:KAT8) -- bp(GO:"regulation of oxidative phosphorylation")
+
+
+SET Evidence = "MOF (KAT8) regulates oxidative phosphorylation by controlling expression of respiratory genes from both nuclear and mtDNA in aerobically respiring cells."
+
+p(HGNC:KAT8) reg complex(GO:"respiratory chain complex")
+
+UNSET Published
+
+#####
+SET Citation = {"PubMed", "17017864"}
+
+SET Evidence = "Mitochondria are pivotal in controlling cell life and death not only by producing ATP, and sequestering calcium, but by also generating free radicals and serving as repositories for proteins which regulate the intrinsic apoptotic pathway. Perturbations in the physiological function of mitochondria inevitably disturb cell function, sensitize cells to neurotoxic insults and may initiate cell death, all significant phenomena in the pathogenesis of a number of neurodegenerative disorders including AD."
+
+SET CellStructure = "Mitochondria"
+SET Subgraph = "Reactive oxygen species subgraph"
+
+SET Confidence = "Low"
+a(CHEBI:"reactive oxygen species") -> path(CONSO:"mitochondrial dysfunction")
+path(CONSO:"mitochondrial dysfunction") -> bp(GO:"cell death")
+path(CONSO:"mitochondrial dysfunction") -> bp(GO:"apoptotic process")
+UNSET Confidence
+
+#####
+SET Citation = {"PubMed", "21034527"}
+
+SET Evidence = "Although the role of AICD as a gene transcription inducer is still controversial, several targets of AICD- or APP-mediated transcriptional activation are reportedly regulated by APP nuclear signaling, including APP itself, BACE, Tip60, GSK-3b¸, p53, Mn-SOD, KAI1, Neprilysin, transgelin, a2actin, S100a9, and other genes"
+
+p(HGNC:APP) reg p(HGNC:APP)
+p(HGNC:APP) reg p(HGNC:BACE1)
+# Tip60 is KAT5
+p(HGNC:APP) reg p(HGNC:KAT5) 
+p(HGNC:APP) reg p(HGNC:GSK3B)
+p(HGNC:APP) reg p(HGNC:TP53)
+# Mn-SOD is SOD2
+p(HGNC:APP) reg p(HGNC:SOD2)
+# KAI1 is CD82
+p(HGNC:APP) reg p(HGNC:CD82)
+# Neprilysin is MME
+p(HGNC:APP) reg p(HGNC:MME)
+# transgelin is TAGLN
+p(HGNC:APP) reg p(HGNC:TAGLN)
+# a2actin is ACTA2 
+p(HGNC:APP) reg p(HGNC:ACTA2)
+p(HGNC:APP) reg p(HGNC:S100A9)
+
+
+#####
+SET Citation = {"PubMed", "25778476"}
+
+SET Evidence = "Expression quantitative trait locus analysis revealed that rs113986870, one of the GWS SNPs near rs2732703, is significantly associated with four KANSL1 probes that target transcription of the first translated exon and an untranslated exon in hippocampus (P≤1.3x10−8), frontal cortex (P≤1.3x10−9), and temporal cortex (P≤1.2x10−11)"
+
+SET MeSHAnatomy = "Hippocampus"
+
+p(HGNC:KANSL1) -- g(DBSNP:rs113986870)
+g(DBSNP:rs113986870) -- g(DBSNP:rs2732703)
+
+SET Confidence = "Low"
+g(DBSNP:rs2732703) -- a(NIFT:"Hippocampus volume")
+
+UNSET {MeSHAnatomy, Confidence}
+UNSET Evidence
+UNSET Citation

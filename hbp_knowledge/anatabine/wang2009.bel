@@ -21,7 +21,6 @@ DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -74,36 +73,51 @@ SET Citation = {"PubMed", "19165623"}
 
 SET Evidence = "Nicotine is synthesized through condensation of two transitory compounds,
 N-methyl-Δ1-pyrrolinium and nicotinic acid [5, 12]."
+SET Confidence = "High"
 complex(a(CHEBI:"1-methylpyrrolinium"),a(CHEBI:"nicotinic acid")) -> a(CHEBI:nicotine)
+UNSET Confidence
 
 SET Evidence = "N-methyl-Δ1-pyrrolinium is synthesized from arginine and/ or ornithine, and is controlled by putrescine N-methyl
 transferase (PMT), which is the key enzyme in diverting metabolism towards the biosynthesis of nicotine and others alkaloids [12, 13]."
+#Q9SEH4 : putrescine N-methyltransferase
+SET Confidence = "High"
 a(CHEBI:arginine) -> a(CHEBI:"1-methylpyrrolinium")
 a(CHEBI:ornithine) -> a(CHEBI:"1-methylpyrrolinium")
 a(UNIPROT:Q9SEH4) -> a(CHEBI:nicotine)
 a(UNIPROT:Q9SEH4) -> rxn(reactants(a(CHEBI:arginine),a(CHEBI:ornithine)),products(a(CHEBI:"1-methylpyrrolinium")))
+UNSET Confidence
 
-SET Evidence = "Nicotinic acid is synthesized from quinolinic acid through pyridine nucleotide cycle, and is controlled by quinolinate
-phosphoribosyltransferase (QPRT)"
+SET Evidence = "Nicotinic acid is synthesized from quinolinic acid through pyridine nucleotide cycle, and is controlled by quinolinate phosphoribosyltransferase (QPRT)"
+SET Confidence = "High"
 a(CHEBI:"quinolinic acid") -> a(CHEBI:"nicotinic acid")
 p(HGNC:QPRT) -> rxn(reactants(a(CHEBI:"quinolinic acid")),products(a(CHEBI:"nicotinic acid")))
+UNSET Confidence
 
 SET Evidence = "Anatabine is synthesized from nicotinic acid, and QPRT is alike an enzyme
 of key importance in regulating anatabine biosynthesis in tobacco (Fig. 1)"
+SET Confidence = "High"
 p(HGNC:QPRT) reg rxn(reactants(a(CHEBI:"nicotinic acid")),products(a(CHEBI:Anatabine)))
+UNSET Confidence
 
 SET Evidence = "Experiments involving RNA-mediated gene silencing with transgenic Nicotiana plants have shown that a
 decrease in PMT expression levels can lead to low nicotine content"
+#in transgenic Nicotiana plants
+SET Confidence = "High"
 a(UNIPROT:Q9SEH4) -> a(CHEBI:nicotine)
+UNSET Confidence
 
 SET Evidence = "Down-regulation of PMT expression led to elevation of anatabine level in transgenic tobacco
 root lines and leaf tissues of regenerated tobacco plants"
+#in transgenic tabacco root and leaf tissues
+SET Confidence = "High"
 a(UNIPROT:Q9SEH4) -| a(CHEBI:Anatabine)
+UNSET Confidence
 
 # experiments performed in tobacco plants
 
-SET Evidence = "To shed further light on pathway regulation, the question was asked about whether alteration of nicotine and anatabine
-content would affect the expression of other key enzyme, namely QPRT, which is a key enzyme in the
+SET Evidence = "To shed further light on pathway regulation, the question was asked about whether alteration of nicotine and anatabine content would affect the expression of other key enzyme, namely QPRT, which is a key enzyme in the
 biosynthesis of another precursor of nicotine, and also the key enzyme of anatabine (Fig. 1)."
+SET Confidence = "High"
 p(HGNC:QPRT) -> a(CHEBI:Anatabine)
 p(HGNC:QPRT) -> a(CHEBI:nicotine)
+UNSET Confidence

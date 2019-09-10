@@ -21,7 +21,7 @@ SET DOCUMENT Description = ""
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 #DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 #DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -58,8 +58,8 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 #DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
 #DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 #DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
-#DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-#DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 #DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -77,73 +77,87 @@ SET Species = "10090"
 SET Evidence = "The measurements showed similar patterns in both tested brain areas, with Adnp deficiency resulting in substantial
 decreases in spine density (male and female mice) and increases in PSD95-asymmetric shaft synapses (males only, as indicated
 by increased localization of PSD95 in dendritic shafts rather than spines), which were all rescued by NAP treatment."
-SET MeSHAnatomy = {"CA1 Region, Hippocampal","Pyramidal Cells","Cerebral Cortex"}
+#PSD95 = DLG4
+#Davunetide is also called NAP peptide(MeSH)
+SET Confidence = "High"
 SET Gender = {"Female","Male"}
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| a(GO:"dendritic spine")
 a(PUBCHEM:9832404) -> a(GO:"dendritic spine")
+UNSET Gender
 SET Gender = "Male"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -> p(HGNC:DLG4)
 a(PUBCHEM:9832404) -| p(HGNC:DLG4)
-UNSET MeSHAnatomy
+#UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "In female mice, NAP treatment significantly decreased shaft synapses"
 # PSD95-asymmetric shaft synapses
+SET Confidence = "High"
 SET Gender = "Female"
 a(PUBCHEM:9832404) -| a(GO:"dendritic shaft")
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Closer inspection suggested a more severe Adnp+/– genotype effect on total spine density in the male cortex compared
 with the hippocampus (Figure 1A, –1.56-fold reduction compared with Figure 2A, –1.83-fold reduction compared with the Adnp+/+ genotype)."
+SET Confidence = "High"
 SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex"}
 SET Gender = "Male"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| a(GO:"dendritic spine")
 UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "In hippocampal CA1 pyramidal cells, all dendritic spine subtypes were reduced in the Adnp+/– mice,
 except for the thin spines observed in males. The spine loss was rescued by NAP treatment, except for the stubby spines seen in
 males (Supplemental Figure 1)."
+SET Confidence = "High"
 SET MeSHAnatomy = {"CA1 Region, Hippocampal","Pyramidal Cells"}
-SET Gender = {"Female","Male"}
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| a(GO:"dendritic spine")
 a(PUBCHEM:9832404) -> a(GO:"dendritic spine")
 UNSET MeSHAnatomy
-UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Supplemental Figure 2 shows the cortical spine data indicating a significant genotype effect
 (P < 0.01) and NAP rescue for all subtypes in males (P < 0.05)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Cerebral Cortex"
 SET Gender = "Male"
-p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| a(GO:"dendritic spine")
 a(PUBCHEM:9832404) -> a(GO:"dendritic spine")
 UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Further sex comparisons revealed differences in excitatory synapse numbers, with the Adnp+/– male
 mice showing significantly reduced hippocampal spine density, coupled with increased immature
 pathologic excitatory shaft synapses compared with Adnp+/– female mice (P < 0.01, Supplemental Table 2)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 SET Gender = "Male"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| a(GO:"dendritic spine")
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -> a(GO:"excitatory synapse")
 UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "This genotype- and sex-dependent pathology also extended to the cortex, with increased PSD95
 shaft synapse density in Adnp+/– males compared with Adnp+/– females (P < 0.01), and was rescued by
 NAP treatment."
+SET Confidence = "High"
 SET MeSHAnatomy = "Cerebral Cortex"
 SET Gender = "Male"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -> p(HGNC:DLG4)
 a(PUBCHEM:9832404) -| p(HGNC:DLG4)
 UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Measurements of PSD95 for excitatory shaft synapse volumes (indicative of synaptic maturation)
 showed significant increases in Adnp+/– mice in both hippocampus and cortex (P < 0.05), but not in the
 male mouse cortical spines. We observed a further increase with NAP treatment in female mice only,
 suggesting a compensatory effect (Supplemental Figures 1 and 2, insets)."
+SET Confidence = "High"
 SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex"}
 SET Gender = "Male"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -> a(GO:"excitatory synapse")
@@ -151,36 +165,46 @@ SET Gender = "Female"
 a(PUBCHEM:9832404) -> a(GO:"excitatory synapse")
 UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Specifically, in Adnp+/+ male mice, we found that NAP treatment reduced hippocampal stubby, thin, and total spine densities (Supplemental
 Figure 3, P < 0.05) as well as cortical mushroom, stubby, and total densities (Supplemental Figure 4, P < 0.05)."
-SET MeSHAnatomy = "Hippocampus"
+SET Confidence = "High"
+SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex"}
 SET Gender = "Male"
 composite(a(PUBCHEM:9832404),p(HGNC:ADNP,pmod(MESH:Haploinsufficiency))) -| a(GO:"dendritic spine")
 UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Importantly, in males, NAP treatment did not affect PSD95 shaft synapse density
 in either tested region (Supplemental Figures 3 and 4, insets)."
+SET Confidence = "High"
 SET Gender = "Male"
 a(PUBCHEM:9832404) cnc p(HGNC:DLG4)
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Interestingly, we found that shaft synapse densities (immature synapses)
 were decreased in the female cortex following NAP treatment (Supplemental Figure 4, P < 0.05)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Cerebral Cortex"
 SET Gender = "Female"
 a(PUBCHEM:9832404) -| a(GO:"dendritic shaft")
 UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Furthermore, NAP treatment increased PSD95 shaft synapse volume in both tested brain regions
 (Supplemental Figures 3 and 4, insets, P < 0.05)."
+SET Confidence = "High"
 a(PUBCHEM:9832404) -> p(HGNC:DLG4)
+UNSET Confidence
 
 SET Evidence = "Additionally, given that ADNP and NAP are linked with autophagy (13), cell adhesion (35),
 immune response (36), autism (6, 13, 15, 17, 27), and synapse-related
 processes (6), the analysis included several representative genes pertaining to these processes"
+SET Confidence = "High"
 p(HGNC:ADNP) -- bp(GO:autophagy)
 p(HGNC:ADNP) -- bp(GO:"cell adhesion")
 p(HGNC:ADNP) -- bp(GO:"immune response")
@@ -191,6 +215,7 @@ a(PUBCHEM:9832404) -- bp(GO:"cell adhesion")
 a(PUBCHEM:9832404) -- bp(GO:"immune response")
 a(PUBCHEM:9832404) -- path(MESH:"Autistic Disorder")
 a(PUBCHEM:9832404) -- act(a(GO:synapse))
+UNSET Confidence
 
 SET Evidence = "We evaluated the 31 transcripts regulated at both tested ages
 (see above) and found that the most enriched modified functions
@@ -200,6 +225,7 @@ glutamatergic, regulation of synapse organization, regulation of
 cell communication, α-amino-3-hydroxy-5-methyl-4-isoxazole-propionic acid (AMPA) glutamate receptor clustering, learning or
 memory, social behavior, regulation of ion transport, vocalization
 behavior, and nervous system development (Figure 3, Supplemental Tables 11 and 12)"
+SET Confidence = "High"
 p(HGNC:ADNP) -- bp(GO:"nervous system development")
 p(HGNC:ADNP) -- bp(GO:"synapse assembly")
 p(HGNC:ADNP) pos bp(GO:"synaptic transmission, glutamatergic")
@@ -211,23 +237,13 @@ p(HGNC:ADNP) -- bp(GO:memory)
 p(HGNC:ADNP) -- bp(GO:"social behavior")
 p(HGNC:ADNP) reg bp(GO:"ion transport")
 p(HGNC:ADNP) -- bp(GO:"vocalization behavior")
-a(PUBCHEM:9832404) -- bp(GO:"nervous system development")
-a(PUBCHEM:9832404) -- bp(GO:"synapse assembly")
-a(PUBCHEM:9832404) pos bp(GO:"synaptic transmission, glutamatergic")
-a(PUBCHEM:9832404) reg bp(GO:"synapse organization")
-a(PUBCHEM:9832404) reg bp(GO:"cell communication")
-a(PUBCHEM:9832404) -- bp(GO:"AMPA glutamate receptor clustering")
-a(PUBCHEM:9832404) -- bp(GO:learning)
-a(PUBCHEM:9832404) -- bp(GO:memory)
-a(PUBCHEM:9832404) -- bp(GO:"social behavior")
-a(PUBCHEM:9832404) reg bp(GO:"ion transport")
-a(PUBCHEM:9832404) -- bp(GO:"vocalization behavior")
+UNSET Confidence
 
 SET Evidence = "Figure 3, Supplemental Figure 5 (younger age group), Supplemental Figure 6 (older age group), and Supplemental
 Tables 5 and 8 reveal an overall similar pattern of Adnp genotype–and NAP treatment–regulated human and mouse protein
-product interactions across ages with Akt1 (the mosaic mutations of which lead to the Proteus syndrome, characterized by the overgrowth
-of skin, connective tissue, brain, and other tissues; ref. 37) and discs large MAGUK scaffold protein 4 (Dlg4, also known as
-Psd95), a key regulator of synaptic plasticity (see above) that plays central roles associated with ADNP and NAP function."
+product interactions across ages with Akt1 (the mosaic mutations of which lead to the Proteus syndrome, characterized by the overgrowth of skin, connective tissue, brain, and other tissues; ref. 37) and discs large MAGUK scaffold protein 4 (Dlg4, also known as Psd95), a key regulator of synaptic plasticity (see above) that plays central roles associated with ADNP and NAP function."
+SET Confidence = "High"
+SET Species = "9606"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) reg complex(p(HGNC:DLG4),p(HGNC:ADNP))
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) reg complex(p(HGNC:AKT1),p(HGNC:ADNP))
 a(PUBCHEM:9832404) reg complex(p(HGNC:AKT1),p(HGNC:ADNP))
@@ -236,21 +252,28 @@ p(HGNC:DLG4) reg act(p(HGNC:ADNP))
 p(HGNC:DLG4) reg act(a(PUBCHEM:9832404))
 p(HGNC:DLG4) -- bp(GO:"regulation of synaptic plasticity")
 p(HGNC:AKT1,var("?")) -> path(MESH:"Proteus Syndrome")
+UNSET Confidence
 
 SET Evidence = "In the young, developing mouse, specific Adnp genotype– and NAP-regulated hippocampal transcripts
 included a reduction and rescue of formyl peptide receptor 3 (Fpr-rs3) in males only, in agreement with the
 previous genotype-associated reduction we observed in the developing embryo (2)."
+SET Confidence = "High"
+SET Gender = "Male"
 SET MeSHAnatomy = "Hippocampus"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| p(HGNC:FPR3)
 a(PUBCHEM:9832404) -> p(HGNC:FPR3)
+UNSET Gender
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Tubulin β 1 class VI (Tubb1) increased in the Adnp+/– female mouse and was rescued
 by NAP treatment, thus correlating with our genotype-related RNA-seq data (6) (Figure 4A)."
+SET Confidence = "High"
 SET Gender = "Female"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -> p(HGNC:TUBB1)
 a(PUBCHEM:9832404) -| p(HGNC:TUBB1)
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "In the 3-month-old hippocampi (Figure 4B), we found significant sex-dependent changes for Adnp+/–
 gene regulation and NAP rescue in the following genes in male mice: (a) apolipoprotein E (Apoe), the lead gene
@@ -266,50 +289,64 @@ increased expression in Adnp+/– embryos [ref. 1] and in subcortical brain doma
 mice [ref. 3]); and (f) Wolframin endoplasmic reticulum transmembrane glycoprotein (Wfs1), which is associated with neurodegeneration
 and cellular calcium homeostasis regulation and was previously shown to be regulated by NAP (34)."
 # Gm21949: human orthologue IQCJ-SCHIP1
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 SET Gender = "Male"
-p(HGNC:ADNP) reg p(HGNC:APOE)
+p(HGNC:ADNP) reg g(HGNC:APOE)
 a(PUBCHEM:9832404) -- p(HGNC:APOE)
 p(HGNC:APOE) -> path(MESH:"Alzheimer Disease")
 g(HGNC:"IQCJ-SCHIP1") -> bp(GO:"calcium-mediated signaling")
+SET Cell = "myelin accumulating cell"
 g(HGNC:"IQCJ-SCHIP1") -> bp(GO:"action potential")
+UNSET Cell
 g(HGNC:"IQCJ-SCHIP1") -> bp(MESH:"Neuronal Outgrowth")
 p(HGNC:ADNP) -- g(HGNC:"IQCJ-SCHIP1")
 a(PUBCHEM:9832404) -- g(HGNC:"IQCJ-SCHIP1")
 p(HGNC:LIPA) -> bp(GO:"lipid metabolic process")
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) reg act(p(HGNC:LIPA))
+a(PUBCHEM:9832404) -- g(HGNC:LIPA)
 a(PUBCHEM:9832404) -- p(HGNC:NLGN2)
 p(HGNC:ADNP) -- p(HGNC:NLGN2)
+p(HGNC:NLGN2) -> bp(GO:"synapse organization")
 p(HGNC:ADNP) reg p(HGNC:PAX6)
 a(PUBCHEM:9832404) -- p(HGNC:PAX6)
-p(HGNC:WFS1) -- path(HBP:Neurodegeneration)
+p(HGNC:PAX6) reg bp(GO:"glutamatergic neuron differentiation")
+p(HGNC:WFS1) -- path(CONSO:Neurodegeneration)
 p(HGNC:WFS1) reg bp(GO:"cellular calcium ion homeostasis")
 a(PUBCHEM:9832404) reg p(HGNC:WFS1)
 p(HGNC:ADNP) -- p(HGNC:WFS1)
 UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "In the mature cerebral cortex, only histone cluster 1 H3 family member B (Hist1h3b), which was one of the major transcripts
 downregulated in the hippocampi of 5-month-old Adnp+/–mice compared with Adnp+/+ mice (6, 17), was found here to be downregulated
 in the female Adnp+/– mouse. This effect was now shown to be reversed by NAP treatment (Figure 4B)."
+SET Confidence = "High"
 SET MeSHAnatomy = {"Cerebral Cortex","Hippocampus"}
 SET Gender = "Female"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| p(HGNC:HIST1H3B)
 a(PUBCHEM:9832404) -> p(HGNC:HIST1H3B)
 UNSET MeSHAnatomy
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "ADNP expression in lymphocytes correlates with inflammation
 levels (36), disease state, and autophagy (13), as well as intelligence (40)."
+SET Confidence = "High"
+SET Cell = "lymphocyte"
 p(HGNC:ADNP) -- path(MESH:Inflammation)
 p(HGNC:ADNP) -- bp(GO:autophagy)
 p(HGNC:ADNP) -- path(MESH:Intelligence)
+UNSET Cell
+UNSET Confidence
 
 SET Evidence = "In male mice, the ATP-binding cassette subfamily F member
 3 (Abcf3), bone morphogenetic protein 4 (Bmp4), cadherin 17
 (Cdh17), lysine demethylase 5d (Kdm5d), Kruppel-like factor 1
 (Klf1), and period circadian regulator 1 (Per1) were upregulated as
 a consequence of Adnp haploinsufficiency and rescued by NAP"
+SET Confidence = "High"
 SET Gender = "Male"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -> p(HGNC:ABCF3)
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -> p(HGNC:BMP4)
@@ -324,110 +361,145 @@ a(PUBCHEM:9832404) -| p(HGNC:KDM5D)
 a(PUBCHEM:9832404) -| p(HGNC:KLF1)
 a(PUBCHEM:9832404) -| p(HGNC:PER1)
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "In female mice, Akt1 (above) and ionized calcium–binding adapter
 molecule 1 (Iba1), a marker of microglial activation that crosslinks
 actin (42), were markedly increased in the Adnp+/– mouse spleen
 and normalized by NAP treatment, suggesting a potential peripheral inflammation–linked biomarker"
+#Iba1 : Similar to AIF1
+SET Confidence = "High"
 SET Gender = "Female"
 SET MeSHAnatomy = "Spleen"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -> p(HGNC:AKT1)
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -> p(HGNC:AIF1)
 a(PUBCHEM:9832404) -| p(HGNC:AKT1)
 a(PUBCHEM:9832404) -| p(HGNC:AIF1)
+p(HGNC:AIF1) -- bp(GO:"microglial cell activation")
 UNSET Gender
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Likewise, mechanistic target of rapamycin (Mtor), which has been linked to cellular regulation,
 protein translation, autophagy, and the actin cytoskeleton (43–45), was also found to be regulated by ADNP and NAP"
+SET Confidence = "High"
 a(PUBCHEM:9832404) reg p(HGNC:MTOR)
 p(HGNC:ADNP) reg p(HGNC:MTOR)
 p(HGNC:MTOR) -- bp(GO:translation)
 p(HGNC:MTOR) -- bp(GO:autophagy)
 p(HGNC:MTOR) -- a(GO:"actin cytoskeleton")
+UNSET Confidence
 
 SET Evidence = "Female cortical Hist1h3b was found to be regulated only by the Adnp+/– genotype."
+SET Confidence = "High"
 SET Gender = "Female"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) reg p(HGNC:HIST1H3B)
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Importantly, negative geotaxis, a test used to investigate motor coordination and vestibular sensitivity,
 showed delayed development in Adnp+/– mice and normalization with NAP treatment (Figure 5D)."
+SET Confidence = "High"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| path(MESH:"Psychomotor Performance")
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -> path(MESH:"Vestibular Diseases")
 a(PUBCHEM:9832404) -> path(MESH:"Psychomotor Performance")
 a(PUBCHEM:9832404) -| path(MESH:"Vestibular Diseases")
+UNSET Confidence
 
 SET Evidence = "Initially, we checked for mouse length (potentially
 corresponding to stature in an ADNP syndrome child) and discovered
 shorter lengths as the Adnp+/– mice matured, starting earlier in males (Figure 6, A and B)."
+SET Confidence = "High"
+SET Gender = "Male"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) neg bp(MESH:"Body Height")
+UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Supplemental Figure 12 shows marked delays in weight gain
 that were also sex dependent (apparent earlier in females)."
+SET Confidence = "High"
+SET Gender = "Female"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) neg path(MESH:"Weight Gain")
+UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Specifically, the standing time and step cycle parameters
 indicated better performance in males, with significant impairments
 seen in Adnp+/– mice and amelioration with NAP treatment
 (Figure 6, C and D)."
+SET Confidence = "High"
+SET Gender = "Male"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| path(MESH:"Psychomotor Performance")
 a(PUBCHEM:9832404) -> path(MESH:"Psychomotor Performance")
+UNSET Gender
+UNSET Confidence
 
 SET Evidence = "We then measured the latency to fall off an inverted cage lid (hanging wire) and
 found a highly significant impairment (decreased latency) in male Adnp+/– mice and a complete reversal with NAP treatment
 (Figure 7A). The females were not affected in this behavior, indicating
 sex differences in motor behavior and development in the haploinsufficient mice"
+SET Confidence = "High"
 SET Gender = "Male"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| path(MESH:"Motor Activity")
 a(PUBCHEM:9832404) -> path(MESH:"Motor Activity")
 SET Gender = "Female"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) cnc path(MESH:"Motor Activity")
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Likewise, Adnp+/– males, but not females,
 showed significantly reduced grip strength that was completely
 reversed by NAP treatment (Figure 7B)."
+SET Confidence = "High"
 SET Gender = "Male"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| bp(MESH:"Hand Strength")
 a(PUBCHEM:9832404) -> bp(MESH:"Hand Strength")
 SET Gender = "Female"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) cnc bp(MESH:"Hand Strength")
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "Here, we found that object
 recognition memory was normalized following NAP treatment in
 Adnp+/– mice (Figure 7C) and that NAP treatment did not change
 the behavior of normal Adnp+/+ mice (Supplemental Figure 14)."
-p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| path(MESH:"Recognition (Psychology)")
+SET Confidence = "High"
+composite(a(PUBCHEM:9832404),p(HGNC:ADNP,pmod(MESH:Haploinsufficiency))) -| path(MESH:"Recognition (Psychology)")
 a(PUBCHEM:9832404) -> path(MESH:"Recognition (Psychology)")
+UNSET Confidence
 
 SET Evidence = "Interestingly, we detected sex-specific differences in object/
 mouse preference in the female mice, which did not prefer mice
 over objects (potential autistic behavior). The indifference phenotype
 was ameliorated by NAP treatment (Figure 7D)."
+SET Confidence = "High"
 SET Gender = "Female"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -> path(MESH:"Autistic Disorder")
 a(PUBCHEM:9832404) -| path(MESH:"Autistic Disorder")
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "This was coupled with deficits in olfactory function in the Adnp+/– females,
 but not males, with the female mice exhibiting impaired odor discrimination
 that was also restored by NAP treatment (Figure 7E;
 for more detail, see Supplemental Figure 14)."
+SET Confidence = "High"
 SET Gender = "Female"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| path(MESH:Smell)
 a(PUBCHEM:9832404) -> path(MESH:Smell)
 SET Gender = "Male"
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) cnc path(MESH:Smell)
 UNSET Gender
+UNSET Confidence
 
 SET Evidence = "As with object recognition memory, the deficient social memory
 of Adnp+/– mice (males and females) was normalized by NAP
 treatment (Figure 7F)."
+SET Confidence = "High"
 SET Gender = {"Female","Male"}
 p(HGNC:ADNP,pmod(MESH:Haploinsufficiency)) -| bp(GO:"social behavior")
 a(PUBCHEM:9832404) -> bp(GO:"social behavior")
 UNSET Gender
+UNSET Confidence
 
 UNSET Species

@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/cfd2ee89d1a71126da8b5f452544b7fe43be67e7/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/73688d6dc24e309fca59a1340dc9ee971e9f3baa/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/a5b84013a08880975ca84f40999e4404b14a97e2/external/go-names.belns"
@@ -79,20 +79,31 @@ SET Citation = {"PubMed","19277525"}
 SET Evidence = "PP2A plays a critical role in cellular physiology including cell cycle regulation, cell
 proliferation and death, development, cytoskeleton dynamics, cell mobility, and regulation of multiple signal
 transduction pathways"
+SET Confidence = "High"
 complex(GO:"protein phosphatase type 2A complex") reg bp(GO:"cell cycle")
 complex(GO:"protein phosphatase type 2A complex") reg bp(GO:"cell population proliferation")
 complex(GO:"protein phosphatase type 2A complex") reg bp(GO:"cell death")
 complex(GO:"protein phosphatase type 2A complex") reg act(a(GO:cytoskeleton))
 complex(GO:"protein phosphatase type 2A complex") reg bp(GO:"cell motility")
 complex(GO:"protein phosphatase type 2A complex") reg bp(GO:"signal transduction")
+UNSET Confidence
 
 SET Evidence = "The PP2A core enzyme comprises a 65-kD scaffold subunit (also known as A or PR65 subunit) and a 36-kD
 catalytic subunit (or C subunit)."
 # core enzyme: complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA))
 # scaffold subunit: p(HGNC:PPP2R1A)
 # catalytic subunit: p(HGNC:PPP2CA)
+SET Confidence = "High"
 complex(GO:"protein phosphatase type 2A complex") hasComponents list(p(HGNC:PPP2R1A),p(HGNC:PPP2CA))
+UNSET Confidence
 
+## why did you set the confidence to 'Low'?
+## i made a few changes and i think it would fit better. would you agree?
+### yeah, we can change it to your suggestion
+## The confidence was set low as i wasnt able to figure out whether the holoenzyme cosist of all the subunits of variable regulatory subunits or just one subunit of the four families at one time.
+### I actually can't remember the topic that well but I think it was variable regulatory subunits that form different holoenzymes
+## Also, you have mentioned about the HGNC ID of each subunit in the annotation, Stephan and I were curious to know whether PR55 and B56 have just one protein in this family or there are other proteins also?
+### i think there are more and i think that's why I put in the INTERPRO term
 SET Evidence = "To gain full activity towards specific substrates, the PP2A core enzyme interacts
 with a variable regulatory subunit to form a heterotrimeric holoenzyme. The variable regulatory subunits
 consist of four families: B (also known as B55 or PR55), B′ (B56 or PR61), B′′ (PR48/PR72/PR130), and B′′′
@@ -103,12 +114,20 @@ consist of four families: B (also known as B55 or PR55), B′ (B56 or PR61), B�
 # PR72/PR130: PPP2R3A
 # PR93: STRN3
 # PR110 STRN
+SET Confidence = "High"
 p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55") -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"))
+## complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55")) -> act(complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55")))
 p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56") -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"))
+## complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56")) -> act(complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56")))
 p(HGNC:PPP2R3B) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3B))
+## complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3B))  -> act(complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3B)))
 p(HGNC:PPP2R3A) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3A))
+## complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3A)) -> act(complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3A)))
 p(HGNC:STRN3) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN3))
+## complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN3)) -> act(complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN3)))
 p(HGNC:STRN) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN))
+## complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN)) -> act(complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN)))
+UNSET Confidence
 
 SET Evidence = "Except the B′′′ subunits, direct interactions
 between the PP2A core enzyme and the regulatory subunits have been demonstrated"
@@ -116,140 +135,198 @@ between the PP2A core enzyme and the regulatory subunits have been demonstrated"
 # B′ (B56 or PR61)
 # B′′ (PR48/PR72/PR130)
 # B′′′ (PR93/PR110)
+SET Confidence = "High"
 p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55") => complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"))
 p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56") => complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"))
 p(HGNC:PPP2R3B) => complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3B))
 p(HGNC:PPP2R3A) => complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3A))
-p(HGNC:STRN3) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN3))
-p(HGNC:STRN) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN))
-
-SET Evidence = "Methylation of the carboxy-terminal Leu309 in a conserved
-TPDYFL309 motif of the catalytic subunit has been shown to enhance the affinity of the PP2A core
-enzyme for some, but not all, regulatory subunits"
-p(HGNC:PPP2CA,pmod(Me,Leu,309)) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"))
-p(HGNC:PPP2CA,pmod(Me,Leu,309)) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"))
-p(HGNC:PPP2CA,pmod(Me,Leu,309)) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3B))
-p(HGNC:PPP2CA,pmod(Me,Leu,309)) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3A))
-p(HGNC:PPP2CA,pmod(Me,Leu,309)) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN3))
-p(HGNC:PPP2CA,pmod(Me,Leu,309)) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN))
+UNSET Confidence
 
 SET Evidence = "Intriguingly, changes in this peptide motif also affected
 interaction of the catalytic subunit with the alpha4 protein (α4), presumably through alteration of methylation[
 29], and led to a complex with distinct substrate specificity that is essential for cell survival"
-p(HGNC:PPP2CA,pmod(Me)) -| complex(p(HGNC:IGBP1),p(HGNC:PPP2CA))
+#this peptide : methylation of the carboxy-terminal Leu309
+# complex : p(HGNC:IGBP1),p(HGNC:PPP2CA)
+SET Confidence = "High"
+p(HGNC:PPP2CA,pmod(Me,Leu,309)) -| complex(p(HGNC:IGBP1),p(HGNC:PPP2CA))
+complex(p(HGNC:IGBP1),p(HGNC:PPP2CA)) -| bp(GO:"cell death")
+UNSET Confidence
 
 SET Evidence = "Reversible methylation of PP2A is catalyzed by two
 highly conserved and PP2A-specific enzymes, leucine carboxyl methyltransferase (LCMT1)[21,33] and PP2A
 methylesterase (PME-1)[17] (Figure 1)."
+SET Confidence = "High"
 p(HGNC:LCMT1) -> p(HGNC:PPP2CA,pmod(Me,Leu,309))
 p(HGNC:PPME1) -| p(HGNC:PPP2CA,pmod(Me,Leu,309))
+UNSET Confidence
 
 SET Evidence = "PME-1 catalyzes removal of the methyl group, thus reversing the activity of LCMT1"
+SET Confidence = "High"
 act(p(HGNC:PPME1)) neg act(p(HGNC:LCMT1))
 p(HGNC:PPME1) -| p(HGNC:PPP2CA,pmod(Me,Leu,309))
+UNSET Confidence
 
 SET Evidence = "It had also been demonstrated that methylation levels of PP2A changed during
 a cell cycle, suggesting a critical role of methylation in cell cycle regulation"
+SET Confidence = "High"
 p(FPLX:PPP2,pmod(Me)) reg bp(GO:"cell cycle")
+UNSET Confidence
 
 SET Evidence = "The scaffold subunit of PP2A contains 15 tandem repeats
 of a conserved 39-amino-acid sequence known as a HEAT (huntingtin-elongation-A subunit-TOR) motif"
+SET Confidence = "High"
 p(HGNC:PPP2R1A) -- p(INTERPRO:"HEAT repeat")
+UNSET Confidence
 
 SET Evidence = "For example, the small tumor antigen derived from the DNA
 tumor viruses SV40 and polyoma viruses was shown to only interact with the PP2A core enzyme, but not the holoenzyme"
+#small t antigen derivefd from : SV40, Polyoma virsues
+SET Confidence = "High"
 p(UNIPROT:P03081) -> complex(p(UNIPROT:P03081),p(HGNC:PPP2R1A),p(HGNC:PPP2CA))
+p(UNIPROT:P03081) cnc complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"))
+p(UNIPROT:P03081) cnc complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3B))
+p(UNIPROT:P03081) cnc complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPP2R3A))
+p(UNIPROT:P03081) cnc complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN3))
+p(UNIPROT:P03081) cnc complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:STRN))
+UNSET Confidence
 
 SET Evidence = "Structures of the PP2A core enzyme reveal that the catalytic subunit recognizes one end of the scaffold
 subunit through interactions with the conserved ridge of HEAT repeats 11–15"
-p(HGNC:PPP2CA) -> complex(p(HGNC:PPP2CA),p(INTERPRO:"HEAT repeat"))
+SET Confidence = "High"
+p(HGNC:PPP2CA) -- complex(p(HGNC:PPP2CA),p(INTERPRO:"HEAT repeat"))
+complex(p(HGNC:PPP2CA),p(INTERPRO:"HEAT repeat")) -- complex(p(INTERPRO:"HEAT repeat"), p(HGNC:PPP2R1A))
+p(HGNC:PPP2CA) -- p(HGNC:PPP2R1A)
+UNSET Confidence
 
 SET Evidence = "The important interactions mediated by Arg418 and Val533 (corresponding to Val545 in the β
 isoform) provide a plausible explanation to the biochemical finding that these mutations crippled binding
 to the catalytic subunit"
 # mutations in the HEAT repeats: Arg418Trp,Val545Ala
+SET Confidence = "High"
 p(INTERPRO:"HEAT repeat",var("p.Arg418Trp")) -| complex(p(HGNC:PPP2CA),p(INTERPRO:"HEAT repeat"))
 p(INTERPRO:"HEAT repeat",var("p.Val545Ala")) -| complex(p(HGNC:PPP2CA),p(INTERPRO:"HEAT repeat"))
+UNSET Confidence
 
 SET Evidence = "Two potent tumor-inducing toxins, okadaic acid (OA)
 and microcystin-LR (MCLR), specifically inhibit PP2A"
+SET Confidence = "High"
 a(CHEBI:"okadaic acid") -| act(complex(GO:"protein phosphatase type 2A complex"))
 a(CHEBI:"microcystin-LR") -| act(complex(GO:"protein phosphatase type 2A complex"))
+a(CHEBI:"okadaic acid") -> path(MESH:Neoplasms)
+a(CHEBI:"microcystin-LR") -> path(MESH:Neoplasms)
+UNSET Confidence
 
 SET Evidence = "The catalytic subunit of PP2A is the primary cellular target of OA"
 # OA: okadaic acid
+SET Confidence = "High"
 a(CHEBI:"okadaic acid") -| act(p(HGNC:PPP2CA))
+UNSET Confidence
 
 SET Evidence = "For example, the PP2A holoenzyme involving the B′ family plays an essential
 role in cell-cycle progression, through direct interaction with the protein Shugoshin"
+SET Confidence = "High"
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56")) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"),p(HGNC:SGO1))
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"),p(HGNC:SGO1)) -> bp(GO:"cell cycle")
+UNSET Confidence
 
 SET Evidence = "The B′ regulatory subunit shows remarkable structural
 mimicry to the scaffold subunit and contains 8 HEAT-like repeats"
+SET Confidence = "High"
 p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56") -- p(INTERPRO:"HEAT repeat")
+UNSET Confidence
 
 SET Evidence = "For example, two regions of the B′ subunit were found to
 mediate interaction with the scaffold subunit of PP2A"
+SET Confidence = "High"
 p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56") reg complex(p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"),p(HGNC:PPP2R1A))
+UNSET Confidence
 
+#does two calcium binding needs to be annotated?
+## i would annotate it as it is mentioned in the evidence and might be of importance for some regulatory processes
 SET Evidence = "In fact, the B subunit is now known to contain multiple WD40 repeats [28],
 whereas B′′/PR72 is thought to contain two calcium-binding EF hands"
+SET Confidence = "Medium"
 p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55") -- p(INTERPRO:"WD40 repeat")
-p(HGNC:PPP2R3A) -- p(INTERPRO:"EF-hand domain")
+p(HGNC:PPP2R3A) -- complex(p(INTERPRO:"EF-hand domain"),  a(PUBCHEM:5460341))
+UNSET Confidence
 
 SET Evidence = "Structure of the heterotrimeric PP2A holoenzyme involving
 a regulatory B subunit (Figure 2D) reveals how B subunit specifically recognizes the PP2A core enzyme
 and how it may facilitate substrate dephosphorylation"
+SET Confidence = "High"
 p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55") -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"))
 p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55") -> bp(GO:"protein dephosphorylation")
+UNSET Confidence
 
 SET Evidence = "Unlike the PP2A holoenzyme involving the B′ subunit, B makes few interactions with the catalytic subunit"
+SET Confidence = "Medium"
 p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55") -> complex(p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"),p(HGNC:PPP2CA))
+p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56") cnc complex(p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"),p(HGNC:PPP2CA))
+UNSET Confidence
 
+#sentece to be includede or not?
+## i would leave it but add the second part of the evidence (see below)
 SET Evidence = "This analysis further suggests that the B subunit may form a relatively
 stable complex with the isolated scaffold subunit and does not seem to support the notion that the catalytic
 subunit is required for interaction between the scaffold and the B subunits"
+SET Confidence = "Medium"
 p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55") -> complex(p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"),p(HGNC:PPP2R1A))
+p(HGNC:PPP2CA) cnc complex(p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"),p(HGNC:PPP2R1A))
+UNSET Confidence
 
 SET Evidence = "Furthermore, the B′ subunit makes significant interactions with the catalytic subunit of PP2A, which consequently
 strengthens the inter-subunit packing, making the resulting holoenzyme relatively compact and rigid (Figure 2B)."
+SET Confidence = "High"
 p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56") -> complex(p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"),p(HGNC:PPP2CA))
+UNSET Confidence
 
 SET Evidence = "PP2A functions by removing phosphate groups from substrate phosphoproteins"
+SET Confidence = "High"
 complex(GO:"protein phosphatase type 2A complex") -> bp(GO:"protein dephosphorylation")
+UNSET Confidence
 
 SET Evidence = "Upon hyperphosphorylation, the protein Tau has a strong tendency to polymerize into neurofibrillary tangles
 in the brain, a hallmark of Alzheimer’s disease"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 SET MeSHDisease = "Alzheimer Disease"
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> a(GO:"neurofibrillary tangle")
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> a(GO:"neurofibrillary tangle")
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "A key function of PP2A is thought to dephosphorylate the
 hyperphosphorylated Tau protein"
-complex(GO:"protein phosphatase type 2A complex") -| p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+SET Confidence = "High"
+complex(GO:"protein phosphatase type 2A complex") -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+UNSET Confidence
 
 SET Evidence = "Previous investigations indicate that specific dephosphorylation of Tau appeared to
 be mediated by the B family of regulatory subunits"
-p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55") -| p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+SET Confidence = "High"
+p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55") -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+UNSET Confidence
 
 SET Evidence = "This analysis suggests that at least two non-overlapping
 fragments of Tau, both within the microtubule-binding
 repeats, have the ability to interact with the acidic top face of the B subunit"
+SET Confidence = "High"
 p(HGNC:MAPT) -> complex(p(HGNC:MAPT),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"))
+UNSET Confidence
 
 SET Evidence = "The specificity in this in vitro system is quite robust, as evidenced
 by the observation that the PP2A core enzyme exhibited a lower activity to dephosphorylate the Tau
 protein than the PP2A holoenzyme involving the B subunit, but a higher activity than the holoenzyme involving the B′ subunit"
+SET Confidence = "High"
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA)) -| p(HGNC:MAPT,pmod(Ph))
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55")) -| p(HGNC:MAPT,pmod(Ph))
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56")) -| p(HGNC:MAPT,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "First, conformational flexibility of the scaffold
 subunit is required for binding to the catalytic subunit
 and possibly other interacting proteins such as the regulatory subunits."
+SET Confidence = "High"
 act(p(HGNC:PPP2R1A)) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA))
 act(p(HGNC:PPP2R1A)) -> complex(p(HGNC:PPP2R1A),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"))
 act(p(HGNC:PPP2R1A)) -> complex(p(HGNC:PPP2R1A),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"))
@@ -257,84 +334,121 @@ act(p(HGNC:PPP2R1A)) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2R3B))
 act(p(HGNC:PPP2R1A)) -> complex(p(HGNC:PPP2R1A),p(HGNC:PPP2R3A))
 act(p(HGNC:PPP2R1A)) -> complex(p(HGNC:PPP2R1A),p(HGNC:STRN3))
 act(p(HGNC:PPP2R1A)) -> complex(p(HGNC:PPP2R1A),p(HGNC:STRN))
+UNSET Confidence
 
 SET Evidence = "Second, conformational flexibility of the scaffold subunit might be important for the phosphatase
 activity of the catalytic subunit"
+SET Confidence = "High"
 act(p(HGNC:PPP2R1A)) -> act(p(HGNC:PPP2CA))
+UNSET Confidence
 
 SET Evidence = "Previous studies suggested that carboxy-methylation of
 the catalytic subunit played an important role in the assembly
 of heterotrimeric PP2A holoenzymes in cells"
-p(HGNC:PPP2CA) -> complex(GO:"protein phosphatase type 2A complex")
+p(HGNC:PPP2CA,pmod(Me)) -> complex(GO:"protein phosphatase type 2A complex")
 
 SET Evidence = "By contrast, several recent studies using purified, recombinant proteins showed that
 the methylation status of the catalytic subunit did not play a decisive role for the in vitro assembly of PP2A
 holoenzymes involving the B and B′ subunit"
+SET Confidence = "High"
 p(HGNC:PPP2CA,pmod(Me)) cnc complex(p(HGNC:PPP2CA),p(HGNC:PPP2R1A),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"))
 p(HGNC:PPP2CA,pmod(Me)) cnc complex(p(HGNC:PPP2CA),p(HGNC:PPP2R1A),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"))
+UNSET Confidence
 
+#speific variations specified, not important to annotate them?
+## they are imortant and i added a possible way to annotate the deletion but the mutation is not specific enough to annotate it because it doesn't mention how it is mutated
 SET Evidence = "Neither mutation of the carboxy-terminal Leu residue nor removal of the carboxy-terminal 14
 amino acids of the catalytic subunit prevented formation of heterotrimeric holoenzymes involving the B or B′ subunits"
+SET Confidence = "Medium"
 p(HGNC:PPP2CA,var("?")) cnc complex(p(HGNC:PPP2CA),p(HGNC:PPP2R1A),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"))
+p(HGNC:PPP2CA,var("p.Arg295_Leu309del")) cnc complex(p(HGNC:PPP2CA),p(HGNC:PPP2R1A),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"))
 p(HGNC:PPP2CA,var("?")) cnc complex(p(HGNC:PPP2CA),p(HGNC:PPP2R1A),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"))
+p(HGNC:PPP2CA,var("p.Arg295_Leu309del")) cnc complex(p(HGNC:PPP2CA),p(HGNC:PPP2R1A),p(INTERPRO:"Protein phosphatase 2A, regulatory B subunit, B56"))
+UNSET Confidence
 
 SET Evidence = "In fact, competition experiments using recombinant proteins suggested that, compared to the unmethylated
 form, the methylated PP2A core enzyme exhibited a higher binding affinity for the B subunit"
+SET Confidence = "High"
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA,pmod(Me))) -> complex(p(HGNC:PPP2CA),p(HGNC:PPP2R1A),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"))
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA)) -> complex(p(HGNC:PPP2CA),p(HGNC:PPP2R1A),p(INTERPRO:"Protein phosphatase 2A regulatory subunit PR55"))
+UNSET Confidence
 
 SET Evidence = "In addition, the methylated carboxy-terminus might help
 recruit assembly factors that actively promote assembly of the PP2A holoenzymes in cells."
+SET Confidence = "High"
 complex(p(HGNC:PPP2R1A),p(HGNC:PPP2CA,pmod(Me))) -> complex(GO:"protein phosphatase type 2A complex")
+UNSET Confidence
 
 SET Evidence = "Recent evidence suggests a broader role for PME-1 than just being
 a demethylating enzyme for the catalytic subunit of PP2A"
+SET Confidence = "High"
 p(HGNC:PPME1) -| p(HGNC:PPP2CA,pmod(Me,Leu,309))
+UNSET Confidence
 
 SET Evidence = "A portion of cellular PP2A stably associated with PME-1 and was catalytically inactive
 [80]; intriguingly, this inactive portion of PP2A could be re-activated by PP2A phosphatase activator
 (PTPA), but not by LCMT1, ruling out the possibility that inactivation was solely caused by demethylation"
+SET Confidence = "High"
 p(HGNC:PPME1) -> complex(p(HGNC:PPME1),a(GO:"protein phosphatase type 2A complex"))
 complex(p(HGNC:PPME1),a(GO:"protein phosphatase type 2A complex")) -| act(p(HGNC:PPP2CA))
 p(HGNC:PTPA) -> act(complex(GO:"protein phosphatase type 2A complex"))
 p(HGNC:LCMT1) cnc act(complex(GO:"protein phosphatase type 2A complex"))
+UNSET Confidence
 
 SET Evidence = "Thus, PME-1 appears to exist in an inactive conformation in the absence of PP2A binding."
+SET Confidence = "High"
 complex(p(HGNC:PPME1),a(GO:"protein phosphatase type 2A complex")) -> act(p(HGNC:PPME1))
+UNSET Confidence
 
 SET Evidence = "Structural analysis of the heterotrimeric PME-1-PP2A complex showed that PME-1 is only activated
 upon binding to PP2A (Figure 4, left panel)."
+SET Confidence = "High"
 complex(p(HGNC:PPME1),a(GO:"protein phosphatase type 2A complex")) -> act(p(HGNC:PPME1))
+UNSET Confidence
 
 SET Evidence = "Interestingly, although PME-1 is activated by PP2A binding, the catalytic subunit of PP2A is
 inactivated in this process, not just through demethylation but also by loss of the catalytic metal ions"
+SET Confidence = "High"
 complex(p(HGNC:PPME1),a(GO:"protein phosphatase type 2A complex")) -> act(p(HGNC:PPME1))
 complex(p(HGNC:PPME1),a(GO:"protein phosphatase type 2A complex")) -| act(p(HGNC:PPP2CA))
 complex(p(HGNC:PPME1),a(GO:"protein phosphatase type 2A complex")) -| p(HGNC:PPP2CA,pmod(Me,Leu,309))
 p(HGNC:PPP2CA,pmod(Me,Leu,309)) -> act(p(HGNC:PPP2CA))
+UNSET Confidence
 
 SET Evidence = "The structural feature that PME-1 binds directly to the PP2A active site,
 overlapping the binding sites for OA and MCLR, also explains why these phosphatase inhibitors blocked the
 methylesterase activity of PME-1"
 # OA: okadaic acid
+SET Confidence = "High"
 p(HGNC:PPME1) => complex(p(HGNC:PPME1),a(GO:"protein phosphatase type 2A complex"))
 a(CHEBI:"okadaic acid") -| act(p(HGNC:PPME1))
 a(CHEBI:"microcystin-LR") -| act(p(HGNC:PPME1))
+UNSET Confidence
 
 SET Evidence = "Structural observations clearly indicate that PME-1
 inactivates the phosphatase activity of PP2A"
+SET Confidence = "High"
 p(HGNC:PPME1) -| act(complex(GO:"protein phosphatase type 2A complex"))
+UNSET Confidence
 
 SET Evidence = "The PP2A core enzyme, upon initial incubation with various concentrations of PME-1, exhibited full Ser/Thr
 phosphatase activity and, only after prolonged incubation time, had substantial loss of the phosphatase activity"
+SET Confidence = "High"
 composite(p(HGNC:PPP2R1A),p(HGNC:PPP2CA),p(HGNC:PPME1)) neg act(complex(GO:"protein phosphatase type 2A complex"))
+UNSET Confidence
 
 SET Evidence = "Furthermore, formation of a stable complex between PP2A
 and PME-1 likely blocks LCMT1-catalyzed methylation."
+SET Confidence = "High"
 complex(p(HGNC:PPME1),a(GO:"protein phosphatase type 2A complex")) -| p(HGNC:PPP2CA,pmod(Me,Leu,309))
 p(HGNC:LCMT1) -> p(HGNC:PPP2CA,pmod(Me,Leu,309))
+UNSET Confidence
 
 SET Evidence = "Deletion of PTPA homologs in yeast, rrd1/rrd2, resulted
 in elevated levels of stable PP2A-PME-1 complexes, accompanied by decreased methylation"
+SET Confidence = "Medium"
+SET Species = "4932"
 p(HGNC:PTPA) -| complex(p(HGNC:PPME1),a(GO:"protein phosphatase type 2A complex"))
 p(HGNC:PTPA) -> p(HGNC:PPP2CA,pmod(Me,Leu,309))
+UNSET Species
+UNSET Confidence

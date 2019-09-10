@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/7e4be528f12abd28be768b62402fba6e083eaf9e/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -76,22 +76,24 @@ diagnosed by the progressive loss of cognitive function and
 behavioral defi cits and is characterized by the presence of
 neurofibrillary tangles (NFTs), senile plaques, cholinergic
 neuron loss, and neuronal atrophy at autopsy"
-
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") isA path(MESH:"Neurodegenerative Diseases")
 path(MESH:"Alzheimer Disease") -| bp(GO:cognition)
 path(MESH:"Alzheimer Disease") -- path(MESH:"Plaque, Amyloid")
 path(MESH:"Alzheimer Disease") -- path(MESH:"Neurofibrillary Tangles")
 path(MESH:"Alzheimer Disease") -| a(MESH:"Cholinergic Neurons")
 path(MESH:"Alzheimer Disease") -> bp(GO:"neuron death")
+UNSET Confidence
 
 SET Evidence="Senile plaques consist of
 deposits of small peptides called beta-amyloid (Abeta). Multiple
 lines of evidence suggest that the overproduction/
 aggregation of neurotoxic Abeta in vulnerable brain regions
 is the primary cause of AD"
-
-a(HBP:"amyloid-beta aggregates") -> path(MESH:"Plaque, Amyloid")
-a(HBP:"amyloid-beta aggregates") -> path(MESH:"Alzheimer Disease")
+SET Confidence = "High"
+a(CONSO:"amyloid-beta aggregates") -> path(MESH:"Plaque, Amyloid")
+a(CONSO:"amyloid-beta aggregates") -> path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence="NFTs are formed by
 accumulation of hyperphosphorylated tau protein[7, 8]. Tau is
@@ -100,10 +102,11 @@ microtubules and facilitate fast axonal transport. Once
 highly phosphorylated, tau dissociates from microtubules
 and is prone to aggregate, forming paired helical fi laments
 that aggregate into NFTs"
-
-a(HBP:"Tau aggregates") -> path(MESH:"Neurofibrillary Tangles")
+SET Confidence = "High"
+a(CONSO:"Tau aggregates") -> path(MESH:"Neurofibrillary Tangles")
 p(HGNC:MAPT) reg bp(GO:"microtubule anchoring")
 p(HGNC:MAPT) reg bp(GO:"axonal transport")
+UNSET Confidence
 
 SET Evidence="The third important hallmark of AD is cholinergic
 hypofunction. The neurotransmitter acetylcholine
@@ -116,7 +119,7 @@ ACh synthesis; (2) significant loss of cholinergic neurons;
 (3) reduction in the numbers of postsynaptic neurons
 accessible to ACh; (4) cholinergic neuronal and axonal
 abnormalities; and (5) reduction in nAChR levels"
-
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -| bp(GO:"synaptic transmission, cholinergic")
 a(CHEBI:acetylcholine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 a(CHEBI:acetylcholine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic"))
@@ -124,22 +127,25 @@ path(MESH:"Alzheimer Disease") -| p(HGNC:CHAT)
 p(HGNC:CHAT) -| a(CHEBI:acetylcholine)
 path(MESH:"Alzheimer Disease") -| a(MESH:"Cholinergic Neurons")
 path(MESH:"Alzheimer Disease") -| p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+UNSET Confidence
 
 SET Evidence="Recent evidence indicates that cholinergic hypofunction
 is closely linked to Abeta and tau pathologies[20]. As a
 major receptor group for ACh, mAChRs have also been
 implicated in the pathophysiology of AD."
-
+SET Confidence = "High"
 bp(GO:"synaptic transmission, cholinergic") -- path(MESH:"Plaque, Amyloid")
 bp(GO:"synaptic transmission, cholinergic") -- path(MESH:"Neurofibrillary Tangles")
 p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic") -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence="mAChRs are seven-transmembrane G-proteincoupled
 receptors. Upon binding to the endogenous
 neurotransmitter ACh, mAChRs couple to G proteins to
 transduct signals"
-
+SET Confidence = "High"
 complex(p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic"), a(CHEBI:acetylcholine), p(FPLX:"G_protein")) -> bp(GO:"synaptic transmission, cholinergic")
+UNSET Confidence
 
 SET Evidence="So far, five mAChR subtypes (M1–
 M5) have been identified and are divided into two categories
@@ -149,7 +155,7 @@ of G proteins, activating phospholipase C and mobilizing
 intracellular calcium, while M2 and M4 subtypes couple to
 the Go/i family, inhibiting adenylate cyclases and reducing
 intracellular cAMP levels"
-
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic") hasMembers list(p(HGNC:CHRM1), p(HGNC:CHRM2), p(HGNC:CHRM3), p(HGNC:CHRM4), p(HGNC:CHRM5))
 complex(p(HGNC:CHRM1), p(HGNC:GNA11)) -> act(p(FPLX:PLC))
 complex(p(HGNC:CHRM1), p(HGNC:GNA11)) -> bp(GO:"calcium ion transport")
@@ -161,6 +167,7 @@ complex(p(HGNC:CHRM2), p(HGNC:GNAO1)) -| p(HGNCGENEFAMILY:"Adenylate cyclases")
 complex(p(HGNC:CHRM2), p(HGNC:GNAO1)) -| a(CHEBI:"3',5'-cyclic AMP")
 complex(p(HGNC:CHRM4), p(HGNC:GNAO1)) -| p(HGNCGENEFAMILY:"Adenylate cyclases")
 complex(p(HGNC:CHRM4), p(HGNC:GNAO1)) -| a(CHEBI:"3',5'-cyclic AMP")
+UNSET Confidence
 
 SET Evidence="Members of the mAChR family are widely expressed
 in various regions in the central nervous system (CNS)
@@ -169,7 +176,7 @@ in diverse physiological processes such as memory,
 attention, nociception, motor control, sleep-wake
 cycles, and cardiovascular, renal, and gastrointestinal
 functions"
-
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic") -- bp(GO:memory)
 p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic") -- path(MESH:Attention)
 p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic") -- path(MESH:Nociception)
@@ -177,6 +184,7 @@ p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic") -- bp(GO:"circadian sleep/w
 p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic") -- a(MESH:"Cardiovascular System")
 p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic") -- a(MESH:Kidney)
 p(HGNCGENEFAMILY:"Cholinergic receptors muscarinic") -- a(MESH:"Gastrointestinal Tract")
+UNSET Confidence
 
 SET Evidence="Among the mAChR family members, the M1 subtype
 makes up 50–60% of the total and is predominantly
@@ -188,7 +196,7 @@ indicating that the M1 subtype is physiologically
 linked to multiple functions such as synaptic plasticity,
 neuronal excitability, neuronal differentiation during early
 development, and learning and memory"
-
+SET Confidence = "High"
 a(MESH:Hippocampus) -- p(HGNC:CHRM1)
 a(MESH:"Cerebral Cortex") -- p(HGNC:CHRM1)
 a(MESH:"Corpus Striatum") -- p(HGNC:CHRM1)
@@ -206,6 +214,7 @@ p(HGNC:CHRM1) -- bp(GO:learning)
 p(HGNC:CHRM1) -- bp(GO:memory)
 p(HGNC:CHRM1) -- bp(GO:"neuronal signal transduction")
 p(HGNC:CHRM1) -- bp(GO:"neuron differentiation")
+UNSET Confidence
 
 SET Evidence="At the cellular
 level, M1 mAChR is highly expressed in striatonigral,
@@ -213,19 +222,20 @@ striatopallidal, and glutamatergic pyramidal neurons,
 especially in extrasynaptic regions. This localization of M1
 mAChR is consistent with the cholinergic modulation of
 glutamatergic neurotransmission"
-
+SET Confidence = "High"
 SET Cell={"glutamatergic neuron"}
 
 p(HGNC:CHRM1) reg bp(GO:"synaptic transmission, glutamatergic")
 
 UNSET Cell
+UNSET Confidence
 
 SET Evidence="M2 mAChR is expressed throughout the brain,
 including the hippocampus and neocortex, and is
 abundant in non-cholinergic neurons that project to these
 areas. In the caudate-putamen, M2 mAChR acts as an
 inhibitory modulator on dopaminergic terminals[46-48]."
-
+SET Confidence = "High"
 a(MESH:Hippocampus) -- p(HGNC:CHRM2)
 a(MESH:Neocortex) -- p(HGNC:CHRM2)
 
@@ -234,16 +244,18 @@ SET MeSHAnatomy="Neostriatum"
 p(HGNC:CHRM2) -| act(a(CHEBI:dopamine))
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="Mice deficient in M2 mAChR also show
 a striking reduction in muscarinic-dependent antinociceptive
 responses[49], suggesting a general antinociceptive effect."
-
+SET Confidence = "High"
 SET Species="10090"
 
 p(MGI:Chrm2) -| path(MESH:"Nociceptive Pain")
 
 UNSET Species
+UNSET Confidence
 
 SET Evidence="M3 mAChR is expressed at a relatively high level in the
 hypothalamus, but is also found in many other regions
@@ -251,11 +263,12 @@ including the hippocampus[47]. Mice lacking M3 mAChR
 appear hypophagic and lean, suggesting a general function
 of M2 mAChR in regulating food intake[50]."
 # There is a typo here! this Evidence talks about M3 not M2
-
+SET Confidence = "High"
 a(MESH:Hypothalamus) -- p(HGNC:CHRM3)
 a(MESH:Hippocampus) -- p(HGNC:CHRM3)
 
 p(MGI:Chrm3) reg bp(GO:"response to food")
+UNSET Confidence
 
 SET Evidence="Consistently,
 mice with conditional knockout of M3 mAChR in the brain
@@ -264,7 +277,7 @@ of the anterior pituitary gland and significantly decreased
 hormones including pituitary prolactin and growth
 hormone[51]. These fi ndings indicate that M3 mAChR plays
 a critical role in promoting body growth."
-
+SET Confidence = "High"
 SET Species="10090"
 
 p(MGI:Chrm3) -> bp(GO:"pituitary gland development")
@@ -273,6 +286,7 @@ p(MGI:Chrm3) -> p(MGI:Gh)
 p(MGI:Chrm3) -> bp(GO:"multicellular organism growth")
 
 UNSET Species
+UNSET Confidence
 
 SET Evidence="M4 mAChR is mainly expressed in the corpus striatum
 in the CNS and on various prejunctional nerve terminals
@@ -282,7 +296,7 @@ treatment of schizophrenia[52]. Indeed, the mixed M1/M4
 mAChR agonist xanomeline has antipsychotic effects, and
 M4 mAChR-knockout mice display increased sensitivity to
 the disruptive effects of phencyclidine, a drug of abuse"
-
+SET Confidence = "High"
 a(MESH:"Corpus Striatum") -- p(HGNC:CHRM4)
 p(HGNC:CHRM4) -- path(MESH:"Psychotic Disorders")
 a(CHEBI:xanomeline) -| path(MESH:"Psychotic Disorders")
@@ -292,6 +306,7 @@ SET Species="10090"
 p(MGI:Chrm4) -| act(a(CHEBI:phencyclidine))
 
 UNSET Species
+UNSET Confidence
 
 SET Evidence="M4 mAChR is also involved in the pathology of Parkinson’s
 disease, which is associated with the loss of dopaminergic
@@ -305,7 +320,7 @@ and enhanced dopamine D1 receptor-mediated effects[55].
 Consequently, selective M4 mAChR antagonists, such
 as benzoxazines, have been developed for the treatment of
 Parkinson’s disease"
-
+SET Confidence = "Medium"
 p(HGNC:CHRM4) -- path(MESH:"Parkinson Disease")
 path(MESH:"Parkinson Disease") -| act(a(MESH:"Dopaminergic Neurons"))
 
@@ -321,8 +336,10 @@ p(MGI:Chrm4) -| bp(GO:"locomotor rhythm")
 p(MGI:Chrm4) -| act(p(MGI:Drd1))
 
 UNSET Species
-
+a(CHEBI:benzoxazine) -| act(p(HGNC:CHRM4))
+#above Statement was added according to evidence
 a(CHEBI:benzoxazine) -| path(MESH:"Parkinson Disease")
+UNSET Confidence
 
 SET Evidence="M5 mAChR is predominantly distributed in the pars
 compacta of the substantia nigra, a structure that provides
@@ -333,11 +350,14 @@ areas[26, 57]. These areas are well known to play a critical
 role in the rewarding effects of several drugs of abuse. M5
 mAChR-knockout mice are less sensitive to addictive drugs
 such as morphine and cocaine[58]."
-
-a(MESH:"Pars Compacta") -- p(HGNC:CHRM5)
+SET Confidence = "Medium"
+SET Anatomy = {"substantia nigra pars compacta", "ventral tegmental area"}
+#anatomy was added
 p(HGNC:CHRM5) -> bp(GO:"response to drug")
 p(HGNC:CHRM5) -> act(a(CHEBI:morphine))
 p(HGNC:CHRM5) -> act(a(CHEBI:cocaine))
+UNSET Anatomy
+UNSET Confidence
 
 SET Evidence="Abeta, an important player in AD, is derived from beta-amyloid
 precursor protein (APP) through sequential cleavages by beta-
@@ -349,17 +369,18 @@ APP intracellular domain. Alternatively, APP can be cleaved
 by alpha-secretase within the Abeta domain, which precludes Abeta
 production and instead generates secreted sAPPalpha that
 has been shown to be neuroprotective"
-
+SET Confidence = "High"
 p(HGNC:BACE1) -> deg(p(HGNC:APP))
-p(HGNC:BACE1) -> a(HBP:"sAPP-beta")
+p(HGNC:BACE1) -> p(CONSO:"sAPP-beta")
 #APP C-terminal fragment-beta = C99
-p(HGNC:BACE1) -> a(HBP:C99)
-complex(FPLX:"Gamma_secretase") -> deg(a(HBP:C99))
+p(HGNC:BACE1) -> p(CONSO:C99)
+complex(FPLX:"Gamma_secretase") -> deg(p(CONSO:C99))
 complex(FPLX:"Gamma_secretase") -> a(CHEBI:"amyloid-beta")
-complex(FPLX:"Gamma_secretase") -> a(HBP:AICD)
+complex(FPLX:"Gamma_secretase") -> p(CONSO:AICD)
 p(HGNC:ADAM10) -> deg(p(HGNC:APP))
-p(HGNC:ADAM10) -> a(HBP:"sAPP-alpha")
-a(HBP:"sAPP-alpha") -> bp(MESH:Neuroprotection)
+p(HGNC:ADAM10) -> p(CONSO:"sAPP-alpha")
+p(CONSO:"sAPP-alpha") -> bp(MESH:Neuroprotection)
+UNSET Confidence
 
 SET Evidence="Interestingly, stimulation of M1 mAChR by agonists has been found to
 enhance sAPPalpha generation and reduce Abeta production[61-70].
@@ -367,22 +388,25 @@ Protein kinase C (PKC) is well-known to be activated upon
 stimulation of M1 mAChR. PKC may promote the activity
 of alpha-secretase[71] and the traffi cking of APP from the Golgi/
 trans-Golgi network to the cell surface"
-
-act(p(HGNC:CHRM1)) -> a(HBP:"sAPP-alpha")
+SET Confidence = "High"
+act(p(HGNC:CHRM1)) -> p(CONSO:"sAPP-alpha")
 act(p(HGNC:CHRM1)) -| a(CHEBI:"amyloid-beta")
 act(p(HGNC:CHRM1)) -> act(p(FPLX:PKC))
 act(p(FPLX:PKC)) -> act(p(HGNC:ADAM10))
 act(p(FPLX:PKC)) -> tloc(p(HGNC:APP), fromLoc(GO:"Golgi apparatus"), toLoc(GO:"cell surface"))
+UNSET Confidence
 
 SET Evidence="Some studies
 suggest that M1 mAChR stimulation also leads to activation
 of ERK1/2, which can modulate alpha-secretase activity and
 APP processing[67, 73],"
+SET Confidence = "High"
 # contradictory findings
 
 act(p(HGNC:CHRM1)) -> bp(GO:"ERK1 and ERK2 cascade")
 bp(GO:"ERK1 and ERK2 cascade") reg act(p(HGNC:ADAM10))
-bp(GO:"ERK1 and ERK2 cascade") reg bp(HBP:"APP processing")
+bp(GO:"ERK1 and ERK2 cascade") reg bp(CONSO:"APP processing")
+UNSET Confidence
 
 SET Evidence="though there are contradictory
 findings showing that the alpha-secretase-mediated APP
@@ -391,17 +415,18 @@ by the ERK1/MEK cascade[71]. On the other hand, loss
 of M1 mAChR increases amyloidogenic APP processing
 in neurons and promotes brain Abeta plaque pathology in a
 mouse model of AD"
-
+SET Confidence = "High"
 act(p(HGNC:CHRM1)) cnc bp(GO:"ERK1 and ERK2 cascade")
 
 SET MeSHDisease="Alzheimer Disease"
 SET Species="10090"
 
-act(p(MGI:Chrm1)) -| bp(HBP:"APP processing")
+act(p(MGI:Chrm1)) -| bp(CONSO:"APP processing")
 act(p(MGI:Chrm1)) -| path(MESH:"Plaque, Amyloid")
 
 UNSET Species
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence="When APP/PS1/tau
 triple transgenic (3×Tg) AD mice are treated with the
@@ -414,7 +439,7 @@ signaling cascades[78]. We recently found that M1 mAChR
 directly interacts with BACE1 and mediates its proteasomal
 degradation[79]. These results suggest that M1 mAChR
 modulates BACE1 in a mixed manner."
-
+SET Confidence = "High"
 SET Species="10090"
 
 a(MESH:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| p(MGI:Bace1)
@@ -429,6 +454,7 @@ act(p(HGNC:CHRM1)) -> bp(GO:"MAPK cascade")
 bp(GO:"MAPK cascade") -> p(HGNC:BACE1)
 complex(p(HGNC:CHRM1), p(HGNC:BACE1)) -> deg(p(HGNC:BACE1))
 p(HGNC:CHRM1) reg p(HGNC:BACE1)
+UNSET Confidence
 
 SET Evidence="In addition to inhibiting Abeta generation, activation of
 M1 mAChR counteracts Abeta-induced neurotoxicity through
@@ -437,13 +463,15 @@ and M1 mAChR stimulation inactivates GSK-3beta via PKC
 activation, stabilizes beta-catenin, and induces the expression
 of Wnt-targeting genes engrailed and cyclin-D1 for neuron
 survival"
-
+SET Confidence = "Medium"
 act(p(HGNC:CHRM1)) -| act(p(HGNC:GSK3B))
 act(p(HGNC:CHRM1)) -> act(p(FPLX:PKC))
 act(p(FPLX:PKC)) -| act(p(HGNC:GSK3B))
-act(p(HGNC:CHRM1)) -> bp(HBP:neurotoxicity)
+act(p(HGNC:CHRM1)) -| path(CONSO:neurotoxicity)
+#above Statement was added on the basis of evidence
 act(p(HGNC:CHRM1)) -> bp(GO:"Wnt signaling pathway")
-bp(GO:"Wnt signaling pathway") -| bp(HBP:neurotoxicity)
+bp(GO:"Wnt signaling pathway") -| path(CONSO:neurotoxicity)
+UNSET Confidence
 
 SET Evidence="Stimulation
 of M1 mAChR by two agonists, carbachol and AF102B,
@@ -451,7 +479,7 @@ time- and dose-dependently decreases tau phosphorylation
 in PC12 cells[81]. Chronic treatment with AF267B also
 alleviates tau pathology in 3×Tg AD mice, possibly by
 activating PKC and inhibiting GSK-3beta"
-
+SET Confidence = "Medium"
 SET CellLine="PC12"
 
 a(CHEBI:carbachol) -> act(p(HGNC:CHRM1))
@@ -463,9 +491,12 @@ UNSET CellLine
 
 SET Species="10090"
 
-a(MESH:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| p(HGNC:MAPT, pmod(Ph))
-
+a(MESH:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| path(MESH:"Tauopathies")
+a(MESH:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -> act(p(FPLX:PKC))
+a(MESH:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| act(p(HGNC:GSK3B))
+#above two Statements were added according to evidence
 UNSET Species
+UNSET Confidence
 
 SET Evidence="Activation of M1 mAChR also protects against
 apoptotic factors in human neuroblastoma SH-SY5Y cells,
@@ -474,7 +505,7 @@ and mitochondrial impairment[83]. In addition, apoptosis
 induced by serum deprivation is blocked by M1 mAChR
 activation in a phosphoinositide 3-kinase- and MAPK/ERKindependent
 manner"
-
+SET Confidence = "High"
 SET CellLine="SH-SY5Y"
 
 act(p(HGNC:CHRM1)) -| path(MESH:"DNA Damage")
@@ -484,6 +515,7 @@ act(p(HGNC:CHRM1)) -| act(p(HGNCGENEFAMILY:"Caspases"))
 UNSET CellLine
 
 act(p(HGNC:CHRM1)) -| bp(GO:"cell death")
+UNSET Confidence
 
 SET Evidence="In mice with
 scopolamine-induced deficits, PQCA, a selective M1
@@ -491,7 +523,7 @@ mAChR positive allosteric modulator[87], improves not only
 recognition memory, spatial working memory, and executive
 function, but also blood-flow in the frontal cortex, though
 the mechanism is not yet clear."
-
+SET Confidence = "High"
 SET Species="10090"
 #1-((4-cyano-4-(pyridine-2-yl)piperidin-1-yl)methyl)-4-oxo-4H-quinolizine-3-carboxylic acid = PQCA
 a(MESH:"1-((4-cyano-4-(pyridine-2-yl)piperidin-1-yl)methyl)-4-oxo-4H-quinolizine-3-carboxylic acid") -> act(p(MGI:Chrm1))
@@ -499,6 +531,7 @@ a(MESH:"1-((4-cyano-4-(pyridine-2-yl)piperidin-1-yl)methyl)-4-oxo-4H-quinolizine
 a(MESH:"1-((4-cyano-4-(pyridine-2-yl)piperidin-1-yl)methyl)-4-oxo-4H-quinolizine-3-carboxylic acid") -> path(MESH:"Executive Function")
 
 UNSET Species
+UNSET Confidence
 
 SET Evidence="In fact, Abeta has been shown to induce the uncoupling of M1
 mAChR from G-protein, antagonizing the function of M1
@@ -506,16 +539,17 @@ mAChR under the pathological conditions of AD[96, 97]. Such
 an uncoupling may result in decreased signal transduction,
 reduced levels of sAPPalpha, and increased production of
 Abeta, triggering a vicious cycle."
-
+SET Confidence = "High"
 SET MeSHDisease="Alzheimer Disease"
 
 a(CHEBI:"amyloid-beta") -| complex(p(HGNC:CHRM1), p(FPLX:"G_protein"))
 a(CHEBI:"amyloid-beta") -| act(p(HGNC:CHRM1))
-complex(p(HGNC:CHRM1), p(FPLX:"G_protein")) -> a(HBP:"sAPP-alpha")
+complex(p(HGNC:CHRM1), p(FPLX:"G_protein")) -> p(CONSO:"sAPP-alpha")
 complex(p(HGNC:CHRM1), p(FPLX:"G_protein")) -| a(CHEBI:"amyloid-beta")
 complex(p(HGNC:CHRM1), p(FPLX:"G_protein")) -> bp(GO:"signal transduction")
 
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence="One example is xanomeline, an mAChR agonist with
 selectivity for the M1 and M4 subtypes. Xanomeline
@@ -524,22 +558,24 @@ cognition and reduces psychotic episodes in AD patients,
 but it failed during phase-II clinical trial because of serious
 side-effects, probably due to simultaneous activation of
 M1 and M4 mAChRs (M4 > M1)"
-
+SET Confidence = "Medium"
 a(CHEBI:xanomeline) -> bp(GO:memory)
-
+a(CHEBI:xanomeline) -> act(p(HGNC:CHRM1))
+a(CHEBI:xanomeline) -> act(p(HGNC:CHRM4))
+#above two Statement were added
 SET MeSHDisease="Alzheimer Disease"
 
 a(CHEBI:xanomeline) -> bp(GO:cognition)
-a(CHEBI:xanomeline) -> act(p(HGNC:CHRM1))
-a(CHEBI:xanomeline) -> act(p(HGNC:CHRM4))
-
+a(CHEBI:xanomeline) -| path(MESH:"Psychotic Disorders")
+#above one Statement was added
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence="Chronic treatment with
 AF267B reduces Abeta plaques and tau hyperphosphorylation
 and rescues learning and memory impairments in 3×Tg
 AD mice"
-
+SET Confidence = "High"
 SET MeSHDisease="Alzheimer Disease"
 SET Species="10090"
 
@@ -550,32 +586,37 @@ a(MESH:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -> bp(GO:le
 
 UNSET Species
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence="Administration of AF267B
 and AF102B (Cevimeline, EVOXACTM), an M1 mAChRselective
 agonist once prescribed for the treatment of
 Sjogren’s syndrome, decreases Abeta42 levels in the cerebral
 spinal fluid (CSF) of rabbits without affecting APP"
-
+SET Confidence = "Medium"
 SET MeSHAnatomy="Cerebrospinal Fluid"
 
 a(CHEBI:cevimeline) -| a(CHEBI:"amyloid-beta polypeptide 42")
 a(MESH:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| a(CHEBI:"amyloid-beta polypeptide 42")
 a(CHEBI:cevimeline) -| path(MESH:"Sjogren's Syndrome")
-
+a(MESH:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") -| path(MESH:"Sjogren's Syndrome")
+a(CHEBI:cevimeline) cnc p(HGNC:APP)
+a(MESH:"(S)-2-ethyl-8-methyl-1-thia-4,8-diazaspiro(4.5)decan-3-one") cnc p(HGNC:APP)
+#above three Statements were added
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="Moreover, AF102B administration decreased the total
 CSF Abeta levels by 22% in 14 of 19 AD patients without
 affecting sAPPalpha levels. However, AF102B has serious side effects
 including gastrointestinal symptoms, diaphoresis,
 confusion, diarrhea, and asthenia"
-
+SET Confidence = "High"
 SET MeSHAnatomy="Cerebrospinal Fluid"
 SET MeSHDisease="Alzheimer Disease"
 
 a(CHEBI:cevimeline) -| a(CHEBI:"amyloid-beta")
-a(CHEBI:cevimeline) cnc a(HBP:"sAPP-alpha")
+a(CHEBI:cevimeline) cnc p(CONSO:"sAPP-alpha")
 a(CHEBI:cevimeline) -> path(MESH:Confusion)
 a(CHEBI:cevimeline) -> path(MESH:Diarrhea)
 a(CHEBI:cevimeline) -> path(MESH:Asthenia)
@@ -583,6 +624,7 @@ a(CHEBI:cevimeline) -> path(MESH:"Gastrointestinal Diseases")
 
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence="Another M1
 mAChR-selective agonist, talsaclidine, enhances nonamyloidogenic
@@ -592,26 +634,29 @@ cell line and rat brain slices in a dose-dependent manner,
 as well as significantly decreasing CSF Abeta in AD
 patients[111]. However, talsaclidine at high doses had several
 side-effects such as sweating and salivation"
-
-a(MESH:"talsaclidine fumarate") -> a(HBP:"sAPP-alpha")
+SET Confidence = "Medium"
+SET MeSHDisease = "Alzheimer Disease"
+#MeSHDisease was set
+a(MESH:"talsaclidine fumarate") -> p(CONSO:"sAPP-alpha")
 
 SET MeSHAnatomy="Cerebrospinal Fluid"
-
 a(MESH:"talsaclidine fumarate") -| a(CHEBI:"amyloid-beta")
-
 UNSET MeSHAnatomy
 
 a(MESH:"talsaclidine fumarate") -> path(MESH:Sweating)
 a(MESH:"talsaclidine fumarate") -> path(MESH:Salivation)
+UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence="Similarly,
 the M1 agonist WAY-132983 at a low dose improves
 cognitive status in animal models but at a high dose causes
 side-effects such as salivation and hypothermia[102, 112]."
-
+SET Confidence = "High"
 a(MESH:"WAY 132983") -> bp(GO:cognition)
 a(MESH:"WAY 132983") -> path(MESH:Salivation)
 a(MESH:"WAY 132983") -> path(MESH:Hypothermia)
+UNSET Confidence
 
 SET Evidence="After brucine, several other M1-PAMs
 have been discovered, including VU0029767, VU0090157,
@@ -621,19 +666,20 @@ increase the affi nity of ACh for the M1 subtype. In addition,
 BQCA is effective in restoring discrimination reversal
 learning in a mouse model of AD and regulating nonamyloidogenic
 APP processing[117]."
-
-a(HBP:VU0029767) -> complex(p(HGNC:CHRM1), a(CHEBI:acetylcholine))
-a(HBP:VU0090157) -> complex(p(HGNC:CHRM1), a(CHEBI:acetylcholine))
+SET Confidence = "High"
+a(CONSO:VU0029767) -> complex(p(HGNC:CHRM1), a(CHEBI:acetylcholine))
+a(CONSO:VU0090157) -> complex(p(HGNC:CHRM1), a(CHEBI:acetylcholine))
 a(MESH:"1-(4-methoxybenzyl)-4-oxo-1,4-dihydroquinoline-3-carboxylic acid") -> complex(p(HGNC:CHRM1), a(CHEBI:acetylcholine))
 
 SET MeSHDisease="Alzheimer Disease"
 SET Species="10090"
 
 a(MESH:"1-(4-methoxybenzyl)-4-oxo-1,4-dihydroquinoline-3-carboxylic acid") -> bp(GO:learning)
-a(MESH:"1-(4-methoxybenzyl)-4-oxo-1,4-dihydroquinoline-3-carboxylic acid") reg bp(HBP:"APP processing")
+a(MESH:"1-(4-methoxybenzyl)-4-oxo-1,4-dihydroquinoline-3-carboxylic acid") reg bp(CONSO:"APP processing")
 
 UNSET Species
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence="Nevertheless, a compound developed later, TBPB,
 selectively activates M1 mAChR in cell lines and shows no
@@ -644,7 +690,7 @@ be important for the effect of M1 mAChR on improving
 cognition. In addition, TBPB shifts the processing of APP in
 the non-amyloidogenic direction and thereafter decreases
 neurotoxic Abeta production vitro[120]."
-
+SET Confidence = "High"
 a(MESH:"1-(1'-(2-methylbenzyl)-1,4'-bipiperidin-4-yl)-1H-benzo(d)imidazol-2-(3H)-one") -> act(p(HGNC:CHRM1))
 
 SET MeSHAnatomy={"Hippocampus", "Pyramidal Cells"}
@@ -652,9 +698,10 @@ SET MeSHAnatomy={"Hippocampus", "Pyramidal Cells"}
 a(MESH:"1-(1'-(2-methylbenzyl)-1,4'-bipiperidin-4-yl)-1H-benzo(d)imidazol-2-(3H)-one") -> bp(GO:"NMDA selective glutamate receptor signaling pathway")
 act(p(HGNC:CHRM1)) -> bp(GO:cognition)
 a(MESH:"1-(1'-(2-methylbenzyl)-1,4'-bipiperidin-4-yl)-1H-benzo(d)imidazol-2-(3H)-one") -| a(CHEBI:"amyloid-beta")
-a(CHEBI:"amyloid-beta") -> path(HBP:neurotoxicity)
+a(CHEBI:"amyloid-beta") -> path(CONSO:neurotoxicity)
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="Compound 77-LH-28-1 shows relatively
 higher selectivity for the M1 than for the M2, M4, and M5
@@ -665,7 +712,7 @@ pyramidal cells both in vitro and in vivo. Interestingly,
 unlike other normal orthosteric agonists, 77-LH-28-1
 appears to selectively activate M1 mAChR in a distinct
 signaling pathway"
-
+SET Confidence = "High"
 #1-(3-(4-butyl-1-piperidinyl)propyl)-3,4-dihydro-2(1H)-quinolinone = 77-LH-28-1
 a(MESH:"1-(3-(4-butyl-1-piperidinyl)propyl)-3,4-dihydro-2(1H)-quinolinone") -> act(p(HGNC:CHRM1))
 
@@ -674,13 +721,15 @@ SET MeSHAnatomy="CA1 Region, Hippocampal"
 a(MESH:"1-(3-(4-butyl-1-piperidinyl)propyl)-3,4-dihydro-2(1H)-quinolinone") -> act(a(MESH:"Pyramidal Cells"))
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence="The M1 mAChR agonist AC-260584 was
 recently reported to be orally bioavailable with favorable
 antipsychotic and cognition-enhancing effects[118, 122]."
-
+SET Confidence = "High"
 a(MESH:"4-(3-(4-butylpiperidin-1-yl)propyl)-7-fluoro-4H-benzo(1,4)oxazin-3-one") -> bp(GO:cognition)
 a(MESH:"4-(3-(4-butylpiperidin-1-yl)propyl)-7-fluoro-4H-benzo(1,4)oxazin-3-one") -- a(MESH:"Antipsychotic Agents")
+UNSET Confidence
 
 SET Evidence="During the past few years, the M1 mAChR
 allosteric agonists VU0184670 and VU0357017 have
@@ -688,9 +737,15 @@ been screened out, and have more exciting properties.
 Both compounds have high solubility in aqueous solutions
 as well as good CNS penetration, without any agonist or
 antagonist activity for the M2 and M5 subtypes"
-
-a(HBP:VU0184670) -> act(p(HGNC:CHRM1))
+SET Confidence = "Medium"
+a(CONSO:VU0184670) -> act(p(HGNC:CHRM1))
 a(MESH:VU0357017) -> act(p(HGNC:CHRM1))
+a(CONSO:VU0184670) cnc act(p(HGNC:CHRM2))
+a(MESH:VU0357017) cnc act(p(HGNC:CHRM2))
+a(CONSO:VU0184670) cnc act(p(HGNC:CHRM5))
+a(MESH:VU0357017) cnc act(p(HGNC:CHRM5))
+#last 4 Statements were added
+UNSET Confidence
 
 SET Evidence="Moreover,
 VU0184670 potentiates neuronal NMDAR-mediated
@@ -699,11 +754,12 @@ reverses the cognitive deficits induced by an mAChR
 antagonist in a contextual fear conditioning paradigm,
 exhibiting improvement of hippocampus-dependent
 learning[110, 123]."
-
+SET Confidence = "High"
 SET MeSHAnatomy="Hippocampus"
 
-a(HBP:VU0184670) -> bp(GO:"NMDA selective glutamate receptor signaling pathway")
+a(CONSO:VU0184670) -> bp(GO:"NMDA selective glutamate receptor signaling pathway")
 a(MESH:VU0357017) -| path(MESH:"Cognitive Dysfunction")
 a(MESH:VU0357017) -> bp(GO:learning)
 
 UNSET MeSHAnatomy
+UNSET Confidence

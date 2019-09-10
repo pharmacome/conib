@@ -1,0 +1,720 @@
+###############################
+# Document Properties Section #
+###############################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved"
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "sepehr.golriz.khatami@scai-extern.fraunhofer.de"
+
+SET DOCUMENT Name        = "KANSL1 Subgraph and CDR Story"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Description = "A story related to CDR, MMSE, and other clinical measurements in AD that relies heavily on the KANSL1 subgraph."
+SET DOCUMENT Authors     = "Sepehr Golriz, Daniel Domingo-Fernández, Charles Tapley Hoyt"
+
+###############
+# Definitions #
+###############
+
+# Namespaces hosted on https://github.com/pharmacome/conso
+# --------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces curated by SCAI
+# --------------------------
+DEFINE NAMESPACE NIFT           AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/imaging-ontology/imaging-ontology-1.0.6.belns"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+DEFINE ANNOTATION Published AS LIST {"CDR story"}
+
+#################################
+SET Citation = {"PubMed","21156028"}
+
+SET Evidence = "DYRK1A phosphorylates tau at 11 sites, including Thr212; primes tau phosphorylation by GSK-3beta;\
+promotes tau aggregation into NFTs and the several-fold increase in the number of DYRK1A-positive NFTs.\
+Phosphorylation of ASF by nuclear DYRK1A increases the level of 3R tau, leading to an imbalance in the 3R/4R-tau\
+ratio and triggering neurofibrillary degeneration with a several-fold increase of 3R-tau-positive NFTs. Both\
+cytoplasmic and nuclear pathways contribute to neurofibrillary degeneration, loss of neuron function, and neuronal\
+death."
+
+SET Disease = "Alzheimer's disease"
+
+SET Published = "CDR story"
+SET Confidence = "High"
+SET Subgraph = {"Tumor necrosis factor subgraph","Tau protein subgraph","DYRK1A subgraph"}
+p(HGNC:DYRK1A) -> p(HGNC:MAPT, pmod(P,T,212))
+SET Subgraph = {"Tau protein subgraph","GSK3 subgraph"}
+p(HGNC:GSK3B) -> p(HGNC:MAPT, pmod(Ph))
+p(HGNC:MAPT, pmod(Ph)) -> a(GO:"neurofibrillary tangle")
+a(GO:"neurofibrillary tangle") -> bp(GO:"neuron death")
+UNSET Confidence
+UNSET Published
+
+SET Evidence = "DYRK1A phosphorylates APP at Thr688 and enhances APP amyloidogenic cleavage, resulting in increased\
+level of Abeta40/42, formation of toxic Abeta oligomers and deposition of fibrillar amyloid in plaques. Brain amyloidosis\
+contributes to loss of neuronal function and possibly also to neuronal loss. Moreover, elevated levels of Abeta may\
+up-regulate DYRK1A expression and enhance the contribution of overexpressed DYRK1A to neurofibrillary degeneration\
+and beta-amyloidosis."
+
+SET Subgraph = {"Tumor necrosis factor subgraph", "Amyloidogenic subgraph", "DYRK1A subgraph"}
+SET Confidence = "Medium"
+p(HGNC:DYRK1A) -> p(HGNC:APP, pmod(P,T,688))
+p(HGNC:APP, pmod(P,T,688)) -> deg(p(HGNC:APP))
+deg(p(HGNC:APP)) -> p(HGNC:APP, frag(672_713))
+deg(p(HGNC:APP)) -> p(HGNC:APP, frag(672_711))
+SET Subgraph = {"Amyloidogenic subgraph", "Tumor necrosis factor subgraph"}
+SET Confidence = "Medium"
+path(DOID:amyloidosis) -> bp(GO:"neuron death")
+a(CHEBI:"amyloid-beta") -> p(HGNC:DYRK1A)
+
+
+############################################
+SET Citation = {"PubMed", "22110360"}
+
+SET Evidence = "Dual-specificity tyrosine (Y)-phosphorylation-regulated protein kinase 1A (Dyrk1A) is the mammalian\
+homologue of Drosophila melanogaster minibrain and its human gene is mapped to the Down syndrome critical region\
+of chromosome 21. Dyrk1A phosphorylates several transcription factors, including NFAT and CREB and a number of\
+cytosolic proteins such as APP, tau, and a-synuclein. Although Dyrk1A is involved in the control of cell growth\
+and postembryonic neurogenesis, its potential role during cell death and signaling pathway is not clearly\
+understood. In the present study, we show that Dyrk1A is activated under the condition of apoptotic cell death.\
+In addition, Dyrk1A is coupled to JNK1 activation, and directly interacts with apoptosis signal-regulating kinase 1 (ASK1).\
+Moreover, Dyrk1A positively regulates ASK1-mediated JNK1-signaling, and appears to directly phosphorylate ASK1.\
+These data indicate that Dyrk1A regulates cell death through facilitating ASK1-mediated signaling events."
+
+SET Published = "CDR story"
+
+SET Subgraph = {"T cells signaling", "DYRK1A subgraph"}
+
+SET Confidence = "High"
+p(HGNC:DYRK1A) -> p(FPLX:NFAT, pmod(Ph))
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = {"DYRK1A subgraph", "CREB subgraph"}
+
+SET Confidence = "High"
+p(HGNC:DYRK1A) -> p(FPLX:CREB, pmod(Ph))
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = {"DYRK1A subgraph", "Amyloidogenic subgraph"}
+SET Confidence = "High"
+p(HGNC:DYRK1A) -> p(HGNC:APP, pmod(Ph))
+SET Confidence = "High"
+SET Subgraph = {"DYRK1A subgraph", "Tau protein subgraph"}
+p(HGNC:DYRK1A) -> p(HGNC:MAPT, pmod(Ph))
+UNSET Confidence
+#MAPT=Tau
+SET Subgraph = {"DYRK1A subgraph", "Synuclein subgraph", "MAPK-JNK subgraph"}
+
+SET Confidence = "High"
+p(HGNC:DYRK1A) -> p(HGNC:SNCA, pmod(Ph))
+#SNCA=a-synuclein
+complex(p(HGNC:DYRK1A),p(HGNC:JKAMP)) -> act(p(HGNC:MAP3K5))
+#JNK1=JKAMP
+#ASK1=MAP3K5
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = "DYRK1A subgraph"
+
+SET Confidence = "High"
+complex(p(HGNC:DYRK1A),p(HGNC:JKAMP)) -> bp(GO:"positive regulation of neuron apoptotic process")
+act(p(HGNC:MAP3K5)) -> bp(GO:"positive regulation of neuron apoptotic process")
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Evidence = "Diverse types of proteins have been identified as the substrates of Dyrk1A, including transcription\
+factors, including NF-AT and Forkhead , several\
+endocytosis and synaptic vesicle recycling proteins, such as dynamin 1 and amphiphysin 1\
+, and cytosolic proteins, such as APP and tau\
+, implying that Dyrk1A participates in various biological responses."
+
+SET Subgraph = {"DYRK1A subgraph", "T cells signaling", "Regulation of actin cytoskeleton subgraph"}
+
+SET Confidence = "High"
+p(HGNC:DYRK1A) -> tscript(p(FPLX:NFAT))
+tscript(p(FPLX:NFAT)) -> bp(GO:"transcription, DNA-templated")
+p(HGNC:DYRK1A) -> tscript(p(FPLX:FOXO))
+tscript(p(FPLX:FOXO)) -> bp(GO:"transcription, DNA-templated")
+p(HGNC:DYRK1A) -> act(p(HGNC:DNM1))
+#DNM1=dynamin
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = {"Endosomal lysosomal subgraph", "Regulation of actin cytoskeleton subgraph", "DYRK1A subgraph", "Synaptic vesicle endocytosis subgraph"}
+
+SET Confidence = "High"
+act(p(HGNC:DNM1)) -> bp(GO:endocytosis)
+act(p(HGNC:DNM1)) -> bp(GO:"synaptic vesicle budding from endosome")
+#synaptic vesicle budding from endosome = synaptic vesicle recycling
+p(HGNC:DYRK1A) -> act(p(HGNC:AMPH))
+#AMPH=amphiphysin
+act(p(HGNC:AMPH)) -> bp(GO:endocytosis)
+act(p(HGNC:AMPH)) -> bp(GO:"synaptic vesicle budding from endosome")
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = {"DYRK1A subgraph", "Amyloidogenic subgraph"}
+SET Confidence = "Medium"
+p(HGNC:DYRK1A) -- p(HGNC:APP)
+SET Confidence = "High"
+SET Subgraph = {"DYRK1A subgraph", "Tau protein subgraph"}
+p(HGNC:DYRK1A) -- p(HGNC:MAPT)
+UNSET Confidence
+
+SET Evidence = "Regarding to the functional role of Dyrk1A, active Dyrk1A phosphorylates the transcription factor cAMP response\
+element (CRE)-binding protein (CREB), which subsequently leads to the stimulation of CRE-mediated gene\
+transcription during neuronal differentiation."
+
+SET Subgraph = {"DYRK1A subgraph", "CREB subgraph"}
+
+SET Confidence = "High"
+act(p(HGNC:DYRK1A)) -> p(FPLX:CREB, pmod(Ph))
+p(FPLX:CREB, pmod(Ph)) -- bp(GO:"neuron differentiation")
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Evidence = "Recently, Dyrk1A appears to be involved in the pathogenesis of several neurodegenerative diseases\
+such as Alzheimer's disease (AD), Parkinson's disease, and Huntington's disease (HD). For example, Dyrk1A\
+phosphorylates a-synuclein and regulates its inclusion formation, and potentially affecting neuronal cell\
+viability"
+SET Disease = "Alzheimer's disease"
+SET Subgraph = {"DYRK1A subgraph", "Synuclein subgraph"}
+
+SET Confidence = "High"
+p(HGNC:DYRK1A) -- path(MESH:"Alzheimer Disease")
+p(HGNC:DYRK1A) -> p(HGNC:SNCA, pmod(Ph))
+UNSET Confidence
+
+UNSET Subgraph
+UNSET Disease
+
+SET Evidence = "Apoptosis signal-regulating kinase 1 (ASK1), a member of the mitogen-activated protein kinase\
+kinase kinase family, is composed of an inhibitory N-terminal domain, a kinase domain, and a C-terminal regulatory\
+domain (Ichijo et al., 1997). ASK1 can promote apoptosis in response to common pro-apoptotic stresses, such as\
+oxidative stress (Song et al., 2002), death receptor ligands (Nishitoh et al., 1998), and endoplasmic reticulum\
+stress (Nishitoh et al., 2002). ASK1 also phosphorylates and activates both p38 and JNK pathways\
+(Ichijo et al., 1997). The mechanism of ASK1 activation is positively regulated by its binding proteins such as\
+TNF receptor-ssociated factors 2/6 (Noguchi et al., 2005) and Daxx (Chang et al., 1998). On the other hand,\
+several cellular proteins, including thioredoxin (Saitoh et al., 1998), Hsp90 (Zhang et al., 2005), and 14-3-3\
+(Zhang et al., 1999), have been reported to interact with ASK1 and inhibit ASK1 activity."
+
+SET Subgraph = {"MAPK-JNK subgraph", "Response to oxidative stress"}
+
+SET Confidence = "High"
+act(p(HGNC:MAP3K5)) -> bp(GO:"apoptotic process")
+#ASK1=MAP3K5
+bp(GO:"response to oxidative stress") -> act(p(HGNC:MAP3K5))
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = {"Unfolded protein response subgraph", "MAPK-JNK subgraph"}
+
+SET Confidence = "High"
+bp(GO:"response to endoplasmic reticulum stress") -> act(p(HGNC:MAP3K5))
+act(p(HGNC:MAP3K5)) -> p(FPLX:p38, pmod(Ph))
+p(FPLX:p38, pmod(Ph)) -> act(p(FPLX:p38))
+act(p(HGNC:MAP3K5)) -> p(FPLX:JNK, pmod(Ph))
+p(FPLX:JNK, pmod(Ph)) -> act(p(FPLX:JNK))
+p(HGNC:TRAF2) -> act(p(HGNC:MAP3K5))
+p(HGNC:TRAF6) -> act(p(HGNC:MAP3K5)) # TNF Receptors= TRAF2/6
+p(HGNC:DAXX) -> act(p(HGNC:MAP3K5))
+p(FPLX:TXN) =| act(p(HGNC:MAP3K5))
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = {"MAPK-JNK subgraph", "Chaperone subgraph"}
+
+SET Confidence = "High"
+p(FPLX:HSP90) =| act(p(HGNC:MAP3K5))
+p(FPLX:"p14_3_3") =| act(p(HGNC:MAP3K5))
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Evidence = "In the present study, we investigated whether and how Dyrk1A becomes activated during cell death.\
+We found that Dyrk1A is linked to JNK signaling pathway and acts as the upstream kinase of JNK. Additionally,\
+Dyrk1A interacts with and positively regulates ASK1 under various cell death conditions. These finding suggest\
+that Dyrk1A plays an important role in ASK1-mediated transmission of cell death signals."
+
+SET Subgraph = {"DYRK1A subgraph", "MAPK-JNK subgraph"}
+
+SET Confidence = "High"
+p(HGNC:DYRK1A) -> act(p(FPLX:JNK))
+act(p(FPLX:JNK)) -> bp(GO:"stress-activated protein kinase signaling cascade")
+p(HGNC:DYRK1A) -> act(p(HGNC:MAP3K5))
+
+SET Published = "CDR story"
+p(HGNC:DYRK1A) -> bp(GO:"apoptotic process")
+UNSET Published
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Evidence = "Dyrk1A activity is involved in cell proliferation and differentiation (Dierssen and de Lagran,\
+2006). For example, while Ras-dependent signaling is required for promoting or maintaining neuronal differentiation,\
+Dyrk1A modulates ERK activation by interacting with Ras, B-Raf, and MEK1 and by facilitating the formation of a\
+Ras/B-Raf/MEK1 multi-protein complex (Kelly and Rahmani, 2005). Recently, many studies implicated a potential\
+role of Dyrk1A during cell death. For example, Dyrk1A caused the formation of abnormal protein aggregates through\
+the phosphorylation of a-synuclein, APP, and tau. Furthermore, these cells show a marked increase of apoptotic\
+cell death (Park et al., 2007), indicating that the overexpression of Dyrk1A induces cell death"
+
+SET Subgraph = "DYRK1A subgraph"
+
+SET Confidence = "High"
+act(p(HGNC:DYRK1A)) -- bp(GO:"cell population proliferation")
+act(p(HGNC:DYRK1A)) -> act(p(FPLX:ERK))
+act(p(HGNC:DYRK1A)) -> complex(p(FPLX:RAS),p(FPLX:RAF),p(FPLX:MEK))
+complex(p(FPLX:RAS),p(FPLX:RAF),p(FPLX:MEK)) -> act(p(FPLX:ERK))
+UNSET Confidence
+
+SET Subgraph = {"Amyloidogenic subgraph", "DYRK1A subgraph"}
+SET Confidence = "Medium"
+p(HGNC:DYRK1A) -> p(HGNC:APP, pmod(Ph))
+p(HGNC:APP, pmod(Ph)) -> a(CHEBI:"amyloid-beta")
+
+SET Confidence = "High"
+SET Subgraph = {"Tau protein subgraph", "DYRK1A subgraph"}
+p(HGNC:DYRK1A) -> p(HGNC:MAPT, pmod(Ph))
+UNSET Confidence
+
+SET Subgraph = {"DYRK1A subgraph", "Synuclein subgraph"}
+
+SET Confidence = "High"
+p(HGNC:DYRK1A) -> p(HGNC:SNCA, pmod(Ph))
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = {"Apoptosis signaling subgraph", "DYRK1A subgraph"}
+
+SET Confidence = "High"
+act(p(HGNC:DYRK1A)) -> bp(GO:"apoptotic process")
+UNSET Confidence
+
+UNSET Subgraph
+
+##########################
+
+SET Citation = {"PubMed", "21034527"}
+
+SET Evidence = "Although Fe65-independent signaling might be due to direct binding of AICD to Tip60 (39), Fe65 seems\
+to be essential for the nuclear translocation of AICD based on several pieces of evidence (40-42). The interaction\
+between Fe65 and AICD/ APP is modulated by APP Thr668 phosphorylation as well as its subsequent nuclear\
+translocation (43, 44). In addition, phosphorylation by c-AbI could regulate the AICD and Fe65 interaction"
+
+p(HGNC:APP, pmod(P,T,668)) -> complex(p(HGNC:APBB1),p(INTERPRO:"Amyloidogenic glycoprotein, intracellular domain, conserved site"))
+
+SET Evidence = "Two different transcriptionally-active AICD complexes, AICDFe65-Tip60 and AICD-Fe65-CP2/LSF/LBP1,\
+have been reported (46, 47). Tip60 is a histone acetyltransferase that is a part of a large nuclear complex\
+having DNA binding, ATPase and DNA helicase activities (48). Fe65 was shown to associate with Tip60, and both of\
+these proteins colocalize with AICD in the nucleus by forming the AICD-Fe65-Tip60 complex (termed AFT complex)\
+(42, 46, 49). In Gal4 reporter gene experiments, co-expression of APP (or AICD), Fe65, and Gal4-Tip60 leads to\
+dramatically enhanced expression of Gal4 in the presence of CP2, a transcription factor that interacts with Fe65\
+(46). Moreover, Cao and Sudhof (50) reported that gamma-cleavage of APP along with nuclear translocation of Fe65\
+are required for transactivation. Meanwhile, the Fe65 adaptor protein has been described to interact with the\
+transcription factor CP2 (CP2/ LSF/LBP1) through its PID1 domain (51). The involvement of AICD in the complex was\
+confirmed by co-immunoprecipitation of AICD with CP2 in the presence of Fe65 (47). This second ternary complex\
+(AICD-Fe65-CP2/LSF/LBP1) was suggested to modulate the expression of glycogen synthase kinase- 3ÃƒÅ¸ (GSK-3ÃƒÅ¸)."
+
+reaction(reactants(p(HGNC:APP)),products(p(INTERPRO:"Amyloidogenic glycoprotein, intracellular domain, conserved site")))
+complex(p(HGNC:APBB1),p(INTERPRO:"Amyloidogenic glycoprotein, intracellular domain, conserved site"),p(HGNC:KAT8)) -> act(p(HGNC:LGALS4)) #Gal4 = LGALS4
+complex(p(INTERPRO:"Amyloidogenic glycoprotein, intracellular domain, conserved site"),p(HGNC:APBB1),p(HGNC:TFCP2)) -> act(p(HGNC:GSK3B)) # TFCP2 = CP2
+
+SET Evidence = "Recently, Sp1 was reported to play a crucial role in transcriptional regulation of human Fe65. In\
+contrast, X11a has an inhibitory effect on AICD-mediated gene transactivation by trapping AICD in the cytoplasm .\
+Further, Dexras1, a Ras family small G protein, also functionsas a suppressor of Fe65-APP-mediated transcription.\
+Recent work suggests that ABeta¸ impairs APP gene transcriptional activation by decreasing AICD production as well as\
+the formation of AICD/Fe65 transactivation complexes"
+
+tscript(p(HGNC:SP1)) -- p(HGNC:APBB1)
+
+SET Evidence = "Although the role of AICD as a gene transcription inducer is still controversial, several targets\
+of AICD- or APP-mediated transcriptional activation are reportedly regulated by APP nuclear signaling, including\
+APP itself, BACE, Tip60, GSK-3ÃƒÅ¸, p53, Mn-SOD, KAI1, Neprilysin, transgelin, a2actin, S100a9, and other genes"
+
+
+p(INTERPRO:"Amyloidogenic glycoprotein, intracellular domain, conserved site") -- tscript(p(HGNC:APP))
+tscript(p(HGNC:APP)) -> act(p(HGNC:APP))
+SET Subgraph = "Beta secretase subgraph"
+
+SET Confidence = "High"
+tscript(p(HGNC:APP)) -> act(p(HGNC:BACE1))
+tscript(p(HGNC:APP)) -> act(p(HGNC:BACE2))
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Published = "CDR story"
+SET Confidence = "High"
+tscript(p(HGNC:APP)) -> act(p(HGNC:KAT5))
+
+p(HGNC:KAT5) isA p(INTERPRO:"Histone acetyltransferase domain, MYST-type")
+p(HGNC:KAT8) isA p(INTERPRO:"Histone acetyltransferase domain, MYST-type")
+UNSET Confidence
+
+UNSET Published
+#KAT8 = Tip60
+SET Subgraph = "GSK3 subgraph"
+
+SET Confidence = "High"
+act(p(HGNC:APP)) -> act(p(HGNC:GSK3B))
+UNSET Confidence
+
+SET Subgraph = "p53 stabilization subgraph"
+
+SET Confidence = "High"
+tscript(p(HGNC:APP)) -> act(p(HGNC:TP53))
+#p53 =PIDD
+UNSET Subgraph
+tscript(p(HGNC:APP)) -> act(p(HGNC:SOD2))
+#SOD2 = Mn-SOD
+tscript(p(HGNC:APP)) -> act(p(HGNC:CD82))
+#CD82 = KAI1
+tscript(p(HGNC:APP)) -> act(p(HGNC:MMEL1))
+#MMEL1 = Neprilysin
+tscript(p(HGNC:APP)) -> act(p(HGNC:TAGLN))
+#TAGLN = transgelin
+tscript(p(HGNC:APP)) -> act(p(HGNC:ACTA2))
+#ACTA2 = a2actin
+tscript(p(HGNC:APP)) -> act(p(HGNC:S100A9))
+UNSET Confidence
+
+##############################
+
+SET Citation = {"PubMed", "23092889"}
+
+SET Evidence = "Double-stranded RNA-dependent protein kinase (PKR) is implicated in inflammation and immune dysfunction/\
+ through its regulation of mitogen-activated protein kinases, interferon regulatory factor 3, nuclear factor ÎºB,/\
+ apoptotic process, and autophagy pathways. A study shows that PKR is also required for the activation of inflammasomes and/\
+ the subsequent release of high-mobility group box 1 (HMGB1) protein, a proinflammatory cytokine. Thus, the cell stress/\
+ kinase PKR has multifaceted roles in the regulation of inflammatory immune responses, and PKR and HMGB1 are attractive/\
+ targets for inflammasome-associated diseases."
+
+SET Subgraph = {"MAPK-JNK subgraph", "Inflammatory response subgraph"}
+SET Confidence = "Very High"
+p(HGNC:EIF2AK2) -> bp(GO:"inflammatory response") # PKR=EIF2Ak2
+p(HGNC:EIF2AK2) -- p(HGNC:MAPK1)
+
+SET Subgraph = {"MAPK-JNK subgraph", "Toll like receptor subgraph"}
+p(HGNC:EIF2AK2) -> p(HGNC:IRF3)
+
+SET Subgraph = {"MAPK-JNK subgraph", "Nuclear factor Kappa beta subgraph", "Caspase subgraph"}
+p(HGNC:EIF2AK2) -> p(HGNC:NFKB1)
+
+SET Subgraph = {"MAPK-JNK subgraph", "Apoptosis signaling subgraph"}
+
+SET Confidence = "Very High"
+p(HGNC:EIF2AK2) reg bp(GO:"neuron apoptotic process")
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = {"MAPK-JNK subgraph", "Autophagy signaling subgraph"}
+
+SET Confidence = "High"
+p(HGNC:EIF2AK2) -> bp(GO:autophagy)
+p(HGNC:EIF2AK2) -> act(complex(GO:"inflammasome complex"))
+act(complex(GO:"inflammasome complex")) -> p(HGNC:HMGB1)
+UNSET Confidence
+
+SET Evidence = "The inflammasome, a multiprotein oligomer, is activated by microbial pathogens, stress, and damage signals/\
+ that trigger the release of proinflammatory cytokines, including interleukin-1beta (IL-1beta), IL-18, and high-mobility group/\
+ box 1 (HMGB1) protein, as well as stimulate a form of programmed inflammatory cell death called pyroptosis, which engages/\
+ immune and inflammatory responses.A study by Lu et al. (3) identified a previously uncharacterized biological function/\
+ for double-stranded RNA (dsRNA)â€“dependent protein kinase (PKR) in promoting inflammation by sustaining inflammasome /\
+activities in response to pyroptosis-associated stimuli. This finding reveals a crucial new player in the ever-growing /\
+list of proteins that control the inflammasome and HMGB1 release "
+
+SET Published = "CDR story"
+SET Subgraph = "Response to oxidative stress"
+SET Confidence = "High"
+bp(GO:"response to oxidative stress") -> act(complex(GO:"inflammasome complex"))
+UNSET Confidence
+UNSET Published
+
+SET Confidence = "High"
+act(complex(GO:"inflammasome complex")) -> a(MESH:Cytokines)
+a(MESH:Cytokines) -> bp(GO:pyroptosis)
+act(complex(GO:"inflammasome complex")) -> p(HGNC:IL1B)
+p(HGNC:IL1B) -> bp(GO:pyroptosis)
+act(complex(GO:"inflammasome complex")) -> p(HGNC:IL18)
+p(HGNC:IL18) -> bp(GO:pyroptosis)
+act(complex(GO:"inflammasome complex")) -> p(HGNC:HMGB1)
+p(HGNC:HMGB1) -> bp(GO:pyroptosis)
+UNSET Confidence
+
+SET Evidence = "Signaling pathways involving PKR-mediated inflammation and immune regulation. (A) PKR is required for /\
+inflammasome activation. PAMPs and DAMPs promote the autophosphorylation and activation of PKR. Active PKR physically /\
+interacts with NLRP1, NLRP3, NLRC4, and AIM2 and promotes the release of inflammasome-dependent cytokines, including IL-1beta, /\
+IL-18, and HMGB1. LPS, lipopolysaccharide. (B) The activation of PKR is induced by many different stimuli, such as /\
+cytokines, bacterial and viral infection, and DNA damage. Activation of PKR results in its dimerization and /\
+autophosphorylation. The activation of PKR in turn triggers the production of IFN and proinflammatory cytokines /\
+through transcriptional regulatory signals. In addition, the FADDâ€“caspase-8 pathway mediates the proapoptotic activity /\
+of PKR, whereas the eIF2Î±-LC3 pathway mediates the proautophagic activity of PKR. Both apoptosis and autophagy are /\
+important in the regulation of inflammation and immunity."
+
+SET Subgraph = "Response to oxidative stress"
+
+SET Confidence = "High"
+p(HGNC:EIF2AK2) -> act(complex(GO:"inflammasome complex"))
+p(HGNC:YME1L1) -> p(HGNC:EIF2AK2, pmod(Ph))
+p(HGNC:EIF2AK2, pmod(Ph)) -> act(p(HGNC:EIF2AK2))
+UNSET Confidence
+
+SET Confidence = "High"
+act(p(HGNC:EIF2AK2)) -> complex(p(HGNC:EIF2AK2), p(HGNC:NLRP1))
+act(p(HGNC:EIF2AK2)) -> complex(p(HGNC:EIF2AK2), p(HGNC:NLRP3))
+act(p(HGNC:EIF2AK2)) -> complex(p(HGNC:EIF2AK2), p(HGNC:NLRC4))
+act(p(HGNC:EIF2AK2)) -> complex(p(HGNC:EIF2AK2), p(HGNC:AIM2))
+UNSET Confidence
+
+SET Confidence = "High"
+complex(p(HGNC:EIF2AK2), p(HGNC:NLRP1)) -> act(complex(GO:"inflammasome complex"))
+complex(p(HGNC:EIF2AK2), p(HGNC:NLRP3)) -> act(complex(GO:"inflammasome complex"))
+complex(p(HGNC:EIF2AK2), p(HGNC:NLRC4)) -> act(complex(GO:"inflammasome complex"))
+complex(p(HGNC:EIF2AK2), p(HGNC:AIM2)) -> act(complex(GO:"inflammasome complex"))
+UNSET Confidence
+
+
+#####################################
+SET Citation = {"PubMed", "22544363"}
+
+SET Evidence = " We show that haploinsufficiency of KANSL1 is sufficient to cause the 17q21.31 microdeletion syndrome\
+,a multisystem disorder characterized by intellectual disability, hypotonia and distinctive facial\
+features. The KANSL1 protein is an evolutionarily conserved regulator of the chromatin modifier KAT8,\
+which influences gene expression through histone H4 lysine 16 (H4K16) acetylation. RNA sequencing studies\
+in cell lines derived from affected individuals and the presence of learning deficits in Drosophila\
+melanogaster mutants suggest a role for KANSL1 in neuronal processes."
+
+SET Subgraph = "KANSL1 subgraph"
+
+###p(HGNC:KANSL1) negativeCorrelation path(MESH:"microdeletion syndrome")###
+
+SET Published = "CDR story"
+p(HGNC:KANSL1) -- p(HGNC:KAT8)
+p(HGNC:KAT8) -- p(FPLX:"Histone_H4", pmod(A))
+p(FPLX:"Histone_H4", pmod(A)) -- bp(GO:"regulation of gene expression, epigenetic")
+UNSET Published
+
+#####################################
+SET Citation = {"PubMed", "21677163"}
+
+SET Evidence = "Unraveling the mechanisms by which the molecular manipulation of genes of interest\
+enhances cognitive function is important to establish genetic therapies for cognitive disorders.\
+Although CREB is thought to positively regulate formation of long-term memory (LTM), gain-of-function\
+effects of CREB remain poorly understood, especially at the behavioral level.Our findings suggest that \
+CREB positively regulates memory consolidation and affects memory performance by regulating BDNF\
+expression."
+p(FPLX:CREB) positiveCorrelation bp(GO:"long-term memory")
+p(FPLX:CREB) positiveCorrelation p(HGNC:BDNF)
+
+#####################################
+SET Citation = {"PubMed", "11880483"}
+
+SET Evidence = " Brain-derived neurotrophic factor (BDNF) is implicated in long-term synaptic plasticity\
+in the adult hippocampus, but the cellular mechanisms are little understood. Here we used intrahippocampal\
+microinfusion of BDNF to trigger long-term potentiation (BDNF-LTP) at medial perforant path--granule cell\
+synapses in vivo. BDNF infusion led to rapid phosphorylation of the mitogen-activated protein (MAP)\
+kinases ERK (extracellular signal-regulated protein kinase) and p38 but not JNK \
+(c-Jun N-terminal protein kinase).The results support a model in which BDNF triggers long-lasting \
+synaptic strengthening through MEK-ERK"
+
+SET Subgraph = "KANSL1 subgraph"
+
+SET MeSHAnatomy = "Hippocampus"
+
+SET Confidence = "Medium"
+p(HGNC:BDNF) -- p(HGNCGENEFAMILY:"Mitogen-activated protein kinases", pmod(Ph))
+UNSET Confidence
+
+p(HGNC:BDNF) -- p(FPLX:p38, pmod(Ph))
+p(FPLX:p38, pmod(Ph)) -- bp(GO:"regulation of synaptic plasticity")
+
+SET Confidence = "Medium"
+p(HGNCGENEFAMILY:"Mitogen-activated protein kinases", pmod(Ph)) -- bp(GO:"regulation of synaptic plasticity")
+UNSET Confidence
+
+UNSET MeSHAnatomy
+UNSET Subgraph
+
+#####################################
+SET Citation = {"PubMed", "26136662"}
+
+SET Evidence = "It is becoming more evident that histone acetylation, as one of the epigenetic \
+modifications or markers, plays a key role in the etiology of Alzheimer's disease (AD). Histone \
+acetylases and histone deacetylases (HDACs) are the well-known covalent enzymes that modify the \
+reversible acetylation of lysine residues in histone amino-terminal domains.CREB-binding protein (CBP)\
+ acetylates tau at Lys280 within the tau microtubule-binding motif, and that acetylation of tau possibly\
+ leads to increased tau aggregation "
+
+p(FPLX:Histone, pmod(A,K,280)) -- path(MESH:"Alzheimer Disease")
+###p(HGNC:CREB) -- p(FPLX:"Tau", pmod(A))###
+
+#####################################
+SET Citation = {"PubMed", "27041503"}
+
+SET Evidence = "Tau toxicity has been implicated in the emergence of synaptic dysfunction in Alzheimer's\
+disease (AD), but the mechanism by which tau alters synapse physiology and leads to cognitive decline \
+is unclear. Here we report abnormal acetylation of K274 and K281 on tau, identified in AD brains,\
+promotes memory loss and disrupts synaptic plasticity by reducing postsynaptic KIdney/BRAin (KIBRA)\
+protein, a memory-associated protein.acetylated tau reduces synaptic KIBRA levels and disrupts \
+activity-induced postsynaptic actin remodeling and AMPA receptor insertion. The LTP deficit\
+was rescued by promoting actin polymerization or by KIBRA expression. In AD patients with dementia,\
+we found enhanced tau acetylation is linked to loss of KIBRA. These findings suggest a novel \
+mechanism by which pathogenic tau causes synaptic dysfunction and cognitive decline in AD \
+pathogenesis."
+
+SET Subgraph = "KANSL1 subgraph"
+
+path(MESH:"Alzheimer Disease") positiveCorrelation p(HGNC:MAPT)
+###p(FPLX:"Tau", pmod(A)) -| p(HGNC:WWC1)###
+p(HGNC:WWC1) -| p(HGNC:GRIA1)
+p(HGNC:WWC1) -| bp(GO:"actin polymerization or depolymerization")
+p(HGNC:GRIA1) -| bp(GO:"long-term synaptic potentiation")
+bp(GO:"actin polymerization or depolymerization") -> bp(GO:"long-term synaptic depression")
+bp(GO:"long-term synaptic depression") -| bp(GO:"regulation of synaptic plasticity")
+bp(GO:"regulation of synaptic plasticity") -> a(NIFT:"Hippocampal atrophy")
+
+#####################################
+SET Citation = {"PubMed", "20869593"}
+
+SET Evidence = "Neurodegenerative tauopathies characterized by hyperphosphorylated tau include\
+frontotemporal dementia and parkinsonism linked to chromosome 17 (FTDP-17) and Alzheimer's disease (AD).\
+Reducing tau levels improves cognitive function in mouse models of AD and FTDP-17, but the mechanisms\
+regulating the turnover of pathogenic tau are unknown. We found that tau is acetylated and that tau \
+acetylation prevents degradation of phosphorylated tau (p-tau). Using two antibodies specific for \
+acetylated tau, we showed that tau acetylation is elevated in patients at early and moderate Braak\
+stages of tauopathy. Histone acetyltransferase p300 was involved in tau acetylation and the class\
+III protein deacetylase SIRT1 in deacetylation. Deleting SIRT1 enhanced levels of acetylated-tau\
+and pathogenic forms of p-tau in vivo, likely by blocking proteasome-mediated degradation.\
+Inhibiting p300 with a small molecule promoted tau deacetylation and eliminated p-tau associated\
+with tauopathy. Modulating tau acetylation could be a new therapeutic strategy to reduce \
+tau-mediated neurodegeneration."
+
+SET Subgraph = "KANSL1 subgraph"
+
+p(HGNC:MAPT, pmod(Ph)) -- path(MESH:"Alzheimer Disease")
+p(HGNC:MAPT, pmod(Ph)) -- path(MESH:"Parkinson Disease")
+p(HGNC:MAPT, pmod(Ph)) -- path(MESH:"Frontotemporal Dementia")
+p(HGNC:MAPT, pmod(A)) -> p(HGNC:MAPT, pmod(Ph))
+p(FPLX:CREB) -> p(HGNC:MAPT, pmod(A))
+
+#####################################
+SET Citation = {"PubMed", "18583940"}
+
+SET Evidence = "Tau is a microtubule-associated protein that promotes assembly and stabilization of\
+cytoskeleton microtubules. It is mostly expressed in neuronal and glial cells but it is also present in \
+non-neural cells such as fibroblasts and lymphocytes. An altered tau produces cytoskeleton pathology \
+resulting in neurodegenerative diseases such as Alzheimer's disease and tauopathies. Tau has been \
+suggested to be a multifunctional protein, due to its localization in different cellular compartments. \
+However its further functions are still unclear. We analyzed the distribution of tau in human skin \
+fibroblasts showing its localization in the nucleus and along mitotic chromosomes. Then, we investigated \
+if an altered tau, such as the P301L mutated protein associated with frontotemporal dementia, could \
+produce nuclear pathology. We found that patients carrying the mutation consistently had several \
+chromosome aberrations in their fibroblasts and lymphocytes: chromosome and chromatid breakages or gaps, \
+aneuploidies, translocations, in addition to chromatin bridges and decondensed chromosomes. Our findings \
+argue for a role of tau in chromosome stability by means of its interaction with both microtubules and \
+chromatin."
+
+SET Confidence = "Medium"
+p(HGNC:MAPT, pmod(Ph)) -| bp(GO:"microtubule cytoskeleton organization")
+bp(GO:"microtubule cytoskeleton organization") -| path(MESH:"Neurodegenerative Diseases")
+p(HGNC:MAPT, pmod(Ph)) -> path(MESH:"Neurodegenerative Diseases")
+p(HGNC:MAPT, var("p.Pro301Leu")) -> path(MESH:"Chromosome Aberrations")
+UNSET Confidence
+
+#####################################
+SET Citation = {"PubMed", "26293599"}
+
+SET Evidence = "KANSL1 is necessary and sufficient for regulating MOF acetyltransferase activity\
+on nucleosome H4. Moreover, it is also required for the specific acetylation of p53 on K120, \
+which is crucial for the differential and optimal transcription activation of p53 target genes,\
+both in vivo and in vitro. BTG2 (B-cell translocation gene 2) is an early growth response\
+gene whose promoter contains p53-binding sites that is strongly regulated by p53. \
+Interestingly, BTG2 is one of the mediators of the p53-dependent inhibition of H-Ras activity,\
+which is involved in a variety of biological processes including cell growth, development,\
+differentiation, senescence and cell death. This gene binds HRas (G12V) and represses its \
+activity by reducing its GTP loading state, which, in turn, activates the Ras/MAPK signaling \
+cascade and causes a reduction in the expression of a large number of downstream molecules.\
+Therefore, it is plausible that dysfunction of KANSL1 might perturb the activity of p53 transcription\
+target genes, such as BTG2, producing an aberrant regulation of important downstream cascades of Ras.\
+This mechanism could explain the overlapping phenotypic features observed in the KANSL1 haploinsufficiency\
+phenotype and the RASopathies. Additional clinical and experimental studies will be needed to evaluate\
+this hypothesis and further understand the molecular mechanisms associated with deleterious KANSL1 alleles."
+
+SET Subgraph = "KANSL1 subgraph"
+
+#p(HGNC:KANSL1) -- act(p(HGNC:MYST1))
+p(HGNC:KANSL1) -- p(HGNC:TP53, pmod(A))
+p(HGNC:TP53) -- p(HGNC:BTG2)
+p(HGNC:BTG2) -> bp(GO:"activation of MAPKK activity")
+
+#####################################
+SET Citation = {"PubMed", "15601849"}
+
+SET Evidence = "On this basis, interventions using selective MAPK inhibitors may in theory be capable of\
+ameliorating the progression of neurofibrillary pathology in diseases such as AD"
+
+bp(GO:"activation of MAPKK activity") positiveCorrelation p(HGNC:MAPT, pmod(Ph))
+kin(p(HGNC:MAPK14)) -> p(HGNC:MAPT, pmod(Ph))
+
+#####################################
+SET Citation = {"PubMed", "27768893"}
+
+SET Evidence = "We report that the well-known nuclear MYST family acetyl transferase MOF and a subset\
+of its non-specific lethal complex partners reside in mitochondria. MOF regulates oxidative\
+phosphorylation by controlling expression of respiratory genes from both nuclear and mtDNA\
+in aerobically respiring cells"
+
+SET Published = "CDR story"
+
+SET CellStructure = "Mitochondria"
+# MOF was renamed to KAT8
+p(HGNC:KAT8) reg bp(GO:"oxidative phosphorylation")
+
+UNSET Published
+
+#####################################
+SET Citation = {"PubMed", "24189435"}
+
+SET Evidence = "Structurally and functionally damaged mitochondria, which are more proficient at producing reactive oxygen species but less so in ATP, are also an early and prominent feature of the disease."
+
+SET Published = "CDR story"
+SET Confidence = "Low"
+SET CellStructure = "Mitochondria"
+bp(GO:"regulation of oxidative phosphorylation") -> bp(GO:"mitochondrial electron transport, cytochrome c to oxygen")
+bp(GO:"mitochondrial electron transport, cytochrome c to oxygen") -- bp(GO:"response to oxidative stress")
+
+UNSET Published

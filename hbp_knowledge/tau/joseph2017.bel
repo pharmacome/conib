@@ -6,8 +6,8 @@ SET DOCUMENT Licenses    = "CC BY 4.0"
 SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
 
 SET DOCUMENT Name        = "Anti-aggregant tau mutant promotes neurogenesis"
-SET DOCUMENT Version     = "1.0.0"
-SET DOCUMENT Authors     = "Sandra Spalek"
+SET DOCUMENT Version     = "1.0.1"
+SET DOCUMENT Authors     = "Sandra Spalek, Esther Wollert"
 SET DOCUMENT Description = ""
 
 ##############
@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/bd0996a28201cad363557315043c6392e31abf58/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -77,68 +77,84 @@ SET STATEMENT_GROUP = "Sandra"
 
 SET Citation = {"PubMed", "Mol Neurodegener. 2017 Dec 4;12(1):88. doi: 10.1186/s13024-017-0230-8", "29202785"}
 
-#pro-aggregant (TauRDΔK): p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"))
-#anti-aggregant (TauRDΔKPP): p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro"))
+#pro-aggregant (TauRDΔK): p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))
+#anti-aggregant (TauRDΔKPP): p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro"))
 
 SET Species = "10090"
 
 SET Evidence = "This may be due to the strong Tau pathology of the toxic
 pro-aggregant TauRDΔK leading to Tau aggregation, loss of synapses and loss of neurons"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) -> a(HBP:"Tau aggregates")
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(GO:synapse)
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(MESH:Neurons)
-
+SET Confidence = "High"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -> a(CONSO:"Tau aggregates")
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(GO:synapse)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(MESH:Neurons)
+UNSET Confidence
 
 SET Evidence = "Microscopic analysis
 revealed a remarkable overall increase (30%) in the
 size of the hippocampus of anti-aggregant TauRDΔKPP
 OHSCs, compared to controls and the age-matched proaggregant
 TauRDΔK slices (Fig. 2a)"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:"Hippocampus")
+SET Confidence = "High"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:"Hippocampus")
+UNSET Confidence
 
 SET Evidence = "This revealed an impressive increase in mature
 neurons in all regions of the hippocampus (47% in CA1;
 69% in CA3 and 81% in DG) in the anti-aggregant
 TauRDΔKPP slices compared to age-matched controls
 (Fig. 2c, bars 2, 5 and 8)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:Neurons)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:Neurons)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "By contrast, the pro-aggregant
 TauRDΔK slices showed a pronounced reduction in neuronal
 numbers, particularly in the CA1 (-44%), CA3
 (-33%) and DG (-22%) regions compared to controls (Fig.
 2c, bars 3, 6 and 9)"
+SET Confidence = "High"
 SET MeSHAnatomy = {"CA1 Region, Hippocampal","CA3 Region, Hippocampal","Dentate Gyrus"}
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(MESH:Neurons)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(MESH:Neurons)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Thus, pro-aggregant TauRDΔK causes
 neurodegeneration, whereas anti-aggregant TauRDΔKPP
 leads to neurogenesis, even in regions outside the DG"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) -> path(HBP:Neurodegeneration)
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> bp(GO:neurogenesis)
+SET Confidence = "High"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -> path(CONSO:Neurodegeneration)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> bp(GO:neurogenesis)
+UNSET Confidence
 
 SET Evidence = "In controls and anti-aggregant
 TauRDΔKPP slices, the microglia were mainly in the ramified
 form, in contrast to the pro-aggregant TauRDΔK
 slices where microglia were more of the reactive form
 (Fig 3b)"
+SET Confidence = "High"
 #ramified microglia: unactive microglia
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) neg act(a(MESH:Microglia))
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) pos act(a(MESH:Microglia))
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) neg act(a(MESH:Microglia))
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) pos act(a(MESH:Microglia))
+UNSET Confidence
 
 SET Evidence = "Total numbers of Iba1 positive microglial cells
 were reduced to 50% in anti-aggregant TauRDΔKPP slices
 when compared to controls (Fig. 3c, bar 2)"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -| a(MESH:Microglia)
+SET Confidence = "Medium"
+#Iba1 positive miroglia = activated microglia
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -| act(a(MESH:Microglia))
+UNSET Confidence
 
 SET Evidence = "The opposite
 result was observed in the pro-aggregant TauRDΔK slices
 where the microglial number was increased by 100%
 compared to controls (Fig. 3c, bar 3)"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) -> a(MESH:Microglia)
+SET Confidence = "High"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -> a(MESH:Microglia)
+UNSET Confidence
 
 SET Evidence = "The antiaggregant
 TauRDΔKPP slices had ramified form of microglia
@@ -146,8 +162,10 @@ with 6-7 branches on an average indicating that the
 microglial cells were in their normal physiologically active
 form and there is no sign of inflammation (Fig 3d,
 bars 1 and 2)."
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) cnc act(a(MESH:Microglia))
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) cnc path(MESH:Inflammation)
+SET Confidence = "High"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) cnc act(a(MESH:Microglia))
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) cnc path(MESH:Inflammation)
+UNSET Confidence
 
 SET Evidence = "On the contrary, microglia in proaggregant
 TauRDΔK slices, were increased in number and
@@ -157,31 +175,39 @@ TauRDΔKPP slices (Fig. 3d, bar 3). This indicates
 that in the pro-aggregant TauRDΔK slices the
 microglia are in a reactive form, indicating that there is
 also enhanced inflammation"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) -> path(MESH:Inflammation)
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) pos act(a(MESH:Microglia))
+SET Confidence = "Medium"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -> path(MESH:Inflammation)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -> act(a(MESH:Microglia))
+UNSET Confidence
 
 SET Evidence = "On the contrary the proaggregant
 TauRDΔK slices showed hypertrophic astrocytes
 with prominent cell bodies with 1-3 processes ranging from
 3-5μm in length, which can be compared to the degrading
 forms of astrocytes (Fig. 4a3)"
+SET Confidence = "High"
 SET Cell = "astrocyte"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) -> path(MESH:Hypertrophy)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -> path(MESH:Hypertrophy)
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "In the controls and the antiaggregant
 TauRDΔKPP slices there was a uniform axonal
 distribution of Tau in the hippocampus (Fig. 5, A1 and 2)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 SET CellStructure = "Axons"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> p(MGI:Mapt)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> p(MGI:Mapt)
 UNSET MeSHAnatomy
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "The pro-aggregant TauRDΔK slices showed intense
 mislocalization of Tau in the somato-dendritic compartment,
 the most affected being the CA3 pyramidal neurons (Fig. 5, A3)"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) -> tloc(p(MGI:Mapt),fromLoc(GO:axon),toLoc(GO:"somatodendritic compartment"))
+SET Confidence = "High"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -> tloc(p(MGI:Mapt),fromLoc(GO:axon),toLoc(GO:"somatodendritic compartment"))
+UNSET Confidence
 
 SET Evidence = "Surprisingly, there was an ~80%
 increase in the endogenous mouse Tau level in slices obtained
@@ -189,73 +215,95 @@ from pups expressing anti-aggregant TauRDΔKPP
 (Fig. 5b lane 2 and 5c bar 2), compared with age
 matched non-transgenic controls and pro-aggregant
 TauRDΔK (Fig. 5b lane 1 and 3; and 5c lane 1 and 3)"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> p(MGI:Mapt)
+SET Confidence = "High"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> p(MGI:Mapt)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) cnc p(MGI:Mapt)
+UNSET Confidence
 
 SET Evidence = "In
 spite of this increase, there was little mislocalization of
 Tau (endogenous or exogenous) into the somatodendritic
 compartment in the anti-aggregant TauRDΔKPP (Fig. 5, A2)"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> tloc(p(MGI:Mapt),fromLoc(GO:axon),toLoc(GO:"somatodendritic compartment"))
+SET Confidence = "High"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> tloc(p(MGI:Mapt),fromLoc(GO:axon),toLoc(GO:"somatodendritic compartment"))
+UNSET Confidence
 
 SET Evidence = "By contrast, pro-aggregant TauRDΔK slices
 showed no overall increase in endogenous mouse Tau
 (rather a 20% decrease), yet pronounced mislocalization (Fig. 5, A3)."
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) cnc p(MGI:Mapt)
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) -> tloc(p(MGI:Mapt),fromLoc(GO:axon),toLoc(GO:"somatodendritic compartment"))
+SET Confidence = "High"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) cnc p(MGI:Mapt)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -> tloc(p(MGI:Mapt),fromLoc(GO:axon),toLoc(GO:"somatodendritic compartment"))
+UNSET Confidence
 
 SET Evidence = "From DIV15 until
 DIV30 the anti-aggregant slices were treated with DOX
 to switch off the expression of the anti-aggregant Tau.
 This lead to a strong reduction (~70%) of the endogenous
 mouse Tau (Fig. 10c, lane3)"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> p(MGI:Mapt)
+SET Confidence = "High"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> p(MGI:Mapt)
+UNSET Confidence
 
 SET Evidence = "However, in case of the anti-aggregant
 TauRDΔKPP slices there was a remarkable 30% increase in
 the number of BrdU positive cells in the CA1 and CA3 regions
 and almost 100% increase in DG (Fig. 6b, bar 2, 5, and 8)"
+SET Confidence = "Low"
+#Confidence Low: BrdU pos cells = stem cells?
 SET MeSHAnatomy = {"CA1 Region, Hippocampal","CA3 Region, Hippocampal","Dentate Gyrus"}
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:"Stem Cells")
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:"Stem Cells")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "This was in striking contrast to the pro-aggregant
 TauRDΔK slices where there was no significant difference
 in the number of BrdU positive cells compared to the age
 matched controls (Fig. 6b, bar 3, 6, and 9)"
+SET Confidence = "High"
 SET MeSHAnatomy = {"CA1 Region, Hippocampal","CA3 Region, Hippocampal","Dentate Gyrus"}
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) cnc a(MESH:"Stem Cells")
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) cnc a(MESH:"Stem Cells")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In particular in the CA3 and DG regions almost 70% and in CA1 almost 50% of the new born cells got differentiated
 into NeuN positive neurons in the anti-aggregant TauRDΔKPP slices (Additional file 2: Figure S1A, bars
 4, 8, 12).This reveals an increase in proliferation followed by an increase in neuronal differentiation in
 the anti-aggregant TauRDΔKPP slices"
+SET Confidence = "High"
 SET MeSHAnatomy = {"CA1 Region, Hippocampal","CA3 Region, Hippocampal","Dentate Gyrus"}
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> bp(GO:"neuron differentiation")
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> bp(GO:"neuron differentiation")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "This also resulted in a 30% increase
 in the rate of differentiation in the CA1 region of the
 pro-aggregant TauRDΔK slices (Additional file 2: Fig. S1B,
 bars 2 and 4)"
+SET Confidence = "High"
 SET MeSHAnatomy = "CA1 Region, Hippocampal"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) -> bp(GO:"neuron differentiation")
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -> bp(GO:"neuron differentiation")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Notably, after switch-off of antiaggregant
 TauRDΔKPP there was a change in the number
 of BrdU stained cells in all regions of the hippocampus
 (CA1 region 32%, CA3 region 22% and DG 33% reduction)
 compared to switch-ON conditions (Fig. 7a, bars 4, 8 and 12)"
+SET Confidence = "High"
 SET MeSHAnatomy = {"CA1 Region, Hippocampal","CA3 Region, Hippocampal","Dentate Gyrus"}
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:Neurons)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:Neurons)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Similarly in the number of NeuN positive
 cells, there was a 22% reduction in CA1, 33% in CA3
 and 37% reduction in DG compared to switch-On conditions
 (Fig. 7b, bars 4, 8 and 12)"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:Neurons)
+SET Confidence = "High"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:Neurons)
+UNSET Confidence
 
 SET Evidence = "BrdU positive cells were present in
 CA1, CA3 and DG in both the controls and antiaggregant
@@ -264,19 +312,23 @@ were increased strongly by 80% only in the CA3
 region of the anti-aggregant TauRDΔKPP mice (Fig. 8b,
 bar 4), with 20% change in the CA1 and no change in
 the DG (Fig. 8b, bar 2 and 6)"
-SET MeSHAnatomy = {"CA1 Region, Hippocampal","CA3 Region, Hippocampal","Dentate Gyrus"}
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:Neurons)
+SET Confidence = "Medium"
+SET MeSHAnatomy = {"CA1 Region, Hippocampal","CA3 Region, Hippocampal"}
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:Neurons)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Additionally,
 there was an increase by 25% of the hippocampal volume
 in anti-aggregant TauRDΔKPP mice, compared to
 controls at P8 (Fig. 8c, bar 2), presumably due to the increased
 number of neurons"
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:Neurons)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:Neurons)
 UNSET MeSHAnatomy
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:"Hippocampus")
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:"Hippocampus")
+UNSET Confidence
 
 SET Evidence = "The anti-aggregant TauRDΔKPP mice had an increased
 hippocampal volume of ~15% compared to agematched
@@ -284,8 +336,10 @@ controls but it was not a significant increase as
 analyzed by bonferroni post hoc test (Fig. 9a, bar 2) in
 contrast mice expressing pro-aggregant TauRDΔK had a
 25% reduced hippocampal volume (Fig. 9a, bar 3)"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:"Hippocampus")
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(MESH:"Hippocampus")
+SET Confidence = "High"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:"Hippocampus")
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(MESH:"Hippocampus")
+UNSET Confidence
 
 SET Evidence = "Surprisingly, the anti-aggregant TauRDΔKPP mice had
 an increased neuronal number significantly in the
@@ -293,36 +347,46 @@ CA3 region (20%, Fig. 9b, bar 5), in contrast to the
 pro-aggregant TauRDΔK mice where neuronal loss (e.g.
 CA1 ~50%, CA3 ~10%, DG ~25%) was observed in
 all regions of the hippocampus (Fig. 9b, bar 3, 6, 9)"
+SET Confidence = "High"
 SET MeSHAnatomy = "CA3 Region, Hippocampal"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:Neurons)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:Neurons)
 SET MeSHAnatomy = "Hippocampus"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(MESH:Neurons)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(MESH:Neurons)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Surprisingly there was a 50% reduction
 in the amount of Wnt5a protein in anti-aggregant
 TauRDΔKPP slices compared to controls (Fig. 10a, lane 2, bar 2)."
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -| p(MGI:Wnt5a)
+SET Confidence = "High"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -| p(MGI:Wnt5a)
+UNSET Confidence
 
 SET Evidence = "However, when the expression of the antiaggregant
 TauRDΔKPP was switched off by DOX, there was
 an even more pronounced reduction in Wnt5a level
 (Fig. 10a, lane 3, bar 3)"
-a(CHEBI:doxycycline) -| p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro"))
+SET Confidence = "High"
+a(CHEBI:doxycycline) -| p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro"))
 a(CHEBI:doxycycline) -| p(MGI:Wnt5a)
+UNSET Confidence
 
 SET Evidence = "Unexpectedly the
 Wnt3 levels in the anti-aggregant TauRDΔKPP slices were
 increased substantially (up to 85%) compared to the agematched
 control slices (Fig. 10b, lane 2, bar 2)"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> p(MGI:Wnt3)
+SET Confidence = "High"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> p(MGI:Wnt3)
+UNSET Confidence
 
 SET Evidence = "Remarkably, this caused a 40% reduction of the
 Wnt3 level compared to control slices (Fig. 10b, lane 3, bar 3)"
 #this refers to doxycycline
-a(CHEBI:doxycycline) -| p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro"))
+SET Confidence = "High"
+a(CHEBI:doxycycline) -| p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro"))
 a(CHEBI:doxycycline) -| p(MGI:Wnt3)
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> p(MGI:Wnt3)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> p(MGI:Wnt3)
+UNSET Confidence
 
 SET Evidence = "This suggests that the expression
 of anti-aggregant TauRDΔKPP is needed for the increased
@@ -330,11 +394,12 @@ proliferation of newborn neurons, and since these new
 born neurons need endogenous mouse Tau for their migration,
 differentiation, and maturation, there is enhanced
 expression of endogenous mouse Tau"
-p(HBP:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:Neurons)
+SET Confidence = "High"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> a(MESH:Neurons)
 p(MGI:Mapt) -> bp(GO:"neuron migration")
 p(MGI:Mapt) -> bp(GO:"neuron differentiation")
 p(MGI:Mapt) -> bp(GO:"neuron maturation")
-
+UNSET Confidence
 UNSET Species
 
 ##########################################################
