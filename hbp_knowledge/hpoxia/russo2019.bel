@@ -92,10 +92,9 @@ at polarized light under an optical microscope after red
 Congo staining and more importantly a strong resistance to
 proteases that normally provide to their turnover in order
 to avoid accumulation in cells and tissues [2]."
-SET Confidence = "Low"
+SET Confidence = "High"
 p(HGNCGENEFAMILY:Aminopeptidases) -| p(CONSO:"amyloid-beta fibrils")
-#strong resistance of beta fibrils from proteases doesnt mean that protease could not digest beta fibrils? This accumulation leads to amyloidosis.
-p(HGNCGENEFAMILY:Aminopeptidases) cnc path(DOID:amyloidosis)
+p(CONSO:"amyloid-beta aggregates") -> path(DOID:amyloidosis)
 UNSET Confidence
 
 SET Evidence = "Intracellular β-fibrils are able to activate various pathways of
@@ -119,7 +118,7 @@ UNSET Confidence
 SET Evidence = "This interaction may protect β-aggregates from
 proteolysis on one side and stimulate their phagocytosis by
 macrophages on the other side (Figure 1) [19, 20]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 #this interaction - between beta fibrils and pentraxins
 complex(p(CONSO:"amyloid-beta aggregates"),p(HGNCGENEFAMILY:"Long pentraxins")) -| bp(GO:proteolysis)
 complex(p(CONSO:"amyloid-beta aggregates"),p(HGNCGENEFAMILY:"Long pentraxins")) -> bp(GO:"macrophage activation")
@@ -148,7 +147,7 @@ is generated, leading to HIF-1α activation that is
 accompanied by NFκB activation. Importantly, both
 HIF-1α and NFκB trigger and amplify the inflammatory reparative
 response and cellular damage [28]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 #this area - beta aggregated tissues
 p(CONSO:"amyloid-beta aggregates") -> bp(MESH:"Cell Hypoxia")
 bp(MESH:"Cell Hypoxia") -> act(p(HGNC:HIF1A))
@@ -176,7 +175,7 @@ metabolism, an irreversible contraction and degradation of
 the cytoskeleton and the activation of Ca++-dependent
 cytosolic proteases (calpains) and DNAases, leading to an
 irreversible and rapid cell degradation [30]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 #above 10^-6 M
 a(CHEBI:"calcium(2+)",loc(MESH:Cytosol)) -> bp(GO:"membrane lipid catabolic process")
 bp(GO:"membrane lipid catabolic process") -> deg(a(MESH:Cytoskeleton))
@@ -257,7 +256,7 @@ SET Evidence = "The latter
 further activate oxidative metabolism, produce mediators
 and other proinflammatory cytokines, and maintain a
 chronic inflammatory status in the affected tissue."
-SET Confidence = "Medium"
+SET Confidence = "High"
 #IRR gene
 p(HGNC:INSRR) ->  bp(GO:"cellular respiration")
 p(HGNC:INSRR) -> bp(GO:"cytokine production")
@@ -270,7 +269,7 @@ include cell/tissue damage, continuous repair and fibrosis
 with progressive deterioration of the function leading to
 organ insufficiency, and neuronal damages, the typical final
 outcome of amyloidoses [5, 7, 36]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 act(p(HGNC:INSRR)) -> bp(GO:"cell death")
 act(p(HGNC:INSRR)) -> deg(a(MESH:Tissues))
 act(p(HGNC:INSRR)) -> path(MESH:Fibrosis)
@@ -302,7 +301,7 @@ UNSET Confidence
 SET Evidence = "Through these mechanisms,
 inflammation and ROS contribute substantially to the cell/
 tissue damage and severity of the disease."
-SET Confidence = "Medium"
+SET Confidence = "High"
 #these mechanisms - actvation of inflammasome,activation of NF-kB
 act(p(HGNCGENEFAMILY:"NF-kappa B complex subunits")) -> bp(GO:"inflammatory response")
 act(complex(GO:"inflammasome complex")) -> bp(GO:"inflammatory response")
@@ -332,7 +331,7 @@ accumulation of amyloid fibrils is responsible for a local hypoxia
 and of a chronic long lasting inflammation, which in
 turn produces tissue damage leading to continuous repair,
 fibrosis, and organ insufficiency."
-SET Confidence = "Medium"
+SET Confidence = "High"
 #NCIT:C82901 - chronic inflammation
 p(CONSO:"amyloid-beta aggregates") -> path(EFO:hypoxia)
 p(CONSO:"amyloid-beta aggregates") -> path(NCIT:C82901)
