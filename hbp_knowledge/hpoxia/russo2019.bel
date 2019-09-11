@@ -1,4 +1,4 @@
-#######################
+ #######################
 # Document Properties #
 #######################
 SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
@@ -77,6 +77,7 @@ SET Citation = {"PubMed", "31346362"}
 SET Evidence = "A constant feature of amyloidoses is the progressive accumulation
 of β-fibrils in the intra- and extracellular space of
 involved tissues and organs as reported in Figure 1."
+SET Confidence = "High"
 #Fig 1
 path(DOID:amyloidosis) -> p(CONSO:"Tau aggregates",loc(GO:cytosol))
 path(DOID:amyloidosis) -> p(CONSO:"huntingtin aggregates",loc(GO:nucleus))
@@ -84,20 +85,26 @@ path(DOID:amyloidosis) -> p(CONSO:"amyloid-beta fibrils",loc(GO:"endoplasmic ret
 path(DOID:amyloidosis) -> sec(p(CONSO:"amyloid-beta fibrils"))
 path(DOID:amyloidosis) -> p(CONSO:"amyloid-beta fibrils",loc(GO:"extracellular space"))
 path(DOID:amyloidosis) -> p(CONSO:"amyloid-beta fibrils",loc(MESH:Plasma))
+UNSET Confidence
 
 SET Evidence = "β-Fibrils exhibit a green birefringence
 at polarized light under an optical microscope after red
 Congo staining and more importantly a strong resistance to
 proteases that normally provide to their turnover in order
 to avoid accumulation in cells and tissues [2]."
+SET Confidence = "Low"
 p(HGNCGENEFAMILY:Aminopeptidases) -| p(CONSO:"amyloid-beta fibrils")
+#strong resistance of beta fibrils from proteases doesnt mean that protease could not digest beta fibrils? This accumulation leads to amyloidosis.
 p(HGNCGENEFAMILY:Aminopeptidases) cnc path(DOID:amyloidosis)
+UNSET Confidence
 
 SET Evidence = "Intracellular β-fibrils are able to activate various pathways of
 oxidative metabolism with production of ROS which contribute substantially to the cell damage."
+SET Confidence = "High"
 p(CONSO:"amyloid-beta fibrils",loc(GO:intracellular)) -> bp(GO:"cellular respiration")
 p(CONSO:"amyloid-beta fibrils",loc(GO:intracellular)) -> bp(GO:"reactive oxygen species biosynthetic process")
 p(CONSO:"amyloid-beta fibrils",loc(GO:intracellular)) -> bp(GO:"cell death")
+UNSET Confidence
 
 SET Evidence = "Moreover, in systemic amyloidoses, 15% of
 amyloidosic substance is constituted by SAP or serum amyloid
@@ -105,20 +112,26 @@ protein, a member of the major acute-phase protein family,
 i.e., pentraxins, which strongly interacts with β-fibrils,
 probably through chemical patterns usually recognized by
 pentraxins."
+SET Confidence = "High"
 p(CONSO:"amyloid-beta fibrils") hasComponents list(p(HGNC:APCS),p(HGNCGENEFAMILY:"Long pentraxins"),p(HGNC:APP))
+UNSET Confidence
 
 SET Evidence = "This interaction may protect β-aggregates from
 proteolysis on one side and stimulate their phagocytosis by
 macrophages on the other side (Figure 1) [19, 20]."
+SET Confidence = "Medium"
 #this interaction - between beta fibrils and pentraxins
 complex(p(CONSO:"amyloid-beta aggregates"),p(HGNCGENEFAMILY:"Long pentraxins")) -| bp(GO:proteolysis)
-complex(p(CONSO:"amyloid-beta aggregates"),p(HGNCGENEFAMILY:"Long pentraxins")) -> bp(GO:phagocytosis)
+complex(p(CONSO:"amyloid-beta aggregates"),p(HGNCGENEFAMILY:"Long pentraxins")) -> bp(GO:"macrophage activation")
+bp(GO:"macrophage activation") -> bp(GO:phagocytosis)
+UNSET Confidence
 
 SET Evidence = "Systemic amyloidoses are characterized by
 the deposition of culprit proteins such as immunoglobulin
 light chains (intact or fragments) and many acute-phase proteins
 (SAA, transthyretin, fibrinogen α-chain, β2-macroglobulin,
 lysozyme, and gelsolin) [1, 21]."
+SET Confidence = "High"
 #NCIT:C16720 - Immunoglobulin Light chains
 path(DOID:amyloidosis) -> p(NCIT:C16720)
 path(DOID:amyloidosis) -> p(NCIT:C16720,frag("?"))
@@ -128,28 +141,34 @@ path(DOID:amyloidosis) -> p(HGNC:FGA)
 path(DOID:amyloidosis) -> p(HGNC:B2M)
 path(DOID:amyloidosis) -> p(HGNC:LYZ)
 path(DOID:amyloidosis) -> p(HGNC:GSN)
+UNSET Confidence
 
 SET Evidence = "As a consequence, in this area, a hypoxic environment
 is generated, leading to HIF-1α activation that is
 accompanied by NFκB activation. Importantly, both
 HIF-1α and NFκB trigger and amplify the inflammatory reparative
 response and cellular damage [28]."
+SET Confidence = "Medium"
 #this area - beta aggregated tissues
-p(CONSO:"amyloid-beta aggregates") -> p(HGNC:HIF1A)
-p(CONSO:"amyloid-beta aggregates") -> p(HGNCGENEFAMILY:"NF-kappa B complex subunits")
+p(CONSO:"amyloid-beta aggregates") -> bp(MESH:"Cell Hypoxia")
+bp(MESH:"Cell Hypoxia") -> act(p(HGNC:HIF1A))
+p(CONSO:"amyloid-beta aggregates") -> act(p(HGNCGENEFAMILY:"NF-kappa B complex subunits"))
 p(HGNC:HIF1A) -> bp(GO:"inflammatory response")
 p(HGNC:HIF1A) -> bp(GO:"cell death")
 p(HGNCGENEFAMILY:"NF-kappa B complex subunits") -> bp(GO:"inflammatory response")
 p(HGNCGENEFAMILY:"NF-kappa B complex subunits") -> bp(GO:"cell death")
+UNSET Confidence
 
 SET Evidence = "O2 shortage causes inhibition
 of ATP production, rapid fall of the energy charge, and
 loss of ionic gradients with the alteration of cytosolic calcium
 homeostasis [29]."
+SET Confidence ="High"
 a(CHEBI:dioxygen) -> bp(GO:"ATP biosynthetic process")
 a(CHEBI:dioxygen) -> bp(GO:"energy homeostasis")
 a(CHEBI:dioxygen) -> bp(GO:"establishment or maintenance of transmembrane electrochemical gradient")
 a(CHEBI:dioxygen) reg bp(GO:"cellular calcium ion homeostasis")
+UNSET Confidence
 
 SET Evidence = "The increase of cytosolic Ca++ concentration
 above 10-6 M dramatically activates the peroxidative
@@ -157,13 +176,15 @@ metabolism, an irreversible contraction and degradation of
 the cytoskeleton and the activation of Ca++-dependent
 cytosolic proteases (calpains) and DNAases, leading to an
 irreversible and rapid cell degradation [30]."
+SET Confidence = "Medium"
 #above 10^-6 M
-a(CHEBI:"calcium(2+)") -> bp(GO:"membrane lipid catabolic process")
+a(CHEBI:"calcium(2+)",loc(MESH:Cytosol)) -> bp(GO:"membrane lipid catabolic process")
 bp(GO:"membrane lipid catabolic process") -> deg(a(MESH:Cytoskeleton))
-a(CHEBI:"calcium(2+)") -> act(p(HGNCGENEFAMILY:Calpains))
-a(CHEBI:"calcium(2+)") -> act(p(MESH:Deoxyribonucleases))
+a(CHEBI:"calcium(2+)",loc(MESH:Cytosol)) -> act(p(HGNCGENEFAMILY:Calpains))
+a(CHEBI:"calcium(2+)",loc(MESH:Cytosol)) -> act(p(MESH:Deoxyribonucleases))
 act(p(HGNCGENEFAMILY:Calpains)) -> bp(GO:"cell death")
 act(p(MESH:Deoxyribonucleases)) -> bp(GO:"cell death")
+UNSET Confidence
 
 SET Evidence = "This adaptation to hypoxia occurs through the activation of hypoxic inducible factors
 (HIFs) [32] and the expression of a number of HIF-1α-
@@ -178,6 +199,7 @@ reverse transcriptase (TERT), and stemness genes to
 increase the stem cell compartment to substitute death cells)
 [34], transforming growth factor β (TGF-β) and fibrosis
 pathways [33]."
+SET Confidence = "High"
 p(HGNC:HIF1A) -> g(HGNC:VEGFA)
 g(HGNC:VEGFA) -> bp(GO:angiogenesis)
 p(HGNC:HIF1A) -> bp(GO:angiogenesis)
@@ -198,6 +220,7 @@ p(HGNC:HIF1A) -> bp(GO:autophagy)
 p(HGNC:HIF1A) -> g(HGNC:TERT)
 p(HGNC:HIF1A) -> g(HGNC:TGFB1)
 p(HGNC:HIF1A) -> p(CONSO:"amyloid-beta fibrils")
+UNSET Confidence
 
 SET Evidence = "As a consequence, alarmins released by necrotic cells
 (β-fibrils, high-mobility group box 1 or HMGB1, ATP/ADP,
@@ -206,6 +229,7 @@ expressed receptors producing an additional activation of
 transcription factors (NFκB, STAT3, AP1, etc.) driving IRR
 gene transcription not only in resident inflammatory cells
 but also in remodeled parenchymal cells [26, 27]."
+SET Confidence = "High"
 #Receptors - RAGE, P2X7, NOD-like, Inflammasome
 #NCIT:C706 - Nucleic acids
 bp(GO:"necrotic cell death") -> a(MESH:Alarmins)
@@ -227,12 +251,18 @@ complex(a(MESH:Alarmins),complex(GO:"inflammasome complex")) -> act(p(HGNCGENEFA
 complex(a(MESH:Alarmins),complex(GO:"inflammasome complex")) -> act(p(HGNC:STAT3))
 complex(a(MESH:Alarmins),complex(GO:"inflammasome complex")) -> act(complex(GO:"transcription factor AP-1 complex"))
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "The latter
 further activate oxidative metabolism, produce mediators
 and other proinflammatory cytokines, and maintain a
 chronic inflammatory status in the affected tissue."
+SET Confidence = "Medium"
 #IRR gene
+p(HGNC:INSRR) ->  bp(GO:"cellular respiration")
+p(HGNC:INSRR) -> bp(GO:"cytokine production")
+p(HGNC:INSRR) -> path(MESH:Inflammation)
+UNSET Confidence
 
 SET Evidence = "Unfortunately,
 clinical consequences of this prolonged IRR activation
@@ -240,11 +270,19 @@ include cell/tissue damage, continuous repair and fibrosis
 with progressive deterioration of the function leading to
 organ insufficiency, and neuronal damages, the typical final
 outcome of amyloidoses [5, 7, 36]."
+SET Confidence = "Medium"
+act(p(HGNC:INSRR)) -> bp(GO:"cell death")
+act(p(HGNC:INSRR)) -> deg(a(MESH:Tissues))
+act(p(HGNC:INSRR)) -> path(MESH:Fibrosis)
+act(p(HGNC:INSRR)) -> deg(a(MESH:Neurons))
+act(p(HGNC:INSRR)) -> path(DOID:amyloidosis)
+UNSET Confidence
 
 SET Evidence = "Extracellular
 β-fibril-alarmin receptor binding can then activate NFκB
 pathways for oxidative metabolism and apoptosis [40, 41]
 as well as phagocytic activity of macrophages (Figure 1(c))."
+SET Confidence = "High"
 complex(a(MESH:Alarmins),a(CONSO:"amyloid-beta fibrils"),loc(GO:"extracellular region")) -> act(p(HGNCGENEFAMILY:"NF-kappa B complex subunits"))
 act(p(HGNCGENEFAMILY:"NF-kappa B complex subunits")) -> bp(GO:"cellular respiration")
 act(p(HGNCGENEFAMILY:"NF-kappa B complex subunits")) -> bp(GO:"programmed cell death")
@@ -252,30 +290,41 @@ act(p(HGNCGENEFAMILY:"NF-kappa B complex subunits")) -> bp(GO:phagocytosis)
 complex(a(MESH:Alarmins),a(CONSO:"amyloid-beta fibrils"),loc(GO:"extracellular region")) -> bp(GO:"cellular respiration")
 complex(a(MESH:Alarmins),a(CONSO:"amyloid-beta fibrils"),loc(GO:"extracellular region")) -> bp(GO:"programmed cell death")
 complex(a(MESH:Alarmins),a(CONSO:"amyloid-beta fibrils"),loc(GO:"extracellular region")) -> bp(GO:phagocytosis)
+UNSET Confidence
 
 SET Evidence = "On the other hand, intracellular β-fibrils are able to activate
 inflammasomes [42, 43]."
+SET Confidence = "High"
 #for the same recpetor
 complex(a(MESH:Alarmins),a(CONSO:"amyloid-beta fibrils"),loc(GO:intracellular)) -> act(complex(GO:"inflammasome complex"))
+UNSET Confidence
 
 SET Evidence = "Through these mechanisms,
 inflammation and ROS contribute substantially to the cell/
 tissue damage and severity of the disease."
+SET Confidence = "Medium"
 #these mechanisms - actvation of inflammasome,activation of NF-kB
 act(p(HGNCGENEFAMILY:"NF-kappa B complex subunits")) -> bp(GO:"inflammatory response")
 act(complex(GO:"inflammasome complex")) -> bp(GO:"inflammatory response")
 act(p(HGNCGENEFAMILY:"NF-kappa B complex subunits")) -> a(CHEBI:"reactive oxygen species")
 act(complex(GO:"inflammasome complex")) -> a(CHEBI:"reactive oxygen species")
+bp(GO:"inflammatory response") -> bp(GO:"cell death")
+bp(GO:"inflammatory response") -> deg(a(MESH:Tissues))
+a(CHEBI:"reactive oxygen species") -> bp(GO:"cell death")
+a(CHEBI:"reactive oxygen species") -> deg(a(MESH:Tissues))
+UNSET Confidence
 
 SET Evidence = "Although intracellular β-fibrils
 may undergo autophagocytosis, they still display a clear
 insensitivity to the intralysosomal acidic proteases, leading
 to lipofuscin accumulation that can be observed in aged
 and amyloidosic tissues [46]."
+SET Confidence = "High"
 #with respect to aggregation of beta fibrils
 p(CONSO:"amyloid-beta aggregates",loc(GO:intracellular)) -> bp(GO:autophagy)
 p(CONSO:"amyloid-beta aggregates",loc(GO:intracellular)) -> a(MESH:Lipofuscin)
 path(DOID:amyloidosis) -> a(MESH:Lipofuscin)
+UNSET Confidence
 
 SET Evidence = "In
 conclusion, as it has been underlined previously, progressive
@@ -283,9 +332,13 @@ accumulation of amyloid fibrils is responsible for a local hypoxia
 and of a chronic long lasting inflammation, which in
 turn produces tissue damage leading to continuous repair,
 fibrosis, and organ insufficiency."
+SET Confidence = "Medium"
 #NCIT:C82901 - chronic inflammation
 p(CONSO:"amyloid-beta aggregates") -> path(EFO:hypoxia)
 p(CONSO:"amyloid-beta aggregates") -> path(NCIT:C82901)
+path(NCIT:C82901) -> deg(a(MESH:Tissues))
+deg(a(MESH:Tissues)) -> path(MESH:Fibrosis)
+UNSET Confidence
 
 SET Evidence = "Recently, it has been shown
 [50] that recombinant APC (activated protein C, a plasma
@@ -293,68 +346,84 @@ protease) or its analogs, inhibiting the neuronal β-secretase,
 may strongly slow or block the generation of β-amyloid
 protein protecting from Alzheimer’s disease or slowing its
 progression [51, 52]"
+SET Confidence = "High"
 act(p(HGNC:PROC,var("?"))) -| p(HGNC:BACE1,loc(GO:"neuron part"))
 act(p(HGNC:PROC,var("?"))) -| p(HGNC:APP)
 p(HGNC:APP) -> path(DOID:"Alzheimer's disease")
 act(p(HGNC:PROC,var("?"))) -| path(DOID:"Alzheimer's disease")
+UNSET Confidence
 
 SET Evidence = "Using chaperones [53, 54], small molecules [54], and
 aspirin [55] slows or inhibits polymer formation [50, 55, 56]
 and β-fibril aggregation and accumulation, preventing the
 disease and attenuating its progression and symptoms."
+SET Confidence = "High"
 #OMIT:0018975 - Molecular chaperon
 p(OMIT:0018975) -| p(MESH:Proteins,pmod(MESH:Polymers))
 a(CHEBI:"acetylsalicylic acid") -| p(MESH:Proteins,pmod(MESH:Polymers))
 p(OMIT:0018975) -| p(CONSO:"amyloid-beta aggregates")
 a(CHEBI:"acetylsalicylic acid") -| p(CONSO:"amyloid-beta aggregates")
+UNSET Confidence
 
 SET Evidence = "Although the mechanism(s)
 is still unclear, it has been demonstrated that aspirin is able
 to donate its acetyl group to the culprit proteins, increasing
 their acetylation and reducing the tendency of phosphorylation."
+SET Confidence = "High"
 a(CHEBI:"acetylsalicylic acid") -> p(MESH:Proteins,pmod(Ac))
 p(MESH:Proteins,pmod(Ac)) -| p(MESH:Proteins,pmod(Ph))
 a(CHEBI:"acetylsalicylic acid") -| p(MESH:Proteins,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "Aspirin may, as well, contribute with other beneficial
 mechanisms, such as inhibition of NFκB and cyclooxygenase,
 reducing the damaging impact of the inflammatory reparative
 response."
+SET Confidence = "High"
 a(CHEBI:"acetylsalicylic acid") -| p(HGNCGENEFAMILY:"NF-kappa B complex subunits")
 a(CHEBI:"acetylsalicylic acid") -| p(MESH:"Prostaglandin-Endoperoxide Synthases")
+UNSET Confidence
 
 SET Evidence = "A long list of potential HIF-1α
 inhibitors is now available, such as digoxin, acriflavine,
 doxorubicin, and chetomin [57–59]"
+SET Confidence = "High"
 #443101 - acriflavine
 a(CHEBI:digoxin) -| p(HGNC:HIF1A)
 a(PUBCHEM:443101) -| p(HGNC:HIF1A)
 a(CHEBI:doxorubicin) -| p(HGNC:HIF1A)
 a(CHEBI:chetomin) -| p(HGNC:HIF1A)
+UNSET Confidence
 
 SET Evidence = "The utilization of NFκB inhibitors, anti-inflammatory
 drugs, and anti-inflammasome agents is aimed at modulating
 and inhibiting chronic inflammation and ROS production
 responsible for continuous cell damage, repair, and
 fibrosis [31, 60]"
+SET Confidence = "High"
 a(MESH:"Anti-Inflammatory Agents") neg path(NCIT:C82901)
 a(MESH:"Anti-Inflammatory Agents") neg a(CHEBI:"reactive oxygen species")
 complex(GO:"inflammasome complex") pos path(NCIT:C82901)
 complex(GO:"inflammasome complex") pos a(CHEBI:"reactive oxygen species")
+UNSET Confidence
 
 SET Evidence = "As a consequence,
 natural nutrients [64] such as curcumin and in
 particular vanillin, a degradation product of curcumin, have
 been shown to reduce the formation of advanced glycation
 end products (AGEs) [65]."
+SET Confidence = "High"
 a(CHEBI:curcumin) -| p(MESH:"Glycation End Products, Advanced")
 deg(a(CHEBI:curcumin)) -> a(CHEBI:vanillin)
 a(CHEBI:vanillin) -| p(MESH:"Glycation End Products, Advanced")
+UNSET Confidence
 
 SET Evidence = "Recently, physical exercise has been shown to be able
 to prevent Alzheimer’s disease and substantially slow its
 progression."
+SET Confidence = "High"
 path(EFO:"physical activity") -| path(DOID:"Alzheimer's disease")
+UNSET Confidence
 
 SET Evidence = "In particular, the release of survival factors, such as
 BDGF (neurons), IGF-1 (systemic or organ-specific release),
@@ -364,7 +433,9 @@ are able to reduce apoptosis and to repair abnormal cell
 components, rescuing sublethally damaged postmitotic cells,
 such as neurons [66], myocardiocytes, skeletal muscle, and
 hepatocytes [67]."
+SET Confidence = "High"
 p(HGNC:BDNF) -| bp(GO:"programmed cell death")
 p(HGNC:IGF1) -| bp(GO:"programmed cell death")
 a(CHEBI:testosterone) -| bp(GO:"programmed cell death")
 act(p(HGNC:SIRT1)) -| bp(GO:"programmed cell death")
+UNSET Confidence
