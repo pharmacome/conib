@@ -14,14 +14,14 @@ SET DOCUMENT Description = ""
 # Namespaces #
 ##############
 
-# Namespaces hosted on https://github.com/pharmacome/terminology
+# Namespaces hosted on https://github.com/pharmacome/conso
 # --------------------------------------------------------------
  DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
 # DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
 # DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 # DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 # DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
- DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/4aa36980578c7d2cff07371abf768f15db89cd11/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
  DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 # DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -79,11 +79,12 @@ p(HGNC:"SIRT1") isA p(HGNCGENEFAMILY:"Sirtuins")
 UNSET Confidence
 
 SET Evidence = "Whether SIRT1 has protective role in mammalian HD remains undefined, however, as results from lower organisms such as Caenorhabditis elegans [13] and Drosophila melanogaster [14] are contradictory; for example, overexpression of sir2, an ortholog of human SIRT1, suppressed mutant huntingtin (Htt)-induced neurotoxicity [13], whereas overexpression of sir2 in drosophila showed no significant protection [15]."
-SET Confidence = "Medium"
+SET Confidence = "Low"
 #34708 - Sirt1 D.melanogaster
 #3361342 - sir2 C.elegans
 SET Species = "6239"
-p(NCBIGENE:"3361342") -| p(HGNC:"HTT", pmod(CONSO:"CAG repeats"))
+#p(NCBIGENE:"3361342") -| p(HGNC:"HTT", pmod(CONSO:"CAG repeats"))
+#travis giving error on 3361342
 p(HGNC:"HTT", pmod(CONSO:"CAG repeats")) -> path(HBP:"neurotoxicity")
 UNSET Species
 SET Species = "7227"
