@@ -61,7 +61,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
  # DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
  DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
- # DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
  # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
  # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
  DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -77,62 +77,83 @@ SET Citation = {"PubMed", "28669544"}
 SET Species = "10090"
 
 SET Evidence = "Microglia, the innate immune cells of the central nervous system (CNS), provide constant surveillance for neural functioning (Nimmerjahnet al., 2005; Davalos et al., 2005)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Central Nervous System"
 a(MESH:Microglia) isA bp(MESH:"Immunity, Innate")
 a(MESH:Microglia) reg path(MESH:"Neural Pathways")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "They coordinate various critical roles throughout life, assisting early neuronal development and circuit formation and maintaining brain homeostasis (Paolicelli and Gross, 2011; Tremblay et al., 2011;
 Kettenmann et al., 2013)."
+SET Confidence = "Medium"
 #they - microglia
 a(MESH:Microglia) reg bp(GO:"nervous system development")
 a(MESH:Microglia) reg bp(GO:"brain development")
+a(MESH:Microglia) reg bp(MESH:"Neural Pathways")
+UNSET Confidence
 
 SET Evidence = "As the primary source of phagocytes in the CNS, microglia engulf cellular debris upon programmed
 apoptosis, remove excess synapses during neural circuit maturation, and clear the brain from potentially dangerous protein aggregates (Wakselman et al., 2008; Sierra et al., 2010; Lee and Landreth, 2010; Paolicelli et al., 2011; Prinz et al., 2011)."
+SET Confidence = "High"
 path(MESH:Apoptosis) -> a(NCIT:C120869)
 SET MeSHAnatomy = "Central Nervous System"
 composite(a(MESH:Microglia), a(NCIT:C120869))
 UNSET MeSHAnatomy
 a(MESH:Microglia) -| a(MESH:Synapses)
 a(MESH:Microglia) -| path(MESH:"Protein Aggregation, Pathological")
+UNSET Confidence
 
 SET Evidence = "However, recent studies indicate that this process re-activates in Alzheimer’s disease (AD), in which amyloid promotes microglia-mediated removal of synapses (Hong et al., 2016)."
+SET Confidence = "High"
 #this process - synaptic pruning
 path(DOID:"Alzheimer's disease") => path(MESH:"Neuronal Plasticity")
 SET MeSHDisease = "Alzheimer Disease"
 p(HGNC:APP) -> a(MESH:Microglia)
 a(MESH:Microglia) =| a(MESH:Synapses)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Synaptic loss, an early and highly predictive correlate of cognitive decline (Terry et al., 1991), occurs not only in AD but also in other distinct neurodegenerative disorders characterized by the presence of toxic protein aggregates."
+SET Confidence = "High"
 path(MESH:"Neuronal Plasticity") pos path(MESH:"Cognitive Dysfunction")
 path(MESH:"Protein Aggregation, Pathological") -- path(DOID:"neurodegenerative disease")
 path(MESH:"Neuronal Plasticity") -- path(DOID:"neurodegenerative disease")
+UNSET Confidence
 
 SET Evidence = "Evidence from genome-wide association studies (GWASs) reveals that most genes associated with risk to develop such disorders are highly expressed in microglia, which implies that they could modulate immune and phagocytic functions in disease states (Derecki et al., 2014)."
+SET Confidence = "Medium"
+a(MESH:Microglia) -- path(DOID:"neurodegenerative disease")
 a(MESH:Microglia) reg path(MESH:"Immune System")
 a(MESH:Microglia) reg path(MESH:Phagocytosis)
+UNSET Confidence
 
 SET Evidence = "Microglia, the scavenger cells of the brain, play a key role as moderators of protein aggregates clearance, which occurs intracellularly through enzymatic degradation following phagocytosis or extracellularly through degradation by secreted enzymes (Vekrellis et al., 2000; Nakanishi, 2003; Ries and Sastre,
 2016; Sole´ -Dome` nech et al., 2016)."
+SET Confidence = "High"
 a(MESH:Microglia) reg deg(p(CONSO:"protein aggregates"))
 a(MESH:Enzymes) -> deg(p(CONSO:"protein aggregates"))
 deg(p(CONSO:"protein aggregates")) -> path(MESH:Phagocytosis)
+UNSET Confidence
 
 SET Evidence = "TDP-43 exhibited the strongest Abeta clearance in BV2 cells, i.e., residual Abeta peptide levels measured from medium containing endogenous murine Abeta showed a significant reduction after exposure to cells in which TDP-43 gene was knocked down (Figures S1A–S1D)."
+SET Confidence = "High"
 #BV2 cells
 p(HGNC:TARDBP) => deg(p(MESH:"Amyloid beta-Peptides"))
+UNSET Confidence
 
 SET Evidence = "TDP-43 is a 43 kDa DNA-RNA binding protein encoded by the Tardbp gene and is a known transcriptional repressor, mRNA binding protein, and splicing factor (Buratti and Baralle, 2001; Lagier-Tourenne et al., 2010; Polymenidou et al., 2011; Baralle et al.,2013)."
+SET Confidence = "High"
 p(HGNC:TARDBP) isA p(MESH:"RNA-Binding Proteins")
 p(HGNC:TARDBP) isA p(MESH:"DNA-Binding Proteins")
 g(HGNC:TARDBP) -> p(HGNC:TARDBP)
 p(HGNC:TARDBP) isA p(MESH:"Repressor Proteins")
 p(HGNC:TARDBP) -> act(p(HGNC:TARDBP), ma(GO:"mRNA binding"))
 p(HGNC:TARDBP) isA a(MESH:"RNA Splicing Factors")
+UNSET Confidence
 
 SET Evidence = "Ubiquinated TDP-43 aggregates represent the predominant constituent of cytoplasmic inclusions in glia and neurons in frontotemporal lobar degeneration (FTLD) and amyotrophic lateral sclerosis (ALS) patients, who show severe neuronal loss in frontal or motor cortex, respectively (Neumann et al., 2006)."
+SET Confidence = "High"
 SET Cell = {"glial cell", "neuron"}
 path(OMIT:0026893) -> p(HGNC:TARDBP, pmod(CONSO:"protein aggregation"), pmod(Ub), loc(MESH:"Inclusion Bodies"))
 path(DOID:"amyotrophic lateral sclerosis") -> p(HGNC:TARDBP, pmod(CONSO:"protein aggregation"), pmod(Ub), loc(MESH:"Inclusion Bodies"))
@@ -141,9 +162,11 @@ SET Cell = "neuron"
 path(OMIT:0026893) neg a(MESH:"Frontal Lobe")
 path(DOID:"amyotrophic lateral sclerosis") neg a(MESH:"Motor Cortex")
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "The accompanying cell death in these disorders may arise from a combination of a toxic gain of function and a loss of nuclear TDP-43, both of which are associated with the presence of cytoplasmic aggregates (Cohen
 et al., 2011; Gendron and Petrucelli, 2011)."
+SET Confidence = "High"
 #these disorders - ALS, FTLD
 SET MeSHDisease = {"Amyotrophic Lateral Sclerosis", "Frontotemporal Lobar Degeneration"}
 p(HGNC:TARDBP, loc(GO:nucleus)) -| bp(GO:"cell death")
@@ -152,38 +175,50 @@ p(HGNC:TARDBP, pmod(CONSO:"protein aggregation"), loc(GO:cytosol)) => act(p(HGNC
 p(HGNC:TARDBP, pmod(CONSO:"protein aggregation"), loc(GO:cytosol)) => bp(GO:"cell death")
 act(p(HGNC:TARDBP)) => bp(GO:"cell death")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "TDP-43 loss of function in neurons has been shown to be sufficient for inducing neuronal loss, accompanied by neuropathological alterations (Kraemer et al., 2010; Wu et al., 2012; Iguchi et al., 2013; Vanden Broeck et al., 2013)"
+SET Confidence = "High"
 SET Cell = "neuron"
 act(p(HGNC:TARDBP)) -| bp(GO:"cell death")
 bp(GO:"cell death") -> path(MESH:Neuropathology)
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "These results indicate that TDP-43 depletion in microglia increases the overall phagocytic activity."
+SET Confidence = "High"
 SET Cell = "microglial cell"
 p(HGNC:TARDBP) -| path(MESH:Phagocytosis)
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Since TDP-43 depletion increased intracellular degradation and amyloid is sorted to the lysosomal compartment for degradation in microglia (Cole et al., 1992), we examined whether increased lysosomal
 function occurs after TDP-43 depletion"
+SET Confidence = "High"
 SET Cell = "microglial cell"
 p(HGNC:TARDBP) -| path(MESH:Phagocytosis)
 p(HGNC:TARDBP) -| deg(p(HGNC:APP, loc(GO:lysosome)))
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "In addition, increased levels of lysosomal markers, such as LAMP1 and LAMP2, also accompanied the increased changes in acidic organelles in both BV2 cells (Figure 1M) and primary microglia cultures depleted of TDP-43 (Figures S3A–S3C)."
+SET Confidence = "High"
 #BV2 cell, primary microglia cultures
 p(HGNC:TARDBP) -| p(HGNC:LAMP1)
 p(HGNC:TARDBP) -| p(HGNC:LAMP2)
 p(HGNC:TARDBP) -| bp(GO:"lysosomal lumen acidification")
+UNSET Confidence
 
 SET Evidence = "TDP-43 loss was recently shown to promote the nuclear translocation of TFEB, a transcription factor regulating lysosomal biogenesis (Xia et al., 2016)."
+SET Confidence = "High"
 p(HGNC:TARDBP) -| tloc(p(HGNC:TFEB), fromLoc(GO:cytosol), toLoc(GO:nucleus))
 SET CellStructure = "Lysosomes"
 p(HGNC:TFEB) reg path(MESH:"Organelle Biogenesis")
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "We found that the expression of Lamp1, CtsD, CtsB, Clcn7, vATP6v1h, Psap, and Psen2 in TDP-43-depleted cells was higher than in scrambled control (Figure S3D)."
+SET Confidence = "High"
 #gene expression
 p(HGNC:TARDBP) -| r(HGNC:LAMP1)
 p(HGNC:TARDBP) -| r(HGNC:CTSD)
@@ -192,88 +227,113 @@ p(HGNC:TARDBP) -| r(HGNC:CLCN7)
 p(HGNC:TARDBP) -| r(HGNC:ATP6V1H)
 p(HGNC:TARDBP) -| r(HGNC:PSAP)
 p(HGNC:TARDBP) -| r(HGNC:PSEN2)
-
+UNSET Confidence
 
 SET Evidence = "We confirmed that Tardbp transcript levels were significantly downregulated specifically in microglia isolated from cKO mice upon tamoxifen administration compared to WT controls, whereas overall cortical
 levels remained unchanged (Figures S4A and S4B)."
+SET Confidence = "Medium"
 #conditional TDP-43 knockout mouse line (cKO)
-composite(a(CHEBI:tamoxifen), a(MESH:Microglia)) =| p(HGNC:TARDBP)
-composite(a(CHEBI:tamoxifen), a(MESH:Microglia)) cnc a(MESH:"Cerebral Cortex")
+composite(a(CHEBI:tamoxifen), a(MESH:Microglia)) =| r(HGNC:TARDBP)
+composite(a(CHEBI:tamoxifen), a(MESH:Microglia)) cnc r(HGNC:TARDBP,loc(MESH:"Cerebral Cortex"))
+UNSET Confidence
 
 SET Evidence = "These results definitely show that TDP-43 depletion in microglia promotes Abeta clearance,
 rather than affecting production."
+SET Confidence = "High"
 SET Cell = "microglial cell"
 p(HGNC:TARDBP) -| deg(p(HGNC:APP))
 p(HGNC:TARDBP) cnc p(HGNC:APP)
 UNSET Cell
+UNSET Confidence
 
 #condition - decrease in amyloid load
 
 SET Evidence = "Specifically, PSD95, a scaffold protein located in dendritic spines, was significantly reduced (Figure 3F), while levels of MAP2, a dendritic structural protein, were comparable between WT and cKO mice"
+SET Confidence = "High"
 SET CellStructure = "Dendritic Spines"
 deg(p(HGNC:APP)) =| p(HGNC:DLG4)
 UNSET CellStructure
 SET CellStructure = "Dendrites"
 deg(p(HGNC:APP)) cnc p(HGNC:MAP2)
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "Consistently, levels of synapsin and synaptophysin were also reduced (Figures 3H and 3I)."
+SET Confidence = "High"
 deg(p(HGNC:APP)) -| p(HGNCGENEFAMILY:Synapsins)
 deg(p(HGNC:APP)) -| p(HGNCGENEFAMILY:Synaptophysins)
+UNSET Confidence
 
 SET Evidence = "In addition, quantification of immunoreactive puncta for the synaptic marker vGlut1 also confirmed a drastic reduction in glutamatergic terminals (Figures 3J and 3K)."
+SET Confidence = "High"
 deg(p(HGNC:APP)) -| bp(GO:"synaptic transmission, glutamatergic")
+UNSET Confidence
 
 SET Evidence = "These data show that microglia lacking TDP-43 can mediate enhanced removal and clearance
 of amyloid in an AD mouse model, but also in parallel, induce significant synapse loss."
+SET Confidence = "Medium"
 SET Cell = "microglial cell"
 SET Species = "10090"
-SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+SET MeSHDisease = "Alzheimer Disease"
 p(HGNC:TARDBP) -| deg(p(HGNC:APP))
 p(HGNC:TARDBP) -> a(MESH:Synapses)
 UNSET MeSHDisease
 UNSET Species
 UNSET Cell
-
+UNSET Confidence
 #end of condition
 
 SET Evidence = "Microglia are shown to re-activate synaptic pruning in the presence of Abeta oligomers (Hong et al., 2016)."
+SET Confidence = "High"
 a(MESH:Microglia, loc(CONSO:"amyloid-beta oligomers")) -> path(MESH:"Neuronal Plasticity")
+UNSET Confidence
 
 #in case of synaptic loss
 
 SET Evidence = "Since demyelination can occur in many neurodegenerative disorders, we also assayed levels of myelin binding protein (MBP) isoforms and found a significant decrease (Figures 4A and 4D)."
+SET Confidence = "Medium"
+path(EFO:"neurodegenerative disease") -> path(HP:"CNS demyelination")
 path(MESH:"Neuronal Plasticity") =| p(HGNC:MBP)
+UNSET Confidence
 
 SET Evidence = "The decrease in PSD95 was significant despite no changes in MAP2 levels, indicative of a selective synapse loss rather than general neuronal death (Figures 4A and 4E)."
+SET Confidence = "High"
 p(HGNC:MAP2) cnc p(HGNC:DLG4)
 path(MESH:"Neuronal Plasticity") =| p(HGNC:DLG4)
+UNSET Confidence
 
 SET Evidence = "These results conclusively show that synapse loss occurs due to microglial TDP-43 depletion in
 mice, independent of amyloid load."
+SET Confidence = "High"
 SET Cell = "microglial cell"
 p(HGNC:TARDBP, loc(CONSO:"amyloid-beta oligomers")) -> path(MESH:"Neuronal Plasticity")
 p(HGNC:TARDBP) -> path(MESH:"Neuronal Plasticity")
 UNSET Cell
+UNSET Confidence
 
 #end of case
 
 SET Evidence = "This suggests that TDP-43 pathology might promote neurodegeneration through synapse loss on one
 hand, but on the other might also reduce the risk for enhancing the amyloid load and thus decrease the prevalence of AD."
+SET Confidence = "Medium"
 path(MESH:"TDP-43 Proteinopathies") -> path(EFO:"neurodegenerative disease")
 path(MESH:"TDP-43 Proteinopathies") -> deg(p(HGNC:APP))
-path(MESH:"TDP-43 Proteinopathies") -| path(DOID:"amyotrophic lateral sclerosis")
+path(MESH:"TDP-43 Proteinopathies") -| path(DOID:"Alzheimer's disease")
+UNSET Confidence
 
 SET Evidence = "Importantly, we found that CD68 burden was significantly higher in ALS patients with TDP-43 pathology as compared to ALS patients without TDP-43 inclusions, or to healthy controls (Figures 5E and 5F; Table S2), supporting a critical role for TDP-43 in regulating microglial function."
+SET Confidence = "High"
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 path(MESH:"TDP-43 Proteinopathies") => p(HGNC:CD68)
 UNSET MeSHDisease
 path(DOID:"amyotrophic lateral sclerosis") -> p(HGNC:CD68)
 p(HGNC:TARDBP) reg act(a(MESH:Microglia))
+UNSET Confidence
 
 SET Evidence = "In the MND cases, but not in the controls, we could observe examples of cytoplasmic inclusions positively stained for phospho-TDP-43 (pTDP-43) within microglial cells positive for Iba1 (Figure 5G), indicating that microglial TDP-43 can contribute to TDP-43 pathology."
+SET Confidence = "High"
 #MND : motor neurodegenerative
 path(DOID:"motor neuron disease") -> composite(a(MESH:Microglia), p(HGNC:TARDBP))
 composite(a(MESH:Microglia), p(HGNC:TARDBP)) -> path(MESH:"TDP-43 Proteinopathies")
-
 #UNSET Species
+UNSET Confidence
