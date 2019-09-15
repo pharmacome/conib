@@ -76,7 +76,9 @@ SET Citation = {"PubMed", "30515821"}
 
 SET Evidence = "Dynamin‐related protein 1 (Drp1) is essential for fragmentation of
 mitochondria"
+SET Confidence = "High"
 p(HGNC:DNM1L) reg bp(GO:"mitochondrial fission")
+UNSET Confidence
 
 SET Evidence = "It is
 noteworthy that mitochondrial dynamics is essential for many cellular
@@ -84,6 +86,7 @@ and physiological activities, which include ATP production, calcium (Ca2+)
 and iron homeostasis, lipid and amino acid metabolism, body temperature
 control, reactive oxygen species (ROS) production, ageing, apoptosis, and
 cell proliferation and differentiation (Figure 1)."
+SET Confidence = "High"
 path(MESH:"Mitochondrial Dynamics") reg bp(GO:"ATP biosynthetic process")
 path(MESH:"Mitochondrial Dynamics") reg bp(GO:"calcium ion homeostasis")
 path(MESH:"Mitochondrial Dynamics") reg bp(GO:"iron ion homeostasis")
@@ -95,6 +98,7 @@ path(MESH:"Mitochondrial Dynamics") reg bp(GO:aging)
 path(MESH:"Mitochondrial Dynamics") reg bp(GO:"programmed cell death")
 path(MESH:"Mitochondrial Dynamics") reg bp(GO:"cell population proliferation")
 path(MESH:"Mitochondrial Dynamics") reg bp(GO:"cell differentiation")
+UNSET Confidence
 
 SET Evidence = "In addition, defects in
 mitochondria dynamics involve in cancers and some neural system
@@ -102,6 +106,7 @@ dysfunctions and neurodegenerative diseases, such as breast cancer,
 nasopharyngeal carcinoma, neural cell axonal transportation dysfunction,
 aberrant release, and recycle of synapse transmitters, AD, PD, and so on
 (Baloh, 2008; Grandemange, Herzig, & Martinou, 2009)."
+SET Confidence = "High"
 path(DOID:"neurodegenerative disease") neg path(MESH:"Mitochondrial Dynamics")
 path(DOID:"breast cancer") neg path(MESH:"Mitochondrial Dynamics")
 path(DOID:"nasopharynx carcinoma") neg path(MESH:"Mitochondrial Dynamics")
@@ -114,30 +119,37 @@ bp(GO:"neurotransmitter reuptake") pos path(MESH:"Mitochondrial Dynamics")
 UNSET MeSHAnatomy
 path(DOID:"Alzheimer's disease") neg path(MESH:"Mitochondrial Dynamics")
 path(DOID:"Parkinson's disease") neg path(MESH:"Mitochondrial Dynamics")
+UNSET Confidence
 
 SET Evidence = "The fusion of mitochondria is controlled by three critical proteins; the
 mitochondrial outer membrane (MOM) localized protein‐mitofusin 1
 (Mfn1), Mfn2, and the mitochondrial inner membrane (MIM) localized
 protein‐optic atrophy 1 (OPA1)."
+SET Confidence = "High"
 p(HGNC:MFN1,loc(GO:"mitochondrial outer membrane")) reg bp(GO:"mitochondrial fusion")
 p(HGNC:MFN2,loc(GO:"mitochondrial outer membrane")) reg bp(GO:"mitochondrial fusion")
 p(HGNC:OPA1,loc(GO:"mitochondrial inner membrane")) reg bp(GO:"mitochondrial fusion")
+UNSET Confidence
 
 SET Evidence = "First, the fusion of MOM is determined
 by Mfn1 and Mfn2, whose mutation would lead to very slim and short
 mitochondria and the maldevelopment of embryos."
+SET Confidence = "High"
 composite(p(HGNC:MFN1),p(HGNC:MFN2)) reg bp(GO:"mitochondrial outer membrane fusion")
 composite(p(HGNC:MFN1, var("?")),p(HGNC:MFN2,var("?"))) neg path(MESH:"Mitochondrial Dynamics")
 composite(p(HGNC:MFN1, var("?")),p(HGNC:MFN2,var("?"))) neg bp(GO:"embryo development")
+UNSET Confidence
 
 SET Evidence = "Second, the OPA1
 takes control of the fusion of the MIM, the maintenance of the
 mitochondrial DNA (mtDNA) and cristae morphology, and mutation
 would cause autosomal dominant optic atrophy (ADOA)."
+SET Confidence = "Medium"
 p(HGNC:OPA1) reg bp(GO:"mitochondrial inner membrane fusion")
 p(HGNC:OPA1) reg bp(GO:"mitochondrial genome maintenance")
-p(HGNC:OPA1) pos bp(GO:"cristae formation")
+p(HGNC:OPA1) reg bp(GO:"cristae formation")
 p(HGNC:OPA1, var("?")) -> path(DOID:"optic atrophy")
+UNSET Confidence
 
 SET Evidence = "It is
 well documented that the division of mitochondria requires Drp1 from
@@ -145,6 +157,7 @@ the cytosol to the MOM, which is mediated by four receptors located on
 the MOM—mitochondrial dynamics protein of 49 kDa (MID49), mitochondrial
 dynamics protein of 51 kDa (MID51), mitochondrial fission
 factor (MFF), and mitochondrial fission 1 (FIS1)."
+SET Confidence = "High"
 p(HGNC:MIEF2,loc(GO:"mitochondrial outer membrane")) -> tloc(p(HGNC:DNM1L),fromLoc(GO:cytosol),toLoc(GO:"mitochondrial outer membrane"))
 p(HGNC:MIEF1,loc(GO:"mitochondrial outer membrane")) -> tloc(p(HGNC:DNM1L),fromLoc(GO:cytosol),toLoc(GO:"mitochondrial outer membrane"))
 p(HGNC:MFF,loc(GO:"mitochondrial outer membrane")) -> tloc(p(HGNC:DNM1L),fromLoc(GO:cytosol),toLoc(GO:"mitochondrial outer membrane"))
@@ -153,19 +166,23 @@ p(HGNC:FIS1,loc(GO:"mitochondrial outer membrane")) -> tloc(p(HGNC:DNM1L),fromLo
 complex(p(HGNC:MIEF2),p(HGNC:DNM1L), loc(GO:"mitochondrial outer membrane")) -> bp(GO:"mitochondrial fission")
 complex(p(HGNC:MIEF1),p(HGNC:DNM1L), loc(GO:"mitochondrial outer membrane")) -> bp(GO:"mitochondrial fission")
 complex(p(HGNC:FIS1),p(HGNC:DNM1L), loc(GO:"mitochondrial outer membrane")) -> bp(GO:"mitochondrial fission")
+UNSET Confidence
 
 SET Evidence = "Overproduction
 of ROS in abnormal mitochondria is a major cause for the
 dysfunction of neurons."
+SET Confidence = "High"
 SET CellStructure = "Mitochondria"
 a(CHEBI:"reactive oxygen species") -> path(EFO:"neurotic disorder")
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "Numerous small and slim mitochondria and
 numerous long and thin mitochondria caused by the abnormal Drp1 or
 Mfn1, Mfn2, and OPA1 will lead to the insufficient supply of energy and
 overproduction of ROS in neurons, causing neural system dysfunctions
 and neurodegenerative diseases."
+SET Confidence = "High"
 act(p(HGNC:MIEF2)) -> bp(GO:"energy homeostasis")
 act(p(HGNC:MIEF1)) -> bp(GO:"energy homeostasis")
 act(p(HGNC:MFF)) -> bp(GO:"energy homeostasis")
@@ -183,12 +200,14 @@ act(p(HGNC:FIS1)) -| path(DOID:"neurodegenerative disease")
 act(p(HGNC:DNM1L)) -| path(DOID:"neurodegenerative disease")
 a(CHEBI:"reactive oxygen species") -> path(DOID:"neurodegenerative disease")
 bp(GO:"energy homeostasis") -| path(DOID:"neurodegenerative disease")
+UNSET Confidence
 
 SET Evidence = "Studies suggest that Drp1 can interact
 with some key pathogenic proteins‐Aβ, mutant PINK/Parkin, mutant
 Huntingtin (Htt), and mutant superoxide dismutase 1 (SOD1) important
 in the pathogenesis of AD, PD, HD, and ALS, causing the dysfunction of
 mitochondrial dynamics in these diseases."
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 complex(p(HGNC:DNM1L),a(CHEBI:"amyloid-beta")) neg path(MESH:"Mitochondrial Dynamics")
 UNSET MeSHDisease
@@ -201,6 +220,7 @@ UNSET MeSHDisease
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 complex(p(HGNC:DNM1L),p(HGNC:SOD1,var("?"))) neg path(MESH:"Mitochondrial Dynamics")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Species = "10090"
 
@@ -209,11 +229,10 @@ by glycogen synthase kinase 3β (GSK3β) can promote GTPase activity
 of Drp1 leading to an increase in mitochondrial division causing
 neuronal cell apoptosis induced by increased vulnerability to Aβ toxicity
 in the AD mice model"
+SET Confidence = "Medium"
 SET MeSHDisease = "Alzheimer Disease"
-p(HGNC:GSK3B) -> p(HGNC:DNM1L,pmod(Ph,Ser,40))
-p(HGNC:GSK3B) -> p(HGNC:DNM1L,pmod(Ph,Ser,44))
-p(HGNC:DNM1L,pmod(Ph,Ser,40)) -> act(p(HGNC:DNM1L),ma(GO:"GTPase activity"))
-p(HGNC:DNM1L,pmod(Ph,Ser,44)) -> act(p(HGNC:DNM1L),ma(GO:"GTPase activity"))
+p(HGNC:GSK3B) -> p(HGNC:DNM1L,pmod(Ph,Ser,40),pmod(Ph,Ser,44))
+p(HGNC:DNM1L,pmod(Ph,Ser,40),pmod(Ph,Ser,44)) -> act(p(HGNC:DNM1L),ma(GO:"GTPase activity"))
 p(HGNC:GSK3B) -> act(p(HGNC:DNM1L),ma(GO:"GTPase activity"))
 act(p(HGNC:DNM1L),ma(GO:"GTPase activity")) -> bp(GO:"mitochondrial fission")
 SET MeSHAnatomy = "Neurons"
@@ -222,12 +241,14 @@ bp(GO:"response to amyloid-beta") -> path(MESH:"Neurotoxicity Syndromes")
 path(MESH:"Neurotoxicity Syndromes") -> bp(GO:"programmed cell death")
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "TAT‐Drp1‐SpS (a GSK3β inhibitor) notably
 restored mitochondrial length, lowered the activity of caspase‐3,
 reduced the Aβ level, and rescued memory deficits when administrated
 in the hippocampus Cornu Ammonis 1 (CA1) region of AD transgenic
 mice (Yan et al., 2015)."
+SET Confidence = "High"
 #artificial polypeptide TAT-Drp1-SpS
 SET MeSHDisease = "Alzheimer Disease"
 p(HGNC:GSK3B) reg bp(GO:"mitochondrial fission")
@@ -237,10 +258,12 @@ SET MeSHAnatomy = "CA1 Region, Hippocampal"
 p(HGNC:GSK3B) -> path(EFO:"memory impairment")
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Phosphorylation at Ser‐579 can increase
 the mitochondrial fission activity accelerating the cleavage of
 caspase- 3 leading to mouse cortical neurons apoptosis."
+SET Confidence = "High"
 p(HGNC:DNM1L,pmod(Ph,Ser,579)) -> bp(GO:"mitochondrial fission")
 bp(GO:"mitochondrial fission") -> p(HGNC:CASP3, frag("?"))
 p(HGNC:DNM1L,pmod(Ph,Ser,579)) -> p(HGNC:CASP3, frag("?"))
@@ -248,6 +271,7 @@ SET MeSHAnatomy = {"Neocortex","Neurons"}
 p(HGNC:CASP3, frag("?")) -> bp(GO:"programmed cell death")
 p(HGNC:DNM1L,pmod(Ph,Ser,579)) -> bp(GO:"programmed cell death")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The mechanism
 of phosphorylation at Ser-579 is not similar to Ser-40 and Ser-44, the
@@ -255,6 +279,7 @@ former is mediated by the hyperactivated cyclindependent kinase
 5 (CDK5) due to the increased Aβ, and administration of Roscovitine (a
 CDK5 inhibitor) or Drp1 KO can reduce the cleavage of caspase-3 in
 AD neurons (M. Y. Guo et al., 2018)"
+SET Confidence = "High"
 #KO - knockout
 a(CHEBI:"amyloid-beta") -> act(p(HGNC:CDK5))
 act(p(HGNC:CDK5)) -> p(HGNC:DNM1L,pmod(Ph,Ser,579))
@@ -265,11 +290,13 @@ SET MeSHAnatomy = "Neurons"
 a(CHEBI:seliciclib) -| p(HGNC:CASP3, frag("?"))
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Phosphorylation at Ser‐585 also
 induced by CDK5 leads to hyperactivity of Drp1 then impairing the
 homeostasis of ATP production and increasing production of ROS,
 causing N‐methyl‐D‐aspartate (NMDA)‐induced neuronal injury."
+SET Confidence = "High"
 p(HGNC:CDK5) -> p(HGNC:DNM1L,pmod(Ph,Ser,585))
 p(HGNC:DNM1L,pmod(Ph,Ser,585)) -> act(p(HGNC:DNM1L))
 act(p(HGNC:DNM1L)) neg bp(GO:"ATP biosynthetic process")
@@ -279,6 +306,7 @@ SET MeSHAnatomy = "Neurons"
 bp(GO:"regulation of NMDA receptor activity") -> path(MESH:"Wounds and Injuries")
 a(CHEBI:"reactive oxygen species") -> path(MESH:"Wounds and Injuries")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Nestin
 (a marker of neural system progenitor cells [NSPCs]) plays a pivotal role
@@ -288,10 +316,11 @@ in the cytosol then phosphorylate Drp1 at Ser‐592 leading to increased
 mitochondrial fission and glycolysis causing NSPCs differentiation and
 maintenance of its stemness (Jahani‐Asl et al., 2015; J. Wang et al.,
 2018)."
+SET Confidence = "Low"
 p(HGNC:NES) -> bp(GO:"central nervous system development")
 p(HGNC:NES) reg bp(GO:neurogenesis)
-p(HGNC:NES) -> p(HGNC:CDK5,loc(GO:cytosol))
-p(HGNC:CDK5,loc(GO:cytosol)) -> p(HGNC:DNM1L,pmod(Ph,Ser,592))
+p(HGNC:NES) -| act(p(HGNC:CDK5,loc(GO:cytosol)))
+#because it says that Nestin sequesters CDK5
 p(HGNC:NES) -> p(HGNC:DNM1L,pmod(Ph,Ser,592))
 p(HGNC:DNM1L,pmod(Ph,Ser,592)) -> bp(GO:"mitochondrial fission")
 p(HGNC:DNM1L,pmod(Ph,Ser,592)) -> bp(MESH:Glycolysis)
@@ -301,6 +330,7 @@ bp(MESH:Glycolysis) -> bp(GO:"neuron differentiation")
 bp(MESH:Glycolysis) reg bp(GO:neurogenesis)
 p(HGNC:DNM1L,pmod(Ph,Ser,592)) -> bp(GO:"neuron differentiation")
 p(HGNC:DNM1L,pmod(Ph,Ser,592)) reg bp(GO:neurogenesis)
+UNSET Confidence
 
 SET Evidence = "For the phosphorylation at Ser‐616,
 Hyun et al. found that its activation by CDK5 is associated with seizure induced
@@ -309,6 +339,7 @@ ameliorate seizure‐induced astroglial apoptosis, suggesting that CDK5
 may involve in astroglial apoptosis in the dentate gyrus and inhibiting its
 activation may provide a protective effect toward seizure‐induced
 hippocampal injury."
+SET Confidence = "High"
 p(HGNC:CDK5) -> p(HGNC:DNM1L,pmod(Ph,Ser,616))
 path(MESH:"Wounds and Injuries") -- act(p(HGNC:CDK5))
 path(MESH:"Wounds and Injuries") -- p(HGNC:DNM1L,pmod(Ph,Ser,616))
@@ -320,12 +351,14 @@ UNSET MeSHAnatomy
 SET MeSHAnatomy = "Hippocampus"
 a(CHEBI:seliciclib) -| path(MESH:"Wounds and Injuries")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In a diabetic mouse model, GSK3β‐induced
 Drp1 phosphorylation at Ser‐616 involve in its synaptic deficits, and
 blockade of GSK3β by TDZD8 (an inhibitor of GSK3β) or inhibiting
 the fragmentation of mitochondria both tremendously improves
 mitochondrial and synaptic function."
+SET Confidence = "High"
 SET MeSHDisease = "Diabetes Mellitus"
 p(HGNC:GSK3B) -> p(HGNC:DNM1L,pmod(Ph,Ser,616))
 p(HGNC:DNM1L,pmod(Ph,Ser,616)) -> path(MESH:"Neuronal Plasticity")
@@ -335,6 +368,7 @@ a(PUBCHEM:4124851) reg path(MESH:"Mitochondrial Dynamics")
 bp(GO:"mitochondrial fission") -> path(MESH:"Neuronal Plasticity")
 bp(GO:"mitochondrial fission") neg path(MESH:"Mitochondrial Dynamics")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Mitogen‐activated protein kinase
 1 (MAPK1) can cause over‐activation of Drp1 at Ser‐616 in HD knock-in
@@ -344,6 +378,7 @@ using U0126 (an inhibitor of MEK1/2) or Drp1 S616A (phosphorylation deficient
 mutant 1) canceled all of it (Chen et al., 2016; Chuang et al.,
 2016; Hyun, Min, & Kim, 2017; Jin et al., 2018; Kashatus et al., 2015;
 Xie et al., 2015)."
+SET Confidence = "High"
 SET MeSHDisease = "Huntington Disease"
 SET Cell = "striatum neuron"
 p(HGNC:MAPK1) -> p(HGNC:DNM1L,pmod(Ph,Ser,616))
@@ -357,12 +392,14 @@ p(HGNC:DNM1L,var("p.Ser616Ala")) reg path(MESH:"Mitochondrial Dynamics")
 a(CHEBI:U0126) reg path(MESH:"Mitochondrial Dynamics")
 UNSET Cell
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Mitochondrial A‐kinase anchoring protein 1 (AKAP1) is a mitochondrial
 scaffolding protein found increased in the transient middle‐domain
 cerebral artery occlusion mouse model of focal ischemia, and knockout
 AKAP1 can cause increased occurrence of smaller mitochondria,
 production of ROS, and impaired calcium homeostasis in the neuron."
+SET Confidence = "High"
 SET Disease = "cerebral artery occlusion"
 path(DOID:"brain ischemia") -> p(HGNC:AKAP1,loc(GO:mitochondrion))
 SET MeSHAnatomy = "Neurons"
@@ -371,21 +408,25 @@ p(HGNC:AKAP1,loc(GO:mitochondrion)) -| a(CHEBI:"reactive oxygen species")
 p(HGNC:AKAP1,loc(GO:mitochondrion)) reg bp(GO:"calcium ion homeostasis")
 UNSET MeSHAnatomy
 UNSET Disease
+UNSET Confidence
 
 SET Evidence = "Mice lacking AKAP1 exhibit increased Drp1 localization to mitochondria
 and decreased phosphorylation of Drp1 at Ser‐637, suggesting that
 AKAP1 plays a critical protective role in the mouse neural system by
 phosphorylation Drp1 at Ser‐637."
+SET Confidence = "High"
 p(HGNC:AKAP1) -| p(HGNC:DNM1L,loc(GO:mitochondrion))
 p(HGNC:AKAP1) -> p(HGNC:DNM1L,pmod(Ph,Ser,637))
 p(HGNC:DNM1L,pmod(Ph,Ser,637)) -> path(MESH:Neuroprotection)
 p(HGNC:AKAP1) -> path(MESH:Neuroprotection)
+UNSET Confidence
 
 SET Evidence = "According to Kim et al.’s report, Siah2
 (a ubiquitin ligase) can inhibit the expression of AKAP1 by decreasing
 the expression of protein kinase A (PKA) and FIS1–Drp1 interaction
 causing increased mitochondrial division finally leading to neural cell
 apoptosis."
+SET Confidence = "High"
 p(HGNC:SIAH2) -| r(FPLX:PKA)
 p(HGNC:SIAH2) -| complex(p(HGNC:FIS1),p(HGNC:DNM1L))
 r(FPLX:PKA) -> r(HGNC:AKAP1)
@@ -393,6 +434,7 @@ complex(p(HGNC:FIS1),p(HGNC:DNM1L)) -> r(HGNC:AKAP1)
 p(HGNC:SIAH2) -| r(HGNC:AKAP1)
 complex(p(HGNC:FIS1),p(HGNC:DNM1L)) -> bp(GO:"mitochondrial fission")
 bp(GO:"mitochondrial fission") -> bp(GO:"programmed cell death")
+UNSET Confidence
 
 SET Evidence = "Other reports suggest that dephosphorylation of Drp1 at
 Ser‐637 can trigger increased mitochondrial division by calcium/calmodulin
@@ -402,6 +444,7 @@ that dephosphorylation of Drp1 at Ser‐637 reverses the protective
 effect toward mitochondrial fission, which was mediated by phosphorylation
 at Ser‐637, indicating the same function in mitochondrial
 dynamics with phosphorylation at Ser‐40, 44, 579, 585, 592, and 616."
+SET Confidence = "High"
 SET MeSHAnatomy = "CA1 Region, Hippocampal"
 a(CHEBI:"L-glutamate(1-)") -| p(HGNC:DNM1L,pmod(Ph,Ser,637))
 p(HGNC:DNM1L,pmod(Ph,Ser,637)) -| complex(GO:"calcium- and calmodulin-dependent protein kinase complex")
@@ -414,6 +457,7 @@ p(HGNC:DNM1L,pmod(Ph,Ser,585)) reg path(MESH:"Mitochondrial Dynamics")
 p(HGNC:DNM1L,pmod(Ph,Ser,592)) reg path(MESH:"Mitochondrial Dynamics")
 p(HGNC:DNM1L,pmod(Ph,Ser,616)) reg path(MESH:"Mitochondrial Dynamics")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Slupe et al. found that
 the PKA‐mediated phosphorylation of Drp1 at Ser‐656 can decrease
@@ -423,34 +467,41 @@ whereas dephosphorylation of Drp1 at Ser‐656 mediated by protein
 phosphatase 2A (PP2A)/calcineurin (CaN) increases the activity of Drp1
 causing neuronal death after oxygen‐glucose deprivation (OGD)
 treatment."
+SET Confidence = "Medium"
 p(FPLX:PKA) -> p(HGNC:DNM1L,pmod(Ph,Ser,656))
 p(HGNC:DNM1L,pmod(Ph,Ser,656)) -| act(p(HGNC:DNM1L))
 p(HGNC:DNM1L,pmod(Ph,Ser,656)) -| bp(GO:"mitochondrial fission")
 p(HGNC:DNM1L,pmod(Ph,Ser,656)) -> path(MESH:Neuroprotection)
 complex(p(HGNC:PPP2CA),complex(GO:"calcineurin complex")) -| p(HGNC:DNM1L,pmod(Ph,Ser,656))
 complex(p(HGNC:PPP2CA),complex(GO:"calcineurin complex")) -> act(p(HGNC:DNM1L))
+SET Cell = "neuron"
 bp(GO:"response to oxygen-glucose deprivation") -> bp(GO:"cell death")
+UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Audrey S. Dickey and Stefan Strack found that phosphorylation
 of Drp1 at Ser-656 by the PKA/AKAP1 pathway can increase the
 length of mitochondria and the outgrowth of dendrites, but decrease
 the number and the density of synapses."
+SET Confidence = "High"
 complex(p(FPLX:PKA),p(HGNC:AKAP1)) -> p(HGNC:DNM1L,pmod(Ph,Ser,656))
 complex(p(FPLX:PKA),p(HGNC:AKAP1)) reg path(MESH:"Mitochondrial Dynamics")
 complex(p(FPLX:PKA),p(HGNC:AKAP1)) -> bp(GO:"dendritic cell dendrite assembly")
 complex(p(FPLX:PKA),p(HGNC:AKAP1)) -| a(GO:synapse)
-
+UNSET Confidence
 UNSET Species
 
 SET Evidence = "They also found the PP2A/Bβ2
 (a product of PPP2R2B gene which is associated with the human
 spinocerebellar ataxia type-12) pathway plays an opposite effect toward
 the PKA/AKAP1, it can dephosphorylate Drp1 at Ser-656."
+SET Confidence = "High"
 SET Species = "9606"
 SET Disease = "spinocerebellar ataxia type 12"
 complex(p(HGNC:PPP2CA),p(HGNC:PPP2R2B)) -| p(HGNC:DNM1L,pmod(Ph,Ser,656))
 UNSET Disease
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In Guo et al.’s
 report, they found that SUMO2/3‐specific protease‐SENP3 can be
@@ -459,6 +510,7 @@ cytochrome c release from the mitochondria and caspase‐induced cell
 apoptosis, whereas deSUMOylation of Drp1 increases the localization of
 Drp1 at the mitochondrial MOM, mitochondrial fragmentation, and the
 release of cytochrome c in rat cortical neurons."
+SET Confidence = "High"
 #OGD - Oxygen-glucose deprivation
 SET Species = "10116"
 SET MeSHAnatomy = {"Neocortex","Neurons"}
@@ -472,11 +524,14 @@ p(HGNC:DNM1,pmod(Sumo)) -| tloc(p(HGNC:DNM1L),fromLoc(GO:cytosol),toLoc(GO:"mito
 p(HGNC:DNM1,pmod(Sumo)) -| bp(GO:"mitochondrial fission")
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "This suggests that the
 SUMOylation of Drp1 may have a protective effect in the neural system
 just like phosphorylation at S637, S656, and S693."
+SET Confidence = "High"
 p(HGNC:DNM1,pmod(Sumo)) -> path(MESH:Neuroprotection)
+UNSET Confidence
 
 SET Evidence = "Dysfunction of Parkin‐an E3 ubiquitin ligase is a major
 cause of PD, and in Wang et al.’s report they found that Parkin can
@@ -485,11 +540,13 @@ its proteasome‐dependent degradation, whereas pathogenic mutation or
 knock down of Parkin decrease the ubiquitination and degradation of
 Drp1 causing increased activity of Drp1 and increased mitochondrial
 fission events finally leading to the occurrence of PD."
+SET Confidence = "High"
 p(HGNC:PRKN) neg path(DOID:"Parkinson's disease")
 complex(p(HGNC:PRKN),p(HGNC:DNM1)) -> p(HGNC:DNM1,pmod(Ub))
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(HGNC:DNM1,pmod(Ub)))
 complex(p(HGNC:PRKN),p(HGNC:DNM1)) -| act(p(HGNC:DNM1))
 act(p(HGNC:DNM1)) -> path(DOID:"Parkinson's disease")
+UNSET Confidence
 
 SET Evidence = "In Tang et al.’s
 report, they found that the treatment of oxygen glucose deprivation/
@@ -498,6 +555,7 @@ increase the number and activity of Drp1 and decrease the number and
 activity of Parkin confirming that the Drp1 knockdown or Parkin
 overexpression both play a protective role in neural system by decreasing
 the cell apoptosis and mitochondrial dysfunction."
+SET Confidence = "High"
 SET Species = "10090"
 SET CellLine = "Neuro-2a cell"
 bp(GO:"response to oxygen-glucose deprivation") -> p(HGNC:DNM1)
@@ -516,6 +574,7 @@ p(HGNC:DNM1) -> bp(GO:"programmed cell death")
 p(HGNC:DNM1) neg path(MESH:"Mitochondrial Dynamics")
 UNSET CellLine
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Drp1 and Parkin
 synergistically maintain the integrity of mitochondrial dynamics and
@@ -524,6 +583,7 @@ and it is noteworthy that the single deficiency (heterozygote knockout) of
 Drp1 causes a mild effect on the degradation of mitochondria induced by
 Parkin‐mediated mitophagy and mitochondrial connectivity compared
 with the double deficiency (homozygote knockout) of Drp1 and Parkin."
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = {"Brain","Heart"}
 composite(p(HGNC:DNM1),p(HGNC:PRKN)) reg path(MESH:"Mitochondrial Dynamics")
@@ -532,12 +592,15 @@ act(p(HGNC:PRKN)) -> bp(GO:mitophagy)
 bp(GO:mitophagy) reg path(MESH:"Mitochondrial Dynamics")
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "S-nitrosylation
 of Drp1 can increase the activity of its GTPase, causing increased
 level of mitochondria."
+SET Confidence = "High"
 p(HGNC:DNM1,pmod(NO,Cys,644)) -> act(p(HGNC:DNM1),ma(GO:"GTPase activity"))
 act(p(HGNC:DNM1),ma(GO:"GTPase activity")) -> a(MESH:Mitochondria)
+UNSET Confidence
 
 SET Evidence = "Increased levels of S‐nitrosylated Drp1 was found
 by Haun et al. in the HD model of the mouse striatum and human
@@ -548,6 +611,7 @@ region of S-nitrosylation on Drp1 through a non-nitrosylatable mutant
 Drp1 (C644A) and the inhibition of NO production by using nitric oxide
 inhibitors, suggesting that the S-nitrosylated Drp1 induced abnormal
 mitochondrial dynamics plays a crital role in the pathogenesis of HD."
+SET Confidence = "High"
 SET MeSHDisease = "Huntington Disease"
 SET Species = "10090"
 p(NCBIGENE:15194,var("?")) -> a(CHEBI:"nitric oxide")
@@ -569,11 +633,13 @@ p(HGNC:DNM1,var("p.Cys644Ala")) -| p(HGNC:DNM1,pmod(NO,Cys,644))
 p(HGNC:DNM1,pmod(NO,Cys,644)) neg path(MESH:"Mitochondrial Dynamics")
 p(HGNC:DNM1,pmod(NO,Cys,644)) -> path(DOID:"Huntington's disease")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "In Shields et al.’s report, they found that mice lacking Drp1 in CA1 and
-other forebrain neurons hsd impaired synaptic transmission and memory
+other forebrain neurons had impaired synaptic transmission and memory
 leading to neuronal cell death followed by swelling mitochondria but no
 change in the number of mitochondria in individual synaptic terminals."
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = {"CA1 Region, Hippocampal","Basal Forebrain"}
 p(HGNC:DNM1) pos path(OMIT:0010462)
@@ -582,6 +648,7 @@ p(HGNC:DNM1) -| bp(GO:"neuron death")
 p(HGNC:DNM1) cnc a(MESH:Mitochondria, loc(GO:"synaptic vesicle"))
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In
 addition, they found the normal level of mitochondria‐derived ATP
@@ -589,12 +656,14 @@ cannot be maintained as well as impaired synaptic vesicle cycling of
 specific Drp1 KO in the CA1 region of the mouse model by using
 fluorescence resonance energy transfer (FRET) in spite of the increased
 distance between axonal mitochondria (Shields et al., 2015)."
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = "CA1 Region, Hippocampal"
 p(HGNC:DNM1) -> tloc(a(CHEBI:ATP),fromLoc(GO:mitochondrion),toLoc(GO:"axon cytoplasm"))
 p(HGNC:DNM1) pos bp(GO:"synaptic vesicle cycle")
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "The mitochondrial
 correlated ataxia is caused by the unbalanced mitochondrial dynamics,
@@ -605,6 +674,7 @@ ROS which harms the mitochondria itself, and the loss or dysregulation of
 mitophagy which is a critical pathway for the maintenance of healthy
 mitochondria through the clearance of damaged mitochondria by
 autophagy."
+SET Confidence = "High"
 SET Cell = "Purkinje cell"
 bp(GO:"oxidative phosphorylation") -> a(CHEBI:ATP)
 a(CHEBI:ATP) -> a(CHEBI:"reactive oxygen species")
@@ -615,6 +685,7 @@ a(CHEBI:"reactive oxygen species") -> path(OMIT:0002643)
 bp(GO:"negative regulation of mitophagy") -> path(OMIT:0002643)
 UNSET MeSHAnatomy
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "In Yamada et al.’s (2018) report, they use Cre recombinase
 creating an postmitotic Purkinje neuron‐specific Drp1 KO mouse model
@@ -623,6 +694,7 @@ of Purkinje neuronal cells, whereas double‐knockout of Drp1 and p62
 extends the lifespan of Purkinje neuronal cells, suggesting autophagy
 involve in the Drp1 KO‐induced Purkinje neuronal cells death because
 p62 is an important autophagic cargo receptor."
+SET Confidence = "High"
 #L7-Drp1KO cell line
 SET Species = "10090"
 SET Cell = "Purkinje cell"
@@ -631,6 +703,7 @@ composite(p(HGNC:DNM1),p(HGNC:SQSTM1)) -| a(OMIT:0012627)
 act(p(HGNC:SQSTM1),ma(GO:"cargo receptor activity"))
 UNSET Cell
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In their following studies,
 they found that the Drp1 KO in Purkinje neuronal cells can lead to the
@@ -638,6 +711,7 @@ progressive Purkinje neuronal cells degeneration and ataxia with
 decreased motor co‐ordination, increased mitochondrial size due to the
 increased fusion activity of mitochondria through Drp1 KO, decreased
 mitophagy and defective mitochondrial oxidative phosphorylation."
+SET Confidence = "High"
 SET Cell = "Purkinje cell"
 p(HGNC:DNM1) -| path(OMIT:0002643)
 p(HGNC:DNM1) pos bp(GO:"motor behavior")
@@ -645,6 +719,7 @@ p(HGNC:DNM1) -| bp(GO:"mitochondrial fusion")
 p(HGNC:DNM1) -> bp(GO:mitophagy)
 p(HGNC:DNM1) pos bp(GO:"oxidative phosphorylation")
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Kageyama et al. and Zhang et al. both focus on the Drp1 KO in the
 cerebellum, they both using N‐acetylcysteine and coenzyme (an
@@ -652,12 +727,14 @@ antioxidant) to treat the Drp1 KO Purkinje neuronal cells finding
 decreased degeneration of Purkinje cells and increased elongation of
 mitochondria suggesting that the   at the
 downstream of the Drp1 induced neural system dysfunctions."
+SET Confidence = "High"
 SET Cell = "Purkinje cell"
 SET MeSHAnatomy = "Cerebellum"
 bp(GO:"response to oxidative stress") -> act(p(HGNC:DNM1))
 act(p(HGNC:DNM1)) -> path(DOID:"neurodegenerative disease")
 UNSET MeSHAnatomy
 UNSET Cell
+UNSET Confidence
 
 SET MeSHDisease = "Alzheimer Disease"
 
@@ -666,9 +743,11 @@ been implicated in various cellular changes in the pathogenesis of
 AD, such as the aberrations in the structure and function of
 mitochondria, the decreased number of synapses, and the increased
 inflammatory response."
+SET Confidence = "High"
 p(HGNC:DNM1) neg path(MESH:"Mitochondrial Dynamics")
 p(HGNC:DNM1) -| a(GO:synapse)
 p(HGNC:DNM1) -> bp(GO:"inflammatory response")
+UNSET Confidence
 
 SET Evidence = "More and more reports (Baek et al., 2017; Feng et al., 2018; Han
 et al., 2017; Joshi, Saw, Shamloo et al., 2018; Kandimalla, Manczak,
@@ -680,6 +759,7 @@ mitochondrial division, mitochondrial dynamics dysfuction, and
 synaptic degeneration leading to the dysregulation of the shape,
 size, distribution of mitochondria, and mitochondrial dynamics mediated
 axonal transport in AD neuronal cells."
+SET Confidence = "High"
 composite(p(HGNC:DNM1),a(CHEBI:"amyloid-beta")) -> bp(GO:"mitochondrial fission")
 composite(p(HGNC:DNM1),a(CHEBI:"amyloid-beta")) neg path(MESH:"Mitochondrial Dynamics")
 composite(p(HGNC:DNM1),a(CHEBI:"amyloid-beta")) -> deg(a(GO:synapse))
@@ -688,17 +768,20 @@ composite(p(HGNC:DNM1),p(HGNC:MAPT,pmod(Ph))) -> bp(GO:"mitochondrial fission")
 composite(p(HGNC:DNM1),p(HGNC:MAPT,pmod(Ph))) neg path(MESH:"Mitochondrial Dynamics")
 composite(p(HGNC:DNM1),p(HGNC:MAPT,pmod(Ph))) -> deg(a(GO:synapse))
 composite(p(HGNC:DNM1),p(HGNC:MAPT,pmod(Ph))) neg bp(GO:"axonal transport")
+UNSET Confidence
 
 SET Evidence = "The dysfunction of
 mitochondrial dynamics is a major cause of the impaired synaptic
 function and the neuronal cell injury, which eventually caused the
 decline of memory and cognitive in AD patients."
+SET Confidence = "High"
 act(a(GO:synapse)) pos path(MESH:"Mitochondrial Dynamics")
 SET Cell = "neuron"
 path(MESH:"Wounds and Injuries") neg path(MESH:"Mitochondrial Dynamics")
 UNSET Cell
 path(MESH:"Mitochondrial Dynamics") -> bp(GO:memory)
 path(MESH:"Mitochondrial Dynamics") -> bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "Recent studies have demonstrated that the total reduction
 (homozygous knockout) of Drp1 in mice can cause some developmental
@@ -707,6 +790,7 @@ defective synapse formation due to aggregated mitochondria
 not distributing appropriately within cell processes, leading to
 abnormal development of the forebrain, indicating the critical role
 of mitochondrial division within the highly polarized neuronal cells."
+SET Confidence = "High"
 SET Species = "10090"
 p(HGNC:DNM1) -> a(OMIT:0016987)
 p(HGNC:DNM1) pos bp(GO:"immunological synapse formation")
@@ -715,6 +799,7 @@ path(MESH:"Cell Aggregation") neg bp(GO:"immunological synapse formation")
 path(MESH:"Cell Aggregation") -> path(HP:"Abnormality of forebrain morphology")
 UNSET CellStructure
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Drp1 partial KO mice are viable,
 fertile, of normal body size, and phenotypically have no obvious
@@ -725,11 +810,12 @@ heterozygous KO can reduce excessive mitochondria division,
 maintain mitochondrial and synaptic function in neurons, and may
 become a novel research target for the treatment of AD or other
 neural system disorders."
+SET Confidence = "High"
 SET Species = "10090"
 p(HGNC:DNM1) -> a(CHEBI:"hydrogen peroxide")
 p(HGNC:DNM1) -> bp(OMIT:0016017)
 UNSET Species
-
+UNSET Confidence
 
 SET Evidence = "In their
 work, they found that Drp1 interact with Aβ and hyperphosphorylated
@@ -744,6 +830,7 @@ by the partial reduction of Drp1 leading to a decrease of Aβ and
 phosphorylated‐induced mitochondrial and synaptic toxicity finally
 maintaining the mitochondrial dynamics and neuronal function in the
 APPXDrp1 and TauXDrp1 heterozygote KO mouse."
+SET Confidence = "High"
 #in 6‐months old, Drp1 heterozygote KO, Tau, APP, APPXDrp1 heterozygote KO, TauXDrp1 heterozygote
 composite(p(HGNC:DNM1),a(CHEBI:"amyloid-beta")) -> path(DOID:"Alzheimer's disease")
 composite(p(HGNC:DNM1),p(HGNC:MAPT,pmod(Ph))) -> path(DOID:"Alzheimer's disease")
@@ -778,19 +865,21 @@ p(HGNC:DNM1) -> p(HGNC:MAPT,pmod(Ph))
 SET MeSHAnatomy = {"Synapses","Mitochondria"}
 p(HGNC:MAPT,pmod(Ph)) -> path(NCIT:C27990)
 UNSET MeSHAnatomy
-
 UNSET MeSHDisease
+UNSET Confidence
 
 SET MeSHDisease = "Parkinson Disease"
 
 SET Evidence = "LRRK2, a pathogenic gene of PD, has many functions including
 regulating the transportation of vesicles, the autophagy, oxidative
 stress, neurotoxicity, and mitochondrial dynamics."
+SET Confidence = "High"
 p(HGNC:LRRK2) reg a(MESH:"Transport Vesicles")
 p(HGNC:LRRK2) reg bp(GO:autophagy)
 p(HGNC:LRRK2) reg path(NCIT:C17741)
 p(HGNC:LRRK2) reg path(MESH:"Neurotoxicity Syndromes")
 p(HGNC:LRRK2) reg path(MESH:"Mitochondrial Dynamics")
+UNSET Confidence
 
 SET Evidence = "In Ho et al.’s (2018)
 report, they found that increased kinase activity of LRRK2 due to
@@ -800,6 +889,7 @@ promoting the fission of mitochondria causing mitochondria‐derived
 apoptosis and production of ROS in the G2019S transgenic mouse
 brain, suggesting that the G2019S can lead to PD by affecting
 mitochondrial dynamics, increasing the fission of mitochondria."
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = "Brain"
 p(HGNC:LRRK2,var("p.Gly2019Ser")) -> act(p(HGNC:LRRK2),ma(GO:"kinase activity"))
@@ -814,18 +904,21 @@ p(HGNC:LRRK2,var("p.Gly2019Ser")) -> path(DOID:"Parkinson's disease")
 p(HGNC:LRRK2,var("p.Gly2019Ser")) -> bp(GO:"mitochondrial fission")
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "They also found that treatment of LPS can cause the
 activation of microglia, following the increased level of LRRK2 and
 the increased division of mitochondria, leading to the occurrence of
 the neuroinflammation, which can be ameliorated by the downregulation
 or inhibition of the LRRK2."
+SET Confidence = "High"
 a(CHEBI:lipopolysaccharide) -> act(a(NCIT:C12616))
 act(a(NCIT:C12616)) -> p(HGNC:LRRK2)
 p(HGNC:LRRK2) -> bp(GO:"mitochondrial fission")
 SET Cell = "neuron"
 bp(GO:"mitochondrial fission") -> path(MESH:Inflammation)
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Interestingly, the E193K does not
 affect the kinase activity of LRRK2 compared with the G2019S,
@@ -833,6 +926,7 @@ suggesting that E193K does not affect the activity of Drp1 but
 affects LRRK2 phosphorylation at Ser‐935 and increases the
 mitochondrial response to MPP+ (a mitochondrial toxin can induce
 PD) in the patients’ fibroblast."
+SET Confidence = "High"
 #MPP+ - N-methyl-4-phenylpyridinium
 SET MeSHAnatomy = "Fibroblasts"
 p(HGNC:LRRK2,var("p.Glu192Lys")) cnc act(p(HGNC:LRRK2),ma(GO:"kinase activity"))
@@ -841,23 +935,28 @@ p(HGNC:LRRK2,var("p.Glu192Lys")) -- p(HGNC:LRRK2,pmod(Ph,Ser,935))
 p(HGNC:LRRK2,var("p.Glu192Lys")) -> a(CHEBI:"N-methyl-4-phenylpyridinium")
 a(CHEBI:"N-methyl-4-phenylpyridinium") -- a(MESH:Mitochondria)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "E193K can also interact with Drp1
 identified by the immunoprecipitation assay, what is important is that
 E193K can decrease the affinity of LRRK2 toward Drp1, decreasing
 the division of mitochondria, although E193K does not affect Drp1
 directly."
+SET Confidence = "High"
 p(HGNC:LRRK2,var("p.Glu192Lys")) -| complex(p(HGNC:LRRK2),p(HGNC:DNM1))
 p(HGNC:LRRK2,var("p.Glu192Lys")) -| bp(GO:"mitochondrial fission")
+UNSET Confidence
 
 SET Evidence = "In the previous work of Zhao et al.,
 they found that Parkin/PINK1 mainly produces the effect by
 promoting mitochondrial fusion because knockdown of endogenous
 PINK1 or overexpression of the mutant PINK1 will cause severe
 mitochondrial division in N27 cells."
+SET Confidence = "High"
 #N27 Cells
 p(HGNC:PINK1) -| bp(GO:"mitochondrial fission")
 p(HGNC:PRKN,var("?")) => bp(GO:"mitochondrial fission")
+UNSET Confidence
 
 SET Evidence = "NO can upregulate the level of Drp1 in the
 MPP+ induced PD mouse model due to the S‐nitrosylated Parkin
@@ -868,12 +967,14 @@ the production of ROS and the apoptosis of the neuronal cells,
 eventually causing PD (Buhlman et al., 2014; Kageyama et al., 2014;
 Roy, Itoh, Iijima, & Sesaki, 2016; Tang, Hu, Tan, Yang, & Zeng, 2016;
 H. Wang et al., 2011; Zhao et al., 2013)."
+SET Confidence = "High"
 SET Species = "10090"
 composite(a(CHEBI:"nitric oxide"),a(CHEBI:"N-methyl-4-phenylpyridinium")) -> p(HGNC:DNM1)
 composite(a(CHEBI:"nitric oxide"),a(CHEBI:"N-methyl-4-phenylpyridinium")) -> p(HGNC:PRKN,pmod(NO))
 p(HGNC:PRKN,pmod(NO)) -| deg(p(HGNC:DNM1))
 p(HGNC:DNM1) -> path(DOID:"Parkinson's disease")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "It is reported by Zhao et al. (2013) that mutant PINK1 could
 cause collapsed mitochondrial dynamics, neuronal cell death, and the
@@ -881,6 +982,7 @@ dysfunction of energy production, such as decreased ATP generation
 and impaired mitochondrial membrane potential through W437X and
 K219M (mutants of PINK1), or inhibiting PINK1 in the OGD neuronal
 model."
+SET Confidence = "High"
 #W437X - nonsense mutation
 p(HGNC:PINK1) pos path(MESH:"Mitochondrial Dynamics")
 p(HGNC:PINK1) -| bp(GO:"neuron death")
@@ -895,20 +997,26 @@ p(HGNC:PINK1,var("p.Lys219Met")) -> bp(GO:"neuron death")
 p(HGNC:PINK1,var("p.Lys219Met")) -| a(CHEBI:ATP)
 p(HGNC:PINK1,var("p.Lys219Met")) neg bp(OMIT:0025241)
 bp(GO:"response to oxygen-glucose deprivation") -| p(HGNC:PINK1)
+UNSET Confidence
 
 SET Evidence = "In addition, neuronal cell death can be reversed by the
 overexpression of PINK1, which can suppress the transportation of
 Drp1 to the mitochondria."
+SET Confidence = "High"
 p(HGNC:PINK1) -| tloc(p(HGNC:DNM1L),fromLoc(GO:cytosol),toLoc(GO:"mitochondrial outer membrane"))
+UNSET Confidence
 
 SET Evidence = "Taken together,
 PINK1 can restore mitochondrial function and decrease the
 mitochondrial division induced by ischemia protecting the neuronal
 cells from the ischemic damage through inhibiting the transportation
 of Drp1 from cytosol to the mitochondria."
+SET Confidence = "Medium"
+SET Cell = "neuron"
 p(HGNC:PINK1) -| bp(GO:"mitochondrial fission")
 p(HGNC:PINK1) -| path(DOID:ischemia)
-
+UNSET Cell
+UNSET Confidence
 UNSET MeSHDisease
 
 SET MeSHDisease = "Huntington Disease"
@@ -917,9 +1025,11 @@ SET Evidence = "It is well documented that the mutant Htt can
 interact with the Drp1 causing dysfunction of the mitochondrial
 dynamics and aberration of the axonal transportation finally leading
 to the emergence of HD."
+SET Confidence = "High"
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:DNM1L)) neg path(MESH:"Mitochondrial Dynamics")
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:DNM1L)) neg bp(GO:"axonal transport")
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:DNM1L)) -> path(DOID:"Huntington's disease")
+UNSET Confidence
 
 SET Evidence = "In Song et al.’s report, they
 found that the abnormal interaction between Drp1 and mutant Htt
@@ -928,26 +1038,32 @@ neuronal injury in rat HD model neurons and fibroblasts of HD
 patients suggesting that the mutant Htt could trigger mitochondrial
 division by the abnormal interaction with Drp1 and stimulating its
 enzymatic activity."
+SET Confidence = "High"
 SET Species = {"10116","9606"}
 SET MeSHAnatomy = {"Neurons","Fibroblasts"}
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:DNM1L)) -> act(p(HGNC:DNM1L))
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:DNM1L)) -> bp(GO:"mitochondrial fission")
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
-SET Evidence = "They also found that the abnormal interactioninduced
+SET Evidence = "They also found that the abnormal interaction induced
 mitochondrial fission can also decrease the anterograde and
 retrograde axonal transport of mitochondria in synapses and cause
 neuronal cell death, which depends on the polyQ length, suggesting
 that the polyQ length determines disease onset and severity, thereby
 a longer expansion causes earlier onset of HD."
+SET Confidence = "High"
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:DNM1L)) -> bp(GO:"neuron death")
+UNSET Confidence
 
 SET Evidence = "All these findings
 above can be reversed by the dominant‐negative Drp1 K38A mutant."
+SET Confidence = "High"
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:DNM1L,var("p.Lys38Ala"))) pos path(MESH:"Mitochondrial Dynamics")
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:DNM1L,var("p.Lys38Ala"))) pos bp(GO:"axonal transport")
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:DNM1L,var("p.Lys38Ala"))) -| bp(GO:"neuron death")
+UNSET Confidence
 
 SET Evidence = "The experiment by Shirendeb et al. verified the findings of Chen
 et al., they also found that the mutant Htt can interact with Drp1
@@ -957,6 +1073,7 @@ postmortem HD patient brain specimen and in mutant Htt transgenic
 BACHD (a type of Huntinton's disease mouse model) mice developed
 by Gary et al, which can express the full‐length DNA (about 170 kb)
 of Htt."
+SET Confidence = "High"
 #BACHD
 SET Species = {"10090","9606"}
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:DNM1L)) -> act(p(HGNC:DNM1L),ma(GO:"GTPase activity"))
@@ -964,12 +1081,14 @@ act(p(HGNC:DNM1L),ma(GO:"GTPase activity")) neg bp(GO:"axonal transport")
 act(p(HGNC:DNM1L),ma(GO:"GTPase activity")) -| a(NCIT:C13281)
 act(p(HGNC:DNM1L),ma(GO:"GTPase activity")) -> bp(GO:"neuron death")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In their report, they found that mutant Htt can cause
 excessive production of NO which mediates the S‐nitrosylation of
 Drp1 increasing the division of mitochondrial and the loss synapses,
 deteriorating the neuronal damage in BACHD mice model cortical
 neurons as well as in postmortem HD patients’ brain specimens."
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = "Neocortex"
 p(NCBIGENE:15194,pmod(CONSO:"CAG repeats")) -> a(CHEBI:"nitric oxide")
@@ -987,6 +1106,7 @@ p(HGNC:DNM1L,pmod(NO)) -> bp(GO:"mitochondrial fission")
 p(HGNC:DNM1L,pmod(NO)) -> bp(GO:"neuron death")
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In
 addition, they found that the S‐nitrosylation of Drp1 could promote
@@ -995,22 +1115,26 @@ S‐nitrosylation function has an important role in promoting the Drp1
 interacting with the mutant Htt and it is possible that the mutant
 Htt‐induced mitochondrial fragmentation and neuronal injury is
 mediated by SNO‐Drp1."
+SET Confidence = "High"
 p(HGNC:DNM1L,pmod(NO)) -> complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:DNM1L))
 p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -> bp(GO:"mitochondrial fission")
 SET MeSHAnatomy = "Neurons"
 p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -> path(MESH:"Wounds and Injuries")
 p(HGNC:DNM1L,pmod(NO)) -> path(MESH:"Wounds and Injuries")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Importantly, these bad effect toward
 neurons caused by mutant Htt‐induced aberrant mitochondrial
 dynamics all can be reversed by the non-nitrosylatable mutant
 Drp1 (C644A)."
+SET Confidence = "High"
 p(HGNC:DNM1L,var("p.Cys644Ala")) -|  bp(GO:"mitochondrial fission")
 SET MeSHAnatomy = "Neurons"
 p(HGNC:DNM1L,var("p.Cys644Ala")) -| path(MESH:"Wounds and Injuries")
 UNSET MeSHAnatomy
 p(HGNC:DNM1L,var("p.Cys644Ala")) pos path(MESH:"Mitochondrial Dynamics")
+UNSET Confidence
 
 SET Evidence = "Here, in Roe and Qi’s
 (2018) paper, they show that the MAPK1 plays a critical role in the
@@ -1019,6 +1143,7 @@ interaction with Drp1 and phosphorylates Drp1 at Ser‐616 causing
 the overactivation of the Drp1 finally leading to the aberrant
 mitochondrial dynamics in the HD knockin mouse‐derived striatal
 cells."
+SET Confidence = "High"
 SET Species  = "10090"
 SET Cell = "striatum neuron"
 complex(p(HGNC:MAPK1),p(HGNC:DNM1L)) -> p(HGNC:DNM1L,pmod(Ph,Ser,616))
@@ -1028,6 +1153,7 @@ p(HGNC:DNM1L,pmod(Ph,Ser,616)) => act(p(HGNC:DNM1L))
 p(HGNC:DNM1L,pmod(Ph,Ser,616)) neg path(MESH:"Mitochondrial Dynamics")
 UNSET Cell
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "U0126, an inhibitor of MEK1/2, and Drp1 S616A, a Drp1
 phosphorylation‐deficient mutant, both decrease the abnormal
@@ -1037,6 +1163,7 @@ depolarization in mitochondria and the production of reactive oxygen
 species in the striatal cells of HD mouse, which express the
 Drp1S616A compared with the wild‐type cells, suggesting the
 phosphorylated Drp1 at the downstream of MAPK1 pathway."
+SET Confidence = "High"
 a(CHEBI:U0126) pos path(MESH:"Mitochondrial Dynamics")
 p(HGNC:DNM1L,var("p.Ser616Ala")) pos path(MESH:"Mitochondrial Dynamics")
 SET Species = "10090"
@@ -1046,6 +1173,7 @@ a(CHEBI:U0126) -| a(CHEBI:"reactive oxygen species")
 a(CHEBI:U0126) reg bp(GO:"mitochondrial depolarization")
 UNSET Cell
 UNSET Species
+UNSET Confidence
 
 UNSET MeSHDisease
 
@@ -1057,6 +1185,7 @@ increased mitochondrial division and ROS production mediated by
 the hyperactivation of Drp1 causing bioenergetic failure and oxidative
 stress in the ALS finally leading to the degeneration of motor
 neurons."
+SET Confidence = "High"
 path(DOID:"amyotrophic lateral sclerosis") neg path(MESH:"Mitochondrial Dynamics")
 path(DOID:"amyotrophic lateral sclerosis") -> bp(GO:"mitochondrial fission")
 path(DOID:"amyotrophic lateral sclerosis") -> a(CHEBI:"reactive oxygen species")
@@ -1065,6 +1194,7 @@ act(p(HGNC:DNM1L)) neg bp(MESH:"Energy Metabolism")
 act(p(HGNC:DNM1L)) -> bp(NCIT:C17741)
 bp(MESH:"Energy Metabolism") neg path(DOID:"motor neuron disease")
 bp(NCIT:C17741) -> path(DOID:"motor neuron disease")
+UNSET Confidence
 
 SET Evidence = "P110, a selective Drp1–FIS1 interaction
 inhibitor without affecting the basal mitochondrial fission, was found
@@ -1073,6 +1203,7 @@ production of ROS causing increased neuronal cell viability and
 decreased muscle atrophy in SOD G93A mice suggesting that
 inhibition of the abnormal mitochondrial fission by the Drp1/FIS1
 inhibitor ameliorate the disease progression of ALS."
+SET Confidence = "High"
 # P110, a heptapeptide conjugated to TAT 47–57
 p(HGNC:TAT,frag("47_57")) -| complex(p(HGNC:FIS1),p(HGNC:DNM1L))
 p(HGNC:TAT,frag("47_57")) cnc bp(GO:"mitochondrial fission")
@@ -1083,5 +1214,5 @@ p(HGNC:SOD1,var("p.Gly93Ala")) -> path(DOID:"muscular atrophy")
 p(HGNC:TAT,frag("47_57")) -| path(DOID:"muscular atrophy")
 p(HGNC:TAT,frag("47_57")) -| path(DOID:"amyotrophic lateral sclerosis")
 UNSET Species
-
+UNSET Confidence
 UNSET MeSHDisease
