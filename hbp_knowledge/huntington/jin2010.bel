@@ -124,7 +124,7 @@ atrophy (Butterworth et al. 1985; Sorbi et al. 1983)."
 SET MeSHAnatomy = {"Neocortex","Neostriatum"}
 path(HP:"Caudate atrophy") -| act(p(HGNC:ACO2))
 UNSET MeSHAnatomy
-path(HP:"Caudate atrophy") neg act(p(HGNCGENEFAMILY:"Pyruvate dehydrogenase complex"))
+path(HP:"Caudate atrophy") neg p(HGNCGENEFAMILY:"Pyruvate dehydrogenase complex")
 
 SET Evidence = "Concurrent with these changes in
 mitochondrial morphology and function, there is a significant decrease in mitochondrial
@@ -180,7 +180,6 @@ mouse liver mitochondria significantly decreased the Ca2+-threshold for mPTP ope
 effect that was abolished by cyclosporin A (CsA), an mPTP inhibitor."
 #mPTP - permeability transition pore
 SET MeSHAnatomy = "Mitochondria, Liver"
-p(HGNC:HTT,pmod(CONSO:"CAG repeats"),frag("?")) -| a(CHEBI:"calcium(2+)")
 a(CHEBI:"calcium(2+)") reg complex(GO:"mitochondrial permeability transition pore complex")
 a(CHEBI:"cyclosporin A") -| complex(GO:"mitochondrial permeability transition pore complex")
 UNSET MeSHAnatomy
@@ -265,7 +264,7 @@ protein (CREB) mediated transcriptional processes through direct interaction wit
 (CREB-binding protein) (Steffan et al. 2000) and with TATA box-binding protein (TBP)-
 associated factor TAF4/ TAFII130 (Dunah et al. 2002; Shimohata et al. 2000), leading to an
 increase in mHtt-induced cytotoxicity (Steffan et al. 2001)."
-complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:CREBBP),p(HGNC:TAF4)) neg tscript(p(HGNC:CREBBP))
+complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:CREBBP),p(HGNC:TAF4)) neg act(p(HGNC:CREBBP),ma(tscript))
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:CREBBP),p(HGNC:TAF4)) -> path(MESH:"Cytotoxicity, Immunologic")
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:CREBBP),p(HGNC:TAF4)) -> p(HGNC:HTT,pmod(CONSO:"CAG repeats"))
 p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -> path(MESH:"Cytotoxicity, Immunologic")
@@ -277,7 +276,7 @@ biogenesis and respiration, detoxification of ROS, energy metabolism, and thermo
 p(HGNC:PPARGC1A) reg bp(MESH:"Mitochondrial Dynamics")
 p(HGNC:PPARGC1A) reg bp(GO:"mitochondrion organization")
 p(HGNC:PPARGC1A) reg bp(GO:"cellular respiration")
-p(HGNC:PPARGC1A) -> bp(GO:"response to reactive oxygen species")
+p(HGNC:PPARGC1A) -> a(CHEBI:"reactive oxygen species")
 p(HGNC:PPARGC1A) reg bp(GO:detoxification)
 p(HGNC:PPARGC1A) reg bp(MESH:"Energy Metabolism")
 p(HGNC:PPARGC1A) reg bp(MESH:Thermogenesis)
@@ -298,7 +297,7 @@ complex(p(HGNC:CREBBP),p(HGNC:TAF4)) reg r(HGNC:PPARGC1A)
 
 SET Evidence = "The reduced level of cAMP in HD mice and HD patients likely contributes to the significant
 reduction in CREB activation (Gines et al. 2003)."
-a(CHEBI:"3',5'-cyclic AMP") -> tscript(p(HGNC:CREBBP))
+a(CHEBI:"3',5'-cyclic AMP") -> act(p(HGNC:CREBBP),ma(tscript))
 
 SET Evidence = "Recent studies demonstrate
 that TZDs show protective effects in models of Alzheimer’s disease (Heneka et al. 2005;
