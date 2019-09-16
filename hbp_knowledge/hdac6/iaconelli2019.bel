@@ -122,8 +122,8 @@ in progression of disease and resulted in prolonged survival, which was accompan
 alpha-tubulin acetylation [34]."
 SET Species = "10090"
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
-p(HGNC:HDAC6) -| a(MESH:"Cell Survival")
-a(MESH:"Cell Survival") -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
+p(HGNC:HDAC6) -| bp(MESH:"Cell Survival")
+bp(MESH:"Cell Survival") -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
 p(HGNC:HDAC6) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
 UNSET MeSHDisease
 UNSET Species
@@ -231,9 +231,9 @@ path(DOID:"Charcot-Marie-Tooth disease") neg bp(GO:"axonal transport")
 SET Evidence = "Another mouse model of Charcot-Marie-Tooth
 disease, based on dominant mutations in glycyl-tRNA synthetase, showed that the mice have aberrant
 axonal transport and this is accompanied by decreased alpha-tubulin acetylation [47]."
-path(DOID:"Charcot-Marie-Tooth disease") -> p(HGNC:GARS1,var("?"))
-p(HGNC:GARS1,var("?")) neg bp(GO:"axonal transport")
-p(HGNC:GARS1,var("?")) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
+path(DOID:"Charcot-Marie-Tooth disease") -> p(HGNC:GARS,var("?"))
+p(HGNC:GARS,var("?")) neg bp(GO:"axonal transport")
+p(HGNC:GARS,var("?")) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
 
 SET Evidence = "Treatment with
 the HDAC6 inhibitor Tubastatin A led to increased alpha-tubulin acetylation, ameliorated the deficits in
@@ -292,8 +292,8 @@ a(PUBCHEM:49850262) -> p(HGNC:HSPB1)
 a(PUBCHEM:49850262) -> p(HGNCGENEFAMILY:"Heat shock 70kDa proteins")
 p(HGNC:HSPB1) -| bp(MESH:"Oxidative Stress")
 p(HGNCGENEFAMILY:"Heat shock 70kDa proteins") -| bp(MESH:"Oxidative Stress")
-p(HGNC:HSPB1) -> a(MESH:"Cell Survival")
-p(HGNCGENEFAMILY:"Heat shock 70kDa proteins") -> a(MESH:"Cell Survival")
+p(HGNC:HSPB1) -> bp(MESH:"Cell Survival")
+p(HGNCGENEFAMILY:"Heat shock 70kDa proteins") -> bp(MESH:"Cell Survival")
 
 #in human neuronal cells
 SET Species = "9606"
@@ -526,7 +526,7 @@ SET Species = "10116"
 a(CHEBI:ketanserin) -| p(HGNC:HTR2A)
 a(CHEBI:ketanserin) -> p(HGNCGENEFAMILY:"Beta catenins",loc(GO:"plasma membrane"))
 a(CHEBI:ketanserin) -> p(HGNC:CDH2)
-a(CHEBI:ketanserin) cnc p(HGNCGENEFAMILY:"Beta catenins",loc(GO:nucleus)
+a(CHEBI:ketanserin) cnc p(HGNCGENEFAMILY:"Beta catenins",loc(GO:nucleus))
 a(CHEBI:fluoxetine) -> p(HGNCGENEFAMILY:"Beta catenins",loc(GO:"plasma membrane"))
 a(CHEBI:fluoxetine) -> p(HGNC:CDH2)
 a(CHEBI:fluoxetine) cnc p(HGNCGENEFAMILY:"Beta catenins",loc(GO:nucleus))
@@ -535,7 +535,7 @@ UNSET Species
 SET Evidence = "Beat-catenin links N-cadherin to the actin cytoskeleton and recruits intracellular partners to the
 synaptic membrane to form co-complexes with N-cadherin [116]."
 p(HGNCGENEFAMILY:"Beta catenins") -> complex(p(HGNC:CDH2),complex(GO:"actin cytoskeleton"))
-p(HGNCGENEFAMILY:"Beta catenins") -> bp(Go:"synaptic vesicle membrane organization")
+p(HGNCGENEFAMILY:"Beta catenins") -> bp(GO:"synaptic vesicle membrane organization")
 
 SET Evidence = "β-catenin regulates synaptic vesicle localization by recruiting synaptic proteins with
 PDZ domains [116]."
@@ -571,7 +571,7 @@ UNSET Species
 
 SET Evidence = "Treatment
 with HDAC6i led to reduced binding of AKT to PIP3 and decreased its ability to phosphorylate
-downstream targets including S552 on beta-catenin that mediates its subcellular localization [128]."
+downstream targets including S552 onbeta-catenin that mediates its subcellular localization [128]."
 p(HGNC:HDAC6) -| act(p(HGNC:AKT1),ma(GO:"phosphatidylinositol-3,4,5-trisphosphate binding"))
 act(p(HGNC:AKT1),ma(GO:"phosphatidylinositol-3,4,5-trisphosphate binding")) -> p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph,Ser,552))
 p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph,Ser,552)) -> p(HGNCGENEFAMILY:"Beta catenins",loc(GO:"plasma membrane"))
