@@ -27,7 +27,7 @@ DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharma
  DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 # DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
  DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/go-names.belns"
-# DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+ DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
  DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
 # DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
 # DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
@@ -88,25 +88,6 @@ p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> path(DOID:"cognitive disord
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> path(MESH:"Motor Disorders")
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) neg p(MESH:Proteins, loc(GO:"synaptic membrane"))
 
-SET Evidence = "Lysates of CHO cells stably expressing either
-full-length (2N4R isoform) human tau (CHO-FL) or
-Tau35 (CHO-Tau35) were analyzed on western blots
-using antibodies to phosphorylated tau (AT8, pSer202/
-pThr205; AT180, pThr231; and PHF1, pSer396/pSer404)
-and total tau (Fig. 1a). Antibodies recognizing phosphorylated
-tau exhibited only modest (AT180, PHF1) or negligible
-(AT8) immunoreactivity with FL-tau, whereas all
-tau antibodies recognized multiple Tau35 bands (Fig.
-1a)."
-#FL-tau - 2N4R tau
-p(CONSO:"Tau isoform F (441 aa)", pmod(Ph,Thr,231))
-p(CONSO:"Tau isoform F (441 aa)", pmod(Ph,Ser,369))
-p(CONSO:"Tau isoform F (441 aa)", pmod(Ph,Ser,404))
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441"), pmod(Ph,Ser,202))
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441"), pmod(Ph,Thr,205))
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441"), pmod(Ph,Thr,231))
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441"), pmod(Ph,Ser,396))
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441"), pmod(Ph,Ser,404))
 
 SET Evidence = "Expression of FL-tau induced formation of
 microtubule bundles and robust co-localization of tau
@@ -120,13 +101,11 @@ SET Evidence = "Colocalization analyses of the FL-tau/
 the two cell lines demonstrated a significantly reduced
 correlation of Tau35 with microtubules in CHO cells
 (Fig. 2b, P < 0.01)."
-#C129386 - alpha tubulin
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| composite(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")), p(NCIT:C129386))
+p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| composite(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")), p(INTERPRO:"Alpha tubulin"))
 
 SET Evidence = "Thus, unlike FL-tau, Tau35 localizes
 predominantly in the cytosol, rather than binding to
 and stabilizing microtubules."
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441"), loc(GO:cytosol))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| act(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")), ma(GO:"microtubule binding"))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| bp(GO:"microtubule cytoskeleton organization")
 
@@ -137,25 +116,24 @@ of FL-tau resulted in the formation of an ordered
 array of microtubules in CHO cells, and acetylated
 α-tubulin largely overlapped with microtubules detected
 by α-tubulin antibody (Fig. 2e)."
-#Acteylated Lys40 alpha-tubulin
 #C17421 - CHO cells
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> p(NCIT:C129386, pmod(Ac,Lys,40))
-p(CONSO:"Tau isoform F (441 aa)") => p(NCIT:C129386, pmod(Ac,Lys,40))
+p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> p(INTERPRO:"Alpha tubulin", pmod(Ac,Lys,40))
+p(CONSO:"Tau isoform F (441 aa)") => p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40))
 p(CONSO:"Tau isoform F (441 aa)") -> bp(GO:"microtubule cytoskeleton organization")
-p(NCIT:C17421) -> p(NCIT:C129386, pmod(Ac,Lys,40))
+p(NCIT:C17421) -> p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40))
 
 SET Evidence = "These findings indicate
 that tubulin acetylation is elevated in CHO-FL cells, likely
 due to increased microtubule stabilization."
-p(NCIT:C129386, pmod(Ac,Lys,40)) -> bp(GO:"microtubule cytoskeleton organization")
+p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40)) -> bp(GO:"microtubule cytoskeleton organization")
 
 SET Evidence = "Acetylated
 α-tubulin in CHO-Tau35 cells was located mainly in perinuclear
 regions, coincident with the more intense
 localization of α-tubulin, and with a similar distribution to
 CHO cells (Fig. 2e)."
-composite(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),p(NCIT:C129386,pmod(Ac,Lys,40),loc(GO:"perinuclear region of cytoplasm")))
-composite(p(NCIT:C17421),p(NCIT:C129386,pmod(Ac,Lys,40),loc(GO:"perinuclear region of cytoplasm")))
+composite(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40),loc(GO:"perinuclear region of cytoplasm")))
+composite(p(NCIT:C17421),p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40),loc(GO:"perinuclear region of cytoplasm")))
 
 SET Evidence = "Additionally,
 CHO-Tau35 cells exhibited a rounder morphology than
@@ -169,7 +147,7 @@ tau showed that exogenous expression of αTAT1 increased
 α-tubulin acetylation in all three cell lines (Fig. 3a)."
 #cell lines - CHO, CHO-Fl, CHO-Tau35
 #α-tubulin N-acetyltransferase 1 (αTAT1)
-p(HGNC:ATAT1) -> p(NCIT:C129386,pmod(Ac,Lys,40))
+p(HGNC:ATAT1) -> p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40))
 
 SET Evidence = "Notably, αTAT1 significantly enhanced the formation of
 highly acetylated microtubule bundles that formed perinuclear
@@ -182,7 +160,7 @@ of co-localization of acetylated α-tubulin with tau was
 also limited in CHO-Tau35 cells (Fig. 3a), demonstrating
 that the reduced microtubule-binding ability of Tau35 in
 not restored by increasing tubulin acetylation."
-p(NCIT:C129386,pmod(Ac,Lys,40)) cnc act(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),ma(GO:"microtubule binding"))
+p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40)) cnc act(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),ma(GO:"microtubule binding"))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| bp(GO:"microtubule bundle formation")
 
 SET Evidence = "Phosphorylation of tau by kinases including GSK3,
