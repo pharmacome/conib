@@ -60,7 +60,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
  DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 # DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 # DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -82,32 +82,44 @@ tauopathy, including accumulation of abnormally phosphorylated
 tau, dysregulation of glycogen synthase
 kinase-3β (GSK3β) activity, progressive cognitive and
 motor deficits, and loss of synaptic proteins [7]."
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)", frag("187_441")) neg p(HGNC:MAPT, pmod(Ph))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) neg act(p(HGNC:GSK3B))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> path(DOID:"cognitive disorder")
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> path(MESH:"Motor Disorders")
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) neg p(MESH:Proteins, loc(GO:"synaptic membrane"))
-
+UNSET Confidence
 
 SET Evidence = "Expression of FL-tau induced formation of
 microtubule bundles and robust co-localization of tau
 with microtubules, neither of which were apparent in
 CHO-Tau35 cells (Fig. 2a)."
+SET Confidence = "Medium"
 p(CONSO:"Tau isoform F (441 aa)") -> bp(GO:"microtubule bundle formation")
-p(CONSO:"Tau isoform F (441 aa)") -> p(CONSO:"Tau isoform F (441 aa)", loc(GO:"microtubule bundle"))
+p(CONSO:"Tau isoform F (441 aa)") -> composite(p(CONSO:"Tau isoform F (441 aa)"),a(GO:"microtubule bundle"))
+UNSET Confidence
 
 SET Evidence = "Colocalization analyses of the FL-tau/
 α-tubulin and Tau35/α-tubulin immunofluorescence in
 the two cell lines demonstrated a significantly reduced
 correlation of Tau35 with microtubules in CHO cells
 (Fig. 2b, P < 0.01)."
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| composite(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")), p(INTERPRO:"Alpha tubulin"))
+UNSET Confidence
 
 SET Evidence = "Thus, unlike FL-tau, Tau35 localizes
 predominantly in the cytosol, rather than binding to
 and stabilizing microtubules."
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| act(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")), ma(GO:"microtubule binding"))
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| bp(GO:"microtubule cytoskeleton organization")
+
+SET Confidence = "Low"
+complex(p(CONSO:"Tau isoform F (441 aa)"),a(MESH:Microtubules)) -> bp(GO:"microtubule cytoskeleton organization")
+complex(p(CONSO:"Tau isoform F (441 aa)"),a(MESH:Microtubules)) ->
+p(CONSO:"Tau isoform F (441 aa)",frag("187_441"),loc(MESH:Cytoplasm))
+#p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| act(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")), ma(GO:"microtubule binding"))
+#p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| bp(GO:"microtubule cytoskeleton organization")
+#the Evidence doesnt state the blocking of Tau35 and microtubule biding by Tau35.
+UNSET Confidence
 
 SET Evidence = "Only a minor
 proportion of the microtubule population was acetylated
@@ -116,43 +128,64 @@ of FL-tau resulted in the formation of an ordered
 array of microtubules in CHO cells, and acetylated
 α-tubulin largely overlapped with microtubules detected
 by α-tubulin antibody (Fig. 2e)."
+SET Confidence = "High"
 #C17421 - CHO cells
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> p(INTERPRO:"Alpha tubulin", pmod(Ac,Lys,40))
 p(CONSO:"Tau isoform F (441 aa)") => p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40))
 p(CONSO:"Tau isoform F (441 aa)") -> bp(GO:"microtubule cytoskeleton organization")
 p(NCIT:C17421) -> p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40))
+UNSET Confidence
 
 SET Evidence = "These findings indicate
 that tubulin acetylation is elevated in CHO-FL cells, likely
 due to increased microtubule stabilization."
-p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40)) -> bp(GO:"microtubule cytoskeleton organization")
+
+SET Confidence = "Medium"
+bp(GO:"microtubule cytoskeleton organization") -> p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40))
+UNSET Confidence
 
 SET Evidence = "Acetylated
 α-tubulin in CHO-Tau35 cells was located mainly in perinuclear
 regions, coincident with the more intense
 localization of α-tubulin, and with a similar distribution to
 CHO cells (Fig. 2e)."
+
+SET Confidence = "Medium"
+#In CHO-Tau35 cells
 composite(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40),loc(GO:"perinuclear region of cytoplasm")))
-composite(p(NCIT:C17421),p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40),loc(GO:"perinuclear region of cytoplasm")))
+#In CHO cells
+composite(p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40),loc(GO:"perinuclear region of cytoplasm")))
+UNSET Confidence
 
 SET Evidence = "Additionally,
 CHO-Tau35 cells exhibited a rounder morphology than
 the other two cell types (Fig. 2e), indicating a reduction in
 the organization and extent of the microtubule cytoskeleton."
+
+SET Confidence = "High"
+#CHO Tau35 cells
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| bp(GO:"cytoskeleton organization")
+UNSET Confidence
 
 SET Evidence = "Methanol-fixed
 cells labelled with antibodies to acetylated α-tubulin and
 tau showed that exogenous expression of αTAT1 increased
 α-tubulin acetylation in all three cell lines (Fig. 3a)."
+
+SET Confidence = "High"
 #cell lines - CHO, CHO-Fl, CHO-Tau35
 #α-tubulin N-acetyltransferase 1 (αTAT1)
 p(HGNC:ATAT1) -> p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40))
+UNSET Confidence
 
 SET Evidence = "Notably, αTAT1 significantly enhanced the formation of
 highly acetylated microtubule bundles that formed perinuclear
 rings in CHO-FL cells (Fig. 3a, b)."
+
+#CHO-FL cells
+SET Confidence = "High"
 composite(p(CONSO:"Tau isoform F (441 aa)"),p(HGNC:ATAT1)) -> bp(GO:"microtubule bundle formation")
+UNSET Confidence
 
 SET Evidence = "In contrast, increased α-tubulin acetylation
 resulted in little microtubule bundling and the extent
@@ -160,17 +193,22 @@ of co-localization of acetylated α-tubulin with tau was
 also limited in CHO-Tau35 cells (Fig. 3a), demonstrating
 that the reduced microtubule-binding ability of Tau35 in
 not restored by increasing tubulin acetylation."
+
+SET Confidence = "High"
 p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40)) cnc act(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),ma(GO:"microtubule binding"))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| bp(GO:"microtubule bundle formation")
+UNSET Confidence
 
 SET Evidence = "Phosphorylation of tau by kinases including GSK3,
 negatively affects interactions between tau and microtubules
 [10, 15, 46]."
 #CHO-Tau35
 #Ph at Ser396/Ser404
+SET Confidence = "Medium"
 p(HGNC:GSK3A) -> p(CONSO:"Tau isoform F (441 aa)",frag("187_441"),pmod(Ph,Ser,396))
 p(HGNC:GSK3A) -> p(CONSO:"Tau isoform F (441 aa)",frag("187_441"),pmod(Ph,Ser,404))
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441"),pmod(Ph)) -- act(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),ma(GO:"microtubule binding"))
+p(CONSO:"Tau isoform F (441 aa)",frag("187_441"),pmod(Ph)) neg act(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),ma(GO:"microtubule binding"))
+UNSET Confidence
 
 SET Evidence = "CHO-Tau35 cells
 were treated with 5mM LiCl for 24 h to inhibit
@@ -182,67 +220,91 @@ caused a shift of tau species to lower apparent molecular
 weight, confirming the highly phosphorylated nature of
 Tau35 (see Additional file: Figure S3)."
 #%mM for 24 hrs
+SET Confidence = "High"
 a(CHEBI:"lithium chloride") -| p(HGNC:GSK3A)
 a(CHEBI:"lithium chloride") -| p(CONSO:"Tau isoform F (441 aa)",frag("187_441"),pmod(Ph,Ser,396))
 a(CHEBI:"lithium chloride") -| p(CONSO:"Tau isoform F (441 aa)",frag("187_441"),pmod(Ph,Ser,404))
+UNSET Confidence
 
 SET Evidence = "Despite the clear
 reduction in Tau35 phosphorylation, LiCl did not affect
 the proportion of either microtubule-bound Tau35, or
 polymerized α-tubulin in CHO-Tau35 cells (Fig. 3c, d)."
+
+SET Confidence = "Medium"
 #CHO-Tau35
-a(CHEBI:"lithium chloride") cnc act(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),ma(GO:"microtubule binding"))
+a(CHEBI:"lithium chloride") cnc complex(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),a(MESH:Microtubules))
 a(CHEBI:"lithium chloride") cnc bp(GO:"microtubule polymerization or depolymerization")
+UNSET Confidence
 
 SET Evidence = "CHO-FL cells exhibited enhanced
 total and phosphorylated Akt, indicative of increased
 activity, in comparison to CHO-Tau35 and CHO
 cells (Fig. 4a, b)."
+
 #CHO-Fl cell
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)") -> p(HGNC:AKT1)
 p(CONSO:"Tau isoform F (441 aa)") -> p(HGNC:AKT1,pmod(Ph))
 p(CONSO:"Tau isoform F (441 aa)") -> act(p(HGNC:AKT1))
+UNSET Confidence
 
 SET Evidence = "These data indicate that FL-tau and Tau35 exert
 differing effects on the Akt/GSK3 pathway, with FL-tau
 promoting the steady-state amount of Akt and also increasing
 its activation state, thereby inactivating GSK3β."
+
 #CHO-Fl cell
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)") -> act(p(HGNC:AKT1))
 act(p(HGNC:AKT1)) -| p(HGNC:GSK3B)
 p(CONSO:"Tau isoform F (441 aa)") -| p(HGNC:GSK3B)
 act(p(HGNC:AKT1)) --  bp(GO:"regulation of insulin receptor signaling pathway")
 p(HGNC:GSK3B) -- bp(GO:"regulation of insulin receptor signaling pathway")
+UNSET Confidence
 
 SET Evidence = "In contrast, Tau35 lacks the capacity to activate Akt and
 reduce the activity of GSK3β, suggesting a potential mechanism
 for the increased phosphorylation of Tau35."
+
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| act(p(HGNC:AKT1))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> p(HGNC:GSK3B)
 p(HGNC:GSK3B) -> p(CONSO:"Tau isoform F (441 aa)",frag("187_441"),pmod(Ph,Ser,396))
 p(HGNC:GSK3B) -> p(CONSO:"Tau isoform F (441 aa)",frag("187_441"),pmod(Ph,Ser,404))
+UNSET Confidence
 
 SET Evidence = "Insulin significantly increased Akt
 phosphorylation in all cell lines (Fig. 4c, d)."
 #CHO, CHO-Fl, CHO-Tau35
+SET Confidence = "High"
 p(HGNC:INS) -> p(HGNC:AKT1,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "In line with Akt
 activation, insulin promoted inhibitory phosphorylation of
 GSK3α and GSK3β in cell lines (Fig. 4d)."
 #CHO, CHO-Fl, CHO-Tau35
+SET Confidence = "High"
 p(HGNC:INS) -| p(HGNC:GSK3A,pmod(Ph))
 p(HGNC:INS) -| p(HGNC:GSK3B,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "Tau35 impairs
 insulin responsiveness, repressing both Akt activation and
 inhibitory phosphorylation of GSK3, particularly GSK3β."
+
+SET Confidence = "Medium"
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) neg act(p(HGNC:INS))
+p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> act(p(HGNC:AKT1))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> p(HGNC:GSK3B,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "mTORC1/S6K1 signaling negatively regulates
 insulin signaling through inhibitory phosphorylation
 of insulin receptor substrate 1 (IRS1) [35]."
+
+SET Confidence = "High"
 #S6K1 activated by Ph at Thr398 by mTORC1
 p(HGNCGENEFAMILY:"MTOR complex 1") -> p(HGNC:RPS6KB1,pmod(Ph,Thr,398))
 p(HGNC:RPS6KB1,pmod(Ph,Thr,398)) -> act(p(HGNC:RPS6KB1))
@@ -251,33 +313,43 @@ act(p(HGNC:RPS6KB1)) neg act(p(HGNC:INS))
 p(HGNCGENEFAMILY:"MTOR complex 1") -> p(HGNC:IRS1,pmod(Ph))
 act(p(HGNC:RPS6KB1)) -> p(HGNC:IRS1,pmod(Ph))
 p(HGNC:IRS1,pmod(Ph)) -| act(p(HGNC:INS))
+UNSET Confidence
 
-SET Evidence = " When
+SET Evidence = "When
 assessed on western blots, S6K1 phosphorylation in
 CHO-Tau35 cells was approximately 3-fold higher than
 that in CHO cells, whereas it was unchanged in
 CHO-FL cells (Fig. 5a, b), indicating a selective
 upregulation of S6K1 activity by Tau35."
+
+SET Confidence = "High"
 composite(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),p(HGNCGENEFAMILY:"MTOR complex 1")) -> p(HGNC:RPS6KB1,pmod(Ph,Thr,398))
 composite(p(CONSO:"Tau isoform F (441 aa)"),p(HGNCGENEFAMILY:"MTOR complex 1")) cnc p(HGNC:RPS6KB1,pmod(Ph,Thr,398))
+UNSET Confidence
 
 SET Evidence = "These data suggest that mTORC1/S6K1 signaling is significantly
 upregulated in CHO-Tau35 cells, and this appears
 to be a gain of function of Tau35 that
 differentiates it from FL-tau."
+
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> act(p(HGNCGENEFAMILY:"MTOR complex 1"))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> act(p(HGNC:RPS6KB1))
+UNSET Confidence
 
 SET Evidence = "Amongst the inhibitory target phosphorylation sites on
 human IRS1, Ser636/Ser639 and Ser1101 (equivalent to rodent
 Ser632/Ser635 and Ser1097) are phosphorylated following
 mTORC1/S6K1 activation [50, 51]."
+
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"MTOR complex 1") -> p(HGNC:IRS1,pmod(Ph,Ser,636))
 act(p(HGNC:RPS6KB1)) -> p(HGNC:IRS1,pmod(Ph,Ser,636))
 p(HGNCGENEFAMILY:"MTOR complex 1") -> p(HGNC:IRS1,pmod(Ph,Ser,639))
 act(p(HGNC:RPS6KB1)) -> p(HGNC:IRS1,pmod(Ph,Ser,639))
 p(HGNCGENEFAMILY:"MTOR complex 1") -> p(HGNC:IRS1,pmod(Ph,Ser,1101))
 act(p(HGNC:RPS6KB1)) -> p(HGNC:IRS1,pmod(Ph,Ser,1101))
+UNSET Confidence
 
 SET Evidence = "Enhanced
 activation of S6K1 in CHO-Tau35 cells promoted Ser636/
@@ -285,41 +357,55 @@ Ser639 phosphorylation of IRS1, compared to both CHO
 and CHO-FL cells (Fig. 5c, d). S6K1 also increased IRS1
 Ser1101 phosphorylation in CHO-Tau35 cells compared to
 CHO-FL cells (Fig. 5c, d)."
+
 # CHO-Tau35
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> p(HGNC:IRS1,pmod(Ph,Ser,636))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> p(HGNC:IRS1,pmod(Ph,Ser,639))
 act(p(HGNC:RPS6KB1)) -> p(HGNC:IRS1,pmod(Ph,Ser,1101))
+UNSET Confidence
 
 SET Evidence = "Activation of PRKR-like endoplasmic
 reticulum kinase (PERK) is observed in CHO-Tau35 cells,
 as demonstrated by increases in both total and phosphorylated
 PERK (Fig. 6a, b)."
 #total PERK increased in all cases.
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> p(HGNC:EIF2AK3,pmod(Ph))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> act(p(HGNC:EIF2AK3))
 act(p(HGNC:EIF2AK3)) -> bp(GO:"PERK-mediated unfolded protein response")
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> bp(GO:"PERK-mediated unfolded protein response")
+UNSET Confidence
 
 SET Evidence = "PERK activation leads to phosphorylation of eukaryotic
 translation initiation factor 2α (eIF2α), which was also increased
 in CHO-Tau35 cells (Fig. 6a, b)."
 #CHO-Tau35 cells
+SET Confidence = "High"
 act(p(HGNC:EIF2AK3)) -> p(HGNC:EIF2S1,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "In parallel to PERK activation, we also found an enrichment
 of the 36 kDa fragment of activating transcription
 factor 6α (ATF6α-p36) in CHO-Tau35 cells (Fig. 6c, d), indicating
 activation of the ATF6α branch of the UPR [23,
 28, 36]."
+
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> p(HGNC:ATF6,frag("?"))
 p(HGNC:ATF6,frag("?")) ->  bp(GO:"ATF6-mediated unfolded protein response")
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> bp(GO:"ATF6-mediated unfolded protein response")
+UNSET Confidence
 
 SET Evidence = "Notably, cleavage of ATF6α was significantly reduced
 in CHO-FL cells, indicating potential suppression
 of this branch of the UPR by FL-tau."
+
+SET Confidence = "Medium"
 p(CONSO:"Tau isoform F (441 aa)") -| p(HGNC:ATF6,frag("?"))
+p(CONSO:"Tau isoform F (441 aa)") -| bp(GO:"ATF6-mediated unfolded protein response")
 p(NCIT:C17421) -| p(HGNC:ATF6,frag("?"))
+UNSET Confidence
 
 SET Evidence = "We were unable to
 detect phosphorylation (activation) of inositol-requiring
@@ -327,6 +413,8 @@ enzyme 1α (IRE1α) in any of the three cell lines and there
 were no differences in the total amount of IRE1α present
 (Fig. 6c, d), suggesting that this branch of the UPR is not
 activated by either Tau35 or FL-tau."
+
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) cnc p(HGNC:ERN1,pmod(Ph))
 p(CONSO:"Tau isoform F (441 aa)") cnc p(HGNC:ERN1,pmod(Ph))
 p(NCIT:C17421) cnc p(HGNC:ERN1,pmod(Ph))
@@ -335,18 +423,25 @@ act(p(HGNC:ERN1)) -> bp(GO:"IRE1-mediated unfolded protein response")
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) cnc bp(GO:"IRE1-mediated unfolded protein response")
 p(CONSO:"Tau isoform F (441 aa)") cnc bp(GO:"IRE1-mediated unfolded protein response")
 p(NCIT:C17421) cnc bp(GO:"IRE1-mediated unfolded protein response")
+UNSET Confidence
 
 SET Evidence = "Western blots of CHOP showed a corresponding
 increase in CHO-Tau35 cells, whereas the
 amount of CHOP in CHO-FL cells was unchanged (Fig.6c, d)."
+
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> p(HGNCGENEFAMILY:"CCAAT/enhancer binding proteins")
 p(CONSO:"Tau isoform F (441 aa)") cnc p(HGNCGENEFAMILY:"CCAAT/enhancer binding proteins")
+UNSET Confidence
 
 SET Evidence = "Furthermore, induction of endoplasmic reticulum
 (ER) stress with thapsigargin, resulted in sensitized activation
 of both PERK and IRE1α in CHO-Tau35 cells
 compared with both CHO-FL and CHO cells (see Additional
 file 2: Figure S4)."
+
+SET Confidence = "High"
 composite(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),a(CHEBI:thapsigargin)) -> act(p(HGNC:EIF2AK3))
 composite(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),a(CHEBI:thapsigargin)) -> act(p(HGNC:ERN1))
 composite(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),a(CHEBI:thapsigargin)) -> path(EFO:"Endoplasmic Reticulum Stress")
+UNSET Confidence
