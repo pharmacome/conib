@@ -92,14 +92,18 @@ UNSET Anatomy
 
 SET Evidence = "Monocyte-derived macrophages and CNS-resident phagocytic cells can promote neuroinﬂammation, thereby inducing MS, but they can also play neuroprotective and anti-inﬂammatory roles, depending on many factors."
 
-a(MESH:Macrophages) -> path(MESH:Inﬂammation,loc(MESH:Neurons))
-path(MESH:Inﬂammation,loc(MESH:Neurons)) -> path(DOID:"multiple sclerosis")
+SET Cell = "neuron"
+a(MESH:Macrophages) -> path(MESH:Inﬂammation)
+path(MESH:Inﬂammation) -> path(DOID:"multiple sclerosis")
+UNSET Cell
 a(MESH:Macrophages) -> path(DOID:"multiple sclerosis")
 a(MESH:Macrophages) -> bp(MESH:Neuroprotection)
 a(MESH:Macrophages) -| path(MESH:Inflammation)
 SET Anatomy = "central nervous system"
-a(MESH:Phagocytes) -> path(MESH:Inﬂammation,loc(MESH:Neurons))
-path(MESH:Inﬂammation,loc(MESH:Neurons)) -> path(DOID:"multiple sclerosis")
+SET Cell = "neuron"
+a(MESH:Phagocytes) -> path(MESH:Inflammation)
+path(MESH:Inﬂammation) -> path(DOID:"multiple sclerosis")
+UNSET Cell
 a(MESH:Phagocytes) -> path(DOID:"multiple sclerosis")
 a(MESH:Phagocytes) -> bp(MESH:Neuroprotection)
 a(MESH:Phagocytes) -| path(MESH:Inflammation)
@@ -390,7 +394,7 @@ UNSET Species
 
 SET Evidence = "Furthermore, astroglial ATP ampliﬁes microglial signals and subsequently promotes glutamate release from astroglia, which directly inhibits synaptic transmission (Kettenmann et al., 2013)."
 
-a(CHEBI:"adenosine triphosphate",loc(MESH:Astrocyte)) -> act(a(MESH:Microglia))
+a(CHEBI:"adenosine triphosphate",loc(MESH:Astrocytes)) -> act(a(MESH:Microglia))
 act(a(MESH:Microglia)) -> tloc(a(CHEBI:"2 L-glutamate"),fromLoc(MESH:Astrocytes),toLoc(MESH:Synapses))
 a(CHEBI:"2 L-glutamate",loc(MESH:Synapses)) =| bp(MESH:"Synaptic Potentials")
 UNSET Disease
@@ -454,7 +458,7 @@ p(HGNC:IL1B) -> path(DOID:"multiple sclerosis")
 p(HGNC:CCL2) -> path(DOID:"multiple sclerosis")
 p(HGNC:CCL5) -> path(DOID:"multiple sclerosis")
 UNSET Species
-p(HGNC:IL18) -> path(DOID:"multiple sclerosis")
+p(HGNC:IL1B) -> path(DOID:"multiple sclerosis")
 p(HGNC:IL6) -> path(DOID:"multiple sclerosis")
 p(HGNC:CCL2) -> path(DOID:"multiple sclerosis")
 p(HGNC:IL1b) -> path(DOID:"multiple sclerosis")
@@ -560,14 +564,14 @@ UNSET Anatomy
 SET Evidence = "Macrophages also secrete large amounts of pro-inﬂammatory cytokines, such as IL6, IL-12, TNF-α, IL-1, and IL-23, to aggravate the inﬂammatory response (Valentin-Torres et al., 2016)."
 
 a(MESH:Macrophages) -> sec(p(HGNC:IL6))
-a(MESH:Macrophages) -> sec(p(HGNC:IL12b))
+a(MESH:Macrophages) -> sec(p(HGNC:IL12B))
 a(MESH:Macrophages) -> sec(p(HGNC:TNF))
 a(MESH:Macrophages) -> sec(p(HGNC:IL1A))
 a(MESH:Macrophages) -> sec(p(NCIT:C147535))
 p(NCIT:C147535) -> path(MESH:Inflammation)
 p(HGNC:IL1A) -> path(MESH:Inflammation)
 p(HGNC:TNF) -> path(MESH:Inflammation)
-p(HGNC:IL12b) -> path(MESH:Inflammation)
+p(HGNC:IL12B) -> path(MESH:Inflammation)
 p(HGNC:IL6) -> path(MESH:Inflammation)
 
 SET Evidence = "IL-1β expression has been found to be pivotal in the polarization of Th17 cells and therefore for EAE induction (Sutton et al., 2006)."
@@ -668,7 +672,7 @@ SET Evidence = "In concordance, meningeal macrophages are equipped to present pe
 
 SET MeSHAnatomy = "Meninges"
 a(MESH:Macrophages) -> act(a(MESH:"T-Lymphocytes"))
-act(a(MESH:"T-Lymphocytes")) -> path(HBP:neuroinﬂammation)
+act(a(MESH:"T-Lymphocytes")) -> path(CONSO:neuroinﬂammation)
 
 SET Evidence = "In contrast, meningeal macrophages produce neurotrophic and anti-inﬂammatory factors to inhibit leukocyte activity and their inﬁltration into the CNS at particular disease stages (Bogie et al., 2014)."
 
