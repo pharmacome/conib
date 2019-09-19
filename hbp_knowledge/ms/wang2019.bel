@@ -52,7 +52,7 @@ SET DOCUMENT Description = ""
 
 # Annotations defined with regular expressions
 # --------------------------------------------
-# DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 
 # Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
 # --------------------------------------------------------------------------------
@@ -82,7 +82,6 @@ SET Anatomy = "perivascular space"
 a(MESH:Macrophages) reg bp(MESH:Homeostasis)
 UNSET Anatomy
 UNSET MeSHAnatomy
-UNSET Anatomy
 
 SET Evidence = "Alterations in CNS homeostasis lead to the recruitment of peripheral blood-derived monocytes (known as monocyte-derived macrophages) into the CNS, the activation of microglia, and the presence of foamy macrophages (Bogie et al., 2014; Kuhlmann et al., 2017; Mrdjen et al., 2018; Zéphir, 2018)."
 
@@ -93,14 +92,14 @@ UNSET Anatomy
 
 SET Evidence = "Monocyte-derived macrophages and CNS-resident phagocytic cells can promote neuroinﬂammation, thereby inducing MS, but they can also play neuroprotective and anti-inﬂammatory roles, depending on many factors."
 
-a(MESH:Macrophages) -> path(CONSO:neuroinﬂammation)
-path(CONSO:neuroinﬂammation) -> path(DOID:"multiple sclerosis")
+a(MESH:Macrophages) -> path(MESH:Inﬂammation,loc(MESH:Neurons))
+path(MESH:Inﬂammation,loc(MESH:Neurons)) -> path(DOID:"multiple sclerosis")
 a(MESH:Macrophages) -> path(DOID:"multiple sclerosis")
 a(MESH:Macrophages) -> bp(MESH:Neuroprotection)
 a(MESH:Macrophages) -| path(MESH:Inflammation)
 SET Anatomy = "central nervous system"
-a(MESH:Phagocytes) -> path(CONSO:neuroinﬂammation)
-path(CONSO:neuroinﬂammation) -> path(DOID:"multiple sclerosis")
+a(MESH:Phagocytes) -> path(MESH:Inﬂammation,loc(MESH:Neurons))
+path(MESH:Inﬂammation,loc(MESH:Neurons)) -> path(DOID:"multiple sclerosis")
 a(MESH:Phagocytes) -> path(DOID:"multiple sclerosis")
 a(MESH:Phagocytes) -> bp(MESH:Neuroprotection)
 a(MESH:Phagocytes) -| path(MESH:Inflammation)
@@ -115,7 +114,6 @@ SET Anatomy = "perivascular space"
 a(MESH:Macrophages)
 UNSET Anatomy
 UNSET MeSHAnatomy
-UNSET Anatomy
 
 SET Evidence = "Microglia are widely scattered throughout the brain and spinal cord, and they come into close contact with neurons, astrocytes,and oligodendrocytes(Ransohoﬀ and Cardona,2010; Szepesi et al., 2018)."
 
@@ -173,7 +171,8 @@ SET Evidence = "Moreover, microglia act as scavengers in the adult CNS to remove
 
 SET Anatomy = "adult central nervous system"
 a(MESH:Microglia) -> bp(GO:"apoptotic cell clearance")
-a(MESH:Microglia) -> deg(a(MESH:Proteins,pmod(CONSO:misfolded)))
+#a(MESH:Microglia) -> deg(a(MESH:Proteins,pmod(CONSO:misfolded)))
+#parser failure error
 UNSET Anatomy
 
 SET Evidence = "Once “danger” signals are detected in the surrounding environment, microglia rapidly change into a reactive phenotype, characterized by larger soma, and release various complement factors to facilitate neuron and tissue repair (Hanisch and Kettenmann, 2007; Graeber and Streit, 2010; Kettenmannetal.,2011)."
@@ -212,15 +211,17 @@ SET Evidence = "Moreover, they can protect against bacterial infection by recrui
 #they = perivascular macrophages
 SET Anatomy = "perivascular space"
 a(MESH:Macrophages) -> a(MESH:"Leukocytes, Mononuclear")
-a(MESH:"Leukocytes, Mononuclear") -| path(MESH:"Bacterial Infection")
-a(MESH:Macrophages) -| path(MESH:"Bacterial Infection")
+#a(MESH:"Leukocytes, Mononuclear") -| path(MESH:"Bacterial Infection")
+#a(MESH:Macrophages) -| path(MESH:"Bacterial Infection")
+#bacterial infection not in MeSH NAMESPACE
 UNSET Anatomy
 
 SET Evidence = "The study of meningeal macrophages has been limited; however, it was reported that meninges possess a “glymphatic” system, which guides the clearance of waste products such as β-amyloid in the CNS (Raper et al., 2016)."
 
 SET Anatomy = "central nervous system"
 SET MeSHAnatomy = "Meninges"
-bp(MESH:"Glymphatic System") -> deg(a(CHEBI:"amyloid-beta"))
+#bp(MESH:"Glymphatic System") -> deg(a(CHEBI:"amyloid-beta"))
+#glymphatic system not in mesh NAMESPACE
 UNSET MeSHAnatomy
 UNSET Anatomy
 
@@ -284,8 +285,9 @@ a(MESH:Microglia) isA a(MESH:"Antigen-Presenting Cells")
 a(MESH:"Antigen-Presenting Cells") -> bp(MESH:"Adaptive Immunity")
 a(NCIT:C156004) -> bp(MESH:"Adaptive Immunity")
 a(MESH:Microglia) -> bp(MESH:"Adaptive Immunity")
-a(NCIT:C156004) -| a(MESH:Proteins,pmod(CONSO:misfolded))
-a(MESH:Microglia) -| a(MESH:Proteins,pmod(CONSO:misfolded))
+#a(NCIT:C156004) -| a(MESH:Proteins,pmod(CONSO:misfolded))
+#a(MESH:Microglia) -| a(MESH:Proteins,pmod(CONSO:misfolded))
+#giving a parser failure error
 
 SET Evidence = "In contrast, M2 macrophages and microglia have smaller cell bodies and a branched structure(RansohoﬀandPerry,2009),and they express a variety of anti-inﬂammatory molecules, including IL-4, IL-10, IL-13, and transforming growth factor-β (David and Kroner, 2011)."
 
@@ -365,7 +367,7 @@ UNSET Anatomy
 SET Evidence = "These microglia are enriched with iron, express proinﬂammatory cytokines, and cause persistent tissue damage (Wisnieﬀ et al., 2015)."
 
 #these microglia = the one activated during MS
-a(MESH:Microglia) hasComponent a(CHEBI:"iron atom")
+a(MESH:Microglia) hasComponents list(a(CHEBI:"iron atom"))
 act(a(MESH:Microglia)) -> a(MESH:Cytokines)
 a(MESH:Cytokines) -> deg(a(MESH:Tissues))
 UNSET Disease
@@ -388,7 +390,7 @@ UNSET Species
 
 SET Evidence = "Furthermore, astroglial ATP ampliﬁes microglial signals and subsequently promotes glutamate release from astroglia, which directly inhibits synaptic transmission (Kettenmann et al., 2013)."
 
-a(CHEBI:"adenosine triphosphate",loc(MESH:astrocyte)) -> act(a(MESH:Microglia))
+a(CHEBI:"adenosine triphosphate",loc(MESH:Astrocyte)) -> act(a(MESH:Microglia))
 act(a(MESH:Microglia)) -> tloc(a(CHEBI:"2 L-glutamate"),fromLoc(MESH:Astrocytes),toLoc(MESH:Synapses))
 a(CHEBI:"2 L-glutamate",loc(MESH:Synapses)) =| bp(MESH:"Synaptic Potentials")
 UNSET Disease
@@ -442,13 +444,13 @@ SET Evidence = "Microglia also secrete a series of pro-inﬂammatory cytokines s
 
 a(MESH:Microglia) -> sec(p(HGNC:IL18))
 a(MESH:Microglia) -> sec(p(HGNC:IL6))
-a(MESH:Microglia) -> sec(p(HGNC:IL1b))
+a(MESH:Microglia) -> sec(p(HGNC:IL1B))
 a(MESH:Microglia) -> sec(p(HGNC:CCL2))
 a(MESH:Microglia) -> sec(p(HGNC:CCL5))
 SET Species = "10095"
 p(HGNC:IL18) -> path(DOID:"multiple sclerosis")
 p(HGNC:IL6) -> path(DOID:"multiple sclerosis")
-p(HGNC:IL1b) -> path(DOID:"multiple sclerosis")
+p(HGNC:IL1B) -> path(DOID:"multiple sclerosis")
 p(HGNC:CCL2) -> path(DOID:"multiple sclerosis")
 p(HGNC:CCL5) -> path(DOID:"multiple sclerosis")
 UNSET Species
@@ -461,7 +463,7 @@ p(HGNC:CCL5) -> path(DOID:"multiple sclerosis")
 SET Evidence = "In conclusion, microglia exert detrimental functions in MS and strongly damage myelin."
 
 a(MESH:Microglia) -> path(DOID:"multiple sclerosis")
-a(MESH:Microglia) -> deg(MESH:"Myelin Sheath")
+a(MESH:Microglia) -> deg(a(MESH:"Myelin Sheath"))
 
 SET Evidence = "Microglial activation may also be beneﬁcial for remyelination in MS due to the phagocytotic ability of microglia, as well as their secretion of neuroprotective molecules and antiinﬂammatory cytokines (Du et al., 2017)."
 
@@ -482,11 +484,13 @@ p(HGNC:TNFAIP3) -| path(DOID:"multiple sclerosis")
 
 SET Evidence = "Several receptors, including TREM2, complement receptor 3, and signal regulatory protein-α, invoke microglia to phagocytose myelin debris in lesions (Brendecke and Prinz, 2015)."
 
-p(HGNC:TREM2) -> bp(GO:phagocytosis,loc(MESH:Microglia))
-p(HGNC:SRPRA) -> bp(GO:phagocytosis,loc(MESH:Microglia))
-SET CellStructure
-bp(GO:phagocytosis,loc(MESH:Microglia)) deg a(NCIT:C120869)
-UNSET CellStructure
+SET Cell = "microglial cell"
+p(HGNC:TREM2) -> bp(GO:phagocytosis)
+p(HGNC:SRPRA) -> bp(GO:phagocytosis)
+SET Anatomy = "myelin"
+bp(GO:phagocytosis) -> deg(a(NCIT:C120869))
+UNSET Cell
+UNSET Anatomy
 #NCIT:C120869 = cellular debris
 
 SET Evidence = "Microglia-speciﬁc ablation of TREM2 cannot upregulate genes associated with phagocytosis (Poliani et al., 2015), and the blockage of TREM2 results in increased demyelination in EAE (Piccio et al., 2007)."
@@ -500,10 +504,10 @@ UNSET Species
 
 SET Evidence = "Moreover, microglia secrete trypsinogen, insulin-like growth factor, and ﬁbroblast growth factor during activation to promote neurogenesis (Pérez-Martín et al., 2010; Voss et al., 2012)."
 
-act(a(MESH:Microglia)) -> sec(p(HGNC:PRSS3P2))
+act(a(MESH:Microglia)) => g(HGNC:PRSS3P2)
 act(a(MESH:Microglia)) -> sec(p(HGNC:IGF1))
 act(a(MESH:Microglia)) -> sec(p(NCIT:C20426))
-p(HGNC:PRSS3P2) -> bp(GO:neurogenesis)
+g(HGNC:PRSS3P2) -> bp(GO:neurogenesis)
 p(HGNC:IGF1) -> bp(GO:neurogenesis)
 p(NCIT:C20426) -> bp(GO:neurogenesis)
 act(a(MESH:Microglia)) -> bp(GO:neurogenesis)
@@ -569,7 +573,7 @@ p(HGNC:IL6) -> path(MESH:Inflammation)
 SET Evidence = "IL-1β expression has been found to be pivotal in the polarization of Th17 cells and therefore for EAE induction (Sutton et al., 2006)."
 
 SET Species = "10095"
-p(HGNC:IL1B) -- a(MESH:"Th17 Cell")
+p(HGNC:IL1B) -- a(MESH:"Th17 Cells")
 p(HGNC:IL1B) -> path(DOID:"multiple sclerosis")
 
 SET Evidence = "IL-6 has also been demonstrated to be critical for CNS autoimmunity, as IL6-deﬁcient mice demonstrated alleviated EAE (Samoilova et al., 1998)."
@@ -663,8 +667,8 @@ UNSET Anatomy
 SET Evidence = "In concordance, meningeal macrophages are equipped to present peptide antigens to T cells, triggering neuroinﬂammatory events (Bartholomäus et al., 2009; Kivisakk et al., 2009; Ransohoﬀ and Cardona, 2010)."
 
 SET MeSHAnatomy = "Meninges"
-a(MESH:Macrophages) -> act(a(MESH:"T-lymphocytes"))
-act(a(MESH:"T-lymphocytes")) -> path(HBP:neuroinﬂammation)
+a(MESH:Macrophages) -> act(a(MESH:"T-Lymphocytes"))
+act(a(MESH:"T-Lymphocytes")) -> path(HBP:neuroinﬂammation)
 
 SET Evidence = "In contrast, meningeal macrophages produce neurotrophic and anti-inﬂammatory factors to inhibit leukocyte activity and their inﬁltration into the CNS at particular disease stages (Bogie et al., 2014)."
 
@@ -709,10 +713,10 @@ a(NCIT:C123783,loc(MESH:"Spinal Cord")) -> bp(MESH:Remyelination)
 SET Evidence = "Consistent with this, researchers found that mouse myelin macrophages could inhibit IFN-γ release by Th1 cells and suppress EAE severity (Bogie et al., 2014)."
 
 SET Species = "10095"
-SET Anatomy = "Myelin"
+SET Anatomy = "myelin"
 a(MESH:"Th1 Cells") -> p(HGNC:IFNG)
 a(MESH:Macrophages) -| p(HGNC:IFNG)
-a(MESH:Macrophages) -| path(DOID:multiple sclerosis)
+a(MESH:Macrophages) -| path(DOID:"multiple sclerosis")
 UNSET Anatomy
 
 SET Evidence = "Although microglia and inﬁltrating macrophages are potent APCs in EAE, the expression levels of MHC II and costimulatory molecules on microglia are lower (Brendecke and Prinz, 2015), indicating that inﬂammation in the CNS is mainly activated by inﬁltrating macrophages."
@@ -752,12 +756,12 @@ a(DRUGBANK:"Ethyl pyruvate") -- act(a(MESH:Macrophages))
 a(CHEBI:spermidine) -- act(a(MESH:Macrophages))
 a(CHEBI:"bryostatin 1") -- act(a(MESH:Macrophages))
 a(CHEBI:forskolin) -- act(a(MESH:Macrophages))
-a(DRUGBANK:lenalidomide) -- act(a(MESH:Macrophages))
+a(DRUGBANK:Lenalidomide) -- act(a(MESH:Macrophages))
 a(DRUGBANK:"Ethyl pyruvate") -- act(a(MESH:Microglia))
 a(CHEBI:spermidine) -- act(a(MESH:Microglia))
 a(CHEBI:"bryostatin 1") -- act(a(MESH:Microglia))
 a(CHEBI:forskolin) -- act(a(MESH:Microglia))
-a(DRUGBANK:lenalidomide) -- act(a(MESH:Microglia))
+a(DRUGBANK:Lenalidomide) -- act(a(MESH:Microglia))
 
 SET Evidence = "Ethyl pyruvate can reduce high-mobility group box 1 expression in activated ED1+ macrophages and Iba1+ microglia, thus inhibiting the activation of macrophages/microglia within the CNS to protect against EAE (Djedovi´c et al., 2017)."
 
