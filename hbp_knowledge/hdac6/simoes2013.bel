@@ -133,5 +133,132 @@ since they overexpress protein p25, which has been
 associated with some AD features : it accumulates in
 neurons of AD patients and complexes with Cdk5 kinase."
 #p25 - CDK5 fragment formed
-p(HGNC:CDK5,frag("?"))
-p(HGNC:CDK5,frag("?"))
+p(HGNC:CDK5,frag("?"),loc(MESH:Neurons)) -- path(DOID:"Alzheimer's disease")
+p(HGNC:CDK5,frag("?"),loc(MESH:Neurons)) -- path(DOID:"Alzheimer's disease")
+complex(p(HGNC:CDK5,frag("?")),p(HGNC:CDK5)) -- path(DOID:"Alzheimer's disease")
+complex(p(HGNC:CDK5,frag("?")),p(HGNC:CDK5)) -- path(DOID:"Alzheimer's disease")
+
+SET Evidence = "This complex is considered responsible for tau
+hyperphosphorylation and then for cytoskeletal disruption."
+#p25-Cdk5 complex
+complex(p(HGNC:CDK5,frag("?")),p(HGNC:CDK5)) -> p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+complex(p(HGNC:CDK5,frag("?")),p(HGNC:CDK5)) -> deg(p(MESH:Cytoskeleton))
+
+SET Evidence = "By inhibiting HDAC1, p25 may lead to important
+DNA damage and aberrant cell cycle activity, which
+would contribute to neuronal death [50]."
+p(HGNC:HDAC1) -| act(p(HGNC:CDK5,frag("?")))
+p(HGNC:CDK5,frag("?")) -> path(MESH:"DNA Damage")
+p(HGNC:CDK5,frag("?")) -> path(HP:"Abnormality of the cell cycle")
+path(MESH:"DNA Damage") -> bp(GO:"neuron death")
+path(HP:"Abnormality of the cell cycle") -> bp(GO:"neuron death")
+
+SET Evidence = "Interestingly,
+the overexpression of HDAC1, but not HDAC2, in cells
+and in an in vivo model of stroke was able to protect
+neurons from p25 toxicity [51]."
+SET MeSHDisease = "Stroke"
+p(HGNC:HDAC1) -| act(p(HGNC:CDK5,frag("?")))
+p(HGNC:HDAC2) cnc act(p(HGNC:CDK5,frag("?")))
+UNSET MeSHDisease
+
+SET Evidence = "Even if the epigenetic
+role of nuclear HDAC1 has mostly been associated
+with neuroprotection, cytosolic HDAC1 was found in
+damaged axons in the brain of humans suffering from
+multiple sclerosis, in mouse brain after induced demyelination,
+as well as in cultured neurons exposed to glutamate
+and TNF-α [61]."
+p(HGNC:HDAC1,loc(GO:nucleus)) pos path(MESH:Neuroprotection)
+SET MeSHDisease = "Multiple Sclerosis"
+path(DOID:"axonal neuropathy") -> p(HGNC:HDAC1,loc(GO:cytosol))
+UNSET MeSHDisease
+SET Species = "10090"
+path(DOID:"demyelinating disease") -> p(HGNC:HDAC1,loc(GO:cytosol))
+a(CHEBI:"glutamate(1−)") -> p(HGNC:HDAC1,loc(GO:cytosol))
+p(HGNC:TNF) -> p(HGNC:HDAC1,loc(GO:cytosol))
+UNSET Species
+
+SET Evidence = "It was then demonstrated that
+the export of HDAC1 from the nucleus to the cytoplasm
+was induced by pathological conditions and was essential
+for the onset of axonal damage."
+path(MESH:"Pathologic Processes") -> tloc(p(HGNC:HDAC1),fromLoc(GO:nucleus),toLoc(GO:cytosol))
+tloc(p(HGNC:HDAC1),fromLoc(GO:nucleus),toLoc(GO:cytosol)) pos path(DOID:"axonal neuropathy")
+
+SET Evidence = "The interaction with
+the nuclear receptor CRM-1 triggered the nuclear export
+of HDAC1 that formed complexes with proteins of the
+kinesine family, finally impairing mitochondrial transport."
+complex(p(HGNC:HDAC1,loc(GO:nucleus)),p(HGNC:XPO1)) -> tloc(p(HGNC:HDAC1),fromLoc(GO:nucleus),toLoc(GO:cytosol))
+SET MeSHAnatomy = "Mitochondria"
+complex(p(HGNC:HDAC1),p(MESH:"Protein Kinases"),loc(GO:cytosol)) -| bp(GO:transport)
+UNSET MeSHAnatomy
+
+SET Evidence = "These events were prevented by the treatment with
+leuptomycin B, an inhibitor of HDAC1 nuclear export,
+by non-specific HDAC inhibitors and also by silencing
+HDAC1 but no other HDACs [61]."
+#events - axonal damage, imparement of mitochondrial transport
+a(CHEBI:"leptomycin B") -| tloc(p(HGNC:HDAC1),fromLoc(GO:nucleus),toLoc(GO:cytosol))
+a(CHEBI:"leptomycin B") -| path(DOID:"axonal neuropathy")
+SET MeSHAnatomy = "Mitochondria"
+a(CHEBI:"leptomycin B") -> bp(GO:transport)
+UNSET MeSHAnatomy
+
+UNSET MeSHDisease
+UNSET Species
+
+#mice hippocampus
+SET Species = "10090"
+SET MeSHAnatomy = "Hippocampus"
+
+SET Evidence = "The deletion of both HDAC1 and 2 during early synaptic
+development caused a facilitation of excitatory synapse
+maturation and a modest increase in synapse numbers,
+which were not observed in the specific deletion of HDAC1
+or 2 alone."
+complex(p(HGNC:HDAC1),p(HGNC:HDAC2)) -| bp(GO:"synapse maturation")
+p(HGNC:HDAC1) cnc bp(GO:"synapse maturation")
+p(HGNC:HDAC2) cnc bp(GO:"synapse maturation")
+
+SET Evidence = "In contrast, in mature neurons, a decrease of
+HDAC2 levels alone attenuated basal excitatory transmission
+without changing the number of detectable nerve
+terminals."
+p(HGNC:HDAC2) -> bp(GO:"excitatory chemical synaptic transmission")
+p(HGNC:HDAC2) cnc a(MESH:"Nerve Endings")
+
+SET Evidence = "Accordingly, HDAC2-overexpressing mature
+neurons increased excitatory synapses, suggesting a role for
+HDAC2 in spontaneous excitatory neurotransmission at
+least in mature neurons [60]."
+p(HGNC:HDAC2) pos path(MESH:"Synaptic Transmission")
+
+SET Evidence = "While the observation of mature hippocampal neurons
+from mice overexpressing HDAC2 showed an increase
+in excitatory synapses [60], HDAC2 negatively regulated
+memory processes and synaptic plasticity after neuron-specific
+overexpression of HDAC2 in transgenic mice
+[52]."
+#transgenic mice
+p(HGNC:HDAC2) neg bp(GO:memory)
+p(HGNC:HDAC2) neg bp(GO:"regulation of synaptic plasticity")
+
+SET Evidence = "Moreover, the treatment of these HDAC2-
+overexpressing mice with the non-specific HDAC inhibitor
+SAHA resulted in improved memory and increased
+synapse formation [52]."
+a(CHEBI:vorinostat) -> bp(GO:memory)
+a(CHEBI:vorinostat) -> a(GO:synapse)
+
+UNSET MeSHAnatomy
+
+SET Evidence = "HDAC3 seems to negatively influence long-term
+memory processes according to two main observations:
+first, genetically modified mice with homozygous deletions
+of Hdac3 showed improved long-term memory;
+secondly, the administration of the specific HDAC3
+inhibitor RGFP136 also provided memory improvement
+[54]."
+p(HGNC:HDAC3) neg bp(GO:"long-term memory")
