@@ -136,7 +136,7 @@ a(MESH:Microglia) -> bp(GO:"learning or memory")
 UNSET Confidence
 
 SET Evidence = "During systemic inflammation, microglia can become activated and produce pro-inflammatory mediators and induce phagocytosis 9."
-SET Confidence = "Medium"
+SET Confidence = "High"
 bp(GO:"inflammatory response") -> bp(GO:"microglial cell activation")
 bp(GO:"microglial cell activation") -> a(MESH:"Inflammation Mediators")
 bp(GO:"microglial cell activation") -> bp(GO:"phagocytosis")
@@ -152,7 +152,7 @@ UNSET Confidence
 
 
 SET Evidence = "Notably, evidence suggests that the choroid plexus has a role not only in transmigration but also in stimulation of T cells in response to peripheral inflammatory signals 13."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Anatomy = {"peripheral nervous system","choroid plexus"}
 bp(GO:"inflammatory response") -> bp(MESH:"Transendothelial and Transepithelial Migration")
 bp(GO:"inflammatory response") -> act(a(MESH:"T-Lymphocytes"))
@@ -168,7 +168,7 @@ UNSET Anatomy
 UNSET Confidence
 
 SET Evidence = "Studies in mice have demonstrated that adaptive immunity is necessary for cognitive performance: mice with severe combined immune deficiency exhibited impaired spatial learning and memory, but symptoms were reversed by injection of exogenous T cells 16."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Species = "10090"
 bp(MESH:"Adaptive Immunity") -> bp(GO:cognition)
 bp(MESH:"Adaptive Immunity") -> bp(GO:"learning or memory")
@@ -182,8 +182,8 @@ UNSET Species
 UNSET Confidence
 
 SET Evidence = "Further beneficial roles of the immune response in the CNS — again going against the anticipated pathogenic activity of inflammation — include protective roles for T helper 2 (TH2) cells in CNS injury and for IL-4 signalling in neurons in multiple sclerosis (MS) models 18,19."
-SET Confidence = "Medium"
-a(MESH:"Th2 Cells") -| path(MESH:"Brain Injuries")
+SET Confidence = "High"
+a(MESH:"Th2 Cells") -- path(MESH:"Brain Injuries")
 SET Disease = "multiple sclerosis"
 SET Cell = "neuron"
 a(MESH:"Th2 Cells") -> act(p(HGNC:IL4))
@@ -192,7 +192,7 @@ UNSET Disease
 UNSET Confidence
 
 SET Evidence = "The complex and diverse roles of adaptive immune cells are further underlined by the finding that a lack of B cells does not impair learning behaviour in mice 20."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Species = "10090"
 a(MESH:"B-Lymphocytes") cnc bp(GO:"learning or memory")
 UNSET Species
@@ -228,7 +228,7 @@ UNSET Confidence
 
 SET Evidence = "The release of pro-inflammatory cytokines, such as IL-1β, IL-6 and TNF, outside the CNS affects the brain via neural (mainly vagal) pathways, interaction with cytokine receptors on cerebral endothelial cells and/or microglial activation 26."
 #outside CNS
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:IL1B) -> a(MESH:"Neural Pathways")
 p(HGNC:IL6) -> a(MESH:"Neural Pathways")
 p(HGNC:TNF) -> a(MESH:"Neural Pathways")
@@ -236,9 +236,9 @@ a(MESH:"Neural Pathways") -> act(a(MESH:Brain))
 SET Cell = "cerebral cortex endothelial cell"
 p(MESH:"Receptors, Cytokine") -> act(a(MESH:Brain))
 UNSET Cell
-p(HGNC:IL1B) -> bp(GO:"macrophage activation")
-p(HGNC:IL6) -> bp(GO:"macrophage activation")
-p(HGNC:TNF) -> bp(GO:"macrophage activation")
+p(HGNC:IL1B) -> act(a(MESH:Microglia))
+p(HGNC:IL6) -> act(a(MESH:Microglia))
+p(HGNC:TNF) -> act(a(MESH:Microglia))
 UNSET Confidence
 
 SET Evidence = "The behavioural effects, such as social withdrawal and fatigue, are assumed to be adaptive responses that increase survival of the host 27."
@@ -385,7 +385,7 @@ UNSET Anatomy
 UNSET Confidence
 
 SET Evidence = "Severe infections, such as herpes simplex virus (HSV) encephalitis at any time in the lifespan, have been associated with long-term impairment of memory and brain atrophy 47."
-SET Confidence = "Medium"
+SET Confidence = "High"
 path(HP:"Herpes simplex encephalitis") -| bp(GO:"learning or memory")
 path(HP:"Herpes simplex encephalitis") -> path(HP:"Brain atrophy")
 UNSET Confidence
@@ -445,7 +445,7 @@ bp(MESH:"Adaptive Immunity") -> path(MESH:"Pathology")
 UNSET Confidence
 
 SET Evidence = "In addition, infectious agents might act via epigenetic pathways to modulate the innate immune cell repertoire, thereby influencing the risk profile for neurodegenerative disorders 54."
-SET Confidence = "Medium"
+SET Confidence = "High"
 bp(GO:pathogenesis) -> bp(GO:"regulation of gene expression, epigenetic")
 bp(GO:"regulation of gene expression, epigenetic") reg bp(MESH:"Immunity, Innate")
 bp(GO:pathogenesis) pos path(DOID:"neurodegenerative disease")
@@ -460,13 +460,13 @@ UNSET Confidence
 
 SET Evidence = "On a population level, data from a Swedish cohort suggest that reactivation of HSV-1, indicated by high serum levels of anti-HSV immunoglobulin M (IgM) antibodies, increases the risk of developing AD 55."
 #popolaution level studies
-SET Confidence = "Medium"
+SET Confidence = "High"
 a(MESH:"Herpesvirus 1, Human") pos path(DOID:"Alzheimer's disease")
 UNSET Confidence
 
 SET Evidence = "In vitro experiments have shown that HSV-1 induces increases in intracellular amyloid-β (Aβ) levels and tau phosphorylation, both of which are markers of AD 56."
 #in-vitro experiments
-SET Confidence = "Medium"
+SET Confidence = "High"
 a(MESH:"Herpesvirus 1, Human") -> a(CHEBI:"amyloid-beta",loc(GO:intracellular))
 a(MESH:"Herpesvirus 1, Human") -> p(HGNC:MAPT,pmod(Ph))
 a(CHEBI:"amyloid-beta",loc(GO:intracellular)) biomarkerFor path(DOID:"Alzheimer's disease")
@@ -501,7 +501,7 @@ p(HGNC:IFNB1) biomarkerFor path(CONSO:Neurodegeneration)
 UNSET Confidence
 
 SET Evidence = "In addition, extracellular deposits of Aβ activate resting microglia and trigger them to attack neurons via various pathways, such as NADPH oxidase activation, inducible nitric oxide synthase expression and phagocytosis 60."
-SET Confidence = "Medium"
+SET Confidence = "High"
 a(CHEBI:"amyloid-beta",loc(GO:"extracellular matrix")) -> bp(GO:"microglial cell activation")
 SET Cell = "neuron"
 bp(GO:"microglial cell activation") -> act(p(INTERPRO:"Flavodoxin/nitric oxide synthase"))
@@ -571,7 +571,7 @@ path(DOID:"multiple sclerosis") -> deg(a(MESH:"Cerebral Cortex"))
 UNSET Confidence
 
 SET Evidence = "Inflammation in MS, the local effects of which include microglial activation and myelin and neuronal damage, is thought to be primarily mediated by auto reactive T cells."
-SET Confidence = "Medium"
+SET Confidence = "High"
 path(MESH:Inflammation) -> bp(GO:"microglial cell activation")
 path(MESH:Inflammation) -> deg(a(GO:"myelin sheath"))
 path(MESH:Inflammation) -> deg(a(MESH:Neurons))
@@ -579,14 +579,14 @@ path(HP:Autoimmunity) -> path(MESH:Inflammation)
 UNSET Confidence
 
 SET Evidence = "Pro-inflammatory TH17 cells are thought to migrate into the CNS and subsequently increase BBB permeability, enabling invasion of other immune cells 71 (Fig. 1b). Other important players include regulatory T cells, which are functionally impaired in people with MS 72, and B cells, the role of which is highlighted by the effects of B cell-depleting therapies 73."
-SET Confidence = "Medium"
+SET Confidence = "High"
 a(MESH:"Th17 Cells",loc(MESH:"Central Nervous System")) -> bp(MESH:"Immunity, Cellular")
 path(DOID:"multiple sclerosis") -| a(MESH:"T-Lymphocytes, Regulatory")
 path(DOID:"multiple sclerosis") -| a(MESH:"B-Lymphocytes, Regulatory")
 UNSET Confidence
 
 SET Evidence = "Relapses in patients with MS are influenced by stressful life events and by infections: a systematic meta-analysis has shown that upper respiratory tract infections have the most pronounced effect on relapse rates 74."
-SET Confidence = "Medium"
+SET Confidence = "High"
 bp(GO:"response to stress") -> path(MESH:Recurrence)
 path(MESH:Infection) -> path(MESH:Recurrence)
 path(HP:"Recurrent upper respiratory tract infections") -> path(MESH:Recurrence)
@@ -663,7 +663,7 @@ UNSET Confidence
 
 SET Evidence = "Patients with this condition often present with anxiety, sleep disorders, mania, paranoia, memory impairment and disintegration of language, followed by a phase in which agitation and catatonia alternate, accompanied by abnormal movements and autonomic instability 90."
 #this condition =  autoimmune encephalitis
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET MeSHDisease = "Encephalitis"
 path(HP:Autoimmunity) -> path(DOID:"anxiety disorder")
 path(HP:Autoimmunity) -> path(DOID:"sleep disorder")
@@ -678,7 +678,7 @@ UNSET MeSHDisease
 UNSET Confidence
 
 SET Evidence = "Furthermore, antibodies that cross-react with the NMDA receptor have been found in patients with neuropsychiatric systemic lupus erythematosus, and these antibodies cause neuronal damage via activated microglia and complement component C1q when administered to mice 93,94."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Species = "10090"
 path(DOID:"systemic lupus erythematosus") -> complex(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"),a(MESH:Autoantibodies))
 complex(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"),a(MESH:Autoantibodies)) -> bp(GO:"microglial cell activation")
@@ -689,12 +689,12 @@ UNSET Species
 UNSET Confidence
 
 SET Evidence = "Independent of immune pathogenesis, glutamate receptor hypofunction has been proposed as a key factor in the development of schizophrenia 98."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits") pos path(DOID:schizophrenia)
 UNSET Confidence
 
 SET Evidence = "Furthermore, extensive studies of cytokine profiles in disorders such as schizophrenia, depression, suicidal ideation and post-traumatic stress disorder reveal wide-ranging dysregulation of mainly pro-inflammatory markers, in particular IL-6, IL-2 receptor, IL-1β, IL-17 A and C-reactive protein (CRP) 103–107."
-SET Confidence = "Medium"
+SET Confidence = "High"
 path(DOID:schizophrenia) neg p(HGNC:IL6)
 path(DOID:schizophrenia) neg p(HGNC:IL2)
 path(DOID:schizophrenia) neg p(HGNC:IL1B)
@@ -720,13 +720,13 @@ UNSET Anatomy
 UNSET Confidence
 
 SET Evidence = "For example, genetic defects in microglial signalling pathways cause abnormal development of brain circuits and neuropsychiatric symptoms, as in hereditary diffuse leukoencephalopathy with spheroids (HDLS) 109."
-SET Confidence = "Medium"
+SET Confidence = "High"
 path(MESH:"Hereditary Diffuse Leukoencephalopathy with Spheroids") neg bp(GO:"microglial cell activation")
 bp(GO:"microglial cell activation") -> a(MESH:"Neural Pathways")
 UNSET Confidence
 
 SET Evidence = "For example, in a mouse model, chronic stress with depressive behaviour has been associated with microglial loss in the hippocampus 110."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = "Hippocampus"
 SET MeSHDisease = "Stress, Psychological"
@@ -738,7 +738,7 @@ UNSET Confidence
 
 SET Evidence = "In this model, IL-6 was identified as a key mediator of inflammatory effects on fetal brain development 114."
 #this model = rodent model
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Species = "10116"
 SET Anatomy = "embryonic brain"
 p(HGNC:IL6) reg path(MESH:Inflammation)
@@ -764,7 +764,7 @@ UNSET Gender
 UNSET Confidence
 
 SET Evidence = "In rodents, the role of maternal immune activation in ASD was confirmed at the transcriptome level, in which immune activation in the mother caused dysregulation in the fetal brain expression of genes involved in developmental processes 120."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Species = "10116"
 bp(MESH:"Immunity, Maternally-Acquired") pos path(DOID:"autism spectrum disorder")
 bp(MESH:"Immunity, Maternally-Acquired") neg bp(GO:"embryonic brain development")
@@ -788,7 +788,7 @@ UNSET Species
 UNSET Confidence
 
 SET Evidence = "For example, the MHC-resident complement C4 cluster has been implicated in the risk of schizophrenia 128,129."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:C4A) pos path(DOID:schizophrenia)
 UNSET Confidence
 
@@ -839,13 +839,13 @@ a(PUBCHEM:135305802) neg path(DOID:"mental depression")
 UNSET Confidence
 
 SET Evidence = "A well-recognized risk factor for exacerbation in MS and many psychiatric disorders is psychosocial stress."
-SET Confidence = "Medium"
+SET Confidence = "High"
 path(MESH:"Psychosocial Deprivation") pos path(MESH:"Mental Disorders")
 path(MESH:"Psychosocial Deprivation") pos path(DOID:"multiple sclerosis")
 UNSET Confidence
 
 SET Evidence = "Some evidence suggests that the association between psychiatric disorders and stress is mediated, at least in part, by neuroinflammatory processes, including microglial activation."
-SET Confidence = "Medium"
+SET Confidence = "High"
 path(MESH:"Psychosocial Deprivation") -> bp(GO:"microglial cell activation")
 bp(GO:"microglial cell activation") -> bp(GO:"neuroinflammatory response")
 bp(GO:"neuroinflammatory response") -> path(MESH:"Mental Disorders")
