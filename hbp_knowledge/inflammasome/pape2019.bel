@@ -43,7 +43,7 @@ DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
 #DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
 #DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
-#DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
 
 ###############
 # Annotations #
@@ -134,7 +134,6 @@ a(MESH:Microglia) -> bp(GO:"regulation of neuronal synaptic plasticity")
 a(MESH:Microglia) -> bp(GO:"motor learning")
 a(MESH:Microglia) -> bp(GO:"learning or memory")
 UNSET Confidence
-UNSET Confidence
 
 SET Evidence = "During systemic inflammation, microglia can become activated and produce pro-inflammatory mediators and induce phagocytosis 9."
 SET Confidence = "Medium"
@@ -199,20 +198,8 @@ a(MESH:"B-Lymphocytes") cnc bp(GO:"learning or memory")
 UNSET Species
 UNSET Confidence
 
-SET Evidence = "The first is the glymphatic system, a glial-dependent perivascular network that ensures provision of nutrients for neurons and glia and clearance of extracellular metabolites, such as lactate 21."
-SET Confidence = "Medium"
-SET Cell = {"neuron","glial cell"}
-bp(MESH:"Glymphatic System") -> a(MESH:Nutrients)
-SET MeSHAnatomy = "Extracellular Space"
-bp(MESH:"Glymphatic System") -> deg(a(CHEBI:metabolite))
-bp(MESH:"Glymphatic System") -> deg(a(CHEBI:lactate))
-UNSET MeSHAnatomy
-UNSET Cell
-UNSET Confidence
-
 SET Evidence = "Activation of the glymphatic system is higher during sleep than during wakefulness, underlining the importance of sleep for removal of potentially neurotoxic waste products 22."
-SET Confidence = "Medium"
-bp(MESH:Sleep) -> bp(MESH:"Glymphatic System")
+SET Confidence = "High"
 bp(MESH:Sleep) -| a(MESH:"Waste Products")
 bp(MESH:Sleep) -| path(CONSO:neurotoxicity)
 UNSET Confidence
@@ -593,7 +580,6 @@ UNSET Confidence
 
 SET Evidence = "Pro-inflammatory TH17 cells are thought to migrate into the CNS and subsequently increase BBB permeability, enabling invasion of other immune cells 71 (Fig. 1b). Other important players include regulatory T cells, which are functionally impaired in people with MS 72, and B cells, the role of which is highlighted by the effects of B cell-depleting therapies 73."
 SET Confidence = "Medium"
-a(MESH:"Th17 Cells",loc(MESH:"Central Nervous System")) -> bp(GO:"transport across blood-brain barrier")
 a(MESH:"Th17 Cells",loc(MESH:"Central Nervous System")) -> bp(MESH:"Immunity, Cellular")
 path(DOID:"multiple sclerosis") -| a(MESH:"T-Lymphocytes, Regulatory")
 path(DOID:"multiple sclerosis") -| a(MESH:"B-Lymphocytes, Regulatory")
@@ -601,7 +587,7 @@ UNSET Confidence
 
 SET Evidence = "Relapses in patients with MS are influenced by stressful life events and by infections: a systematic meta-analysis has shown that upper respiratory tract infections have the most pronounced effect on relapse rates 74."
 SET Confidence = "Medium"
-bp(GO:"response to stress") -> bp(MESH:Recurrence)
+bp(GO:"response to stress") -> path(MESH:Recurrence)
 path(MESH:Infection) -> path(MESH:Recurrence)
 path(HP:"Recurrent upper respiratory tract infections") -> path(MESH:Recurrence)
 UNSET Confidence
@@ -688,7 +674,6 @@ path(HP:Autoimmunity) -> path(MESH:"Language Disorders")
 path(HP:Autoimmunity) -> path(HP:Agitation)
 path(HP:Autoimmunity) -> path(MESH:Catatonia)
 path(HP:Autoimmunity) -> path(HP:"Abnormality of movement")
-path(HP:Autoimmunity) -> path(MESH:Dysautonomia)
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -788,7 +773,6 @@ UNSET Confidence
 
 SET Evidence = "Cytokine signalling is not the only aspect of maternal immunity that affects the developing fetal brain — B cell-mediated immune responses and production of antibodies can also have effects."
 SET Confidence = "High"
-act(a(MESH:Cytokine)) -- bp(GO:"embryonic brain development")
 act(a(MESH:"B-Lymphocytes")) -- bp(GO:"embryonic brain development")
 bp(MESH:"Antibody Formation") -- bp(GO:"embryonic brain development")
 UNSET Confidence
@@ -848,9 +832,10 @@ a(CHEBI:minocycline) cnc path(DOID:"autism spectrum disorder")
 UNSET Confidence
 
 SET Evidence = "Furthermore, in depression, anti-inflammatory treatment with the TNF antagonist infliximab had beneficial effects in patients with treatment-resistant depression and high baseline levels of inflammatory biomarkers 147."
+#135305802 - infliximab
 SET Confidence = "High"
-a(DRUGBANK:infliximab) -| p(HGNC:TNF)
-a(DRUGBANK:infliximab) neg path(DOID:"mental depression")
+a(PUBCHEM:135305802) -| p(HGNC:TNF)
+a(PUBCHEM:135305802) neg path(DOID:"mental depression")
 UNSET Confidence
 
 SET Evidence = "A well-recognized risk factor for exacerbation in MS and many psychiatric disorders is psychosocial stress."
@@ -866,19 +851,11 @@ bp(GO:"microglial cell activation") -> bp(GO:"neuroinflammatory response")
 bp(GO:"neuroinflammatory response") -> path(MESH:"Mental Disorders")
 UNSET Confidence
 
-SET Evidence = "Accordingly, a meta-analysis of clinical studies demonstrated a pro-inflammatory status (high levels of CRP, IL-6 and TNF) in adults with a history of childhood trauma 151."
-SET Confidence = "High"
-a(MESH:"Adverse Childhood Experiences") -> p(HGNC:CRP)
-a(MESH:"Adverse Childhood Experiences") -> p(HGNC:IL6)
-a(MESH:"Adverse Childhood Experiences") -> p(HGNC:TNF)
-UNSET Confidence
-
 SET Evidence = "In a mouse model of chronic social defeat stress, BBB integrity was altered in the nucleus accumbens owing to downregulation of the tight junction protein claudin 5, thereby allowing influx of IL-6 into the brain parenchyma 153."
 SET Confidence = "High"
 SET Species = "10090"
 SET Anatomy = "nucleus accumbens"
 path(MESH:"Social Isolation") -> deg(a(MESH:"Blood-Brain Barrier"))
-deg(a(MESH:"Blood-Brain Barrier")) -> bp(GO:"transport across blood-brain barrier")
 deg(a(MESH:"Blood-Brain Barrier")) -| p(HGNC:CLDN5)
 SET Anatomy = {"parenchyma","brain"}
 p(HGNC:CLDN5) -| p(HGNC:IL6)
