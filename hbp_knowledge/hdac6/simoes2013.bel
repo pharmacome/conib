@@ -25,7 +25,7 @@ DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharma
 # DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
-# DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
+DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/go-names.belns"
 DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
 DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
@@ -79,9 +79,9 @@ and to bind ubiquitin, thus modulating cell protective
 response to cytotoxic accumulation of misfolded and
 aggregated proteins [19,29,30]."
 p(HGNC:HDAC6) -> p(MESH:Proteins,pmod(CONSO:misfolded),pmod(Ub))
-p(HGNC:HDAC6) -> p(MEHS:Proteins,pmod(CONSO:"protein aggregates"),pmod(Ub))
+p(HGNC:HDAC6) -> p(MESH:Proteins,pmod(CONSO:"protein aggregates"),pmod(Ub))
 p(MESH:Proteins,pmod(CONSO:misfolded)) -> path(MESH:"Cytotoxicity, Immunologic")
-p(MEHS:Proteins,pmod(CONSO:"protein aggregates")) -> path(MESH:"Cytotoxicity, Immunologic")
+p(MESH:Proteins,pmod(CONSO:"protein aggregates")) -> path(MESH:"Cytotoxicity, Immunologic")
 p(HGNC:HDAC6) reg path(MESH:Cytoprotection)
 
 SET Evidence = "As a matter of fact, HDAC pan inhibitors
@@ -175,7 +175,7 @@ path(DOID:"axonal neuropathy") -> p(HGNC:HDAC1,loc(GO:cytosol))
 UNSET MeSHDisease
 SET Species = "10090"
 path(DOID:"demyelinating disease") -> p(HGNC:HDAC1,loc(GO:cytosol))
-a(CHEBI:"glutamate(1−)") -> p(HGNC:HDAC1,loc(GO:cytosol))
+a(CHEBI:"D-glutamate(1-)") -> p(HGNC:HDAC1,loc(GO:cytosol))
 p(HGNC:TNF) -> p(HGNC:HDAC1,loc(GO:cytosol))
 UNSET Species
 
@@ -205,8 +205,6 @@ a(CHEBI:"leptomycin B") -| path(DOID:"axonal neuropathy")
 SET MeSHAnatomy = "Mitochondria"
 a(CHEBI:"leptomycin B") -> bp(GO:transport)
 UNSET MeSHAnatomy
-
-UNSET MeSHDisease
 
 #mice hippocampus
 SET MeSHAnatomy = "Hippocampus"
@@ -309,15 +307,13 @@ p(HGNC:HDAC4,loc(GO:nucleus)) -| path(MESH:"Transcription, Genetic")
 p(HGNC:HDAC4,loc(GO:nucleus)) neg bp(GO:memory)
 path(MESH:"Transcription, Genetic") -> bp(GO:memory)
 
-UNSET Species
-
 SET Evidence = "The process of autophagy is especially important
 to counter-balance the accumulation of aggregates
 since the main route of protein degradation via the
 ubiquitin-proteasome system is impaired in NDs."
 path(DOID:"neurodegenerative disease") neg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
 bp(GO:autophagy) -> deg(p(CONSO:"protein aggregates"))
-bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(COSCO:"protein aggregates"))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(CONSO:"protein aggregates"))
 
 SET Evidence = "The accumulation of protein aggregates in NDs
 may inhibit proteasome activity [78]."
@@ -344,7 +340,7 @@ transport of highly ubiquitinated protein aggregates
 dispersed within the cytoplasm to constitute a novel organelle,
 the aggresome, where they were eventually eliminated by autophagy [88]."
 #this - HDAC and ubiquitinated aggregated protein
-complex(p(HGNC:HDAC6),p(CONSO:"protein aggregates",pmod(Ub))) -> tloc(p(CONSO:"protein aggregates",pmod(Ub),fromLoc(GO:cytoplasm),toLoc(GO:aggresome))
+complex(p(HGNC:HDAC6),p(CONSO:"protein aggregates",pmod(Ub))) -> tloc(p(CONSO:"protein aggregates",pmod(Ub)),fromLoc(GO:cytoplasm),toLoc(GO:aggresome))
 p(CONSO:"protein aggregates",pmod(Ub),loc(GO:aggresome)) -> bp(GO:autophagy)
 bp(GO:autophagy) ->  deg(p(CONSO:"protein aggregates",pmod(Ub),loc(GO:aggresome)))
 
@@ -364,7 +360,7 @@ SET Evidence = "The
 binding of HDAC6 to polyubiquitinated proteins was
 also shown to trigger the dissociation of the HDAC6/
 HSP90/HSF1 complex."
-complex(p(HGNC:HDAC6),p(CONSO:"protein aggregates",pmod(Ub))) -| complex(p(HGC:HDAC6),p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),p(HGNC:HSF1))
+complex(p(HGNC:HDAC6),p(CONSO:"protein aggregates",pmod(Ub))) -| complex(p(HGNC:HDAC6),p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),p(HGNC:HSF1))
 
 SET Evidence = "This led to the activation of heat
 shock transcription factor 1 (HSF1) which then induced
@@ -372,7 +368,7 @@ gene expression of chaperones HSP70 and HSP27, exerting
 a protective role against the toxic effects of the
 aggregates in cells [4]."
 #this - dissociation of complex
-complex(p(HGC:HDAC6),p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),p(HGNC:HSF1)) -| act(p(HGNC:HSF1))
+complex(p(HGNC:HDAC6),p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),p(HGNC:HSF1)) -| act(p(HGNC:HSF1))
 complex(p(HGNC:HDAC6),p(CONSO:"protein aggregates",pmod(Ub))) -> act(p(HGNC:HSF1))
 p(HGNC:HSF1) -> g(HGNCGENEFAMILY:"Heat shock 70kDa proteins")
 p(HGNC:HSF1) -> g(HGNC:HSPB1)
@@ -383,7 +379,7 @@ g(HGNC:HSPB1) -> path(MESH:"Cytoprotection")
 
 SET Evidence = "The loss or inhibition of HDAC6 correlated with a decrease
 of tau burden in cells [95]."
-p(HGC:HDAC6) -> p(HGNC:MAPT)
+p(HGNC:HDAC6) -> p(HGNC:MAPT)
 
 SET Evidence = "This may be due to
 increased HSP90 acetylation, which favors degradation
@@ -399,8 +395,8 @@ g(HGNCGENEFAMILY:"Heat shock 70kDa proteins") -| p(MESH:Proteins,pmod(CONSO:misf
 SET Evidence = "HDAC6 is involved in the deacetylation of peroxiredoxin-1
 and peroxiredoxin-2, two enzymes allowing the reduction
 of peroxides"
-p(HGC:HDAC6) -| p(HGNC:PRDX1,pmod(Ac))
-p(HGC:HDAC6) -| p(HGNC:PRDX2,pmod(Ac))
+p(HGNC:HDAC6) -| p(HGNC:PRDX1,pmod(Ac))
+p(HGNC:HDAC6) -| p(HGNC:PRDX2,pmod(Ac))
 p(HGNC:PRDX1) -| a(CHEBI:peroxides)
 p(HGNC:PRDX2) -| a(CHEBI:peroxides)
 
@@ -412,28 +408,28 @@ mechanism to be considered in the case of neurodegeneration."
 #6675804 - tubacin
 p(HGNC:PRDX1,pmod(Ac)) -> act(p(HGNC:PRDX1))
 p(HGNC:PRDX2,pmod(Ac)) -> act(p(HGNC:PRDX2))
-a(PUBCHEM:6675804) -| p(HGC:HDAC6)
-a(PUBCHEM:6675804) -| p(HGC:HDAC6)
-a(PUBCHEM:6675804) -| p(HGC:HDAC6)
+a(PUBCHEM:6675804) -| p(HGNC:HDAC6)
+a(PUBCHEM:6675804) -| p(HGNC:HDAC6)
+a(PUBCHEM:6675804) -| p(HGNC:HDAC6)
 
 SET Evidence = "Moreover this inhibition was able to promote neurite
 growth on myelin-associated glycoprotein and chondroitin
 sulfate proteoglycan substrates."
 #this - HDAC6
-p(HGC:HDAC6) -| p(MESH:"Myelin-Associated Glycoprotein")
-p(HGC:HDAC6) -| a(MESH:Neurites)
-p(HGC:HDAC6) -| p(MESH:"Chondroitin Sulfate Proteoglycans")
+p(HGNC:HDAC6) -| p(MESH:"Myelin-Associated Glycoprotein")
+p(HGNC:HDAC6) -| a(MESH:Neurites)
+p(HGNC:HDAC6) -| p(MESH:"Chondroitin Sulfate Proteoglycans")
 
 SET Evidence = "TSA, scriptaid and sodium
 butyrate showed the same effects than tubacin, but their
 reduced selectivity induced some toxicity [97]."
 #444732 - TSA, 5186 - scriptaid,
-a(PUBCHEM:444732) -| p(HGC:HDAC6)
-a(PUBCHEM:5186) -| p(HGC:HDAC6)
-a(CHEBI:"sodium butyrate") -| p(HGC:HDAC6)
-a(PUBCHEM:444732) -> path(MESH:"Toxic Actions")
-a(PUBCHEM:5186) -> path(MESH:"Toxic Actions")
-a(CHEBI:"sodium butyrate") -> path(MESH:"Toxic Actions")
+a(PUBCHEM:444732) -| p(HGNC:HDAC6)
+a(PUBCHEM:5186) -| p(HGNC:HDAC6)
+a(CHEBI:"sodium butyrate") -| p(HGNC:HDAC6)
+a(PUBCHEM:444732) -> a(MESH:"Toxic Actions")
+a(PUBCHEM:5186) -> a(MESH:"Toxic Actions")
+a(CHEBI:"sodium butyrate") -> a(MESH:"Toxic Actions")
 
 SET Evidence = "Butler et al.
 [35] designed a new HDAC6 selective inhibitor, tubastatin
@@ -588,8 +584,8 @@ in the elimination of impaired mitochondria
 (mitophagy) via the HDAC6-dependent mitochondria
 ubiquitination [112]."
 p(HGNC:PRKN) -> act(p(HGNC:HDAC6))
-p(HGNC:HDAC6) -> a(MESH:Mitochondria,pmod(Ub))
-a(MESH:Mitochondria,pmod(Ub)) -> bp(GO:mitophagy)
+p(HGNC:HDAC6) -> act(a(MESH:Mitochondria),ma(GO:"ubiquitin binding"))
+act(a(MESH:Mitochondria),ma(GO:"ubiquitin binding")) -> bp(GO:mitophagy)
 bp(GO:mitophagy) -> deg(a(MESH:Mitochondria))
 p(HGNC:HDAC6) -> bp(GO:mitophagy)
 p(HGNC:PRKN) -> bp(GO:mitophagy)
@@ -623,8 +619,8 @@ SET Evidence = "This might significantly
 reduce the intracellular availability of these chaperones
 and lead to an increase in abnormal folding of proteins
 [117]."
-p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",loc(CONSO:"huntingtin aggregates")) -> p(MESH:Proteins,pmod(misfolded))
-p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins",loc(CONSO:"huntingtin aggregates")) -> p(MESH:Proteins,pmod(misfolded))
+p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",loc(CONSO:"huntingtin aggregates")) -> p(MESH:Proteins,pmod(CONSO:misfolded))
+p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins",loc(CONSO:"huntingtin aggregates")) -> p(MESH:Proteins,pmod(CONSO:misfolded))
 
 SET Evidence = "Thus, the presence of HDAC6 in these structures
 may have a protective role in HD through its capacity to
@@ -632,8 +628,8 @@ induce protective chaperones (cf. chapter 4) [4]."
 p(HGNC:HDAC6) -| path(DOID:"Huntington's disease")
 p(HGNC:HDAC6) -> p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",loc(GO:intracellular))
 p(HGNC:HDAC6) -> p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins",loc(GO:intracellular))
-p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",loc(GO:intracellular)) -| p(MESH:Proteins,pmod(misfolded))
-p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins",loc(GO:intracellular)) -| p(MESH:Proteins,pmod(misfolded))
+p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",loc(GO:intracellular)) -| p(MESH:Proteins,pmod(CONSO:misfolded))
+p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins",loc(GO:intracellular)) -| p(MESH:Proteins,pmod(CONSO:misfolded))
 
 SET Evidence = "It has been suggested that HDAC6 forms a complex
 with both dynein and aggregates (via ubiquitin binding),
@@ -697,7 +693,7 @@ of TDP-43 in cells caused HDAC6 downregulation
 which increased proteotoxicity [120]."
 p(HGNC:TARDBP,loc(MESH:"Inclusion Bodies")) pos path(DOID:"amyotrophic lateral sclerosis")
 p(HGNC:TARDBP,loc(MESH:"Inclusion Bodies")) pos path(DOID:"Grn-related frontotemporal lobar degeneration with Tdp43 inclusions")
-p(HGNC:HDAC6) -| path(MESH:"Toxic Actions")
+p(HGNC:HDAC6) -| a(MESH:"Toxic Actions")
 UNSET MeSHDisease
 
 SET Evidence = "Symptomatic improvement was
