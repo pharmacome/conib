@@ -19,15 +19,15 @@ SET DOCUMENT Description = ""
 DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
 DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/3c93a65dc48e6786fe29ae55aa36cf9a902fe8c6/export/conso-names.belns"
 # DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
-# DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 # DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 # DEFINE NAMESPACE EFO            AS URL "https://raw.githubusercontent.com/pharmacome/conso/5d2c2ea6f7112421cc8089a3f021a75ab60bb373/external/efo-names.belns"
 # DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
-# DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 # DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/go-names.belns"
-# DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
 DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
 # DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
 # DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
@@ -44,7 +44,7 @@ DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharma
 # DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
 # DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
 # DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
-# DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+ DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
 
 ###############
 # Annotations #
@@ -57,7 +57,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 # Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
 # --------------------------------------------------------------------------------
 # DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
-# DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+ DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 # DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
 # DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
@@ -207,10 +207,8 @@ a(CHEBI:"leptomycin B") -> bp(GO:transport)
 UNSET MeSHAnatomy
 
 UNSET MeSHDisease
-UNSET Species
 
 #mice hippocampus
-SET Species = "10090"
 SET MeSHAnatomy = "Hippocampus"
 
 SET Evidence = "The deletion of both HDAC1 and 2 during early synaptic
@@ -262,3 +260,454 @@ secondly, the administration of the specific HDAC3
 inhibitor RGFP136 also provided memory improvement
 [54]."
 p(HGNC:HDAC3) neg bp(GO:"long-term memory")
+a(CONSO:RGFP136) -| p(HGNC:HDAC3)
+a(CONSO:RGFP136) -> bp(GO:"long-term memory")
+
+SET Evidence = "In addition to this, the overexpression of HDAC3
+resulted in cytotoxicity in cortical neurons and in hippocampally
+derived HT22 cells, but not in primary kidney
+fibroblasts, HEK293 and HeLa cell lines [55]."
+#HT22 cells
+SET MeSHAnatomy = {"Hippocampus","Neocortex"}
+p(HGNC:HDAC3) -> path(MESH:"Cytotoxicity, Immunologic")
+UNSET MeSHAnatomy
+SET CellLine = {"HEK293","HeLa cell"}
+p(HGNC:HDAC3) cnc path(MESH:"Cytotoxicity, Immunologic")
+UNSET CellLine
+SET MeSHAnatomy = {"Fibroblasts","Kidney"}
+p(HGNC:HDAC3) cnc path(MESH:"Cytotoxicity, Immunologic")
+UNSET MeSHAnatomy
+
+SET Evidence = "It was suggested that HDAC4 is a
+key effector in the multi-step pathway regulating neuronal
+death."
+p(HGNC:HDAC4) reg bp(GO:"neuron death")
+
+SET Evidence = "This hypothesis was supported by two major
+observations: 1) trafficking of HDAC4 from the cytoplasm
+into the nucleus induced apoptosis in neurons; 2)
+the inactivation of HDAC4 resulted in protection from
+neuronal death [57]."
+tloc(p(HGNC:HDAC4),fromLoc(GO:cytoplasm),toLoc(GO:nucleus)) -> bp(GO:"neuron death")
+p(HGNC:HDAC4) -> bp(GO:"neuron death")
+
+SET Evidence = "In terms of cognition, the intracellular
+trafficking of HDAC4 was also related to long-term
+memory in a Caenorhabditis elegans model."
+SET Species = "6239"
+p(HGNC:HDAC4) -- bp(GO:"long-term memory")
+UNSET Species
+
+SET Evidence = "Moreover, the expression of the mammalian HDAC4 in
+the neuronal nuclei of the worm was able to impair
+neuronal function, but not in the cytosol, suggesting that
+HDAC4 could impair memory formation through inhibition
+of gene transcription [59]."
+p(HGNC:HDAC4,loc(GO:nucleus)) -| act(a(MESH:Neurons))
+p(HGNC:HDAC4,loc(GO:cytosol)) cnc act(a(MESH:Neurons))
+p(HGNC:HDAC4,loc(GO:nucleus)) -| path(MESH:"Transcription, Genetic")
+p(HGNC:HDAC4,loc(GO:nucleus)) neg bp(GO:memory)
+path(MESH:"Transcription, Genetic") -> bp(GO:memory)
+
+UNSET Species
+
+SET Evidence = "The process of autophagy is especially important
+to counter-balance the accumulation of aggregates
+since the main route of protein degradation via the
+ubiquitin-proteasome system is impaired in NDs."
+path(DOID:"neurodegenerative disease") neg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+bp(GO:autophagy) -> deg(p(CONSO:"protein aggregates"))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(COSCO:"protein aggregates"))
+
+SET Evidence = "The accumulation of protein aggregates in NDs
+may inhibit proteasome activity [78]."
+SET MeSHDisease = "Neurodegenerative Diseases"
+p(CONSO:"protein aggregates") -| bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+UNSET MeSHDisease
+
+SET Evidence = "This results in an
+increased number of highly ubiquitinated misfolded proteins
+commonly observed in AD, PD and HD [78-87]."
+p(CONSO:"protein aggregates") -> p(MESH:Proteins,pmod(CONSO:misfolded),pmod(Ub))
+path(DOID:"Alzheimer's disease") -> p(MESH:Proteins,pmod(CONSO:misfolded),pmod(Ub))
+path(DOID:"Parkinson's disease") -> p(MESH:Proteins,pmod(CONSO:misfolded),pmod(Ub))
+path(DOID:"Huntington's disease") -> p(MESH:Proteins,pmod(CONSO:misfolded),pmod(Ub))
+
+SET Evidence = "At this level, HDAC6 was able to increase cell viability
+under misfolded protein stress [88]."
+p(MESH:Proteins,pmod(CONSO:misfolded),pmod(Ub)) -> path(MESH:"Stress, Physiological")
+path(MESH:"Stress, Physiological") -| path(MESH:"Cell Survival")
+p(HGNC:HDAC6) -> path(MESH:"Cell Survival")
+
+SET Evidence = "This binding led to the active
+transport of highly ubiquitinated protein aggregates
+dispersed within the cytoplasm to constitute a novel organelle,
+the aggresome, where they were eventually eliminated by autophagy [88]."
+#this - HDAC and ubiquitinated aggregated protein
+complex(p(HGNC:HDAC6),p(CONSO:"protein aggregates",pmod(Ub))) -> tloc(p(CONSO:"protein aggregates",pmod(Ub),fromLoc(GO:cytoplasm),toLoc(GO:aggresome))
+p(CONSO:"protein aggregates",pmod(Ub),loc(GO:aggresome)) -> bp(GO:autophagy)
+bp(GO:autophagy) ->  deg(p(CONSO:"protein aggregates",pmod(Ub),loc(GO:aggresome)))
+
+SET Evidence = "As a matter of fact, p97/VCP was able to dissociate
+the complexes formed between HDAC6 and
+polyubiquitinated proteins to favor protein degradation."
+complex(GO:"VCP-NSFL1C complex") -| complex(p(HGNC:HDAC6),p(CONSO:"protein aggregates",pmod(Ub)))
+complex(GO:"VCP-NSFL1C complex") ->  deg(p(CONSO:"protein aggregates",pmod(Ub)))
+
+SET Evidence = "In case of ubiquitin-proteasome impairement,
+HDAC6 promoted FAT10-containing aggresome in
+order to eliminate marked protein aggregates [94]."
+p(HGNC:HDAC6) -> p(HGNC:UBD,loc(GO:aggresome))
+p(HGNC:UBD,loc(GO:aggresome)) -> deg(p(CONSO:"protein aggregates",pmod(Ub)))
+
+SET Evidence = "The
+binding of HDAC6 to polyubiquitinated proteins was
+also shown to trigger the dissociation of the HDAC6/
+HSP90/HSF1 complex."
+complex(p(HGNC:HDAC6),p(CONSO:"protein aggregates",pmod(Ub))) -| complex(p(HGC:HDAC6),p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),p(HGNC:HSF1))
+
+SET Evidence = "This led to the activation of heat
+shock transcription factor 1 (HSF1) which then induced
+gene expression of chaperones HSP70 and HSP27, exerting
+a protective role against the toxic effects of the
+aggregates in cells [4]."
+#this - dissociation of complex
+complex(p(HGC:HDAC6),p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),p(HGNC:HSF1)) -| act(p(HGNC:HSF1))
+complex(p(HGNC:HDAC6),p(CONSO:"protein aggregates",pmod(Ub))) -> act(p(HGNC:HSF1))
+p(HGNC:HSF1) -> g(HGNCGENEFAMILY:"Heat shock 70kDa proteins")
+p(HGNC:HSF1) -> g(HGNC:HSPB1)
+g(HGNCGENEFAMILY:"Heat shock 70kDa proteins") -| path(MESH:"Protein Aggregation, Pathological")
+g(HGNC:HSPB1) -| path(MESH:"Protein Aggregation, Pathological")
+g(HGNCGENEFAMILY:"Heat shock 70kDa proteins") -> path(MESH:Cytoprotection)
+g(HGNC:HSPB1) -> path(MESH:"Cytoprotection")
+
+SET Evidence = "The loss or inhibition of HDAC6 correlated with a decrease
+of tau burden in cells [95]."
+p(HGC:HDAC6) -> p(HGNC:MAPT)
+
+SET Evidence = "This may be due to
+increased HSP90 acetylation, which favors degradation
+of HSP90 client proteins, such as tau."
+#this - decreased tau burden
+p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",pmod(Ac)) -> deg(p(HGNC:MAPT))
+
+SET Evidence = "Chaperones, mainly HSP40 and HSP70, also prevented misfolded
+protein formation [72]."
+p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins") -| p(MESH:Proteins,pmod(CONSO:misfolded))
+g(HGNCGENEFAMILY:"Heat shock 70kDa proteins") -| p(MESH:Proteins,pmod(CONSO:misfolded))
+
+SET Evidence = "HDAC6 is involved in the deacetylation of peroxiredoxin-1
+and peroxiredoxin-2, two enzymes allowing the reduction
+of peroxides"
+p(HGC:HDAC6) -| p(HGNC:PRDX1,pmod(Ac))
+p(HGC:HDAC6) -| p(HGNC:PRDX2,pmod(Ac))
+p(HGNC:PRDX1) -| a(CHEBI:peroxides)
+p(HGNC:PRDX2) -| a(CHEBI:peroxides)
+
+SET Evidence = "Since their acetylation increased their reducing
+properties, HDAC6 inhibition by tubacin could enhance
+antioxidant properties in the cell [67,96], a
+mechanism to be considered in the case of neurodegeneration."
+#their peroxiredoxin-1 and 2
+#6675804 - tubacin
+p(HGNC:PRDX1,pmod(Ac)) -> act(p(HGNC:PRDX1))
+p(HGNC:PRDX2,pmod(Ac)) -> act(p(HGNC:PRDX2))
+a(PUBCHEM:6675804) -| p(HGC:HDAC6)
+a(PUBCHEM:6675804) -| p(HGC:HDAC6)
+a(PUBCHEM:6675804) -| p(HGC:HDAC6)
+
+SET Evidence = "Moreover this inhibition was able to promote neurite
+growth on myelin-associated glycoprotein and chondroitin
+sulfate proteoglycan substrates."
+#this - HDAC6
+p(HGC:HDAC6) -| p(MESH:"Myelin-Associated Glycoprotein")
+p(HGC:HDAC6) -| a(MESH:Neurites)
+p(HGC:HDAC6) -| p(MESH:"Chondroitin Sulfate Proteoglycans")
+
+SET Evidence = "TSA, scriptaid and sodium
+butyrate showed the same effects than tubacin, but their
+reduced selectivity induced some toxicity [97]."
+#444732 - TSA, 5186 - scriptaid,
+a(PUBCHEM:444732) -| p(HGC:HDAC6)
+a(PUBCHEM:5186) -| p(HGC:HDAC6)
+a(CHEBI:"sodium butyrate") -| p(HGC:HDAC6)
+a(PUBCHEM:444732) -> path(MESH:"Toxic Actions")
+a(PUBCHEM:5186) -> path(MESH:"Toxic Actions")
+a(CHEBI:"sodium butyrate") -> path(MESH:"Toxic Actions")
+
+SET Evidence = "Butler et al.
+[35] designed a new HDAC6 selective inhibitor, tubastatin
+A, which showed a neuroprotective effect against oxidative
+stress induced by homocystic acid."
+#49850262 - tubastatin A
+a(CHEBI:"L-homocysteic acid") -> path(MESH:"Oxidative Stress")
+a(PUBCHEM:49850262) -| path(MESH:"Oxidative Stress")
+a(PUBCHEM:49850262) -> path(MESH:Neuroprotection)
+
+#in AD
+SET MeSHDisease = "Alzheimer Disease"
+
+SET Evidence = "HDAC6 protein
+level was increased by 52% in AD cortex and by
+91% in AD hippocampus, when compared with young
+normal brains."
+SET MeSHAnatomy = {"Neocortex","Hippocampus"}
+path(DOID:"Alzheimer's disease") -> p(HGNC:HDAC6)
+UNSET MeSHAnatomy
+
+SET Evidence = "HDAC6 and tau co-localised
+within the perinuclear aggresome-like compartment,
+independently of the tubulin deacetylase activity of
+HDAC6."
+act(p(HGNC:HDAC6),ma(GO:"tubulin deacetylase activity")) cnc complex(p(HGNC:HDAC6),p(HGNC:MAPT),loc(GO:"perinuclear theca"))
+
+SET Evidence = "Treatment with tubacin or HDAC6 knockdown
+in vivo did not impair the interaction between HDAC6
+and tau but was able to decrease tau phosphorylation
+[32]."
+a(PUBCHEM:6675804) cnc complex(p(HGNC:HDAC6),p(HGNC:MAPT))
+a(PUBCHEM:6675804) -| p(HGNC:MAPT,pmod(Ph))
+p(HGNC:HDAC6) cnc complex(p(HGNC:HDAC6),p(HGNC:MAPT))
+p(HGNC:HDAC6) -> p(HGNC:MAPT,pmod(Ph))
+
+SET Evidence = "Moreover, the post-mortem study of the brain of
+AD patients denoted low levels of α-tubulin and
+increased levels of tubulin acetylation."
+SET MeSHAnatomy = "Brain"
+path(DOID:"Alzheimer's disease") -| p(INTERPRO:"Alpha tubulin")
+path(DOID:"Alzheimer's disease") -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
+UNSET MeSHAnatomy
+
+SET Evidence = "By binding to HDAC6, tau inhibited the deacetylase
+activity and led to an increase in tubulin acetylation."
+#in NFT
+SET MeSHAnatomy = "Neurofibrillary Tangles"
+complex(p(HGNC:HDAC6),p(HGNC:MAPT)) -| act(p(HGNC:HDAC6),ma(GO:"tubulin deacetylase activity"))
+complex(p(HGNC:HDAC6),p(HGNC:MAPT)) -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
+UNSET MeSHAnatomy
+
+SET Evidence = "The excess of tau acted as
+an HDAC6 inhibitor and prevented the autophagy induction
+followed by proteasome inhibition in cells."
+p(HGNC:MAPT) -| p(HGNC:HDAC6)
+p(HGNC:MAPT) -| complex(GO:"proteasome complex")
+complex(GO:"proteasome complex") -> bp(GO:autophagy)
+p(HGNC:MAPT) -| bp(GO:autophagy)
+
+SET Evidence = "The loss of HDAC6 improved the impairment of
+associative and spatial memory formation and was able
+to recover the deficits in mitochondrial trafficking
+induced by Aβ [104]."
+p(HGNC:HDAC6) neg bp(GO:"visual learning")
+p(HGNC:HDAC6) -> bp(GO:"axonal transport of mitochondrion")
+a(CHEBI:"amyloid-beta") neg bp(GO:"axonal transport of mitochondrion")
+
+UNSET MeSHDisease
+
+SET MeSHDisease = "Parkinson Disease"
+
+SET Evidence = "HDAC6 is an
+attractive target in this process, since this isoform was
+involved in the elimination of protein aggregates of α-
+synuclein within a cellular model of PD [64]."
+SET MeSHAnatomy = {"Substantia Nigra","Pars Compacta"}
+p(HGNC:HDAC6) -| p(HGNC:SNCA,pmod(CONSO:"protein aggregates"))
+UNSET MeSHAnatomy
+
+SET Evidence = "HDAC6 was
+also found in the cortex (Figure 1), another region
+affected in PD by the presence of LBs and neurofibrillary
+tangles."
+SET MeSHAnatomy = "Neocortex"
+a(MESH:"Lewy Bodies") -> p(HGNC:HDAC6)
+a(MESH:"Neurofibrillary Tangles") -> p(HGNC:HDAC6)
+UNSET MeSHAnatomy
+
+SET Evidence = "HDAC6 promoted the formation of inclusions from α-
+synuclein toxic oligomers."
+p(HGNC:HDAC6) -> a(MESH:"Inclusion Bodies")
+p(CONSO:"alpha-synuclein oligomers") -> a(MESH:"Inclusion Bodies")
+
+SET Evidence = "The amount of inclusions was
+increased when HDAC6 was coexpressed with α-synuclein
+in DA neurons, compared to neurons expressing
+only α-synuclein."
+SET MeSHAnatomy = "Dopaminergic Neurons"
+composite(p(HGNC:HDAC6),p(HGNC:SNCA)) => a(MESH:"Inclusion Bodies")
+p(HGNC:SNCA) -> a(MESH:"Inclusion Bodies")
+
+SET Evidence = "Thus, HDAC6 exerted a cytoprotective
+role in DA neurons by allowing inclusion formation and
+decreasing the amount of α-synuclein oligomers in the
+fly PD model [110]."
+SET Species = "7227"
+p(HGNC:HDAC6) -> path(MESH:Cytoprotection)
+p(HGNC:HDAC6) -> a(MESH:"Inclusion Bodies")
+p(HGNC:HDAC6) -| p(CONSO:"alpha-synuclein oligomers")
+UNSET MeSHAnatomy
+
+SET Evidence =  "Furthermore, HDAC6 co-localized
+with α-synulcein in the perinuclear region to form
+aggresome-like bodies in a MPP+ induced cellular model
+of PD."
+#N-methyl-4-phenylpyridinium - MPP
+a(CHEBI:"N-methyl-4-phenylpyridinium") -> composite(p(HGNC:HDAC6),p(HGNC:SNCA),loc(GO:"perinuclear theca"))
+
+SET Evidence = "In this specific case, HDAC6 knockdown or inhibition
+by tubacin resulted not only in the reduction of
+perinuclear inclusions but also in the increase of α-synuclein
+in the nucleus with increased cell death."
+#MPP+ induced cellular model
+p(HGNC:HDAC6) -> composite(p(HGNC:HDAC6),p(HGNC:SNCA),loc(GO:"perinuclear theca"))
+a(PUBCHEM:6675804) -| composite(p(HGNC:HDAC6),p(HGNC:SNCA),loc(GO:"perinuclear theca"))
+p(HGNC:HDAC6) -| p(HGNC:SNCA,loc(GO:nucleus))
+a(PUBCHEM:6675804) -> p(HGNC:SNCA,loc(GO:nucleus))
+p(HGNC:HDAC6) -| bp(GO:"cell death")
+a(PUBCHEM:6675804) -> bp(GO:"cell death")
+
+SET Evidence = "The nuclear
+accumulation of α-synuclein after HDAC6
+inhibition may be strongly related to the role of HDAC6
+in the autophagic process of misfolded proteins as an
+elimination route, an alternative to the ubiquitin proteasome
+system impaired in PD and other NDs [64]."
+p(HGNC:HDAC6) -> bp(GO:autophagy)
+bp(GO:autophagy) -> deg(p(MESH:Proteins,pmod(CONSO:misfolded)))
+path(DOID:"Parkinson's disease") neg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+path(DOID:"neurodegenerative disease") neg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
+
+SET Evidence = "Misfolded DJ-1
+aggregates were eliminated by autophagy via parkin-
+HDAC6 binding [97]."
+complex(p(HGNC:HDAC6),p(HGNC:PRKN)) -> bp(GO:autophagy)
+bp(GO:autophagy) -> deg(p(HGNC:PARK7,pmod(CONSO:misfolded),pmod(CONSO:"protein aggregates")))
+
+SET Evidence = "Even if the mechanisms by which parkin suppressed
+parkinsonism remain unclear, parkin participated
+in the elimination of impaired mitochondria
+(mitophagy) via the HDAC6-dependent mitochondria
+ubiquitination [112]."
+p(HGNC:PRKN) -> act(p(HGNC:HDAC6))
+p(HGNC:HDAC6) -> a(MESH:Mitochondria,pmod(Ub))
+a(MESH:Mitochondria,pmod(Ub)) -> bp(GO:mitophagy)
+bp(GO:mitophagy) -> deg(a(MESH:Mitochondria))
+p(HGNC:HDAC6) -> bp(GO:mitophagy)
+p(HGNC:PRKN) -> bp(GO:mitophagy)
+
+SET Evidence = "Moreover, the HDAC6 inhibitor
+tubacin prevented the recruitment of parkin by the
+centrosome via proteasome inhibition [63]."
+a(PUBCHEM:6675804) -| complex(GO:"proteasome complex")
+complex(GO:"proteasome complex") -> tloc(p(HGNC:PRKN),fromLoc(GO:cytoplasm),toLoc(GO:centrosome))
+a(PUBCHEM:6675804) -| tloc(p(HGNC:PRKN),fromLoc(GO:cytoplasm),toLoc(GO:centrosome))
+
+UNSET MeSHDisease
+
+SET MeSHDisease = "Huntington Disease"
+
+SET Evidence = "In a Drosophila model of HD, the co-expression of
+human chaperones HSP70 and HSP40 acted synergistically
+to suppress the degenerative phenotype without
+changing the morphology of cell huntingtin aggregates."
+SET Species = "7227"
+composite(p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins")) -| path(DOID:"Huntington's disease")
+composite(p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins")) cnc p(CONSO:"huntingtin aggregates")
+UNSET Species
+
+SET Evidence = "In addition, HSP70 and HSP40 were sequestered within
+the cell aggregates of huntingtin."
+path(DOID:"Huntington's disease") -> p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",loc(CONSO:"huntingtin aggregates"))
+path(DOID:"Huntington's disease") -> p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins",loc(CONSO:"huntingtin aggregates"))
+
+SET Evidence = "This might significantly
+reduce the intracellular availability of these chaperones
+and lead to an increase in abnormal folding of proteins
+[117]."
+p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",loc(CONSO:"huntingtin aggregates")) -> p(MESH:Proteins,pmod(misfolded))
+p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins",loc(CONSO:"huntingtin aggregates")) -> p(MESH:Proteins,pmod(misfolded))
+
+SET Evidence = "Thus, the presence of HDAC6 in these structures
+may have a protective role in HD through its capacity to
+induce protective chaperones (cf. chapter 4) [4]."
+p(HGNC:HDAC6) -| path(DOID:"Huntington's disease")
+p(HGNC:HDAC6) -> p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",loc(GO:intracellular))
+p(HGNC:HDAC6) -> p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins",loc(GO:intracellular))
+p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",loc(GO:intracellular)) -| p(MESH:Proteins,pmod(misfolded))
+p(HGNCGENEFAMILY:"DNAJ (HSP40) heat shock proteins",loc(GO:intracellular)) -| p(MESH:Proteins,pmod(misfolded))
+
+SET Evidence = "It has been suggested that HDAC6 forms a complex
+with both dynein and aggregates (via ubiquitin binding),
+linking protein aggregates to the microtubule motor necessary
+for the autophagic process."
+act(p(HGNC:HDAC6),ma(GO:"ubiquitin binding")) -> complex(p(HGNC:HDAC6),p(CONSO:"protein aggregates"),p(MESH:Dyneins))
+complex(p(HGNC:HDAC6),p(CONSO:"protein aggregates"),p(MESH:Dyneins)) -> complex(p(CONSO:"protein aggregates"),a(GO:microtubule))
+complex(p(CONSO:"protein aggregates"),a(GO:microtubule)) -> act(a(GO:microtubule),ma(GO:"microtubule motor activity"))
+act(a(GO:microtubule),ma(GO:"microtubule motor activity")) -> bp(GO:autophagy)
+bp(GO:autophagy) -> deg(p(CONSO:"protein aggregates"))
+
+SET Evidence = "HDAC6 deacetylase
+activity was shown to be important for this whole
+process in HD cell models, since the specific inhbition
+of HDAC6 deacetylase activity blocked the recruitment
+of components of the autophagy machinery to the aggresome."
+act(p(HGNC:HDAC6),ma(GO:"deacetylase activity")) -> p(MESH:"Autophagy-Related Proteins",loc(GO:aggresome))
+
+SET Evidence = "However, the inhibition of
+HDAC6 stimulated the microtubule-dependent trafficking
+of vesicles, a process which appears deficient in HD."
+p(HGNC:HDAC6) -| bp(GO:"vesicle transport along microtubule")
+path(DOID:"Huntington's disease") neg bp(GO:"vesicle transport along microtubule")
+
+SET Evidence = "The inhibition of the deacetylase activity of HDAC6 by
+TSA and SAHA increased tubulin acetylation and
+resulted in an improved intracellular vesicle trafficking
+and release of BDNF."
+a(PUBCHEM:444732) -| act(p(HGNC:HDAC6),ma(GO:"deacetylase activity"))
+a(CHEBI:vorinostat) -| act(p(HGNC:HDAC6),ma(GO:"deacetylase activity"))
+a(PUBCHEM:444732) -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
+a(CHEBI:vorinostat) -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
+act(p(HGNC:HDAC6),ma(GO:"deacetylase activity")) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
+a(PUBCHEM:444732) -> bp(GO:"vesicle transport along microtubule")
+a(CHEBI:vorinostat) -> bp(GO:"vesicle transport along microtubule")
+act(p(HGNC:HDAC6),ma(GO:"deacetylase activity")) -| bp(GO:"vesicle transport along microtubule")
+a(PUBCHEM:444732) -> p(HGNC:BDNF)
+a(CHEBI:vorinostat) -> p(HGNC:BDNF)
+act(p(HGNC:HDAC6),ma(GO:"deacetylase activity")) -| p(HGNC:BDNF)
+
+SET Evidence = "These two processes are disrupted
+in neurons affected by HD."
+#alpha tubulin acetylation and BDNF release
+path(DOID:"Huntington's disease") -| p(HGNC:BDNF)
+path(DOID:"Huntington's disease") -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
+
+UNSET MeSHDisease
+
+SET Evidence = "In FTLD and
+ALS, the down regulation of HDAC6 was observed in a
+Drosophila model based on the knockout of transactive
+response DNA-binding protein (TDP-43)."
+SET Species = "7227"
+SET MeSHDisease = {"Amyotrophic Lateral Sclerosis","Frontotemporal Lobar Degeneration"}
+p(HGNC:TARDBP) -> p(HGNC:HDAC6)
+UNSET Species
+
+SET Evidence = "Inclusions of
+TDP-43 are hallmarks of FTDL and ALS, and the silencing
+of TDP-43 in cells caused HDAC6 downregulation
+which increased proteotoxicity [120]."
+p(HGNC:TARDBP,loc(MESH:"Inclusion Bodies")) pos path(DOID:"amyotrophic lateral sclerosis")
+p(HGNC:TARDBP,loc(MESH:"Inclusion Bodies")) pos path(DOID:"Grn-related frontotemporal lobar degeneration with Tdp43 inclusions")
+p(HGNC:HDAC6) -| path(MESH:"Toxic Actions")
+UNSET MeSHDisease
+
+SET Evidence = "Symptomatic improvement was
+observed in a transgenic mouse model of CMT after the
+treatment with specific HDAC6 inhibitors, together with
+the increase in tubulin acetylation [119]."
+#transgenic mice
+SET Species = "10090"
+SET MeSHDisease = "Charcot-Marie-Tooth Disease"
+a(MESH:"Histone Deacetylase Inhibitors") -| path(DOID:"Charcot-Marie-Tooth disease")
+a(MESH:"Histone Deacetylase Inhibitors") -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
+UNSET MeSHDisease
+UNSET Species
