@@ -94,7 +94,7 @@ SET Evidence = "Expression of FL-tau induced formation of
 microtubule bundles and robust co-localization of tau
 with microtubules, neither of which were apparent in
 CHO-Tau35 cells (Fig. 2a)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)") -> bp(GO:"microtubule bundle formation")
 p(CONSO:"Tau isoform F (441 aa)") -> composite(p(CONSO:"Tau isoform F (441 aa)"),a(GO:"microtubule bundle"))
 UNSET Confidence
@@ -111,13 +111,10 @@ UNSET Confidence
 SET Evidence = "Thus, unlike FL-tau, Tau35 localizes
 predominantly in the cytosol, rather than binding to
 and stabilizing microtubules."
-
 SET Confidence = "Low"
 complex(p(CONSO:"Tau isoform F (441 aa)"),a(MESH:Microtubules)) -> bp(GO:"microtubule cytoskeleton organization")
-complex(p(CONSO:"Tau isoform F (441 aa)"),a(MESH:Microtubules)) -> p(CONSO:"Tau isoform F (441 aa)",frag("187_441"),loc(MESH:Cytoplasm))
-#p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| act(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")), ma(GO:"microtubule binding"))
-#p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| bp(GO:"microtubule cytoskeleton organization")
-#the Evidence doesnt state the blocking of Tau35 and microtubule biding by Tau35.
+#it doesn't state that Fl-tau causes localization to cytosol
+#complex(p(CONSO:"Tau isoform F (441 aa)"),a(MESH:Microtubules)) -> p(CONSO:"Tau isoform F (441 aa)",frag("187_441"),loc(MESH:Cytoplasm))
 UNSET Confidence
 
 SET Evidence = "Only a minor
@@ -139,21 +136,8 @@ SET Evidence = "These findings indicate
 that tubulin acetylation is elevated in CHO-FL cells, likely
 due to increased microtubule stabilization."
 
-SET Confidence = "Medium"
+SET Confidence = "High"
 bp(GO:"microtubule cytoskeleton organization") -> p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40))
-UNSET Confidence
-
-SET Evidence = "Acetylated
-α-tubulin in CHO-Tau35 cells was located mainly in perinuclear
-regions, coincident with the more intense
-localization of α-tubulin, and with a similar distribution to
-CHO cells (Fig. 2e)."
-
-SET Confidence = "Medium"
-#In CHO-Tau35 cells
-composite(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40),loc(GO:"perinuclear region of cytoplasm")))
-#In CHO cells
-composite(p(INTERPRO:"Alpha tubulin",pmod(Ac,Lys,40),loc(GO:"perinuclear region of cytoplasm")))
 UNSET Confidence
 
 SET Evidence = "Additionally,
@@ -203,7 +187,7 @@ negatively affects interactions between tau and microtubules
 [10, 15, 46]."
 #CHO-Tau35
 #Ph at Ser396/Ser404
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:GSK3A) -> p(CONSO:"Tau isoform F (441 aa)",frag("187_441"),pmod(Ph,Ser,396))
 p(HGNC:GSK3A) -> p(CONSO:"Tau isoform F (441 aa)",frag("187_441"),pmod(Ph,Ser,404))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441"),pmod(Ph)) neg act(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),ma(GO:"microtubule binding"))
@@ -230,7 +214,7 @@ reduction in Tau35 phosphorylation, LiCl did not affect
 the proportion of either microtubule-bound Tau35, or
 polymerized α-tubulin in CHO-Tau35 cells (Fig. 3c, d)."
 
-SET Confidence = "Medium"
+SET Confidence = "High"
 #CHO-Tau35
 a(CHEBI:"lithium chloride") cnc complex(p(CONSO:"Tau isoform F (441 aa)",frag("187_441")),a(MESH:Microtubules))
 a(CHEBI:"lithium chloride") cnc bp(GO:"microtubule polymerization or depolymerization")
@@ -295,8 +279,9 @@ inhibitory phosphorylation of GSK3, particularly GSK3β."
 
 SET Confidence = "Medium"
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) neg act(p(HGNC:INS))
-p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> act(p(HGNC:AKT1))
+p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -| act(p(HGNC:AKT1))
 p(CONSO:"Tau isoform F (441 aa)",frag("187_441")) -> p(HGNC:GSK3B,pmod(Ph))
+p(HGNC:GSK3B,pmod(Ph)) -| act(p(HGNC:GSK3B))
 UNSET Confidence
 
 SET Evidence = "mTORC1/S6K1 signaling negatively regulates
@@ -400,7 +385,7 @@ SET Evidence = "Notably, cleavage of ATF6α was significantly reduced
 in CHO-FL cells, indicating potential suppression
 of this branch of the UPR by FL-tau."
 
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)") -| p(HGNC:ATF6,frag("?"))
 p(CONSO:"Tau isoform F (441 aa)") -| bp(GO:"ATF6-mediated unfolded protein response")
 p(NCIT:C17421) -| p(HGNC:ATF6,frag("?"))
