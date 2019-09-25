@@ -122,11 +122,9 @@ UNSET Confidence
 SET Evidence = "In cultured cells,
 it was initially shown that HDAC6 knockdown led to increased aggregation of mutant SOD1 and that
 HDAC6 may facilitate degradation of aggregation-prone proteins in the cytoplasm [32,33]."
-SET Confidence = "Low"
+SET Confidence = "Medium"
 p(HGNC:HDAC6) -| p(HGNC:SOD1,var("p.Gly93Ala"),pmod(CONSO:"protein aggregates"))
-#how is mutant SOD degrading mutant SOD aggregation?
-#p(HGNC:SOD1,var("p.Gly93Ala"),pmod(CONSO:"protein aggregates"),loc(GO:cytoplasm)) -> deg(p(HGNC:SOD1,var("p.Gly93Ala"),pmod(CONSO:"protein aggregates")))
-p(HGNC:HDAC6) -> deg(p(HGNC:SOD1,var("p.Gly93Ala"),pmod(CONSO:"protein aggregates")))
+p(HGNC:HDAC6) -> deg(p(HGNC:SOD1,var("p.Gly93Ala"),pmod(CONSO:"protein aggregates"),loc(GO:cytoplasm)))
 UNSET Confidence
 
 SET Evidence = "However,
@@ -233,7 +231,7 @@ HDAC6 inhibition resulted in reduced phosphorylation and aggregation of tau and 
 acetylation, accompanied by increased phosphorylation by Akt of the S9 residue on glycogen synthase
 kinase beta (GSK3 beta) [42]."
 
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET CellLine = {"SH-SY5Y","Neuro-2a cell"}
 p(HGNC:HDAC6) -> p(HGNC:MAPT,pmod(Ph))
 p(HGNC:HDAC6) -> p(CONSO:"Tau aggregates")
@@ -317,7 +315,7 @@ SET Evidence = "Furthermore, proteasomal inhibition led to the
 accumulation of acetylated tau and HDAC6 in protein aggregates, which was altered by Tubastatin A
 or RNAi-mediated downregulation of HDAC6 [52]."
 
-SET Confidence = "Medium"
+SET Confidence = "High"
 complex(GO:"proteasome complex") -| p(HGNC:MAPT,pmod(Ac),pmod(CONSO:"protein aggregates"))
 complex(GO:"proteasome complex") -| p(HGNC:HDAC6,pmod(CONSO:"protein aggregates"))
 a(PUBCHEM:49850262) -| p(HGNC:MAPT,pmod(Ac),pmod(CONSO:"protein aggregates"))
@@ -329,7 +327,7 @@ UNSET Confidence
 SET Evidence = "In addition, experiments in oligodendroglial cell
 lines showed that HDAC6 dysregulation played a role in stress responses in these cells [52]."
 
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:HDAC6) -- bp(GO:"response to oxidative stress")
 UNSET Confidence
 UNSET Cell
@@ -337,7 +335,7 @@ UNSET Cell
 SET Evidence = "Inhibition of HDAC6 by Tubastatin A upregulated heat-shock proteins HSP25 and HSP70 and led to
 increased cell survival in the setting of oxidative stress [53]."
 
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:HDAC6) -| p(HGNC:HSPB1)
 p(HGNC:HDAC6) -| p(HGNCGENEFAMILY:"Heat shock 70kDa proteins")
 a(PUBCHEM:49850262) -> p(HGNC:HSPB1)
@@ -370,11 +368,12 @@ neurons from human embryonic stem cells (hESCs) expressing mutant FUS, showed ch
 cellular and functional findings of cytoplasmic FUS accumulation, hypoexcitability, and deficits in
 axonal transport [76]."
 
-SET Confidence = "Medium"
+SET Confidence = "Low"
 #iPSC-derived motor neuron from ALS with FUS mutation
 p(HGNC:FUS,var("?")) -> p(HGNC:FUS,loc(GO:cytoplasm))
 p(HGNC:FUS,var("?")) neg bp(GO:"axonal transport")
-p(HGNC:FUS,var("?")) -| p(HGNC:MAPT,pmod(Ac),pmod(CONSO:"protein aggregates"))
+#where is there relation to tau shown?
+#p(HGNC:FUS,var("?")) -| p(HGNC:MAPT,pmod(Ac),pmod(CONSO:"protein aggregates"))
 UNSET Confidence
 
 SET Evidence = "They further showed that inhibiting HDAC6, with the HDAC6-specific inhibitors
@@ -474,7 +473,7 @@ UNSET Confidence
 SET Evidence = "When Wnt ligands bind to the
 Frizzled/LRP receptor, Axin is recruited to the membrane, resulting in dismantling of the destruction
 complex."
-SET Confidence = "Medium"
+SET Confidence = "High"
 complex(p(HGNCGENEFAMILY:"Wnt family"),p(HGNC:LRP1)) -> p(HGNC:AXIN1)
 p(HGNC:AXIN1) -> deg(complex(p(HGNC:AXIN1),p(HGNCGENEFAMILY:"Beta catenins"),p(HGNC:GSK3B),p(HGNC:APC)))
 UNSET Confidence
@@ -619,6 +618,7 @@ a(CHEBI:ketamine) -> p(HGNC:GSK3B,pmod(Ph,Ser))
 p(HGNC:GSK3B,pmod(Ph,Ser)) isA a(MESH:"Antidepressive Agents")
 #p(HGNC:GSK3B,pmod(Ph,Ser)) -| act(p(HGNC:GSK3B))
 #evidence does not talk about inhibition of GSK2B by its serine phosphorylated form
+#doesn't inhibitory phosphorylation mean that its activity is inhibted by this phosphorylation?
 UNSET Species
 
 SET Evidence = "The antidepressant-like effects of 5-HT2A
