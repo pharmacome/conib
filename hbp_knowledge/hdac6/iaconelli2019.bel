@@ -122,7 +122,7 @@ UNSET Confidence
 SET Evidence = "In cultured cells,
 it was initially shown that HDAC6 knockdown led to increased aggregation of mutant SOD1 and that
 HDAC6 may facilitate degradation of aggregation-prone proteins in the cytoplasm [32,33]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:HDAC6) -| p(HGNC:SOD1,var("p.Gly93Ala"),pmod(CONSO:"protein aggregates"))
 p(HGNC:HDAC6) -> deg(p(HGNC:SOD1,var("p.Gly93Ala"),pmod(CONSO:"protein aggregates"),loc(GO:cytoplasm)))
 UNSET Confidence
@@ -368,12 +368,10 @@ neurons from human embryonic stem cells (hESCs) expressing mutant FUS, showed ch
 cellular and functional findings of cytoplasmic FUS accumulation, hypoexcitability, and deficits in
 axonal transport [76]."
 
-SET Confidence = "Low"
+SET Confidence = "High"
 #iPSC-derived motor neuron from ALS with FUS mutation
 p(HGNC:FUS,var("?")) -> p(HGNC:FUS,loc(GO:cytoplasm))
 p(HGNC:FUS,var("?")) neg bp(GO:"axonal transport")
-#where is there relation to tau shown?
-#p(HGNC:FUS,var("?")) -| p(HGNC:MAPT,pmod(Ac),pmod(CONSO:"protein aggregates"))
 UNSET Confidence
 
 SET Evidence = "They further showed that inhibiting HDAC6, with the HDAC6-specific inhibitors
@@ -612,13 +610,11 @@ UNSET Confidence
 
 SET Evidence = "In mice, ketamine induced inhibitory serine
 phosphorylation of GSK3β, which was necessary for its antidepressant-like effects [120]."
-SET Confidence = "Low"
+SET Confidence = "High"
 SET Species = "10090"
 a(CHEBI:ketamine) -> p(HGNC:GSK3B,pmod(Ph,Ser))
 p(HGNC:GSK3B,pmod(Ph,Ser)) isA a(MESH:"Antidepressive Agents")
-#p(HGNC:GSK3B,pmod(Ph,Ser)) -| act(p(HGNC:GSK3B))
-#evidence does not talk about inhibition of GSK2B by its serine phosphorylated form
-#doesn't inhibitory phosphorylation mean that its activity is inhibted by this phosphorylation?
+p(HGNC:GSK3B,pmod(Ph,Ser)) -| act(p(HGNC:GSK3B))
 UNSET Species
 
 SET Evidence = "The antidepressant-like effects of 5-HT2A
