@@ -60,7 +60,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
  DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 # DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
  DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -78,14 +78,17 @@ SET CellLine = "HEK293"
 
 SET Evidence = "Consistent with this finding, we confirmed that while p300 overexpression
 induced ac-tau, SIRT1 deacetylated tau in HEK293 cells using pan-ac-tau antibody Ab708 (Fig. 1A)."
+SET Confidence = "High"
 #Ab708 antibody used
 p(MGI:Ep300) -> p(MGI:Mapt,pmod(Ac))
 p(MGI:Sirt1) -| p(MGI:Mapt,pmod(Ac))
+UNSET Confidence
 
 SET Evidence = "Using the
 SILAC method, we identified five lysines acetylated by p300 expression
 (i.e., K163, K174, K274, K280, and K369; Fig. 1B). All
 five lysines were deacetylated by SIRT1 expression (Fig. 1B)."
+SET Confidence = "High"
 p(MGI:Ep300) -> p(MGI:Mapt,pmod(Ac,Lys,163))
 p(MGI:Sirt1) -| p(MGI:Mapt,pmod(Ac,Lys,163))
 p(MGI:Ep300) -> p(MGI:Mapt,pmod(Ac,Lys,174))
@@ -96,7 +99,7 @@ p(MGI:Ep300) -> p(MGI:Mapt,pmod(Ac,Lys,280))
 p(MGI:Sirt1) -| p(MGI:Mapt,pmod(Ac,Lys,280))
 p(MGI:Ep300) -> p(MGI:Mapt,pmod(Ac,Lys,369))
 p(MGI:Sirt1) -| p(MGI:Mapt,pmod(Ac,Lys,369))
-
+UNSET Confidence
 #in tauP301S mouse brain
 
 SET MeSHAnatomy = "Brain"
@@ -104,39 +107,51 @@ SET MeSHAnatomy = "Brain"
 SET Evidence = "2A). Levels of total human
 tau or mouse tau were not significantly affected by SIRT1 deletion."
 #SIRT1 del - exon 4
+SET Confidence = "High"
 p(MGI:Sirt1) cnc p(MGI:Mapt,var("p.Pro301Ser"))
+UNSET Confidence
 
 SET Evidence = "Levels of human ac-K174 tau detected with AC312 antibody
 were significantly elevated by loss of SIRT1 (t(11)	4.69, p	0.0007,
 unpaired t test), whereas levels of ac-K274 tau remained unaffected
 (Fig. 2A,B)."
-p(MGI:Sirt1) -> p(MGI:Mapt,var("p.Pro301Ser"),pmod(Ac,Lys,174))
+SET Confidence = "Medium"
+p(MGI:Sirt1) -| p(MGI:Mapt,var("p.Pro301Ser"),pmod(Ac,Lys,174))
 p(MGI:Sirt1) cnc p(MGI:Mapt,var("p.Pro301Ser"),pmod(Ac,Lys,274))
+UNSET Confidence
 
 SET Evidence = "SIRT1 deletion led to a significant increase of human ac-
 K174 tau in the PSD-enriched fractions (t(11) 	 2.47, p 	 0.0312,
 unpaired t test; Fig. 2C,D)."
+SET Confidence = "Medium"
 #PSD - Post-Synaptic Density
 SET MeSHAnatomy = "Post-Synaptic Density"
-p(HGNC:SIRT1) -> p(HGNC:MAPT,pmod(Ac,Lys,174))
+p(HGNC:SIRT1) -| p(HGNC:MAPT,pmod(Ac,Lys,174))
+UNSET Confidence
 
 SET Evidence = "Interestingly, levels of total human tau in
 the PSD-enriched fraction were also significantly increased by SIRT1
 deletion (t(11)	2.77, p	0.0183, unpaired t test; Fig. 2C,D)."
-p(HGNC:SIRT1) -> p(HGNC:MAPT)
+SET Confidence = "Medium"
+p(HGNC:SIRT1) -| p(HGNC:MAPT)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "SIRT1
 deletion accelerated premature mortality in tauP301S mice (p
 0.0329, log rank; Fig. 3A)."
+SET Confidence = "High"
 p(MGI:Sirt1) -| path(MESH:"Mortality, Premature")
+UNSET Confidence
 
 SET Evidence = "No significant synaptophysin
 loss was detected in tauP301S mice or in mice lacking SIRT1
 alone in the frontal cortex and hippocampus (Fig. 3B,C)."
+SET Confidence = "High"
 SET Anatomy = {"frontal cortex","hippocampal field"}
 p(MGI:Mapt,var("p.Pro301Ser")) cnc p(MGI:Syp)
 p(MGI:Sirt1) cnc p(MGI:Syp)
+UNSET Confidence
 
 SET Evidence = "However,
 brain-specific SIRT1 deletion in tauP301S mice resulted in a
@@ -146,24 +161,30 @@ SIRT1 F/F), ANOVA] and hippocampus [F(3,19) 	 11.83, p
 0.0019 (tauP301S; SIRT1 F/F vs Nestin-Cre; tauP301S; SIRT1
 F/F), ANOVA], indicating that SIRT1 deficiency exacerbated
 tau-mediated synaptic deficits (Fig. 3B,C)."
+SET Confidence = "Medium"
 composite(p(MGI:Mapt,var("p.Pro301Ser")),p(MGI:Sirt1)) -> p(MGI:Syp)
-p(MGI:Mapt,var("p.Pro301Ser")) -> path(MESH:"Neuronal Plasticity")
-p(MGI:Sirt1) -| path(MESH:"Neuronal Plasticity")
+p(MGI:Mapt,var("p.Pro301Ser")) -| path(MESH:"Neuronal Plasticity")
+p(MGI:Sirt1) -> path(MESH:"Neuronal Plasticity")
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Interestingly, deletion
 of SIRT1 did not affect the number of neurofibrillary tangles
 significantly, as measured with Gallyas silver staining (Fig. 3D). "
+SET Confidence = "High"
 p(MGI:Sirt1) cnc p(MESH:"Neurofibrillary Tangles")
+UNSET Confidence
 
-SET Evidence = "We next assessed the effects of SIRT1 deficiency on taumediated
+SET Evidence = "We next assessed the effects of SIRT1 deficiency on tau mediated
 behavioral deficits. In the EPM test, tauP301S mice deficient
 in SIRT1, compared with tauP301S mice without the
 deficiency, spent significantly more time in the open arm [F(3,50)
 15.05, p 	 0.0001 (tauP301S; SIRT1 F/F vs Nestin-Cre; tauP301S;
 SIRT1 F/F, ANOVA], suggesting that SIRT1 deletion in tauP301S
 mice exacerbates behavioral disinhibition (Fig. 4A)."
-p(MGI:Sirt1) -> path(EFO:"behavioural disinhibition measurement")
+SET Confidence = "Medium"
+p(MGI:Sirt1) -| path(EFO:"behavioural disinhibition measurement")
+UNSET Confidence
 
 SET Evidence = "Regardless of human
 tauP301S expression, SIRT1 deletion
@@ -175,7 +196,9 @@ tauP301S; SIRT1 F/F), multilevel mixed
 effects model; Fig. 4C] and reduced memory
 retention measured by number of platform
 crossings (Fig. 4D)."
-composite(p(HGNC:MAPT,var("p.Pro301Ser")),p(HGNC:SIRT1)) pos bp(GO:"learning or memory")
+SET Confidence = "Medium"
+p(HGNC:SIRT1) pos bp(GO:"learning or memory")
+UNSET Confidence
 
 SET Evidence = "We showed that AAV-SIRT1-induced
 hippocampal SIRT1 overexpression in
@@ -184,20 +207,27 @@ levels of ac-K174 in the mossy fiber of the
 left hippocampus, compared with the AAVGFP-
 injected controls (t(21) 	 2.5, p
 0.0231, unpaired t test; Fig. 5C,D)."
+SET Confidence = "High"
 #AAV-SIRT1 in taup301S mice
 SET MeSHAnatomy = "Mossy Fibers, Hippocampal"
 p(MGI:Sirt1) -| p(MGI:Mapt,var("p.Pro301Ser"),pmod(Ac,Lys,174))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Injection of tau fibrils into the hippocampus
 of 2-month-old tauP301S mice resulted in a marked increase of
 MC1-positive tau pathology in the ipsilateral and contralateral
 hippocampus of tau fibril injection within 1 month (Fig. 5E)."
 #2 month old
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Hippocampus"
 composite(p(MGI:Mapt,var("p.Pro301Ser")),p(CONSO:"Tau fibrils"),p(CONSO:"Tau antibody, MC1")) -> path(EFO:tauopathy)
+UNSET MeSHAnatomy
 
 SET Evidence = "Notably, SIRT1 overexpression significantly reduced the spread
 of MC1-positive tau pathology to the contralateral hippocampus,
 compared with the group injected with AAV-GFP (p	0.001, multilevel
 mixed effects model; Fig. 5E,F)."
+SET Confidence = "High"
 p(MGI:Sirt1) -| path(EFO:tauopathy)
+UNSET Confidence
