@@ -45,7 +45,7 @@ SET DOCUMENT Description = ""
 # DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
 # DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
  DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
-
+DEFINE NAMESPACE NCIT           AS PATTERN "^C\d+$"
 ###############
 # Annotations #
 ###############
@@ -114,7 +114,7 @@ path(DOID:"relapsing-remitting multiple sclerosis") -- path(DOID:"internuclear o
 path(DOID:"relapsing-remitting multiple sclerosis") -- path(DOID:"trigeminal neuralgia")
 path(DOID:"relapsing-remitting multiple sclerosis") -- path(DOID:"cerebellar ataxia")
 path(DOID:"relapsing-remitting multiple sclerosis") -- path(DOID:"pathologic nystagmus")
-path(DOID:"relapsing-remitting multiple sclerosis") -- path(DOID:"Myelopathy")
+path(DOID:"relapsing-remitting multiple sclerosis") -- path(HP:"Myelopathy")
 path(DOID:"relapsing-remitting multiple sclerosis") -- path(HP:"Lhermitte's sign")
 path(DOID:"relapsing-remitting multiple sclerosis") -- path(HP:"Asymmetric limb muscle stiffness")
 path(DOID:"relapsing-remitting multiple sclerosis") -- path(MESH:"Erectile Dysfunction")
@@ -135,13 +135,13 @@ path(DOID:"primary progressive multiple sclerosis") -> path(HP:Paraparesis)
 path(DOID:"primary progressive multiple sclerosis") -> path(HP: Hemiparesis)
 path(DOID:"primary progressive multiple sclerosis") -> path(DOID:"cerebellar ataxia")
 path(DOID:"primary progressive multiple sclerosis") -> path(DOID:"dementia")
-path(DOID:"primary progressive multiple sclerosis") -| bp(MESH:"Visual Perception")
+path(DOID:"primary progressive multiple sclerosis") -| path(MESH:"Visual Perception")
 
 SET Evidence = "CSF findings include a normal or mildly raised white cell count (<25 cells per cm³; predominantly lymphocytes) and protein (usually <1 g/L), a raised IgG index, and IgG oligoclonal bands not present in serum.14"
 
 SET Anatomy = "cerebrospinal fluid"
 path(DOID:"multiple sclerosis") -> a(MESH:Leukocytes)
-path(DOID:"multiple sclerosis") -> a(MESH:Proteins)
+path(DOID:"multiple sclerosis") -> p(MESH:Proteins)
 path(DOID:"multiple sclerosis") -> p(MESH:"Immunoglobulin G")
 UNSET Anatomy
 
@@ -180,9 +180,9 @@ SET MeSHAnatomy = "Genitalia"
 path(DOID:"Behcet's disease") -> path(MESH:Ulcer)
 UNSET MeSHAnatomy
 
-path(DOID:"systemic lupus erythematosus") -> path(DOID:optic neuritis)
-path(DOID:"Sjogren's syndrome") -> path(DOID:optic neuritis)
-path(DOID:"antiphospholipid syndrome") -> path(DOID:optic neuritis)
+path(DOID:"systemic lupus erythematosus") -> path(DOID:"optic neuritis")
+path(DOID:"Sjogren's syndrome") -> path(DOID:"optic neuritis")
+path(DOID:"antiphospholipid syndrome") -> path(DOID:"optic neuritis")
 path(DOID:"systemic lupus erythematosus") -> path(DOID:myelitis)
 path(DOID:"Sjogren's syndrome") -> path(DOID:myelitis)
 path(DOID:"antiphospholipid syndrome") -> path(DOID:myelitis)
@@ -194,10 +194,10 @@ path(DOID:"antiphospholipid syndrome") -> path(DOID:thrombosis)
 path(DOID:CADASIL) -> path(DOID:migraine)
 path(DOID:CADASIL) -> path(MESH:"Vascular Diseases")
 path(DOID:CADASIL) -> path(HP:Hemiparesis)
-path(DOID:CADASIL) -> path(HP:dementia)
+path(DOID:CADASIL) -> path(DOID:dementia)
 
 path(MESH:"Susac Syndrome") -> path(HP:Encephalopathy)
-path(MESH:"Susac Syndrome") -| bp(MESH:"Visual Perception")
+path(MESH:"Susac Syndrome") -| path(MESH:"Visual Perception")
 path(MESH:"Susac Syndrome") -> path(MESH:Deafness)
 
 path(DOID:"central nervous system vasculitis") -> path(HP:Headache)
@@ -210,7 +210,7 @@ path(DOID:neurosarcoidosis) -> path(HP:Myelopathy)
 path(DOID:neurosarcoidosis)  -> path(HP:"Facial palsy")
 
 path(DOID:"neuromyelitis optica") -> path(DOID:"optic neuritis")
-path(DOID:"neuromyelitis optica") -| bp(MESH:"Visual Perception")
+path(DOID:"neuromyelitis optica") -| path(MESH:"Visual Perception")
 path(DOID:"neuromyelitis optica") -> path(DOID:myelitis)
 path(DOID:"neuromyelitis optica") -> path(HP:"Nausea and vomiting")
 
@@ -227,11 +227,10 @@ SET Evidence = "These disorders include several closely related idiopathic infla
 
 #these disorders = disorders with relapsing or progressive courses and thus associated with multiple sclerosis
 
+
 path(DOID:"multiple sclerosis") -- path(DOID:"leukoencephalopathy with vanishing white matter")
-path(DOID:"multiple sclerosis") -- path(DOID:"leukoencephalopathy with vanishing white matter")
-path(DOID:"multiple sclerosis") -- path(DOID:"Vasculopathy, Retinal, With Cerebral Leukodystrophy")
+path(DOID:"multiple sclerosis") -- path(MESH:"Vasculopathy, Retinal, With Cerebral Leukodystrophy")
 path(DOID:"multiple sclerosis") -- path(MESH:"Brain Diseases, Metabolic")
-path(DOID:"multiple sclerosis") -- path(DOID:"Vasculopathy, Retinal, With Cerebral Leukodystrophy")
 path(DOID:"multiple sclerosis") -- path(DOID:"neurosarcoidosis")
 path(DOID:"multiple sclerosis") -- path(DOID:"central nervous system vasculitis")
 path(DOID:"multiple sclerosis") -- path(DOID:"Behcet's disease")
@@ -244,7 +243,7 @@ SET Evidence = "CSF findings include a lymphocytic pleocytosis and raised protei
 
 SET Anatomy = "cerebrospinal fluid"
 path(DOID:"acute disseminated encephalomyelitis") -> path(MESH:Leukocytosis)
-path(DOID:"acute disseminated encephalomyelitis") -> a(MESH:Proteins)
+path(DOID:"acute disseminated encephalomyelitis") -> p(MESH:Proteins)
 UNSET Anatomy
 
 SET Evidence = " The clinical, imaging, and laboratory features of acute disseminated encephalomyelitis and multiple sclerosis overlap and diagnostic criteria emphasise the requirement of encephalopathy (altered level of consciousness, behavioural, or cognitive change) in making the diagnosis of acute disseminated encephalomyelitis (appendix).32 "
