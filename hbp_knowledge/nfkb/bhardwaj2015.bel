@@ -19,6 +19,7 @@ SET DOCUMENT Description = ""
 #DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
 #DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
 #DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+DEFINE NAMESPACE EFO            AS URL "https://raw.githubusercontent.com/pharmacome/conso/5d2c2ea6f7112421cc8089a3f021a75ab60bb373/external/efo-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
 #DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
@@ -56,10 +57,10 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 # Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
 # --------------------------------------------------------------------------------
 #DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
-#DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 #DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-#DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 #DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 #DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -79,98 +80,127 @@ SET Species = "10090"
 SET Evidence = "Indeed, YKL-40 mRNA expression was robustly activated in tissues surrounding
 the site of turpentine injection and its induction was accompanied by a very strong induction of
 both IL-1 and IL-6 mRNAs (Fig. 1A)"
+SET Confidence = "High"
 a(PUBCHEM:14235) -> r(MGI:"chitinase-like 1")
 r(MGI:"chitinase-like 1") pos r(MGI:"interleukin 1 alpha")
 r(MGI:"chitinase-like 1") pos r(MGI:"interleukin 6")
+UNSET Confidence
 
 SET Evidence = "Immunization of mice with MOG35-50 peptide resulted in the induction of EAE,
 and modest upregulation of YKL-40 mRNA expression in the spinal cords of animals (Fig. 1B)."
 # EAE: Experimental autoimmune encephalomyelitis
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Spinal Cord"
 p(MGI:"myelin oligodendrocyte glycoprotein",frag("35_50")) -> r(MGI:"chitinase-like 1")
+p(MGI:"myelin oligodendrocyte glycoprotein",frag("35_50")) -> path(EFO:"experimental autoimmune encephalomyelitis")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In addition, expression of both IL-1 and IL-6 mRNAs was also enhanced"
 # Immunization of mice with MOG35-50 peptide
+SET Confidence = "High"
 p(MGI:"myelin oligodendrocyte glycoprotein",frag("35_50")) -> r(MGI:"interleukin 1 alpha")
 p(MGI:"myelin oligodendrocyte glycoprotein",frag("35_50")) -> r(MGI:"interleukin 6")
+UNSET Confidence
 
 SET Evidence = "NF-κB and STAT3 are the major transcription factors activated by IL-1 and OSM, respectively"
 # OSM : oncostatin M
+SET Confidence = "Medium"
 p(MGI:"interleukin 1 alpha") -> complex(GO:"NF-kappaB complex")
-p(MGI:"interleukin 1 alpha") -> p(MGI:"signal transducer and activator of transcription 3")
-p(MGI:"oncostatin M") -> complex(GO:"NF-kappaB complex")
 p(MGI:"oncostatin M") -> p(MGI:"signal transducer and activator of transcription 3")
+UNSET Confidence
 
 SET Evidence = "Since p65 subunit of NF-κB and STAT3 were previously implicated in cytokine-induced
 expression of YKL-40 (8, 34), we knocked down their expression in human astrocytes"
+SET Confidence = "High"
 p(MGI:"v-rel reticuloendotheliosis viral oncogene homolog A (avian)") -- p(MGI:"chitinase-like 1")
 p(MGI:"signal transducer and activator of transcription 3") -- p(MGI:"chitinase-like 1")
+UNSET Confidence
 
 SET Evidence = "Downregulation of STAT3 (Fig. 3C) dramatically diminished IL-1/OSM-induced YKL-40 mRNA expression (Fig. 3A)."
+SET Confidence = "High"
 p(MGI:"signal transducer and activator of transcription 3") -> r(MGI:"chitinase-like 1")
 p(MGI:"interleukin 1 alpha") -> r(MGI:"chitinase-like 1")
 p(MGI:"oncostatin M") -> r(MGI:"chitinase-like 1")
+UNSET Confidence
 
 SET Evidence = "Surprisingly, knockdown of p65 had no effect on YKL-40 mRNA expression (Fig. 3A), but did
 drastically diminish the expression of IL-8 mRNA, which is p65-dependent (Fig. 3B)."
-p(MGI:"v-rel reticuloendotheliosis viral oncogene homolog A (avian)") -| p(MGI:"chemokine (C-X-C motif) ligand 15")
-p(MGI:"v-rel reticuloendotheliosis viral oncogene homolog A (avian)") -- p(MGI:"chitinase-like 1")
+SET Confidence = "Medium"
+p(MGI:"v-rel reticuloendotheliosis viral oncogene homolog A (avian)") -| r(MGI:"chemokine (C-X-C motif) ligand 15")
+p(MGI:"v-rel reticuloendotheliosis viral oncogene homolog A (avian)") cnc r(MGI:"chitinase-like 1")
+UNSET Confidence
 
 SET Evidence = "Constitutively active STAT3 enhanced, whereas dominant-negative IκBα diminished cytokine-responsiveness."
 # cytokine: IL-1 and OSM
+SET Confidence = "High"
 p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells inhibitor, alpha",var("?")) -| act(p(MGI:"interleukin 1 alpha"))
 p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells inhibitor, alpha",var("?")) -| act(p(MGI:"oncostatin M"))
 act(p(MGI:"signal transducer and activator of transcription 3")) -> act(p(MGI:"interleukin 1 alpha"))
 act(p(MGI:"signal transducer and activator of transcription 3")) -> act(p(MGI:"oncostatin M"))
+UNSET Confidence
 
 SET Evidence = "Knockdown of either RelB or p50 significantly diminished cytokine-induced YKL-40 mRNA expression, whereas knockdown of p65, cRel
 and p52 had no effect (Fig. 4A). This finding implicates both RelB and p50 in YKL-40 regulation."
+SET Confidence = "Medium"
 p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B") -> r(MGI:"chitinase-like 1")
 p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B") reg p(MGI:"chitinase-like 1")
 p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105") -> r(MGI:"chitinase-like 1")
 p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105") reg p(MGI:"chitinase-like 1")
-p(MGI:"v-rel reticuloendotheliosis viral oncogene homolog A (avian)") -- p(MGI:"chitinase-like 1")
-p(MGI:"reticuloendotheliosis oncogene") -- p(MGI:"chitinase-like 1")
-p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 2, p49/p100") -- p(MGI:"chitinase-like 1")
+p(MGI:"v-rel reticuloendotheliosis viral oncogene homolog A (avian)") cnc p(MGI:"chitinase-like 1")
+p(MGI:"reticuloendotheliosis oncogene") cnc p(MGI:"chitinase-like 1")
+p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 2, p49/p100") cnc p(MGI:"chitinase-like 1")
+UNSET Confidence
 
 UNSET Species
 
 SET Evidence = "Interestingly, although human astrocytes constitutively express low levels of RelB, IL-1
 induced dramatic RelB protein accumulation in these cells (Fig. 4C)."
+SET Confidence = "High"
 SET Species = "9606"
 SET Cell = "astrocyte"
 p(HGNC:IL1A) -> p(HGNC:RELB)
 UNSET Cell
 UNSET Species
+UNSET Confidence
 
 SET Species = "10090"
 
 SET Evidence = "Similarly, RelB mRNA expression was also up-regulated by IL-1 in mouse astrocytes (Fig. 4D)."
+SET Confidence = "High"
 SET Cell = "astrocyte"
 p(MGI:"interleukin 1 alpha") -> r(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B")
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "RelB mRNA expression was also strongly activated in vivo by turpentine in an
 IL-1-dependent model of irritant-induced sterile inflammation (Fig. 4E)."
+SET Confidence = "High"
 a(PUBCHEM:14235) -> r(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B")
+UNSET Confidence
 
 SET Evidence = "Since TNF also efficiently activates NF-κB, we tested whether, similarly to
 IL-1, TNF regulates YKL-40 expression by a RelB-dependent mechanism."
+SET Confidence = "Medium"
 p(MGI:"tumor necrosis factor") -> act(complex(GO:"NF-kappaB complex"))
+p(MGI:"tumor necrosis factor") reg r(MGI:"chitinase-like 1")
+UNSET Confidence
 
 SET Evidence = "These data suggests that RelB regulates expression of YKL-40 in response to
 proinflammatory cytokines, such as IL-1 and TNF, which induce canonical activation of RelB/p50 complexes."
+SET Confidence = "High"
 p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B") reg p(MGI:"chitinase-like 1")
 p(MGI:"interleukin 1 alpha") -> act(p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"))
 p(MGI:"tumor necrosis factor") -> act(p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"))
 p(MGI:"interleukin 1 alpha") -> act(complex(p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105")))
 p(MGI:"tumor necrosis factor") -> act(complex(p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105")))
+UNSET Confidence
 
 UNSET Species
 
 SET Evidence = "In contrast to astrocytes and U373 cells, we found that basal expression of YKL-40 and RelB
 mRNA was very high in primary human chondrocytes and not stimulated by IL-1 or OSM (Supplementary Fig 3)."
+SET Confidence = "High"
 SET Species = "9606"
 SET Cell = "chondrocyte"
 p(HGNC:IL1A) cnc r(HGNC:CHI3L1)
@@ -179,9 +209,11 @@ p(HGNC:OSM) cnc r(HGNC:CHI3L1)
 p(HGNC:OSM) cnc r(HGNC:RELB)
 UNSET Species
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "In these cells, basal expression of YKL-40 is RelB-, p65-, and STAT3-independent, implicating other unknown factors."
 # these cells: human chondrocytes
+SET Confidence = "High"
 SET Species = "9606"
 SET Cell = "chondrocyte"
 p(HGNC:RELB) cnc p(HGNC:CHI3L1)
@@ -189,18 +221,24 @@ p(HGNC:RELA) cnc p(HGNC:CHI3L1)
 p(HGNC:STAT3) cnc p(HGNC:CHI3L1)
 UNSET Species
 UNSET Cell
+UNSET Confidence
 
 SET Species = "10090"
 
 SET Evidence = "Cumulatively, these data suggest that in cells expressing relatively low levels of
 YKL-40, such as astrocytes, cytokine-driven RelB promotes YKL-40 induction in vitro and in vivo."
+SET Confidence = "High"
 SET Cell = "astrocyte"
 p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B") -> p(MGI:"chitinase-like 1")
 UNSET Cell
+UNSET Confidence
+
+SET CellLine = "U373 MG cell"
 
 SET Evidence = "These experiments were performed in U373 glioma cells, which similarly to
 human and mouse astrocytes, upregulate expression of both YKL-40 and RelB in response to
 IL-1 and OSM, and this cytokine-induced expression is diminished by the knockdown of p50 and RelB (Suppl. Fig. 4)."
+SET Confidence = "High"
 path(MESH:Glioblastoma) -> p(MGI:"chitinase-like 1")
 path(MESH:Glioblastoma) -> p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B")
 p(MGI:"interleukin 1 alpha") -> path(MESH:Glioblastoma)
@@ -209,52 +247,72 @@ p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p10
 p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105") -> act(p(MGI:"oncostatin M"))
 p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B") -> act(p(MGI:"interleukin 1 alpha"))
 p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B") -> act(p(MGI:"oncostatin M"))
+UNSET Confidence
 
 SET Evidence = "Although RelB and p50 did not bind to the YKL-40 promoter in unstimulated U373 cells, binding of RelB and p50 was apparent in
 cytokine-treated cells (Fig. 5B), suggesting that RelB/p50 complexes directly regulate YKL-40 expression."
-complex(p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105")) reg p(MGI:"chitinase-like 1")
+SET Confidence = "Medium"
+complex(p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105")) reg r(MGI:"chitinase-like 1")
+UNSET Confidence
+
+UNSET CellLine
 
 SET Evidence = "In agreement with the mutational analysis that showed the importance of the proximal NF-κB site (Fig. 3D),
 strong protein binding to the proximal, but not distal, NF-κB site of the YKL-40 promoter was induced by IL-1 alone or
 together with OSM (Fig. 5C)."
 # determine if IL-1/OSM-treatment induces RelB/p50 binding to the previously identified NF-κB sites of the YKL-40 promoter
+SET Confidence = "High"
 p(MGI:"interleukin 1 alpha") -> complex(p(MGI:"chitinase-like 1"),p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105"))
 composite(p(MGI:"oncostatin M"),p(MGI:"interleukin 1 alpha")) -> complex(p(MGI:"chitinase-like 1"),p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105"))
+UNSET Confidence
 
 SET Evidence = "Cytokine stimulation facilitated the binding of protein complexes to the proximal NF-κB element
 in vitro, which super-shifted with anti-p65, anti-RelB and anti-p50 antibodies (Fig. 5D), indicating that the
 proximal NF-κB site can bind both p65/p50 and RelB/p50 complexes."
 # NF-κB sites of the YKL-40 promoter
+SET Confidence = "High"
 p(MGI:"chitinase-like 1") -> complex(p(MGI:"chitinase-like 1"),p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105"))
 p(MGI:"chitinase-like 1") -> complex(p(MGI:"chitinase-like 1"),a(GO:"NF-kappaB p50/p65 complex"))
+UNSET Confidence
 
 SET Evidence = "We conclude that RelB/p50 complexes can directly bind to the proximal NF-κB site of the
 YKL-40 promoter and are essential for the cytokine-induced YKL-40 expression."
+SET Confidence = "Medium"
 complex(p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105")) -> complex(p(MGI:"chitinase-like 1"),p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105"))
-complex(p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105")) -> p(MGI:"chitinase-like 1")
+complex(p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105")) -> r(MGI:"chitinase-like 1")
+UNSET Confidence
 
 SET Evidence = "OSM and IL-1 efficiently regulated YKL-40 expression via STAT3 (Fig. 3A) and OSM promoted the
 recruitment of IL-1-induced p50 to the YKL-40 promoter (Fig. 5B)."
-p(MGI:"oncostatin M") reg p(MGI:"chitinase-like 1")
+SET Confidence = "Medium"
+p(MGI:"oncostatin M") reg r(MGI:"chitinase-like 1")
 p(MGI:"oncostatin M") -> act(p(MGI:"signal transducer and activator of transcription 3"))
-p(MGI:"interleukin 1 alpha") reg p(MGI:"chitinase-like 1")
+p(MGI:"interleukin 1 alpha") reg r(MGI:"chitinase-like 1")
 p(MGI:"interleukin 1 alpha") -> act(p(MGI:"signal transducer and activator of transcription 3"))
-p(MGI:"signal transducer and activator of transcription 3") -> p(MGI:"chitinase-like 1")
+p(MGI:"signal transducer and activator of transcription 3") -> r(MGI:"chitinase-like 1")
 p(MGI:"oncostatin M") -> complex(p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105"),p(MGI:"chitinase-like 1"))
 p(MGI:"interleukin 1 alpha") -> p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105")
+UNSET Confidence
 
 SET Evidence = "Indeed, p50/RelB complexes were formed in response to IL-1"
+SET Confidence = "High"
 p(MGI:"interleukin 1 alpha") -> complex(p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105"))
+UNSET Confidence
 
 SET Evidence = "More importantly, OSM significantly enhanced IL-1-induced formation of the p50/RelB complexes"
+SET Confidence = "High"
 p(MGI:"oncostatin M") -> act(p(MGI:"interleukin 1 alpha"))
 act(p(MGI:"interleukin 1 alpha")) -> complex(p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105"))
+UNSET Confidence
 
 SET Evidence = "These data suggest that in addition to STAT3 activation, OSM enhances
 YKL-40 expression by promoting formation of the RelB/p50 complexes, which bind to the YKL-40 promoter"
+SET Confidence = "Medium"
 p(MGI:"oncostatin M") -> act(p(MGI:"signal transducer and activator of transcription 3"))
-p(MGI:"oncostatin M") -> p(MGI:"chitinase-like 1")
+p(MGI:"oncostatin M") -> r(MGI:"chitinase-like 1")
 p(MGI:"oncostatin M") -> complex(p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105"))
 complex(p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105")) -> complex(p(MGI:"chitinase-like 1"),p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105"))
+complex(p(MGI:"chitinase-like 1"),p(MGI:"avian reticuloendotheliosis viral (v-rel) oncogene related B"),p(MGI:"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105")) -> r(MGI:"chitinase-like 1")
+UNSET Confidence
 
 UNSET Species

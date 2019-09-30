@@ -1,0 +1,470 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Pizotifen Activates ERK and Provides Neuroprotection in vitro and in vivo in Models of Huntington’s Disease"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Trusha Adeshara"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/conso
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
+DEFINE NAMESPACE MGI           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
+DEFINE NAMESPACE RGD           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "23393546"}
+
+SET Evidence = "Htt is involved in a variety of cellular functions including vesicle transport, transcription, and energy metabolism [1,2]. Deletion of the Htt gene in mouse results in embryonic lethality indicating that it is required for development [3]."
+
+p(HGNC:HTT) -> path(MESH:"Transport Vesicles")
+p(HGNC:HTT) -> bp(GO:"mRNA transcription")
+p(HGNC:HTT) -> path(MESH:"Energy Metabolism")
+p(HGNC:HTT) -> bp(GO:"embryo development")
+
+SET Evidence = "A common downstream signaling pathway disrupted in HD is the extracellular signalregulated-kinase (ERK) pathway (also known as the mitogen-activated protein kinase or MAPK pathway) [8]."
+
+path(DOID:"Huntington's disease") -| bp(GO:"MAPK cascade")
+
+SET Evidence = "BDNF-mediated ERK1/2 activation through the TrkB receptor is decreased in mutant Htt striatal cells and the reduction is associated with reduced survival. The alteration in signaling appears to be in part due to reduced expression of p52/p46 Sch docking proteins [9]."
+#NTRK2: TrkB receptor
+complex(p(HGNC:BDNF),p(HGNC:NTRK2)) -> bp(GO:"ERK1 and ERK2 cascade")
+SET Anatomy = "striatum"
+#cell culture
+p(HGNC:HTT,pmod(HBP:"CAG repeats")) -| bp(GO:"ERK1 and ERK2 cascade")
+bp(GO:"ERK1 and ERK2 cascade") -> bp(MESH:"Cell Survival")
+UNSET Anatomy
+p(HGNC:HTT,pmod(HBP:"CAG repeats")) -| p(HGNC:SHC1)
+p(HGNC:SHC1) -> bp(GO:"ERK1 and ERK2 cascade")
+
+SET Evidence = "EGFR-induced ERK activation is disrupted in a Drosophila model of HD [10] and ERK activation is impaired after stimulation with EGF or NGF in PC12 cells expressing mutant huntingtin [11]."
+
+p(HGNC:EGFR) -> bp(GO:"MAPK cascade")
+SET Species = "7215"
+path(DOID:"Huntington's disease") -| bp(GO:"MAPK cascade")
+SET CellLine = "PC-12 cell"
+p(HGNC:HTT,pmod(HBP:"CAG repeats")) -| bp(GO:"MAPK cascade")
+p(HGNC:EGF) -> bp(GO:"MAPK cascade")
+p(HGNC:NGF) -> bp(GO:"MAPK cascade")
+UNSET CellLine
+UNSET Species
+
+SET Evidence = "Examination of down-stream signaling events in ST Hdh Q111/Q111 cells treated with pizotifen showed that rescue of viability in these cells is dependent on transient activation of ERK1/2."
+
+SET Disease = "Huntington's disease"
+#ST Hdh Q111/Q111 cells
+a(CHEBI:pizotifen) -> bp(MESH:"Cell Survival")
+a(CHEBI:pizotifen) -> bp(GO:"MAPK cascade")
+
+SET Evidence = "In the R6/2 mouse model of HD [21], treatment with pizotifen improved motor function, ameliorated neurodegeneration, restored striatal area, and increased ERK2 activation in the striatum."
+
+SET Species = "10095"
+#R6/2 mouse model
+p(HGNC:HTT,pmod(HBP:"CAG repeats")) -| bp(GO:"motor behavior")
+a(CHEBI:pizotifen) -> bp(GO:"motor behavior")
+p(HGNC:HTT,pmod(HBP:"CAG repeats")) -> path(HBP:Neurodegeneration)
+a(CHEBI:pizotifen) -| path(HBP:Neurodegeneration)
+p(HGNC:HTT,pmod(HBP:"CAG repeats")) -> path(MESH:"Striatal Degeneration, Autosomal Dominant")
+a(CHEBI:pizotifen) -| path(MESH:"Striatal Degeneration, Autosomal Dominant")
+SET Anatomy = "striatum"
+p(HGNC:HTT,pmod(HBP:"CAG repeats")) -| bp(GO:"MAPK cascade")
+a(CHEBI:pizotifen) -> bp(GO:"MAPK cascade")
+UNSET Anatomy
+UNSET Disease
+UNSET Species
+
+SET Evidence = "We have developed an assay for mutant huntingtin-mediated cell death in ST Hdh Q111/Q111 cells that measures loss of viability upon serum withdrawal [12,14]. After 24 hours of serum withdrawal, ST Hdh Q111/Q111 cells show a marked decrease in ATP levels while ST Hdh Q7/Q7 cells [18] are not significantly affected (Fig. 1 A )."
+#*serum consits of (DMEM, fetal bovine serum (FBS), penicillin and streptomycin (P/S)- is ot okay to write it as serum?
+#ST Hdh Q111/Q111 cells
+a(MESH:Serum) -> a(CHEBI:"adenosine triphosphate")
+a(MESH:Serum) -> bp(MESH:"Cell Survival")
+#ST Hdh Q7/Q7 cells
+a(MESH:Serum) cnc a(CHEBI:"adenosine triphosphate")
+a(MESH:Serum) cnc bp(MESH:"Cell Survival")
+
+SET Evidence = "Using the Prestwick Chemical Library consisting of 1120 approved drugs and pharmacologically active small molecules, we performed a screen to identify compounds that could enhance ATP levels in ST Hdh Q111/Q111 cells during serum withdrawal."
+#3 drugs selected viz.Pizotifen, cyproheptadine and loxapine
+#ST Hdh Q111/Q111 cells treated after serum withdrawal
+a(CHEBI:pizotifen) -> a(CHEBI:"adenosine triphosphate")
+a(CHEBI:cyproheptadine) -> a(CHEBI:"adenosine triphosphate")
+a(CHEBI:loxapine) -> a(CHEBI:"adenosine triphosphate")
+
+SET Evidence = "As shown in Figure 1 B , these drugs restored ATP levels in ST Hdh Q111/Q111 cells after serum withdrawal in a dose-dependent manner."
+#these drugs: Pizotifen, cyproheptadine and loxapine
+#ST Hdh Q111/Q111 cells treated after serum withdrawal
+a(CHEBI:pizotifen) -> a(CHEBI:"adenosine triphosphate")
+a(CHEBI:cyproheptadine) -> a(CHEBI:"adenosine triphosphate")
+a(CHEBI:loxapine) -> a(CHEBI:"adenosine triphosphate")
+
+SET Evidence = "The ST Hdh Q111/Q111 cells have significantly higher caspase-3/7 activity after 24 hours of serum withdrawal compared to the ST Hdh Q7/Q7 cells or compared to ST Hdh Q111/Q111 cells in serum (Figure 1 C )."
+#ST Hdh Q111/Q111 cells after serum withdrawal
+a(MESH:Serum) neg p(HGNC:CASP3)
+a(MESH:Serum) neg p(HGNC:CASP7)
+#ST Hdh Q7/Q7 cells after serum withdrawal
+a(MESH:Serum) cnc p(HGNC:CASP3)
+a(MESH:Serum) cnc p(HGNC:CASP7)
+
+SET Evidence = " Caspase activation in the ST Hdh Q111/Q111 cells was significantly blocked by the addition of the pizotifen, cyproheptadine, or loxapine in a dose-dependent manner (Figure 1 D , compound structures 1E)."
+
+#ST Hdh Q111/Q111 cells after serum withdrawal
+a(CHEBI:pizotifen) -| p(HGNC:CASP3)
+a(CHEBI:cyproheptadine) -| p(HGNC:CASP3)
+a(CHEBI:loxapine) -| p(HGNC:CASP3)
+a(CHEBI:pizotifen) -| p(HGNC:CASP7)
+a(CHEBI:cyproheptadine) -| p(HGNC:CASP7)
+a(CHEBI:loxapine) -| p(HGNC:CASP3)
+
+SET Evidence = "Addition of pizotifen, cyproheptadine, or loxapine to the ST Hdh Q7/Q7 cells after serum withdrawal had no effect on ATP levels, indicating that the drugs do not have a general effect on viability but rather correct a deficit specific to the ST Hdh Q111/Q111 cells (Figure 2 A )."
+
+#ST Hdh Q7/Q7 cells after serum withdrawal
+a(CHEBI:pizotifen) cnc a(CHEBI:"adenosine triphosphate")
+a(CHEBI:cyproheptadine) cnc a(CHEBI:"adenosine triphosphate")
+a(CHEBI:loxapine) cnc a(CHEBI:"adenosine triphosphate")
+a(CHEBI:pizotifen) cnc bp(MESH:"Cell Survival")
+a(CHEBI:cyproheptadine) cnc bp(MESH:"Cell Survival")
+a(CHEBI:loxapine) cnc bp(MESH:"Cell Survival")
+
+SET Evidence = "This activity also appears to be specific to ST Hdh Q111/Q111 cells challenged with serum withdrawal since the addition of the compound pizotifen to the ST Hdh Q111/Q111 cells in serum had no effect on ATP levels (Figure 2 B )."
+
+#ST Hdh Q111/Q111 cells with serum
+a(CHEBI:pizotifen) cnc a(CHEBI:"adenosine triphosphate")
+#ST Hdh Q111/Q111 cells after serum withdrawal
+a(CHEBI:pizotifen) -> a(CHEBI:"adenosine triphosphate")
+
+SET Evidence = "A significant increase in the phosphorylation of ERK1 (p44) occurred after a 15-min treatment with pizotifen, cyproheptadine, or loxapine in both ST Hdh Q111/Q111 and ST Hdh Q7/Q7 cells (Figure 3 A )."
+
+#ST Hdh Q111/Q111 cells after serum withdrawal
+a(CHEBI:pizotifen) -> p(HGNC:MAPK3,pmod(Ph))
+a(CHEBI:cyproheptadine) -> p(HGNC:MAPK3,pmod(Ph))
+a(CHEBI:loxapine) -> p(HGNC:MAPK3,pmod(Ph))
+#ST Hdh Q7/Q7 cells after serum withdrawal
+a(CHEBI:pizotifen) -> p(HGNC:MAPK3,pmod(Ph))
+a(CHEBI:cyproheptadine) -> p(HGNC:MAPK3,pmod(Ph))
+a(CHEBI:loxapine) -> p(HGNC:MAPK3,pmod(Ph))
+
+SET Evidence = " A significant increase in phospho-ERK2 (p42) occurred after treatment with pizotifen and loxapine and an upward trend occurred after treatment with cyproheptadine in ST Hdh Q111/Q111cells. Pizotifen treatment significantly increased phospho-ERK2 in ST Hdh Q7/Q7 cells (Figure 3B)."
+
+#ST Hdh Q111/Q111 cells after serum withdrawal
+a(CHEBI:pizotifen) -> p(HGNC:MAPK1,pmod(Ph))
+a(CHEBI:cyproheptadine) -> p(HGNC:MAPK1,pmod(Ph))
+a(CHEBI:loxapine) -> p(HGNC:MAPK1,pmod(Ph))
+#ST Hdh Q7/Q7 cells after serum withdrawal
+a(CHEBI:pizotifen) -> p(HGNC:MAPK1,pmod(Ph))
+
+SET Evidence = "We measured the time-course of pizotifen-induced ERK activation under conditions of serum withdrawal in ST Hdh Q111/Q111 cells and found significant increases in phosphoERK1/2 after five and fifteen minutes of treatment (Figure 3 C,D)."
+
+#ST Hdh Q111/Q111 cells after serum withdrawal
+#effect observed after 5-15 min of pizotifen treatment
+a(CHEBI:pizotifen) -> p(HGNC:MAPK3,pmod(Ph))
+a(CHEBI:pizotifen) -> p(HGNC:MAPK1,pmod(Ph))
+
+SET Evidence = "PhosphoERK1/2 levels in DMSO control cells increased slowly with time and were approximately equal between pizotifen and control cells after 24 hours of treatment."
+
+#ST Hdh Q111/Q111 cells after serum withdrawal
+a(CHEBI:pizotifen) -> p(HGNC:MAPK3,pmod(Ph))
+a(CHEBI:pizotifen) -> p(HGNC:MAPK1,pmod(Ph))
+#ST Hdh Q111/Q111 cells- DMSO control cells
+a(CHEBI:"dimethyl sulfoxide") -> p(HGNC:MAPK3,pmod(Ph))
+a(CHEBI:"dimethyl sulfoxide") -> p(HGNC:MAPK1,pmod(Ph))
+
+SET Evidence = "To determine if transient pizotifen-induced ERK phosphorylation is necessary for rescue of mutant Htt toxicity, we blocked ERK phosphorylation by co-treatment with MEK1/2 inhibitor U0126."
+
+a(CHEBI:U0126) -| p(HGNC:MAP2K1)
+a(CHEBI:U0126) -| p(HGNC:MAP2K2)
+a(CHEBI:U0126) -| p(HGNC:MAPK3,pmod(Ph))
+a(CHEBI:U0126) -| p(HGNC:MAPK1,pmod(Ph))
+
+SET Evidence = "Inhibiting ERK1/2 phosphorylation in the presence of pizotifen prevented the rescue of ST Hdh Q111/Q111 cells in the ATP assay (Figure 4 C )."
+
+composite(p(HGNC:MAPK3,pmod(Ph)),p(HGNC:MAPK1,pmod(Ph)),a(CHEBI:pizotifen)) -> bp(MESH:"Cell Survival")
+
+SET Evidence = "Pizotifen is a serotonin antagonist used to treat recurrent migraine [22]. It binds to over 30 receptors, including subtypes of the serotonin, dopamine, histamine, adrenoreceptor, and cholinergic receptors (for binding profile, see Young et. al. [19])"
+
+a(CHEBI:pizotifen) -| a(CHEBI:serotonin)
+a(CHEBI:pizotifen) -| path(DOID:migraine)
+complex(a(CHEBI:pizotifen),p(HGNCGENEFAMILY:"Dopamine receptors"))
+complex(a(CHEBI:pizotifen),p(HGNCGENEFAMILY:"5-hydroxytryptamine receptors, G protein-coupled"))
+complex(a(CHEBI:pizotifen),p(HGNCGENEFAMILY:"Histamine receptors"))
+complex(a(CHEBI:pizotifen),p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+complex(a(CHEBI:pizotifen),p(HGNCGENEFAMILY:Adrenoceptors))
+
+SET Evidence = "In addition, pizotifen has been shown to be a partial agonist of the 5-HT1A receptor. Agonism was reportedly blocked by the 5-HT1A antagonist WAY-100,635 [23]. WAY-100,635 also blocks the activation of ERK by several antipsychotic drugs that are agonists of the 5-HT1A receptor, as well as the activation of ERK through the 5-HT1A endogenous ligand serotonin [24]."
+
+a(CHEBI:pizotifen) -> p(HGNC:HTR1A)
+a(MESH:"desmethyl-WAY 100635") -| act(a(CHEBI:pizotifen))
+a(MESH:"desmethyl-WAY 100635") -| act(p(HGNC:MAPK3))
+a(MESH:"desmethyl-WAY 100635") -| act(p(HGNC:MAPK1))
+a(MESH:"desmethyl-WAY 100635") -| p(HGNC:HTR1A)
+complex(a(CHEBI:serotonin),p(HGNC:HTR1A)) -| act(p(HGNC:MAPK3))
+complex(a(CHEBI:serotonin),p(HGNC:HTR1A)) -| act(p(HGNC:MAPK1))
+
+SET Evidence = "Another 5-HT1A antagonist, NAD-299, exhibits a pharmacological profile similar to WAY-100,635 [25], with both WAY-100,635 and NAD-299 showing high selectivity for the 5-HT1A receptor (binding it with nanomolar affinities)."
+
+#NAD-299:Robalzotan
+a(DRUGBANK:"Robalzotan") -| p(HGNC:HTR1A)
+complex(p(HGNC:HTR1A),a(MESH:"desmethyl-WAY 100635"))
+complex(p(HGNC:HTR1A),a(DRUGBANK:"Robalzotan"))
+
+SET Evidence = "To determine if we had overlooked other active compounds from the Prestwick library, we retested risperidone, metergoline, ketanserin, spiperone, and promethazine. These drugs have overlapping targets with pizotifen and are known to act through serotonin receptors [20, 27, 28, 29, 30, 31, 32, 33]."
+
+complex(a(CHEBI:risperidone),p(HGNCGENEFAMILY:"5-hydroxytryptamine receptors, G protein-coupled"))
+complex(a(CHEBI:metergoline),p(HGNCGENEFAMILY:"5-hydroxytryptamine receptors, G protein-coupled"))
+complex(a(CHEBI:ketanserin),p(HGNCGENEFAMILY:"5-hydroxytryptamine receptors, G protein-coupled"))
+complex(a(CHEBI:spiperone),p(HGNCGENEFAMILY:"5-hydroxytryptamine receptors, G protein-coupled"))
+complex(a(CHEBI:promethazine),p(HGNCGENEFAMILY:"5-hydroxytryptamine receptors, G protein-coupled"))
+
+SET Evidence = "One drug, promethazine, rescued ST Hdh Q111/Q111 cells (Figure 5). Promethazine is also a high affinity antagonist of the H1 receptor and has previously been reported to rescue an HD model [34]."
+
+#ST Hdh Q111/Q111 cells after serum withdrawal
+a(CHEBI:promethazine) -> bp(MESH:"Cell Survival")
+a(CHEBI:promethazine) -| p(HGNC:HRH1)
+a(CHEBI:promethazine) -| path(DOID:"Huntington's disease")
+
+SET Evidence = "Cetirizine, diphenhydramine, ketotifen, desloratadine, and chlorphreniramine failed to rescue ST Hdh Q111/Q111 cells (Figure 6). This suggests that the activity of the drugs in the cell-based assay is not related solely to their common ability to block the H1 receptor."
+
+a(CHEBI:cetirizine) -| p(HGNC:HRH1)
+a(CHEBI:diphenhydramine) -| p(HGNC:HRH1)
+a(CHEBI:ketotifen) -| p(HGNC:HRH1)
+a(CHEBI:desloratadine) -| p(HGNC:HRH1)
+a(CHEBI:cetirizine) -| p(HGNC:HRH1)
+a(CHEBI:levochlorpheniramine) -| p(HGNC:HRH1)
+#ST Hdh Q111/Q111 cells after serum withdrawal
+a(CHEBI:cetirizine) cnc bp(MESH:"Cell Survival")
+a(CHEBI:diphenhydramine) cnc bp(MESH:"Cell Survival")
+a(CHEBI:ketotifen) cnc bp(MESH:"Cell Survival")
+a(CHEBI:desloratadine) cnc bp(MESH:"Cell Survival")
+a(CHEBI:cetirizine) cnc bp(MESH:"Cell Survival")
+a(CHEBI:levochlorpheniramine) cnc bp(MESH:"Cell Survival")
+
+SET Evidence = "To evaluate potential therapeutic effects of pizotifen treatment in vivo , we measured motor function in HD transgenic R6/2 mice after treatment. Pizotifen (7.5 mg/kg or 10mg/kg) or saline was administered by daily IP injection starting at 6 weeks of age...The lack of effect on open-field behavior suggests that the improved rotarod performance is not simply due to acute effects on activity levels but instead to improved motor coordination."
+
+SET Species = "10095"
+SET Disease = "Huntington's disease"
+path(DOID:"Huntington's disease") -| bp(GO:"motor behavior")
+a(CHEBI:pizotifen) -> bp(GO:"motor behavior")
+UNSET Disease
+UNSET Species
+
+SET Evidence = "Mutant Htt causes the down-regulation of the dopamine- and cAMP-regulated 32-kDa phosphoprotein DARPP-32. DARPP-32 is involved in dopamine and serotonin signaling, is highly expressed in the striatum and prefrontal cortex and is a marker of neuronal dysfunction in HD mice [35,36]."
+
+p(HGNC:HTT,pmod(HBP:"CAG repeats")) -| a(CHEBI:dopamine)
+a(CHEBI:"2',3'-cyclic AMP") -> p(HGNC:PPP1R1B)
+p(HGNC:HTT,pmod(HBP:"CAG repeats")) -| p(HGNC:PPP1R1B)
+p(HGNC:PPP1R1B) -- act(a(CHEBI:dopamine))
+p(HGNC:PPP1R1B) -- act(a(CHEBI:serotonin))
+SET Species = "10095"
+SET Anatomy = {"striatum","prefrontal cortex"}
+p(HGNC:PPP1R1B) prognosticBiomarkerFor path(DOID:"Huntington's disease")
+UNSET Anatomy
+UNSET Species
+
+SET Evidence = "By immunohistochemistry (IHC), we found that levels of DARPP-32 in the striatum of the HD transgenic R6/2 mice were reduced at 10 weeks of age qualitatively. Pizotifen treatment increased DARPP-32 staining in the striatum at this time point (Figure 8 A )."
+
+#HD transgenic R6/2 mice
+SET Species = "10095"
+SET Anatomy = "striatum"
+p(HGNC:HTT,pmod(HBP:"CAG repeats")) -| p(HGNC:PPP1R1B)
+#at age = 10 weeks
+a(CHEBI:pizotifen) -> p(HGNC:PPP1R1B)
+UNSET Anatomy
+UNSET Species
+
+SET Evidence = "By immunoblot analysis, we observed reduced levels of DARPP-32 in the prefrontal cortex of the HD transgenic R6/2 mice at 10 weeks of age and pizotifen treatment increased DARPP-32 levels (Figure 8 B,C)"
+
+#HD transgenic R6/2 mice
+SET Species = "10095"
+SET Anatomy = "prefrontal cortex"
+p(HGNC:HTT,pmod(HBP:"CAG repeats")) -| p(HGNC:PPP1R1B)
+#at age = 10 weeks
+a(CHEBI:pizotifen) -> p(HGNC:PPP1R1B)
+UNSET Anatomy
+UNSET Species
+
+SET Evidence = "At 12-weeks of age, the pizotifen treatment resulted in a statistically significant increase in striatal DARPP-32 levels when compared to untreated R6/2 controls (Figure 8C)."
+
+#HD transgenic R6/2 mice
+#at age = 12 weeks
+SET Species = "10095"
+SET Anatomy = "striatum"
+a(CHEBI:pizotifen) -> p(HGNC:PPP1R1B)
+UNSET Anatomy
+UNSET Species
+
+SET Evidence = "We evaluated several of the well-characterized receptors that are altered in HD including D2DR, GAD65/67, GluR2/3 and 5HT1B."
+
+p(HGNCGENEFAMILY:"Dopamine receptors") -- path(DOID:"Huntington's disease")
+p(HGNC:GAD2) -- path(DOID:"Huntington's disease")
+p(HGNC:GRIA2) -- path(DOID:"Huntington's disease")
+p(HGNC:GRIA3) -- path(DOID:"Huntington's disease")
+p(HGNC:HTR1B) -- path(DOID:"Huntington's disease")
+
+SET Evidence = "The levels of mGluR2/3 in HD transgenic R6/2 mice at 10 weeks of age were slightly reduced and pizotifen treatment modestly increased levels of this receptor."
+
+#HD transgenic R6/2 mice
+SET Species = "10095"
+p(HGNC:HTT,pmod(HBP:"CAG repeats")) -| p(HGNC:GRIA2)
+p(HGNC:HTT,pmod(HBP:"CAG repeats")) -| p(HGNC:GRIA3)
+#at age = 10 weeks
+a(CHEBI:pizotifen) -> p(HGNC:GRIA2)
+a(CHEBI:pizotifen) -> p(HGNC:GRIA3)
+UNSET Species
+
+SET Evidence = "D2DR, GAD65/67 and 5HT1B levels are also altered in the HD transgenic R6/2 mice, but pizotifen treatment did not normalize the levels (data not shown)."
+
+#HD transgenic R6/2 mice
+SET Species = "10095"
+p(HGNC:HTT,pmod(HBP:"CAG repeats")) -- p(HGNCGENEFAMILY:"Dopamine receptors")
+p(HGNC:HTT,pmod(HBP:"CAG repeats")) -- p(HGNC:GAD2)
+p(HGNC:HTT,pmod(HBP:"CAG repeats")) -- p(HGNC:HTR1B)
+a(CHEBI:pizotifen) cnc p(HGNCGENEFAMILY:"Dopamine receptors")
+a(CHEBI:pizotifen) cnc p(HGNC:GAD2)
+a(CHEBI:pizotifen) cnc p(HGNC:HTR1B)
+UNSET Species
+
+SET Evidence = "We confirmed that the striatal area was reduced in the striatum of the HD transgenic R6/2 mice at 10 weeks of age and found that pizotifen treatment attenuated this reduction in striatal area (Figure 8 D )."
+
+#HD transgenic R6/2 mice
+SET Species = "10095"
+SET Anatomy = "striatum"
+path(DOID:"Huntington's disease") -> bp(GO:"negative regulation of cell volume")
+#at age = 10 weeks
+a(CHEBI:pizotifen) -| bp(GO:"negative regulation of cell volume")
+UNSET Anatomy
+UNSET Species
+
+SET Evidence = "Taken together, results demonstrating that pizotifen can partially normalize levels of DARPP-32 while increasing striatal area indicate that the correction of motor deficits in the R6/2 mouse by pizotifen is likely due to neuroprotective effects of the drug."
+
+#HD transgenic R6/2 mice
+SET Disease = "Huntington's disease"
+SET Species = "10095"
+a(CHEBI:pizotifen) -> p(HGNC:PPP1R1B)
+SET Anatomy = "striatum"
+a(CHEBI:pizotifen) -| bp(GO:"negative regulation of cell volume")
+UNSET Anatomy
+a(CHEBI:pizotifen) -> bp(GO:"motor behavior")
+a(CHEBI:pizotifen) isA a(CHEBI:"neuroprotective agent")
+UNSET Species
+UNSET Disease
+
+SET Evidence = "We did not detect any changes in the levels of Htt protein or localization in the R6/2 mouse model suggesting that the mechanism is not mediated through clearance pathways (Figure 9, and data not shown)."
+
+#HD transgenic R6/2 mice
+SET Species = "10095"
+SET Disease = "Huntington's disease"
+a(CHEBI:pizotifen) cnc p(HGNC:HTT,pmod(HBP:"CAG repeats"))
+UNSET Disease
+UNSET Species
+
+SET Evidence = "At 10 weeks of age, we observed that levels of activated ERK2 (p42) were increased in the striatum of the pizotifen-treated HD transgenic R6/2 mice both by IHC and western blotting (Figure 10 A, C)."
+
+#HD transgenic R6/2 mice
+SET Species = "10095"
+SET Disease = "Huntington's disease"
+SET Anatomy = "striatum"
+#at age = 10 weeks
+a(CHEBI:pizotifen) -> p(HGNC:MAPK1)
+UNSET Anatomy
+UNSET Species
+UNSET Disease
+
+SET Evidence = "Interestingly, western blotting analysis showed that the levels of phospho-ERK1 (p44) are significantly reduced in the cortex of the HD transgenic R6/2 mice at 10 weeks of age with pizotifen treatment (Figure 10 B )."
+
+#HD transgenic R6/2 mice
+SET Species = "10095"
+SET Disease = "Huntington's disease"
+SET Anatomy = "cortex"
+#at age = 10 weeks
+a(CHEBI:pizotifen) -| p(HGNC:MAPK3)
+UNSET Anatomy
+UNSET Species
+UNSET Disease
+
+SET Evidence = "The activated ERK by IHC was demonstrated by an increased number of neurons staining positive for phospho-ERK qualitatively (Figure 10C)."
+
+SET Cell = "neuron"
+p(HGNC:MAPK3,pmod(Ph)) -> bp(GO:"MAPK cascade")
+p(HGNC:MAPK1,pmod(Ph)) -> bp(GO:"MAPK cascade")
+UNSET Cell
+
+SET Evidence = "These results show that pizotifen can activate striatal ERK1/2 in vitro and in viv o, suggesting that the motor and neuropathological improvements observed in the R6/2 mouse may be mechanistically related to the rescue observed in the cell model."
+
+#ST Hdh Q111/Q111 cells after serum withdrawal
+a(CHEBI:pizotifen) -> p(HGNC:MAPK3,pmod(Ph))
+a(CHEBI:pizotifen) -> p(HGNC:MAPK1,pmod(Ph))
+
+SET Species = "10095"
+SET Disease = "Huntington's disease"
+SET Anatomy = "striatum"
+a(CHEBI:pizotifen) -> p(HGNC:MAPK3,pmod(Ph))
+a(CHEBI:pizotifen) -> p(HGNC:MAPK1,pmod(Ph))
+UNSET Anatomy
+UNSET Species
+
+a(CHEBI:pizotifen) -> bp(GO:"motor behavior")
+a(CHEBI:pizotifen) -> path(MESH:Neuropathology)
+
+UNSET Disease
+
+SET Evidence = "The lower levels of phospho-ERK1 (p44) in the cortex may reflect distinct signaling pathways in these two regions of the brain in response to pizotifen."
+
+#these two: striatum and cortex
+SET Anatomy = {"striatum","prefrontal cortex"}
+a(CHEBI:pizotifen) -| p(HGNC:MAPK3,pmod(Ph))
+UNSET Anatomy
