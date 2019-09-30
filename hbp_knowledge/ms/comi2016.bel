@@ -108,7 +108,7 @@ a(DRUGBANK:Teriflunomide) -> bp(MESH:"Immunoglobulin Class Switching")
 SET Evidence = "The most frequent adverse eﬀects observed with teriﬂunomide are headache, increased liver enzymes, diarrhoea, hair thinning, and nausea.11,12,25"
 
 a(DRUGBANK:Teriflunomide) -> path(HP:Headache)
-a(DRUGBANK:Teriflunomide) -> a(MESH:Enzymes,loc(MESH:Liver))
+a(DRUGBANK:Teriflunomide) -> p(MESH:Enzymes,loc(MESH:Liver))
 a(DRUGBANK:Teriflunomide) -> path(MESH:Diarrhea)
 a(DRUGBANK:Teriflunomide) -> path(MESH:Alopecia)
 a(DRUGBANK:Teriflunomide) -> path(MESH:Nausea)
@@ -118,10 +118,10 @@ SET Evidence = "Dimethyl fumarate has a dual eﬀect. By activating the transcri
 a(CHEBI:"dimethyl fumarate") -> act(p(HGNC:NFE2L2),ma(GO:"antioxidant activity"))
 a(CHEBI:"dimethyl fumarate") isA a(CHEBI:antioxidant)
 a(CHEBI:"dimethyl fumarate") -| p(HGNC:NFKB1)
-p(HGNC:NFKB1) -> a(CHEBI:Cytokines)
+p(HGNC:NFKB1) -> a(MESH:Cytokines)
 a(CHEBI:"dimethyl fumarate") -| a(CHEBI:Cytokines)
 a(CHEBI:"dimethyl fumarate") -| p(HGNC:NFKB1)
-a(CHEBI:"dimethyl fumarate") -| bp(MESH:Inflammation)
+a(CHEBI:"dimethyl fumarate") -| path(MESH:Inflammation)
 
 SET Evidence = "Flushing and gastrointestinal symptoms are the most frequent side-eﬀects of dimethyl fumarate;13,14 they have been reported in 40% and 30% of patients, respectively, but tend to decrease after the ﬁrst 2–3 months and lead to an interruption of the treatment in few patients."
 
@@ -138,8 +138,9 @@ complex(p(HGNCGENEFAMILY:"Sphingosine 1-phosphate receptors"),a(DRUGBANK:Fingoli
 
 SET Evidence = "After oral administration, ﬁngolimod is immediately phosphorylated and bound to the sphingosine 1-phosphate receptor, which is stimulated and subsequently internalised and degraded."
 
-a(DRUGBANK:Fingolimod) -> a(DRUGBANK:Fingolimod,pmod(Ph))
-a(DRUGBANK:Fingolimod,pmod(Ph)) -> complex(p(HGNCGENEFAMILY:"Sphingosine 1-phosphate receptors"),a(DRUGBANK:Fingolimod))
+#a(DRUGBANK:Fingolimod) -> a(DRUGBANK:Fingolimod,pmod(Ph))
+#a(DRUGBANK:Fingolimod,pmod(Ph)) -> complex(p(HGNCGENEFAMILY:"Sphingosine 1-phosphate receptors"),a(DRUGBANK:Fingolimod))
+#a(DRUGBANK:Fingolimod,pmod(Ph)) is giving general parser failure
 complex(p(HGNCGENEFAMILY:"Sphingosine 1-phosphate receptors"),a(DRUGBANK:Fingolimod)) -> deg(p(HGNCGENEFAMILY:"Sphingosine 1-phosphate receptors"))
 
 SET Evidence = "In a head-to head comparison with intramuscular interferon beta-1a 30 μg weekly, oral ﬁngolimod reduced the annualised relapse rate by 52%.32"
@@ -156,7 +157,7 @@ SET Evidence = "Other adverse events include macula oedema, elevated liver funct
 
 #of Fingolimod
 a(DRUGBANK:Fingolimod) -> path(MESH:"Macular Edema")
-a(DRUGBANK:Fingolimod) -> bp(MESH:"Liver Function Tests")
+a(DRUGBANK:Fingolimod) -> path(MESH:"Liver Function Tests")
 a(DRUGBANK:Fingolimod) -> path(MESH:Infection)
 
 SET Evidence = "Speciﬁcally, rare fatal herpes simplex encephalitis and disseminated varicella zoster infections have occurred; thus a varicella zoster virus antibody test is mandatory before starting ﬁngolimod and, if necessary, vaccination is required."
@@ -173,14 +174,14 @@ a(DRUGBANK:Natalizumab) -> path(MESH:"Meningitis, Cryptococcal")
 
 SET Evidence = "Natalizumab is a humanised therapeutic monoclonal antibody that acts by blocking α-4 integrin, a component of the very late antigen (VLA)-4 present on lymphocytes, and by inhibiting the interaction between VLA4 and the ligand VCAM, preventing lymphocytes from entering the CNS across the blood–brain barrier.36"
 
-a(DRUGBANK:Natalizumab) isA a(MESH:"Antibodies, Monoclonal")
+a(DRUGBANK:Natalizumab) isA p(MESH:"Antibodies, Monoclonal")
 a(DRUGBANK:Natalizumab) -| p(HGNC:ITGA4)
 a(DRUGBANK:Natalizumab) -| complex(p(MESH:"Receptors, Very Late Antigen",loc(MESH:Lymphocytes)),p(HGNC:VCAM1))
 a(DRUGBANK:Natalizumab) -| bp(MESH:"Transendothelial and Transepithelial Migration")
 
 SET Evidence = "Alemtuzumab is a humanised monoclonal antibody directed against CD52, which is present on the surface of lymphocytes and monocytes. After administering alemtuzumab, 12 mg daily for 5 consecutive days, a long-lasting depletion of B and T cells occurs."
 
-a(DRUGBANK:Alemtuzumab) isA a(MESH:"Antibodies, Monoclonal")
+a(DRUGBANK:Alemtuzumab) isA p(MESH:"Antibodies, Monoclonal")
 a(DRUGBANK:Alemtuzumab) -> complex(a(DRUGBANK:Alemtuzumab),p(HGNC:CD52,loc(MESH:Lymphocytes)))
 a(DRUGBANK:Alemtuzumab) -> complex(a(DRUGBANK:Alemtuzumab),p(HGNC:CD52,loc(MESH:Monocytes)))
 a(DRUGBANK:Alemtuzumab) -> deg(a(MESH:"B-Lymphocytes"))
@@ -216,13 +217,13 @@ a(DRUGBANK:Alemtuzumab) -> path(MESH:"Autoimmune Diseases")
 
 SET Evidence = "Daclizumab, already approved in the USA, is a monoclonal antibody acting as an interleukin 2 inhibitor.51 In the phase 3 trial, monthly subcutaneous administration of daclizumab signiﬁcantly decreased the annualised relapse rate by 45% compared with 30 μg interferon beta-1a.51"
 
-a(DRUGBANK:Daclizumab) isA a(MESH:"Antibodies, Monoclonal")
+a(DRUGBANK:Daclizumab) isA p(MESH:"Antibodies, Monoclonal")
 a(DRUGBANK:Daclizumab) -| p(HGNC:IL2)
 a(DRUGBANK:Daclizumab) -| path(MESH:Recurrence)
 
 SET Evidence = "Ocrelizumab is a humanised monoclonal antibody directed against CD20."
 
-a(DRUGBANK:Ocrelizumab) isA a(MESH:"Antibodies, Monoclonal")
+a(DRUGBANK:Ocrelizumab) isA p(MESH:"Antibodies, Monoclonal")
 a(DRUGBANK:Ocrelizumab) -> complex(a(DRUGBANK:Ocrelizumab),p(HGNC:MS4A1))
 
 SET Evidence = "Ocrelizumab signiﬁcantly reduced the annualised relapse rate by 46% and 47% respectively."
@@ -231,14 +232,14 @@ a(DRUGBANK:Ocrelizumab) -| path(MESH:Recurrence)
 
 SET Evidence = "The eﬃcacy of ocrelizumab is supported also by clinical experience with rituximab, a chimeric anti-CD20 monoclonal antibody, in multiple sclerosis.53"
 
-a(DRUGBANK:Rituximab) isA a(MESH:"Antibodies, Monoclonal")
+a(DRUGBANK:Rituximab) isA p(MESH:"Antibodies, Monoclonal")
 a(DRUGBANK:Rituximab) -> complex(a(DRUGBANK:Ocrelizumab),p(HGNC:MS4A1))
 
 SET Evidence = "A natural history study conﬁrmed that multiple sclerosis is a serious disease; approximately 80% of patients develop severe disability 54 and life expectancy is reduced by 10 years.55"
 
 #NCIT:C21007 = disability
 path(DOID:"multiple sclerosis") -> path(NCIT:C21007)
-path(DOID:"multiple sclerosis") -| bp(MESH:"Life Expectancy")
+path(DOID:"multiple sclerosis") -| path(MESH:"Life Expectancy")
 
 SET Evidence = "Both MRI 57,58 and optical coherence tomography studies 59,60 have provided clear evidence that early axonal losses already occur in patients with a ﬁrst episode of multiple sclerosis (clinically isolated syndrome), and even earlier in radiologically isolated syndromes (patients without any clinical symptoms).61"
 
@@ -247,7 +248,7 @@ path(DOID:"multiple sclerosis") -> path(HP:"Axonal loss")
 
 SET Evidence = "Inﬂammatory activity—the target of all the approved disease-modifying therapies in relapsing multiple sclerosis—from an impairment of adaptive peripheral immunity 65,66 predominates in the initial phase of the disease and tends to decline with the evolution of the disease, when other pathogenic mechanisms mostly related to innate immunity take a major role inside the CNS."
 
-path(MESH:"Multiple Sclerosis, Relapsing-Remitting")1 -| bp(MESH:"Adaptive Immunity")
+path(MESH:"Multiple Sclerosis, Relapsing-Remitting") -| bp(MESH:"Adaptive Immunity")
 path(MESH:"Multiple Sclerosis, Relapsing-Remitting") -> path(MESH:Inflammation)
 
 SET Evidence = "An Italian observational study in patients with relapsing-remitting multiple sclerosis showed that interferon beta treatment decreased the rate of conversion to the secondary progressive phase and the proportion of patients reaching irreversible disability (deﬁned as reaching the milestone of EDSS score of 4 or 6) compared with untreated patients.75"
