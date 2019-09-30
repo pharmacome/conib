@@ -74,7 +74,7 @@ DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifact
 SET Citation = {"PubMed", "23393546"}
 
 SET Evidence = "Htt is involved in a variety of cellular functions including vesicle transport, transcription, and energy metabolism [1,2]. Deletion of the Htt gene in mouse results in embryonic lethality indicating that it is required for development [3]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:HTT) -> p(MESH:"Transport Vesicles")
 p(HGNC:HTT) -> bp(GO:"mRNA transcription")
 p(HGNC:HTT) -> path(MESH:"Energy Metabolism")
@@ -83,14 +83,14 @@ p(HGNC:HTT) -> bp(GO:"embryo development")
 UNSET Species
 
 SET Evidence = "A common downstream signaling pathway disrupted in HD is the extracellular signalregulated-kinase (ERK) pathway (also known as the mitogen-activated protein kinase or MAPK pathway) [8]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 path(DOID:"Huntington's disease") neg bp(GO:"MAPK cascade")
 UNSET Confidence
 
 SET Evidence = "BDNF-mediated ERK1/2 activation through the TrkB receptor is decreased in mutant Htt striatal cells and the reduction is associated with reduced survival. The alteration in signaling appears to be in part due to reduced expression of p52/p46 Sch docking proteins [9]."
 #NTRK2: TrkB receptor
 #NF2: Sch protein
-SET Confidence = "Medium"
+SET Confidence = "High"
 complex(p(HGNC:BDNF),p(HGNC:NTRK2)) -> bp(GO:"ERK1 and ERK2 cascade")
 SET Anatomy = "striatum"
 #cell culture
@@ -103,7 +103,7 @@ p(HGNC:NF2) pos bp(GO:"ERK1 and ERK2 cascade")
 UNSET Confidence
 
 SET Evidence = "EGFR-induced ERK activation is disrupted in a Drosophila model of HD [10] and ERK activation is impaired after stimulation with EGF or NGF in PC12 cells expressing mutant huntingtin [11]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:EGFR) -> bp(GO:"MAPK cascade")
 SET Species = "7215"
 path(DOID:"Huntington's disease") neg bp(GO:"MAPK cascade")
@@ -173,7 +173,7 @@ a(CHEBI:loxapine) cnc bp(MESH:"Cell Survival")
 UNSET Confidence
 
 SET Evidence = "A significant increase in the phosphorylation of ERK1 (p44) occurred after a 15-min treatment with pizotifen, cyproheptadine, or loxapine in both ST Hdh Q111/Q111 and ST Hdh Q7/Q7 cells (Figure 3 A )."
-SET Confidence = "Medium"
+SET Confidence = "High"
 #ST Hdh Q111/Q111 and ST Hdh Q7/Q7 cells after serum withdrawal
 a(CHEBI:pizotifen) -> p(HGNC:MAPK3,pmod(Ph,Thr,202))
 a(CHEBI:cyproheptadine) -> p(HGNC:MAPK3,pmod(Ph,Thr,202))
@@ -181,7 +181,7 @@ a(CHEBI:loxapine) -> p(HGNC:MAPK3,pmod(Ph,Thr,202))
 UNSET Confidence
 
 SET Evidence = " A significant increase in phospho-ERK2 (p42) occurred after treatment with pizotifen and loxapine and an upward trend occurred after treatment with cyproheptadine in ST Hdh Q111/Q111cells. Pizotifen treatment significantly increased phospho-ERK2 in ST Hdh Q7/Q7 cells (Figure 3B)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 #ST Hdh Q111/Q111 cells after serum withdrawal
 a(CHEBI:pizotifen) -> p(HGNC:MAPK1,pmod(Ph,Tyr,204))
 a(CHEBI:cyproheptadine) -> p(HGNC:MAPK1,pmod(Ph,Tyr,204))
@@ -218,8 +218,8 @@ UNSET Confidence
 
 SET Evidence = "Inhibiting ERK1/2 phosphorylation in the presence of pizotifen prevented the rescue of ST Hdh Q111/Q111 cells in the ATP assay (Figure 4 C )."
 #St Hdh Q111/Q111 cells
-SET Confidence = "Medium"
-composite(p(HGNC:MAPK3,pmod(Ph)),p(HGNC:MAPK1,pmod(Ph)),a(CHEBI:pizotifen)) -| bp(MESH:"Cell Survival")
+SET Confidence = "High"
+composite(p(HGNC:MAPK3,pmod(Ph)),p(HGNC:MAPK1,pmod(Ph)),a(CHEBI:pizotifen)) -> bp(MESH:"Cell Survival")
 UNSET Confidence
 
 SET Evidence = "Pizotifen is a serotonin antagonist used to treat recurrent migraine [22]. It binds to over 30 receptors, including subtypes of the serotonin, dopamine, histamine, adrenoreceptor, and cholinergic receptors (for binding profile, see Young et. al. [19])"
@@ -229,7 +229,7 @@ a(CHEBI:pizotifen) -| path(DOID:migraine)
 UNSET Confidence
 
 SET Evidence = "In addition, pizotifen has been shown to be a partial agonist of the 5-HT1A receptor. Agonism was reportedly blocked by the 5-HT1A antagonist WAY-100,635 [23]. WAY-100,635 also blocks the activation of ERK by several antipsychotic drugs that are agonists of the 5-HT1A receptor, as well as the activation of ERK through the 5-HT1A endogenous ligand serotonin [24]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 a(CHEBI:pizotifen) -> p(HGNC:HTR1A)
 a(MESH:"desmethyl-WAY 100635") -| act(a(CHEBI:pizotifen))
 a(MESH:"desmethyl-WAY 100635") -| act(p(HGNC:MAPK3))
@@ -246,7 +246,7 @@ a(DRUGBANK:"Robalzotan") -| p(HGNC:HTR1A)
 UNSET Confidence
 
 SET Evidence = "To determine if we had overlooked other active compounds from the Prestwick library, we retested risperidone, metergoline, ketanserin, spiperone, and promethazine. These drugs have overlapping targets with pizotifen and are known to act through serotonin receptors [20, 27, 28, 29, 30, 31, 32, 33]."
-SET Confidence = "Low"
+SET Confidence = "High"
 complex(a(CHEBI:risperidone),p(HGNCGENEFAMILY:"5-hydroxytryptamine receptors, G protein-coupled")) -> act(a(CHEBI:risperidone),ma(GO:"serotonin receptor activity"))
 complex(a(CHEBI:metergoline),p(HGNCGENEFAMILY:"5-hydroxytryptamine receptors, G protein-coupled")) -> act(a(CHEBI:metergoline),ma(GO:"serotonin receptor activity"))
 complex(a(CHEBI:ketanserin),p(HGNCGENEFAMILY:"5-hydroxytryptamine receptors, G protein-coupled")) -> act(a(CHEBI:ketanserin),ma(GO:"serotonin receptor activity"))
@@ -290,7 +290,7 @@ UNSET Species
 UNSET Confidence
 
 SET Evidence = "Mutant Htt causes the down-regulation of the dopamine- and cAMP-regulated 32-kDa phosphoprotein DARPP-32. DARPP-32 is involved in dopamine and serotonin signaling, is highly expressed in the striatum and prefrontal cortex and is a marker of neuronal dysfunction in HD mice [35,36]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 a(CHEBI:"3',5'-cyclic AMP") reg p(HGNC:PPP1R1B)
 a(CHEBI:dopamine) reg p(HGNC:PPP1R1B)
 p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -| p(HGNC:PPP1R1B)
@@ -304,7 +304,7 @@ UNSET Species
 UNSET Confidence
 
 SET Evidence = "By immunohistochemistry (IHC), we found that levels of DARPP-32 in the striatum of the HD transgenic R6/2 mice were reduced at 10 weeks of age qualitatively. Pizotifen treatment increased DARPP-32 staining in the striatum at this time point (Figure 8 A )."
-SET Confidence = "Medium"
+SET Confidence = "High"
 #transgenic R6/2 mice
 SET Species = "10090"
 SET Anatomy = "striatum"
@@ -316,7 +316,7 @@ UNSET Species
 UNSET Confidence
 
 SET Evidence = "At 12-weeks of age, the pizotifen treatment resulted in a statistically significant increase in striatal DARPP-32 levels when compared to untreated R6/2 controls (Figure 8C)."
-SET Confidence  = "Medium"
+SET Confidence  = "High"
 #HD transgenic R6/2 mice
 #at age = 12 weeks
 SET Species = "10090"
@@ -329,7 +329,7 @@ UNSET Species
 UNSET Confidence
 
 SET Evidence = "We evaluated several of the well-characterized receptors that are altered in HD including D2DR, GAD65/67, GluR2/3 and 5HT1B."
-SET Confidence = "Low"
+SET Confidence = "High"
 path(DOID:"Huntington's disease") -- p(HGNC:DRD2)
 path(DOID:"Huntington's disease") -- p(HGNC:GAD2)
 path(DOID:"Huntington's disease") -- p(HGNC:GAD1)
@@ -341,7 +341,7 @@ UNSET Confidence
 SET Evidence = "The levels of mGluR2/3 in HD transgenic R6/2 mice at 10 weeks of age were slightly reduced and pizotifen treatment modestly increased levels of this receptor."
 SET Confidence = "Medium"
 #HD transgenic R6/2 mice
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Species = "10090"
 path(DOID:"Huntington's disease") -| p(HGNC:GRM2)
 path(DOID:"Huntington's disease") -| p(HGNC:GRM3)
@@ -352,7 +352,7 @@ UNSET Species
 UNSET Confidence
 
 SET Evidence = "D2DR, GAD65/67 and 5HT1B levels are also altered in the HD transgenic R6/2 mice, but pizotifen treatment did not normalize the levels (data not shown)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 #HD transgenic R6/2 mice
 SET Species = "10090"
 path(DOID:"Huntington's disease") -- p(HGNC:DRD2)
@@ -394,7 +394,7 @@ UNSET Disease
 UNSET Confidence
 
 SET Evidence = "We did not detect any changes in the levels of Htt protein or localization in the R6/2 mouse model suggesting that the mechanism is not mediated through clearance pathways (Figure 9, and data not shown)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 #HD transgenic R6/2 mice
 SET Species = "10090"
 SET Disease = "Huntington's disease"
@@ -404,7 +404,7 @@ UNSET Species
 UNSET Confidence
 
 SET Evidence = "At 10 weeks of age, we observed that levels of activated ERK2 (p42) were increased in the striatum of the pizotifen-treated HD transgenic R6/2 mice both by IHC and western blotting (Figure 10 A, C)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 #HD transgenic R6/2 mice
 SET Species = "10090"
 SET Disease = "Huntington's disease"
@@ -417,7 +417,7 @@ UNSET Disease
 UNSET Confidence
 
 SET Evidence = "Interestingly, western blotting analysis showed that the levels of phospho-ERK1 (p44) are significantly reduced in the cortex of the HD transgenic R6/2 mice at 10 weeks of age with pizotifen treatment (Figure 10 B )."
-SET Confidence = "Medium"
+SET Confidence = "High"
 #HD transgenic R6/2 mice
 SET Species = "10090"
 SET Disease = "Huntington's disease"
@@ -430,7 +430,7 @@ UNSET Disease
 UNSET Confidence
 
 SET Evidence = "The activated ERK by IHC was demonstrated by an increased number of neurons staining positive for phospho-ERK qualitatively (Figure 10C)."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Cell = "neuron"
 p(HGNC:MAPK3,pmod(Ph,Thr,202)) -> bp(GO:"MAPK cascade")
 p(HGNC:MAPK1,pmod(Ph,Tyr,204)) -> bp(GO:"MAPK cascade")
@@ -439,7 +439,7 @@ UNSET Confidence
 
 SET Evidence = "These results show that pizotifen can activate striatal ERK1/2 in vitro and in vivo, suggesting that the motor and neuropathological improvements observed in the R6/2 mouse may be mechanistically related to the rescue observed in the cell model."
 #R6/2 mouse
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Species = "10090"
 SET Disease = "Huntington's disease"
 SET Anatomy = "striatum"
@@ -453,7 +453,7 @@ UNSET Disease
 UNSET Confidence
 
 SET Evidence = "The lower levels of phospho-ERK1 (p44) in the cortex may reflect distinct signaling pathways in these two regions of the brain in response to pizotifen."
-SET Confidence = "Medium"
+SET Confidence = "High"
 #these two: striatum and cortex
 SET Anatomy = {"striatum","prefrontal cortex"}
 a(CHEBI:pizotifen) -| p(HGNC:MAPK3,pmod(Ph,Thr,202))
