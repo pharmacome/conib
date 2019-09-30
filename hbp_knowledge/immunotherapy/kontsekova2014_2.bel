@@ -75,12 +75,73 @@ SET Citation = {"PubMed", "25478017"}
 
 #experiments done in rats using human tau peptide
 SET Species = "10116"
+#cell line - SHR72
+SET MeSHDisease = "Alzheimer Disease"
 
 SET Evidence = "Importantly, the analysed antibodies
 showed statistically significantly higher binding activity to
 the tau peptide and to mis-disordered tau 150-391/4R, than
 to physiological tau 2N4R (P = 0.0003 and P = 0.0028,
 respectively) (Figure 1B)."
-#antibody - DC8E8
-a(CONSO:DC8E8) -> complex(a(CONSO:DC8E8),p(HGNC:MAPT,pmod(Cys),var("p.294_305del")))
-a(CONSO:DC8E8) -> complex(a(CONSO:DC8E8),p(HGNC:MAPT,pmod(Cys),var("p.294_305del")))
+#antibody - synthetic tau peptide
+a(MESH:"Vaccines, Subunit") => complex(a(MESH:"Vaccines, Subunit"),p(HGNC:MAPT,pmod(Cys),var("p.294_305del")))
+a(MESH:"Vaccines, Subunit") => complex(a(MESH:"Vaccines, Subunit"),p(CONSO:"4R tau",var("p.151_391del")))
+a(MESH:"Vaccines, Subunit") -> complex(a(MESH:"Vaccines, Subunit"),p(CONSO:"Tau isoform F (441 aa)"))
+
+SET Evidence = "Vaccination with tau vaccine
+carrying DC8E8 epitope induced antibodies preferentially
+recognising mis-disordered tau protein, thus discriminating
+between pathological and physiological tau."
+complex(a(MESH:"Vaccines, Subunit"),a(CONSO:DC8E8)) -> complex(GO:"immunoglobulin complex")
+complex(GO:"immunoglobulin complex") pos complex(complex(GO:"immunoglobulin complex"),p(CONSO:"4R tau",var("p.151_391del")))
+
+
+SET Evidence = "Vaccination of
+rats with the tau peptide vaccine preferentially induced formation
+of IgG1 antibody isotypes specific to mis-disordered
+tau (151-391/4R) (Figure 1C), indicating a predominant
+type 2 helper T cell (Th2) type of immune response."
+p(HGNC:MAPT,pmod(Cys),var("p.294_305del")) -> a(MESH:"Immunoglobulin G")
+a(MESH:"Immunoglobulin G") -> complex(a(MESH:"Immunoglobulin G"),p(CONSO:"4R tau",var("p.151_391del")))
+bp(GO:"T-helper 2 cell activation") -> complex(a(MESH:"Immunoglobulin G"),p(CONSO:"4R tau",var("p.151_391del")))
+
+SET Evidence = "Immunisation with tau vaccine induced
+significant reduction of the level of highly phosphorylated
+forms of truncated tau (30 to 36 kDa), tau oligomers
+(above 36 kDa) and full-length tau (above 43 kDa)
+revealed by measurement with pan-tau monoclonal antibody
+DC25 (P = 0.0322) (Figure 2A and F)."
+#detected with help of pan-tau monoclonal antibody
+a(MESH:"Vaccines, Subunit") =| p(HGNC:MAPT,frag("?"),pmod(CONSO:hyperphosphorylation))
+a(MESH:"Vaccines, Subunit") =| p(CONSO:"Tau oligomers")
+a(MESH:"Vaccines, Subunit") =| p(HGNC:MAPT)
+
+SET Evidence = "Moreover,
+analysis with phospho-dependent monoclonal antibodies
+revealed significant reduction of the levels of insoluble
+tau species phosphorylated at Thr217 (pThr217, P =
+0.0094; Figure 2B and F), pThr231 (DC209, P = 0.0077;
+Figure 2C and F), pSer202/pThr205 (AT8, P = 0.0112;
+Figure 2D and F) and pThr181 (DC179, P = 0.0100; Figure 2E
+and F)."
+a(MESH:"Vaccines, Subunit") =| p(HGNC:MAPT,pmod(Ph,The,217))
+a(MESH:"Vaccines, Subunit") =| p(HGNC:MAPT,pmod(Ph,Thr,231))
+a(MESH:"Vaccines, Subunit") =| p(HGNC:MAPT,pmod(Ph,Ser,202))
+a(MESH:"Vaccines, Subunit") =| p(HGNC:MAPT,pmod(Ph,Thr,205))
+a(MESH:"Vaccines, Subunit") =| p(HGNC:MAPT,pmod(Ph,Thr,181))
+
+SET Evidence = "These results show that the immunisation
+significantly reduced early forms of pathological tau
+(represented by monomers, dimers and oligomers) and late
+forms of pathological tau polymers (represented by paired
+helical filaments (PHFs)) as well."
+a(MESH:"Vaccines, Subunit") -| path(MESH:Tauopathies)
+a(MESH:"Vaccines, Subunit") -| complex(p(HGNC:MAPT),p(HGNC:MAPT))
+a(MESH:"Vaccines, Subunit") -| complex(p(HGNC:MAPT),p(HGNC:MAPT),p(HGNC:MAPT))
+a(MESH:"Vaccines, Subunit") -| p(CONSO:"Tau oligomers")
+complex(p(HGNC:MAPT),p(HGNC:MAPT)) -> path(MESH:) -> path(MESH:Tauopathies)
+complex(p(HGNC:MAPT),p(HGNC:MAPT),p(HGNC:MAPT)) -> path(MESH:Tauopathies)
+p(CONSO:"Tau oligomers") -> path(MESH:Tauopathies)
+a(MESH:"Vaccines, Subunit") -| a(CONSO:"paired helical filaments")
+
+ SET Evidence = ""
