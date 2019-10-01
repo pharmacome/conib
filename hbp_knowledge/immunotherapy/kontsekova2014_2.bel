@@ -64,7 +64,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
  DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
-# DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+ DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
 # DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
 # DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
 
@@ -102,8 +102,8 @@ rats with the tau peptide vaccine preferentially induced formation
 of IgG1 antibody isotypes specific to mis-disordered
 tau (151-391/4R) (Figure 1C), indicating a predominant
 type 2 helper T cell (Th2) type of immune response."
-p(CONSO:"Tau isoform F (441 aa)",pmod(Cys),frag("?")) -> a(MESH:"Immunoglobulin G")
-a(MESH:"Immunoglobulin G") -> complex(a(MESH:"Immunoglobulin G"),p(CONSO:"4R tau",var("p.151_391del")))
+p(CONSO:"Tau isoform F (441 aa)",pmod(Cys),frag("?")) -> p(MESH:"Immunoglobulin G")
+a(MESH:"Immunoglobulin G") -> complex(p(MESH:"Immunoglobulin G"),p(CONSO:"4R tau",var("p.151_391del")))
 bp(GO:"T-helper 2 cell activation") -> complex(a(MESH:"Immunoglobulin G"),p(CONSO:"4R tau",var("p.151_391del")))
 
 SET Evidence = "Immunisation with tau vaccine induced
@@ -140,7 +140,7 @@ a(CONSO:AADvac1) -| path(MESH:Tauopathies)
 a(CONSO:AADvac1) -| complex(p(HGNC:MAPT),p(HGNC:MAPT))
 a(CONSO:AADvac1) -| complex(p(HGNC:MAPT),p(HGNC:MAPT),p(HGNC:MAPT))
 a(CONSO:AADvac1) -| p(CONSO:"Tau oligomers")
-complex(p(HGNC:MAPT),p(HGNC:MAPT)) -> path(MESH:) -> path(MESH:Tauopathies)
+complex(p(HGNC:MAPT),p(HGNC:MAPT)) -> path(MESH:Tauopathies)
 complex(p(HGNC:MAPT),p(HGNC:MAPT),p(HGNC:MAPT)) -> path(MESH:Tauopathies)
 p(CONSO:"Tau oligomers") -> path(MESH:Tauopathies)
 a(CONSO:AADvac1) -| a(CONSO:"paired helical filaments")
@@ -154,10 +154,10 @@ file 2), pT212 (C in Additional file 2) and pS214 (D in
 Additional file 2), recognised neurofibrillary degeneration
 in transgenic rat brain."
 SET MeSHAnatomy = "Brain"
-a(CONSO:Tau5) -> complex(a(CONSO:Tau5),a(CONSO:Tau fibrils))
-a(CONSO:"Tau antibody, HT7") -> complex(a(CONSO:"Tau antibody, HT7"),a(CONSO:Tau fibrils))
-p(HGNC:MAPT,pmod(Ph,Thr,212)) -> complex(p(HGNC:MAPT,pmod(Ph,Thr,212)),a(CONSO:Tau fibrils))
-p(HGNC:MAPT,pmod(Ph,Ser,214)) -> complex(p(HGNC:MAPT,pmod(Ph,Ser,214)),a(CONSO:Tau fibrils))
+a(CONSO:Tau5) -> complex(a(CONSO:Tau5),a(CONSO:"Tau fibrils"))
+a(CONSO:"Tau antibody, HT7") -> complex(a(CONSO:"Tau antibody, HT7"),a(CONSO:"Tau fibrils"))
+p(HGNC:MAPT,pmod(Ph,Thr,212)) -> complex(p(HGNC:MAPT,pmod(Ph,Thr,212)),a(CONSO:"Tau fibrils"))
+p(HGNC:MAPT,pmod(Ph,Ser,214)) -> complex(p(HGNC:MAPT,pmod(Ph,Ser,214)),a(CONSO:"Tau fibrils"))
 UNSET MeSHAnatomy
 
 SET Evidence = "Immunostaining with AT8,
@@ -165,9 +165,9 @@ pT212 and pS214 showed that immunisation reduced
 the number of transgenic rats with extensive neurofibrillary
 degeneration by 55% (AT8, pT212; Figure 3C
 and F) or by 77% (pS214; Figure 3I)."
-a(CONSO:"Tau epitope, AT8") -| a(CONSO:Tau fibrils)
-p(HGNC:MAPT,pmod(Ph,Thr,212)) -| a(CONSO:Tau fibrils)
-p(HGNC:MAPT,pmod(Ph,Ser,214)) -| a(CONSO:Tau fibrils)
+p(CONSO:"Tau epitope, AT8") -| a(CONSO:"Tau fibrils")
+p(HGNC:MAPT,pmod(Ph,Thr,212)) -| a(CONSO:"Tau fibrils")
+p(HGNC:MAPT,pmod(Ph,Ser,214)) -| a(CONSO:"Tau fibrils")
 
 SET Evidence = "The immunisation
 significantly improved the total NeuroScale score of the
