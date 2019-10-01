@@ -114,7 +114,7 @@ SET Evidence = "Cortical histopathology includes microglial activation, demyelin
 path(DOID:"progressive relapsing multiple sclerosis") -> bp(GO:"microglial cell activation")
 path(DOID:"progressive relapsing multiple sclerosis") -> path(HP:"CNS demyelination")
 path(DOID:"progressive relapsing multiple sclerosis") -- a(MESH:Neurites)
-SET Cell = "neurons"
+SET Cell = "neuron"
 path(DOID:"progressive relapsing multiple sclerosis") -> bp(MESH:"Cell Death")
 UNSET Cell
 
@@ -135,15 +135,15 @@ SET Evidence = "In some demyelinated axons, saltatory nerve-impulse conduction i
 path(NCIT:C117277) -- bp(MESH:"Neural Conduction")
 path(NCIT:C117277) -> bp(MESH:"Energy Metabolism")
 path(NCIT:C117277) -> a(MESH:Sodium,loc(MESH:Cytoplasm))
-a(MESH:Sodium,loc(MESH:Cytoplasm)) -> act(a(MESH:"Sodium-Calcium Exchanger"))
-composite(a(MESH:"Sodium-Calcium Exchanger"),a(MESH:Sodium,loc(MESH:Cytoplasm))) -> a(CHEBI:"calcium cation",loc(MESH:Cytoplasm))
+a(MESH:Sodium,loc(MESH:Cytoplasm)) -> act(p(MESH:"Sodium-Calcium Exchanger"))
+composite(p(MESH:"Sodium-Calcium Exchanger"),a(MESH:Sodium,loc(MESH:Cytoplasm))) -> a(CHEBI:"calcium cation",loc(MESH:Cytoplasm))
 a(CHEBI:"calcium cation",loc(MESH:Cytoplasm)) -> act(p(HGNCGENEFAMILY:Calpains))
 act(p(HGNCGENEFAMILY:Calpains)) -| a(GO:cytoskeleton)
 a(CHEBI:"calcium cation",loc(MESH:Cytoplasm)) -| a(GO:cytoskeleton)
 
 SET Evidence = "Mitochondrial dysfunction in axons seems to result from impaired mitochondrial transport, susceptibility to oxidative injury, and mutations in mitochondrial DNA, all of which lead to impaired energy production and generation of reactive oxygen species."
 
-deg(bp(GO:"mitochondrial transport")) -> path(CONSO:"mitochondrial dysfunction")
+bp(GO:"mitochondrial transport") neg path(CONSO:"mitochondrial dysfunction")
 path(CONSO:"mitochondrial dysfunction") -> path(MESH:"Oxidative Stress")
 UNSET CellStructure
 SET CellStructure = {"Mitochondria","Axons"}
