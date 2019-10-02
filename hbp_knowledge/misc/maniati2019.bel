@@ -59,7 +59,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 #DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 #DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-#DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 #DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 #DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -78,145 +78,182 @@ SET Evidence = "For instance, measuring lncRNA BACE1
 within the cytoplasm of the patients showed that its level
 in patients with Alzheimer’s was significantly higher
 than that in the control group"
+SET Confidence = "High"
 r(HGNC:BACE1,loc(GO:cytoplasm)) pos path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "BACE1‐AS is transcribed
 by opposite strand BACE1. Its upregulation in patients
 with Alzheimer’s can be used as a new biomarker for the
 diagnosis of this disease."
+SET Confidence = "High"
 r(HGNC:"BACE1-AS") biomarkerFor path(MESH:"Alzheimer Disease")
 path(MESH:"Alzheimer Disease") pos r(HGNC:"BACE1-AS")
+UNSET Confidence
 
 SET Evidence = "BACE1‐AS can increase the
 expression of BACE1 mRNA by increasing its stability,
 which gives rise to AD"
+SET Confidence = "High"
 r(HGNC:"BACE1-AS") -> r(HGNC:BACE1)
 r(HGNC:BACE1) -> path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "It has been reported that
 downregulation of BACE1‐AS reduces the amount of
 β‐ameloid and plaques"
+SET Confidence = "High"
 r(HGNC:"BACE1-AS") -> a(CHEBI:"amyloid-beta")
 r(HGNC:"BACE1-AS") -> path(MESH:"Plaque, Amyloid")
+UNSET Confidence
 
 SET Evidence = "Moreover, inhibition of
 miR‐124 significantly increases the level of BACE1 in
 neurons. On the other hand, its overexpression
 significantly suppresses the expression of BACE1."
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 g(HGNC:"MIR124-1") -| p(HGNC:BACE1)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "It is
 interesting to note that miR‐124 has a target sequence on
 BACE1 mRNA, and by binding to it, it inhibits mRNA."
+SET Confidence = "High"
 complex(g(HGNC:"MIR124-1"),r(HGNC:BACE1)) -| act(r(HGNC:BACE1))
+UNSET Confidence
 
 SET Evidence = "The experiments conducted on SH‐SY5Y
 cells show that computational analyses on the miR‐15b
 binding site 3′‐UTR can be proven in practice, and
 miR‐15b expression can reduce BACE1 by binding to this
 sequence"
+SET Confidence = "High"
 SET CellLine = "SH-SY5Y"
 complex(g(HGNC:MIR15B),r(HGNC:BACE1)) -| p(HGNC:BACE1)
 UNSET CellLine
-
-SET Evidence = "Another miRNA that directly
-targets this sequence is the miR‐186"
-# 3′‐UTR sequence on BACE1 mRNA
-complex(r(HGNC:BACE1),g(HGNC:MIR186))
+UNSET Confidence
 
 SET Evidence = "For example,
 miR‐339‐5p, having two binding sites on BCAE1 mRNA,
 can downregulate the expression of the BACE1 protein"
+SET Confidence = "High"
 complex(g(HGNC:MIR339),r(HGNC:BACE1)) -| p(HGNC:BACE1)
+UNSET Confidence
 
 SET Evidence = "It was found that miR‐384, by binding to the
 3′‐UTR sequence on BACE1 mRNA, could not only
 reduce expression in SH‐SY5Y cells but also attach to the
 3′‐UTR sequence of the mRNA APP and reduce its
 expression, and this highlights the importance of miR‐384 in AD"
+SET Confidence = "High"
 SET CellLine = "SH-SY5Y"
 complex(g(HGNC:MIR384),r(HGNC:BACE1)) -| p(HGNC:BACE1)
 complex(g(HGNC:MIR384),r(HGNC:APP)) -| p(HGNC:APP)
 UNSET CellLine
 g(HGNC:MIR384) -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "By attaching to the 3′‐UTR sequence, the
 miR‐153 reduces the expression of the APP"
 # 3′‐UTR sequence on BACE1 mRNA
+SET Confidence = "High"
 complex(g(HGNC:"MIR153-1"),r(HGNC:BACE1)) -| p(HGNC:APP)
+UNSET Confidence
 
 SET Evidence = "Downregulation
 of miR‐153 increases the expression of APP
 and eventually, the production of β‐ameloid is promoted,
 increasing the risk of AD"
+SET Evidence = "High"
 g(HGNC:"MIR153-1") -| p(HGNC:APP)
 g(HGNC:"MIR153-1") -| a(CHEBI:"amyloid-beta")
 g(HGNC:"MIR153-1") -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "One of these
 factors is Ran‐binding protein 9 (RanBP9) that can
 increase the amount of APP in the cell by its effects"
+SET Confidence = "High"
 p(HGNC:RANBP9) -> p(HGNC:APP)
+UNSET Confidence
 
 SET Evidence = "On the other hand, miR‐101, by downregulating RanBP9,
 can indirectly reduce the production of APP"
+SET Confidence = "High"
 g(HGNC:"MIR101-1") -| p(HGNC:APP)
 g(HGNC:"MIR101-1") -| act(p(HGNC:RANBP9))
+UNSET Confidence
 
 SET Evidence = "Besides, by
 directly affecting APP, miR‐101 can cause its downregulation,
 which ultimately provides the basis for AD"
+SET Confidence = "High"
 g(HGNC:"MIR101-1") -| act(p(HGNC:APP))
 g(HGNC:"MIR101-1") -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "Given the important role of miR‐101 in preventing AD,
 miR‐101 reduction can play a role in AD development"
+SET Confidence = "High"
 g(HGNC:"MIR101-1") -| path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "Activation of the CAMMK2 pathway
 has been shown to cause tau proteins to be
 phosphorylated"
+SET Confidence = "High"
 kin(p(HGNC:CAMKK2)) -> p(HGNC:MAPT,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "By activating the CAMMK2 pathway,
 the β‐ameloid can aid in the phosphorylation of tau
 proteins and eventually trigger tangles neurofibrillary."
-p(HGNC:CAMKK2) -> act(a(CHEBI:"amyloid-beta"))
-kin(p(HGNC:CAMKK2)) -> p(HGNC:MAPT,pmod(Ph))
+SET Confidence = "Medium"
+kin(p(HGNC:CAMKK2)) -> act(a(CHEBI:"amyloid-beta"))
+a(CHEBI:"amyloid-beta") -> p(HGNC:MAPT,pmod(Ph))
 p(HGNC:MAPT,pmod(Ph)) -> a(GO:"neurofibrillary tangle")
+UNSET Confidence
 
 SET Evidence = "As
 regards, the MAPKK2 pathway, miR‐9 has been shown to
 inhibit tangles neurofibrillary by inhibiting this pathway
 and to play an important role in preventing AD."
+SET Confidence = "High"
 g(HGNC:"MIR9-1") -| a(GO:"neurofibrillary tangle")
 g(HGNC:"MIR9-1") -| act(p(HGNC:MAP2K2))
 act(p(HGNC:MAP2K2)) -> a(GO:"neurofibrillary tangle")
 g(HGNC:"MIR9-1") -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "Comparing miR‐9 in patients with AD against healthy
 individuals shows a significant decrease of miR‐9 in patients with AD"
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -| g(HGNC:"MIR9-1")
+UNSET Confidence
 
 SET Evidence = "lncRNAs have been
 reported to cause apoptosis in the brain"
 # lncRNAs: long noncoding RNAs
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 a(MESH:"RNA, Long Noncoding") -> bp(GO:"apoptotic process")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "For example,
 EBF3‐AS is a lncRNA that increases significantly in the
 hippocampus of the mice whose neurons had undergone
 apoptosis (Figure 1)"
+SET Confidence = "High"
 g(HGNC:EBF3) isA a(MESH:"RNA, Long Noncoding")
 SET MeSHAnatomy = "Hippocampus"
 SET Species = "10090"
 bp(GO:"neuron death") -> g(MGI:Ebf3)
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 UNSET MeSHDisease
 
@@ -227,99 +264,120 @@ by the misfolding and aggregation of α‐synuclein
 synucleinopathy, which leads to the destruction of
 dopaminergic neurons within substantia nigra pars
 compacta."
+SET Confidence = "Medium"
 path(MESH:"Parkinson Disease") -- a(CONSO:"alpha-synuclein aggregates")
+path(MESH:"Parkinson Disease") -- p(HGNC:SNCA,pmod(CONSO:misfolded))
 SET MeSHAnatomy = "Pars Compacta"
 a(CONSO:"alpha-synuclein aggregates") -| a(MESH:"Dopaminergic Neurons")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "This protein is commonly found in the presynaptic terminus
 and is a factor in the transmission of synaptic dopaminergic neurons."
 # This protein: α‐synuclein
+SET Confidence = "High"
 p(HGNC:SNCA) -- bp(GO:"synaptic transmission, dopaminergic")
+UNSET Confidence
 
 SET Evidence = "The mutation in the SNCA gene causes PD."
+SET Confidence = "High"
 p(HGNC:SNCA,var("?")) -> path(MESH:"Parkinson Disease")
+UNSET Confidence
 
 SET Evidence = "The accumulation of α‐synuclein gives rise to the
 formation of a nucleus for the accumulation of other
 proteins, which ultimately leads to the formation of Lewy
 bodies (within the dopamine secreting cells)."
+SET Confidence = "High"
 p(HGNC:SNCA) pos a(GO:"Lewy body",loc(MESH:"Dopaminergic Neurons"))
+UNSET Confidence
 
 SET Evidence = "Two miRNAs that
 play an important role in regulating α‐synuclein expression
 are miR‐153 and miR‐7"
+SET Confidence = "High"
 g(HGNC:"MIR153-1") reg p(HGNC:SNCA)
 g(HGNC:"MIR7-1") reg p(HGNC:SNCA)
+UNSET Confidence
 
 SET Evidence = "It has been shown
 that miR‐7 inhibition increases the expression of
 α‐synuclein"
+SET Confidence = "High"
 g(HGNC:"MIR7-1") -| p(HGNC:SNCA)
+UNSET Confidence
 
 SET Evidence = "These two miRNAs downregulate the
 α‐synuclein by binding to the 3′‐UTR portion in the
 mRNA transcribed from SNCA."
 # these two miR‐153 and miR‐7
+SET Confidence = "High"
 complex(g(HGNC:"MIR153-1"),r(HGNC:SNCA)) -| act(p(HGNC:SNCA))
 complex(g(HGNC:"MIR7-1"),r(HGNC:SNCA)) -| act(p(HGNC:SNCA))
-
-SET Evidence = "Computational analysis studies have
-shown that two other miRNAs, namely miR‐34b and
-miR‐34c, also have a binding site in the 3′‐UTR sequence
-of the α‐synuclein protein in the mRNA."
-complex(g(HGNC:MIR34B),r(HGNC:SNCA))
-complex(g(HGNC:MIR34C),r(HGNC:SNCA))
+UNSET Confidence
 
 SET Evidence = "In an experiment
 conducted to investigate this, pre‐miR‐34b and premiR‐
 34c were introduced into human dopaminergic
 SH‐SY5S cells and it was found that the amount of
 α‐synuclein protein had decreased significantly."
+SET Confidence = "Medium"
 SET CellLine = "SH-SY5Y"
-complex(g(HGNC:"MIR153-1"),r(HGNC:SNCA)) -| p(HGNC:SNCA)
-complex(g(HGNC:"MIR7-1"),r(HGNC:SNCA)) -| p(HGNC:SNCA)
+complex(g(HGNC:MIR34B),r(HGNC:SNCA)) -| p(HGNC:SNCA)
+complex(g(HGNC:MIR34C),r(HGNC:SNCA)) -| p(HGNC:SNCA)
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "miR‐132 is another miRNA that has a regulatory effect
 on α‐synuclein. The downregulation of this miRNA
 results in the accumulation of α‐synuclein protein"
+SET Confidence = "High"
 g(HGNC:MIR132) reg p(HGNC:SNCA)
 g(HGNC:MIR132) -| p(HGNC:SNCA)
+UNSET Confidence
 
 SET Evidence = "However, this is part of the role that miR‐132 plays in the
 regulation of PD."
+SET Confidence = "High"
 g(HGNC:MIR132) -- path(MESH:"Parkinson Disease")
+UNSET Confidence
 
 SET Evidence = "In fact, by directly affecting the
 expression of Nurr1, this miRNA can play a significant
 role in the development of PD"
 # this miRNA: miR‐132
+SET Confidence = "High"
 g(HGNC:MIR132) -- p(HGNC:NR4A2)
+UNSET Confidence
 
 SET Evidence = "miR‐16‐1 is a case in point that has been
 seen in some patients with PD.It has been shown to
 decrease the expression of Hsp70 by increasing the
 aggregation of the α‐synuclein protein"
+SET Confidence = "High"
 g(NCBIGENE:406950) -- path(MESH:"Parkinson Disease")
 g(NCBIGENE:406950) -| a(MESH:"HSP70 Heat-Shock Proteins")
 g(NCBIGENE:406950) -> a(CONSO:"alpha-synuclein aggregates")
 a(CONSO:"alpha-synuclein aggregates") neg a(MESH:"HSP70 Heat-Shock Proteins")
+UNSET Confidence
 
 SET Evidence = "By linking to the
 3′‐UTR sequence of Hsp70 mRNA, miR‐16‐1 configures
 Hsp70. Its increase reduces the Hsp70, which in turn
 boosts the aggregation of α‐synuclein protein, and this
 increases the incidence of PD."
+SET Confidence = "High"
 complex(g(NCBIGENE:406950),a(MESH:"HSP70 Heat-Shock Proteins")) reg act(a(MESH:"HSP70 Heat-Shock Proteins"))
 g(NCBIGENE:406950) neg a(MESH:"HSP70 Heat-Shock Proteins")
 a(MESH:"HSP70 Heat-Shock Proteins") -| a(CONSO:"alpha-synuclein aggregates")
 a(CONSO:"alpha-synuclein aggregates") -> path(MESH:"Parkinson Disease")
+UNSET Confidence
 
 SET Evidence = "That is, in the event that miRNAs
 regulating α‐synuclein that reduce its accumulation
 (including miR‐153, miR‐7, miR‐132, and miR‐133‐b)
 are decreased, the progression of PD will be accelerated."
+SET Confidence = "High"
 g(HGNC:"MIR153-1") -| path(MESH:"Parkinson Disease")
 g(HGNC:"MIR153-1") reg p(HGNC:SNCA)
 g(HGNC:"MIR7-1") -| path(MESH:"Parkinson Disease")
@@ -328,41 +386,53 @@ g(HGNC:MIR132) -| path(MESH:"Parkinson Disease")
 g(HGNC:MIR132) reg p(HGNC:SNCA)
 g(HGNC:MIR133B) -| path(MESH:"Parkinson Disease")
 g(HGNC:MIR133B) reg p(HGNC:SNCA)
+UNSET Confidence
 
 SET Evidence = "One of the most important proteins involved in PD is the LRRK2 protein"
+SET Confidence = "High"
 p(HGNC:LRRK2) -- path(MESH:"Parkinson Disease")
+UNSET Confidence
 
 SET Evidence = "The expression of LRRK2 mutants can cause
 apoptosis of neuronal and neuroblastoma cells"
+SET Confidence = "High"
 p(HGNC:LRRK2,var("?")) -> bp(GO:"neuron death")
+UNSET Confidence
 
 SET Evidence = "One of
 the most important mutations in LRRK2 is the Gly2019-
 Ser mutant, the most common cause of familial PD."
+SET Confidence = "High"
 p(HGNC:LRRK2,var("p.Gly2019Ser")) -> path(MESH:"Parkinson Disease")
+UNSET Confidence
 
 SET Evidence = "It has also been shown that miR‐205 can regulate LRRK2
 and that PD is associated with a significant reduction in
 the level of miR‐205 in the frontal cortex and striatum"
+SET Confidence = "High"
 g(HGNC:MIR205) reg p(HGNC:LRRK2)
 SET MeSHAnatomy = {"Frontal Lobe","Corpus Striatum"}
 path(MESH:"Parkinson Disease") -| g(HGNC:MIR205)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Expression of miR‐205 affects the level of
 LRRK2 expression, and LRRK2, in turn, affects two
 miRNAs called let‐7 and miR‐184. This effect is
 associated with decreased activity and level of let‐7 and
 miR‐184 within the cell"
+SET Confidence = "High"
 g(HGNC:MIR205) reg p(HGNC:LRRK2)
 p(HGNC:LRRK2) -| g(HGNC:MIRLET7A1)
 p(HGNC:LRRK2) -| act(g(HGNC:MIRLET7A1))
 p(HGNC:LRRK2) -| g(HGNC:MIR184)
 p(HGNC:LRRK2) -| act(g(HGNC:MIR184))
+UNSET Confidence
 
 SET Evidence = "Let‐7 and miR‐184 have an
 inhibitory effect on the performance and expression of
 two transcription factors, namely E2F1 and DP"
+SET Confidence = "High"
 g(HGNC:MIRLET7A1) -| p(HGNC:E2F1)
 g(HGNC:MIRLET7A1) -| act(p(HGNC:E2F1))
 g(HGNC:MIRLET7A1) -| p(HGNC:TFDP1)
@@ -371,39 +441,50 @@ g(HGNC:MIR184) -| p(HGNC:E2F1)
 g(HGNC:MIR184) -| act(p(HGNC:E2F1))
 g(HGNC:MIR184) -| p(HGNC:TFDP1)
 g(HGNC:MIR184) -| act(p(HGNC:TFDP1))
+UNSET Confidence
 
 SET Evidence = "The PARK 7 gene on chromosome 1 is responsible for
 coding the DJ‐1 protein. This protein acts as chaperon in the
 neurons, thus preventing the aggregation of the α‐synuclein
 protein"
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 p(HGNC:PARK7) -| a(CONSO:"alpha-synuclein aggregates")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "It also inhibits apoptosis and prevents the death of
 neuron"
 # it: PARK7
+SET Confidence = "High"
 p(HGNC:PARK7) -| bp(GO:"apoptotic process")
 p(HGNC:PARK7) -| bp(GO:"neuron death")
+UNSET Confidence
 
 SET Evidence = "It has been shown that DJ‐1 protein levels in
 patients with PD are significantly lower compared with the
 healthy subjects"
+SET Confidence = "High"
 path(MESH:"Parkinson Disease") -| p(HGNC:PARK7)
+UNSET Confidence
 
 SET Evidence = "It has also been shown that miR‐494 in
 patients with PD increases significantly in comparison with
 healthy subjects."
+SET Confidence = "High"
 path(MESH:"Parkinson Disease") -> g(HGNC:MIR494)
+UNSET Confidence
 
 SET Evidence = "In addition, miR‐34‐b and miR‐34‐c have been
 shown to experience a significant reduction in patients with
 Parkinson’s compared with controls, and this reduction is
 accompanied by a decrease in the expression of DJ‐1 protein"
+SET Confidence = "High"
 path(MESH:"Parkinson Disease") -| g(HGNC:MIR34B)
 g(HGNC:MIR34B) -> p(HGNC:PARK7)
 path(MESH:"Parkinson Disease") -| g(HGNC:MIR34C)
 g(HGNC:MIR34C) -> p(HGNC:PARK7)
+UNSET Confidence
 
 UNSET MeSHDisease
 
@@ -413,56 +494,75 @@ SET Evidence = "HD is a neurodegenerative disease characterized by an
 insidious onset and subsequent progression of chorea and
 dementia, which usually presents at the ages of 30 to 50,
 and its symptoms increase with age."
+SET Confidence = "High"
 path(MESH:"Huntington Disease") -- path(MESH:Chorea)
 path(MESH:"Huntington Disease") -- path(MESH:Dementia)
+UNSET Confidence
 
 SET Evidence = "Dysphagia, dysphasia,
 and seizures are common symptoms in HD"
+SET Confidence = "High"
 path(MESH:"Huntington Disease") -- path(MESH:"Deglutition Disorders")
 path(MESH:"Huntington Disease") -- path(MESH:Aphasia)
 path(MESH:"Huntington Disease") -- path(MESH:Seizures)
+UNSET Confidence
 
 SET Evidence = "This disease
 is inherited by autosomal dominant alleles due to a
 mutation in the huntingtin gene (HTT)."
+SET Confidence = "High"
 p(HGNC:HTT,var("?")) -> path(MESH:"Huntington Disease")
+UNSET Confidence
 
 SET Evidence = "A case in point is miR‐196a that
 affects HD"
+SET Confidence = "High"
 g(HGNC:MIR196A1) -- path(MESH:"Huntington Disease")
+UNSET Confidence
 
 SET Evidence = "Also, a significant relationship has been
 found between the number of copies of CAG and some
 miRNAs in the striatum and cortex of mice with
 Huntington. These miRNAs include miR‐206, miR‐301b,
 miR‐92b, miR‐378b, miR‐208b, and miR‐449a."
+SET Confidence = "Medium"
+SET Species = "10090"
+SET MeSHAnatomy = {"Neocortex","Corpus Striatum"}
 g(HGNC:MIR206) -- path(MESH:"Huntington Disease")
 g(HGNC:MIR301B) -- path(MESH:"Huntington Disease")
 g(HGNC:MIR92B) -- path(MESH:"Huntington Disease")
 g(HGNC:MIR378B) -- path(MESH:"Huntington Disease")
 g(HGNC:MIR208B) -- path(MESH:"Huntington Disease")
 g(HGNC:MIR449A) -- path(MESH:"Huntington Disease")
+UNSET MeSHAnatomy
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "These experiments show that in apes, miR‐128a levels at
 birth and during the disease (either in the presymptomatic
 or postsymptomatic stage) show a significant reduction of
 this miRNA"
+SET Confidence = "High"
 path(MESH:"Huntington Disease") -| g(NCBIGENE:406915)
+UNSET Confidence
 
 SET Evidence = "Currently, miR‐10b‐5p, miR‐196a‐5p, miR‐196b‐
 5p, miR‐615‐3p, and miR‐1247‐5p increase in HD, and
 studies have shown that miR‐196a‐5p, miR‐196b‐5p, and
 miR‐615‐3p have been almost zero in the control group"
+SET Confidence = "High"
 path(MESH:"Huntington Disease") -> g(MIRBASE:"hsa-mir-10b")
 path(MESH:"Huntington Disease") -> g(HGNC:MIR196A1)
 path(MESH:"Huntington Disease") -> g(HGNC:MIR196B)
 path(MESH:"Huntington Disease") -> g(HGNC:MIR615)
 path(MESH:"Huntington Disease") -> g(HGNC:MIR1247)
+UNSET Confidence
 
 SET Evidence = "In 12‐month‐old HD transgenic mice, downregulation was
 observed in the expression of the following miRNAs: miR‐
 22, miR‐29c, miR‐128, miR‐132, miR‐138, miR‐218, miR‐
 222, miR‐344, and miR‐674"
+SET Confidence = "High"
 SET Species = "10090"
 path(MESH:"Huntington Disease") -| g(MGI:Mir22)
 path(MESH:"Huntington Disease") -| g(MGI:Mir29c)
@@ -474,7 +574,10 @@ path(MESH:"Huntington Disease") -| g(MGI:Mir222)
 path(MESH:"Huntington Disease") -| g(NCBIGENE:723931)
 path(MESH:"Huntington Disease") -| g(NCBIGENE:732489)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "For example, miR‐22 with its neuroprotective
 function prevents the death of neurons by apoptosis."
+SET Confidence = "High"
 g(HGNC:MIR22) -| bp(GO:"neuron death")
+UNSET Confidence
