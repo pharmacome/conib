@@ -59,7 +59,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 #DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-#DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 #DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 #DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -78,222 +78,296 @@ SET Citation = {"PubMed", "30985105"}
 SET Evidence = "The addition and removal of OGlcNAc onto protein substrates is governed entirely by two
 ubiquitously expressed enzymes: O-GlcNAc transferase [EC 2.4.1.255] (OGT) and O-GlcNAc hydrolase [EC
 3.2.1.169] (OGA) respectively (see Figure 2)."
+SET Confidence = "High"
 p(HGNC:OGT) -> p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation"))
 p(HGNC:OGA) -> p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation"))
+UNSET Confidence
 
 SET Evidence = "OGT-mediated transfer of O-GlcNAc onto proteins is therefore
 closely tied to cellular glucose concentrations, though
 notably glucosamine and GlcNAc may also be recycled via salvage pathways"
+SET Confidence = "High"
 p(HGNC:OGT) -> p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation"))
 p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation")) -- bp(GO:"cellular glucose homeostasis")
+UNSET Confidence
 
 SET Evidence = "In fact, it has been found that a
 decreased availability of glucose invokes a considerable
 reduction in the level of O-GlcNAc present in the mouse
 brain"
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = "Brain"
 a(CHEBI:glucose) pos p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation"))
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Furthermore, hyperglycaemic conditions yield
 increased levels of O-GlcNAc"
+SET Confidence = "High"
 path(MESH:Hyperglycemia) -> p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation"))
+UNSET Confidence
 
 SET Evidence = "Knockout studies in mice suggest OGA
 plays a critical role in brain development"
+SET Confidence = "Medium"
 SET Species = "10090"
-p(HGNC:OGT) -- bp(GO:"brain development")
+p(HGNC:OGA) -- bp(GO:"brain development")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Though highly potent, PUGNAc (1, Scheme 1)
 was found to also effectively inhibit human lysosomal
 hexosaminidase, limiting its utility"
 # PUGNAc: inhibitor of OGA
+SET Confidence = "High"
 a(PUBCHEM:9576811) -| act(p(HGNC:OGA))
 SET CellStructure = "Lysosomes"
 a(PUBCHEM:9576811) -| act(a(MESH:"Hexosaminidases"))
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "Thiamet-G is able to permeate the
 blood-brain barrier and is highly selective for human OGA"
+#135566354 - Thiamet-G
+SET Confidence = "Medium"
+a(PUBCHEM:135566354) -> tloc(a(PUBCHEM:135566354),fromLoc(MESH:Blood),toLoc(MESH:Brain))
 a(PUBCHEM:135566354) -| act(p(HGNC:OGA))
+UNSET Confidence
 
 SET Evidence = "Furthermore, increased
 levels of O-GlcNAc via pharmacological OGA inhibition
 have frequently led to alterations in protein phosphorylation levels"
+SET Confidence = "High"
 act(p(HGNC:OGA)) neg p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation"))
 p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation")) -- bp(GO:"protein phosphorylation")
+UNSET Confidence
 
 SET Evidence = "A proteomics study conducted
 by Hart and co-workers found that globally elevated OGlcNAcylation
 levels lowered phosphorylation at 280 sites
 while actually increasing it at 148 other sites"
+SET Confidence = "High"
 p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation")) -- bp(GO:"protein phosphorylation")
+UNSET Confidence
 
 SET Evidence = "PD is characterised by the progressive degeneration of
 dopamine-producing neurons in the substantia nigra,
 resulting in impaired motor function"
 # PD: Parkinson’s disease
+SET Confidence = "High"
 SET MeSHAnatomy = "Substantia Nigra"
 path(MESH:"Parkinson Disease") pos deg(a(CONSO:"Dopaminergic cell groups"))
 deg(a(CONSO:"Dopaminergic cell groups")) neg bp(GO:"motor behavior")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "This impairment manifests compromised postural reflexes, muscular
 rigidity and bradykinesia in patients."
 # This impairment: impaired motor function
+SET Confidence = "High"
 bp(GO:"motor behavior") -| path(MESH:Hypokinesia)
 bp(GO:"motor behavior") -| path(MESH:"Muscle Rigidity")
 bp(GO:"motor behavior") -| path(HP:"Postural instability")
+UNSET Confidence
 
 SET Evidence = "Point mutations in the ASyn gene (SNCA) underlie
 familial disorders with parkinsonian characteristics,
 suggesting a pathogenic role for ASyn accumulation"
+SET Confidence = "High"
 p(HGNC:SNCA,var("?")) -> path(MESH:"Parkinson Disease")
+UNSET Confidence
 
 SET Evidence = "The current consensus is that ASyn self-assembly plays a
 critical role in PD, whether it be a cause or symptom of the
 complex pathological cascade."
+SET Confidence = "High"
 complex(p(HGNC:SNCA),p(HGNC:SNCA)) -- path(MESH:"Parkinson Disease")
+UNSET Confidence
 
 SET Evidence = "Reports suggest ASyn has a role in
-regulating supply and management of synaptic vesicles,57
+regulating supply and management of synaptic vesicles,[57]
 while also possibly regulating neuronal release of
 dopamine, a neurotransmitter involved in controlling
 voluntary and involuntary movement"
+SET Confidence = "Medium"
 p(HGNC:SNCA) reg a(GO:"synaptic vesicle")
 SET MeSHAnatomy = "Neurons"
 p(HGNC:SNCA) -- bp(GO:"dopamine secretion")
+bp(GO:"dopamine secretion") -- bp(GO:"musculoskeletal movement")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "ASyn binds simultaneously to plasma membrane phospholipids (via its
-N-terminal domain) and to synaptobrevin-2 (via its Cterminal domain) to promote SNARE-complex assembly."
+N-terminal domain) and to synaptobrevin-2 (via its C-terminal domain) to promote SNARE-complex assembly."
+SET Confidence = "High"
 SET MeSHAnatomy = "Cell Membrane"
 complex(p(HGNC:SNCA),a(CHEBI:phospholipid)) -> bp(GO:"SNARE complex assembly")
 UNSET MeSHAnatomy
 complex(p(HGNC:SNCA),p(HGNC:VAMP2)) -> bp(GO:"SNARE complex assembly")
+UNSET Confidence
 
 SET Evidence = "It has been suggested that large ASyn aggregates actually work to
 sequester other harmful conformers, thus acting in a neuroprotective manner."
+SET Confidence = "High"
 a(CONSO:"alpha-synuclein aggregates") -| bp(GO:"neuron death")
+UNSET Confidence
 
 SET Evidence = "Notably, cleavages at the ASyn C-terminus
 typically increase the resultant truncated protein’s
 aggregation, as has been demonstrated in vitro and in
 overexpression experiments"
+SET Confidence = "High"
 p(HGNC:SNCA,frag("?_*")) -> a(CONSO:"alpha-synuclein aggregates")
+UNSET Confidence
 
 SET Evidence = "Specifically calpain, a
 cysteine protease, cleaves soluble ASyn at a number of
 sites."
+SET Confidence = "High"
 p(HGNCGENEFAMILY:Calpains) -> p(HGNC:SNCA,frag("?"))
+UNSET Confidence
 
 SET Evidence = "Calpain also cleaves ASyn fibres to generate C-truncated
 forms which promote seeded aggregation"
+SET Confidence = "High"
 p(HGNCGENEFAMILY:Calpains) -> p(CONSO:"alpha-synuclein fibrils",frag("?"))
 p(CONSO:"alpha-synuclein fibrils",frag("?")) -> a(CONSO:"alpha-synuclein aggregates")
+UNSET Confidence
 
 SET Evidence = "Calpain activity correlates with disease progression in PD
 mouse models"
+SET Confidence = "High"
 SET Species = "10090"
 act(p(HGNCGENEFAMILY:Calpains)) -- path(MESH:"Parkinson Disease")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "An estimated 90% of the proteins
 constituting ASyn aggregates bear phosphate groups at
 Ser129, suggesting that ASyn phosphorylation, or at least
 elevated levels of phosphorylated ASyn, contributes to PD
 pathogenesis"
+SET Confidence = "High"
 p(HGNC:SNCA,pmod(Ph)) -> path(MESH:"Parkinson Disease")
+UNSET Confidence
 
 SET Evidence = "The O-GlcNAc
 modification has been shown to slow the aggregation rate
 of ASyn relative to the wild-type."
+SET Confidence = "High"
 p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation")) -| a(CONSO:"alpha-synuclein aggregates")
+UNSET Confidence
 
 SET Evidence = "Initially it was
 found that semisynthetic ASyn bearing an O-GlcNAc unit
 at Thr72 (ASyngT72) displayed a reduced self-assembling
 propensity relative to the wild-type during thioflavin T
 (ThT) fluorescence assay"
+SET Confidence = "High"
 p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Thr,72)) -| complex(p(HGNC:SNCA),p(HGNC:SNCA))
+UNSET Confidence
 
 SET Evidence = "In fact, ASyngT72 did not form
 aggregates even after 7 days of incubation"
+SET Confidence = "High"
 p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Thr,72)) -| a(CONSO:"alpha-synuclein aggregates")
+UNSET Confidence
 
 SET Evidence = "TEM found semisynthetic ASyngS87 forms shorter fibrils than the wildtype,
 while ASyngT72 formed only small, broken fibrils"
+SET Confidence = "High"
 p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Ser,87)) -> a(CONSO:"alpha-synuclein fibrils")
 p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Thr,72)) -> a(CONSO:"alpha-synuclein fibrils")
 p(HGNC:SNCA) -> a(CONSO:"alpha-synuclein fibrils")
+UNSET Confidence
 
 SET Evidence = "ASyngT75 and ASyngT81 formed rare, highly irregular
 aggregates, and the peptide tri-O-GlcNAcylated at all of
 Th72/Thr81/Ser87 did not aggregate at all."
+SET Confidence = "Medium"
 p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Thr,75)) -> a(CONSO:"alpha-synuclein aggregates")
 p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Thr,81)) -> a(CONSO:"alpha-synuclein aggregates")
-p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Thr,75),pmod(CONSO:"O-GlcNAcylation",Thr,81),pmod(CONSO:"O-GlcNAcylation",Ser,87)) cnc a(CONSO:"alpha-synuclein aggregates")
+p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Thr,72),pmod(CONSO:"O-GlcNAcylation",Thr,81),pmod(CONSO:"O-GlcNAcylation",Ser,87)) cnc a(CONSO:"alpha-synuclein aggregates")
+UNSET Confidence
 
 SET Evidence = "An unmodified control, ASyn68-77, significantly
 accelerated wild-type aggregation while the GlcNAcylated
 analogue did not."
+SET Confidence = "Medium"
 p(HGNC:SNCA,frag("68_77")) -> a(CONSO:"alpha-synuclein aggregates")
+p(HGNC:SNCA,frag("68_77"),pmod(CONSO:"O-GlcNAcylation")) -> a(CONSO:"alpha-synuclein aggregates")
+UNSET Confidence
 
 SET Evidence = "As mentioned
 previously, calpain activity correlates well with disease
 progression in PD mouse models, catalysing the truncation
 of ASyn into aggregation-prone species"
+SET Confidence = "High"
 SET Species = "10090"
 act(p(HGNCGENEFAMILY:Calpains)) -- path(MESH:"Parkinson Disease")
 act(p(HGNCGENEFAMILY:Calpains)) -> p(HGNC:SNCA,frag("?"))
 p(HGNC:SNCA,frag("?")) -> a(CONSO:"alpha-synuclein aggregates")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Both the synthetic
 ASyngT72 and ASyngS87 peptides exhibit strong resistances to
 cleavage from recombinant calpain, where unmodified
 ASyn is degraded rapidly"
+SET Confidence = "High"
 p(HGNCGENEFAMILY:Calpains) cnc deg(p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Thr,72)))
 p(HGNCGENEFAMILY:Calpains) cnc deg(p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation",Ser,87)))
 p(HGNCGENEFAMILY:Calpains) -> deg(p(HGNC:SNCA))
+UNSET Confidence
 
 SET Evidence = "The authors suggested that OGlcNAcylation
 as studied in their case, had promoted
 oligomer-formation underlying the reduced aggregation"
 # oligomers of SNCA
+SET Confidence = "High"
 p(HGNC:SNCA,pmod(CONSO:"O-GlcNAcylation")) -> a(CONSO:"alpha-synuclein oligomers")
 a(CONSO:"alpha-synuclein aggregates") neg a(CONSO:"alpha-synuclein oligomers")
+UNSET Confidence
 
 SET Evidence = "Zhang and co-workers found that OGA inhibition
 via acute Thiamet-G treatment promoted
 phosphorylation of mTOR and AKT, leading to decreased
 autophagic flux and subsequent accretion of dysfunctional ASyn"
+SET Confidence = "Medium"
 a(PUBCHEM:135566354) -| act(p(HGNC:OGA))
 act(p(HGNC:OGA)) -| p(HGNC:MTOR,pmod(Ph))
+a(PUBCHEM:135566354) -> p(HGNC:MTOR,pmod(Ph))
+a(PUBCHEM:135566354) -> p(FPLX:AKT,pmod(Ph))
 p(HGNC:MTOR,pmod(Ph)) -| bp(GO:autophagy)
 act(p(HGNC:OGA)) -| p(FPLX:AKT,pmod(Ph))
 p(FPLX:AKT,pmod(Ph)) -| bp(GO:autophagy)
 bp(GO:autophagy) -> act(p(HGNC:SNCA))
+UNSET Confidence
 
 SET Evidence = "Thiamet-G treatment increased levels of
 monomeric ASyn after 7 days by 50% relative to the
 control."
+SET Confidence = "High"
 a(PUBCHEM:135566354) -> p(HGNC:SNCA)
+UNSET Confidence
 
 SET Evidence = "Subsequent re-activation of autophagy via
 rapamycin, an mTOR inhibitor, attenuated the increase in
 ASyn accumulation also."
+SET Confidence = "Medium"
 a(CHEBI:"sirolimus") -| act(p(HGNC:MTOR))
-act(p(HGNC:MTOR)) -| p(HGNC:SNCA)
-bp(GO:autophagy) -> p(HGNC:SNCA)
+act(p(HGNC:MTOR)) -> p(HGNC:SNCA)
+a(CHEBI:"sirolimus") -| p(HGNC:SNCA)
+bp(GO:autophagy) -| p(HGNC:SNCA)
+UNSET Confidence
 
 SET Evidence = "Meanwhile, Vocadlo and co-workers
 reported that pharmacological inhibition of OGA, in each
 of neuroblastoma N2a cells, primary rat neurons, and a
-mouse brain, actually stimulates autophagy via an mTORindependent pathway"
+mouse brain, actually stimulates autophagy via an mTOR independent pathway"
+SET Confidence = "High"
 SET CellLine = "Neuro-2a cell"
 act(p(HGNC:OGA)) -| bp(GO:autophagy)
 UNSET CellLine
@@ -307,17 +381,21 @@ SET MeSHAnatomy = "Neurons"
 act(p(RGD:Oga)) -| bp(GO:autophagy)
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Phosphorylation of tau regulates its
 modulatory functions by impairing its ability to bind
 microtubules."
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(Ph)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
+UNSET Confidence
 
 SET Evidence = "Abnormal hyperphosphorylation of tau (P-tau) results in its
 detachment from microtubules, suppressing its activity
 and secondarily promoting its self-assembly into
 oligomers, ultimately giving rise to the NFTs present in the
 AD brain."
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 SET MeSHDisease = "Alzheimer Disease"
 p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
@@ -327,91 +405,116 @@ p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> a(CONSO:"Tau oligomers")
 a(CONSO:"Tau oligomers") -> a(GO:"neurofibrillary tangle")
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "It was later found
 that tau phosphorylation was inversely regulated by OGlcNAc
 addition in vitro, in tissue culture cells, and ex vivo
 in rat brain slices (Figure 4)"
+SET Confidence = "High"
 SET Species = "10116"
 SET MeSHAnatomy = "Brain"
 p(RGD:Mapt,pmod(CONSO:"O-GlcNAcylation")) neg p(RGD:Mapt,pmod(Ph))
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Furthermore, downregulation of OGT leads to increased tau
 phosphorylation and onset of AD pathology."
+SET Confidence = "High"
 act(p(HGNC:OGT)) -| p(HGNC:MAPT,pmod(Ph))
 act(p(HGNC:OGT)) neg path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "Twelve-month old triple-tg mice (3xTg-Ad) displayed reduced levels of tau
 O-GlcNAcylation consistent with tau hyperphosphorylation in the hippocampus."
 # triple-tg mice (3xTg-Ad)
+SET Confidence = "Low"
 SET Species = "10090"
 SET MeSHAnatomy = "Hippocampus"
-p(MGI:Mapt,pmod(CONSO:"O-GlcNAcylation")) neg p(MGI:Mapt,pmod(CONSO:hyperphosphorylation))
+p(MGI:Mapt,pmod(CONSO:hyperphosphorylation)) neg p(MGI:Mapt,pmod(CONSO:"O-GlcNAcylation"))
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Gong and co-workers
 identified that impaired brain glucose metabolism actually
 leads to neurofibrillary degeneration via downregulation of
 O-GlcNAcylation."
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 bp(GO:"glucose metabolic process") -- p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation"))
 p(MESH:Proteins,pmod(CONSO:"O-GlcNAcylation")) neg deg(a(GO:"neurofibrillary tangle"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Finally, AD patient cortical brain
 tissues reportedly have significantly reduced levels of OGT
 expression compared to aged and post-mortem delay
 matched brain tissue."
+SET Confidence = "High"
 SET MeSHAnatomy = "Cerebral Cortex"
 path(MESH:"Alzheimer Disease") -| p(HGNC:OGT)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Beyond inhibiting its phosphorylation, the O-GlcNAc
 modification hinders tau oligomerization"
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(CONSO:"O-GlcNAcylation")) -| p(HGNC:MAPT,pmod(Ph))
 p(HGNC:MAPT,pmod(CONSO:"O-GlcNAcylation")) -| a(CONSO:"Tau oligomers")
+UNSET Confidence
 
 SET Evidence = "Vocadlo and co-workers demonstrated that a recombinantly produced
 O-GlcNAc-modified tau construct (spanning residues 244-
 441) formed oligomers at a slower rate, and to a lesser
 extent than the unmodified, recombinant control sequence during ThS fluorescence assays."
+SET Confidence - "High"
 p(HGNC:MAPT,pmod(CONSO:"O-GlcNAcylation")) -| a(CONSO:"Tau oligomers")
+UNSET Confidence
 
 SET Evidence = "Indeed, O-GlcNAc
 modification of tau-441 appeared to slow tau’s extension,
 perturbing the equilibrium position between oligomeric
 and free tau."
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)",pmod(CONSO:"O-GlcNAcylation")) -| a(CONSO:"Tau oligomers")
+UNSET Confidence
 
 SET Evidence = "Results suggest O-GlcNAc modification at
 specifically Ser400 plays a critical role in hindering aggregation"
-p(HGNC:MAPT,pmod(CONSO:"O-GlcNAcylation",Ser,400)) -- a(CONSO:"Tau aggregates")
+SET Confidence = "Medium"
+p(HGNC:MAPT,pmod(CONSO:"O-GlcNAcylation",Ser,400)) -| a(CONSO:"Tau aggregates")
+UNSET Confidence
 
 SET Evidence = "Acute treatment with Thiamet-G effectively decreased
 phosphorylation of tau at pathologically relevant sites,
 Thr231 and Ser396, in PC-12 cells"
+SET Confidence = "High"
 SET CellLine = "PC-12 cell"
 a(PUBCHEM:135566354) -| p(HGNC:MAPT,pmod(Ph,Thr,231))
 a(PUBCHEM:135566354) -| p(HGNC:MAPT,pmod(Ph,Ser,396))
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "Thiamet-G was able to
 decrease effectively aggregation in tau-BiFC cells, even
 after treatment with BZX2, an OGT inhibitor reported to
 downregulate O-GlcNAcylation and promote
 phosphorylation and aggregation"
+#tau-BiFC cells
+SET Confidence = "High"
 a(PUBCHEM:135566354) -| a(CONSO:"Tau aggregates")
 act(p(HGNC:OGT)) -> p(HGNC:MAPT,pmod(CONSO:"O-GlcNAcylation"))
 act(p(HGNC:OGT)) -| p(HGNC:MAPT,pmod(Ph))
 act(p(HGNC:OGT)) -| a(CONSO:"Tau aggregates")
+UNSET Confidence
 
 SET Evidence = "Thiamet-G remains
 effective in vivo, efficiently reducing phosphorylation at
 Thr231, Ser396 and Ser422 in both rat cortex and
 hippocampus."
+SET Confidence = "High"
 SET Species = "10116"
 SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex"}
 a(PUBCHEM:135566354) -| p(RGD:Mapt,pmod(Ph,Thr,231))
@@ -419,16 +522,19 @@ a(PUBCHEM:135566354) -| p(RGD:Mapt,pmod(Ph,Ser,396))
 a(PUBCHEM:135566354) -| p(RGD:Mapt,pmod(Ph,Ser,422))
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Long-term treatment of JNPL3 tau tg mice with Thiamet-
 G increased levels of O-GlcNAc modified tau while
 decreasing levels of tau aggregates and neuron death"
 # JNPL3 tau tg mice
+SET Confidence = "High"
 SET Species = "10090"
 a(PUBCHEM:135566354) -> p(MGI:Mapt,pmod(CONSO:"O-GlcNAcylation"))
 a(PUBCHEM:135566354) -| a(CONSO:"Tau aggregates")
 a(PUBCHEM:135566354) -| bp(GO:"neuron death")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In rTg4510 mice, acute treatment led
 to increased tau O-GlcNAcylation, reduced tau
@@ -437,6 +543,7 @@ S396 (notably excluding S400), besides reducing levels of
 pathological tau aggregation"
 # rTg4510 mice
 # treatment with Thiamet-G
+SET Confidence = "High"
 SET Species = "10090"
 a(PUBCHEM:135566354) -> p(MGI:Mapt,pmod(CONSO:"O-GlcNAcylation"))
 a(PUBCHEM:135566354) -| p(MGI:Mapt,pmod(Ph,Ser,202),pmod(Ph,Ser,205))
@@ -446,15 +553,19 @@ a(PUBCHEM:135566354) -| p(MGI:Mapt,pmod(Ph,Ser,396))
 a(PUBCHEM:135566354) cnc p(MGI:Mapt,pmod(Ph,Ser,400))
 a(PUBCHEM:135566354) -| a(CONSO:"Tau aggregates")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Subsequent studies on rTg4510 mice found their
 chronic treatment reduced pathological tau in the brain
 besides total tau in the CSF also."
 # rTg4510 mice
 # treatment with Thiamet-G
+SET Confidence = "High"
 SET Species = "10090"
 a(PUBCHEM:135566354) -| a(CONSO:"Tau aggregates",loc(MESH:Brain))
 a(PUBCHEM:135566354) -| p(HGNC:MAPT,loc(MESH:"Cerebrospinal Fluid"))
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Gazit, Segal and co-workers
 reported that their synthetic, O-GlcNAcylated PHF6
@@ -462,93 +573,122 @@ analogue, besides possessing reduced self-assembly
 propensity, seemed to inhibit unmodified PHF6 fibril
 formation upon co-incubation"
 # PHF6: PHF6 (306VQIVYK311)
+SET Confidence = "High"
 p(CONSO:"VQIVYK motif",pmod(CONSO:"O-GlcNAcylation")) -| complex(p(CONSO:"VQIVYK motif"),p(CONSO:"VQIVYK motif"))
 p(CONSO:"VQIVYK motif",pmod(CONSO:"O-GlcNAcylation")) -| a(CONSO:"Tau fibrils")
+UNSET Confidence
 
 SET Evidence = "Treatment of SH-SY5Y
 neuroblastoma with PUGNAc, an OGA inhibitor, has
 increased levels of O-GlcNAc modified APP and secretion
 of sAPPα while decreasing secretion of Aβ40"
+SET Confidence = "High"
 SET CellLine = "SH-SY5Y"
 a(PUBCHEM:9576811) -| act(p(HGNC:OGA))
 a(PUBCHEM:9576811) -> p(HGNC:APP,pmod(CONSO:"O-GlcNAcylation"))
 a(PUBCHEM:9576811) -> sec(p(CONSO:"sAPP-alpha"))
 a(PUBCHEM:9576811) -| sec(a(CHEBI:"amyloid-beta polypeptide 40"))
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "An inverse
 correlation between O-GlcNAcylation and Aβ formation
 was reported"
+SET Confidence = "High"
 p(HGNC:APP,pmod(CONSO:"O-GlcNAcylation")) neg a(CHEBI:"amyloid-beta")
+UNSET Confidence
 
 SET Evidence = "Treatment of the 5xFAD Aβ mouse model
 with NButGT, another studied OGA inhibitor, impaired Aβ
 production and attenuated activated gliosis"
+#5xFAD Abeta
+SET Confidence = "Medium"
+SET Species = "10090"
 a(MESH:"1,2-dideoxy-2'-propylglucopyranoso(2,1-d)-delta 2'-thiazoline") -| act(p(HGNC:OGA))
 a(MESH:"1,2-dideoxy-2'-propylglucopyranoso(2,1-d)-delta 2'-thiazoline") -| a(CHEBI:"amyloid-beta")
 a(MESH:"1,2-dideoxy-2'-propylglucopyranoso(2,1-d)-delta 2'-thiazoline") -| path(MESH:Gliosis)
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "PUGNAc treatment increased the rate
 of APP trafficking to the plasma membrane from the trans-
 Golgi network and decreased the rate of APP endocytosis"
+SET Confidence = "High"
 a(PUBCHEM:9576811) -> tloc(p(HGNC:APP),fromLoc(GO:"trans-Golgi network"),toLoc(GO:"plasma membrane"))
 a(PUBCHEM:9576811) -| tloc(p(HGNC:APP),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
+UNSET Confidence
 
 SET Evidence = "Subsequent work indicated that O-GlcNAcylation of APP
 promotes its plasma membrane localization, facilitating its
 non-amyloidogenic processing"
-SET MeSHAnatomy = "Cell Membrane"
+SET Confidence = "Medium"
 a(PUBCHEM:9576811) -> p(HGNC:APP,pmod(CONSO:"O-GlcNAcylation"))
+p(HGNC:APP,pmod(CONSO:"O-GlcNAcylation")) -> p(HGNC:APP,pmod(CONSO:"O-GlcNAcylation"),loc(GO:"plasma membrane"))
+p(HGNC:APP,pmod(CONSO:"O-GlcNAcylation"),loc(GO:"plasma membrane")) -> bp(CONSO:"APP processing")
 a(PUBCHEM:9576811) -> bp(CONSO:"APP processing")
-UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Thiamet-G treatment of tg TAPP (tau/APP) mice blocked
 cognitive decline paralleling decreased Aβ and plaque
 levels while not affecting tau phosphorylation"
 # tg TAPP (tau/APP) mice
+SET Confidence = "Medium"
 SET Species = "10090"
 a(PUBCHEM:135566354) -> bp(GO:cognition)
 a(PUBCHEM:135566354) -| a(CHEBI:"amyloid-beta")
+a(PUBCHEM:135566354) -| path(MESH:"Plaque, Amyloid")
 bp(GO:cognition) -- a(CHEBI:"amyloid-beta")
 a(PUBCHEM:135566354) cnc p(MGI:Mapt,pmod(Ph))
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Finally, treatment with prostaglandin J2 (PGJ2), an
 endogenous mediator of inflammation that promotes
 cleavage of secreted APP, is reported to increase overall
 levels of protein O-GlcNAcylation."
+SET Confidence = "High"
 a(CHEBI:"prostaglandin J2") reg path(MESH:Inflammation)
 a(CHEBI:"prostaglandin J2") -> p(HGNC:APP,frag("?"))
 a(CHEBI:"prostaglandin J2") -> p(HGNC:APP,pmod(CONSO:"O-GlcNAcylation"))
+UNSET Confidence
 
 SET Evidence = "Normal huntingtin
 plays a role in vesicular transport, transcription of
 neuronal genes and production of brain-derived
 neurotrophic factor (BDNF), besides potentially also
 possessing some anti-apoptotic function."
+SET Confidence = "High"
 p(HGNC:HTT) -- bp(GO:"vesicle transport along microtubule")
 p(HGNC:HTT) -- p(HGNC:BDNF)
 p(HGNC:HTT) -| bp(GO:"apoptotic process")
+UNSET Confidence
 
 SET Evidence = "Instead, decreases in global O-GlcNAcylation levels is
 reported to be protective against huntingtin aggregation
 and cytotoxicity in neuroblastoma cells and fly models"
+SET Confidence = "High"
 p(HGNC:HTT,pmod(CONSO:"O-GlcNAcylation")) -> a(CONSO:"huntingtin aggregates")
+UNSET Confidence
 
 SET Evidence = "Decreasing O-GlcNAcylation enhances autophagosomelysosome
 function, which leads to increased basal autophagy flux and clearance of toxic huntingtin aggregates"
+SET Confidence = "High"
 p(HGNC:HTT,pmod(CONSO:"O-GlcNAcylation")) -| act(a(GO:autophagosome))
 p(HGNC:HTT,pmod(CONSO:"O-GlcNAcylation")) -| bp(GO:autophagy)
 p(HGNC:HTT,pmod(CONSO:"O-GlcNAcylation")) -| deg(a(CONSO:"huntingtin aggregates"))
+UNSET Confidence
 
 SET Evidence = "Inactivation of OGA
 dramatically promoted HD model toxicity while removal
 of OGT worked to alleviate toxicity"
+SET Confidence = "High"
 act(p(HGNC:OGA)) -| p(HGNC:HTT,var("?"))
+UNSET Confidence
 
 SET Evidence = "Mice carrying a mutation in
 superoxide dismutase 1 (SOD1) also exhibit decreased OGlcNAc
 levels in the spinal cord"
+SET Confidence = "High"
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 SET Species = "10090"
 SET MeSHAnatomy = "Spinal Cord"
@@ -556,16 +696,21 @@ p(MGI:Sod1,var("?")) -| p(MGI:Sod1,pmod(CONSO:"O-GlcNAcylation"))
 UNSET Species
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Familial SOD1
 mutations are responsible for 20% of familial ALS cases in humans"
+SET Confidence = "High"
 p(HGNC:SOD1,var("?")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+UNSET Confidence
 
 SET Evidence = "Treatment of even the mSOD mice with an
 OGA inhibitor, NButGT, increased levels of O-GlcNAc in
 the spinal cord."
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = "Spinal Cord"
 a(MESH:"1,2-dideoxy-2'-propylglucopyranoso(2,1-d)-delta 2'-thiazoline") -> p(MGI:Sod1,pmod(CONSO:"O-GlcNAcylation"))
 UNSET Species
 UNSET MeSHAnatomy
+UNSET Confidence
