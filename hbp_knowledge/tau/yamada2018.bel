@@ -59,7 +59,7 @@ DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharma
 DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 #DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 #DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-#DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 #DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 #DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -75,10 +75,12 @@ SET Citation = {"PubMed", "29980653"}
 SET Evidence = "Prion diseases are a group of fatal transmissible neurodegenerative
 diseases characterized by the accumulation of an abnormal
 form of prion protein (PrPSc) in the central nervous system (CNS)."
+SET Confidence = "High"
 path(MESH:"Prion Diseases") isA path(MESH:"Neurodegenerative Diseases")
 SET MeSHAnatomy = "Central Nervous System"
-path(MESH:"Prion Diseases") pos p(HGNC:PRNP,var("?"))
+p(HGNC:PRNP,var("?")) pos path(MESH:"Prion Diseases")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Similar to prion diseases, many neurodegenerative diseases
 are also characterized by the accumulation of abnormal proteins
@@ -87,6 +89,7 @@ Alzheimer’s disease (AD), tau in non-AD tauopathies, alpha-synuclein
 in Lewy body diseases such as Parkinson’s disease and
 dementia with Lewy bodies, and transactive response DNA–
 binding protein 43 kDa (TDP-43) in frontotemporal dementia and amyotrophic lateral sclerosis (1–3)"
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Central Nervous System"
 path(MESH:"Alzheimer Disease") isA path(MESH:"Neurodegenerative Diseases")
 path(MESH:Tauopathies) isA path(MESH:"Neurodegenerative Diseases")
@@ -94,36 +97,43 @@ path(MESH:"Lewy Body Disease") isA path(MESH:"Neurodegenerative Diseases")
 path(MESH:"Parkinson Disease") isA path(MESH:"Neurodegenerative Diseases")
 path(MESH:"Frontotemporal Dementia") isA path(MESH:"Neurodegenerative Diseases")
 path(MESH:"Amyotrophic Lateral Sclerosis") isA path(MESH:"Neurodegenerative Diseases")
-path(MESH:"Alzheimer Disease") pos a(CHEBI:"amyloid-beta")
-path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT)
-path(MESH:Tauopathies) pos p(HGNC:MAPT)
-path(MESH:"Parkinson Disease") pos p(HGNC:SNCA)
+a(CHEBI:"amyloid-beta",var("?")) pos path(MESH:"Alzheimer Disease")
+p(HGNC:MAPT,var("?")) pos path(MESH:"Alzheimer Disease")
+p(HGNC:MAPT,var("?")) pos path(MESH:Tauopathies)
+p(HGNC:SNCA,var("?")) pos path(MESH:"Parkinson Disease")
 path(MESH:"Parkinson Disease") isA path(MESH:"Lewy Body Disease")
-p(HGNC:TARDBP) pos path(MESH:"Frontotemporal Dementia")
-p(HGNC:TARDBP) pos path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:TARDBP,var("?")) pos path(MESH:"Frontotemporal Dementia")
+p(HGNC:TARDBP,var("?")) pos path(MESH:"Amyotrophic Lateral Sclerosis")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In human studies, neurodegeneration
 seems to progress along the neuronal networks by propagation
 of protein aggregates in the CNS, although evidence for
 human-to-human transmission is still limited"
+SET Confidence = "High"
 a(CONSO:"protein aggregates",loc(MESH:"Central Nervous System")) -> path(CONSO:Neurodegeneration)
+UNSET Confidence
 
 SET Evidence = "They previously observed that cellular uptake and consequent
 intracellular seeding of tau and alpha-synuclein fibrils require
 HSPGs, similar to results from another study"
 # HSPGs:heparan sulfate proteoglycans
+SET Confidence = "High"
 p(HGNCGENEFAMILY:Syndecans) -> tloc(p(HGNC:MAPT),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
 tloc(p(HGNC:MAPT),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular)) -> a(CONSO:"Tau fibrils")
 p(HGNCGENEFAMILY:Syndecans) -> tloc(p(HGNC:SNCA),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
 tloc(p(HGNC:SNCA),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular)) -> a(CONSO:"alpha-synuclein fibrils")
+UNSET Confidence
 
 SET Evidence = "Inhibition of the interaction with HSPGs blocked transcellular aggregate
 propagation, indicating that the interaction between HSPG and
 protein aggregates may be an essential step for propagation of
 neurodegeneration induced by protein aggregates"
+SET Confidence = "High"
 complex(p(HGNCGENEFAMILY:Syndecans),a(CONSO:"protein aggregates")) -> path(CONSO:Neurodegeneration)
 a(CONSO:"protein aggregates") -> path(CONSO:Neurodegeneration)
+UNSET Confidence
 
 SET Evidence = "Specifically, they observed that the
 binding of tau aggregates required a minimal length and precise
@@ -133,30 +143,27 @@ biosensor assays) (Fig. 1), whereas binding of Abeta and alpha-synuclein
 aggregates displayed a more complex behavior"
 # binding of the aggregates to heparins (GAG motif)
 # GAG: glycosaminoglycan
+SET Confidence = "High"
 p(HGNCGENEFAMILY:Syndecans) -- a(MESH:Glycosaminoglycans)
-complex(a(CONSO:"Tau aggregates"),a(MESH:Glycosaminoglycans))
 complex(a(CONSO:"Tau aggregates"),a(MESH:Glycosaminoglycans)) -> a(CONSO:"Tau fibrils")
-complex(a(CONSO:"Tau aggregates"),a(CONSO:"6-O-sulfated heparin"))
 complex(a(CONSO:"Tau aggregates"),a(CONSO:"6-O-sulfated heparin")) -> a(CONSO:"Tau fibrils")
-complex(a(CONSO:"Tau aggregates"),p(HGNCGENEFAMILY:Syndecans,pmod(Sulf)))
 complex(a(CONSO:"Tau aggregates"),p(HGNCGENEFAMILY:Syndecans,pmod(Sulf))) -> a(CONSO:"Tau fibrils")
+UNSET Confidence
 
 SET Evidence = "Individually knocking out the major
 genes of the HSPG pathway in HEK293T cells corroborated the
 microarray and pharmacological data that the uptake of tau is
 mediated by N- and 6-O-sulfation of HSPGs."
+SET Confidence = "High"
 SET CellLine = "HEK293T"
 a(CONSO:"6-O-sulfated heparin") -> tloc(p(HGNC:MAPT),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
 p(HGNCGENEFAMILY:Syndecans,pmod(Sulf)) -> tloc(p(HGNC:MAPT),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
 UNSET CellLine
-
-SET Evidence = "For example, the results for binding
-of alpha-synuclein aggregates to HSPGs were variable among
-different experimental approaches, suggesting that interactions
-between protein aggregates and HSPGs are very complex."
-complex(a(CONSO:"alpha-synuclein aggregates"),p(HGNCGENEFAMILY:Syndecans))
+UNSET Confidence
 
 SET Evidence = "It was reported for alpha-synuclein
 that internalization of amyloid fibrils depends on heparin
 sulfate, whereas that of smaller non-amyloid oligomers does not"
+SET Confidence = "High"
 p(HGNCGENEFAMILY:Syndecans) -> tloc(a(CONSO:"alpha-synuclein fibrils"),fromLoc(GO:"extracellular region"),toLoc(GO:intracellular))
+UNSET Confidence
