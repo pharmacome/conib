@@ -77,10 +77,10 @@ SET Disease = "Alzheimer's disease"
 
 SET Evidence = "The progressive loss of memory in AD patients correlates with increased levels of Abeta and the deterioration of the cholinergic system in the brain."
 
-path(DOID:"Alzheimer's disease") -> path(MESH:"memory Disorders")
+path(DOID:"Alzheimer's disease") -> path(MESH:"Memory Disorders")
 SET Anatomy = "brain"
-path(MESH:"memory Disorders") pos a(CHEBI:"amyloid-beta")
-path(MESH:"memory Disorders") neg act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+path(MESH:"Memory Disorders") pos a(CHEBI:"amyloid-beta")
+path(MESH:"Memory Disorders") neg act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 
 SET Evidence = "This deterioration commonly includes a reduction in the levels of acetylcholine (ACh) and alpha3, alpha4, and alpha7 nicotinic ACh receptors (nAChRs) as well as a decrease in the activity of choline acetyltranferase in the brain [5]."
 
@@ -132,27 +132,27 @@ a(CHEBI:nicotine) -| path(DOID:"Alzheimer's disease")
 SET Evidence = "However, clinical studies that aimed to determine the efﬁcacy of nicotine against AD pathology have not shown a signiﬁcant effect of nicotine in enhancing memory [26, 27] but rather a clear positive effect on attention in AD [27] and PD patients [25, 28]."
 
 SET Disease = {"Alzheimer's disease","Parkinson's disease"}
-a(CHEBI:Nicotine) pos path(MESH:Attention)
+a(CHEBI:nicotine) pos path(MESH:Attention)
 UNSET Disease
 
 SET Evidence = "The positive effect of nicotine on attention has been mostly attributed to its agonistic stimulation of the nAChRs, which plays an important role in mediating memory and attention processes [29–31]."
 
-a(CHEBI:Nicotine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+a(CHEBI:nicotine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> path(MESH:Attention)
 
 SET Evidence = "However, the failure of nicotine to improve memory in AD patients, its inherent toxicity, and the fact that it induces tachyphylaxis and addiction have discouraged its use in the clinical arena [32]."
 
 SET Disease = "Alzheimer's disease"
-a(CHEBI:Nicotine) cnc bp(GO:"learning or memory")
+a(CHEBI:nicotine) cnc bp(GO:"learning or memory")
 #NCIT:C28004 = toxic
-a(CHEBI:Nicotine) -> path(NCIT:C28004)
-a(CHEBI:Nicotine) -> path(MESH:Tachyphylaxis)
-a(CHEBI:Nicotine) -> path(MESH:"Tobacco Use Disorder")
+a(CHEBI:nicotine) -> path(NCIT:C28004)
+a(CHEBI:nicotine) -> path(MESH:Tachyphylaxis)
+a(CHEBI:nicotine) -> path(MESH:"Tobacco Use Disorder")
 
 SET Evidence = "Speciﬁcally, it has been shown that cotinine prevented working and reference memory loss in a mouse model of AD (Tg6799) and prevented Aβ aggregation in vitro as well as plaque deposition in vivo [33]."
 
 SET Species = "10090"
-a(MESH:Cotinine) -| path(MESH:"memory Disorders")
+a(MESH:Cotinine) -| path(MESH:"Memory Disorders")
 UNSET Species
 a(MESH:Cotinine) -| a(CONSO:"amyloid-beta aggregates")
 a(MESH:Cotinine) -| path(MESH:"Plaque, Amyloid")
@@ -161,8 +161,8 @@ UNSET Disease
 SET Evidence = "In humans, more than 80% of nicotine is metabolized to cotinine by cytochrome P450 2A6 (CYP2A6) [34] and cytochrome P450 2A5 (CYP2A5) [35] enzymes [36]."
 
 #NCIT:C18024 = CYP2A5
-composite(a(CHEBI:Nicotine),p(HGNC:CYP2A6)) -> a(MESH:Cotinine)
-composite(a(CHEBI:Nicotine),p(NCIT:C18024)) -> a(MESH:Cotinine)
+composite(a(CHEBI:nicotine),p(HGNC:CYP2A6)) -> a(MESH:Cotinine)
+composite(a(CHEBI:nicotine),p(NCIT:C18024)) -> a(MESH:Cotinine)
 
 SET Evidence = "Cotinine, is mostly metabolized by the liver to its major metabolites, trans-3’hydroxycotinine and its glucuronide [39–41]."
 
@@ -173,7 +173,7 @@ UNSET Anatomy
 
 SET Evidence = "More recently, we and other laboratories have found that cotinine is a memory enhancer in various animal models of disease."
 
-a(MESH:Cotinine) -> bp(GO:"learing or memory")
+a(MESH:Cotinine) -> bp(GO:"learning or memory")
 
 SET Evidence = "Also, we recently published evidence showing that cotinine (5 mg/kg) decreased anxiety and enhanced the extinction of contextual fear memory after fear conditioning in wild type mice [50]."
 
@@ -189,11 +189,11 @@ SET Evidence = "The pro-cognitive effect of cotinine in the Tg6799 mice may be e
 #Tg6799 mice
 SET Species = "10900"
 a(MESH:Cotinine) -> bp(GO:cognition)
-SET Anatomy = {"Hippocampus","Cerebral Cortex"}
+SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex"}
 a(MESH:Cotinine) -| a(CONSO:"amyloid-beta aggregates")
 a(MESH:Cotinine) -| path(MESH:"Plaque, Amyloid")
 a(MESH:Cotinine) -| a(CONSO:"amyloid-beta oligomers")
-UNSET Anatomy
+UNSET MeSHAnatomy
 UNSET Species
 
 SET Evidence = "For instance, cotinine induced the activation of the pro-survival protein kinase B (Akt)/glycogen synthase kinase 3beta (GSK3beta) pathway in the brains of both Tg6799 and wild type control mice, suggesting that the activation of these factors is independent from its effect on Aβ aggregation [33]."
@@ -222,8 +222,8 @@ SET MeSHAnatomy = {"Cerebral Cortex","Hippocampus","Amygdala","Hypothalamus"}
 SET Anatomy = "striatum"
 p(HGNC:CHRNA7) -> bp(GO:"learning or memory")
 p(HGNC:CHRNA7) -> path(MESH:Attention)
-p(CONSO:"alpha-4 beta-2 nAChR") -> bp(GO:"learning or memory")
-p(CONSO:"alpha-4 beta-2 nAChR") -> path(MESH:Attention)
+complex(CONSO:"alpha-4 beta-2 nAChR") -> bp(GO:"learning or memory")
+complex(CONSO:"alpha-4 beta-2 nAChR") -> path(MESH:Attention)
 UNSET Anatomy
 UNSET MeSHAnatomy
 
@@ -231,9 +231,9 @@ SET Evidence = "Because decreased levels of these receptors have been found in A
 
 #these receptors = as above
 p(HGNC:CHRNA7) -- path(DOID:"Alzheimer's disease")
-p(CONSO:"alpha-4 beta-2 nAChR") -- path(DOID:"Alzheimer's disease")
+complex(CONSO:"alpha-4 beta-2 nAChR") -- path(DOID:"Alzheimer's disease")
 p(HGNC:CHRNA7) -> bp(GO:cognition)
-p(CONSO:"alpha-4 beta-2 nAChR") -> bp(GO:cognition)
+complex(CONSO:"alpha-4 beta-2 nAChR") -> bp(GO:cognition)
 
 SET Evidence = "The alpha7 receptors are very important for mediating sensory gating, attention and learning, and memory, making them an ideal target to improve these cognitive functions."
 
@@ -256,10 +256,10 @@ a(MESH:Cotinine) -> p(HGNC:CHRNA7)
 
 SET Evidence = "Contrary to this idea, new evidence shows that chronic treatment with cotinine stimulates the Akt/GSK3β pathway in the hippocampus and cortex of AD and control littermate mice [33]."
 
-SET Anatomy = {"Hippocampus","Cerebral Cortex"}
+SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex"}
 a(MESH:Cotinine) -> act(p(HGNC:AKT1))
 a(MESH:Cotinine) -> act(p(HGNC:GSK3B))
-UNSET Anatomy
+UNSET MeSHAnatomy
 
 SET Evidence = "Positive modulation of the α7 nAChRs could also explain cotinine’s positive effect on neuronal survival because the activation of Akt stimulates pro-survival proteins (e.g., Bcl-2 and the transcription factor cAMP responsive element-binding protein [CREB; Ref. 11] and inhibits the pro-apoptotic protein c-Jun Nterminal kinase (JNK) via the activation of the apoptosis signalregulating kinase (Ask) [76, 77; Figure 2]."
 
@@ -291,11 +291,11 @@ p(HGNC:AKT1) -> bp(GO:cognition)
 p(HGNC:MAPK3) -> bp(GO:cognition)
 p(HGNC:MAPK1) -> bp(GO:cognition)
 p(HGNC:CREBBP) -> bp(GO:cognition)
-p(HGNC:PIK3CA) -> bp(GO:"learing and memory")
-p(HGNC:AKT1) -> bp(GO:"learing and memory")
-p(HGNC:MAPK3) -> bp(GO:"learing and memory")
-p(HGNC:MAPK1) -> bp(GO:"learing and memory")
-p(HGNC:CREBBP) -> bp(GO:"learing and memory")
+p(HGNC:PIK3CA) -> bp(GO:"learning and memory")
+p(HGNC:AKT1) -> bp(GO:"learning and memory")
+p(HGNC:MAPK3) -> bp(GO:"learning and memory")
+p(HGNC:MAPK1) -> bp(GO:"learning and memory")
+p(HGNC:CREBBP) -> bp(GO:"learning and memory")
 
 SET Evidence = "The activation of PI3K heterodimers p85/p110 by the α7 receptor is triggered by the binding of p85 (the regulatory subunit) to phospho-tyrosyl proteins such as Fyn, which leads to the release of p110 [the catalytic subunit; Ref. 82]."
 
@@ -324,7 +324,7 @@ SET Disease = "Alzheimer's disease"
 a(MESH:Cotinine) -| p(HGNC:GSK3B)
 p(HGNC:GSK3B) -> p(HGNC:MAPT,pmod(Ph))
 a(MESH:Cotinine) -| p(HGNC:MAPT,pmod(Ph))
-a(MESH:Cotinine) -| bp(MESH:"Neurofibrillary Tangles")
+a(MESH:Cotinine) -| p(MESH:"Neurofibrillary Tangles")
 UNSET Disease
 
 SET Evidence = "Furthermore, the stimulation of both CREB and ERK1/2 by cotinine may promote the expression of activity-regulated cytoskeleton-associated protein (Arc, also termed Arg3.1), derived from an immediate early gene required for the consolidation of memory [88–90]."
@@ -335,12 +335,12 @@ a(MESH:Cotinine) -> act(p(HGNC:MAPK1))
 act(p(HGNC:CREBBP)) -> p(HGNC:ARC)
 act(p(HGNC:MAPK3)) -> p(HGNC:ARC)
 act(p(HGNC:MAPK1)) -> p(HGNC:ARC)
-p(HGNC:ACR) -> bp(GO:"learning and memory")
+p(HGNC:ACR) -> bp(GO:"learning or memory")
 
 SET Evidence = "Arc expression is stimulated by brain-derived neurotrophic factor (BDNF), serum response element [91], NMDA receptors [92], elongation factor 2 [93], CREB, and ERK1/2 [94]."
 
 p(HGNC:BDNF) -> p(HGNC:ARC)
-p(MESH:"Serum Response Element") -> p(HGNC:ARC)
+bp(MESH:"Serum Response Element") -> p(HGNC:ARC)
 p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits") -> p(HGNC:ARC)
 p(HGNC:CREBBP) -> p(HGNC:ARC)
 p(HGNC:MAPK3) -> p(HGNC:ARC)
@@ -348,7 +348,7 @@ p(HGNC:MAPK1) -> p(HGNC:ARC)
 
 SET Evidence = "This versatile protein is believed to mediate memory storage in the brain’s active networks by coupling changes in neuronal activity patterns to diverse forms of synaptic plasticity [95]."
 
-p(HGNC:ARC) -> bp(GO:"learing and memory")
+p(HGNC:ARC) -> bp(GO:"learning or memory")
 p(HGNC:ARC) -> bp(MESH:"Neuronal Plasticity")
 
 SET Evidence = "The α7 receptors seem to have a clear role in mediating Arc gene expression, as an increase in levels of Arc mRNA were found in rats treated with the selective α7 receptor partial agonist SSR180711 [96]."
