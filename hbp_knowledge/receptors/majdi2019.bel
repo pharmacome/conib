@@ -37,7 +37,7 @@ SET DOCUMENT Description = ""
 
 # Namespaces hosted on https://github.com/sorgerlab/famplex
 # ---------------------------------------------------------
-# DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
 
 # Namespaces defined with regular expressions
 # -------------------------------------------
@@ -92,8 +92,8 @@ a(CHEBI:nicotine) -> path(MESH:"Tobacco Use Disorder")
 SET Evidence = "The search identiﬁed ﬁve nicotine metabolites in the brain including cotinine, nornicotine, norcotinine, and two unnamed minor metabolites that have not been characterized fully yet."
 
 a(CHEBI:nicotine) -> a(MESH:Cotinine)
-a(CHEBI:nicotine) -> a(CHEBI:norcotinine)
-a(CHEBI:nicotine) -> a(MESH:Norcotinine)
+a(CHEBI:nicotine) -> a(CHEBI:nornicotine)
+a(CHEBI:nicotine) -> a(CHEBI:Norcotinine)
 
 SET Evidence = "The metabolism of nicotine is also substantial in the brain, and due to the upregulation of nAChR, the metabolism in the brain is higher in smokers than in non-smokers (Hukkanen et al., 2005)."
 
@@ -156,13 +156,13 @@ SET Evidence = "Although a majority of cotinine eﬀects are mediated via alpha7
 
 complex(a(MESH:Cotinine),p(HGNC:CHRNA7)) -> act(a(MESH:Cotinine))
 #Cotinine administration at 1uM dose
-a(MESH:Cotinine) -> p(CONSO:"alpha-4 beta-2 nAChR")
-a(MESH:Cotinine) -> tloc(p(CONSO:"alpha-4 beta-2 nAChR"),fromLoc(MESH:Cytoplasm),toLoc(MESH:"Cell Membrane"))
+a(MESH:Cotinine) -> complex(CONSO:"alpha-4 beta-2 nAChR")
+a(MESH:Cotinine) -> tloc(complex(CONSO:"alpha-4 beta-2 nAChR"),fromLoc(MESH:Cytoplasm),toLoc(MESH:"Cell Membrane"))
 
 SET Evidence = "On the other hand, the highest doses (10µM) was found to induce endocytosis and decrease α4β2 expression (Fox et al., 2015)."
 
 #Cotinine administration at 10uM dose
-a(MESH:Cotinine) -| p(CONSO:"alpha-4 beta-2 nAChR")
+a(MESH:Cotinine) -| complex(CONSO:"alpha-4 beta-2 nAChR")
 a(MESH:Cotinine) -> bp(MESH:Endocytosis)
 
 SET Evidence = "Akt is a family of serine-threonine-speciﬁc protein kinases that inhibit programmed cell death and promote neuronal survival by phosphorylation and inhibition of proapoptotic proteins, such as glycogen synthase kinase 3 (GSK3) (Dudek et al., 1997; Kim et al., 2001)."
