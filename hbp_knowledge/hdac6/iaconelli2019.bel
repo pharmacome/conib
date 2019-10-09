@@ -60,7 +60,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
  DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
  DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
  DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -76,15 +76,20 @@ SET Citation = {"PubMed", "30935091"}
 SET Evidence = "In mouse cortical neuron cultures, it was shown that inhibiting HDAC6 through
 genetic and pharmacological methods led to increased survival and neuronal regeneration in the
 setting of oxidative stress [24]."
+
+SET Confidence = "High"
 #in case of oxidative stress
 SET Species = "10090"
 SET MeSHAnatomy = "Neocortex"
 p(HGNC:HDAC6) -> path(MESH:"Nerve Degeneration")
+UNSET Confidence
 
 SET Evidence = "In an another study using mouse cortical neuron cultures, it was shown
 that axonal degeneration from kainic acid was accompanied by significant decrease in alpha-tubulin
 acetylation [25]. Treatment with an HDAC inhibitor resulted in higher levels of alpha-tubulin acetylation,
 as expected, but it also protected the neurons from kainic acid-induced axonal degeneration [25]."
+
+SET Confidence = "High"
 a(CHEBI:"kainic acid") -> path(DOID:"axonal neuropathy")
 path(DOID:"axonal neuropathy") -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
 p(HGNC:HDAC6) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
@@ -92,34 +97,41 @@ p(HGNC:HDAC6) -> act(a(CHEBI:"kainic acid"))
 p(HGNC:HDAC6) -> path(DOID:"axonal neuropathy")
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "A number of ALS-associated proteins have been found
 to regulate the activity of HDAC6, specifically the proteins Fused in Sarcoma/Translocated in Sarcoma
 (FUS/TLS) and TAR DNA binding protein-43 (TDP-43) [27–30]."
+SET Confidence = "High"
 p(HGNC:FUS) -- path(DOID:"amyotrophic lateral sclerosis")
 p(HGNC:TARDBP) -- path(DOID:"amyotrophic lateral sclerosis")
 p(HGNC:FUS) reg act(p(HGNC:HDAC6))
 p(HGNC:TARDBP) reg act(p(HGNC:HDAC6))
+UNSET Confidence
 
 SET Evidence = "Some of the early studies suggested
 that HDAC6 may have a protective effect in ALS, and it was found SOD1G93A mice has lower levels of
 HDAC6 expression at disease onset which became very low at the later stages [31]."
+SET Confidence = "High"
 p(HGNC:HDAC6) -| path(DOID:"amyotrophic lateral sclerosis")
 SET Species = "10090"
 p(HGNC:SOD1,var("p.Gly93Ala")) -| p(HGNC:HDAC6)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In cultured cells,
 it was initially shown that HDAC6 knockdown led to increased aggregation of mutant SOD1 and that
 HDAC6 may facilitate degradation of aggregation-prone proteins in the cytoplasm [32,33]."
-p(HGNC:HDAC6) -> p(HGNC:SOD1,var("p.Gly93Ala"),pmod(CONSO:"protein aggregates"))
-p(HGNC:SOD1,var("p.Gly93Ala"),pmod(CONSO:"protein aggregates"),loc(GO:cytoplasm)) -> deg(p(HGNC:SOD1,var("p.Gly93Ala"),pmod(CONSO:"protein aggregates")))
-p(HGNC:HDAC6) -> deg(p(HGNC:SOD1,var("p.Gly93Ala"),pmod(CONSO:"protein aggregates")))
+SET Confidence = "High"
+p(HGNC:HDAC6) -| p(HGNC:SOD1,var("p.Gly93Ala"),pmod(CONSO:"protein aggregates"))
+p(HGNC:HDAC6) -> deg(p(HGNC:SOD1,var("p.Gly93Ala"),pmod(CONSO:"protein aggregates"),loc(GO:cytoplasm)))
+UNSET Confidence
 
 SET Evidence = "However,
 in the SOD1G93A mouse model of ALS, deletion of the HDAC6 gene led to a significant decrease
 in progression of disease and resulted in prolonged survival, which was accompanied by increased
 alpha-tubulin acetylation [34]."
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 p(HGNC:HDAC6) -| bp(MESH:"Cell Survival")
@@ -127,6 +139,7 @@ bp(MESH:"Cell Survival") -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
 p(HGNC:HDAC6) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
 UNSET MeSHDisease
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In an amyloid precursor protein/presenilin 1 (APP/PS1) mouse model, treatment with the HDAC6
 inhibitor ACY-738 resulted in improvement of axonal transport rates, decrease in phosphorylation
@@ -134,6 +147,7 @@ of tau and increase in alpha-tubulin acetylation, accompanied by improvement in 
 as well as contextual learning and memory [23]."
 #APP/PS1 model
 #57381425 - ACY-738
+SET Confidence = "High"
 SET Species = "10090"
 a(PUBCHEM:57381425) -| p(HGNC:HDAC6)
 a(PUBCHEM:57381425) -> bp(GO:"axonal transport")
@@ -142,41 +156,49 @@ a(PUBCHEM:57381425) -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
 a(PUBCHEM:57381425) -| path(MESH:"Amyloid Neuropathies")
 a(PUBCHEM:57381425) -> bp(GO:"learning or memory")
 UNSET Species
+UNSET Confidence
 
-#neuritic tau beads?
 SET Evidence = "Studies in mice and rodent neurons showed that
 genetic or pharmacological reduction in HDAC6 activity can also decrease tau mislocalization and
 suppress the pathogenic formation of neuritic tau beads [37]."
+
+SET Confidence = "High"
 SET Species = {"10116","10090"}
 act(p(HGNC:HDAC6)) -> act(p(HGNC:MAPT),ma(MESH:"Protein Transport"))
 act(p(HGNC:HDAC6)) -> p(CONSO:"Tau fibrils")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "When APPPS1-21 mice, which show
 memory impairment, amyloid pathology and low levels of alpha-tubulin acetylation, were crossed with
 Hdac6 knockout mice, it was found that the reduction in HDAC6 led to improvement in memory
 function, accompanied by robust increases in acetylated alpha-tubulin [38]."
 #APP/PS1 model
+SET Confidence = "High"
 SET Species = "10090"
 p(HGNC:HDAC6) -| bp(GO:"learning or memory")
 p(HGNC:HDAC6) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In a study using rTg4510
 mouse model of tau deposition, it was shown that treatment with the HDAC6 inhibitor Tubastatin
 A resulted in improved memory function as well as decreased levels of tau [39]."
 #rTg4510
 #49850262 - Tubastatin A
+SET Confidence = "High"
 SET Species = "10090"
 a(PUBCHEM:49850262) -| p(HGNC:HDAC6)
 a(PUBCHEM:49850262) -> bp(GO:"learning or memory")
 a(PUBCHEM:49850262) -| p(HGNC:MAPT)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In another study of an Alzheimer’s disease mouse model treatment with ACY-1215 and Tubastatin A,
-both led to improvement in the behavioral assays as well as changes in amyloidlevels, decrease in
+both led to improvement in the behavioral assays as well as changes in amyloid levels, decrease in
 phosphorylation of tau and increase in alpha-tubulin acetylation [40]."
 #53340666 - ACY-1215
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHDisease = "Alzheimer Disease"
 a(PUBCHEM:53340666) -- p(MESH:"Amyloidogenic Proteins")
@@ -187,6 +209,7 @@ a(PUBCHEM:53340666) -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
 a(PUBCHEM:49850262) -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
 UNSET MeSHDisease
 UNSET Species
+UNSET Confidence
 
 #in APP(swe) and tauP301L mutant mouse models of Alzheimer's
 SET Species = "10090"
@@ -195,26 +218,31 @@ SET MeSHDisease = "Alzheimer Disease"
 SET Evidence = "Pharmacological inhibition of HDAC6 in these mice led to improvement in learning and memory tasks,
 accompanied by increased alpha-tubulin acetylation in the brain as well as decreased tau S396 and S404
 phosphorylation [42]."
+
+SET Confidence = "High"
 p(HGNC:HDAC6) -| bp(GO:"learning or memory")
-p(HGNC:HDAC6) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
+p(HGNC:HDAC6) -| p(INTERPRO:"Alpha tubulin",pmod(Ac),loc(MESH:Brain))
 p(HGNC:HDAC6) -> p(HGNC:MAPT,pmod(Ph,Ser,369))
 p(HGNC:HDAC6) -> p(HGNC:MAPT,pmod(Ph,Ser,404))
+UNSET Confidence
 
 SET Evidence = "Experiments in SH-SY5Y and Neuro2a cell lines showed that pharmacological
 HDAC6 inhibition resulted in reduced phosphorylation and aggregation of tau and increased Hsp90
 acetylation, accompanied by increased phosphorylation by Akt of the S9 residue on glycogen synthase
 kinase beta (GSK3 beta) [42]."
+
+SET Confidence = "High"
 SET CellLine = {"SH-SY5Y","Neuro-2a cell"}
 p(HGNC:HDAC6) -> p(HGNC:MAPT,pmod(Ph))
 p(HGNC:HDAC6) -> p(CONSO:"Tau aggregates")
-p(HGNC:HDAC6) -> p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",pmod(Ac))
-p(HGNC:HDAC6) -> act(p(HGNC:AKT2))
+p(HGNC:HDAC6) -| p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",pmod(Ac))
+p(HGNC:HDAC6) -| act(p(HGNC:AKT2))
 p(HGNC:AKT2) -> p(HGNC:GSK3B,pmod(Ph,Ser,9))
-p(HGNC:HDAC6) -> p(HGNC:GSK3B,pmod(Ph,Ser,9))
+p(HGNC:HDAC6) -| p(HGNC:GSK3B,pmod(Ph,Ser,9))
 UNSET CellLine
-
 UNSET MeSHDisease
 UNSET Species
+UNSET Confidence
 
 #HSPB1 model of Charcot-Marie-Tooth disease
 SET Species = "10090"
@@ -224,23 +252,29 @@ SET Evidence = "Cultured DRG neurons from a mutant HSPB1 mouse model of
 Charcot-Marie-Tooth disease showed deficits in axonal transport and this deficit was rescued by
 the HDAC6 inhibitors ACY-738 and ACY-775 [46]."
 #57382288 - ACY-775
+SET Confidence = "High"
 a(PUBCHEM:57381425) pos bp(GO:"axonal transport")
 a(PUBCHEM:57382288) pos bp(GO:"axonal transport")
 path(DOID:"Charcot-Marie-Tooth disease") neg bp(GO:"axonal transport")
+UNSET Confidence
 
 SET Evidence = "Another mouse model of Charcot-Marie-Tooth
 disease, based on dominant mutations in glycyl-tRNA synthetase, showed that the mice have aberrant
 axonal transport and this is accompanied by decreased alpha-tubulin acetylation [47]."
+SET Confidence = "High"
 path(DOID:"Charcot-Marie-Tooth disease") -> p(HGNC:GARS,var("?"))
 p(HGNC:GARS,var("?")) neg bp(GO:"axonal transport")
 p(HGNC:GARS,var("?")) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
+UNSET Confidence
 
 SET Evidence = "Treatment with
 the HDAC6 inhibitor Tubastatin A led to increased alpha-tubulin acetylation, ameliorated the deficits in
 axonal transport and improved the motor functioning in the mutant mice [47]."
+SET Confidence = "High"
 a(PUBCHEM:49850262) -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
 a(PUBCHEM:49850262) pos bp(GO:"axonal transport")
 a(PUBCHEM:49850262) -> bp(GO:"motor behavior")
+UNSET Confidence
 
 SET Evidence = "In a study of cortical
 neurons from a Rett syndrome MECP2T158A mouse model and of patient fibroblasts, it was found that
@@ -248,11 +282,12 @@ the cortical neurons of the MECP2-deficient mice and the patient fibroblasts had
 HDAC6 protein expression and reduced levels of acetylated alpha-tubulin and treatment with Tubastatin
 A resulted in increased levels of acetylated alpha-tubulin [48]."
 #MECP2T158A ,ousel model
+SET Confidence = "High"
 SET MeSHAnatomy = {"Fibroblasts","Neocortex"}
 path(DOID:"Rett syndrome") -> p(HGNC:HDAC6)
 path(DOID:"Rett syndrome") -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
 UNSET MeSHAnatomy
-
+UNSET Confidence
 UNSET MeSHDisease
 UNSET Species
 
@@ -261,39 +296,55 @@ SET Cell = "oligodendrocyte"
 
 SET Evidence = "Cultured rat oligodendrocytes were shown to express HDAC6 and
 inhibition of HDAC6 by Tubastatin A resulted in decreased microtubule binding activity of tau [51]."
+SET Confidence = "High"
 SET Species = "10116"
 p(HGNC:HDAC6) -> act(p(HGNC:MAPT),ma(GO:"microtubule binding"))
 a(PUBCHEM:49850262) -| act(p(HGNC:MAPT),ma(GO:"microtubule binding"))
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "It was shown that HDAC6 inhibition led to increased acetylation of tau in the oligodendrocytes,
 which in turn reduced its turnover rate [51]."
+SET Confidence = "High"
 p(HGNC:HDAC6) -| p(HGNC:MAPT,pmod(Ac))
 p(HGNC:HDAC6) -> p(HGNC:MAPT)
 p(HGNC:MAPT,pmod(Ac)) -| p(HGNC:MAPT)
+UNSET Confidence
 
 SET Evidence = "Furthermore, proteasomal inhibition led to the
 accumulation of acetylated tau and HDAC6 in protein aggregates, which was altered by Tubastatin A
 or RNAi-mediated downregulation of HDAC6 [52]."
+
+SET Confidence = "High"
 complex(GO:"proteasome complex") -| p(HGNC:MAPT,pmod(Ac),pmod(CONSO:"protein aggregates"))
 complex(GO:"proteasome complex") -| p(HGNC:HDAC6,pmod(CONSO:"protein aggregates"))
 a(PUBCHEM:49850262) -| p(HGNC:MAPT,pmod(Ac),pmod(CONSO:"protein aggregates"))
+p(HGNC:HDAC6) -> p(HGNC:HDAC6,pmod(CONSO:"protein aggregates"))
+a(PUBCHEM:49850262) -| p(HGNC:HDAC6)
 a(PUBCHEM:49850262) -| p(HGNC:HDAC6,pmod(CONSO:"protein aggregates"))
+UNSET Confidence
 
 SET Evidence = "In addition, experiments in oligodendroglial cell
 lines showed that HDAC6 dysregulation played a role in stress responses in these cells [52]."
-p(HGNC:HDAC6) neg bp(GO:"response to oxidative stress")
 
+SET Confidence = "High"
+p(HGNC:HDAC6) -- bp(GO:"response to oxidative stress")
+UNSET Confidence
 UNSET Cell
 
 SET Evidence = "Inhibition of HDAC6 by Tubastatin A upregulated heat-shock proteins HSP25 and HSP70 and led to
 increased cell survival in the setting of oxidative stress [53]."
+
+SET Confidence = "High"
+p(HGNC:HDAC6) -| p(HGNC:HSPB1)
+p(HGNC:HDAC6) -| p(HGNCGENEFAMILY:"Heat shock 70kDa proteins")
 a(PUBCHEM:49850262) -> p(HGNC:HSPB1)
 a(PUBCHEM:49850262) -> p(HGNCGENEFAMILY:"Heat shock 70kDa proteins")
 p(HGNC:HSPB1) -| bp(MESH:"Oxidative Stress")
 p(HGNCGENEFAMILY:"Heat shock 70kDa proteins") -| bp(MESH:"Oxidative Stress")
 p(HGNC:HSPB1) -> bp(MESH:"Cell Survival")
 p(HGNCGENEFAMILY:"Heat shock 70kDa proteins") -> bp(MESH:"Cell Survival")
+UNSET Confidence
 
 #in human neuronal cells
 SET Species = "9606"
@@ -302,10 +353,12 @@ SET Cell = "neuron"
 SET Evidence = "Treatment with two different pharmacological inhibitors of HDAC6 led to increased acetylation of
 a-tubulin and rescue of the deficits in movement of mitochondria in the axons [75]."
 #in iPSc's from CMT2F and dHMN2B carrying HSPB1
+SET Confidence = "High"
 SET MeSHDisease = {"Charcot-Marie-Tooth Disease","Motor Neuron Disease"}
 p(HGNC:HDAC6) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
 p(HGNC:HDAC6) neg bp(GO:"axonal transport of mitochondrion")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 SET MeSHAnatomy = "Motor Neurons"
@@ -314,18 +367,23 @@ SET Evidence = "Motor neurons differentiated from FUS3 mutant iPSC lines, as wel
 neurons from human embryonic stem cells (hESCs) expressing mutant FUS, showed characteristic
 cellular and functional findings of cytoplasmic FUS accumulation, hypoexcitability, and deficits in
 axonal transport [76]."
+
+SET Confidence = "High"
 #iPSC-derived motor neuron from ALS with FUS mutation
 p(HGNC:FUS,var("?")) -> p(HGNC:FUS,loc(GO:cytoplasm))
 p(HGNC:FUS,var("?")) neg bp(GO:"axonal transport")
+UNSET Confidence
 
 SET Evidence = "They further showed that inhibiting HDAC6, with the HDAC6-specific inhibitors
 Tubastatin A and ACY-738 or with antisense oligonucleotides, rescued the deficits in axonal transport
 in those motor neurons [76]."
+
+SET Confidence = "High"
 a(PUBCHEM:49850262) pos bp(GO:"axonal transport")
 a(PUBCHEM:57381425) pos bp(GO:"axonal transport")
-
 UNSET MeSHAnatomy
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Neurons differentiated from iPSCs of Rett syndrome patients with MECP2
 mutations showed a transcriptomic profile that indicated disruption in GABAergic circuits as well
@@ -333,6 +391,7 @@ a significant upregulation of HDAC6 [77].This was accompanied by decreased level
 acetylation in the MECP2 neurons, which were reversed with treatment with the HDAC6 inhibitor
 ACY-1215 [77]."
 #53340666 - ACY-1215
+SET Confidence = "High"
 SET MeSHDisease = "Rett Syndrome"
 p(HGNC:MECP2,var("?")) neg bp(GO:"synaptic transmission, GABAergic")
 p(HGNC:MECP2,var("?")) -> p(HGNC:HDAC6)
@@ -340,101 +399,126 @@ p(HGNC:MECP2,var("?")) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
 a(PUBCHEM:53340666) -| p(HGNC:HDAC6)
 a(PUBCHEM:53340666) -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
 UNSET MeSHDisease
-
+UNSET Confidence
 UNSET Cell
 UNSET Species
 
 SET Evidence = "The mood stabilizer valproic acid has been shown
 to possess HDAC inhibitory activity [81]."
+SET Confidence = "High"
 a(CHEBI:"valproic acid") -|  p(MESH:"Histone Deacetylases")
+UNSET Confidence
 
 SET Evidence = "Multiple HDACi have antidepressant-like activity in
 pre-clinical animal models, including sodium butyrate, suberoylanilide hydroxamic acid (SAHA),
 MS-275, and Cpd-60 [82–86]."
+SET Confidence = "High"
 #HDACi - HDAC inhibitor
 #5311 - SAHA, 4261 - MS-275, 134164107 - Cpd-60
 a(CHEBI:"sodium butyrate") -| p(HGNC:HDAC6)
 a(PUBCHEM:5311) -| p(HGNC:HDAC6)
 a(PUBCHEM:4261) -| p(HGNC:HDAC6)
 a(PUBCHEM:134164107) -| p(HGNC:HDAC6)
+UNSET Confidence
 
 SET Evidence = "In mice, the SSRI fluoxetine and the class I HDACi MS-275 reverse the
 effects of chronic social defeat stress on global patterns of gene expression [8]."
+SET Confidence = "High"
 SET Species = "10090"
 a(PUBCHEM:4261) -| p(HGNCGENEFAMILY:"Histone deacetylases, class I")
 a(CHEBI:fluoxetine) -| path(DOID:"antisocial personality disorder")
 a(PUBCHEM:4261) -| path(DOID:"antisocial personality disorder")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "It has been shown that
 the HDACi Cpd-60 modulates mood-related behaviors in mice and induces brain gene-expression
 changes that overlap with lithium treatment [83]."
+SET Confidence = "High"
 SET Species = "10090"
 a(PUBCHEM:134164107) reg path(MESH:Affect)
 SET MeSHAnatomy = "Brain"
 a(PUBCHEM:134164107) reg bp(GO:"gene expression")
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Antidepressant-like behaviors were also described in rodents with loss of
 function of HDAC6 [22,87]."
+SET Confidence = "High"
 SET Species = "10116"
 p(HGNC:HDAC6) pos path(MESH:Depression)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "GSK3 beta phosphorylates beta-catenin and primes it for proteasomal
 degradation."
+SET Confidence = "High"
 p(HGNC:GSK3B) -> p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph))
 p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph)) ->  complex(complex(GO:"proteasome complex"),p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph)))
 complex(complex(GO:"proteasome complex"),p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph))) -> deg(p(HGNCGENEFAMILY:"Beta catenins"))
+UNSET Confidence
 
 SET Evidence = "In this complex, GSK3 beta constitutively
 phosphorylatesbeta-catenin. This phosphorylated version of beta-catenin is recognized by betarCP of the
 E3 ubiquitin ligase complex and degraded by the proteasome [102]."
 #complex - beta-catenin, GSK3 beta, APC, Auxin
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph)) -> complex(complex(GO:"SCF ubiquitin ligase complex"),p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph)))
 complex(complex(GO:"SCF ubiquitin ligase complex"),p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph))) -> deg(p(HGNCGENEFAMILY:"Beta catenins"))
+UNSET Confidence
 
 SET Evidence = "When Wnt ligands bind to the
 Frizzled/LRP receptor, Axin is recruited to the membrane, resulting in dismantling of the destruction
 complex."
+SET Confidence = "High"
 complex(p(HGNCGENEFAMILY:"Wnt family"),p(HGNC:LRP1)) -> p(HGNC:AXIN1)
-p(HGNC:AXIN1) -| complex(p(HGNC:AXIN1),p(HGNCGENEFAMILY:"Beta catenins"),p(HGNC:GSK3B),p(HGNC:APC))
+p(HGNC:AXIN1) -> deg(complex(p(HGNC:AXIN1),p(HGNCGENEFAMILY:"Beta catenins"),p(HGNC:GSK3B),p(HGNC:APC)))
+UNSET Confidence
 
-SET Evidence = "-catenin then accumulates and translocates to the nucleus, where it binds to the T-cell Factor
+SET Evidence = "Beta-catenin then accumulates and translocates to the nucleus, where it binds to the T-cell Factor
 (TCF) transcription factors and increases transcription of target genes [102]."
 #due to the destruction
+SET Confidence = "High"
 p(HGNC:AXIN1) -> p(HGNCGENEFAMILY:"Beta catenins")
 p(HGNCGENEFAMILY:"Beta catenins") -> tloc(p(HGNCGENEFAMILY:"Beta catenins"),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
 p(HGNCGENEFAMILY:"Beta catenins",loc(GO:nucleus)) -> complex(p(HGNCGENEFAMILY:"Beta catenins"),p(HGNCGENEFAMILY:"TCF/LEF transcription factor family"))
 complex(p(HGNCGENEFAMILY:"Beta catenins"),p(HGNCGENEFAMILY:"TCF/LEF transcription factor family")) -> bp(GO:"mRNA transcription")
+UNSET Confidence
 
 SET Evidence = "K49 is often found mutated to arginine in anaplastic
 thyroid carcinomas, resulting in increased nuclear localization of beta-catenin [105]."
+SET Confidence = "High"
 path(EFO:"Thyroid Gland Undifferentiated (Anaplastic) Carcinoma") -> p(HGNCGENEFAMILY:"Beta catenins",var("p.Lys49Arg"))
 p(HGNCGENEFAMILY:"Beta catenins",var("p.Lys49Arg")) -> p(HGNCGENEFAMILY:"Beta catenins",loc(GO:nucleus))
+UNSET Confidence
 
 SET Evidence = "In cancer cell lines
 SW480 and HCT116, K49 deacetylation was necessary for epidermal growth factor (EGF)-induced
 nuclear localization ofbeta-catenin [106]."
+SET Confidence = "High"
 SET CellLine = {"SW480","HCT116"}
 p(HGNCGENEFAMILY:"Beta catenins",pmod(Ac,Lys,49)) -| act(p(HGNC:EGF))
 p(HGNC:EGF) -> p(HGNCGENEFAMILY:"Beta catenins",loc(GO:nucleus))
 p(HGNCGENEFAMILY:"Beta catenins",pmod(Ac,Lys,49)) -| p(HGNCGENEFAMILY:"Beta catenins",loc(GO:nucleus))
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "While human NPCs had minimal Ac-K49-beta-catenin at baseline, treatment with the pan-HDACi
 SAHA and another broadly selective HDACi crebinostat led to a marked increase in Ac-K49-beta-catenin
 levels, without affecting overallbeta-catenin levels [103]."
+SET Confidence = "High"
 a(CONSO:crebinostat) -| p(HGNC:HDAC6)
 a(PUBCHEM:5311) -> p(HGNCGENEFAMILY:"Beta catenins",pmod(Ac,Lys,49))
 a(CONSO:crebinostat) -> p(HGNCGENEFAMILY:"Beta catenins",pmod(Ac,Lys,49))
 a(PUBCHEM:5311) cnc p(HGNCGENEFAMILY:"Beta catenins")
 a(CONSO:crebinostat) cnc p(HGNCGENEFAMILY:"Beta catenins")
+UNSET Confidence
 
 SET Evidence = "Class I specific HDACi MS-275 and BG-45 did
 not increase Ac-K49-beta-catenin, but treatment with HDAC6i ACY- resulted in marked increase
 in Ac-K49-beta-catenin."
+SET Confidence = "High"
 #16773791 - BG-45,
 a(PUBCHEM:4261) -| p(HGNCGENEFAMILY:"Histone deacetylases, class I")
 a(PUBCHEM:4261) cnc p(HGNCGENEFAMILY:"Beta catenins",pmod(Ac,Lys,49))
@@ -442,79 +526,94 @@ a(PUBCHEM:16773791) -| p(HGNCGENEFAMILY:"Histone deacetylases, class I")
 a(PUBCHEM:16773791) cnc p(HGNCGENEFAMILY:"Beta catenins",pmod(Ac,Lys,49))
 a(PUBCHEM:53340666) -| p(HGNC:HDAC6)
 a(PUBCHEM:53340666) -> p(HGNCGENEFAMILY:"Beta catenins",pmod(Ac,Lys,49))
+UNSET Confidence
 
 SET Evidence = "Experiments were undertaken to investigate how K49 acetylation on beta-catenin
 affected adjacent phosphorylation sites in the N-terminal regulatory domain — CK1alpha site S45 and
 GSK3 beta sites S33/S37/T41."
+SET Confidence = "High"
 p(HGNC:CSNK1A1) -> p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph,Ser,45))
 p(HGNC:GSK3B) -> p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph,Ser,33))
 p(HGNC:GSK3B) -> p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph,Ser,37))
 p(HGNC:GSK3B) -> p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph,Thr,41))
+UNSET Confidence
 
 SET Evidence = "There was minimal S45 phosphorylation at baseline but increased K49
 acetylation with HDAC6i was mirrored by increased S45 phosphorylation without any impact on
 phosphorylation of S33/S37/T41 [103]."
+SET Confidence = "High"
 p(HGNC:HDAC6) -| p(HGNCGENEFAMILY:"Beta catenins",pmod(Ac,Lys,49))
 p(HGNC:HDAC6) -> p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph,Ser,45))
 p(HGNC:HDAC6) cnc p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph,Ser,33))
 p(HGNC:HDAC6) cnc p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph,Ser,37))
 p(HGNC:HDAC6) cnc p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph,Thr,41))
+UNSET Confidence
 
 SET Evidence = "K49 is a known site for ubiquitination, which primes-catenin for degradation by the
 proteasome [110]."
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Beta catenins",pmod(Ub,Lys,49)) -> deg(p(HGNCGENEFAMILY:"Beta catenins"))
+UNSET Confidence
 
 SET Evidence = "In NPCs treated with MG-132, there was significant accumulation of
 ubiquitinated beta-catenin, along with increase in total beta-catenin [103]."
+SET Confidence = "High"
 #neural progenitor cells
 #462382 - MG-132
 a(PUBCHEM:462382) -> p(HGNCGENEFAMILY:"Beta catenins",pmod(Ub,Lys,49))
 a(PUBCHEM:462382) -> p(HGNCGENEFAMILY:"Beta catenins")
-
-########How should i code?
-SET Evidence = "However, in NPCs pre-treated
-with the HDAC6 inhibitor ACY-1215, there was minimal change in ubiquitinated beta-catenin or total
-beta-catenin in the presence of MG-132 [103]."
-#NPC
+UNSET Confidence
 
 SET Evidence = "Immunofluorescence experiments showed that that exposure
 to ACY-1215 resulted in increasedbeta-catenin at the plasma membrane in human NPCs, where it
 co-localized with N-cadherin [103]."
 #human NPCs
+SET Confidence = "High"
 SET Species = "9606"
 a(PUBCHEM:53340666) -> complex(p(HGNCGENEFAMILY:"Beta catenins"),p(HGNC:CDH2),loc(GO:"plasma membrane"))
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Cell fractionation studies of NPCs treated with ACY-1215 showed
 that the increase in Ac-K49-beta-catenin was in the membrane/cytoplasmic fraction and not in the
 nuclear fraction."
+SET Confidence = "High"
 a(PUBCHEM:53340666) -> p(HGNCGENEFAMILY:"Beta catenins",pmod(Ac,Lys,49),loc(GO:"plasma membrane"))
 a(PUBCHEM:53340666) -> p(HGNCGENEFAMILY:"Beta catenins",pmod(Ac,Lys,49),loc(GO:cytoplasm))
+UNSET Confidence
 
 SET Evidence = "HDAC6 knockdown in human NPCs also
 led to increase in beta-catenin at the plasma membrane [103]."
 #NPCs
+SET Confidence = "High"
 SET Species = "9606"
 p(HGNC:HDAC6) -| p(HGNCGENEFAMILY:"Beta catenins",loc(GO:"plasma membrane"))
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "The beta-catenin/N-cadherin complex is important for cell-cell adhesion in the nervous
 system and is present in both pre and postsynaptic neurons [88,100,116]."
+SET Confidence = "High"
 SET MeSHAnatomy = "Nervous System"
 complex(p(HGNCGENEFAMILY:"Beta catenins"),p(HGNC:CDH2)) -> bp(GO:"cell-cell adhesion")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Overexpression of beta-catenin in vivo in mice showed
 increased dendritic growth and promoted neuronal activity [119]."
+SET Confidence = "High"
 SET Species = "10090"
 p(HGNCGENEFAMILY:"Beta catenins") -> bp(GO:"dendrite development")
 p(HGNCGENEFAMILY:"Beta catenins") -> bp(GO:"neuronal signal transduction")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In mice, ketamine induced inhibitory serine
 phosphorylation of GSK3β, which was necessary for its antidepressant-like effects [120]."
+SET Confidence = "High"
 SET Species = "10090"
 a(CHEBI:ketamine) -> p(HGNC:GSK3B,pmod(Ph,Ser))
+p(HGNC:GSK3B,pmod(Ph,Ser)) isA a(MESH:"Antidepressive Agents")
 p(HGNC:GSK3B,pmod(Ph,Ser)) -| act(p(HGNC:GSK3B))
 UNSET Species
 
@@ -522,6 +621,7 @@ SET Evidence = "The antidepressant-like effects of 5-HT2A
 receptor antagonist ketanserin and the SSRI fluoxetine in rats were accompanied by increase in the
 membrane fraction of β-catenin and a parallel increase in N-cadherin, but without any change in
 levels of nuclear β-catenin [122]."
+SET Confidence = "High"
 SET Species = "10116"
 a(CHEBI:ketanserin) -| p(HGNC:HTR2A)
 a(CHEBI:ketanserin) -> p(HGNCGENEFAMILY:"Beta catenins",loc(GO:"plasma membrane"))
@@ -531,47 +631,60 @@ a(CHEBI:fluoxetine) -> p(HGNCGENEFAMILY:"Beta catenins",loc(GO:"plasma membrane"
 a(CHEBI:fluoxetine) -> p(HGNC:CDH2)
 a(CHEBI:fluoxetine) cnc p(HGNCGENEFAMILY:"Beta catenins",loc(GO:nucleus))
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Beat-catenin links N-cadherin to the actin cytoskeleton and recruits intracellular partners to the
 synaptic membrane to form co-complexes with N-cadherin [116]."
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Beta catenins") -> complex(p(HGNC:CDH2),complex(GO:"actin cytoskeleton"))
 p(HGNCGENEFAMILY:"Beta catenins") -> bp(GO:"synaptic vesicle membrane organization")
+UNSET Confidence
 
 SET Evidence = "β-catenin regulates synaptic vesicle localization by recruiting synaptic proteins with
 PDZ domains [116]."
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Beta catenins") reg bp(GO:"synaptic vesicle localization")
 complex(p(HGNCGENEFAMILY:"Beta catenins"),p(HGNC:CDH2)) -> p(HGNCGENEFAMILY:"PDZ domain containing")
+UNSET Confidence
 
 SET Evidence = "These studies suggest a role for β-catenin in HDAC6i effects on
 synaptogenesis through the interaction of acetylated β-catenin to PDZ-domain-containing synaptic proteins (Figure 2)."
+SET Confidence = "High"
 #These studeis - mentioned above
 p(HGNC:HDAC6) -- bp(GO:"synapse assembly")
 a(PUBCHEM:53340666) -| p(HGNC:HDAC6)
 p(HGNC:HDAC6) -| p(HGNCGENEFAMILY:"Beta catenins",pmod(Ac))
 a(PUBCHEM:53340666) -> p(HGNCGENEFAMILY:"Beta catenins",pmod(Ac))
+UNSET Confidence
 
 SET Evidence = "AKT knockdown also adversely impacts synaptogenesis in rodent hippocampal neurons, accompanied
 by decreased dendritic spine density [133]."
+SET Confidence = "High"
 SET Species = "10116"
 SET MeSHAnatomy = "Hippocampus"
 p(HGNC:AKT1) pos bp(GO:"synapse assembly")
 p(HGNC:AKT1) -> bp(GO:"dendritic spine morphogenesis")
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Human neuronal cells treated with HDAC6i show increased
 AKT acetylation, specifically at residues K163 and K377 in the kinase domain [128], which are distinct
 from the PH-domain sites deacetylated by the class III KDACs SIRT1 and SIRT2 [134,135]."
+SET Confidence = "High"
 SET Species = "9606"
 SET Cell = "neuron"
 p(HGNC:HDAC6) -| p(HGNC:AKT1,pmod(Ac,Lys,163))
 p(HGNC:HDAC6) -| p(HGNC:AKT1,pmod(Ac,Lys,377))
 UNSET Cell
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Treatment
 with HDAC6i led to reduced binding of AKT to PIP3 and decreased its ability to phosphorylate
 downstream targets including S552 onbeta-catenin that mediates its subcellular localization [128]."
+SET Confidence = "High"
 p(HGNC:HDAC6) -| act(p(HGNC:AKT1),ma(GO:"phosphatidylinositol-3,4,5-trisphosphate binding"))
 act(p(HGNC:AKT1),ma(GO:"phosphatidylinositol-3,4,5-trisphosphate binding")) -> p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph,Ser,552))
 p(HGNCGENEFAMILY:"Beta catenins",pmod(Ph,Ser,552)) -> p(HGNCGENEFAMILY:"Beta catenins",loc(GO:"plasma membrane"))
+UNSET Confidence
