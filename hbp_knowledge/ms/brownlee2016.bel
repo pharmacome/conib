@@ -60,8 +60,8 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
  DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
  DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
  DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
-DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
  DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
  DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
  DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
@@ -75,7 +75,7 @@ SET Citation = {"PubMed", "27889190"}
 
 SET Evidence = "It can present with changes in sensation, mobility, balance, sphincter function, vision, and cognition."
 #it = Multiple sclerosis
-
+SET Confidence = "High"
 path(DOID:"multiple sclerosis") -- bp(MESH:Sensation)
 path(DOID:"multiple sclerosis") -- path(MESH:"Mobility Limitation")
 path(DOID:"multiple sclerosis") -- bp(MESH:"Postural Balance")
@@ -83,32 +83,33 @@ path(DOID:"multiple sclerosis") -- bp(MESH:"Postural Balance")
 path(DOID:"multiple sclerosis") -- a(NCIT:C28381)
 path(DOID:"multiple sclerosis") -- bp(MESH:"Vision, Ocular")
 path(DOID:"multiple sclerosis") -- bp(GO:cognition)
+UNSET Confidence
 
-SET Evidence = "Evidence suggests that the incidence of relapsing-remitting multiple sclerosis might be increasing, particularly in women.3"
-
-SET Gender = "Female"
-path(DOID:"relapsing-remitting multiple sclerosis")
-UNSET Gender
-
-SET Evidence = "People with relapsing-remitting multiple sclerosis may develop a progressive course with time (secondary progressive multiple sclerosis) with a gradual increase in disability with or without relapses.2"
-
+SET Evidence = "People with relapsing-remitting multiple sclerosis may develop a progressive course with time (secondary progressive multiple sclerosis) with a gradual increase in disability with or without relapses.[2]"
+SET Confidence = "High"
 path(DOID:"relapsing-remitting multiple sclerosis") -> path(DOID:"secondary progressive multiple sclerosis")
 #NCIT:C21007 = disability
 path(DOID:"secondary progressive multiple sclerosis") -> path(NCIT:C21007)
+UNSET Confidence
 
 SET Evidence = "Diagnosis is based on the presence of clinical symptoms and signs and findings on MRI, which is highly sensitive to detect characteristic CNS lesions.1"
-
 #of multiple sclerosis
+SET Confidence = "High"
 SET Anatomy = "central nervous system"
-path(MESH:"Wounds and Injuries") prognosticBiomarkerFor path(DOID:"multiple sclerosis")
+path(MESH:"Brain Injuries") prognosticBiomarkerFor path(DOID:"multiple sclerosis")
 UNSET Anatomy
+UNSET Confidence
 
-SET Evidence = "A major discovery was the association between neuromyelitis optica spectrum disorder and serum aquaporin 4 IgG (AQP4-IgG), confirming that it is a different disease from multiple sclerosis and needs distinct treatment.4"
+SET Evidence = "A major discovery was the association between neuromyelitis optica spectrum disorder and serum aquaporin 4 IgG (AQP4-IgG), confirming that it is a different disease from multiple sclerosis and needs distinct treatment.[4]"
+SET Confidence = "High"
+path(DOID:"neuromyelitis optica") -- complex(p(HGNC:AQP4),complex(GO:"IgG immunoglobulin complex"))
+UNSET Confidence
 
-path(DOID:"neuromyelitis optica") -- p(HGNC:AQP4)
-
-SET Evidence = "Panel 1"
-
+SET Evidence = "Panel 1 shows some common presenting symptoms
+and signs of multiple sclerosis and selected others that
+are less common and suggestive of an alternative
+diagnosis."
+SET Confidence = "High"
 path(DOID:"relapsing-remitting multiple sclerosis") -- path(DOID:"optic neuritis")
 path(DOID:"relapsing-remitting multiple sclerosis") -- path(DOID:"internuclear ophthalmoplegia")
 path(DOID:"relapsing-remitting multiple sclerosis") -- path(DOID:"trigeminal neuralgia")
@@ -118,68 +119,82 @@ path(DOID:"relapsing-remitting multiple sclerosis") -- path(HP:"Myelopathy")
 path(DOID:"relapsing-remitting multiple sclerosis") -- path(HP:"Lhermitte's sign")
 path(DOID:"relapsing-remitting multiple sclerosis") -- path(HP:"Asymmetric limb muscle stiffness")
 path(DOID:"relapsing-remitting multiple sclerosis") -- path(MESH:"Erectile Dysfunction")
+UNSET Confidence
 
-SET Evidence = " A first episode of neurological dysfunction, presumably due to relapsing-remitting multiple sclerosis, is called a clinically isolated syndrome.2,5"
+SET Evidence = " A first episode of neurological dysfunction, presumably due to relapsing-remitting multiple sclerosis, is called a clinically isolated syndrome.[2,5]"
+SET Confidence = "High"
+path(DOID:"relapsing-remitting multiple sclerosis") pos path(MESH:"Demyelinating Diseases")
+UNSET Confidence
 
-path(DOID:"relapsing-remitting multiple sclerosis") -> path(MESH:"Demyelinating Diseases")
-
-SET Evidence = "Common clinically isolated syndrome presentations include acute unilateral optic neuritis, a partial myelitis, or a brainstem syndrome.5"
-
+SET Evidence = "Common clinically isolated syndrome presentations include acute unilateral optic neuritis, a partial myelitis, or a brainstem syndrome.[5]"
+SET Confidence = "High"
 path(DOID:"optic neuritis") isA path(MESH:"Demyelinating Diseases")
 path(DOID:"optic neuritis") isA path(DOID:myelitis)
 path(DOID:"optic neuritis") isA path(MESH:"Brain Stem Infarctions")
+UNSET Confidence
 
-SET Evidence = "The onset of primary progressive multiple sclerosis by contrast is characterised by slowly progressive symptoms, most often an asymmetric paraparesis that evolves over months or years,6 or, less commonly, a progressive hemiparesis or cerebellar ataxia or very rarely, visual failure or dementia.6"
-
+SET Evidence = "The onset of primary progressive multiple sclerosis by contrast is characterised by slowly progressive symptoms, most often an asymmetric paraparesis that evolves over months or years,6 or, less commonly, a progressive hemiparesis or cerebellar ataxia or very rarely, visual failure or dementia.[6]"
+SET Confidence = "High"
 path(DOID:"primary progressive multiple sclerosis") -> path(HP:Paraparesis)
 path(DOID:"primary progressive multiple sclerosis") -> path(HP: Hemiparesis)
 path(DOID:"primary progressive multiple sclerosis") -> path(DOID:"cerebellar ataxia")
 path(DOID:"primary progressive multiple sclerosis") -> path(DOID:"dementia")
 path(DOID:"primary progressive multiple sclerosis") -| path(MESH:"Visual Perception")
+UNSET Confidence
 
 SET Evidence = "CSF findings include a normal or mildly raised white cell count (<25 cells per cm³; predominantly lymphocytes) and protein (usually <1 g/L), a raised IgG index, and IgG oligoclonal bands not present in serum.14"
-
+SET Confidence = "High"
 SET Anatomy = "cerebrospinal fluid"
-path(DOID:"multiple sclerosis") -> a(MESH:Leukocytes)
+path(DOID:"multiple sclerosis") -> bp(MESH:"Lymphocyte Count")
 path(DOID:"multiple sclerosis") -> p(MESH:Proteins)
 path(DOID:"multiple sclerosis") -> p(MESH:"Immunoglobulin G")
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Oligoclonal bands can sometimes be present in patients with other neuroinflammatory disorders and their presence needs to be interpreted carefully."
+SET Confidence = "High"
+path(CONSO:neuroinflammation) -> a(MESH:"Oligoclonal Bands")
+UNSET Confidence
 
-a(MESH:"Oligoclonal Bands") -- path(CONSO:neuroinflammation)
-
-SET Evidence = "The McDonald criteria provide separate recommendations for the diagnosis of primary progressive multiple sclerosis, which includes testing for CSF abnormalities in addition to MRI.1"
-
+SET Evidence = "The McDonald criteria provide separate recommendations for the diagnosis of primary progressive multiple sclerosis, which includes testing for CSF abnormalities in addition to MRI.[1]"
+SET Confidence = "High"
 path(DOID:"primary progressive multiple sclerosis") -> path(HP:"Abnormality of the cerebrospinal fluid")
+UNSET Confidence
 
 SET Evidence = "Younger age, male sex, and gadolinium enhancing, cortical, or spinal cord lesions might be associated with an increased risk of developing multiple sclerosis.29–31 "
 #in Younger age
+SET Confidence = "High"
 SET Gender = "Male"
 SET Anatomy = {"cortex","spinal cord"}
-path(MESH:"Wounds and Injuries") -- path(DOID:"multiple sclerosis")
+path(MESH:"Spinal Cord Injuries") pos path(DOID:"multiple sclerosis")
 UNSET Anatomy
 UNSET Gender
+UNSET Confidence
 
-SET Evidence = " A diagnosis of multiple sclerosis should only be made in a patient who has symptoms suggestive of demyelination.2"
-
+SET Evidence = " A diagnosis of multiple sclerosis should only be made in a patient who has symptoms suggestive of demyelination.[2]"
+SET Confidence = "High"
 path(DOID:"multiple sclerosis") -> path(HP:"CNS demyelination")
+UNSET Confidence
 
-SET Evidence = "Table 1"
-
+SET Evidence = "MRI in patients with small vessel
+cerebrovascular disease, other inflammatory disorders,
+and non-inflammatory disorders affecting white matter
+(tables 1, 2), and even in healthy people (especially in
+older age groups), might show brain lesions that fulfil
+MRI criteria for multiple sclerosis.[21–24]"
+#table 1
+SET Confidence = "High"
 SET Gender = "Male"
 path(MESH:"Optic Atrophy, Hereditary, Leber") -> path(MESH:"Vision, Low")
 SET Anatomy = "brain white matter"
 path(MESH:"Optic Atrophy, Hereditary, Leber") -> path(MESH:"Wounds and Injuries")
 UNSET Anatomy
 UNSET Gender
-
 path(DOID:"Behcet's disease") -> path(HP:Myelopathy)
 path(DOID:"Behcet's disease") -> path(MESH:"Oral Ulcer")
 SET MeSHAnatomy = "Genitalia"
 path(DOID:"Behcet's disease") -> path(MESH:Ulcer)
 UNSET MeSHAnatomy
-
 path(DOID:"systemic lupus erythematosus") -> path(DOID:"optic neuritis")
 path(DOID:"Sjogren's syndrome") -> path(DOID:"optic neuritis")
 path(DOID:"antiphospholipid syndrome") -> path(DOID:"optic neuritis")
@@ -190,101 +205,105 @@ path(DOID:"systemic lupus erythematosus") -> path(MESH:"Abortion, Habitual")
 path(DOID:"Sjogren's syndrome") -> path(MESH:"Abortion, Habitual")
 path(DOID:"antiphospholipid syndrome") -> path(MESH:"Abortion, Habitual")
 path(DOID:"antiphospholipid syndrome") -> path(DOID:thrombosis)
-
 path(DOID:CADASIL) -> path(DOID:migraine)
 path(DOID:CADASIL) -> path(MESH:"Vascular Diseases")
 path(DOID:CADASIL) -> path(HP:Hemiparesis)
 path(DOID:CADASIL) -> path(DOID:dementia)
-
 path(MESH:"Susac Syndrome") -> path(HP:Encephalopathy)
 path(MESH:"Susac Syndrome") -| path(MESH:"Visual Perception")
 path(MESH:"Susac Syndrome") -> path(MESH:Deafness)
-
 path(DOID:"central nervous system vasculitis") -> path(HP:Headache)
 path(DOID:"central nervous system vasculitis") -> path(HP: Hemiparesis)
 path(DOID:"central nervous system vasculitis") -> path(HP:Ataxia)
 path(DOID:"central nervous system vasculitis") -| bp(GO:cognition)
-
 path(DOID:neurosarcoidosis) -> path(HP:"Optic neuropathy")
 path(DOID:neurosarcoidosis) -> path(HP:Myelopathy)
 path(DOID:neurosarcoidosis)  -> path(HP:"Facial palsy")
-
 path(DOID:"neuromyelitis optica") -> path(DOID:"optic neuritis")
 path(DOID:"neuromyelitis optica") -| path(MESH:"Visual Perception")
 path(DOID:"neuromyelitis optica") -> path(DOID:myelitis)
 path(DOID:"neuromyelitis optica") -> path(HP:"Nausea and vomiting")
+UNSET Confidence
 
-SET Evidence = "In younger children (<12 years of age) multiple sclerosis can present differently from in adolescents and adults; encephalopathy, multifocal neurological deficits (often with prominent brainstem or cerebellar involvement), and seizures are more common.32"
-
+SET Evidence = "In younger children (<12 years of age) multiple sclerosis can present differently from in adolescents and adults; encephalopathy, multifocal neurological deficits (often with prominent brainstem or cerebellar involvement), and seizures are more common.[32]"
 #in younger children (<12 years of age)
+SET Confidence = "High"
 path(DOID:"multiple sclerosis") -> path(HP:Encephalopathy)
 SET Anatomy = {"brainstem","cerebellum"}
 path(DOID:"multiple sclerosis") -> path(MESH:"Neurologic Manifestations")
 UNSET Anatomy
 path(DOID:"multiple sclerosis") -> path(HP:Seizures)
+UNSET Confidence
 
 SET Evidence = "These disorders include several closely related idiopathic inflammatory CNS diseases (tables 1, 2), along with a range of other disorders that can involve white matter (eg, inherited leukodystrophies, vasculopathies, and metabolic disorders), and other neuroinflammatory diseases (eg, sarcoidosis, vasculitis, and Behcet’s disease)."
-
 #these disorders = disorders with relapsing or progressive courses and thus associated with multiple sclerosis
-
-
+SET Confidence = "High"
+path(DOID:"multiple sclerosis") -- path(MESH:"Central Nervous System Diseases")
 path(DOID:"multiple sclerosis") -- path(DOID:"leukoencephalopathy with vanishing white matter")
 path(DOID:"multiple sclerosis") -- path(MESH:"Vasculopathy, Retinal, With Cerebral Leukodystrophy")
 path(DOID:"multiple sclerosis") -- path(MESH:"Brain Diseases, Metabolic")
 path(DOID:"multiple sclerosis") -- path(DOID:"neurosarcoidosis")
 path(DOID:"multiple sclerosis") -- path(DOID:"central nervous system vasculitis")
 path(DOID:"multiple sclerosis") -- path(DOID:"Behcet's disease")
+UNSET Confidence
 
 SET Evidence = "Acute disseminated encephalomyelitis is an inflammatory demyelinating disorder of the CNS, distinct from multiple sclerosis, that occurs mainly in children and is rare in adults"
 #occurs in children
+SET Confidence = "High"
 path(DOID:"acute disseminated encephalomyelitis") -> path(HP:"CNS demyelination")
+UNSET Confidence
 
 SET Evidence = "CSF findings include a lymphocytic pleocytosis and raised protein."
-
+SET Confidence = "High"
 SET Anatomy = "cerebrospinal fluid"
 path(DOID:"acute disseminated encephalomyelitis") -> path(MESH:Leukocytosis)
 path(DOID:"acute disseminated encephalomyelitis") -> p(MESH:Proteins)
 UNSET Anatomy
+UNSET Confidence
 
-SET Evidence = " The clinical, imaging, and laboratory features of acute disseminated encephalomyelitis and multiple sclerosis overlap and diagnostic criteria emphasise the requirement of encephalopathy (altered level of consciousness, behavioural, or cognitive change) in making the diagnosis of acute disseminated encephalomyelitis (appendix).32 "
-
+SET Evidence = " The clinical, imaging, and laboratory features of acute disseminated encephalomyelitis and multiple sclerosis overlap and diagnostic criteria emphasise the requirement of encephalopathy (altered level of consciousness, behavioural, or cognitive change) in making the diagnosis of acute disseminated encephalomyelitis (appendix). [32] "
+SET Confidence = "High"
 path(DOID:"acute disseminated encephalomyelitis") -> path(HP:Encephalopathy)
 path(DOID:"acute disseminated encephalomyelitis") -- path(MESH:Consciousness)
-#NCIT:C16326 = behaviour
-path(DOID:"acute disseminated encephalomyelitis") -- path(NCIT:C16326)
+path(DOID:"acute disseminated encephalomyelitis") -- bp(GO:behavior)
 path(DOID:"acute disseminated encephalomyelitis") -- bp(GO:cognition)
+UNSET Confidence
 
-SET Evidence = "Neuromyelitis optica spectrum disorder is an inflammatory astrocytopathy of the CNS with clinical and radiological features that overlap with multiple sclerosis.4"
-
+SET Evidence = "Neuromyelitis optica spectrum disorder is an inflammatory astrocytopathy of the CNS with clinical and radiological features that overlap with multiple sclerosis. [4]"
+SET Confidence = "High"
 SET Anatomy = "central nervous system"
 SET Cell = "astrocyte"
 path(DOID:"neuromyelitis optica") -> path(MESH:Inflammation)
 UNSET Cell
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "The core clinical features of neuromyelitis optica spectrum disorder are optic neuritis and transverse myelitis."
+SET Confidence = "High"
+path(DOID:"neuromyelitis optica") pos path(DOID:"optic neuritis")
+path(DOID:"neuromyelitis optica") pos path(DOID:myelitis)
+UNSET Confidence
 
-path(DOID:"neuromyelitis optica") -> path(DOID:"optic neuritis")
-path(DOID:"neuromyelitis optica") -> path(DOID:myelitis)
-
-SET Evidence = "Characteristic lesions are those extending over more than half the length of the optic nerve, and sometimes into the optic chiasm.49,50"
-
+SET Evidence = "Characteristic lesions are those extending over more than half the length of the optic nerve, and sometimes into the optic chiasm. [49,50]"
+SET Confidence = "High"
 SET Anatomy = "optic chiasma"
-path(DOID:"neuromyelitis optica") -> path(MESH:"Wounds and Injuries")
+path(DOID:"neuromyelitis optica") -> path(MESH:"Brain Injuries")
 UNSET Anatomy
+UNSET Confidence
 
-SET Evidence = "About 70% of patients with relapsing neuromyelitis optica spectrum disorder are AQP4-IgG-positive, with the sensitivity increased with the use of cell-based rather than ELISA assays.53,54 "
-
+SET Evidence = "About 70% of patients with relapsing neuromyelitis optica spectrum disorder are AQP4-IgG-positive, with the sensitivity increased with the use of cell-based rather than ELISA assays.[53,54] "
+SET Confidence = "High"
 path(DOID:"neuromyelitis optica") -> complex(p(HGNC:AQP4),p(MESH:"Immunoglobulin G"))
+UNSET Confidence
 
-SET Evidence = "However, spinal cord lesions can be very helpful in making a diagnosis of multiple sclerosis (cord lesions do not occur with healthy ageing or cerebrovascular disease11 and provide additional evidence of dissemination in space10) and might provide important prognostic information.67"
-
-SET Anatomy = "spinal cord"
-path(MESH:"Wounds and Injuries") prognosticBiomarkerFor path(DOID:"multiple sclerosis")
-UNSET Anatomy
+SET Evidence = "However, spinal cord lesions can be very helpful in making a diagnosis of multiple sclerosis (cord lesions do not occur with healthy ageing or cerebrovascular disease [11] and provide additional evidence of dissemination in space [10]) and might provide important prognostic information.[67]"
+SET Confidence = "High"
+path(MESH:"Spinal Cord Injuries") prognosticBiomarkerFor path(DOID:"multiple sclerosis")
+UNSET Confidence
 
 SET Evidence = "Cortical grey matter is frequently involved in multiple sclerosis pathologically, but cortical lesions are rarely visualised on conventional MRI sequences and are better seen using double inversion recovery (DIR) or phase-sensitive inversion recovery (PSIR) techniques.73,75 "
-
+SET Confidence = "High"
 SET Anatomy = {"brain gray matter","cortex"}
-path(MESH:"Wounds and Injuries") prognosticBiomarkerFor path(DOID:"multiple sclerosis")
+path(MESH:"Brain Injuries") prognosticBiomarkerFor path(DOID:"multiple sclerosis")
 UNSET Anatomy
+UNSET Confidence
