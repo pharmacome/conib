@@ -24,7 +24,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
-# DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
+DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
 DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
 DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mesh-names.belns"
@@ -77,14 +77,17 @@ progressive neurogenerative disorder that is characterised
 by cognitive, behavioural and motor dysfunction
 (see associated Paper 1 on neuropsychiatric manifestations
 and diagnosis of HD)."
+SET Confidence = "High"
 path(MESH:"Huntington Disease") -- path(MESH:"Neurodegenerative Diseases")
 path(MESH:"Huntington Disease") -- path(MESH:"Cognition")
 path(MESH:"Huntington Disease") -| bp(GO:"behavior")
 path(MESH:"Huntington Disease") -| bp(GO:"motor behavior")
+UNSET Confidence
 
 SET Evidence = "Abnormal movements (chorea, dystonia) in HD are due
 to changes in neural circuitry and neurotransmitters such
 as dopamine."
+SET Confidence = "High"
 path(MESH:"Chorea") -- path(MESH:"Huntington Disease")
 path(MESH:"Dystonia") -- path(MESH:"Huntington Disease")
 path(MESH:"Neural Pathways") -- path(MESH:"Chorea")
@@ -95,49 +98,61 @@ path(MESH:"Neural Pathways") -- path(MESH:"Huntington Disease")
 path(MESH:"Neural Pathways") -- path(MESH:"Huntington Disease")
 a(CHEBI:"dopamine") -- path(MESH:"Huntington Disease")
 a(CHEBI:"dopamine") -- path(MESH:"Huntington Disease")
+UNSET Confidence
 
 SET Evidence = "In the initial stages, dopamine antagonists
 such as risperidone and olanzapine can be used to suppress
 the abnormal movements."
-#abnrmal movements = chorea, dystonia
+SET Confidence = "High"
+#abnormal movements = chorea, dystonia
 a(CHEBI:"risperidone") -| a(CHEBI:"dopamine")
 a(CHEBI:"olanzapine") -| a(CHEBI:"dopamine")
 a(CHEBI:"risperidone") -| path(MESH:"Chorea")
 a(CHEBI:"olanzapine") -| path(MESH:"Chorea")
 a(CHEBI:"risperidone") -| path(MESH:"Dystonia")
 a(CHEBI:"olanzapine") -| path(MESH:"Dystonia")
+UNSET Confidence
 
 SET Evidence = "In April 2017, the FDA
 approved the use of deutetrabenazine, a long-acting form
 of tetrabenazine, which was successfully found to reduce
 chorea in a randomised controlled trial (RCT) of 90
 patients (FIRST-HD)."
+SET Confidence = "High"
 a(PUBCHEM:73437646) isA a(PUBCHEM:6018)
 a(PUBCHEM:73437646) -| path(MESH:"Chorea")
+UNSET Confidence
 
 SET Evidence = "Mood disorders: depressive symptoms may predate
 the onset of motor symptoms by many
 years and can occur throughout the course of the disease."
+SET Confidence = "High"
 #disease : HTT
 path(MESH:"Depression") -- path(MESH:"Huntington Disease")
 path(MESH:"Motor Disorders") -- path(MESH:"Huntington Disease")
+UNSET Confidence
 
 SET Evidence = "Some people who are gene positive for HD may
 have a primary psychotic disorder such as schizophrenia
 that predates their movement disorder for
 many years."
+SET Confidence = "High"
 path(MESH:"Huntington Disease") -- path(MESH:"Schizophrenia, Disorganized")
 path(MESH:"Schizophrenia, Disorganized") -| path(MESH:"Movement")
+UNSET Confidence
 
 SET Evidence = "Risperidone may be considered firstline
 as it can also suppress the movement disorder."
+SET Confidence = "High"
 a(CHEBI:"risperidone") -| path(MESH:"Stereotypic Movement Disorder")
+UNSET Confidence
 
 SET Evidence = "There are few large studies using
 psychotropic medications in HD-related irritability
 and aggression.Mood stabilisers such as valproate
 and carbamazepine and selective serotonin reuptake
 inhibitors (SSRIs) can be used."
+SET Confidence = "High"
 #SSRI : serotonin uptake inhibitors
 SET MeSHDisease = "Huntington Disease"
 a(CHEBI:"valproate") -| path(MESH:"Irritable Mood")
@@ -147,6 +162,7 @@ a(CHEBI:"valproate") -| path(MESH:"Aggression")
 a(CHEBI:"carbamazepine") -| path(MESH:"Aggression")
 a(MESH:"Serotonin Uptake Inhibitors") -| path(MESH:"Aggression")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Obsessive-compulsive
 symptoms, repetitive behaviours, inflexibility and
@@ -154,50 +170,68 @@ rigidity can also be thought of as part of the frontal
 dysexecutive syndrome, and SSRIs and clomipramine
 can be used if these are present, though
 behavioural strategies are also recommended."
+SET Confidence = "High"
 a(MESH:"Serotonin Uptake Inhibitors") -| path(MESH:"Obsessive-Compulsive Disorder")
 a(CHEBI:"clomipramine") -| path(MESH:"Obsessive-Compulsive Disorder")
+a(MESH:"Serotonin Uptake Inhibitors") -| path(HP:Rigidity)
+a(CHEBI:"clomipramine") -| path(HP:Rigidity)
+UNSET Confidence
 
 SET Evidence = "The cognitive impairment seen in HD is a form of subcortical
 dementia characterised by slowing of thought
 processing, executive dysfunction and memory impairment."
+SET Confidence = "High"
 #Neurocognitive Disorders : dementia
 path(MESH:"Cognitive Dysfunction") -- path(MESH:"Huntington Disease")
 path(MESH:"Cognitive Dysfunction") isA path(MESH:"Neurocognitive Disorders")
 path(MESH:"Cognitive Dysfunction") -| path(MESH:"Thinking")
 path(MESH:"Cognitive Dysfunction") -| path(MESH:"Executive Function")
 path(MESH:"Cognitive Dysfunction") -| path(MESH:"Memory")
+UNSET Confidence
 
 SET Evidence = "A study of rivastigmine in 11 patients with HD suggested
 improvement in motor scores and a trend towards
 improvement in cognition and functional scores, but
 more study is required.[6]"
+SET Confidence = "High"
 SET MeSHDisease = "Huntington Disease"
 a(CHEBI:"rivastigmine") -> bp(GO:"motor behavior")
 a(CHEBI:"rivastigmine") -> path(MESH:"Cognition")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "There have been a large number of therapeutic trials
 with the aim of improving motor and cognitive symptoms
 of HD, targeting the major neurotransmitters
 implicated in HD such as amantadine or pridopidine
 (glutamate and dopamine antagonists, respectively)."
+SET Confidence = "High"
+a(PUBCHEM:33032) -> bp(GO:cognition)
+a(PUBCHEM:33032) -> bp(GO:"motor behavior")
 a(CHEBI:"amantadine") -| a(PUBCHEM:33032)
 a(CHEBI:"amantadine") -- path(MESH:"Huntington Disease")
+a(CHEBI:"dopamine") -> bp(GO:cognition)
+a(CHEBI:"dopamine") -> bp(GO:"motor behavior")
 a(PUBCHEM:9795739) -| a(CHEBI:"dopamine")
 a(PUBCHEM:9795739) -- path(MESH:"Huntington Disease")
+UNSET Confidence
 
 SET Evidence = "Results from 2016
 showed that pridopidine did not improve the motor symptoms
 of HD; however, there was a statistically significant
 improvement in the Total Functional Capacity score,
 which could be interpreted as delay in functional decline.[7]"
+SET Confidence = "High"
 SET MeSHDisease = "Huntington Disease"
 a(PUBCHEM:9795739) cnc bp(GO:"motor behavior")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Targeting the glutamate system, amantadine, an NMDAreceptor
 antagonist, has had limited success in improving
 some of the features of HD."
+SET Confidence = "High"
 SET MeSHDisease = "Huntington Disease"
 a(CHEBI:"amantadine")  -| p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits")
 UNSET MeSHDisease
+UNSET Confidence
