@@ -1,0 +1,473 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "PERK activation mitigates tau pathology in vitro and in vivo."
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Yojana Gadiya"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/conso
+# --------------------------------------------------------
+ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+ DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/cbd60cabbfc644257177ffd3abc7946be0c454e6/export/conso-names.belns"
+# DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+ DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+# DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+ DEFINE NAMESPACE EFO            AS URL "https://raw.githubusercontent.com/pharmacome/conso/5d2c2ea6f7112421cc8089a3f021a75ab60bb373/external/efo-names.belns"
+# DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
+ DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+ DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+# DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
+ DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/go-names.belns"
+# DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+ DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
+# DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
+# DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
+# DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+# DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
+# DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+# DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+# DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+# DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+ DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+ DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+ DEFINE NAMESPACE FMA            AS PATTERN "^\d+$"
+ DEFINE NAMESPACE OMIT           AS PATTERN "^\d{7}$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+ DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+ DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+# DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+ DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+# DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+# DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+ DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+# DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+# DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+# DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "28148553"}
+
+
+SET Species = "9606"
+SET Anatomy = "frontal cortex"
+#in human frontal cortex
+
+SET Evidence = "An increase in phosphorylated PERK (pPERK)
+was detected in PSP, as previously shown by immunohistochemistry
+(Nijholt et al, 2012; Stutzbach et al, 2013). Total PERK
+protein was increased as well."
+#PSP - progressive supranuclear palsy
+#PERK - EIF2AK3
+path(DOID:"progressive supranuclear palsy") => p(HGNC:EIF2AK3, pmod(Ph))
+path(DOID:"progressive supranuclear palsy") => p(HGNC:EIF2AK3)
+
+SET Evidence = "Surprisingly, the PERK substrate
+EIF2A and phosphorylated EIF2A (pEIF2A) were reduced in PSP."
+path(DOID:"progressive supranuclear palsy") -| p(HGNC:EIF2A)
+path(DOID:"progressive supranuclear palsy") -| p(HGNC:EIF2A, pmod(Ph))
+
+
+SET Evidence = "However, the second major PERK substrate, NRF2, was
+increased with regard to total and phosphorylated protein
+(pNRF2)."
+path(DOID:"progressive supranuclear palsy") => p(HGNC:NFE2L2)
+path(DOID:"progressive supranuclear palsy") => p(HGNC:NFE2L2, pmod(Ph))
+p(HGNC:EIF2AK3) -- p(HGNC:NFE2L2)
+
+UNSET Anatomy
+UNSET Species
+
+
+#performed in LUHMES neuron - differentiated from fetal human neurobalsts
+
+SET CellLine = "immortal human fetal membrane-derived cell line cell"
+SET Cell = "neuroblast"
+
+SET Evidence = "Thapsigargin
+induces UPR stress and served as positive control for PERK and
+EIF2A phosphorylation (Fig 1C and D)."
+a(CHEBI:thapsigargin) -> bp(MESH:"Unfolded Protein Response")
+a(CHEBI:thapsigargin) pos p(HGNC:EIF2AK3, pmod(Ph))
+a(CHEBI:thapsigargin) pos p(HGNC:EIF2A, pmod(Ph))
+
+SET Evidence = "Cultured neurons treated with low doses of
+annonacin exhibit hallmarks of tauopathy, including increased tau
+concentration, tau hyperphosphorylation, cell death and somatodendritic
+redistribution of hyperphosphorylated tau in a manner dependent
+on mitochondrial complex I activity (Lannuzel et al, 2003;
+Escobar-Khondiker et al, 2007; Yamada et al, 2014)."
+#354398 - annonacin
+a(PUBCHEM:354398) -- path(DOID:tauopathy)
+a(PUBCHEM:354398) -> p(HGNC:MAPT)
+a(PUBCHEM:354398) -- p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+a(PUBCHEM:354398) -- bp(GO:"cell death")
+a(PUBCHEM:354398) -> act(p(HGNCGENEFAMILY:"Mitochondrial complex I assembly complex"))
+act(p(HGNCGENEFAMILY:"Mitochondrial complex I assembly complex")) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation), loc(GO:"somatodendritic compartment"))
+a(PUBCHEM:354398) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation), loc(GO:"somatodendritic compartment"))
+
+SET Evidence = "Annonacin
+(25 nM for 48 h) increased pPERK, while total PERK and EIF2A
+were reduced (Fig 1C and D)."
+#25nM for 48 hrs
+a(PUBCHEM:354398) -> p(HGNC:EIF2AK3, pmod(Ph))
+a(PUBCHEM:354398) -| p(HGNC:EIF2AK3)
+a(PUBCHEM:354398) -| p(HGNC:EIF2A)
+
+SET Evidence = "The 2N4R tau encoding
+virus increased 4R tau mRNA from 80 +/- 10 (control) to
+5,000 +/- 2,000 copies/ng total mRNA; the 2N3R tau-encoding virus
+increased 3R tau mRNA from 1,800 +/- 700 to 7,600 +/- 300 copies/
+ng total mRNA; the specific increase of 4R and 3R tau protein was
+confirmed by Western blot (Appendix Fig S1A and B)."
+#2N4R - Tau 441aa isoform
+#2N3R - Tau 410aa isoform
+p(CONSO:"Tau isoform F (441 aa)") => p(CONSO:"4R tau")
+p(CONSO:"Tau isoform C (410 aa)") => p(CONSO:"3R tau")
+
+SET Evidence = "None of the lentiviral
+models significantly increased PERK or pPERK, showing that tau
+overload per se is not sufficient to activate the UPR."
+#2N4R, 2N3R, mCherry
+#X5DSL3 (X5DSL3_ANAMA) - mCherry
+p(CONSO:"Tau isoform F (441 aa)") cnc p(HGNC:EIF2AK3)
+p(CONSO:"Tau isoform F (441 aa)") cnc p(HGNC:EIF2AK3, pmod(Ph))
+p(CONSO:"Tau isoform C (410 aa)") cnc p(HGNC:EIF2AK3)
+p(CONSO:"Tau isoform C (410 aa)") cnc p(HGNC:EIF2AK3, pmod(Ph))
+p(UNIPROT:"X5DSL3 (X5DSL3_ANAMA)") cnc p(HGNC:EIF2AK3)
+p(UNIPROT:"X5DSL3 (X5DSL3_ANAMA)") cnc p(HGNC:EIF2AK3, pmod(Ph))
+p(HGNC:MAPT) -- bp(MESH:"Unfolded Protein Response")
+
+SET Evidence = "However, similar
+to the situation in PSP, 4R tau (but not 3R tau or mCherry)
+suppressed EIF2A at the protein level. pEIF2A was reduced by both
+4R and 3R tau."
+p(CONSO:"Tau isoform F (441 aa)") =| p(HGNC:EIF2A)
+p(CONSO:"Tau isoform C (410 aa)") cnc p(HGNC:EIF2A)
+p(UNIPROT:"X5DSL3 (X5DSL3_ANAMA)") cnc p(HGNC:EIF2A)
+p(CONSO:"4R tau") -| p(HGNC:EIF2A, pmod(Ph))
+p(CONSO:"3R tau") -| p(HGNC:EIF2A, pmod(Ph))
+
+UNSET Cell
+UNSET CellLine
+
+SET Evidence = "Indeed, pEIF2A was downregulated
+in 2- and 6-month-old mice, but PERK, pPERK, and pNRF2
+were only increased in 6-month but not in 2-month-old mice."
+#using of P301S tau transgenic mouse
+SET Species = "10090"
+p(HGNC:MAPT, var("p.Pro301Ser")) -| p(HGNC:EIF2A, pmod(Ph))
+#in 6 months
+p(HGNC:MAPT, var("p.Pro301Ser")) -> p(HGNC:EIF2AK3)
+p(HGNC:MAPT, var("p.Pro301Ser")) -> p(HGNC:EIF2AK3, pmod(Ph))
+p(HGNC:MAPT, var("p.Pro301Ser")) -> p(HGNC:NFE2L2, pmod(Ph))
+UNSET Species
+
+
+# in LUHMES neurons
+# PERK activator CCT020312 - 200nM
+# PERK inhibitor GSK2606414 - 300nM
+
+SET CellLine = "immortal human fetal membrane-derived cell line cell"
+SET Cell = "neuroblast"
+#
+
+SET Evidence = "In the presence of annonacin (Fig EV2D and E), the PERK activator
+increased pNRF2, but not pEIF2A; the PERK inhibitor reduced
+pEIF2A levels significantly."
+#3108148 - PERK activator
+#53469448 - PERK inhibitor
+a(PUBCHEM:3108148) -> p(HGNC:EIF2AK3)
+composite(a(PUBCHEM:354398), a(PUBCHEM:3108148)) -> p(HGNC:NFE2L2, pmod(Ph))
+composite(a(PUBCHEM:354398), a(PUBCHEM:3108148)) cnc p(HGNC:EIF2A, pmod(Ph))
+a(PUBCHEM:53469448) -| p(HGNC:EIF2AK3)
+composite(a(PUBCHEM:354398), a(PUBCHEM:53469448)) -| p(HGNC:EIF2A, pmod(Ph))
+
+SET Evidence = "When overexpressing 4R tau in neurons, PERK activator treatment
+still increased pNRF2, but not pEIF2A (Fig EV2F and G), while
+PERK inhibitor treatment decreased pEIF2A but not pNRF2."
+composite(p(CONSO:"4R tau"), a(PUBCHEM:3108148)) -> p(HGNC:NFE2L2, pmod(Ph))
+composite(p(CONSO:"4R tau"), a(PUBCHEM:3108148)) cnc p(HGNC:EIF2A, pmod(Ph))
+composite(p(CONSO:"4R tau"), a(PUBCHEM:53469448)) -| p(HGNC:EIF2A, pmod(Ph))
+composite(p(CONSO:"4R tau"), a(PUBCHEM:53469448)) cnc p(HGNC:NFE2L2, pmod(Ph))
+
+SET Evidence = "Upon 3R tau overexpression, PERK modulation showed no significant
+changes"
+composite(p(CONSO:"3R tau"), a(PUBCHEM:3108148)) cnc p(HGNC:EIF2A, pmod(Ph))
+composite(p(CONSO:"3R tau"), a(PUBCHEM:3108148)) cnc p(HGNC:NFE2L2, pmod(Ph))
+composite(p(CONSO:"3R tau"), a(PUBCHEM:53469448)) cnc p(HGNC:EIF2A, pmod(Ph))
+composite(p(CONSO:"3R tau"), a(PUBCHEM:53469448)) cnc p(HGNC:NFE2L2, pmod(Ph))
+
+SET Evidence = "Annonacin caused a concentration-dependent decline in both
+MTT signal and ATP concentration (Fig 2A and B)."
+#3-(4,5-dimethylthiazol-2-yl)-2,5-diphenyltetrazolium bromide - MTT
+a(PUBCHEM:354398) -| a(CHEBI:"3-(4,5-dimethylthiazol-2-yl)-2,5-diphenyltetrazolium bromide")
+a(CHEBI:"3-(4,5-dimethylthiazol-2-yl)-2,5-diphenyltetrazolium bromide") -- bp(GO:"metabolic process")
+a(PUBCHEM:354398) -| a(CHEBI:ATP)
+
+SET Evidence = "Co-treatment
+with the PERK inhibitor did not improve the cell metabolic activity
+(MTT signal). Only ATP concentrations improved at the lowest
+annonacin concentration (12.5 nM)."
+composite(a(PUBCHEM:354398), a(PUBCHEM:53469448)) cnc a(CHEBI:"3-(4,5-dimethylthiazol-2-yl)-2,5-diphenyltetrazolium bromide")
+#at 12.5nM concentration of annonacin
+composite(a(PUBCHEM:354398), a(PUBCHEM:53469448)) -> a(CHEBI:ATP)
+
+SET Evidence = "However, the PERK activator
+improved both metabolic activity and ATP concentrations over a
+broad range of annonacin concentrations."
+composite(a(PUBCHEM:354398), a(PUBCHEM:3108148)) -> a(CHEBI:"3-(4,5-dimethylthiazol-2-yl)-2,5-diphenyltetrazolium bromide")
+composite(a(PUBCHEM:354398), a(PUBCHEM:3108148)) -> a(CHEBI:ATP)
+composite(a(PUBCHEM:354398), a(PUBCHEM:3108148)) -> bp(GO:"metabolic process")
+
+SET Evidence = "The PERK activator reduced 4R tau toxicity
+as determined in MTT and ATP assays. The PERK inhibitor was
+slightly protective in the ATP assay only."
+composite(a(CHEBI:"3-(4,5-dimethylthiazol-2-yl)-2,5-diphenyltetrazolium bromide"), a(PUBCHEM:3108148)) -| path(CONSO:"4R tauopathy")
+composite(a(CHEBI:ATP), a(PUBCHEM:3108148)) -| path(CONSO:"4R tauopathy")
+composite(a(CHEBI:ATP), a(PUBCHEM:53469448)) -| path(CONSO:"4R tauopathy")
+
+SET Evidence = "Annonacin and 4R tau overexpression caused chromatin
+clumps (Fig 2E) and reduced the density of the neuritic network
+(Fig 2F; quantified in Fig EV3). Counts of viable cells (Fig 2G) confirmed
+that the PERK activator mitigated the toxicity of both annonacin
+and 4R tau overexpression."
+composite(a(PUBCHEM:354398), p(CONSO:"4R tau")) neg bp(GO:"chromatin organization")
+composite(a(PUBCHEM:354398), p(CONSO:"4R tau")) -> path(MESH:"Neuronal Plasticity")
+a(PUBCHEM:3108148) -| composite(a(PUBCHEM:354398), p(CONSO:"4R tau"))
+a(PUBCHEM:3108148) -> bp(GO:"chromatin organization")
+a(PUBCHEM:3108148) -| path(MESH:"Neuronal Plasticity")
+
+SET Evidence = "NRF2 regulates
+several downstream pathways, including iron sequestration
+controlled by heme oxygenase-1 (HO-1; Gorrini et al, 2013)."
+p(HGNC:NFE2L2) reg p(HGNC:HMOX1)
+p(HGNC:HMOX1) reg bp(GO:"iron ion homeostasis")
+p(HGNC:NFE2L2) reg bp(GO:"iron ion homeostasis")
+
+SET Evidence = "We
+found a significant increase in HO-1 expression in neurons
+treated with the PERK activator (Fig EV4A and B), which indicates
+an activation of the PERK–NRF2 pathway."
+a(PUBCHEM:3108148) -> r(HGNC:HMOX1)
+a(PUBCHEM:3108148) -> composite(a(PUBCHEM:3108148),p(HGNC:NFE2L2))
+
+SET Evidence = "Indeed, the toxicity of
+LV-4R was significantly reduced by treatment with an activator of
+NRF2 (DL-sulforaphane N-acetyl-L-cysteine; Fig EV4C), and exacerbated
+by siRNA targeting NFE2L2 (the NRF2 gene; Fig EV4D
+and Appendix Fig S4; Dinkova-Kostova et al, 2002; Wang et al,
+2012)."
+#71772353 - NRF2 activator
+a(PUBCHEM:71772353) -> p(HGNC:NFE2L2)
+a(PUBCHEM:71772353) -| path(CONSO:"4R tauopathy")
+
+SET Evidence = "Annonacin but not 4R or 3R tau
+overexpression increased the level of MC1-immunoreactive tau in
+LUHMES neurons."
+a(PUBCHEM:354398) -> a(CONSO:"Tau antibody, MC1")
+p(CONSO:"4R tau") cnc a(CONSO:"Tau antibody, MC1")
+p(CONSO:"3R tau") cnc a(CONSO:"Tau antibody, MC1")
+
+SET Evidence = "This effect was reversed by PERK activator treatment
+(Fig 3A and B) and was confirmed on dot blots with non-denatured
+proteins (Fig 3C)."
+a(PUBCHEM:3108148) -| a(CONSO:"Tau antibody, MC1")
+
+SET Evidence = "Annonacin also increased phosphorylation of tau on the epitopes
+Ser-202 (CP13 antibody; Ishizawa et al, 2003) and Ser-396 and Ser-
+404 (AD2 antibody; Buee-Scherrer et al, 1996; Fig 3A and B). The
+PERK activator reduced this effect."
+a(PUBCHEM:354398) -> p(CONSO:"Tau epitope, CP13")
+a(PUBCHEM:354398) -> p(HGNC:MAPT, pmod(Ph, Ser, 396))
+a(PUBCHEM:354398) -> p(CONSO:"Tau epitope, AD2")
+a(PUBCHEM:3108148) -| p(CONSO:"Tau epitope, CP13")
+a(PUBCHEM:3108148) -| p(HGNC:MAPT, pmod(Ph, Ser, 396))
+a(PUBCHEM:3108148) -| p(CONSO:"Tau epitope, AD2")
+
+UNSET Cell
+UNSET CellLine
+
+SET Evidence = "Total tau protein (HT7 antibody) was not altered by treatment
+with annonacin or the PERK activator (Fig 3A and D)."
+a(PUBCHEM:354398) cnc a(CONSO:"Tau antibody, HT7")
+a(PUBCHEM:3108148) cnc a(CONSO:"Tau antibody, HT7")
+
+SET Evidence = "Consistent
+with previous work (Bruch et al, 2014), annonacin increased 4R
+tau, but not 3R tau levels, both at the protein and mRNA level
+(Fig 3A, D and E). The PERK activator reduced the amount of 4R
+tau mRNA and protein, and almost completely reversed the effect of
+annonacin on the 3R/4R ratio (Fig 3A, D and E)."
+a(PUBCHEM:354398) -> p(CONSO:"4R tau")
+a(PUBCHEM:354398) cnc p(CONSO:"3R tau")
+a(PUBCHEM:3108148) -| p(CONSO:"4R tau")
+
+SET Evidence = "In the presence of annonacin, mRNA levels of the tau splicing
+factor SRSF2 increased (Fig 3F). Interestingly, the PERK activator
+blocked this effect."
+a(PUBCHEM:354398) -> r(HGNC:SRSF2)
+a(PUBCHEM:3108148) =| r(HGNC:SRSF2)
+
+SET Evidence = "Cells transduced with 4R tau-overexpressing lentivirus showed
+increased levels in CP13-, AD2-, and HT7 tau (but not MC1). CP13-
+but not AD2- and HT7 tau were normalized by simultaneous PERK
+activator treatment (Fig 3G and H)."
+p(CONSO:"Tau isoform F (441 aa)") -> p(CONSO:"Tau epitope, CP13")
+p(CONSO:"Tau isoform F (441 aa)") -> p(CONSO:"Tau epitope, AD2")
+p(CONSO:"Tau isoform F (441 aa)") -> a(CONSO:"Tau antibody, HT7")
+p(CONSO:"Tau isoform F (441 aa)") cnc a(CONSO:"Tau antibody, MC1")
+composite(p(CONSO:"Tau isoform F (441 aa)"), a(PUBCHEM:3108148)) -| p(CONSO:"Tau epitope, CP13")
+composite(p(CONSO:"Tau isoform F (441 aa)"), a(PUBCHEM:3108148)) cnc p(CONSO:"Tau epitope, AD2")
+composite(p(CONSO:"Tau isoform F (441 aa)"), a(PUBCHEM:3108148)) cnc a(CONSO:"Tau antibody, HT7")
+
+
+#in LUHMES neuron
+SET CellLine = "immortal human fetal membrane-derived cell line cell"
+SET Cell = "neuroblast"
+
+
+SET Evidence = "Neurofilaments are cytoskeletal proteins in axons. Their phosphorylation
+is essential for axonal functions. Dephosphorylation of the
+neurofilament medium polypeptide (NFM) impairs axonal calibers
+(Save et al, 2004). Abnormal phosphorylation of neurofilaments has
+also been associated with tauopathy (Roher et al, 2013)."
+p(MESH:"Neurofilament Proteins", pmod(Ph)) -- act(a(MESH:Axons))
+p(MESH:"Neurofilament Proteins", pmod(Ph)) -- path(DOID:tauopathy)
+p(HGNC:NEFM, pmod(Ph)) reg act(a(MESH:Axons))
+
+SET Evidence = "Western
+blots of LUHMES neurons treated with annonacin and the PERK
+activator showed that phosphorylated NFM was decreased by annonacin
+and the decline was prevented by PERK activator
+(Appendix Fig S2A and B)."
+a(PUBCHEM:354398) -| p(HGNC:NEFM, pmod(Ph))
+a(PUBCHEM:3108148) -> p(HGNC:NEFM, pmod(Ph))
+
+SET Evidence = "This suggests that axonal pathology
+induced by annonacin-treated cells was associated with dephosphorylation
+of NFL and prevented by PERK activator treatment."
+a(PUBCHEM:354398) -> path(DOID:"axonal neuropathy")
+p(HGNC:NEFM, pmod(Ph)) -|  path(DOID:"axonal neuropathy")
+a(PUBCHEM:3108148) -| path(DOID:"axonal neuropathy")
+
+SET Evidence = "PERK overexpression reversed the annonacin-induced increase
+in 4R MAPT mRNA (Fig EV5B) and protected LUHMES neurons
+against toxicity induced by annonacin (Fig EV5C and D) and 4R tau
+overexpression in a similar fashion to PERK activator treatment
+(Fig EV5E and F)."
+p(HGNC:EIF2AK3) -| p(CONSO:"4R tau")
+p(HGNC:EIF2AK3) -| composite(p(CONSO:"4R tau"), a(PUBCHEM:3108148))
+
+
+#P301S tau transgenic mouse model
+SET Species = "10090"
+
+SET Evidence = "The mutation at position 301 of the tau protein in this mouse model
+leads to an early onset memory deficit starting at 10 weeks of age
+along with the appearance of conformationally changed tau, phosphorylated
+tau, and dendritic spine loss in the hippocampus. At
+20 weeks of age, the mouse develops locomotor deficits correlated
+with emergence of paired helical filament tau and alpha-motoneuron
+loss (Xu et al, 2014)."
+#FMA:83664 - alpha motor neuron
+#At 10 weeks
+p(HGNC:MAPT, var("p.Pro301Ser")) -> path(EFO:"memory impairment")
+p(HGNC:MAPT, var("p.Pro301Ser")) -> p(HGNC:MAPT, var("p.Pro301Ser"), pmod(Ph))
+p(HGNC:MAPT, var("p.Pro301Ser")) neg path(MESH:"Protein Conformation")
+SET MeSHAnatomy = "Hippocampus"
+p(HGNC:MAPT, var("p.Pro301Ser")) neg bp(GO:"dendritic spine maintenance")
+UNSET MeSHAnatomy
+p(HGNC:MAPT, var("p.Pro301Ser")) neg path(MESH:Locomotion)
+p(HGNC:MAPT, var("p.Pro301Ser")) -> a(CONSO:"paired helical filaments")
+p(HGNC:MAPT, var("p.Pro301Ser")) neg a(FMA:83664)
+
+SET Evidence = "Western blots of brain extracts showed an increase in both
+pPERK and pNRF2 at a lowest effective dose of PERK activator being
+2 mg/kg/day (Appendix Fig S3A and B)."
+#PERK Activator (a(PUBCHEM:3108148)) 2mg/kg/day fro 3 consecutive days
+composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:3108148)) -> p(HGNC:EIF2AK3, pmod(Ph))
+composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:3108148)) -> p(HGNC:NFE2L2, pmod(Ph))
+
+SET Evidence = "Optical densities of
+tau-immunostained sections using HT7 (total tau), MC1 (pathological
+conformation tau), CP13 and AT180 (phospho-tau) antibodies
+were significantly decreased upon PERK activator treatment. NeuN
+staining was unchanged, suggesting that treatment was not neurotoxic
+(Fig 4C and D). A decrease in all tested epitopes of soluble tau
+was evident by Western blot analysis (Fig 4E and F). Hyperphosphorylated
+tau species (detected by CP13) were also decreased in
+the sarkosyl-insoluble tau fraction (Fig 4G)."
+composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:3108148)) -| a(CONSO:"Tau antibody, HT7")
+composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:3108148)) -| a(CONSO:"Tau antibody, MC1")
+composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:3108148)) -| p(CONSO:"Tau epitope, CP13")
+composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:3108148)) -| p(CONSO:"Tau epitope, AT180")
+
+
+#wild type and P301S tau transgenic mice with PERK activator from week 9 to 5 of age
+
+SET Evidence = "Wild-type mice improved drastically during
+the 3 days of learning (Fig 5A) while P301S transgenic mice
+improved less, indicating memory impairment. P301S transgenic
+mice treated with PERK activator performed significantly better"
+#5234 - saline
+composite(p(HGNC:MAPT),a(PUBCHEM:5234)) -> bp(GO:"learning or memory")
+composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:3108148)) -> bp(GO:"learning or memory")
+
+SET Evidence = "Wild-type mice showed a
+typical mushroom type of dentritic spines. Their density was
+reduced in P301S mice. PERK activator treatment restored this
+deficit partially."
+composite(p(HGNC:MAPT),a(PUBCHEM:3108148)) cnc bp(GO:"dendritic spine maintenance")
+composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:3108148)) -> bp(GO:"dendritic spine maintenance")
+
+#wild type and P301S tau transgenic mice with PERK activator from week 17 to 22 of age
+
+SET Evidence = "We used the rotarod test to measure the time span until mice fall
+off a rotating rod. The time span was significantly reduced in saline treated
+P301S tau mice compared to wild-type mice, and restored
+upon PERK activator treatment (Fig 5D)."
+composite(p(HGNC:MAPT),a(PUBCHEM:5234)) -> a(OMIT:0023601)
+composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:5234)) -| a(OMIT:0023601)
+composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:3108148)) -> a(OMIT:0023601)
+
+SET Evidence = "Consistent with prior studies (Allen
+et al, 2002; Scattoni et al, 2010), we found swollen and atrophic
+motoneurons and reduced numbers of intact motoneurons in P301S
+mice (Fig 5E and F). There was a loss of adductor and quadriceps
+motoneurons of lamina 9 (Ad9) and lamina Q9, and PERK activator
+treatment prevented this loss (Fig 5E and F)."
+#Spinal Cord Ventral Horn - Lamina 9
+p(HGNC:MAPT, var("p.Pro301Ser")) neg a(MESH:"Motor Neurons")
+SET Anatomy = {"biceps femoris", "adductor magnus"}
+p(HGNC:MAPT, var("p.Pro301Ser")) neg a(MESH:"Spinal Cord Ventral Horn")
+composite(p(HGNC:MAPT, var("p.Pro301Ser")),a(PUBCHEM:3108148)) pos a(MESH:"Spinal Cord Ventral Horn")
+UNSET Anatomy
+
+UNSET Species
