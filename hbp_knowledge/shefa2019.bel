@@ -1,0 +1,503 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Mitophagy links oxidative stress conditions and neurodegenerative diseases"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Esther Wollert"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+# DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+# DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+# DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+# DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
+DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
+# DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
+# DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
+# DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+# DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
+# DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+# DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+# DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+# DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+# DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+# DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+# DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+# DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+# DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+# DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+# DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+# DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+SET Citation = {"PubMed", "30688256"}
+
+SET Evidence = "Mitophagy is induced by oxidative stress."
+path(MESH:"Oxidative Stress") -> bp(GO:mitophagy)
+
+SET Evidence = "Direct production
+of mitochondrial ROS by using a mitochondrial-targeted
+photosensitizer can also induce mitophagy (Wang et al.,
+2012). "
+SET MeSHAnatomy = "Mitochondria"
+a(CHEBI:"reactive oxygen species") -> bp(GO:mitophagy)
+UNSET MeSHAnatomy
+
+SET Evidence = " The induction of autophagy results in the recruitment
+of autophagy-related genes (Atgs) to a particular subcellular
+location, termed the phagophore assembly site, and nucle-
+ation of an isolation membrane that forms a cup-shaped
+structure, termed a phagophore (Figure 1). "
+bp(GO:autophagy) -> a(MESH:"Autophagy-Related Proteins", loc(GO:"phagophore assembly site"))
+a(MESH:"Autophagy-Related Proteins", loc(GO:"phagophore assembly site")) -> a(GO:phagophore)
+
+SET Evidence = "In the mutant mice,
+neurons lacked Atg5 or Atg7, and animals experienced con-
+tinuous neurodegeneration (Koike et al., 2008)."
+SET Species = "10090"
+p(MGI:Atg5) -| path(HP:Neurodegeneration)
+p(MGI:Atg7) -| path(HP:Neurodegeneration)
+UNSET Species
+
+SET Evidence = " According
+to another experiment, rapamycin, which is involved in au-
+tophagy induction, conferred protection in animal models
+of neurodegenerative diseases (Sarkar et al., 2008)."
+a(CHEBI:sirolimus) -> bp(GO:autophagy)
+a(CHEBI:sirolimus) -| path(MESH:"Neurodegenerative Diseases")
+
+SET Evidence = "Additionally, NIX, which is also known as beclin-2 (BCL2)/
+adenovirus E1B 19 kDa protein-interacting protein 3-like
+(BNIP3L), is transcriptionally upregulated in the period of
+reticulocyte maturation to erythrocytes."
+p(HGNC:BNIP3L) pos bp(GO:"erythrocyte maturation")
+
+SET Evidence = " NIX/BNIP3L inter-
+acts directly with LC3B or Golgi-associated ATPase Enhancer
+of 16 kDa (GATE-16) via an LC3-interacting region (LIR),
+hence mediating the sequestration of NIX-expressing mito-
+chondria via the growing phagophore (Novak et al., 2010). "
+complex(p(HGNC:GABARAPL2),p(HGNC:BNIP3L)) -> a(GO:phagophore)
+complex(p(HGNC:MAP1LC3B),p(HGNC:BNIP3L)) -> a(GO:phagophore)
+
+SET Evidence = "Mitophagy is a selective form of autophagy that removes
+dysfunctional mitochondria and their harmful byproducts
+and oxidative species to help maintain homeostasis."
+bp(GO:mitophagy) isA bp(GO:autophagy)
+bp(GO:mitophagy) -> deg(a(MESH:Mitochondria))
+bp(GO:mitophagy) -| path(HBP:"mitochondrial dysfunction")
+
+SET Evidence = "PINK1 is a mitochondri-
+al-targeted serine/threonine kinase that plays a protective
+role against mitochondrial dysfunction and apoptosis with
+mitochondrial quality control by activating PINK1/PAR-
+KIN-induced mitophagy (Figure 2) (Fivenson et al., 2017). "
+p(HGNC:PINK1) -| path(HBP:"mitochondrial dysfunction")
+p(HGNC:PINK1) -| bp(GO:"apoptotic process")
+p(HGNC:PINK1) -> bp(GO:mitophagy)
+
+SET Evidence = "The role of PINK1 has been
+well-documented in neurodegenerative and aging-related
+diseases (Li and Hu, 2015). "
+p(HGNC:PINK1) -- path(MESH:"Neurodegenerative Diseases")
+
+SET Evidence = "The cytosolic E3 ubiquitin ligase PARKIN and mitochon -
+drial PINK1 have been implicated in the abnormal expres-
+sion of genes associated with a recessive form of Parkinson-
+ism (Schiavi and Ventura, 2014). "
+p(HGNC:PRKN) -- path(MESH:"Parkinson Disease")
+SET MeSHAnatomy = "Mitochondria"
+p(HGNC:PINK1) -- path(MESH:"Parkinson Disease")
+UNSET MeSHAnatomy
+
+SET Evidence = "PINK1 is then degrad-
+ed by various proteases, such as mitochondria-processing
+protease (MPP + ), the inner membrane presenilin-related
+rhomboid-like protease (Meissner et al., 2011)."
+#MPP+ is complex(p(HGNC:PMPCA),p(HGNC:PMPCB))
+complex(p(HGNC:PMPCA),p(HGNC:PMPCB)) => deg(p(HGNC:PINK1))
+
+SET Evidence = " Following
+mitochondrial depolarization, PINK1 is translocated to the
+inner mitochondrial membrane, degraded, and sustained on
+the mitochondrial membrane (Lazarou et al., 2012)."
+bp(GO:"mitochondrial depolarization") -> p(HGNC:PINK1, loc(GO:"mitochondrial inner membrane"))
+p(HGNC:PINK1, loc(GO:"mitochondrial inner membrane")) -> deg(p(HGNC:PINK1))
+
+SET Evidence = "The ag -
+gregation of PINK on the mitochondrial surface induces mi-
+tophagy by volunteering PARKIN to degrade mitochondria
+via a mechanism that is not completely understood. "
+p(HGNC:PINK1, loc(GO:"mitochondrial outer membrane")) -> act(p(HGNC:PRKN))
+act(p(HGNC:PRKN)) -> deg(a(MESH:Mitochondria))
+
+SET Evidence = "Translocation of PARKIN to damaged mitochondria has
+been shown to weaken PINK1 function (Geisler et al., 2010)."
+p(HGNC:PRKN, loc(MESH:Mitochondria)) -| act(p(HGNC:PINK1))
+
+SET Evidence = "The mitochondrial fusion proteins
+mitofusion 1 (Mfn1) and mitofusion 2 (Mfn2) have been
+recognized as substrates of PARKIN (Rakovic et al., 2011),
+as illustrated in Figure 2. "
+p(HGNC:PRKN) -> p(HGNC:MFN1, pmod(Ub))
+p(HGNC:PRKN) -> p(HGNC:MFN2, pmod(Ub))
+
+SET Evidence = "PARKIN hinders mitochondrial
+fusion via the degeneration of mitofusions, thus isolating
+damaged mitochondria from the healthy mitochondrial
+membrane proteins, such as the voltage-dependent anion
+channel (VADC), the mitochondrial RhoGTase (MIRO) 1
+(Figure 2) and constituents of the mitochondrial translo-
+case complex (TOM70, TOM40 and TOM20) (Yoshii et al.,2011)."
+p(HGNC:PRKN) -| bp(GO:"mitochondrial fusion")
+p(HGNC:PRKN) -> deg(p(HGNC:MFN1))
+p(HGNC:PRKN) -> deg(p(HGNC:MFN2))
+p(HGNC:MFN1) -> bp(GO:"mitochondrial fusion")
+p(HGNC:MFN2) -> bp(GO:"mitochondrial fusion")
+
+SET Evidence = "It is important to note that mitochondrial mobility is
+strongly maintained by the mitochondrial MIROs."
+p(HGNCGENEFAMILY:"Miro like atypical Rho GTPases") -> bp(GO:"axonal transport of mitochondrion")
+
+SET Evidence = "Recessive mutations in PINK1 and PARKIN can cause
+PD and lead to a failure of mitophagy, causing mitochon-
+drial damage (Kahle et al., 2009) and contributing to disease
+pathogenesis."
+p(HGNC:PRKN, var("?")) -> path(MESH:"Parkinson Disease")
+p(HGNC:PINK1, var("?")) -> path(MESH:"Parkinson Disease")
+p(HGNC:PRKN, var("?")) -| bp(GO:mitophagy)
+p(HGNC:PINK1, var("?")) -| bp(GO:mitophagy)
+p(HGNC:PRKN, var("?")) -> path(HBP:"mitochondrial dysfunction")
+p(HGNC:PINK1, var("?")) -> path(HBP:"mitochondrial dysfunction")
+
+SET Evidence = "Mitochondrial fission is also important for the
+function of neurons: dominant-negative dynamin-associated
+protein 1 (Drp1) mutation can cause a lethal infantile neuro-
+degenerative phenotype."
+bp(GO:"mitochondrial fission") -> act(a(MESH:Neurons))
+p(HGNC:DNM1L, var("?")) -> path(HP:Neurodegeneration)
+
+SET Evidence = " Drp1 knockout mice revealed em-
+bryonic lethality characterized by aberrant development of the
+brain and failure of synapse formation (Dagda et al., 2009)."
+SET Species = "10090"
+p(HGNC:DNM1L) -> bp(GO:"brain development")
+p(HGNC:DNM1L) -> bp(GO:"synapse assembly")
+
+SET Evidence = " A recent study showed that resveratrol
+weakened Aβ 1–42 -induced cell death and significantly in-
+creased mitophagy "
+SET MeSHDisease = "Alzheimer Disease"
+a(CHEBI:resveratrol) -| act(a(CHEBI:"amyloid-beta polypeptide 42"))
+a(CHEBI:resveratrol) -| bp(GO:"apoptotic process")
+a(CHEBI:resveratrol) -> bp(GO:mitophagy)
+UNSET MeSHDisease
+
+SET Evidence = "Aβ is transported to mito-
+chondria where it interacts with mitochondrial proteins,
+causing an increase in ROS production, excess accumulation
+of mitochondrial Ca 2+  and mitochondrial fragmentation, a
+decrease in the number of functionally active mitochondria
+and, ultimately, neuronal damage (Duchen, 2012)."
+SET MeSHAnatomy = "Mitochondria"
+a(CHEBI:"amyloid-beta", loc(MESH:Mitochondria)) -> a(CHEBI:"reactive oxygen species")
+a(CHEBI:"amyloid-beta", loc(MESH:Mitochondria)) -> a(CHEBI:"calcium(2+)")
+a(CHEBI:"amyloid-beta", loc(MESH:Mitochondria)) -| act(a(MESH:Mitochondria))
+UNSET MeSHAnatomy
+a(CHEBI:"amyloid-beta", loc(MESH:Mitochondria)) -| a(MESH:Neurons)
+
+SET Evidence = "In an
+APP transgenic mouse model, the down- or up-regulation
+of Bcl-1 enhanced or decreased, respectively, extracellular
+Aβ aggregation and neurodegeneration, highlighting the
+importance of mitophagy in AD-associated pathology."
+#Bcl1 is CCND1
+p(HGNC:CCND1) -| a(HBP:"amyloid-beta aggregates", loc(MESH:"Extracellular Space"))
+p(HGNC:CCND1) -| path(HP:Neurodegeneration)
+
+SET Evidence = " Fur-
+thermore, a correlation between flavin adenine dinucleotide
+(FAD) and autophagy was currently noted, reporting that
+autophagy needs functional presenilin (PS-1) for lysosomal
+maturation, which is altered by Alzheimer-related presenilin
+1 (PS-1) mutations (Lee et al., 2010)."
+a(CHEBI:FAD) -- bp(GO:autophagy)
+p(HGNC:PSEN1) -> bp(GO:autophagy)
+p(HGNC:PSEN1, var("?")) pos path(MESH:"Alzheimer Disease")
+p(HGNC:PSEN1, var("?")) -| bp(GO:autophagy)
+
+SET Evidence = "Hence, PS-1 alterations
+may indirectly affect mitochondrial function by impairing
+its recycling by mitophagy (García-Escudero et al., 2013). "
+p(HGNC:PSEN1, var("?")) -| act(a(MESH:Mitochondria))
+p(HGNC:PSEN1, var("?")) -| path(GO:mitophagy)
+
+SET Evidence = "Using transgenic Drosophila expressing human tau, Iiji-
+ma-Ando et al. (2012) demonstrated that RNAi-mediated
+Drosophila Miro (dMiro) knockdown enhanced human tau
+phosphorylation at the AD-related site Ser262 (phopgo-tau),
+resulting in enhanced levels of active PAR-1 and increased
+tau-mediated neurodegeneration."
+SET Species = "7227"
+#PAR-1 is homolog of human MARK
+p(HGNCGENEFAMILY:"Miro like atypical Rho GTPases") -| p(HGNC:MAPT,pmod(Ph,Ser,262))
+p(HGNCGENEFAMILY:"Miro like atypical Rho GTPases") -| act(p(HGNC:MARK1))
+p(HGNCGENEFAMILY:"Miro like atypical Rho GTPases") -| path(HP:Neurodegeneration)
+
+SET Evidence = "In dopaminergic neurons of the
+substantia nigra (SN), PD proteins such as Parkin, PINK1,
+DJ-1, and leucine-rich repeat serine/threonine-protein
+kinase 2 (LARRK2) as well as α-synucelin, play important
+roles in preventing cell death by maintaining normal mito-
+chondrial function, protecting against oxidative stress, me-
+diating mitophagy, and preventing apoptosis (Mukherjee et
+al., 2015). "
+SET MeSHAnatomy = "Substantia Nigra"
+SET Cell = "dopaminergic neuron"
+p(HGNC:PRKN) -| bp(GO:"apoptotic process")
+p(HGNC:PINK1) -| bp(GO:"apoptotic process")
+p(HGNC:PARK7) -| bp(GO:"apoptotic process")
+p(HGNC:LRRK2) -| bp(GO:"apoptotic process")
+p(HGNC:SNCA) -| bp(GO:"apoptotic process")
+p(HGNC:PRKN) -> act(a(MESH:Mitochondria))
+p(HGNC:PINK1) -> act(a(MESH:Mitochondria))
+p(HGNC:PARK7) -> act(a(MESH:Mitochondria))
+p(HGNC:LRRK2) -> act(a(MESH:Mitochondria))
+p(HGNC:SNCA) -> act(a(MESH:Mitochondria))
+p(HGNC:PRKN) -| path(MESH:"Oxidative Stress")
+p(HGNC:PINK1) -| path(MESH:"Oxidative Stress")
+p(HGNC:PARK7) -| path(MESH:"Oxidative Stress")
+p(HGNC:LRRK2) -| path(MESH:"Oxidative Stress")
+p(HGNC:SNCA) -| path(MESH:"Oxidative Stress")
+p(HGNC:PRKN) -> bp(GO:mitophagy)
+p(HGNC:PINK1) -> bp(GO:mitophagy)
+p(HGNC:PARK7) -> bp(GO:mitophagy)
+p(HGNC:LRRK2) -> bp(GO:mitophagy)
+p(HGNC:SNCA) -> bp(GO:mitophagy)
+UNSET Cell
+UNSET MeSHAnatomy
+
+SET Evidence = " A previous study also showed that oxi-
+dative stress is one of the most common causes of PD (Gaki
+and Papavassiliou, 2014)."
+path(MESH:"Oxidative Stress") -> path(MESH:"Parkinson Disease")
+
+SET Evidence = "The PD-related protein named Leucine-rich repeat kinase 2
+(LRRK2) was recently shown to bind to MIRO1, inducing
+its degradation."
+path(MESH:"Parkinson Disease") -- p(HGNC:LRRK2)
+complex(p(HGNC:LRRK2),p(HGNC:RHOT1)) -> deg(p(HGNC:RHOT1))
+
+SET Evidence = "In general, defects in the formation of autophagosomes
+cause impaired mitophagy, which causes PARKIN muta-
+tions that further result in neurodegenerative disorders, such
+as PD (Figure 3). "
+bp(GO:"autophagosome assembly") -> bp(GO:mitophagy)
+bp(GO:mitophagy) -| p(HGNC:PRKN, var("?"))
+p(HGNC:PRKN, var("?")) -> path(MESH:"Neurodegenerative Diseases")
+
+SET Evidence = "In PD, the accumulation of α-synucelin in the SN, which
+results in excessive ROS, eventually impairs the normal
+mitophagic pathways to regulate the redox balance and ho-
+meostasis (Gaki and Papavassiliou, 2014). "
+SET MeSHDisease = "Parkinson Disease"
+SET MeSHAnatomy = "Substantia Nigra"
+a(HBP:"alpha-synuclein aggregates") -> a(CHEBI:"reactive oxygen species")
+a(CHEBI:"reactive oxygen species") -| bp(GO:mitophagy)
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+
+SET Evidence = " In HD, mitochondrial ROS production and oxidation
+of mitochondrial lipids play important roles in mitophagy
+(Johri et al., 2013). "
+SET MeSHDisease = "Huntington Disease"
+SET MeSHAnatomy = "Mitochondria"
+a(CHEBI:"reactive oxygen species") -- bp(GO:mitophagy)
+bp(GO:"lipid oxidation") -- bp(GO:mitophagy)
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+
+SET Evidence = "In addition, it has been delineated that nitric oxide in-
+creases mitochondrial fission in neurons, initiating neuronal
+loss in a mouse model of stroke (Barsoum et al., 2006)."
+SET MeSHDisease = "Stroke"
+SET Species = "10090"
+SET MeSHAnatomy = "Neurons"
+a(CHEBI:"nitric oxide") -> bp(GO:"mitochondrial fission")
+UNSET MeSHAnatomy
+bp(GO:"mitochondrial fission") -| a(MESH:Neurons)
+UNSET Species
+UNSET MeSHDisease
+
+SET Evidence = "Apart from these, mechanistic target of rapamycin
+sequestration causes the aggregation of Huntington protein
+(Htt), which results in the upregulation of autophagy or
+polymorphisms in the autophagy-related gene Atg7 that fur-
+ther causes HD (Barsoum et al., 2006; Jahani-Asl et al., 2007)
+(Figure 3)."
+a(CHEBI:sirolimus) -> a(HBP:"huntingtin aggregates")
+a(HBP:"huntingtin aggregates") -> bp(GO:autophagy)
+a(HBP:"huntingtin aggregates") -> p(HGNC:ATG7, var("?"))
+p(HGNC:ATG7, var("?")) -> path(MESH:"Huntington Disease")
+
+SET Evidence = "It was recently demonstrated that Htt is immense-
+ly associated with mitophagy by serving as a frame for both
+sequestosome 1 (SQSTM1/p62) and the autophagy-induc-
+ing kinase, UNC-51-like kinase-1 (ULK1), supporting the
+involvement of mutant Htt in these processes (Rui et al.,
+2015)."
+p(HGNC:HTT) -- bp(GO:mitophagy)
+
+SET Evidence = " Motor neu-
+ron death is caused by the dysfunction of mitochondria by
+directing them toward calcium-mediated excitotoxicity, by
+stimulating ROS generation and initiating the intrinsic apop-
+totic pathway (Julien, 2007)."
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+SET Cell = "motor neuron"
+path(HBP:"mitochondrial dysfunction") -> bp(GO:"cell death")
+path(HBP:"mitochondrial dysfunction") -> bp(GO:"calcium-mediated signaling")
+path(HBP:"mitochondrial dysfunction") -> a(CHEBI:"reactive oxygen species")
+path(HBP:"mitochondrial dysfunction") -> path(MESH:"Apoptosis")
+UNSET MeSHDisease
+UNSET Cell
+
+SET Evidence = "An increase in
+the LC3II macroautophagy marker protein and a decreased
+amount of phosphorylated mechanistic target of rapamy-
+cin-positive motor neurons revealed impaired mitophagy
+related to the loss of motor neurons in ALS (Okamoto et al.,
+2010). "
+SET Cell = "motor neuron"
+path(MESH:"Amyotrophic Lateral Sclerosis") neg bp(GO:mitophagy)
+bp(GO:mitophagy) -| bp(GO:"cell death")
+UNSET Cell
+
+SET Evidence = "Various studies have reported dysfunctional Miro in
+ALS patients or animal models of the disease, including a
+report of significantly lower levels of Miro1 present in spinal
+cord samples of ALS patients (Zhang et al., 2015)."
+act(p(HGNCGENEFAMILY:"Miro like atypical Rho GTPases")) neg path(MESH:"Amyotrophic Lateral Sclerosis")
+SET MeSHAnatomy = "Spinal Cord"
+path(MESH:"Amyotrophic Lateral Sclerosis") neg p(HGNC:RHOT1)
+UNSET MeSHAnatomy
+
+SET Evidence = "Mitochondrial fission and fusion hamper mitophagic
+clearance, which may also be affected by mutant SOD1 (Fig-
+ure 3) (Albers and Beal, 2000)."
+bp(GO:"mitochondrial fission") -| bp(GO:mitophagy)
+bp(GO:"mitochondrial fusion") -| bp(GO:mitophagy)
+p(HGNC:SOD1, var("?")) -- bp(GO:mitophagy)
+
+SET Evidence = "GSH levels were lower in the
+motor cortex of ALS patients than those in the control vol-
+unteers (Weiduschat et al., 2014), and decreased levels of
+GSH result in neurological deficits and promoted the pro -
+gression of mitochondrial pathology in the mutant SOD1
+ALS mouse model (Vargas et al., 2011)."
+SET MeSHAnatomy = "Motor Cortex"
+a(PUBCHEM:124886) neg path(MESH:"Amyotrophic Lateral Sclerosis")
+a(PUBCHEM:124886) -> act(a(MESH:Neurons))
+SET Species = "10090"
+a(PUBCHEM:124886) -| path(MESH:"Mitochondrial Diseases")
+UNSET MeSHAnatomy
+
+SET Evidence = " Mutant SOD1 has
+been reported to impart Parkin-dependent degradation of
+MIRO1, which may explain the mitochondrial trafficking
+defect (Devine and Kittler, 2018)."
+p(HGNC:SOD1, var("?")) -> act(p(HGNC:PRKN))
+act(p(HGNC:PRKN)) -> deg(p(HGNC:RHOT1))
+p(HGNC:SOD1, var("?")) -> deg(p(HGNC:RHOT1))
+deg(p(HGNC:RHOT1)) -| bp(GO:"axonal transport of mitochondrion")
+
+SET Evidence = "The same study also de-
+scribed Miro1-knockout mice, which exhibited upper motor
+neuron degeneration (Nguyen et al., 2014)."
+SET Cell = "motor neuron"
+p(HGNC:RHOT1) -| path(HP:Neurodegeneration)
+UNSET Cell
+
+SET Evidence = "The expression of mutant TDP-43 in a motor neuron-like
+cell line induced oxidative species, mitochondrial disorder,
+and the accumulation of nuclear factor protein 2 (Nrf2), a
+modulator of oxidative species in a yeast model."
+SET Cell = "motor neuron"
+#TDP-43 is TARDBP
+#Nrf2 is NFE2L2
+p(HGNC:TARDBP, var("?")) -> a(CHEBI:"reactive oxygen species")
+p(HGNC:TARDBP, var("?")) -> path(MESH:"Mitochondrial Diseases")
+p(HGNC:NFE2L2) reg a(CHEBI:"reactive oxygen species")
+p(HGNC:TARDBP, var("?")) -> p(HGNC:NFE2L2)
+UNSET Cell
+
+SET Evidence = "TDP-43-ex-
+pressing cells displayed increased markers of oxidative
+stress (Guareschi et al., 2012). "
+p(HGNC:TARDBP) -> path(MESH:"Oxidative Stress")
+
+SET Evidence = "Additionally, mitochondrial
+disorder was noticed, together with oxidative damage, as
+well as the induction of mitophagy in the mouse motor neu-
+ron-like cell line (NSC34) expressing wild-type or mutant
+TDP-43, representing a pathology resembling ALS."
+#in TDP-43-expressing cells
+p(HGNC:TARDBP) -> path(MESH:"Mitochondrial Diseases")
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
+p(HGNC:TARDBP) -> bp(GO:mitophagy)
+UNSET MeSHDisease
+
+SET Evidence = " Mutant SOD1 impairs mitochondrial
+retrograde axonal transport (Magrané et al., 2013) along
+with mitochondrial network fragmentation, indicating the
+induction of mitophagy (Carrì et al., 2017)."
+p(HGNC:SOD1, var("?")) -| bp(GO:"retrograde axonal transport of mitochondrion")
+p(HGNC:SOD1, var("?")) -> bp(GO:mitophagy)
+
+SET Evidence = "Based on this review, we conclude that the loss of motor
+neurons and breakdown of the redox balance cause ALS in
+which ROS are an important component."
+a(MESH:"Motor Neurons") -| path(MESH:"Amyotrophic Lateral Sclerosis")
+bp(GO:"cell redox homeostasis") -| path(MESH:"Amyotrophic Lateral Sclerosis")
+a(CHEBI:"reactive oxygen species") -- path(MESH:"Amyotrophic Lateral Sclerosis")
