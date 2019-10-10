@@ -17,7 +17,7 @@ SET DOCUMENT Description = ""
 # Namespaces hosted on https://github.com/pharmacome/conso
 # --------------------------------------------------------
 DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
-DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/3c93a65dc48e6786fe29ae55aa36cf9a902fe8c6/export/conso-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/113c4d2bdd5f3e6faab71357c4bbf4596207ca40/export/conso-names.belns"
 # DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
 DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 # DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
@@ -95,7 +95,7 @@ isolated from AD brain, indicating truncated tau as a component
 of PHFs [69]."
 a(CONSO:MN423) -> complex(a(CONSO:MN423),p(HGNC:MAPT,frag("1_391")))
 SET MeSHAnatomy = "Brain"
-path(DOID:"Alzheimer's diease") -> p(HGNC:MAPT,frag("1_391"),loc(CONSO:"paired helical filaments"))
+path(DOID:"Alzheimer's disease") -> p(HGNC:MAPT,frag("1_391"),loc(CONSO:"paired helical filaments"))
 UNSET MeSHAnatomy
 
 SET Evidence = "On the basis of this findings, Novak
@@ -104,15 +104,15 @@ force behind neurofibrillary degeneration in AD and related
 tauopathies."
 SET MeSHDisease = "Alzheimer Disease"
 p(HGNC:MAPT,frag("?")) pos path(DOID:"neurodegenerative disease")
-p(HGNC:MAPT,frag("?")) pos path(DOID:tauopathies)
-UNSET MeSHAnatomy
+p(HGNC:MAPT,frag("?")) pos path(DOID:tauopathy)
+UNSET MeSHDisease
 
 SET Evidence = "Rat
 models developed extensive neurofibrillary pathology that led
 to functional neurobehavioral impairment of transgenic rats
 [50, 71, 72]."
 SET Species = "10116"
-path(GO:"neurofibrillary tangle") neg bp(GO:behavior)
+p(GO:"neurofibrillary tangle") neg bp(GO:behavior)
 UNSET Species
 
 SET Evidence = "In further support to the hypothesis, Abraha and
@@ -132,7 +132,7 @@ SET Evidence = "The D421
 truncation of tau has been reported in Pick’s disease as well
 [65]."
 #alog with AD
-path(DOID:"Alzheimer's diease") -> p(HGNC:MAPT,frag("1_421"))
+path(DOID:"Alzheimer's disease") -> p(HGNC:MAPT,frag("1_421"))
 path(DOID:"Niemann-Pick disease") -> p(HGNC:MAPT,frag("1_421"))
 
 SET Evidence = "It has been shown that caspase-cleaved tau adopts the
@@ -142,7 +142,7 @@ destabilization, disruptive anterograde transport, and cell
 death [76]."
 act(p(MESH:Caspases)) -> p(HGNC:MAPT,frag("?"))
 p(HGNC:MAPT,frag("?")) -> path(MESH:Virulence)
-path(DOID:"Alzheimer's diease") pos p(HGNC:MAPT,frag("?"))
+path(DOID:"Alzheimer's disease") pos p(HGNC:MAPT,frag("?"))
 p(HGNC:MAPT,frag("?"),pmod(Ph)) -| complex(p(HGNC:MAPT),a(MESH:Microtubules))
 p(HGNC:MAPT,frag("?"),pmod(Ph)) neg bp(GO:"anterograde axonal transport")
 p(HGNC:MAPT,frag("?"),pmod(Ph)) -> bp(GO:"cell death")
@@ -153,7 +153,7 @@ caspase activation induces tau truncation, which subsequently
 triggers tangle formation [77]."
 SET Species = "10090"
 act(p(MESH:Caspases)) -> p(HGNC:MAPT,frag("?"))
-p(HGNC:MAPT,frag("?")) -> path(GO:"neurofibrillary tangle")
+p(HGNC:MAPT,frag("?")) -> p(GO:"neurofibrillary tangle")
 UNSET Species
 
 SET Evidence = "Interestingly, truncated tau can
@@ -210,7 +210,7 @@ SET Evidence = "In
 concert with the truncation hypothesis, C-terminally truncated
 α-syn exhibited fibrillization and enhanced full length α-syn
 aggregation [95–98]."
-p(HGNC:SNCA,frag("1_?")) -> bp(CONSO:"alpha-synuclein fibrils")
+p(HGNC:SNCA,frag("1_?")) -> p(CONSO:"alpha-synuclein fibrils")
 p(HGNC:SNCA,frag("1_?")) -> p(CONSO:"alpha-synuclein aggregates")
 
 SET Evidence = "Mouse models expressing truncated
@@ -256,15 +256,15 @@ mislocalization into the nucleus is a major pathological
 manifestation in HD [56].It is proposed that the fragments
 once inside the nucleus may recruit additional proteases and
 contribute to cell death [112]."
-path(DOID:"Huntington's disease") -> tloc(p(HGNC:HTT,frag("?")),fromLoc(Go:cytoplasm),toLoc(GO:nucleus))
+path(DOID:"Huntington's disease") -> tloc(p(HGNC:HTT,frag("?")),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
 p(HGNC:HTT,frag("?"),loc(GO:nucleus)) -> bp(GO:"cell death")
 
 SET Evidence = "The htt protein truncated at D586 was translocated to the
 nucleus following cleavage by caspase-6 [113]. Nuclear
 accumulation of htt is known to mediate its toxicity."
-act(p(HGNC:CASP6) -> p(HGNC:HTT,frag("1_586"))
+act(p(HGNC:CASP6)) -> p(HGNC:HTT,frag("1_586"))
 p(HGNC:HTT,frag("1_586")) -> tloc(p(HGNC:HTT,frag("1_586")),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
-tloc(p(HGNC:HTT,frag("1_586")),fromLoc(GO:cytoplasm),toLoc(GO:nucleus)) -> path(MESH:"Toxic Actions")
+tloc(p(HGNC:HTT,frag("1_586")),fromLoc(GO:cytoplasm),toLoc(GO:nucleus)) -> a(MESH:"Toxic Actions")
 
 SET Evidence = "Nuclear translocation of truncated α-syn is observed after
 oxidative stress in a cell model with dopaminergic neurons
@@ -282,22 +282,22 @@ SET Evidence = "The study also suggested that the C terminus of
 TDP 43 was sufficient to induce cytoplasmic localization
 of the protein and promote aggregation."
 p(HGNC:TARDBP,frag("?_*")) -> tloc(p(HGNC:TARDBP),fromLoc(GO:nucleus),toLoc(GO:cytoplasm))
-p(HGNC:TARDBP,frag("?_*")) -> p(CONSO:"	TDP-43 aggregates")
+p(HGNC:TARDBP,frag("?_*")) -> p(CONSO:"TDP-43 aggregates")
 
 SET Evidence = "The role of proteases in neurodegenerative diseases has been
 extensively studied and the involvement of proteases in the
 generation of toxic truncated proteins in AD, Huntington
 disease, and PD, SPA3 and SPA7 have been clearly demonstrated
 (Table 1)."
-SET MeSHDisease = "Alzheimer Diseae"
+SET MeSHDisease = "Alzheimer Disease"
 p(HGNC:CASP6) -> p(HGNC:MAPT,frag("1_13"))
 p(HGNC:CASP3) -> p(HGNC:MAPT,frag("1_421"))
 p(HGNC:CASP6) -> p(HGNC:MAPT,frag("1_402"))
 p(MESH:"Peptide Hydrolases") -> p(HGNC:MAPT,frag("128_*"))
 p(HGNC:MAPT,pmod(CONSO:deamidation)) -> p(HGNC:MAPT,frag("1_255"))
 p(HGNC:MAPT,pmod(CONSO:deamidation)) -> p(HGNC:MAPT,frag("266_*"))
-p(HGNC:CTSD) -> p(HGNC:APP,frag("35")) [171]
-p(HGNC:CASP3) -> p(HGNC:APP,frag("219")) [144]
+p(HGNC:CTSD) -> p(HGNC:APP,frag("35_*"))
+p(HGNC:CASP3) -> p(HGNC:APP,frag("219_*"))
 UNSET MeSHDisease
 SET MeSHDisease = "Parkinson Disease"
 p(HGNC:CASP3) -> p(HGNC:SNCA,frag("1_122"))
@@ -432,10 +432,10 @@ p(HGNC:CAPN1) -> p(CONSO:"alpha-synuclein aggregates",frag("?"))
 SET Evidence = "Calpain homologs or subunits−1, −5, −7, and −10, are
 also elevated in HD and transgenic mouse models [106]."
 SET Species = {"10090", "9606"}
-path(DOID:"Huntington's diease") -> p(HGNC:CAPN1)
-path(DOID:"Huntington's diease") -> p(HGNC:CAPN5)
-path(DOID:"Huntington's diease") -> p(HGNC:CAPN7)
-path(DOID:"Huntington's diease") -> p(HGNC:CAPN10)
+path(DOID:"Huntington's disease") -> p(HGNC:CAPN1)
+path(DOID:"Huntington's disease") -> p(HGNC:CAPN5)
+path(DOID:"Huntington's disease") -> p(HGNC:CAPN7)
+path(DOID:"Huntington's disease") -> p(HGNC:CAPN10)
 UNSET Species
 
 SET Evidence = "Moreover,
@@ -501,7 +501,7 @@ shown that caspase-3 cleavage of tau and APP are the principal
 events in formation of mature plaques and tangles [143]."
 p(HGNC:CASP3) -> p(HGNC:MAPT,frag("?"))
 p(HGNC:CASP3) -> p(HGNC:APP,frag("?"))
-p(HGNC:MAPT,frag("?")) -> path(MESH:"Neurofibrillary Tangles")
+p(HGNC:MAPT,frag("?")) -> complex(MESH:"Neurofibrillary Tangles")
 p(HGNC:APP,frag("?")) ->  path(MESH:"Plaque, Amyloid")
 
 SET Evidence = "It has been
@@ -535,9 +535,9 @@ SET Evidence = "C-terminal truncation
 of APP aggravates N-terminal cleavage, which can
 further block motor proteins and transcriptional activators,
 thereby disrupting vital neuronal processes [51]."
-p(HGNC:APP,frag("*_?")) -| p(HGNC:APP,frag("?_*"))
-p(HGNC:APP,frag("*_?")) -| act(p(MESH:"Molecular Motor Proteins"))
-p(HGNC:APP,frag("*_?")) -| act(p(MESH:"Transcription Factors"))
+p(HGNC:APP,frag("1_?")) -| p(HGNC:APP,frag("?_*"))
+p(HGNC:APP,frag("1_?")) -| act(p(MESH:"Molecular Motor Proteins"))
+p(HGNC:APP,frag("1_?")) -| act(p(MESH:"Transcription Factors"))
 
 SET Evidence = "The htt fragments generated by caspases constitute the pathologic
 hallmark of Huntington disease."
@@ -555,7 +555,7 @@ SET Evidence = "Caspase-cleaved htt fragments
 with expanded poly Q tract exhibit neurotoxicity and
 induce cell death."
 act(p(HGNCGENEFAMILY:Caspases)) -> p(HGNC:HTT,frag("?"))
-p(HGNC:HTT,frag("?")) -> path(MESH:Neurotoxicity)
+p(HGNC:HTT,frag("?")) -> path(MESH:"Neurotoxicity Syndromes")
 p(HGNC:HTT,frag("?")) -> bp(GO:"cell death")
 
 SET Evidence = "Caspase-3 truncates
@@ -625,7 +625,7 @@ a(GO:lysosome) -| p(HGNC:CTSD)
 SET Evidence = "The truncated tau fragments,
 cleaved by cathepsin-D, lacked the Tau 46 antibody
 epitope suggesting C-terminal truncation."
-p(HGNC:CTSD) -> p(HGNC:MAPT,frag("*_?"))
+p(HGNC:CTSD) -> p(HGNC:MAPT,frag("1_?"))
 
 SET Evidence = "Furthermore, phosphorylation
 can alter the kinetics of tau truncation by cathepsin D
@@ -654,8 +654,8 @@ UNSET MeSHAnatomy
 
 SET Evidence = "It is suggested that cathepsin-B mediates β-secretase cleavage
 of APP in secretory vesicles [173]."
-p(HGNC:CTSB) -> act(p(HNC:BACE1))
-act(p(HNC:BACE1)) -> p(HGNC:APP,frag("?"),loc(GO:"secretory vesicle"))
+p(HGNC:CTSB) -> act(p(HGNC:BACE1))
+act(p(HGNC:BACE1)) -> p(HGNC:APP,frag("?"),loc(GO:"secretory vesicle"))
 
 SET Evidence = "Furthermore, the
 addition of an inhibitor of cathepsin B reduced Aβ-40 production
@@ -665,7 +665,7 @@ act(p(HGNC:CTSB)) -> a(CHEBI:"amyloid-beta polypeptide 40",loc(GO:"secretory ves
 SET Evidence = "Moreover, inhibition of
 cathepsin-B reduced amyloidβ deposition and improved
 memory deficits in transgenic animals [175]."
-p(HGNC:CTSB) -> p(HGNC:"amyloid-beta aggregates")
+p(HGNC:CTSB) -> p(CONSO:"amyloid-beta aggregates")
 p(HGNC:CTSB) neg bp(GO:memory)
 
 SET Evidence = "The
@@ -675,22 +675,22 @@ of α-syn lacking the C-terminal region, suggesting that
 C-terminal cleavage of α-syn is a pro-aggregation modification
 [176]."
 #human B-cell line 3D5
-#genertaed by CSTD
-p(HGNC:CSTD) -> p(HGNC:SNCA,frag("1_?"))
+#genertaed by CTSD
+p(HGNC:CTSD) -> p(HGNC:SNCA,frag("1_?"))
 p(HGNC:SNCA,frag("1_?")) -> p(CONSO:"alpha-synuclein aggregates")
 
 SET Evidence = "Furthermore, knockdown of cathepsin-D in 3D5 cells
 increased α-syn content in the lysosomes, implicating the role
 of cathepsin D in α-syn processing in these cells."
 #human B-cell line 3D5
-p(HGNC:CSTD) -| p(HGNC:SNCA,loc(GO:lysosome))
+p(HGNC:CTSD) -| p(HGNC:SNCA,loc(GO:lysosome))
 
 SET Evidence = "Knockdown of cathepsin D also caused accumulation
 of α-syn and elevated levels of insoluble α-syn
 content in mouse brains [178]."
 SET Species = "10090"
 SET MeSHAnatomy = "Brain"
-p(HGNC:CSTD) -> p(CONSO:"alpha-synuclein aggregates")
+p(HGNC:CTSD) -> p(CONSO:"alpha-synuclein aggregates")
 UNSET MeSHAnatomy
 UNSET Species
 
