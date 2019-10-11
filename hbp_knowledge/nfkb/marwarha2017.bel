@@ -1,0 +1,793 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Nuclear Factor Kappa-light-chain-enhancer of Activated B Cells (NF-κB) - a Friend, a Foe, or a Bystander - in the Neurodegenerative Cascade and Pathogenesis of Alzheimer's Disease"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Sandra Spalek"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+#DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+#DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+#DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+#DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+#DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
+#DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mesh-names.belns"
+#DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mgi-names.belns"
+#DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
+#DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+#DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
+#DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+#DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+#DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+#DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+#DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+#DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+#DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+#DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+#DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "28745240"}
+
+SET MeSHDisease = "Alzheimer Disease"
+
+SET Evidence = "Multiple studies have demonstrated the presence of NF-κB in the synapses and synaptosomal preparations [25,
+35, 39] and the presynaptic protein synaptophysin has been shown to co-localize with the p65 and p50 subunits of NF-
+κB in synaptosomal preparations [25, 35, 39], also been observed in the dendritic spines of the post-synaptic densities
+of the synaptosomes isolated from the hippocampus and the cerebral cortex"
+SET Confidence = "Medium"
+SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex"}
+SET CellStructure = {"Synaptosomes","Dendritic Spines"}
+p(HGNC:SYP) -> complex(p(HGNC:SYP),p(HGNC:RELA),p(HGNC:NFKB1))
+UNSET CellStructure
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "Other species of NF-κB have not been found at the synapses suggesting that the synapses contain
+the p65-p50 heterodimer exclusively"
+SET Confidence = "High"
+a(GO:synapse) -- complex(p(HGNC:RELA),p(HGNC:NFKB1))
+UNSET Confidence
+
+SET Evidence = "The indispensable role of NF-κB in synaptic transmission is corroborated by the fact that the
+mice that are deficient in neuronal p65, exhibit severe deficits in hippocampal basal synaptic transmission and long
+term potentiation (LTP)"
+SET Confidence = "Medium"
+SET Species = "10090"
+complex(GO:"NF-kappaB complex") -> bp(MESH:"Synaptic Transmission")
+SET MeSHAnatomy = "Hippocampus"
+p(HGNC:RELA) -> bp(MESH:"Synaptic Transmission")
+UNSET MeSHAnatomy
+p(HGNC:RELA) -> bp(GO:"long-term synaptic potentiation")
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "c-Rel null mice exhibit deficits in hippocampal long term depression (LTD), despite the lack
+of presence of c-Rel at the synapses in wild-type mic"
+SET Confidence = "Medium"
+SET Species = "10090"
+SET MeSHAnatomy = "Hippocampus"
+p(HGNC:REL) -> bp(GO:"long-term synaptic depression")
+UNSET MeSHAnatomy
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "p50 knock-out mice exhibit deficits in late LTP resulting in
+compromised spatial memory"
+# LTP: long term potentiation
+SET Confidence = "Medium"
+SET Species = "10090"
+p(HGNC:NFKB1) -> bp(GO:"long-term synaptic potentiation")
+p(HGNC:NFKB1) -> path(MESH:"Spatial Memory")
+bp(GO:"long-term synaptic potentiation") -- path(MESH:"Spatial Memory")
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "The expression of p65 and p50 is induced in response to long-term changes in synaptic
+strength and transmission such as LTP [39] and LTD"
+# LTP: long term potentiation
+# LTD: long term depression
+SET Confidence = "High"
+bp(GO:"long-term synaptic potentiation") -| p(HGNC:NFKB1)
+bp(GO:"long-term synaptic potentiation") -| p(HGNC:RELA)
+bp(GO:"long-term synaptic depression") -| p(HGNC:NFKB1)
+bp(GO:"long-term synaptic depression") -| p(HGNC:RELA)
+UNSET Confidence
+
+SET Evidence = "Additionally, NF-κB activity is also actuated by glutamate-
+mediated excitatory neurotransmission in the hippocampus, cerebral cortex, and the cerebellar granule cells"
+SET Confidence = "Medium"
+SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex","Cerebellar Cortex"}
+a(CHEBI:"glutamate(1-)") -> act(a(GO:"excitatory synapse"))
+act(a(GO:"excitatory synapse")) -> act(complex(GO:"NF-kappaB complex"))
+a(CHEBI:"glutamate(1-)") -> act(complex(GO:"NF-kappaB complex"))
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "Consequently, NF-κB is constitutively activated in the excitatory neurons of the cerebral cortex (layers 2, 4,
+and 5), hippocampus (granule and pyramidal neurons of CA1 and CA3), and cerebellar granule cells and this constitutive
+activity is indispensable for neuronal survival in response to glutamate-induced excitotoxicity"
+SET Confidence = "Medium"
+SET MeSHAnatomy = {"Cerebellar Cortex","Cerebral Cortex","CA1 Region, Hippocampal","CA3 Region, Hippocampal"}
+act(a(GO:"excitatory synapse")) -> act(complex(GO:"NF-kappaB complex"))
+act(complex(GO:"NF-kappaB complex")) -| bp(GO:"neuron death")
+a(CHEBI:"glutamate(1-)") -> path(CONSO:Excitotoxicity)
+path(CONSO:Excitotoxicity) -> bp(GO:"neuron death")
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "The molecular mechanism underlying constitutive activation
+of NF-κB by glutamate-induced excitatory synaptic neurotransmission has been ascribed to NMDA receptor mediated
+Ca2+ influx and subsequent activation of CaMKII"
+SET Confidence = "High"
+act(a(GO:"excitatory synapse")) -> act(complex(GO:"NF-kappaB complex"))
+a(MESH:"Receptors, N-Methyl-D-Aspartate") reg bp(GO:"calcium ion import")
+a(MESH:"Receptors, N-Methyl-D-Aspartate") reg act(p(HGNC:CAMK2A))
+bp(GO:"calcium ion import") -> act(complex(GO:"NF-kappaB complex"))
+act(p(HGNC:CAMK2A)) -> act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
+
+SET Evidence = "In addition to CamKII, other kinases activated in response
+to a rise in cytosolic Ca2+ such as protein kinase C (PKC), phosphatidylinositol-3-kinase (PI3K), and Akt, also
+activate NF-κB signaling pathway by increasing the phosphorylation and activation of IKK"
+SET Confidence = "High"
+bp(GO:"calcium ion import") -> act(p(HGNC:CAMK2A))
+bp(GO:"calcium ion import") -> act(p(FPLX:PKC))
+bp(GO:"calcium ion import") -> act(complex(GO:"phosphatidylinositol 3-kinase complex"))
+bp(GO:"calcium ion import") -> act(p(FPLX:AKT))
+act(p(FPLX:PKC)) -> act(complex(GO:"NF-kappaB complex"))
+act(complex(GO:"phosphatidylinositol 3-kinase complex")) -> act(complex(GO:"NF-kappaB complex"))
+act(p(FPLX:AKT)) -> act(complex(GO:"NF-kappaB complex"))
+act(complex(GO:"IkappaB kinase complex")) -> act(complex(GO:"NF-kappaB complex"))
+act(p(HGNC:CAMK2A)) -> act(complex(GO:"IkappaB kinase complex"))
+act(p(FPLX:PKC)) -> act(complex(GO:"IkappaB kinase complex"))
+act(complex(GO:"phosphatidylinositol 3-kinase complex")) -> act(complex(GO:"IkappaB kinase complex"))
+act(p(FPLX:AKT)) -> act(complex(GO:"IkappaB kinase complex"))
+p(MESH:"I-kappa B Kinase",pmod(Ph)) -> act(complex(GO:"IkappaB kinase complex"))
+act(p(HGNC:CAMK2A)) -> p(MESH:"I-kappa B Kinase",pmod(Ph))
+act(p(FPLX:PKC)) -> p(MESH:"I-kappa B Kinase",pmod(Ph))
+act(complex(GO:"phosphatidylinositol 3-kinase complex")) -> p(MESH:"I-kappa B Kinase",pmod(Ph))
+act(p(FPLX:AKT)) -> p(MESH:"I-kappa B Kinase",pmod(Ph))
+UNSET Confidence
+
+SET Evidence = "Given the indispensable role of NF-κB proteins in synaptic
+transmission and synaptic plasticity, it is not surprising
+that NF-κB is plays an indispensable role in cognition and behavior as well"
+SET Confidence = "High"
+complex(GO:"NF-kappaB complex") -> bp(MESH:"Synaptic Transmission")
+complex(GO:"NF-kappaB complex") -> bp(GO:"positive regulation of synaptic plasticity")
+complex(GO:"NF-kappaB complex") reg bp(GO:cognition)
+complex(GO:"NF-kappaB complex") reg bp(GO:behavior)
+UNSET Confidence
+
+SET Evidence = "NF-κB is also indispensable for longterm spatial memory as assessed by radial arm maze [25] and
+Morris water maze paradigms in mice"
+SET Confidence = "Medium"
+SET Species = "10090"
+complex(GO:"NF-kappaB complex") -> path(MESH:"Spatial Memory")
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "p50 knock-out mice exhibit severe deficits in learning as assessed by an active avoidance
+assay [93] in addition to displaying lack of anxiety-like behavior
+in well-established tests and paradigms that assess exploratory drive as a measure of anxiety"
+SET Confidence = "Medium"
+SET Species = "10090"
+p(HGNC:NFKB1) -> bp(GO:learning)
+p(HGNC:NFKB1) -> path(MESH:Anxiety)
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "The molecular mechanisms underlying the aforementioned involvement
+of NF-κB proteins in learning and memory have not been completely comprehended, although recent evidence has
+implicated NF-κB – induced transcriptional activation of Protein Kinase A (PKA) catalytic subunit that culminates in
+activation of CREB (cyclic AMP-response element binding protein) signaling [77] which is regarded as the molecular
+switch that converts short-term memory to long-term memory"
+SET Confidence = "High"
+complex(GO:"NF-kappaB complex") -> bp(GO:memory)
+complex(GO:"NF-kappaB complex") -> bp(GO:learning)
+complex(GO:"NF-kappaB complex") -> act(p(HGNC:PRKACA))
+act(p(HGNC:PRKACA)) -> act(p(HGNC:CREB1))
+act(p(HGNC:CREB1)) -> bp(GO:"long-term memory")
+UNSET Confidence
+
+SET Evidence = "Amyloid-β induced apoptosis has also been ascribed to dyshomeostasis
+of intracellular Ca2+ and oxidative stress [106-108], two critical
+biochemical derangements known to activate NF-κB"
+SET Confidence = "High"
+a(CHEBI:"amyloid-beta") -| bp(GO:"calcium ion homeostasis")
+a(CHEBI:"amyloid-beta") -- bp(MESH:"Oxidative Stress")
+bp(GO:"calcium ion homeostasis") -> act(complex(GO:"NF-kappaB complex"))
+bp(MESH:"Oxidative Stress") -> act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
+
+SET Evidence = "Amyloid-β has also been demonstrated to induce apoptosis
+via the JNK1/c-Jun/Fas ligand signaling cascade [110], which results in NF-κB activation"
+SET Confidence = "High"
+a(CHEBI:"amyloid-beta") -> bp(GO:"apoptotic process")
+a(CHEBI:"amyloid-beta") -> bp(GO:"JNK cascade")
+bp(GO:"JNK cascade") -> bp(GO:"apoptotic process")
+a(CHEBI:"amyloid-beta") -> bp(GO:"Fas signaling pathway")
+bp(GO:"Fas signaling pathway") -> bp(GO:"apoptotic process")
+bp(GO:"Fas signaling pathway") -> act(complex(GO:"NF-kappaB complex"))
+bp(GO:"JNK cascade") -> act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
+
+SET Evidence = "Recent evidence has cogently shown that Amyloid-β induces apoptosis in rat
+primary neurons and human post-mitotic neuronal cells by reducing Bcl-XL expression level and evoking the release of
+cytochrome c from the mitochondria in a NF-κB – dependent manner"
+SET Confidence = "Medium"
+SET Species = {"9606","10114"}
+SET Cell = "neuron"
+a(CHEBI:"amyloid-beta") -> act(complex(GO:"NF-kappaB complex"))
+a(CHEBI:"amyloid-beta") -> bp(GO:"apoptotic process")
+a(CHEBI:"amyloid-beta") -| p(HGNC:BCL2L1)
+complex(GO:"NF-kappaB complex") -| p(HGNC:BCL2L1)
+SET MeSHAnatomy = "Mitochondria"
+p(HGNC:BCL2L1) -> sec(a(PUBCHEM:16057918))
+a(CHEBI:"amyloid-beta") -| sec(a(PUBCHEM:16057918))
+complex(GO:"NF-kappaB complex") -| sec(a(PUBCHEM:16057918))
+UNSET MeSHAnatomy
+UNSET Cell
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "This is counter-intuitive as it is established that NF-κB positively regulates the expression of Bcl-XL and
+other members of the Bcl2 family"
+SET Confidence = "Medium"
+complex(GO:"NF-kappaB complex") reg r(HGNC:BCL2L1)
+UNSET Confidence
+
+SET Evidence = "Preponderance of evidence has implicated NF-κB as a survival factor in neurons [24, 114, 115] primarily
+because of the ability of NF-κB to suppress apoptosis in response to excitotoxic and apoptotic stimuli"
+SET Confidence = "High"
+complex(GO:"NF-kappaB complex") -| bp(GO:"apoptotic process")
+complex(GO:"NF-kappaB complex") -| bp(GO:"neuron death")
+UNSET Confidence
+
+SET Evidence = "Inhibition of NF-κB activity using a κB decoy DNA that
+results in the sequestration of NF-κB, increases the susceptibility
+of hippocampal neurons to noxious and apoptotic stimuli"
+SET Confidence = "High"
+SET MeSHAnatomy = "Hippocampus"
+complex(GO:"NF-kappaB complex") -| bp(GO:"neuron death")
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "The anti-apoptotic effects of NF-κB have been ascribed to its ability to trans-activate the expression of
+a multitude of anti-apoptotic genes such as Bcl-2, Bcl-XL,
+and Bfl-1/A1 in the neurons of the amygdala, olfactory bulb,
+and the CA1/CA3 region of the hippocampus"
+SET Confidence = "High"
+SET MeSHAnatomy = {"Amygdala","Olfactory Bulb","CA1 Region, Hippocampal","CA3 Region, Hippocampal"}
+complex(GO:"NF-kappaB complex") -| bp(GO:"apoptotic process")
+complex(GO:"NF-kappaB complex") -> p(HGNC:BCL2L1)
+p(HGNC:BCL2L1) -| bp(GO:"apoptotic process")
+complex(GO:"NF-kappaB complex") -> p(HGNC:BCL2)
+p(HGNC:BCL2) -| bp(GO:"apoptotic process")
+complex(GO:"NF-kappaB complex") -> p(HGNC:BCL2A1)
+p(HGNC:BCL2A1) -| bp(GO:"apoptotic process")
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "Overexpression of the p65 subunit of NF-κB confers resistance to etoposide-induced apoptosis in cortical neurons"
+SET Confidence = "High"
+SET MeSHAnatomy = {"Neurons","Cerebral Cortex"}
+p(HGNC:RELA) neg bp(GO:"apoptotic process")
+a(CHEBI:etoposide) -> bp(GO:"apoptotic process")
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "NF-κB activity abrogates Amyloid-β peptide-induced toxicity in dissociated hippocampal cultures from C57Bl/6 mice"
+SET Confidence = "Medium"
+SET CellLine = "mouse C57BL/6 inbred strain"
+act(complex(GO:"NF-kappaB complex")) -| act(a(MESH:"Amyloid beta-Peptides"))
+UNSET CellLine
+UNSET Confidence
+
+SET Evidence = "NF-κB activation also protects hippocampal neurons from oxidative stress-induced apoptosis by inducing
+manganese superoxide dismutase (MnSOD) expression and mitigating peroxynitrite-induced protein nitration"
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Hippocampus"
+act(complex(GO:"NF-kappaB complex")) -| bp(GO:"neuron death")
+bp(MESH:"Oxidative Stress") -> bp(GO:"apoptotic process")
+act(complex(GO:"NF-kappaB complex")) -> r(HGNC:SOD2)
+act(complex(GO:"NF-kappaB complex")) -| p(MESH:Proteins,pmod(CONSO:nitration))
+a(CHEBI:peroxynitrite) -> p(MESH:Proteins,pmod(CONSO:nitration))
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "NF-κB induction and activation mediates the neuroprotection
+bestowed by pre-conditioning with a sub-optimal dose of
+kainic acid and linolenic acid against severe ischemia"
+SET Confidence = "High"
+composite(complex(GO:"NF-kappaB complex"),a(CHEBI:"kainic acid")) reg bp(MESH:Neuroprotection)
+composite(complex(GO:"NF-kappaB complex"),a(CHEBI:"kainic acid")) -| path(MESH:Ischemia)
+composite(complex(GO:"NF-kappaB complex"),a(CHEBI:"linolenic acid")) reg bp(MESH:Neuroprotection)
+composite(complex(GO:"NF-kappaB complex"),a(CHEBI:"linolenic acid")) -| path(MESH:Ischemia)
+UNSET Confidence
+
+SET Evidence = "The trophic factors that evoke proliferation of NPC by inducing activation of
+NF-κB include epidermal growth factor (EGF) [155-161], basic fibroblast growth factor (bFGF) [155-161], vascular
+endothelial growth factor (VEGF) [162], tumor necrosis factor α (TNFα) [163], and erythropoietin (EPO)"
+# NPC: neural progenitor cell
+SET Confidence = "Medium"
+act(complex(GO:"NF-kappaB complex")) -> bp(GO:neurogenesis)
+p(HGNC:FGF2) -> act(complex(GO:"NF-kappaB complex"))
+p(HGNC:EGF) -> act(complex(GO:"NF-kappaB complex"))
+p(HGNC:VEGFA) -> act(complex(GO:"NF-kappaB complex"))
+p(HGNC:TNF) -> act(complex(GO:"NF-kappaB complex"))
+p(HGNC:EPO) -> act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
+
+SET Evidence = "Physiological, pathophysiological, and biochemical stimuli known
+to induce proliferation of NPC via NF-κB activation include
+cerebral infarction [165], traumatic brain injury [166], reactive
+oxygen species [167], hypoxia [168-172], sAPPα [147], and sphingosine-1-phosphate [173]"
+# NPC: neural progenitor cell
+SET Confidence = "High"
+act(complex(GO:"NF-kappaB complex")) -> bp(GO:neurogenesis)
+path(MESH:"Cerebral Infarction") -> act(complex(GO:"NF-kappaB complex"))
+path(MESH:"Cerebral Infarction") -> bp(GO:neurogenesis)
+path(MESH:"Brain Injuries, Traumatic") -> act(complex(GO:"NF-kappaB complex"))
+path(MESH:"Brain Injuries, Traumatic") -> bp(GO:neurogenesis)
+a(CHEBI:"reactive oxygen species") -> act(complex(GO:"NF-kappaB complex"))
+a(CHEBI:"reactive oxygen species") -> bp(GO:neurogenesis)
+path(MESH:Hypoxia) -> act(complex(GO:"NF-kappaB complex"))
+path(MESH:Hypoxia) -> bp(GO:neurogenesis)
+p(CONSO:"sAPP-alpha") -> act(complex(GO:"NF-kappaB complex"))
+p(CONSO:"sAPP-alpha") -> bp(GO:neurogenesis)
+a(CHEBI:"sphingosine 1-phosphate") -> act(complex(GO:"NF-kappaB complex"))
+a(CHEBI:"sphingosine 1-phosphate") -> bp(GO:neurogenesis)
+UNSET Confidence
+
+SET Evidence = "Furthermore, nitric oxide (NO), a well characterized repressor of NF-κB activation
+and signaling [174, 175], causes a mitigation in neurogenesis"
+SET Confidence = "High"
+a(CHEBI:"nitric oxide") -| act(complex(GO:"NF-kappaB complex"))
+a(CHEBI:"nitric oxide") -| bp(GO:neurogenesis)
+UNSET Confidence
+
+SET Evidence = "Moreover, NF-κB mediates the NSC migration in response to physiological and
+pathophysiological stimuli such as cerebral cortex injury [181], seizure [182], and ischemic stroke"
+# NSC: neural stem cells
+SET Confidence = "High"
+complex(GO:"NF-kappaB complex") reg a(MESH:"Neural Stem Cells")
+path(HP:"Ischemic stroke") -> act(complex(GO:"NF-kappaB complex"))
+path(HP:Seizures) -> act(complex(GO:"NF-kappaB complex"))
+a(MESH:"Cerebral Cortex") neg act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
+
+SET Evidence = "NF-κB also plays a pivotal role in the differentiation of neural stem cells"
+SET Confidence = "High"
+SET MeSHAnatomy = "Neurons"
+act(complex(GO:"NF-kappaB complex")) -> bp(GO:"stem cell division")
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "NF-κB positively regulates the transcription of interleukin 6
+(IL6) family of cytokines such as IL6, leukemia inhibitory
+factor (LIF) and ciliary neurotrophic factor (CNTF) [184],
+which in-turn induce the differentiation of NSC into astrocytes
+by activating transcription factors STAT3, AP-1, and NF-κB itself"
+SET Confidence = "High"
+complex(GO:"NF-kappaB complex") -> p(HGNC:IL6)
+p(HGNC:IL6) -> bp(GO:"astrocyte development")
+p(HGNC:IL6) -> p(HGNC:STAT3)
+p(HGNC:STAT3) -> bp(GO:"astrocyte development")
+p(HGNC:IL6) -> a(MESH:"Transcription Factor AP-1")
+a(MESH:"Transcription Factor AP-1") -> bp(GO:"astrocyte development")
+p(HGNC:IL6) -> act(complex(GO:"NF-kappaB complex"))
+act(complex(GO:"NF-kappaB complex")) -> bp(GO:"astrocyte development")
+complex(GO:"NF-kappaB complex") -> p(HGNC:LIF)
+p(HGNC:LIF) -> bp(GO:"astrocyte development")
+p(HGNC:LIF) -> p(HGNC:STAT3)
+p(HGNC:STAT3) -> bp(GO:"astrocyte development")
+p(HGNC:LIF) -> a(MESH:"Transcription Factor AP-1")
+a(MESH:"Transcription Factor AP-1") -> bp(GO:"astrocyte development")
+p(HGNC:LIF) -> act(complex(GO:"NF-kappaB complex"))
+act(complex(GO:"NF-kappaB complex")) -> bp(GO:"astrocyte development")
+complex(GO:"NF-kappaB complex") -> p(HGNC:CNTF)
+p(HGNC:CNTF) -> bp(GO:"astrocyte development")
+p(HGNC:CNTF) -> p(HGNC:STAT3)
+p(HGNC:STAT3) -> bp(GO:"astrocyte development")
+p(HGNC:CNTF) -> a(MESH:"Transcription Factor AP-1")
+a(MESH:"Transcription Factor AP-1") -> bp(GO:"astrocyte development")
+p(HGNC:CNTF) -> act(complex(GO:"NF-kappaB complex"))
+act(complex(GO:"NF-kappaB complex")) -> bp(GO:"astrocyte development")
+UNSET Confidence
+
+SET Evidence = "NF-κB is also indispensable in the neuronal
+differentiation of neuroblastoma cells [186] as its transcriptional
+activity directly orchestrates dendritic spine formation
+and neurite outgrowth"
+SET Confidence = "High"
+act(complex(GO:"NF-kappaB complex")) -> bp(GO:"dendritic spine organization")
+act(complex(GO:"NF-kappaB complex")) -> bp(MESH:"Neuronal Outgrowth")
+UNSET Confidence
+
+SET Evidence = "Multiple studies have implicated NF-κB in the regulation
+of post-natal axonal growth or neurite outgrowth."
+SET Confidence = "High"
+act(complex(GO:"NF-kappaB complex")) -> bp(MESH:"Neuronal Outgrowth")
+act(complex(GO:"NF-kappaB complex")) -> a(GO:axon)
+UNSET Confidence
+
+SET Evidence = "Both, brain-derived neurotrophic factor (BDNF) and ciliary neurotrophic
+factor (CNTF) promote neurite outgrowth, in a NF- κB - dependent manner, in primary cultures of nodose ganglion
+sensory neurons from developing mice"
+SET Confidence = "Medium"
+SET Species = "10090"
+SET MeSHAnatomy = "Ganglia, Sensory"
+p(HGNC:BDNF) -> bp(MESH:"Neuronal Outgrowth")
+p(HGNC:BDNF) -> act(complex(GO:"NF-kappaB complex"))
+p(HGNC:CNTF) -> bp(MESH:"Neuronal Outgrowth")
+p(HGNC:CNTF) -> act(complex(GO:"NF-kappaB complex"))
+act(complex(GO:"NF-kappaB complex")) -> bp(MESH:"Neuronal Outgrowth")
+UNSET MeSHAnatomy
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "The mechanism underlying the effect of BDNF and CNTF on
+NF-κB activation has been attributed to the activation of Src
+and Lck non-receptor tyrosine kinases which phosphorylate
+IκBα on Tyr42 resulting in subsequent NF-κB activation"
+SET Confidence = "High"
+p(HGNC:BDNF) -> act(p(HGNC:SRC))
+act(p(HGNC:SRC)) -> p(HGNC:NFKBIA,pmod(Ph,Tyr,42))
+p(HGNC:NFKBIA,pmod(Ph,Tyr,42)) -> act(complex(GO:"NF-kappaB complex"))
+p(HGNC:CNTF) -> act(p(HGNC:LCK))
+act(p(HGNC:LCK)) -> p(HGNC:NFKBIA,pmod(Ph,Tyr,42))
+p(HGNC:NFKBIA,pmod(Ph,Tyr,42)) -> act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
+
+SET Evidence = "This paradoxical incongruity in the effects of NF-κB emanate
+from the prevailing phosphorylation status of the p65
+subunit (Ser536) and coinciding physiological and biochemical
+stimuli, with the phosphorylation status of p65 being inversely
+related to the NF-κB – induced neurite outgrowth"
+SET Confidence = "High"
+p(HGNC:RELA,pmod(Ph,Ser,536)) neg bp(MESH:"Neuronal Outgrowth")
+act(complex(GO:"NF-kappaB complex")) -> bp(MESH:"Neuronal Outgrowth")
+UNSET Confidence
+
+SET Evidence = "NF-κB also plays a vital role in axon guidance subsequent
+to neurogenesis and axon growth in response to neurotrophins,
+resulting in the integration of the nascent neurons"
+SET Confidence = "High"
+act(complex(GO:"NF-kappaB complex")) -> bp(GO:"axon guidance")
+act(complex(GO:"NF-kappaB complex")) -> bp(GO:neurogenesis)
+bp(GO:"axon guidance") -> bp(GO:neurogenesis)
+bp(GO:"axon guidance") -> a(GO:axon)
+UNSET Confidence
+
+SET Evidence = "NF-κB positively regulates the expression of extracellular matrix protein involved in cell
+adhesion, β1-integrin [199], a well characterized pivotal player in axon growth initiation and guidance"
+SET Confidence = "Medium"
+complex(GO:"NF-kappaB complex") reg r(HGNC:ITGB1)
+p(HGNC:ITGB1) -> bp(GO:"axon guidance")
+p(HGNC:ITGB1) -> a(GO:axon)
+UNSET Confidence
+
+SET Evidence = "Furthermore, NF-κB directly regulates the expression of a
+plethora of cell adhesion molecules such as neural cell adhesion
+molecule (NCAM) [202], slit and Trk-like family member 1 (SLITRK1) [203], glial cell-derived neurotrophic factor
+receptor α1 (GFRα1) [204], and T-lymphoma and metastasis 1 (TLAM1) [203], key players in directing axon growth."
+SET Confidence = "High"
+complex(GO:"NF-kappaB complex") reg p(HGNC:NCAM1)
+p(HGNC:NCAM1) -> a(GO:axon)
+complex(GO:"NF-kappaB complex") reg p(HGNC:SLITRK1)
+p(HGNC:SLITRK1) -> a(GO:axon)
+complex(GO:"NF-kappaB complex") reg p(HGNC:GFRA1)
+p(HGNC:GFRA1) -> a(GO:axon)
+complex(GO:"NF-kappaB complex") reg p(HGNC:TIAM1)
+p(HGNC:TIAM1) -> a(GO:axon)
+UNSET Confidence
+
+SET Evidence = "NF-κB is integrally involved in the orchestration of
+growth of dendritic arbors and critically regulates dendritic
+morphology because of its indispensable role in dendritic growth and branching"
+SET Confidence = "High"
+act(complex(GO:"NF-kappaB complex")) -> a(MESH:"Dendritic Cells")
+act(complex(GO:"NF-kappaB complex")) -> a(GO:"dendritic branch")
+UNSET Confidence
+
+SET Evidence = "NF-κB activation directly induces the transcription of Hes1 and Hes5 [206, 207], two key
+transcription factors involved in the regulation of expression of proteins involved in dendritic growth, morphology, and branching"
+SET Confidence = "Medium"
+act(complex(GO:"NF-kappaB complex")) -> r(HGNC:HES1)
+p(HGNC:HES1) reg a(GO:"dendritic branch")
+p(HGNC:HES1) reg a(MESH:"Dendritic Cells")
+act(complex(GO:"NF-kappaB complex")) -> r(HGNC:HES5)
+p(HGNC:HES5) reg a(GO:"dendritic branch")
+p(HGNC:HES5) reg a(MESH:"Dendritic Cells")
+UNSET Confidence
+
+SET Evidence = "NF-κB activates the expression of the two microtubule-associated proteins, microtubule-associated protein
+1B (MAP1B) and microtubule-associated protein 2 (MAP2) [209], two major proteins known to play a pivotal
+role in the growth, elongation, and arborization of dendrites"
+SET Confidence = "High"
+complex(GO:"NF-kappaB complex") -> p(HGNC:MAP1B)
+p(HGNC:MAP1B) -> a(MESH:"Dendritic Cells")
+complex(GO:"NF-kappaB complex") -> p(HGNC:MAP2)
+p(HGNC:MAP2) -> a(MESH:"Dendritic Cells")
+UNSET Confidence
+
+SET Evidence = "NF-κB directly regulates the transcription of a multitude of proteins of the complement
+pathway that are involved in antigen presenting such as C3 (complement component 3) [241], Bf (complement factor B)
+[242], and CR2 (complement receptor 2) [243] as well as acute phase proteins such as C4 (complement factor 4) [244]
+and C4BPA (complement factor 4 binding protein)"
+SET Confidence = "High"
+complex(GO:"NF-kappaB complex") reg p(HGNC:C3)
+complex(GO:"NF-kappaB complex") reg p(HGNC:CFB)
+complex(GO:"NF-kappaB complex") reg p(HGNC:CR2)
+complex(GO:"NF-kappaB complex") reg p(HGNC:C4A)
+complex(GO:"NF-kappaB complex") reg p(HGNC:C4BPA)
+UNSET Confidence
+
+SET Evidence = "Furthermore, fibrillar Amyloid-β has been shown to activate NF-κB via the assembly pf
+the C5b-MAC complex"
+SET Confidence = "High"
+a(CHEBI:"amyloid-beta") -> act(complex(GO:"NF-kappaB complex"))
+a(CHEBI:"amyloid-beta") -> complex(p(HGNC:C5),a(GO:"membrane attack complex"))
+complex(p(HGNC:C5),a(GO:"membrane attack complex")) -> act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
+
+SET Evidence = "It is well established that NF-κB is one of the most prominent
+transcription factors that regulates IL1β production"
+SET Confidence = "High"
+complex(GO:"NF-kappaB complex") reg p(HGNC:IL1B)
+UNSET Confidence
+
+SET Evidence = "Moreover, NF-κB – induced IL1 genesis has been shown to precipitate tau phosphorylation at Ser202
+and Thr205 (AT8 epitopes) via the activation of the p38- MAPK pathway"
+SET Confidence = "High"
+complex(GO:"NF-kappaB complex") -> act(p(HGNC:IL1A))
+act(p(HGNC:IL1A)) -> bp(GO:"p38MAPK cascade")
+bp(GO:"p38MAPK cascade") -> p(HGNC:MAPT,pmod(Ph,Ser,202),pmod(Ph,Thr,205))
+complex(GO:"NF-kappaB complex") -> p(HGNC:MAPT,pmod(Ph,Ser,202),pmod(Ph,Thr,205))
+UNSET Confidence
+
+SET Evidence = "IL6 is another NF-κB – induced [256-260] pro-inflammatory cytokine up-regulated and integrally
+involved in the etio-pathogenesis of Alzheimer’s disease"
+SET Confidence = "High"
+complex(GO:"NF-kappaB complex") -> p(HGNC:IL6)
+p(HGNC:IL6) -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+SET Evidence = "Furthermore, NF-κB - induced IL6 has been demonstrated to evoke hyperphosphorylation of
+tau at Ser202 and Thr205 via the activation of the cdk5/p35 complex"
+SET Confidence = "High"
+complex(GO:"NF-kappaB complex") -> p(HGNC:IL6)
+p(HGNC:IL6) -> p(HGNC:MAPT,pmod(Ph,Ser,202),pmod(Ph,Thr,205))
+act(complex(p(HGNC:CDK5R1),p(HGNC:CDK5))) -> p(HGNC:MAPT,pmod(Ph,Ser,202),pmod(Ph,Thr,205))
+complex(GO:"NF-kappaB complex") -> p(HGNC:MAPT,pmod(Ph,Ser,202),pmod(Ph,Thr,205))
+complex(GO:"NF-kappaB complex") -> act(complex(p(HGNC:CDK5R1),p(HGNC:CDK5)))
+UNSET Confidence
+
+SET Evidence = "Another known target of NF-κB, TNFα [266, 267] is also up-regulated in the cortex [268], cerebrospinal
+fluid, and the serum of Alzheimer’s disease patients"
+SET Confidence = "Medium"
+SET MeSHAnatomy = {"Neocortex","Serum","Cerebrospinal Fluid"}
+complex(GO:"NF-kappaB complex") reg p(HGNC:TNF)
+path(MESH:"Alzheimer Disease") pos p(HGNC:TNF)
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "Furthermore, Amyloid-β actuates NF-κB – dependent
+pro-inflammatory pathways in microglia culminating
+in TNFα expression and subsequently TNFα effectuated neurotoxicity"
+SET Confidence = "Medium"
+SET Cell = "microglial cell"
+a(CHEBI:"amyloid-beta") -> complex(GO:"NF-kappaB complex")
+a(CHEBI:"amyloid-beta") -> p(HGNC:TNF)
+complex(GO:"NF-kappaB complex") -> p(HGNC:TNF)
+p(HGNC:TNF) -> path(CONSO:neurotoxicity)
+UNSET Cell
+UNSET Confidence
+
+SET Evidence = "Multiple studies have cogently shown that the inhibition of NF-κB
+activity results in the mitigation of secreted Amyloid-β by cultured cells in vitro"
+SET Confidence = "High"
+act(complex(GO:"NF-kappaB complex")) -> sec(a(CHEBI:"amyloid-beta"))
+UNSET Confidence
+
+SET Evidence = "NF-κB is also widely implicated
+in the engenderment of Amyloid-β in vivo in a multitude of mouse models"
+SET Confidence = "Medium"
+SET Species = "10090"
+act(complex(GO:"NF-kappaB complex")) -> a(CHEBI:"amyloid-beta")
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "A multitude of studies have demonstrated that NF-κB directly regulates the transcription and
+expression of BACE1, thereby eliciting profound effects on AβPP processing and engenderment of Amyloid-β"
+SET Confidence = "Medium"
+complex(GO:"NF-kappaB complex") -> r(HGNC:BACE1)
+complex(GO:"NF-kappaB complex") reg bp(CONSO:"APP processing")
+complex(GO:"NF-kappaB complex") reg a(CHEBI:"amyloid-beta")
+UNSET Confidence
+
+SET Evidence = "NF-κB induced up-regulation in
+BACE1 expression is contingent on the nature of the NF-κB heterodimer"
+SET Confidence = "Medium"
+complex(GO:"NF-kappaB complex") -> r(HGNC:BACE1)
+UNSET Confidence
+
+SET Evidence = "The binding of p65/p50 or p65/p52 NF- κB heterodimer in the BACE1 promoter results in transcriptional
+activation whereas the binding of c-Rel/p52 heterodimer results in repression of BACE1 transcription"
+SET Confidence = "High"
+complex(p(HGNC:RELA),p(HGNC:NFKB1)) -> complex(p(HGNC:RELA),p(HGNC:NFKB1),p(HGNC:BACE1))
+complex(p(HGNC:RELA),p(HGNC:NFKB1),p(HGNC:BACE1)) -> p(HGNC:BACE1)
+complex(p(HGNC:RELA),p(HGNC:NFKB2)) -> complex(p(HGNC:RELA),p(HGNC:NFKB2),p(HGNC:BACE1))
+complex(p(HGNC:RELA),p(HGNC:NFKB2),p(HGNC:BACE1)) -> p(HGNC:BACE1)
+complex(p(HGNC:REL),p(HGNC:NFKB2)) -> complex(p(HGNC:REL),p(HGNC:NFKB2),p(HGNC:BACE1))
+complex(p(HGNC:RELA),p(HGNC:NFKB2),p(HGNC:BACE1)) -| p(HGNC:BACE1)
+UNSET Confidence
+
+SET Evidence = "Recent studies have unveiled a novel role of NF-κB in the regulation
+of the γ-secretase activity mediated processing of the C99 (CTFβ) fragment"
+SET Confidence = "High"
+complex(GO:"NF-kappaB complex") reg p(CONSO:C99)
+complex(GO:"NF-kappaB complex") reg act(complex(GO:"gamma-secretase complex"))
+complex(GO:"gamma-secretase complex") reg p(CONSO:C99)
+UNSET Confidence
+
+SET Evidence = "In addition to augmenting γ-secretase activity, NF-κB also regulates the expression
+of the PS1 subunit of the γ-secretase complex"
+SET Confidence = "High"
+complex(GO:"NF-kappaB complex") -> act(complex(GO:"gamma-secretase complex"))
+complex(GO:"NF-kappaB complex") reg p(HGNC:PSEN1)
+UNSET Confidence
+
+SET Evidence = "Furthermore, two κB-binding sites have been identified in
+the proximal promoter region of AβPP, suggesting the potential
+regulation of AβPP expression by NF-κB"
+SET Confidence = "High"
+complex(GO:"NF-kappaB complex") reg p(HGNC:APP)
+UNSET Confidence
+
+SET Evidence = "Indeed, Checler and colleagues have shown in a recent study that,
+NF-κB mediates the Amyloid-β – induced increase in expression of AβPP in HEK293 cells"
+SET Confidence = "High"
+SET CellLine = "HEK293"
+complex(GO:"NF-kappaB complex") reg a(CHEBI:"amyloid-beta")
+a(CHEBI:"amyloid-beta") -> p(HGNC:APP)
+complex(GO:"NF-kappaB complex") reg p(HGNC:APP)
+UNSET CellLine
+UNSET Confidence
+
+SET Evidence = "NF-κB acts as a sensor of oxidative stress
+and it is well established that oxidative stress results in the activation of NF-κB"
+SET Confidence = "High"
+bp(MESH:"Oxidative Stress") -> act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
+
+SET Evidence = "In primary neuronal cultures, Amyloid-β has been shown to elicit oxidative stress and
+evoke NF-κB activation"
+SET Confidence = "High"
+a(CHEBI:"amyloid-beta") -> bp(MESH:"Oxidative Stress")
+a(CHEBI:"amyloid-beta") -> act(complex(GO:"NF-kappaB complex"))
+bp(MESH:"Oxidative Stress") -> act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
+
+SET Evidence = "Furthermore, Amyloid-β –induced NF-κB also results in the up-regulation of the antioxidant
+mitochondrial membrane enzyme – MnSOD (superoxide dismutase 2) [328] which is well known to combat
+oxidative stress and apoptosis"
+SET Confidence = "High"
+a(CHEBI:"amyloid-beta") -> act(complex(GO:"NF-kappaB complex"))
+act(complex(GO:"NF-kappaB complex")) -> p(HGNC:SOD2)
+p(HGNC:SOD2) -| bp(MESH:"Oxidative Stress")
+p(HGNC:SOD2) -| bp(GO:"apoptotic process")
+UNSET Confidence
+
+SET Evidence = "The three well characterized sensors of intracellular calcium – calmodulin/CamKII pathway, PI3K/
+Akt pathway, and protein kinase C (PKC) pathway – are known to induce NF-κB activation and couple upstream signal
+transduction pathways that induce calcium dyshomeostasis to NF-κB activation"
+SET Confidence = "High"
+bp(CONSO:"PI3K-Akt signaling pathway") -> act(complex(GO:"NF-kappaB complex"))
+act(p(FPLX:PKC)) -> act(complex(GO:"NF-kappaB complex"))
+act(p(HGNC:CAMK2A)) -> act(complex(GO:"NF-kappaB complex"))
+act(complex(GO:"NF-kappaB complex")) -| bp(GO:"calcium ion homeostasis")
+UNSET Confidence
+
+SET Evidence = "There is evidence that Amyloid-β causes the activation of Ca2+/calmodulin/CamKII
+pathway [332-334], thereby potentially leading to NF-κB activation."
+SET Confidence = "High"
+a(CHEBI:"amyloid-beta") -> act(complex(GO:"calcium- and calmodulin-dependent protein kinase complex"))
+act(complex(GO:"calcium- and calmodulin-dependent protein kinase complex")) -> act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
+
+SET Evidence = "Moreover, there is preponderance of data implicating
+Amyloid-β in the modulation of PKC signaling pathway [335-338] and the PI3K/Akt/mTOR signaling pathway
+[339-341], which are known to activate NF-κB signaling pathway"
+SET Confidence = "High"
+a(CHEBI:"amyloid-beta") reg act(p(FPLX:PKC))
+act(p(FPLX:PKC)) -> act(complex(GO:"NF-kappaB complex"))
+a(CHEBI:"amyloid-beta") reg bp(CONSO:"PI3K-Akt signaling pathway")
+bp(CONSO:"PI3K-Akt signaling pathway") -> act(complex(GO:"NF-kappaB complex"))
+UNSET Confidence
+
+SET Evidence = "Furthermore, negative regulators of NF-κB such as
+the NAD+- dependent histone deacetylase – SIRT1, abolish the deleterious neurotoxic effects of Amyloid-β"
+SET Confidence = "High"
+p(HGNC:SIRT1) -| act(complex(GO:"NF-kappaB complex"))
+p(HGNC:SIRT1) -| path(CONSO:neurotoxicity)
+a(CHEBI:"amyloid-beta") -> path(CONSO:neurotoxicity)
+UNSET Confidence
+
+SET Evidence = "Emerging evidence has implicated Amyloid-β in augmenting cytosolic Ca2+ levels and causing NF-
+κB activation via calcineurin in astrocytes"
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Cytosol"
+a(CHEBI:"amyloid-beta") -> a(CHEBI:"calcium(2+)")
+UNSET MeSHAnatomy
+SET MeSHAnatomy = "Astrocytes"
+a(MESH:Calcineurin) -> act(complex(GO:"NF-kappaB complex"))
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "Amyloid-β also induces microglial activation that results in NF-κB –
+induced expression of pro-inflammatory cytokines such as
+TNFα, IL1β, IL6, and IL8 from the microglia resulting in neuronal death"
+SET Confidence = "High"
+a(CHEBI:"amyloid-beta") -> act(a(MESH:Microglia))
+act(a(MESH:Microglia)) -> p(HGNC:TNF)
+act(a(MESH:Microglia)) -> p(HGNC:IL1B)
+act(a(MESH:Microglia)) -> p(HGNC:IL6)
+act(a(MESH:Microglia)) -> p(HGNC:CXCL8)
+complex(GO:"NF-kappaB complex") -> p(HGNC:TNF)
+complex(GO:"NF-kappaB complex") -> p(HGNC:IL1B)
+complex(GO:"NF-kappaB complex") -> p(HGNC:IL6)
+complex(GO:"NF-kappaB complex") -> p(HGNC:CXCL8)
+act(a(MESH:Microglia)) -> bp(GO:"neuron death")
+p(HGNC:CXCL8) -> bp(GO:"neuron death")
+p(HGNC:IL6) -> bp(GO:"neuron death")
+p(HGNC:IL1B) -> bp(GO:"neuron death")
+p(HGNC:TNF) -> bp(GO:"neuron death")
+UNSET Confidence
+
+UNSET MeSHDisease

@@ -1,0 +1,612 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "TDP-43 loss of function increases TFEB activity and blocks autophagosome–lysosome fusion"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Sandra Spalek"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/chebi-names.belns"
+#DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/drugbank-names.belns"
+#DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/doid-names.belns"
+#DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/ec-code.belns"
+#DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/fb-names.belns"
+#DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hgnc.genefamily-names.belns"
+#DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/hp-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/go-names.belns"
+#DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mesh-names.belns"
+#DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
+#DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mirbase-names.belns"
+#DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/ncbigene.belns"
+#DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/pfam-names.belns"
+#DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+#DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+#DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+#DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+#DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+#DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+#DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+#DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+#DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+#DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+#DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+#DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+#DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+#DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "26702100"}
+
+# ALP: Autophagy–lysosome pathway
+# ALS: Amyotrophic lateral sclerosis
+
+# in TDP-43-deficient cells
+
+SET Evidence = "Given that ALP, the critical cellular quality control system, is
+involved in ALS (Ling et al, 2013) and that TFEB is a master regulator
+of ALP and is functionally associated with neurodegenerative
+diseases as recently reported (Sardiello et al, 2009; Settembre et al,
+2011; Tsunemi et al, 2012; Decressac et al, 2013; Spampanato et al,
+2013), we wonder whether TDP-43 is able to regulate TFEB"
+SET Confidence = "High"
+bp(GO:autophagy) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+p(HGNC:TFEB) reg bp(GO:autophagy)
+p(HGNC:TFEB) -- path(MESH:"Neurodegenerative Diseases")
+UNSET Confidence
+
+SET Evidence = "We observed that knockdown of TDP-43 resulted in a dramatic
+increase of nuclear and a decrease of cytoplasmic GFP-tagged TFEB
+in those cells (Fig 1A and B)."
+# those cells: HeLa (non-neuronal) and SH-SY5Y (neuronal) cells
+SET Confidence = "High"
+SET CellLine = {"HeLa cell","SH-SY5Y cell"}
+p(HGNC:TARDBP) -| p(HGNC:TFEB,loc(GO:nucleus))
+p(HGNC:TARDBP) -> p(HGNC:TFEB,loc(GO:cytoplasm))
+UNSET CellLine
+UNSET Confidence
+
+SET Evidence = "Based on the observations that mTORC1 plays an important role in
+the regulation of TFEB (Pena-Llopis et al, 2011; Martina et al, 2012;
+Roczniak-Ferguson et al, 2012; Settembre et al, 2012; Martina & Puertollano, 2013),
+we hypothesized that TDP-43 may regulate TFEB nuclear translocation in an mTORC1-dependent manner"
+SET Confidence = "High"
+p(HGNCGENEFAMILY:"MTOR complex 1") reg p(HGNC:TFEB)
+UNSET Confidence
+
+# localization of mTOR reflects the activity of mTORC1
+
+SET Evidence = "TDP-43-depleted cells showed a dramatic reduction of the
+punctate mTOR distribution that could indicate its lysosomal localization
+according to the previous reports (Fig 2A)."
+SET Confidence = "Medium"
+p(HGNC:TARDBP) -> p(HGNC:MTOR),loc(GO:lysosome))
+#p(HGNC:TARDBP) -> act(p(HGNCGENEFAMILY:"MTOR complex 1"))
+UNSET Confidence
+
+SET Evidence = "Furthermore, the activity of mTORC1 was suppressed after knockdown of TDP-43,
+indicated by the phosphorylation of mTORC1 substrates p70S6K (Fig 2B)"
+# p70S6K is RPS6KB1
+# detected by using anti-phospho-p70S6K antibody (T389) [phosphorylation at T389]
+SET Confidence = "High"
+p(HGNC:TARDBP) -> act(p(HGNCGENEFAMILY:"MTOR complex 1"))
+p(HGNC:RPS6KB1,pmod(Ph,Thr,389)) neg act(p(HGNCGENEFAMILY:"MTOR complex 1"))
+act(p(HGNCGENEFAMILY:"MTOR complex 1")) -- p(HGNC:RPS6KB1)
+UNSET Confidence
+
+SET Evidence = "Given that amino acid is a well-established regulator of
+mTORC1 and promotes mTOR translocation to the lysosomal
+surface, we next examined the intracellular localization of mTOR
+under starvation or re-addition of amino acids in cells after starvation
+with or without TDP-43 knockdown"
+SET Confidence = "High"
+a(CHEBI:"amino acid") reg act(p(HGNCGENEFAMILY:"MTOR complex 1"))
+a(CHEBI:"amino acid") -> p(HGNC:MTOR),loc(GO:lysosome))
+UNSET Confidence
+
+SET Evidence = "The enrichment of mTOR on lysosomes was impaired once
+cells were starved, but was restored after amino acids re-feeding
+(Fig 2C, upper panel)."
+SET Confidence = "High"
+a(CHEBI:"amino acid") -> p(HGNC:MTOR),loc(GO:lysosome))
+path(MESH:Starvation) -| p(HGNC:MTOR),loc(GO:lysosome))
+UNSET Confidence
+
+SET Evidence = "Meanwhile, mTOR failed to localize to lysosomes
+in TDP-43-depleted cells regardless of the presence or
+absence of amino acids (Fig 2C, lower panel)."
+SET Confidence = "High"
+p(HGNC:TARDBP) -> p(HGNC:MTOR),loc(GO:lysosome))
+UNSET Confidence
+
+SET Evidence = "Consistent with these
+data, biochemical assays showed that the level of phosphorylated
+p70S6K was relatively low after starvation. Re-treatment of amino
+acids failed to restore p70S6K phosphorylation in TDP-43-depleted
+cells, whereas it significantly induced p70S6K phosphorylation in
+control cells (Fig 2D)."
+SET Confidence = "High"
+path(MESH:Starvation) -| p(HGNC:RPS6KB1,pmod(Ph,Thr,389))
+a(CHEBI:"amino acid") -> p(HGNC:RPS6KB1,pmod(Ph,Thr,389))
+UNSET Confidence
+
+SET Evidence = "Previous studies have shown that the subcellular localization and
+activity of mTOR are highly controlled by mTORC1 adaptor protein
+raptor, Rag GTPases, and Ragulator complex which is comprised of
+p18, p14, and MP1 proteins that reside directly on the lysosomal
+membrane surface (Sancak et al, 2008, 2010; Zoncu et al, 2011a;
+Bar-Peled et al, 2012)."
+#MP1 : LAMTOR3
+#p14 : LAMTOR2
+#p18 : LAMTOR1
+SET Confidence = "High"
+p(HGNC:RPTOR) reg act(p(HGNC:MTOR))
+p(HGNC:RRAGA) reg act(p(HGNC:MTOR))
+complex(GO:"Ragulator complex") reg act(p(HGNC:MTOR))
+complex(GO:"Ragulator complex") hasComponents list(p(HGNC:LAMTOR1),p(HGNC:LAMTOR2),p(HGNC:LAMTOR3))
+UNSET Confidence
+
+SET Evidence = "In Ragulator–Rag–mTORC1 complex, Ragulator
+anchors the Rag GTPases to lysosomes, which is essential for
+Rag GTPases activation through an amino acids-dependent manner."
+SET Confidence = "Medium"
+complex(a(GO:"Ragulator complex"),p(HGNC:RRAGA),p(HGNCGENEFAMILY:"MTOR complex 1")) -> complex(p(HGNC:RRAGA),a(GO:lysosome))
+complex(p(HGNC:RRAGA),a(GO:lysosome)) -> a(CHEBI:"amino acid")
+a(CHEBI:"amino acid") -> act(p(HGNC:RRAGA))
+UNSET Confidence
+
+SET Evidence = "Meanwhile, raptor interacts with active Rag GTPase heterodimers in
+which GTP-bound RagA or RagB (very similar to RagA) associates
+with GDP-bound RagC or RagD (similar to RagC), and raptor targets
+mTOR to lysosome surface where mTOR could be activated by its
+activator Rheb on the lysosomes."
+SET Confidence = "High"
+complex(p(HGNC:RPTOR),p(HGNC:RRAGA),p(HGNC:RRAGC))
+complex(p(HGNC:RPTOR),p(HGNC:RRAGA),p(HGNC:RRAGD))
+complex(p(HGNC:RPTOR),p(HGNC:RRAGB),p(HGNC:RRAGC))
+complex(p(HGNC:RPTOR),p(HGNC:RRAGB),p(HGNC:RRAGD))
+p(HGNC:RPTOR) -> p(HGNC:MTOR,loc(GO:lysosome))
+SET CellStructure = "Lysosomes"
+p(HGNC:RHEB) -> act(p(HGNC:MTOR))
+UNSET CellStructure
+UNSET Confidence
+
+SET Evidence = "TDP-43-depleted cells showed a
+decrease of raptor, but not mTOR, p18, and RagB, compared with
+control cells (Fig 2B)"
+SET Confidence = "Medium"
+p(HGNC:TARDBP) -> p(HGNC:RPTOR)
+p(HGNC:TARDBP) cnc p(HGNC:RPTOR)
+p(HGNC:TARDBP) cnc p(HGNC:LAMTOR1)
+p(HGNC:TARDBP) cnc p(HGNC:RRAGB)
+UNSET Confidence
+
+SET Evidence = "Downregulation of raptor
+mRNA was observed in TDP-43-depleted cells, whereas mRNA
+levels of other known members of mTOR-associated machinery on
+the lysosomes, such as mTOR itself, RagB, p18, MP1, p14, HBXIP,
+C7orf59, RagA, RagC, RagD, and FLCN, were not changed (Figs 2E
+and EV1C)."
+#HBXIP : LAMTOR5
+#C7orf59 : LAMTOR4
+SET Confidence = "Medium"
+p(HGNC:TARDBP) -> r(HGNC:RPTOR)
+p(HGNC:TARDBP) cnc r(HGNC:MTOR)
+p(HGNC:TARDBP) cnc r(HGNC:RRAGB)
+p(HGNC:TARDBP) cnc r(HGNC:LAMTOR1)
+p(HGNC:TARDBP) cnc r(HGNC:LAMTOR3)
+p(HGNC:TARDBP) cnc r(HGNC:LAMTOR2)
+p(HGNC:TARDBP) cnc r(HGNC:LAMTOR5)
+p(HGNC:TARDBP) cnc r(HGNC:LAMTOR4)
+p(HGNC:TARDBP) cnc r(HGNC:RRAGA)
+p(HGNC:TARDBP) cnc r(HGNC:RRAGC)
+p(HGNC:TARDBP) cnc r(HGNC:RRAGD)
+p(HGNC:TARDBP) cnc r(HGNC:FLCN)
+UNSET Confidence
+
+SET Evidence = "The cells treated with siRNA against raptor had diminished
+mTOR localization to lysosomes, showing a similarity to the
+cells treated with siRNA against TDP-43 (Figs 2F and G, and EV1A and B)."
+SET Confidence = "High"
+p(HGNC:RPTOR) -> p(HGNC:MTOR),loc(GO:lysosome))
+UNSET Confidence
+
+SET Evidence = "Given that raptor is the key adaptor of mTORC1 and directly
+regulates mTOR lysosomal localization, we wondered whether
+TDP-43 regulates mTOR lysosomal localization in a raptor-dependent manner."
+SET Confidence = "High"
+complex(p(HGNC:RPTOR),p(HGNCGENEFAMILY:"MTOR complex 1"))
+p(HGNC:RPTOR) reg p(HGNC:MTOR),loc(GO:lysosome))
+UNSET Confidence
+
+SET Evidence = "In TDP-43-depleted cells, mTOR was recruited to lysosomes,
+indicated by a co-localization of lysosomal marker LAMP1
+and CD63 after raptor re-transfection (Figs 2F and G, and EV1D and
+E), suggesting a specific dependence of raptor in TDP-43-mediated
+mTOR lysosomal localization"
+SET Confidence = "Medium"
+p(HGNC:TARDBP) reg p(HGNC:MTOR),loc(GO:lysosome))
+complex(p(HGNC:MTOR),p(HGNC:LAMP1))
+complex(p(HGNC:MTOR),p(HGNC:CD63))
+p(HGNC:LAMP1) -- a(GO:lysosome)
+p(HGNC:CD63) -- a(GO:lysosome)
+p(HGNC:TARDBP) -- p(HGNC:RPTOR)
+UNSET Confidence
+
+SET Evidence = "In contrast, in TDP-43 knockdown cells, TFEB and mTOR localization
+was dramatically changed, showing that TFEB was translocated
+from the cytosol to the nucleus and formed lysosomal puncta in
+cytoplasm, whereas mTOR had a diffusively cytoplasmic distribution
+(Figs 3A and EV2), suggesting an involvement of mTORC1 in
+TDP-43-mediated TFEB nuclear translocation"
+SET Confidence = "Medium"
+p(HGNC:TARDBP) -| p(HGNC:TFEB,loc(GO:nucleus))
+p(HGNC:TARDBP) -> p(HGNC:TFEB,loc(GO:cytoplasm))
+p(HGNCGENEFAMILY:"MTOR complex 1") -- act(p(HGNC:TARDBP))
+p(HGNCGENEFAMILY:"MTOR complex 1") -> p(HGNC:TFEB,loc(GO:nucleus))
+UNSET Confidence
+
+SET Evidence = "After a restoration of raptor, but not active Rag
+GTPases (RagAGTP/RagCGDP), TFEB shuttled back to the cytoplasm
+(Figs 3A, EV2, and EV3A and B), suggesting a critical role of raptor
+in TDP-43-mediated regulation of TFEB."
+SET Confidence = "Medium"
+p(HGNC:RPTOR) -> tloc(p(HGNC:TFEB),fromLoc(GO:nucleus),toLoc(GO:cytoplasm))
+UNSET Confidence
+
+SET Evidence = "Based on the studies that
+Rag GTPases functions in the recruitment of TFEB and mTOR to
+lysosomes (Martina & Puertollano, 2013), we next tested whether
+TDP-43 could influence the lysosomal localization of Rag GTPases."
+SET Confidence = "High"
+p(HGNC:RRAGA) -> p(HGNC:TFEB,loc(GO:lysosome))
+p(HGNC:RRAGA) -> p(HGNC:MTOR,loc(GO:lysosome))
+UNSET Confidence
+
+SET Evidence = "The enrichment of the active Rag GTPases (RagAGTP/RagCGDP)
+(Martina & Puertollano, 2013) on lysosomes was not disturbed after
+knockdown of TDP-43, but was strongly abolished after knockdown
+of p18, which anchors Rag GTPases to lysosomes (Fig 3D), indicating
+that loss of TDP-43 does not affect the localization of the Rag
+GTPases."
+SET Confidence = "Medium"
+p(HGNC:LAMTOR1) -> p(HGNC:RRAGA,loc(GO:lysosome))
+p(HGNC:LAMTOR1) -> p(HGNC:RRAGC,loc(GO:lysosome))
+p(HGNC:TARDBP) cnc p(HGNC:RRAGA,loc(GO:lysosome))
+p(HGNC:TARDBP) cnc p(HGNC:RRAGC,loc(GO:lysosome))
+UNSET Confidence
+
+SET Evidence = "The conversion of serine 211 to alanine in TFEB results in a loss
+of phosphorylation of TFEB by mTORC1, which in turn blocks the
+formation of the TFEB-14-3-3 complex in the cytosol, leading to a
+constitutive nuclear localization, as well as an increased lysosomal
+localization of TFEB (Martina et al, 2012; Roczniak-Ferguson et al,
+2012; Martina & Puertollano, 2013)."
+SET Confidence = "High"
+p(HGNC:TFEB,var("p.Ser211Ala")) -| p(HGNC:TFEB,pmod(Ph))
+p(HGNCGENEFAMILY:"MTOR complex 1") -> p(HGNC:TFEB,pmod(Ph))
+SET CellStructure = "Cytosol"
+p(HGNC:TFEB,var("p.Ser211Ala")) -| complex(p(HGNC:TFEB),p(HGNCGENEFAMILY:"14-3-3 phospho-serine/phospho-threonine binding proteins"))
+p(HGNC:TFEB,pmod(Ph)) -> complex(p(HGNC:TFEB),p(HGNCGENEFAMILY:"14-3-3 phospho-serine/phospho-threonine binding proteins"))
+UNSET CellStructure
+
+SET Evidence = "In contrast, TFEB-D30 mutant
+(deletion of the first 30 amino acids) and TFEB-Q10A/L11A mutant
+could not associate with Rag GTPases and lysosomes, leading to a
+failure of phosphorylation of Ser211 by mTORC1 and subsequently
+being transported easily into the nucleus (Martina et al, 2012;
+Roczniak-Ferguson et al, 2012)."
+SET Confidence = "High"
+p(HGNC:TFEB,var("p.Met1_Val30del")) -| complex(a(GO:lysosome),p(HGNC:TFEB),p(HGNC:RRAGA))
+p(HGNC:TFEB,var("p.Met1_Val30del")) -| p(HGNC:TFEB,pmod(Ph,Ser,211))
+p(HGNC:TFEB,var("p.Met1_Val30del")) -> p(HGNC:TFEB,loc(GO:nucleus))
+p(HGNC:TFEB,var("p.Gln10Ala"),var("p.Lys11Ala")) -| complex(a(GO:lysosome),p(HGNC:TFEB),p(HGNC:RRAGA))
+p(HGNC:TFEB,var("p.Gln10Ala"),var("p.Lys11Ala")) -| p(HGNC:TFEB,pmod(Ph,Ser,211))
+p(HGNC:TFEB,var("p.Gln10Ala"),var("p.Lys11Ala")) -> p(HGNC:TFEB,loc(GO:nucleus))
+complex(a(GO:lysosome),p(HGNC:TFEB),p(HGNC:RRAGA)) -> p(HGNC:TFEB,pmod(Ph,Ser,211))
+p(HGNCGENEFAMILY:"MTOR complex 1") -> p(HGNC:TFEB,pmod(Ph,Ser,211))
+UNSET Confidence
+
+SET Evidence = "In our observations, knockdown of
+TDP-43 significantly increased wild-type (WT) TFEB, but not TFEBD30
+or TFEB-Q10A/L11A lysosomal localization (Figs 3E and EV3C
+and D), suggesting that Rag GTPases, but not TDP-43, are critical
+for the association of TFEB with lysosomes"
+SET Confidence = "Medium"
+p(HGNC:TARDBP) -| p(HGNC:TFEB,loc(GO:lysosome))
+p(HGNC:TARDBP) cnc p(HGNC:TFEB,var("p.Met1_Val30del"),loc(GO:lysosome))
+p(HGNC:TARDBP) cnc p(HGNC:TFEB,var("p.Gln10Ala"),var("p.Lys11Ala"),loc(GO:lysosome))
+p(HGNC:RRAGA) -- p(HGNC:TFEB,loc(GO:lysosome))
+UNSET Confidence
+
+SET Evidence = "In agreement with other studies (Martina
+et al, 2012; Roczniak-Ferguson et al, 2012; Settembre et al, 2012;
+Martina & Puertollano, 2013), TFEB was dramatically translocated
+to the nuclei and lysosomes after the treatment of Torin-1, a specific
+mTORC1 inhibitor."
+SET Confidence = "High"
+a(CHEBI:"torin 1") isA a(CHEBI:"mTOR inhibitor")
+a(CHEBI:"torin 1") -> p(HGNC:TFEB,loc(GO:lysosome))
+a(CHEBI:"torin 1") -> p(HGNC:TFEB,loc(GO:nucleus))
+UNSET Confidence
+
+SET Evidence = "In contrast, starvation or depletion of RagB led
+to an increase of nuclear, but not lysosomal translocation of TFEB,
+even if the cells were subsequently incubated with Torin-1 (Fig 3F)."
+SET Confidence = "High"
+p(HGNC:RRAGB) -| p(HGNC:TFEB,loc(GO:nucleus))
+p(HGNC:RRAGB) cnc p(HGNC:TFEB,loc(GO:lysosome))
+UNSET Confidence
+
+SET Evidence = "The mRNA and protein levels of raptor were restored
+upon re-expression with wild-type TDP-43 in TDP-43-deficient cells,
+indicating a role of TDP-43 in the regulation of raptor gene expression
+level (Fig 4A and B)."
+SET Confidence = "High"
+p(HGNC:TARDBP) -> p(HGNC:RPTOR)
+p(HGNC:TARDBP) -> r(HGNC:RPTOR)
+UNSET Confidence
+
+SET Evidence = "In agreement with this, RNA immunoprecipitation
+(RIP) analysis showed that wild-type TDP-43, but not the
+RRM1 and RRM2 domain deletion mutant, could bind to raptor
+mRNA (Fig 4E)."
+SET Confidence = "High"
+complex(p(HGNC:TARDBP),r(HGNC:RPTOR))
+UNSET Confidence
+
+SET Evidence = "Importantly, we observed that the mRNA stability
+of raptor, but not RagB, was decreased in TDP-43-deficient cells
+(Fig 4G and Appendix Fig S3)."
+SET Confidence = "High"
+p(HGNC:TARDBP) -> act(r(HGNC:RPTOR))
+UNSET Confidence
+
+SET Evidence = "As nuclear translocation of TFEB is associated with TFEB transcriptional
+activity, which is tightly involved in the regulation of
+lysosomal biogenesis and autophagic level, we wonder whether
+TDP-43 could regulate ALP"
+p(HGNC:TFEB,loc(GO:nucleus)) -- act(p(HGNC:TFEB), ma(MESH:"Transcription, Genetic"))
+act(p(HGNC:TFEB), ma(MESH:"Transcription, Genetic")) reg a(GO:lysosome)
+act(p(HGNC:TFEB), ma(MESH:"Transcription, Genetic")) reg bp(GO:autophagy)
+
+#Lysotracker (a specific lysosomal fluorescent probe) as a marker to monitor lysosomal biogenesis
+
+SET Evidence = "In TDP-43-depleted cells, the fluorescent
+intensity of Lysotracker was markedly increased (Fig 5A
+and Appendix Fig S4A and B)."
+SET Confidence = "High"
+p(HGNC:TARDBP) -| a(GO:lysosome)
+UNSET Confidence
+
+SET Evidence = "TDP-43-depleted cells showed a global increase of
+both mRNA and protein expression levels of a set of TFEB target
+genes, including lysosomal and autophagic genes, such as genes
+involved in lysosomal biogenesis and function (LAMP1, cathepsins,
+and genes encoding subunits of vacuolar ATPases), and genes
+involved in autophagy (ATG5, Beclin-1, and ATG9B; Fig 5B and C)."
+SET Confidence = "Medium"
+p(HGNC:TARDBP) -| p(HGNC:LAMP1)
+p(HGNC:TARDBP) -| r(HGNC:LAMP1)
+p(HGNC:LAMP1) -- a(GO:lysosome)
+p(HGNC:TARDBP) -| p(HGNCGENEFAMILY:Cathepsins)
+p(HGNC:TARDBP) -| r(HGNCGENEFAMILY:Cathepsins)
+p(HGNCGENEFAMILY:Cathepsins) -- a(GO:lysosome)
+p(HGNC:TARDBP) -| a(MESH:"Vacuolar Proton-Translocating ATPases")
+a(MESH:"Vacuolar Proton-Translocating ATPases") -- a(GO:lysosome)
+p(HGNC:TARDBP) -| p(HGNC:ATG5)
+p(HGNC:TARDBP) -| r(HGNC:ATG5)
+p(HGNC:ATG5) -- bp(GO:autophagy)
+p(HGNC:TARDBP) -| p(HGNC:BECN1)
+p(HGNC:TARDBP) -| r(HGNC:BECN1)
+p(HGNC:BECN1) -- bp(GO:autophagy)
+p(HGNC:TARDBP) -| p(HGNC:ATG9B)
+p(HGNC:TARDBP) -| r(HGNC:ATG9B)
+p(HGNC:ATG9B) -- bp(GO:autophagy)
+UNSET Confidence
+
+# LC3-II and the numbers of LC3-labeled vesicles reflect the autophagosome numbers
+
+SET Evidence = "Consistent with these results,
+immunofluorescent assay showed a dramatic increased punctuate
+LC3 in the absence of TDP-43 (Fig EV4B and C)."
+SET Confidence = "High"
+p(HGNC:TARDBP) -| a(GO:autophagosome)
+UNSET Confidence
+
+SET Evidence = "Knockdown of
+TDP-43 also increased punctuate p62 (an autophagic substrate and
+marker protein) and LC3 that were co-localized in cells (Fig EV4D and E)."
+SET Confidence = "High"
+p(HGNC:TARDBP) -| p(HGNC:SQSTM1)
+p(HGNC:TARDBP) -| p(HGNC:MAP1LC3A)
+complex(p(HGNC:MAP1LC3A),p(HGNC:SQSTM1))
+UNSET Confidence
+
+SET Evidence = "Moreover, immunoblot and electron microscopy (EM) analyses
+demonstrated that loss of TFEB could abolish the increases of
+levels of LC3-II, autophagosomal, and lysosomal numbers in TDP-
+43-depleted cells (Fig 6A and B)."
+SET Confidence = "High"
+p(HGNC:TFEB) -> p(HGNC:MAP1LC3B)
+p(HGNC:TFEB) -> a(GO:autophagosome)
+p(HGNC:TFEB) -> a(GO:lysosome)
+UNSET Confidence
+
+SET Evidence = "The level of LC3-II was also increased in TDP-43-
+depleted cells treated with bafilomycin A1 compared with control
+cells treated with bafilomycin A1 (Fig 6C), indicating that loss of
+TDP-43 enhanced autophagosome synthesis"
+SET Confidence = "Medium"
+#a(CHEBI:"bafilomycin A1") -| act(complex(GO:"vacuolar proton-transporting V-type ATPase complex"))
+p(HGNC:TARDBP) -| bp(GO:"autophagosome assembly")
+p(HGNC:TARDBP) -| p(HGNC:MAP1LC3B)
+a(CHEBI:"bafilomycin A1") -> p(HGNC:MAP1LC3B)
+UNSET Confidence
+
+SET Evidence = "An significant
+increase of autophagosomes (yellow dots with both mCherry and
+EGFP signals) was observed in TDP-43-depleted cells compared
+with control cells, but the formation of autolysosomes (red dots
+with only mCherry signal since quenching of the EGFP signal in the
+acidic lysosomes) was not enhanced to a same extent as autophagosomes
+(Fig 6D and E)"
+SET Confidence = "High"
+p(HGNC:TARDBP) -| a(GO:autophagosome)
+p(HGNC:TARDBP) reg a(GO:autolysosome)
+UNSET Confidence
+
+SET Evidence = "In addition, formation of autophagosomes
+(yellow) was also enhanced in TDP-43-depleted cells treated
+with bafilomycin A1 (Fig 6D and E)."
+SET Confidence = "Medium"
+a(CHEBI:"bafilomycin A1") -> a(GO:autophagosome)
+UNSET Confidence
+
+SET Evidence = "Notably, under starvation
+condition, we observed an increase of autophagosomes and a
+decrease of autolysosomes in TDP-43-depleted cells compared
+with control cells, suggesting that knockdown of TDP-43 could
+impair autophagosome–lysosome fusion in a mTORC1-independent
+manner, thereby inhibiting autophagic flux under starvation
+condition (Fig 6D and E)."
+SET Confidence = "High"
+path(MESH:Starvation) -> a(GO:autophagosome)
+path(MESH:Starvation) -| a(GO:autolysosome)
+p(HGNC:TARDBP) -> bp(GO:"autophagosome-lysosome fusion")
+UNSET Confidence
+
+SET Evidence = "In supporting with this notion, the
+protein level of autophagic substrate p62 was upregulated in TDP-
+43-deficient cells under basal and starvation conditions (Fig 6G),
+whereas the mRNA level of p62 was not changed in those cells
+(Fig EV4F)."
+SET Confidence = "Medium"
+p(HGNC:TARDBP) -| p(HGNC:SQSTM1)
+p(HGNC:TARDBP) -| r(HGNC:SQSTM1)
+UNSET Confidence
+
+SET Evidence = "Our results showed that the gene expression level of DCTN1, which
+encodes dynactin 1, was significantly decreased in TDP-43-depleted
+cells (Fig EV5A and B)."
+SET Confidence = "High"
+p(HGNC:TARDBP) -> g(HGNC:DCTN1)
+UNSET Confidence
+
+SET Evidence = "Furthermore, protein expression level of
+dynactin 1, but not dynein heavy and intermediate chains (DHC and
+DIC), was decreased in those cells (Fig 7A)."
+SET Confidence = "High"
+p(HGNC:TARDBP) -> p(HGNC:DCTN1)
+p(HGNC:TARDBP) cnc a(MESH:Dyneins)
+UNSET Confidence
+
+SET Evidence = "Importantly,
+we observed significant decreased LC3/LAMP1 co-localization
+(autophagosome–lysosome fusion) in dynactin 1-deficient cells,
+and loss of TDP-43 was not able to decrease LC3/LAMP1 co-localization
+in dynactin 1-deficient cells (Fig 7D and E)."
+SET Confidence = "High"
+p(HGNC:DCTN1) -> bp(GO:"autophagosome-lysosome fusion")
+UNSET Confidence
+
+SET Evidence = "Meanwhile, retransfection
+of dynactin 1 could increase LC3/LAMP1 co-localization
+in TDP-43-depleted cells (Fig 7F and G), indicating that dynactin 1
+deficiency contributes to the impairment of autophagosome–lysosome
+fusion in TDP-43-depleted cells"
+# LC3/LAMP1 co-localization (autophagosome–lysosome fusion)
+SET Confidence = "High"
+p(HGNC:DCTN1) -> bp(GO:"autophagosome-lysosome fusion")
+UNSET Confidence
+
+SET Evidence = "In TBPH-/- larvae, compared with
+W1118 control larvae, the phosphorylation levels of S6K and
+4E-BP1, but not expression of S6K mRNA, were decreased (Fig 8A
+and D, and Appendix Fig S6A). Furthermore, the level of phosphorylated
+S6K and 4E-BP1 was consistently decreased in the first-, second-, and third-instar TBPH
+-/- larvae (Fig 8E)."
+# TDP-43 depletion
+# S6K is RPS6KB1
+# 4E-BP1 is EIF4EBP1
+SET Confidence = "Medium"
+SET Species = "7227"
+p(HGNC:TARDBP) -> p(HGNC:EIF4EBP1,pmod(Ph))
+p(HGNC:TARDBP) -> p(HGNC:RPS6KB1,pmod(Ph))
+p(HGNC:TARDBP) cnc r(HGNC:RPS6KB1)
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "As we have
+shown that raptor is regulated by TDP-43 in cells, we therefore
+examined the mRNA levels of raptor in W1118 and TBPH -/- larvae.
+Similarly as the changes observed in TDP-43-depleted cells, the
+expression levels of raptor were decreased (Fig 8B and C)."
+SET Confidence = "Medium"
+SET Species = "7227"
+p(HGNC:TARDBP) reg p(HGNC:RPTOR)
+p(HGNC:TARDBP) -> g(HGNC:RPTOR)
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "In addition, the expression level of lysosomal and autophagic genes
+such as VhaSFD, CTSB, CathD, LAMP1, Sap-r, CG14291, and ATG6
+was increased in TBPH-depleted adult flies (Fig 8I)."
+# VhaSFD is ATP6V1H
+# CathD is CTSD
+# CG14291 is SGSH
+# ATG6 is BECN1
+SET Confidence = "High"
+SET Species = "7227"
+p(HGNC:TARDBP) -| g(HGNC:ATP6V1H)
+p(HGNC:TARDBP) -| g(HGNC:CTSB)
+p(HGNC:TARDBP) -| g(HGNC:CTSD)
+p(HGNC:TARDBP) -| g(HGNC:LAMP1)
+p(HGNC:TARDBP) -| g(HGNC:PSAP)
+p(HGNC:TARDBP) -| g(HGNC:SGSH)
+p(HGNC:TARDBP) -| g(HGNC:BECN1)
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "In addition, EM
+analysis showed a significant blockage of autophagosome–lysosome
+fusion in starved TBPH -/- larvae (Appendix Fig S5)."
+SET Confidence = "High"
+SET Species = "7227"
+p(HGNC:TARDBP) -> bp(GO:"autophagosome-lysosome fusion")
+UNSET Species
+UNSET Confidence

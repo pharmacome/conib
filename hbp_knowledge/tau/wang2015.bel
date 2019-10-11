@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 # DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 # DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 # DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO            AS URL "https://raw.githubusercontent.com/pharmacome/conso/3c93a65dc48e6786fe29ae55aa36cf9a902fe8c6/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 # DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 # DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -79,23 +79,23 @@ SET Evidence = "Tauopathies can be classified into three groups on the basis of 
 tauopathies (including PSP, CBD and AGD), 3R tauopathies (for example, PiD) and 3R+4R tauopathies (for example, AD)"
 SET Confidence = "Medium"
 path(MESH:"Supranuclear Palsy, Progressive") isA path(MESH:"Tauopathies")
-path(HBP:"Corticobasal Degeneration") isA path(MESH:"Tauopathies")
+path(CONSO:"Corticobasal Degeneration") isA path(MESH:"Tauopathies")
 path(MESH:"Niemann-Pick Diseases") isA path(MESH:"Tauopathies")
 path(MESH:"Alzheimer Disease") isA path(MESH:"Tauopathies")
-path(MESH:"Supranuclear Palsy, Progressive") pos p(HBP:"4R tau")
-path(HBP:"Corticobasal Degeneration") pos p(HBP:"4R tau")
-path(MESH:"Niemann-Pick Diseases") pos p(HBP:"3R tau")
-path(MESH:"Alzheimer Disease") pos p(HBP:"4R tau")
-path(MESH:"Alzheimer Disease") pos p(HBP:"3R tau")
+path(MESH:"Supranuclear Palsy, Progressive") pos p(CONSO:"4R tau")
+path(CONSO:"Corticobasal Degeneration") pos p(CONSO:"4R tau")
+path(MESH:"Niemann-Pick Diseases") pos p(CONSO:"3R tau")
+path(MESH:"Alzheimer Disease") pos p(CONSO:"4R tau")
+path(MESH:"Alzheimer Disease") pos p(CONSO:"3R tau")
 UNSET Confidence
 
 SET Evidence = "Indeed, knockdown of FUS increases the expression of the 2N and 4R tau isoforms, providing
 a possible link between frontotemporal lobar degeneration-FUS (FTLDFUS; a subtype of FTD characterized by FUS inclusions
 in neurons and glia) and FTLD-tau (a tauopathy)."
 SET Confidence = "High"
-p(HGNC:FUS) -| p(HBP:"4R tau")
-p(HGNC:FUS) -| p(HBP:"Tau isoform F (441 aa)")
-p(HGNC:FUS) -| p(HBP:"Tau isoform C (410 aa)")
+p(HGNC:FUS) -| p(CONSO:"4R tau")
+p(HGNC:FUS) -| p(CONSO:"Tau isoform F (441 aa)")
+p(HGNC:FUS) -| p(CONSO:"Tau isoform C (410 aa)")
 path(MESH:"Frontotemporal Lobar Degeneration") -- p(HGNC:FUS)
 UNSET Confidence
 
@@ -104,7 +104,7 @@ mouse neuroblastoma cells."
 SET Confidence = "Medium"
 SET Species = "10090"
 path(MESH:"Supranuclear Palsy, Progressive") neg m(HGNC:MIR132)
-m(HGNC:MIR132) -| p(HBP:"4R tau")
+m(HGNC:MIR132) -| p(CONSO:"4R tau")
 UNSET Species
 UNSET Confidence
 
@@ -135,7 +135,7 @@ SET MeSHAnatomy = "Neurons"
 a(PUBCHEM:354398) -| act(complex(GO:"mitochondrial respiratory chain complex I"))
 a(PUBCHEM:39484) -| act(complex(GO:"mitochondrial respiratory chain complex I"))
 act(complex(GO:"mitochondrial respiratory chain complex I")) -| p(HGNC:SRSF2)
-p(HGNC:SRSF2) -> p(HBP:"4R tau")
+p(HGNC:SRSF2) -> p(CONSO:"4R tau")
 UNSET Species
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -150,27 +150,27 @@ UNSET Confidence
 SET Evidence = "Nevertheless, the interaction of tau with RNA may induce tau aggregation and
 thus contribute to neurodegeneration"
 SET Confidence = "High"
-complex(p(HGNC:MAPT),a(MESH:RNA)) -> a(HBP:"Tau aggregates")
-complex(p(HGNC:MAPT),a(MESH:RNA)) -> path(HBP:Neurodegeneration)
+complex(p(HGNC:MAPT),a(MESH:RNA)) -> a(CONSO:"Tau aggregates")
+complex(p(HGNC:MAPT),a(MESH:RNA)) -> path(CONSO:Neurodegeneration)
 UNSET Confidence
 
 SET Evidence = "Owing to the additional repeat domain R2, 4R tau shows higher affinity for microtubules than does 3R
 tau, and is therefore more efficient at promoting microtubule assembly"
 SET Confidence = "Medium"
-complex(p(HBP:"4R tau"),a(GO:microtubule)) -> bp(GO:"microtubule polymerization")
-complex(p(HBP:"3R tau"),a(GO:microtubule)) -> bp(GO:"microtubule polymerization")
+complex(p(CONSO:"4R tau"),a(GO:microtubule)) -> bp(GO:"microtubule polymerization")
+complex(p(CONSO:"3R tau"),a(GO:microtubule)) -> bp(GO:"microtubule polymerization")
 UNSET Confidence
 
 SET Evidence = "The interaction of tau with FYN may regulate the postsynaptic targeting of FYN, and thereby mediate
 Aβ‑induced excitotoxicity"
 SET Confidence = "Medium"
-complex(p(HGNC:FYN),p(HGNC:MAPT)) reg path(HBP:Excitotoxicity)
-a(CHEBI:"amyloid-beta") -> path(HBP:Excitotoxicity)
+complex(p(HGNC:FYN),p(HGNC:MAPT)) reg path(CONSO:Excitotoxicity)
+a(CHEBI:"amyloid-beta") -> path(CONSO:Excitotoxicity)
 UNSET Confidence
 
 SET Evidence = "Truncation of tau prevents the formation of this structure and might thereby promote tau aggregation"
 SET Confidence = "High"
-p(HGNC:MAPT,frag("?")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,frag("?")) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "In AD, the phosphorylation of tau is increased further to approximately eight phosphates per molecule."
@@ -214,8 +214,8 @@ of individuals with AD."
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Brain"
 SET MeSHDisease = "Alzheimer Disease"
-p(HGNC:MAPT,pmod(Ph,Tyr,18)) -- a(HBP:"paired helical filaments")
-p(HGNC:MAPT,pmod(Ph,Tyr,394)) -- a(HBP:"paired helical filaments")
+p(HGNC:MAPT,pmod(Ph,Tyr,18)) -- a(CONSO:"paired helical filaments")
+p(HGNC:MAPT,pmod(Ph,Tyr,394)) -- a(CONSO:"paired helical filaments")
 UNSET MeSHDisease
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -224,7 +224,7 @@ SET Evidence = "In a line of the JNPL3 tauopathy mouse model, which expresses hu
 mutation, the overall increase in Tyr phosphorylation of tau correlated with the formation of tau aggregates,
 suggesting that overall Tyr phosphorylation might contribute to tau aggregation"
 SET Confidence = "High"
-p(HGNC:MAPT,pmod(Ph,Tyr)) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,pmod(Ph,Tyr)) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Protein phosphatase 1 (PP1), PP2A, PP2B, PP2C and PP5 have all been
@@ -264,7 +264,7 @@ UNSET Confidence
 SET Evidence = "First, hyperphosphorylation of tau might induce tau missorting from
 axons to the somatodendritic compartment, which can cause synaptic dysfunction"
 SET Confidence = "High"
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(GO:"somatodendritic compartment"))
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(GO:"somatodendritic compartment"))
 tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(GO:"somatodendritic compartment")) -| act(a(GO:synapse))
 UNSET Confidence
 
@@ -287,20 +287,20 @@ p(HGNC:MAPT,pmod(Ph,Ser,356)) -| deg(p(HGNC:MAPT,pmod(Ph,Ser,262)))
 bp(GO:"proteasomal protein catabolic process") -> deg(p(HGNC:MAPT))
 UNSET Confidence
 
- SET Evidence = "Third, the phosphorylation of tau is often considered to enhance tau aggregation,
+SET Evidence = "Third, the phosphorylation of tau is often considered to enhance tau aggregation,
 as hyperphosphorylation and aggregation are both increased in AD"
 SET Confidence = "High"
-p(HGNC:MAPT,pmod(Ph)) -> a(HBP:"Tau aggregates")
-path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
-path(MESH:"Alzheimer Disease") pos a(HBP:"Tau aggregates")
+p(HGNC:MAPT,pmod(Ph)) -> a(CONSO:"Tau aggregates")
+path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+path(MESH:"Alzheimer Disease") pos a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "For example, hyperphosphorylated tau but not unphosphorylated
 tau can interact with the kinesin-associated protein JUN N‑terminal kinase-interacting protein 1 (JIP1)
 and thus impair the formation of the kinesin complex,which mediates axonal transport"
 SET Confidence = "Medium"
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),p(HGNC:MAPK8IP1))
-complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),p(HGNC:MAPK8IP1)) -| complex(GO:"kinesin complex")
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> complex(p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)),p(HGNC:MAPK8IP1))
+complex(p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)),p(HGNC:MAPK8IP1)) -| complex(GO:"kinesin complex")
 complex(GO:"kinesin complex") reg bp(GO:"axonal transport")
 UNSET Confidence
 
@@ -330,16 +330,16 @@ p(HGNC:MAPT,pmod(Ac,Lys,281)) -| deg(p(HGNC:MAPT,pmod(Ac,Lys,281)))
 p(HGNC:MAPT,pmod(Ac,Lys,369)) -| deg(p(HGNC:MAPT,pmod(Ac,Lys,369)))
 p(HGNC:MAPT,pmod(Ac,Lys,259)) -> deg(p(HGNC:MAPT,pmod(Ac,Lys,259)))
 p(HGNC:MAPT,pmod(Ac,Lys,259)) -| p(HGNC:MAPT,pmod(Ph))
-p(HGNC:MAPT,pmod(Ac,Lys,259)) -| a(HBP:"Tau aggregates")
+p(HGNC:MAPT,pmod(Ac,Lys,259)) -| a(CONSO:"Tau aggregates")
 p(HGNC:MAPT,pmod(Ac,Lys,290)) -> deg(p(HGNC:MAPT,pmod(Ac,Lys,290)))
 p(HGNC:MAPT,pmod(Ac,Lys,290)) -| p(HGNC:MAPT,pmod(Ph))
-p(HGNC:MAPT,pmod(Ac,Lys,290)) -| a(HBP:"Tau aggregates")
+p(HGNC:MAPT,pmod(Ac,Lys,290)) -| a(CONSO:"Tau aggregates")
 p(HGNC:MAPT,pmod(Ac,Lys,321)) -> deg(p(HGNC:MAPT,pmod(Ac,Lys,321)))
 p(HGNC:MAPT,pmod(Ac,Lys,321)) -| p(HGNC:MAPT,pmod(Ph))
-p(HGNC:MAPT,pmod(Ac,Lys,321)) -| a(HBP:"Tau aggregates")
+p(HGNC:MAPT,pmod(Ac,Lys,321)) -| a(CONSO:"Tau aggregates")
 p(HGNC:MAPT,pmod(Ac,Lys,353)) -> deg(p(HGNC:MAPT,pmod(Ac,Lys,353)))
 p(HGNC:MAPT,pmod(Ac,Lys,353)) -| p(HGNC:MAPT,pmod(Ph))
-p(HGNC:MAPT,pmod(Ac,Lys,353)) -| a(HBP:"Tau aggregates")
+p(HGNC:MAPT,pmod(Ac,Lys,353)) -| a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Acetylation at Lys259, Lys290, Lys321 or Lys353 within the KXGS
@@ -378,14 +378,14 @@ SET Confidence = "Medium"
 SET Species = "9606"
 SET MeSHAnatomy = "Brain"
 path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(NGlyco))
-p(HGNC:MAPT,pmod(NGlyco)) -> a(HBP:"paired helical filaments")
+p(HGNC:MAPT,pmod(NGlyco)) -> a(CONSO:"paired helical filaments")
 UNSET MeSHAnatomy
 UNSET Confidence
 
 SET Evidence = "Furthermore, N‑glycosylation may facilitate tau hyperphosphorylation, as it suppresses the dephosphorylation
 and accelerates the phosphorylation of tau, probably because it changes the conformation of tau"
 SET Confidence = "High"
-p(HGNC:MAPT,pmod(NGlyco)) -> p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+p(HGNC:MAPT,pmod(NGlyco)) -> p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 p(HGNC:MAPT,pmod(NGlyco)) -> p(HGNC:MAPT,pmod(Ph))
 UNSET Confidence
 
@@ -397,61 +397,61 @@ UNSET Confidence
 
 SET Evidence = "In addition, O‑GlcNAcylation of tau can suppress tau aggregation"
 SET Confidence = "High"
-p(HGNC:MAPT,pmod(OGlyco)) -| a(HBP:"Tau aggregates")
+p(HGNC:MAPT,pmod(OGlyco)) -| a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "In AD, the O‑GlcNAcylation of tau is reduced — an effect that
 might contribute to the hyperphosphorylation and aggregation of tau"
 SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -| p(HGNC:MAPT,pmod(OGlyco))
-p(HGNC:MAPT,pmod(OGlyco)) -| a(HBP:"Tau aggregates")
-p(HGNC:MAPT,pmod(OGlyco)) -| p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+p(HGNC:MAPT,pmod(OGlyco)) -| a(CONSO:"Tau aggregates")
+p(HGNC:MAPT,pmod(OGlyco)) -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 UNSET Confidence
 
 SET Evidence = "Non-enzymatic post-translational modifications, including glycation, deamidation and isomerization,
 are detected in PHF-tau but not in normal tau. All of these modifications may facilitate tau aggregation"
 SET Confidence = "Medium"
-a(HBP:"paired helical filaments") -- p(HGNC:MAPT, pmod(HBP:glycation))
-a(HBP:"paired helical filaments") -- p(HGNC:MAPT, pmod(HBP:deamidation))
-a(HBP:"paired helical filaments") -- p(HGNC:MAPT, pmod(GO:"protein peptidyl-prolyl isomerization"))
-p(HGNC:MAPT, pmod(HBP:glycation)) -> a(HBP:"Tau aggregates")
-p(HGNC:MAPT, pmod(HBP:deamidation)) -> a(HBP:"Tau aggregates")
-p(HGNC:MAPT, pmod(GO:"protein peptidyl-prolyl isomerization")) -> a(HBP:"Tau aggregates")
+a(CONSO:"paired helical filaments") -- p(HGNC:MAPT, pmod(CONSO:glycation))
+a(CONSO:"paired helical filaments") -- p(HGNC:MAPT, pmod(CONSO:deamidation))
+a(CONSO:"paired helical filaments") -- p(HGNC:MAPT, pmod(GO:"protein peptidyl-prolyl isomerization"))
+p(HGNC:MAPT, pmod(CONSO:glycation)) -> a(CONSO:"Tau aggregates")
+p(HGNC:MAPT, pmod(CONSO:deamidation)) -> a(CONSO:"Tau aggregates")
+p(HGNC:MAPT, pmod(GO:"protein peptidyl-prolyl isomerization")) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "In addition, glycation of tau may reduce the binding of tau to microtubules"
 SET Confidence = "High"
-p(HGNC:MAPT,pmod(HBP:glycation)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
+p(HGNC:MAPT,pmod(CONSO:glycation)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
 UNSET Confidence
 
 SET Evidence = "The nitration of tau Tyr197 is found in the normal human brain and may
 have important physiological functions, whereas the nitration of Tyr18, Tyr29 and Tyr394 is detected only
 in AD or other tauopathies"
 SET Confidence = "High"
-path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(HBP:nitration,Tyr,18))
-path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(HBP:nitration,Tyr,29))
-path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(HBP:nitration,Tyr,394))
-path(MESH:Tauopathies) pos p(HGNC:MAPT,pmod(HBP:nitration,Tyr,18))
-path(MESH:Tauopathies) pos p(HGNC:MAPT,pmod(HBP:nitration,Tyr,29))
-path(MESH:Tauopathies) pos p(HGNC:MAPT,pmod(HBP:nitration,Tyr,394))
+path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(CONSO:nitration,Tyr,18))
+path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(CONSO:nitration,Tyr,29))
+path(MESH:"Alzheimer Disease") pos p(HGNC:MAPT,pmod(CONSO:nitration,Tyr,394))
+path(MESH:Tauopathies) pos p(HGNC:MAPT,pmod(CONSO:nitration,Tyr,18))
+path(MESH:Tauopathies) pos p(HGNC:MAPT,pmod(CONSO:nitration,Tyr,29))
+path(MESH:Tauopathies) pos p(HGNC:MAPT,pmod(CONSO:nitration,Tyr,394))
 UNSET Confidence
 
 SET Evidence = "The nitration of these Tyr residues alters the conformation of tau, reduces its binding
 to microtubules and, depending on the nitration sites, can promote or inhibit aggregation"
 SET Confidence = "Medium"
 # these Tyr residues: Tyr18, Tyr29 and Tyr394
-p(HGNC:MAPT,pmod(HBP:nitration,Tyr,18)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
-p(HGNC:MAPT,pmod(HBP:nitration,Tyr,29)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
-p(HGNC:MAPT,pmod(HBP:nitration,Tyr,394)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
-p(HGNC:MAPT,pmod(HBP:nitration,Tyr,18)) reg a(HBP:"Tau aggregates")
-p(HGNC:MAPT,pmod(HBP:nitration,Tyr,29)) reg a(HBP:"Tau aggregates")
-p(HGNC:MAPT,pmod(HBP:nitration,Tyr,394)) reg a(HBP:"Tau aggregates")
+p(HGNC:MAPT,pmod(CONSO:nitration,Tyr,18)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
+p(HGNC:MAPT,pmod(CONSO:nitration,Tyr,29)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
+p(HGNC:MAPT,pmod(CONSO:nitration,Tyr,394)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
+p(HGNC:MAPT,pmod(CONSO:nitration,Tyr,18)) reg a(CONSO:"Tau aggregates")
+p(HGNC:MAPT,pmod(CONSO:nitration,Tyr,29)) reg a(CONSO:"Tau aggregates")
+p(HGNC:MAPT,pmod(CONSO:nitration,Tyr,394)) reg a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Lysine methylation is another endogenous post-translational modification
 of tau in the human brain, and in vitro studies have shown that methylation of tau suppresses its aggregation"
 SET Confidence = "High"
-p(HGNC:MAPT,pmod(Me,Lys)) -| a(HBP:"Tau aggregates")
+p(HGNC:MAPT,pmod(Me,Lys)) -| a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "In human AD brains, PHF-tau is methylated at fewer sites than is tau from normal human brains"
@@ -486,13 +486,13 @@ UNSET Confidence
 SET Evidence = "Truncation of tau could generate tau fragments with a higher tendency for aggregation
 (see below), probably owing to the disruption of the paperclip structure of tau, as described above."
 SET Confidence = "High"
-p(HGNC:MAPT,frag("?")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,frag("?")) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "In addition, the truncation of tau may result in tau fragments
 that induce neurodegeneration independently of tau aggregation."
 SET Confidence = "High"
-p(HGNC:MAPT,frag("?")) -> path(HBP:Neurodegeneration)
+p(HGNC:MAPT,frag("?")) -> path(CONSO:Neurodegeneration)
 UNSET Confidence
 
 SET Evidence = "For instance, a 20–22-kDa N‑terminal tau fragment (amino acids 26–230) was detected in
@@ -521,7 +521,7 @@ SET Confidence = "Medium"
 SET MeSHAnatomy = "Brain"
 SET MeSHDisease = "Alzheimer Disease"
 path(MESH:"Alzheimer Disease") -> tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines"))
-tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines")) -- path(HBP:Neurodegeneration)
+tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines")) -- path(CONSO:Neurodegeneration)
 UNSET MeSHDisease
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -543,7 +543,7 @@ UNSET Confidence
 
 SET Evidence = "This suggests that the stabilization of the microtubule-bound conformation of tau may delay tau aggregation"
 SET Confidence = "High"
-complex(p(HGNC:MAPT),a(GO:microtubule)) neg a(HBP:"Tau aggregates")
+complex(p(HGNC:MAPT),a(GO:microtubule)) neg a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "It can do this by influencing the function of the motor proteins dynein and kinesin, which transport cargoes
@@ -608,8 +608,8 @@ presenilin 1 (PS1), and in mice that express mutant Scn1a (the gene encoding the
 channel subunit Nav1.1), as well as in mice lacking the voltage-gated potassium channel Kv1.1 subunit"
 SET Confidence = "Medium"
 SET Species = "10090"
-p(HGNC:MAPT) ->  path(HBP:Excitotoxicity)
-a(CHEBI:"amyloid-beta") -> path(HBP:Excitotoxicity)
+p(HGNC:MAPT) ->  path(CONSO:Excitotoxicity)
+a(CHEBI:"amyloid-beta") -> path(CONSO:Excitotoxicity)
 UNSET Species
 UNSET Confidence
 
@@ -689,7 +689,7 @@ SET Evidence = "In familial tauopathies, the mutation of MAPT seems to be the
 cause of tau aggregation, but in sporadic tauopathies (such as AD), the trigger
 of tau pathology is unclear."
 SET Confidence = "High"
-p(HGNC:MAPT,var("?")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,var("?")) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Tau protein with mutations in or near the microtubule-binding domain
@@ -697,17 +697,17 @@ SET Evidence = "Tau protein with mutations in or near the microtubule-binding do
 and an increased tendency for aggregation"
 SET Confidence = "High"
 p(HGNC:MAPT,var("p.Gly272Val")) -| complex(p(HGNC:MAPT),a(GO:microtubule))
-p(HGNC:MAPT,var("p.Gly272Val")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,var("p.Gly272Val")) -> a(CONSO:"Tau aggregates")
 p(HGNC:MAPT,var("p.Asn279Lys")) -| complex(p(HGNC:MAPT),a(GO:microtubule))
-p(HGNC:MAPT,var("p.Asn279Lys")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,var("p.Asn279Lys")) -> a(CONSO:"Tau aggregates")
 p(HGNC:MAPT,var("p.Lys280del")) -| complex(p(HGNC:MAPT),a(GO:microtubule))
-p(HGNC:MAPT,var("p.Lys280del")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,var("p.Lys280del")) -> a(CONSO:"Tau aggregates")
 p(HGNC:MAPT,var("p.Pro301Leu")) -| complex(p(HGNC:MAPT),a(GO:microtubule))
-p(HGNC:MAPT,var("p.Pro301Leu")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,var("p.Pro301Leu")) -> a(CONSO:"Tau aggregates")
 p(HGNC:MAPT,var("p.Val337Met")) -| complex(p(HGNC:MAPT),a(GO:microtubule))
-p(HGNC:MAPT,var("p.Val337Met")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,var("p.Val337Met")) -> a(CONSO:"Tau aggregates")
 p(HGNC:MAPT,var("p.Arg406Trp")) -| complex(p(HGNC:MAPT),a(GO:microtubule))
-p(HGNC:MAPT,var("p.Arg406Trp")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,var("p.Arg406Trp")) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Interestingly, the PSP-associated tau mutation A152T is localized far away from the repeat domain but still
@@ -720,7 +720,7 @@ UNSET Confidence
 
 SET Evidence = "In addition, this A152T tau enhances the formation of oligomers but not fibres"
 SET Confidence = "High"
-p(HGNC:MAPT,var("p.Ala152Thr")) -> a(HBP:"Tau oligomers")
+p(HGNC:MAPT,var("p.Ala152Thr")) -> a(CONSO:"Tau oligomers")
 UNSET Confidence
 
 SET Evidence = "Another mutation (R5H or R5L) outside the microtubule-binding domain disrupts
@@ -736,19 +736,19 @@ UNSET Confidence
 SET Evidence = "However, there are also other mutations (such as ΔK280, L266V and G272V) that inhibit the inclusion of
 E10 and thus reduce the 4R-to-3R ratio"
 SET Confidence = "High"
-p(HGNC:MAPT,var("p.Lys280del")) -| p(HBP:"4R tau")
-p(HGNC:MAPT,var("p.Lys280del")) -> p(HBP:"3R tau")
-p(HGNC:MAPT,var("p.Leu266Val")) -| p(HBP:"4R tau")
-p(HGNC:MAPT,var("p.Leu266Val")) -> p(HBP:"3R tau")
-p(HGNC:MAPT,var("p.Gly272Val")) -| p(HBP:"4R tau")
-p(HGNC:MAPT,var("p.Gly272Val")) -> p(HBP:"3R tau")
+p(HGNC:MAPT,var("p.Lys280del")) -| p(CONSO:"4R tau")
+p(HGNC:MAPT,var("p.Lys280del")) -> p(CONSO:"3R tau")
+p(HGNC:MAPT,var("p.Leu266Val")) -| p(CONSO:"4R tau")
+p(HGNC:MAPT,var("p.Leu266Val")) -> p(CONSO:"3R tau")
+p(HGNC:MAPT,var("p.Gly272Val")) -| p(CONSO:"4R tau")
+p(HGNC:MAPT,var("p.Gly272Val")) -> p(CONSO:"3R tau")
 UNSET Confidence
 
 SET Evidence = "However, tau aggregates are also observed in the brains of some aged
 individuals with a condition known as primary age-related tauopathy (PART)"
 SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
-bp(GO:aging) pos a(HBP:"Tau aggregates")
+bp(GO:aging) pos a(CONSO:"Tau aggregates")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -756,14 +756,14 @@ SET Evidence = "The two short hexapeptide motifs VQIINK and VQIVYK at
 the beginning of R2 and R3, respectively, show propensity for forming β‑sheet structures and are essential for
 tau aggregation, even though they comprise only a tiny fraction of the sequence"
 SET Confidence = "High"
-p(HBP:"VQIINK motif") -> a(HBP:"Tau aggregates")
-p(HBP:"VQIVYK motif") -> a(HBP:"Tau aggregates")
+p(CONSO:"VQIINK motif") -> a(CONSO:"Tau aggregates")
+p(CONSO:"VQIVYK motif") -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "The motif VQIVYK has been shown to be sufficient to form fibrils composed of steric
 ‘zippers’ formed by two tightly interdigitated β‑sheets."
 SET Confidence = "High"
-p(HBP:"VQIVYK motif") -> a(HBP:"Tau fibrils")
+p(CONSO:"VQIVYK motif") -> a(CONSO:"Tau fibrils")
 UNSET Confidence
 
 SET Evidence = "Disruption of these motifs (for example, by Pro mutations) abrogates the tendency for tau
@@ -771,36 +771,36 @@ to aggregate; by contrast, strengthening the β‑structure with certain mutatio
 accelerates tau aggregation both in vitro and in vivo"
 # these motifs: VQIINK and VQIVYK motif
 SET Confidence = "High"
-p(HBP:"VQIINK motif") -> a(HBP:"Tau aggregates")
-p(HBP:"VQIVYK motif") -> a(HBP:"Tau aggregates")
-p(HGNC:MAPT,var("p.Lys280del")) -> a(HBP:"Tau aggregates")
-p(HGNC:MAPT,var("p.Pro301Leu")) -> a(HBP:"Tau aggregates")
+p(CONSO:"VQIINK motif") -> a(CONSO:"Tau aggregates")
+p(CONSO:"VQIVYK motif") -> a(CONSO:"Tau aggregates")
+p(HGNC:MAPT,var("p.Lys280del")) -> a(CONSO:"Tau aggregates")
+p(HGNC:MAPT,var("p.Pro301Leu")) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Tau aggregation could be accelerated by cofactors such as polyanions that compensate for the repulsive
 positive charges of tau"
 SET Confidence = "High"
-a(CHEBI:"polyanionic polymer") -> a(HBP:"Tau aggregates")
+a(CHEBI:"polyanionic polymer") -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Notably, two proteins — 14‑3‑3ζ and immunophilin (also known as FKBP52 or FKBP4) — have also been shown to induce
 aggregation of recombinant tau in vitro, presumably by stabilizing an aggregation-prone conformation of tau."
 SET Confidence = "High"
-p(HGNC:YWHAZ) -> a(HBP:"Tau aggregates")
-p(HGNC:FKBP4) -> a(HBP:"Tau aggregates")
+p(HGNC:YWHAZ) -> a(CONSO:"Tau aggregates")
+p(HGNC:FKBP4) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Notably, as aggregated tau in patients with a tauopathy or in transgenic mice invariably
 show hyperphosphorylation, and tau hyperphosphorylation precedes aggregation, phosphorylation
 has been assumed to drive tau aggregation"
 SET Confidence = "High"
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Conversely, tau aggregation can be induced in vitro efficiently
 by polyanionic cofactors, regardless of phosphorylation"
 SET Confidence = "High"
-a(CHEBI:"polyanionic polymer") -> a(HBP:"Tau aggregates")
+a(CHEBI:"polyanionic polymer") -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "Thus, it is possible that unknown cofactors trigger tau aggregation in the AD
@@ -808,9 +808,9 @@ brain, whereas phosphorylation may accelerate aggregation indirectly: for exampl
 SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 SET MeSHAnatomy = "Brain"
-p(HGNC:MAPT,pmod(Ph)) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,pmod(Ph)) -> a(CONSO:"Tau aggregates")
 p(HGNC:MAPT,pmod(Ph)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
-complex(p(HGNC:MAPT),a(GO:microtubule)) -| a(HBP:"Tau aggregates")
+complex(p(HGNC:MAPT),a(GO:microtubule)) -| a(CONSO:"Tau aggregates")
 UNSET MeSHDisease
 UNSET MeSHAnatomy
 UNSET Confidence
@@ -818,14 +818,14 @@ UNSET Confidence
 SET Evidence = "Truncated tau fragments that contain the repeat domain have a higher tendency for aggregation, probably
 owing to the disruption of the usual paperclip structure"
 SET Confidence = "High"
-p(HGNC:MAPT,frag("?")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,frag("?")) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "One of these fragments was identified as tau151–391, which is prone to
 aggregation, as rats transgenic for this fragment develop neurofibrillary pathology;
 the identity of the other fragment remains unclear"
 SET Confidence = "High"
-p(HGNC:MAPT,frag("151_391")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,frag("151_391")) -> a(CONSO:"Tau aggregates")
 UNSET Confidence
 
 SET Evidence = "In human AD brains and in the Tg4510 tauopathy mouse model, full-length tau is
@@ -834,7 +834,7 @@ SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 SET MeSHAnatomy = "Brain"
 p(HGNC:CASP3) -> p(HGNC:MAPT,frag("1_421"))
-p(HGNC:MAPT,frag("1_421")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,frag("1_421")) -> a(CONSO:"Tau aggregates")
 p(HGNC:MAPT,frag("1_421")) -> a(GO:"neurofibrillary tangle")
 UNSET MeSHDisease
 UNSET MeSHAnatomy
@@ -846,8 +846,8 @@ and shows compromised microtubule-assembly activity, possibly contributing to ta
 SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 SET MeSHAnatomy = "Brain"
-p(HGNC:MAPT,frag("1_368")) -> a(HBP:"Tau aggregates")
-p(HGNC:MAPT,frag("1_368")) -> path(HBP:Neurodegeneration)
+p(HGNC:MAPT,frag("1_368")) -> a(CONSO:"Tau aggregates")
+p(HGNC:MAPT,frag("1_368")) -> path(CONSO:Neurodegeneration)
 p(HGNC:MAPT,frag("1_368")) -| bp(GO:"microtubule polymerization")
 UNSET MeSHDisease
 UNSET MeSHAnatomy
@@ -862,8 +862,8 @@ SET Confidence = "High"
 SET MeSHDisease = "Tauopathies"
 p(HGNC:F2) -> p(HGNC:MAPT,frag("258_360"))
 p(HGNC:CTSL) -> p(HGNC:MAPT,frag("258_360"))
-p(HGNC:MAPT,frag("258_360")) -> a(HBP:"Tau aggregates")
-p(HGNC:MAPT,var("p.Lys280del")) -> a(HBP:"Tau aggregates")
+p(HGNC:MAPT,frag("258_360")) -> a(CONSO:"Tau aggregates")
+p(HGNC:MAPT,var("p.Lys280del")) -> a(CONSO:"Tau aggregates")
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -886,15 +886,15 @@ UNSET Confidence
 SET Evidence = "Hyperphosphorylation of tau at the repeat domain reduces
 its microtubule binding, which may cause microtubule disassembly, leading to axonal transport deficits."
 SET Confidence = "High"
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -| bp(GO:"axonal transport")
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -| bp(GO:"microtubule polymerization")
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -| complex(p(HGNC:MAPT),a(GO:microtubule))
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -| bp(GO:"axonal transport")
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -| bp(GO:"microtubule polymerization")
 UNSET Confidence
 
 SET Evidence = "Tau aggregation decreases levels of soluble functional tau,
 which may result in microtubule disassembly as well"
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -| bp(GO:"microtubule polymerization")
+a(CONSO:"Tau aggregates") -| bp(GO:"microtubule polymerization")
 UNSET Confidence
 
 SET Evidence = "In addition, as tau is involved in multiple novel functions,
@@ -904,7 +904,7 @@ SET Confidence = "Medium"
 p(HGNC:MAPT) -- bp(GO:"iron ion transport")
 p(HGNC:MAPT) -- bp(GO:neurogenesis)
 p(HGNC:MAPT) -- bp(GO:"long-term synaptic depression")
-act(p(HGNC:MAPT)) -- path(HBP:Neurodegeneration)
+act(p(HGNC:MAPT)) -- path(CONSO:Neurodegeneration)
 SET MeSHAnatomy = "Neurons"
 p(HGNC:MAPT) -- bp(GO:"DNA protection")
 UNSET MeSHAnatomy
@@ -938,15 +938,15 @@ UNSET Confidence
 SET Evidence = "In the longer term, however, these tau aggregates may sequester other cell components,
 finally compromising neuronal functions"
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -| act(a(MESH:Neurons))
+a(CONSO:"Tau aggregates") -| act(a(MESH:Neurons))
 UNSET Confidence
 
 SET Evidence = "In addition, the aggregates may occupy space in the cell and thus directly interfere with
 axonal transport, leading to neurodegeneration"
 SET Confidence = "High"
-a(HBP:"Tau aggregates") -| bp(GO:"axonal transport")
-a(HBP:"Tau aggregates") -> path(HBP:Neurodegeneration)
-bp(GO:"axonal transport") -| path(HBP:Neurodegeneration)
+a(CONSO:"Tau aggregates") -| bp(GO:"axonal transport")
+a(CONSO:"Tau aggregates") -> path(CONSO:Neurodegeneration)
+bp(GO:"axonal transport") -| path(CONSO:Neurodegeneration)
 UNSET Confidence
 
 SET Evidence = "In an analogy to the evolution of concepts in the ‘amyloid cascade hypothesis’, which proposes that
@@ -956,10 +956,10 @@ of SDS-stable tau oligomers are increased in AD and PSP brains."
 SET Confidence = "Medium"
 SET MeSHAnatomy = "Brain"
 SET MeSHDisease = "Alzheimer Disease"
-a(HBP:"Tau oligomers") -> path(HBP:Neurodegeneration)
+a(CONSO:"Tau oligomers") -> path(CONSO:Neurodegeneration)
 UNSET MeSHDisease
-path(MESH:"Alzheimer Disease") pos a(HBP:"Tau oligomers")
-path(MESH:"Supranuclear Palsy, Progressive") pos a(HBP:"Tau oligomers")
+path(MESH:"Alzheimer Disease") pos a(CONSO:"Tau oligomers")
+path(MESH:"Supranuclear Palsy, Progressive") pos a(CONSO:"Tau oligomers")
 UNSET MeSHAnatomy
 UNSET Confidence
 
@@ -967,7 +967,7 @@ SET Evidence = "Some studies showed in cell toxicity assays that tau oligomers m
 from pro-aggregant recombinant tau were toxic to cultured cells; other studies in cultured neurons found
 that oligomers induced only local neurotoxicity that led to loss of spines"
 SET Confidence = "High"
-a(HBP:"Tau oligomers") -| a(MESH:"Dendritic Spines")
+a(CONSO:"Tau oligomers") -| a(MESH:"Dendritic Spines")
 UNSET Confidence
 
 SET Evidence = "The pro-aggregant mouse lines developed AD‑like features (including missorting of tau into the somatodendritic
@@ -976,7 +976,7 @@ whereas the anti-aggregant lines show almost no pathology"
 SET Confidence = "High"
 # pro-aggregant: tau ΔK280
 p(HGNC:MAPT,var("p.Lys280del")) -> tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(GO:"somatodendritic compartment"))
-p(HGNC:MAPT,var("p.Lys280del")) -> p(HGNC:MAPT,pmod(HBP:hyperphosphorylation))
+p(HGNC:MAPT,var("p.Lys280del")) -> p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 p(HGNC:MAPT,var("p.Lys280del")) -> a(GO:"neurofibrillary tangle")
 p(HGNC:MAPT,var("p.Lys280del")) -| bp(GO:cognition)
 UNSET Confidence
@@ -984,16 +984,16 @@ UNSET Confidence
 SET Evidence = "For instance, hyperphosphorylated tau can interact with JIP1 and thus impair
 the formation of kinesin complex"
 SET Confidence = "High"
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),p(HGNC:MAPK8IP1))
-complex(p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)),p(HGNC:MAPK8IP1)) -| complex(GO:"kinesin complex")
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> complex(p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)),p(HGNC:MAPK8IP1))
+complex(p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)),p(HGNC:MAPK8IP1)) -| complex(GO:"kinesin complex")
 UNSET Confidence
 
 SET Evidence = "In a Drosophila melanogaster model of tauopathy, the hyperphosphorylation
 of tau led to the abnormal alignment and accumulation of F‑actin filaments, and thereby induced neurodegeneration"
 SET Confidence = "Medium"
 SET Species = "7227"
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> complex(GO:"filamentous actin")
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> path(HBP:Neurodegeneration)
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> complex(GO:"filamentous actin")
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> path(CONSO:Neurodegeneration)
 UNSET Species
 UNSET Confidence
 
@@ -1008,11 +1008,11 @@ UNSET Confidence
 SET Evidence = "Hyperphosphorylation, mutations and overexpression of tau can drive the mislocalization
 of tau into postsynaptic spines, resulting in synaptic dysfunction"
 SET Confidence = "High"
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -> tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines"))
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines"))
 p(HGNC:MAPT,var("?")) -> tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines"))
 p(HGNC:MAPT) pos tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines"))
 tloc(p(HGNC:MAPT),fromLoc(GO:axon),toLoc(MESH:"Dendritic Spines")) -| act(a(GO:synapse))
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) -| act(a(GO:synapse))
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -| act(a(GO:synapse))
 p(HGNC:MAPT,var("?")) -| act(a(GO:synapse))
 p(HGNC:MAPT) neg act(a(GO:synapse))
 UNSET Confidence
