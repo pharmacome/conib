@@ -80,11 +80,11 @@ the catalytic subunit (GCLC) and ferritin, which function
 to maintain a reducing environment within the cell [2–4]."
 #Nrf2 is NFE2L2
 #target as transcription factor
-tscript(p(HGNC:NFE2L2)) reg r(HGNC:NQO1)
-tscript(p(HGNC:NFE2L2)) reg r(FPLX:HMOX)
-tscript(p(HGNC:NFE2L2)) reg r(HGNC:GCLM)
-tscript(p(HGNC:NFE2L2)) reg r(HGNC:GCLC)
-tscript(p(HGNC:NFE2L2)) reg r(HGNCGENEFAMILY:"Ferritin subunits")
+act(p(HGNC:NFE2L2),ma(tscript)) reg r(HGNC:NQO1)
+act(p(HGNC:NFE2L2),ma(tscript)) reg r(FPLX:HMOX)
+act(p(HGNC:NFE2L2),ma(tscript)) reg r(HGNC:GCLM)
+act(p(HGNC:NFE2L2),ma(tscript)) reg r(HGNC:GCLC)
+act(p(HGNC:NFE2L2),ma(tscript)) reg r(HGNCGENEFAMILY:"Ferritin subunits")
 
 SET Evidence = "Moreover, Nrf2 also plays a prominent role in
 orchestrating glucose metabolism by mediating transcription
@@ -127,7 +127,7 @@ alternatively it may translocate back to the cytoplasm where
 it is swiftly degraded by Keap1 [12,13]."
 p(HGNC:BTRC) -> deg(p(HGNC:NFE2L2))
 p(HGNC:GSK3B) -> deg(p(HGNC:NFE2L2))
-tloc(p(HGNC:NFE2L2), MESH:"Cell Nucleus", MESH:Cytosol) -> deg(p(HGNC:NFE2L2))
+tloc(p(HGNC:NFE2L2), fromLoc(MESH:"Cell Nucleus"),toLoc(MESH:Cytosol)) -> deg(p(HGNC:NFE2L2))
 SET MeSHAnatomy = "Cytosol"
 p(HGNC:KEAP1) -> deg(p(HGNC:NFE2L2))
 UNSET MeSHAnatomy
@@ -163,7 +163,7 @@ p(HGNC:NFKBIA) -| act(p(FPLX:NFkappaB))
 p(HGNC:NFKBIA, pmod(Ph)) -> complex(p(HGNC:NFKBIA),p(HGNC:CUL1),p(HGNC:BTRC),p(HGNC:SKP1))
 complex(p(HGNC:NFKBIA),p(HGNC:CUL1),p(HGNC:BTRC),p(HGNC:SKP1)) -> p(HGNC:NFKBIA, pmod(Ub))
 complex(p(HGNC:NFKBIA),p(HGNC:CUL1),p(HGNC:BTRC),p(HGNC:SKP1)) -> deg(p(HGNC:NFKBIA))
-deg(p(HGNC:NFKBIA)) -> tloc(p(FPLX:NFkappaB), MESH:Cytosol, MESH:"Cell Nucleus")
+deg(p(HGNC:NFKBIA)) -> tloc(p(FPLX:NFkappaB),fromLoc(MESH:Cytosol),toLoc(MESH:"Cell Nucleus"))
 
 SET Evidence = "In order to respond effectively to acute inflammation, NF-
 κB also prompts an increase in mitochondrial activity and
@@ -261,15 +261,15 @@ Selectin and vascular cell adhesion molecule 1 (VCAM-1),
 through the action of bilirubin and possibly by the decrease
 in free intracellular iron ions [30]."
 SET MeSHAnatomy = "Endothelial Cells"
-act(p(FPLX:HMOX)) -| tscript(p(FPLX:NFkappaB))
+act(p(FPLX:HMOX)) -| act(p(FPLX:NFkappaB),ma(tscript))
 act(p(FPLX:HMOX)) -| p(HGNC:SELE)
 act(p(FPLX:HMOX)) -| p(HGNC:VCAM1)
 
 SET Evidence = "The anti-inflammatory role of Nrf2 is well established;
 however, it should be noted that NF-κB activity also regulates
 Nrf2-mediated ARE expression."
-p(HGNC:NFE2L2) reg tscript(p(FPLX:NFkappaB))
-tscript(p(FPLX:NFkappaB)) reg bp(MESH:"Antioxidant Response Elements")
+p(HGNC:NFE2L2) reg act(p(FPLX:NFkappaB),ma(tscript))
+act(p(FPLX:NFkappaB),ma(tscript)) reg bp(MESH:"Antioxidant Response Elements")
 
 SET Evidence = " Work by Yu et al. [31] has
 shown that p65 assists in increasing the abundance of nuclear
@@ -281,7 +281,7 @@ envelope does not permit free entry of proteins larger than
 40 kDa, Keap1 is thought to enter the nucleus by interactions
 with the import facilitating karyopherin alpha 6 (importin
 alpha 7) (otherwise known as KPNA6) [32]."
-complex(p(HGNC:KEAP1),p(HGNC:KPNA6)) -> tloc(p(HGNC:KEAP1), MESH:Cytosol, MESH:"Cell Nucleus")
+complex(p(HGNC:KEAP1),p(HGNC:KPNA6)) -> tloc(p(HGNC:KEAP1),fromLoc(MESH:Cytosol),toLoc(MESH:"Cell Nucleus"))
 
 SET Evidence = " Consequently,
 KPNA6 overexpression results in decreased levels of HO-1
@@ -320,7 +320,7 @@ SET Evidence = " Overexpression of p65 is
 thought to limit the availability of CBP for Nrf2 complex
 formation, prioritizing transcription of the κB driven genes."
 p(HGNC:RELA) -| complex(p(HGNC:CREBBP),p(HGNC:NFE2L2))
-p(HGNC:RELA) -> tscript(p(FPLX:NFkappaB))
+p(HGNC:RELA) -> act(p(FPLX:NFkappaB),ma(tscript))
 
 SET Evidence = "In addition, p65 can induce repression of transcription by
 de-acetylation of histones, through association with histone
@@ -330,14 +330,14 @@ complex(p(HGNC:RELA),p(FPLX:HDAC)) -> bp(GO:"histone deacetylation")
 SET Evidence = " Specific cell
 types show induction of Nrf2 protein levels and increased
 target gene expression in response to TNFα."
-p(HGNC:TNF) -> tscript(p(HGNC:NFE2L2))
+p(HGNC:TNF) -> act(p(HGNC:NFE2L2),ma(tscript))
 
 SET Evidence = " RAC1 activation by LPS
 can activate Nrf2-mediated HO-1 expression, which in turn
 dampens the pro-inflammatory activity of NF-κB."
 a(CHEBI:lipopolysaccharide) -> act(p(HGNC:RAC1))
-act(p(HGNC:RAC1)) -> tscript(p(HGNC:NFE2L2))
-tscript(p(HGNC:NFE2L2)) -> p(FPLX:HMOX)
+act(p(HGNC:RAC1)) -> act(p(HGNC:NFE2L2),ma(tscript))
+act(p(HGNC:NFE2L2),ma(tscript)) -> p(FPLX:HMOX)
 p(FPLX:HMOX) -| act(p(FPLX:NFkappaB))
 act(p(FPLX:NFkappaB)) -> bp(GO:"inflammatory response")
 
@@ -404,12 +404,12 @@ SET Evidence = "Therefore, β-TrCP
 function can lead to augmentation of NF-κB activity as well
 as to inhibition of Nrf2–ARE transcription."
 p(HGNC:BTRC) -> act(p(FPLX:NFkappaB))
-p(HGNC:BTRC) -| tscript(p(HGNC:NFE2L2))
+p(HGNC:BTRC) -| act(p(HGNC:NFE2L2),ma(tscript))
 
 SET Evidence = "Another Nrf2 target gene, p62 is involved in modulation
 of antioxidant and inflammatory activities."
 #p62 is SQSTM1
-tscript(p(HGNC:NFE2L2)) -> p(HGNC:SQSTM1)
+act(p(HGNC:NFE2L2),ma(tscript)) -> p(HGNC:SQSTM1)
 p(HGNC:SQSTM1) reg bp(GO:"inflammatory response")
 p(HGNC:SQSTM1) reg bp(GO:"response to oxidative stress")
 
@@ -431,7 +431,7 @@ act(p(HGNC:NGF)) -> act(p(FPLX:NFkappaB))
 SET Evidence = "Finally, Nrf2 is thought to act mainly as a dimer with
 sMaf proteins, one of them being MafK has been shown to
 modulate transcriptional activity of p65."
-complex(p(HGNC:NFE2L2),p(HGNC:MAFK)) reg tscript(p(HGNC:RELA))
+complex(p(HGNC:NFE2L2),p(HGNC:MAFK)) reg act(p(HGNC:RELA),ma(tscript))
 
 SET Evidence = "MafK is thought to
 facilitate the interaction of p65 and CBP, leading to increases
