@@ -1,0 +1,869 @@
+SET DOCUMENT Name        = "Tau and Interaction Partners"
+SET DOCUMENT Version     = "1.2.5"
+SET DOCUMENT Description = "TAU Interactions Section of TauBase"
+SET DOCUMENT Copyright   = "Copyright © 2018 Fraunhofer Institute SCAI, All rights reserved"
+SET DOCUMENT Authors     = "Kristian Kolpeja"
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/chebi-names.belns"
+DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
+DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
+# DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
+DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
+DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/entrez.belns"
+DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/8ccfed235e418e4c8aa576f9a5ef0f838e794c7f/external/pfam-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces hosted on https://arty.scai.fraunhofer.de/artifactory/bel/namespace
+# ------------------------------------------------------------------------------
+DEFINE NAMESPACE HP             AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/hp/hp-20171108.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+DEFINE ANNOTATION MouseStrain AS LIST {"K3 model with hyperphoshorylated tau resembling FTD"}
+DEFINE ANNOTATION TauIsoform AS LIST {"Isoform F (441 aa)"}
+DEFINE ANNOTATION Method AS LIST {"Chromatography, Ni-NTA-Sepharose", "Pull-down Assay, GFP", "Chromatography, Gel filtration", "Non-denaturing Fast Halo Assay", "Tandem Affinity Purification, TAP", "Chymotrypsin Assay", "Deglycosylation Assay", "Confocal Microscopy, Laser Scanning", "Microtubule polzmerization Assay", "Dephosphorylation Assay", "Comet Assay", "RNA Interference, shRNA", "Phosphorylation Assay", "Protease-coupled Assay", "Phosphorylation Assay", "Pull-down assay, His-tagged", "Chromatography, FPLC", "Electron Microscopy, Immunological", "Chromatography, Affinity", "RNA Interference, siRNA", "Dot blot", "ELISA", "Degradation Assay, 20S Proteasomal", "Ubiquitination Assay", "Immunofluorescence", "Electron Microscopy", "LDH Assay", "Chromatin Immunoprecipitation", "RP HPLC", "Pull-down Assay, GST", "Pull-down Assay, His-tagged", "Dot Blot", "Yeast Two-Hybrid Assay", "Immunofluorescence Imaging", "Immunohistochemistry", "Co-Immunoprecipitation", "Surface Plasmon Resonance", "Microtubule Co-Sedimentation Assay", "Dephosphorylation Assay, Colorimetric", "Pull-down assay, GST", "Western Blot", "Enhanced Chemioluminescence visualization (ECL)", "Chromatography", "Mass Spectrometry", "Immunoblotting","Imunofluorescence","RT-PCR", "Microtubule-binding Assay", "Immunocytochemistry","Confocal Microscopy", "In vitro actin-bundling assay", "F-actin depolymerization assay", "Transmission electron microscopy (TEM)", "Scanning electron microscopy (SEM)", "Immunoaffinity Chromatography", "Pull-down Assay", "SDS-PAGE", "Immunoprecipitation", "Microtubule Sedimentation Assay"}
+DEFINE ANNOTATION GOCC AS LIST {"axon cytoplasm","neuron projection","membrane raft"}
+DEFINE ANNOTATION Cell_Line AS LIST {"COS7", "HCN2A", "CG-4"}
+
+
+###########################################################################################################################################################################################
+########################################################################### TAU INTERACTION PARTNERS ########################################################################################
+
+
+########################################################################### TAU and Microtubules ############################################################################################
+
+SET Citation = {"PubMed", "1918161"}
+SET Evidence = "Tau protein plays a role in the extension and maintenance of neuronal processes through a direct \
+association with microtubules. It is found in the axonal microtubules of mature neurons (Binder et al ., 1985) and in the axonlike elongated neurite \
+processes synthesized by differentiating neurons in culture. To address this issue, three different tau protein fragments were synthesized \
+in vitro: (a) the tau protein repeat domain (residues 237 to 367); (b) the amino terminal half of tau protein (residues 1-237) ; and (c) the carboxy terminal nonrepeat domain \
+of tau protein (residues 358 to 430). From these results, we conclude the repeat domain contributes most of the binding energy for microtubules."
+
+SET Method = {"Microtubule-binding Assay"}
+SET GOCC = "axon cytoplasm"
+p(HGNC:MAPT) => complex(GO:microtubule)
+p(HGNC:MAPT, frag("237_367")) => complex(GO:microtubule)
+p(HGNC:MAPT, frag("237_367")) partOf p(HGNC:MAPT)
+p(HGNC:MAPT, frag("237_367")) eq p(CONSO:"microtubule-binding region")
+UNSET GOCC
+p(HGNC:MAPT) pos complex(GO:axon)
+p(HGNC:MAPT) pos complex(GO:"neuron projection")
+UNSET Method
+
+########################################################################### TAU and Actin Filaments ########################################################################################
+
+SET Citation = {"PubMed", "17187063"}
+SET Evidence = "These results are consistent with previous in vitro studies and indicate
+that tau induces actin-filament bundling in vitro and F-actin accumulation
+in vivo, most likely through a direct interaction with F-actin.For genetic analysis, we selected a line of tauV337M-expressing flies
+that has a moderate rough eye and is a good substrate for genetic modification.
+Coexpressing an actin transgene (UAS–Act5C–EGFP;GMR– GAL4 driver) markedly enhanced tauV337M-induced toxicity."
+
+SET TauIsoform = "Isoform F (441 aa)"
+SET Method = {"Immunocytochemistry","Confocal Microscopy", "In vitro actin-bundling assay", "F-actin depolymerization assay", "Transmission electron microscopy (TEM)", "Scanning electron microscopy (SEM)"}
+SET Species = {"7215","10090"}
+p(HGNC:MAPT) => complex(GO:"filamentous actin")
+p(HGNC:MAPT) -> complex(p(HGNC:MAPT), complex(GO:"filamentous actin"))
+complex(GO:"filamentous actin") -> complex(p(HGNC:MAPT), complex(GO:"filamentous actin"))
+p(CONSO:"Tau isoform F (441 aa)", var("p.Val337Met")) -> path(CONSO:Neurodegeneration)
+complex(p(HGNC:MAPT), complex(GO:"filamentous actin")) pos path(CONSO:Neurodegeneration)
+UNSET Species
+UNSET Method
+UNSET TauIsoform
+
+########################################################################### TAU and Neurofilaments #########################################################################################
+
+SET Citation = {"PubMed", "6543144"}
+SET Evidence = "The resulting MAP-decorated neurofilaments formed a viscous complex with microtubules, showing that
+some component of the MAPs mediated the association between the two filamentous organelles."
+
+p(HGNC:MAPT) -- complex(GO:neurofilament)
+complex(GO:microtubule) -- p(HGNC:MAPT)
+
+
+########################################################################### TAU and Ribosomes ##############################################################################################
+
+SET Citation = {"PubMed", "2446784"}
+SET Evidence = "This antibody binds only to tau and localizes along microtubules in axons, somata, dendrites, and astrocytes and on ribosomes
+(polysomes) without phosphatase pretreatment."
+SET Method = {"Immunohistochemistry", "Immunoblotting"}
+p(HGNC:MAPT) -- complex(GO:"polysomal ribosome")
+UNSET Method
+
+########################################################################### TAU and GSK3Beta ###############################################################################################
+
+SET Citation = {"PubMed", "11812770"}
+SET Evidence = "GSK3Beta may directly bind to tau within a GSK3Beta-tau complex.To identify the GSK3Beta-binding region within tau, we constructed three tau deletion mutants:
+R-tau-(1–244) containing the N-terminal projection domain, R-tau-(245–369) containing the microtubule-binding region, and R-tau-(245–441) containing both the microtubule-binding region and the
+C-terminal tail. We evaluated the binding of these mutants and wild-type R-tau with GST-GSK3Beta by the GST pull-down assay.
+GSK3Beta bound to wild type (Fig. 5B) and R-tau-(1–244) (Fig. 5C) but not R-tau-(245–369) (Fig. 5D) and R-tau-(245–441) (Fig.5E).
+These data demonstrate that GSK3Beta binds to the Nterminal projection domain of tau."
+
+SET Method = {"Immunoaffinity Chromatography", "Pull-down Assay", "SDS-PAGE", "Immunoblotting", "Immunoprecipitation", "Microtubule Sedimentation Assay"}
+p(HGNC:GSK3B) => p(HGNC:MAPT, frag(1_244))
+p(HGNC:MAPT, frag(1_244)) partOf p(HGNC:MAPT)
+p(HGNC:GSK3B) pos complex(p(HGNC:GSK3B), p(HGNC:MAPT))
+p(HGNC:MAPT) pos complex(p(HGNC:GSK3B), p(HGNC:MAPT))
+UNSET Method
+
+########################################################################### TAU and Fyn ####################################################################################################
+
+SET Citation = {"PubMed", "18680553"}
+SET Evidence = "Furthermore, Tau binds Fyn both in neuronal and oligodendroglial cells (Brandt et al. 1995; Klein et al.2002), and Fyn phosphorylates Tau in neuronal cells (Lee
+et al. 2004). The main Fyn SH3 domain-binding PXXP motif (Pro, Lys, Ser, Pro) in adult rat Tau is at the residues 223-226 (Kosik et al. 1989; Lee et al. 1998)."
+
+SET Method = {"Immunohistochemistry","Imunofluorescence", "Confocal Microscopy"}
+SET Cell_Line = "CG-4"
+SET Cell = {"neuron","oligodendrocyte"}
+p(HGNC:MAPT) -- p(HGNC:FYN)
+SET Cell = "neuron"
+p(HGNC:FYN) -> p(HGNC:MAPT, pmod(Ph))
+p(HGNC:FYN) -- p(HGNC:MAPT, frag(223_226))
+p(HGNC:MAPT, frag(223_226)) partOf p(HGNC:MAPT)
+UNSET Cell
+
+SET Evidence = "Here we demonstrate that the Tau-Fyn interaction has a role in developmental myelination. CG-4
+cells were stably transfected with control and experimental truncated Tau and transplanted in the brain and spinal cord of the md rats.
+In the brain, experimental cells have a severe defect in their ability to extend cellular processes and form myelin; in the spinal cord the cells extend cellular processes
+but the extent of myelination rostral and caudal to the injection site was decreased compared to control. Cultured experimental cells display shorter cellular process length.
+In addition experimental cells have Fyn largely in the cell body, whereas control cells distribute Fyn both in the cell body and the processes.
+Taken together these results demonstrate a direct effect of Tau in OLGs in in vivo myelination."
+
+SET Cell = "oligodendrocyte"
+p(HGNC:MAPT) -> complex(p(HGNC:FYN), p(HGNC:MAPT))
+p(HGNC:FYN) -> complex(p(HGNC:FYN), p(HGNC:MAPT))
+complex(p(HGNC:FYN), p(HGNC:MAPT)) pos bp(GO:myelination)
+p(HGNC:MAPT) -- bp(GO:myelination)
+UNSET Cell
+UNSET Cell_Line
+UNSET Method
+
+########################################################################### TAU and Src, Lck, Pi3K ####################################################################################################
+
+SET Citation = {"PubMed", "18467332"}
+SET Evidence = "As shown in Fig. 2A, tau co-sedimented with SH3 domains of cSrc, PLCgamma1, the N-terminal SH3 domain of
+Grb2, and most effectively with the p85alpha regulatory subunit of phosphatidylinositol 3-kinase."
+
+SET Method = {"Pull-down assay, GST", "Western Blot", "Immunofluorescence Imaging", "Enhanced Chemioluminescence visualization (ECL)", "Chromatography", "Mass Spectrometry"}
+p(HGNC:MAPT) -- p(HGNC:SRC, frag(84_145))
+p(HGNC:SRC, frag(84_145)) partOf p(HGNC:SRC)
+p(HGNC:SRC, frag(84_145))  eq p(INTERPRO:"SH3 domain")
+p(HGNC:SRC) isA complex(p(HGNC:MAPT), p(HGNC:SRC))
+p(HGNC:MAPT) isA complex(p(HGNC:MAPT), p(HGNC:SRC))
+p(HGNC:MAPT) -- p(HGNC:PLCG1, frag(790_851))
+p(HGNC:PLCG1, frag(790_851)) partOf p(HGNC:PLCG1)
+p(HGNC:PLCG1, frag(790_851)) eq p(INTERPRO:"SH3 domain")
+p(HGNC:MAPT) isA complex(p(HGNC:MAPT), p(HGNC:PLCG1))
+p(HGNC:PLCG1) isA complex(p(HGNC:MAPT), p(HGNC:PLCG1))
+p(HGNC:MAPT) -- p(HGNC:GRB2, frag(1_57))
+p(HGNC:MAPT) -- complex(p(HGNC:MAPT), p(HGNC:GRB2))
+p(HGNC:GRB2, frag(1_57)) isA complex(p(HGNC:MAPT), p(HGNC:GRB2))
+p(HGNC:GRB2, frag(1_57)) partOf p(HGNC:GRB2)
+p(HGNC:GRB2, frag(1_57)) eq p(INTERPRO:"GRB2, N-terminal SH3 domain")
+p(HGNC:MAPT) -- p(HGNC:PIK3R1, frag(3_79))
+p(HGNC:PIK3R1, frag(3_79)) partOf p(HGNC:PIK3R1)
+p(HGNC:PIK3R1, frag(3_79))  eq p(INTERPRO:"GRB2, N-terminal SH3 domain")
+p(HGNC:MAPT) isA complex(p(HGNC:MAPT), p(HGNC:PIK3R1))
+p(HGNC:PIK3R1) isA complex(p(HGNC:MAPT), p(HGNC:PIK3R1))
+
+SET Evidence = "The binding of all four SH3 domains tested (from Fyn,
+p85alpha, PLCgamma1, and the N-terminal SH3 of Grb2) was considerably
+decreased by phosphorylation."
+
+p(HGNC:MAPT, pmod(Ph)) -| complex(p(HGNC:MAPT), p(HGNC:SRC))
+p(HGNC:MAPT, pmod(Ph)) -| complex(p(HGNC:MAPT), p(HGNC:PLCG1))
+p(HGNC:MAPT, pmod(Ph)) -| complex(p(HGNC:MAPT), p(HGNC:GRB2))
+p(HGNC:MAPT, pmod(Ph)) -| complex(p(HGNC:MAPT), p(HGNC:PIK3R1))
+
+UNSET Method
+
+########################################################################### TAU and JIP1 ####################################################################################################
+
+SET Citation = {"PubMed", "19491104"}
+SET Evidence = "These include the scaffold protein JNK interacting protein (JIP) that is involved in the linkage of cargos
+to the kinesin-I motor complex via KLC (25, 28–33).This complex is formed by the kinesin heavy chain (KIF5; previously
+termed KHC), which interacts with microtubules, and kinesin light chain (KLC), which mediates cargo linkage.
+In addition, scaffolding proteins are involved such as the JIP1 that binds to KLC (21)."
+
+act(p(HGNC:MAPK8IP1)) pos act(complex(GO:"kinesin complex"))
+act(p(HGNC:KLC1)) pos act(complex(GO:"kinesin complex"))
+p(HGNC:KLC1) isA complex(GO:"kinesin complex")
+p(HGNC:MAPK8IP1) -- p(HGNC:KLC1)
+p(HGNC:KIF5B) isA complex(GO:"kinesin complex")
+p(HGNC:MAPK8IP1) isA complex(GO:"kinesin complex")
+p(HGNC:KIF5B) -- complex(GO:microtubule)
+act(complex(GO:"kinesin complex")) pos bp(GO:"vesicle-mediated transport")
+
+SET Evidence = "Thus, the lack of kinesin/JIP1 interaction occurs together with an aberrant
+Tau/JIP1 interaction in K3 brains.Taken together, our data
+reveal that hyperphosphorylated Tau competes with KLC for the interaction with JIP1."
+SET Method = {"Immunohistochemistry", "Western Blot", "Immunoprecipitation", "Immunofluorescence", "Pull-down assay, His-tagged"}
+SET Species = "10090"
+SET MouseStrain = "K3 model with hyperphoshorylated tau resembling FTD"
+p(MGI:Mapt, pmod(Ph)) -- p(MGI:Mapk8ip1)
+p(MGI:Mapt, pmod(Ph)) neg act(p(MGI:Mapk8ip1))
+p(MGI:Mapt, pmod(Ph)) neg act(p(MGI:Klc1))
+UNSET Species
+UNSET Method
+
+########################################################################### TAU and PP2A ####################################################################################################
+
+SET Citation = {"PubMed", "10464280"}
+SET Evidence = "Using tau deletion mutants, we found that ABaC binds a domain on tau that is indistinguishable from its MT-binding domain."
+SET TauIsoform = "Isoform F (441 aa)"
+#ABac = PP2A
+
+SET Method = {"Enhanced Chemioluminescence visualization (ECL)", "SDS-PAGE", "Western Blot", "Microtubule Co-Sedimentation Assay", "Dephosphorylation Assay, Colorimetric"}
+act(complex(GO:"protein phosphatase type 2A complex")) -- p(CONSO:"microtubule-binding region")
+p(CONSO:"microtubule-binding region") isA p(HGNC:MAPT)
+act(complex(GO:microtubule)) pos p(CONSO:"microtubule-binding region")
+
+SET Evidence = "ABaC binds directly to MTs through a site that encompasses its catalytic subunit and is distinct from its
+binding site for tau, and ABaC and tau bind to different domains on MTs."
+
+p(HGNC:PPP2CA) -- complex(GO:microtubule)
+p(HGNC:PPP2CA) -> complex(p(HGNC:PPP2CA), complex(GO:microtubule))
+#: FIXME p(HGNC:PPP2CA) isA complex(GO:"protein phosphatase type 2A complex")
+p(HGNC:MAPT) -- complex(GO:microtubule)
+p(HGNC:MAPT) -> complex(p(HGNC:MAPT), complex(GO:microtubule))
+
+SET Evidence = "Thus, MTs inhibited the rate of tau dephosphorylation by ABaC."
+
+act(complex(GO:microtubule)) =| act(complex(GO:"protein phosphatase type 2A complex"))
+act(complex(GO:"protein phosphatase type 2A complex")) -> rxn(reactants(p(HGNC:MAPT, pmod(Ph))), products(p(HGNC:MAPT), a(CHEBI:"phosphate(3-)")))
+rxn(reactants(p(HGNC:MAPT, pmod(Ph))), products(p(HGNC:MAPT), a(CHEBI:"phosphate(3-)"))) neg p(HGNC:MAPT, pmod(Ph))
+UNSET Method
+UNSET TauIsoform
+
+########################################################################### TAU and HSP70 ####################################################################################################
+
+SET Citation = {"PubMed", "18500754"}
+SET Evidence = "The location of the hsc70-binding site in the tau MTBR suggests that hsc70 cannot bind microtubule-associated tau.
+The location of the hsc70-binding site also suggests that hsc70 might compete with tubulin or microtubules for binding to tau.
+Our data implicating I308/V309 in tau’s binding to hsp70 similarly suggest that tau cannot bind simultaneously to hsp70 and microtubules.
+However, unlike hsc70, which does not associate directly with tubulin or microtubules (Gache et al. 2005), hsp70 binds microtubules,
+presumably through its N-terminus (Sanchez et al. 1994). This would allow hsp70 to simultaneously bind to tau through its C-terminal substrate-binding domain and
+to microtubules through its N-terminus."
+
+#HSPA8 = Hsc70 (Heat-shock cognate 71 kDa)
+
+SET Method = {"Yeast Two-Hybrid Assay", "Co-Immunoprecipitation", "SDS-PAGE", "Western Blot", "Pull-down assay, GST", "Surface Plasmon Resonance"}
+p(HGNC:HSPA8) -- p(CONSO:"microtubule-binding region")
+
+act(p(HGNC:HSPA8)) neg act(complex(GO:microtubule))
+
+p(INTERPRO:"Heat shock protein 70 family") -- complex(GO:microtubule)
+p(INTERPRO:"Heat shock protein 70kD, C-terminal domain superfamily") -- p(CONSO:"microtubule-binding region")
+
+UNSET Method
+
+########################################################################### TAU and HSP-90 ####################################################################################################
+
+SET Citation = {"PubMed", "19363271"}
+SET Evidence = "This result suggests that the VQIVYK peptide plays a role in the interaction between Hsp90 and tau protein,
+a hypothesis which is also supported by the fact that a tau variant deleted for the peptide VQIVYK was unable
+to interact with Hsp90 under immunoprecipitation conditions (Fig. 2B)."
+
+SET Method = {"SDS-PAGE", "Western Blot", "Immunoprecipitation", "Dot Blot"}
+p(FPLX:HSP90) -- p(CONSO:"VQIVYK motif")
+p(CONSO:"VQIVYK motif") isA p(CONSO:"tubulin-binding repeat 4")
+p(FPLX:HSP90) -> complex(p(FPLX:HSP90), p(HGNC:MAPT))
+p(CONSO:"VQIVYK motif") -> complex(p(FPLX:HSP90), p(HGNC:MAPT))
+
+SET Evidence = "To test the effect of Hsp90 on tau phosphorylation, this protein
+was mixed with tau protein in the presence of GSK-3 and ATP. Figure 4 shows that tau phosphorylation increases
+in the presence of increased added amounts of Hsp90."
+
+p(FPLX:HSP90) pos p(HGNC:MAPT, pmod(Ph))
+
+SET Evidence = "Figure 5 shows the presence of fibrillar polymers when the Hsp90 was mixed with tau protein. These filaments are
+similar to tau aggregates assembled in the presence of quinones [19] such as juglone, used here as a positive
+control (Fig. 5C). No filaments were observed in control samples of tau2R alone (Fig. 5A) or Hsp90 alone
+(data not shown)."
+
+p(FPLX:HSP90) pos bp(GO:"neurofibrillary tangle assembly")
+a(CHEBI:juglone) -> bp(GO:"neurofibrillary tangle assembly")
+UNSET Method
+
+########################################################################### TAU and HSP-27 ####################################################################################################
+
+SET Citation = {"PubMed", "14963027"}
+SET Evidence = "Here we show that heat shock protein 27 (Hsp27) preferentially binds pathological hyperphosphorylated
+tau and paired helical filaments tau directly but not non-phosphorylated tau. The formation
+of this complex altered the conformation of pathological hyperphosphorylated tau and reduced its concentration
+by facilitating its degradation and dephosphorylation."
+
+#HSP27 = HSPB1
+SET Method = {"SDS-PAGE", "Western Blot", "Pull-down Assay, His-tagged"}
+SET Cell_Line = "HCN2A"
+SET Anatomy = "temporal cortex"
+p(HGNC:HSPB1) -- p(HGNC:MAPT, pmod(Ph))
+p(HGNC:HSPB1) causesNoChange p(HGNC:MAPT)
+p(HGNC:HSPB1) -> complex(p(HGNC:HSPB1), p(HGNC:MAPT, pmod(Ph)))
+p(HGNC:MAPT, pmod(Ph)) -> complex(p(HGNC:HSPB1), p(HGNC:MAPT, pmod(Ph)))
+complex(p(HGNC:HSPB1), p(HGNC:MAPT, pmod(Ph))) -> rxn(reactants(p(HGNC:MAPT, pmod(Ph))), products(p(HGNC:MAPT), a(CHEBI:"phosphate(3-)")))
+complex(p(HGNC:HSPB1), p(HGNC:MAPT, pmod(Ph))) -> deg(p(HGNC:MAPT, pmod(Ph)))
+
+SET Evidence = "Taken together, pathological hyperphosphorylated tau caused cell death, and Hsp27 attenuated the cell toxicity of
+pathological hyperphosphorylated tau."
+
+act(p(HGNC:MAPT, pmod(Ph))) -> bp(GO:"neuron apoptotic process")
+p(HGNC:HSPB1) -| act(p(HGNC:MAPT, pmod(Ph)))
+p(HGNC:HSPB1) neg bp(GO:"neuron apoptotic process")
+UNSET Anatomy
+UNSET Cell_Line
+UNSET Method
+
+########################################################################### TAU and CHIP ####################################################################################################
+
+SET Citation = {"PubMed", "14612456"}
+SET Evidence = "This result strongly suggested that the E2 conjugating enzyme for tau ubiquitination is UbcH5B."
+
+SET Method = {"Immunoblotting", "Immunocytochemistry", "SDS-PAGE", "Pull-down Assay, His-tagged", "Ubiquitination Assay", "Phosphorylation Assay", "Dephosphorylation Assay", "Deglycosylation Assay"}
+SET Cell_Line = "COS7"
+p(HGNC:UBE2D2) pos p(HGNC:MAPT, pmod(Ub))
+
+SET Evidence = "These data indicated that phosphorylation of PP2A dephosphorylation
+sites is an important recognition signal for ubiquitination.
+We used 200 μg of amino-terminal His-tagged full-length recombinant human
+tau in an in vitro phosphorylation reaction with GSK-3Beta. When phosphorylated, the tau protein reacted on immunoblots
+with PHF1 (25, 26) and AT8 (24), indicating that at least sites Ser202, Thr205, Ser396, and Ser404 were phosphorylated.
+Following GSK-3Beta incubation, this tau served as an excellent substrate for in vitro ubiquitination using UbcH5B and the cofactor
+fraction from AD tau immunoprecipitates (Fig. 2a). This finding suggested that GSK-3Beta can place phosphates on tau
+that create recognition sites for an E3 Ub ligase."
+
+p(HGNC:GSK3B) => p(HGNC:MAPT, pmod(Ph, S, 202))
+p(HGNC:GSK3B) => p(HGNC:MAPT, pmod(Ph, T, 205))
+p(HGNC:GSK3B) => p(HGNC:MAPT, pmod(Ph, S, 396))
+p(HGNC:GSK3B) => p(HGNC:MAPT, pmod(Ph, S, 404))
+p(HGNC:MAPT, pmod(Ph, S, 202)) isA p(HGNC:MAPT, pmod(Ph))
+p(HGNC:MAPT, pmod(Ph, T, 205)) isA p(HGNC:MAPT, pmod(Ph))
+p(HGNC:MAPT, pmod(Ph, S, 396)) isA p(HGNC:MAPT, pmod(Ph))
+p(HGNC:MAPT, pmod(Ph, S, 404)) isA p(HGNC:MAPT, pmod(Ph))
+p(HGNC:MAPT, pmod(Ph)) pos p(HGNC:MAPT, pmod(Ub))
+
+SET Evidence = "These data suggest a model by which phosphorylated tau is bound to a chaperone and the
+complex is recognized by the E3 Ub ligase CHIP. We further examined whether recombinant GST-CHIP ubiquitinates phosphorylated
+tau in vitro in the presence of UbcH5B and Hsc70. Ubiquitination of phosphorylated tau was detected as high
+molecular weight bands by immunoblotting with 5E2 in the presence of UbcH5B and Hsc70 (Fig. 2e)."
+
+p(HGNC:UBE2D2) isA complex(p(HGNC:UBE2D2), p(HGNC:STUB1), p(HGNC:MAPT, pmod(Ph)))
+p(HGNC:STUB1) isA complex(p(HGNC:UBE2D2), p(HGNC:STUB1), p(HGNC:MAPT, pmod(Ph)))
+p(HGNC:MAPT, pmod(Ph)) isA complex(p(HGNC:UBE2D2), p(HGNC:STUB1), p(HGNC:MAPT, pmod(Ph)))
+complex(p(HGNC:UBE2D2), p(HGNC:STUB1), p(HGNC:MAPT, pmod(Ph))) => p(HGNC:MAPT, pmod(Ub))
+UNSET Cell_Line
+UNSET Method
+
+########################################################################### TAU and BAG-1 ####################################################################################################
+
+SET Citation = {"PubMed", "17954934"}
+SET Evidence = "BAG-1, an Hsp70/Hsc70 binding partner, has been implicated as a mediator of neuronal function. In this
+work we show that BAG-1 associates with Tau protein in an Hsc70-dependent manner. Overexpression of BAG-1 induced
+an increase in Tau levels, which is shown to be due to an inhibition of protein degradation."
+
+SET Method = {"Western Blot", "SDS-PAGE", "Immunoprecipitation", "Pull-down Assay, GST", "Degradation Assay, 20S Proteasomal", "Immunohistochemistry"}
+SET CellLine = "HEK293"
+SET MeSHAnatomy = "Hippocampus"
+p(HGNC:BAG1) isA complex(p(HGNC:BAG1), p(HGNC:STUB1), p(HGNC:MAPT))
+p(HGNC:MAPT) isA complex(p(HGNC:BAG1), p(HGNC:STUB1), p(HGNC:MAPT))
+p(HGNC:STUB1) isA complex(p(HGNC:BAG1), p(HGNC:STUB1), p(HGNC:MAPT))
+
+SET Evidence = "We further show that BAG-1 can inhibit the degradation of Tau protein by the 20 S proteasome but does not affect the ubiquitination of Tau protein.RNA-me-
+diated interference depletion of BAG-1 leads to a decrease in total Tau protein levels as well as promoting hyperphosphorylation of the remaining protein."
+p(HGNC:BAG1) pos p(HGNC:MAPT)
+act(complex(GO:"proteasome complex")) -> deg(p(HGNC:MAPT))
+act(complex(GO:"proteasome complex")) isA complex(GO:"proteasome complex")
+p(HGNC:BAG1) -| deg(p(HGNC:MAPT))
+p(HGNC:BAG1) neg act(complex(GO:"proteasome complex"))
+p(HGNC:BAG1) neg p(HGNC:MAPT, pmod(Ph))
+UNSET MeSHAnatomy
+UNSET CellLine
+UNSET Method
+
+########################################################################### TAU and Ubiquitin ####################################################################################################
+
+SET Citation = {"PubMed", "8391280"}
+SET Evidence = "The ubiquitin-targeted protein was identified as tau in paired helical filaments, and
+the conjugation sites were localized to the microtubule-binding region."
+SET Method = {"Immunoblotting", "Mass Spectrometry", "SDS-PAGE", "RP HPLC"}
+p(HGNC:MAPT, pmod(Ub)) -> deg(p(HGNC:MAPT))
+p(FPLX:Ubiquitin) -- p(CONSO:"microtubule-binding region")
+p(FPLX:Ubiquitin) => p(HGNC:MAPT, pmod(Ub))
+UNSET Method
+
+########################################################################### TAU and Dynactin ######################################################################################################
+
+SET Citation = {"PubMed", "8391280"}
+SET Evidence = "We show here for the first time that the N-terminal projection domain of tau binds to the C-terminus of the p150 subunit of the dynactin complex.
+The sequences of tau encoded by exons 1 and 4, which lie at the tip of the N-terminal projection domain, interact with the C-terminal region of p150."
+
+SET Method = {"Immunoprecipitation", "Pull-down Assay, GST", "Pull-down Assay, His-tagged", "Electron Microscopy", "SDS-PAGE", "Immunoblotting"}
+p(INTERPRO:"MAP2/Tau projection") -- p(HGNC:DCTN1)
+p(INTERPRO:"MAP2/Tau projection") partOf p(HGNC:MAPT)
+p(HGNC:MAPT) isA complex(p(HGNC:MAPT), p(HGNC:DCTN1))
+p(HGNC:DCTN1) isA complex(p(HGNC:MAPT), p(HGNC:DCTN1))
+p(HGNC:DCTN1) isA p(INTERPRO:"Dynein associated protein")
+complex(p(HGNC:MAPT), p(HGNC:DCTN1)) isA p(INTERPRO:"Dynein associated protein")
+
+#Here, HGNCGENEFAMILY:Dynactin is used to designate Dynactin complex
+
+SET Evidence = "Tau and dynactin show extensive colocalization, and the attachment of the dynactin complex to microtubules is enhanced by tau."
+
+act(p(INTERPRO:"Dynein associated protein")) pos complex(p(INTERPRO:"Dynein associated protein"), a(MESH:Microtubules))
+p(HGNC:MAPT) -> act(p(INTERPRO:"Dynein associated protein"))
+
+SET Evidence = "Mutations of a conserved arginine residue in the Nterminus of tau, found in patients with FTDP-17, affect its
+binding to dynactin, which is abnormally distributed in the retinal ganglion cell axons of transgenic mice expressing human tau with a mutation in the microtubule-binding domain."
+SET Species = "10090"
+SET Anatomy = "ganglionic layer of retina"
+g(DBSNP:rs63750424) pos path(MESH:"Frontotemporal Dementia")
+g(DBSNP:rs63750424) neg complex(p(HGNC:MAPT), p(HGNC:DCTN1))
+UNSET Anatomy
+UNSET Species
+UNSET Method
+
+########################################################################### TAU and Kinesin Light chain ######################################################################################################
+
+SET Citation = {"PubMed", "16176937"}
+SET Evidence = "By immunoprecipitation, we also found that tau and alpha-synuclein are each associated, either directly or indirectly with complexes containing the fast
+anterograde motor kinesin-1, and alpha-synuclein is also present in a complex with the fast retrograde motor dynein.In this study, we observed marked differences in the relative
+associations of tau and alpha-synuclein directly with molecular motors because tau interacts with a kinesin-1 complex binding to KLC1 and KLC2, whereas alpha-synuclein did not bind to either
+KLC1 or KLC2 under our experimental conditions."
+SET Species = "10116"
+SET Method = {"Pull-down Assay, GST", "Immunoprecipitation", "Immunofluorescence"}
+SET Anatomy = "brain"
+p(RGD:Mapt) isA complex(p(RGD:Mapt), p(RGD:Klc1))
+p(RGD:Klc1) isA complex(p(RGD:Mapt), p(RGD:Klc1))
+p(RGD:Mapt) isA complex(p(RGD:Mapt), p(RGD:Klc2))
+p(RGD:Klc2) isA complex(p(RGD:Mapt), p(RGD:Klc2))
+p(RGD:Klc1) isA p(INTERPRO:"Kinesin motor domain")
+p(RGD:Klc2) isA p(INTERPRO:"Kinesin motor domain")
+p(RGD:Snca) isA complex(p(RGD:Snca), p(FPLX:"Cytoplasmic_dynein"))
+p(RGD:Snca) -- p(INTERPRO:"Kinesin motor domain")
+p(FPLX:"Cytoplasmic_dynein") isA complex(p(RGD:Snca), p(FPLX:"Cytoplasmic_dynein"))
+UNSET Anatomy
+UNSET Species
+UNSET Method
+
+########################################################################### TAU and Pin1 ######################################################################################################
+
+SET Citation = {"PubMed", "10391244"}
+SET Evidence = "In contrast, no binding was observed between Pin1 and the nonphosphorylated
+tau (Fig. 4a), demonstrating that T231 phosphorylation is required for Pin1 binding of tau. To determine whether the WW domain of Pin1 is responsible for binding, the
+mutant Pin1Y23A was used, which contains a single alanine substitution at the critical Tyr 23 in theWWdomain, resulting in a loss of the phosphoserine-binding activity13.
+Pin1Y23A showed much less binding to pT231 peptide (Table 1). The residual binding might be due to binding of the pT231 peptide to the much lower affinity
+isomerase domain of Pin113. These results indicate that the WW domain mediates Pin1 binding to the pT231 sequence of tau."
+
+SET Method = {"Pull-down Assay, GST", "Pull-down Assay, His-tagged", "ELISA", "Immunocytochemistry", "Microtubule-binding Assay"}
+
+p(HGNC:PIN1, frag(5_39)) -- p(HGNC:MAPT, pmod(Ph, T, 231))
+act(p(HGNC:PIN1, frag(5_39))) pos complex(p(HGNC:PIN1, frag(5_39)), p(HGNC:MAPT, pmod(Ph, T, 231)))
+p(HGNC:PIN1, var("p.Tyr23Ala")) -| act(p(HGNC:PIN1, frag(5_39)))
+
+SET Evidence = "This result confirms previous findings that T231 is an important Cdc2 phosphorylation
+site in tau, and is also consistent with Pin1 binding mitotically pTau (Fig. 1a) and being sequestered on to PHFs in AD brains, where Cdc2 is upregulated (Fig. 3)."
+
+act(p(HGNC:CDK1)) -> p(HGNC:MAPT, pmod(Ph, T, 231))
+complex(p(HGNC:PIN1, frag(5_39)), p(HGNC:MAPT, pmod(Ph, T, 231))) -- complex(GO:"neurofibrillary tangle")
+complex(GO:"neurofibrillary tangle") pos p(HGNC:CDK1)
+
+SET Evidence = "To examine whether Pin1 affects the ability of pTau to bind microtubules, we generated pTau in vitro using purified Cdc2
+(refs 17, 18), and determined its ability to bind Taxol-stabilized microtubules with or without Pin1. Although Cdc2 phosphorylation
+disrupted the ability of tau to bind microtubules; the binding was fully restored by preincubation with Pin1 (Fig. 5a). Furthermore,
+Pin1 was detected in the fraction of tau-bound microtubules (Fig. 5a). However, no Pin1 was detected in the microtubule fraction if pTau was not added (Fig. 5a),
+indicating that Pin1 does not bind microtubules directly. Thus, Pin1 binds pTau and restores its ability to bind microtubules."
+
+p(HGNC:MAPT, pmod(Ph, T, 231)) neg act(p(HGNC:MAPT))
+complex(p(HGNC:PIN1, frag(5_39)), p(HGNC:MAPT, pmod(Ph, T, 231))) -> act(p(HGNC:MAPT))
+UNSET Method
+
+########################################################################### TAU and FKBP52 ######################################################################################################
+
+SET Citation = {"PubMed", "20133804"}
+SET Evidence = "Thus, Tau and FKBP52 form a complex in rat brain. These findings indicate a direct
+interaction between FKBP52 and Tau. As shown in Fig. 3B, the amount of FKBP52 recruited by Tau
+depends on its phosphorylation state.In any case, these results underline the importance of Tau
+phosphorylation for its binding to FKBP52."
+
+SET Method = {"Pull-down Assay, GST", "Co-Immunoprecipitation", "Dot blot", "Immunocytochemistry"}
+SET Species = "10116"
+p(RGD:Fkbp4) pos p(RGD:Mapt, pmod(Ph))
+p(RGD:Fkbp4) isA complex(p(RGD:Fkbp4), p(RGD:Mapt, pmod(Ph)))
+
+SET Evidence = "We concluded that FKBP52 inhibits the promotion of microtubule assembly by Tau."
+
+p(RGD:Fkbp4) -| act(p(RGD:Mapt))
+act(p(RGD:Mapt)) -> bp(GO:"microtubule polymerization")
+bp(GO:"microtubule polymerization") pos complex(GO:microtubule)
+
+SET Evidence = "Because one role of Tau is to stimulate neurite outgrowth
+(12), we investigated the consequence of FKBP52 overexpression on neurite length in both PC12 and H7C2 cells.
+The inhibition of neurite outgrowth resulting from FKBP52 overexpression is in agreement
+with our previous report showing that the loss of FKBP52 in PC12 cells results in the formation of neurite extensions (9).
+The FKBP52 effect on neurite length could be explained by the binding of Tau to FKBP52, removing Tau from microtubules."
+
+SET CellLine = "PC12"
+act(p(RGD:Mapt)) -> bp(GO:"neuron projection development")
+p(RGD:Fkbp4) neg bp(GO:"neuron projection development")
+UNSET CellLine
+UNSET Species
+
+SET Evidence = "In addition to its peptidyl–prolyl isomerase activity, FKBP52 serves as a molecular chaperone. This activity depends on its tetratricopeptide
+repeat domain (27) to which the molecular chaperone HSP90 and other proteins bind."
+
+p(HGNC:FKBP4, frag(270_386)) -- p(FPLX:HSP90)
+p(HGNC:FKBP4, frag(270_386)) isA p(HGNC:FKBP4)
+p(HGNC:FKBP4, frag(270_386)) isA complex(p(HGNC:FKBP4), p(FPLX:HSP90))
+
+UNSET Method
+
+########################################################################### TAU and FKBP51 ######################################################################################################
+
+SET Citation = {"PubMed", "20071522"}
+SET Evidence = "We found that FKBP51 indeed could interact with tau from both AD patients and control cases (Fig. 3D), further suggesting a
+functionally relevant relationship between FKBP51 and tau. We then investigated whether FKBP51 would preferentially interact with phosphorylated tau species. We increased the
+number of samples per group (4 for AD and 4 for normal) and again co-immunoprecipitated FKBP51.
+After gel electrophoresis, immunoblotting showed increased association of pS396 and pS199-S202 tau species with FKBP51 in AD tissue (Fig S1).
+Indeed, we found that FKBP51 over-expression increased phospho- and total tau levels (by 80%) in HeLa cells stably expressing normal human tau,
+while FKBP52 over-expression had no affect (Fig.4A). These experiments were repeated multiple times and Student t-test of these replicates
+demonstrated that FKBP51 significantly increased total tau levels (p= 0.0104)."
+
+SET Method = {"Immunofluorescence", "RNA Interference, siRNA", "Co-Immunoprecipitation", "Protease-coupled Assay", "Microtubule polzmerization Assay", "Chymotrypsin Assay", "Immunohistochemistry", "Chromatography, Gel filtration", "Chromatography, Ni-NTA-Sepharose"}
+p(HGNC:FKBP5) -> p(HGNC:MAPT)
+p(HGNC:FKBP5) isA complex(p(HGNC:FKBP5), p(HGNC:MAPT))
+p(HGNC:MAPT) isA complex(p(HGNC:FKBP5), p(HGNC:MAPT))
+p(HGNC:MAPT, pmod(Ph, S, 396)) isA p(RGD:Mapt, pmod(Ph))
+p(HGNC:MAPT, pmod(Ph, S, 199)) isA p(RGD:Mapt, pmod(Ph))
+p(HGNC:MAPT, pmod(Ph, S, 202)) isA p(RGD:Mapt, pmod(Ph))
+p(HGNC:MAPT, pmod(Ph, S, 396)) -- complex(p(HGNC:FKBP5), p(HGNC:MAPT))
+p(HGNC:MAPT, pmod(Ph, S, 199)) -- complex(p(HGNC:FKBP5), p(HGNC:MAPT))
+p(HGNC:MAPT, pmod(Ph, S, 202)) -- complex(p(HGNC:FKBP5), p(HGNC:MAPT))
+p(HGNC:FKBP5) pos p(HGNC:MAPT, pmod(Ph, S, 396))
+p(HGNC:FKBP5) pos p(HGNC:MAPT, pmod(Ph, S, 199))
+p(HGNC:FKBP5) pos p(HGNC:MAPT, pmod(Ph, S, 202))
+
+SET Evidence = "We then investigated what effect over-expression or knockdown of FKBP51 might have on the
+interaction of tau with other Hsp90 cochaperones that comprise a mature Hsp90 complex. Surprisingly, we found that FKBP51 over-expression decreased the endogenous association
+of another Hsp90 pro-folding cochaperone, Aha1, with tau despite increasing Hsp90 binding (Fig. 4C). Endogenous p23 binding to tau however was not detected.
+Conversely, knockdown of FKBP51 with siRNA increased the association of endogenous Aha1 with tau despite decreasing the number of Hsp90 tau complexes.
+Moreover, endogenous p23 binding to tau was only detectable when FKBP51 was knocked down (Fig. 4C)."
+
+p(HGNC:FKBP5) neg complex(p(HGNC:AHSA1), p(HGNC:MAPT))
+p(HGNC:FKBP5) pos complex(p(FPLX:HSP90), p(HGNC:MAPT))
+p(HGNC:FKBP5) -| complex(p(HGNC:PTGES3), p(HGNC:MAPT))
+
+SET Evidence = "Fluorescent imaging of these extracts revealed that wildtype FKBP51 promoted microtubule
+polymerization relative to extracts treated with buffer only (Fig 7A and S2). Conversely, neither
+mutant F130A FKBP51 nor FKBP52 stimulated microtubule formation."
+
+p(HGNC:FKBP5) -> bp(GO:"microtubule polymerization")
+UNSET Method
+
+########################################################################### TAU and cdc37 ######################################################################################################
+
+SET Citation = {"PubMed", "21367866"}
+SET Evidence = "This coordination of kinase triage decisions by Hsp90 requires the co-chaperone Cdc37 (cell division cycle protein 37).
+The Hsp90/Cdc37 machine is essential for the maturation of a number of kinases, including Akt"
+
+SET Method = {"Western Blot", "Immunocytochemistry", "RNA Interference, siRNA"}
+p(HGNC:CDC37) pos act(p(FPLX:HSP90))
+p(HGNC:CDC37) isA complex(p(HGNC:CDC37), p(FPLX:HSP90))
+complex(p(HGNC:CDC37), p(FPLX:HSP90)) pos kin(p(HGNC:AKT1))
+
+SET Evidence = "Quantification of the Western blot showed that Cdc37 knockdown reduced phospho-Thr-231,
+phospho-Ser-199/Ser-202, phospho-Ser-396/Ser-404, and phospho-Ser-262/Ser-356 tau."
+
+p(HGNC:CDC37) pos p(HGNC:MAPT, pmod(Ph, T, 231))
+p(HGNC:CDC37) pos p(HGNC:MAPT, pmod(Ph, S, 199))
+p(HGNC:CDC37) pos p(HGNC:MAPT, pmod(Ph, S, 202))
+p(HGNC:CDC37) pos p(HGNC:MAPT, pmod(Ph, S, 396))
+p(HGNC:CDC37) pos p(HGNC:MAPT, pmod(Ph, S, 404))
+p(HGNC:CDC37) pos p(HGNC:MAPT, pmod(Ph, S, 262))
+p(HGNC:CDC37) pos p(HGNC:MAPT, pmod(Ph, S, 356))
+
+SET Evidence = "Previous work showed that Hsp90 inhibition with 17-AAG reduced phospho-tau levels in vivo (16, 23). We speculated that
+Cdc37 might modulate Hsp90 inhibitor efficacy for phosphotau. M17 cells were transfected with Cdc37 siRNA and then
+treated with 1 μM 17-AAG for 24 h. Indeed, reducing Cdc37 synergized with Hsp90 inhibition to reduce tau levels more
+potently than either condition alone (Fig. 6A)."
+
+a(CHEBI:tanespimycin) -| act(p(FPLX:HSP90))
+act(p(FPLX:HSP90)) neg deg(p(HGNC:MAPT))
+p(HGNC:CDC37) -| deg(p(HGNC:MAPT))
+
+SET Evidence = "Western blot analysis for a panel of tau kinases showed that only the levels of endogenous
+Cdk5 and Akt were significantly reduced by Cdc37 siRNA; the levels of GSK3-Beta and Mark2 (microtubule affinity regulating
+kinase 2) were largely unchanged"
+
+p(HGNC:CDC37) pos act(p(HGNC:CDK5))
+p(HGNC:CDC37) causesNoChange p(HGNC:GSK3B)
+p(HGNC:CDC37) causesNoChange p(HGNC:MARK2)
+
+UNSET Method
+
+########################################################################### TAU and Calmodulin ######################################################################################################
+
+SET Citation = {"PubMed", "2123288"}
+SET Evidence = "The present studies show that the calcium-binding protein calmodulin
+interacts with a tubulin binding site on tau defined by the second repetitive sequence"
+
+SET TauIsoform = "Isoform F (441 aa)"
+p(FPLX:CALM) -- p(CONSO:"tubulin-binding repeat 2")
+
+SET Evidence = "These findings provide new insights into the regulation
+of microtubule assembly, since Ca2+/calmodulin inhibition of tubulin polymerization into microtubules
+could be mediated by the direct binding of calmodulin to tau, thus preventing the interaction of this
+latter protein with tubulin."
+
+a(CHEBI:"calcium(2+)") -> act(p(FPLX:CALM))
+act(p(FPLX:CALM)) -> complex(a(CHEBI:"calcium(2+)"), p(FPLX:CALM))
+act(p(FPLX:CALM)) -| bp(GO:"microtubule polymerization")
+p(HGNC:MAPT) isA complex(p(FPLX:CALM), p(HGNC:MAPT))
+complex(p(FPLX:CALM), p(HGNC:MAPT)) isA complex(a(CHEBI:"calcium(2+)"), p(FPLX:CALM), p(HGNC:MAPT))
+complex(a(CHEBI:"calcium(2+)"), p(FPLX:CALM)) isA complex(a(CHEBI:"calcium(2+)"), p(FPLX:CALM), p(HGNC:MAPT))
+complex(a(CHEBI:"calcium(2+)"), p(FPLX:CALM), p(HGNC:MAPT)) neg act(p(HGNC:MAPT))
+act(p(HGNC:MAPT)) -> bp(GO:"microtubule polymerization")
+UNSET TauIsoform
+
+########################################################################### TAU and S100b ######################################################################################################
+
+SET Citation = {"PubMed", "2833519"}
+SET Evidence = "We here confirmed the interaction of SlOOb with tau
+through affinity chromatography and crosslinking and demonstrated that such an interaction also inhibited
+mode I phosphorylation by a Ca2+/CaM-dependent kinase. Increasing Ca2+c oncentration to the 100 μM range potentiated
+the SlOOb effect. Therefore, although Ca2+-independent interactions
+may occur between SlOOb and protein tau, it is the Ca2+ form of SlOOb that has significant affinity for protein tau.
+In any case, Znz+ and Ca2+ both appear to be capabble of inducing a conformation
+in SlOOb that promotes its binding to target proteinins, including tau."
+
+SET Method = {"Chromatography, Affinity", "Western Blot", "Phosphorylation Assay", "Chromatography, FPLC"}
+p(HGNC:S100B) -- p(HGNC:MAPT)
+a(CHEBI:"calcium(2+)") -> act(p(HGNC:S100B))
+p(HGNC:S100B) isA complex(p(HGNC:S100B), p(HGNC:MAPT))
+p(HGNC:MAPT) isA complex(p(HGNC:S100B), p(HGNC:MAPT))
+act(p(FPLX:"CAMK2_family")) -> p(HGNC:MAPT, pmod(Ph))
+complex(p(HGNC:S100B), p(HGNC:MAPT)) -| act(p(FPLX:"CAMK2_family"))
+act(p(HGNC:S100B)) -| act(p(FPLX:"CAMK2_family"))
+a(CHEBI:"zinc(2+)") -> act(p(HGNC:S100B))
+UNSET Method
+
+
+SET Citation = {"PubMed", "18494933"}
+SET Evidence = "In general, GSK-3β phosphorylation is inhibited through the canonical Wnt signalling pathway [5]. Wnt, binding to frizzled receptor,
+recruits dishevelled protein, which in turn antagonizes GSK-3β activity."
+bp(GO:"Wnt signaling pathway") neg act(p(HGNC:GSK3B))
+
+SET Evidence = "For example, ongoing inflammation can trigger various cell stress-response pathways, including overexpression of the secreted
+glycoprotein Dickopff-1 (DKK-1). DKK-1 up-regulates GSK-3β activity, promotes tau hyper-phosphorylation, NFT formation and neuronal degeneration.
+Thus, DKK-1 inhibits Wnt signalling in a manner similar to Aβ, and thereby fosters a self-sustaining feedback loop resulting in cellular injury"
+bp(GO:"inflammatory response") -> p(HGNC:DKK1)
+p(HGNC:DKK1) -> act(p(HGNC:GSK3B))
+p(HGNC:DKK1) -| bp(GO:"Wnt signaling pathway")
+act(p(HGNC:GSK3B)) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
+
+SET Evidence = "Utilizing Western blot, electrophoretic mobility shift assay, supershift and reverse transcriptase-polymerase chain reaction
+techniques, it has been demonstrated that micromolar S100B concentrations stimulate c-Jun N-terminal kinase (JNK) phosphorylation through
+the receptor for advanced glycation ending products, and subsequently activate nuclear AP-1/cJun transcription, in cultured human neural stem cells.
+In addition, as revealed by Western blot, small interfering RNA and immunofluorescence analysis, S100B-induced JNK activation increased expression
+of Dickopff-1 that, in turn, promoted glycogen synthase kinase 3β phosphorylation and β-catenin degradation, causing canonical Wnt pathway
+disruption and tau protein hyperphosphorylation. These findings propose a previously unrecognized link between S100B and tau hyperphosphorylation,
+suggesting S100B can contribute to NFT formation in AD and in all other conditions in which neuroinflammation may have a crucial role."
+p(HGNC:S100B) -> act(p(HGNC:AGER))
+act(p(HGNC:AGER)) pos p(FPLX:JNK)
+p(HGNC:S100B) -> p(FPLX:JNK)
+p(FPLX:JNK) -> p(HGNC:DKK1)
+
+########################################################################### TAU and a-synuclein ######################################################################################################
+
+SET Citation = {"PubMed", "12714745"}
+SET Evidence = "Recent studies of an individual with Parkinson’s disease (IX-47) of the Contursi kindred with the rare A53T alpha-synuclein mutation revealed widespread -syn and tau inclusions
+(15). Post-mortem examination of another affected member (IX-51) of this kindred also demonstrated abundant -syn and tau inclusions(figs. S1 and S2). Thus, a pathogenic
+mutation in alpha-synuclein that is known to increase the propensity of alpha-synuclein to fibrillize (8, 9) also promotes formation of tau inclusions in humans."
+
+SET Disease = "Parkinson's disease"
+g(DBSNP:rs104893877) pos complex(GO:"neurofibrillary tangle")
+g(DBSNP:rs104893877) pos complex(GO:"Lewy body")
+UNSET Disease
+
+SET Evidence = "We also observed that tau and alpha-synuclein synergistically
+promote and propagate each other’s polymerization into fibrils"
+
+SET Method = {"Western Blot", "Electron Microscopy, Immunological"}
+
+composite(p(HGNC:SNCA), p(HGNC:MAPT)) -> complex(GO:"neurofibrillary tangle")
+composite(p(HGNC:SNCA), p(HGNC:MAPT)) -> complex(GO:"Lewy body")
+
+UNSET Method
+
+########################################################################### TAU and 14-3-3 ###########################################################################################################
+
+SET Citation = {"PubMed", "12551948"}
+SET Method = {"Pull-down Assay, GST", "Co-Immunoprecipitation", "Chromatography, FPLC", "SDS-PAGE", "Immunoprecipitation"}
+SET CellLine = "HEK293"
+SET Cell_Line = "COS7"
+SET Evidence = "These observations suggested that 14-3-3zeta may be bound to GSK3Beta and/or tau within brain microtubules
+and may be a component of tau phosphorylation complex.Therefore, 14-3-3 must be the central molecule that holds tau and GSK3Beta within the complex.
+Indeed, FLAG-tau co-immunoprecipitated with HA-GSK3Beta from cells overexpressing FLAG-tau and HA-GSK3Beta only when these cells also overexpressed Xpress-14-3-3zeta
+(Fig. 6A, lanes 8 and 9), indicating that GSK3Beta associates with tau only in the presence of 14-3-3zeta.
+As discussed above, 14-3-3zeta binds to tau (36) and GSK3Beta (Fig. 5) directly. Taken together, these observations indicated that 14-3-3zeta connects GSK3Beta to tau in vivo."
+
+p(HGNC:YWHAZ) isA complex(p(HGNC:YWHAZ), p(HGNC:MAPT), p(HGNC:GSK3B))
+p(HGNC:MAPT) -- p(HGNC:YWHAZ)
+p(HGNC:GSK3B) -- p(HGNC:YWHAZ)
+p(HGNC:GSK3B) isA complex(p(HGNC:YWHAZ), p(HGNC:MAPT), p(HGNC:GSK3B))
+p(HGNC:MAPT) isA complex(p(HGNC:YWHAZ), p(HGNC:MAPT), p(HGNC:GSK3B))
+
+SET Evidence = "In cells that were co-transfected with fixed amounts of FLAG-tau and HA-GSK3Beta but different amounts of Xpress-14-3-3zeta, FLAG-tau
+phosphorylation increased progressively with the increase in the amount of Xpress-14-3-3zeta (lanes 7–9). This increase was evident
+not only by an increased immunoreactivity against all tau phosphorylation-sensitive antibodies tested but also by a retarded
+mobility of FLAG-tau on the SDS gel, a characteristic feature of hyperphosphorylated tau (2, 3). Thus, 14-3-3zeta profoundly stimulated
+GSK3Beta-catalyzed tau phosphorylation in vivo."
+
+p(HGNC:YWHAZ) -> act(p(HGNC:GSK3B))
+act(p(HGNC:GSK3B)) -> p(HGNC:MAPT, pmod(Ph))
+UNSET Cell_Line
+UNSET CellLine
+UNSET Method
+
+########################################################################### TAU and Membrane-associated proteins ###########################################################################################################
+
+SET Citation = {"PubMed", "12551948"}
+SET Method = {"Immunoblotting", "Immunoprecipitation", "Immunofluorescence", "Electron Microscopy, Immunological"}
+SET Evidence = "The results suggest that the amino-terminal fragment suppresses neurite outgrowth by
+competing for plasma membrane binding."
+SET CellLine = "PC12"
+p(INTERPRO:"MAP2/Tau projection") -| bp(GO:"neuron projection development")
+p(INTERPRO:"MAP2/Tau projection") isA p(HGNC:MAPT)
+p(INTERPRO:"MAP2/Tau projection") neg act(complex(GO:"plasma membrane"))
+UNSET CellLine
+UNSET Method
+
+SET Citation = {"PubMed", "21339331"}
+SET Evidence = "The quantification of all immunoreactive bands revealed that
+the R406W mutation exhibits a decreased phosphorylation at T205, T212, and the PHF1 epitope (S396/S404; reductions of 40–65%) as compared with wt tau, whereas other sites were not
+affected or only slightly affected (T181, S199, S214, and S262)."
+
+SET Method = {"Immunocytochemistry", "RNA Interference, shRNA", "Confocal Microscopy, Laser Scanning", "Tandem Affinity Purification, TAP", "Mass Spectrometry", "Pull-down Assay, GFP"}
+p(CONSO:"Tau isoform F (441 aa)", var("p.Arg406Tyr")) -| p(HGNC:MAPT, pmod(Ph, T, 205))
+p(CONSO:"Tau isoform F (441 aa)", var("p.Arg406Tyr")) -| p(HGNC:MAPT, pmod(Ph, T, 212))
+p(CONSO:"Tau isoform F (441 aa)", var("p.Arg406Tyr")) -| p(HGNC:MAPT, pmod(Ph, S, 396))
+p(CONSO:"Tau isoform F (441 aa)", var("p.Arg406Tyr")) -| p(HGNC:MAPT, pmod(Ph, S, 404))
+
+SET Evidence = "The data suggest that tau’s membrane association causes retention of tau in the tip of neurites,
+which is compromised by the R406W mutation. Also, after BAPTA treatment, the difference in the retention of
+wt tau and R406W tau was abolished (Fig. 9 D), which again suggests that tau trapping is caused by an interaction with AnxA2 at the membrane."
+SET GOCC = "neuron projection"
+p(HGNC:MAPT) -- p(HGNC:ANXA2)
+p(HGNC:ANXA2) -- a(MESH:"Cell Membrane")
+p(HGNC:ANXA2) isA complex(p(HGNC:MAPT), p(HGNC:ANXA2), a(MESH:"Cell Membrane"))
+p(HGNC:MAPT) isA complex(p(HGNC:MAPT), p(HGNC:ANXA2), a(MESH:"Cell Membrane"))
+a(MESH:"Cell Membrane") isA complex(p(HGNC:MAPT), p(HGNC:ANXA2), a(MESH:"Cell Membrane"))
+p(CONSO:"Tau isoform F (441 aa)", var("p.Arg406Tyr")) -| complex(p(HGNC:MAPT), p(HGNC:ANXA2), a(MESH:"Cell Membrane"))
+UNSET GOCC
+UNSET Method
+
+SET Citation = {"PubMed", "18096814"}
+SET Evidence = "A rapid but transient increase was found in the amount of fyn detected in DRMs on ADDL exposure for 2 min
+that was partially reduced after 10 min exposure. Mirroring the movement of fyn into the DRM, tau content of DRMs increased in response to ADDLs.
+To further test a putative association between fyn and tau levels in DRMs, we treated cells with 2-bromopalmitate, an inhibitor of protein palmitoylation,
+which is required for fyn’s localization in DRMs. This treatment resulted in a progressive reduction in both fyn and tau in DRMs, demonstrating
+that the association of tau with DRMs may be directly regulated by fyn (Supplemental Fig. 2)."
+SET Method = {"Immunofluorescence", "LDH Assay", "Western Blot"}
+SET Species = "10090"
+SET MeSHAnatomy = "Hippocampus"
+a(CONSO:"amyloid-beta derived diffusible ligands") -> tloc(p(MGI:Fyn), fromLoc(GO:cytoplasm), toLoc(GO:"membrane raft"))
+a(CONSO:"amyloid-beta derived diffusible ligands") -> tloc(p(MGI:Mapt), fromLoc(GO:cytoplasm), toLoc(GO:"membrane raft"))
+a(CHEBI:"2-bromohexadecanoic acid") -| p(MGI:Fyn, pmod(Palm))
+p(MGI:Fyn, pmod(Palm)) -> tloc(p(MGI:Fyn), fromLoc(GO:cytoplasm), toLoc(GO:"membrane raft"))
+SET GOCC = "membrane raft"
+a(CHEBI:"2-bromohexadecanoic acid") neg p(MGI:Mapt)
+a(CHEBI:"2-bromohexadecanoic acid") neg p(MGI:Fyn)
+UNSET GOCC
+p(MGI:Fyn) reg tloc(p(MGI:Mapt), fromLoc(GO:cytoplasm), toLoc(GO:"membrane raft"))
+UNSET Species
+UNSET Method
+
+########################################################################### TAU and DNA ######################################################################################################
+
+SET Citation = {"PubMed", "21131359"}
+SET Evidence = "In this work, we demonstrate that acute oxidative stress and mild heat stress (HS) induce the accumulation
+of dephosphorylated Tau in neuronal nuclei. Using chromatin immunoprecipitation assays, we demonstrate that the
+capacity of endogenous Tau to interact with neuronal DNA increased following HS. Comet assays performed on both wildtype
+and Tau-deficient neuronal cultures showed that Tau fully protected neuronal genomic DNA against HS-induced damage.
+Interestingly, HS-induced DNA damage observed in Tau-deficient cells was completely rescued after the overexpression
+of human Tau targeted to the nucleus."
+
+SET Method = "Chromatin Immunoprecipitation"
+bp(MESH:"Hot Temperature") -> complex(p(HGNC:MAPT), a(CHEBI:"double-stranded DNA"))
+
+SET Method = {"LDH Assay", "Immunofluorescence", "Electron Microscopy", "Comet Assay", "Non-denaturing Fast Halo Assay"}
+p(HGNC:MAPT) -- a(CHEBI:"double-stranded DNA")
+p(HGNC:MAPT) isA complex(p(HGNC:MAPT), a(CHEBI:"double-stranded DNA"))
+a(CHEBI:"double-stranded DNA") isA complex(p(HGNC:MAPT), a(CHEBI:"double-stranded DNA"))
+bp(MESH:"Oxidative Stress") -> tloc(p(HGNC:MAPT), fromLoc(GO:cytoplasm), toLoc(GO:nucleus))
+bp(MESH:"Hot Temperature") -> tloc(p(HGNC:MAPT), fromLoc(GO:cytoplasm), toLoc(GO:nucleus))
+p(HGNC:MAPT) neg bp(MESH:"Hot Temperature")
+bp(MESH:"Hot Temperature") -| a(CHEBI:"double-stranded DNA")
+UNSET Method
+
+########################################################################### TAU and RNA ######################################################################################################
+
+SET Citation = {"PubMed", "8985176"}
+SET Evidence = "As noticed earler, it is difficult to obtain PHFs from constructs containing domains outside the repeats or the second repeat, at least
+under conditions where assembly is driven by high ionic strength and high protein concentration [5,26]. This would suggest that some non-repeat domains of tau prevent PHF formation.
+The same tendency is observed here again, but low we find that the inhibition can be easily overcome by RNA in most cases. Since dimers are
+building blocks of PHFs, the extra repeat (no. 2) effectively acted as a PHF inhibitor [22]. However, this inhibition can be overcome by tRNA."
+
+SET Method = "Electron Microscopy"
+a(CHEBI:"transfer RNA") -> bp(GO:"neurofibrillary tangle assembly")
+UNSET Method
+
+########################################################################################################################################################################################

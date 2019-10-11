@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 # DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 # DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 # DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 # DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -56,10 +56,10 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 # Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
 # --------------------------------------------------------------------------------
 # DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
-# DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+ DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -74,56 +74,72 @@ DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifact
 SET Citation = {"PubMed", "29179999"}
 
 SET Evidence = "Glial activation, pro-inﬂammatory gene expression and elevated
-secretion of IL-1, IL-6 and TNF- are consequences of high A levels [30,31]."
+secretion of IL-1b, IL-6 and TNF-a are consequences of high Ab levels [30,31]."
+SET Confidence = "High"
 a(CHEBI:"amyloid-beta") -> bp(GO:"glial cell activation")
 a(CHEBI:"amyloid-beta") -> bp(GO:"inflammatory response")
 a(CHEBI:"amyloid-beta") -> sec(p(HGNC:IL1B))
 a(CHEBI:"amyloid-beta") -> sec(p(HGNC:IL6))
 a(CHEBI:"amyloid-beta") -> sec(p(HGNC:TNF))
+UNSET Confidence
 
-SET Evidence = "Furthermore, A induced NF-B activity in glial and
-neuronal cells. NF-B is involved in inﬂammatory responses and is
+SET Evidence = "Furthermore, Ab induced NF-kB activity in glial and
+neuronal cells. NF-kB is involved in inﬂammatory responses and is
 expressed in brains of AD patients [32]."
-SET Cell = "glial cell"
+SET Confidence = "Medium"
+SET Cell = {"glial cell", "neuron"}
 a(CHEBI:"amyloid-beta") -> act(p(FPLX:NFkappaB))
 act(p(FPLX:NFkappaB)) -- bp(GO:"inflammatory response")
 UNSET Cell
 SET MeSHAnatomy = "Brain"
 path(MESH:"Alzheimer Disease") pos p(FPLX:NFkappaB)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "ROS activate various downstream signaling molecules, such as
 PKC and mitogen-activated protein kinases (MAPKs) that induce nuclear translocation
-of NF-B and the expression of pro-inﬂammatory genes [41]."
+of NF-kB and the expression of pro-inﬂammatory genes [41]."
+SET Confidence = "Medium"
 a(CHEBI:"reactive oxygen species") -> act(p(FPLX:PKC))
 a(CHEBI:"reactive oxygen species") -> act(p(FPLX:ERK))
 a(CHEBI:"reactive oxygen species") -> tloc(p(FPLX:NFkappaB), MESH:"Cytosol", MESH:"Cell Nucleus")
+act(p(FPLX:ERK)) -> tloc(p(FPLX:NFkappaB), MESH:"Cytosol", MESH:"Cell Nucleus")
+act(p(FPLX:PKC)) -> tloc(p(FPLX:NFkappaB), MESH:"Cytosol", MESH:"Cell Nucleus")
 tloc(p(FPLX:NFkappaB), MESH:"Cytosol", MESH:"Cell Nucleus") -> bp(GO:"inflammatory response")
+UNSET Confidence
 
 SET Evidence = "Degeneration of neurons in the brain of AD
-patients is associated with the activation of NF-B [7"
+patients is associated with the activation of NF-kB [7"
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 act(p(FPLX:NFkappaB)) -- path(HP:Neurodegeneration)
 UNSET MeSHDisease
+UNSET Confidence
 
-SET Evidence = "NF-B activation mediates the expression of the pro-oxidant
+SET Evidence = "NF-kB activation mediates the expression of the pro-oxidant
 NAPDH oxidase, cyclooxygenase 2 (COX2), interleukins and the antioxidant
-enzyme, superoxide dismutase (SOD) [78]. Additionally, NF-B activity is
+enzyme, superoxide dismutase (SOD) [78]. Additionally, NF-kB activity is
 associated with the expression of BACE1 [79] and the activation of
 nucleotide-binding oligomerization domain-like receptor (NALP) 3 inﬂammosome [80]."
+SET Confidence = "Medium"
 act(p(FPLX:NFkappaB)) reg p(FPLX:"NADPH_oxidase")
 act(p(FPLX:NFkappaB)) reg p(HGNC:PTGS2)
 act(p(FPLX:NFkappaB)) reg a(MESH:Interleukins)
 act(p(FPLX:NFkappaB)) reg p(FPLX:SOD)
-act(p(FPLX:NFkappaB)) -> p(HGNC:BACE1)
+act(p(FPLX:NFkappaB)) -- r(HGNC:BACE1)
+act(p(FPLX:NFkappaB)) -- r(HGNC:NLRP3)
+UNSET Confidence
 
 SET Evidence = "Curcumin showed several anti-inﬂammatory characteristics.
 It deploys various cytokine-inhibitory, anti-inﬂammatory activities and
 decreases the expression levels of COX-2, LOX, and iNOS. Moreover, the
-expression of the pro-inﬂammatory cytokines, for instance, TNF-, IL-1,
- -2,-6, -8, and -12 and the neurotoxic factors were suppressed by
+expression of the pro-inﬂammatory cytokines, for instance, TNF-a, IL-1,
+-2,-6, -8, and -12 and the neurotoxic factors were suppressed by
 curcumin in lipopolysaccharide (LPS)-stimulated monocytes and alveolar
 macrophages [103]."
+#LPS stimulated
+SET Confidence = "Medium"
+SET Cell = {"alveolar macrophage", "monocyte"}
 a(CHEBI:curcumin) -| bp(GO:"inflammatory response")
 a(CHEBI:curcumin) -| p(HGNC:PTGS2)
 a(CHEBI:curcumin) -| p(HGNC:LOX)
@@ -134,70 +150,104 @@ a(CHEBI:curcumin) -| p(HGNC:IL2)
 a(CHEBI:curcumin) -| p(HGNC:IL6)
 a(CHEBI:curcumin) -| p(HGNC:CXCL8)
 a(CHEBI:curcumin) -| p(HGNC:IL12B)
+a(CHEBI:curcumin) -| a(MESH:Neurotoxins)
+UNSET Cell
+UNSET Confidence
 
-SET Evidence = "Inhibition of the NF-B pathway represents a
+SET Evidence = "Inhibition of the NF-kB pathway represents a
 well-deﬁned anti-inﬂammatory mechanism of curcumin[104,105].
-Curcumin inhibited the phosphorylation and degrada-tion of IB
-and the nuclear translocation of NF-B p65 [106]."
+Curcumin inhibited the phosphorylation and degrada-tion of IKB
+and the nuclear translocation of NF-kB p65 [106]."
+SET Confidence = "High"
 a(CHEBI:curcumin) -| act(p(FPLX:NFkappaB))
 a(CHEBI:curcumin) -| p(HGNC:NFKBIA, pmod(Ph))
 a(CHEBI:curcumin) -| deg(p(HGNC:NFKBIA))
 a(CHEBI:curcumin) -| tloc(p(HGNC:RELA), MESH:"Cytosol", MESH:"Cell Nucleus")
+UNSET Confidence
 
 SET Evidence = "Resveratrol crossed the blood-brain barrier (BBB) [111,112] and
-down-regulated several inﬂammatory biomarkers such as TNF-, COX2 and interleukins
+down-regulated several inﬂammatory biomarkers such as TNF-a, COX2 and interleukins
 [113,114]."
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Blood-Brain Barrier"
 a(CHEBI:resveratrol) -| p(HGNC:TNF)
 a(CHEBI:resveratrol) -| p(HGNC:PTGS2)
 a(CHEBI:resveratrol) -| a(MESH:Interleukins)
+UNSET MeSHAnatomy
+UNSET Confidence
 
-SET Evidence = "Besides, it decreased the phosphorylation of IKK and IB through
-LPS stimulation and subse-quently inhibited the activity of NF-B [115]."
+SET Evidence = "Besides, it decreased the phosphorylation of IKK and IkB through
+LPS stimulation and subse-quently inhibited the activity of NF-kB [115]."
+SET Confidence = "High"
 a(CHEBI:resveratrol) -| p(FPLX:"IKK_complex", pmod(Ph))
 a(CHEBI:resveratrol) -| p(HGNC:NFKBIA, pmod(Ph))
 a(CHEBI:resveratrol) -| act(p(FPLX:NFkappaB))
+UNSET Confidence
 
 SET Evidence = "Resveratrol disrupted the phosphorylation of signal transducer and
 activator of transcription factor 1 (STAT1) and STAT3 [115]."
+SET Confidence = "High"
 a(CHEBI:resveratrol) -| p(HGNC:STAT1, pmod(Ph))
 a(CHEBI:resveratrol) -| p(HGNC:STAT3, pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "It also lowered the expression of NO and iNOS, and prostaglandin E2 (PGE2)
-and COX2 in A-activated glial cells. All these effects were attributableto their suppression
- of nuclear NF-B translocation [116]."
+and COX2 in Ab-activated glial cells. All these effects were attributable to their suppression
+of nuclear NF-kB translocation [116]."
+SET Confidence = "Medium"
 a(CHEBI:resveratrol) -| a(CHEBI:"nitric oxide")
 a(CHEBI:resveratrol) -| p(HGNC:NOS2)
+SET Cell = "glial cell"
+#Ab activated
 a(CHEBI:resveratrol) -| a(CHEBI:"prostaglandin E2")
 a(CHEBI:resveratrol) -| p(HGNC:PTGS2)
+UNSET Cell
+UNSET Confidence
 
-SET Evidence = "It is even more potent than resveratrol through PPAR
-regulation [118,119], NF-B transcription[120–122] and JNK phosphorylation
+SET Evidence = "It is even more potent than resveratrol through PPAR-a
+regulation [118,119], NF-kB transcription[120–122] and JNK phosphorylation
 [123,124]."
+SET Confidence = "Medium"
 a(CHEBI:pterostilbene) reg p(HGNC:PPARA)
-a(CHEBI:pterostilbene) reg p(FPLX:NFkappaB)
+a(CHEBI:pterostilbene) reg r(FPLX:NFkappaB)
 a(CHEBI:pterostilbene) reg p(FPLX:JNK, pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "Punicalagin decreased the expression of COX2 and
-DNA binding of NF-B in human colon cancer cell line [126]."
-a(PUBCHEM:"44584733") -| p(HGNC:PTGS2)
-a(PUBCHEM:"44584733") -| complex(p(FPLX:NFkappaB), a(MESH:DNA))
+DNA binding of NF-kB in human colon cancer cell line [126]."
+SET Confidence  = "Medium"
+SET Species = "9606"
+SET CellLine = "cancer cell line"
+#colon cancer cell line
+a(PUBCHEM:"44584733") -| r(HGNC:PTGS2)
+a(PUBCHEM:"44584733") -| act(p(FPLX:NFkappaB), ma(GO:"DNA binding"))
+UNSET CellLine
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Inﬂammation caused by LPS was reduced with treatment
 of punicalaginin RAW264.7 macrophages, astrocytes and microglial BV-2 cells"
+#BV-2 Cells
+SET Confidence = "High"
 SET Cell = {"microglial cell", "macrophage", "astrocyte"}
 a(PUBCHEM:"44584733") -| bp(GO:"inflammatory response")
 UNSET Cell
+UNSET Confidence
 
-SET Evidence = "Macranthoin G inhibited the NF-B pathway and activated the
-phosphorylation of IB, p38 and ERK, and thus, min-imized cell damage [131]."
+SET Evidence = "Macranthoin G inhibited the NF-kB pathway and activated the
+phosphorylation of IkBk, p38 and ERK, and thus, min-imized cell damage [131]."
+SET Confidence = "High"
 a(CHEBI:"methyl 3,5-di-O-caffeoyl quinate") -| bp(GO:"NIK/NF-kappaB signaling")
 a(CHEBI:"methyl 3,5-di-O-caffeoyl quinate") -> p(HGNC:NFKBIA, pmod(Ph))
 a(CHEBI:"methyl 3,5-di-O-caffeoyl quinate") -> p(HGNC:MAPK14, pmod(Ph))
 a(CHEBI:"methyl 3,5-di-O-caffeoyl quinate") -> p(FPLX:ERK, pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "Salidroside ameliorated cognitive injury in an AD rat model
 by regulating the expressions of thioredoxin, thioredoxin interacting protein
-and NF-B pathway proteins such as NF-B p65, IB, IKK and IKK[137]."
+and NF-kB pathway proteins such as NF-kB p65, IkBk, IKKa and IKKb[137]."
+SET Confidence = "Medium"
+SET Species = "10114"
 SET MeSHDisease = "Alzheimer Disease"
 a(CHEBI:Salidroside) -> bp(GO:cognition)
 UNSET MeSHDisease
@@ -207,89 +257,122 @@ a(CHEBI:Salidroside) reg p(HGNC:RELA)
 a(CHEBI:Salidroside) reg p(HGNC:NFKBIA)
 a(CHEBI:Salidroside) reg p(HGNC:CHUK)
 a(CHEBI:Salidroside) reg p(HGNC:IKBKB)
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Beneﬁcial effects of 4-O-methylhonokinol on memory were
-observed by the reduction of Aaggregation in A 1-42-injected mice and
+observed by the reduction of Ab aggregation in Ab 1-42-injected mice and
 memory-impaired mice with its anti-oxidative and anti-inﬂammatory qualities
 [141–143]."
+SET Confidence = "Medium"
+SET Species = "10090"
 SET MeSHDisease = "Alzheimer Disease"
 a(PUBCHEM:155160) -> bp(GO:memory)
-a(PUBCHEM:155160) -| a(HBP:"amyloid-beta aggregates")
+a(PUBCHEM:155160) -| a(CONSO:"amyloid-beta aggregates")
 a(PUBCHEM:155160) -| path(MESH:"Oxidative Stress")
 a(PUBCHEM:155160) -| path(MESH:Inflammation)
 UNSET MeSHDisease
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "LPS-stimulated memory impairments were improved by
-4-O-methylhonokinol through the inhibition of A 1-42 expression. "
+4-O-methylhonokinol through the inhibition of Ab 1-42 expression. "
+SET Confidence = "Medium"
 a(PUBCHEM:155160) -| a(CHEBI:"amyloid-beta polypeptide 42")
+a(CHEBI:"amyloid-beta polypeptide 42") -- bp(GO:memory)
+UNSET Confidence
 
-SET Evidence = "It inactivated– and -secretases and astrocytes
- through the inter-ference of NF-B activation [144"
+SET Evidence = "It inactivated gamma– and beta-secretases and astrocytes
+through the inter-ference of NF-kB activation [144"
+SET Confidence = "High"
 a(PUBCHEM:155160) -| act(p(FPLX:"Gamma_secretase"))
 a(PUBCHEM:155160) -| act(p(HGNC:BACE1))
 a(PUBCHEM:155160) -| act(p(FPLX:NFkappaB))
+UNSET Confidence
 
-SET Evidence = "It improved ICV A 1-42-activated spatial learning,
-and memory deﬁciencies were ameliorated via the interference of NF-B
- signaling and the inhibition of inﬂammatory cytokines [155]."
+SET Evidence = "It improved ICV Ab 1-42-activated spatial learning,
+and memory deﬁciencies were ameliorated via the interference of NF-kB
+signaling and the inhibition of inﬂammatory cytokines [155]."
+SET Confidence = "Medium"
 a(CHEBI:lycopene) -> path(MESH:"Spatial Learning")
 a(CHEBI:lycopene) -> bp(GO:memory)
 a(CHEBI:lycopene) -| bp(GO:"NIK/NF-kappaB signaling")
+a(CHEBI:lycopene) -| a(MESH:Cytokines)
+UNSET Confidence
 
 SET Evidence = "Pretreatment with genistein signiﬁcantly alleviated
- A 25-35-stimulated TLR4 and NF-B expres-sion, DNA binding and
- NF-B activities[159]."
+Ab 25-35-stimulated TLR4 and NF-kB expres-sion, DNA binding and
+NF-kB activities[159]."
+SET Confidence = "Medium"
 a(CHEBI:genistein) -| p(HGNC:TLR4)
 a(CHEBI:genistein) -| p(FPLX:NFkappaB)
-a(CHEBI:genistein) -| complex(p(FPLX:NFkappaB), a(MESH:DNA))
+a(CHEBI:genistein) -| act(p(FPLX:NFkappaB), ma(GO:"DNA binding"))
 a(CHEBI:genistein) -| act(p(FPLX:NFkappaB))
+UNSET Confidence
 
-SET Evidence = "ICV infusion of impairments by A 1-42 was considerably
+SET Evidence = "ICV infusion of impairments by Ab 1-42 was considerably
 reduced with the treatment of obovatol [161]."
+SET Confidence = "High"
 a(PUBCHEM:45270574) -| act(a(CHEBI:"amyloid-beta polypeptide 42"))
+UNSET Confidence
 
 SET Evidence = "It revealed potent anti-histone acetyltransferase (HAT)
- activity and inhibited RelA acetylation via direct inhibition of HAT enzymes
+activity and inhibited RelA acetylation via direct inhibition of HAT enzymes
 and consequently down-regulation ofdiverse inﬂammatory signaling pathways [163]."
 #MYST is a HAT
+SET Confidence = "High"
 a(CHEBI:"gallic acid") -| act(p(FPLX:MYST))
 a(CHEBI:"gallic acid") -| p(HGNC:RELA, pmod(Ac))
 a(CHEBI:"gallic acid") -| path(MESH:Inflammation)
+UNSET Confidence
 
-SET Evidence = "A-activated NF-B activity and the expression of cytokines
+SET Evidence = "Ab-activated NF-kB activity and the expression of cytokines
 were attenuated with gallic acid in microglial cells y decreased
-acetylation of RelA, which subsequently reduced A-activated neu-rotoxicity
+acetylation of RelA, which subsequently reduced Ab-activated neu-rotoxicity
 [164]."
+SET Confidence = "Medium"
 SET Cell = "microglial cell"
 a(CHEBI:"gallic acid") -| act(p(FPLX:NFkappaB))
 a(CHEBI:"gallic acid") -| act(a(CHEBI:"amyloid-beta"))
 UNSET Cell
+p(HGNC:RELA, pmod(Ac)) -- path(MESH:"Neurotoxicity Syndromes")
+UNSET Confidence
 
 SET Evidence = "It inhibits AChE
 competitively and reversibly, causing elevated cerebral concen-trations
 of ACh, and thus, enhancing cholinergic activity. "
+SET Confidence = "Medium"
 a(CHEBI:galanthamine) -| act(p(HGNC:ACHE))
 SET MeSHAnatomy = "Cerebral Cortex"
 a(CHEBI:galanthamine) -> a(CHEBI:acetylcholine)
+a(CHEBI:galanthamine) -> a(MESH:"Cholinergic Agents")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Besides, galantamine
 allosterically interacted with nicotinic ACh receptors to increase the
 agonistic activity of these receptors and ampliﬁed the ACh reaction through
 stimulating ACh release [165–167]."
+SET Confidence = "High"
 complex(a(CHEBI:galanthamine), p(FPLX:CHRN)) -> act(p(FPLX:CHRN))
 a(CHEBI:galanthamine) -> sec(a(CHEBI:acetylcholine))
+UNSET Confidence
 
 SET Evidence = "The protective effects of galantamine in brain microvascular
 endothelial cells were mediated via protective gene, heme oxygenase-1 induction
-through NF-B activation [168]"
+through NF-kB activation [168]"
+SET Confidence = "Medium"
+SET Cell = "brain microvascular endothelial cell"
 a(CHEBI:galanthamine) -> act(p(HGNC:HMOX1))
 a(CHEBI:galanthamine) -> act(p(FPLX:NFkappaB))
+UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Glaucocalyxin B, found in Rabdosia japonica, considerably atten-uated
-the expression of NO, TNF-, IL-1, COX-2 and iNOS in LPS-induced microglia cells [169–172].
-Moreover, the activation of NF-B, p38 MAPK and ROS generation was interrupted by glauco-
+the expression of NO, TNF-a, IL-1, COX-2 and iNOS in LPS-induced microglia cells [169–172].
+Moreover, the activation of NF-kB, p38 MAPK and ROS generation was interrupted by glauco-
 calyxin B in LPS-induced microglia cells [172]."
+SET Confidence = "High"
 SET Cell = "microglial cell"
 a(PUBCHEM:14193399) -| a(CHEBI:"nitric oxide")
 a(PUBCHEM:14193399) -| p(HGNC:TNF)
@@ -300,147 +383,200 @@ a(PUBCHEM:14193399) -| act(p(FPLX:NFkappaB))
 a(PUBCHEM:14193399) -| act(p(HGNC:MAPK14))
 a(PUBCHEM:14193399) -| a(CHEBI:"reactive oxygen species")
 UNSET Cell
+UNSET Confidence
 
-SET Evidence = "Tetrandrine inhibited the activity of NF-B and down-regulated the
+SET Evidence = "Tetrandrine inhibited the activity of NF-kB and down-regulated the
 expression of pro-inﬂammatory cytokines [178–180]."
+SET Confidence = "High"
 a(PUBCHEM:73078) -| act(p(FPLX:NFkappaB))
 a(PUBCHEM:73078) -| a(MESH:Cytokines)
+UNSET Confidence
 
 SET Evidence = "It inhibited the degradation of
-IkBa, a cytoplasmic NF-B inhibitor, and p65translocation to the nucleus by disabling
-IkBa alpha kinase beta and  activiies [181,182]. "
+IkBa, a cytoplasmic NF-kB inhibitor, and p65translocation to the nucleus by disabling
+IkBa alpha kinase beta and alpha activiies [181,182]. "
+SET Confidence = "Medium"
 a(PUBCHEM:73078) -| deg(p(HGNC:NFKBIA))
-p(HGNC:NFKBIA) -| act(p(FPLX:NFkappaB))
+p(HGNC:NFKBIA) -| act(p(FPLX:NFkappaB, loc(MESH:"Cytosol")))
 a(PUBCHEM:73078) -| tloc(p(HGNC:RELA), MESH:"Cytosol", MESH:"Cell Nucleus")
 a(PUBCHEM:73078) -| act(p(HGNC:CHUK))
 a(PUBCHEM:73078) -| act(p(HGNC:IKBKB))
+UNSET Confidence
 
 SET Evidence = "It ameliorated spatial learning and memory disorder,
-which was caused by A 1-42 and was associated with the inter-ference of NF-B activity and
-the inhibition of IL-1 and TNF-expression [183]."
+which was caused by Ab 1-42 and was associated with the inter-ference of NF-kB activity and
+the inhibition of IL-1b and TNF-a expression [183]."
+SET Confidence = "Medium"
 a(PUBCHEM:73078) -> path(MESH:"Spatial Learning")
 a(PUBCHEM:73078) -> bp(GO:memory)
 a(PUBCHEM:73078) -| act(p(FPLX:NFkappaB))
 a(PUBCHEM:73078) -| p(HGNC:IL1B)
-a(PUBCHEM:73078) -| p(HGNC:TNF)
+a(PUBCHEM:73078) -| r(HGNC:TNF)
+UNSET Confidence
 
 SET Evidence = "Berberine suppressed inﬂammatory events occurring in several
 inﬂammation-related diseases [186,187]."
+SET Confidence = "High"
 a(CHEBI:berberine) -| path(MESH:Inflammation)
+UNSET Confidence
 
 SET Evidence = "Furthermore, berberine decreased the phosphorylation and
 expression of p65 [188]."
+SET Confidence = "High"
 a(CHEBI:berberine) -| p(HGNC:RELA, pmod(Ph))
-a(CHEBI:berberine) -| p(HGNC:RELA)
+a(CHEBI:berberine) -| r(HGNC:RELA)
+UNSET Confidence
 
-SET Evidence = "Also, berberine inhibited the phosphorylation of IB."
+SET Evidence = "Also, berberine inhibited the phosphorylation of IkBk."
+SET Confidence = "High"
 a(CHEBI:berberine) -| p(HGNC:NFKBIA, pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "Berberine inhibited the p38,ERK and Akt signaling pathways,
-which were stimulated by A"
+which were stimulated by Ab"
+SET Confidence = "High"
 a(CHEBI:berberine) -| act(p(HGNC:MAPK14))
 a(CHEBI:berberine) -| act(p(FPLX:ERK))
 a(CHEBI:berberine) -| act(p(FPLX:AKT))
+UNSET Confidence
 
-SET Evidence = "It inhibited the activation of NF-B in TNF- induced HepG2
+SET Evidence = "It inhibited the activation of NF-kB in TNF-a induced HepG2
 cells [193]."
+SET Confidence = "Medium"
+SET CellLine = "HepG2"
 a(CHEBI:oridonin) -| act(p(FPLX:NFkappaB))
 p(HGNC:TNF) -> act(p(FPLX:NFkappaB))
+UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "Besides, it attenuated cognitive disorders nd inﬂam-matory
-reactions in A 1-42-activated AD mice[194]."
+reactions in Ab 1-42-activated AD mice[194]."
+SET Confidence = "Medium"
+SET Species = "10090"
 SET MeSHDisease = "Alzheimer Disease"
 a(CHEBI:oridonin) -> bp(GO:cognition)
 a(CHEBI:oridonin) -| path(MESH:Inflammation)
 UNSET MeSHDisease
+UNSET Species
+UNSET Confidence
 
-SET Evidence = "Anatabine lowered NF-B activation by inhibiting A
+SET Evidence = "Anatabine lowered NF-kB activation by inhibiting Ab
 production in vitro [195]."
+SET Confidence = "High"
 a(CHEBI:Anatabine) -| act(p(FPLX:NFkappaB))
 a(CHEBI:Anatabine) -| a(CHEBI:"amyloid-beta")
+UNSET Confidence
 
-SET Evidence = "It con-siderably lowered the expression of A 1-40 and
-A 1-42 in an AD transgenic mouse [195]."
+SET Evidence = "It con-siderably lowered the expression of Ab 1-40 and
+Ab 1-42 in an AD transgenic mouse [195]."
+SET Confidence = "Medium"
+SET Species = "10090"
 SET MeSHDisease = "Alzheimer Disease"
 a(CHEBI:Anatabine) -| a(CHEBI:"amyloid-beta polypeptide 40")
 a(CHEBI:Anatabine) -| a(CHEBI:"amyloid-beta polypeptide 42")
 UNSET MeSHDisease
+UNSET Species
+UNSET Confidence
 
-SET Evidence = "The phosphorylation of the NF-B inﬂamma-tory pathway
-in A 25-35-stimulated microglial cells was inhibited by vitamin D2 via
+SET Evidence = "The phosphorylation of the NF-kB inﬂamma-tory pathway
+in Ab 25-35-stimulated microglial cells was inhibited by vitamin D2 via
 reducing ROS and inﬂammatory cytokines [207]"
+SET Confidence = "High"
 SET Cell = "microglial cell"
+#Ab 25-35
 a(CHEBI:"vitamin D") -| p(FPLX:NFkappaB, pmod(Ph))
 a(CHEBI:"vitamin D") -| a(CHEBI:"reactive oxygen species")
 a(CHEBI:"vitamin D") -| path(MESH:Inflammation)
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "It has antiox-idant effects via the interference of
 reactive components and ROS by redox cycling of quinine, and subsequently
 generating hydroquinone [209]."
+SET Confidence = "High"
 a(CHEBI:"alpha-tocopherol") -| a(CHEBI:"reactive oxygen species")
+UNSET Confidence
 
-SET Evidence = "Reduction of A expression and cytotoxic-ity stimulated by
-A in neuroblastoma cells and the inhibition of inﬂammatory cytokines,
-ROS and NO in microglial cells were detected upon treatment with -tocopherol [210]."
-SET Cell = "microglial cell"
+SET Evidence = "Reduction of Ab expression and cytotoxic-ity stimulated by
+Ab in neuroblastoma cells and the inhibition of inﬂammatory cytokines,
+ROS and NO in microglial cells were detected upon treatment with a-tocopherol [210]."
+SET Confidence = "Medium"
+SET MeSHDisease = "Neuroblastoma"
 a(CHEBI:"alpha-tocopherol") -| a(CHEBI:"amyloid-beta")
+UNSET MeSHDisease
+SET Cell = "microglial cell"
 a(CHEBI:"alpha-tocopherol") -| a(MESH:Cytokines)
 a(CHEBI:"alpha-tocopherol") -| a(CHEBI:"nitric oxide")
 UNSET Cell
+UNSET Confidence
 
-SET Evidence = "Memory deﬁ-ciencies were improved by -tocopherol
+SET Evidence = "Memory deﬁ-ciencies were improved by a-tocopherol
 in transgenic mice."
+SET Confidence = "High"
 SET Species = "10090"
 a(CHEBI:"alpha-tocopherol") -> bp(GO:memory)
 UNSET Species
+UNSET Confidence
 
-SET Evidence = "Oxidative stress and A expression were suppressed
-with -tocopherol in mouse model."
+SET Evidence = "Oxidative stress and Ab expression were suppressed
+with a-tocopherol in mouse model."
+SET Confidence = "High"
 SET Species = "10090"
 a(CHEBI:"alpha-tocopherol") -| path(MESH:"Oxidative Stress")
 a(CHEBI:"alpha-tocopherol") -| a(CHEBI:"amyloid-beta")
 UNSET Species
+UNSET Confidence
 
-SET Evidence = "Furthermore, it disrupted the activity of NF-B,
+SET Evidence = "Furthermore, it disrupted the activity of NF-kB,
 and thus, caused the suppression of NO synthase and inﬂammatory
-regulators such as IL-6 and IL-1, and the reduction of microglial
+regulators such as IL-6 and IL-1a, and the reduction of microglial
 activation [37]"
 #inducible NOS (NOS2)
+SET Confidence = "High"
 a(CHEBI:"alpha-tocopherol") -| act(p(FPLX:NFkappaB))
 a(CHEBI:"alpha-tocopherol") -| p(HGNC:NOS2)
 a(CHEBI:"alpha-tocopherol") -| p(HGNC:IL6)
 a(CHEBI:"alpha-tocopherol") -| p(HGNC:IL1B)
 a(CHEBI:"alpha-tocopherol") -| bp(GO:"microglial cell activation")
+UNSET Confidence
 
 SET Evidence = "Retinoic acid showed anti-inﬂammatory qualities via
 suppressing the expression of the inﬂammatory mediators IL-6, IL-12
-and TNF- [216–219] and mod-ulating NF-B signaling [220,221]."
+and TNF-a [216–219] and mod-ulating NF-kB signaling [220,221]."
+SET Confidence = "High"
 a(PUBCHEM:444795) -| path(MESH:Inflammation)
 a(PUBCHEM:444795) -| p(HGNC:IL6)
 a(PUBCHEM:444795) -| p(HGNC:IL12B)
 a(PUBCHEM:444795) -| p(HGNC:TNF)
 a(PUBCHEM:444795) -| act(p(FPLX:NFkappaB))
+UNSET Confidence
 
 SET Evidence = "It reduced BACE1 expression and repressed LPS-activated
-nuclear translocation of NF-B and its binding to the BACE1 promoter
+nuclear translocation of NF-kB and its binding to the BACE1 promoter
 [222]."
+SET Confidence = "Medium"
 a(PUBCHEM:444795) -| p(HGNC:BACE1)
 a(PUBCHEM:444795) -| tloc(p(FPLX:NFkappaB), MESH:"Cytosol", MESH:"Cell Nucleus")
+a(PUBCHEM:444795) -| complex(p(FPLX:NFkappaB), g(HGNC:BACE1))
+UNSET Confidence
 
-SET Evidence = "A levels in the brain of mice were consider-ably reduced with
+SET Evidence = "Ab levels in the brain of mice were consider-ably reduced with
 treatment of ginsenoside Re\Rg3\Rg1 (25 mg/kg)[224]."
+#25mg/kg
+SET Confidence = "High"
 SET Species = "10090"
 a(PUBCHEM:3086007) -| a(CHEBI:"amyloid-beta")
 a(PUBCHEM:441921) -| a(CHEBI:"amyloid-beta")
 a(PUBCHEM:9918693) -| a(CHEBI:"amyloid-beta")
 a(PUBCHEM:441923) -| a(CHEBI:"amyloid-beta")
 UNSET Species
+UNSET Confidence
 
-SET Evidence = "Ginsenoside Rd showed neuro-protective effects with A 40 activated
+SET Evidence = "Ginsenoside Rd showed neuro-protective effects with Ab 40 activated
 impairments in rat brains [225] and ameliorated learning and memory
-capability in APP transgenic mice, via reducing the activity of NF-B
+capability in APP transgenic mice, via reducing the activity of NF-kB
 [226]."
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 SET Species = "10116"
 SET MeSHAnatomy = "Brain"
@@ -452,33 +588,40 @@ a(PUBCHEM:24721561) -> bp(GO:memory)
 a(PUBCHEM:24721561) -| act(p(FPLX:NFkappaB))
 UNSET Species
 UNSET MeSHDisease
+UNSET Confidence
 
-SET Evidence = "The expression of the protein and mRNA of TLR3, TLR4, NF-B and
+SET Evidence = "The expression of the protein and mRNA of TLR3, TLR4, NF-kB and
 TNF receptor associated factor 6 (TRAF-6) were substantially decreased
-by ginsenoside Rg1, and it also decreased the expression of TNF-
-and IFN- [227]"
+by ginsenoside Rg1, and it also decreased the expression of TNF-a
+and IFN-b [227]"
+SET Confidence  = "Medium"
 a(PUBCHEM:441923) -| r(HGNC:TLR3)
 a(PUBCHEM:441923) -| p(HGNC:TLR3)
 a(PUBCHEM:441923) -| r(HGNC:TLR4)
 a(PUBCHEM:441923) -| p(HGNC:TLR4)
+a(PUBCHEM:441923) -| r(FPLX:NFkappaB)
 a(PUBCHEM:441923) -| p(FPLX:NFkappaB)
 a(PUBCHEM:441923) -| r(HGNC:TRAF6)
 a(PUBCHEM:441923) -| p(HGNC:TRAF6)
-a(PUBCHEM:441923) -| p(HGNC:TNF)
-a(PUBCHEM:441923) -| p(HGNC:IFNB1)
+a(PUBCHEM:441923) -| r(HGNC:TNF)
+a(PUBCHEM:441923) -| r(HGNC:IFNB1)
+UNSET Confidence
 
 SET Evidence = "It inhibited the activation of iNOS, matrix metalloproteinase 2
-(MMP2), and NF-Bp65 and consequently prevent AD in the brain [229–231]."
+(MMP2), and NF-kBp65 and consequently prevent AD in the brain [229–231]."
+SET Confidence = "High"
 a(PUBCHEM:164676) -| act(p(HGNC:NOS2))
 a(PUBCHEM:164676) -| act(p(HGNC:MMP2))
 a(PUBCHEM:164676) -| act(p(HGNC:RELA))
 SET MeSHAnatomy = "Brain"
 a(PUBCHEM:164676) -| path(MESH:"Alzheimer Disease")
 UNSET MeSHAnatomy
+UNSET Confidence
 
-SET Evidence = "Moreover, tanshinone IIA inhibited apoptosis in A 25-35-induced
+SET Evidence = "Moreover, tanshinone IIA inhibited apoptosis in Ab 25-35-induced
 cells [232] and exerted anti-inﬂammatory activity in atherosclerosis and
 neuroprotective activity in cerebral ischemia/reperfusion impairment [233,234]"
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 a(PUBCHEM:164676) -| bp(GO:"apoptotic process")
 SET MeSHDisease = "Atherosclerosis"
@@ -486,34 +629,44 @@ a(PUBCHEM:164676) -| path(MESH:Inflammation)
 SET MeSHDisease = "Brain Ischemia"
 a(PUBCHEM:164676) -| bp(GO:"neuron death")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Tanshinone IIA reduced the glial ﬁbrillary acidic protein
-(GFAP) and NF-B and induced the expression of neuronal nuclear antigen
-(NeuN), Nissl bodies, and IB in AD [235,236]."
+(GFAP) and NF-kB and induced the expression of neuronal nuclear antigen
+(NeuN), Nissl bodies, and IkB in AD [235,236]."
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 a(PUBCHEM:164676) -| p(HGNC:GFAP)
 a(PUBCHEM:164676) -| p(FPLX:NFkappaB)
-a(PUBCHEM:164676) -> p(HGNC:RBFOX3)
+a(PUBCHEM:164676) -> r(HGNC:RBFOX3)
 a(PUBCHEM:164676) -> a(MESH:"Nissl Bodies")
-a(PUBCHEM:164676) -> p(FPLX:IKB)
+a(PUBCHEM:164676) -> r(FPLX:IKB)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Moreover,it reveals promising anti-inﬂammatory actions through
-suppress-ing the activation of NF-B [238–240]. "
+suppress-ing the activation of NF-kB [238–240]. "
+SET Confidence = "High"
 a(CHEBI:"(+)-artemisinin") -| path(MESH:Inflammation)
 a(CHEBI:"(+)-artemisinin") -| act(p(FPLX:NFkappaB))
+UNSET Confidence
 
-SET Evidence = "The expression of A was lowered by artemisinin through inhibition of the activity
+SET Evidence = "The expression of Ab was lowered by artemisinin through inhibition of the activity
 of NALP3 inﬂammasome in APPswe/PS1E9 transgenic mice [241]."
+SET Confidence = "Medium"
+SET Species = "10090"
 SET MeSHDisease = "Alzheimer Disease"
 a(CHEBI:"(+)-artemisinin") -| a(CHEBI:"amyloid-beta")
 a(CHEBI:"(+)-artemisinin") -| bp(GO:"NLRP3 inflammasome complex assembly")
 UNSET MeSHDisease
+UNSET Species
+UNSET Confidence
 
 SET Evidence = " LPS-activated expression of pro-inﬂammatory and
-neurotoxic factors like NO, TNF-, PGE2, NO synthase and COX2
+neurotoxic factors like NO, TNF-a, PGE2, NO synthase and COX2
 production and LOX activity were inhibited by dihydroasparagusic
 acid in microglia cells [243]."
+SET Confidence = "High"
 SET Cell = "microglial cell"
 a(PUBCHEM:440312) -| a(CHEBI:"nitric oxide")
 a(PUBCHEM:440312) -| p(HGNC:TNF)
@@ -522,53 +675,65 @@ a(PUBCHEM:440312) -| p(HGNC:NOS2)
 a(PUBCHEM:440312) -| p(HGNC:PTGS2)
 a(PUBCHEM:440312) -| act(p(HGNC:LOX))
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Besides, it signiﬁcantly decreased the generation of ROS and
-affected LPS-induced activation of MAPK, including p38 and NF-B signaling[243]."
+affected LPS-induced activation of MAPK, including p38 and NF-kB signaling[243]."
+SET Confidence = "High"
 a(PUBCHEM:440312) -| a(CHEBI:"reactive oxygen species")
 a(PUBCHEM:440312) -| act(p(FPLX:ERK))
 a(PUBCHEM:440312) -| act(p(HGNC:MAPK14))
 a(PUBCHEM:440312) -| act(p(FPLX:NFkappaB))
+UNSET Confidence
 
 SET Evidence = "Geniposide considerably suppressed RAGE-related signaling
-such as ERK and IB/NF-B, the expression of TNF-, IL-1 and cerebral A
+such as ERK and IkB/NF-kB, the expression of TNF-a, IL-1a and cerebral Ab
 accumulation in vivo[245]"
+SET Confidence = "High"
 a(CHEBI:Geniposide) -| act(p(FPLX:ERK))
 a(CHEBI:Geniposide) -| act(p(FPLX:IKB))
 a(CHEBI:Geniposide) -| act(p(FPLX:NFkappaB))
-a(CHEBI:Geniposide) -| p(HGNC:TNF)
-a(CHEBI:Geniposide) -| p(HGNC:IL1B)
+a(CHEBI:Geniposide) -| r(HGNC:TNF)
+a(CHEBI:Geniposide) -| r(HGNC:IL1B)
 SET MeSHAnatomy = "Cerebral Cortex"
 a(CHEBI:Geniposide) -| a(CHEBI:"amyloid-beta")
 UNSET MeSHAnatomy
+UNSET Confidence
 
-SET Evidence = "Xanthoceraside alleviated the A 25-35-stimulated spatial
+SET Evidence = "Xanthoceraside alleviated the Ab 25-35-stimulated spatial
 memory deﬁciencies and oxidative stress in mouse models [246]."
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 SET Species = "10090"
 a(PUBCHEM:102336202) -> path(MESH:"Spatial Memory")
 a(PUBCHEM:102336202) -| path(MESH:"Oxidative Stress")
 UNSET Species
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "It down-regulated iNOS expression and nitrotyrosin
 levels in the hip-pocampus and stimulated the mRNA expression level
 of IL-4 [247]."
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 a(PUBCHEM:102336202) -| p(HGNC:NOS2)
 a(PUBCHEM:102336202) -| a(CHEBI:nitrotyrosine)
 a(PUBCHEM:102336202) -> r(HGNC:IL4)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Furthermore, it inhibited pro-inﬂammatory cytokines,
-which were induced by A 25-35/IFN- in microglia cells [248]."
+which were induced by Ab 25-35/IFN-b in microglia cells [248]."
+SET Confidence = "High"
 SET Cell = "microglial cell"
 a(PUBCHEM:102336202) -| a(MESH:Cytokines)
 UNSET Cell
+UNSET Confidence
 
-SET Evidence = "Xanthoceraside decreased the expression of A 25-35/IFN--stimulated
-NO, IL-1,and TNF- in microglia, which implicated the down-regulation of the
-activities of MAPK and NF-B pathways [248]"
+SET Evidence = "Xanthoceraside decreased the expression of Ab 25-35/IFN-b-stimulated
+NO, IL-1b,and TNF-a in microglia, which implicated the down-regulation of the
+activities of MAPK and NF-kB pathways [248]"
+SET Confidence = "High"
 SET Cell = "microglial cell"
 a(PUBCHEM:102336202) -| a(CHEBI:"nitric oxide")
 a(PUBCHEM:102336202) -| p(HGNC:IL1B)
@@ -576,67 +741,84 @@ a(PUBCHEM:102336202) -| p(HGNC:TNF)
 a(PUBCHEM:102336202) -| act(p(FPLX:ERK))
 a(PUBCHEM:102336202) -| act(p(FPLX:NFkappaB))
 UNSET Cell
+UNSET Confidence
 
-SET Evidence = "It considerably decreased A 1-42-stimulated memory disorders
+SET Evidence = "It considerably decreased Ab 1-42-stimulated memory disorders
 in mice [128]."
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 SET Species = "10090"
 a(CHEBI:"N(5)-ethyl-L-glutamine") -> bp(GO:memory)
 UNSET Species
 UNSET MeSHDisease
+UNSET Confidence
 
-SET Evidence = "Moreover, the level of A 1-42 was lowered by L-theanine and
-caused A 1-42- activated neuronal cell death in the cortex and hip-pocampus
+SET Evidence = "Moreover, the level of Ab 1-42 was lowered by L-theanine and
+caused Ab 1-42- activated neuronal cell death in the cortex and hip-pocampus
 of the brain [128]."
+SET Confidence = "High"
 a(CHEBI:"N(5)-ethyl-L-glutamine") -| a(CHEBI:"amyloid-beta polypeptide 42")
 SET MeSHAnatomy = {"Cerebral Cortex", "Hippocampus"}
 a(CHEBI:"amyloid-beta polypeptide 42") -> bp(GO:"neuron death")
 a(CHEBI:"N(5)-ethyl-L-glutamine") -| bp(GO:"neuron death")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Besides, extracellular signal-regulated kinase (ERK),
-p38 MAPK and NF-B pathway were disrupted byL-theanine [128]."
+p38 MAPK and NF-kB pathway were disrupted byL-theanine [128]."
+SET Confidence = "High"
 a(CHEBI:"N(5)-ethyl-L-glutamine") -| act(p(FPLX:ERK))
 a(CHEBI:"N(5)-ethyl-L-glutamine") -| act(p(HGNC:MAPK14))
 a(CHEBI:"N(5)-ethyl-L-glutamine") -| act(p(FPLX:NFkappaB))
+UNSET Confidence
 
 SET Evidence = "The mitochondrial membrane potential, ROS and NO
-levels were down-regulated by 1,8-cineole in A 25-35-stimulated cells [250]."
+levels were down-regulated by 1,8-cineole in Ab 25-35-stimulated cells [250]."
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 a(CHEBI:"1,8-cineole") -| a(CHEBI:"reactive oxygen species")
 a(CHEBI:"1,8-cineole") -| a(CHEBI:"nitric oxide")
 UNSET MeSHDisease
+UNSET Confidence
 
-SET Evidence = "The expression of pro-inﬂammatory cytokines such as TNF-,
-IL-1 and IL-6 were signiﬁcantly reduced by treatment of 1,8-cineole in
-A 25-35-induced cells [250]."
+SET Evidence = "The expression of pro-inﬂammatory cytokines such as TNF-a,
+IL-1b and IL-6 were signiﬁcantly reduced by treatment of 1,8-cineole in
+Ab 25-35-induced cells [250]."
+SET Confidence = "Medium"
 SET MeSHDisease = "Alzheimer Disease"
-a(CHEBI:"1,8-cineole") -| p(HGNC:TNF)
-a(CHEBI:"1,8-cineole") -| p(HGNC:IL1B)
-a(CHEBI:"1,8-cineole") -| p(HGNC:IL6)
+a(CHEBI:"1,8-cineole") -| r(HGNC:TNF)
+a(CHEBI:"1,8-cineole") -| r(HGNC:IL1B)
+a(CHEBI:"1,8-cineole") -| r(HGNC:IL6)
 UNSET MeSHDisease
+UNSET Confidence
 
-SET Evidence = "Further-more, the expression of NOS-2, COX2 and NF-B was
+SET Evidence = "Further-more, the expression of NOS-2, COX2 and NF-kB was
 reduced by1,8-cineole [250]."
-a(CHEBI:"1,8-cineole") -| p(HGNC:NOS2)
-a(CHEBI:"1,8-cineole") -| p(HGNC:PTGS2)
-a(CHEBI:"1,8-cineole") -| p(FPLX:NFkappaB)
+SET Confidence = "Medium"
+a(CHEBI:"1,8-cineole") -| r(HGNC:NOS2)
+a(CHEBI:"1,8-cineole") -| r(HGNC:PTGS2)
+a(CHEBI:"1,8-cineole") -| r(FPLX:NFkappaB)
+UNSET Confidence
 
 SET Evidence = "Paeoniﬂorin improved memory impairments and lowered
-A accumulation in APP/PS1 trans-genic mice [1]."
+Ab accumulation in APP/PS1 trans-genic mice [1]."
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 SET Species = "10090"
 a(PUBCHEM:442534) -> bp(GO:memory)
-a(PUBCHEM:442534) -| a(HBP:"amyloid-beta aggregates")
+a(PUBCHEM:442534) -| a(CONSO:"amyloid-beta aggregates")
 UNSET Species
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "It attenuated the development of AD by inhibiting glycogen
-synthase kinase 3 (GSK-3) and NF-B activation, and sup-pressing the NLRP3
-inﬂammasome and cytokines such as TNF-and IL-1 [1]."
+synthase kinase 3 (GSK-3) and NF-kB activation, and sup-pressing the NLRP3
+inﬂammasome and cytokines such as TNF-a and IL-1b [1]."
+SET Confidence = "High"
 a(PUBCHEM:442534) -| path(MESH:"Alzheimer Disease")
 a(PUBCHEM:442534) -| act(p(FPLX:GSK3))
 a(PUBCHEM:442534) -| act(p(FPLX:NFkappaB))
 a(PUBCHEM:442534) -| bp(GO:"NLRP3 inflammasome complex assembly")
 a(PUBCHEM:442534) -| p(HGNC:TNF)
 a(PUBCHEM:442534) -| p(HGNC:IL1B)
+UNSET Confidence

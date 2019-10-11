@@ -23,7 +23,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
 #DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
-#DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 #DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
 #DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
@@ -55,11 +55,11 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 
 # Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
 # --------------------------------------------------------------------------------
-#DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
 #DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 #DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
-#DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-#DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 #DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 #DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -74,81 +74,132 @@ SET Citation = {"PubMed", "28391535"}
 
 SET Evidence = "For example, immediately after exposure to nicotine, there is a “stimulant-kick”
 caused, in part, by its stimulation of the adrenal glands and resultant discharge of epinephrine (adrenaline)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Adrenal Glands"
 a(CHEBI:nicotine) -> act(a(MESH:"Adrenal Glands"))
 a(CHEBI:nicotine) -> sec(a(CHEBI:adrenaline))
+UNSET Confidence
 
 SET Evidence = "The release of epinephrine stimulates the body and causes a sudden release of glucose as well as an increase in blood pressure,
 respiration, and heart rate"
+SET Confidence = "High"
 sec(a(CHEBI:adrenaline)) -> sec(a(CHEBI:glucose))
 sec(a(CHEBI:adrenaline)) -> path(MESH:"Blood Pressure")
 sec(a(CHEBI:adrenaline)) -> bp(GO:"cellular respiration")
 sec(a(CHEBI:adrenaline)) -> bp(MESH:"Heart Rate")
+UNSET Confidence
 
 SET Evidence = "Nicotine also suppresses insulin output from the pancreas, which indicates that smokers are usually hyperglycemic
 (higher blood sugar level)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Pancreas"
 a(CHEBI:nicotine) -| sec(a(CHEBI:"insulin (human)"))
 UNSET MeSHAnatomy
 path(MESH:Smoking) -> a(MESH:"Blood Glucose")
+UNSET Confidence
 
 SET Evidence = "Centrally, (-)-nicotine has affinity for all brain nAChR subtypes, but binds
 preferentially and with high affinity to α4β2 nAChRs (e.g., [12, 13])"
+SET Confidence = "High"
+SET Anatomy = "brain"
+a(CHEBI:nicotine) -- complex(p(GO:"I-kappaB/NF-kappaB complex"))
 a(CHEBI:nicotine) -> complex(a(CHEBI:nicotine),a(MESH:"nicotinic receptor alpha4beta2"))
+UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Moreover, (-)-nicotine (indirectly) can produce a release of dopamine in brain regions that
 are thought to control pleasure and motivation; dopamine is thought to underlie the
 pleasurable sensations experienced by smokers (e.g., [14, 15] but see [16])."
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 a(CHEBI:nicotine) -> sec(a(CHEBI:dopamine))
 a(CHEBI:dopamine) reg path(MESH:Pleasure)
 a(CHEBI:dopamine) reg path(MESH:Motivation)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "For example, in rodents, administration of low doses of nicotine produced increased
 motor activity whereas high doses produced decreased motor activity (e.g.,[17, 18])"
+#high dosage of nicotine
+#rodents belong to order Rodentia
+SET Confidence = "High"
+SET Species = "9989"
 a(CHEBI:nicotine) neg path(MESH:"Motor Activity")
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "In comparison, S(-)-nicotine was shown to be 7 times more toxic than R(+)-nicotine in rats injected intravenously"
 # toxic: Lethality
+SET Confidence = "High"
 SET Species = "10116"
+#(S)-nicotine being more toxic
+a(CHEBI:"(S)-nicotine") -> a(MESH:"Toxic Actions")
+a(CHEBI:"(R)-nicotine") -> a(MESH:"Toxic Actions")
 a(CHEBI:"(S)-nicotine") -> path(MESH:Death)
 a(CHEBI:"(R)-nicotine") -> path(MESH:Death)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "The tobacco leaf contains many alkaloids and in fresh Nicotina tabacum (the leaf
 species most commonly used for the production of cigarette tobacco) the average
 alkaloid mixture typically consists of 93% S(-)-nicotine, 3.9% S(-)-anatabine, 2.4%
 S(-)-nornicotine, and 0.5% S(-)-anabasine (e.g., [4, 5, 71]; Fig. 2; but see [72])."
+#tobacco leaf
+SET Confidence = "High"
+SET Species = "4097"
 a(MESH:Tobacco) hasComponents list(a(CHEBI:nicotine),a(CHEBI:Anatabine),a(CHEBI:nornicotine),a(CHEBI:"(S)-anabasine"))
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "In the body, nicotine is extensively metabolized and is susceptible to a significant first-pass effect during which 80–90% of it
 is metabolized by the liver. Also, the lung is able to metabolize nicotine, but to a much lesser degree [78, 79]. "
+SET Confidence = "High"
 a(MESH:Liver) -> bp(GO:"nicotine metabolic process")
 a(MESH:Lung) -> bp(GO:"nicotine metabolic process")
+UNSET Confidence
 
 SET Evidence = " In humans, about 70–80% of nicotine is converted to the primary metabolite (-)-cotinine, a lactam derivative (Fig. 2)."
+SET Confidence = "High"
+SET Species = "9606"
+#derivative
+a(CHEBI:"(-)-cotinine") isA a(CHEBI:"lactam")
 bp(GO:"nicotine metabolic process") -> a(CHEBI:"(-)-cotinine")
+a(CHEBI:"(-)-cotinine") -- a(CHEBI:"lactam")
+UNSET Species
+UNSET Confidence
+
 
 SET Evidence = "Lastly, S(-)-nornicotine is a minor metabolite of nicotine and, as
 mentioned previously, is considered a minor alkaloid of tobacco (Fig. 2)"
+SET Confidence = "High"
 bp(GO:"nicotine metabolic process") -> a(CHEBI:"nornicotine")
+a(MESH:"Tobacco") isA a(CHEBI:"nornicotine")
+UNSET Confidence
 
 SET Evidence = ". It is now well established that nicotine binds to nicotinic
 acetylcholine receptors (nAChRs) at the cellular level and is the prototype drug used to classify nAChRs"
-a(CHEBI:nicotine) -> complex(a(CHEBI:nicotine),a(MESH:"Receptors, Nicotinic"))
+#nAChRs : Cholinergic receptors nicotinic subunits
+SET Confidence = "High"
+a(CHEBI:nicotine) -> complex(a(CHEBI:nicotine),a(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+UNSET Confidence
 
 SET Evidence = "(-)-Nicotine activates all brain nAChR
 subtypes, but binds preferentially and with high affinity to α4β2 nAChRs (e.g., [12])"
-a(CHEBI:nicotine) -> act(a(MESH:"Receptors, Nicotinic"))
+SET Confidence = "High"
+SET Anatomy = "brain"
+a(CHEBI:nicotine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 a(CHEBI:nicotine) -> complex(a(CHEBI:nicotine),a(MESH:"nicotinic receptor alpha4beta2"))
+UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "For example, (-)-nicotine may increase dopamine
 activity at some brain sites such as the nucleus accumbens, an area thought to be
 important to drugs of abuse (e.g., [14, 101, 102]; but see [16, 103])"
+SET Confidence = "High"
 SET MeSHAnatomy = "Nucleus Accumbens"
 a(CHEBI:nicotine) -> act(a(CHEBI:dopamine))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "This conclusion is based on the fact that the stimulus effects of
 nicotine are convincingly blocked by (a) mecamylamine, a voltage dependent
@@ -156,34 +207,49 @@ noncompetitive channel blocker at nicotinic receptors (Fig. 3; Table 4) and
 (b) dihydro-β-erythrodine (DHβE), a nicotinic receptor antagonist that shows high
 affinity for the nAChR α4β2 subunit (Fig. 3; Table 5) but not by methyllycaconitine
 (MLA), a α7 nicotinic receptor antagonist (Table 5)."
+SET Confidence = "High"
 a(CHEBI:Mecamylamine) -| act(a(CHEBI:nicotine))
+a(CHEBI:Mecamylamine) -| act(a(MESH:"Receptors, Nicotinic"))
 a(MESH:"Dihydro-beta-Erythroidine") -| act(a(CHEBI:nicotine))
 a(MESH:"Dihydro-beta-Erythroidine") -> complex(a(MESH:"Dihydro-beta-Erythroidine"),a(MESH:"nicotinic receptor alpha4beta2"))
 a(MESH:"Dihydro-beta-Erythroidine") -| act(a(MESH:"Receptors, Nicotinic"))
 a(PUBCHEM:5288811) cnc act(a(CHEBI:nicotine))
 a(PUBCHEM:5288811) -| act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+UNSET Confidence
 
 SET Evidence = "Mecamylamine (Inversine®, Vecamyl®; Fig. 3) was developed over 60 years ago
 and marketed as a ganglionic blocker for the treatment of hypertension (e.g., [127])"
+SET Confidence = "High"
+SET Cell = "ganglion interneuron"
 a(CHEBI:Mecamylamine) -| path(MESH:Hypertension)
+UNSET Cell
+UNSET Confidence
 
 SET Evidence = " In addition, mecamylamine can produce CNS effects that include
 tremor, mental confusion, seizures, mania, and depression but the mechanisms by
 which these effects are produced are unclear"
+SET Confidence = "High"
 a(CHEBI:Mecamylamine) -> path(MESH:Tremor)
 a(CHEBI:Mecamylamine) -> path(MESH:Confusion)
 a(CHEBI:Mecamylamine) -> path(MESH:Seizures)
 a(CHEBI:Mecamylamine) -> path(MESH:"Bipolar Disorder")
 a(CHEBI:Mecamylamine) -> path(MESH:Depression)
+UNSET Confidence
 
 SET Evidence = " Also, mecamylamine is sometimes
 used as an anti-addictive drug to help people stop smoking tobacco products (e.g.,[128, 129])"
-a(CHEBI:Mecamylamine) -| path(MESH:Smoking)
+#4032 : mecamylamine
+SET Confidence = "High"
+a(PUBCHEM:4032) -| path(MESH:"Behavior, Addictive")
+a(PUBCHEM:4032) -| path(MESH:Smoking)
+UNSET Confidence
 
 SET Evidence = "Biochemical and pharmacological studies have characterized mecamylamine as a
 nonselective, voltage dependent and noncompetitive receptor antagonist of neuronal
 nAChRs and it is often referred to as a “nicotine receptor antagonist.”"
-a(CHEBI:Mecamylamine) -| act(a(MESH:"Receptors, Nicotinic"))
+SET Confidence = "High"
+a(CHEBI:Mecamylamine) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+UNSET Confidence
 
 SET Evidence = "For example, some biochemical studies suggest that mecamylamine is a
 channel blocker that inhibits most neuronal nAChRs (e.g., [131–133])."
@@ -192,50 +258,75 @@ a(CHEBI:Mecamylamine) -| act(a(MESH:"Receptors, Nicotinic"))
 SET Evidence = "DHβE (Fig. 3) is an alkaloid found in plant seeds of Erythrina and is a competitive
 nAChR receptor antagonist with a preference for neuronal β2 subtypes"
 # DHβE: dihydro-β-erythrodine
-a(MESH:"Dihydro-beta-Erythroidine") -| act(a(MESH:"Receptors, Nicotinic"))
+SET Confidence = "High"
+SET Species = "3841"
+p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") hasMember p(HGNC:CHRNB2)
+a(MESH:"Dihydro-beta-Erythroidine") -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 a(MESH:"Dihydro-beta-Erythroidine") -> complex(p(HGNC:CHRNB2),a(MESH:"Dihydro-beta-Erythroidine") )
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "For example, DHβE (at nM concentrations) blocks α4β2 and α3β2 nAChRs but is much less
 potent at α3β4 and α7 nAChRs expressed in Xenopus oocytes (e.g., [134–137])."
 # DHβE: dihydro-β-erythrodine
+SET Confidence = "High"
 a(MESH:"Dihydro-beta-Erythroidine") -| act(a(MESH:"nicotinic receptor alpha3beta2"))
 a(MESH:"Dihydro-beta-Erythroidine") -| act(a(MESH:"nicotinic receptor alpha4beta2"))
+SET Species = "262014"
+SET Cell = "oocyte"
 a(MESH:"Dihydro-beta-Erythroidine") -| act(a(MESH:"nicotinic receptor alpha3beta4"))
 a(MESH:"Dihydro-beta-Erythroidine") -| act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+UNSET Cell
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Research results summarized in Table 5 indicate that DHβE
 effectively blocked the stimulus effects of (-)-nicotine in rats or mice (but see
 exceptions reported by [120, 121])."
 # DHβE: dihydro-β-erythrodine
+SET Confidence = "High"
 SET Species = {"10090","10116"}
 a(MESH:"Dihydro-beta-Erythroidine") -| act(a(CHEBI:nicotine))
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Its biochemical pharmacology indicates that it is a relatively potent competitive receptor antagonist
 that is selective for α7 nAChRs (e.g., [139–141])."
 # its: Methyllycaconitine
+SET Confidence = "High"
 a(PUBCHEM:5288811) -| act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+UNSET Confidence
 
 SET Evidence = "Table 5 presents results of MLA/(-)-nicotine combination studies and shows that
 MLA failed to alter the stimulus effects of (-)-nicotine in rats or mice (but see
 partial antagonism reported by Quarta et al. [126])"
 # MLA: Methyllycaconitine
+SET Confidence = "High"
 SET Species = {"10090","10116"}
 a(PUBCHEM:5288811) cnc act(a(CHEBI:nicotine))
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In antagonism tests, (-)-nicotine failed to block the stimulus effects of mecamylamine"
+SET Confidence = "High"
 a(CHEBI:nicotine) cnc act(a(CHEBI:Mecamylamine))
+UNSET Confidence
 
 SET Evidence = ". It should be noted that hexamethonium, at relatively low
 doses, does not block the stimulus effects of (-)-nicotine but when administered at
 high doses has occasionally been reported to attenuate nicotine-like responding;
 probably the result of penetration into the CNS of a small proportion of the
 administered dose of drug (e.g., [35, 38, 64, 106, 146])"
+#at high dosage negative effect
+SET Confidence = "High"
+a(CHEBI:"Hexamethonium") -> tloc(a(CHEBI:"Hexamethonium"),fromLoc(GO:"extracellular region"),toLoc(MESH:"Central Nervous System"))
 a(CHEBI:"Hexamethonium") neg act(a(CHEBI:nicotine))
+UNSET Confidence
 
 SET Evidence = "(-)-Nicotine withdrawal symptoms might begin within a few hours after the last nicotine product, and
 include irritability/anger/stress/anxiety, sleep disturbances, depressed mood, craving, cognitive and attention deficits, and increased appetite."
+#nictoine withdrawal : Smoking cessation
+SET Confidence = "High"
 path(MESH:"Smoking Cessation") -> path(MESH:"Irritable Mood")
 path(MESH:"Smoking Cessation") -> path(MESH:Anger)
 path(MESH:"Smoking Cessation") -> path(MESH:"Stress, Psychological")
@@ -246,30 +337,48 @@ path(MESH:"Smoking Cessation") -> path(MESH:Craving)
 path(MESH:"Smoking Cessation") -| bp(GO:cognition)
 path(MESH:"Smoking Cessation") -| path(MESH:Attention)
 path(MESH:"Smoking Cessation") -> path(MESH:Appetite)
+UNSET Confidence
 
 SET Evidence = "Lobeline binds with high affinity to α4β2 nAChRs and displays mixed receptor agonist/antagonist actions (e.g., [150–154])."
+SET Confidence = "High"
 a(CHEBI:"(-)-lobeline") -> complex(a(MESH:"nicotinic receptor alpha4beta2"),a(CHEBI:"(-)-lobeline"))
+UNSET Confidence
 
 SET Evidence = "Lobeline has, however, been shown to
 antagonize partially the stimulus effects of (-)-nicotine and S(+)-methamphetamine ([64, 160]; but see [66])."
+SET Confidence = "High"
 a(CHEBI:"(-)-lobeline") -| act(a(CHEBI:nicotine))
-a(CHEBI:"(-)-lobeline") -| act(a(CHEBI:methamphetamine))
+a(CHEBI:"(-)-lobeline") -| act(a(PUBCHEM:9306))
+UNSET Confidence
 
 SET Evidence = "Bupropion [a.k.a. amfebutamone, (RS)-2-(tert-Butylamino)-1-(3-chlorophenyl)propan1-one, 3-Chloro tert-butylcathinone,
 3-Chloro-N-tert-butyl-β-ketoamphetamine; Fig. 4] is a phenylaminoketone or cathinone derivative that is a weak central nervous system (CNS) stimulant"
+#weak regulator
+SET Confidence = "High"
 a(CHEBI:bupropion) -> act(a(MESH:"Central Nervous System"))
+UNSET Confidence
 
 SET Evidence = "It is prescribed as medication for the treatment of depression
 (Wellbutrin®) and/or as an adjunct in smoking cessation therapy (Zyban®)."
 # it: Bupropion
+SET Confidence = "High"
 a(CHEBI:bupropion) -| path(MESH:Depression)
+a(CHEBI:bupropion) -- path(MESH:"Smoking Cessation")
+UNSET Confidence
 
 SET Evidence = "Other studies have reported that
 bupropion blocked the acute effects of (-)-nicotine in a number of behavioral assays in mice (e.g., [171, 172])"
+SET Confidence = "High"
+SET Species = "10090"
 a(CHEBI:bupropion) -| act(a(CHEBI:nicotine))
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Varenicline (Chantix®; Fig. 4) is prescribed as an adjunct medication in smoking
 cessation therapy and is thought to exert its effects as a partial agonist at α4β2
 nAChRs and as a full agonist at α7 nAChRs [211, 212]. "
+SET Confidence = "High"
+a(CHEBI:varenicline) -- path(MESH:"Smoking Cessation")
 a(CHEBI:varenicline) -> act(a(MESH:"nicotinic receptor alpha4beta2"))
 a(CHEBI:varenicline) -> act(a(MESH:"alpha7 Nicotinic Acetylcholine Receptor"))
+UNSET Confidence

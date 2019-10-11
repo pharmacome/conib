@@ -21,7 +21,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 # DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
 # DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
 # DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/6e71f2b59daa002349a1e3eeae64412ce175745a/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
 # DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
 # DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
@@ -59,7 +59,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 # DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -77,22 +77,26 @@ SET Evidence = "The results showed that the protein level of p65 sig-
 niﬁcantly increased to 155.40¡13.39% in AD patient
 samples relative to control samples (p<0.05) (Fig. 1a)."
 #cerebral cortical tissues of the frontal cortex was investigated
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Prefrontal Cortex"
 SET Species = "9606"
-p(HGNC:RELA) pos path(MESH:"Alzheimer Disease")
+path(MESH:"Alzheimer Disease") pos p(HGNC:RELA)
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "BACE1 mRNA
 levels were also markedly increased in the cortex
 of AD patients (126.40¡9.01% relative to controls,
 p<0.05) (Fig. 1b)."
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Prefrontal Cortex"
 SET Species = "9606"
-p(HGNC:BACE1) pos path(MESH:"Alzheimer Disease")
+path(MESH:"Alzheimer Disease") pos r(HGNC:BACE1)
 UNSET MeSHAnatomy
 UNSET Species
-
+UNSET Confidence
+#######????
 SET Evidence = "These
 results suggest that the 4NF-kB oligonucleotides con-
 taining four putative NF-kB-binding elements from
@@ -106,19 +110,25 @@ elevation of promoter activity was detected in cells co-
 expressing BACE1 reporter plasmid and NF-kB p65
 (Fig. 3d)."
 #promotor activity = gene expression
+SET Confidence = "High"
 complex(p(HGNC:RELA),g(HGNC:BACE1)) -> r(HGNC:BACE1)
+UNSET Confidence
 
 SET Evidence = " When wild-type cells were transfected with
 NF-kB p65 expression plasmid, the mRNA level of
 BACE1 was elevated by 476.6¡21.68% (p<0.0001
 relative to controls) (Fig. 5b). "
+SET Confidence = "High"
 p(HGNC:RELA) -> r(HGNC:BACE1)
+UNSET Confidence
 
 SET Evidence = " Our result showed that p65
 overexpression signiﬁcantly increased BACE1 protein
 level by 232.54¡12.86% (p<0.01 relative to controls)
 (Fig. 5g)."
+SET Confidence = "High"
 p(HGNC:RELA) -> p(HGNC:BACE1)
+UNSET Confidence
 
 SET Evidence = "p65 expression signiﬁcantly increased the
 amount of C99 in 20E2 cells by 152.29¡6.03% in the
@@ -126,20 +136,23 @@ presence of NF-kB p65 relative to controls (p<0.001)
 (Fig. 5h, i). "
 #20E2 cells are HEK293 cells with APP695 mutation
 SET CellLine = "HEK293"
-p(HGNC:RELA) -> p(HBP:C99)
+p(HGNC:RELA) -> p(CONSO:C99)
 UNSET CellLine
 
 SET Evidence = " There was no signiﬁcant diﬀerence in APP
 level between p65 transfected cells and controls
 (p>0.05). "
+SET Confidence = "High"
 p(HGNC:RELA) cnc p(HGNC:APP)
-
+UNSET Confidence
+#######?????
 SET Evidence = " The results showed that NF-kB
 p65 expression signiﬁcantly increased total Ab protein
 concentration by 134.90¡5.74% in SAS1 cells, a
 stable SH-SY5Y cell stably expressing Swedish
 mutant APP695 (Sun et al. 2006a) (p<0.0001) (Fig. 5j)."
 SET CellLine = "SH-SY5Y"
+#mutant APP695
 p(HGNC:RELA) -> a(CHEBI:"amyloid-beta")
 UNSET CellLine
 
@@ -147,23 +160,30 @@ SET Evidence = "IkBa expression plasmid was also transfected into
 SAS1 cells and IkBa transfection reduced Ab protein
 levels to 92.24¡2.68% (p<0.05)."
 #IkBa is NFKBIA
+SET Confidence = "Medium"
 SET CellLine = "SH-SY5Y"
-p(HGNC:NFKBIA) -| a(CHEBI:"amyloid-beta")
+#mutant APP695
+r(HGNC:NFKBIA) -| a(CHEBI:"amyloid-beta")
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "Inﬂammation is one of major pathological changes
 in AD brains and NF-kB signalling plays an
 important role in inﬂammation and oxidative stress
 (Tong et al. 2005)."
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Brain"
-path(MESH:Inflammation) pos path(MESH:"Alzheimer Disease")
+path(MESH:"Alzheimer Disease") pos path(MESH:Inflammation)
 UNSET MeSHAnatomy
 bp(GO:"NIK/NF-kappaB signaling") -- path(MESH:Inflammation)
 bp(GO:"NIK/NF-kappaB signaling") -- path(MESH:"Oxidative Stress")
+UNSET Confidence
 
 SET Evidence = "TNF-a is a strong activator of NF-kB
 signalling pathways."
+SET Confidence = "High"
 p(HGNC:TNF) -> bp(GO:"NIK/NF-kappaB signaling")
+UNSET Confidence
 
 SET Evidence = "Compared to controls, TNF-a treatment resulted in
 signiﬁcant increase in luciferase activity in the cells
@@ -172,8 +192,10 @@ N1 plasmid (p<0.005) and addition of aspirin in-
 hibited the BACE1 transcriptional activation induced
 by TNF-a (p<0.005 relative to TNF-a and p>0.05
 relative to controls) (Fig. 6a)."
+SET Confidence = "High"
 p(HGNC:TNF) -> r(HGNC:BACE1)
 a(CHEBI:"acetylsalicylic acid") -| r(HGNC:BACE1)
+UNSET Confidence
 
 SET Evidence = " Consistent
 with pB1P-N1 plasmid results, TNF-a signiﬁcantly
@@ -181,6 +203,7 @@ induced BACE1-NF-kB promoter activation (p<0.005)
 and the NSAIDs aspirin, ibuprofen and indomethacin
 signiﬁcantly blocked the TNF-a-induced BACE1-
 NF-kB promoter activation (p<0.005) (Fig. 6b)."
+SET Confidence = "High"
 p(HGNC:TNF) -> r(HGNC:BACE1)
 a(CHEBI:"acetylsalicylic acid") isA a(MESH:"Anti-Inflammatory Agents, Non-Steroidal")
 a(CHEBI:ibuprofen) isA a(MESH:"Anti-Inflammatory Agents, Non-Steroidal")
@@ -188,10 +211,13 @@ a(PUBCHEM:3715) isA a(MESH:"Anti-Inflammatory Agents, Non-Steroidal")
 a(CHEBI:"acetylsalicylic acid") -| r(HGNC:BACE1)
 a(CHEBI:ibuprofen) -| r(HGNC:BACE1)
 a(PUBCHEM:3715) -| r(HGNC:BACE1)
+UNSET Confidence
 
 SET Evidence = "Our data clearly demonstrate that NSAIDs inhibit
 TNF-a-induced BACE1 transcription via its NF-kB
 cis-acting elements."
+SET Confidence = "High"
 a(MESH:"Anti-Inflammatory Agents, Non-Steroidal") -| r(HGNC:BACE1)
 p(HGNC:TNF) -> tscript(p(FPLX:NFkappaB))
 tscript(p(FPLX:NFkappaB)) -> r(HGNC:BACE1)
+UNSET Confidence

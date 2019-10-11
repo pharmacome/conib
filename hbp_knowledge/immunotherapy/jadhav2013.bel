@@ -1,0 +1,715 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Protein truncation as a common denominator of human neurodegenerative foldopathies"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Yojana Gadiya"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/conso
+# --------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/113c4d2bdd5f3e6faab71357c4bbf4596207ca40/export/conso-names.belns"
+# DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+# DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+# DEFINE NAMESPACE EFO            AS URL "https://raw.githubusercontent.com/pharmacome/conso/5d2c2ea6f7112421cc8089a3f021a75ab60bb373/external/efo-names.belns"
+# DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+# DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/go-names.belns"
+# DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
+# DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
+# DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
+# DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+# DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
+# DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+# DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+# DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+# DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+# DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+ DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+# DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+ DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+# DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+# DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+# DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+# DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+ DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+ DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+# DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+# DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "23516100"}
+
+SET Evidence = "However, truncation of proteins can also be
+associated with impediment of vital cellular functions leading
+to damage by deposition of proteins, dysfunction of cellular
+organelles, oxidative stress and ultimately cell death."
+p(MESH:Proteins,frag("?")) -> p(MESH:Proteins)
+p(MESH:Proteins,frag("?")) neg act(complex(GO:organelle))
+p(MESH:Proteins,frag("?")) -- path(MESH:"Oxidative Stress")
+p(MESH:Proteins,frag("?")) -- bp(GO:"cell death")
+
+SET Evidence = "Tau truncation in AD
+brain was observed after successful isolation of the paired
+helical filaments (PHFs) [9, 10]."
+SET MeSHAnatomy = "Brain"
+path(DOID:"Alzheimer's disease") -> p(HGNC:MAPT,frag("?"),loc(CONSO:"paired helical filaments"))
+UNSET MeSHAnatomy
+
+SET Evidence = "The antibody MN423, which
+specifically recognizes tau truncation at E391, stained PHF’s
+isolated from AD brain, indicating truncated tau as a component
+of PHFs [69]."
+a(CONSO:MN423) -> complex(a(CONSO:MN423),p(HGNC:MAPT,frag("1_391")))
+SET MeSHAnatomy = "Brain"
+path(DOID:"Alzheimer's disease") -> p(HGNC:MAPT,frag("1_391"),loc(CONSO:"paired helical filaments"))
+UNSET MeSHAnatomy
+
+SET Evidence = "On the basis of this findings, Novak
+suggested that truncation of tau is the inducer and leading
+force behind neurofibrillary degeneration in AD and related
+tauopathies."
+SET MeSHDisease = "Alzheimer Disease"
+p(HGNC:MAPT,frag("?")) pos path(DOID:"neurodegenerative disease")
+p(HGNC:MAPT,frag("?")) pos path(DOID:tauopathy)
+UNSET MeSHDisease
+
+SET Evidence = "Rat
+models developed extensive neurofibrillary pathology that led
+to functional neurobehavioral impairment of transgenic rats
+[50, 71, 72]."
+SET Species = "10116"
+p(GO:"neurofibrillary tangle") neg bp(GO:behavior)
+UNSET Species
+
+SET Evidence = "In further support to the hypothesis, Abraha and
+colleagues [73] demonstrated that truncation at E391 enhanced
+the rate of tau filament formation, as well as the mass
+of polymers formed."
+p(HGNC:MAPT,frag("1_391")) -> p(CONSO:"Tau fibrils")
+p(HGNC:MAPT,frag("1_391")) -> p(CONSO:"Tau aggregates")
+
+SET Evidence = "Furthermore, truncation of tau at D421
+was shown to be associated with neurofibrillary degeneration
+and correlated with cognitive decline [74, 75]."
+p(HGNC:MAPT,frag("1_421")) pos path(DOID:"neurodegenerative disease")
+p(HGNC:MAPT,frag("1_421")) neg bp(GO:cognition)
+
+SET Evidence = "The D421
+truncation of tau has been reported in Pick’s disease as well
+[65]."
+#alog with AD
+path(DOID:"Alzheimer's disease") -> p(HGNC:MAPT,frag("1_421"))
+path(DOID:"Niemann-Pick disease") -> p(HGNC:MAPT,frag("1_421"))
+
+SET Evidence = "It has been shown that caspase-cleaved tau adopts the
+pathological conformation, an early hallmark of the AD pathology
+and is highly phosphorylated, leading to microtubule
+destabilization, disruptive anterograde transport, and cell
+death [76]."
+act(p(MESH:Caspases)) -> p(HGNC:MAPT,frag("?"))
+p(HGNC:MAPT,frag("?")) -> path(MESH:Virulence)
+path(DOID:"Alzheimer's disease") pos p(HGNC:MAPT,frag("?"))
+p(HGNC:MAPT,frag("?"),pmod(Ph)) -| complex(p(HGNC:MAPT),a(MESH:Microtubules))
+p(HGNC:MAPT,frag("?"),pmod(Ph)) neg bp(GO:"anterograde axonal transport")
+p(HGNC:MAPT,frag("?"),pmod(Ph)) -> bp(GO:"cell death")
+
+SET Evidence = "Consistent with the finding, an in vivo study using
+two-photonmicroscopy in transgenic mice model showed that
+caspase activation induces tau truncation, which subsequently
+triggers tangle formation [77]."
+SET Species = "10090"
+act(p(MESH:Caspases)) -> p(HGNC:MAPT,frag("?"))
+p(HGNC:MAPT,frag("?")) -> p(GO:"neurofibrillary tangle")
+UNSET Species
+
+SET Evidence = "Interestingly, truncated tau can
+serve as an inhibitor of caspases [79, 80]; however, the
+mechanism by which truncated tau mediates disruption of
+caspase activation is yet uncertain."
+p(HGNC:MAPT,frag("?")) -| act(p(MESH:Caspases))
+
+SET Evidence = "Studies also suggest that C-terminally truncated mutant
+ataxin-3 is toxic, and the loss of neurons is therefore attributed
+to the mutant fragment of ataxin-3 [60, 61]."
+p(HGNC:ATXN3,frag("1_?")) -> path(MESH:Virulence)
+p(HGNC:ATXN3,frag("1_?")) pos bp(GO:"neuron death")
+
+SET Evidence = "In addition to Aβ fragments, one
+study reported C-terminal truncated APP in mitochondrial
+fractions isolated from AD brain [91]."
+SET MeSHAnatomy = {"Brain","Mitochondria"}
+path(DOID:"Alzheimer's disease") -> p(HGNC:APP,frag("1_?"))
+path(DOID:"Alzheimer's disease") -> a(CHEBI:"amyloid-beta")
+UNSET MeSHAnatomy
+
+SET Evidence = "The cleaved fragment
+was colocalized with mitochondrial import proteins in the
+frontal cortex, amygdala and in the hippocampus of AD
+brains."
+#fragment of app
+SET MeSHAnatomy = {"Brain","Prefrontal Cortex","Amygdala","Hippocampus"}
+path(DOID:"Alzheimer's disease") -> complex(complex(GO:"mitochondrial protein complex"),p(HGNC:APP,frag("1_?")))
+UNSET MeSHAnatomy
+
+SET Evidence = "The association of C-terminally truncated APP in the
+mitochondria resulted in decreased cytochrome c activity and
+increased hydrogen peroxide generation."
+p(HGNC:APP,frag("1_?")) -| act(a(CHEBI:"cytochrome c"))
+p(HGNC:APP,frag("1_?")) -> a(CHEBI:"hydrogen peroxide")
+
+SET Evidence = "Furthermore, mitochondrial
+dysfunction in AD brains correlated with the accumulation
+of the truncated APP fragment [91]."
+SET MeSHDisease = "Alzheimer Disease"
+p(HGNC:APP,frag("1_?")) pos path(CONSO:"mitochondrial dysfunction")
+UNSET MeSHDisease
+
+SET Evidence = "The α-syn in LBs is truncated at the C terminus,
+generating a variety of fragments terminating at D119, P120
+or Y133 [52, 92–94]."
+#in case of PD
+path(DOID:"Parkinson's disease") -> p(HGNC:SNCA,frag("1_119"))
+path(DOID:"Parkinson's disease") -> p(HGNC:SNCA,frag("1_120"))
+path(DOID:"Parkinson's disease") -> p(HGNC:SNCA,frag("1_133"))
+
+SET Evidence = "In
+concert with the truncation hypothesis, C-terminally truncated
+α-syn exhibited fibrillization and enhanced full length α-syn
+aggregation [95–98]."
+p(HGNC:SNCA,frag("1_?")) -> p(CONSO:"alpha-synuclein fibrils")
+p(HGNC:SNCA,frag("1_?")) -> p(CONSO:"alpha-synuclein aggregates")
+
+SET Evidence = "Mouse models expressing truncated
+α-syn showed dopamine depletion, and the dopaminergic
+cells were more vulnerable to stress [99, 100].Furthermore,
+cells expressing C-terminally truncated species (aa 1–120)
+show enhanced susceptibility to oxidative stress and have
+the tendency to develop aggregates."
+SET Species = "10090"
+SET MeSHAnatomy = "Dopaminergic Neurons"
+p(HGNC:SNCA,frag("1_120")) -| a(CHEBI:dopamine)
+p(HGNC:SNCA,frag("1_120")) -> path(MESH:"Oxidative Stress")
+p(HGNC:SNCA,frag("1_120")) -> p(CONSO:"alpha-synuclein aggregates")
+p(HGNC:SNCA,frag("1_119")) -| a(CHEBI:dopamine)
+p(HGNC:SNCA,frag("1_119")) cnc a(MESH:"Dopaminergic Neurons")
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "Truncation of htt
+is mediated by caspases and calpains."
+act(p(MESH:Caspases)) -> p(HGNC:HTT,frag("?"))
+act(p(HGNCGENEFAMILY:Calpains)) -> p(HGNC:HTT,frag("?"))
+
+SET Evidence = "Strikingly, α-syn has potential calpain cleavage
+sites in the C terminus and proteomic analyses reveal several
+C-terminal cleaved α-syn fragments in PD and DLB brains
+[93, 108]."
+#with 1-122 aa and 10-122
+SET MeSHAnatomy = "Brain"
+path(DOID:"Parkinson's disease") -> p(HGNC:SNCA,frag("1_122"))
+path(DOID:"Lewy body dementia") -> p(HGNC:SNCA,frag("10_122"))
+UNSET MeSHAnatomy
+
+SET Evidence = "The site D421 is a substrate for
+caspase-3, -7 and −8."
+#site in tau
+act(p(HGNC:CASP3)) -> p(HGNC:MAPT,frag("1_421"))
+act(p(HGNC:CASP7)) -> p(HGNC:MAPT,frag("1_421"))
+act(p(HGNC:CASP8)) -> p(HGNC:MAPT,frag("1_421"))
+
+SET Evidence = "Truncated htt
+mislocalization into the nucleus is a major pathological
+manifestation in HD [56].It is proposed that the fragments
+once inside the nucleus may recruit additional proteases and
+contribute to cell death [112]."
+path(DOID:"Huntington's disease") -> tloc(p(HGNC:HTT,frag("?")),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+p(HGNC:HTT,frag("?"),loc(GO:nucleus)) -> bp(GO:"cell death")
+
+SET Evidence = "The htt protein truncated at D586 was translocated to the
+nucleus following cleavage by caspase-6 [113]. Nuclear
+accumulation of htt is known to mediate its toxicity."
+act(p(HGNC:CASP6)) -> p(HGNC:HTT,frag("1_586"))
+p(HGNC:HTT,frag("1_586")) -> tloc(p(HGNC:HTT,frag("1_586")),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+tloc(p(HGNC:HTT,frag("1_586")),fromLoc(GO:cytoplasm),toLoc(GO:nucleus)) -> a(MESH:"Toxic Actions")
+
+SET Evidence = "Nuclear translocation of truncated α-syn is observed after
+oxidative stress in a cell model with dopaminergic neurons
+[116]."
+SET MeSHAnatomy = "Dopaminergic Neurons"
+bp(GO:"response to oxidative stress") -> tloc(p(HGNC:SNCA),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+UNSET MeSHAnatomy
+
+SET Evidence = "TDP 43, a predominant nuclear protein
+is abnormally sorted into the cytoplasm in neurodegenerative
+TDP43 foldopathies [118]."
+path(MESH:"TDP-43 Proteinopathies") -> tloc(p(HGNC:TARDBP),fromLoc(GO:nucleus),toLoc(GO:cytoplasm))
+
+SET Evidence = "The study also suggested that the C terminus of
+TDP 43 was sufficient to induce cytoplasmic localization
+of the protein and promote aggregation."
+p(HGNC:TARDBP,frag("?_*")) -> tloc(p(HGNC:TARDBP),fromLoc(GO:nucleus),toLoc(GO:cytoplasm))
+p(HGNC:TARDBP,frag("?_*")) -> p(CONSO:"TDP-43 aggregates")
+
+SET Evidence = "The role of proteases in neurodegenerative diseases has been
+extensively studied and the involvement of proteases in the
+generation of toxic truncated proteins in AD, Huntington
+disease, and PD, SPA3 and SPA7 have been clearly demonstrated
+(Table 1)."
+SET MeSHDisease = "Alzheimer Disease"
+p(HGNC:CASP6) -> p(HGNC:MAPT,frag("1_13"))
+p(HGNC:CASP3) -> p(HGNC:MAPT,frag("1_421"))
+p(HGNC:CASP6) -> p(HGNC:MAPT,frag("1_402"))
+p(MESH:"Peptide Hydrolases") -> p(HGNC:MAPT,frag("128_*"))
+p(HGNC:MAPT,pmod(CONSO:deamidation)) -> p(HGNC:MAPT,frag("1_255"))
+p(HGNC:MAPT,pmod(CONSO:deamidation)) -> p(HGNC:MAPT,frag("266_*"))
+p(HGNC:CTSD) -> p(HGNC:APP,frag("35_*"))
+p(HGNC:CASP3) -> p(HGNC:APP,frag("219_*"))
+UNSET MeSHDisease
+SET MeSHDisease = "Parkinson Disease"
+p(HGNC:CASP3) -> p(HGNC:SNCA,frag("1_122"))
+p(HGNC:CASP3) -> p(HGNC:SNCA,frag("1_119"))
+p(HGNC:CASP3) -> p(HGNC:SNCA,frag("1_133"))
+UNSET MeSHDisease
+SET MeSHDisease = "Niemann-Pick Diseases"
+p(HGNC:CASP3) -> p(HGNC:MAPT,frag("1_421"))
+UNSET MeSHDisease
+SET MeSHDisease = "Frontotemporal Lobar Degeneration"
+p(MESH:"Peptide Hydrolases") -> p(HGNC:TARDBP,frag("208_*"))
+p(MESH:"Peptide Hydrolases") -> p(HGNC:TARDBP,frag("1_219"))
+p(MESH:"Peptide Hydrolases") -> p(HGNC:TARDBP,frag("1_247"))
+UNSET MeSHDisease
+
+SET Evidence = "In the brain, calpains are involved in maintaining calcium
+hemostasis, synaptic plasticity, apoptosis and also in neural
+development."
+SET MeSHAnatomy = "Brain"
+p(HGNCGENEFAMILY:Calpains) -- bp(GO:"calcium ion homeostasis")
+p(HGNCGENEFAMILY:Calpains) -- bp(GO:"regulation of synaptic plasticity")
+p(HGNCGENEFAMILY:Calpains) -- bp(GO:"programmed cell death")
+p(HGNCGENEFAMILY:Calpains) -- bp(GO:"nervous system development")
+UNSET MeSHAnatomy
+
+SET Evidence = "Impairment of calcium homeostasis and
+calpain activation has been reported in AD, PD, Huntington
+disease, glutamate-mediated excitotoxicity and other neurodegenerative
+diseases."
+path(DOID:"Alzheimer's disease") neg bp(GO:"calcium ion homeostasis")
+path(DOID:"Alzheimer's disease") -> act(p(HGNCGENEFAMILY:Calpains))
+path(DOID:"Parkinson's disease") neg bp(GO:"calcium ion homeostasis")
+path(DOID:"Parkinson's disease") -> act(p(HGNCGENEFAMILY:Calpains))
+path(DOID:"Huntington's disease") neg bp(GO:"calcium ion homeostasis")
+path(DOID:"Huntington's disease") -> act(p(HGNCGENEFAMILY:Calpains))
+bp(CONSO:"Glutamate excitotoxicity") neg bp(GO:"calcium ion homeostasis")
+bp(CONSO:"Glutamate excitotoxicity") -> act(p(HGNCGENEFAMILY:Calpains))
+path(DOID:"neurodegenerative disease") neg bp(GO:"calcium ion homeostasis")
+path(DOID:"neurodegenerative disease") -> act(p(HGNCGENEFAMILY:Calpains))
+
+SET Evidence = "Presence of activated
+Calpain I and II is observed in the hippocampus and cortical
+regions in the AD brain, and is found to colocalize with
+neurofibrillary tangles and neuropil threads [128, 129]."
+SET MeSHAnatomy = {"Brain","Hippocampus","Cerebral Cortex"}
+SET MeSHDisease = "Alzheimer Disease"
+act(p(HGNC:CAPN1)) -> complex(p(HGNC:CAPN1),p(GO:"neurofibrillary tangle"))
+act(p(HGNC:CAPN1)) -> complex(p(HGNC:CAPN1),p(MESH:"Neuropil Threads"))
+act(p(HGNC:CAPN2)) -> complex(p(HGNC:CAPN2),p(GO:"neurofibrillary tangle"))
+act(p(HGNC:CAPN2)) -> complex(p(HGNC:CAPN2),p(MESH:"Neuropil Threads"))
+UNSET MeSHDisease
+UNSET MeSHAnatomy
+
+SET Evidence = "Calpain-mediated cytoskeletal disorganization is alleged as
+one of the triggers of AD tau pathology [129]."
+act(p(HGNCGENEFAMILY:Calpains)) neg bp(GO:"cytoskeleton organization")
+act(p(HGNCGENEFAMILY:Calpains)) pos path(DOID:"Alzheimer's disease")
+bp(GO:"cytoskeleton organization") neg path(DOID:"Alzheimer's disease")
+
+SET Evidence = "Endogenous fragments of adult human tau generated by
+calpain cleavage showed products of size 31, 35 and 44 kDa
+with intact N-terminal sequence."
+act(p(HGNCGENEFAMILY:Calpains)) -> p(HGNC:MAPT,frag("1_?"))
+
+SET Evidence = "Longer incubation of adult tau with calpain in
+vitro generated a 31-kDa fragment and was immunopositive
+for Alz 50 (aa 2–10) and Tau 14 (aa 83–120) antibodies."
+a(CONSO:Alz50) -> complex(p(HGNC:MAPT,frag("2_10")),a(CONSO:Alz50))
+
+SET Evidence = "Cleavage
+of the C-terminal putative sites may correlate with the
+in vivo pattern of tau truncation and this cleavage might
+result in the tau destabilization and subsequent release from
+the microtubules [107]."
+p(HGNC:MAPT,frag("1_?")) -| complex(p(HGNC:MAPT),a(MESH:Microtubules))
+
+SET Evidence = "PHFs are more resistant to cleavage
+by calpain, suggesting that either the cleavage sites are
+incorporated into the filament core, or abnormal phosphorylation
+can protect tau from calpain cleavage [9, 107, 121,
+131]."
+act(p(HGNCGENEFAMILY:Calpains)) cnc p(CONSO:"paired helical filaments")
+act(p(HGNCGENEFAMILY:Calpains)) cnc p(HGNC:MAPT,pmod(Ph))
+
+SET Evidence = "Calpain may also be involved in β-secretase mediated cleavage
+of APP [132]."
+act(p(HGNCGENEFAMILY:Calpains)) -> p(HGNC:BACE1)
+act(p(HGNC:BACE1)) -> p(HGNC:APP,frag("?"))
+
+SET Evidence = "This 16-kDa fragment
+includes the carboxy-terminal portion cleaved from the APP
+which may be neurotoxic and could be implicated in neuropathologies
+other than AD [48]."
+p(HGNC:APP,frag("1_?")) -> path(MESH:"Neurotoxicity Syndromes")
+
+SET Evidence = "Furthermore, calpain inhibitor
+III (MDL 28170) inhibited the generation of Aβ40 and
+Aβ42 in a cell model of APP [134]."
+act(p(HGNCGENEFAMILY:Calpains)) -> a(CHEBI:"amyloid-beta polypeptide 40")
+act(p(HGNCGENEFAMILY:Calpains)) -> a(CHEBI:"amyloid-beta polypeptide 42")
+
+SET Evidence = "However,
+Figueiredo-Pereira and colleagues were able to demonstrate
+that the mechanism of amyloid truncation was distinct from
+the calpain cleavage and that a serine protease is possibly
+involved in the generation of Aβ40 [135]."
+p(MESH:"Serine Proteases") -> a(CHEBI:"amyloid-beta polypeptide 40")
+
+SET Evidence = "Activation of calpain and
+colocalization with α-syn has been observed in PD brains."
+path(DOID:"Parkinson's disease") -> act(p(HGNCGENEFAMILY:Calpains))
+path(DOID:"Parkinson's disease") -> complex(p(HGNCGENEFAMILY:Calpains),p(HGNC:SNCA))
+
+SET Evidence = "Cleavage of α-syn by calpain is reported in PD and DLB
+patients, and the pattern of cleavage closely resembles the
+aggregation-prone and toxic α-syn [53]."
+SET MeSHDisease = {"Parkinson Disease","Lewy Body Disease"}
+act(p(HGNCGENEFAMILY:Calpains)) -> p(HGNC:SNCA,frag("?"))
+p(HGNC:SNCA,frag("?")) -> p(CONSO:"alpha-synuclein aggregates")
+UNSET MeSHDisease
+
+SET Evidence = "Fulllength,
+mutated A53T or A30P α-syn is cleaved by calpain I
+[136]."
+p(HGNC:CAPN1) -> p(HGNC:SNCA,var("p.Ala53Thr"),frag("?"))
+p(HGNC:CAPN1) -> p(HGNC:SNCA,var("p.Ala30Pro"),frag("?"))
+
+SET Evidence = "Aggregated α-syn is cleaved by calpain I in a mechanism
+distinct from soluble α-syn [136]."
+p(HGNC:CAPN1) -> p(CONSO:"alpha-synuclein aggregates",frag("?"))
+
+SET Evidence = "Calpain homologs or subunits−1, −5, −7, and −10, are
+also elevated in HD and transgenic mouse models [106]."
+SET Species = {"10090", "9606"}
+path(DOID:"Huntington's disease") -> p(HGNC:CAPN1)
+path(DOID:"Huntington's disease") -> p(HGNC:CAPN5)
+path(DOID:"Huntington's disease") -> p(HGNC:CAPN7)
+path(DOID:"Huntington's disease") -> p(HGNC:CAPN10)
+UNSET Species
+
+SET Evidence = "Moreover,
+cells expressing full-length htt exhibit elevated intracellular
+Ca2+ levels, increased calpain activation and cleavage of
+htt in the polyglutamine repeat regions [59]."
+p(HGNC:HTT) -> a(CHEBI:"calcium(2+)",loc(GO:intracellular))
+p(HGNC:HTT) -> act(p(HGNCGENEFAMILY:Calpains))
+p(HGNC:HTT) -> p(HGNC:HTT,frag("?"))
+
+SET Evidence = "N-terminal truncated fragments of htt are toxic and induce
+neuronal death [54, 57]."
+p(HGNC:HTT,frag("?_*")) -> bp(GO:"neuron death")
+
+SET Evidence = "Calpain-generated truncated fragments may have
+the potential for nuclear translocation, signifying its pathological
+importance."
+act(p(HGNCGENEFAMILY:Calpains)) -> p(HGNC:HTT,frag("?"))
+p(HGNC:HTT,frag("?")) -> tloc(p(HGNC:HTT,frag("?")),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+
+SET Evidence = "It is suggested that truncated ataxin fragments may be a
+component of nuclear inclusions in the brain of SCA3/MJD
+disease [139]."
+SET MeSHAnatomy = "Brain"
+path(DOID:"Machado-Joseph disease") -> p(HGNC:ATXN3,frag("?"),loc(GO:"nuclear inclusion body"))
+UNSET MeSHAnatomy
+
+SET Evidence = "Ataxin-3, a
+polyglutamine protein linked to SCA3, is truncated by
+calpain and the length of truncated products depended on
+the length of the polyglutamine tract [62]."
+act(p(HGNCGENEFAMILY:Calpains)) -> p(HGNC:ATXN3,frag("?"))
+
+SET Evidence = "The fragment
+generated after truncation at S260 was evidently toxic
+and aggregation-prone [62]."
+p(HGNC:ATXN3,frag("1_260")) -> p(CONSO:"protein aggregates")
+
+SET Evidence = "A 36-kDa polyglutamine fragment
+of ataxin-3 with truncation at E214 is associated with
+neurological disorder in transgenic mice expressing full length
+ataxin-3 [61]."
+SET Species = "10090"
+p(HGNC:ATXN3,frag("214_*")) -> path(DOID:"neurodegenerative disease")
+UNSET Species
+
+SET Evidence = "Gould and colleagues later identified another
+site for cleavage N-terminal to K190 in an SCA3 model
+expressing Q71 ataxin-3 [140]."
+path(DOID:"Machado-Joseph disease") -- p(HGNC:ATXN3,frag("190_*"))
+
+SET Evidence = "Activation of caspases in the diseased brain can be
+mediated by various stimuli including stress, mitochondrial
+damage and abnormal deposition of proteins."
+SET MeSHAnatomy = "Brain"
+bp(GO:"response to oxidative stress") -> act(p(HGNCGENEFAMILY:Caspases))
+path(CONSO:"mitochondrial dysfunction") -> act(p(HGNCGENEFAMILY:Caspases))
+p(CONSO:"protein aggregates") -> act(p(HGNCGENEFAMILY:Caspases))
+UNSET MeSHAnatomy
+
+SET Evidence =  "It has been
+shown that caspase-3 cleavage of tau and APP are the principal
+events in formation of mature plaques and tangles [143]."
+p(HGNC:CASP3) -> p(HGNC:MAPT,frag("?"))
+p(HGNC:CASP3) -> p(HGNC:APP,frag("?"))
+p(HGNC:MAPT,frag("?")) -> complex(MESH:"Neurofibrillary Tangles")
+p(HGNC:APP,frag("?")) ->  path(MESH:"Plaque, Amyloid")
+
+SET Evidence = "It has been
+shown, that tau is cleaved in vitro by caspase−1, −3, −6, −7
+and −8 [74, 75]."
+p(HGNC:CASP1) -> p(HGNC:MAPT,frag("?"))
+p(HGNC:CASP3) -> p(HGNC:MAPT,frag("?"))
+p(HGNC:CASP6) -> p(HGNC:MAPT,frag("?"))
+p(HGNC:CASP7) -> p(HGNC:MAPT,frag("?"))
+p(HGNC:CASP8) -> p(HGNC:MAPT,frag("?"))
+
+SET Evidence = "A study using mutant tau revealed truncation
+at D421 by caspase−3, −7 and −8 [75]."
+p(HGNC:CASP3) -> p(HGNC:MAPT,frag("421_*"),var("?"))
+p(HGNC:CASP7) -> p(HGNC:MAPT,frag("421_*"),var("?"))
+p(HGNC:CASP8) -> p(HGNC:MAPT,frag("421_*"),var("?"))
+
+SET Evidence = "N-terminal cleavage of tau by
+caspases is evident in animal and cell models of tauopathy,
+and also in neurofibrillary tangles in AD."
+path(DOID:tauopathy) -> p(HGNC:MAPT,frag("?_*"))
+path(DOID:"Alzheimer's disease") -> p(HGNC:MAPT,frag("?_*"))
+
+SET Evidence = "Elevated caspase-3 levels are observed in hippocampal neurons
+in AD brain [75]."
+SET MeSHAnatomy = {"Brain","Hippocampus"}
+path(DOID:"Alzheimer's disease") -> p(HGNC:CASP3)
+UNSET MeSHAnatomy
+
+SET Evidence = "C-terminal truncation
+of APP aggravates N-terminal cleavage, which can
+further block motor proteins and transcriptional activators,
+thereby disrupting vital neuronal processes [51]."
+p(HGNC:APP,frag("1_?")) -| p(HGNC:APP,frag("?_*"))
+p(HGNC:APP,frag("1_?")) -| act(p(MESH:"Molecular Motor Proteins"))
+p(HGNC:APP,frag("1_?")) -| act(p(MESH:"Transcription Factors"))
+
+SET Evidence = "The htt fragments generated by caspases constitute the pathologic
+hallmark of Huntington disease."
+act(p(HGNCGENEFAMILY:Caspases)) -> p(HGNC:HTT,frag("?"))
+p(HGNC:HTT,frag("?")) pos path(DOID:"Huntington's disease")
+
+SET Evidence = "Active
+caspase-6, and not caspase-3, is observed in early stages
+of HD and the caspase-6 levels correlated with the length
+of the poly Q tract [148]."
+path(DOID:"Huntington's disease") -> act(p(HGNC:CASP6))
+path(DOID:"Huntington's disease") cnc act(p(HGNC:CASP3))
+
+SET Evidence = "Caspase-cleaved htt fragments
+with expanded poly Q tract exhibit neurotoxicity and
+induce cell death."
+act(p(HGNCGENEFAMILY:Caspases)) -> p(HGNC:HTT,frag("?"))
+p(HGNC:HTT,frag("?")) -> path(MESH:"Neurotoxicity Syndromes")
+p(HGNC:HTT,frag("?")) -> bp(GO:"cell death")
+
+SET Evidence = "Caspase-3 truncates
+htt at D513, M548 and D552, while caspase-6 at
+D586; the length of the amino-terminal fragments depends
+on the length of poly Q tract [153]."
+p(HGNC:CASP3) -> p(HGNC:HTT,frag("1_513"))
+p(HGNC:CASP3) -> p(HGNC:HTT,frag("1_548"))
+p(HGNC:CASP3) -> p(HGNC:HTT,frag("1_552"))
+p(HGNC:CASP6) -> p(HGNC:HTT,frag("1_586"))
+
+SET Evidence = "Upon knockdown
+of htt protein by siRNA, the caspase-3 is activated
+[154]. This suggests that htt prevents caspase-3 activation in
+physiological conditions."
+p(HGNC:HTT) -| act(p(HGNC:CASP3))
+
+SET Evidence = "Furthermore, Cos 7 cells expressing
+ataxin-3 (Q28 repeats) or mutant ataxin-3 (Q68 and Q84
+repeats) showed caspase-dependent cleavage, generating a
+28-kDa fragment."
+SET CellLine = "COS-7 cell"
+act(p(HGNCGENEFAMILY:Caspases)) -> p(HGNC:ATXN3,frag("?"))
+act(p(HGNCGENEFAMILY:Caspases)) -> p(HGNC:ATXN3,var("?"),frag("?"))
+UNSET CellLine
+
+SET Evidence = "Caspase-7 cleaves ataxin-7 and is the sole caspase generating
+any truncation in ataxin-7 [63]."
+act(p(HGNC:CASP7)) -> p(HGNC:ATXN7,frag("?"))
+
+SET Evidence = "This interaction of
+caspase-7 with ataxin-7 involves the poly Q expansion
+region, which results in the recruitment and activation of
+caspase-7 in the nucleus."
+complex(p(HGNC:ATXN7),p(HGNC:CASP7)) -> tloc(p(HGNC:CASP7),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+tloc(p(HGNC:CASP7),fromLoc(GO:cytoplasm),toLoc(GO:nucleus)) -> act(p(HGNC:CASP7,loc(GO:nucleus)))
+
+SET Evidence = "Intriguingly, the truncation of
+ataxin-7 results in the formation of inclusion bodies, contributing
+to cell-specific neurodegeneration in an animal
+model of SCA7 [63]."
+p(HGNC:ATXN7,frag("?")) pos path(DOID:"spinocerebellar ataxia type 7")
+
+SET Evidence = "Antibody recognizing the caspase cleavage site
+on truncated TDP-43 (TDPccp) stained exclusively the Hirano
+bodies in the CA1 region of the hippocampus [157]."
+#in Pick's disease and AD
+SET MeSHAnatomy = "CA1 Region, Hippocampal"
+path(DOID:"Alzheimer's disease") -> p(HGNC:TARDBP,frag("?"))
+path(DOID:"Niemann-Pick disease") -> p(HGNC:TARDBP,frag("?"))
+UNSET MeSHAnatomy
+
+SET Evidence = "In vitro, TDP-43 is
+cleaved by pro-apoptotic caspase-3 and caspase-7, generating
+truncated products of molecular weight ~42, 35 and 25 kDa
+[158]."
+act(p(HGNC:CASP3)) -> p(HGNC:TARDBP,frag("?"))
+act(p(HGNC:CASP7)) -> p(HGNC:TARDBP,frag("?"))
+
+SET Evidence = "Lysosomal system dysfunction, including cathepsin-D
+upregulation, is an early and prominent feature of AD
+[167]."
+path(DOID:"Alzheimer's disease") neg a(GO:lysosome)
+path(DOID:"Alzheimer's disease") -> p(HGNC:CTSD)
+a(GO:lysosome) -| p(HGNC:CTSD)
+
+SET Evidence = "The truncated tau fragments,
+cleaved by cathepsin-D, lacked the Tau 46 antibody
+epitope suggesting C-terminal truncation."
+p(HGNC:CTSD) -> p(HGNC:MAPT,frag("1_?"))
+
+SET Evidence = "Furthermore, phosphorylation
+can alter the kinetics of tau truncation by cathepsin D
+[120]."
+p(HGNC:MAPT,pmod(Ph)) -- act(p(HGNC:CTSD))
+
+SET Evidence = "Two familial
+AD-inducing APP mutations — K595N and M596L —
+enhanced cathepsin-D mediated cleavage and generation of the
+amyloid beta fragment, signifying the role of cathepsin-D in
+AD pathology [169]."
+p(HGNC:APP,var("p.Lys595Asn")) -> act(p(HGNC:CTSD))
+p(HGNC:APP,var("p.Met596Leu")) -> act(p(HGNC:CTSD))
+act(p(HGNC:CTSD)) -> p(HGNC:APP,frag("?"))
+p(HGNC:APP,var("p.Lys595Asn")) -> p(HGNC:APP,frag("?"))
+p(HGNC:APP,var("p.Met596Leu")) -> p(HGNC:APP,frag("?"))
+
+SET Evidence = "Moreover, cathepsin-D cleaves APP,
+producing an amyloid beta fragment aa 1–35, which is observed
+in the CSF of subjects with neurological diseases including
+AD [170, 171]."
+p(HGNC:CTSD) -> p(HGNC:APP,frag("1_35"))
+SET MeSHAnatomy = "Cerebrospinal Fluid"
+path(DOID:"Alzheimer's disease") -> p(HGNC:APP,frag("1_35"))
+UNSET MeSHAnatomy
+
+SET Evidence = "It is suggested that cathepsin-B mediates β-secretase cleavage
+of APP in secretory vesicles [173]."
+p(HGNC:CTSB) -> act(p(HGNC:BACE1))
+act(p(HGNC:BACE1)) -> p(HGNC:APP,frag("?"),loc(GO:"secretory vesicle"))
+
+SET Evidence = "Furthermore, the
+addition of an inhibitor of cathepsin B reduced Aβ-40 production
+in these vesicles [173]."
+act(p(HGNC:CTSB)) -> a(CHEBI:"amyloid-beta polypeptide 40",loc(GO:"secretory vesicle"))
+
+SET Evidence = "Moreover, inhibition of
+cathepsin-B reduced amyloidβ deposition and improved
+memory deficits in transgenic animals [175]."
+p(HGNC:CTSB) -> p(CONSO:"amyloid-beta aggregates")
+p(HGNC:CTSB) neg bp(GO:memory)
+
+SET Evidence = "The
+human B-cell line 3D5 expressing human wild type α-syn
+developed inclusion bodies with high molecular weight aggregates
+of α-syn lacking the C-terminal region, suggesting that
+C-terminal cleavage of α-syn is a pro-aggregation modification
+[176]."
+#human B-cell line 3D5
+#genertaed by CTSD
+p(HGNC:CTSD) -> p(HGNC:SNCA,frag("1_?"))
+p(HGNC:SNCA,frag("1_?")) -> p(CONSO:"alpha-synuclein aggregates")
+
+SET Evidence = "Furthermore, knockdown of cathepsin-D in 3D5 cells
+increased α-syn content in the lysosomes, implicating the role
+of cathepsin D in α-syn processing in these cells."
+#human B-cell line 3D5
+p(HGNC:CTSD) -| p(HGNC:SNCA,loc(GO:lysosome))
+
+SET Evidence = "Knockdown of cathepsin D also caused accumulation
+of α-syn and elevated levels of insoluble α-syn
+content in mouse brains [178]."
+SET Species = "10090"
+SET MeSHAnatomy = "Brain"
+p(HGNC:CTSD) -> p(CONSO:"alpha-synuclein aggregates")
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "Full-length or cyanogen bromide
+(CNBr)-treated fragments of tau subjected to longer
+incubations showed reduction in parent band and progressive
+high molecular weight smear formation, indicating an
+aggregation pattern."
+#10476 - CNBr
+p(HGNC:MAPT) -> p(CONSO:"Tau aggregates")
+a(PUBCHEM:10476) -> p(HGNC:MAPT,frag("?"))
+p(HGNC:MAPT,frag("?")) -> p(CONSO:"Tau aggregates")
+
+SET Evidence = "A recent study also showed that
+deamidation and isoaspartate formation can generate fibers,
+which can seed amyloid formation [183]."
+p(MESH:Proteins,pmod(CONSO:deamidation)) -> p(CONSO:"amyloid-beta fibrils")
+
+SET Evidence = "Deamidation of
+polyglutamine proteins and TDP-43 could also result in
+altered protein function in neurodegenerative disease [185]."
+p(HGNC:TARDBP,pmod(CONSO:deamidation)) neg act(p(HGNC:TARDBP))

@@ -20,7 +20,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/drugbank-names.belns"
 DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/ec-code.belns"
 # DEFINE NAMESPACE FB           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/80171ae62cf43aa1fc8a6c326b94537ab342458c/external/fb-names.belns"
-DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/7e4be528f12abd28be768b62402fba6e083eaf9e/export/hbp-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/4aa36980578c7d2cff07371abf768f15db89cd11/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
@@ -75,13 +75,19 @@ SET Citation = {"PubMed", "11230871"}
 SET Evidence = "Experimental data suggest that the nAChRs might act as
 neuromodulators in communicative processes in the brain
 (Kaiser et al 2000; Lindstro¨m 1997; Wonnacott 1997)"
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Brain"
 p(FPLX:CHRN) -- a(MESH:"Neurotransmitter Agents")
+#Anatomy set and UNSET
+UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The nAChRs are found to be involved in a complex range of
 central nervous system disorders including Alzheimer’s
 disease (AD), Parkinson’s disease, schizophrenia,
 Tourette’s syndrome, anxiety, depression, and epilepsy
 (Newhouse and Kelton 2000; Newhouse et al 1997; Paterson and Nordberg 2000)"
+SET Confidence = "High"
 p(FPLX:CHRN) -- path(MESH:"Alzheimer Disease")
 p(FPLX:CHRN) -- path(MESH:"Parkinson Disease")
 p(FPLX:CHRN) -- path(MESH:Schizophrenia)
@@ -89,57 +95,71 @@ p(FPLX:CHRN) -- path(MESH:"Tourette Syndrome")
 p(FPLX:CHRN) -- path(MESH:Anxiety)
 p(FPLX:CHRN) -- path(MESH:Depression)
 p(FPLX:CHRN) -- path(MESH:Epilepsy)
+UNSET Confidence
 
 SET Evidence = "Interestingly enough, a
 considerable body of evidence exists to suggest that the
 nAChRs are involved in cognitive and memory functions
 (Levin 2000; Newhouse and Kelton 2000; Newhouse et al
 1997; Sahakian and Coull 1994)"
+SET Confidence = "High"
 p(FPLX:CHRN) -- bp(GO:cognition)
 p(FPLX:CHRN) -- bp(GO:memory)
+UNSET Confidence
 
 SET Evidence = "All three ligands appeared to bind to a common
 high-affinity binding site, which most likely represents
 binding to the nAChR alpha4 subunits"
 #ligands: [3H]nicotine, [3H]epibatidine and [3H]cytisine
+SET Confidence = "High"
 complex(a(CHEBI:nicotine),p(HGNC:CHRNA4))
 complex(a(CHEBI:epibatidine),p(HGNC:CHRNA4))
 complex(a(CHEBI:cytisine),p(HGNC:CHRNA4))
+UNSET Confidence
 
 SET Evidence = "A significantly greater binding for [3H]nicotine and [3H]epibatidine than for
 [3H]cytisine is observed in areas of the primary motor
 cortex, layer 111b of the occipital cortex, and layer V of
 the superior temporal sulcus, most likely representing binding of an additional nAChR site"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Motor Cortex","Occipital Lobe","Temporal Lobe"}
 complex(a(CHEBI:nicotine),p(FPLX:CHRN))
 complex(a(CHEBI:epibatidine),p(FPLX:CHRN))
 complex(a(CHEBI:cytisine),p(FPLX:CHRN))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "High levels of [3H]nicotine binding have been observed in layers 1 and
 V1 of the primary cortex, deeper layer V of the primary
 cortex, layer 111 of the superior temporal sulcus, and layer
 V1 of the parietal cortex. This suggests the presence of an
 additional third nAChR site in the human cortex (Sihver et al 1998b) that may be the alpha7 nAChR subtype"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Motor Cortex","Temporal Lobe","Parietal Lobe"}
 complex(a(CHEBI:nicotine),p(HGNC:CHRNA7))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "A significant decrease in [3H]epibatidine binding has been observed with aging
 in the human cortical brain regions and cerebellum (Marutle et al 1998)"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Cerebellum","Cerebral Cortex"}
 bp(GO:aging) negativeCorrelation complex(a(CHEBI:epibatidine),p(FPLX:CHRN))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The levels of alpha4 and alpha7 nAChR mRNA
 showed a decrease with aging, whereas the levels of alpha3
 mRNA were unchanged in the elderly brain relative to the
 fetal brain (Hellstro¨m-Lindahl et al 1998)"
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Brain"
 bp(GO:aging) causesNoChange r(HGNC:CHRNA3)
-bp(GO:aging) negativeCorrelation a(HBP:"alpha-4-containing nAChR")
-bp(GO:aging) negativeCorrelation a(HBP:"alpha-7-containing nAChR")
+bp(GO:aging) negativeCorrelation r(CONSO:"alpha-4-containing nAChR")
+bp(GO:aging) negativeCorrelation r(CONSO:"alpha-7-containing nAChR")
+#levels of mRNA changes in evidence
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET MeSHDisease = "Alzheimer Disease"
 SET MeSHAnatomy = "Cerebral Cortex"
@@ -147,30 +167,40 @@ SET MeSHAnatomy = "Cerebral Cortex"
 SET Evidence = "A consistent, significant loss of nAChRs has been observed
 in cortical autopsy brain tissue from AD patients
 relative to age-matched healthy subjects (Nordberg and Winblad 1986)"
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") negativeCorrelation p(FPLX:CHRN)
+UNSET Confidence
 
 SET Evidence = "The cortical nAChR deficits significantly correlate with cognitive impairment
 in AD patients (Nordberg, in press; Nordberg et al 1995, 1997)"
+SET Confidence = "High"
 p(FPLX:CHRN) negativeCorrelation path(MESH:"Cognitive Dysfunction")
+UNSET Confidence
 
 SET Evidence = "When the laminar binding distribution of [3H]nicotine,
 [3H]epibatidine, and [3H]cytisine was measured in AD
 cortical autopsy tissue, marked reductions were observed
 relative to control brains (Sihver et al 1999c) (Figure 1)"
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") negativeCorrelation p(HGNC:CHRNA3)
 p(HGNC:CHRNA4) -| complex(a(CHEBI:cytisine),p(FPLX:CHRN))
 
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "In addition, a marked reduction in the laminar distribution of
 [3H]epibatidine binding was observed in control cortical tissue with aging (Figure 1)"
+SET Confidence = "High"
 bp(GO:aging) negativeCorrelation complex(a(CHEBI:epibatidine),p(FPLX:CHRN))
 
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "beta-Amyloid (Abeta) is also an important factor, which may
 initiate and promote AD (Selkoe 1999)"
+SET Confidence = "High"
 a(CHEBI:"amyloid-beta") -> path(MESH:"Alzheimer Disease")
+UNSET Confidence
 
 SET Evidence = "This mutation at codon
 670/671 on the APP gene on chromosome 21 was discovered
@@ -178,48 +208,65 @@ in a Swedish family, and the mutation is unique in the
 sense that it is the only AD mutation that has been shown
 to alter the APP metabolism, resulting in an overexpression
 of the amyloid leading to plaque formation (Mullan et al 1992)"
+SET Confidence = "High"
 p(HGNC:APP,var("p.Lys670Asn"),var("p.Met671Leu")) -- act(p(HGNC:APP))
 p(HGNC:APP,var("p.Lys670Asn"),var("p.Met671Leu")) -> path(MESH:"Plaque, Amyloid")
+UNSET Confidence
 
 SET Evidence = "Significant reductions in the number of nAChRs
 were measured in cortical regions of Swedish APP 670/
 671 mutation (273% to 287%) (Marutle et al 1999)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Cerebral Cortex"
 p(HGNC:APP,var("p.Lys670Asn"),var("p.Met671Leu")) negativeCorrelation p(FPLX:CHRN)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "A decrease in the protein levels of the alpha3 and alpha4
 nAChR subunits was recently measured in the temporal
 cortex and of the alpha3, alpha4, and alpha7 nAChR subtypes in the
 hippocampi of AD brains relative to age-matched control subjects (Guan et al 2000b)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Temporal Lobe"
 path(MESH:"Alzheimer Disease") negativeCorrelation p(HGNC:CHRNA3)
 path(MESH:"Alzheimer Disease") negativeCorrelation p(HGNC:CHRNA4)
+UNSET MeSHAnatomy
+
 SET MeSHAnatomy = "Hippocampus"
 path(MESH:"Alzheimer Disease") negativeCorrelation p(HGNC:CHRNA3)
 path(MESH:"Alzheimer Disease") negativeCorrelation p(HGNC:CHRNA4)
 path(MESH:"Alzheimer Disease") negativeCorrelation p(HGNC:CHRNA7)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "A decrease in protein levels of
 the alpha4 nAChR but not of the alpha3 and alpha7 nAChRs was
 reported by Martin-Ruiz et al (1999)"
-path(MESH:"Alzheimer Disease") negativeCorrelation a(HBP:"alpha-4-containing nAChR")
+SET Confidence = "Medium"
+path(MESH:"Alzheimer Disease") negativeCorrelation complex(CONSO:"alpha-4-containing nAChR")
+path(MESH:"Alzheimer Disease") causesNoChange p(HGNC:CHRNA3)
+path(MESH:"Alzheimer Disease") causesNoChange complex(CONSO:"alpha-7-containing nAChR")
+#CHRNA7 and CHRNA3 added with changed from abundance to protein
+UNSET Confidence
 
 SET Evidence = "Lee et al (2000) recently also reported a significant decrease in the
 alpha7 nAChR protein level of the AD hippocampus"
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
-path(MESH:"Alzheimer Disease") negativeCorrelation a(HBP:"alpha-7-containing nAChR")
+path(MESH:"Alzheimer Disease") negativeCorrelation complex(CONSO:"alpha-7-containing nAChR")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Interestingly, a reduction in the protein level of alpha7 has also
 been measured in the frontal cortex of patients with
 schizophrenia (Guan et al 1999), whereas no decrease was
 measured in the alpha4 nAChR protein level (Guan et al 1999)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Frontal Lobe"
-path(MESH:Schizophrenia) negativeCorrelation a(HBP:"alpha-7-containing nAChR")
-path(MESH:Schizophrenia) causesNoChange a(HBP:"alpha-4-containing nAChR")
+path(MESH:Schizophrenia) negativeCorrelation complex(CONSO:"alpha-7-containing nAChR")
+path(MESH:Schizophrenia) causesNoChange complex(CONSO:"alpha-4-containing nAChR")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Examination of the regional expression of mRNA of the
 nAChR alpha4 and alpha3 subunits has shown no difference in
@@ -227,93 +274,129 @@ autopsy AD brain tissue in any region analyzed (Hellstro
 ¨m-Lindahl et al 1999; Terzano et al 1998), whereas the
 level of the alpha7 mRNA was significantly higher in the
 hippocampus (Hellstro¨m-Lindahl et al 1999)"
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 path(MESH:"Alzheimer Disease") positiveCorrelation r(HGNC:CHRNA7)
 path(MESH:"Alzheimer Disease") causesNoChange r(HGNC:CHRNA3)
 path(MESH:"Alzheimer Disease") causesNoChange r(HGNC:CHRNA4)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Possible factors such as amyloid peptide accumulation,
 hyperphosphorylation of tau protein, oxidative stress, and
 modification of cell membrane during the development of
 AD may be related to decreased protein levels of nAChRs
 (Farooqui et al 1995; Smith et al 1996)"
+SET Confidence = "High"
 a(MESH:"Amyloid beta-Peptides") negativeCorrelation p(FPLX:CHRN)
-p(HGNC:MAPT,pmod(HBP:hyperphosphorylation)) negativeCorrelation p(FPLX:CHRN)
+p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) negativeCorrelation p(FPLX:CHRN)
 bp(GO:"response to oxidative stress") negativeCorrelation p(FPLX:CHRN)
+UNSET Confidence
 
 SET Evidence = "Interestingly enough, lipid peroxidation has been shown to decrease the
 number of nAChRs in PC12 cells (Guan et al 2000a)"
+SET Confidence = "High"
 bp(MESH:"Lipid Peroxidation") -| p(FPLX:CHRN)
+UNSET Confidence
 
 SET MeSHAnatomy = "Cerebral Cortex"
 
 SET Evidence = "Positron emission tomography
 studies have revealed a reduced cortical acetylcholinesteserase
 activity in AD patients (Iyo et al 1997; Kuhl et al 1999)"
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -| act(p(HGNC:ACHE))
+UNSET Confidence
 
 SET Evidence = "A progressive loss of cortical acetylcholinesterase
 activity has been observed in AD patients with
 cognitive decline (Shinotoh et al 2000)"
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") negativeCorrelation act(p(HGNC:ACHE))
 path(MESH:"Alzheimer Disease") negativeCorrelation bp(GO:cognition)
-
+UNSET Confidence
 UNSET MeSHAnatomy
 
 SET Evidence = "The presynaptic vesicular acetylcholine transporter vesamicol ([123I]iodobenzovesamicol)
 has been used in vivo as a marker of presynaptic cholinergic activity in single photon emission
 computed tomography (SPECT) studies (Kuhl et al 1996)"
+SET Confidence = "High"
+#PUBCHEM:5662= presynaptic vesicular acetylcholine transporter vesamicol
 a(PUBCHEM:5662) -- bp(GO:"synaptic transmission, cholinergic")
+UNSET Confidence
 
 SET Evidence = "The loss in cortical acetylcholinesterase activity was less pronounced
 in mildly demented AD patients relative to autopsy material and did not strictly correlate with cerebral
 glucose metabolism impairment (Kuhl et al 1999)"
+SET Confidence = "High"
 path(MESH:"Alzheimer Disease") -| act(p(HGNC:ACHE))
+UNSET Confidence
 
 SET Evidence = "Selective cortical deficits
 in [11C]nicotine binding are often observed by PET early
 in the course of the AD disease (Figure 3A)"
+SET Confidence = "High"
 #binding to CHRN
 path(MESH:"Alzheimer Disease") -| complex(a(CHEBI:nicotine),p(FPLX:CHRN))
+UNSET Confidence
 
 SET Evidence = "A significant correlation can be observed between cognitive function
 and nicotinic receptor binding (k2*) (Figure 3A)"
+SET Confidence = "High"
 complex(a(CHEBI:nicotine),p(FPLX:CHRN)) -- bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "A ligand with a selectivity for the alpha4beta2 nAChRs
 would be particularly preferable because the alpha4beta2 has
 been recognized as the predominant subtype that is deficient
 in AD (for a review, see Sihver et al 2000)"
-path(MESH:"Alzheimer Disease") -| a(HBP:"alpha-4 beta-2 nAChR")
+SET Confidence = "High"
+path(MESH:"Alzheimer Disease") -| complex(CONSO:"alpha-4 beta-2 nAChR")
+UNSET Confidence
 
 SET Evidence = "Cholinergic therapy is based on the assumption
 that low levels of acetylcholine are responsible for the
 cognitive decline associated with AD"
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 a(CHEBI:acetylcholine) negativeCorrelation bp(GO:cognition)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "It is likely that the
 therapeutic benefit of cholinesterase inhibitors occurs at
 least in part through activation of the nAChRs, by the
 direct action of increased levels and/or through a direct
 activation of the allosteric site on the nAChR (Maelicke et al 1995, 2000)"
+SET Confidence = "Medium"
 # cholinesterase inhibitors: tacrine,donepezil,rivastigmine,galanthamine
-a(CHEBI:tacrine) -> act(p(HGNC:ACHE))
-a(CHEBI:donepezil) -> act(p(HGNC:ACHE))
-a(CHEBI:rivastigmine) -> act(p(HGNC:ACHE))
-a(CHEBI:galanthamine) -> act(p(HGNC:ACHE))
+a(CHEBI:tacrine) -| act(p(HGNC:ACHE))
+a(CHEBI:donepezil) -| act(p(HGNC:ACHE))
+a(CHEBI:rivastigmine) -| act(p(HGNC:ACHE))
+a(CHEBI:galanthamine) -| act(p(HGNC:ACHE))
+a(CHEBI:tacrine) -> act(p(FPLX:CHRN))
+a(CHEBI:donepezil) -> act(p(FPLX:CHRN))
+a(CHEBI:rivastigmine) -> act(p(FPLX:CHRN))
+a(CHEBI:galanthamine) -> act(p(FPLX:CHRN))
+a(CHEBI:tacrine) -> p(FPLX:CHRN)
+a(CHEBI:donepezil) -> p(FPLX:CHRN)
+a(CHEBI:rivastigmine) -> p(FPLX:CHRN)
+a(CHEBI:galanthamine) -> p(FPLX:CHRN)
+#Cholinesterase inhibitors should block ACHE. Is that correctly deduced?
+#Evidence also suggested that they increase levels of CHRN and activates CHRN
+UNSET Confidence
 
 SET Evidence = "In addition, PET studies also have revealed an improvement
 in nAChRs in AD patients during long-term treatment
 with cholinesterase inhibitors such as tacrine and NXX-
 066 (Nordberg 2000; Nordberg et al 1992, 1998)"
+SET Confidence = "High"
 # NXX-066: quilostigmine
 SET MeSHDisease = "Alzheimer Disease"
 a(CHEBI:tacrine) -> p(FPLX:CHRN)
 a(PUBCHEM:132228) -> p(FPLX:CHRN)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Since an
 enhanced activity of acetylcholinesterase has been measured
@@ -321,9 +404,11 @@ in cerebrospinal fluid following long-term treatment
 with tacrine (Nordberg et al 1999), possibly as a result of
 an increased acetylcholinesterase gene expression, it might
 be an advantage to use drugs interacting with nAChRs"
+SET Confidence = "High"
 SET MeSHAnatomy = "Cerebrospinal Fluid"
 a(CHEBI:tacrine) -> act(p(HGNC:ACHE))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET MeSHDisease = "Alzheimer Disease"
 
@@ -332,25 +417,30 @@ patients for 3 months resulted in an increased [11C]nicotine
 binding (Eriksdotter-Jo¨nhagen et al 1998), whereas
 treatment with the 5-HT3 blocker ondansetron showed a
 decreased number of cortical nAChRs (Nordberg et al 1997)"
+SET Confidence = "High"
 a(MESH:"Nerve Growth Factor") -> complex(a(CHEBI:nicotine),p(FPLX:CHRN))
 SET MeSHAnatomy = "Cerebral Cortex"
 a(CHEBI:Ondansetron) -| p(FPLX:CHRN)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The potential therapeutic benefit of nAChR stimulation
 in AD is based upon the fact that nicotine improves
 memory in animals, healthy subjects, and AD patients
 (Levin 2000; Newhouse and Kelton 2000; Newhouse et al
 1997; Rusted and Warburton 1992)"
+SET Confidence = "High"
 a(CHEBI:nicotine) -> bp(GO:memory)
-
+UNSET Confidence
 UNSET MeSHDisease
 
 SET Evidence = "Activation of the nAChR modulates the release of several neurotransmitters
 (Kaiser et al 2000; Wonnacott 1997) that mediate important
 physiologic mechanisms including cognitive functions"
+SET Confidence = "High"
 act(p(FPLX:CHRN)) reg tloc(a(CHEBI:neurotransmitter),fromLoc(GO:intracellular),toLoc(GO:"extracellular region"))
 a(CHEBI:neurotransmitter) -- bp(GO:cognition)
+UNSET Confidence
 
 SET MeSHDisease = "Alzheimer Disease"
 
@@ -358,29 +448,37 @@ SET Evidence = "Administration of the nicotinic antagonist
 mecamylamine to elderly subjects and AD patients has
 produced cognitive impairment (Newhouse and Kelton
 2000)"
+SET Confidence = "High"
 a(CHEBI:Mecamylamine) -| bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "Acute administration of nicotine to AD patients has
 resulted in a measurable short-term improvement in learning,
 memory, and attentional performance (Jones et al
 1992)"
+SET Confidence = "High"
 a(CHEBI:nicotine) -> bp(GO:memory)
 a(CHEBI:nicotine) -> bp(GO:learning)
 a(CHEBI:nicotine) -> path(MESH:Attention)
+UNSET Confidence
 
 SET Evidence = "Recently, the nicotinic agonist ABT-
 418 improved verbal learning and memory on a selective
 reminding task in AD patients (Potter et al 1999)"
+SET Confidence = "High"
 a(PUBCHEM:119380) -> path(MESH:"Verbal Learning")
 a(PUBCHEM:119380) -> bp(GO:memory)
+UNSET Confidence
 
 SET Evidence = "Estrogen, which in epidemiologic studies has
 been shown to reduce the risk of AD (Henderson 1997),
 has in experimental studies in PC 12 cells shown neuroprotective
 effects against Abeta toxicity that are at least
 partly mediated by the alpha7 subtype nAChR (Svensson and Nordberg 1998)"
+SET Confidence = "High"
 a(CHEBI:estrogen) -| path(MESH:"Alzheimer Disease")
 a(CHEBI:estrogen) -| act(a(CHEBI:"amyloid-beta"))
-a(HBP:"alpha-7-containing nAChR") reg act(a(CHEBI:"amyloid-beta"))
+complex(CONSO:"alpha-7-containing nAChR") reg act(a(CHEBI:"amyloid-beta"))
+UNSET Confidence
 
 UNSET MeSHDisease
