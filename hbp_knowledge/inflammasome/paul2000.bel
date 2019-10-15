@@ -81,9 +81,7 @@ p(HGNC:CD33) reg path(MESH:Myelopoiesis)
 UNSET Confidence
 
 SET Evidence = "On co-ligation with activation receptors, these proteins become tyrosine phosphorylated, and recruit one or more of the protein tyrosine phosphatases SHP-1, SHP-2, and/or the inositol phosphatase, SHIP.[33]"
-SET Confidence = "Low"
-#the evidence does not speak about tyr modification sites of CD33.
-#the tyr modification sites were metioned in statement prior to this which I haven't included
+SET Confidence = "High"
 #these proteins = CD22, FcγRIIB, KIR, PIR-B, CD33 receptors
 complex(complex(GO:"receptor complex"),p(HGNC:CD22)) -> p(HGNC:CD22,pmod(Ph,Tyr))
 complex(complex(GO:"receptor complex"),p(HGNC:FCGR2B)) -> p(HGNC:FCGR2B,pmod(Ph,Tyr))
@@ -180,15 +178,11 @@ UNSET Confidence
 
 SET Evidence = "Western blot analysis of the immunoprecipitates showed that the phosphatases, SHP-1 (Figure 3) and SHP-2 (Figure 4) co-immunoprecipitated with phosphorylated CD33. Similar analysis using anti-SHIP demonstrated no interaction between CD33 and SHIP (data not shown)."
 #Mo7e, THP-1, and U937 cells
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET CellLine = {"U937","THP-1"}
-#i aint sure if that would be the case as according to the statement it means that CD33 Ph can be bound to SHP-1, SHP-2 and  not to SHIP
-composite(p(HGNC:PTPN6),p(HGNC:CD33,pmod(Ph))) -> complex(p(HGNC:PTPN6),p(HGNC:CD33,pmod(Ph)))
-composite(p(HGNC:PTPN11),p(HGNC:CD33,pmod(Ph))) -> complex(p(HGNC:PTPN11),p(HGNC:CD33,pmod(Ph)))
-composite(p(HGNC:INPP5D),p(HGNC:CD33,pmod(Ph))) -|  complex(p(HGNC:INPP5D),p(HGNC:CD33,pmod(Ph)))
-#p(HGNC:PTPN6) -> complex(p(HGNC:PTPN6),p(HGNC:CD33,pmod(Ph)))
-#p(HGNC:PTPN11) -> complex(p(HGNC:PTPN11),p(HGNC:CD33,pmod(Ph)))
-#p(HGNC:INPP5D) -|  complex(p(HGNC:INPP5D),p(HGNC:CD33,pmod(Ph)))
+p(HGNC:PTPN6) -> complex(p(HGNC:PTPN6),p(HGNC:CD33,pmod(Ph)))
+p(HGNC:PTPN11) -> complex(p(HGNC:PTPN11),p(HGNC:CD33,pmod(Ph)))
+p(HGNC:INPP5D) -|  complex(p(HGNC:INPP5D),p(HGNC:CD33,pmod(Ph)))
 UNSET CellLine
 UNSET Confidence
 
