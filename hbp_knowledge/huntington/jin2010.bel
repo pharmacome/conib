@@ -60,7 +60,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 # DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 # DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
  DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -75,121 +75,151 @@ SET Citation = {"PubMed", "20556492"}
 
 SET MeSHDisease = "Huntington Disease"
 #similar results in R6/2 line mice
-SET Species = "10090"
-
 
 SET Evidence = "For example, positron emission tomography (PET) scans that utilize 18F-2-
 deoxyglucose (18F-2-DOG) showed a significant reduction in glucose uptake in cortex and
 striatum of HD patients even prior to striatal neuronal loss and pathological symptoms (Gil
 and Rego 2008)."
+SET Confidence = "High"
 SET MeSHAnatomy = {"Neocortex","Neostriatum"}
 path(DOID:"Huntington's disease") -| bp(GO:"glucose import")
+UNSET Confidence
 
 SET Evidence = "Paradoxical increases in lactate have been observed in the cortex of
 symptomatic HD patients and in the striatum of presymptomatic HD patients using 1Hmagnetic
 resonance spectroscopy (MRS) (Jenkins et al. 1998)."
+SET Confidence = "High"
 path(DOID:"Huntington's disease") -> a(CHEBI:lactate)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In addition, functional defects have been observed. For example, deficits in
 succinate dehydrogenase activity, a component of complex II of ETC as well as the TCA
 cycle, were observed in postmortem HD brains in 1974 (Stahl and Swanson 1974)."
 #along with mitochondrial morphological defects
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 path(DOID:"Huntington's disease") neg bp(GO:"regulation of succinate dehydrogenase activity")
 path(DOID:"Huntington's disease") neg bp(GO:"tricarboxylic acid cycle")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Reduced
 expression of complex II subunits has been observed in striatum of HD patients (Benchoua
 et al. 2006)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Neostriatum"
 path(DOID:"Huntington's disease") -| p(HGNCGENEFAMILY:"Mitochondrial complex II: succinate dehydrogenase subunits")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The activities of complex III in the caudate and putamen and complex IV in the
 putamen are also significantly decreased in HD cases (Gil and Rego 2008)."
+SET Confidence = "High"
 SET MeSHAnatomy = {"Putamen","Caudate Nucleus"}
 path(DOID:"Huntington's disease") -| act(p(HGNCGENEFAMILY:"Mitochondrial complex III: ubiquinol-cytochrome c reductase complex subunits"))
 UNSET MeSHAnatomy
 SET MeSHAnatomy = "Putamen"
 path(DOID:"Huntington's disease") -| act(p(HGNCGENEFAMILY:"Mitochondrial complex IV: cytochrome c oxidase subunits"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The activity of
 aconitase, an essential enzyme in the TCA cycle, has been reported to be significantly
 decreased in the striatum and cerebral cortex (Tabrizi et al. 2000), and loss of the pyruvate
 dehydrogenase complex was observed in symptomatic patients with caudate/putamen
 atrophy (Butterworth et al. 1985; Sorbi et al. 1983)."
+SET Confidence = "High"
 SET MeSHAnatomy = {"Neocortex","Neostriatum"}
 path(HP:"Caudate atrophy") -| act(p(HGNC:ACO2))
 UNSET MeSHAnatomy
 path(HP:"Caudate atrophy") neg p(HGNCGENEFAMILY:"Pyruvate dehydrogenase complex")
+UNSET Confidence
 
 SET Evidence = "Concurrent with these changes in
 mitochondrial morphology and function, there is a significant decrease in mitochondrial
 DNA in the cerebral cortex of HD patients (Horton et al. 1995)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Cerebral Cortex"
 path(DOID:"Huntington's disease") -| a(EFO:"mitochondrial DNA")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "31P-MRS showed significantly reduced ATP production in muscle of presymptomatic and symptomatic HD patients (Lodi et al. 2000)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Muscles"
 path(DOID:"Huntington's disease") -| bp(GO:"ATP biosynthetic process")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Other groups
 found out abnormal morphologies as well as decreased membrane potential in mitochondria
 from peripheral tissues including lymphoblasts and muscle of HD patients (Panov et al.
 2002; Squitieri et al. 2006, 2010)."
-SET MeSHAnatomy = {"Lymphoid Progenitor Cells","Muscles","Mitochondrial Membranes"}
-path(DOID:"Huntington's disease") -| bp(GO:"regulation of membrane potential")
+SET Confidence = "High"
+SET MeSHAnatomy = {"Lymphoid Progenitor Cells","Muscles"}
+path(DOID:"Huntington's disease") -> bp(GO:"negative regulation of mitochondrial membrane potential")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "As in the brain, mitochondrial DNA in leukocytes from
 HD patients was depleted (Liu et al. 2008)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Leukocytes"
 path(DOID:"Huntington's disease") -| bp(GO:"ATP biosynthetic process")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "A decreased stability of muscle mitochondria
 against Ca2+-induced mPTP opening and an increased sensitivity of complex I-dependent
 respiration against Ca2+-induced inhibition have been found in R6/2 mice, leading to
 energetic deficits and muscle atrophy (Gizatullina et al. 2006)."
+SET Confidence = "High"
 path(DOID:"Huntington's disease") neg bp(MESH:"Energy Metabolism")
 path(DOID:"Huntington's disease") -> path(DOID:"muscular atrophy")
+UNSET Confidence
 
 SET Evidence = "Panov et al. (2002) showed that mitochondria isolated from lymphoblasts of HD patients
 have decreased Ca2+-buffering capacity and undergo mitochondrial membrane
 depolarization at lower Ca2+ concentrations."
+SET Confidence = "High"
 SET MeSHAnatomy = "Lymphoid Progenitor Cells"
 path(DOID:"Huntington's disease") -| bp(GO:"calcium ion homeostasis")
 SET MeSHAnatomy = "Mitochondrial Membranes"
 a(CHEBI:"calcium(2+)") reg bp(GO:"membrane depolarization")
 path(DOID:"Huntington's disease") -| bp(GO:"membrane depolarization")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Choo et al. (2004) showed that huntingtin was present in the mitochondrial fraction
 purified from human neuroblastoma cells and clonal striatal cells and associated with the
 outer mitochondrial membrane."
 #also with clonal striatal cells
+SET Confidence = "High"
 path(DOID:neuroblastoma) -> p(HGNC:HTT,pmod(CONSO:"CAG repeats"),loc(GO:"mitochondrial outer membrane"))
+UNSET Confidence
+
+SET Species = "10090"
 
 SET Evidence = "A recombinant truncated mHtt directly added to isolated
 mouse liver mitochondria significantly decreased the Ca2+-threshold for mPTP opening, an
 effect that was abolished by cyclosporin A (CsA), an mPTP inhibitor."
 #mPTP - permeability transition pore
+SET Confidence = "High"
 SET MeSHAnatomy = "Mitochondria, Liver"
 a(CHEBI:"calcium(2+)") reg complex(GO:"mitochondrial permeability transition pore complex")
 a(CHEBI:"cyclosporin A") -| complex(GO:"mitochondrial permeability transition pore complex")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "ADP treatment attenuated the mitochondrial membrane potential defect and CsA
 treatment prevented the decreases in Ca2+ uptake capacity (Milakovic et al. 2006)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Mitochondrial Membranes"
-a(CHEBI:ADP) reg bp(GO:"regulation of membrane potential")
+a(CHEBI:ADP) -> bp(GO:"regulation of membrane potential")
 a(CHEBI:"cyclosporin A") -> bp(GO:"calcium import into the mitochondrion")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Striatal
 neurons from Hdh150 knock-in mice exhibit increased susceptibility to Ca2+-deregulation
@@ -197,38 +227,48 @@ by NMDA receptor activation than striatal neurons from wild type littermates, wh
 pyruvate instead of glucose is used in media to emphasize Oxphos dependent bioenergetics
 (Oliveira et al. 2007)."
 #Hdh150 strain
+SET Confidence = "High"
 SET MeSHAnatomy = "Neostriatum"
 p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -> act(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"))
 act(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits")) -- bp(GO:"calcium ion homeostasis")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "mHtt
 directly interacts with C-terminal region of the type 1 inositol 1,4,5-trisphosphate (InsP3)
 receptor (InsP3R1), resulting in increased sensitivity of InsP3R1 to activation by InsP3
 (Tang et al. 2003)."
 #interaction with C-terminal of ITPR1
+SET Confidence = "High"
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:ITPR1,frag("?"))) -> act(p(HGNC:ITPR1))
 act(p(HGNC:ITPR1)) -> a(CHEBI:"1D-myo-inositol 1,4,5-trisphosphate")
+UNSET Confidence
 
 SET Evidence = "Moreover, mHtt enhances the activity of N-methyl D-aspartate receptors
 (NMDARs) harboring the NR2B subunit, resulting from increased NMDAR trafficking to
 the plasma membrane (Fan et al. 2007; Sun et al. 2001; Zeron et al. 2002)."
+SET Confidence = "High"
 p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -> tloc(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"),fromLoc(GO:cytoplasm),toLoc(GO:"plasma membrane"))
 tloc(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"),fromLoc(GO:cytoplasm),toLoc(GO:"plasma membrane")) -> act(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"))
+UNSET Confidence
 
 SET Evidence = "Importantly,
 MSNs express high levels of the NR2B subunit, implying a greater sensitivity to
 excitotoxicity caused by NMDAR activation (Heng et al. 2009; Rigby et al. 1996)."
+
+SET Confidence = "High"
 #MSN - medium size spiny neurons
 #0008235 - increased sensitivity to excitotoxicity
 act(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits")) -> path(MP:0008235)
 p(HGNC:GRIN2B) -> act(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"))
 p(HGNC:GRIN2B) -> path(MP:0008235)
+UNSET Confidence
 
 SET Evidence = "In
 addition, inhibition of mPTP opening by treatment with CsA and bongkrekic acid
 significantly diminished NMDA-induced Ca2+ influx and mitochondrial membrane potential
 loss in MSNs of YAC128 mouse (Fernandes et al. 2007)."
+SET Confidence = "High"
 a(CHEBI:"cyclosporin A") -| complex(GO:"mitochondrial permeability transition pore complex")
 a(CHEBI:"bongkrekic acid") -| complex(GO:"mitochondrial permeability transition pore complex")
 a(CHEBI:"cyclosporin A") -| act(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"))
@@ -239,6 +279,7 @@ a(CHEBI:"bongkrekic acid") -| bp(GO:"calcium ion import")
 #YAC128 mouse
 a(CHEBI:"cyclosporin A") reg bp(GO:"regulation of membrane potential")
 a(CHEBI:"bongkrekic acid") reg bp(GO:"regulation of membrane potential")
+UNSET Confidence
 
 SET Evidence = "Similarly, Htt is likely to have an
 effect on the function of the voltage-gated Ca2+ channels (VGCCs), because Htt associates
@@ -246,33 +287,42 @@ with the synaptic protein interaction (synprint) region of N-type VGCC (Swayne e
 and the α2/δ auxiliary subunit of VGCC (Kaltenbach et al. 2007), and MSNs from R6/2
 mice at 3–6 weeks of age show increases in voltage-gated Ca2+ conductances (Cepeda et al.
 2007)."
+SET Confidence = "High"
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNCGENEFAMILY:"Calcium voltage-gated channel alpha1 subunits")) -> bp(GO:"regulation of voltage-gated calcium channel activity")
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNCGENEFAMILY:"Calcium voltage-gated channel auxiliary alpha2delta subunits")) -> bp(GO:"regulation of voltage-gated calcium channel activity")
+UNSET Confidence
+
+UNSET Species
 
 SET Evidence = "Photoreceptor neurodegeneration in an HD fly model expressing a full length of mHtt
 with a polyglutamine stretch of 128 was rescued by removing one copy of Dmca1D (a Ltype
 VGCC pore subunit of Drosophila) (Romero et al. 2008)."
+SET Confidence = "High"
 SET Species = "7227"
 SET MeSHAnatomy = "Photoreceptor Cells"
 p(FB:htt,pmod(CONSO:"CAG repeats")) -> path(HP:Neurodegeneration)
 p(FB:"Ca-alpha1D") -| path(HP:Neurodegeneration)
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Initial studies showed that mHtt interferes with cAMP-responsive element (CRE) binding
 protein (CREB) mediated transcriptional processes through direct interaction with CBP
 (CREB-binding protein) (Steffan et al. 2000) and with TATA box-binding protein (TBP)-
 associated factor TAF4/ TAFII130 (Dunah et al. 2002; Shimohata et al. 2000), leading to an
 increase in mHtt-induced cytotoxicity (Steffan et al. 2001)."
+SET Confidence = "High"
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:CREBBP),p(HGNC:TAF4)) neg act(p(HGNC:CREBBP),ma(tscript))
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:CREBBP),p(HGNC:TAF4)) -> path(MESH:"Cytotoxicity, Immunologic")
 complex(p(HGNC:HTT,pmod(CONSO:"CAG repeats")),p(HGNC:CREBBP),p(HGNC:TAF4)) -> p(HGNC:HTT,pmod(CONSO:"CAG repeats"))
 p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -> path(MESH:"Cytotoxicity, Immunologic")
+UNSET Confidence
 
 SET Evidence = "The peroxisome proliferator-activated receptor γ (PPARγ) coactivator-1α (PGC-1α) is an
 orchestrator of mitochondrial function via integration of signals that regulate mitochondrial
 biogenesis and respiration, detoxification of ROS, energy metabolism, and thermogenesis
 (Houten and Auwerx 2004)."
+SET Confidence = "High"
 p(HGNC:PPARGC1A) reg bp(MESH:"Mitochondrial Dynamics")
 p(HGNC:PPARGC1A) reg bp(GO:"mitochondrion organization")
 p(HGNC:PPARGC1A) reg bp(GO:"cellular respiration")
@@ -280,35 +330,47 @@ p(HGNC:PPARGC1A) -> a(CHEBI:"reactive oxygen species")
 p(HGNC:PPARGC1A) reg bp(GO:detoxification)
 p(HGNC:PPARGC1A) reg bp(MESH:"Energy Metabolism")
 p(HGNC:PPARGC1A) reg bp(MESH:Thermogenesis)
+UNSET Confidence
 
 SET Evidence = "PGC-1α interacts with a number of transcription factors
 including PPARγ of the PPAR family, which regulates adipogenesis and lipid metabolism,
 and the nuclear respiratory factor-1/2 (NRF-1/2) which play a pivotal role in mitochondrial
 respiration."
+SET Confidence = "High"
 complex(p(HGNC:PPARGC1A),p(HGNC:NRF1),p(HGNC:PPARG)) reg bp(GO:"cellular respiration")
 p(HGNC:PPARG) reg bp(GO:"lipid biosynthetic process")
 p(HGNC:PPARG) reg bp(GO:"lipid metabolic process")
+UNSET Confidence
 
 SET Evidence = "The expression of PGC-1α is repressed in both in vitro and in vivo models of
 HD, at least partially due to the fact that mHtt directly interferes with the CREB/TAF4
 signaling pathway which is a predominant regulator of PGC-1α expression (Cui et al. 2006)."
+SET Confidence = "High"
 p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -| r(HGNC:PPARGC1A)
 complex(p(HGNC:CREBBP),p(HGNC:TAF4)) reg r(HGNC:PPARGC1A)
+UNSET Confidence
 
 SET Evidence = "The reduced level of cAMP in HD mice and HD patients likely contributes to the significant
 reduction in CREB activation (Gines et al. 2003)."
+SET Confidence = "High"
+SET Species = "10090"
 a(CHEBI:"3',5'-cyclic AMP") -> act(p(HGNC:CREBBP),ma(tscript))
+UNSET Species
+a(CHEBI:"3',5'-cyclic AMP") -> act(p(HGNC:CREBBP),ma(tscript))
+UNSET Confidence
 
 SET Evidence = "Recent studies demonstrate
 that TZDs show protective effects in models of Alzheimer’s disease (Heneka et al. 2005;
 Landreth 2006), Parkinson’s disease (Breidert et al. 2002), amyotrophic lateral sclerosis
 (Kiaei et al. 2005), stroke (Luo et al. 2006), and multiple sclerosis (Niino et al. 2001)."
+SET Confidence = "High"
 #thiazolidinediones (TZDs) - osiglitazone, pioglitazone, troglitazone
 a(CHEBI:thiazolidinediones) -| path(DOID:"Alzheimer's disease")
 a(CHEBI:thiazolidinediones) -| path(DOID:"Parkinson's disease")
 a(CHEBI:thiazolidinediones) -| path(DOID:"amyotrophic lateral sclerosis")
 a(CHEBI:thiazolidinediones) -| path(EFO:stroke)
 a(CHEBI:thiazolidinediones) -| path(DOID:"multiple sclerosis")
+UNSET Confidence
 
 SET Evidence = "More
 importantly, we found out that STHdhQ111/Q111 cells exhibit significant decreases in PPARγ
@@ -316,6 +378,7 @@ activity, that thapsigargin induced a decrease in mitochondrial membrane potenti
 increase in ROS production only in STHdhQ111/Q111 cells, and that PPARγ activation by
 rosiglitazone treatment protected STHdhQ111/Q111 cells from thapsigargin-induced
 mitochondrial membrane potential loss and ROS production (Quintanilla et al. 2008)."
+SET Confidence = "High"
 #STHdhQ111/Q111 cells
 a(CHEBI:thapsigargin) -| bp(GO:"regulation of membrane potential")
 a(CHEBI:thapsigargin) -> path(HP:"Increased reactive oxygen species production")
@@ -323,3 +386,4 @@ a(CHEBI:rosiglitazone) -> p(HGNC:PPARG)
 a(CHEBI:rosiglitazone) -| act(a(CHEBI:thapsigargin))
 a(CHEBI:rosiglitazone) -> bp(GO:"regulation of membrane potential")
 a(CHEBI:rosiglitazone) -| path(HP:"Increased reactive oxygen species production")
+UNSET Confidence

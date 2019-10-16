@@ -28,7 +28,7 @@ DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
 # DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
 DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mesh-names.belns"
-# DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
+ DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
 # DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
 # DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
 DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
@@ -89,8 +89,6 @@ p(MESH:Proteins , pmod(CONSO:misfolded)) -- bp(MESH:"Endoplasmic Reticulum Stres
 bp(MESH:"Endoplasmic Reticulum Stress") -> bp(MESH:"Unfolded Protein Response")
 bp(MESH:"Unfolded Protein Response") -| bp(GO:translation)
 bp(MESH:"Unfolded Protein Response") -| bp(GO:"mRNA transcription")
-#because protein synthesis includes transcription as well as translation
-#bp(MESH:"Unfolded Protein Response") -> bp(GO:"protein folding")
 bp(MESH:"Unfolded Protein Response") -> p(MESH:"Molecular Chaperones")
 p(MESH:"Molecular Chaperones") -> bp(GO:"protein folding")
 bp(MESH:"Unfolded Protein Response") -> deg(p(MESH:Proteins , pmod(CONSO:misfolded)))
@@ -158,7 +156,6 @@ p(HGNC:BAX) -> act(p(HGNC:ERN1), ma(kin))
 p(HGNC:BAK1) -> act(p(HGNC:ERN1), ma(kin))
 p(HGNC:BAX) -> act(p(HGNC:ERN1), ma(MESH:Endoribonucleases))
 p(HGNC:BAK1) -> act(p(HGNC:ERN1), ma(MESH:Endoribonucleases))
-complex(p(HGNC:ERN1),p(HGNC:BAX),p(HGNC:BAK1))
 UNSET Confidence
 
 SET Evidence = "ASK1-interacting protein 1 (AIP1)
@@ -203,16 +200,15 @@ transcription of genes encoding detoxifying enzymes such as A1
 and A2 subunits of glutathione S-transferase, NAD(P)H:quinone
 oxidoreductase, gamma-glutamylcysteine synthetase, heme oxygenase-
 1 and UDP-glucoronosyl transferase [16]."
-#NFE2 - nuclear factor (erythroid-derived 2)/ NRF2
+#NFE2L2 - nuclear factor (erythroid-derived 2)/ NRF2
 SET Confidence = "High"
-complex(p(HGNC:NFE2),p(HGNC:KEAP1),loc(MESH:Cytoplasm))
-p(HGNC:EIF2AK3) -| complex(p(HGNC:NFE2),p(HGNC:KEAP1))
-p(HGNC:EIF2AK3) -> p(HGNC:NFE2, pmod(Ph),loc(MESH:"Cell Nucleus"))
-p(HGNC:NFE2, pmod(Ph)) -> r(HGNCGENEFAMILY:"Soluble glutathione S-transferases")
-p(HGNC:NFE2, pmod(Ph)) -> r(HGNCGENEFAMILY:"NADH:ubiquinone oxidoreductase core subunits")
-p(HGNC:NFE2, pmod(Ph)) -> r(MESH:"Heme Oxygenase-1")
-p(HGNC:NFE2, pmod(Ph)) -> r(MESH:"Glucuronosyltransferase")
-p(HGNC:NFE2, pmod(Ph)) -> r(MESH:"Glutamate-Cysteine Ligase")
+p(HGNC:EIF2AK3) -| complex(p(HGNC:NFE2L2),p(HGNC:KEAP1))
+p(HGNC:EIF2AK3) -> p(HGNC:NFE2L2, pmod(Ph),loc(MESH:"Cell Nucleus"))
+p(HGNC:NFE2L2, pmod(Ph)) -> r(HGNCGENEFAMILY:"Soluble glutathione S-transferases")
+p(HGNC:NFE2L2, pmod(Ph)) -> r(HGNCGENEFAMILY:"NADH:ubiquinone oxidoreductase core subunits")
+p(HGNC:NFE2L2, pmod(Ph)) -> r(MESH:"Heme Oxygenase-1")
+p(HGNC:NFE2L2, pmod(Ph)) -> r(MESH:"Glucuronosyltransferase")
+p(HGNC:NFE2L2, pmod(Ph)) -> r(MESH:"Glutamate-Cysteine Ligase")
 UNSET Confidence
 
 SET Evidence = "In response to ER3
@@ -225,34 +221,15 @@ bp(MESH:"Endoplasmic Reticulum Stress") -| complex(p(HGNC:HSPA5),p(HGNC:ATF6))
 bp(MESH:"Endoplasmic Reticulum Stress") -> tloc(p(HGNC:ATF6), fromLoc(GO:"endoplasmic reticulum membrane"), toLoc(GO:"Golgi apparatus"))
 UNSET Confidence
 
-SET Evidence = "The processed forms of ATF6-alpha and ATF6-beta translocate to the
-nucleus and bind to the ATF/cAMP response element and to the ER
-stress responsive element to activate target genes (Fig. 1)."
-SET Confidence = "High"
-tloc(p(HGNC:ATF6B),fromLoc(GO:"Golgi apparatus"), toLoc(GO:nucleus))
-tloc(p(HGNC:ATF6),fromLoc(GO:"Golgi apparatus"), toLoc(GO:nucleus))
-##ATF6 alpha is denother as ATF6 only.
-UNSET Confidence
-
 SET Evidence = "ATF6 is responsible for
 transcriptional induction of a cohort of ER proteins which includes
 chaperones, folding enzymes and ER-associated degradation
 (ERAD) components [18]. A number of other bZIP transcription
 factors that localize to the ER have been identified including
 OASIS, CREBH, LUMAN/CREB3, CREB4 and BBF2H7 [12]."
-#CREB3L1 - OASIS
-#CREB3L3 - CREBH
-#CREB3L4 - CREB4
-#CREB3 - CREB3
 SET Confidence = "High"
 p(HGNC:ATF6) -> a(MESH:"Molecular Chaperones")
 p(HGNC:ATF6) -> bp(GO:"ERAD pathway")
-p(HGNC:CREB3L1,loc(GO:"endoplasmic reticulum"))
-p(HGNC:CREB3L3,loc(GO:"endoplasmic reticulum"))
-p(HGNC:CREB3L4,loc(GO:"endoplasmic reticulum"))
-p(HGNC:CREB3,loc(GO:"endoplasmic reticulum"))
-p(HGNC:CREB3L2,loc(GO:"endoplasmic reticulum"))
-#BBF2H7= CREB3L2
 UNSET Confidence
 
 SET Evidence = "OASIS has been shown to be
@@ -275,10 +252,10 @@ SET Confidence = "High"
 bp(MESH:"Unfolded Protein Response") -> act(p(HGNC:ATF6))
 bp(MESH:"Unfolded Protein Response") -> act(p(HGNC:ATF4))
 bp(MESH:"Unfolded Protein Response") -> act(p(HGNC:ATF3))
-bp(MESH:"Unfolded Protein Response") -> act(p(HGNC:NFE2))
+bp(MESH:"Unfolded Protein Response") -> act(p(HGNC:NFE2L2))
 bp(MESH:"Unfolded Protein Response") -> act(p(HGNC:XBP1))
 p(HGNC:XBP1) -> a(MESH:"Molecular Chaperones")
-p(HGNC:NFE2) -> a(MESH:"Molecular Chaperones")
+p(HGNC:NFE2L2) -> a(MESH:"Molecular Chaperones")
 p(HGNC:ATF3) -> a(MESH:"Molecular Chaperones")
 p(HGNC:ATF4) -> a(MESH:"Molecular Chaperones")
 p(HGNC:ATF6) -> a(MESH:"Molecular Chaperones")
@@ -401,11 +378,9 @@ CHOP to induce cell death by activating death effector caspases-1 and -3 [35]."
 SET Confidence = "High"
 p(HGNC:DDIT3) -| p(HGNC:BCL2)
 p(HGNC:DDIT3) -> a(MESH:"Reactive Oxygen Species")
-#not sure about the use of CASP11 mouse!
-#CASP11 : SCAF11
-p(HGNC:DDIT3) -> p(HGNC:"SCAF11")
-p(HGNC:"SCAF11") -> p(HGNC:CASP1)
-p(HGNC:"SCAF11") -> p(HGNC:CASP3)
+p(HGNC:DDIT3) -> p(MGI:Casp4)
+p(MGI:Casp4) -> p(HGNC:CASP1)
+p(MGI:Casp4) -> p(HGNC:CASP3)
 act(p(HGNC:CASP1)) -> bp(MESH:"Cell Death")
 act(p(HGNC:CASP3)) -> bp(MESH:"Cell Death")
 UNSET Confidence
@@ -439,7 +414,6 @@ SET Confidence = "High"
 SET CellStructure = "Endoplasmic Reticulum"
 
 bp(GO:"ERAD pathway") -> deg(p(MESH:Proteins , pmod(CONSO:misfolded)))
-complex(p(MESH:Proteins , pmod(CONSO:misfolded)),p(MESH:"Molecular Chaperones"))
 p(MESH:Oxidoreductases) -> tloc(p(MESH:Proteins , pmod(CONSO:misfolded)),fromLoc(GO:"endoplasmic reticulum"),toLoc(GO:cytoplasm))
 
 UNSET CellStructure

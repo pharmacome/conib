@@ -1,5 +1,8 @@
+<p align="center">
+  <img src="https://docs.google.com/drawings/d/e/2PACX-1vSYe8SA8J1ulLRFqFjX2bne_L-5fxb-yHFcj1B2JYLksJS90qz8y2swPZPNSrw9Zj3tljrZikb5KWOg/pub?w=150&amp;h=150" />
+</p>
+
 <h1 align="center">
-  <br>
   Curation of Neurodegeneration in BEL (CONIB)
   <a href="https://travis-ci.com/pharmacome/conib">
     <img src="https://travis-ci.com/pharmacome/conib.svg?branch=master"
