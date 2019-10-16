@@ -44,7 +44,7 @@ SET DOCUMENT Description = ""
 # DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
 # DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
 # DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
- DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
 DEFINE NAMESPACE NCIT           AS PATTERN "^C\d+$"
 ###############
 # Annotations #
@@ -60,8 +60,8 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
  DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
  DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
  DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
-DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
  DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
  DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
  DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
@@ -76,117 +76,141 @@ SET Citation = {"PubMed", "22530628"}
 SET Disease = "Alzheimer's disease"
 
 SET Evidence = "The progressive loss of memory in AD patients correlates with increased levels of Abeta and the deterioration of the cholinergic system in the brain."
-
+SET Confidence = "High"
 path(DOID:"Alzheimer's disease") -> path(MESH:"Memory Disorders")
 SET Anatomy = "brain"
 path(MESH:"Memory Disorders") pos a(CHEBI:"amyloid-beta")
 path(MESH:"Memory Disorders") neg act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+UNSET Confidence
 
 SET Evidence = "This deterioration commonly includes a reduction in the levels of acetylcholine (ACh) and alpha3, alpha4, and alpha7 nicotinic ACh receptors (nAChRs) as well as a decrease in the activity of choline acetyltranferase in the brain [5]."
-
 #this deterioration = one led by Alzheimer's disease
+SET Confidence = "High"
 path(DOID:"Alzheimer's disease") -| a(CHEBI:acetylcholine)
 path(DOID:"Alzheimer's disease") -| p(HGNC:CHRNA3)
 path(DOID:"Alzheimer's disease") -| p(HGNC:CHRNA4)
 path(DOID:"Alzheimer's disease") -| p(HGNC:CHRNA7)
 path(DOID:"Alzheimer's disease") -| act(p(HGNC:CHAT))
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Of these nAChRs, the alpha7 receptors are considered to be ideal therapeutic targets for several neurological conditions, including AD, schizophrenia, and Parkinson’s disease (PD) as well as tobacco addiction [6, 7]."
-
+SET Confidence = "High"
 p(HGNC:CHRNA7) -- path(DOID:"Alzheimer's disease")
 p(HGNC:CHRNA7) -- path(DOID:"schizophrenia")
 p(HGNC:CHRNA7) -- path(DOID:"Parkinson's disease")
 p(HGNC:CHRNA7) -- path(MESH:"Tobacco Use Disorder")
+UNSET Confidence
 
 SET Evidence = "There is evidence suggesting that Aβ, which accumulates in the brain of AD patients, has a high afﬁnity for the α7 receptors [10], acting as both an agonist [11] and an antagonist [12] at these receptors."
-
+SET Confidence = "High"
 SET Anatomy = "brain"
 a(CHEBI:"amyloid-beta") -> complex(p(HGNC:CHRNA7),a(CHEBI:"amyloid-beta"))
 complex(p(HGNC:CHRNA7),a(CHEBI:"amyloid-beta")) -> p(HGNC:CHRNA7)
 complex(p(HGNC:CHRNA7),a(CHEBI:"amyloid-beta")) -| p(HGNC:CHRNA7)
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Another current therapeutic approach aims to decrease glutamate excitotoxicity by blocking the N-methyl D-aspartate (NMDA) glutamate receptor using the receptor antagonist memantine."
 #therapeutic approach against AD
+SET Confidence = "High"
 a(CHEBI:memantine) -| path(DOID:"Alzheimer's disease")
 a(CHEBI:memantine) isA a(CHEBI:"NMDA receptor antagonist")
 p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits") -> act(a(CHEBI:"glutamate(2-)"))
 act(a(CHEBI:"glutamate(2-)")) -> path(CONSO:Excitotoxicity)
+UNSET Confidence
 
 SET Evidence = "A negative correlation between tobacco use and the incidence of AD has been reported [22]."
-
+SET Confidence = "High"
 path(MESH:"Tobacco Use") neg path(DOID:"Alzheimer's disease")
+UNSET Confidence
 
 SET Evidence = "Nicotine binds to Abeta, blocking its aggregation into ﬁbrils and is thereby neuroprotective [23]."
-
+SET Confidence = "High"
+complex(a(CHEBI:nicotine),a(CHEBI:"amyloid-beta")) -| a(CONSO:"amyloid-beta aggregates")
 complex(a(CHEBI:nicotine),a(CHEBI:"amyloid-beta")) -| a(CONSO:"amyloid-beta fibrils")
 complex(a(CHEBI:nicotine),a(CHEBI:"amyloid-beta")) -> bp(MESH:Neuroprotection)
+UNSET Confidence
 
 UNSET Disease
 
 SET Evidence = "Nicotine also diminishes AD pathology in animal models of the disease [24, 25]."
-
+SET Confidence = "High"
 a(CHEBI:nicotine) -| path(DOID:"Alzheimer's disease")
+UNSET Confidence
 
 SET Evidence = "However, clinical studies that aimed to determine the efﬁcacy of nicotine against AD pathology have not shown a signiﬁcant effect of nicotine in enhancing memory [26, 27] but rather a clear positive effect on attention in AD [27] and PD patients [25, 28]."
-
+SET Confidence = "High"
 SET Disease = {"Alzheimer's disease","Parkinson's disease"}
 a(CHEBI:nicotine) pos path(MESH:Attention)
 UNSET Disease
+UNSET Confidence
 
 SET Evidence = "The positive effect of nicotine on attention has been mostly attributed to its agonistic stimulation of the nAChRs, which plays an important role in mediating memory and attention processes [29–31]."
-
+SET Confidence = "High"
 a(CHEBI:nicotine) -> act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
-act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> path(MESH:Attention)
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -- path(MESH:Attention)
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -- bp(GO:memory)
+UNSET Confidence
 
 SET Evidence = "However, the failure of nicotine to improve memory in AD patients, its inherent toxicity, and the fact that it induces tachyphylaxis and addiction have discouraged its use in the clinical arena [32]."
-
+SET Confidence = "High"
 SET Disease = "Alzheimer's disease"
 a(CHEBI:nicotine) cnc bp(GO:"learning or memory")
 #NCIT:C28004 = toxic
 a(CHEBI:nicotine) -> path(NCIT:C28004)
 a(CHEBI:nicotine) -> path(MESH:Tachyphylaxis)
 a(CHEBI:nicotine) -> path(MESH:"Tobacco Use Disorder")
+UNSET Confidence
 
 SET Evidence = "Speciﬁcally, it has been shown that cotinine prevented working and reference memory loss in a mouse model of AD (Tg6799) and prevented Aβ aggregation in vitro as well as plaque deposition in vivo [33]."
-
+#Tg6799 line
+SET Confidence = "High"
 SET Species = "10090"
 a(MESH:Cotinine) -| path(MESH:"Memory Disorders")
 UNSET Species
 a(MESH:Cotinine) -| a(CONSO:"amyloid-beta aggregates")
 a(MESH:Cotinine) -| path(MESH:"Plaque, Amyloid")
 UNSET Disease
+UNSET Confidence
 
 SET Evidence = "In humans, more than 80% of nicotine is metabolized to cotinine by cytochrome P450 2A6 (CYP2A6) [34] and cytochrome P450 2A5 (CYP2A5) [35] enzymes [36]."
-
 #NCIT:C18024 = CYP2A5
+SET Confidence = "High"
 composite(a(CHEBI:nicotine),p(HGNC:CYP2A6)) -> a(MESH:Cotinine)
 composite(a(CHEBI:nicotine),p(NCIT:C18024)) -> a(MESH:Cotinine)
+UNSET Confidence
 
 SET Evidence = "Cotinine, is mostly metabolized by the liver to its major metabolites, trans-3’hydroxycotinine and its glucuronide [39–41]."
-
+#10219774 - trans-3’hydroxycotinine
+SET Confidence = "High"
 SET Anatomy = "liver"
-a(MESH:Cotinine) -> a(MESH:hydroxycotinine)
+a(MESH:Cotinine) -> a(PUBCHEM:10219774)
 a(MESH:Cotinine) -> a(MESH:"cotinine N-glucuronide")
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "More recently, we and other laboratories have found that cotinine is a memory enhancer in various animal models of disease."
-
+SET Confidence = "High"
 a(MESH:Cotinine) -> bp(GO:"learning or memory")
+UNSET Confidence
 
 SET Evidence = "Also, we recently published evidence showing that cotinine (5 mg/kg) decreased anxiety and enhanced the extinction of contextual fear memory after fear conditioning in wild type mice [50]."
-
+SET Confidence = "High"
+SET Species = "10090"
 a(MESH:Cotinine) -| path(HP:Anxiety)
 a(MESH:Cotinine) -| path(MESH:Fear)
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "In addition to its mnemonic qualities, cotinine has anti-Aβ aggregation properties that add to its value as a new treatment for AD [33]."
-
+SET Confidence = "High"
 a(MESH:Cotinine) -| a(CONSO:"amyloid-beta aggregates")
+UNSET Confidence
 
 SET Evidence = "The pro-cognitive effect of cotinine in the Tg6799 mice may be explained by the reduction in the level of the aggregated forms of Aβ, including Aβ plaques and oligomeric forms of the peptide, in the hippocampus and cortex [33]."
-
 #Tg6799 mice
+SET Confidence = "High"
 SET Species = "10900"
 a(MESH:Cotinine) -> bp(GO:cognition)
 SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex"}
@@ -195,18 +219,22 @@ a(MESH:Cotinine) -| path(MESH:"Plaque, Amyloid")
 a(MESH:Cotinine) -| a(CONSO:"amyloid-beta oligomers")
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "For instance, cotinine induced the activation of the pro-survival protein kinase B (Akt)/glycogen synthase kinase 3beta (GSK3beta) pathway in the brains of both Tg6799 and wild type control mice, suggesting that the activation of these factors is independent from its effect on Aβ aggregation [33]."
-
+SET Confidence = "High"
+SET Species = "10090"
 SET Anatomy = "brain"
 a(MESH:Cotinine) -> act(p(HGNC:AKT1))
 a(MESH:Cotinine) -> act(p(HGNC:GSK3B))
 act(p(HGNC:AKT1)) cnc a(CONSO:"amyloid-beta aggregates")
 act(p(HGNC:GSK3B)) cnc a(CONSO:"amyloid-beta aggregates")
 UNSET Anatomy
+UNSET Species
+UNSET Confidence
 
 SET Evidence = " Interestingly, the Akt/GSK3β pathway is stimulated by the alpha7 receptor, has roles inhibiting neuronal cell death, and is involved in promoting neuronal synaptic plasticity and long-term potentiation [53–55]."
-
+SET Confidence = "High"
 p(HGNC:CHRNA7) -> act(p(HGNC:AKT1))
 p(HGNC:CHRNA7) -> act(p(HGNC:GSK3B))
 act(p(HGNC:AKT1)) -| bp(GO:"neuron death")
@@ -215,9 +243,10 @@ act(p(HGNC:AKT1)) -> bp(MESH:"Neuronal Plasticity")
 act(p(HGNC:GSK3B)) -> bp(MESH:"Neuronal Plasticity")
 act(p(HGNC:AKT1)) -> bp(MESH:"Long-Term Potentiation")
 act(p(HGNC:GSK3B)) -> bp(MESH:"Long-Term Potentiation")
+UNSET Confidence
 
 SET Evidence = "The alpha7 and alpha4beta2 nAChR subtypes are the most abundant of the nicotinic receptors and are fundamental for mediating working memory and attention in mammals. These receptors are localized throughout the cortex, hippocampus, amygdala, hypothalamus, striatum, and other regions involved in these cognitive processes [13]."
-
+SET Confidence = "High"
 SET MeSHAnatomy = {"Cerebral Cortex","Hippocampus","Amygdala","Hypothalamus"}
 SET Anatomy = "striatum"
 p(HGNC:CHRNA7) -> bp(GO:"learning or memory")
@@ -226,56 +255,67 @@ complex(CONSO:"alpha-4 beta-2 nAChR") -> bp(GO:"learning or memory")
 complex(CONSO:"alpha-4 beta-2 nAChR") -> path(MESH:Attention)
 UNSET Anatomy
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Because decreased levels of these receptors have been found in AD brains [58], this reduction is considered to explain, at least in part, the cognitive deﬁcits in AD."
-
 #these receptors = as above
-p(HGNC:CHRNA7) -- path(DOID:"Alzheimer's disease")
-complex(CONSO:"alpha-4 beta-2 nAChR") -- path(DOID:"Alzheimer's disease")
+SET Confidence = "High"
+path(DOID:"Alzheimer's disease") -| p(HGNC:CHRNA7)
+path(DOID:"Alzheimer's disease") -| complex(CONSO:"alpha-4 beta-2 nAChR")
 p(HGNC:CHRNA7) -> bp(GO:cognition)
 complex(CONSO:"alpha-4 beta-2 nAChR") -> bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "The alpha7 receptors are very important for mediating sensory gating, attention and learning, and memory, making them an ideal target to improve these cognitive functions."
-
+SET Confidence = "High"
 p(HGNC:CHRNA7) -> bp(MESH:"Sensory Gating")
 p(HGNC:CHRNA7) -> bp(GO:"learning or memory")
 p(HGNC:CHRNA7) -> path(MESH:Attention)
+UNSET Confidence
 
 SET Evidence = "In an attempt to improve the cognitive abilities of AD patients with this new approach, modulators of the α7 receptors, such as 3-(2,4-dimethoxybenzylidene) anabaseine (GTS-21 or DMXB-A) [56, 67, 68], and many others, are under development or are currently being investigated in clinical trials [56, 69–71]."
-
+SET Confidence = "High"
 SET Species = "9606"
 SET Disease = "Alzheimer's disease"
 a(DRUGBANK:"GTS-21") -> bp(GO:cognition)
 a(MESH:"3-(4-dimethylaminobenzylidene)anabaseine") -> bp(GO:cognition)
 UNSET Disease
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Cotinine is weak agonist of the α7 receptor, and whether this receptor is the main target of cotinine is still controversial [72]."
-
+SET Confidence = "High"
 a(MESH:Cotinine) -> p(HGNC:CHRNA7)
+UNSET Confidence
 
 SET Evidence = "Contrary to this idea, new evidence shows that chronic treatment with cotinine stimulates the Akt/GSK3β pathway in the hippocampus and cortex of AD and control littermate mice [33]."
-
+SET Confidence = "High"
+SET Species = "10090"
+SET Disease = "Alzheimer's disease"
 SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex"}
 a(MESH:Cotinine) -> act(p(HGNC:AKT1))
 a(MESH:Cotinine) -> act(p(HGNC:GSK3B))
 UNSET MeSHAnatomy
+UNSET Disease
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Positive modulation of the α7 nAChRs could also explain cotinine’s positive effect on neuronal survival because the activation of Akt stimulates pro-survival proteins (e.g., Bcl-2 and the transcription factor cAMP responsive element-binding protein [CREB; Ref. 11] and inhibits the pro-apoptotic protein c-Jun Nterminal kinase (JNK) via the activation of the apoptosis signalregulating kinase (Ask) [76, 77; Figure 2]."
-
+SET Confidence = "High"
 a(MESH:Cotinine) -> act(p(HGNC:CHRNA7))
 act(p(HGNC:CHRNA7)) -> act(p(HGNC:AKT1))
 act(p(HGNC:AKT1)) -> p(HGNC:BCL2)
 act(p(HGNC:AKT1)) -> p(HGNC:CREBBP)
 act(p(HGNC:AKT1)) -> p(HGNC:DBF4)
-p(HGNC:DBF4) -| p(HGNC:MAPK8)
-p(HGNC:MAPK8) -> bp(MESH:Apoptosis)
+p(HGNC:DBF4) -| p(HGNC:MAP3K5)
+p(HGNC:MAP3K5) -> bp(MESH:Apoptosis)
 SET Cell = "neuron"
 p(HGNC:CHRNA7) -> bp(MESH:"Cell Survival")
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Furthermore, alpha7 nAChRs can favor synaptic plasticity and cognition by activating the protein kinases phosphoinositide-3 kinase [PI3K; Refs. 78, 79], Akt, extracellular signal-regulated kinase 1/2 (ERK1/2), and the transcription factor CREB, which participate in mediating the structural and molecular changes required for learning and memory processes [80, 81]."
-
+SET Confidence = "High"
 p(HGNC:CHRNA7) -> p(HGNC:PIK3CA)
 p(HGNC:CHRNA7) -> p(HGNC:AKT1)
 p(HGNC:CHRNA7) -> p(HGNC:MAPK3)
@@ -296,20 +336,25 @@ p(HGNC:AKT1) -> bp(GO:"learning or memory")
 p(HGNC:MAPK3) -> bp(GO:"learning or memory")
 p(HGNC:MAPK1) -> bp(GO:"learning or memory")
 p(HGNC:CREBBP) -> bp(GO:"learning or memory")
+UNSET Confidence
 
 SET Evidence = "The activation of PI3K heterodimers p85/p110 by the α7 receptor is triggered by the binding of p85 (the regulatory subunit) to phospho-tyrosyl proteins such as Fyn, which leads to the release of p110 [the catalytic subunit; Ref. 82]."
-
+SET Confidence = "High"
 p(HGNC:CHRNA7) -> act(p(HGNC:PIK3R1))
-complex(p(HGNC:PIK3R1),p(HGNC:FYN)) -> act(p(HGNC:PIK3R1))
+complex(p(HGNC:PIK3R1),p(HGNC:FYN)) -> act(p(HGNC:PIK3CA))
+UNSET Confidence
 
 SET Evidence = "Thus, PI3K stimulates the phosphorylation of Akt at residues threonine 308 and serine 473 [83]. The active form of Akt can then promote neuronal survival by stimulating CREB and Bcl-2 activity and by inactivating Ask1 by phosphorylation at serine 83 [84]."
-
+SET Confidence = "High"
 p(HGNC:PIK3CA) -> p(HGNC:AKT1,pmod(Ph, T, 308))
 p(HGNC:PIK3CA) -> p(HGNC:AKT1,pmod(Ph, S, 473))
 act(p(HGNC:AKT1,pmod(Ph, T, 308))) -> act(p(HGNC:BCL2))
 act(p(HGNC:AKT1,pmod(Ph, S, 473))) -> act(p(HGNC:BCL2))
 act(p(HGNC:AKT1,pmod(Ph, T, 308))) -> act(p(HGNC:CREBBP))
 act(p(HGNC:AKT1,pmod(Ph, S, 473))) -> act(p(HGNC:CREBBP))
+act(p(HGNC:AKT1,pmod(Ph, T, 308))) -> p(HGNC:MAP3K5,pmod(Ph,Ser,83))
+act(p(HGNC:AKT1,pmod(Ph, S, 473))) -> p(HGNC:MAP3K5,pmod(Ph,Ser,83))
+p(HGNC:MAP3K5,pmod(Ph,Ser,83)) -| act(p(HGNC:MAP3K5))
 act(p(HGNC:AKT1,pmod(Ph, T, 308))) -| act(p(HGNC:MAP3K5))
 act(p(HGNC:AKT1,pmod(Ph, S, 473))) -| act(p(HGNC:MAP3K5))
 SET Cell = "neuron"
@@ -317,18 +362,22 @@ act(p(HGNC:BCL2)) -> bp(MESH:"Cell Survival")
 act(p(HGNC:CREBBP)) -> bp(MESH:"Cell Survival")
 act(p(HGNC:MAP3K5)) -| bp(MESH:"Cell Survival")
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Of equal importance, because GSK3β is considered to be one of the main tau kinases in vivo, the inhibition of GSK3β by cotinine may also prevent the abnormal phosphorylation of tau observed in AD brains and the consequent appearance of neuroﬁbrillary tangles of hyperphosphorylated tau [85–87]."
-
+SET Confidence = "High"
 SET Disease = "Alzheimer's disease"
+SET Anatomy = "brain"
 a(MESH:Cotinine) -| p(HGNC:GSK3B)
-p(HGNC:GSK3B) -> p(HGNC:MAPT,pmod(Ph))
+act(p(HGNC:GSK3B),ma(kin)) -> p(HGNC:MAPT,pmod(Ph))
 a(MESH:Cotinine) -| p(HGNC:MAPT,pmod(Ph))
 a(MESH:Cotinine) -| p(MESH:"Neurofibrillary Tangles")
+UNSET Anatomy
 UNSET Disease
+UNSET Confidence
 
 SET Evidence = "Furthermore, the stimulation of both CREB and ERK1/2 by cotinine may promote the expression of activity-regulated cytoskeleton-associated protein (Arc, also termed Arg3.1), derived from an immediate early gene required for the consolidation of memory [88–90]."
-
+SET Confidence = "High"
 a(MESH:Cotinine) -> act(p(HGNC:CREBBP))
 a(MESH:Cotinine) -> act(p(HGNC:MAPK3))
 a(MESH:Cotinine) -> act(p(HGNC:MAPK1))
@@ -336,37 +385,46 @@ act(p(HGNC:CREBBP)) -> p(HGNC:ARC)
 act(p(HGNC:MAPK3)) -> p(HGNC:ARC)
 act(p(HGNC:MAPK1)) -> p(HGNC:ARC)
 p(HGNC:ACR) -> bp(GO:"learning or memory")
+UNSET Confidence
 
 SET Evidence = "Arc expression is stimulated by brain-derived neurotrophic factor (BDNF), serum response element [91], NMDA receptors [92], elongation factor 2 [93], CREB, and ERK1/2 [94]."
-
+SET Confidence = "High"
 p(HGNC:BDNF) -> p(HGNC:ARC)
 bp(MESH:"Serum Response Element") -> p(HGNC:ARC)
 p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits") -> p(HGNC:ARC)
+p(HGNC:EEF2) -> p(HGNC:ARC)
 p(HGNC:CREBBP) -> p(HGNC:ARC)
 p(HGNC:MAPK3) -> p(HGNC:ARC)
 p(HGNC:MAPK1) -> p(HGNC:ARC)
+UNSET Confidence
 
 SET Evidence = "This versatile protein is believed to mediate memory storage in the brain’s active networks by coupling changes in neuronal activity patterns to diverse forms of synaptic plasticity [95]."
-
+SET Confidence = "High"
 p(HGNC:ARC) -> bp(GO:"learning or memory")
 p(HGNC:ARC) -> bp(MESH:"Neuronal Plasticity")
+UNSET Confidence
 
 SET Evidence = "The α7 receptors seem to have a clear role in mediating Arc gene expression, as an increase in levels of Arc mRNA were found in rats treated with the selective α7 receptor partial agonist SSR180711 [96]."
-
+SET Confidence = "High"
+SET Species = "10116"
 p(HGNC:CHRNA7) pos r(HGNC:ARC)
 p(HGNC:CHRNA7) -> p(HGNC:ARC)
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "This concept, though still controversial, is supported by the fact that the level of soluble Abeta correlates better with dementia than does plaque burden in AD patients [101, 102]."
-
+SET Confidence = "High"
 SET Disease = "Alzheimer's disease"
 a(CHEBI:"amyloid-beta") pos path(DOID:dementia)
 UNSET Disease
+UNSET Confidence
 
 SET Evidence = "For example, some compounds such as curcumin inhibit oligomerization but not ﬁbrillation [105], and other compounds such as o-vanillin inhibit the formation of both oligomers and ﬁbrils [106]. Other molecules such as the naphthalene sulfonates inhibit ﬁbrillation but not oligomerization [107]."
-
+SET Confidence = "High"
 a(CHEBI:curcumin) -| a(CONSO:"amyloid-beta oligomers")
 a(CHEBI:curcumin) cnc a(CONSO:"amyloid-beta fibrils")
 a(CHEBI:vanillin) -| a(CONSO:"amyloid-beta oligomers")
 a(CHEBI:vanillin) -| a(CONSO:"amyloid-beta fibrils")
 a(DRUGBANK:"1-Anilino-8-Naphthalene Sulfonate") cnc a(CONSO:"amyloid-beta oligomers")
 a(DRUGBANK:"1-Anilino-8-Naphthalene Sulfonate") -| a(CONSO:"amyloid-beta fibrils")
+UNSET Confidence
