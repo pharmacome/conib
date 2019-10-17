@@ -89,7 +89,7 @@ similar analysis but using full-length tau and the acetyltransferase
 p300; we detected a decrease in filament
 assembly following tau acetylation, the extent of which
 correlated with the concentration of p300 [11]"
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:EP300) pos p(HGNC:MAPT,pmod(Ac))
 p(HGNC:MAPT,pmod(Ac)) -| p(HGNC:MAPT,pmod(CONSO:"protein aggregates"))
 UNSET Confidence
@@ -141,7 +141,7 @@ that acetylation of tau at K280 is highest at late stages of
 disease, it is possible increased acetylation at this epitope
 is a response to the disease process, rather than a pathogenic
 mechanism responsible for tangle formation."
-SET Confidence = "Medium"
+SET Confidence = "High"
 path(DOID:"Alzheimer's disease") pos p(HGNC:MAPT,pmod(Ac,Lys,280))
 UNSET Confidence
 
@@ -160,7 +160,7 @@ kinase Par-1/MARK2 is required for tau proteotoxicity in
 Drosophila [29], observed at very early stages of NFT
 formation in AD brain [30], and appears to prime tau for
 subsequent phosphorylation events [29,31]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Species = "7227"
 SET MeSHDisease = "Alzheimer Disease"
 SET Anatomy = "brain"
@@ -215,7 +215,7 @@ acetylation and phosphorylation on KXGS motifs, such
 that treatment with HDAC6 inhibitors simultaneously
 increases acetylation of tau, while blocking phosphorylation
 at these crucial motifs in mice [11]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Species = "10090"
 a(MESH:"Histone Deacetylase Inhibitors") -> p(HGNC:MAPT,pmod(Ac))
 a(MESH:"Histone Deacetylase Inhibitors") -| p(HGNC:MAPT,pmod(Ph))
@@ -227,7 +227,7 @@ KXGS motifs are hypoacetylated and hyperphosphorylated
 in patients with AD and in a progressive and
 well-characterized mouse model of tauopathy (rTg4510)
 [11,37]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 #cell line - rTg4510
 SET Species = "10090"
 path(DOID:"Alzheimer's disease") -> p(CONSO:"KXGS motif",pmod(Ph))
@@ -261,8 +261,7 @@ SET Evidence = "Tau phosphorylated at the PHF1
 epitope (S396/404) is still susceptible to degradation
 following Hsp90 inhibition and actually exhibits an
 enhanced interaction with Hsp90 [33]."
-
-SET Confidence = "Medium"
+SET Confidence = "High"
 complex(p(HGNC:MAPT,pmod(Ph,Ser,396)),p(HGNCGENEFAMILY:"Heat shock 90kDa proteins")) -> deg(p(HGNC:MAPT))
 complex(p(HGNC:MAPT,pmod(Ph,Ser,404)),p(HGNCGENEFAMILY:"Heat shock 90kDa proteins")) -> deg(p(HGNC:MAPT))
 p(HGNC:MAPT,pmod(Ph,Ser,396)) -> complex(p(HGNC:MAPT,pmod(Ph,Ser,396)),p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"))
@@ -308,11 +307,12 @@ tau turnover also decreases with aging in rTg4510 mice
 and phosphorylation on KXGS motifs regulates tau
 turnover."
 #rTg4510
+#in this case as far as i understand it is hypoacetylation so i think we cannot code a composite of hypoacetylation and hyperphosphorylation.
 SET Confidence = "Medium"
 bp(GO:aging) -| p(CONSO:"KXGS motif",pmod(Ac))
 bp(GO:aging) -> p(CONSO:"KXGS motif",pmod(CONSO:hyperphosphorylation))
 bp(GO:aging) -| p(HGNC:MAPT)
-composite(p(CONSO:"KXGS motif",pmod(Ac)),p(CONSO:"KXGS motif",pmod(CONSO:hyperphosphorylation))) reg p(HGNC:MAPT)
+#composite(p(CONSO:"KXGS motif",pmod(Ac)),p(CONSO:"KXGS motif",pmod(CONSO:hyperphosphorylation))) reg p(HGNC:MAPT)
 UNSET Confidence
 
 SET Evidence = "While hyperphosphorylated tau is ubiquitinated in
@@ -334,7 +334,7 @@ UNSET Confidence
 SET Evidence = "Given that aggregated tau within NFTs is ubiquitinated
 [38,44], it is possible that excessive ubiquitination of tau
 actually prevents acetylation, exacerbating tau aggregation."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(Ub),pmod(CONSO:"Tau aggregates")) -| p(HGNC:MAPT,pmod(Ac))
 p(HGNC:MAPT,pmod(Ac)) -| p(HGNC:MAPT,pmod(CONSO:"Tau aggregates"))
 UNSET Confidence
