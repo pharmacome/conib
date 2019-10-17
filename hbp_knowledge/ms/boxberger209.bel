@@ -62,7 +62,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
  DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
  DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
  DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
  DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
  DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -76,15 +76,19 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 SET Citation = {"PubMed", "30962309"}
 
 SET Evidence = "Inflammasomes are endogenous multimeric protein complexes that mediate the cleavage of proinflammatory cytokines, especially IL-1beta and IL-18, in response to a diverse set of stimuli such as infections, tissue damage, and metabolic imbalances (1, 2)."
+SET Confidence = "High"
 path(MESH:Infection) -> complex(MESH:Inflammasomes)
 #tissue damage
 path(NCIT:C50773) -> complex(MESH:Inflammasomes)
 path(MESH:Metabolome) -> complex(MESH:Inflammasomes)
 complex(MESH:Inflammasomes) -> deg(p(HGNC:IL1B))
 complex(MESH:Inflammasomes) -> deg(p(HGNC:IL18))
+UNSET Confidence
 
 SET Evidence = "Mutations in genes encoding the inflammasome sensor molecules NLRP3 and pyrin cause
-autoinflammatory disorders involving an excessive activation of innate immune responses, namely cryopyrin-associated periodic syndrome and familial Mediterranean fever (3)."
+autoinflammatory disorders involving an excessive activation of innate immune responses, namely cryopyrin-associated periodic syndrome and
+familial Mediterranean fever (3)."
+SET Confidence = "High"
 g(HGNC:NLRP3) -> complex(MESH:Inflammasomes)
 g(HGNC:MEFV) -> complex(MESH:Inflammasomes)
 #cryopyrin-associated periodic syndrome
@@ -97,25 +101,31 @@ path(DOID:"familial Mediterranean fever") => bp(GO:"activation of innate immune 
 #Autoinflammatory Syndrome/disorder
 path(NCIT:C84657) isA path(NCIT:C119050)
 path(DOID:"familial Mediterranean fever") isA path(NCIT:C119050)
+UNSET Confidence
 
 SET Evidence = "Moreover, changes in inflammasome activity and closely related dysregulation of IL-1beta and IL-18 expression levels have been linked to cancer (4) and various human disorders involving autoimmune processes, such as multiple sclerosis (MS) (5) and rheumatic diseases (6)."
+SET Confidence = "Medium"
 act(complex(MESH:Inflammasomes)) -- path(DOID:cancer)
-g(HGNC:IL1B) -- path(DOID:cancer)
+p(HGNC:IL1B) -- path(DOID:cancer)
 p(HGNC:IL18) -- path(DOID:cancer)
 act(complex(MESH:Inflammasomes)) -- path(DOID:"multiple sclerosis")
-g(HGNC:IL1B) -- path(DOID:"multiple sclerosis")
+p(HGNC:IL1B) -- path(DOID:"multiple sclerosis")
 p(HGNC:IL18) -- path(DOID:"multiple sclerosis")
 act(complex(MESH:Inflammasomes)) -- path(DOID:"rheumatic disease")
-g(HGNC:IL1B) -- path(DOID:"rheumatic disease")
+p(HGNC:IL1B) -- path(DOID:"rheumatic disease")
 p(HGNC:IL18) -- path(DOID:"rheumatic disease")
 path(DOID:"rheumatic disease") -- path(MESH:Autoimmunity)
 path(DOID:"multiple sclerosis") -- path(MESH:Autoimmunity)
+UNSET Confidence
 
 SET Evidence = "Several miRNAs can target mRNA transcripts of genes coding for components of inflammasome complexes
 or for regulators of the inflammasomes."
+SET Confidence = "High"
 r(MESH:MicroRNAs) reg complex(MESH:Inflammasomes)
+UNSET Confidence
 
 SET Evidence = "The common function of the canonical inflammasomes is the proteolytic activation of IL-1beta and IL-18 and their secretion (2)"
+SET Confidence = "High"
 #canonical inflammasomes - NLRP1, NLRP3, NLRC4, AIM2, and pyrin subunits
 p(HGNC:NLRP1) -> act(p(HGNC:IL1B))
 p(HGNC:NLRP1) -> sec(p(HGNC:IL1B))
@@ -138,26 +148,34 @@ p(HGNC:AIM2) -> act(p(HGNC:IL18))
 p(HGNC:AIM2) -> sec(p(HGNC:IL18))
 p(HGNC:MEFV) -> act(p(HGNC:IL18))
 p(HGNC:MEFV) -> sec(p(HGNC:IL18))
+UNSET Confidence
 
 SET Evidence = "Noncanonical inflammasomes have been proposed to realize additional functions such as the mediation of programmed cell death (pyroptosis) and the initiation of NLRP3 assembly (8, 9)."
 #noncanonical inflammasomes - caspase-4, caspase-5, and caspase-8
+SET Confidence = "High"
 p(HGNC:CASP4) -> path(MESH:Pyroptosis)
 p(HGNC:CASP4) -> bp(GO:"NLRP3 inflammasome complex assembly")
 p(HGNC:CASP5) -> path(MESH:Pyroptosis)
 p(HGNC:CASP5) -> bp(GO:"NLRP3 inflammasome complex assembly")
 p(HGNC:CASP8) -> path(MESH:Pyroptosis)
 p(HGNC:CASP8) -> bp(GO:"NLRP3 inflammasome complex assembly")
+UNSET Confidence
 
 SET Evidence = "Moreover, the inflammasomes control the microbiome in humans, both by hindering invasion of pathogens and by regulating the composition of commensal bacteria (10)."
+SET Confidence = "Medium"
 complex(MESH:Inflammasomes) reg path(MESH:Microbiota)
-complex(MESH:Inflammasomes) =| path(MESH:"Host-Pathogen Interactions")
+complex(MESH:Inflammasomes) -| path(MESH:"Host-Pathogen Interactions")
+UNSET Confidence
 
 SET Evidence = "In mouse models, deficiency of inflammasome components enhances the susceptibility to inflammatory bowel diseases (IBD) (10)."
+SET Confidence = "Medium"
 SET Species = "10090"
-complex(MESH:Inflammasomes) =| path(DOID:"inflammatory bowel disease")
+complex(MESH:Inflammasomes) -| path(DOID:"inflammatory bowel disease")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Furthermore, several therapies that are currently in use to treat autoimmune disorders, such as IFN-beta and glatiramer acetate in MS, glucocorticoids in systemic lupus erythematosus (SLE), and the TNF-alpha inhibitor infliximab in rheumatic diseases, partially affect the regulation of inflammasomes (11–14)."
+SET Confidence = "High"
 a(PUBCHEM:223370366) -| path(DOID:"multiple sclerosis")
 a(PUBCHEM:3081884) -| path(DOID:"multiple sclerosis")
 a(PUBCHEM:223370366) reg complex(MESH:Inflammasomes)
@@ -169,20 +187,29 @@ a(PUBCHEM:53787563) reg complex(MESH:Inflammasomes)
 a(PUBCHEM:135305802) -| path(DOID:"rheumatic disease")
 a(PUBCHEM:135305802) =| p(HGNC:TNF)
 a(PUBCHEM:135305802) reg complex(MESH:Inflammasomes)
+UNSET Confidence
 
 SET Evidence = "It is composed of the sensor molecule NLRP3, the adapter protein ASC that enhances complex formation, and of pro–caspase-1."
 #It - NLRP3 inflammasome
 #PYCARD - ASC
+SET Confidence = "High"
 complex(GO:"NLRP3 inflammasome complex") hasComponents list(p(HGNC:NLRP3), p(HGNC:PYCARD), p(HGNC:CASP1))
+UNSET Confidence
 
 SET Evidence = "Upon assembly, the activated inflammasome converts pro–caspase-1 into caspase-1, which cleaves pro–IL-1b and pro–IL-18 into mature proinflammatory cytokines IL-1b and IL-18 (15). The proinflammatory cytokines are then secreted (16)."
+
+SET Confidence = "High"
 act(complex(GO:"NLRP3 inflammasome complex")) -> sec(p(HGNC:IL1B))
 act(complex(GO:"NLRP3 inflammasome complex")) -> sec(p(HGNC:IL18))
+UNSET Confidence
 
 SET Evidence = "In the brain, and in particular the microglia, NLRP3 mRNA levels are among the highest throughout human tissues (18, 19)."
+SET Confidence = "High"
 a(MESH:Brain) -> r(HGNC:NLRP3, loc(MESH:Microglia))
+UNSET Confidence
 
 SET Evidence = "For example, the miRNAs miR-20b-5p, miR-30a-5p, and miR-146a-5p are dysregulated in immunological and neurologic pathways in MS (22), and the miRNA levels in peripheral blood cells of MS patients change in response to IFN-beta treatment (23)."
+SET Confidence = "High"
 SET MeSHDisease = "Multiple Sclerosis"
 m(MIRBASE:"hsa-mir-20a") -- a(MESH:"Neural Pathways")
 m(MIRBASE:"hsa-mir-20a") -- a(MESH:"Immune System")
@@ -196,79 +223,94 @@ a(PUBCHEM:223370366) reg m(MIRBASE:"hsa-mir-30a")
 a(PUBCHEM:223370366) reg m(MIRBASE:"hsa-mir-146a")
 UNSET Cell
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "The first step of canonical miRNA biogenesis is transcription into primary miRNAs (pri-miRNAs) by RNA polymerase II (24, 25)."
+#this statement should be removed as it is unspecific
+SET Confidence = "Low"
 act(p(MESH:"RNA Polymerase II"), ma(GO:"rRNA transcription")) -> r(NCIT:C25967)
+UNSET Confidence
 
 SET Evidence = "In a two-step process, the primiRNA is first cleaved into a precursor miRNA by Drosha/
 DGCR8 and additional RNA-binding proteins, translocated into the cytoplasm by exportin-5, and subsequently processed
 by Dicer/TRBP to form a short miRNA duplex (26–28)."
+SET Confidence = "High"
 p(HGNC:DGCR8) -> m(NCIT:C25967, frag("?"))
 p(HGNC:DROSHA) -> m(NCIT:C25967, frag("?"))
 m(NCIT:C25967, frag("?")) -> r(MESH:MicroRNAs)
 p(HGNC:XPO5) -> p(MESH:"RNA-Binding Proteins", loc(GO:cytoplasm))
 composite(p(MESH:"RNA-Binding Proteins"), p(HGNC:DICER1)) -> complex(p(MESH:MicroRNAs), p(MESH:MicroRNAs))
 composite(p(MESH:"RNA-Binding Proteins"), p(HGNC:NCOA6)) -> complex(p(MESH:MicroRNAs), p(MESH:MicroRNAs))
+UNSET Confidence
 
 SET Evidence = "The resulting duplex is incorporated into an Argonaute protein and unwound so that only one strand (i.e., the mature miRNA) is kept in the RNA-induced silencing complex, which targets transcripts with matching sequences for degradation and prevents translation into proteins (25, 29, 30)."
+SET Confidence = "High"
 composite(p(MESH:MicroRNAs), p(MESH:MicroRNAs), p(HGNCGENEFAMILY:"Argonaute/PIWI family")) -> composite(p(MESH:MicroRNAs), p(HGNCGENEFAMILY:"Argonaute/PIWI family"))
 composite(p(MESH:MicroRNAs), p(HGNCGENEFAMILY:"Argonaute/PIWI family")) =| path(MESH:"RNA Stability")
 composite(p(MESH:MicroRNAs), p(HGNCGENEFAMILY:"Argonaute/PIWI family")) =| bp(GO:translation)
-
-
-########Coding help
-SET Evidence = "Pairing of the miRNA seed region (nucleotides at position 2–7 from the 59 end) and complementary sites preferably within 39 untranslated regions (39 UTRs) of target mRNAs mediates translational repression and destabilization of the bound transcripts (34)."
-
-
+UNSET Confidence
 
 SET Evidence = "In humans, mRNA destabilization by deadenylation and subsequent exonucleolytic decay dominates
 the regulatory effect of miRNAs, whereas the contribution from direct translational repression is relatively small
 (35–39)."
+SET Confidence = "High"
 SET Species = "9606"
 p(MESH:MicroRNAs) =| bp(GO:"mRNA polyadenylation")
-bp(GO:"mRNA polyadenylation") -- path(MESH:"RNA Stability")
+bp(GO:"mRNA polyadenylation") -> path(MESH:"RNA Stability")
 p(MESH:MicroRNAs) =| path(MESH:"RNA Stability")
 p(MESH:MicroRNAs) => bp(GO:"exonucleolytic nuclear-transcribed mRNA catabolic process involved in deadenylation-independent decay")
 p(MESH:MicroRNAs) =| bp(GO:translation)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In 2012, two studies that were published in The Journal of Immunology identified miR-223-3p as the first human miRNA directly targeting NLRP3 (47, 48)."
+SET Confidence = "High"
 m(MIRBASE:"hsa-mir-223") -- p(HGNC:NLRP3)
+UNSET Confidence
 
 SET Evidence = "A role for this interaction in the differentiation of monocytes to macrophages was proposed, as miR-223-3p levels decrease during differentiation, whereas NLRP3 protein levels increase (47)."
-bp(GO:"monocyte differentiation") -| m(MIRBASE:"hsa-mir-223")
-bp(GO:"monocyte differentiation") -> p(HGNC:NLRP3)
+SET Confidence = "Medium"
+bp(GO:"monocyte differentiation") neg m(MIRBASE:"hsa-mir-223")
+bp(GO:"monocyte differentiation") pos p(HGNC:NLRP3)
+UNSET Confidence
 
 SET Evidence = "NLRP3 mRNA levels correlate negatively with miR-223-3p expression in myeloid cells (48)."
+SET Confidence = "High"
 SET Cell = "myeloid cell"
 r(HGNC:NLRP3) neg m(MIRBASE:"hsa-mir-223")
 UNSET Cell
-
-
-###coding help
-SET Evidence = "Interestingly, among human innate immune cells, miR-223-3p expression is highest in neutrophils
-and lowest in dendritic cells (48)."
+UNSET Confidence
 
 SET Evidence = "Moreover, a miRNA from EBV, a common virus that targets B cells and is considered essential for
 the development of the neurodegenerative disease MS (49), ebvmiR-BART15-3p, regulates NLRP3 expression (47)."
+SET Confidence = "High"
 m(MIRBASE:"ebv-mir-BART15") reg p(HGNC:NLRP3)
 m(MIRBASE:"ebv-mir-BART15") -> path(DOID:"multiple sclerosis")
+UNSET Confidence
 
 SET Evidence = "Infected B cells can secrete ebv-miR-BART15-3p via exosomes and inhibit NLRP3 activity in noninfected cells, which may be a mechanism for the virus to evade host defense (47)."
+SET Confidence = "Medium"
 SET MeSHAnatomy = "B-Lymphocytes"
-composite(m(MIRBASE:"ebv-mir-BART15"), a(MESH:"B-Lymphocytes")) =| p(HGNC:NLRP3)
+m(MIRBASE:"ebv-mir-BART15") =| p(HGNC:NLRP3)
 p(HGNC:NLRP3) => bp(GO:"evasion or tolerance of host defenses by virus")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Interestingly, miR-223-3p and ebv-miR-BART15-3p hybridize with NLRP3 mRNA at the same site, and a common polymorphism, rs10802501, is present in the target site and could influence the binding of both miRNAs (47)."
+SET Confidence = "High"
 g(DBSNP:rs10802501) reg composite(m(MIRBASE:"hsa-mir-223"), m(MIRBASE:"ebv-mir-BART15"), r(HGNC:NLRP3))
+UNSET Confidence
 
 SET Evidence = "Among them are miR-7-5p and miR-30e-5p, and treatment with mimics of these miRNAs alleviates Parkinson disease (PD)-like phenotypes in mouse models involving accumulation of alpha-synuclein (50–52)."
+SET Confidence = "Medium"
 SET Species = "10090"
 m(MIRBASE:"hsa-mir-7-1") => p(CONSO:"alpha-synuclein aggregates")
 m(MIRBASE:"hsa-mir-30e") => p(CONSO:"alpha-synuclein aggregates")
 p(CONSO:"alpha-synuclein aggregates") -- path(DOID:"Parkinson's disease")
+composite(p(CONSO:"alpha-synuclein aggregates"),m(MIRBASE:"hsa-mir-7-1")) -> path(DOID:"Parkinson's disease")
+composite(p(CONSO:"alpha-synuclein aggregates"),m(MIRBASE:"hsa-mir-30e")) -> path(DOID:"Parkinson's disease")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "The NLRP3 inflammasome and IL-1beta production can be activated by alpha-synuclein, which drives neurodegeneration (53)."
 p(HGNC:SNCA) -> act(complex(GO:"NLRP3 inflammasome complex"))
@@ -278,6 +320,7 @@ act(complex(GO:"NLRP3 inflammasome complex")) -> path(DOID:"neurodegenerative di
 act(p(HGNC:IL1B)) -> path(DOID:"neurodegenerative disease")
 
 SET Evidence = "NLRP3 is also a direct target of miR-20b-5p, upregulation of which alleviates Mycobacterium tuberculosis–induced inflammation in murine lung tissue (54)."
+SET Confidence = "High"
 m(MIRBASE:"hsa-mir-20b") reg act(p(HGNC:NLRP3))
 SET Species = "10090"
 SET Anatomy = "lung"
@@ -286,15 +329,19 @@ m(MIRBASE:"hsa-mir-20b") => path(MESH:Inflammation)
 UNSET MeSHDisease
 UNSET Anatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Additionally, miR-22-3p downregulates NLRP3 expression, and this miRNA is decreased in injured coronary arterial endothelial cells in a rat model of high-fat diet–induced coronary heart disease, whereas upregulation of miR-22-3p exerts a protective effect on cell survival (55)."
+SET Confidence = "High"
 m(MIRBASE:"hsa-mir-22") -| r(HGNC:NLRP3)
 SET Species = "10114"
 path(DOID:"coronary artery disease") neg m(MIRBASE:"hsa-mir-22")
 UNSET Species
 m(MIRBASE:"hsa-mir-22") pos path(MESH:"Cell Survival")
+UNSET Confidence
 
 SET Evidence = "The expression of miR-133b-3p, which also targets NLRP3, is reduced in the nasal mucosa of a mouse model of allergic rhinitis (56)."
+SET Confidence = "High"
 m(MIRBASE:"hsa-mir-133b") -- r(HGNC:NLRP3)
 
 SET Species = "10090"
@@ -302,41 +349,48 @@ SET Species = "10090"
 SET MeSHAnatomy = "Nasal Mucosa"
 
 path(DOID:"allergic rhinitis") -| m(MIRBASE:"hsa-mir-133b")
+UNSET Confidence
 
 SET Evidence = "Allergic symptoms of the mice, immune cell infiltration, cytokine levels, and NLRP3 inflammasome protein expression were reduced in the nasal mucosa after administration of modified miR-133b-3p mimics, indicating that miR-133b-3p downregulation may contribute to the pathogenesis of allergic rhinitis, whereas its upregulation shows therapeutic potential (56)."
+SET Confidence = "High"
 path(DOID:"allergic rhinitis") -| path(HP:"Myocardial immune cell infiltration")
 path(DOID:"allergic rhinitis") -| a(MESH:Cytokines)
 path(DOID:"allergic rhinitis") -| complex(GO:"NLRP3 inflammasome complex")
 m(MIRBASE:"hsa-mir-133b") -| path(DOID:"allergic rhinitis")
-
+UNSET Confidence
 UNSET MeSHAnatomy
 
 SET Evidence = "In a mouse model of prosopalgia, miR-186-5p is downregulated, and injection of miRNA mimics could alleviate neuropathic pain behavior by downregulating NLRP3 expression and NLRP3 inflammasome activity (57)."
 #trigeminal neuralgia - prosopalgia
 #Neuralgia - neuropathic pain
+SET Confidence = "High"
 path(DOID:"trigeminal neuralgia") -| m(MIRBASE:"hsa-mir-186")
 r(HGNC:NLRP3) neg path(MESH:Neuralgia)
 act(complex(GO:"NLRP3 inflammasome complex")) neg path(MESH:Neuralgia)
+UNSET Confidence
 
 SET Evidence = "The levels of miR-495-3p are decreased in mice with myocardial ischemia/reperfusion injury, and
 by targeting NLRP3, treatment with miR-495-3p mimics alleviates inflammation (58)"
+SET Confidence = "High"
 path(DOID:"myocardial infarction") -| m(MIRBASE:"hsa-mir-495")
 path(EFO:"ischemia reperfusion injury") -| m(MIRBASE:"hsa-mir-495")
 composite(m(MIRBASE:"hsa-mir-495"), r(HGNC:NLRP3)) -> path(MESH:Inflammation)
-
+UNSET Confidence
 UNSET Species
 
-
 SET Evidence = "In human epithelial cells, overexpression of miR-214-3p downregulates caspase-1, and the miRNA is downregulated in cataract lens anterior capsular tissues (59)."
+SET Confidence = "High"
 SET Species = "9606"
 SET Cell = "epithelial cell"
 m(MIRBASE:"hsa-mir-214") -| p(HGNC:CASP1)
 UNSET Cell
 path(HP:"Anterior cortical cataract") =| m(MIRBASE:"hsa-mir-214")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "MiR-371a-5p, miR-373-3p, and miR-543-3p have been proposed to enhance TNF-alpha–induced cell death
 by targeting the noncanonical caspase-8 inflammasome, and they are overexpressed in hepatocellular carcinoma tissue (60)."
+SET Confidence = "High"
 m(MIRBASE:"hsa-mir-371a") -- p(HGNC:CASP8, loc(GO:"inflammasome complex"))
 m(MIRBASE:"hsa-mir-373") -- p(HGNC:CASP8, loc(GO:"inflammasome complex"))
 m(MIRBASE:"hsa-mir-543") -- p(HGNC:CASP8, loc(GO:"inflammasome complex"))
@@ -345,18 +399,24 @@ p(HGNC:TNF) -> bp(GO:"cell death")
 path(DOID:"hepatocellular carcinoma") => m(MIRBASE:"hsa-mir-371a")
 path(DOID:"hepatocellular carcinoma") => m(MIRBASE:"hsa-mir-373")
 path(DOID:"hepatocellular carcinoma") => m(MIRBASE:"hsa-mir-543")
+UNSET Confidence
 
 SET Evidence = "Caspase-11, the murine ortholog of human caspase-4 and caspase-5, was shown to be indirectly regulated by miR-34a, miR-451, and miR-874 (61)."
+SET Confidence = "High"
 m(MIRBASE:"hsa-mir-34a") reg p(HGNC:CASP4)
 m(MIRBASE:"hsa-mir-34a") reg p(HGNC:CASP5)
 m(MIRBASE:"hsa-mir-451a") reg p(HGNC:CASP4)
 m(MIRBASE:"hsa-mir-451a") reg p(HGNC:CASP5)
 m(MIRBASE:"hsa-mir-874") reg p(HGNC:CASP4)
 m(MIRBASE:"hsa-mir-874") reg p(HGNC:CASP5)
+UNSET Confidence
 
 SET Evidence = "Several miRNAs negatively regulate the NF-kappaB–mediated priming of the NLRP3 inflammasome by targeting a wide range of transducers of TLR, IL-1R, and TNFR signaling."
 #Figure 1
 #OMIT:0016854 - NF-kappaB
+#miRNAs = hsa-mir-34c, hsa-mir-146a, hsa-mir-155, hsa-mir-302b,hsa-mir-330
+SET Confidence = "Low"
+#information must be a part of the evidence
 m(MIRBASE:"hsa-mir-34c") neg p(OMIT:0016854)
 m(MIRBASE:"hsa-mir-146a") neg p(OMIT:0016854)
 m(MIRBASE:"hsa-mir-155") neg p(OMIT:0016854)
@@ -376,8 +436,10 @@ p(HGNCGENEFAMILY:"Tumor necrosis factor receptor superfamily") -> p(OMIT:0016854
 m(MIRBASE:"hsa-mir-330") -| p(HGNCGENEFAMILY:"Tumor necrosis factor receptor superfamily")
 p(OMIT:0016854) -> r(HGNC:NLRP3)
 p(OMIT:0016854) -> r(HGNC:IL1B))
+UNSET Confidence
 
 SET Evidence = "Signals from both TLR4 and IL-1R are transduced via MyD88, IRAK1, and IRAK4, TRAF6, IKK, and finally NF-kappa B, which then induces NLRP3 and pro–IL-1b transcription (2, 62)."
+SET Confidence = "Medium"
 p(HGNC:TLR4) -> p(HGNC:MYD88)
 p(HGNC:MYD88) -> p(HGNC:IRAK1)
 p(HGNC:IRAK1) -> p(OMIT:0016854)
@@ -385,25 +447,33 @@ p(HGNC:IL1R1) -> p(HGNC:IRAK4)
 p(HGNC:IRAK4) -> p(HGNC:TRAF6)
 p(HGNC:TRAF6) -> p(HGNCGENEFAMILY:"IKK complex")
 p(HGNCGENEFAMILY:"IKK complex") -> p(OMIT:0016854)
+p(OMIT:0016854) -> r(HGNC:NLRP3)
+p(OMIT:0016854) -> r(HGNC:IL1B))
+UNSET Confidence
 
 SET Evidence = "In a study on inflammation of gout, miR-302b-3p was upregulated after induction of THP-1–derived macrophages using monosodium urate (MSU)."
+SET Confidence = "High"
 SET CellLine = "THP-1"
 SET MeSHDisease = "Gout"
 a(CHEBI:"monosodium urate") -> a(MESH:Macrophages)
 a(MESH:Macrophages) -> m(MIRBASE:"hsa-mir-302b")
 UNSET MeSHDisease
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "Overexpression of miR-302b-3p directly downregulates IRAK4 and thereby inhibits NLRP3
 expression (63)."
+SET Confidence = "High"
 m(MIRBASE:"hsa-mir-302b") =| p(HGNC:IRAK4)
 p(HGNC:IRAK4) => r(HGNC:NLRP3)
 m(MIRBASE:"hsa-mir-302b") =| r(HGNC:NLRP3)
+UNSET Confidence
 
 SET Species = "10090"
 
 SET Evidence = "The mRNA and protein expression of TRAF6, IRAK1 and downstream NLRP3, ASC, and caspase-1 were upregulated in MSU-induced bone marrow–derived macrophages of miR-146a-5p knockout mice as compared with wild-type
 mice."
+SET Confidence = "High"
 SET Cell = "bone marrow macrophage"
 m(MIRBASE:"hsa-mir-146a") -| p(HGNC:TRAF6)
 m(MIRBASE:"hsa-mir-146a") -| p(HGNC:IRAK1)
@@ -429,14 +499,17 @@ m(MIRBASE:"hsa-mir-146a") -| r(HGNC:PYCARD)
 m(MIRBASE:"hsa-mir-146a") -| p(HGNC:CASP1)
 m(MIRBASE:"hsa-mir-146a") -| r(HGNC:CASP1)
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "The miR-146a-5p–deficient mice developed a more severe phenotype of gouty arthritis (64)."
+SET Confidence = "High"
 #OMIT:0016001 - gouty arthritis
 m(MIRBASE:"hsa-mir-146a") =| path(OMIT:0016001)
-
+UNSET Confidence
 UNSET Species
 
 SET Evidence = "MyD88 is downregulated by miR-155-5p overexpression in rat prefrontal cortex, and this alleviates depressive-like behaviors (65), and IKK gamma (gene symbol: IKBKG) expression is reduced by miR-34c-5p."
+SET Confidence = "High"
 SET Species = "10114"
 SET MeSHAnatomy = "Prefrontal Cortex"
 m(MIRBASE:"hsa-mir-155") -| p(HGNC:MYD88)
@@ -444,61 +517,77 @@ p(HGNC:MYD88) -| path(MESH:Depression)
 m(MIRBASE:"hsa-mir-34c") -| r(HGNC:IKBKG)
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In response to stimulation with damage-associated molecular patterns, miR-34c-5p is highly expressed in PBMC (66). Through this mechanism, miR-34c-5p was proposed to limit aberrant sterile acute or chronic inflammation
 (66)."
+SET Confidence = "High"
 #Damage-Associated Molecular Pattern Molecule - NCIT:C118474
 #NCIT:C12954 - PBMC
 path(NCIT:C118474) => m(MIRBASE:"hsa-mir-34c", loc(NCIT:C12954))
 m(MIRBASE:"hsa-mir-34c") neg path(EFO:"induces sterile inflammation")
 m(MIRBASE:"hsa-mir-34c") -| path(MESH:Inflammation)
+UNSET Confidence
 
 SET Evidence = "IL-1R2, a receptor that inhibits IL-1 signaling in a competitive manner (67), is downregulated by miR-383-3p (68)."
+SET Confidence = "High"
 p(HGNC:IL1R2) =| bp(GO:"interleukin-1-mediated signaling pathway")
 m(MIRBASE:"hsa-mir-383") -| p(HGNC:IL1R2)
+UNSET Confidence
 
 SET Species = "10114"
 
 SET Evidence = "In myocardial tissues of a rat model of atherosclerosis, miR-383-3p levels are reduced, whereas IL-1R2 expression is increased."
+SET Confidence = "High"
 SET Anatomy = "myocardial layer"
 path(DOID:atherosclerosis) -| m(MIRBASE:"hsa-mir-383")
 path(DOID:atherosclerosis) -> p(HGNC:IL1R2)
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Overexpression of miR-383-3p decreases the protein levels of caspase-1 and the secretion of IL-1beta and IL-18 in homocysteine induced endothelial injury in rat coronary arteries (68)."
+SET Confidence = "High"
 SET Cell = "endothelial cell of coronary artery"
 a(CHEBI:homocysteine) -> path(EFO:"endothelial dysfunction")
 path(EFO:"endothelial dysfunction") => m(MIRBASE:"hsa-mir-383")
 m(MIRBASE:"hsa-mir-383") -| p(HGNC:CASP1)
 m(MIRBASE:"hsa-mir-383") -| sec(p(HGNC:IL1B))
 m(MIRBASE:"hsa-mir-383") -| sec(p(HGNC:IL18))
-
+UNSET Confidence
 UNSET Species
 
 SET Evidence = "Binding of TNF-alpha to TNFRSF1A followed by downstream TRAF2/SphK1/S1P signaling constitutes another NF-kappa B–activating and NLRP3 inflammasome-priming pathway (69)."
+SET Confidence = "High"
 composite(p(HGNC:TNF), p(HGNC:TNFRSF1A)) -> p(HGNC:TRAF2)
 p(HGNC:TRAF2) -> p(HGNC:SPHK1)
 p(HGNC:SPHK1) -> bp(GO:"sphingosine-1-phosphate receptor signaling pathway")
 bp(GO:"sphingosine-1-phosphate receptor signaling pathway") -> act(p(OMIT:0016854))
 bp(GO:"sphingosine-1-phosphate receptor signaling pathway") -> r(HGNC:NLRP3)
+UNSET Confidence
 
-
-####how to encode for second part
 SET Evidence = "Administration of miR-330-3p mimics attenuates fructose induced upregulation of SphK1, NF-kB, NLRP3, pro–IL-1b, and IL-1b protein levels, whereas miR-330-3p inhibition has the opposite effect in a proximal tubule epithelial cell line from adult human kidney (HK-2 cells) (70)."
+SET Confidence = "Medium"
 a(CHEBI:fructose) -> bp(GO:"sphingosine-1-phosphate receptor signaling pathway")
-a(CHEBI:fructose) -> r(HGNC:NLRP3)
-a(CHEBI:fructose) -> r(HGNC:IL1B)
+a(CHEBI:fructose) -> p(OMIT:0016854)
+a(CHEBI:fructose) -> p(HGNC:NLRP3)
 a(CHEBI:fructose) -> p(HGNC:IL1B)
-m(MIRBASE:"hsa-mir-330") -|  r(HGNC:NLRP3)
-m(MIRBASE:"hsa-mir-330") -|  r(HGNC:IL1B)
+a(CHEBI:fructose) -> p(HGNC:IL1B)
+m(MIRBASE:"hsa-mir-330") -|  p(HGNC:NLRP3)
 m(MIRBASE:"hsa-mir-330") -|  p(HGNC:IL1B)
+m(MIRBASE:"hsa-mir-330") -|  p(HGNC:IL1B)
+m(MIRBASE:"hsa-mir-330") -|  p(OMIT:0016854)
+m(MIRBASE:"hsa-mir-330") -|  bp(GO:"sphingosine-1-phosphate receptor signaling pathway")
+UNSET Confidence
 
 SET Evidence = "By targeting SphK1, miR-330-3p thus inhibits inflammasome priming (70)."
+SET Confidence = "High"
 m(MIRBASE:"hsa-mir-330") -| bp(GO:"sphingosine-1-phosphate receptor signaling pathway")
 bp(GO:"sphingosine-1-phosphate receptor signaling pathway") -> r(HGNC:NLRP3)
 m(MIRBASE:"hsa-mir-330") -| r(HGNC:NLRP3)
+UNSET Confidence
 
 SET Evidence = "The receptor IFNAR responds to IFN-alpha and IFN-beta and activates the JAK/STAT/ISGF3 pathway, which is able to drive NLRP3 expression (71)."
+SET Confidence = "High"
 p(HGNC:IFNAR1) -- a(PUBCHEM:223370366)
 p(HGNC:IFNAR1) -- a(NCIT:C20494)
 p(HGNC:IFNAR1) -> bp(GO:"receptor signaling pathway via JAK-STAT")
@@ -506,19 +595,23 @@ p(HGNC:IFNAR1) -> act(complex(GO:"ISGF3 complex"))
 bp(GO:"receptor signaling pathway via JAK-STAT") -> r(HGNC:NLRP3)
 act(complex(GO:"ISGF3 complex")) -> r(HGNC:NLRP3)
 p(HGNC:IFNAR1) -> r(HGNC:NLRP3)
+UNSET Confidence
 
 SET Species = "9606"
 
 SET Evidence = "JAK1 is targeted by miR-9-5p, and this miRNA is increased in human primary peripheral
 blood monocytes stimulated with oxidized low density lipoproteins indicating its role as a regulator of inflammation (72, 73)."
 SET Cell = "peripheral blood mononuclear cell"
+SET Confidence = "High"
 m(MIRBASE:"hsa-mir-9-1") -| p(HGNC:JAK1)
 a(CHEBI:"oxidised LDL") -> m(MIRBASE:"hsa-mir-9-1")
 m(MIRBASE:"hsa-mir-9-1") reg path(MESH:Inflammation)
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Overexpression of miR-9-5p inhibits NLRP3 inflammasome priming in atherosclerosis inflammation models using human THP-1–derived macrophages and primary peripheral blood
 monocytes (72)"
+SET Confidence = "High"
 SET CellLine = "THP-1"
 SET MeSHDisease = "Atherosclerosis"
 SET Cell = {"peripheral blood mononuclear cell", "macrophage"}
@@ -526,11 +619,12 @@ m(MIRBASE:"hsa-mir-9-1") =|  r(HGNC:NLRP3)
 UNSET Cell
 UNSET MeSHDisease
 UNSET CellLine
-
+UNSET Confidence
 UNSET Species
 
 SET Evidence = "During mitochondrial stress, excessive reactive oxygen species (ROS), which can be reduced by superoxide dismutases (SOD), are generated, and they induce TXNIP, an NLRP3-activating factor (74)"
 #SOD1/2 - from figure
+SET Confidence = "High"
 SET CellStructure = "Mitochondria"
 path(MESH:"Oxidative Stress") -> a(CHEBI:"reactive oxygen species")
 UNSET CellStructure
@@ -538,8 +632,10 @@ a(CHEBI:"reactive oxygen species") -> p(HGNC:TXNIP)
 p(HGNC:TXNIP) -> p(HGNC:NLRP3)
 p(HGNC:SOD1) -| a(CHEBI:"reactive oxygen species")
 p(HGNC:SOD2) -| a(CHEBI:"reactive oxygen species")
+UNSET Confidence
 
 SET Evidence = "Fructose induces miR-377-3p expression in kidney cortex and glomeruli of rats as well as in a mouse podocyte cell line (75)."
+SET Confidence = "High"
 SET Species = "10114"
 SET MeSHAnatomy = {"Kidney Cortex", "Kidney Glomerulus"}
 a(CHEBI:fructose) -> m(MIRBASE:"hsa-mir-377")
@@ -550,8 +646,10 @@ SET Species = "10090"
 SET MeSHAnatomy = "Podocytes"
 
 a(CHEBI:fructose) -> m(MIRBASE:"hsa-mir-377")
+UNSET Confidence
 
 SET Evidence = "Upregulation of miR-377-3p can inhibit SOD1 and SOD2 protein levels and thereby raise ROS levels and induce elevated NLRP3, ASC, caspase, and supernatant IL-1 beta protein levels in cultured mouse podocytes, implying a role for miR-377-3p in metabolic syndrome (75)."
+SET Confidence = "High"
 m(MIRBASE:"hsa-mir-377") -| p(HGNC:SOD1)
 m(MIRBASE:"hsa-mir-377") -| p(HGNC:SOD2)
 m(MIRBASE:"hsa-mir-377") -> a(CHEBI:"reactive oxygen species")
@@ -567,15 +665,19 @@ m(MIRBASE:"hsa-mir-377") -- path(EFO:"metabolic syndrome")
 
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "The NLRP3-activating factor TXNIP is inhibited by several individual miRNAs."
 #figure 1
+SET Confidence = "High"
 m(MIRBASE:"hsa-mir-17") -| p(HGNC:TXNIP)
 m(MIRBASE:"hsa-mir-20a") -| p(HGNC:TXNIP)
 m(MIRBASE:"hsa-mir-148a") -| p(HGNC:TXNIP)
+UNSET Confidence
 
 SET Evidence = "Expression levels of miR-17-5p in rat brains and rat insulin-producing cells with endoplasmic reticulum stress (76, 77), of miR-20a-5p in rat fibroblast-like synoviocytes in adjuvant induced arthritis (78), and of miR-148a-3p in mouse hepatocytes in alcoholic hepatitis (79) are decreased and correlate
 with upregulation of TXNIP and activation of the NLRP3 inflammasome."
+SET Confidence = "High"
 SET Species = "10114"
 
 SET MeSHAnatomy = {"Insulin-Secreting Cells", "Brain"}
@@ -604,24 +706,30 @@ UNSET Cell
 
 UNSET Species
 p(HGNC:TXNIP) -> p(HGNC:NLRP3)
+UNSET Confidence
 
 SET Evidence = "The chemokine receptor CXCR4 was proposed to stabilize TXNIP (80)."
+SET Confidence = "High"
 p(HGNC:CXCR4) -> p(HGNC:TXNIP)
+UNSET Confidence
 
 SET Evidence = "In mice with sciatic nerve injury, overexpression of miR-23a-3p downregulates CXCR4, inhibits
 the activation of the NLRP3 inflammasome and subsequent IL-1beta secretion, and alleviates neuropathic pain behavior (80)."
+SET Confidence = "Medium"
 SET Species = "10090"
 SET MeSHDisease = "Sciatic Neuropathy"
 m(MIRBASE:"hsa-mir-23a") -| p(HGNC:CXCR4)
-m(MIRBASE:"hsa-mir-23a") -| complex(GO:"NLRP3 inflammasome complex")
+m(MIRBASE:"hsa-mir-23a") -| act(complex(GO:"NLRP3 inflammasome complex"))
 m(MIRBASE:"hsa-mir-23a") -| sec(p(HGNC:IL1B))
 m(MIRBASE:"hsa-mir-23a")  -> path(MESH:Neuralgia)
 UNSET MeSHDisease
 UNSET Species
 p(HGNC:CXCR4) -> complex(GO:"NLRP3 inflammasome complex")
 complex(GO:"NLRP3 inflammasome complex") -> sec(p(HGNC:IL1B))
+UNSET Confidence
 
 SET Evidence = "In an atherosclerosis model of human aortic endothelial cells treated with oxidized low density lipoproteins, miR-30c-5p is downregulated, leading to the upregulation of FOXO3 (81)."
+SET Confidence = "High"
 SET Species = "9606"
 SET MeSHDisease = "Atherosclerosis"
 SET MeSHAnatomy = "Aorta"
@@ -631,9 +739,11 @@ m(MIRBASE:"hsa-mir-30c-1") -| p(HGNC:FOXO3)
 UNSET MeSHAnatomy
 UNSET MeSHDisease
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "The administration of miR-30c-5p mimics decreases FOXO3 expression, and the knockdown of FOXO3
 downregulates NLRP3, caspase-1, and IL-1beta mRNA and protein levels, indicating a protective effect of the miRNA (81)."
+SET Confidence = "High"
 m(MIRBASE:"hsa-mir-30c-1") -| r(HGNC:FOXO3)
 r(HGNC:FOXO3) -> r(HGNC:NLRP3)
 r(HGNC:FOXO3) -> p(HGNC:NLRP3)
@@ -641,31 +751,34 @@ r(HGNC:FOXO3) -> r(HGNC:CASP1)
 r(HGNC:FOXO3) -> p(HGNC:CASP1)
 r(HGNC:FOXO3) -> r(HGNC:IL1B)
 r(HGNC:FOXO3) -> p(HGNC:IL1B)
+UNSET Confidence
 
-
-#####how to code for promoter region? and hypermethylation?
 SET Evidence = "The promotor of miR-145a-5p can be hypermethylated during atherosclerotic plaque formation, which leads to a decreased expression of miR-145a-5p, an upregulation of its target genes CD137 and NFATc1, and this induces the activation of the NLRP3 inflammasome."
+SET Confidence = "Medium"
 #NCIT:C78739 - atherosclerotic plaque
-path(NCIT:C78739) -> m(MIRBASE:"hsa-mir-145")
-m(MIRBASE:"hsa-mir-145") -| m(MIRBASE:"hsa-mir-145")
-m(MIRBASE:"hsa-mir-145") -> g(HGNC:TNFRSF9)
-m(MIRBASE:"hsa-mir-145") -> g(HGNC:NFATC1)
-m(MIRBASE:"hsa-mir-145") -> act(complex(GO:"NLRP3 inflammasome complex"))
-g(HGNC:TNFRSF9) -> act(complex(GO:"NLRP3 inflammasome complex"))
-g(HGNC:NFATC1) -> act(complex(GO:"NLRP3 inflammasome complex"))
-
+path(NCIT:C78739) -> m(MIRBASE:"hsa-mir-145",pmod(Me))
+m(MIRBASE:"hsa-mir-145",pmod(Me)) -| m(MIRBASE:"hsa-mir-145")
 m(MIRBASE:"hsa-mir-145") -| g(HGNC:TNFRSF9)
 m(MIRBASE:"hsa-mir-145") -| g(HGNC:NFATC1)
+m(MIRBASE:"hsa-mir-145",pmod(Me)) -> g(HGNC:TNFRSF9)
+m(MIRBASE:"hsa-mir-145",pmod(Me)) -> g(HGNC:NFATC1)
+m(MIRBASE:"hsa-mir-145",pmod(Me)) -> act(complex(GO:"NLRP3 inflammasome complex"))
+g(HGNC:TNFRSF9) -> act(complex(GO:"NLRP3 inflammasome complex"))
+g(HGNC:NFATC1) -> act(complex(GO:"NLRP3 inflammasome complex"))
 m(MIRBASE:"hsa-mir-145") -| act(complex(GO:"NLRP3 inflammasome complex"))
+UNSET Confidence
 
 SET Evidence = "Of the described miRNAs, miR-9-5p (83) and miR-155-5p (84) also directly target NFKB1 mRNA, and miR-7-5p (85) downregulates RELA expression. Both are subunits of NF-kappa B."
+SET Confidence = "High"
 m(MIRBASE:"hsa-mir-9-1") -| r(HGNC:NFKB1)
 m(MIRBASE:"hsa-mir-155") -| r(HGNC:NFKB1)
 m(MIRBASE:"hsa-mir-7-1") -| r(HGNC:RELA)
 complex(p(OMIT:0016854)) hasComponents list(p(HGNC:NFKB1), p(HGNC:RELA))
+UNSET Confidence
 
 SET Evidence = "The most prominent roles for inflammasome-regulating miRNAs in autoimmune diseases
 have been demonstrated for miR-146a-5p, miR-155-5p, and miR-223-3p, all of which are dysregulated in RA,MS, and SLE."
+SET Confidence = "High"
 m(MIRBASE:"hsa-mir-146a") reg complex(MESH:Inflammasomes)
 m(MIRBASE:"hsa-mir-155") reg complex(MESH:Inflammasomes)
 m(MIRBASE:"hsa-mir-223") reg complex(MESH:Inflammasomes)
@@ -678,70 +791,86 @@ path(DOID:"systemic lupus erythematosus") neg m(MIRBASE:"hsa-mir-155")
 path(DOID:"rheumatoid arthritis") neg m(MIRBASE:"hsa-mir-223")
 path(DOID:"multiple sclerosis") neg m(MIRBASE:"hsa-mir-223")
 path(DOID:"systemic lupus erythematosus") neg m(MIRBASE:"hsa-mir-223")
+UNSET Confidence
 
 SET Evidence = "In PBMCs of patients with the immune-mediated neurodegenerative disease relapsing-remitting MS (RRMS), miR-146a-5p levels are increased compared with healthy controls, and treatment with glatiramer acetate partially restores miR-146a-5p expression to lower levels again (86, 87)."
+SET Confidence = "High"
 SET Cell = "peripheral blood mononuclear cell"
 path(DOID:"relapsing-remitting multiple sclerosis") => m(MIRBASE:"hsa-mir-146a")
 a(PUBCHEM:3081884) -| m(MIRBASE:"hsa-mir-146a")
 UNSET Cell
-
+UNSET Confidence
 
 #####how to code for C allele part?
 SET Evidence = "Interestingly, the C allele of the single-nucleotide polymorphism (SNP) rs2910164 in the
 sequence encoding mir-146a is associated with an increased expression of this miRNA and release of proinflammatory cytokines in patients with RRMS, and in females, rs2910164 was proposed to alter MS susceptibility (88)."
 
-
 SET Evidence = "Furthermore, miR-155-5p is expressed more strongly in peripheral blood monocytes and active brain lesions of MS patients than in healthy controls (87, 89)."
+SET Confidence = "High"
 SET Cell = "peripheral blood mononuclear cell"
 SET MeSHAnatomy = "Brain"
 path(DOID:"multiple sclerosis") => m(MIRBASE:"hsa-mir-155")
 UNSET MeSHAnatomy
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Enhanced miRNA levels have been demonstrated for miR-22-3p in plasma of MS patients (90) and for miR-9-5p in circulating leukocytes of RRMS patients (91)."
+SET Confidence = "High"
 path(DOID:"multiple sclerosis") => m(MIRBASE:"hsa-mir-22", loc(MESH:Plasma))
 path(DOID:"relapsing-remitting multiple sclerosis") => m(MIRBASE:"hsa-mir-9-1", loc(MESH:"Leukocytes, Mononuclear"))
+UNSET Confidence
 
 SET Evidence = "Other miRNAs are decreased in MS patient serum (e.g., miR-23a-3p and miR-223-3p in primary progressive MS) (92)."
+SET Confidence = "High"
 path(DOID:"primary progressive multiple sclerosis") =| m(MIRBASE:"hsa-mir-23a")
 path(DOID:"primary progressive multiple sclerosis") =| m(MIRBASE:"hsa-mir-223")
+UNSET Confidence
 
 #######T allele coding
 SET Evidence = "The T allele of SNP rs1044165 located near the sequence encoding mir-223 is associated with a higher risk of developing MS (93)."
 
-
-
 SET Evidence = "Furthermore, in RRMS, miR-214 levels are downregulated in T cells in patients in the relapsing phase compared with patients in the remitting phase and healthy controls (94)."
+SET Confidence = "High"
 SET MeSHAnatomy = "T-Lymphocytes"
 path(DOID:"relapsing-remitting multiple sclerosis") -| m(MIRBASE:"hsa-mir-214")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In response to treatment of RRMS patients with natalizumab, the expression of miR-17-5p in T cells is decreased in comparison with untreated patients, and during relapse, miR-17-5p is upregulated
 (95)."
+SET Confidence = "High"
 a(PUBCHEM:135314782) -| path(DOID:"relapsing-remitting multiple sclerosis")
 a(PUBCHEM:135314782) -| m(MIRBASE:"hsa-mir-17")
 path(DOID:"relapsing-remitting multiple sclerosis") -> m(MIRBASE:"hsa-mir-17")
+UNSET Confidence
 
 SET Evidence = "In case of miR-7-5p and miR-20b-5p, expression is upregulated in T cells during natalizumab treatment (96)."
+SET Confidence = "High"
 SET MeSHAnatomy = "T-Lymphocytes"
 a(PUBCHEM:135314782) => m(MIRBASE:"hsa-mir-7-1")
 a(PUBCHEM:135314782) => m(MIRBASE:"hsa-mir-20b")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In RA, miR-22-3p levels are reduced in synovial tissue from RA patients compared with osteoarthritis patients (97), and low expression of miR-22-3p is associated with a good response
 to adalimumab treatment (98)."
+SET Confidence = "High"
 SET Cell = "synovial cell"
 path(DOID:"rheumatoid arthritis") =| m(MIRBASE:"hsa-mir-22")
 path(DOID:osteoarthritis) -| m(MIRBASE:"hsa-mir-22")
 a(PUBCHEM:135335742) =| path(DOID:"rheumatoid arthritis")
 a(PUBCHEM:135335742) => m(MIRBASE:"hsa-mir-22")
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Furthermore, the expression of miR-9-5p is decreased in plasma of RA patients compared with healthy controls (99)."
+SET Confidence = "High"
 path(DOID:"rheumatoid arthritis") =| m(MIRBASE:"hsa-mir-9-1", loc(MESH:Plasma))
+UNSET Confidence
 
 SET Evidence = "The three miRNAs miR-223 (100), miR-155-5p (101), and miR-146a (102) are upregulated in
 synovial tissue from RA patients compared with osteoarthritis synovium, and two of them, miR-155-5p and miR-146a-5p, are elevated in PBMCs of RA patients (103, 104)."
+SET Confidence = "High"
 SET Cell = "synovial cell"
 path(DOID:"rheumatoid arthritis") => m(MIRBASE:"hsa-mir-223")
 path(DOID:"rheumatoid arthritis") => m(MIRBASE:"hsa-mir-155")
@@ -754,78 +883,100 @@ SET Cell = "peripheral blood mononuclear cell"
 path(DOID:"rheumatoid arthritis") => m(MIRBASE:"hsa-mir-155")
 path(DOID:"rheumatoid arthritis") => m(MIRBASE:"hsa-mir-146a")
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Moreover, miR-223-3p is overexpressed in T cells, and miR-223-3p expression correlates with the titer of rheumatoid factor in patients with RA (105)."
+SET Confidence = "High"
 path(DOID:"rheumatoid arthritis") => m(MIRBASE:"hsa-mir-223", loc(MESH:"T-Lymphocytes"))
 m(MIRBASE:"hsa-mir-223") pos p(MESH:"Rheumatoid Factor")
+UNSET Confidence
 
 SET Evidence = "Of interest, levels of miR-146a-5p are reduced in regulatory T cells of RA patients with active
 disease and correlate with joint inflammation (106)."
+SET Confidence = "High"
 path(DOID:"rheumatoid arthritis") =| m(MIRBASE:"hsa-mir-146a", loc(MESH:"T-Lymphocytes, Regulatory"))
 m(MIRBASE:"hsa-mir-146a", loc(MESH:"T-Lymphocytes, Regulatory")) -- path(DOID:arthritis)
-
-
-#######how to code?
-SET Evidence = "Furthermore, the rs2910164 genotype GG in the sequence encoding mir-146a is associated with an increased risk of developing RA in females, whereas the CC genotype is related to a decreased disease severity in females and an increased disease severity in males (107)."
-
+UNSET Confidence
 
 SET Evidence = "In patients with SLE, miR-155-5p expression is decreased in PBMCs compared with healthy controls (108)."
+SET Confidence = "High"
 path(DOID:"systemic lupus erythematosus") =| m(MIRBASE:"hsa-mir-155", loc(MESH:"Peripheral Blood Stem Cells"))
+UNSET Confidence
 
 SET Evidence = "In SLE urine, miR-155-5p levels are significantly higher, treatment with calcitriol reduces miR-155-5p levels, and miR-155-5p levels correlate with proteinuria and disease activity, whereas the amount of miR-146a-5p correlates with the estimated glomerular filtration rate in SLE patients (108)."
+SET Confidence = "High"
 path(DOID:"systemic lupus erythematosus") => m(MIRBASE:"hsa-mir-155", loc(MESH:Urine))
 a(PUBCHEM:5280453) =| m(MIRBASE:"hsa-mir-155")
 m(MIRBASE:"hsa-mir-155") -- path(DOID:proteinuria)
 SET Disease = "systemic lupus erythematosus"
 m(MIRBASE:"hsa-mir-146a") -- bp(GO:"glomerular filtration")
 UNSET Disease
+UNSET Confidence
 
 SET Evidence = "In response to treatment with mycophenolic acid, miR-146a-5p levels are increased in T cells of patients versus untreated patients (109)."
 #for SLE
+SET Confidence = "High"
 a(CHEBI:"mycophenolic acid") -| path(DOID:"systemic lupus erythematosus")
 a(CHEBI:"mycophenolic acid") -> m(MIRBASE:"hsa-mir-146a", loc(MESH:"T-Lymphocytes"))
+UNSET Confidence
 
 SET Evidence = "Additionally, two SNPs upstream of the genome locus encoding mir-146a, rs57095329 and rs2431697, are associated with the miRNA expression level and with SLE development (110, 111)."
+SET Confidence = "High"
 g(DBSNP:rs57095329) reg m(MIRBASE:"hsa-mir-146a")
 g(DBSNP:rs57095329) -- path(DOID:"systemic lupus erythematosus")
 g(DBSNP:rs2431697) reg m(MIRBASE:"hsa-mir-146a")
 g(DBSNP:rs2431697) -- path(DOID:"systemic lupus erythematosus")
+UNSET Confidence
 
 SET Evidence = "Several inflammasome-regulating miRNAs are downregulated in SLE: miR-223-3p in naive B cells of SLE patients (112), miR-20a-5p in monocytes (113), and miR-17-5p in PBMCs of adult (114) and pediatric SLE patients (115)"
+SET Confidence = "High"
 path(DOID:"systemic lupus erythematosus") =| m(MIRBASE:"hsa-mir-223", loc(MESH:"B-Lymphocytes"))
 path(DOID:"systemic lupus erythematosus") =| m(MIRBASE:"hsa-mir-20a", loc(MESH:Monocytes))
 path(DOID:"systemic lupus erythematosus") =| m(MIRBASE:"hsa-mir-17", loc(MESH:"Peripheral Blood Stem Cells"))
 m(MIRBASE:"hsa-mir-223") reg complex(MESH:Inflammasomes)
 m(MIRBASE:"hsa-mir-20a") reg complex(MESH:Inflammasomes)
 m(MIRBASE:"hsa-mir-17") reg complex(MESH:Inflammasomes)
+UNSET Confidence
 
 SET Evidence = "A common manifestation of SLE, higher levels of miR-146a in glomeruli and miR-148a-3p in serum and glomeruli of patients with lupus nephritis have been reported relative to healthy controls (117, 118)."
+SET Confidence = "High"
 SET Cell = "glomerular cell"
 path(DOID:"systemic lupus erythematosus") => m(MIRBASE:"hsa-mir-146a")
 UNSET Cell
 SET MeSHAnatomy = {"Glomerular Basement Membrane", "Serum"}
 path(DOID:"lupus nephritis") => m(MIRBASE:"hsa-mir-148a")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The levels of miR-23a-3p are elevated in the blood of patients with Crohn disease in comparison with healthy controls (120)"
+SET Confidence = "High"
 path(DOID:"Crohn's disease") => m(MIRBASE:"hsa-mir-23a")
+UNSET Confidence
 
 SET Evidence = "Furthermore, miR-146a expression is increased in colonic mucosa of Crohn disease patients compared with
 ulcerative colitis and healthy controls, and it is increased in colonic tissue in both Crohn disease and ulcerative colitis (121)."
+SET Confidence = "High"
 #colonic mucosa
 path(DOID:"Crohn's disease") => m(MIRBASE:"hsa-mir-146a", loc(BTO:0000271))
 path(DOID:"ulcerative colitis") cnc m(MIRBASE:"hsa-mir-146a", loc(BTO:0000271))
 #colonic tissue
 path(DOID:"ulcerative colitis") => m(MIRBASE:"hsa-mir-146a", loc(BTO:0001709))
 path(DOID:"Crohn's disease") => m(MIRBASE:"hsa-mir-146a", loc(BTO:0001709))
+UNSET Confidence
 
 SET Evidence = "The expression level of miR-7-5p is decreased in the serum of patients with PD (52)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Serum"
 path(DOID:"Parkinson's disease") =| m(MIRBASE:"hsa-mir-7-1")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Moreover, miR-22-3p is downregulated in whole blood of newly diagnosed and in treated PD patients compared with healthy controls (126), and miR-34c-3p is downregulated in brain areas of PD patients with neuropathological lesions (127)."
+SET Confidence = "High"
 path(DOID:"Parkinson's disease") => m(MIRBASE:"hsa-mir-22", loc(GO:"blood microparticle"))
 SET MeSHAnatomy = "Brain"
 SET MeSHDisease = "Parkinson Disease"
 path(MESH:Neuropathology) =| m(MIRBASE:"hsa-mir-34c")
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+UNSET Confidence
