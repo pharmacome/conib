@@ -62,7 +62,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 # DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
  DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
  DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
  DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 # DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -76,75 +76,98 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 SET Citation = {"PubMed", "28843454"}
 
 SET Evidence = "Lifestyle and environmental factors are established contributors to risk for MS."
+SET Confidence = "High"
 path(MESH:"Life Style") -- path(DOID:"multiple sclerosis")
 path(MESH:Environment) -- path(DOID:"multiple sclerosis")
+UNSET Confidence
 
 SET Evidence = "There is a positive association between latitude and prevalence of MS at a global level, unexplained by the genetic distribution of high-risk alleles (12)."
 #C68642 - Latitude
+SET Confidence = "High"
 path(NCIT:C68642) pos path(DOID:"multiple sclerosis")
+UNSET Confidence
 
 SET Evidence = "Early work has shown that duration of exposure to sunlight and sunlight intensity are associated with MS risk"
+SET Confidence = "High"
 path(MESH:Sunlight) -- path(DOID:"multiple sclerosis")
 bp(GO:"response to light intensity") -- path(DOID:"multiple sclerosis")
+UNSET Confidence
 
 SET Evidence = "Furthermore, both outdoor work and residence in a high sunlight area have been associated with lower MS mortality rates (17)."
+SET Confidence = "High"
 SET MeSHDisease = "Multiple Sclerosis"
 path(MESH:Sunlight) -| path(MESH:Mortality)
 path(MESH:Work) -| path(MESH:Mortality)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Work in the experimental allergic encephalomyelitis (EAE) mouse model has shown beneficial effects of UVR exposure on EAE disease, independent of vitamin D status (20)."
+SET Confidence = "Medium"
 SET Species = "10090"
 SET MeSHDisease = "Encephalomyelitis, Autoimmune, Experimental"
-a(MESH:"Ultraviolet Rays") -> path(EFO:"experimental autoimmune encephalomyelitis")
-composite(a(MESH:"Ultraviolet Rays"), a(MESH:"Vitamin D")) -> path(EFO:"experimental autoimmune encephalomyelitis")
+a(MESH:"Ultraviolet Rays") -| path(EFO:"experimental autoimmune encephalomyelitis")
+#evidence says effect of UVR on EAE, independent of Vit.D status
+#composite(a(MESH:"Ultraviolet Rays"), a(MESH:"Vitamin D")) -> path(EFO:"experimental autoimmune encephalomyelitis")
 UNSET MeSHDisease
 UNSET Species
+UNSET Confidence
 
-#####encoding race color??
 SET Evidence = "The results demonstrated a significant decrease in risk of MS associated with increasing 25-hydroxyvitamin D among whites."
+#among whites
+SET Confidence = "High"
 a(CHEBI:"24,25-Dihydroxyvitamin D") -| path(DOID:"multiple sclerosis")
+UNSET Confidence
 
 SET Evidence = "In addition, low vitamin D levels have been implicated in risk for pediatric MS (23) and the prevalence and degree of low vitamin D are comparable between adult and pediatric MS patients (24)."
 #477738 - pediatric MS
+SET Confidence = "High"
 a(MESH:"Vitamin D") neg path(ORPHANET:477738)
+UNSET Confidence
 
 SET Evidence = "Several studies have assessed the role of vitamin D deficiency in the perinatal period (by utilization of biobanks and dried blood spot samples) upon risk for MS, with conflicting results. Swedish studies have looked at the relationship of 25-hydroxyvitamin D levels during gestation (25) and in the neonatal period (26) as it relates to risk of developing MS in these offspring."
 #in Pregnancy
+SET Confidence = "High"
 a(CHEBI:"24,25-Dihydroxyvitamin D") -- path(DOID:"multiple sclerosis")
 SET Anatomy = "neonate stage"
 a(CHEBI:"24,25-Dihydroxyvitamin D") -- path(DOID:"multiple sclerosis")
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Lower neonatal vitamin D levels were associated with a higher MS risk, with every 25 nmol/L increase in 25-hydroxyvitamin D conferring a 30% reduced risk for MS (27)."
+SET Confidence = "High"
 SET Anatomy = "neonate stage"
 a(MESH:"Vitamin D") neg path(DOID:"multiple sclerosis")
 #every 25 nmol/L
 a(CHEBI:"24,25-Dihydroxyvitamin D") -| path(DOID:"multiple sclerosis")
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "The seroprevalence rates of remote EBV infection are higher in MS as compared to healthy controls, in both adult (31) and pediatric MS patients; however, this association is more striking when studied in the pediatric MS population given the lower rate of seroprevalence in healthy children and adolescents (32,33)."
 #seroprevalence - level in blood serum
+SET Confidence = "High"
 SET Anatomy = "serum"
 path(DOID:"multiple sclerosis") -> path(MESH:"Epstein-Barr Virus Infections")
 path(ORPHANET:477738) => path(MESH:"Epstein-Barr Virus Infections")
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Evidence suggests that a pediatric MS patient’s antibody response to remote EBV is modified by the HLA-DRB1 allele (35)"
 #C52341 - HLA-DRB1 allele (wt)
+SET Confidence = "High"
 SET MeSHDisease = "Epstein-Barr Virus Infections"
 p(NCIT:C52341) reg bp(MESH:"Antibody Formation")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Remote cytomegalovirus (CMV) infection, denoted by the presence of positive serologic anti-CMV IgG, appears to be protective against pediatric MS diagnosis (OR of 0.27; 95% CI 0.11-0.67) (36)."
-path(EFO:"Anti-cytomegalovirus IgG measurement") -> path(EFO:"cytomegalovirus infection")
+SET Confidence = "Medium"
+path(EFO:"cytomegalovirus infection") -> path(EFO:"Anti-cytomegalovirus IgG measurement")
 path(EFO:"cytomegalovirus infection") -| path(ORPHANET:477738)
 path(EFO:"Anti-cytomegalovirus IgG measurement") -| path(ORPHANET:477738)
-
-####evidence statement doubt?
-SET Evidence = "Presence of remote CMV infection and absence of remote EBV infection has also been shown to differentiate children with MS from those with monophasic acquired demyelination (37)."
+UNSET Confidence
 
 SET Evidence = "A role for human herpesvirus 6 (HHV-6) has been suggested from studies demonstrating elevated antibodies against HHV-6 in serum of MS patients in addition to the detection of viral DNA within the plaques of MS patients (38)."
+SET Confidence = "High"
 SET Species = "9606"
 path(EFO:"human herpesvirus 6 seropositivity") -- path(DOID:"multiple sclerosis")
 SET Anatomy = "serum"
@@ -156,109 +179,148 @@ UNSET Anatomy
 SET MeSHDisease = "Multiple Sclerosis"
 a(MESH:"DNA, Viral" , loc(NCIT:C95603))
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Smoking has been shown to increase risk of MS; furthermore, risk increases in a dose-dependent fashion with higher cumulative smoking dose."
+SET Confidence = "High"
 path(MESH:Smoking) -> path(DOID:"multiple sclerosis")
+UNSET Confidence
 
 SET Evidence = "Despite this, oral tobacco use has not been associated with elevated risk for MS, which suggests that nicotine is not the responsible agent (39)."
+SET Confidence = "High"
 a(MESH:"Tobacco, Smokeless") cnc path(DOID:"multiple sclerosis")
 a(CHEBI:nicotine) cnc path(DOID:"multiple sclerosis")
+UNSET Confidence
 
 SET Evidence = "The frequency of exposure to parental passive smoking was associated with an increased risk for MS (RR 2.12, 95% CI 1.43-3.15)."
 #Tobacco Smoke Pollution - passive smoking
+SET Confidence = "High"
 a(MESH:"Tobacco Smoke Pollution") -> path(DOID:"multiple sclerosis")
+UNSET Confidence
 
 SET Evidence = "Smoking has also been shown to increase the risk of MS disability progression (41)."
+SET Confidence = "High"
 SET MeSHDisease = "Multiple Sclerosis"
 path(MESH:Smoking) -> path(EFO:"developmental disability")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Following this, it was demonstrated that childhood obesity is independently associated with an increased risk of pediatric MS and CIS in girls (but not boys).This risk appears to be dose dependent as well, with higher weight categories being associated with a higher risk (50)."
+SET Confidence = "Medium"
 #CIS - no referce found for this : pediatric clinically-isolated syndrome
 #Pediatric Obesity - child obesity
-SET Gender = "Female"
+#can be removed as it is same for boys and girls
+#SET Gender = "Female"
 path(MESH:"Pediatric Obesity") -> path(ORPHANET:477738)
-UNSET Gender
-SET Gender = "Male"
-path(MESH:"Pediatric Obesity") cnc path(ORPHANET:477738)
-UNSET Gender
+#UNSET Gender
+#SET Gender = "Male"
+#path(MESH:"Pediatric Obesity") cnc path(ORPHANET:477738)
+#UNSET Gender
 path(MESH:"Body Weight") -> path(ORPHANET:477738)
+UNSET Confidence
 
 SET Evidence = "A more recent study has demonstrated that a higher body mass index (BMI) in early adolescence is a risk factor for pediatric MS in post-pubertal girls (OR=1.60, 95% CI: 1.12-2.27) and boys (OR=1.43, 95% CI: 1.08-1.88) (51)."
-SET Gender = {"Female", "Male"}
+SET Confidence = "Medium"
+#can be removed as it is same for boys and girls
+#SET Gender = {"Female", "Male"}
 path(MESH:"Body Mass Index") -> path(ORPHANET:477738)
-UNSET Gender
+#UNSET Gender
+UNSET Confidence
 
 ####pathogenic TH17?
-SET Evidence = "Though human studies are confounded due to reliance on patient recollection and nonspecific survey-based questionnaires, high salt diet has been shown in EAE models to increase risk of autoimmune disease and drive severity of EAE due to induction of pathogenic TH17 cells (52). One"
+SET Evidence = "Though human studies are confounded due to reliance on patient recollection and nonspecific survey-based questionnaires, high salt diet has been shown in EAE models to increase risk of autoimmune disease and drive severity of EAE due to induction of pathogenic TH17 cells (52)."
+SET Confidence = "High"
 SET MeSHDisease = "Encephalomyelitis, Autoimmune, Experimental"
 bp(MESH:"Diet, Sodium-Restricted") pos path(EFO:"autoimmune disease")
 UNSET MeSHDisease
 bp(MESH:"Diet, Sodium-Restricted") -| p(MESH:"Th17 Cells", var("?"))
 p(MESH:"Th17 Cells", var("?")) -> path(EFO:"experimental autoimmune encephalomyelitis")
 bp(MESH:"Diet, Sodium-Restricted") -| path(EFO:"experimental autoimmune encephalomyelitis")
+UNSET Confidence
 
 SET Evidence = "The bacterial milieu within the gastrointestinal tract has a substantial influence on an individual’s immune profile and response – including development of the immune system, protection against pathogens, and maintenance of immune response (57)."
+SET Confidence = "High"
 path(MESH:"Gastrointestinal Microbiome") reg a(MESH:"Immune System")
 path(MESH:"Gastrointestinal Microbiome") reg path(MESH:Immunity)
 path(MESH:"Gastrointestinal Microbiome") reg bp(GO:"immune response")
+UNSET Confidence
 
 SET Evidence = "Indeed, pediatric MS case-control studies have demonstrated differences in gut flora (at a taxa-level) between cohorts(61)."
+SET Confidence = "High"
 path(ORPHANET:477738) reg path(MESH:"Gastrointestinal Microbiome")
+UNSET Confidence
 
 SET Evidence = "MS disease-modifying therapies and vitamin D supplementation have a modulatory effect on the human
 gut microbial composition (62)."
+SET Confidence = "High"
 a(MESH:"Vitamin D") reg path(MESH:"Gastrointestinal Microbiome")
+UNSET Confidence
 
 SET Evidence = "To-date, taking into account the entire human genome, the MHC, located on chromosome 6, comprises the single largest genetic contribution to MS susceptibility. HLA genes encode for cell surface glycoproteins with a primary role in presenting antigenic peptide fragments to T-cells (74)"
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Histocompatibility complex") -> path(DOID:"multiple sclerosis")
 g(HGNCGENEFAMILY:"Histocompatibility complex") -> p(MESH:"Membrane Glycoproteins")
 p(MESH:"Membrane Glycoproteins") -> bp(GO:"T cell antigen processing and presentation")
+UNSET Confidence
 
 SET Evidence = "Deeper investigation revealed these to be part of an HLA haplotype – in particular, the HLA-DRB1*15:01 allele has consistently been shown to be an independent risk factor for MS, particularly in populations of European ancestry, with an odds ratio (OR) of approximately 3 (75)."
+SET Confidence = "High"
 g(IMGTHLA:HLA00865) pos path(DOID:"multiple sclerosis")
+UNSET Confidence
 
 SET Evidence = "the HLA-DRB1*15:03 allele is a risk factor in African Americans, while the HLA-A*02 allele appears to confer a protective effect against MS, with an OR of approximately 0.6 (79)."
 #HLA-A*02
+SET Confidence = "High"
 p(IMGTHLA:HLA00870) -> path(DOID:"multiple sclerosis")
 p(MESH:"HLA Antigens") -| path(DOID:"multiple sclerosis")
+UNSET Confidence
 
 SET Evidence = "Given this, there has been exploration into the idea that genetic variants within the mitochondrial DNA (mtDNA) could play a role in MS risk. Mitochondrial haplogroups have been associated with adult-onset MS (82)."
+SET Confidence = "High"
 a(MESH:"DNA, Mitochondrial") -- path(DOID:"multiple sclerosis")
+UNSET Confidence
 
 SET Evidence = "Many of the currently-identified haplogroups have SNPs that occur in genes that encode subunits of the oxidative phosphorylation complex - deficiencies of which can result in bioenergetic dysfunction."
+SET Confidence = "High"
 bp(MESH:"Oxidative Phosphorylation") pos path(MESH:"Energy Metabolism")
+UNSET Confidence
 
 SET Evidence = "Children with HLADRB1*15 alleles were more likely to ultimately meet diagnostic criteria for MS (OR=2.7). This effect was greater in children of European ancestry (OR=3.3). No difference in DRB1*15 allele frequency was found between children with monophasic acute demyelinating syndrome and unaffected controls (84), suggesting that the HLA-DRB1*15 allele is a risk factor for pediatric MS but not monophasic demyelinating events (23)."
+#in children
+SET Confidence = "High"
 p(HGNC:"HLA-DRB1") -- path(DOID:"multiple sclerosis")
 SET MeSHDisease = "Demyelinating Diseases"
 p(HGNC:"HLA-DRB1") cnc path(DOID:"multiple sclerosis")
 UNSET MeSHDisease
 p(HGNC:"HLA-DRB1") -> path(ORPHANET:477738)
-
+UNSET Confidence
 
 SET Anatomy = "central nervous system"
 SET MeSHDisease = "Multiple Sclerosis"
 
 SET Evidence = "Studies have identified tissue-specific (e.g. within the CNS white matter of MS patients) upregulation of the peptidylargininedeiminase-2 (PAD2) enzyme by way of DNA hypomethylation."
+SET Confidence = "High"
 bp(GO:"DNA hypomethylation") -> p(HGNC:PADI2)
+UNSET Confidence
 
 SET Evidence = "This upregulation of PAD2 leads to production of a less-stable form of myelin basic protein and subsequent loss
 of immune tolerance (89)."
+SET Confidence = "High"
 p(HGNC:PADI2) -> p(HGNC:MBP, var("?"))
 p(HGNC:MBP, var("?")) -| path(MESH:"Immune Tolerance")
 p(HGNC:PADI2) -| path(MESH:"Immune Tolerance")
-
+UNSET Confidence
 UNSET MeSHDisease
 UNSET Anatomy
 
 SET Evidence = "epigenetic research in MS patients have demonstrated evidence of hypomethylation of genes involved in regulation of immune response and T-cell differentiation –including IFNG, FOXP3, IL-13 and IL-17 (91) – ultimately resulting in increased expression of these genes."
 #C121521 - hypomethylation
+SET Confidence = "Medium"
 SET MeSHDisease = "Multiple Sclerosis"
-g(HGNC:IFNG ,var("NCIT:C121521")) -> g(HGNC:IFNG)
-g(HGNC:FOXP3 ,var("NCIT:C121521")) -> g(HGNC:FOXP3)
-g(HGNC:IL13 ,var("NCIT:C121521")) -> g(HGNC:IL13)
-g(HGNC:IL17A ,var("NCIT:C121521")) -> g(HGNC:IL17A)
+g(HGNC:IFNG ,var("NCIT:C121521")) -> p(HGNC:IFNG)
+g(HGNC:FOXP3 ,var("NCIT:C121521")) -> p(HGNC:FOXP3)
+g(HGNC:IL13 ,var("NCIT:C121521")) -> p(HGNC:IL13)
+g(HGNC:IL17A ,var("NCIT:C121521")) -> p(HGNC:IL17A)
 
 p(HGNC:IFNG) reg bp(GO:"immune response")
 p(HGNC:FOXP3) reg bp(GO:"immune response")
@@ -270,42 +332,54 @@ p(HGNC:FOXP3) reg bp(GO:"T cell differentiation")
 p(HGNC:IL13) reg bp(GO:"T cell differentiation")
 p(HGNC:IL17A) reg bp(GO:"T cell differentiation")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Other studies have demonstrated evidence of hypermethylation in genes involved with immune system regulation (e.g. SHP-1), resulting in reduced genetic expression and a resultant increase in leukocyte-mediated inflammation (92)."
 #PTPN6 - SHP - 1
+SET Confidence = "High"
 g(HGNC:PTPN6) reg a(MESH:"Immune System")
 p(HGNC:PTPN6,pmod(NCIT:C20102)) -| g(HGNC:PTPN6)
 SET Cell = "leukocyte"
 g(HGNC:PTPN6) -| path(MESH:Inflammation)
 p(HGNC:PTPN6,pmod(NCIT:C20102)) -> path(MESH:Inflammation)
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "In pediatric MS cohorts, HLA-DRB1 is associated with the EBNA-1 antibody response, suggesting that HLA risk genes have an important influence on the immune response to viral infection (99)."
 #EBNA-1 - Epstein-Barr virus nuclear antigen 1
+SET Confidence = "High"
 path(ORPHANET:477738) -> composite(p(NCIT:C52341), p(EFO:"Anti-Epstein-Barr virus early antigen IgG measurement"))
 SET Disease = "viral infectious disease"
 p(HGNCGENEFAMILY:"Histocompatibility complex") -- bp(GO:"immune response")
 UNSET Disease
+UNSET Confidence
 
 SET Evidence = "It also appears that viral infections may help to shape the early immune response, as early life herpes simplex virus-1 (HSV-1) infection appears to be protective in those who are HLA-DRB1*15 positive (100)."
+SET Confidence = "High"
 p(MESH:"Herpesvirus 1, Human") -| p(HGNC:"HLA-DRB1")
+UNSET Confidence
 
 SET Evidence = "Smoking greatly increases MS risk in individuals who are positive for the HLA-DRB1*15 allele and negative for the HLA-A*02 allele (OR 13.5) compared to nonsmokers with the same HLA genotype (OR 4.9) (101)"
 #C150640 - HLA-A*0201 Negative
+SET Confidence = "High"
 SET MeSHDisease = "Smoking"
 p(HGNC:"HLA-DRB1") -> path(DOID:"multiple sclerosis")
 p(NCIT:C150640) -> path(DOID:"multiple sclerosis")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Obesity has been linked to HLA risk alleles, as obese (BMI≥27) individuals, who were positive for HLADRB1*
 15 and negative for HLA-A*02 exhibited an increased risk of MS (OR 16.2) compared to those with BMI < 27 with the same HLA genotype risk factors (OR 5.1) (103)."
 #BMI < 27
+SET Confidence = "High"
 SET MeSHDisease = "Obesity"
 p(HGNC:"HLA-DRB1") -> path(DOID:"multiple sclerosis")
 p(NCIT:C150640) -> path(DOID:"multiple sclerosis")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Oral agents (i.e. fingolimod, teriflunomide, dimethyl fumarate) have been approved for relapsing adult MS, and many pediatric patients exhibit a desire for these therapies given the route of administration."
+SET Confidence = "High"
 a(PUBCHEM:107970) -| path(EFO:"relapsing-remitting multiple sclerosis")
 a(PUBCHEM:54684141) -| path(EFO:"relapsing-remitting multiple sclerosis")
 a(PUBCHEM:637568) -| path(EFO:"relapsing-remitting multiple sclerosis")
@@ -317,8 +391,10 @@ a(PUBCHEM:637568) -| path(ORPHANET:477738)
 a(PUBCHEM:107970) isA path(MESH:"Administration, Oral")
 a(PUBCHEM:54684141) isA path(MESH:"Administration, Oral")
 a(PUBCHEM:637568) isA path(MESH:"Administration, Oral")
+UNSET Confidence
 
 SET Evidence = "Similarly, the data regarding infusion therapies (e.g. natalizumab, rituximab, cyclophosphamide, alemtuzumab) and monoclonal antibody injection therapies (e.g. daclizumab) is limited in regards to safety and efficacy in pediatric MS."
+SET Confidence = "High"
 a(PUBCHEM:135314782) -| path(ORPHANET:477738)
 a(PUBCHEM:135341754) -| path(ORPHANET:477738)
 a(PUBCHEM:2907) -| path(ORPHANET:477738)
@@ -330,9 +406,11 @@ a(PUBCHEM:135341754) isA path(MESH:"Home Infusion Therapy")
 a(PUBCHEM:2907) isA path(MESH:"Home Infusion Therapy")
 a(PUBCHEM:135330159) isA path(MESH:"Home Infusion Therapy")
 a(PUBCHEM:46504469) isA p(MESH:"Antibodies, Monoclonal")
+UNSET Confidence
 
 SET Evidence = "Along with the potential for accumulating physical disability, symptoms of co-morbid depression (125), fatigue (125), reduced physical activity (126,127), and cognitive dysfunction (128-130) are also highly prevalent."
 #for MS and pediatric MS
+SET Confidence = "High"
 path(ORPHANET:477738) -- path(EFO:"developmental disability")
 path(ORPHANET:477738) -- path(DOID:"mental depression")
 path(ORPHANET:477738) -- path(MESH:Fatigue)
@@ -344,3 +422,4 @@ path(DOID:"multiple sclerosis") -- path(DOID:"mental depression")
 path(DOID:"multiple sclerosis") -- path(MESH:Fatigue)
 path(DOID:"multiple sclerosis") -| path(MESH:Exercise)
 path(DOID:"multiple sclerosis") -- path(DOID:"cognitive disorder")
+UNSET Confidence
