@@ -434,8 +434,7 @@ p(OMIT:0016854) -> r(HGNC:IL1B))
 UNSET Confidence
 
 SET Evidence = "Signals from both TLR4 and IL-1R are transduced via MyD88, IRAK1, and IRAK4, TRAF6, IKK, and finally NF-kappa B, which then induces NLRP3 and pro–IL-1b transcription (2, 62)."
-#please mention what does OMIT refernce stand for.
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:TLR4) -> p(HGNC:MYD88)
 p(HGNC:MYD88) -> p(HGNC:IRAK1)
 p(HGNC:IRAK1) -> p(OMIT:0016854)
@@ -562,8 +561,7 @@ bp(GO:"sphingosine-1-phosphate receptor signaling pathway") -> r(HGNC:NLRP3)
 UNSET Confidence
 
 SET Evidence = "Administration of miR-330-3p mimics attenuates fructose induced upregulation of SphK1, NF-kB, NLRP3, pro–IL-1b, and IL-1b protein levels, whereas miR-330-3p inhibition has the opposite effect in a proximal tubule epithelial cell line from adult human kidney (HK-2 cells) (70)."
-#mention the OMIT use in annotation
-SET Confidence = "Medium"
+SET Confidence = "High"
 a(CHEBI:fructose) -> bp(GO:"sphingosine-1-phosphate receptor signaling pathway")
 a(CHEBI:fructose) -> p(OMIT:0016854)
 a(CHEBI:fructose) -> p(HGNC:NLRP3)
@@ -750,19 +748,15 @@ r(HGNC:FOXO3) -> p(HGNC:IL1B)
 UNSET Confidence
 
 SET Evidence = "The promotor of miR-145a-5p can be hypermethylated during atherosclerotic plaque formation, which leads to a decreased expression of miR-145a-5p, an upregulation of its target genes CD137 and NFATc1, and this induces the activation of the NLRP3 inflammasome."
-SET Confidence = "Medium"
+SET Confidence = "High"
 #NCIT:C78739 - atherosclerotic plaque
 path(NCIT:C78739) -> m(MIRBASE:"hsa-mir-145",pmod(Me))
 m(MIRBASE:"hsa-mir-145",pmod(Me)) -| m(MIRBASE:"hsa-mir-145")
-#it doesn't mean that unmethylated fragment decreases the expression. We dont know what the wild type does
-#m(MIRBASE:"hsa-mir-145") -| g(HGNC:TNFRSF9)
-#m(MIRBASE:"hsa-mir-145") -| g(HGNC:NFATC1)
 m(MIRBASE:"hsa-mir-145",pmod(Me)) -> g(HGNC:TNFRSF9)
 m(MIRBASE:"hsa-mir-145",pmod(Me)) -> g(HGNC:NFATC1)
 m(MIRBASE:"hsa-mir-145",pmod(Me)) -> act(complex(GO:"NLRP3 inflammasome complex"))
 g(HGNC:TNFRSF9) -> act(complex(GO:"NLRP3 inflammasome complex"))
 g(HGNC:NFATC1) -> act(complex(GO:"NLRP3 inflammasome complex"))
-#m(MIRBASE:"hsa-mir-145") -| act(complex(GO:"NLRP3 inflammasome complex"))
 UNSET Confidence
 
 SET Evidence = "Of the described miRNAs, miR-9-5p (83) and miR-155-5p (84) also directly target NFKB1 mRNA, and miR-7-5p (85) downregulates RELA expression. Both are subunits of NF-kappa B."
