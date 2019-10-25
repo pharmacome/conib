@@ -123,8 +123,8 @@ to motor proteins or indirectly by altering the acetylation
 state of microtubules."
 p(HGNC:HDAC6) reg bp(GO:"axonal transport")
 complex(p(HGNC:HDAC6),p(MESH:"Molecular Motor Proteins")) reg bp(GO:"axonal transport")
-p(HGNC:HDAC6) -- p(MESH:Mircotubules,pmod(Ac))
-p(MESH:Mircotubules,pmod(Ac)) -- bp(GO:"axonal transport")
+p(HGNC:HDAC6) -- p(MESH:Mircotubule,pmod(Ac))
+p(MESH:Mircotubule,pmod(Ac)) -- bp(GO:"axonal transport")
 
 SET Evidence = "Moreover, inhibition or knockdown of
 HDAC6 in cultured neurons increases the axonal transport
@@ -133,7 +133,7 @@ and the concomitant recruitment of motor protein dynein
 and kinesin-1 to microtubules (10,12)."
 SET MeSHAnatomy = "Neurons"
 p(HGNC:HDAC6) neg bp(GO:"axonal transport of mitochondrion")
-p(HGNC:HDAC6) -| p(INTERPRO:"Alpha tubulins",pmod(Ac))
+p(HGNC:HDAC6) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
 p(HGNC:HDAC6) -| composite(p(MESH:Dyneins),a(MESH:Microtubules),p(MESH:Kinesin))
 p(INTERPRO:"Alpha tubulin",pmod(Ac)) pos bp(GO:"axonal transport of mitochondrion")
 composite(p(MESH:Dyneins),a(MESH:Microtubules),p(MESH:Kinesin)) pos bp(GO:"axonal transport of mitochondrion")
@@ -144,20 +144,19 @@ acetylated tubulin are more resistant to drug-induced
 depolymerization indicating that tubulin acetylation is
 a marker for stable microtubules in fibroblasts (8)."
 SET MeSHAnatomy = "Microtubules"
-p(INTERPRO:"ALpha tubulin",pmod(Ac)) -|  bp(GO:"microtubule depolymerization")
+p(INTERPRO:"Alpha tubulin",pmod(Ac)) -|  bp(GO:"microtubule depolymerization")
 SET MeSHAnatomy = "Fibroblasts"
-p(INTERPRO:"ALpha tubulin",pmod(Ac)) -- a(MESH:Microtubles)
-UNSET MeSHAnatomy
+p(INTERPRO:"Alpha tubulin",pmod(Ac)) -- a(MESH:Microtubles)
 UNSET MeSHAnatomy
 
 SET Evidence = "Overexpression of HDAC6 induces depolymerization and
 subsequent deacetylation, indicating that tubulin dimers
 and monomers are deacetylated, while acetylation only
 occurs in polymerized microtubules (8)."
-p(HGNc:HDCA6) pos bp(GO:"microtubule depolymerization")
+p(HGNC:HDCA6) pos bp(GO:"microtubule depolymerization")
 p(HGNC:HDAC6) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
-p(HGNC:HDAC6) -| complex(p(INTERPRO:"ALpha tubulin"),p(INTERPRO:"Alpha tubulin"),pmod(Ac))
-p(HGNC:HDAC6) -> a(MESH:"Microtubule",pmod(Ac))
+p(HGNC:HDAC6) -| complex(p(INTERPRO:"Alpha tubulin"),p(INTERPRO:"Alpha tubulin"),pmod(Ac))
+p(HGNC:HDAC6) -> a(MESH:"Microtubules",pmod(Ac))
 
 SET Evidence = "Moreover, inhibition or downregulation of
 HDAC6 results in reduced axonal length and decreased
@@ -179,7 +178,7 @@ a(CHEBI:"growth hormone") -> p(HGNC:HDAC6,loc(GO:membrane))
 SET MeSHAnatomy = "Cell Membrane"
 complex(p(HGNC:HDAC6),p(HGNC:CTTN)) -| p(HGNC:CTTN,pmod(Ac))
 UNSET MeSHAnatomy
-UNSET MeSHAnatomy
+
 
 SET Evidence = "The latter protein is a cortical actin-binding protein
 and promotes the polymerization and rearrangement of
@@ -228,7 +227,7 @@ of HDAC6 also induces a reduction in binding of HSP90
 to vascular endothelial growth factor receptor 1 and 2
 (VEGFR1/Flt1 and VEGFR2/Flk1, respectively), followed
 by increased binding of HSP70 to these receptors (28)."
-p(HGNC:HDAC6) -| act(p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),ma(GO:"vascular endothelial growth factor receptor 1 1 binding"))
+p(HGNC:HDAC6) -| act(p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),ma(GO:"vascular endothelial growth factor receptor 1 binding"))
 act(p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),ma(GO:"vascular endothelial growth factor receptor 1 binding")) -> act(p(HGNCGENEFAMILY:"Heat shock 70kDa proteins"),ma(GO:"vascular endothelial growth factor receptor 1 binding"))
 p(HGNC:HDAC6) -| act(p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),ma(GO:"vascular endothelial growth factor receptor 1 binding"))
 act(p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),ma(GO:"vascular endothelial growth factor receptor 2 binding")) -> act(p(HGNCGENEFAMILY:"Heat shock 70kDa proteins"),ma(GO:"vascular endothelial growth factor receptor 2 binding"))
@@ -278,7 +277,7 @@ proteins and subsequent perinuclear aggregation
 p(HGNC:VCP) -| bp(GO:"protein ubiquitination")
 bp(GO:"protein ubiquitination") -> bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(MESH:Proteins))
-p(HGNc:HDAC6) -> bp(GO:"protein ubiquitination")
+p(HGNC:HDAC6) -> bp(GO:"protein ubiquitination")
 bp(GO:"protein ubiquitination") -> p(CONSO:"protein aggregates")
 
 SET Evidence = "An elegant
@@ -330,7 +329,7 @@ p(HGNC:HDAC6) -> bp(GO:"stress granule assembly")
 SET Evidence = "Blocking
 the dynein motor proteins does not affect the localization
 of HDAC6, while it does impair SG formation (42)."
-p(MESH:Dyneins) cnc p(HGBC:HDAC6)
+p(MESH:Dyneins) cnc p(HGNC:HDAC6)
 p(MESH:Dyneins) -> bp(GO:"stress granule assembly")
 
 SET Evidence = "Silencing either TDP-43 or FUS/TLS
@@ -360,8 +359,8 @@ SET Evidence = "Although HDAC6 appears
 to be upregulated, acetylated tubulin levels are increased
 in neurons containing neurofibrillary Tau pathology (15,16)."
 SET MeSHAnatomy = "Neurons"
-p(CONSO:"Tau fibril") -> p(HGNC:HDAC6)
-p(CONSO:"Tau fibril") -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
+p(CONSO:"Tau fibrils") -> p(HGNC:HDAC6)
+p(CONSO:"Tau fibrils") -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
 UNSET MeSHAnatomy
 
 SET Evidence = "Inhibition of the proteasome system in cellular models
