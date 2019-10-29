@@ -76,7 +76,7 @@ SET Citation = {"PubMed", "30837838"}
 
 SET Evidence = "TAR DNA binding protein-43 (TDP-43) was identified in 1995 as a repressor protein associated with HIV-1 transcription, which binds to the trans-active response element DNA sequence of the viral genome and is critical for the regulation of the viral gene expression (Ou et al., 1995)."
 SET Confidence = "High"
-p(HGNC:"TARDBP") -- path(MESH:"HIV-1")
+p(HGNC:"TARDBP") -- p(MESH:"HIV-1")
 p(HGNC:"TARDBP") reg path(MESH:"Gene Expression Regulation, Viral")
 UNSET Confidence
 
@@ -170,7 +170,7 @@ SET Evidence = "In ALS, there is an increase in the cytoplasmic TDP-
 (Neumann et al., 2006; Winton et al., 2008a)."
 SET Confidence = "High"
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
-p(HGNC:"TARDBP", loc(MESH:"Cytoplasm")) -> path(MESH:"Inclusion Bodies")
+p(HGNC:"TARDBP", loc(MESH:"Cytoplasm")) -> a(MESH:"Inclusion Bodies")
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -197,7 +197,7 @@ and protect against the formation of the cytoplasmic TDP-
 SET Confidence = "High"
 complex(p(HGNC:"TARDBP", frag("1_102")), p(HGNC:"TARDBP", frag("1_102"))) -> path(MESH:"RNA Splicing")
 complex(p(HGNC:"TARDBP", frag("1_102")), p(HGNC:"TARDBP", frag("1_102"))) -> path(MESH:"Solubility")
-complex(p(HGNC:"TARDBP", frag("1_102")), p(HGNC:"TARDBP", frag("1_102"))) -| path(MESH:"Inclusion Bodies")
+complex(p(HGNC:"TARDBP", frag("1_102")), p(HGNC:"TARDBP", frag("1_102"))) -| a(MESH:"Inclusion Bodies")
 UNSET Confidence
 
 SET Evidence = "Deletion
@@ -262,8 +262,8 @@ and not to double-stranded DNA (dsDNA), has been shown to
 enhance the TDP-43’s solubility and expectedly also prevent its
 aggregation (Huang et al., 2013; Sun and Chakrabartty, 2017)."
 SET Confidence = "High"
-composite(p(HGNC:"TARDBP", frag("192_262")), path(MESH:"DNA, Single-Stranded")) -> path(MESH:"Solubility")
-composite(p(HGNC:"TARDBP", frag("192_262")), path(MESH:"DNA, Single-Stranded")) -| p(CONSO:"TDP-43 aggregates")
+composite(p(HGNC:TARDBP,frag("192_262")), path(MESH:"DNA, Single-Stranded")) -> path(MESH:"Solubility")
+composite(p(HGNC:TARDBP,frag("192_262")), path(MESH:"DNA, Single-Stranded")) -| p(CONSO:"TDP-43 aggregates")
 UNSET Confidence
 
 SET Evidence = "Importantly, TDP-43 actively binds to the 3′ untranslated regions
@@ -272,8 +272,8 @@ its own mRNA as an autoregulation mechanism to control
 its own cellular concentration and possibly also its solubility
 (Ayala et al., 2011)."
 SET Confidence = "High"
-composite(p(HGNC:"TARDBP", frag("192_262")),path(MESH:"3' Untranslated Regions")) reg  path(MESH:"Solubility")
-composite(p(HGNC:"TARDBP", frag("192_262")),path(MESH:"3' Untranslated Regions")) reg path(MESH:"Homeostasis")
+composite(p(HGNC:TARDBP,frag("192_262")),path(MESH:"3' Untranslated Regions")) reg  path(MESH:"Solubility")
+composite(p(HGNC:TARDBP,frag("192_262")),path(MESH:"3' Untranslated Regions")) reg path(MESH:"Homeostasis")
 UNSET Confidence
 
 SET Evidence = "Thirdly, certain C-terminal fragments of sizes ∼25–35 kDa
@@ -283,10 +283,10 @@ the inclusion bodies identified from the ALS-affected brains
 (Zhang et al., 2007, 2009)."
 SET Confidence = "High"
 #C-terminal domain - aa 274-414
-p(HGNC:"TARDBP", frag("274_414")) -- a(MESH:"Cytotoxins")
+p(HGNC:TARDBP,frag("274_414")) -- a(MESH:"Cytotoxins")
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 SET MeSHAnatomy = "Brain"
-p(HGNC:"TARDBP", frag("274_414")) -- path(MESH:"Inclusion Bodies")
+p(HGNC:TARDBP,frag("274_414")) -- a(MESH:"Inclusion Bodies")
 UNSET MeSHAnatomy
 UNSET MeSHDisease
 UNSET Confidence
@@ -462,8 +462,8 @@ MALAT1 are also found at elevated levels in FTLD-TDP
 (Tollervey et al., 2011)."
 SET Confidence = "Medium"
 SET MeSHDisease = "Frontotemporal Lobar Degeneration"
-p(HGNC:"TARDBP") -> p(HGNC:"NEAT1")
-p(HGNC:"TARDBP") -> p(HGNC:"MALAT1")
+p(HGNC:TARDBP) -> p(HGNC:NEAT1)
+p(HGNC:TARDBP) -> p(HGNC:MALAT1)
 UNSET MeSHDisease
 UNSET Confidence
 
@@ -651,12 +651,12 @@ TDP-43-positive inclusion bodies in the neuronal cell line, SHSY5Y
 (Nonaka et al., 2009a)."
 #CellLine : SHSY5Y
 SET Confidence = "High"
-p(HGNC:"TARDBP", var("p.Asp169Gly")) -> path(MESH:"Inclusion Bodies")
-p(HGNC:"TARDBP", var("p.Gly294Ala")) -> path(MESH:"Inclusion Bodies")
-p(HGNC:"TARDBP", var("p.Gln343Arg")) -> path(MESH:"Inclusion Bodies")
-p(HGNC:"TARDBP", var("p.Asn390Asp")) -> path(MESH:"Inclusion Bodies")
-p(HGNC:"TARDBP", var("p.Gln331Lys")) -> path(MESH:"Inclusion Bodies")
-p(HGNC:"TARDBP", var("p.Met337Val")) -> path(MESH:"Inclusion Bodies")
+p(HGNC:"TARDBP", var("p.Asp169Gly")) -> a(MESH:"Inclusion Bodies")
+p(HGNC:"TARDBP", var("p.Gly294Ala")) -> a(MESH:"Inclusion Bodies")
+p(HGNC:"TARDBP", var("p.Gln343Arg")) -> a(MESH:"Inclusion Bodies")
+p(HGNC:"TARDBP", var("p.Asn390Asp")) -> a(MESH:"Inclusion Bodies")
+p(HGNC:"TARDBP", var("p.Gln331Lys")) -> a(MESH:"Inclusion Bodies")
+p(HGNC:"TARDBP", var("p.Met337Val")) -> a(MESH:"Inclusion Bodies")
 UNSET Confidence
 
 SET Evidence = "In one
@@ -1089,7 +1089,7 @@ its RNA targets, and/or via optimal recruitment of the other RNA
 splicing factors."
 SET Confidence = "High"
 p(HGNC:"TARDBP", pmod(GO:"protein complex oligomerization")) -> act(p(HGNC:TARDBP), ma(GO:"RNA binding"))
-p(HGNC:"TARDBP", pmod(GO:"protein complex oligomerization")) -> a(MESH:"RNA Splicing Factors")
+p(HGNC:"TARDBP", pmod(GO:"protein complex oligomerization")) ->p(MESH:"RNA Splicing Factors")
 UNSET Confidence
 
 SET Evidence = "Fang et al. have reported that the full-length TDP-43 forms
@@ -1153,7 +1153,7 @@ TDP-43 (Shimonaka et al., 2016)."
 #C-terminal domain - aa 274-414
 SET Confidence = "High"
 SET CellLine = "SH-SY5Y cell"
-a(MESH:"Amyloid") ->  p(HGNC:"TARDBP", frag("274_414"), pmod(Ph), loc(GO:"inclusion body"))
+p(MESH:"Amyloid") ->  p(HGNC:"TARDBP", frag("274_414"), pmod(Ph), loc(GO:"inclusion body"))
 UNSET CellLine
 UNSET Confidence
 
@@ -1306,7 +1306,7 @@ neurons, whereas TDP-43 overexpression caused the
 opposite effect (Schwenk et al., 2016)."
 SET Confidence = "High"
 SET CellLine = "iPSC derived cell line"
-p(HGNC:"TARDBP") -> path(MESH:"Endosomes")
+p(HGNC:"TARDBP") -> a(MESH:"Endosomes")
 UNSET CellLine
 UNSET Confidence
 
@@ -1570,9 +1570,9 @@ in the neuronal cell cultures, and this effect was not observed
 with copper or iron, indicating zinc-specific effects (Caragounis
 et al., 2010)."
 SET Confidence = "High"
-a(CHEBI:"zinc ion") -> path(MESH:"Inclusion Bodies")
-a(CHEBI:"copper(2+)") cnc path(MESH:"Inclusion Bodies")
-a(CHEBI:"iron(3+)") cnc path(MESH:"Inclusion Bodies")
+a(CHEBI:"zinc ion") -> a(MESH:"Inclusion Bodies")
+a(CHEBI:"copper(2+)") cnc a(MESH:"Inclusion Bodies")
+a(CHEBI:"iron(3+)") cnc a(MESH:"Inclusion Bodies")
 SET Cell = "neuron"
 a(CHEBI:"zinc ion") -> path(MESH:"Protein Aggregation, Pathological")
 a(CHEBI:"copper(2+)") cnc path(MESH:"Protein Aggregation, Pathological")
@@ -1724,8 +1724,8 @@ results in increased influx of Na+ and Ca2+ ions, which
 causes excitotoxicity, leading to neuronal injury or neuronal
 death (Heath and Shaw, 2002)."
 SET Confidence = "High"
-p(HGNCGENEFAMILY:"Glutamate metabotropic receptors") -> act(a(MESH:"Sodium Channels"))
-p(HGNCGENEFAMILY:"Glutamate metabotropic receptors") -> act(a(MESH:"Calcium Channels"))
+p(HGNCGENEFAMILY:"Glutamate metabotropic receptors") -> act(p(MESH:"Sodium Channels"))
+p(HGNCGENEFAMILY:"Glutamate metabotropic receptors") -> act(p(MESH:"Calcium Channels"))
 a(CHEBI:"sodium(1+)") -> bp(GO:"neuron death")
 a(CHEBI:"calcium(2+)") -> bp(GO:"neuron death")
 UNSET Confidence
@@ -1776,7 +1776,7 @@ type III growth factor receptors like c-Kit, Lyn, and Fyn
 kinases, and is particularly effective in controlling the survival,
 differentiation, and degranulation of mast cells."
 SET Confidence = "High"
-a(CHEBI:"masitinib") -| act(a(MESH:"Protein-Tyrosine Kinases"))
+a(CHEBI:"masitinib") -| act(p(MESH:"Protein-Tyrosine Kinases"))
 SET Cell = "mast cell"
 a(CHEBI:"masitinib") reg path(MESH:"Cell Degranulation")
 a(CHEBI:"masitinib") reg path(MESH:"Cell Differentiation")
@@ -1951,5 +1951,5 @@ refolding and solubilization (Chen H. J. et al., 2016)."
 SET Confidence = "High"
 p(HGNC:"DNAJB2") -> complex(p(CONSO:"TDP-43 aggregates"), p(HGNCGENEFAMILY:"Heat shock 70kDa proteins"))
 complex(p(CONSO:"TDP-43 aggregates"), p(HGNCGENEFAMILY:"Heat shock 70kDa proteins")) -> deg(p(CONSO:"TDP-43 aggregates"))
-complex(p(CONSO:"TDP-43 aggregates"), p(HGNCGENEFAMILY:"Heat shock 70kDa proteins")) -> p(HGNC:"TARDBP", pmod("Protein Refolding"))
+complex(p(CONSO:"TDP-43 aggregates"),p(HGNCGENEFAMILY:"Heat shock 70kDa proteins")) -> p(HGNC:TARDBP,pmod("Protein Refolding"))
 UNSET Confidence
