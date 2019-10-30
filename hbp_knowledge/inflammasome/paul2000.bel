@@ -60,7 +60,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
  DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 # DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 # DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -74,84 +74,96 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 SET Citation = {"PubMed", "10887109"}
 
 SET Evidence = "The high expression of CD33 on myeloid progenitors and its regulation during development suggests a critical role for this siglec in the control of myelopoiesis."
+SET Confidence = "High"
 path(MESH:"Growth and Development") -> p(HGNC:CD33,loc(MESH:"Myeloid Progenitor Cells"))
 path(MESH:"Growth and Development") reg p(HGNC:CD33)
 p(HGNC:CD33) reg path(MESH:Myelopoiesis)
+UNSET Confidence
 
 SET Evidence = "On co-ligation with activation receptors, these proteins become tyrosine phosphorylated, and recruit one or more of the protein tyrosine phosphatases SHP-1, SHP-2, and/or the inositol phosphatase, SHIP.[33]"
-#CD22, FcγRIIB, KIR, PIR-B, CD33 receptors
+SET Confidence = "High"
+#these proteins = CD22, FcγRIIB, KIR, PIR-B, CD33 receptors
 complex(complex(GO:"receptor complex"),p(HGNC:CD22)) -> p(HGNC:CD22,pmod(Ph,Tyr))
 complex(complex(GO:"receptor complex"),p(HGNC:FCGR2B)) -> p(HGNC:FCGR2B,pmod(Ph,Tyr))
 complex(complex(GO:"receptor complex"),p(HGNCGENEFAMILY:"Killer cell immunoglobulin like receptors")) -> p(HGNCGENEFAMILY:"Killer cell immunoglobulin like receptors",pmod(Ph,Tyr))
 complex(complex(GO:"receptor complex"),p(HGNC:PILRB)) -> p(HGNC:PILRB,pmod(Ph,Tyr))
 complex(complex(GO:"receptor complex"),p(HGNC:CD33)) -> p(HGNC:CD33,pmod(Ph,Tyr,340),pmod(Ph,Tyr,358))
-p(HGNC:CD22,pmod(Ph,Tyr)) -> tloc(p(HGNC:PTPN6),fromLoc(GO:"extracellular region"),toLoc(GO:cytoplasm))
-p(HGNC:CD22,pmod(Ph,Tyr)) -> tloc(p(HGNC:PTPN11),fromLoc(GO:"extracellular region"),toLoc(GO:cytoplasm))
-p(HGNC:CD22,pmod(Ph,Tyr)) -> tloc(p(HGNC:INPP5D),fromLoc(GO:"extracellular region"),toLoc(GO:cytoplasm))
-p(HGNC:FCGR2B,pmod(Ph,Tyr)) -> tloc(p(HGNC:PTPN6),fromLoc(GO:"extracellular region"),toLoc(GO:cytoplasm))
-p(HGNC:FCGR2B,pmod(Ph,Tyr)) -> tloc(p(HGNC:PTPN11),fromLoc(GO:"extracellular region"),toLoc(GO:cytoplasm))
-p(HGNC:FCGR2B,pmod(Ph,Tyr)) -> tloc(p(HGNC:INPP5D),fromLoc(GO:"extracellular region"),toLoc(GO:cytoplasm))
-p(HGNCGENEFAMILY:"Killer cell immunoglobulin like receptors",pmod(Ph,Tyr)) -> tloc(p(HGNC:PTPN6),fromLoc(GO:"extracellular region"),toLoc(GO:cytoplasm))
-p(HGNCGENEFAMILY:"Killer cell immunoglobulin like receptors",pmod(Ph,Tyr)) -> tloc(p(HGNC:PTPN11),fromLoc(GO:"extracellular region"),toLoc(GO:cytoplasm))
-p(HGNCGENEFAMILY:"Killer cell immunoglobulin like receptors",pmod(Ph,Tyr)) -> tloc(p(HGNC:INPP5D),fromLoc(GO:"extracellular region"),toLoc(GO:cytoplasm))
-p(HGNC:PILRB,pmod(Ph,Tyr)) -> tloc(p(HGNC:PTPN6),fromLoc(GO:"extracellular region"),toLoc(GO:cytoplasm))
-p(HGNC:PILRB,pmod(Ph,Tyr)) -> tloc(p(HGNC:PTPN11),fromLoc(GO:"extracellular region"),toLoc(GO:cytoplasm))
-p(HGNC:PILRB,pmod(Ph,Tyr)) -> tloc(p(HGNC:INPP5D),fromLoc(GO:"extracellular region"),toLoc(GO:cytoplasm))
-p(HGNC:CD33,pmod(Ph,Tyr,340),pmod(Ph,Tyr,358)) -> tloc(p(HGNC:PTPN6),fromLoc(GO:"extracellular region"),toLoc(GO:cytoplasm))
-p(HGNC:CD33,pmod(Ph,Tyr,340),pmod(Ph,Tyr,358)) -> tloc(p(HGNC:PTPN11),fromLoc(GO:"extracellular region"),toLoc(GO:cytoplasm))
-p(HGNC:CD33,pmod(Ph,Tyr,340),pmod(Ph,Tyr,358)) -> tloc(p(HGNC:INPP5D),fromLoc(GO:"extracellular region"),toLoc(GO:cytoplasm))
-
-SET Evidence = "The recruited phosphatases then dephosphorylate cytoplasmic substrates otherwise involved in cellular activation."
-#phosphatases - SHIP,SHP-1, SHP-2
-p(HGNC:PTPN6) -| p(MESH:Proteins,pmod(Ph))
-p(HGNC:PTPN11) -| p(MESH:Proteins,pmod(Ph))
-p(HGNC:INPP5D) -| p(MESH:Proteins,pmod(Ph))
-p(MESH:Proteins) -- bp(GO:"cell activation")
+p(HGNC:CD22,pmod(Ph,Tyr)) -> p(HGNC:PTPN6)
+p(HGNC:CD22,pmod(Ph,Tyr)) -> p(HGNC:PTPN11)
+p(HGNC:CD22,pmod(Ph,Tyr)) -> p(HGNC:INPP5D)
+p(HGNC:FCGR2B,pmod(Ph,Tyr)) -> p(HGNC:PTPN6)
+p(HGNC:FCGR2B,pmod(Ph,Tyr)) -> p(HGNC:PTPN11)
+p(HGNC:FCGR2B,pmod(Ph,Tyr)) -> p(HGNC:INPP5D)
+p(HGNCGENEFAMILY:"Killer cell immunoglobulin like receptors",pmod(Ph,Tyr)) -> p(HGNC:PTPN6)
+p(HGNCGENEFAMILY:"Killer cell immunoglobulin like receptors",pmod(Ph,Tyr)) -> p(HGNC:PTPN11)
+p(HGNCGENEFAMILY:"Killer cell immunoglobulin like receptors",pmod(Ph,Tyr)) -> p(HGNC:INPP5D)
+p(HGNC:PILRB,pmod(Ph,Tyr)) -> p(HGNC:PTPN6)
+p(HGNC:PILRB,pmod(Ph,Tyr)) -> p(HGNC:PTPN11)
+p(HGNC:PILRB,pmod(Ph,Tyr)) -> p(HGNC:INPP5D)
+p(HGNC:CD33,pmod(Ph,Tyr,340),pmod(Ph,Tyr,358)) -> p(HGNC:PTPN6)
+p(HGNC:CD33,pmod(Ph,Tyr,340),pmod(Ph,Tyr,358)) -> p(HGNC:PTPN11)
+p(HGNC:CD33,pmod(Ph,Tyr,340),pmod(Ph,Tyr,358)) -> p(HGNC:INPP5D)
+UNSET Confidence
 
 SET CellLine = "U937"
 
 SET Evidence = "Figure 1 shows that pervanadate treatment resulted in tyrosine phosphorylation of CD33 (upper panel)."
 #in U937 cells
 #24978557 - pervanadate
-a(PUBCHEM:24978557) -> p(HGNC:CD33,pmod(Ph))
+SET Confidence = "High"
+a(PUBCHEM:24978557) -> p(HGNC:CD33,pmod(Ph,Tyr))
+UNSET Confidence
 
 SET Evidence = "The protein tyrosine phosphatases SHP-1 and SHP-2 are known to be tyrosine phosphorylated [35,36] and bind phosphotyrosine motifs in inhibitory receptors, suggesting that they could be one or more of the phosphoproteins co-precipitating with CD33."
+SET Confidence = "High"
 p(HGNC:PTPN6) -> complex(p(HGNC:PTPN6,pmod(Ph,Tyr)),p(HGNC:CD33,pmod(Ph)))
 p(HGNC:PTPN11) -> complex(p(HGNC:PTPN11,pmod(Ph,Tyr)),p(HGNC:CD33,pmod(Ph)))
-
+UNSET Confidence
 UNSET CellLine
 
 SET CellLine = "HEK293T"
 
 SET Evidence = "These experiments determined that Lck, but not Syk or Zap70, was capable of mediating phosphorylation of CD33 in vivo (Figure 2A)."
 #in HEk293T cells
+SET Confidence = "High"
 act(p(HGNC:LCK),ma(kin)) -> p(HGNC:CD33,pmod(Ph))
 act(p(HGNC:SYK),ma(kin)) cnc p(HGNC:CD33,pmod(Ph))
 act(p(HGNC:ZAP70),ma(kin)) cnc p(HGNC:CD33,pmod(Ph))
+#Evidence does not talk about variation of the above mentioned proteins
+#these were mentioned as comparison (can be seen in the figure).
 act(p(HGNC:LCK,var("p.Lys273Arg")),ma(kin)) cnc p(HGNC:CD33,pmod(Ph))
 act(p(HGNC:SYK,var("p.Lys395Arg")),ma(kin)) cnc p(HGNC:CD33,pmod(Ph))
 act(p(HGNC:ZAP70,var("p.Lys369Arg")),ma(kin)) cnc p(HGNC:CD33,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "These data are consistent with the ability of Src-family kinases to efficiently phosphorylate both biliary glycoprotein and platelet and endothelial cell adhesion molecule-1 (PECAM-1), because the amino acids flanking the cytoplasmic tyrosines of these two receptors are similar to those of CD33.[2,40,41]"
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Src family tyrosine kinases") -> p(HGNC:PECAM1,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "Even though each of the mutant receptors was expressed in 293T cells as detected by flow cytometry (data not shown) and immunoblotting of parallel samples with anti-CD33, we detected significant tyrosine phosphorylation only of wild-type CD33 and CD33 Y358F (Figure 2B, lanes 2 and 4)."
 #mutant - Y358F, Y340F, Y358F/Y340F
 #Ph by Lck
+SET Confidence = "High"
 act(p(HGNC:LCK),ma(kin)) -> p(HGNC:CD33,pmod(Ph,Tyr))
 act(p(HGNC:LCK),ma(kin)) -> p(HGNC:CD33,var("p.Tyr358Phe"),pmod(Ph,Tyr))
 act(p(HGNC:LCK),ma(kin)) cnc p(HGNC:CD33,var("p.Tyr340Phe"),pmod(Ph,Tyr))
 act(p(HGNC:LCK),ma(kin)) cnc p(HGNC:CD33,var("p.Tyr358Phe"),var("p.Tyr340Phe"),pmod(Ph,Tyr))
+UNSET Confidence
 
 SET Evidence = "These data suggest that Lck phosphorylates primarily Y340 of CD33."
+SET Confidence = "High"
 act(p(HGNC:LCK),ma(kin)) -> p(HGNC:CD33,pmod(Ph,Tyr,340))
+UNSET Confidence
 
 SET Evidence = "Interestingly, the study of PECAM-1 suggested that Lck primarily phosphorylated tyrosine 686, the distal tyrosine of PECAM-1, despite the fact that the sequence surrounding this tyrosine 686 of PECAM, TETVY686SEIR, is most homologous to the distal ITIM of CD33, TSTEY358SEVR. [41] "
+SET Confidence = "High"
 act(p(HGNC:LCK),ma(kin)) -> p(HGNC:PECAM1,pmod(Ph,Tyr,686))
-
+UNSET Confidence
 UNSET CellLine
 
 SET Evidence = "Phosphorylated tyrosines in these motifs could serve as docking sites for the tyrosine phosphatases SHP-1 and/or SHP-2. CD33 could then function as an inhibitory receptor, regulating the phosphorylation of an activating counterpart or other proteins associated with macrophage activation."
+SET Confidence = "High"
 p(HGNC:PTPN6) -> p(HGNC:CD33,pmod(Ph,Tyr,340))
 p(HGNC:PTPN6) -> p(HGNC:CD33,pmod(Ph,Tyr,358))
 p(HGNC:PTPN11) -> p(HGNC:CD33,pmod(Ph,Tyr,340))
@@ -162,49 +174,72 @@ p(HGNC:CD33,pmod(Ph,Tyr,340)) -> complex(p(HGNC:PTPN11),p(HGNC:CD33))
 p(HGNC:CD33,pmod(Ph,Tyr,358)) -> complex(p(HGNC:PTPN11),p(HGNC:CD33))
 p(HGNC:CD33,pmod(Ph,Tyr,340)) reg bp(GO:"macrophage activation")
 p(HGNC:CD33,pmod(Ph,Tyr,358)) reg bp(GO:"macrophage activation")
+UNSET Confidence
 
 SET Evidence = "Western blot analysis of the immunoprecipitates showed that the phosphatases, SHP-1 (Figure 3) and SHP-2 (Figure 4) co-immunoprecipitated with phosphorylated CD33. Similar analysis using anti-SHIP demonstrated no interaction between CD33 and SHIP (data not shown)."
 #Mo7e, THP-1, and U937 cells
+SET Confidence = "High"
 SET CellLine = {"U937","THP-1"}
 p(HGNC:PTPN6) -> complex(p(HGNC:PTPN6),p(HGNC:CD33,pmod(Ph)))
 p(HGNC:PTPN11) -> complex(p(HGNC:PTPN11),p(HGNC:CD33,pmod(Ph)))
 p(HGNC:INPP5D) -|  complex(p(HGNC:INPP5D),p(HGNC:CD33,pmod(Ph)))
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "Figure 5 shows that the phosphorylated Y340 peptide bound both SHP-1 and SHP-2."
-p(HGNC:CD33,pmod(Ph,Tyr,340)) -> complex(p(HGNC:CD33),p(HGNC:PTPN6))
-p(HGNC:CD33,pmod(Ph,Tyr,340)) -> complex(p(HGNC:CD33),p(HGNC:PTPN11))
+SET Confidence = "Medium"
+composite(p(HGNC:CD33,pmod(Ph,Tyr,340)),p(HGNC:PTPN6)) -> complex(p(HGNC:CD33,pmod(Ph,Tyr,340)),p(HGNC:PTPN6))
+composite(p(HGNC:CD33,pmod(Ph,Tyr,340)),p(HGNC:PTPN11)) -> complex(p(HGNC:CD33,pmod(Ph,Tyr,340)),p(HGNC:PTPN11))
+#p(HGNC:CD33,pmod(Ph,Tyr,340)) -> complex(p(HGNC:CD33,pmod(Ph,Tyr,340)),p(HGNC:PTPN6))
+#p(HGNC:CD33,pmod(Ph,Tyr,340)) -> complex(p(HGNC:CD33,pmod(Ph,Tyr,340)),p(HGNC:PTPN11))
+UNSET Confidence
 
 SET Evidence = "In marked contrast, the phosphorylated Y358 peptide bound SHP-2 well but did not bind significant amounts of SHP-1."
-p(HGNC:CD33,pmod(Ph,Tyr,358)) -> complex(p(HGNC:CD33),p(HGNC:PTPN11))
-p(HGNC:CD33,pmod(Ph,Tyr,358)) cnc complex(p(HGNC:CD33),p(HGNC:PTPN6))
+SET Confidence = "Medium"
+composite(p(HGNC:CD33,pmod(Ph,Tyr,358)),p(HGNC:PTPN11)) -> complex(p(HGNC:CD33,pmod(Ph,Tyr,358)),p(HGNC:PTPN11))
+composite(p(HGNC:CD33,pmod(Ph,Tyr,358)),p(HGNC:PTPN6)) cnc complex(p(HGNC:CD33,pmod(Ph,Tyr,358)),p(HGNC:PTPN6))
+#p(HGNC:CD33,pmod(Ph,Tyr,358)) -> complex(p(HGNC:CD33),p(HGNC:PTPN11))
+#p(HGNC:CD33,pmod(Ph,Tyr,358)) cnc complex(p(HGNC:CD33),p(HGNC:PTPN6))
+UNSET Confidence
 
 SET Evidence = "These authors found that a change in the amino acid −2 relative to the phosphotyrosine from valine to either isoleucine or leucine did not show significant difference in the phosphatase activity of the peptides."
 #in KIR ITIM for SHP-1 activity
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Killer cell immunoglobulin like receptors",pmod(Ph,Tyr),var("p.Val?Ile")) cnc act(p(HGNC:PTPN6),ma(GO:"phosphatase activity"))
 p(HGNCGENEFAMILY:"Killer cell immunoglobulin like receptors",pmod(Ph,Tyr),var("p.Val?Leu")) cnc act(p(HGNC:PTPN6),ma(GO:"phosphatase activity"))
+UNSET Confidence
 
 SET Evidence = "In contrast, changing the amino acid at +3 from leucine to valine resulted in a significantly lower induction of SHP-1 phosphatase activity.[42]"
 #in CD33
+SET Confidence = "High"
 p(HGNC:CD33,pmod(Ph,Tyr,340),var("p.Leu343Val")) -| act(p(HGNC:PTPN6),ma(GO:"phosphatase activity"))
+UNSET Confidence
 
 SET Evidence = "The presence of valine at +3 of Y358 could, therefore, decrease the ability of this phosphopeptide to bind SHP-1."
+SET Confidence = "High"
 p(HGNC:CD33,pmod(Ph,Tyr,358),var("p.Leu361Val")) -| complex(p(HGNC:CD33),p(HGNC:PTPN6))
+UNSET Confidence
 
-SET Evidence = "Detailed study of SHP-1 has demonstrated that phosphopeptide binding to the amino SH2 domain is required for significant activation of phosphatase activity. n contrast, binding of the carboxyl SH2 domain may serve primarily in the physical recruitment of the enzyme.[45]"
+SET Evidence = "Detailed study of SHP-1 has demonstrated that phosphopeptide binding to the amino SH2 domain is required for significant activation of phosphatase activity. In contrast, binding of the carboxyl SH2 domain may serve primarily in the physical recruitment of the enzyme.[45]"
+SET Confidence = "High"
 #amino terminal
 act(complex(p(MESH:"Phosphopeptides"),p(HGNC:PTPN6)),ma(GO:"SH2 domain binding")) -> act(p(HGNC:PTPN6),ma(GO:"phosphatase activity"))
 #carboxyl terminal
 act(complex(p(MESH:"Phosphopeptides"),p(HGNC:PTPN6)),ma(GO:"SH2 domain binding")) -> p(HGNC:PTPN6)
-
+UNSET Confidence
 
 SET Evidence = " Like Figure 5, this analysis demonstrated the ability of Y340, but not Y358, to bind SHP-1."
+SET Confidence = "Medium"
 SET CellLine = "U937"
-p(HGNC:CD33,pmod(Ph,Tyr,340)) -> complex(p(HGNC:CD33,pmod(Ph,Tyr,340)),p(HGNC:PTPN6))
-p(HGNC:CD33,pmod(Ph,Tyr,358)) -| complex(p(HGNC:CD33,pmod(Ph,Tyr,358)),p(HGNC:PTPN6))
+composite(p(HGNC:CD33,pmod(Ph,Tyr,340)),p(HGNC:PTPN6)) -> complex(p(HGNC:CD33,pmod(Ph,Tyr,340)),p(HGNC:PTPN6))
+composite(p(HGNC:CD33,pmod(Ph,Tyr,358)),p(HGNC:PTPN6)) -| complex(p(HGNC:CD33,pmod(Ph,Tyr,358)),p(HGNC:PTPN6))
+#p(HGNC:CD33,pmod(Ph,Tyr,340)) -> complex(p(HGNC:CD33,pmod(Ph,Tyr,340)),p(HGNC:PTPN6))
+#p(HGNC:CD33,pmod(Ph,Tyr,358)) -| complex(p(HGNC:CD33,pmod(Ph,Tyr,358)),p(HGNC:PTPN6))
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "Interestingly, mutation of the amino-terminal SH2 domain (SHP-1 R30K) ablated binding of SHP-1 to Y340, suggesting this SH2 domain as the primary site of interaction between the receptor and the phosphatase. The strong binding of SHP-1 via its amino terminal SH2 domain suggests the interaction between CD33 and SHP-1 would result in significant activation of SHP-1.[45] "
+SET Confidence = "High"
 SET CellLine = "HEK293T"
 p(HGNC:PTPN6,var("p.Arg30Lys")) -| complex(p(HGNC:CD33,pmod(Ph,Tyr,340)),p(HGNC:PTPN6))
 complex(p(HGNC:CD33),p(HGNC:PTPN6)) -> act(p(HGNC:PTPN6))
@@ -213,20 +248,26 @@ p(HGNC:PTPN6,var("p.Arg136Lys")) -> complex(p(HGNC:CD33,pmod(Ph,Tyr,340)),p(HGNC
 p(HGNC:CD33,pmod(Ph,Tyr,358)) -| complex(p(HGNC:CD33,pmod(Ph,Tyr,358)),p(HGNC:PTPN6,var("p.Arg30Lys")))
 p(HGNC:CD33,pmod(Ph,Tyr,358)) -| complex(p(HGNC:CD33,pmod(Ph,Tyr,358)),p(HGNC:PTPN6,var("p.Arg139Lys")))
 UNSET CellLine
-
+UNSET Confidence
 SET CellLine = "U937"
 
 SET Evidence = "Cross-linking of control antibody or CD33 alone resulted in no increase in [Ca++]i. In contrast, cross-linking of CD64 resulted in robust mobilization of intracellular calcium as demonstrated by the increase in [Ca++]i (Figure 7).Co-cross-linking of CD64 with CD33, however, resulted in diminished calcium mobilization as compared with cross-linking of CD64 alone."
+SET Confidence = "High"
 #control - Igg
 p(HGNC:CD33) cnc a(CHEBI:"calcium(2+)")
 complex(p(HGNC:CD33),p(HGNC:FCGR1A),p(HGNC:IFNG)) -| a(CHEBI:"calcium(2+)")
 complex(p(HGNC:FCGR1A),p(HGNC:IFNG)) -> a(CHEBI:"calcium(2+)")
+UNSET Confidence
 
 SET Evidence = "Anti-CD33 co-cross-linking inhibited CD64-mediated increases in [Ca++]i after infection with pSC65-containing virus and after expression of kinase dead Zap70 even though expression of dead Zap70 was evident by Western blotting (data not shown)."
+SET Confidence = "High"
 p(HGNC:CD33) -- act(p(HGNC:FCGR1A))
 p(HGNC:FCGR1A) -> bp(GO:"calcium ion import")
+UNSET Confidence
 
 SET Evidence = "In addition, to preventing CD33-mediated inhibition, the SHP-1 C453S infection relieved the basal control of CD64-mediated calcium mobilization, resulting in increased [Ca++]i following CD64 cross-linking. "
+SET Confidence = "High"
 p(HGNC:PTPN6,var("p.Cys453Ser")) -> act(p(HGNC:CD33))
 p(HGNC:PTPN6,var("p.Cys453Ser")) -> act(p(HGNC:FCGR1A))
 p(HGNC:PTPN6,var("p.Cys453Ser")) -> bp(GO:"calcium ion import")
+UNSET Confidence
