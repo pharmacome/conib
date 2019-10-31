@@ -81,26 +81,31 @@ SET Species = "10090"
 
 SET Evidence = "In organotypic hippocampal slices, both proaggregant and antiaggregant Tau is
 missorted to the somatodendritic compartment as has been shown before (Fig. 1 A and B, asterisks)"
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Hippocampus"
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -- a(GO:"somatodendritic compartment")
-p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -> bp(GO:"protein localization to somatodendritic compartment")
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -- a(GO:"somatodendritic compartment")
-p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -> bp(GO:"protein localization to somatodendritic compartment")
+UNSET Confidence
 
 SET Evidence = "Only proaggregant Tau transgenic slices reveal Taupositive
 beaded structures in the neuropil oriented mostly perpendicular
 to the apical dendrites of the CA1 pyramidal cells (Fig. 1 C
 and D, arrowheads) resembling grains in human AGD (16)"
+SET Confidence = "High"
+#AGD:Argyrophilic grain disease
 SET MeSHAnatomy = "CA1 Region, Hippocampal"
 SET Cell = "pyramidal neuron"
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -- a(HP:"Argyrophilic inclusion bodies")
 UNSET MeSHAnatomy
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "This suggests that proaggregant Tau accumulates in the axons as grains"
+SET Confidence = "High"
 SET MeSHAnatomy = "Axons"
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) pos a(HP:"Argyrophilic inclusion bodies")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The axons of transfected neurons (Fig. 1 G and I) clearly
 reveal small inclusions of Tau (∼1 μm in size, arrowheads), although
@@ -108,107 +113,140 @@ presynaptic boutons (e.g., giant mossy fiber boutons) are
 only marginally stained for Tau (Fig. 1I and Fig. S2 A and B;
 arrow), indicating that Tau does not accumulate at presynaptic
 boutons in these slices"
+SET Confidence = "High"
 # transfected with proaggregant tau
 a(MESH:Axons) pos p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))
 a(MESH:"Presynaptic Terminals") cnc p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))
+UNSET Confidence
 
 SET Evidence = "Furthermore, we did not see colocalization
 of the grains of Tau and presynaptic marker synaptophysin (Fig. S3)"
+SET Confidence = "High"
 a(HP:"Argyrophilic inclusion bodies") cnc p(MGI:Syp)
+UNSET Confidence
 
 SET Evidence = "We also observed that Tau missorts into a subgroup of proximal
 dendrites, which correlates with a dramatic spine loss in the affected
 dendrites (Fig. S2 C and F)"
-SET MeSHAnatomy = "Dendrites"
-p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) neg a(GO:"dendritic spine")
-UNSET MeSHAnatomy
+SET Confidence = "Medium"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"), loc(MESH:Dendrites)) -| a(GO:"dendritic spine")
+UNSET Confidence
 
 SET Evidence = "By contrast, dendrites that do not
 contain Tau are richly decorated with spines (>1 spines per μm),
 indicating that there is only local impairment of dendritic function
 in case of proaggregant Tau missorting"
-SET MeSHAnatomy = "Dendrites"
-p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -| act(a(GO:dendrite))
-UNSET MeSHAnatomy
+SET Confidence = "Medium"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"), loc(MESH:Dendrites)) -| act(a(GO:dendrite))
+UNSET Confidence
 
 SET Evidence = "Phosphorylation of these serines
 is known to induce detachment of Tau from microtubules and
 to promote missorting of Tau (17)."
 # pSer262/pSer356
+SET Confidence = "High"
 p(MGI:Mapt,pmod(Ph,Ser,262),pmod(Ph,Ser,356)) -| complex(p(MGI:Mapt),a(GO:microtubule))
+UNSET Confidence
 
 SET Evidence = "When corrected for the
 difference in total Tau, 12E8 phosphorylation does not differ
 between proaggregant and antiaggregant Tau (Fig. 2C)"
 # 12E8 tau epitope
-p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -- p(CONSO:"Tau epitope, 12E8")
-p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -- p(CONSO:"Tau epitope, 12E8")
+SET Confidence = "Low"
+#not what's said in evidence
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -- a(CONSO:"Tau epitope, 12E8")
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -- a(CONSO:"Tau epitope, 12E8")
+UNSET Confidence
 
 SET Evidence = "The PHF-1 epitope (pSer396+pSer404, Fig. 2 D–F) is seen in both types of
 Tau transgenic slices where it appears in the somatodendritic
 compartment (asterisks) and in the axonal grains (arrowheads)"
-p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -- p(CONSO:"Tau epitope, PHF1")
-p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -- p(CONSO:"Tau epitope, PHF1")
+SET Confidence = "High"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -- a(CONSO:"Tau epitope, PHF1")
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -- a(CONSO:"Tau epitope, PHF1")
+UNSET Confidence
 
 SET Evidence = "The antibody AT180 (Tau pThr231) (18) shows (very) weak
 staining in the cell soma of both types of Tau transgenic slices (Fig. 2 G and H, asterisks) contrasting the high degree of Tau phosphorylated
 at Ser202/Thr205 [asterisks (somata) and long arrows (apical dendrites)] (AT8 antibody, Fig. 2 I and J)"
-p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) neg p(CONSO:"Tau epitope, AT180")
-p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) pos p(CONSO:"Tau epitope, AT8")
-p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) neg p(CONSO:"Tau epitope, AT180")
-p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) pos p(CONSO:"Tau epitope, AT8")
+SET Confidence = "Low"
+#not what's said in evidence
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) neg a(CONSO:"Tau epitope, AT180")
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) pos a(CONSO:"Tau epitope, AT8")
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) neg a(CONSO:"Tau epitope, AT180")
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) pos a(CONSO:"Tau epitope, AT8")
+UNSET Confidence
 
 SET Evidence = "MC-1–positive Tau accumulates in the axonal grains
 of proaggregant Tau as described above (arrowheads), whereas
 antiaggregant slices remain unstained"
 # MC-1 antibody detects neurofibrillary tangles
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Axons"
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) pos a(GO:"neurofibrillary tangle")
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) cnc a(GO:"neurofibrillary tangle")
+UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Surprisingly, the axonal grains of Tau appear to
 resist protein degradation because they are negative for markers of
 degradation (vimentin, ubiquitin, Lamp1, Sqstm1/P62, Hsc70, and
 Tia-1) (Fig. S5)"
-composite(p(MGI:Mapt),a(HP:"Argyrophilic inclusion bodies")) neg bp(GO:"cellular protein catabolic process")
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Axons"
+complex(p(MGI:Mapt),a(HP:"Argyrophilic inclusion bodies")) -| deg(p(MGI:Mapt))
+UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Proaggregant Tau transgenic slices showed a significant reduction
 of spines compared with littermate control slices, whereas spine
 density of antiaggregant Tau transgenic slices was similar to
 controls (Fig. 3 A and B)"
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(GO:"dendritic spine")
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) cnc a(GO:"dendritic spine")
+UNSET Confidence
 
 SET Evidence = "We determined mitochondrial
 movements in live organotypic slices because aggregation-prone
 Tau is known to impair mitochondrial transport (Fig. 3 D and E)"
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -| bp(GO:"mitochondrial transport")
+UNSET Confidence
 
 SET Evidence = "Mitochondria transport is similar in both kinds of Tau transgenic
 slices (Fig. 3E) with only a moderately lower mitochondrial density
 in proaggregant Tau transgenic slices compared with antiaggregant
 slices (Fig. 3F and Table S2)"
+SET Confidence = "Medium"
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(GO:mitochondrion)
-p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -| a(GO:mitochondrion)
+UNSET Confidence
 
 SET Evidence = "ATP is reduced
 in the proaggregant transgenic slices, matching the lower
 mitochondrial density, compared with littermate controls or
 antiaggregant Tau transgenic slices (Fig. 3H)"
+SET Confidence = "Medium"
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(CHEBI:ATP)
-a(CHEBI:ATP) pos a(GO:mitochondrion)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(GO:mitochondrion)
+UNSET Confidence
 
 SET Evidence = "This suggests that
 the energy status of the neurons is compromised by proaggregant
 but not by antiaggregant Tau"
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(CHEBI:ATP)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) cnc a(CHEBI:ATP)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Surprisingly, expression of neuronal activity
 marker cFos, astrocytic activity marker Gfap, and oxidative stress
 marker Hmox1 were reduced in the proaggregant Tau transgenic
 slices, whereas antiaggregant Tau transgenic slices were not different
 from littermate controls (Fig. 4A)"
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) neg act(a(MESH:Neurons))
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) neg p(MGI:Fos)
 p(MGI:Fos) biomarkerFor act(a(MESH:Neurons))
@@ -218,60 +256,75 @@ p(MGI:Gfap) biomarkerFor bp(GO:"astrocyte activation")
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) neg bp(GO:"response to oxidative stress")
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) neg p(MGI:Hmox1)
 p(MGI:Hmox1) biomarkerFor bp(GO:"response to oxidative stress")
+UNSET Confidence
 
 SET Evidence = "We observed a typical
 paired-pulse facilitation (PPF) response in littermate controls
 and antiaggregant Tau transgenic slices, whereas in proaggregant
 Tau transgenic slices, the same stimulus paradigm resulted in a
 paired-pulse depression (Fig. 4B)"
+SET Confidence = "High"
 # PPF used to study axonal (presynaptic) functioning
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -| act(a(GO:presynapse))
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) cnc act(a(GO:presynapse))
+UNSET Confidence
 
 SET Evidence = "Adenosine downmodulates
 neuronal activity (cFos levels), impairs the presynapse,
 and attenuates long-term potentiation (LTP) via the A1 receptor (21)"
+SET Confidence = "Medium"
 a(CHEBI:adenosine) -> act(p(MGI:Adora1))
 a(CHEBI:adenosine) -| act(a(MESH:Neurons))
+a(CHEBI:adenosine) -| p(MGI:Fos)
 act(p(MGI:Adora1)) -| act(a(MESH:Neurons))
 a(CHEBI:adenosine) -| act(a(GO:presynapse))
 act(p(MGI:Adora1)) -| act(a(GO:presynapse))
 a(CHEBI:adenosine) -| bp(GO:"long-term synaptic potentiation")
 act(p(MGI:Adora1)) -| bp(GO:"long-term synaptic potentiation")
+UNSET Confidence
 
 SET Evidence = "64627 increases neuronal activity (Fos mRNA)
 both in proaggregant Tau transgenic slices and controls, although
 in case of the proaggregant slices neuronal activity is almost
 doubled, yielding levels similar to those of treated littermate
 control slices (Fig. 4D)"
+SET Confidence = "Medium"
 # 64627 antagonist of Adora1
 a(PUBCHEM:64627) -| act(p(MGI:Adora1))
 a(PUBCHEM:64627) -> act(a(MESH:Neurons))
+a(PUBCHEM:64627) -> r(MGI:Fos)
+UNSET Confidence
 
 SET Evidence = "In line with these observations, the presynaptic
 impairment in proaggregant Tau transgenic slices can be
 reversed by 64627 or BSc3094 without causing adverse effects
 in controls (Fig. 4F and Fig. S6)"
-a(MESH:"BSc 3094") -| a(CONSO:"Tau aggregates")
+SET Confidence = "Medium"
 a(MESH:"BSc 3094") -> act(a(GO:presynapse))
 a(PUBCHEM:64627) -> act(a(GO:presynapse))
+UNSET Confidence
 
 SET Evidence = "Indeed, the reduced level of spines seen in
 proaggregant Tau transgenic slices are normalized when treated
 with 64627, whereas no significant changes are found in
 antiaggregant Tau transgenic slices or littermate controls (Fig. 5 A and B)"
-a(PUBCHEM:64627) -> a(GO:"dendritic spine")
-composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) -> a(GO:"dendritic spine")
+SET Confidence = "Medium"
+a(PUBCHEM:64627) cnc a(GO:"dendritic spine")
+composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) -| a(GO:"dendritic spine")
+composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) cnc a(GO:"dendritic spine")
 composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro"))) cnc a(GO:"dendritic spine")
+UNSET Confidence
 
 SET Evidence = "The axonal density of mitochondria, which is slightly lower
 in proaggregant compared with antiaggregant Tau transgenic slices,
 is marginally decreased by 64627 treatment albeit in a
 genotype-independent manner (Fig. S7)"
-SET CellStructure = "Mitochondria"
-p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(MESH:Axons)
-p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -| a(MESH:Axons)
-a(PUBCHEM:64627) -| a(MESH:Axons)
+SET Confidence = "Medium"
+SET MeSHAnatomy = "Axons"
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -| a(GO:mitochondrion)
+p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"),var("p.Ile277Pro"),var("p.Ile308Pro")) -| a(GO:mitochondrion)
+a(PUBCHEM:64627) -| a(GO:mitochondrion)
+UNSET Confidence
 
 SET Evidence = "Having observed that
 64627 restores presynaptic functioning (i.e., PPF, Fig. 4F),
@@ -279,41 +332,55 @@ neuronal activity (induction of Fos, Fig. 4D), and dendritic
 spine levels in proaggregant Tau transgenic organotypic slices
 (Fig. 5 A and B), we tested whether we could restore long-term
 spatial memory in proaggregant Tau transgenic mice as well"
-composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) -> act(a(GO:presynapse))
-composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) -> act(a(MESH:Neurons))
-composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) -> p(MGI:Fos)
-composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) -> a(GO:"dendritic spine")
+SET Confidence = "Medium"
+composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) cnc act(a(GO:presynapse))
+composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) cnc act(a(MESH:Neurons))
+composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) cnc p(MGI:Fos)
+composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) cnc a(GO:"dendritic spine")
+UNSET Confidence
 
 SET Evidence = "64627 reestablished novel arm preference in
 proaggregant mice, suggesting that 64627 restores spatial
 memory in these animals"
-composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) -> path(MESH:"Spatial Memory")
+SET Confidence = "Medium"
+composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) cnc path(MESH:"Spatial Memory")
+UNSET Confidence
 
 SET Evidence = "64627 treatment improved
 long-term object recognition memory in proaggregant
 Tau transgenic mice, as shown by increased novel object preference"
+SET Confidence = "High"
 composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) -> bp(GO:"long-term memory")
+UNSET Confidence
 
 SET Evidence = "This result suggests an impaired learning association
 between the sound and the foot shock in proaggregant mice, which
 can be rescued by 64627 treatment"
-composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) -> bp(GO:"associative learning")
+SET Confidence = "Medium"
+composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) cnc bp(GO:"associative learning")
+UNSET Confidence
 
 SET Evidence = "Compared with untreated proaggregant Tau transgenic
 mice, treated mice (proaggregant Tau transgenics and littermate
 controls) have significantly larger maximal excitatory postsynaptic
 potential amplitudes (Fig. 5 G–I)"
+SET Confidence = "High"
 composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) -> bp(GO:"excitatory postsynaptic potential")
+UNSET Confidence
 
 SET Evidence = "The slope of the input/output
 (I/O) curve is significantly reduced in proaggregant Tau transgenic
 mice compared with controls, indicative of impaired basal synaptic
 transmission (Fig. 5I)"
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del")) -| bp(GO:"spontaneous synaptic transmission")
+UNSET Confidence
 
 SET Evidence = "Treatment with 64627 increases the slope
 of the I/O curve in both proaggregant Tau transgenic slices and
 littermate controls (Fig. 5I)."
+SET Confidence = "High"
 composite(a(PUBCHEM:64627),p(CONSO:"Tau isoform F (441 aa)", var("p.Lys280del"))) -> bp(GO:"spontaneous synaptic transmission")
+UNSET Confidence
 
 UNSET Species

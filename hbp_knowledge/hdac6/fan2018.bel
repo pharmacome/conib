@@ -60,7 +60,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
  DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 # DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
  DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -78,7 +78,9 @@ SET Evidence = "Our previous study demonstrated that MPT0G211
 = 0.291 nM) and was 1000-fold more selective for
 HDAC6 compared with the other HDAC isoforms [11]."
 #132157820 - MPT0G211
+SET Confidence = "High"
 a(PUBCHEM:132157820) -| p(HGNC:HDAC6)
+UNSET Confidence
 
 SET Evidence = "In
 addition, MPT0G211 concentration-dependently
@@ -88,32 +90,38 @@ the study of AD, at concentrations ranging from 0.1 to 1
 μM without affecting the acetylation of histones, which is
 consistent with the selective inhibition of HDAC6
 (Fig. 1b, c)."
+SET Confidence = "High"
 SET CellLine = {"SH-SY5Y","Neuro-2a cell"}
 SET MeSHDisease = "Alzheimer Disease"
 a(PUBCHEM:132157820) -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
 a(PUBCHEM:132157820) cnc p(MESH:Histones,pmod(Ac))
 UNSET MeSHDisease
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "In
 addition, MPT0G211 treatment did not result in any
 significant cytotoxicity in SH-SY5Y and Neuro-2a cells
 after 24 h (Fig. 1d), suggesting that the concentrations
 used in this study (0.01–1 μM) did not cause cell death."
+SET Confidence = "High"
 SET CellLine = {"SH-SY5Y","Neuro-2a cell"}
 a(PUBCHEM:132157820) -| path(MESH:"Cytotoxicity, Immunologic")
 a(PUBCHEM:132157820) -| bp(GO:"cell death")
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "In addition, Aβ can increase
 the accumulation of tau aggregates as well as NFTs,
 leading to synaptic dysfunction and eventually neuronal
 death [2,7]."
+SET Confidence = "High"
 a(CHEBI:"amyloid-beta") -> p(CONSO:"Tau aggregates")
 a(CHEBI:"amyloid-beta") -> p(MESH:"Neurofibrillary Tangles")
 p(CONSO:"Tau aggregates") -> path(HP:"Abnormal synaptic transmission")
 p(MESH:"Neurofibrillary Tangles") -> path(HP:"Abnormal synaptic transmission")
 path(HP:"Abnormal synaptic transmission") -> bp(GO:"neuron death")
+UNSET Confidence
 
 SET CellLine = {"SH-SY5Y","Neuro-2a cell"}
 
@@ -122,13 +130,17 @@ of tau Ser396 was significantly increased in the cells
 transfected with P301L, and tau was hyperphosphorylated
 in cells cotransfected with hAPP 695 in SH-SY5Y and
 Neuro-2a cells (Fig. 2c, d)."
+SET Confidence = "High"
 p(HGNC:MAPT,var("p.Pro301Leu")) -> p(HGNC:MAPT,pmod(Ph,Ser,396))
 p(CONSO:"APP695",var("?")) -> p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+UNSET Confidence
 
 SET Evidence = "As reported, MPT0G211 treatment significantly
 inhibited the phosphorylation of tau Ser396 in
 both cell lines (Fig. 2e, f)."
+SET Confidence = "High"
 a(PUBCHEM:132157820) -| p(HGNC:MAPT,pmod(Ph,Ser,396))
+UNSET Confidence
 
 SET Evidence = "It is known that hyperphosphorylation also
 increases the capacity of tau assembles to form aggregates
@@ -136,6 +148,7 @@ from oligomers to fibrils, eventually leading to their
 deposition as NFTs and causing neuronal dysfunction,
 including reduced mitochondrial respiration, altered
 mitochondrial dynamics, and impaired axonal transport [14]."
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> p(CONSO:"Tau aggregates")
 p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> p(CONSO:"Tau oligomers")
 p(CONSO:"Tau oligomers") -> p(CONSO:"Tau fibrils")
@@ -143,6 +156,7 @@ p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> p(MESH:"Neurofibrillary Tangles
 p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) -> path(DOID:neuropathy)
 p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) neg bp(GO:"cellular respiration")
 p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)) neg bp(GO:"axonal transport")
+UNSET Confidence
 
 SET Evidence = "As demonstrated, cytosolic levels of tau
 associated with membranes and, in aggregates, were significantly
@@ -150,60 +164,76 @@ increased in SH-SY5Y cells cotransfected with
 hAPP 695 and hTau P301L (Fig. 3a). Treatment of the
 transfectants with MPT0G211 significantly reduced the
 levels of aggregated tau (Fig. 3a)."
+
+SET Confidence = "High"
 p(HGNC:MAPT,var("p.Pro301Leu")) -> p(HGNC:MAPT,loc(GO:cytosol))
 p(CONSO:"APP695",var("?")) -> p(HGNC:MAPT,loc(GO:cytosol))
 p(HGNC:MAPT,var("p.Pro301Leu")) -> p(HGNC:MAPT,loc(CONSO:"Tau aggregates"))
 p(CONSO:"APP695",var("?")) -> p(HGNC:MAPT,loc(CONSO:"Tau aggregates"))
 a(PUBCHEM:132157820) -| p(HGNC:MAPT,loc(CONSO:"Tau aggregates"))
+UNSET Confidence
 
 SET Evidence = "Since Hsp90 is a substrate of HDAC6, the downregulation
 of the expression or activity of HDAC6 has been reported
 to promote Hsp90 acetylation, thereby favoring tau
 degradation [17,18]."
+SET Confidence = "High"
 p(HGNC:HDAC6) -- p(HGNCGENEFAMILY:"Heat shock 90kDa proteins")
 p(HGNC:HDAC6) -| p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",pmod(Ac))
 p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",pmod(Ac)) -> deg(p(HGNC:MAPT))
+UNSET Confidence
 
 SET Evidence = "As indicated, plasmid
 cotransfection significantly increased HDAC6/Hsp90
 binding (Fig. 4a)."
+SET Confidence = "High"
 #plasmid - P301L, APP695
 p(HGNC:MAPT,var("p.Pro301Leu")) -> complex(p(HGNC:HDAC6),p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"))
 p(CONSO:"APP695",var("?")) -> complex(p(HGNC:HDAC6),p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"))
+UNSET Confidence
 
 SET Evidence = "In addition, MPT0G211 treatment
 clearly enhanced the acetylation of Hsp90, which caused
 the downregulation of HDAC6/Hsp90 binding (Fig. 4a)."
+SET Confidence = "High"
 a(PUBCHEM:132157820) -> p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",pmod(Ac))
 p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",pmod(Ac)) -| complex(p(HGNC:HDAC6),p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"))
+UNSET Confidence
 
 SET Evidence = "In cells treated with MPT0G211, coimmunoprecipitation
 of ubiquitin with p-tau (Ser396) clearly increased (Fig. 4b),
 and the level of polyubiquitinated proteins significantly
 accumulated (Fig. 4c)."
+SET Confidence = "High"
 a(PUBCHEM:132157820) -> p(HGNC:MAPT,pmod(Ph,Ser,396),pmod(Ub))
 p(HGNC:MAPT,pmod(Ph,Ser,396),pmod(Ub)) -> deg(p(HGNC:MAPT))
 a(PUBCHEM:132157820) -> deg(p(HGNC:MAPT))
+UNSET Confidence
 
 SET Evidence = "In addition, proteasome inhibitor
 MG132 treatment significantly reversed the MPT0G211-
 induced inhibition of p-tau at Ser396 in both cell lines
 (Fig. 4d)."
 #462382 - MG132
+SET Confidence = "High"
 a(PUBCHEM:462382) -> p(HGNC:MAPT,pmod(Ph,Ser,396))
+UNSET Confidence
 
 SET Evidence = "In addition, the activity of GSK3β is
 dependent on its phosphorylation at specific sites,
 including Ser9 and Tyr216, which can inhibit or increase
 GSK3β activity, respectively [19]."
+SET Confidence = "High"
 p(HGNC:GSK3B,pmod(Ph,Ser,9)) -- act(p(HGNC:GSK3B))
 p(HGNC:GSK3B,pmod(Ph,Tyr,216)) -- act(p(HGNC:GSK3B))
+UNSET Confidence
 
 SET Evidence = "As demonstrated, phosphorylation
 of tau Ser396 and Ser404 significantly increased in the
 cells transfected with the plasmids, but no increases or
 mild increases in the phosphorylation of other sites
 (Ser262 and Ser356) were observed (Fig. 5a)."
+SET Confidence = "High"
 p(HGNC:MAPT,var("p.Pro301Leu")) -> p(HGNC:MAPT,pmod(Ph,Ser,396))
 p(CONSO:"APP695",var("?")) -> p(HGNC:MAPT,pmod(Ph,Ser,396))
 p(HGNC:MAPT,var("p.Pro301Leu")) -> p(HGNC:MAPT,pmod(Ph,Ser,404))
@@ -212,6 +242,7 @@ p(HGNC:MAPT,var("p.Pro301Leu")) cnc p(HGNC:MAPT,pmod(Ph,Ser,262))
 p(CONSO:"APP695",var("?")) cnc p(HGNC:MAPT,pmod(Ph,Ser,262))
 p(HGNC:MAPT,var("p.Pro301Leu")) cnc p(HGNC:MAPT,pmod(Ph,Ser,356))
 p(CONSO:"APP695",var("?")) cnc p(HGNC:MAPT,pmod(Ph,Ser,356))
+UNSET Confidence
 
 SET Evidence   = "MPT0G211
 treatment significantly attenuated the phosphorylation of
@@ -223,6 +254,7 @@ on Ser9 through Akt phosphorylation were associated
 with the inhibition of phospho-tau Ser396 in response to
 MPT0G211 treatment (Fig. 5b).In addition, a decrease in
 phospho-GSK3β on Ser216 was also observed."
+SET Confidence = "High"
 a(PUBCHEM:132157820) -| p(HGNC:MAPT,pmod(Ph,Ser,396))
 a(PUBCHEM:132157820) -| p(HGNC:MAPT,pmod(Ph,Ser,404))
 a(PUBCHEM:132157820) cnc p(HGNC:CDK5)
@@ -231,17 +263,19 @@ a(PUBCHEM:132157820) -> p(FPLX:AKT,pmod(Ph))
 p(FPLX:AKT,pmod(Ph)) -> p(HGNC:GSK3B,pmod(Ph,Ser,9))
 p(HGNC:GSK3B,pmod(Ph,Ser,9)) -| p(HGNC:MAPT,pmod(Ph,Ser,396))
 a(PUBCHEM:132157820) -| p(HGNC:GSK3B,pmod(Ph,Ser,216))
+UNSET Confidence
 
 SET Evidence = "As
 reported, Aβ 1–40-induced significant p-GSK3β (Ser9)
 attenuation and increase in p-tau (Ser396); MPT0G211
 treatment diminished GSK3β activity and Aβ 1–40-induced
 tau phosphorylation (Fig. 5c)."
+SET Confidence = "High"
 a(CHEBI:"amyloid-beta polypeptide 40") -| p(HGNC:GSK3B,pmod(Ph,Ser,9))
 a(CHEBI:"amyloid-beta polypeptide 40") -> p(HGNC:MAPT,pmod(Ph,Ser,396))
 a(PUBCHEM:132157820) -| act(p(HGNC:GSK3B))
 a(PUBCHEM:132157820) -| p(HGNC:MAPT,pmod(Ph,Ser,396))
-
+UNSET Confidence
 UNSET CellLine
 
 #cell line used - 3xTg-AD mice with APP(swe) X tau P301L mutants
@@ -250,7 +284,9 @@ SET Species = "10090"
 SET Evidence = "Oral administration of
 MPT0G211 significantly ameliorated memory impairment
 (Fig. 6a)."
+SET Confidence = "High"
 a(PUBCHEM:132157820) -> bp(GO:memory)
+UNSET Confidence
 
 SET Evidence = "Immunohistochemical analysis revealed
 that mutant transgenes mediated increases in total tau
@@ -262,19 +298,23 @@ increased acetyl-α-tubulin accumulation in the 3×Tg-AD
 mice brain (Fig. 6b).These results provide
 strong support that MPT0G211 treatments can ameliorate
 Alzheimer’s deficits."
+SET Confidence = "High"
 SET MeSHAnatomy = "CA1 Region, Hippocampal"
 p(HGNC:MAPT,var("p.Pro301Leu")) -> p(HGNC:MAPT)
 p(HGNC:MAPT,var("p.Pro301Leu")) -> p(HGNC:MAPT,pmod(Ph,Ser,396))
-p(HGNC:MAPT,var("p.Pro301Leu")) -> p(HGNC:MAPT,pmod(Ph,Ser,396))
+p(HGNC:MAPT,var("p.Pro301Leu")) -> p(HGNC:MAPT,pmod(Ph,Ser,404))
 a(PUBCHEM:132157820) -| p(HGNC:MAPT,pmod(Ph,Ser,396))
-a(PUBCHEM:132157820) -| p(HGNC:MAPT,pmod(Ph,Ser,396))
+a(PUBCHEM:132157820) -| p(HGNC:MAPT,pmod(Ph,Ser,404))
 a(PUBCHEM:132157820) -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
 a(PUBCHEM:132157820) -| path(DOID:"Alzheimer's disease")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "These results clearly indicated
 that MPT0G211 can penetrate the BBB, where it potentially
 ameliorates learning and memory deficits."
+SET Confidence = "High"
 a(PUBCHEM:132157820) -> tloc(a(PUBCHEM:132157820),fromLoc(MESH:Blood),toLoc(MESH:Brain))
 a(PUBCHEM:132157820) -> bp(GO:learning)
 a(PUBCHEM:132157820) -> bp(GO:memory)
+UNSET Confidence
