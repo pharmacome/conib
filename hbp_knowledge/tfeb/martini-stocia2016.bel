@@ -234,7 +234,7 @@ p(HGNC:RAB1A) pos bp(GO:autophagy)
 SET Evidence = "In addition to affecting autophagy, PD-related ∝-synuclein mutations cause CMA dysfunction, resulting in ∝-synuclein accumulation and the disturbance of neuronal survival factor myocyte enhancer factor 2D [50]."
 p(HGNC:SNCA,var("?")) neg bp(GO:"chaperone-mediated autophagy")
 bp(GO:"chaperone-mediated autophagy") -| p(CONSO:"alpha-synuclein aggregates")
-p(HGNC:SNCA,var("?") -> p(CONSO:"alpha-synuclein aggregates")
+p(HGNC:SNCA,var("?")) -> p(CONSO:"alpha-synuclein aggregates")
 p(HGNC:SNCA,var("?")) -| p(HGNC:MEF2D)
 p(HGNC:MEF2D) -> bp(GO:"neuron cellular homeostasis")
 
@@ -373,7 +373,7 @@ SET MeSHAnatomy = "Astrocytes"
 p(HGNC:TFEB) -| path(MESH:"Plaque, Amyloid")
 p(HGNC:TFEB) -> act(p(MESH:Lysosomes))
 act(p(MESH:Lysosomes)) -> deg(a(CHEBI:"amyloid-beta"))
-UNSET MeSHDisease
+UNSET MeSHAnatomy
 UNSET Species
 
 SET Evidence = "Finally, the effect of glycogen synthase kinase 3 inhibition on APP degradation in vitro is thought to be mediated by enhancing the ALP through increasing TFEB nuclear localization and transcriptional activity [75]."
@@ -405,7 +405,7 @@ r(HGNC:TFEB) -> p(MESH:Enzymes)
 p(HGNC:TFEB,loc(GO:nucleus)) -> p(MESH:Enzymes)
 UNSET MeSHAnatomy
 m(MIRBASE:"hsa-mir-128-1") -| r(HGNC:TFEB)
-m(MIRBASE:"hsa-mir-128-1") -| p(HGNC:TFEB.lco(GO:nucleus))
+m(MIRBASE:"hsa-mir-128-1") -| p(HGNC:TFEB,lco(GO:nucleus))
 m(MIRBASE:"hsa-mir-128-2") -| r(HGNC:TFEB)
 m(MIRBASE:"hsa-mir-128-2") -| p(HGNC:TFEB,loc(GO:nucleus))
 
