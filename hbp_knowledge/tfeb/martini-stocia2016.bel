@@ -120,8 +120,8 @@ complex(p(HGNC:TFEB,pmod(Ph)),p(HGNCGENEFAMILY:"14-3-3 phospho-serine/phospho-th
 
 SET Evidence = "Amino acids and the V-ATPase interact to regulate Rag GTPases, which then activate mTORC1 by translocating it to the lysosomal surface [36,37]."
 composite(a(MESH:"Amino Acids"),p(MESH:"Vacuolar Proton-Translocating ATPases")) reg act(complex(GO:"Ragulator complex"),ma(GO:"GTPase activity"))
-act(complex(GO:"Ragulator complex"),ma(GO:"GTPase activity")) -> tloc(p(HGNCGENEFAMILY:"MTOR complex 1"),fromLoc(FO:cytoplasm),toLoc(GO:"lysosomal membrane"))
-tloc(p(HGNCGENEFAMILY:"MTOR complex 1"),fromLoc(FO:cytoplasm),toLoc(GO:"lysosomal membrane")) -> act(p(HGNCGENEFAMILY:"MTOR complex 1"))
+act(complex(GO:"Ragulator complex"),ma(GO:"GTPase activity")) -> tloc(p(HGNCGENEFAMILY:"MTOR complex 1"),fromLoc(GO:cytoplasm),toLoc(GO:"lysosomal membrane"))
+tloc(p(HGNCGENEFAMILY:"MTOR complex 1"),fromLoc(GO:cytoplasm),toLoc(GO:"lysosomal membrane")) -> act(p(HGNCGENEFAMILY:"MTOR complex 1"))
 
 SET Evidence = "On the lysosomal surface, mTORC1 binds to TFEB, facilitating its phosphorylation and cytoplasmic sequestration in nutrient-rich conditions [32]"
 complex(p(HGNCGENEFAMILY:"MTOR complex 1"),p(HGNC:TFEB),loc(GO:"lysosomal membrane")) -> p(HGNC:TFEB,pmod(Ph))
@@ -145,8 +145,8 @@ a(MESH:Lysosomes) -| tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
 SET Evidence = "The TFEB promoter contains multiple CLEAR elements to which the transcription factor binds to induce further TFEB expression [38]."
 complex(r(HGNC:TFEB),a(MESH:"Transcription Factors")) -> p(HGNC:TFEB)
 
-SET Confidence = "TFEB is regulated by another positive feedback loop where a TFEB transcriptional target, the calcium channel MCOLN1, leads to TFEB dephosphorylation and nuclear translocation through calcineurin [39]."
-p(HGNC:MCOLN1) -| p(HGNc:TFEB,pmod(Ph))
+SET Evidence = "TFEB is regulated by another positive feedback loop where a TFEB transcriptional target, the calcium channel MCOLN1, leads to TFEB dephosphorylation and nuclear translocation through calcineurin [39]."
+p(HGNC:MCOLN1) -| p(HGNC:TFEB,pmod(Ph))
 p(HGNC:MCOLN1) -> complex(GO:"calcineurin complex")
 complex(GO:"calcineurin complex") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
 
@@ -174,7 +174,7 @@ p(HGNC:HTT) -- bp(GO:"selective autophagy")
 
 SET Evidence = "Normal HTT degradation is enhanced by phosphorylation-regulated CMA [43]."
 bp(GO:"protein phosphorylation") reg bp(GO:"chaperone-mediated autophagy")
-bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNc:HTT))
+bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:HTT))
 
 SET Evidence = "Indeed, HTT degradation is increased by overexpression of HSC70 or LAMP2A and is decreased by knockdown of these genes in cellular models [43]."
 p(HGNC:HSPA8) -> deg(p(HGNC:HTT))
@@ -232,10 +232,10 @@ p(HGNC:RAB1A) -| p(CONSO:"alpha-synuclein aggregates")
 p(HGNC:RAB1A) pos bp(GO:autophagy)
 
 SET Evidence = "In addition to affecting autophagy, PD-related ∝-synuclein mutations cause CMA dysfunction, resulting in ∝-synuclein accumulation and the disturbance of neuronal survival factor myocyte enhancer factor 2D [50]."
-p(HGNC:SNCa,var("?")) neg bp(GO:"chaperone-mediated autophagy")
+p(HGNC:SNCA,var("?")) neg bp(GO:"chaperone-mediated autophagy")
 bp(GO:"chaperone-mediated autophagy") -| p(CONSO:"alpha-synuclein aggregates")
-p(HGNC:SNCa,var("?") -> p(CONSO:"alpha-synuclein aggregates")
-p(HGNC:SNCa,var("?")) -| p(HGNC:MEF2D)
+p(HGNC:SNCA,var("?") -> p(CONSO:"alpha-synuclein aggregates")
+p(HGNC:SNCA,var("?")) -| p(HGNC:MEF2D)
 p(HGNC:MEF2D) -> bp(GO:"neuron cellular homeostasis")
 
 SET Evidence = "Loss of glucocerebrosidase, the enzyme mutated in Gaucher's disease, results in accumulation of ∝-synuclein and neurotoxicity in cellular models [53]."
@@ -296,9 +296,9 @@ UNSET MeSHAnatomy
 UNSET Species
 
 SET Evidence = "Finally, rapamycin, an FDA-approved drug, which activates autophagy through inhibition of mTOR (and thus stimulation of TFEB function) has been used in vitro and in vivo to reduce ∝-synuclein pathology [8,56]."
-a(CHEBI:rapamycin) pos bp(GO:autophagy)
-a(CHEBI:rapamycin) -> p(HGNC:TFEB)
-a(CHEBI:rapamycin) -| act(p(HGNC:SNCA,var("?")))
+a(CHEBI:sirolimus) pos bp(GO:autophagy)
+a(CHEBI:sirolimus) -> p(HGNC:TFEB)
+a(CHEBI:sirolimus) -| act(p(HGNC:SNCA,var("?")))
 
 SET Evidence = "Parkin and PINK1 have crucial roles in mitophagy, as evidenced by Parkin and Pink1 knockout and mutant mouse models [59]."
 SET Species = "10090"
@@ -361,10 +361,10 @@ UNSET Species
 
 SET Evidence = "The proposed mechanism of action in this study operates via a TFEB–PTEN–Akt–mTOR–TFEB feedback regulatory loop, where TFEB induces the ALP through upregulation of PTEN and inhibition of Akt and mTOR, which further activates TFEB [10]."
 p(HGNC:TFEB) -> p(HGNC:PTEN)
-p(HGNC:PTEN) -| p(HGHC:AKT1)
-p(HGNC:PTEN) -| p(HGHC:MTOR)
-p(HGHC:MTOR) -| p(HGNC:TFEB)
-p(HGHC:AKT1) -| p(HGNC:TFEB)
+p(HGNC:PTEN) -| p(HGNC:AKT1)
+p(HGNC:PTEN) -| p(HGNC:MTOR)
+p(HGNC:MTOR) -| p(HGNC:TFEB)
+p(HGNC:AKT1) -| p(HGNC:TFEB)
 
 SET Evidence = "For amyloid pathology, TFEB expression in astrocytes facilitates a reduction in Aβ plaque pathology in the APP/PS1 mouse model by the proposed mechanism of astrocyte uptake and lysosomal degradation of Aβ [9]."
 #APP/PS1 model
@@ -383,16 +383,16 @@ deg(p(HGNC:APP)) -> act(p(HGNC:TFEB),ma(tscript))
 
 SET Evidence = "miR128 is a microRNA identified to be upregulated in the hippocampus of AD patients [76] and in monocytes derived from late-onset AD (LOAD) patients [77]."
 SET MeSHAnatomy = "Hippocampus"
-path(DOID:"Alzheimer's disease") -> r(MIRBASE:"hsa-mir-128-1")
-path(DOID:"Alzheimer's disease") -> r(MIRBASE:"hsa-mir-128-2")
+path(DOID:"Alzheimer's disease") -> m(MIRBASE:"hsa-mir-128-1")
+path(DOID:"Alzheimer's disease") -> m(MIRBASE:"hsa-mir-128-2")
 SET MeSHAnatomy = "Monocytes"
-path(MESH:"Late Onset Disorders") -> r(MIRBASE:"hsa-mir-128-1")
-path(MESH:"Late Onset Disorders") -> r(MIRBASE:"hsa-mir-128-2")
+path(MESH:"Late Onset Disorders") -> m(MIRBASE:"hsa-mir-128-1")
+path(MESH:"Late Onset Disorders") -> m(MIRBASE:"hsa-mir-128-2")
 UNSET MeSHAnatomy
 
 SET Evidence = "Of note, miR128 targets TFEB, leading to its downregulation [1,8,77]."
-r(MIRBASE:"hsa-mir-128-1") -| p(HGNC:TFEB)
-r(MIRBASE:"hsa-mir-128-2") -| p(HGNC:TFEB)
+m(MIRBASE:"hsa-mir-128-1") -| p(HGNC:TFEB)
+m(MIRBASE:"hsa-mir-128-2") -| p(HGNC:TFEB)
 
 SET Evidence = "In the case of LOAD patient-derived monocytes, lysosomal enzymes and Aβ degradative capacity are reduced compared to healthy donors, likely owing to a decrease in TFEB transcripts and nuclear localization caused by miR128 upregulation [77]."
 SET MeSHAnatomy = "Monocytes"
@@ -402,12 +402,12 @@ p(HGNC:TFEB,loc(GO:nucleus)) -> deg(a(CHEBI:"amyloid-beta"))
 SET MeSHAnatomy = "Lysosomes"
 path(MESH:"Late Onset Disorders") -| p(MESH:Enzymes)
 r(HGNC:TFEB) -> p(MESH:Enzymes)
-p(HGNC:TFEB,loc(GO:nucleus)) - p(MESH:Enzymes)
+p(HGNC:TFEB,loc(GO:nucleus)) -> p(MESH:Enzymes)
 UNSET MeSHAnatomy
-r(MIRBASE:"hsa-mir-128-1") -| r(HGNC:TFEB)
-r(MIRBASE:"hsa-mir-128-1") -| p(HGNC:TFEB.lco(GO:nucleus))
-r(MIRBASE:"hsa-mir-128-2") -| r(HGNC:TFEB)
-r(MIRBASE:"hsa-mir-128-2") -| p(HGNC:TFEB,loc(GO:nucleus))
+m(MIRBASE:"hsa-mir-128-1") -| r(HGNC:TFEB)
+m(MIRBASE:"hsa-mir-128-1") -| p(HGNC:TFEB.lco(GO:nucleus))
+m(MIRBASE:"hsa-mir-128-2") -| r(HGNC:TFEB)
+m(MIRBASE:"hsa-mir-128-2") -| p(HGNC:TFEB,loc(GO:nucleus))
 
 SET Evidence = "By contrast, patient-derived fibroblasts containing the familial AD PS1 mutation A246E display lysosomal alkalization and decreased cathepsin D activity, resulting in upregulation of ALP genes, in particular TFEB [78]."
 SET MeSHAnatomy = "Fibroblasts"
@@ -424,7 +424,7 @@ SET MeSHDisease = "Prion Diseases"
 SET Evidence = "In several prion models, autophagy is activated through both mTOR and Beclin 1 signaling pathways [88,89], and ALP activators such as rapamycin and trehalose decrease PrPSc in vitro and in vivo [90,91]."
 act(p(HGNC:MTOR)) pos bp(GO:autophagy)
 act(p(HGNC:BECN1)) pos bp(GO:autophagy)
-a(CHEBI:rapamycin) -| p(CONSO:PrPSc)
+a(CHEBI:sirolimus) -| p(CONSO:PrPSc)
 a(CHEBI:trehalose) -| p(CONSO:PrPSc)
 
 SET Evidence = "Paradoxically, the antimalarial drug quinacrine, which functions as an autophagy–lysosomal degradation inhibitor, has been shown to have therapeutic effects in prion disease models [92]."
