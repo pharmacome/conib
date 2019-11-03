@@ -3663,42 +3663,6 @@ UNSET MeSHDisease
 UNSET Species
 UNSET Confidence
 
-
-SET Citation = {"PubMed", "25546293"}
-SET Evidence = "The N-terminus of β-catenin has phosphorylation, ubiquitination, and acetylation sites that regulate its stability and signaling.
-In the absence of a Wnt signal, Ser33, Ser37, and Thr41 are constitutively phosphorylated by glycogen synthase kinase 3β (GSK3β).
-β-Catenin phosphorylated at these sites is recognized by β-transducin repeat-containing protein (βTrCP), which results in ubiquitination and degradation by the ubiquitin-proteasome pathway.
-The N-terminal regulatory domain of β-catenin also includes Ser45, a phosphorylation site for Casein Kinase 1α (CK1α) and Lys49, which is acetylated by the acetyltransferase p300/CBP-associated factor (PCAF).
-The relevance of Lys49 acetylation and Ser45 phosphorylation to the function of β-catenin is an active area of investigation.
-We find that HDAC6 inhibitors increase Lys49 acetylation and Ser45 phosphorylation but do not affect Ser33, Ser37, and Thr41 phosphorylation.
-Lys49 acetylation results in decreased ubiquitination of β-catenin in the presence of proteasome inhibition.
-While increased Lys49 acetylation does not affect total levels of β-catenin, it results in increased membrane localization of β-catenin."
-SET Confidence = "Medium"
-kin(p(HGNC:GSK3B)) => p(HGNC:CTNNB1, pmod(Ph, Ser, 33))
-kin(p(HGNC:GSK3B)) => p(HGNC:CTNNB1, pmod(Ph, Ser, 37))
-kin(p(HGNC:GSK3B)) => p(HGNC:CTNNB1, pmod(Ph, Thr, 41))
-p(HGNC:CTNNB1, pmod(Ph, Ser, 33)) -> deg(p(HGNC:CTNNB1))
-p(HGNC:CTNNB1, pmod(Ph, Ser, 37)) -> deg(p(HGNC:CTNNB1))
-p(HGNC:CTNNB1, pmod(Ph, Thr, 41)) -> deg(p(HGNC:CTNNB1))
-p(HGNC:CTNNB1, pmod(Ph, Ser, 33)) -> act(p(HGNC:BTRC))
-p(HGNC:CTNNB1, pmod(Ph, Ser, 37)) -> act(p(HGNC:BTRC))
-p(HGNC:CTNNB1, pmod(Ph, Thr, 41)) -> act(p(HGNC:BTRC))
-act(p(HGNC:BTRC)) -> p(HGNC:CTNNB1, pmod(Ub))
-p(HGNC:CTNNB1, pmod(Ub)) -> act(p(FPLX:Proteasome))
-act(p(FPLX:Proteasome)) -> deg(p(HGNC:CTNNB1, pmod(Ub)))
-p(HGNC:CSNK1A1) -> p(HGNC:CTNNB1, pmod(Ph, Ser, 45))
-p(HGNC:KAT2B) -> p(HGNC:CTNNB1, pmod(Ac, Lys, 49))
-act(p(HGNC:HDAC6)) -| p(HGNC:CTNNB1, pmod(Ac, Lys, 49))
-act(p(HGNC:HDAC6)) -| p(HGNC:CTNNB1, pmod(Ph, Ser, 45))
-act(p(HGNC:HDAC6)) cnc p(HGNC:CTNNB1, pmod(Ph, Ser, 33))
-act(p(HGNC:HDAC6)) cnc p(HGNC:CTNNB1, pmod(Ph, Ser, 37))
-act(p(HGNC:HDAC6)) cnc p(HGNC:CTNNB1, pmod(Ph, Thr, 41))
-p(HGNC:CTNNB1, pmod(Ac, Lys, 49)) -| p(HGNC:CTNNB1, pmod(Ub))
-p(HGNC:CTNNB1, pmod(Ac, Lys, 49)) -> p(HGNC:CTNNB1, loc(GO:membrane))
-UNSET Confidence
-
-
-
 SET Citation = {"PubMed", "27917100"}
 SET Evidence = "In conclusion, ST7612AA1, prodrug of ST7464AA1, is the first of a new generation of HDAC inhibitors, very potent, orally administered, and well tolerated.
 It is a thiol derivative, pan-histone deacetylase inhibitor, active against a broad panel of cancer cell lines and in vivo tumor models."
@@ -4145,27 +4109,6 @@ act(p(HGNC:SIRT1)) =| p(HGNC:SRSF2, pmod(Ac, Lys, 52))
 p(HGNC:SRSF2, pmod(Ac, Lys, 52)) pos act(p(HGNC:SRSF2))
 act(p(HGNC:SRSF2)) -> p(CONSO:"4R tau")
 UNSET Confidence
-
-
-SET Citation = {"PubMed", "28760828"}
-SET Evidence = "Our findings indicate that several acetylation sites in tau are responsive to HDAC6 and that acetylation on Lys-321 (within a KCGS motif)
-is both essential for acetylation-mediated inhibition of tau aggregation in vitro and a molecular tactic for preventing phosphorylation on the downstream Ser-324 residue.
-Tau phosphorylation of Ser-324 (pSer-324) has not previously been evaluated in the context of tauopathy, and here we observed increased deposition of pSer-324-positive tau both in mouse models of tauopathy and in patients with Alzheimer's disease.
-These findings uncover a novel acetylation-phosphorylation switch at Lys-321/Ser-324 that coordinately regulates tau polymerization and function."
-SET Confidence = "Medium"
-p(HGNC:HDAC6) -> p(HGNC:MAPT, pmod(Ac, Lys, 321))
-p(HGNC:MAPT, pmod(Ac, Lys, 321)) -| p(CONSO:"Tau aggregates")
-p(HGNC:MAPT, pmod(Ac, Lys, 321)) -| p(HGNC:MAPT, pmod(Ph, Ser, 324))
-p(HGNC:MAPT, pmod(Ph, Ser, 324)) pos p(CONSO:"Tau aggregates")
-UNSET Confidence
-
-SET Evidence = "HDAC6 inhibition leads to a significant reduction in tau levels as detected by the human tau-specific antibody E1 (Fig. 6 (a and c) and supplemental Fig. S6).
-We also observed a striking decrease in phosphorylation at Ser-324, which was statistically significant even when normalizing to E1 to control for the reduction in tau levels (Fig. 6 (a and b) and supplemental Fig. S6)."
-SET Confidence = "Medium"
-p(HGNC:HDAC6) -> p(HGNC:MAPT)
-p(HGNC:HDAC6) -> p(HGNC:MAPT, pmod(Ph, Ser, 324))
-UNSET Confidence
-
 
 SET Citation = {"PubMed", "28771976"}
 SET Evidence = "HDAC3 overexpression in the hippocampus increases Aß levels, activates microglia, and decreases dendritic spine density in 6-month-old APP/PS1 mice."
