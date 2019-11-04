@@ -60,7 +60,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 # DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 # DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -79,67 +79,83 @@ SET Evidence = "Treatment
 with the pan-HDAC inhibitor SAHA led to a marked increase
 in the level of Ac-Lys49 β-catenin (Figure 2A)."
 #5311 - SAHA
+SET Confidence = "High"
 a(PUBCHEM:5311) -| p(MESH:"Histone Deacetylases")
 a(PUBCHEM:5311) -> p(HGNC:CTNNB1,pmod(Ac,Lys,49))
+UNSET Confidence
 
 SET Evidence = "We observed
 similar results with crebinostat, which inhibits HDACs 1, 2, 3,
 and 6.[31]"
+SET Confidence = "High"
 a(CONSO:crebinostat) -| p(HGNC:HDAC1)
 a(CONSO:crebinostat) -| p(HGNC:HDAC2)
 a(CONSO:crebinostat) -| p(HGNC:HDAC3)
+a(CONSO:crebinostat) -| p(HGNC:HDAC6)
 a(CONSO:crebinostat) -> p(HGNC:CTNNB1,pmod(Ac,Lys,49))
+UNSET Confidence
 
 SET Evidence = "However, inhibitors specific for class I HDACs, such as
 CI-994, which inhibits HDACs 1, 2, and 3, Cpd-60, which
 inhibits HDACs 1 and 2, and BG-45, which preferentially
 inhibits HDAC3, did not increase levels of Ac-Lys49 β-catenin."
 #10487 - CI-994, 16773791 - BG-45
+SET Confidence = "High"
 a(PUBCHEM:10487) -| p(HGNC:HDAC1)
 a(PUBCHEM:10487) -| p(HGNC:HDAC2)
 a(PUBCHEM:10487) -| p(HGNC:HDAC3)
 a(PUBCHEM:10487) cnc p(HGNC:CTNNB1,pmod(Ac,Lys,49))
 a(PUBCHEM:16773791) -| p(HGNC:HDAC3)
 a(PUBCHEM:16773791) cnc p(HGNC:CTNNB1,pmod(Ac,Lys,49))
+UNSET Confidence
 
 SET Evidence = "In contrast, treatment with three structurally distinct HDAC6
 inhibitors - tubacin, tubastatin A, and ACY-1215, resulted in
 marked increase in Ac-Lys49 β-catenin levels (Figure 2A)."
 #6675804 - tubacin,49850262 - tubastatin A,53340666 - ACY-1215
+SET Confidence = "High"
 a(PUBCHEM:6675804) -| p(HGNC:HDAC6)
 a(PUBCHEM:6675804) -> p(HGNC:CTNNB1,pmod(Ac,Lys,49))
 a(PUBCHEM:49850262) -| p(HGNC:HDAC6)
 a(PUBCHEM:49850262) -> p(HGNC:CTNNB1,pmod(Ac,Lys,49))
 a(PUBCHEM:53340666) -| p(HGNC:HDAC6)
 a(PUBCHEM:53340666) -> p(HGNC:CTNNB1,pmod(Ac,Lys,49))
+UNSET Confidence
 
 SET Evidence = "While HDAC6 inhibitors increased levels of Ac-Lys49 β-
 catenin, there was no change in overall levels of β-catenin in the
 NPCs (Figure 2)."
+SET Confidence = "High"
 p(HGNC:HDAC6) -| p(HGNC:CTNNB1,pmod(Ac,Lys,49))
 p(HGNC:HDAC6) cnc p(HGNC:CTNNB1)
+UNSET Confidence
 
 SET Evidence = "In the
 presence of HDAC6 knockdown, we again observed an
 increase in Lys49 acetylation and Ser45 phosphorylation."
+SET Confidence = "High"
 act(p(HGNC:HDAC6)) -| p(HGNC:CTNNB1,pmod(Ac,Lys,49))
 act(p(HGNC:HDAC6)) -| p(HGNC:CTNNB1,pmod(Ph,Ser,45))
+UNSET Confidence
 
 SET Evidence = "In the presence of the HDAC6 inhibitor ACY-1215,
 the increased levels of Ac-Lys49 β-catenin had no effect on the
 levels for β-catenin phosphorylated at Ser33, Ser37, and Thr41
 (Figure 3A, B)."
+SET Confidence = "High"
 a(PUBCHEM:53340666) cnc p(HGNC:CTNNB1,pmod(Ph,Ser,33))
 a(PUBCHEM:53340666) cnc p(HGNC:CTNNB1,pmod(Ph,Ser,37))
 a(PUBCHEM:53340666) cnc p(HGNC:CTNNB1,pmod(Ph,Thr,41))
 act(p(HGNC:HDAC6)) cnc p(HGNC:CTNNB1, pmod(Ph,Ser,33))
 act(p(HGNC:HDAC6)) cnc p(HGNC:CTNNB1, pmod(Ph,Ser,37))
 act(p(HGNC:HDAC6)) cnc p(HGNC:CTNNB1, pmod(Ph,Thr,41))
+UNSET Confidence
 
 SET Evidence = "These results suggest that Lys49 acetylation
 increases the ability of CK1α to bind and phosphorylate Ser45
 on β-catenin while preventing GSK3β from phosphorylating its
 target sites Ser33, Ser37, and Thr41."
+SET Confidence = "High"
 p(HGNC:CTNNB1,pmod(Ac,Lys,49)) -> complex(p(HGNC:CTNNB1),p(HGNC:CSNK1A1))
 complex(p(HGNC:CTNNB1),p(HGNC:CSNK1A1)) -> act(p(HGNC:CSNK1A1),ma(kin))
 act(p(HGNC:CSNK1A1),ma(kin)) -> p(HGNC:CTNNB1,pmod(Ph,Ser,45))
@@ -147,63 +163,80 @@ p(HGNC:CTNNB1,pmod(Ph,Ser,45)) -| act(p(HGNC:GSK3B),ma(kin))
 act(p(HGNC:GSK3B),ma(kin)) -> p(HGNC:CTNNB1,pmod(Ph,Ser,33))
 act(p(HGNC:GSK3B),ma(kin)) -> p(HGNC:CTNNB1,pmod(Ph,Ser,37))
 act(p(HGNC:GSK3B),ma(kin)) -> p(HGNC:CTNNB1,pmod(Ph,Thr,41))
+UNSET Confidence
 
 SET Evidence = "Our results show that Lys49 acetylation is
 accompanied by both increased CK1α and GSK3β binding,
 even though only CK1α is able to phosphorylate its target
 residue (Figure 3E)."
+SET Confidence = "High"
 p(HGNC:CTNNB1,pmod(Ac,Lys,49)) -> complex(p(HGNC:CTNNB1),p(HGNC:CSNK1A1))
 p(HGNC:CTNNB1,pmod(Ac,Lys,49)) -> complex(p(HGNC:CTNNB1),p(HGNC:GSK3B))
+UNSET Confidence
 
 SET Evidence = "Lys49 is a known site
 for ubiquitination, which primes β-catenin for degradation by
 the proteasome.[5]"
+SET Confidence = "High"
 p(HGNC:CTNNB1,pmod(Ub,Lys,49)) -> act(p(FPLX:Proteasome))
 act(p(FPLX:Proteasome)) -> deg(p(HGNC:CTNNB1))
+UNSET Confidence
 
 SET Evidence = "When the NPCs were treated with the proteasome
 inhibitor MG-132, there was significant accumulation of
 ubiquitinated β-catenin, along with increase in overall level of
 β-catenin (Figure 4)."
 #462382 - MG-132
+SET Confidence = "High"
 a(PUBCHEM:462382) -| p(FPLX:Proteasome)
 a(PUBCHEM:462382) -> p(HGNC:CTNNB1,pmod(Ub))
 a(PUBCHEM:462382) -> p(HGNC:CTNNB1)
+UNSET Confidence
 
 SET Evidence = "Total ubiquitination levels in cell
 lysates was unaffected by ACY-1215 pretreatment suggesting
 that the effects of ACY-1215 on ubiquitination are specific
 rather than global (Figure 4)."
+SET Confidence = "High"
 a(PUBCHEM:53340666) cnc p(HGNC:CTNNB1,pmod(Ub))
+UNSET Confidence
 
 SET Evidence = "Using immunofluorescence, we found
 that both ACY-1215 and siRNA knockdown of HDAC6
 induced pronounced increases in β-catenin at the plasma
 membrane (Figure 5A, B)."
+SET Confidence = "High"
 a(PUBCHEM:53340666) -> p(HGNC:CTNNB1,loc(GO:"plasma membrane"))
 p(HGNC:HDAC6) -| p(HGNC:CTNNB1,loc(GO:"plasma membrane"))
+UNSET Confidence
 
 SET Evidence = "These cell fractionation studies showed
 that the increase in Ac-Lys49 β-catenin was primarily in the
 membrane/cytoplasmic fraction and not in the nuclear fraction
 (Figure 5C)."
 #when treated with ACY-1215
+SET Confidence = "High"
 a(PUBCHEM:53340666) -> p(HGNC:CTNNB1,pmod(Ac,Lys,49),loc(GO:"plasma membrane"))
 a(PUBCHEM:53340666) -> p(HGNC:CTNNB1,pmod(Ac,Lys,49),loc(GO:cytoplasm))
 a(PUBCHEM:53340666) -| p(HGNC:CTNNB1,pmod(Ac,Lys,49),loc(GO:nucleus))
+UNSET Confidence
 
 SET Evidence = "While overall levels of β-
 catenin bound to N-cadherin did not appear to change in NPCs
 treated with ACY-1215, the pool of β-catenin bound to Ncadherin
 was enriched for Lys49 acetylation (Figure 5D)."
+SET Confidence = "High"
 a(PUBCHEM:53340666) cnc act(p(HGNC:CTNNB1),ma(GO:"cadherin binding"))
 a(PUBCHEM:53340666) -> p(HGNC:CTNNB1,pmod(Ac,Lys,49))
 p(HGNC:CTNNB1,pmod(Ac,Lys,49)) -> act(p(HGNC:CTNNB1,pmod(Ac,Lys,49)),ma(GO:"cadherin binding"))
+UNSET Confidence
 
 SET Evidence = "We show here that increased β-catenin Lys49 acetylation in
 human neuronal cells correlates with an increased localization
 of β-catenin at the plasma membrane."
-p(HGNC:CTNNB1,pmod(Ac,Lys,49)) -> p(HGNC:CTNNB1,loc(GO:"plasma membrane"))
+SET Confidence = "High"
+p(HGNC:CTNNB1,pmod(Ac,Lys,49)) pos p(HGNC:CTNNB1,loc(GO:"plasma membrane"))
+UNSET Confidence
 
 SET CellLine = {"SW480","HCT116"}
 
@@ -211,9 +244,11 @@ SET Evidence = "In the two cancer cell
 lines, there was an abundance of Ac-Lys49 at baseline.[29]
 Activation of the EGF pathway resulted in decreased levels of
 Ac-Lys49, along with increased nuclear staining of β-catenin.[29]"
+SET Confidence = "High"
 path(DOID:cancer) -> p(HGNC:CTNNB1,pmod(Ac,Lys,49))
 bp(GO:"epidermal growth factor receptor signaling pathway") -| p(HGNC:CTNNB1,pmod(Ac,Lys,49))
-bp(GO:"epidermal growth factor receptor signaling pathway") -| p(HGNC:CTNNB1,loc(GO:nucleus))
+bp(GO:"epidermal growth factor receptor signaling pathway") -> p(HGNC:CTNNB1,loc(GO:nucleus))
+UNSET Confidence
 
 UNSET CellLine
 
@@ -222,20 +257,28 @@ undetectable at baseline, and there was no noticeable β-catenin
 staining in the nucleus suggesting that either p300/CBP
 acetylase activity is low or HDAC6 activity is high in NPCs
 relative to the cancer cell lines."
+SET Confidence = "High"
 act(p(HGNC:KAT2B)) -> p(HGNC:CTNNB1,pmod(Ac,Lys,49))
 act(p(HGNC:KAT2B )) -> p(HGNC:CTNNB1,loc(GO:nucleus))
 act(p(HGNC:HDAC6)) -| p(HGNC:CTNNB1,pmod(Ac,Lys,49))
 act(p(HGNC:HDAC6)) -| p(HGNC:CTNNB1,loc(GO:nucleus))
+UNSET Confidence
 
 SET Evidence = "Upon HDAC6 inhibition, Ac-
 Lys49 β-catenin levels increased in NPCs, which was
 accompanied by increased membrane localization of β-catenin."
+SET Confidence = "High"
 p(HGNC:CTNNB1,pmod(Ac,Lys,49)) -> p(HGNC:CTNNB1,loc(GO:nucleus))
+UNSET Confidence
 
 SET Evidence = "It is known
 that Ser33, Ser37, and Thr41 are phosphorylated by GSK3β,
 which creates the binding site for β-TrCP and subsequent
 ubiquitination by the E3 ubiquitin ligase system.[6,7]"
+SET Confidence = "High"
+act(p(HGNC:GSK3B),ma(kin)) -> p(HGNC:CTNNB1,pmod(Ph,Ser,33))
+act(p(HGNC:GSK3B),ma(kin)) -> p(HGNC:CTNNB1,pmod(Ph,Ser,37))
+act(p(HGNC:GSK3B),ma(kin)) -> p(HGNC:CTNNB1,pmod(Ph,Ser,41))
 p(HGNC:CTNNB1,pmod(Ph,Ser,33)) -> complex(p(HGNC:BTRC),p(HGNC:CTNNB1))
 p(HGNC:CTNNB1,pmod(Ph,Ser,37)) -> complex(p(HGNC:BTRC),p(HGNC:CTNNB1))
 p(HGNC:CTNNB1,pmod(Ph,Thr,41)) -> complex(p(HGNC:BTRC),p(HGNC:CTNNB1))
@@ -245,6 +288,7 @@ p(HGNC:CTNNB1,pmod(Ub)) -> deg(p(HGNC:CTNNB1))
 p(HGNC:CTNNB1,pmod(Ph,Ser,33)) -> deg(p(HGNC:CTNNB1))
 p(HGNC:CTNNB1,pmod(Ph,Ser,37)) -> deg(p(HGNC:CTNNB1))
 p(HGNC:CTNNB1,pmod(Ph,Thr,41)) -> deg(p(HGNC:CTNNB1))
+UNSET Confidence
 
 SET Evidence = "Our results in the human NPCs are supportive of this latter
 model as HDAC6 inhibition-induced increase in Lys49
@@ -252,17 +296,21 @@ acetylation was accompanied by increase in Ser45 phosphorylation
 but increased Ser45 phosphorylation was not
 accompanied by increased phosphorylation of Ser33, Ser37,
 and Thr41."
+SET Confidence = "High"
 p(HGNC:HDAC6) -| p(HGNC:CTNNB1,pmod(Ac,Lys,49))
 p(HGNC:CTNNB1,pmod(Ac,Lys,49)) -> p(HGNC:CTNNB1,pmod(Ph,Ser,45))
 p(HGNC:CTNNB1,pmod(Ph,Ser,45)) cnc p(HGNC:CTNNB1,pmod(Ph,Ser,33))
 p(HGNC:CTNNB1,pmod(Ph,Ser,45)) cnc p(HGNC:CTNNB1,pmod(Ph,Ser,37))
 p(HGNC:CTNNB1,pmod(Ph,Ser,45)) cnc p(HGNC:CTNNB1,pmod(Ph,Thr,41))
+UNSET Confidence
 
 SET Evidence = "We also found that HDAC6 inhibitor-mediated
 increase in Lys49 acetylation and Ser45 phosphorylation led to
 decreased ubiquitination in the presence of proteasomal
 inhibition."
+SET Confidence = "High"
 p(HGNC:HDAC6) -| p(HGNC:HDAC6,pmod(Ac,Lys,49))
 p(HGNC:HDAC6) -| p(HGNC:HDAC6,pmod(Ac,Ser,45))
 p(HGNC:HDAC6,pmod(Ac,Lys,49)) -| p(HGNC:CTNNB1,pmod(Ub))
 p(HGNC:HDAC6,pmod(Ac,Ser,45)) -| p(HGNC:CTNNB1,pmod(Ub))
+UNSET Confidence
