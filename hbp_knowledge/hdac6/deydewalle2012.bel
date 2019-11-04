@@ -59,8 +59,8 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 # DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
 DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
-# DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -76,61 +76,65 @@ SET Citation = {"PubMed", "22372633"}
 SET Evidence = "Pharmacological inhibition or downregulation of
 HDAC6 in cellular and animal models increases acetylated
 tubulin abundance (6,8–13)."
+SET Confidence = "High"
 p(HGNC:HDAC6) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
+UNSET Confidence
 
 SET Evidence = "The Akt-dependent glycogen synthase kinase-3β (GSK-3β)
 increases the deacetylase activity of HDAC6 on tubulin as
 shown in hippocampal neurons (Figure 2)(12)."
+SET Confidence = "High"
 SET MeSHAnatomy = {"Brain","Hippocampus"}
 p(HGNC:GSK3B) -> act(p(HGNC:HDAC6),ma(GO:"deacetylase activity"))
 act(p(HGNC:HDAC6),ma(GO:"deacetylase activity")) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Alternatively, the tubulin polymerization-promoting
 protein (TPPP/p25) is an unstructured protein that aligns
 along the microtubule network and affects microtubule
 dynamics and cell motility (14)."
-p(HGNC:TPPP) reg act(a(MESH:Microtubules))
-p(HGNC:TPPP) reg bp(GO:"cell motility")
+SET Confidence = "High"
+p(HGNC:TPPP) -- act(a(MESH:Microtubules))
+p(HGNC:TPPP) -- bp(GO:"cell motility")
+UNSET Confidence
 
 SET Evidence = "Binding of TPPP/p25
 to HDAC6 directly inhibits the deacetylating function
 of HDAC6 in HeLa cells (Figure 2) (14)."
+SET Confidence = "High"
 SET CellLine = "HeLa"
 complex(p(HGNC:TPPP),p(HGNC:HDAC6)) -| act(p(HGNC:HDAC6),ma(GO:"deacetylase activity"))
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "Finally,
 the microtubule-associated protein Tau, which ensures
 stabilization of the microtubular network, also binds to
 HDAC6 and decreases the deacetylase activity of HDAC6
 in neuronal cell lines (Figure 2) (15,16)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 complex(p(HGNC:HDAC6),p(HGNC:MAPT)) -| act(p(HGNC:HDAC6),ma(GO:"deacetylase activity"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Recently, it has been found
 that Tau is deacetylated mainly by sirtuin-1, a class III
 HDAC, and to a lesser extent by sirtuin-2 and HDAC6
 (17)."
+SET Confidence = "High"
 p(HGNC:SIRT1) -| p(HGNC:MAPT,pmod(Ac))
 p(HGNC:SIRT2) -| p(HGNC:MAPT,pmod(Ac))
 p(HGNC:HDAC6) -| p(HGNC:MAPT,pmod(Ac))
-
-SET Evidence = "It has been proposed that HDAC6
-might regulate axonal transport either directly by binding
-to motor proteins or indirectly by altering the acetylation
-state of microtubules."
-p(HGNC:HDAC6) reg bp(GO:"axonal transport")
-complex(p(HGNC:HDAC6),p(MESH:"Molecular Motor Proteins")) reg bp(GO:"axonal transport")
-p(HGNC:HDAC6) -- p(MESH:Microtubules,pmod(Ac))
-p(MESH:Microtubules,pmod(Ac)) -- bp(GO:"axonal transport")
+UNSET Confidence
 
 SET Evidence = "Moreover, inhibition or knockdown of
 HDAC6 in cultured neurons increases the axonal transport
 of mitochondria by increasing acetylated tubulin amounts
 and the concomitant recruitment of motor protein dynein
 and kinesin-1 to microtubules (10,12)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 p(HGNC:HDAC6) neg bp(GO:"axonal transport of mitochondrion")
 p(HGNC:HDAC6) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
@@ -138,115 +142,141 @@ p(HGNC:HDAC6) -| composite(p(MESH:Dyneins),a(MESH:Microtubules),p(MESH:Kinesin))
 p(INTERPRO:"Alpha tubulin",pmod(Ac)) pos bp(GO:"axonal transport of mitochondrion")
 composite(p(MESH:Dyneins),a(MESH:Microtubules),p(MESH:Kinesin)) pos bp(GO:"axonal transport of mitochondrion")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Microtubules containing high levels of
 acetylated tubulin are more resistant to drug-induced
 depolymerization indicating that tubulin acetylation is
 a marker for stable microtubules in fibroblasts (8)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Microtubules"
 p(INTERPRO:"Alpha tubulin",pmod(Ac)) -|  bp(GO:"microtubule depolymerization")
 SET MeSHAnatomy = "Fibroblasts"
-p(INTERPRO:"Alpha tubulin",pmod(Ac)) -- a(MESH:Microtubules)
+p(INTERPRO:"Alpha tubulin",pmod(Ac)) -> a(MESH:Microtubules)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Overexpression of HDAC6 induces depolymerization and
 subsequent deacetylation, indicating that tubulin dimers
 and monomers are deacetylated, while acetylation only
 occurs in polymerized microtubules (8)."
+SET Confidence = "High"
 p(HGNC:HDAC6) pos bp(GO:"microtubule depolymerization")
 p(HGNC:HDAC6) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
 p(HGNC:HDAC6) -| complex(p(INTERPRO:"Alpha tubulin",pmod(Ac)),p(INTERPRO:"Alpha tubulin",pmod(Ac)))
 p(HGNC:HDAC6) -> p(MESH:Microtubules,pmod(Ac))
+UNSET Confidence
 
 SET Evidence = "Moreover, inhibition or downregulation of
 HDAC6 results in reduced axonal length and decreased
 growth and shrinkage velocity of microtubules (9,11)."
 #these changes in microtubule are due to EB-1 and Arp1 proteins
+SET Confidence = "High"
 p(HGNC:HDAC6) -| p(HGNC:MAPRE1)
 p(HGNC:HDAC6) -| p(HGNC:ACTR1A)
 SET MeSHAnatomy = "Axons"
 p(HGNC:MAPRE1) -> bp(MESH:Growth)
 p(HGNC:ACTR1A) -> bp(MESH:Growth)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Upon stimulation with growth
 factors, HDAC6 translocates to actin-enriched membrane
 ruffles where it binds and deacetylates cortactin (Figure 2)
 (19,20)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Microtubules"
 a(CHEBI:"growth hormone") -> p(HGNC:HDAC6,loc(GO:membrane))
 SET MeSHAnatomy = "Cell Membrane"
 complex(p(HGNC:HDAC6),p(HGNC:CTTN)) -| p(HGNC:CTTN,pmod(Ac))
 UNSET MeSHAnatomy
-
+UNSET Confidence
 
 SET Evidence = "The latter protein is a cortical actin-binding protein
 and promotes the polymerization and rearrangement of
 the actin cytoskeleton, especially the actin cortex around
 the cellular periphery."
 #latter protein - CTTN
+SET Confidence = "High"
 p(HGNC:CTTN) -> bp(GO:"actin filament reorganization")
 p(HGNC:CTTN) -> bp(GO:"actin filament organization")
+UNSET Confidence
 
 SET Evidence = "Deacetylation of cortactin changes
 its binding capacity to F-actin, eventually altering actin
 polymerization (20)."
-p(HGNC:CTTN,pmod(Ac)) -> act(p(HGNC:CTTN),ma(GO:"actin filament binding"))
+SET Confidence = "High"
+p(HGNC:CTTN,pmod(Ac)) -- act(p(HGNC:CTTN),ma(GO:"actin filament binding"))
 act(p(HGNC:CTTN),ma(GO:"actin filament binding")) reg bp(GO:"actin filament organization")
+UNSET Confidence
 
 SET Evidence = "Acetylation of PRX increases their reducing activity,
 their resistance to superoxidation and to transition to
 high-molecular mass complexes."
+SET Confidence = "High"
 p(HGNC:PRX,pmod(Ac)) -> act(p(HGNC:PRX),ma(GO:"antioxidant activity"))
+UNSET Confidence
 
 SET Evidence = "Inhibition of HDAC6
 deacetylase activity with a consequent accumulation of
 acetylated PRX could lead to a beneficial increase in
 antioxidant activity (21)."
+SET Confidence = "High"
 act(p(HGNC:HDAC6),ma(GO:"deacetylase activity")) -| p(HGNC:PRX,pmod(Ac))
+UNSET Confidence
 
 SET Evidence = "In HDAC6-deficient
 regulatory T cells, HSF1-regulated genes including HSP90
 were upregulated (25,26)."
+SET Confidence = "High"
 SET MeSHAnatomy = "T-Lymphocytes, Regulatory"
 p(HGNC:HDAC6) -| p(HGNC:HSF1)
 p(HGNC:HSF1) -> p(HGNCGENEFAMILY:"Heat shock 90kDa proteins")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "HDAC6 senses the presence of
 ubiquitinated aggregates and consequently induces the
 expression of major cellular chaperones by triggering
 the dissociation of a repressive HDAC6/HSF1/HSP90
 complex and subsequent HSF1 activation (27)."
+SET Confidence = "High"
 p(HGNC:HDAC6) -| complex(p(HGNC:HDAC6),p(HGNC:HSF1),p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"))
 complex(p(HGNC:HDAC6),p(HGNC:HSF1),p(HGNCGENEFAMILY:"Heat shock 90kDa proteins")) -| act(p(HGNC:HSF1))
 p(HGNC:HDAC6) -> act(p(HGNC:HSF1))
+UNSET Confidence
 
 SET Evidence = "Inhibition
 of HDAC6 also induces a reduction in binding of HSP90
 to vascular endothelial growth factor receptor 1 and 2
 (VEGFR1/Flt1 and VEGFR2/Flk1, respectively), followed
 by increased binding of HSP70 to these receptors (28)."
+SET Confidence = "High"
 p(HGNC:HDAC6) -| act(p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),ma(GO:"vascular endothelial growth factor receptor 1 binding"))
 act(p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),ma(GO:"vascular endothelial growth factor receptor 1 binding")) -> act(p(HGNCGENEFAMILY:"Heat shock 70kDa proteins"),ma(GO:"vascular endothelial growth factor receptor 1 binding"))
 p(HGNC:HDAC6) -| act(p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),ma(GO:"vascular endothelial growth factor receptor 1 binding"))
 act(p(HGNCGENEFAMILY:"Heat shock 90kDa proteins"),ma(GO:"vascular endothelial growth factor receptor 2 binding")) -> act(p(HGNCGENEFAMILY:"Heat shock 70kDa proteins"),ma(GO:"vascular endothelial growth factor receptor 2 binding"))
+UNSET Confidence
 
 SET Evidence = "Knockdown of HDAC6 leads to a depletion of VEGFR1/Flt1
 and VEGFR2/Flk1 (28)."
+SET Confidence = "High"
 p(HGNC:HDAC6) -| p(HGNC:FLT1)
 p(HGNC:HDAC6) -| p(HGNC:KDR)
+UNSET Confidence
 
 SET Evidence = "Genetic ablation of HDAC6 leads to
 hyperacetylation of microtubules and HSP90 without
 any obvious abnormal effects on development and
 survival of these mice (33)."
+SET Confidence = "High"
 SET Species = "10090"
 p(HGNC:HDAC6) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
 p(HGNC:HDAC6) -| p(HGNCGENEFAMILY:"Heat shock 90kDa proteins",pmod(Ac))
 p(HGNC:HDAC6) cnc bp(MESH:"Cell Survival")
 p(HGNC:HDAC6) cnc bp(MESH:Growth)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Another strain of HDAC6
 knockout mice demonstrate ubiquitin-positive aggregates
@@ -254,6 +284,7 @@ and apoptotic cell death, both pathogenic hallmarks of
 neurodegeneration, in the brain from 6 months of age
 on (34)."
 #6 months
+SET Confidence = "High"
 SET Species = "10090"
 p(HGNC:HDAC6) -| p(CONSO:"protein aggregates",pmod(Ub))
 p(HGNC:HDAC6) -| bp(GO:"programmed cell death")
@@ -261,144 +292,182 @@ SET MeSHAnatomy = "Brain"
 p(HGNC:HDAC6) -| path(DOID:"neurodegenerative disease")
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "These chaperones are intrinsically associated
 with ubiquitinated misfolded proteins that are prone
 to aggregation."
 #HSF1/HSP90 complex
+SET Confidence = "High"
 complex(p(HGNC:HSF1),p(HGNCGENEFAMILY:"Heat shock 90kDa proteins")) -> p(MESH:Proteins,pmod(CONSO:misfolded),pmod(Ub))
 p(MESH:Proteins,pmod(CONSO:misfolded)) -> p(CONSO:"protein aggregates")
+UNSET Confidence
 
 SET Evidence = "VCP/p97 promotes ubiquitin
 chain turnover and protein degradation through the UPS,
 whereas HDAC6 favors the accumulation of ubiquitinated
 proteins and subsequent perinuclear aggregation
 (27,40,41)."
+SET Confidence = "High"
 p(HGNC:VCP) -| bp(GO:"protein ubiquitination")
 bp(GO:"protein ubiquitination") -> bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(MESH:Proteins))
 p(HGNC:HDAC6) -> bp(GO:"protein ubiquitination")
 bp(GO:"protein ubiquitination") -> p(CONSO:"protein aggregates")
+UNSET Confidence
 
 SET Evidence = "An elegant
 study demonstrated that HDAC6 associates with the
 dynein motor protein complex and recruits ubiquitinated
 protein aggregates to dynein (Figure 3) (39)."
+SET Confidence = "High"
 complex(p(HGNC:HDAC6),p(MESH:Dyneins)) -> complex(p(CONSO:"protein aggregates"),a(MESH:Dyneins))
+UNSET Confidence
 
 SET Evidence = "Pharmacological
 inhibition and ablation of HDAC6 interferes with
 the recruitment of Atg-8/LC3 to the aggresome (Figure 3)
 (37)."
-p(HGNC:HDAC6) -- p(HGNC:MAP1LC3A,loc(GO:aggresome))
+SET Confidence = "High"
+p(HGNC:HDAC6) -> p(HGNC:MAP1LC3A,loc(GO:aggresome))
+UNSET Confidence
 
 SET Evidence = "HDAC6 also stimulates autophagosome–lysosome
 fusion by promoting F-actin remodeling in a cortactin-dependent
 manner (Figure 3) (34)."
+SET Confidence = "High"
 p(HGNC:HDAC6) -> act(p(HGNC:CTTN),ma(GO:"actin filament binding"))
 act(p(HGNC:CTTN),ma(GO:"actin filament binding")) -> bp(GO:"actin filament reorganization")
 bp(GO:"actin filament reorganization") -> bp(GO:"autophagosome-lysosome fusion")
 p(HGNC:HDAC6) -> bp(GO:"autophagosome-lysosome fusion")
+UNSET Confidence
 
 SET Evidence = "Conversely, HDAC6 deficiency leads to failure of
 autophagosome maturation, protein aggregate build-up
 and neurodegeneration (34)."
+SET Confidence = "High"
 p(HGNC:HDAC6) pos bp(GO:"autophagosome maturation")
-p(HGNC:HDAC6) -> p(CONSO:"protein aggregates")
-p(HGNC:HDAC6) -> path(DOID:"neurodegenerative disease")
+p(HGNC:HDAC6) -| p(CONSO:"protein aggregates")
+p(HGNC:HDAC6) -| path(DOID:"neurodegenerative disease")
+UNSET Confidence
 
 SET Evidence = "Like autophagy, SGs are formed when
 the UPS is impaired, suggesting that both autophagy
 and translational suppression occur simultaneously (43)."
 #stress granule
+SET Confidence = "High"
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") neg bp(GO:"stress granule assembly")
 bp(GO:autophagy) neg bp(GO:"stress granule assembly")
+UNSET Confidence
 
 SET Evidence = "HDAC6 appears to colocalize and interact with Ras-GAP
 SH3 domain-binding protein (G3BP), an SG marker, indicating
 that HDAC6 might contribute to SG formation (Figure
 3) (42)."
+SET Confidence = "High"
 bp(GO:"stress granule assembly") -> p(HGNC:G3BP1)
 composite(p(HGNC:G3BP1),p(HGNC:HDAC6)) -> bp(GO:"stress granule assembly")
+UNSET Confidence
 
 SET Evidence = "Pharmacological inhibition
 or genetic disruption of HDAC6 indeed abolishes SG
 formation (42)."
+SET Confidence = "High"
 p(HGNC:HDAC6) -> bp(GO:"stress granule assembly")
+UNSET Confidence
 
 SET Evidence = "Blocking
 the dynein motor proteins does not affect the localization
 of HDAC6, while it does impair SG formation (42)."
+SET Confidence = "High"
 p(MESH:Dyneins) cnc p(HGNC:HDAC6)
 p(MESH:Dyneins) -> bp(GO:"stress granule assembly")
+UNSET Confidence
 
 SET Evidence = "Silencing either TDP-43 or FUS/TLS
 reduces HDAC6 mRNA levels, indicating a crucial link
 between these RNA-binding proteins and HDAC6 (44)."
+SET Confidence = "High"
 p(HGNC:TARDBP) -> r(HGNC:HDAC6)
 p(HGNC:FUS) -> r(HGNC:HDAC6)
+UNSET Confidence
 
 SET Evidence = "Finally, HDAC6 overexpression is able to rescue the phenotype
 of a Drosophila model of spinobulbar muscular
 atrophy, indicating that HDAC6 might partially counteract
 the pathogenesis of neurodegenerative disorders characterized
 by an impaired UPS (36)."
+SET Confidence = "High"
 SET Species = "7227"
 p(HGNC:HDAC6) -| path(MESH:"Bulbo-Spinal Atrophy, X-Linked")
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") neg path(DOID:"neurodegenerative disease")
 p(HGNC:HDAC6) neg path(DOID:"neurodegenerative disease")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "HDAC6 thus might be a promising
 therapeutic target for ciliopathies that give rise to a wide
 variety of symptoms such as multiorgan failure with
 variable central nervous system involvement (46–48)."
+SET Confidence = "High"
 p(HGNC:HDAC6) -| path(DOID:ciliopathy)
+UNSET Confidence
 
 SET Evidence = "Although HDAC6 appears
 to be upregulated, acetylated tubulin levels are increased
 in neurons containing neurofibrillary Tau pathology (15,16)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 p(CONSO:"Tau fibrils") -> p(HGNC:HDAC6)
 p(CONSO:"Tau fibrils") -> p(INTERPRO:"Alpha tubulin",pmod(Ac))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Inhibition of the proteasome system in cellular models
 potentiates the interaction between HDAC6 and Tau, and
 facilitates perinuclear aggregation of Tau independently of
 the deacetylase activity (15)."
+SET Confidence = "High"
 complex(GO:"proteasome complex") -| composite(p(HGNC:HDAC6),p(HGNC:MAPT))
 composite(p(HGNC:HDAC6),p(HGNC:MAPT)) -> p(CONSO:"Tau aggregates")
 act(p(HGNC:HDAC6),ma(GO:"deacetylase activity")) cnc p(CONSO:"Tau aggregates")
+UNSET Confidence
 
 SET Evidence = "Cellular models demonstrated that
 HDAC6 expression increases and colocalizes with mutant
 α-synuclein, one of the genetic causes of familial PD, in
 the perinuclear region forming aggresome-like structures
 (49)."
+SET Confidence = "High"
 p(HGNC:SNCA,var("?")) -> p(HGNC:HDAC6,loc(GO:"perinuclear region of cytoplasm"))
 p(HGNC:SNCA,var("?")) -> complex(a(HGNC:HDAC6),p(HGNC:SNCA),loc(GO:"perinuclear region of cytoplasm"))
+UNSET Confidence
 
 SET Evidence = "HDAC6 deficiency blocks the formation of aggregates
 and interferes with autophagy (49)."
+SET Confidence = "High"
 #aggregates of SNCA
 p(HGNC:HDAC6) -> p(CONSO:"alpha-synuclein aggregates")
 p(HGNC:HDAC6) -- bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "Parkin, associated
 with early-onset PD, promotes mitophagy by catalyzing
 mitochondrial ubiquitination (51). This recruits ubiquitin binding
 autophagic components HDAC6 and p62, leading
 to mitochondrial clearance (51)."
+SET Confidence = "High"
 SET MeSHDisease = "Parkinson Disease"
 p(HGNC:PRKN) pos bp(GO:mitophagy)
 complex(p(HGNC:HDAC6),p(HGNC:SQSTM1),a(MESH:Mitochondria)) -> deg(a(MESH:Mitochondria))
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "In a Drosophila model
 for PD, depletion of HDAC6 significantly increases the
 loss of dopaminergic neurons, retinal degeneration and
 locomotor dysfunction (52)."
+SET Confidence = "High"
 SET Species = "7227"
 SET MeSHDisease = "Parkinson Disease"
 p(HGNC:HDAC6) pos bp(GO:"synaptic transmission, dopaminergic")
@@ -406,16 +475,18 @@ p(HGNC:HDAC6) neg path(DOID:"retinal degeneration")
 p(HGNC:HDAC6) pos bp(MESH:Locomotion)
 UNSET MeSHDisease
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Conversely, overexpression
 of HDAC6 promotes inclusion formation and suppresses
 the α-synuclein-induced loss of neurons and retinal
 degeneration (52)."
 #SNCA mutant refered
+SET Confidence = "High"
 p(HGNC:HDAC6) -> p(HGNC:SNCA,loc(GO:"inclusion body"))
 p(HGNC:SNCA,var("?")) neg bp(GO:"synaptic transmission, dopaminergic")
 p(HGNC:SNCA,var("?")) pos path(DOID:"retinal degeneration")
-
+UNSET Confidence
 SET MeSHDisease = "Huntington Disease"
 
 SET Evidence = "In
@@ -423,16 +494,20 @@ vitro models of HD demonstrated that HDAC6 inhibition
 restores acetylated tubulin abundance and subsequently
 the axonal transport defects observed in diseased states
 (10)."
+SET Confidence = "High"
 p(HGNC:HDAC6) -| p(INTERPRO:"Alpha tubulin",pmod(Ac))
 p(HGNC:HDAC6) neg bp(GO:"axonal transport")
+UNSET Confidence
 
 SET Evidence = "HDAC6 deficiency in HD
 mice also does not influence the disease progression at
 the behavioral level (53)."
 #HD disease
+SET Confidence = "High"
 SET Species = "10090"
 p(HGNC:HDAC6) cnc path(DOID:"Huntington's disease")
 UNSET Species
+UNSET Confidence
 
 UNSET MeSHDisease
 
@@ -440,38 +515,50 @@ SET Evidence = "This notion is supported by
 the association of mutations in TDP-43 and FUS/TLS
 as a cause of familial ALS, which form a complex and
 bind to HDAC6 mRNA in SGs."
+SET Confidence = "High"
 p(HGNC:TARDBP,var("?")) -> complex(p(HGNC:TARDBP),r(HGNC:HDAC6),loc(GO:"cytoplasmic stress granule"))
 p(HGNC:FUS,var("?")) -> complex(p(HGNC:FUS),r(HGNC:HDAC6),loc(GO:"cytoplasmic stress granule"))
+UNSET Confidence
 
 SET Evidence = "Treatment with an HDAC inhibitor also delays
 disease progression and increases survival in a mouse
 model of ALS, further supporting the notion that HDAC6 is
 a central enzyme in the disease (58)."
+SET Confidence = "High"
 SET Species = "10090"
 p(HGNC:HDAC6) pos path(DOID:"amyotrophic lateral sclerosis")
 p(HGNC:HDAC6) -| bp(MESH:"Cell Survival")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Moreover, rapid muscle
 denervation due to axonal loss and defects in axonal
 transport is observed in cellular and animal models of ALS
 in which HDAC6 also might play a role (18,59)."
+SET Confidence = "High"
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 p(HGNC:HDAC6) pos path(MESH:"Muscle Denervation")
 p(HGNC:HDAC6) -| a(MESH:Axons)
 a(MESH:Axons) neg path(MESH:"Muscle Denervation")
 p(HGNC:HDAC6) neg bp(GO:"axonal transport")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Although the exact
 link between mutant HSPB1 and HDAC6 remains
 elusive, pharmacological inhibition of HDAC6 rescues the
 phenotype of mutant HSPB1 mice and restores the axonal
 transport defects (13)."
+SET Confidence = "High"
 SET Species = "10090"
 p(HGNC:HDAC6) -> p(HGNC:HSPB1,var("?"))
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Increased expression of HDAC6 is observed after injury
 to neurons (66)."
+SET Confidence = "High"
+SET Cell = "neuron"
 path(MESH:"Brain Injuries") -> p(HGNC:HDAC6)
+UNSET Cell
+UNSET Confidence
