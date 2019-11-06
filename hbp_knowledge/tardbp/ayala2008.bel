@@ -62,7 +62,7 @@ DEFINE ANNOTATION Cells         AS PATTERN "^BTO:\d{7}$"
  DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
  DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 # DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -76,37 +76,49 @@ DEFINE ANNOTATION Cells         AS PATTERN "^BTO:\d{7}$"
 SET Citation = {"PubMed", "18305152"}
 
 SET Evidence = "TDP-43 inhibits exon recognition during splicing upon recruitment to the 3' splice site of the cystic fibrosis transmembrane conductance regulator (CFTR) and apolipoprotein AII transcripts via a sequence of GU repeats (2–5)."
+SET Confidence = "High"
 act(p(HGNC:TARDBP), ma(GO:"GU repeat RNA binding")) -> composite(p(HGNC:TARDBP), p(HGNC:CFTR))
 act(p(HGNC:TARDBP), ma(GO:"GU repeat RNA binding")) -> composite(p(HGNC:TARDBP), p(HGNC:APOA2))
 act(p(HGNC:TARDBP), ma(GO:"GU repeat RNA binding")) -| complex(GO:"exon-exon junction complex")
 complex(GO:"exon-exon junction complex") -> bp(GO:"RNA splicing")
 act(p(HGNC:TARDBP), ma(GO:"GU repeat RNA binding")) -| bp(GO:"RNA splicing")
+UNSET Confidence
 
 SET Evidence = "TDP-43 also has been implicated in the transcription regulation of HIV and the spermatid-specific gene SP-10 through promoter association (7, 8)."
+SET Confidence = "High"
 SET MeSHDisease = "HIV Infections"
 act(p(HGNC:TARDBP), ma(GO:"core promoter binding")) reg bp(GO:"viral transcription")
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "More recently, TDP-43 was identified as the main ubiquitinated component of cytoplasmic inclusions in neurodegenerative diseases, specifically frontotemporal lobar degeneration (FTLD) and amyotrophic lateral sclerosis (ALS) (9, 10)."
+SET Confidence = "High"
 SET MeSHDisease = {"Frontotemporal Lobar Degeneration", "Amyotrophic Lateral Sclerosis"}
 p(HGNC:TARDBP) -> p(MESH:"Inclusion Bodies", pmod(Ub))
 UNSET MeSHDisease
 path(OMIT:0026893) isA path(EFO:"neurodegenerative disease")
 path(EFO:"amyotrophic lateral sclerosis") isA path(EFO:"neurodegenerative disease")
+UNSET Confidence
 
 SET Evidence = "Abnormal aggregation of TDP-43 in the cytoplasm now is thought to define a class of frontotemporal dementias termed TDP-43 proteinopathies."
+SET Confidence = "High"
 p(CONSO:"TDP-43 aggregates", loc(GO:cytoplasm)) -- path(DOID:"frontotemporal dementia")
 p(CONSO:"TDP-43 aggregates", loc(GO:cytoplasm)) -- path(MESH:"TDP-43 Proteinopathies")
 path(MESH:"TDP-43 Proteinopathies") isA path(DOID:"frontotemporal dementia")
+UNSET Confidence
 
 #experiment performed on HeLa cells
 
 SET CellLine = "HeLa"
 
 SET Evidence = "The data obtained indicated altered levels of several cell proliferation factors in TDP-43-silenced cells."
+SET Confidence = "High"
 p(HGNC:TARDBP) reg bp(MESH:"Cell Proliferation")
+UNSET Confidence
 
 SET Evidence = "Table 1 lists 16 of these proteins whose functions have been associated with retinoblastoma protein (pRb) activity."
+SET Confidence = "Low"
+#this Evidence should be removed
 p(HGNC:CDK6) -- act(p(HGNC:RB1))
 p(HGNC:NAP1L1) -- act(p(HGNC:RB1))
 p(HGNC:CDK2) -- act(p(HGNC:RB1))
@@ -123,17 +135,20 @@ p(HGNC:UBE2C) -- act(p(HGNC:RB1))
 p(HGNC:SKP2) -- act(p(HGNC:RB1))
 p(HGNC:HDAC1) -- act(p(HGNC:RB1))
 p(HGNC:E2F8) -- act(p(HGNC:RB1))
+UNSET Confidence
 
 SET Evidence = "The tumor suppressor pRb is essential for the control of cell cycle progression, cellular differentiation, and maintenance of genome integrity"
+SET Confidence = "High"
 p(HGNC:RB1) reg bp(GO:"cell cycle")
 p(HGNC:RB1) reg bp(GO:"cell differentiation")
 p(HGNC:RB1) reg bp(GO:"chromosome organization")
+UNSET Confidence
 
-
-##############how to code during G1 phase?
 SET Evidence = "Inactivation of pRb occurs through its gradual phosphorylation by Cdks during the G1 phase of the cell division
 cycle resulting in the activation of transcription factors that promote cell proliferation and enable transition on to the S
 phase (see ref. 11 for review)."
+SET Confidence = "High"
+#during G1 phase of cell division cycle
 p(HGNCGENEFAMILY:"Cyclin dependent kinases") -> p(HGNC:RB1, pmod(Ph))
 p(HGNC:RB1, pmod(Ph)) -| act(p(HGNC:RB1))
 p(HGNC:RB1, pmod(Ph)) -> act(p(MESH:"Transcription Factors"))
@@ -141,9 +156,11 @@ act(p(MESH:"Transcription Factors")) -> bp(GO:"cell division")
 bp(GO:"cell division") -> bp(GO:"cell cycle G1/S phase transition")
 act(p(MESH:"Transcription Factors")) ->  bp(GO:"cell cycle G1/S phase transition")
 p(HGNC:RB1, pmod(Ph)) -> bp(GO:"cell cycle G1/S phase transition")
+UNSET Confidence
 
 SET Evidence = "Our RNA microarray analyses showed altered levels of transcripts coding for proteins whose functions are related to the control of cell cycle progression (Cdk6, POLD4, cyclin B1, Cdk2, UBE2C, and SKP2)"
 #in case of TDP-43 silenced cells
+SET Confidence = "High"
 p(HGNC:TARDBP) reg r(HGNC:CDK6)
 p(HGNC:TARDBP) reg r(HGNC:POLD4)
 p(HGNC:TARDBP) reg r(HGNC:CCNB1)
@@ -157,35 +174,49 @@ p(HGNC:CCNB1) reg bp(GO:"cell cycle")
 p(HGNC:CDK2) reg bp(GO:"cell cycle")
 p(HGNC:UBE2C) reg bp(GO:"cell cycle")
 p(HGNC:SKP2) reg bp(GO:"cell cycle")
+UNSET Confidence
 
 SET Evidence = "In addition, some of these factors are known to either directly interact with pRb (e.g., HDAC1, RBBP4, and CRI1), or act in response to pRb modulation (e.g., E2F8 and NAP1L1) (12–22)."
-composite(p(HGNC:RB1),p(HGNC:HDAC1))
-composite(p(HGNC:RB1),p(HGNC:RBBP4))
-composite(p(HGNC:RB1),p(HGNC:EID1))
+SET Confidence = "Medium"
+composite(p(HGNC:RB1),p(HGNC:HDAC1)) -> complex(p(HGNC:RB1),p(HGNC:HDAC1))
+composite(p(HGNC:RB1),p(HGNC:RBBP4)) -> complex(p(HGNC:RB1),p(HGNC:RBBP4))
+composite(p(HGNC:RB1),p(HGNC:EID1)) -> complex(p(HGNC:RB1),p(HGNC:EID1))
 p(HGNC:RB1) reg p(HGNC:E2F8)
 p(HGNC:RB1) reg p(HGNC:NAP1L1)
+UNSET Confidence
 
 SET Evidence = "Among the transcripts whose levels were altered upon TDP-43 loss, the levels of Cdk6 showed the highest increase in the absence of TDP-43, specifically 10-fold"
+SET Confidence = "High"
 p(HGNC:TARDBP) =| p(HGNC:CDK6)
+UNSET Confidence
 
 SET Evidence = "Cdk6 belongs to the family of Cdks and along with Cdk4 regulates the early G1 phase transition during cell growth (23,24)."
+SET Confidence = "High"
 composite(p(HGNC:CDK6), p(HGNC:CDK4)) -> bp(GO:"regulation of G0 to G1 transition")
+UNSET Confidence
 
 SET Evidence = "In addition to pRb, Cdk6 substrates include pRb2/p130, histone H1, and Bcl-2 (25–27)."
-composite(p(HGNC:CDK6),p(HGNC:RB1))
-composite(p(HGNC:CDK6),p(HGNC:RBL2))
-composite(p(HGNC:CDK6),p(NCBIGENE:3005))
-composite(p(HGNC:CDK6),p(HGNC:BCL2))
+SET Confidence = "Medium"
+composite(p(HGNC:CDK6),p(HGNC:RB1)) -> complex(p(HGNC:CDK6),p(HGNC:RB1))
+composite(p(HGNC:CDK6),p(HGNC:RBL2)) -> complex(p(HGNC:CDK6),p(HGNC:RBL2))
+composite(p(HGNC:CDK6),p(NCBIGENE:3005)) -> complex(p(HGNC:CDK6),p(NCBIGENE:3005))
+composite(p(HGNC:CDK6),p(HGNC:BCL2)) -> complex(p(HGNC:CDK6),p(HGNC:BCL2))
+UNSET Confidence
 
 SET Evidence = "The appropriate regulation of Cdk6 activity determines differentiation of many cell types and a variety of tumors have been associated with elevated levels of Cdk6 expression (28–33)."
+SET Confidence = "High"
 act(p(HGNC:CDK6)) reg bp(GO:"cell differentiation")
 p(HGNC:CDK6) -- path(EFO:neoplasm)
+UNSET Confidence
 
 SET Evidence = "In agreement with the microarray results, we obtained a significant increase in Cdk6 protein and transcript in response to TDP-43 loss."
+SET Confidence = "High"
 p(HGNC:TARDBP) =| g(HGNC:CDK6)
 p(HGNC:TARDBP) =| p(HGNC:CDK6)
+UNSET Confidence
 
 SET Evidence = "Although depletion of TDP-43 leads to Cdk6 up-regulation in human cells, loss of TDP-43 has no effect on Cdk6 protein levels in chicken cells (DF-1) (Fig. 2B)."
+SET Confidence = "High"
 SET Species = "9606"
 p(HGNC:TARDBP) =| p(HGNC:CDK6)
 UNSET Species
@@ -194,80 +225,105 @@ SET CellLine = "UMNSAH/DF-1 cell"
 p(HGNC:TARDBP) cnc p(HGNC:CDK6)
 UNSET CellLine
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Immunoblot analysis showed that TDP-43 silencing resulted in a 7 and 6-fold increase in the phosphorylation of pRb and pRb2/p130, respectively (Fig. 3A)."
 #in human osteosarcoma U2OS cells.
+SET Confidence = "High"
 SET Species = "9606"
 SET CellLine = "U2OS"
 p(HGNC:TARDBP) =| p(HGNC:RB1, pmod(Ph))
 p(HGNC:TARDBP) =| p(HGNC:RBL2, pmod(Ph))
 UNSET CellLine
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "These results indicate that the higher intensity of the pRb signals (Fig. 3A, lanes 1 and 2) in the absence of TDP-43 were primarily attributable to increased levels of phosphorylation, corresponding to the increase in Cdk6 levels in these cells."
+SET Confidence = "High"
 p(HGNC:TARDBP) =| p(HGNC:RB1)
 p(HGNC:CDK6) => p(HGNC:RB1, pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "Moreover, pRb or pRb2/p130 phosphorylation levels did not change after depletion of TDP-43 in chicken embryo
 fibroblasts, where Cdk6 levels are unresponsive to TDP-43 silencing (SI Fig. 7)."
+SET Confidence = "High"
 SET Species = "9031"
 SET Cell = "embryonic fibroblast"
 p(HGNC:TARDBP) cnc p(HGNC:RB1, pmod(Ph))
 p(HGNC:TARDBP) cnc p(HGNC:RBL2, pmod(Ph))
 UNSET Cell
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "U2OS cells showed an alteration of the cell cycle pattern after removal of TDP-43 (Fig. 3B) resulting in a 60% decrease of cells in G0/G1 accompanied by a corresponding increase in S and G2/M cells."
+SET Confidence = "High"
 SET CellLine = "U2OS"
 p(HGNC:TARDBP) reg bp(GO:"cell cycle")
 p(HGNC:TARDBP) pos bp(GO:"G0 to G1 transition")
 p(HGNC:TARDBP) neg bp(GO:"cell cycle G1/S phase transition")
 p(HGNC:TARDBP) neg bp(GO:"cell cycle G2/M phase transition")
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "In addition to these changes we observed that TDP-43 depletion caused increased cell death and aberrant nuclear
 morphology throughout our experiments."
+SET Confidence = "High"
 p(HGNC:TARDBP) neg bp(GO:"cell death")
 p(HGNC:TARDBP) neg path(MESH:"Cell Nucleus Shape")
+UNSET Confidence
 
 SET Evidence = "The lack of TDP-43 led to an uneven distribution of the nuclear envelope protein emerin along the membrane, with discrete regions of either protein accumulation or lack of protein (Fig. 4A Lower)."
+SET Confidence = "High"
 p(HGNC:TARDBP) reg p(HGNC:EMD, loc(GO:"nuclear envelope"))
+UNSET Confidence
 
 SET Evidence = "Loss of TDP-43 in HeLa cells resulted in increased double strand DNA breaks as indicated by the presence of gamma H2AX foci (35): approx 15% of TDP-43-depleted cells contained gamma H2AX foci compared with 1% of control treated cells (SI Fig. 8A)."
 #gamma H2AX foci - ph form of H2AX
+SET Confidence = "High"
 p(HGNC:TARDBP) -| bp(GO:"meiotic DNA double-strand break formation")
 p(HGNC:TARDBP) -| p(NCBIGENE:3014, pmod(Ph))
 bp(GO:"meiotic DNA double-strand break formation") -> p(NCBIGENE:3014, pmod(Ph))
+UNSET Confidence
 
 SET CellLine = "U2OS"
 
 SET Evidence = "At the same time, U2OS showed an increase in TUNEL staining and nuclear fragmentation upon TDP-43 depletion (Fig. 4B)."
 #TUNEL staining - DNA fragmentation detection
+SET Confidence = "High"
 p(HGNC:TARDBP) -| path(MESH:"DNA Fragmentation")
 p(HGNC:TARDBP) -| bp(GO:"nucleolar fragmentation")
+UNSET Confidence
 
 SET Evidence = "U2OS cell extracts from TDP-43-depleted samples were also positive for poly(ADPribose) polymerase-1 (PARP-1) cleavage, consistent with the activation of programmed cell death (SI Fig. 8B)."
+SET Confidence = "High"
 p(HGNC:TARDBP) -| p(HGNC:PARP1, frag("?"))
 p(HGNC:TARDBP) -| bp(GO:"induction of programmed cell death")
 p(HGNC:PARP1, frag("?")) -> bp(GO:"induction of programmed cell death")
+UNSET Confidence
 
 UNSET CellLine
 
 SET Evidence = "TDP-43 silencing in cells that lack functional pRb (Saos-2) did not cause defects in nuclear envelope shape or apoptotic cell death (Fig. 4C)."
+SET Confidence = "High"
 SET CellLine = "Saos-2 cell"
 p(HGNC:TARDBP) cnc bp(GO:"programmed cell death")
 p(HGNC:TARDBP) cnc path(MESH:"Cell Nucleus Shape")
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "We depleted TDP-43 from MG-63 cells, an osteosarcoma cell line deficient in p53 but not defective in pRb, and observed increased apoptosis upon loss of TDP-43 in these cells, as seen with U2OS (SI Fig. 9)."
+SET Confidence = "High"
 SET Cells  = "BTO:0001596"
 p(HGNC:TARDBP) neg bp(GO:"programmed cell death")
 UNSET Cells
+UNSET Confidence
 
 SET Evidence = "These results strongly suggest that the morphological defects and increased apoptosis upon TDP-43 loss are tied to disruption of the pRb pathway."
 #NCIT:C91663 - pRb pathway regulation
+SET Confidence = "High"
 p(HGNC:TARDBP) neg bp(GO:"programmed cell death")
 p(HGNC:TARDBP) neg path(NCIT:C17768)
 p(HGNC:TARDBP) neg path(NCIT:C91663)
 path(NCIT:C91663) reg path(NCIT:C17768)
 path(NCIT:C91663) reg bp(GO:"programmed cell death")
+UNSET Confidence
