@@ -60,7 +60,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 # DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 # DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -80,22 +80,28 @@ microtubules, facilitates tau self-fibrillization, and subsequently
 results in microtubule destabilization led to the fundamental
 hypothesis that blocking tau phosphorylation would delay the
 pathological development of tauopathies."
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(Ph)) -| composite(a(MESH:Microtubules),p(HGNC:MAPT))
 p(HGNC:MAPT,pmod(Ph)) -> p(CONSO:"Tau aggregates")
 p(HGNC:MAPT,pmod(Ph)) -> bp(GO:"microtubule severing")
+UNSET Confidence
 
 SET Evidence = "These negative data do not necessarily preclude
 the strategy of targeting tau kinases, but rather indicate that the
 effects of tau phosphorylation on its aggregation are dependent
 on the kinases involved or the modification site."
+SET Confidence = "High"
 p(MESH:Phosphotransferases) -- p(CONSO:"Tau aggregates",pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "Histone
 acetyltransferase cAMP-response element binding protein
 (CREB)-binding protein (CBP) and the highly homologous
 p300 proteins are the key tau acetylases (21-23)."
+SET Confidence = "High"
 act(p(HGNC:CREBBP),ma(GO:"acetyltransferase activity")) -> p(HGNC:MAPT,pmod(Ub))
 act(p(HGNC:EP300),ma(GO:"acetyltransferase activity")) -> p(HGNC:MAPT,pmod(Ub))
+UNSET Confidence
 
 SET Evidence = "Notably, tau
 protein may intrinsically possess auto-acetyltransferase activity
@@ -106,45 +112,57 @@ key residues in the catalytic center, they enable tau
 auto-acetylation even in the absence of p300/CBP, and as the
 residues in the dimerization site of tau, they enable aggregate
 nuclei formation."
+SET Confidence = "High"
 p(HGNC:MAPT) -> p(HGNC:MAPT,pmod(Ac,Lys))
 p(HGNC:MAPT) -> p(HGNC:MAPT,pmod(Ac,Cys,291))
 p(HGNC:MAPT) -> p(HGNC:MAPT,pmod(Ac,Cys,322))
+UNSET Confidence
 
 SET Evidence = "Because
 acetylation and ubiquitination may use the same Lys residues,
 acetylation is also thought to directly reduce tau ubiquitination
 and subsequently block its proteasomal degradation (26)."
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(Ac,Lys)) -| p(HGNC:MAPT,pmod(Ub,Lys))
 p(HGNC:MAPT,pmod(Ac,Lys)) -| deg(p(HGNC:MAPT))
 p(HGNC:MAPT,pmod(Ub,Lys)) -> deg(p(HGNC:MAPT))
+UNSET Confidence
 
 SET Evidence = "The tau deacetylase, histone deacetylase 6 (HDAC6), can
 directly bind to the MBD and antagonize acetylation of tau,
 especially on the KXGS motifs (27)."
+SET Confidence = "High"
 p(HGNC:HDAC6) -> complex(p(HGNC:MAPT,loc(CONSO:"microtubule-binding region")),p(HGNC:HDAC6))
 complex(p(HGNC:MAPT,loc(CONSO:"microtubule-binding region")),p(HGNC:HDAC6)) -> act(p(HGNC:HDAC6))
 act(p(HGNC:HDAC6)) -| p(HGNC:MAPT,pmod(Ac),loc(CONSO:"KXGS motif"))
+UNSET Confidence
 
 SET Evidence = "High HDAC6 activity is
 correlated not only with reduced tau acetylation, but also
 elevated phosphorylation at the Ser residues within the KXGS
 motifs (28)."
-act(p(HGNC:HDAC6)) -> p(HGNC:MAPT,pmod(Ph,Ser),loc(CONSO:"KXGS motif"))
+SET Confidence = "High"
+act(p(HGNC:HDAC6)) pos p(HGNC:MAPT,pmod(Ph,Ser),loc(CONSO:"KXGS motif"))
+UNSET Confidence
 
 SET Evidence = "Therefore, the consequence of HDAC6-mediated
 deacetylation is the generation of less microtubule-binding,
 and more aggregation-prone forms of tau (29, 30)."
+SET Confidence = "High"
 act(p(HGNC:HDAC6)) -| act(p(HGNC:MAPT),ma(GO:"microtubule binding"))
 act(p(HGNC:HDAC6)) -> p(CONSO:"Tau aggregates")
+UNSET Confidence
 
 SET Evidence = "However, contrary to the effect of
 HDAC6, decreased activity of SIRT1 was associated with
 enhanced PHF-tau accumulation in AD patients (31),
 indicating a negative correlation between the regulation of
 SIRT1 and tau accumulation."
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 act(p(HGNC:SIRT1)) neg p(HGNC:MAPT)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Consistent with the function of acetylation that may
 preclude Lys residues from ubiquitination, mutations altering
@@ -152,16 +170,19 @@ Lys residues to Gln, mimicking acetylation on human tau
 proteins, attenuated tau clearance and induced behavioral
 abnormality in vivo, such as memory and learning impairments
 (32, 33)."
+SET Confidence = "High"
 p(HGNC:MAPT,var("p.Lys?Gln")) -- p(HGNC:MAPT,pmod(Ac))
 p(HGNC:MAPT,var("p.Lys?Gln")) -| deg(p(HGNC:MAPT))
 p(HGNC:MAPT,var("p.Lys?Gln")) neg bp(GO:memory)
 p(HGNC:MAPT,var("p.Lys?Gln")) neg bp(GO:learning)
+UNSET Confidence
 
 SET Evidence = "Similarly, the Gan group reported that abnormal
 acetylation of Lys274 and Lys281 on tau was found in human
 AD brains and transgenic mice expressing the same mutations
 also exhibited AD-related memory deficits and impaired
 hippocampal long-term potentiation (LTP) (34)."
+SET Confidence = "High"
 SET Species = {"10090","9606"}
 path(DOID:"Alzheimer's disease") pos p(HGNC:MAPT,pmod(Ac,Lys,274))
 path(DOID:"Alzheimer's disease") pos p(HGNC:MAPT,pmod(Ac,Lys,281))
@@ -172,11 +193,13 @@ p(HGNC:MAPT,pmod(Ac,Lys,274)) neg bp(GO:"long-term synaptic potentiation")
 p(HGNC:MAPT,pmod(Ac,Lys,281)) neg bp(GO:"long-term synaptic potentiation")
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Acetylation of
 tau at Lys174, Lys274 and Lys280 has been detected
 post-mortem in AD, FTDP-17, and PiD, suggesting acetylation
 at these sites may be pathological (33, 35)."
+SET Confidence = "High"
 path(DOID:"Alzheimer's disease") pos p(HGNC:MAPT,pmod(Ac,Lys,174))
 path(DOID:"Alzheimer's disease") pos p(HGNC:MAPT,pmod(Ac,Lys,274))
 path(DOID:"Alzheimer's disease") pos p(HGNC:MAPT,pmod(Ac,Lys,280))
@@ -186,21 +209,25 @@ path(DOID:"frontotemporal dementia") pos p(HGNC:MAPT,pmod(Ac,Lys,280))
 path(DOID:"Niemann-Pick disease") pos p(HGNC:MAPT,pmod(Ac,Lys,174))
 path(DOID:"Niemann-Pick disease") pos p(HGNC:MAPT,pmod(Ac,Lys,274))
 path(DOID:"Niemann-Pick disease") pos p(HGNC:MAPT,pmod(Ac,Lys,280))
+UNSET Confidence
 
 SET Evidence = "In addition to its
 competing function with ubiquitination, acetylation of Lys280
 of tau appears to have a negative role on tau-mediated
 stabilization of microtubules and, conceivably, alters its
 phosphorylation at both proximal and distal residues (36)."
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(Ac,Lys,280)) -| p(HGNC:MAPT,pmod(Ub,Lys,280))
 p(HGNC:MAPT,pmod(Ac,Lys,280)) pos bp(GO:"microtubule severing")
 p(HGNC:MAPT,pmod(Ac,Lys,280)) neg p(HGNC:MAPT,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "The
 K280Q mutation mimicking tau acetylation in Drosophila and
 mice showed reduced microtubule bundling, elevated degrees
 of tau phosphorylation at nearby Ser262 and Thr212/214
 residues, and increased total tau amounts (25, 37)."
+SET Confidence = "High"
 SET Species = {"7227","10090"}
 p(HGNC:MAPT,var("p.Lys280Gln")) -- p(HGNC:MAPT,pmod(Ac))
 p(HGNC:MAPT,var("p.Lys280Gln")) -| bp(GO:"microtubule bundle formation")
@@ -208,21 +235,26 @@ p(HGNC:MAPT,var("p.Lys280Gln")) -> p(HGNC:MAPT,pmod(Ph,Ser,262))
 p(HGNC:MAPT,var("p.Lys280Gln")) -> p(HGNC:MAPT,pmod(Ph,Thr,212),pmod(Ph,Thr,214))
 p(HGNC:MAPT,var("p.Lys280Gln")) -> p(HGNC:MAPT)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Acetylation
 of tau at Lys280 is expected to occur before pathological tau is
 fibrillized into PHFs."
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(Ac,Lys,280)) -> p(CONSO:"paired helical filaments")
+UNSET Confidence
 
 SET Evidence = "Immunohistopathological studies revealed
 that acetylation at Lys280 is observed in the brain of AD and
 other tauopathies, but not in normal brains, in a distribution
 pattern similar to hyperphosphorylated tau (38)."
+SET Confidence = "High"
 a(MESH:Brain) -> p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 SET MeSHAnatomy = "Brain"
 path(DOID:"Alzheimer's disease") -> p(HGNC:MAPT,pmod(Ac,Lys,280))
 path(DOID:tauopathy) -> p(HGNC:MAPT,pmod(Ac,Lys,280))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Acetylation of Lys residues in the KXGS
 motifs (Lys259, Lys290, Lys321, and Lys353; Fig. 2A) has been
@@ -231,6 +263,7 @@ reported to prevent phosphorylation at nearby Ser/Thr residues
 Lys321 acetylation and Ser324 phosphorylation) in the MBD
 and to decrease the aggregation propensity of recombinant tau
 in vitro (27, 39)."
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(Ac,Lys,259),loc(CONSO:"KXGS motif")) -| p(HGNC:MAPT,pmod(Ph,Ser),pmod(Ph,Thr),loc(CONSO:"microtubule-binding region"))
 p(HGNC:MAPT,pmod(Ac,Lys,259),loc(CONSO:"KXGS motif")) -| p(CONSO:"Tau aggregates")
 p(HGNC:MAPT,pmod(Ac,Lys,290),loc(CONSO:"KXGS motif")) -| p(HGNC:MAPT,pmod(Ph,Ser),pmod(Ph,Thr),loc(CONSO:"microtubule-binding region"))
@@ -240,18 +273,21 @@ p(HGNC:MAPT,pmod(Ac,Lys,321),loc(CONSO:"KXGS motif")) -| p(CONSO:"Tau aggregates
 p(HGNC:MAPT,pmod(Ac,Lys,353),loc(CONSO:"KXGS motif")) -| p(HGNC:MAPT,pmod(Ph,Ser),pmod(Ph,Thr),loc(CONSO:"microtubule-binding region"))
 p(HGNC:MAPT,pmod(Ac,Lys,353),loc(CONSO:"KXGS motif")) -| p(CONSO:"Tau aggregates")
 p(HGNC:MAPT,pmod(Ac,Lys,321),loc(CONSO:"KXGS motif")) -| p(HGNC:MAPT,pmod(Ph,Ser,324),loc(CONSO:"microtubule-binding region"))
+UNSET Confidence
 
 SET Evidence = "On the contrary, tau
 acetylation at Lys280 and Lys281 (also in the MBD) resulted in
 microtubule destabilization and promoted tau fibrillization
 both in tau transgenic mice and human patients (25), suggesting
 a causative, instead of a protective, role in tauopathies."
+SET Confidence = "High"
 SET Species = {"10090","9606"}
 p(HGNC:MAPT,pmod(Ac,Lys,280),loc(CONSO:"microtubule-binding region")) -> bp(GO:"microtubule severing")
 p(HGNC:MAPT,pmod(Ac,Lys,280),loc(CONSO:"microtubule-binding region")) -> p(CONSO:"Tau fibrils")
 p(HGNC:MAPT,pmod(Ac,Lys,281),loc(CONSO:"microtubule-binding region")) -> bp(GO:"microtubule severing")
 p(HGNC:MAPT,pmod(Ac,Lys,281),loc(CONSO:"microtubule-binding region")) -> p(CONSO:"Tau fibrils")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Identified tau kinases include glycogen
 synthase kinase 3 beta (GSK3B), cyclin-dependent kinase 5
@@ -259,6 +295,7 @@ synthase kinase 3 beta (GSK3B), cyclin-dependent kinase 5
 (CaMKII), microtubule-affinity regulating kinase (MARK),
 protein kinase A (PKA), PKB/AKT, PKC, and tyrosine kinases
 such as Src family kinases, including Src, Fyn, and c-Abl (46)."
+SET Confidence = "High"
 act(p(HGNC:GSK3B),ma(kin)) -> p(HGNC:MAPT,pmod(Ph))
 act(p(HGNC:CDK5),ma(kin)) -> p(HGNC:MAPT,pmod(Ph))
 act(p(HGNC:CDK2),ma(kin)) -> p(HGNC:MAPT,pmod(Ph))
@@ -270,167 +307,208 @@ act(p(MESH:"Protein Kinase C"),ma(kin)) -> p(HGNC:MAPT,pmod(Ph))
 act(p(HGNC:SRC),ma(kin)) -> p(HGNC:MAPT,pmod(Ph))
 act(p(HGNC:FYN),ma(kin)) -> p(HGNC:MAPT,pmod(Ph))
 act(p(HGNC:ABL1),ma(kin)) -> p(HGNC:MAPT,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "For
 instance, the antibody AT8 recognizes tau phosphorylation at
 Ser202, Thr205, and Ser208 and is widely used as a marker for
 pre-tangle tau aggregates for assessing the AD-related
 neurofibrillary pathology (47)."
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 p(CONSO:"Tau epitope, AT8") -> complex(p(CONSO:"Tau epitope, AT8"),a(CONSO:pretangles))
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Tau filaments can also be
 immunohistochemically detected by the AT100 antibodies
 recognizing Thr212 and Ser214."
+SET Confidence = "High"
 p(CONSO:"Tau epitope, AT100") -> complex(p(CONSO:"Tau epitope, AT100"),a(CONSO:"Tau fibrils"))
+UNSET Confidence
 
 SET Evidence = "GSK3B can modify more than 30 phosphorylation sites and
 its overexpression in mouse brain resulted in tau
 hyperphosphorylation and neurodegeneration (48)."
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = "Brain"
 p(HGNC:GSK3B) -> p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 p(HGNC:GSK3B) -> path(DOID:"neurodegenerative disease")
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Treatment
 with lithium, a classic inhibitor of GSK3 and an FDA-approved
 approved drug for bipolar disorder, produced beneficial
 cognitive effects in mouse models of AD and even in AD
 patients (49-51)."
+SET Confidence = "High"
 a(CHEBI:"lithium atom") -| p(HGNC:GSK3B)
 a(CHEBI:"lithium atom") -| path(DOID:"bipolar disorder")
 SET Species = {"10090","9606"}
 a(CHEBI:"lithium atom") pos bp(GO:cognition)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Hyperphosphorylation of tau may originate from reduced
 activity of phosphatases instead of elevation of kinase activity."
+SET Confidence = "High"
 act(p(HGNCGENEFAMILY:"Protein phosphatases")) -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+UNSET Confidence
 
 SET Evidence = "Protein phosphatases (PP) 1, PP2A, PP2B, PP2C, PP3, and PP5
 are possible phosphatases responsible for tau dephosphorylation
 (54)."
+SET Confidence = "High"
 p(HGNC:PPA1) -| p(HGNC:MAPT,pmod(Ph))
 p(HGNC:PPP2CA) -| p(HGNC:MAPT,pmod(Ph))
 p(HGNC:PPP3CA) -| p(HGNC:MAPT,pmod(Ph))
 p(HGNCGENEFAMILY:"Protein phosphatases, Mg2+/Mn2+ dependent") -| p(HGNC:MAPT,pmod(Ph))
 p(MESH:Calcineurin) -| p(HGNC:MAPT,pmod(Ph))
 p(HGNC:PPP5C) -| p(HGNC:MAPT,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "Decreased PP2A activity observed in AD brain may
 contribute to abnormal tau hyperphosphorylation (56, 57)."
+SET Confidence = "High"
 path(DOID:"Alzheimer's disease") -| act(p(HGNC:PPP2CA))
 SET MeSHDisease = "Alzheimer Disease"
 act(p(HGNC:PPP2CA)) -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Okadaic acid is often used to inhibit cellular PP1 and PP2A
 activity and subsequently elevate the levels of hyperphosphorylated
 tau in cultured cell and animal models (58-61)."
+SET Confidence = "High"
 a(CHEBI:"okadaic acid") -| act(p(HGNC:PPA1))
 a(CHEBI:"okadaic acid") -| act(p(HGNC:PPP2CA))
 a(CHEBI:"okadaic acid") -> p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+UNSET Confidence
 
 SET Evidence = "Notably, the mammalian target of rapamycin (mTOR), which
 negatively modulates autophagy by phosphorylating Atg1, an
 autophagy initiating factor (62), also negatively regulates PP2A
 activity."
+SET Confidence = "High"
 a(CHEBI:sirolimus) -> p(HGNC:ULK1,pmod(Ph))
 p(HGNC:ULK1,pmod(Ph)) neg bp(GO:autophagy)
 p(HGNC:ULK1) pos bp(GO:autophagy)
 a(CHEBI:sirolimus) neg bp(GO:autophagy)
 a(CHEBI:sirolimus) neg act(p(HGNC:PPP2CA))
+UNSET Confidence
 
 SET Evidence = "Therefore, inhibition of mTOR activity upon nutrient
 starvation or carbon depletion, may result in both PP2A
 activation and autophagy upregulation, relieving the
 pathological consequences of tau hyperphosphorylation and
 aggregation."
+SET Confidence = "High"
 a(CHEBI:nutrient) -> act(p(HGNC:MTOR))
 a(CHEBI:"carbon atom") -> act(p(HGNC:MTOR))
 act(p(HGNC:MTOR)) -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 act(p(HGNC:MTOR)) -| p(CONSO:"Tau aggregates")
+UNSET Confidence
 
 SET Evidence = "A positive regulatory relation between the phosphorylation
 and acetylation of tau has been proposed; phosphorylation in
 the MBDs activates the autoacetyltransferase activity of tau and
 expands acetylation of tau (63)."
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(Ph),loc(CONSO:"microtubule-binding region")) -> act(p(HGNC:MAPT),ma(GO:"acetyltransferase activity"))
 act(p(HGNC:MAPT),ma(GO:"acetyltransferase activity")) -> p(HGNC:MAPT,pmod(Ac))
+UNSET Confidence
 
 SET Evidence = "Phosphorylation of tau at the
 KXGS motifs negatively regulates tau ubiquitination; phospho-
 Ser interferes with its interaction with the tau ubiquitin ligase
 C-terminus of Hsc70 interacting protein (CHIP), subsequently
 elevating levels of free tau and tau aggregates (64, 65)."
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(Ph),loc(CONSO:"KXGS motif")) neg p(HGNC:MAPT,pmod(Ub))
 complex(p(HGNC:MAPT,pmod(Ph,Ser)),p(HGNC:STUB1)) -> p(HGNC:MAPT)
 complex(p(HGNC:MAPT,pmod(Ph,Ser)),p(HGNC:STUB1)) -> p(CONSO:"Tau aggregates")
+UNSET Confidence
 
 SET Evidence = "Compared to
 non-AD controls, tau proteins were highly ubiquitinated in the
 brain of human AD patients."
+SET Confidence = "High"
 path(DOID:"Alzheimer's disease") -> p(HGNC:MAPT,pmod(Ub))
+UNSET Confidence
 
 SET Evidence = "PHF-tau isolated from human AD brains was
 co-immunoprecipitated with various proteasome subunits,
 probably indicating inefficient processing at the proteasome
 (76)."
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 complex(p(HGNC:MAPT),p(CONSO:"paired helical filaments")) -> complex(p(HGNC:MAPT),p(CONSO:"paired helical filaments"),p(MESH:"Proteasome Endopeptidase Complex"))
 complex(p(HGNC:MAPT),p(CONSO:"paired helical filaments"),p(MESH:"Proteasome Endopeptidase Complex")) -| act(p(MESH:"Proteasome Endopeptidase Complex"))
 complex(p(HGNC:MAPT),p(CONSO:"paired helical filaments"),p(MESH:"Proteasome Endopeptidase Complex")) -| deg(p(HGNC:MAPT))
 act(p(MESH:"Proteasome Endopeptidase Complex")) -> deg(p(MESH:Proteins))
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "This may be a reason for the observation that
 overall degradative activity of UPS was significantly impaired
 in post-mortem human AD brains (77, 78)."
 #this - inefficient prcessing of proteasome
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 path(DOID:"Alzheimer's disease") neg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Therefore, the significance of these ubiquitinated tau (Ub-tau)
 species is evident from the fact that the impairment of
 UPS-mediated proteolysis clearly contributes to tau
 homeostasis and ultimately to AD pathology."
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(Ub)) neg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
 p(HGNC:MAPT,pmod(Ub)) -> p(HGNC:MAPT)
 p(HGNC:MAPT,pmod(Ub)) pos path(DOID:"Alzheimer's disease")
+UNSET Confidence
 
 SET Evidence =  "Increased levels
 of Ub-tau were found in cerebrospinal fluid (CSF) of AD
 patients as well (81, 82)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Cerebrospinal Fluid"
 path(DOID:"Alzheimer's disease") -> p(HGNC:MAPT,pmod(Ub))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Prior to proteasomal
 degradation, tau ubiquitination, especially at Lys254, Lys311,
 and Lys353, all of which are located on MBDs, may first
 weaken the tau-microtubule binding affinity (Fig. 2A)."
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(Ub,Lys,254),loc(CONSO:"microtubule-binding region")) -| act(p(HGNC:MAPT),ma(GO:"microtubule binding"))
 p(HGNC:MAPT,pmod(Ub,Lys,311),loc(CONSO:"microtubule-binding region")) -| act(p(HGNC:MAPT),ma(GO:"microtubule binding"))
 p(HGNC:MAPT,pmod(Ub,Lys,353),loc(CONSO:"microtubule-binding region")) -| act(p(HGNC:MAPT),ma(GO:"microtubule binding"))
+UNSET Confidence
 
 SET Evidence = "Several E3 ligases are reported to ubiquitinate tau, which
 include CHIP, tumor necrosis factor receptor-associated factor
 6 (TRAF6), and axotrophin/MARCH7 (83-86)."
+SET Confidence = "High"
 p(HGNC:STUB1) -> p(HGNC:MAPT,pmod(Ub))
 p(HGNC:TRAF6) -> p(HGNC:MAPT,pmod(Ub))
 p(HGNC:MARCH7) -> p(HGNC:MAPT,pmod(Ub))
+UNSET Confidence
 
 SET Evidence = "By promoting tau
 quality control, overexpression of CHIP attenuated the toxicity
 of hyperphosphorylated tau and maintained neuronal survival
 (86, 87)."
+SET Confidence = "High"
 p(HGNC:STUB1) reg p(HGNC:MAPT)
 p(HGNC:STUB1) -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 p(HGNC:STUB1) neg bp(GO:"neuron death")
+UNSET Confidence
 
 SET Evidence = "Consistent with this, a quantitative analysis using
 mouse and human brains revealed that levels of CHIP and
@@ -438,6 +516,7 @@ Hsp70 had inverse correlation with the levels of insoluble tau
 aggregates (88), strongly suggesting that CHIP-mediated
 ubiquitination of tau is an important negative regulator of
 tauopathies."
+SET Confidence = "High"
 SET Species = {"10090","9606"}
 SET MeSHAnatomy = "Brain"
 p(HGNC:STUB1) neg p(CONSO:"Tau aggregates")
@@ -447,14 +526,17 @@ p(HGNC:STUB1) -> p(HGNC:MAPT,pmod(Ub))
 p(HGNC:MAPT,pmod(Ub)) neg path(DOID:tauopathy)
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "When
 excess tau exists in cells, tau is expected to be actively
 ubiquitinated by CHIP and removed by 26S proteasomes."
+SET Confidence = "High"
 p(HGNC:MAPT) -> act(p(HGNC:STUB1))
 p(HGNC:STUB1) -> p(HGNC:MAPT,pmod(Ub))
 p(HGNC:MAPT,pmod(Ub)) -> act(p(MESH:"Proteasome Endopeptidase Complex"))
 act(p(MESH:"Proteasome Endopeptidase Complex")) -> deg(p(HGNC:MAPT))
+UNSET Confidence
 
 SET Evidence = "If tau proteins are accumulated beyond the threshold of the
 proteasomal capacity, ubiquitinated tau may lead to a vicious,
@@ -462,31 +544,39 @@ reciprocal aggregation cycle because excessive levels of tau
 proteins may inhibit proteasome activity via the “clogging”
 effect (90, 91)."
 #accumulated beyond threshold
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(Ub)) -> p(CONSO:"Tau aggregates")
 p(CONSO:"Tau aggregates") -| act(p(MESH:"Proteasome Endopeptidase Complex"))
 p(HGNC:MAPT,pmod(Ub)) -| act(p(MESH:"Proteasome Endopeptidase Complex"))
+UNSET Confidence
 
 SET Evidence = "Newly formed PHFs can directly interact with
 various proteasome subunits to further block the normal
 proteasome function preventing the clearance of tau (76, 91)."
+SET Confidence = "High"
 composite(p(CONSO:"paired helical filaments"),p(MESH:"Proteasome Endopeptidase Complex")) -| act(p(MESH:"Proteasome Endopeptidase Complex"))
+UNSET Confidence
 
 SET Evidence = "More
 specifically, CHIP-mediated tau ubiquitination may depend on
 its phosphorylation states, both physiological and diseased
 (64), and may promote phosphorylation and aggregation
 events of tau."
+SET Confidence = "High"
 p(HGNC:MAPT,pmod(Ph)) reg act(p(HGNC:STUB1))
 act(p(HGNC:STUB1)) -> p(HGNC:MAPT,pmod(Ph))
 act(p(HGNC:STUB1)) -> p(CONSO:"Tau aggregates")
+UNSET Confidence
 
 SET Evidence = "Therefore, tau
 ubiquitination occurring after its hyperphosphorylation, may
 facilitate the aggregation process, rather than leading to its
 Ub-dependent proteasomal degradation, especially AD
 patients with decreased proteasome activity."
+SET Confidence = "High"
 SET MeSHDisease = "Alzheimer Disease"
 p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation),pmod(Ub)) -> p(CONSO:"Tau aggregates")
 p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation),pmod(Ub)) neg bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process")
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") -> deg(p(HGNC:MAPT))
 UNSET MeSHDisease
+UNSET Confidence
