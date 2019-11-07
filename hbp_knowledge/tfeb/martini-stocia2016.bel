@@ -60,7 +60,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 # DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 # DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -74,272 +74,374 @@ DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifact
 SET Citation = {"PubMed", "26968346"}
 
 SET Evidence = "TFEB is a basic helix-loop-helix leucine zipper transcription factor originally associated with renal carcinoma [30]."
+SET Confidence = "High"
 p(HGNC:TFEB) pos path(DOID:"renal carcinoma")
+UNSET Confidence
 
 SET Evidence = "More recently, TFEB was identified as the transcription factor that binds to a promoter motif
 responsible for coordinating the expression of lysosomal genes, or the CLEAR element [1]. The coordinated lysosomal expression and regulation (CLEAR) network consists of genes involved in processes such as autophagy, lysosomal biogenesis, lysosomal exocytosis, endocytosis, and membrane repair [31]."
+SET Confidence = "High"
 p(HGNC:TFEB) reg bp(GO:autophagy)
 p(HGNC:TFEB) -> a(MESH:Lysosomes)
 p(HGNC:TFEB) -> tloc(a(MESH:Lysosomes),fromLoc(GO:"extracellular space"),toLoc(GO:cell))
 p(HGNC:TFEB) -> tloc(a(MESH:Lysosomes),fromLoc(GO:cell),toLoc(GO:"extracellular space"))
 p(HGNC:TFEB) reg bp(GO:"membrane assembly")
+UNSET Confidence
 
 SET Evidence = "TFEB was identified as a main player in coordinating autophagy through positively regulating autophagosome formation and autophagosome–lysosome fusion [2]."
+SET Confidence = "High"
 p(HGNC:TFEB) pos bp(GO:"autophagosome organization")
 p(HGNC:TFEB) pos bp(GO:"autophagosome-lysosome fusion")
+UNSET Confidence
 
 SET Evidence = "In addition, it enhances cellular clearance through lysosomal exocytosis, a process mediated by activation of the lysosomal Ca2+ channel MCOLN1 [12]."
 #it - TFEB
+SET Confidence = "High"
 p(HGNC:TFEB) -> act(p(HGNC:MCOLN1))
 act(p(HGNC:MCOLN1)) -> tloc(a(MESH:Lysosomes),fromLoc(GO:cell),toLoc(GO:"extracellular space"))
+UNSET Confidence
 
 SET Evidence = "Through such communication between the lysosome and nucleus, TFEB regulates metabolism and cellular clearance (Figure 3)."
+SET Confidence = "High"
 p(HGNC:TFEB) reg bp(GO:"apoptotic cell clearance")
 p(HGNC:TFEB) reg bp(MESH:Metabolism)
+UNSET Confidence
 
 SET Evidence = "However, conditions of stress, such as starvation or lysosomal dysfunction, result in TFEB nuclear translocation, where it promotes the transcription of its target genes [1,2]."
 #normally TFEB is present in the cytoplasm
+SET Confidence = "High"
 bp(GO:"response to starvation") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
 act(a(MESH:Lysosomes)) -| tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
 SET MeSHAnatomy = "Cell Nucleus"
 p(HGNC:TFEB) -> bp(GO:"mRNA transcription")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In particular, Ser142 and Ser211 were identified as being phosphorylated in nutrient-rich conditions, and mutations of these serines to alanines resulted in significantly increased nuclear localization of TFEB [2,32]."
+SET Confidence = "High"
 bp(GO:"response to nutrient") -> p(HGNC:TFEB,pmod(Ph,Ser,142))
 bp(GO:"response to nutrient") -> p(HGNC:TFEB,pmod(Ph,Ser,211))
 p(HGNC:TFEB,var("p.Ser142Ala")) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
 p(HGNC:TFEB,var("p.Ser211Ala")) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+UNSET Confidence
 
 SET Evidence = "Two kinases are known to phosphorylate TFEB at these sites: ERK2 [2] and mTORC1 [32–35]."
-act(p(HGNC:MAPK1),ma(kin)) -> p(HGNC:TFEB,pmod(Ph))
-act(p(HGNCGENEFAMILY:"MTOR complex 1"),ma(kin)) -> p(HGNC:TFEB,pmod(Ph))
+SET Confidence = "Medium"
+act(p(HGNC:MAPK1),ma(kin)) -> p(HGNC:TFEB,pmod(Ph,Ser,142))
+act(p(HGNC:MAPK1),ma(kin)) -> p(HGNC:TFEB,pmod(Ph,Ser,211))
+act(p(HGNCGENEFAMILY:"MTOR complex 1"),ma(kin)) -> p(HGNC:TFEB,pmod(Ph,Ser,142))
+act(p(HGNCGENEFAMILY:"MTOR complex 1"),ma(kin)) -> p(HGNC:TFEB,pmod(Ph,Ser,211))
+UNSET Confidence
 
 SET Evidence = "In addition to phosphorylation, members of the 14-3-3 protein family bind to phosphorylated TFEB to sequester it in the cytoplasm [33,34]."
+SET Confidence = "High"
 complex(p(HGNC:TFEB,pmod(Ph)),p(HGNCGENEFAMILY:"14-3-3 phospho-serine/phospho-threonine binding proteins")) -> p(HGNCGENEFAMILY:"14-3-3 phospho-serine/phospho-threonine binding proteins",loc(GO:cytoplasm))
+UNSET Confidence
 
 SET Evidence = "Amino acids and the V-ATPase interact to regulate Rag GTPases, which then activate mTORC1 by translocating it to the lysosomal surface [36,37]."
+SET Confidence = "High"
 composite(a(MESH:"Amino Acids"),p(MESH:"Vacuolar Proton-Translocating ATPases")) reg act(complex(GO:"Ragulator complex"),ma(GO:"GTPase activity"))
 act(complex(GO:"Ragulator complex"),ma(GO:"GTPase activity")) -> tloc(p(HGNCGENEFAMILY:"MTOR complex 1"),fromLoc(GO:cytoplasm),toLoc(GO:"lysosomal membrane"))
 tloc(p(HGNCGENEFAMILY:"MTOR complex 1"),fromLoc(GO:cytoplasm),toLoc(GO:"lysosomal membrane")) -> act(p(HGNCGENEFAMILY:"MTOR complex 1"))
+UNSET Confidence
 
 SET Evidence = "On the lysosomal surface, mTORC1 binds to TFEB, facilitating its phosphorylation and cytoplasmic sequestration in nutrient-rich conditions [32]"
+SET Confidence = "High"
 complex(p(HGNCGENEFAMILY:"MTOR complex 1"),p(HGNC:TFEB),loc(GO:"lysosomal membrane")) -> p(HGNC:TFEB,pmod(Ph))
 complex(p(HGNCGENEFAMILY:"MTOR complex 1"),p(HGNC:TFEB),loc(GO:"lysosomal membrane")) -> p(HGNC:TFEB,loc(GO:cytoplasm))
+UNSET Confidence
 
 SET Evidence = "Inhibiting mTORC1 with Torin 1 results in TFEB nuclear accumulation [32]."
+SET Confidence = "High"
 a(CHEBI:"torin 1") -| p(HGNCGENEFAMILY:"MTOR complex 1")
 a(CHEBI:"torin 1") -> p(HGNC:TFEB,loc(GO:nucleus))
+UNSET Confidence
 
 SET Evidence = "In addition, knockdown of the Rag GTPases, part of the lysosomal nutrient-sensing machinery that signal to mTORC1, leads to nuclear translocation of TFEB even in the presence of nutrients [32]."
+SET Confidence = "High"
 bp(GO:"response to nutrient") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+UNSET Confidence
 
 SET Evidence = "Finally, cellular conditions that are known to inactivate mTORC1, such as stress, starvation, and lysosomal inhibition, also result in TFEB nuclear localization and activation of its target genes [32–34]."
+SET Confidence = "High"
 path(MESH:"Oxidative Stress") -| p(HGNCGENEFAMILY:"MTOR complex 1")
 path(MESH:Starvation) -| p(HGNCGENEFAMILY:"MTOR complex 1")
 a(MESH:Lysosomes) -> p(HGNCGENEFAMILY:"MTOR complex 1")
 path(MESH:"Oxidative Stress") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
 path(MESH:Starvation) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
 a(MESH:Lysosomes) -| tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+UNSET Confidence
 
 SET Evidence = "The TFEB promoter contains multiple CLEAR elements to which the transcription factor binds to induce further TFEB expression [38]."
+SET Confidence = "High"
 complex(r(HGNC:TFEB),a(MESH:"Transcription Factors")) -> p(HGNC:TFEB)
+UNSET Confidence
 
 SET Evidence = "TFEB is regulated by another positive feedback loop where a TFEB transcriptional target, the calcium channel MCOLN1, leads to TFEB dephosphorylation and nuclear translocation through calcineurin [39]."
+SET Confidence = "High"
 p(HGNC:MCOLN1) -| p(HGNC:TFEB,pmod(Ph))
 p(HGNC:MCOLN1) -> complex(GO:"calcineurin complex")
 complex(GO:"calcineurin complex") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+UNSET Confidence
 
 SET Evidence = "In starvation or high energy consumption, Ca2+ is released from the lysosome through MCOLN1, creating a Ca2+ microdomain near the lysosome [39]."
+SET Confidence = "High"
 path(MESH:Starvation) -> composite(a(CHEBI:"calcium(2+)"),p(HGNC:MCOLN1))
 composite(a(CHEBI:"calcium(2+)"),p(HGNC:MCOLN1)) -> tloc(a(CHEBI:"calcium(2+)"),fromLoc(GO:lysosome),toLoc(GO:cytoplasm))
 bp(MESH:"Energy Metabolism") -| tloc(a(CHEBI:"calcium(2+)"),fromLoc(GO:lysosome),toLoc(GO:cytoplasm))
+UNSET Confidence
 
 SET Evidence = "This local increase in Ca2+ leads to the activation of the phosphatase calcineurin, which dephosphorylates TFEB, resulting in TFEB nuclear translocation and the transcription of target genes [39]."
+SET Confidence = "High"
 a(CHEBI:"calcium(2+)",loc(GO:cytoplasm)) -> act(complex(GO:"calcineurin complex"))
 act(complex(GO:"calcineurin complex")) -| p(HGNC:TFEB,pmod(Ph))
 act(complex(GO:"calcineurin complex")) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+UNSET Confidence
 
 #in huntingtin diseases
 SET MeSHDisease = "Huntington Disease"
 
 SET Evidence = "However, recent studies suggest that non-mutant HTT binds to p62 to facilitate its autophagy receptor function in selective autophagy, in addition to promoting autophagy by interacting with ULK1 to avoid negative regulation via mTORC1 [40]."
+SET Confidence = "High"
 complex(p(HGNC:HTT),p(HGNC:SQSTM1)) -> bp(GO:"selective autophagy")
 bp(GO:"selective autophagy") -> deg(p(HGNC:HTT))
 composite(p(HGNC:HTT),p(HGNC:ULK1)) -> bp(GO:autophagy)
 bp(GO:autophagy) -> deg(p(HGNC:HTT))
+UNSET Confidence
 
 SET Evidence = "Additional work suggests that the structural similarity between HTT and ATG11 allows HTT to serve as an ATG11-like scaffold protein for selective autophagy [41]."
+SET Confidence = "High"
 p(HGNC:HTT) -- bp(GO:"selective autophagy")
+UNSET Confidence
 
 SET Evidence = "Normal HTT degradation is enhanced by phosphorylation-regulated CMA [43]."
+SET Confidence = "High"
 bp(GO:"protein phosphorylation") reg bp(GO:"chaperone-mediated autophagy")
 bp(GO:"chaperone-mediated autophagy") -> deg(p(HGNC:HTT))
+UNSET Confidence
 
 SET Evidence = "Indeed, HTT degradation is increased by overexpression of HSC70 or LAMP2A and is decreased by knockdown of these genes in cellular models [43]."
+SET Confidence = "High"
 p(HGNC:HSPA8) -> deg(p(HGNC:HTT))
 p(HGNC:LAMP2) -> deg(p(HGNC:HTT))
+UNSET Confidence
 
 SET Evidence = "In particular, Beclin 1 and mTOR are sequestered in mHTT inclusions bodies [45,46]."
+SET Confidence = "Low"
+#can we not show sequesteration by composite function?
+#p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -> composite(p(HGNC:BECN1),p(HGNC:HTT,pmod(CONSO:"CAG repeats")))
+#p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -> composite(p(HGNC:MTOR),p(HGNC:HTT,pmod(CONSO:"CAG repeats")))
 SET MeSHAnatomy = "Inclusion Bodies"
 p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -> p(HGNC:BECN1)
 p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -> p(HGNC:MTOR)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In both cases, enhancing autophagy through Beclin 1 overexpression or rapalogue CCI-779 treatment promotes degradation of mHTT aggregates [45,46]."
 #Temsirolimus - CCI-779
+SET Confidence = "High"
 p(HGNC:BECN1) pos bp(GO:autophagy)
 a(CHEBI:Temsirolimus) pos bp(GO:autophagy)
 p(HGNC:BECN1) -> deg(p(HGNC:HTT,pmod(CONSO:"CAG repeats")))
 a(CHEBI:Temsirolimus) -> deg(p(HGNC:HTT,pmod(CONSO:"CAG repeats")))
+UNSET Confidence
 
 SET Evidence = "TFEB RNA levels and several of its target genes are reduced in HD mice, suggesting a deficiency in the ALP [7]."
 #ALP - autophagy-lysosome pathway
+SET Confidence = "High"
 SET Species = "10090"
 path(DOID:"Huntington's disease") -| r(HGNC:TFEB)
 path(DOID:"Huntington's disease") -| bp(GO:autophagy)
 path(DOID:"Huntington's disease") -| bp(GO:"lysosomal protein catabolic process")
-
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In vitro studies have shown that enhancing the ALP through TFEB overexpression reduces HTT protein aggregation in cells expressing huntingtin with the polyglutamine expansion [1,7]."
+SET Confidence = "High"
 p(HGNC:TFEB) -> bp(GO:autophagy)
 p(HGNC:TFEB) -> bp(GO:"lysosomal protein catabolic process")
 p(HGNC:TFEB) -| p(CONSO:"huntingtin aggregates")
+UNSET Confidence
 
-SET Evidence = "TFEB was also identified as the downstream mediator and transcriptional target of PGC-1∝, which was shown to improve neurological function when overexpressed in a mouse model of HD [7]."
+SET Evidence = "TFEB was also identified as the downstream mediator and transcriptional target of PGC-1 alpha, which was shown to improve neurological function when overexpressed in a mouse model of HD [7]."
+SET Confidence = "High"
 SET Species = "10090"
 p(HGNC:TFEB) -> p(HGNC:PPARGC1A)
 p(HGNC:PPARGC1A) pos bp(GO:"nervous system process")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In addition, the deficits in TFEB and its target genes were corrected with PGC-1∝ overexpression [7]."
+SET Confidence = "High"
 p(HGNC:PPARGC1A) -> p(HGNC:TFEB)
-
+UNSET Confidence
 UNSET MeSHDisease
 
 SET MeSHDisease = "Parkinson Disease"
 
 SET Evidence = "Studies indicate that ∝-synuclein accumulation is cytotoxic and blocks ER–Golgi vesicular trafficking, which may hinder autophagy [49]."
+SET Confidence = "High"
 p(CONSO:"alpha-synuclein aggregates") neg bp(GO:"regulation of ER to Golgi vesicle-mediated transport")
 bp(GO:"regulation of ER to Golgi vesicle-mediated transport") pos bp(GO:autophagy)
 p(CONSO:"alpha-synuclein aggregates") neg bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "Rab1, a protein important in ER–Golgi vesicular trafficking, was linked to macroautophagy regulation, with Rab1 overexpression rescuing ∝-synuclein-induced autophagy impairment [49]."
+SET Confidence = "High"
 p(HGNC:RAB1A) -- bp(GO:"regulation of ER to Golgi vesicle-mediated transport")
 p(HGNC:RAB1A) reg bp(GO:macroautophagy)
 p(HGNC:RAB1A) -| p(CONSO:"alpha-synuclein aggregates")
 p(HGNC:RAB1A) pos bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "In addition to affecting autophagy, PD-related ∝-synuclein mutations cause CMA dysfunction, resulting in ∝-synuclein accumulation and the disturbance of neuronal survival factor myocyte enhancer factor 2D [50]."
+SET Confidence = "High"
 p(HGNC:SNCA,var("?")) neg bp(GO:"chaperone-mediated autophagy")
 bp(GO:"chaperone-mediated autophagy") -| p(CONSO:"alpha-synuclein aggregates")
 p(HGNC:SNCA,var("?")) -> p(CONSO:"alpha-synuclein aggregates")
 p(HGNC:SNCA,var("?")) -| p(HGNC:MEF2D)
 p(HGNC:MEF2D) -> bp(GO:"neuron cellular homeostasis")
+UNSET Confidence
 
 SET Evidence = "Loss of glucocerebrosidase, the enzyme mutated in Gaucher's disease, results in accumulation of ∝-synuclein and neurotoxicity in cellular models [53]."
-path(DOID:"Gaucher's disease") -> p(MESH:Glucosylceramidase,var("?"))
+SET Confidence = "Medium"
+p(MESH:Glucosylceramidase,var("?")) -> path(DOID:"Gaucher's disease")
 p(MESH:Glucosylceramidase) -| p(CONSO:"alpha-synuclein aggregates")
 p(MESH:Glucosylceramidase) -| a(MESH:"Toxic Actions")
+UNSET Confidence
 
 SET Evidence = "In addition, ∝-synuclein inhibits normal glucocerebrosidase activity in neurons, suggesting a positive feedback loop in cases of mutation and a possible role in sporadic PD [53]."
+SET Confidence = "High"
 p(HGNC:SNCA) neg bp(GO:"regulation of glucosylceramidase activity")
+UNSET Confidence
 
 SET Evidence = "Restoring normal glucocerebrosidase activity ameliorates ∝-synuclein pathology and behavioral deficits in ∝-synuclein mice [55]."
+SET Confidence = "High"
 SET Species = "10090"
 act(p(MESH:Glucosylceramidase)) -| act(p(HGNC:SNCA,var("?")))
 act(p(MESH:Glucosylceramidase)) pos bp(GO:behavior)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Overexpressing TFEB or inducing its nuclear translocation erases this deficit and ameliorates ∝-synuclein pathology [8,56,57]."
 #deficit - lysosmal deficiency
+SET Confidence = "High"
 p(HGNC:TFEB) -> a(MESH:Lysosomes)
 tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus)) -> a(MESH:Lysosomes)
 p(HGNC:TFEB) -| act(p(HGNC:SNCA,var("?")))
 tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus)) -| act(p(HGNC:SNCA,var("?")))
+UNSET Confidence
 
 SET Evidence = "In postmortem human PD brains, nuclear TFEB is significantly reduced in the midbrain [8]."
+SET Confidence = "Medium"
 SET Species = "9606"
 SET MeSHAnatomy = "Brain"
+SET Anatomy = "midbrain"
 path(DOID:"Parkinson's disease") -| p(HGNC:TFEB,loc(GO:nucleus))
+UNSET Anatomy
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Interestingly, TFEB colocalizes with ∝-synuclein in Lewy body-containing nigral neurons in both human PD brains and in a rodent model of PD [8]."
+SET Confidence = "High"
 SET Species = {"9606","10116"}
 SET MeSHAnatomy = "Neurons"
 path(DOID:"Parkinson's disease") -> composite(p(HGNC:SNCA),p(HGNC:TFEB),loc(GO:"Lewy body"))
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Furthermore, ∝-synuclein was found to bind to TFEB through coimmunoprecipitation, sequestering the transcription factor in the cytoplasm and preventing its activation [8]."
+SET Confidence = "High"
 composite(p(HGNC:SNCA),p(HGNC:TFEB),loc(GO:"Lewy body")) -> p(HGNC:TFEB,loc(GO:cytoplasm))
 composite(p(HGNC:SNCA),p(HGNC:TFEB),loc(GO:"Lewy body")) -| act(p(HGNC:TFEB))
 p(HGNC:TFEB,loc(GO:cytoplasm)) -| act(p(HGNC:TFEB))
+UNSET Confidence
 
 SET Evidence = "Trehalose, a disaccharide, is able to activate TFEB, evidenced by its nuclear translocation upon treatment, and results in reduced cell death in MPP+ intoxicated cells [56]."
+SET Confidence = "High"
 a(CHEBI:trehalose) -> act(p(HGNC:TFEB))
 a(CHEBI:trehalose) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
 tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus)) -> act(p(HGNC:TFEB))
 a(CHEBI:"N-methyl-4-phenylpyridinium") -> bp(GO:"cell death")
 a(CHEBI:trehalose) -| bp(GO:"cell death")
 tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus)) -| bp(GO:"cell death")
+UNSET Confidence
 
 SET Evidence = "In addition, 2-hydroxypropyl-β-cyclodextrin also activates TFEB and enhances clearance of ∝-synuclein aggregates in human neuroglioma cells [57,58]."
 #90479739 - 2-hydroxypropyl-β-cyclodextrin
+SET Confidence = "High"
 SET Species = "9606"
 SET MeSHAnatomy = "Neuroglia"
 a(PUBCHEM:90479739) -> act(p(HGNC:TFEB))
 a(PUBCHEM:90479739) -> deg(p(CONSO:"alpha-synuclein aggregates"))
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Finally, rapamycin, an FDA-approved drug, which activates autophagy through inhibition of mTOR (and thus stimulation of TFEB function) has been used in vitro and in vivo to reduce ∝-synuclein pathology [8,56]."
+SET Confidence = "Medium"
 a(CHEBI:sirolimus) pos bp(GO:autophagy)
+a(CHEBI:sirolimus) -| p(HGNC:MTOR)
 a(CHEBI:sirolimus) -> p(HGNC:TFEB)
 a(CHEBI:sirolimus) -| act(p(HGNC:SNCA,var("?")))
+UNSET Confidence
 
 SET Evidence = "Parkin and PINK1 have crucial roles in mitophagy, as evidenced by Parkin and Pink1 knockout and mutant mouse models [59]."
+SET Confidence = "High"
 SET Species = "10090"
 p(HGNC:PRKN) -- bp(GO:mitophagy)
 p(HGNC:PINK1) -- bp(GO:mitophagy)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "New therapeutic strategies have investigated restoring PINK1 kinase activity in loss of function mutants through the ATP analog kinetin triphosphate [60]."
 #277318041 - kinetin triphosphate
+SET Confidence = "High"
 a(PUBCHEM:277318041) -> act(p(HGNC:PINK1),ma(kin))
+UNSET Confidence
 
 SET Evidence = "In addition, TFEB has recently been shown to play a role in mitophagy [61]."
+SET Confidence = "High"
 p(HGNC:TFEB) -- bp(GO:mitophagy)
+UNSET Confidence
 
 SET Evidence = "During this process, TFEB translocates to the nucleus and becomes transcriptionally active in a PINK1- and Parkin-dependent manner [61]."
+SET Confidence = "High"
 p(HGNC:PINK1) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
 p(HGNC:PINK1) -> act(p(HGNC:TFEB),ma(tscript))
 p(HGNC:PRKN) ->  tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
 p(HGNC:PRKN) -> act(p(HGNC:TFEB),ma(tscript))
+UNSET Confidence
 
 SET Evidence = "Furthermore, another recent study suggests that the reciprocal positive feedforward TFEB–PGC1∝ signaling pathway plays a crucial role in the clearance of damaged mitochondria and mitochondrial biogenesis in mice with a Q311X Parkin mutation [62]."
+SET Confidence = "High"
 SET Species = "10090"
 p(HGNC:PRKN,var("p.Gln311?")) -> path(CONSO:"mitochondrial dysfunction")
 composite(p(HGNC:TFEB),p(HGNC:PPARGC1A)) -> bp(GO:mitophagy)
 composite(p(HGNC:TFEB),p(HGNC:PPARGC1A)) -> a(MESH:Mitochondria)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "In this case, TFEB–PGC1∝ signaling was reduced by the increased levels of PARIS, which is less efficiently bound and ubiquitinated by mutant Parkin [62]."
+SET Confidence = "High"
 p(HGNC:ZNF746) -| composite(p(HGNC:TFEB),p(HGNC:PPARGC1A))
-
+UNSET Confidence
 UNSET MeSHDisease
 
 SET MeSHDisease = "Alzheimer Disease"
 
 SET Evidence = "Loss of function or AD-related mutations in PS1 have been shown to result in failure of V-ATPase V0a1 subunit maturation and assembly of the V-ATPase complex, which is necessary for lysosomal acidification and protease activity [63,64]."
+SET Confidence = "High"
 p(HGNC:PSEN1,var("?")) -| p(HGNCGENEFAMILY:"V-type ATPases")
 p(HGNC:PSEN1,var("?")) neg bp(GO:"proton-transporting V-type ATPase complex assembly")
 p(HGNCGENEFAMILY:"V-type ATPases") reg bp(GO:"lysosomal lumen acidification")
 p(HGNCGENEFAMILY:"V-type ATPases") reg bp(GO:"lysosomal protein catabolic process")
+UNSET Confidence
 
 SET Evidence = "Alternatively, another study demonstrates impaired lysosomal fusion capacity and accumulation of endomembranes in PS deficiency as a result of defective lysosomal calcium storage/release [65]."
+SET Confidence = "High"
 p(HGNC:PSEN1) pos bp(GO:"autophagosome-lysosome fusion")
 p(HGNC:PSEN2) pos bp(GO:"autophagosome-lysosome fusion")
 p(HGNC:PSEN1) pos bp(GO:"endomembrane system organization")
@@ -348,9 +450,11 @@ SET MeSHAnatomy = "Lysosomes"
 p(HGNC:PSEN1) pos bp(GO:"sequestering of calcium ion")
 p(HGNC:PSEN2) pos bp(GO:"sequestering of calcium ion")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "With respect to tau, enhancing the ALP through exogenous TFEB expression in the brain dramatically reduces tau pathology, neurodegeneration, and behavioral deficits in the rTg4510 mouse model [10]."
 #rTg4510
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = "Brain"
 p(HGNC:TFEB) -| act(p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)))
@@ -358,16 +462,20 @@ p(HGNC:TFEB) -| path(DOID:"neurodegenerative disease")
 p(HGNC:TFEB) pos bp(GO:behavior)
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "The proposed mechanism of action in this study operates via a TFEB–PTEN–Akt–mTOR–TFEB feedback regulatory loop, where TFEB induces the ALP through upregulation of PTEN and inhibition of Akt and mTOR, which further activates TFEB [10]."
+SET Confidence = "High"
 p(HGNC:TFEB) -> p(HGNC:PTEN)
 p(HGNC:PTEN) -| p(HGNC:AKT1)
 p(HGNC:PTEN) -| p(HGNC:MTOR)
 p(HGNC:MTOR) -| p(HGNC:TFEB)
 p(HGNC:AKT1) -| p(HGNC:TFEB)
+UNSET Confidence
 
 SET Evidence = "For amyloid pathology, TFEB expression in astrocytes facilitates a reduction in Aβ plaque pathology in the APP/PS1 mouse model by the proposed mechanism of astrocyte uptake and lysosomal degradation of Aβ [9]."
 #APP/PS1 model
+SET Confidence = "High"
 SET Species = "10090"
 SET MeSHAnatomy = "Astrocytes"
 p(HGNC:TFEB) -| path(MESH:"Plaque, Amyloid")
@@ -375,13 +483,17 @@ p(HGNC:TFEB) -> act(p(MESH:Lysosomes))
 act(p(MESH:Lysosomes)) -> deg(a(CHEBI:"amyloid-beta"))
 UNSET MeSHAnatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Finally, the effect of glycogen synthase kinase 3 inhibition on APP degradation in vitro is thought to be mediated by enhancing the ALP through increasing TFEB nuclear localization and transcriptional activity [75]."
+SET Confidence = "High"
 deg(p(HGNC:APP)) -| p(HGNC:GSK3B)
 deg(p(HGNC:APP)) -> p(HGNC:TFEB,loc(GO:nucleus))
 deg(p(HGNC:APP)) -> act(p(HGNC:TFEB),ma(tscript))
+UNSET Confidence
 
 SET Evidence = "miR128 is a microRNA identified to be upregulated in the hippocampus of AD patients [76] and in monocytes derived from late-onset AD (LOAD) patients [77]."
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 path(DOID:"Alzheimer's disease") -> m(MIRBASE:"hsa-mir-128-1")
 path(DOID:"Alzheimer's disease") -> m(MIRBASE:"hsa-mir-128-2")
@@ -389,12 +501,16 @@ SET MeSHAnatomy = "Monocytes"
 path(MESH:"Late Onset Disorders") -> m(MIRBASE:"hsa-mir-128-1")
 path(MESH:"Late Onset Disorders") -> m(MIRBASE:"hsa-mir-128-2")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Of note, miR128 targets TFEB, leading to its downregulation [1,8,77]."
+SET Confidence = "High"
 m(MIRBASE:"hsa-mir-128-1") -| p(HGNC:TFEB)
 m(MIRBASE:"hsa-mir-128-2") -| p(HGNC:TFEB)
+UNSET Confidence
 
 SET Evidence = "In the case of LOAD patient-derived monocytes, lysosomal enzymes and Aβ degradative capacity are reduced compared to healthy donors, likely owing to a decrease in TFEB transcripts and nuclear localization caused by miR128 upregulation [77]."
+SET Confidence = "High"
 SET MeSHAnatomy = "Monocytes"
 path(MESH:"Late Onset Disorders") -| deg(a(CHEBI:"amyloid-beta"))
 r(HGNC:TFEB) -> deg(a(CHEBI:"amyloid-beta"))
@@ -408,28 +524,33 @@ m(MIRBASE:"hsa-mir-128-1") -| r(HGNC:TFEB)
 m(MIRBASE:"hsa-mir-128-1") -| p(HGNC:TFEB,loc(GO:nucleus))
 m(MIRBASE:"hsa-mir-128-2") -| r(HGNC:TFEB)
 m(MIRBASE:"hsa-mir-128-2") -| p(HGNC:TFEB,loc(GO:nucleus))
+UNSET Confidence
 
 SET Evidence = "By contrast, patient-derived fibroblasts containing the familial AD PS1 mutation A246E display lysosomal alkalization and decreased cathepsin D activity, resulting in upregulation of ALP genes, in particular TFEB [78]."
+SET Confidence = "High"
 SET MeSHAnatomy = "Fibroblasts"
 p(HGNC:PSEN1,var("p.Ala246Glu")) -> bp(GO:"lysosomal lumen pH elevation")
 p(HGNC:PSEN1,var("p.Ala246Glu")) -| act(p(HGNC:CTSD))
 bp(GO:"lysosomal lumen pH elevation") -> p(HGNC:TFEB)
 act(p(HGNC:CTSD)) -> p(HGNC:TFEB)
 UNSET MeSHAnatomy
-
+UNSET Confidence
 UNSET MeSHDisease
 
 SET MeSHDisease = "Prion Diseases"
 
 SET Evidence = "In several prion models, autophagy is activated through both mTOR and Beclin 1 signaling pathways [88,89], and ALP activators such as rapamycin and trehalose decrease PrPSc in vitro and in vivo [90,91]."
+SET Confidence = "High"
 act(p(HGNC:MTOR)) pos bp(GO:autophagy)
 act(p(HGNC:BECN1)) pos bp(GO:autophagy)
 a(CHEBI:sirolimus) -| p(CONSO:PrPSc)
 a(CHEBI:trehalose) -| p(CONSO:PrPSc)
+UNSET Confidence
 
 SET Evidence = "Paradoxically, the antimalarial drug quinacrine, which functions as an autophagy–lysosomal degradation inhibitor, has been shown to have therapeutic effects in prion disease models [92]."
+SET Confidence = "High"
 a(CHEBI:quinacrine) -| path(DOID:malaria)
 a(CHEBI:quinacrine) -> bp(GO:"autophagosome-lysosome fusion")
 a(CHEBI:quinacrine) -| path(DOID:"prion disease")
-
+UNSET Confidence
 UNSET MeSHDisease
