@@ -92,7 +92,7 @@ SET Evidence = "In addition to expression on the cell surface, an intracellular 
 SET Anatomy = "brain"
 SET CellStructure = "Mitochondria"
 complex(p(HGNC:CHRNA7),p(HGNC:CHRNB2)) -> bp(GO:"pore complex assembly")
-complex(p(HGNC:CHRNA7),p(HGNC:CHRNB2)) -> sec(a(MESH:"Cytochromes c")
+complex(p(HGNC:CHRNA7),p(HGNC:CHRNB2)) -> sec(p(MESH:"Cytochromes c")
 UNSET Anatomy
 UNSET CellStructure
 
@@ -154,7 +154,7 @@ SET Evidence = "Alternatively, downstream signaling towards NFkB may involve JAK
 
 act(p(HGNC:JAK2)) => act(p(HGNC:STAT3))
 act(p(HGNC:STAT3)) => act(p(MESH:"NF-kappa B"))
-act(p(HGNC:CHRNA7)) -| act(p(HGNC:"MAPK1_p38"))
+act(p(HGNC:CHRNA7)) -| act(p(FPLX:"MAPK1_p38"))
 act(p(HGNC:STAT3)) -> sec(p(HGNC:TNF))
 act(p(HGNC:STAT3)) -> sec(p(HGNC:HMGB1))
 sec(p(HGNC:TNF)) -> path(MESH:Inflammation)
@@ -166,7 +166,7 @@ act(p(MESH:"Receptors, Glucocorticoid")) -> p(HGNC:CHRNA7)
 
 SET Evidence = "Overall, given the expression pattern, the cellular signaling cascades, and information from vagus nerve stimulation, the data strongly indicate that activation of the a7 nAChR suppresses the responsiveness of the immune system."
 
-p(HGNC:CHRNA7) -| bp(MESH:"Immune System")
+p(HGNC:CHRNA7) -| a(MESH:"Immune System")
 
 SET Evidence = "In this context, PNU-120596 has been shown to attenuate TNFa and IL-6 in a rodent model of inflammatory pain"
 
@@ -232,7 +232,7 @@ path(MESH:"Stress, Physiological") -> path(DOID:"mental depression")
 
 SET Evidence = "Many kinds of stress, but in particular those involving threat, loss, entrapment, and humiliation, lead to activation of the immune system [109–112]."
 
-path(MESH:"Stress, Physiological") -> bp(MESH:"Immune System")
+path(MESH:"Stress, Physiological") -> a(MESH:"Immune System")
 
 SET Evidence = "Notably, phagocytes from patients with depression are hyper-responsive [114–116]. Upon activation, these cells produce cytotoxic compounds like nitric oxide and oxygen radicals [117, 118]."
 
@@ -256,8 +256,8 @@ a(CHEBI:monoamine) -| path(HP:Anhedonia)
 
 SET Evidence = "As outlined above, α7 nAChRs are expressed both on macrophages and microglia, and their activation leads to anti-inflammatory effects."
 
-act(p(HGNC:CHRNA7),loc(MESH:Microglia)) -| path(MESH:Inflammation)
-act(p(HGNC:CHRNA7),loc(MESH:Macrophages)) -| path(MESH:Inflammation)
+act(p(HGNC:CHRNA7,loc(MESH:Microglia))) -| path(MESH:Inflammation)
+act(p(HGNC:CHRNA7,loc(MESH:Macrophages))) -| path(MESH:Inflammation)
 
 SET Evidence = "In particular, activation of α7 nAChRs might lead to a shift in microglia phenotype from M1-like (activated for anti-microbial activity) to M2-like (resolution, removal of debris) [10, 11, 13, 83, 120], while a similar process has been described in the periphery."
 
@@ -429,9 +429,9 @@ path(MESH:Alcoholism) pos path(DOID:"bipolar disorder")
 SET Evidence = "And in further similarity to major depression,
 childhood trauma is a strong predictor for appearance of
 bipolar disorder later in life [169]."
-
-path(MESH:"Adverse Childhood Experiences") pos path(MESH:Depression)
-path(MESH:"Adverse Childhood Experiences") pos path(DOID:"bipolar disorder")
+#MESH update required
+#path(MESH:"Adverse Childhood Experiences") pos path(MESH:Depression)
+#path(MESH:"Adverse Childhood Experiences") pos path(DOID:"bipolar disorder")
 
 SET Evidence = "There is evidence
 for microglia activation in the brain of bipolar disorder
@@ -590,7 +590,7 @@ confusion, and dementia."
 path(DOID:"Parkinson's disease") -> deg(a(MESH:"Dopaminergic Neurons"))
 path(DOID:"Parkinson's disease") -> path(DOID:"anxiety disorder")
 path(DOID:"Parkinson's disease") -> path(MESH:Depression)
-path(DOID:"Parkinson's disease") -| bp(GO:"memory or learning")
+path(DOID:"Parkinson's disease") -| bp(GO:"learning or memory")
 path(DOID:"Parkinson's disease") -> path(HP:Confusion)
 path(DOID:"Parkinson's disease") -> path(DOID:dementia)
 
@@ -622,11 +622,11 @@ activation and neuroinflammation, and prevent nigro-striatal
 dopamine-neuronal loss [206, 207]."
 
 SET Anatomy = "nigrostriatal tract"
-a(CHEBI:nicotine) -| act(a(MESH:Microglia)
-a(CHEBI:nicotine) -| path(HP:neuroinflammation)
+a(CHEBI:nicotine) -| act(a(MESH:Microglia))
+a(CHEBI:nicotine) -| path(CONSO:neuroinflammation)
 a(CHEBI:nicotine) -| deg(a(MESH:"Dopaminergic Neurons"))
-p(HGNC:CHRNA7) -| act(a(MESH:Microglia)
-p(HGNC:CHRNA7) -| path(HP:neuroinflammation)
+p(HGNC:CHRNA7) -| act(a(MESH:Microglia))
+p(HGNC:CHRNA7) -| path(CONSO:neuroinflammation)
 p(HGNC:CHRNA7) -| deg(a(MESH:"Dopaminergic Neurons"))
 UNSET Anatomy
 
@@ -696,7 +696,7 @@ pathology is the observation that cholinergic neurons in the
 basal forebrain express a heteromeric a7b2 isoform [224,
 225]"
 SET Anatomy = "basal forebrain"
-a(MESH:"Cholinergic Neurons") -> p(CONSO:"alpha-7 beta-2 nAChR")
+a(MESH:"Cholinergic Neurons") -> complex(CONSO:"alpha-7 beta-2 nAChR")
 UNSET Anatomy
 
 SET Evidence = "Liu et al. [224] have reported that the a7b2 receptor
@@ -710,7 +710,7 @@ of the a7b2 receptor is neurotoxic to cholinergic neurons,
 and if microglia cells from basal forebrain structures
 express this heteromeric nicotinic receptor."
 
-p(CONSO:"alpha-7 beta-2 nAChR") -| deg(a(MESH:"Cholinergic Neurons"))
+complex(CONSO:"alpha-7 beta-2 nAChR") -| deg(a(MESH:"Cholinergic Neurons"))
 
 SET Evidence = "Nevertheless,
 one can begin to sketch a positive feedback process where
@@ -726,7 +726,7 @@ acetylcholine leads to a reduction in a7 nAChR stimulation
 of microglia cells, which results in further loss of their
 phagocytic capacity."
 SET Anatomy = "basal forebrain"
-p(CONSO:"amyloid-beta oligomers",loc(GO:"extracellular space")) -| p(CONSO:"alpha-7 beta-2 nAChR",loc(MESH:"Cholinergic Neurons"))
+p(CONSO:"amyloid-beta oligomers",loc(GO:"extracellular space")) -| complex(CONSO:"alpha-7 beta-2 nAChR",loc(MESH:"Cholinergic Neurons"))
 complex(a(CHEBI:acetylcholine),p(HGNC:CHRNA7,loc(MESH:Microglia))) -> bp(GO:phagocytosis)
 UNSET Anatomy
 
