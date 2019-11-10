@@ -102,7 +102,7 @@ a(CHEBI:leupeptin) -| act(a(MESH:Lysosomes))
 a(CHEBI:chloroquine) -| deg(p(CONSO:"amyloid-beta fibrils"))
 a(CHEBI:leupeptin) -| deg(p(CONSO:"amyloid-beta fibrils"))
 a(CHEBI:phosphoramidon) -| p(HGNC:MME)
-p(HGNC:MME) -> deg(p(HGNC:"sAPP-beta"))
+p(HGNC:MME) -> deg(p(CONSO:"sAPP-beta"))
 a(CHEBI:phosphoramidon) -- deg(p(CONSO:"amyloid-beta fibrils"))
 
 SET Evidence = "Recent studies revealed
@@ -149,7 +149,6 @@ act(p(CONSO:"amyloid-beta fibrils")) -| p(HGNCGENEFAMILY:"MTOR complex 1",pmod(P
 p(HGNCGENEFAMILY:"MTOR complex 1",pmod(Ph)) -| act(p(HGNCGENEFAMILY:"MTOR complex 1"))
 act(p(HGNCGENEFAMILY:"MTOR complex 1")) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
 
-UNSET MeSHAnatomy
 #in HEK293T
 SET CellLine = "HEK293T"
 
@@ -161,10 +160,10 @@ trichostatin A (TSA) which inhibits activity of histone
 deacetylase (HDAC) classes I, II, and IV (Fig. 3A)."
 a(CHEBI:nicotinamide) -> p(HGNC:TFEB,pmod(Ac))
 a(CHEBI:nicotinamide) -| p(HGNCGENEFAMILY:Sirtuins)
-a(CHEBI:trichostatin A) -> p(HGNC:TFEB,pmod(Ac))
-a(CHEBI:trichostatin A) -| p(HGNC:HDAC1)
-a(CHEBI:trichostatin A) -| p(HGNC:HDAC2)
-a(CHEBI:trichostatin A) -| p(HGNC:HDAC4)
+a(CHEBI:"trichostatin A") -> p(HGNC:TFEB,pmod(Ac))
+a(CHEBI:"trichostatin A") -| p(HGNC:HDAC1)
+a(CHEBI:"trichostatin A") -| p(HGNC:HDAC2)
+a(CHEBI:"trichostatin A") -| p(HGNC:HDAC4)
 
 SET Evidence = "As we expected, in contrast with wildtype
 TFEB (TFEB-WT), acetylation level of K116R mutant
@@ -172,8 +171,8 @@ TFEB (TFEB-WT), acetylation level of K116R mutant
 (Fig. 3E)."
 a(CHEBI:nicotinamide) -> p(HGNC:TFEB,pmod(Ac,Lys,116))
 a(CHEBI:nicotinamide) cnc p(HGNC:TFEB,var("p.Lys116Arg"))
-a(CHEBI:trichostatin A) -> p(HGNC:TFEB,pmod(Ac,Lys,116))
-a(CHEBI:trichostatin A) cnc p(HGNC:TFEB,var("p.Lys116Arg"))
+a(CHEBI:"trichostatin A") -> p(HGNC:TFEB,pmod(Ac,Lys,116))
+a(CHEBI:"trichostatin A") cnc p(HGNC:TFEB,var("p.Lys116Arg"))
 
 SET Evidence = "Given the evidence that TFEB can be acetylated at K116 site
 and the knowledge that acetylation status is regarded as a
@@ -237,7 +236,7 @@ that SIRT6 or SIRT7 might involve in deacetylation of TFEB
 in the nucleus."
 p(HGNC:SIRT6) cnc p(HGNC:TFEB,pmod(Ac))
 p(HGNC:SIRT7) cnc p(HGNC:TFEB,pmod(Ac))
-SET MeSHAnatomy = "Nucleus"
+SET MeSHAnatomy = "Cell Nucleus"
 p(HGNC:SIRT6) -| p(HGNC:TFEB,pmod(Ac))
 p(HGNC:SIRT7) -| p(HGNC:TFEB,pmod(Ac))
 UNSET MeSHAnatomy
@@ -252,7 +251,7 @@ SIRT1-WT than those overexpressing GFP as a
 vector control or SIRT1-HY (Figs. 5A, 5C, and S4A), indicating
 that only the catalytically active SIRT1 is able to
 facilitate microglial degradation of fAβ efficiently."
-p(HGNC:SIRT1) -> act(p(HNC:SIRT1))
+p(HGNC:SIRT1) -> act(p(HGNC:SIRT1))
 p(HGNC:SIRT1,var("?")) -| act(p(HGNC:SIRT1))
 act(p(HGNC:SIRT1)) -> bp(GO:"microglial cell activation")
 bp(GO:"microglial cell activation") -> deg(p(CONSO:"amyloid-beta fibrils"))
@@ -270,7 +269,7 @@ SET Evidence = "Meanwhile, we found
 that TSA could not affect microglial degradative capability on
 fAβ (Fig. S4E), indicating that it is SIRT1, but not other
 HDACs, that is responsible for fAβ degradation in microglia."
-a(CHEBI:trichostatin A) cnc bp(GO:"microglial cell activation")
+a(CHEBI:"trichostatin A") cnc bp(GO:"microglial cell activation")
 p(MESH:"Histone Deacetylases") cnc deg(p(HGNC:SIRT1))
 
 SET Evidence = "In BV2 microglia,
@@ -350,7 +349,7 @@ were significantly more efficient at clearing the aggregates
 deposited in the cortex (Fig. 7B and 7C) and hippocampus
 (Fig. 7D) when compared with its wild-type."
 #i BV2 microglia
-SET MeSHAnatomy = {"Cere Cortex","Hippocampus"}
+SET MeSHAnatomy = {"Cerebral Cortex","Hippocampus"}
 p(HGNC:TFEB,var("p.Lys116Arg")) -> deg(p(CONSO:"amyloid-beta aggregates"))
 UNSET MeSHAnatomy
 
@@ -373,8 +372,8 @@ act(p(HGNC:SIRT1),ma(GO:"deacetylase activity")) -> bp(GO:"microglial cell activ
 p(HGNC:TFEB,pmod(Ac)) -| bp(GO:"microglial cell activation")
 bp(GO:"microglial cell activation") -> deg(p(CONSO:"amyloid-beta aggregates"))
 p(HGNC:TFEB,pmod(Ac)) -> p(CONSO:"amyloid-beta aggregates")
-bp(GO:"microglial cell activation") -> deg(p(MESH:"Plaque, Amyloid"))
-p(HGNC:TFEB,pmod(Ac)) -> p(MESH:"Plaque, Amyloid")
+bp(GO:"microglial cell activation") -| path(MESH:"Plaque, Amyloid")
+p(HGNC:TFEB,pmod(Ac)) -> path(MESH:"Plaque, Amyloid")
 act(p(HGNC:SIRT1),ma(GO:"deacetylase activity")) -> a(MESH:Lysosomes)
 p(HGNC:TFEB,pmod(Ac)) -| a(MESH:Lysosomes)
 act(p(HGNC:SIRT1),ma(GO:"deacetylase activity")) -> act(a(MESH:Lysosomes))
