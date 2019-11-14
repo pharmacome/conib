@@ -126,7 +126,7 @@ p(HGNC:TFEB,var("p.Ser211Ala")) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc
 UNSET Confidence
 
 SET Evidence = "Two kinases are known to phosphorylate TFEB at these sites: ERK2 [2] and mTORC1 [32–35]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 act(p(HGNC:MAPK1),ma(kin)) -> p(HGNC:TFEB,pmod(Ph,Ser,142))
 act(p(HGNC:MAPK1),ma(kin)) -> p(HGNC:TFEB,pmod(Ph,Ser,211))
 act(p(HGNCGENEFAMILY:"MTOR complex 1"),ma(kin)) -> p(HGNC:TFEB,pmod(Ph,Ser,142))
@@ -227,10 +227,7 @@ p(HGNC:LAMP2) -> deg(p(HGNC:HTT))
 UNSET Confidence
 
 SET Evidence = "In particular, Beclin 1 and mTOR are sequestered in mHTT inclusions bodies [45,46]."
-SET Confidence = "Low"
-#can we not show sequesteration by composite function?
-#p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -> composite(p(HGNC:BECN1),p(HGNC:HTT,pmod(CONSO:"CAG repeats")))
-#p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -> composite(p(HGNC:MTOR),p(HGNC:HTT,pmod(CONSO:"CAG repeats")))
+SET Confidence = "High"
 SET MeSHAnatomy = "Inclusion Bodies"
 p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -> p(HGNC:BECN1)
 p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -> p(HGNC:MTOR)
@@ -304,8 +301,9 @@ p(HGNC:MEF2D) -> bp(GO:"neuron cellular homeostasis")
 UNSET Confidence
 
 SET Evidence = "Loss of glucocerebrosidase, the enzyme mutated in Gaucher's disease, results in accumulation of ∝-synuclein and neurotoxicity in cellular models [53]."
-SET Confidence = "Medium"
-p(MESH:Glucosylceramidase,var("?")) -> path(DOID:"Gaucher's disease")
+SET Confidence = "Low"
+#it should be other way round as it mentions that enzyme is mutated in disease and not that disease is caused because of mutation
+#p(MESH:Glucosylceramidase,var("?")) -> path(DOID:"Gaucher's disease")
 p(MESH:Glucosylceramidase) -| p(CONSO:"alpha-synuclein aggregates")
 p(MESH:Glucosylceramidase) -| a(MESH:"Toxic Actions")
 UNSET Confidence
@@ -333,7 +331,7 @@ tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus)) -| act(p(HGNC:SNCA,va
 UNSET Confidence
 
 SET Evidence = "In postmortem human PD brains, nuclear TFEB is significantly reduced in the midbrain [8]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Species = "9606"
 SET MeSHAnatomy = "Brain"
 SET Anatomy = "midbrain"
@@ -381,7 +379,7 @@ UNSET Species
 UNSET Confidence
 
 SET Evidence = "Finally, rapamycin, an FDA-approved drug, which activates autophagy through inhibition of mTOR (and thus stimulation of TFEB function) has been used in vitro and in vivo to reduce ∝-synuclein pathology [8,56]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 a(CHEBI:sirolimus) pos bp(GO:autophagy)
 a(CHEBI:sirolimus) -| p(HGNC:MTOR)
 a(CHEBI:sirolimus) -> p(HGNC:TFEB)
