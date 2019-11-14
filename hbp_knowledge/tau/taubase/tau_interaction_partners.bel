@@ -19,7 +19,7 @@ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharma
 DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
 DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/hgnc-names.belns"
 DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/3074b85b858455d8eeb76cfcdef685ced19bbe11/external/hgnc.genefamily-names.belns"
-DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/b46b65c3da259b6e86026514dfececab7c22a11b/external/go-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/go-names.belns"
 DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/interpro-names.belns"
 DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/01c9daa61012b37dd0a1bc962521ba51a15b38f1/external/mesh-names.belns"
 DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/f2f993e599694ab5ce989cc39d789a499f75db99/external/mgi-names.belns"
@@ -137,7 +137,7 @@ SET Evidence = "This antibody binds only to tau and localizes along microtubules
 (polysomes) without phosphatase pretreatment."
 SET Confidence = "Medium"
 SET Method = {"Immunohistochemistry", "Immunoblotting"}
-SET MeSHAnatomy = {"Axons","Dendrites","Astrocytes"."Polyribosomes"}
+SET MeSHAnatomy = {"Axons","Dendrites","Astrocytes","Polyribosomes"}
 p(HGNC:MAPT) -- complex(p(HGNC:MAPT),a(MESH:Microtubules))
 UNSET MeSHAnatomy
 UNSET Method
@@ -261,7 +261,7 @@ p(HGNC:MAPK8IP1) isA complex(GO:"kinesin complex")
 p(HGNC:KIF5B) -> complex(p(HGNC:KIF5B),a(MESH:Microtubules))
 p(HGNC:KLC1) -> complex(p(HGNC:KLC1),complex(GO:"cargo receptor complex"))
 act(complex(GO:"kinesin complex")) pos bp(GO:"vesicle-mediated transport")
-UNSET confidence
+UNSET Confidence
 
 SET Evidence = "Thus, the lack of kinesin/JIP1 interaction occurs together with an aberrant
 Tau/JIP1 interaction in K3 brains.Taken together, our data
@@ -462,7 +462,7 @@ act(complex(GO:"proteasome complex")) -> deg(p(HGNC:MAPT))
 act(complex(GO:"proteasome complex")) isA complex(GO:"proteasome complex")
 p(HGNC:BAG1) -| deg(p(HGNC:MAPT))
 p(HGNC:BAG1) neg act(complex(GO:"proteasome complex"))
-p(HGNC:BAG1) neg p(HGNC:MAPT, pmod(CONOS:hyperphosphorylation))
+p(HGNC:BAG1) neg p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
 p(HGNC:BAG1) cnc p(HGNC:MAPT, pmod(Ub))
 UNSET Confidence
 UNSET MeSHAnatomy
@@ -572,8 +572,8 @@ disrupted the ability of tau to bind microtubules; the binding was fully restore
 Pin1 was detected in the fraction of tau-bound microtubules (Fig. 5a). However, no Pin1 was detected in the microtubule fraction if pTau was not added (Fig. 5a),
 indicating that Pin1 does not bind microtubules directly. Thus, Pin1 binds pTau and restores its ability to bind microtubules."
 SET Confidence = "High"
-p(HGNC:MAPT, pmod(Ph, Thr, 231)) neg act(p(HGNC:MAPT),ma(GO:"mcirotubule binding"))
-complex(p(HGNC:PIN1, frag("5_39")), p(HGNC:MAPT, pmod(Ph, Thr, 231))) -> act(p(HGNC:MAPT),ma(GO:"mcirotubule binding"))
+p(HGNC:MAPT, pmod(Ph, Thr, 231)) neg act(p(HGNC:MAPT),ma(GO:"microtubule binding"))
+complex(p(HGNC:PIN1, frag("5_39")), p(HGNC:MAPT, pmod(Ph, Thr, 231))) -> act(p(HGNC:MAPT),ma(GO:"microtubule binding"))
 UNSET Confidence
 UNSET Method
 
@@ -779,7 +779,7 @@ bp(GO:"inflammatory response") -> sec(p(HGNC:DKK1))
 p(HGNC:DKK1) -> act(p(HGNC:GSK3B))
 p(HGNC:DKK1) -| bp(GO:"Wnt signaling pathway")
 act(p(HGNC:GSK3B)) -> p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
-act(p(HGNC:GSK3B)) -> bp(GO:"neurofibrillary tangle")
+act(p(HGNC:GSK3B)) -> p(GO:"neurofibrillary tangle")
 act(p(HGNC:GSK3B)) neg bp(GO:"neuron development")
 UNSET Confidence
 
@@ -800,7 +800,7 @@ p(HGNC:DKK1) -> p(HGNC:GSK3B,pmod(Ph))
 p(HGNC:DKK1) -> deg(p(MESH:"beta Catenin"))
 p(MESH:"beta Catenin") reg bp(GO:"Wnt signaling pathway")
 p(MESH:"beta Catenin") -| p(HGNC:MAPT, pmod(CONSO:hyperphosphorylation))
-p(HGNC:S100B) -> bp(GO:"neurofibrillary tangle")
+p(HGNC:S100B) -> p(GO:"neurofibrillary tangle")
 SET Cell = "neuron"
 p(HGNC:S100B) pos bp(GO:"inflammatory response")
 UNSET Cell
@@ -894,12 +894,10 @@ SET Evidence = "The data suggest that tau’s membrane association causes retent
 which is compromised by the R406W mutation. Also, after BAPTA treatment, the difference in the retention of
 wt tau and R406W tau was abolished (Fig. 9 D), which again suggests that tau trapping is caused by an interaction with AnxA2 at the membrane."
 SET Confidence = "Medium"
-SET GOCC = "neuron projection"
 p(HGNC:MAPT) -- p(HGNC:ANXA2)
 p(HGNC:ANXA2) isA complex(p(HGNC:MAPT,loc(MESH:"Cell Membrane")), p(HGNC:ANXA2,loc(MESH:"Cell Membrane")))
 p(HGNC:MAPT) isA complex(p(HGNC:MAPT,loc(MESH:"Cell Membrane")), p(HGNC:ANXA2,loc(MESH:"Cell Membrane")))
 p(CONSO:"Tau isoform F (441 aa)", var("p.Arg406Tyr")) -| complex(p(HGNC:MAPT,loc(MESH:"Cell Membrane")), p(HGNC:ANXA2,loc(MESH:"Cell Membrane")))
-UNSET GOCC
 UNSET Confidence
 UNSET Method
 
@@ -917,10 +915,8 @@ a(CONSO:"amyloid-beta derived diffusible ligands") -> tloc(p(MGI:Fyn), fromLoc(G
 a(CONSO:"amyloid-beta derived diffusible ligands") -> tloc(p(MGI:Mapt), fromLoc(GO:cytoplasm), toLoc(GO:"membrane raft"))
 a(CHEBI:"2-bromohexadecanoic acid") -| p(MGI:Fyn, pmod(Palm))
 p(MGI:Fyn, pmod(Palm)) -> tloc(p(MGI:Fyn), fromLoc(GO:cytoplasm), toLoc(GO:"membrane raft"))
-SET GOCC = "membrane raft"
-a(CHEBI:"2-bromohexadecanoic acid") neg p(MGI:Mapt)
-a(CHEBI:"2-bromohexadecanoic acid") neg p(MGI:Fyn)
-UNSET GOCC
+a(CHEBI:"2-bromohexadecanoic acid") neg p(MGI:Mapt,loc(GO:"membrane raft"))
+a(CHEBI:"2-bromohexadecanoic acid") neg p(MGI:Fyn,loc(GO:"membrane raft"))
 p(MGI:Fyn) reg tloc(p(MGI:Mapt), fromLoc(GO:cytoplasm), toLoc(GO:"membrane raft"))
 UNSET Species
 UNSET Method
