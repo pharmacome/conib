@@ -74,13 +74,14 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 SET Citation = {"PubMed", "26979166"}
 
 SET Evidence = "Peripheral and CNS immune cells strongly express a7 nAChRs; activation of a7 nAChRs on these cells has been shown to suppress inflammatory processes."
-SET Confidence = "Medium"
+SET Confidence = "High"
 bp(MESH:"Immunity, Cellular") -> p(HGNC:CHRNA7)
 act(p(HGNC:CHRNA7)) -| path(MESH:Inflammation)
 UNSET Confidence
 
 SET Evidence = "Concerning function, activation of a7 nAChRs results in strong calcium and sodium influxes, which in the case of a presynaptic location facilitates neurotransmitter release [17, 18]."
-
+SET Confidence = "Low"
+#the confidence of the statement was not set, please have a look
 act(p(HGNC:CHRNA7)) -> tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"extracellular space"),toLoc(GO:cell))
 act(p(HGNC:CHRNA7)) -> bp(GO:"sodium ion import across plasma membrane")
 SET CellStructure = "Presynaptic Terminals"
@@ -99,17 +100,20 @@ UNSET CellStructure
 UNSET Confidence
 
 SET Evidence = "This indicates that in neurons a7 nAChRs have a special role in the modulation of intracellular calcium, enabling substantial calcium entry at resting or hyperpolarized membrane potential, which is different compared to other nAChRs, but similar to NMDA receptors at depolarized membrane potential."
-SET Confidence = "Medium"
+SET Confidence = "High"
+#in mouse cell line
+SET Species = "10090"
 SET MeSHAnatomy = "Hippocampus"
 SET Cell = "neuron"
 p(HGNC:CHRNA7) reg a(CHEBI:"calcium ion",loc(MESH:"Intracellular Space"))
 bp(GO:"membrane hyperpolarization") -> a(CHEBI:"calcium ion",loc(GO:nucleus))
 UNSET Cell
 UNSET MeSHAnatomy
+UNSET Species
 UNSET Confidence
 
 SET Evidence = "The intracellular pathways following a7 nAChR activation in non-neuronal cells involve calcium influx through the channel pore, which then triggers calcium-induced calcium release from ryanodine- and IP3-dependent stores [10, 28, 59]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 act(p(HGNC:CHRNA7)) -> tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"pore complex"),toLoc(MESH:"Intracellular Space"))
 tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"pore complex"),toLoc(MESH:"Intracellular Space")) -> act(p(HGNCGENEFAMILY:"Ryanodine receptors"))
 tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"pore complex"),toLoc(MESH:"Intracellular Space")) -> act(p(HGNCGENEFAMILY:"Inositol 1,4,5-triphosphate receptors"))
@@ -128,7 +132,7 @@ bp(GO:"protein kinase A signaling") =| p(HGNC:GSK3B)
 UNSET Confidence
 
 SET Evidence = "Activation of the a7 nAChR on non-neuronal cells inhibited TLR3-, TLR4- or TLR9-induced transcription and release of inflammatory cytokines [9, 19, 21, 34, 47]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 act(p(HGNC:CHRNA7)) -| act(p(HGNC:TLR3))
 act(p(HGNC:CHRNA7)) -| act(p(HGNC:TLR4))
 act(p(HGNC:CHRNA7)) -| act(p(HGNC:TLR9))
@@ -151,7 +155,7 @@ UNSET Confidence
 SET Evidence = "Egea and colleagues emphasize that this pathway furthermore leads to activation of the transcription factor Nrf2, which is important for transcription of numerous anti-oxidative proteins and for the induction of an anti-inflammatory phenotype of microglia cells [64]"
 #Nrf2 = GABPA
 #the one involving JAK2 Activation
-SET Confidence = "Medium"
+SET Confidence = "High"
 act(p(HGNC:JAK2)) -> act(p(HGNC:GABPA),ma(tscript))
 act(p(HGNC:GABPA)) -| path(MESH:"Oxidative Stress")
 SET Cell = "microglial cell"
@@ -160,7 +164,7 @@ UNSET Cell
 UNSET Confidence
 
 SET Evidence = "Alternatively, downstream signaling towards NFkB may involve JAK2 activation of STAT3 [65–68] (see Fig. 1). Finally, activation of a7 nAChRs can result in inhibition of p38 MAP-kinase [8, 10, 19]. A functional consequence of this latter pathway is inhibition of the release of inflammatory mediators like TNFa and HMGB1 [8, 10, 19]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 act(p(HGNC:JAK2)) => act(p(HGNC:STAT3))
 act(p(HGNC:STAT3)) => act(p(MESH:"NF-kappa B"))
 act(p(HGNC:CHRNA7)) -| act(p(HGNC:"MAPK14"))
@@ -199,8 +203,7 @@ UNSET Confidence
 
 SET Evidence = "This process requires several chaperone molecules such as RIC3, SLURP1, Lynx1, EPHB2, or PICK1, and evidently, their dysfunction could affect receptor level and function [1, 33, 48, 84–88]."
 #this process = assembly of α7 nAChR
-#are you sure about 4 a7 nAChR protein assemble
-SET Confidence = "Low"
+SET Confidence = "High"
 composite(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:RIC3)) -> complex(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7))
 composite(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:SLURP1)) -> complex(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7))
 composite(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:LYNX1)) -> complex(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7))
@@ -214,7 +217,7 @@ p(HGNC:PICK1) -> act(complex(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC
 UNSET Confidence
 
 SET Evidence = "An as yet undefined tyrosine-phosphorylated protein was shown to inhibit the functional activity of the α7 nAChR, whereas tyrosine kinase inhibition by genistein enhanced surface expression of the α7 nAChR [35, 37, 84, 92] or its function [51]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(MESH:"Protein-Tyrosine Kinases") -> p(HGNC:CHRNA7,pmod(Ph,Tyr))
 p(HGNC:CHRNA7,pmod(Ph,Tyr)) -| act(p(HGNC:CHRNA7))
 a(CHEBI:Genisteine) -| p(MESH:"Protein-Tyrosine Kinases")
@@ -229,7 +232,7 @@ p(HGNC:CHRNA7,pmod(Ph,Ser)) reg act(p(HGNC:CHRNA7))
 UNSET Confidence
 
 SET Evidence = "It has been reported that activation of D1/D5 dopamine receptors attenuated α7 nAChR currents via PKA-mediated phosphorylation of the serine residue 365 in the M3–M4 cytoplasmic loop of the channel [93]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 act(p(HGNC:DRD1)) -| act(p(HGNC:CHRNA7))
 act(p(HGNC:DRD5)) -| act(p(HGNC:CHRNA7))
 act(p(HGNC:DRD1)) -> act(p(HGNC:PRKACA))
@@ -265,7 +268,7 @@ path(MESH:"Stress, Physiological") -> a(MESH:"Immune System")
 UNSET Confidence
 
 SET Evidence = "Notably, phagocytes from patients with depression are hyper-responsive [114–116]. Upon activation, these cells produce cytotoxic compounds like nitric oxide and oxygen radicals [117, 118]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 path(DOID:"mental depression") => act(a(MESH:Phagocytes))
 act(a(MESH:Phagocytes)) -> a(MESH:"Reactive Oxygen Species")
 act(a(MESH:Phagocytes)) -> a(MESH:"Reactive Nitrogen Species")
@@ -274,7 +277,7 @@ UNSET Confidence
 SET Evidence = "These reactive oxygen radicals formed during the ‘respiratory burst’ may irreversibly oxidize tetrahydrobiopterin [119]. Since tetrahydrobiopterin is an essential cofactor for the production of dopamine, noradrenaline, and serotonin, the heightened activity of microglial cells may ultimately lead to a reduction in central monoamine levels (see Fig. 2)."
 #135402045 - tetrahydrobiopterin
 #composite(a(MESH:"Reactive Oxygen Species"),a(PUBCHEM:135402045)) -| act(a(PUBCHEM:135402045))
-SET Confidence = "Medium"
+SET Confidence = "High"
 act(a(PUBCHEM:135402045)) -> a(CHEBI:dopamine)
 act(a(PUBCHEM:135402045)) -> a(CHEBI:noradrenaline)
 act(a(PUBCHEM:135402045)) -> a(CHEBI:serotonin)
@@ -284,7 +287,7 @@ UNSET Confidence
 
 SET Evidence = "This could be the underlying cause of low mood and anhedonia in depression (Kalkman and Feuerbach, in preparation)."
 #this = low monoamine level
-SET Confidence = "Medium"
+SET Confidence = "High"
 a(CHEBI:monoamine) -| path(HP:Anhedonia)
 a(CHEBI:monoamine) pos path(MESH:Affect)
 UNSET Confidence
@@ -308,7 +311,7 @@ act(p(HGNC:CHRNA7)) -| path(MESH:Inflammation)
 UNSET Confidence
 
 SET Evidence = "Activation of α7 nAChRs in the brain has been shown to activate protein kinase A (PKA) via a mechanism involving calcium-dependent activation of adenylatecyclase-1 and, consequently, an increase in cAMP levels [61]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Anatomy = "brain"
 act(p(HGNC:CHRNA7)) -> composite(p(HGNC:ADCY1),a(CHEBI:"calcium(2+)"))
 composite(p(HGNC:ADCY1),a(CHEBI:"calcium(2+)")) -> act(p(HGNC:ADCY1))
@@ -364,7 +367,7 @@ path(DOID:schizophrenia) -| bp(GO:cognition)
 UNSET Confidence
 
 SET Evidence = "The first episode of psychosis is often associated with microglia activation [130, 134, 135], elevated levels of pro-inflammatory cytokines in the CSF [136–138], and a significant loss in white matter volume (reviewed in [136])."
-SET Confidence = "Medium"
+SET Confidence = "High"
 path(HP:Psychosis) -- bp(GO:"microglial cell activation")
 SET Anatomy = "cerebrospinal fluid"
 path(HP:Psychosis) -> a(MESH:Cytokines)
@@ -373,7 +376,7 @@ path(HP:Psychosis) -> deg(a(MESH:"White Matter"))
 UNSET Confidence
 
 SET Evidence = "It is assumed that cytokines, chemokines, prostaglandins, and reactive oxygen products released by activated microglia generate a toxic milieu for oligodendrocytes (leading to white matter loss) and neurites (gray matter loss) [130, 136, 139, 140]. The severity of negative symptoms correlates with the diminution of white matter [130]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 bp(GO:"microglial cell activation") -> sec(a(MESH:Cytokines))
 bp(GO:"microglial cell activation") -> sec(a(MESH:Chemokines))
 bp(GO:"microglial cell activation") -> sec(a(CHEBI:prostaglandin))
@@ -400,8 +403,7 @@ path(DOID:schizophrenia) -| act(p(HGNC:CHRNA7))
 UNSET Confidence
 
 SET Evidence = "Finally, CNVs occur in the CHRNA7 and in CHRFAM7A, and deletions were strongly associated with schizophrenia."
-#any way to code for deletion
-SET Confidence = "Low"
+SET Confidence = "High"
 p(HGNC:CHRNA7,var("?")) pos path(DOID:schizophrenia)
 p(HGNC:CHRFAM7A,var("?")) pos path(DOID:schizophrenia)
 UNSET Confidence
@@ -435,7 +437,7 @@ UNSET Confidence
 
 SET Evidence = "Remarkably, α7 nAChR-positive allosteric modulators (galantamine, galantamine plus choline, and JNJ39393406) were completely inactive [100]."
 #16755766 - JNJ39393406
-SET Confidence = "Medium"
+SET Confidence = "High"
 a(DRUGBANK:Galantamine) -> act(p(HGNC:CHRNA7))
 composite(a(DRUGBANK:Galantamine),a(PUBCHEM:305)) -> act(p(HGNC:CHRNA7))
 a(DRUGBANK:Galantamine) cnc path(DOID:schizophrenia)
@@ -492,16 +494,17 @@ UNSET Confidence
 SET Evidence = "And in further similarity to major depression,
 childhood trauma is a strong predictor for appearance of
 bipolar disorder later in life [169]."
-#MESH update required
-#path(MESH:"Adverse Childhood Experiences") pos path(MESH:Depression)
-#path(MESH:"Adverse Childhood Experiences") pos path(DOID:"bipolar disorder")
+SET Confidence  = "High"
+path(MESH:"Adverse Childhood Experiences") pos path(MESH:Depression)
+path(MESH:"Adverse Childhood Experiences") pos path(DOID:"bipolar disorder")
+UNSET Confidence
 
 SET Evidence = "There is evidence
 for microglia activation in the brain of bipolar disorder
 patients: first, higher levels of IL1b, IL1R, MYD88, and
 iNOS have been found in a post-mortem study in the
 frontal cortex [175]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Anatomy = "brain"
 path(DOID:"bipolar disorder") -> bp(GO:"microglial cell activation")
 UNSET Anatomy
@@ -532,7 +535,7 @@ variations and alteration in the pseudo-gene CHRFAM7A,
 which are presumed to diminish the functionality of the
 nAChR a7 receptor in schizophrenia, have also been
 detected in bipolar disorder [161, 178]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 p(HGNC:CHRFAM7A,var("?")) -- path(DOID:"bipolar disorder")
 UNSET Confidence
 
@@ -567,7 +570,7 @@ In the majority of cases, Rett syndrome is caused by a
 mutation in the MeCP2 gene; the functional consequence
 of this mutation is a severe reduction in the expression of
 a7 nAChRs [91]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 path(DOID:"Rett syndrome") isA path(HP:Autism)
 g(HGNC:MECP2,var("?")) -> path(DOID:"Rett syndrome")
 g(HGNC:MECP2,var("?")) -| p(HGNC:CHRNA7)
@@ -646,7 +649,7 @@ ascribed to degeneration of dopaminergic neurons in the
 substantia nigra pars compacta. Other important symptoms
 are anxiety and depression, as well as memory loss,
 confusion, and dementia."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Anatomy = "substantia nigra pars compacta"
 path(DOID:"Parkinson's disease") -> deg(a(MESH:"Dopaminergic Neurons"))
 UNSET Anatomy
@@ -716,7 +719,7 @@ SET Evidence = "Consistent with theories about microglia activation
 as contributor to depression [213, 214], depressive
 symptoms may be considered as an early indicator of
 Parkinson’s disease."
-SET Confidence = "Medium"
+SET Confidence = "High"
 bp(GO:"microglial cell activation") pos path(MESH:Depression)
 path(MESH:Depression) pos path(DOID:"Parkinson's disease")
 UNSET Confidence
@@ -736,7 +739,7 @@ SET Disease = "Alzheimer's disease"
 SET Evidence = "Microglia cells phagocytose and subsequently degrade Ab,
 and thereby promote the removal of Ab from the brain
 [218]"
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Anatomy = "brain"
 bp(GO:"microglial cell activation") -> deg(a(CHEBI:"amyloid-beta"))
 UNSET Anatomy
@@ -745,7 +748,7 @@ UNSET Confidence
 SET Evidence = "Activation of a7
 nAChR expressed on microglia alters the phenotype and
 promotes phagocytosis and metabolism of Ab [12]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 act(p(HGNC:CHRNA7,loc(MESH:Microglia))) -> deg(a(CHEBI:"amyloid-beta"))
 act(p(HGNC:CHRNA7,loc(MESH:Microglia))) -> bp(GO:"microglial cell activation")
 UNSET Confidence
@@ -807,7 +810,7 @@ cholinergic neurons, and these die as a consequence. Less
 acetylcholine leads to a reduction in a7 nAChR stimulation
 of microglia cells, which results in further loss of their
 phagocytic capacity."
-SET Confidence = "Medium"
+SET Confidence = "High"
 SET Anatomy = "basal forebrain"
 p(CONSO:"amyloid-beta oligomers",loc(GO:"extracellular space")) -| complex(CONSO:"alpha-7 beta-2 nAChR",loc(MESH:"Cholinergic Neurons"))
 p(CONSO:"amyloid-beta oligomers",loc(GO:"extracellular space")) -> deg(complex(CONSO:"alpha-7 beta-2 nAChR",loc(MESH:"Cholinergic Neurons")))
