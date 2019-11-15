@@ -190,8 +190,8 @@ p(HGNC:PSEN1,loc(GO:"excitatory synapse")) reg act(a(MESH:Lysosomes))
  UNSET Species
 
  SET Evidence = "TFEB nuclear translocation has also been observed as an adaptive response to a variety of stress conditions, including exposure to arsenic,[13] lysosomal stressors,[13–17] oxidative stress,[18, 19] transition metals,[20] ethanol,[21] and the senescence inducer doxorubicin.[22]"
-a(CHEBI:arsenic) -> bp(MESH:"Stress, Physiological")
-a(CHEBI:arsenic) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+a(CHEBI:"arsenic(3+)") -> bp(MESH:"Stress, Physiological")
+a(CHEBI:"arsenic(3+)") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
 SET MeSHAnatomy = "Lysosomes"
 bp(MESH:"Stress, Physiological") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
 UNSET MeSHAnatomy
@@ -240,7 +240,7 @@ bp(GO:"cellular response to starvation") -| p(HGNC:TFEB,pmod(Ph,Ser,142))
 SET Evidence = "Subsequently, mTOR complex 1 (mTORC1), a kinase complex that functions as a switch between cellular anabolic and catabolic pathways, was also identified as a regulator of TFEB subcellular location via direct phosphorylation of specific TFEB residues."
 act(p(HGNCGENEFAMILY:"MTOR complex 1"),ma(kin)) -- bp(GO:"biosynthetic process")
 act(p(HGNCGENEFAMILY:"MTOR complex 1"),ma(kin)) -- bp(GO:"catabolic process")
-act(p(HGNCGENEFAMILY:"MTOR complex 1"),ma(kin)) -> p(HGNC:TFEb,pmod(Ph))
+act(p(HGNCGENEFAMILY:"MTOR complex 1"),ma(kin)) -> p(HGNC:TFEB,pmod(Ph))
 act(p(HGNCGENEFAMILY:"MTOR complex 1"),ma(kin)) -> p(HGNC:TFEB,loc(GO:cytosol))
 p(HGNC:TFEB,pmod(Ph)) -> p(HGNC:TFEB,loc(GO:cytosol))
 
@@ -487,10 +487,10 @@ p(HGNC:PSEN1) -> act(p(HGNC:TFEB))
 act(p(HGNC:TFEB)) -> bp(GO:autophagy)
 
 SET Evidence = "Taken together, these studies support a model in which pathogenic protein accumulation is exacerbated by impaired lysosomal function due to TFEB diminished activity—which, at least in some instances, is caused by the pathogenic protein accumulation itself, thus feeding a negative loop that ultimately inhibits lysosomal degradative pathways."
-p(CONSO:"protein aggregation") neg act(a(MESH:Lysosomes))
-p(CONSO:"protein aggregation") -| p(HGNC:TFEB)
+path(CONSO:"protein aggregation") neg act(a(MESH:Lysosomes))
+path(CONSO:"protein aggregation") -| p(HGNC:TFEB)
 act(p(HGNC:TFEB)) -> act(a(MESH:Lysosomes))
-p(COMSO:"protein aggregation") -| act(p(HGNC:TFEB))
+path(CONSO:"protein aggregation") -| act(p(HGNC:TFEB))
 
 SET Evidence = "A recent study [62] has focused on folliculin, a protein whose deficiency causes Birt–Hogg–Dubé syndrome—a condition characterized by hair follicle tumors, an increased risk for the growth of pulmonary cysts, and an elevated incidence of renal carcinoma."
 p(HGNC:FLCN) neg path(DOID:"Birt-Hogg-Dube syndrome")
@@ -558,7 +558,7 @@ SET Evidence = "Chemical inhibition of mTORC1 by injection of the rapamycin prec
 a(CHEBI:Temsirolimus) -> a(CHEBI:sirolimus)
 a(CHEBI:Temsirolimus) -| act(p(HGNCGENEFAMILY:"MTOR complex 1"))
 a(CHEBI:Temsirolimus) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
-a(CHEBI:Temsirolimus) -> a(MESH:Neuroprotection)
+a(CHEBI:Temsirolimus) -> bp(MESH:Neuroprotection)
 p(HGNC:TFEB,loc(GO:nucleus)) -> bp(MESH:Neuroprotection)
 
 UNSET MeSHAnatomy
@@ -653,7 +653,7 @@ act(p(HGNC:TFEB)) -> bp(GO:"nuclear protein quality control by the ubiquitin-pro
 
 SET Evidence = "Such treatment improved clearance of polyQ-expanded AR, thus mitigating the disease phenotypes.[58]"
 #clearance due to ubiquitin-proteasome system
-bp(GO:"nuclear protein quality control by the ubiquitin-proteasome system") -> deg(p(HGNC:AR,pmod(COSO:"CAG repeats")))
+bp(GO:"nuclear protein quality control by the ubiquitin-proteasome system") -> deg(p(HGNC:AR,pmod(CONSO:"CAG repeats")))
 bp(GO:"nuclear protein quality control by the ubiquitin-proteasome system") -| path(DOID:"spinal muscular atrophy")
 
 SET Evidence = "Similarly, overexpression of TFEB in SBMA neuronal precursor cells rescued the observed autophagy dysregulation and mitochondrial dysfunction.[59]"
