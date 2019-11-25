@@ -87,16 +87,16 @@ UNSET Species
 
 SET Evidence = "Agonist activation of a7 nAChRs triggers a cytosolic Ca2+ transient of varying duration and amplitude in different cell types. This transient commonly involves the release of Ca2+ from intracellular stores such as the endoplasmic reticulum (ER) (Ca2+ store)."
 
-act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> tloc(a(CHEBI:"calcium ion"),fromloc(GO:"endoplasmic reticulum"),toloc(MESH:Cytoplasm))
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"endoplasmic reticulum"),toLoc(MESH:Cytoplasm))
 
 SET Evidence = "a7 nAChR-mediated intracellular Ca2+ store activation contributes to synaptic plasticity [14]; however, this mechanism is not limited to neurons because a7 nAChR-mediated CICR from intracellular Ca2+ store is documented in hippocampal astrocytes [15]."
 
 SET Cell = "neuron"
-p(HGNC:CHRNA7) -> tloc(a(CHEBI:"calcium ion"),fromloc(GO:"endoplasmic reticulum"),toloc(MESH:Cytoplasm))
-tloc(a(CHEBI:"calcium ion"),fromloc(GO:"endoplasmic reticulum"),toloc(MESH:Cytoplasm)) -> bp(MESH:"Neuronal Plasticity")
+p(HGNC:CHRNA7) -> tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"endoplasmic reticulum"),toLoc(MESH:Cytoplasm))
+tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"endoplasmic reticulum"),toLoc(MESH:Cytoplasm)) -> bp(MESH:"Neuronal Plasticity")
 UNSET Cell
 SET Cell = "astrocyte of the hippocampus"
-act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity")) -> tloc(a(CHEBI:"calcium ion"),fromloc(GO:"endoplasmic reticulum"),toloc(MESH:Cytoplasm))
+act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity")) -> tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"endoplasmic reticulum"),toLoc(MESH:Cytoplasm))
 UNSET Cell
 
 SET Evidence = "Presynaptic a7 nAChRs regulate the release of various neurotransmitters
@@ -162,7 +162,7 @@ act(p(HGNC:CHRNA7)) -> bp(GO:"calcium ion import across plasma membrane")
 SET Evidence = "Calcium influx through a7 nAChRs can still however directly activate CICR from the ER of neurons [28]."
 
 SET Cell = "neuron"
-act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity")) -> tloc(a(CHEBI:"calcium ion"),fromloc(GO:"endoplasmic reticulum"),toloc(MESH:Cytoplasm))
+act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity")) -> tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"endoplasmic reticulum"),toLoc(MESH:Cytoplasm))
 UNSET Cell
 
 SET Evidence = "In the presynaptic terminal, ion
@@ -329,7 +329,7 @@ SET CellStructure = "Synapses"
 SET MeSHAnatomy = "Hippocampus"
 p(HGNC:CHRNA7) -> act(p(HGNC:ADCY1))
 act(p(HGNC:ADCY1)) -> bp(GO:"positive regulation of cAMP-dependent protein kinase activity")
-bp(GO:"positive regulation of cAMP-dependent protein kinase activity") -> sec(a(CHEBI:glutamate,loc(MESH:"Presynaptic Terminals")))
+bp(GO:"positive regulation of cAMP-dependent protein kinase activity") -> sec(a(CHEBI:"L-glutamate(1-)",loc(MESH:"Presynaptic Terminals")))
 UNSET CellStructure
 UNSET MeSHAnatomy
 
@@ -442,8 +442,10 @@ complex(p(HGNCGENEFAMILY:"G protein subunits beta"),p(HGNCGENEFAMILY:"G protein 
 SET Evidence = "Though direct Gbg coupling remains to be tested, it is consistent with electrophysiological findings that demonstrate a role for a7 nAChRs in the modulation of VGCC
 activity and neurotransmitter release in presynaptic terminals [71]."
 
-p(HGNC:CHRNA7) reg bp(GO:"neurotransmitter secretion",loc(MESH:"Presynaptic Terminals"))
+SET MeSHAnatomy = "Presynaptic Terminals"
+p(HGNC:CHRNA7) reg bp(GO:"neurotransmitter secretion")
 p(HGNC:CHRNA7) reg act(p(MESH:"Calcium Channels"))
+UNSET MeSHAnatomy
 
 SET Evidence = "Agonist activation of the a7 nAChR with compounds such as nicotine,
 choline, or PNU282987 appears to be sufficient to activate cellular PLC and promote IICR
