@@ -60,7 +60,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 # DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 # DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
  DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -83,28 +83,33 @@ showed statistically significantly higher binding activity to
 the tau peptide and to mis-disordered tau 150-391/4R, than
 to physiological tau 2N4R (P = 0.0003 and P = 0.0028,
 respectively) (Figure 1B)."
+SET Confidence = "High"
 #cysteinated tau peptide C-294KDNIKHVPGGGS305
 #antibody - synthetic tau peptide AADvac1
 a(CONSO:AADvac1) => complex(a(CONSO:AADvac1),p(CONSO:"Tau isoform F (441 aa)",frag("?")))
 a(CONSO:AADvac1) => complex(a(CONSO:AADvac1),p(CONSO:"4R tau",var("p.151_391del")))
-a(CONSO:AADvac1) -> complex(a(CONSO:AADvac1),p(CONSO:"Tau isoform F (441 aa)"))
+a(CONSO:AADvac1) => complex(a(CONSO:AADvac1),p(CONSO:"Tau isoform F (441 aa)"))
+UNSET Confidence
 
 SET Evidence = "Vaccination with tau vaccine
 carrying DC8E8 epitope induced antibodies preferentially
 recognising mis-disordered tau protein, thus discriminating
 between pathological and physiological tau."
+SET Confidence = "High"
 complex(a(CONSO:AADvac1),a(CONSO:DC8E8)) -> complex(GO:"immunoglobulin complex")
 complex(GO:"immunoglobulin complex") pos complex(complex(GO:"immunoglobulin complex"),p(CONSO:"4R tau",var("p.151_391del")))
-
+UNSET Confidence
 
 SET Evidence = "Vaccination of
 rats with the tau peptide vaccine preferentially induced formation
 of IgG1 antibody isotypes specific to mis-disordered
 tau (151-391/4R) (Figure 1C), indicating a predominant
 type 2 helper T cell (Th2) type of immune response."
+SET Confidence = "High"
 p(CONSO:"Tau isoform F (441 aa)",frag("?")) -> p(MESH:"Immunoglobulin G")
 p(MESH:"Immunoglobulin G") -> complex(p(MESH:"Immunoglobulin G"),p(CONSO:"4R tau",var("p.151_391del")))
 bp(GO:"T-helper 2 cell activation") -> complex(a(MESH:"Immunoglobulin G"),p(CONSO:"4R tau",var("p.151_391del")))
+UNSET Confidence
 
 SET Evidence = "Immunisation with tau vaccine induced
 significant reduction of the level of highly phosphorylated
@@ -113,9 +118,11 @@ forms of truncated tau (30 to 36 kDa), tau oligomers
 revealed by measurement with pan-tau monoclonal antibody
 DC25 (P = 0.0322) (Figure 2A and F)."
 #detected with help of pan-tau monoclonal antibody
+SET Confidence = "High"
 a(CONSO:AADvac1) =| p(HGNC:MAPT,frag("?"),pmod(CONSO:hyperphosphorylation))
 a(CONSO:AADvac1) =| p(CONSO:"Tau oligomers")
 a(CONSO:AADvac1) =| p(HGNC:MAPT)
+UNSET Confidence
 
 SET Evidence = "Moreover,
 analysis with phospho-dependent monoclonal antibodies
@@ -125,17 +132,20 @@ tau species phosphorylated at Thr217 (pThr217, P =
 Figure 2C and F), pSer202/pThr205 (AT8, P = 0.0112;
 Figure 2D and F) and pThr181 (DC179, P = 0.0100; Figure 2E
 and F)."
+SET Confidence = "High"
 a(CONSO:AADvac1) =| p(HGNC:MAPT,pmod(Ph,Thr,217))
 a(CONSO:AADvac1) =| p(HGNC:MAPT,pmod(Ph,Thr,231))
 a(CONSO:AADvac1) =| p(HGNC:MAPT,pmod(Ph,Ser,202))
 a(CONSO:AADvac1) =| p(HGNC:MAPT,pmod(Ph,Thr,205))
 a(CONSO:AADvac1) =| p(HGNC:MAPT,pmod(Ph,Thr,181))
+UNSET Confidence
 
 SET Evidence = "These results show that the immunisation
 significantly reduced early forms of pathological tau
 (represented by monomers, dimers and oligomers) and late
 forms of pathological tau polymers (represented by paired
 helical filaments (PHFs)) as well."
+SET Confidence = "High"
 a(CONSO:AADvac1) -| path(MESH:Tauopathies)
 a(CONSO:AADvac1) -| complex(p(HGNC:MAPT),p(HGNC:MAPT))
 a(CONSO:AADvac1) -| complex(p(HGNC:MAPT),p(HGNC:MAPT),p(HGNC:MAPT))
@@ -144,6 +154,7 @@ complex(p(HGNC:MAPT),p(HGNC:MAPT)) -> path(MESH:Tauopathies)
 complex(p(HGNC:MAPT),p(HGNC:MAPT),p(HGNC:MAPT)) -> path(MESH:Tauopathies)
 p(CONSO:"Tau oligomers") -> path(MESH:Tauopathies)
 a(CONSO:AADvac1) -| a(CONSO:"paired helical filaments")
+UNSET Confidence
 
 SET Species = "10116"
 
@@ -153,27 +164,33 @@ TAU5 (part A in Additional file 2), HT7 (B in Additional
 file 2), pT212 (C in Additional file 2) and pS214 (D in
 Additional file 2), recognised neurofibrillary degeneration
 in transgenic rat brain."
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 a(CONSO:"Tau antibody, HT7") -> complex(a(CONSO:"Tau antibody, HT7"),a(CONSO:"Tau fibrils"))
 p(HGNC:MAPT,pmod(Ph,Thr,212)) -> complex(p(HGNC:MAPT,pmod(Ph,Thr,212)),a(CONSO:"Tau fibrils"))
 p(HGNC:MAPT,pmod(Ph,Ser,214)) -> complex(p(HGNC:MAPT,pmod(Ph,Ser,214)),a(CONSO:"Tau fibrils"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Immunostaining with AT8,
 pT212 and pS214 showed that immunisation reduced
 the number of transgenic rats with extensive neurofibrillary
 degeneration by 55% (AT8, pT212; Figure 3C
 and F) or by 77% (pS214; Figure 3I)."
+SET Confidence = "High"
 p(CONSO:"Tau epitope, AT8") -| a(CONSO:"Tau fibrils")
 p(HGNC:MAPT,pmod(Ph,Thr,212)) -| a(CONSO:"Tau fibrils")
 p(HGNC:MAPT,pmod(Ph,Ser,214)) -| a(CONSO:"Tau fibrils")
+UNSET Confidence
 
 SET Evidence = "The immunisation
 significantly improved the total NeuroScale score of the
 rats treated with tau vaccine compared to the control
 treatment group (P = 0.047, Figure 4C)."
 #sensorimotor function improvement
+SET Confidence = "High"
 a(CONSO:AADvac1) neg path(HP:"Sensorimotor neuropathy")
+UNSET Confidence
 
 SET Evidence = "To assess possible negative impacts on the immune system,
 thorough haematological analysis was conducted in
@@ -191,11 +208,12 @@ cells). Both absolute numbers and relative amounts of
 white blood cells were assessed. The vaccination did not
 induce any toxicologically relevant effect on any of the observed
 parameters."
+SET Confidence = "High"
 a(CONSO:AADvac1) cnc path(MESH:"Erythrocyte Count")
 a(CONSO:AADvac1) cnc complex(GO:"hemoglobin complex")
 a(CONSO:AADvac1) cnc path(MESH:"Erythrocyte Indices")
 a(CONSO:AADvac1) cnc path(MESH:"Reticulocyte Count")
 a(CONSO:AADvac1) cnc path(MESH:"Platelet Count")
 a(CONSO:AADvac1) cnc path(MESH:"Leukocyte Count")
-
+UNSET Confidence
 UNSET Species
