@@ -80,12 +80,11 @@ act(p(HGNC:CHRNA7)) -| path(MESH:Inflammation)
 UNSET Confidence
 
 SET Evidence = "Concerning function, activation of a7 nAChRs results in strong calcium and sodium influxes, which in the case of a presynaptic location facilitates neurotransmitter release [17, 18]."
-SET Confidence = "Low"
-#the confidence of the statement was not set, please have a look
-act(p(HGNC:CHRNA7)) -> tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"extracellular space"),toLoc(GO:cell))
+SET Confidence = "High"
+act(p(HGNC:CHRNA7)) -> bp(GO:"calcium ion import")
 act(p(HGNC:CHRNA7)) -> bp(GO:"sodium ion import across plasma membrane")
 SET CellStructure = "Presynaptic Terminals"
-a(CHEBI:"calcium ion") -> sec(a(CHEBI:neurotransmitter))
+bp(GO:"calcium ion import") -> sec(a(CHEBI:neurotransmitter))
 bp(GO:"sodium ion import across plasma membrane") -> sec(a(CHEBI:neurotransmitter))
 UNSET CellStructure
 
@@ -673,7 +672,7 @@ the levels of cerebral ChAT are reduced to levels
 below those seen in Alzheimer’s disease [204], whereas
 cholinesterase inhibition improves dementia in Parkinson’s
 disease [205]."
-SET Confidence = "Medium"
+SET Confidence = "High"
 path(DOID:"Parkinson's disease") -| p(HGNC:CHAT)
 p(MESH:Cholinesterases) pos path(DOID:dementia)
 UNSET Confidence
