@@ -1,0 +1,441 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Deacetylation of TFEB promotes fibrillar Aβ degradation by upregulating lysosomal biogenesis in microglia."
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Yojana Gadiya"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/conso
+# --------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/3c93a65dc48e6786fe29ae55aa36cf9a902fe8c6/export/conso-names.belns"
+# DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+# DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+# DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+# DEFINE NAMESPACE EFO            AS URL "https://raw.githubusercontent.com/pharmacome/conso/5d2c2ea6f7112421cc8089a3f021a75ab60bb373/external/efo-names.belns"
+# DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+# DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/go-names.belns"
+# DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
+# DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
+# DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
+# DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+# DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
+# DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+# DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+# DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+# DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+# DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+# DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+# DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+# DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+# DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+# DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+# DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+# DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+# DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "27209302"}
+
+#in BV2 cells with amyloid plaque deposited in AD brain
+SET MeSHDisease = "Alzheimer Disease"
+SET MeSHAnatomy = {"Brain","Microglia"}
+
+SET Evidence = "Our results revealed that fAβ was
+rapidly taken up and trafficked into lysosomes within 30 min
+(Fig. 1A–C)."
+SET Confidence = "High"
+bp(GO:"amyloid-beta formation") -> p(CONSO:"amyloid-beta fibrils",loc(MESH:Lysosomes))
+UNSET Confidence
+
+SET Evidence = "As time prolonged, the internalized fAβ level
+increased to the peak level at 3 h and then gradually disappeared
+at 18 h (Fig. 1B)."
+#at 18 hrs
+SET Confidence = "High"
+bp(GO:"amyloid-beta formation") -> p(CONSO:"amyloid-beta fibrils",loc(GO:cytoplasm))
+UNSET Confidence
+
+SET Evidence = "Interestingly, we confirmed
+fAβ is exclusively degraded within lysosomes, for the
+reason that inhibitors of lysosomes such as chloroquine or
+leupeptin remarkably weaken microglial degradation of fAβ
+while phosphoramidon, inhibitor of NEP that is reported for
+sAβ degradation (Jiang et al., 2008), exerts little impact on
+this process (Fig. 1D)."
+#NEF - neprilysin
+SET Confidence = "High"
+p(CONSO:"amyloid-beta fibrils",loc(MESH:Lysosomes)) -> deg(p(CONSO:"amyloid-beta fibrils"))
+a(CHEBI:chloroquine) -| act(a(MESH:Lysosomes))
+a(CHEBI:leupeptin) -| act(a(MESH:Lysosomes))
+a(CHEBI:chloroquine) -| deg(p(CONSO:"amyloid-beta fibrils"))
+a(CHEBI:leupeptin) -| deg(p(CONSO:"amyloid-beta fibrils"))
+a(CHEBI:phosphoramidon) -| p(HGNC:MME)
+p(HGNC:MME) -> deg(p(CONSO:"sAPP-beta"))
+a(CHEBI:phosphoramidon) -- deg(p(CONSO:"amyloid-beta fibrils"))
+UNSET Confidence
+
+SET Evidence = "Recent studies revealed
+that TFEB could facilitate oligomeric sAβ clearance by
+enhancing astrocytic lysosomal biogenesis (Xiao et al.,
+2014)."
+SET Confidence = "High"
+p(HGNC:TFEB) -> deg(p(CONSO:"amyloid-beta oligomers"))
+SET MeSHAnatomy = {"Astrocytes","Lysosomes"}
+p(HGNC:TFEB) -> bp(MESH:"Organelle Biogenesis")
+bp(GO:"lysosomal protein catabolic process") -> deg(p(CONSO:"amyloid-beta oligomers"))
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "We observed less intracellular fAβ remained in the TFEB
+infected cells than that in the GFP infected cells at 18 h,
+indicating an enhancement of microglial degradation of fAβ."
+SET Confidence = "High"
+p(HGNC:TFEB) -> bp(GO:"microglial cell activation")
+bp(GO:"microglial cell activation") -> deg(p(CONSO:"amyloid-beta oligomers"))
+UNSET Confidence
+
+SET Evidence = "Consistent with
+the gain-of-function data, siRNA specific knockdown of
+TFEB in microglia greatly reduce their capabilities to
+degrade fAβ (Fig. 1F and 1H)."
+SET Confidence = "High"
+r(HGNC:TFEB) -> bp(GO:"microglial cell activation")
+bp(GO:"microglial cell activation") -> deg(p(CONSO:"amyloid-beta oligomers"))
+UNSET Confidence
+
+SET Evidence = "Intriguingly, we observed that
+TFEB has a tendency to translocate into nucleus upon
+stimulation of fAβ which is coincided with previous reports
+that TFEB will be activated under certain cellular stress
+(Figs. 2 and S2A)."
+SET Confidence = "High"
+act(p(CONSO:"amyloid-beta fibrils")) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus)) -> act(p(HGNC:TFEB),ma(tscript))
+bp(GO:"cellular response to stress") -> act(p(HGNC:TFEB),ma(tscript))
+UNSET Confidence
+
+SET Evidence = "However, we proved that fAβ stimulation
+failed to inhibit mTORC1 activity which was previously
+reported to facilitate TFEB nuclear translocation (Fig. S2B),
+for the reason that fAβ stimulation could not inhibit the
+phorsphorylation status at specific sites of mTORC1 substrates
+as compared with the obvious inhibitory effects
+induced by mTORC1 inhibitor Torin1."
+SET Confidence = "High"
+act(p(CONSO:"amyloid-beta fibrils")) cnc act(p(HGNCGENEFAMILY:"MTOR complex 1"))
+act(p(CONSO:"amyloid-beta fibrils")) -| p(HGNCGENEFAMILY:"MTOR complex 1",pmod(Ph))
+p(HGNCGENEFAMILY:"MTOR complex 1",pmod(Ph)) -| act(p(HGNCGENEFAMILY:"MTOR complex 1"))
+act(p(HGNCGENEFAMILY:"MTOR complex 1")) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+UNSET Confidence
+
+#in HEK293T
+SET CellLine = "HEK293T"
+
+SET Evidence = "We
+observed a presence of acetylation on this exogenously
+expressed TFEB when the cells were treated with
+(NAM) that is an inhibitor of sirtuins family as well as
+trichostatin A (TSA) which inhibits activity of histone
+deacetylase (HDAC) classes I, II, and IV (Fig. 3A)."
+SET Confidence = "High"
+a(CHEBI:nicotinamide) -> p(HGNC:TFEB,pmod(Ac))
+a(CHEBI:nicotinamide) -| p(HGNCGENEFAMILY:Sirtuins)
+a(CHEBI:"trichostatin A") -> p(HGNC:TFEB,pmod(Ac))
+a(CHEBI:"trichostatin A") -| p(HGNC:HDAC1)
+a(CHEBI:"trichostatin A") -| p(HGNC:HDAC2)
+a(CHEBI:"trichostatin A") -| p(HGNC:HDAC4)
+UNSET Confidence
+
+SET Evidence = "As we expected, in contrast with wildtype
+TFEB (TFEB-WT), acetylation level of K116R mutant
+(TFEB-K116R) can no longer be elevated by NAM treatment
+(Fig. 3E)."
+SET Confidence = "High"
+a(CHEBI:nicotinamide) -> p(HGNC:TFEB,pmod(Ac,Lys,116))
+a(CHEBI:nicotinamide) cnc p(HGNC:TFEB,var("p.Lys116Arg"))
+a(CHEBI:"trichostatin A") -> p(HGNC:TFEB,pmod(Ac,Lys,116))
+a(CHEBI:"trichostatin A") cnc p(HGNC:TFEB,var("p.Lys116Arg"))
+UNSET Confidence
+
+SET Evidence = "Given the evidence that TFEB can be acetylated at K116 site
+and the knowledge that acetylation status is regarded as a
+critical mechanism underlying regulation of activities of
+numerous transcription factors, we intended to identify the
+upstream regulator that targets TFEB."
+SET Confidence = "High"
+p(HGNC:TFEB,pmod(Ac,Lys,116)) reg act(p(HGNC:TFEB),ma(tscript))
+UNSET Confidence
+
+SET Evidence = "Then we
+performed endogenous Co-IP with SIRT1 antibody and also
+detected TFEB in the immunoprecipitates (Fig. 4A), indicating
+that TFEB physically interacts with SIRT1."
+SET Confidence = "High"
+composite(p(HGNC:TFEB),p(HGNC:SIRT1)) -> complex(p(HGNC:SIRT1),p(HGNC:TFEB))
+UNSET Confidence
+
+SET Evidence = "Treating 293T cells with resveratrol, a
+chemical activator of SIRT1, resulted in a reduction of
+acetylation on the immunoprecipitated TFEB, while its
+acetylation level was augmented by NAM treatment
+(Fig. S3C)."
+SET Confidence = "High"
+a(CHEBI:resveratrol) -> act(p(HGNC:SIRT1))
+act(p(HGNC:SIRT1)) -| p(HGNC:TFEB,pmod(Ac))
+a(CHEBI:nicotinamide) -> p(HGNC:TFEB,pmod(Ac))
+UNSET Confidence
+
+SET Evidence = "In addition, the acetylation level on Flag-tagged
+TFEB was much lower in cells coexpressing wild-type SIRT1
+(SIRT1-WT) than in cells expressing a catalytically inactive
+mutant SIRT1 (SIRT1-HY) (Fig. 4B)."
+SET Confidence = "High"
+p(HGNC:SIRT1) -| p(HGNC:TFEB,pmod(Ac))
+p(HGNC:SIRT1,var("?")) -> p(HGNC:TFEB,pmod(Ac))
+p(HGNC:SIRT1,var("?")) -| act(p(HGNC:SIRT1))
+UNSET Confidence
+
+SET Evidence = "In parallel with these
+results, cells deficient of SIRT1 by knocking down with
+specific siRNA exhibited a higher level of acetylation on
+exogenously expressed TFEB-WT, but its deacetylation
+mimic TFEB-K116R counteracted SIRT1 knockdown effects,
+indicating K116 would be the site deacetylated by SIRT1
+(Fig. 4C)."
+SET Confidence = "High"
+p(HGNC:SIRT1) -| p(HGNC:TFEB,pmod(Ac,Lys,116))
+UNSET Confidence
+
+SET Evidence = "The data showed that SIRT1-WT, but not the catalytically
+inactive mutant SIRT1-HY, deacetylates TFEB in a NAD+-
+dependent manner, while treatment with SIRT1 inhibitor
+NAM reversed the effect of SIRT1 on TFEB (Fig. 4D)."
+SET Confidence = "High"
+act(p(HGNC:SIRT1),ma(GO:"NAD+ binding")) -| p(HGNC:TFEB,pmod(Ac,Lys,116))
+UNSET Confidence
+
+SET Evidence = "SIRT1
+inhibitor NAM exerted a greater impact on increases of
+acetylation status of TFEB than HDACI/II/IV inhibitors TSA,
+indicating that TFEB is specifically acetylated by SIRT1
+rather than other HDACs (Fig. 4E)."
+SET Confidence = "High"
+p(HGNC:SIRT1) =| p(HGNC:TFEB,pmod(Ac))
+p(HGNC:HDAC1) -| p(HGNC:TFEB,pmod(Ac))
+p(HGNC:HDAC2) -| p(HGNC:TFEB,pmod(Ac))
+p(HGNC:HDAC4) -| p(HGNC:TFEB,pmod(Ac))
+UNSET Confidence
+
+SET Evidence = "Furthermore, SIRT6 and
+SIRT7 could not reduce acetylation levels on TFEB as
+compared with SIRT1 (Fig. S3D), excluding the possibility
+that SIRT6 or SIRT7 might involve in deacetylation of TFEB
+in the nucleus."
+SET Confidence = "High"
+p(HGNC:SIRT6) cnc p(HGNC:TFEB,pmod(Ac))
+p(HGNC:SIRT7) cnc p(HGNC:TFEB,pmod(Ac))
+SET MeSHAnatomy = "Cell Nucleus"
+p(HGNC:SIRT6) -| p(HGNC:TFEB,pmod(Ac))
+p(HGNC:SIRT7) -| p(HGNC:TFEB,pmod(Ac))
+UNSET MeSHAnatomy
+UNSET Confidence
+UNSET CellLine
+
+#in BV2 cells
+
+SET Evidence = "The intracellular Aβ levels reduced more
+dramatically after 18-h-incubation with microglia overexpressing
+SIRT1-WT than those overexpressing GFP as a
+vector control or SIRT1-HY (Figs. 5A, 5C, and S4A), indicating
+that only the catalytically active SIRT1 is able to
+facilitate microglial degradation of fAβ efficiently."
+SET Confidence = "High"
+p(HGNC:SIRT1) -> act(p(HGNC:SIRT1))
+p(HGNC:SIRT1,var("?")) -| act(p(HGNC:SIRT1))
+act(p(HGNC:SIRT1)) -> bp(GO:"microglial cell activation")
+bp(GO:"microglial cell activation") -> deg(p(CONSO:"amyloid-beta fibrils"))
+UNSET Confidence
+
+SET Evidence = "In addition, pretreating
+microglia with resveratrol, the agonist of SIRT1, increased
+the clearance of intracellular fAβ in a dose-dependent
+manner (Fig. S4C), while SIRT1 inhibitor NAM abolished its
+capability to degrade fAβ (Fig. S4D)."
+SET Confidence = "High"
+a(CHEBI:resveratrol) -> deg(p(CONSO:"amyloid-beta fibrils"))
+a(CHEBI:nicotinamide) -| act(p(HGNC:SIRT1))
+UNSET Confidence
+
+SET Evidence = "Meanwhile, we found
+that TSA could not affect microglial degradative capability on
+fAβ (Fig. S4E), indicating that it is SIRT1, but not other
+HDACs, that is responsible for fAβ degradation in microglia."
+SET Confidence = "High"
+a(CHEBI:"trichostatin A") cnc bp(GO:"microglial cell activation")
+p(MESH:"Histone Deacetylases") cnc deg(p(HGNC:SIRT1))
+UNSET Confidence
+
+SET Evidence = "In BV2 microglia,
+we observed an expansion in abundance of lysosomal
+compartment stained with LysoTracker Red or lysosome
+membrane marker LAMP1 when exogenously transfecting
+with GFP-tagged SIRT1-WT, as compared with vector control
+or GFP-tagged SIRT1-HY (Fig. 5D). This result is in
+accordance with that in HeLa cells (Fig. S6A)."
+SET Confidence = "High"
+SET CellLine = "HeLa"
+SET MeSHAnatomy = "Microglia"
+p(HGNC:SIRT1) -> a(MESH:Lysosomes)
+p(HGNC:SIRT1,var("?")) -> a(MESH:Lysosomes)
+UNSET MeSHAnatomy
+UNSET CellLine
+UNSET Confidence
+
+SET Evidence = "Further, we observed microglia pretreated
+with NAM exhibited a diminished lysosomal biogenesis
+compared with the control, while TSA-treated microglia
+changed little (Fig. S4F)."
+SET Confidence = "High"
+composite(a(MESH:Lysosomes),a(CHEBI:nicotinamide)) -| a(MESH:Lysosomes)
+UNSET Confidence
+
+SET Evidence = "In addition, qPCR test revealed that
+exogenously overexpressed SIRT1-WT is able to stimulate
+expression of TFEB downstream targets which are involved
+in the process of lysosomal biogenesis as well as lysosome-mediated
+degradative pathways (Fig. 5E), while SIRT1
+knockdown decreases expression of these genes
+(Fig. S4H)."
+SET Confidence = "High"
+p(HGNC:SIRT1) -> p(HGNC:TFEB)
+p(HGNC:SIRT1) -> act(p(HGNC:TFEB),ma(tscript))
+p(HGNC:TFEB) -> a(MESH:Lysosomes)
+p(HGNC:TFEB) -> bp(GO:"lysosomal protein catabolic process")
+UNSET Confidence
+
+SET Evidence = "The result noted that
+K116R mutant displayed a stronger capability in degradation
+of fAβ than its wild-type (Fig. 6A), which is accompanied by
+observations that more lysosomal compartments were
+induced in microglia and HeLa cells transfected with TFEB-K116R
+than TFEB-WT (Figs. 6B and S6B)."
+SET Confidence = "High"
+p(HGNC:TFEB,var("p.Lys116Arg")) -> deg(p(CONSO:"amyloid-beta fibrils"))
+SET CellLine = "HeLa"
+SET MeSHAnatomy = "Microglia"
+p(HGNC:TFEB,var("p.Lys116Arg")) -> a(MESH:Lysosomes)
+UNSET MeSHAnatomy
+UNSET CellLine
+UNSET Confidence
+
+SET Evidence = "Furthermore, transcription of TFEB downstream
+targets was significantly upregulated in the presence
+of TFEB-K116R mutant (Fig. 6D)."
+SET Confidence = "High"
+p(HGNC:TFEB,var("p.Lys116Arg")) -> act(p(HGNC:TFEB),ma(tscript))
+UNSET Confidence
+
+SET Evidence = "In order to confirm that the
+deacetylated K116R mutant promotes TFEB binding to its
+target genes, we performed chromatin immunoprecipitation
+(ChIP) assay and found that TFEB-K116R had a much
+stronger binding in the promoter of TFEB target gene CLCN7
+than the TFEB-WT (Fig. 6E)."
+SET Confidence = "High"
+p(HGNC:TFEB,var("p.Lys116Arg")) -> act(p(HGNC:TFEB))
+act(p(HGNC:TFEB)) -> complex(p(HGNC:TFEB),g(HGNC:CLCN7))
+complex(p(HGNC:TFEB),g(HGNC:CLCN7)) -> p(HGNC:CLCN7)
+UNSET Confidence
+
+SET Evidence = "The results indicated that microglia with TFEB-K116Q
+overexpression could neither facilitate fAβ degradation
+(Fig. S5B) nor upregulate the lysosomal biogenesis and
+function (Fig. S5C and S5D)."
+SET Confidence = "High"
+p(HGNC:TFEB,var("p.Lys116Arg")) cnc deg(p(CONSO:"amyloid-beta fibrils"))
+p(HGNC:TFEB,var("p.Lys116Arg")) cnc a(MESH:Lysosomes)
+p(HGNC:TFEB,var("p.Lys116Arg")) cnc act(a(MESH:Lysosomes))
+UNSET Confidence
+
+SET Species = "10090"
+#APP/PS1 transgenic mice
+
+SET Evidence = "Quantitative analysis of thioflavine-S staining indicated that
+BV2 microglia lentivirally overexpressed with TFEB-K116R
+were significantly more efficient at clearing the aggregates
+deposited in the cortex (Fig. 7B and 7C) and hippocampus
+(Fig. 7D) when compared with its wild-type."
+#i BV2 microglia
+SET Confidence = "High"
+SET MeSHAnatomy = {"Cerebral Cortex","Hippocampus"}
+p(HGNC:TFEB,var("p.Lys116Arg")) -> deg(p(CONSO:"amyloid-beta aggregates"))
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "These ex vivo findings were consistent with the enhancement
+of microglial degradation of fAβ in vitro, suggesting a
+strengthened capability of microglial removal of Aβ aggregates
+which is triggered by deacetylation of TFEB."
+SET Confidence = "High"
+p(HGNC:TFEB,pmod(Ac)) -| bp(GO:"microglial cell activation")
+bp(GO:"microglial cell activation") -> deg(p(CONSO:"amyloid-beta aggregates"))
+UNSET Confidence
+
+SET Evidence = "According
+to our results, deacetylation of TFEB, carried out by its
+deacetylase SIRT1, promotes microglial degradation of fAβ
+and amyloid plaques by upregulating lysosomal function and
+biogenesis, which highlights acetylation status of TFEB as a
+critical role in the degradative pathway in microglia (Fig. 8)."
+SET Confidence = "High"
+act(p(HGNC:SIRT1),ma(GO:"deacetylase activity")) -| p(HGNC:TFEB,pmod(Ac))
+p(HGNC:TFEB,pmod(Ac)) -| act(p(HGNC:TFEB))
+act(p(HGNC:SIRT1),ma(GO:"deacetylase activity")) -> bp(GO:"microglial cell activation")
+p(HGNC:TFEB,pmod(Ac)) -| bp(GO:"microglial cell activation")
+bp(GO:"microglial cell activation") -> deg(p(CONSO:"amyloid-beta aggregates"))
+p(HGNC:TFEB,pmod(Ac)) -> p(CONSO:"amyloid-beta aggregates")
+bp(GO:"microglial cell activation") -| path(MESH:"Plaque, Amyloid")
+p(HGNC:TFEB,pmod(Ac)) -> path(MESH:"Plaque, Amyloid")
+act(p(HGNC:SIRT1),ma(GO:"deacetylase activity")) -> a(MESH:Lysosomes)
+p(HGNC:TFEB,pmod(Ac)) -| a(MESH:Lysosomes)
+act(p(HGNC:SIRT1),ma(GO:"deacetylase activity")) -> act(a(MESH:Lysosomes))
+p(HGNC:TFEB,pmod(Ac)) -| act(a(MESH:Lysosomes))
+UNSET Confidence
+UNSET MeSHDisease
