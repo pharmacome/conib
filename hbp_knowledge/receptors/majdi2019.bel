@@ -60,7 +60,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
  DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
  DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
  DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
  DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
  DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -74,179 +74,215 @@ DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifact
 SET Citation = {"PubMed", "30697142"}
 
 SET Evidence = "As the target of nicotine and its metabolites, nicotinic acetylcholine receptors (nAChR) modulate speciﬁc aspects of learning and memory (Majdi et al., 2017). Among diﬀerent subtypes of nAChR,the alpha7 subtype maybe mainly responsible for the procognitive and neuroprotective properties of acetylcholine (Sadigh-Eteghad et al., 2014; Wong et al., 2018)."
-
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") reg bp(GO:"learning or memory")
 p(HGNC:CHRNA7) reg bp(GO:cognition)
 complex(p(HGNC:CHRNA7),a(CHEBI:acetylcholine)) -> bp(MESH:Neuroprotection)
+UNSET Confidence
 
 SET Evidence = "The biotransformed metabolite cotinine long has been held to be responsible for memory supportive eﬀects of nicotine, without the adverse eﬀects (Green et al., 2000; Echeverria et al., 2011; Patel et al., 2014)."
-
-a(MESH:Cotinine) -> bp(GO:"learning or memory")
-a(MESH:Cotinine) cnc path(MESH:"Tobacco Use Disorder")
+SET Confidence = "High"
+a(CHEBI:"(-)-cotinine") -> bp(GO:"learning or memory")
+a(CHEBI:"(-)-cotinine") cnc path(MESH:"Tobacco Use Disorder")
+UNSET Confidence
 
 SET Evidence = "In contrast, nornicotine has been found to possess the same addictive characteristics as nicotine (Green et al., 2000)."
-
+SET Confidence = "High"
 a(CHEBI:nornicotine) -> path(MESH:"Tobacco Use Disorder")
 a(CHEBI:nicotine) -> path(MESH:"Tobacco Use Disorder")
+UNSET Confidence
 
 SET Evidence = "The search identiﬁed ﬁve nicotine metabolites in the brain including cotinine, nornicotine, norcotinine, and two unnamed minor metabolites that have not been characterized fully yet."
-
-a(CHEBI:nicotine) -> a(MESH:Cotinine)
+SET Confidence = "High"
+SET Anatomy = "brain"
+a(CHEBI:nicotine) -> a(CHEBI:"(-)-cotinine")
 a(CHEBI:nicotine) -> a(CHEBI:nornicotine)
 a(CHEBI:nicotine) -> a(CHEBI:Norcotinine)
+UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "The metabolism of nicotine is also substantial in the brain, and due to the upregulation of nAChR, the metabolism in the brain is higher in smokers than in non-smokers (Hukkanen et al., 2005)."
-
+SET Confidence = "High"
 SET Anatomy = "brain"
-a(CHEBI:nicotine) -> p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+#it states about the metabolism of nicotine and not that it leads to upreguation of nAChR
+#a(CHEBI:nicotine) -> p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -> bp(MESH:Metabolism)
 path(MESH:"Tobacco Smoking") -> bp(MESH:Metabolism)
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "A main ﬁrst pass pathway of nicotine metabolism in the human liver is C-terminal oxidation to cotinine by cytochrome P450 2A6 (CYP2A6) which is the predominant metabolite (70–80%) of nicotine in mammals (Nakajima and Yokoi, 2005)."
-
+SET Confidence = "High"
 SET Anatomy = "liver"
-complex(a(CHEBI:nicotine),p(HGNC:CYP2A6)) -> a(MESH:Cotinine)
+complex(a(CHEBI:nicotine),p(HGNC:CYP2A6)) -> a(CHEBI:"(-)-cotinine")
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Other metabolites of nicotine are nicotine N′oxide (4–7%), nicotine glucuronide (3–5%), 4-oxo-4-(3-pyridyl) butanoic acid (1–2%), nicotine isomethonium ion (0.4–1%), and nornicotine (0.4–0.8%) (Byrd et al., 1992; Hukkanen et al., 2005)."
-
+#25203099 - nicotine isomethonium ion
+SET Confidence = "High"
 a(CHEBI:nicotine) -> a(CHEBI:"nicotine N(1')-oxide")
 a(CHEBI:nicotine) -> a(MESH:"nicotine N-glucuronide")
 a(CHEBI:nicotine) -> a(CHEBI:"4-oxo-4-(pyridin-3-yl)butanoic acid")
+a(CHEBI:nicotine) -> a(CHEBI:"butyric acid")
 a(CHEBI:nicotine) -> a(PUBCHEM:25203099)
 a(CHEBI:nicotine) -> a(CHEBI:nornicotine)
+UNSET Confidence
 
 SET Evidence = "Cotinine is further metabolized by cytochrome P450 2A5 (CYP2A5), mainly to trans-3′-hydroxycotinine and its glucuronides (Ghosheh and Hawes, 2002; Kuehl and Murphy, 2003). Other metabolites of cotinine are 5′-hydroxycotinine, cotinine N-oxide,cotinine methonium ion,cotinine glucuronide, and norcotinine (Hukkanen et al., 2005)."
-
-#NCIT:C18024 = CYP2A5
-complex(p(NCIT:C18024),a(MESH:Cotinine)) -> a(CHEBI:"trans-3-hydroxycotinine")
-complex(p(NCIT:C18024),a(MESH:Cotinine)) -> a(CHEBI:"trans-3-hydroxycotinine beta-D-glucuronide")
-a(MESH:Cotinine) -> a(MESH:hydroxycotinine)
-a(MESH:Cotinine) -> a(CHEBI:"cotinine N-oxide")
-a(MESH:Cotinine) -> a(PUBCHEM:583)
-a(MESH:Cotinine) -> a(PUBCHEM:3398121)
-a(MESH:Cotinine) -> a(CHEBI:Norcotinine)
+#NCIT:C18024 = CYP2A5, 583 - cotinine methonium ion, 3398121 - cotinine glucuronide
+SET Confidence = "High"
+complex(p(NCIT:C18024),a(CHEBI:"(-)-cotinine")) -> a(CHEBI:"trans-3-hydroxycotinine")
+complex(p(NCIT:C18024),a(CHEBI:"(-)-cotinine")) -> a(CHEBI:"trans-3-hydroxycotinine beta-D-glucuronide")
+a(CHEBI:"(-)-cotinine") -> a(MESH:hydroxycotinine)
+a(CHEBI:"(-)-cotinine") -> a(CHEBI:"cotinine N-oxide")
+a(CHEBI:"(-)-cotinine") -> a(PUBCHEM:583)
+a(CHEBI:"(-)-cotinine") -> a(PUBCHEM:3398121)
+a(CHEBI:"(-)-cotinine") -> a(CHEBI:Norcotinine)
+UNSET Confidence
 
 SET Evidence = "Cotinine does not cause tachyphylaxis, addiction, or nicotine like withdrawal symptoms, and it has no negative cardiovascular eﬀects as opposed to nicotine (Terry et al., 2005; Benowitz et al., 2009; Zeitlin et al., 2012)."
-
+SET Confidence = "High"
 a(CHEBI:nicotine) -> path(MESH:Tachyphylaxis)
 a(CHEBI:nicotine) -> path(MESH:"Tobacco Use Disorder")
 a(CHEBI:nicotine) -> path(MESH:"Substance Withdrawal Syndrome")
 a(CHEBI:nicotine) -> path(MESH:"Cardiovascular Deconditioning")
-a(MESH:Cotinine) cnc path(MESH:Tachyphylaxis)
-a(MESH:Cotinine) cnc path(MESH:"Tobacco Use Disorder")
-a(MESH:Cotinine) cnc path(MESH:"Substance Withdrawal Syndrome")
-a(MESH:Cotinine) cnc path(MESH:"Cardiovascular Deconditioning")
+a(CHEBI:"(-)-cotinine") cnc path(MESH:Tachyphylaxis)
+a(CHEBI:"(-)-cotinine") cnc path(MESH:"Tobacco Use Disorder")
+a(CHEBI:"(-)-cotinine") cnc path(MESH:"Substance Withdrawal Syndrome")
+a(CHEBI:"(-)-cotinine") cnc path(MESH:"Cardiovascular Deconditioning")
+UNSET Confidence
 
 SET Evidence = "On the other hand, cotinine has positive eﬀects on cognition and enhances learning, memory, and attention (Terry et al., 2005; Zeitlin et al., 2012)."
-
-a(MESH:Cotinine) pos bp(GO:cognition)
-a(MESH:Cotinine) -> bp(GO:"learning or memory")
-a(MESH:Cotinine) -> path(MESH:Attention)
+SET Confidence = "High"
+a(CHEBI:"(-)-cotinine") pos bp(GO:cognition)
+a(CHEBI:"(-)-cotinine") pos bp(GO:"learning or memory")
+a(CHEBI:"(-)-cotinine") -> path(MESH:Attention)
+UNSET Confidence
 
 SET Evidence = "However, the aﬃnity is high enough to trigger nicotinic responses in the brain (Vainio and Tuominen, 2001)."
-
-SET Anatomy = "brain"
 #cotinine's affinity towards nAChRs
-complex(a(MESH:Cotinine),p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> bp(GO:"response to nicotine")
+SET Confidence = "High"
+SET Anatomy = "brain"
+complex(a(CHEBI:"(-)-cotinine"),p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> bp(GO:"response to nicotine")
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Although a majority of cotinine eﬀects are mediated via alpha7 subtype, a recent study showed that chronic cotinine administration increases alpha4beta2 subtype expression and the traﬃcking of receptors to the plasma membrane at doses around 1µM, which equals its average blood concentration in a typical smoker."
-
-complex(a(MESH:Cotinine),p(HGNC:CHRNA7)) -> act(a(MESH:Cotinine))
+SET Confidence = "High"
+complex(a(CHEBI:"(-)-cotinine"),p(HGNC:CHRNA7)) -> act(a(CHEBI:"(-)-cotinine"))
 #Cotinine administration at 1uM dose
-a(MESH:Cotinine) -> complex(CONSO:"alpha-4 beta-2 nAChR")
-a(MESH:Cotinine) -> tloc(complex(CONSO:"alpha-4 beta-2 nAChR"),fromLoc(MESH:Cytoplasm),toLoc(MESH:"Cell Membrane"))
+a(CHEBI:"(-)-cotinine") -> complex(CONSO:"alpha-4 beta-2 nAChR")
+a(CHEBI:"(-)-cotinine") -> tloc(complex(CONSO:"alpha-4 beta-2 nAChR"),fromLoc(MESH:Cytoplasm),toLoc(MESH:"Cell Membrane"))
+UNSET Confidence
 
 SET Evidence = "On the other hand, the highest doses (10µM) was found to induce endocytosis and decrease α4β2 expression (Fox et al., 2015)."
-
 #Cotinine administration at 10uM dose
-a(MESH:Cotinine) -| complex(CONSO:"alpha-4 beta-2 nAChR")
-a(MESH:Cotinine) -> bp(MESH:Endocytosis)
+SET Confidence = "High"
+a(CHEBI:"(-)-cotinine") -| complex(CONSO:"alpha-4 beta-2 nAChR")
+a(CHEBI:"(-)-cotinine") -> bp(MESH:Endocytosis)
+UNSET Confidence
 
 SET Evidence = "Akt is a family of serine-threonine-speciﬁc protein kinases that inhibit programmed cell death and promote neuronal survival by phosphorylation and inhibition of proapoptotic proteins, such as glycogen synthase kinase 3 (GSK3) (Dudek et al., 1997; Kim et al., 2001)."
-
+SET Confidence = "High"
 p(FPLX:AKT) -| bp(GO:"programmed cell death")
 p(FPLX:AKT,pmod(Ph)) -> bp(MESH:Neuroprotection)
-p(FPLX:AKT,pmod(Ph)) -> p(HGNC:GSK3B)
+p(FPLX:AKT,pmod(Ph)) -| p(HGNC:GSK3B)
+p(HGNC:GSK3B) -> bp(GO:"programmed cell death")
+UNSET Confidence
 
 SET Evidence = "Cotinine, by its positive allosteric eﬀects on α7 nAChR, activates the Akt pathway that subsequently raises the expression of anti-apoptotic proteins, such as the cAMP response element binding (CREB) protein and B-cell lymphoma protein 2 (Bcl-2)."
-
-complex(a(MESH:Cotinine),p(HGNC:CHRNA7)) -> act(p(FPLX:AKT))
+SET Confidence = "High"
+complex(a(CHEBI:"(-)-cotinine"),p(HGNC:CHRNA7)) -> act(p(FPLX:AKT))
 act(p(FPLX:AKT)) -> p(HGNC:CREBBP)
 act(p(FPLX:AKT)) -> p(HGNC:BCL2)
+p(HGNC:CREBBP) -| bp(GO:"programmed cell death")
+p(HGNC:BCL2) -| bp(GO:"programmed cell death")
+UNSET Confidence
 
 SET Evidence = "Akt stimulation also decreases the activity of pro-apoptotic factors including c-Jun N-terminal kinase (JNK) by triggering apoptosis signal-regulating kinase 1 (Ask-1) that ultimately promotes neuronal survival (Kim et al., 2001; Moran, 2012)."
-
+SET Confidence = "High"
 act(p(FPLX:AKT)) -> p(HGNC:MAP3K5)
 p(HGNC:MAP3K5) -| act(p(HGNC:MAPK8))
 act(p(FPLX:AKT)) -| act(p(HGNC:MAPK8))
 act(p(FPLX:AKT)) -> bp(MESH:Neuroprotection)
+UNSET Confidence
 
 SET Evidence = "Synaptic plasticity and density are of central importance to learning and memory (Silva, 2003)."
-
+SET Confidence = "High"
 bp(MESH:"Neuronal Plasticity") -- bp(GO:"learning or memory")
+UNSET Confidence
 
 SET Evidence = "An increase in the expression of post-synaptic density protein95 (PSD-95), which also promotes synaptic plasticity, has been reported with cotinine treatment."
-
-a(MESH:Cotinine) -> p(HGNC:DLG4)
+SET Confidence = "High"
+a(CHEBI:"(-)-cotinine") -> p(HGNC:DLG4)
 p(HGNC:DLG4) -> bp(MESH:"Neuronal Plasticity")
+UNSET Confidence
 
 SET Evidence = "The mechanism of both of these changes is the cotinine-induced modulation of α7 nAChR that subsequently stimulates protein kinases phosphoinositide-3 kinase (PI3K). PI3K then induces Akt phosphorylation, leading to increase in the CREB protein transcriptional activity. The increase raises the expression of the synaptic proteins and improves cognitive performance (Zeitlin et al., 2012; Grizzell et al., 2014b)."
-
-complex(p(HGNC:CHRNA7),a(MESH:Cotinine)) -> p(HGNC:PIK3CA)
+SET Confidence = "High"
+complex(p(HGNC:CHRNA7),a(CHEBI:"(-)-cotinine")) -> p(HGNC:PIK3CA)
 p(HGNC:PIK3CA) -> p(FPLX:AKT,pmod(Ph))
-p(FPLX:AKT,pmod(Ph)) -> act(p(HGNC:CREBBP))
-act(p(HGNC:CREBBP)) -> bp(GO:cognition)
+p(FPLX:AKT,pmod(Ph)) -> act(p(HGNC:CREBBP),ma(tscript))
+act(p(HGNC:CREBBP),ma(tscript)) -> bp(GO:cognition)
+UNSET Confidence
 
 SET Evidence = "Cotinine blocks Abeta 1−42 aggregation and oligomerisation, reduces number and size of plaques, decreases the Aβ42/Aβ40 ratio."
-
-a(MESH:Cotinine) -| a(CHEBI:"amyloid-beta polypeptide 42")
-a(MESH:Cotinine) -| path(MESH:"Plaque, Amyloid")
+SET Confidence = "High"
+a(CHEBI:"(-)-cotinine") -| a(CHEBI:"amyloid-beta polypeptide 42")
+a(CHEBI:"(-)-cotinine") -| a(CONSO:"amyloid-beta 42 oligomers")
+a(CHEBI:"(-)-cotinine") -| path(MESH:"Plaque, Amyloid")
+UNSET Confidence
 
 SET Evidence = "The mechanism of cotinine’s eﬀects on the Abeta clearance, therefore, remains unclear, although cotinine inhibits activation of GSK3beta and may reduce Abeta1−42 production by Akt activation in both cortex and hippocampus (Echeverria et al., 2011)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex"}
-a(MESH:Cotinine) -| act(p(HGNC:GSK3B))
-a(MESH:Cotinine) -> act(p(FPLX:AKT))
+a(CHEBI:"(-)-cotinine") -| act(p(HGNC:GSK3B))
+a(CHEBI:"(-)-cotinine") -> act(p(FPLX:AKT))
 act(p(FPLX:AKT)) -| a(CHEBI:"amyloid-beta polypeptide 42")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "GSK3beta is a proline-directed serine-threonine kinase, and excessive activation may impair memory by increase of Aβ production and hyperphosphorylation of tau (Hooper et al., 2008)."
-
-act(p(HGNC:GSK3B)) -| bp(GO:"learning or memory")
-act(p(HGNC:GSK3B)) -> p(HGNC:MAPT,pmod(Ph))
+SET Confidence = "High"
+act(p(HGNC:GSK3B)) neg bp(GO:"learning or memory")
+act(p(HGNC:GSK3B)) -> p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
 act(p(HGNC:GSK3B)) -> a(CHEBI:"amyloid-beta")
+UNSET Confidence
 
 SET Evidence = "Tau accumulation in the temporal lobe correlates better with cognitive dysfunction than Aβ deposition in any region of the brain (Brier et al., 2016)."
-
+SET Confidence = "High"
 SET Anatomy = "temporal lobe"
 p(HGNC:MAPT, pmod(Ph)) neg bp(GO:cognition)
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "As discussed above, cotinine inhibits tau hyperphosphorylation through activation of the Akt pathway and subsequent blockade of GSK3β in a concentration-dependent manner. Evidence suggests that α7 nAChR may mediate these eﬀects of cotinine on the brain (Burgess et al., 2008; Echeverria et al., 2011)."
-
+SET Confidence = "High"
 SET Anatomy = "brain"
-complex(p(HGNC:CHRNA7),a(MESH:Cotinine)) -| p(HGNC:MAPT,pmod(Ph))
-complex(p(HGNC:CHRNA7),a(MESH:Cotinine)) -> act(p(FPLX:AKT))
-complex(p(HGNC:CHRNA7),a(MESH:Cotinine)) -| act(p(HGNC:GSK3B))
+complex(p(HGNC:CHRNA7),a(CHEBI:"(-)-cotinine")) -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+complex(p(HGNC:CHRNA7),a(CHEBI:"(-)-cotinine")) -> act(p(FPLX:AKT))
+act(p(FPLX:AKT)) -| p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation))
+complex(p(HGNC:CHRNA7),a(CHEBI:"(-)-cotinine")) -| act(p(HGNC:GSK3B))
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Controlled release of glutamate in the cortex regulates high cortical functions, such as learning and memory (Rahn et al., 2012), and disruption of glutamatergic neurotransmission has been implicated in the pathogenesis of cognitive decline (Tsai and Coyle, 2002)."
-
+SET Confidence = "High"
 SET Anatomy = "cerebral cortex"
 a(CHEBI:"glutamate(2-)") reg bp(GO:"learning or memory")
-bp(GO:"synaptic transmission, glutamatergic") reg bp(GO:cognition)
+bp(GO:"synaptic transmission, glutamatergic") pos bp(GO:cognition)
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Activation of α7 receptors stimulates calcium release from intracellular sources (Dajas-Bailador et al., 2002)."
-
+SET Confidence = "High"
 act(p(HGNC:CHRNA7)) -> bp(GO:"calcium ion transport")
+UNSET Confidence
 
 SET Evidence = "Also, α7 nAChR enhance depolarization of nerve terminals, opening voltage-gated calcium channels with calcium entry into the
 cell. Increased calcium levels then, directly and indirectly, raise glutamate release from synapses through activation of cAMP-PKA-dependent pathways (Girod et al., 2000; Cheng and Yakel, 2015)."
-
+SET Confidence = "High"
 SET Cell = "neuron"
 p(HGNC:CHRNA7) -> bp(GO:"membrane depolarization")
 bp(GO:"membrane depolarization") -> bp(GO:"calcium ion import")
@@ -254,65 +290,81 @@ a(CHEBI:"calcium ion") -> a(CHEBI:"glutamate(2-)")
 a(CHEBI:"calcium ion") -> a(CHEBI:"3',5'-cyclic AMP")
 a(CHEBI:"3',5'-cyclic AMP") -> a(CHEBI:"glutamate(2-)")
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "The α7 nAChR induced glutamate surge also plays a role in presynaptic facilitation and synaptic plasticity (Livingstone et al., 2010)."
-
+SET Confidence = "High"
 p(HGNC:CHRNA7) -> a(CHEBI:"glutamate(2-)")
 a(CHEBI:"glutamate(2-)") -> bp(MESH:"Neuronal Plasticity")
+UNSET Confidence
 
 SET Evidence = "The anti-inﬂammatory properties of nAChR, especially the α7 subtype, are well-known from numerous studies (Metz and Tracey, 2005; de Jonge and Ulloa, 2007; Egea et al., 2015)."
-
+SET Confidence = "High"
 p(HGNC:CHRNA7) -| path(MESH:Inflammation)
+UNSET Confidence
 
 SET Evidence = "Through an nAChR and NF-κB-dependent pathway, cotinine lowers the levels of pro-inﬂammatory molecules, such as TNF-α, IL-1β as well as IL-6 and enforces anti-inﬂammatory cytokines including IL-10 production (Rehani et al., 2008)."
-
-composite(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"),a(MESH:Cotinine)) -| p(HGNC:TNF)
-composite(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"),a(MESH:Cotinine)) -| p(HGNC:IL1B)
-composite(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"),a(MESH:Cotinine)) -| p(HGNC:IL6)
-composite(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"),a(MESH:Cotinine)) -> p(HGNC:IL10)
-composite(p(HGNCGENEFAMILY:"NF-kappa B complex subunits"),a(MESH:Cotinine)) -> p(HGNC:IL10)
-composite(p(HGNCGENEFAMILY:"NF-kappa B complex subunits"),a(MESH:Cotinine)) -| p(HGNC:TNF)
-composite(p(HGNCGENEFAMILY:"NF-kappa B complex subunits"),a(MESH:Cotinine)) -| p(HGNC:IL1B)
-composite(p(HGNCGENEFAMILY:"NF-kappa B complex subunits"),a(MESH:Cotinine)) -| p(HGNC:IL6)
+SET Confidence = "High"
+composite(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"),a(CHEBI:"(-)-cotinine")) -| p(HGNC:TNF)
+composite(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"),a(CHEBI:"(-)-cotinine")) -| p(HGNC:IL1B)
+composite(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"),a(CHEBI:"(-)-cotinine")) -| p(HGNC:IL6)
+composite(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"),a(CHEBI:"(-)-cotinine")) -> p(HGNC:IL10)
+composite(p(HGNCGENEFAMILY:"NF-kappa B complex subunits"),a(CHEBI:"(-)-cotinine")) -> p(HGNC:IL10)
+composite(p(HGNCGENEFAMILY:"NF-kappa B complex subunits"),a(CHEBI:"(-)-cotinine")) -| p(HGNC:TNF)
+composite(p(HGNCGENEFAMILY:"NF-kappa B complex subunits"),a(CHEBI:"(-)-cotinine")) -| p(HGNC:IL1B)
+composite(p(HGNCGENEFAMILY:"NF-kappa B complex subunits"),a(CHEBI:"(-)-cotinine")) -| p(HGNC:IL6)
+UNSET Confidence
 
 SET Evidence = "Under controlled circumstances, cotinine blocks Fenton’s reaction and prevents free radical production in the brain (SotoOtero et al., 2002)."
 #Fenton's reaction produces ROS
+SET Confidence = "High"
 SET Anatomy = "brain"
-a(MESH:Cotinine) -| a(MESH:"Reactive Oxygen Species")
+a(CHEBI:"(-)-cotinine") -| a(CHEBI:"reactive oxygen species")
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "This can be partly explained by the fact that addition of nicotine or cotinine chelates iron and halts Fenton’s reaction (Nakajima et al., 1996; Soto-Otero et al., 2002)."
 #Fenton's reaction produces ROS
-complex(a(CHEBI:"iron cation"),a(MESH:Cotinine)) -| a(MESH:"Reactive Oxygen Species")
-complex(a(CHEBI:"iron cation"),a(CHEBI:nicotine)) -| a(MESH:"Reactive Oxygen Species")
+SET Confidence = "High"
+complex(a(CHEBI:"iron cation"),a(CHEBI:"(-)-cotinine")) -| a(CHEBI:"reactive oxygen species")
+complex(a(CHEBI:"iron cation"),a(CHEBI:nicotine)) -| a(CHEBI:"reactive oxygen species")
+UNSET Confidence
 
 SET Evidence = "It appears that cotinine also lowers lipid peroxidation in a manner that cannot be explained by the eﬀects on Fenton’s reaction."
-
-a(MESH:Cotinine) -| bp(MESH:"Lipid Peroxidation")
+SET Confidence = "High"
+a(CHEBI:"(-)-cotinine") -| bp(MESH:"Lipid Peroxidation")
+UNSET Confidence
 
 SET Evidence = "The reduction can result from chain-breaking antioxidant properties of cotinine (Soto-Otero et al., 2002)."
-
-a(MESH:Cotinine) isA a(CHEBI:antioxidant)
+SET Confidence = "High"
+a(CHEBI:"(-)-cotinine") isA a(CHEBI:antioxidant)
+UNSET Confidence
 
 SET Evidence = "Although nornicotine is as potent as nicotine, it is less desensitizing at the major nAChR subtypes in the brain, and nornicotine’s presence leads to the activation of α7 nAChR."
-
+SET Confidence = "High"
+SET Anatomy = "brain"
 a(CHEBI:nicotine) -| act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
 a(CHEBI:nornicotine) -> act(p(HGNC:CHRNA7))
+UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Considering nornicotine’s durable presence in the brain, the molecule may mediate some of the neuroprotective eﬀects of nicotine."
-
+SET Confidence = "High"
 SET Anatomy = "brain"
 a(CHEBI:nornicotine) -> bp(MESH:Neuroprotection)
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "A study showed that α7 receptors are responsive to nornicotine, and the action at the receptors of this nicotine metabolite leads to improved cognition and attention (Papke, 2006; Papke et al., 2007)."
-
+SET Confidence = "High"
 complex(a(CHEBI:nornicotine),p(HGNC:CHRNA7)) -> bp(GO:cognition)
 complex(a(CHEBI:nornicotine),p(HGNC:CHRNA7)) -> path(MESH:Attention)
+UNSET Confidence
 
 SET Evidence = "Nornicotine may also alter Abeta’s aggregation, possibly via reduced plaque formation or altered clearance of the peptide, or both, as well as by attenuated toxicity of soluble Aβ aggregates (Dickerson and Janda, 2003)."
-
+SET Confidence = "High"
 a(CHEBI:nornicotine) -| path(MESH:"Plaque, Amyloid")
 a(CHEBI:nornicotine) -| a(CONSO:"amyloid-beta aggregates")
 a(CONSO:"amyloid-beta aggregates") => path(CONSO:neurotoxicity)
 a(CHEBI:nornicotine) -| path(CONSO:neurotoxicity)
+UNSET Confidence

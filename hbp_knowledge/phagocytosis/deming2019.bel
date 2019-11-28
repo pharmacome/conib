@@ -60,7 +60,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 # DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 # DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 # DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 # DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 # DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
  DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -80,18 +80,24 @@ and CSF sTREM2 concentrations and found a positive correlation,
 consistent with our previous reports (Pearson r = 0.270, P = 4.66 ×
 10−15; fig. S1) (24)."
 #sTREM is produced by proteolytic cleavge or alternate splicing of full lenght TREM2 protein
+SET Confidence = "High"
 bp(GO:aging) pos p(HGNC:TREM2,frag("?"))
+UNSET Confidence
 
 SET Evidence = "CSF sTREM2 concentrations positively
 correlated with CSF tau (r = 0.377, P = 9.59 × 10−29) and ptau (r = 0.348,
 P = 2.08 × 10−24; fig. S1)."
+SET Confidence = "High"
 p(HGNC:TREM2,frag("?")) pos p(HGNC:MAPT)
 p(HGNC:TREM2,frag("?")) pos p(HGNC:MAPT,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "Consistent with our previous findings, there
 was no significant correlation between CSF sTREM2 concentrations
 and CSF Abeta 42 concentrations (r = 0.074, P = 0.052; fig. S1)."
+SET Confidence = "High"
 p(HGNC:TREM2,frag("?")) cnc a(CHEBI:"amyloid-beta polypeptide 42")
+UNSET Confidence
 
 SET Evidence = "CSF sTREM2 concentrations were
 significantly lower in p.L211P carriers (2578 ± 1444 pg/ml) compared
@@ -101,62 +107,74 @@ concentrations were significantly elevated in p.R47H carriers (4852 ±
 carriers (2082 ± 239 pg/ml; P = 0.041), but were not significantly
 different from noncarriers (P = 0.223; fig. S2)."
 #in TREM2 variant
+SET Confidence = "High"
 p(HGNC:TREM2,var("p.Lys211Pro")) -| p(HGNC:TREM2,frag("?"))
 p(HGNC:TREM2) -> p(HGNC:TREM2,frag("?"))
 p(HGNC:TREM2,var("p.Asp87Asn")) -| p(HGNC:TREM2,frag("?"))
 p(HGNC:TREM2) -> p(HGNC:TREM2,frag("?"))
 p(HGNC:TREM2,var("p.Arg47His")) cnc p(HGNC:TREM2,frag("?"))
 p(HGNC:TREM2) cnc p(HGNC:TREM2,frag("?"))
+UNSET Confidence
 
 SET Evidence = "Further meta-analysis combining ADNI CSF samples and CSF samples
 from the replication datasets showed a strong association between
 rs1582763 and elevated CSF sTREM2 (Pmeta = 4.48 × 10−21;
 Fig. 2)."
-r(DBSNP:rs1582763) -> p(HGNC:TREM2,frag("?"))
+SET Confidence = "High"
+r(DBSNP:rs1582763) pos p(HGNC:TREM2,frag("?"))
+UNSET Confidence
 
 SET Evidence = "Both rs6591561 (beta = −0.174,
 P = 1.59 × 10−3) and rs1582763 (beta = 0.318, P = 1.50 × 10−9) were
 significantly associated with CSF sTREM2 concentrations, and the
 added genetic effect explained another 1% of the variance in CSF
 sTREM2 concentrations (combined SNP adjusted r2 = 0.075)."
+#the composite is showing 1% variation too.
+SET Confidence = "Medium"
 r(DBSNP:rs6591561) -- p(HGNC:TREM2,frag("?"))
-composite(r(DBSNP:rs6591561),r(DBSNP:rs1582763)) -- p(HGNC:TREM2,frag("?"))
+r(DBSNP:rs1582763) -- p(HGNC:TREM2,frag("?"))
+#composite(r(DBSNP:rs6591561),r(DBSNP:rs1582763)) -- p(HGNC:TREM2,frag("?"))
+UNSET Confidence
 
 SET Evidence = "The SNP commonly used as a proxy for APOE epsilon 4, rs769449, was also
 not associated with CSF sTREM2 (beta = −106.9, P = 0.308)."
+SET Confidence = "High"
 r(DBSNP:rs769449) -- p(HGNC:APOE)
 r(DBSNP:rs769449) cnc p(HGNC:TREM2,frag("?"))
 p(HGNC:APOE) cnc p(HGNC:TREM2,frag("?"))
+UNSET Confidence
 
 SET Evidence = "As expected, there was a
 strong negative effect of APOE genotype on CSF Abeta 42 (beta = −0.361,
 P = 1.69 × 10−34)."
+SET Confidence = "High"
 g(HGNC:APOE) neg a(CHEBI:"amyloid-beta polypeptide 42")
+UNSET Confidence
 
 SET Evidence = "In human whole blood, rs1582763 was associated with
 reduced expression of MS4A6A (GTEx: beta = −0.089, P = 3.90 × 10−5;
 Westra: Z = −23.42, P = 2.95 × 10−121) and MS4A4A (GTEx: beta =
 −0.123, P = 6.1 × 10–5; Westra: Z = −7.21, P = 5.52 × 10−13) and increased
 expression of MS4A2 (Westra: Z = 8.06, P = 7.49 × 10−16)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Blood"
-r(DBSNP:rs1582763) -| g(HGNC:MS4A6A)
-r(DBSNP:rs1582763) -| g(HGNC:MS4A4A)
-r(DBSNP:rs1582763) -> g(HGNC:MS4A2)
+r(DBSNP:rs1582763) -| p(HGNC:MS4A6A)
+r(DBSNP:rs1582763) -| p(HGNC:MS4A4A)
+r(DBSNP:rs1582763) -> p(HGNC:MS4A2)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Among the 16 genes tested from the
 MS4A gene cluster, the expression of three genes (MS4A4A, MS4A6A,
 and MS4A7) was consistently positively correlated with TREM2 gene
 expression in human brain tissue."
+SET Confidence = "High"
 SET MeSHAnatomy = "Neocortex"
-g(HGNC:MS4A6A) -> g(HGNC:TREM2)
-g(HGNC:MS4A4A) -> g(HGNC:TREM2)
-g(HGNC:MS4A7) -> g(HGNC:TREM2)
+r(HGNC:MS4A6A) pos r(HGNC:TREM2)
+r(HGNC:MS4A4A) pos r(HGNC:TREM2)
+r(HGNC:MS4A7) pos r(HGNC:TREM2)
 UNSET MeSHAnatomy
-
-SET Evidence = "MS4A4A and MS4A6A are both highly expressed in microglia (38)."
-a(MESH:Microglia) -> p(HGNC:MS4A4A)
-a(MESH:Microglia) -> p(HGNC:MS4A6A)
+UNSET Confidence
 
 SET Evidence = "Given that stimulation of macrophages
 with interleukin-4 (IL-4) results in up-regulation
@@ -164,35 +182,44 @@ of TREM2 and MS4A4A (42, 43), we
 measured sTREM2 in the presence or
 absence of IL-4 as previously described
 (27). "
+SET Confidence = "High"
 p(HGNC:IL4) -> bp(GO:"macrophage activation")
 bp(GO:"macrophage activation") -> p(HGNC:TREM2)
 bp(GO:"macrophage activation") -> p(HGNC:MS4A4A)
+UNSET Confidence
 
 SET Evidence = "By day 7 after isolation of monocytes,
 stimulation with IL-4 had significantly
 increased sTREM2 in the culture media
 compared to untreated cells (P = 0.015;
 fig. S9B)."
+SET Confidence = "High"
 p(HGNC:IL4) -> bp(GO:"macrophage activation")
 bp(GO:"macrophage activation") -> p(HGNC:TREM2,frag("?"))
+UNSET Confidence
 
 SET Evidence = "We
 found that an antibody directed against
 MS4A4A was sufficient to significantly
 reduce sTREM2 concentrations in macrophage
 cultures (P < 0.0001; Fig. 5A)."
+SET Confidence = "High"
 #MS4A4A antibody concentration - 1, 5, 10 microgram/ml
 complex(complex(GO:"immunoglobulin complex"),p(HGNC:MS4A4A)) -| p(HGNC:TREM2,frag("?"),loc(MESH:Macrophages))
+UNSET Confidence
 
 SET Evidence = "Extracellular sTREM2 concentrations
 were unchanged with increasing concentrations of the isotype-matched
 control antibody [mouse immunoglobulin G (IgG); Fig. 5B]."
+SET Confidence = "High"
 complex(GO:"IgG immunoglobulin complex") cnc p(HGNC:TREM2,frag("?"),loc(GO:"extracellular region"))
+UNSET Confidence
 
 SET Evidence = "MS4A4A is reportedly expressed on the macrophage plasma membrane
 (42) and on the plasma membrane and intracellular organelles
 in human mast cells, where it may play a role in protein trafficking
 (44)."
+SET Confidence = "High"
 SET MeSHAnatomy = "Macrophages"
 p(HGNC:MS4A4A,loc(GO:"plasma membrane")) -- bp(GO:"protein transport")
 UNSET MeSHAnatomy
@@ -200,3 +227,4 @@ SET MeSHAnatomy = "Mast Cells"
 p(HGNC:MS4A4A,loc(GO:"plasma membrane")) -- bp(GO:"protein transport")
 p(HGNC:MS4A4A,loc(GO:"cytoplasm")) -- bp(GO:"protein transport")
 UNSET MeSHAnatomy
+UNSET Confidence
