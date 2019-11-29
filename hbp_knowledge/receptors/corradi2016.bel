@@ -60,8 +60,8 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
  #DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
  DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
  DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
- #DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
-DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
  #DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
  DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
  DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
@@ -77,55 +77,60 @@ SET Evidence = "a7 is one of the most abundant nAChRs in the central
 nervous system. It is particularly expressed in regions implicated
 in cognitive function and memory, such as hippocampus,
 cortex, and several subcortical limbic regions (see Lendvai et al., 2013)."
-
+SET Confidence = "High"
 SET Anatomy = "central nervous system"
 SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex","Limbic System"}
-p(HGNC:CHRNA7) -> bp(GO:cognition)
-p(HGNC:CHRNA7) -> bp(GO:"learning or memory")
+bp(GO:cognition) -- p(HGNC:CHRNA7)
+bp(GO:"learning or memory") -- p(HGNC:CHRNA7)
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "It is also expressed on non-neuronal cells,
 including astrocytes, microglia, oligodendrocyte precursor
 cells, and endothelial cells, where it plays a role in immunity,
 inflammation, and neuroprotection (Shytle et al., 2004; Shen
 and Yakel, 2012; Dineley et al., 2015)."
-
+SET Confidence = "High"
 SET Cell = {"astrocyte","microglial cell","oligodendrocyte precursor cell","endothelial cell"}
 p(HGNC:CHRNA7) -- bp(MESH:Immunity)
 p(HGNC:CHRNA7) -- path(MESH:Inflammation)
 p(HGNC:CHRNA7) -- bp(MESH:Neuroprotection)
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "In neurons, a7 receptors localize presynaptically on GABAergic
 and glutamatergic terminals in the hippocampus and other
 regions to facilitate release of neurotransmitters."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 p(HGNC:CHRNA7) -> sec(a(CHEBI:neurotransmitter))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "a7 contributes to cognitive functioning, sensory processing
 information, attention, working memory, and reward pathways,
 and a large body of evidence shows that enhancing a7
 activity improves attention, cognitive performance, and neuronal
 resistance to injury (reviewed in Uteshev, 2014)."
-
+SET Confidence = "High"
 p(HGNC:CHRNA7) -> bp(GO:cognition)
 p(HGNC:CHRNA7) -> path(MESH:"Mental Processes")
-p(HGNC:CHRNA7) -> path(MESH:Attention)
-p(HGNC:CHRNA7) -> bp(GO:"learning or memory")
+act(p(HGNC:CHRNA7)) -> path(MESH:Attention)
+act(p(HGNC:CHRNA7)) -> bp(GO:"learning or memory")
 p(HGNC:CHRNA7) -> path(MESH:Reward)
-p(HGNC:CHRNA7) -> bp(MESH:Neuroprotection)
+act(p(HGNC:CHRNA7)) -> bp(MESH:Neuroprotection)
+UNSET Confidence
 
 SET Evidence = "Significant reduction of a7 in the brain, particularly in the
 hippocampus, has been reported in Alzheimer disease (Guan
 et al., 2000; Kadir et al., 2006) and schizophrenic patients
 (Schaaf, 2014; Dineley et al., 2015)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 path(DOID:"Alzheimer's disease") -| p(HGNC:CHRNA7)
 path(DOID:schizophrenia) -| p(HGNC:CHRNA7)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The a7 gene, CHRNA7 on
 chromosome 15, is genetically linked to multiple disorders
@@ -133,7 +138,7 @@ with cognitive deficits, including schizophrenia, intellectual
 disability, bipolar disorder, autism spectrum disorders, attention deficit hyperactivity disorder, epilepsy, Alzheimer disease, and
 sensory processing deficit (Sinkus et al., 2009, 2015; Schaaf,
 2014; Dineley et al., 2015; Deutsch et al., 2016)."
-
+SET Confidence = "High"
 g(HGNC:CHRNA7) -- bp(GO:cognition)
 g(HGNC:CHRNA7) -- path(DOID:schizophrenia)
 g(HGNC:CHRNA7) -- path(MESH:"Intellectual Disability")
@@ -142,7 +147,8 @@ g(HGNC:CHRNA7) -- path(DOID:"autism spectrum disorder")
 g(HGNC:CHRNA7) -- path(DOID:"attention deficit hyperactivity disorder")
 g(HGNC:CHRNA7) -- path(DOID:epilepsy)
 g(HGNC:CHRNA7) -- path(DOID:"Alzheimer's disease")
-g(HGNC:CHRNA7) -| bp(GO:"sensory processing")
+g(HGNC:CHRNA7) neg bp(GO:"sensory processing")
+UNSET Confidence
 
 SET Evidence = "A partial duplication
 of CHRNA7 resulting in the chimeric gene CHRFAM7A,
@@ -150,19 +156,21 @@ which is present only in humans, has been associated with
 schizophrenia (Sinkus et al., 2009; Neri et al., 2012). Its gene
 product, dupa7, lacks part of the binding site and may act as a
 negative modulator of a7 (Wang et al., 2014)."
-
+SET Confidence = "High"
 SET Species = "9606"
 g(HGNC:CHRFAM7A) -- path(DOID:schizophrenia)
 p(HGNC:CHRFAM7A) -| p(HGNC:CHRNA7)
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Interestingly, a7b2
 are highly sensitive to blockade by Ab1–42, suggesting that
 they may play a unique role in the neuropathology of Alzheimer
 disease (Liu et al., 2009)."
-
+SET Confidence = "High"
 complex(complex(CONSO:"alpha-7 beta-2 nAChR"),a(CONSO:"amyloid-beta 42 oligomers")) -| act(complex(CONSO:"alpha-7 beta-2 nAChR"))
 complex(CONSO:"alpha-7 beta-2 nAChR") -- path(DOID:"Alzheimer's disease")
+UNSET Confidence
 
 SET Evidence = "a7 is present in various non-neuronal tissues, such as glia
 (Sharma and Vijayaraghavan, 2001), blood cells (Kawashima
@@ -177,79 +185,96 @@ intensively investigated and has been associated with differentiation,
 migration, adhesion, cell contact, apoptosis, and
 angiogenesis processes (Ni et al., 2010; Egea et al., 2015;
 Zdanowski et al., 2015)."
-
-SET Cell = {"glial cell","blood cell","epithelial cell","fibroblast","endothelial cell","digestive enzyme secreting cell","spermatogonium","spermatocyte","seminiferous tubule epithelial cell","Sertoli cell"}
+SET Confidence = "High"
+SET Cell = {"glial cell","blood cell","epithelial cell","fibroblast","endothelial cell","digestive enzyme secreting cell","spermatogonium","spermatocyte","seminiferous tubule epithelial cell","Sertoli cell","keratinocyte"}
 p(HGNC:CHRNA7) -- bp(GO:"cell differentiation")
 p(HGNC:CHRNA7) -- bp(GO:"cell migration")
 p(HGNC:CHRNA7) -- bp(GO:"cell adhesion")
 p(HGNC:CHRNA7) -- bp(MESH:Apoptosis)
 p(HGNC:CHRNA7) -- bp(GO:angiogenesis)
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "In particular, a7, present in all types of immune cells,
 including lymphocytes (T and B cells), dendritic cells and
 macrophages (reviewed in Egea et al., 2015), has attracted
 considerable attention as an important drug target for inflammation."
+SET Confidence = "High"
 SET MeSHAnatomy = {"T-Lymphocytes","B-Lymphocytes","Macrophages"}
 SET Cell = "dendritic cell"
 p(HGNC:CHRNA7) -> path(MESH:Inflammation)
 UNSET Cell
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "α7 modulates intracellular signal pathways [Janus kinase 2 (JAK2)/signal transducer and activator of transcription (STAT3) and PI3K/Akt] in immune cells, which results in potent anti-inflammatory effects through cytokine production inhibition and overexpression of heme oxygenase 1 (Báez-Pagán et al., 2015; Egea et al., 2015) (Fig. 5)."
-
+SET Confidence = "High"
 p(HGNC:CHRNA7) reg bp(GO:"receptor signaling pathway via JAK-STAT")
-p(HGNC:CHRNA7) -> bp(GO:"regulation of phosphatidylinositol 3-kinase signaling")
+p(HGNC:CHRNA7) reg bp(GO:"regulation of phosphatidylinositol 3-kinase signaling")
 bp(GO:"receptor signaling pathway via JAK-STAT") -| sec(a(MESH:Cytokines))
 bp(GO:"regulation of phosphatidylinositol 3-kinase signaling") -| sec(a(MESH:Cytokines))
+bp(GO:"receptor signaling pathway via JAK-STAT") -| path(MESH:Inflammation)
+bp(GO:"regulation of phosphatidylinositol 3-kinase signaling") -| path(MESH:Inflammation)
 sec(a(MESH:Cytokines)) -> path(MESH:Inflammation)
 bp(GO:"receptor signaling pathway via JAK-STAT") -> p(HGNC:HMOX1)
 bp(GO:"regulation of phosphatidylinositol 3-kinase signaling") -> p(HGNC:HMOX1)
+p(HGNC:HMOX1) -| path(MESH:Inflammation)
+UNSET Confidence
 
 SET Evidence = " A brain cholinergic pathway also exists that regulates microglial activation through α7 (Shytle et al., 2004). This pathway is crucial for neuroprotection (Park et al., 2007) and is probably important in Parkinson disease (Stuckenholz et al., 2013), oxygen and glucose deprivation (Parada et al., 2013), and global ischemia (Guan et al., 2015)."
-
+SET Confidence = "High"
 SET Anatomy = "brain"
 bp(GO:"synaptic transmission, cholinergic") reg p(HGNC:CHRNA7)
-p(HGNC:CHRNA7) reg act(a(MESH:Microglia))
+p(HGNC:CHRNA7) reg bp(GO:"microglial cell activation")
 bp(GO:"synaptic transmission, cholinergic") -- bp(MESH:Neuroprotection)
 bp(GO:"synaptic transmission, cholinergic") -- path(DOID:"Parkinson's disease")
 bp(GO:"synaptic transmission, cholinergic") -- bp(GO:"oxygen homeostasis")
 bp(GO:"synaptic transmission, cholinergic") -- bp(GO:"glucose homeostasis")
 bp(GO:"synaptic transmission, cholinergic") -- path(DOID:ischemia)
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Therefore, α7 nAChR is emerging as an important drug target for the modulation of inflammation in different pathologic contexts, including sepsis, ischemia/reperfusion, rheumatoid arthritis, and pancreatitis."
+SET Confidence = "High"
 SET MeSHDisease = {"Sepsis","Ischemia","Reperfusion Injury"}
 SET Disease = {"rheumatoid arthritis","pancreatitis"}
 p(HGNC:CHRNA7) reg path(MESH:Inflammation)
 UNSET MeSHDisease
 UNSET Disease
+UNSET Confidence
 
 SET Evidence = "Hallmark features of α7 receptors include high Ca2+ permeability, relatively low sensitivity to ACh, full activation by choline, high-affinity for α-bungarotoxin (α-BTX), relatively low affinity for nicotine, and fast desensitization that occurs on the submillisecond time scale."
-
+#187 - ACh, 305 - choline
+SET Confidence = "High"
 p(HGNC:CHRNA7) -> bp(GO:"calcium ion transport")
 complex(p(HGNC:CHRNA7),a(PUBCHEM:305)) -> act(p(HGNC:CHRNA7))
-composite(p(HGNC:CHRNA7),p(CONSO:"alpha-Bungarotoxin")) -> composite(p(HGNC:CHRNA7),p(CONSO:"alpha-Bungarotoxin"))
-composite(p(HGNC:CHRNA7),a(PUBCHEM:187)) -> complex(p(HGNC:CHRNA7),a(PUBCHEM:187))
-composite(p(HGNC:CHRNA7),a(CHEBI:nicotine)) -> complex(p(HGNC:CHRNA7),a(CHEBI:nicotine))
+composite(p(HGNC:CHRNA7),p(CONSO:"alpha-Bungarotoxin")) -> complex(p(HGNC:CHRNA7),p(CONSO:"alpha-Bungarotoxin"))
+composite(p(HGNC:CHRNA7),a(PUBCHEM:187)) -| complex(p(HGNC:CHRNA7),a(PUBCHEM:187))
+composite(p(HGNC:CHRNA7),a(CHEBI:nicotine)) -| complex(p(HGNC:CHRNA7),a(CHEBI:nicotine))
+UNSET Confidence
 
 SET Evidence = "Several α7-specific agonists have been synthetized, including PNU-282987 (EC50 128 nM), AR-R17779 (EC50 ∼10–20 μM), compound A (EC50 ∼14 nM to 0.95 μM), and partial agonists GTS-21 (EC50 ∼6–26 μM), and SSR180711 (EC50 ∼1–4 μM)."
-
+#11243536 - PNU-282987,  5310971 - AR-R17779, 9797360 - SSR180711, 5310985 - GTS-21
+SET Confidence = "High"
 a(PUBCHEM:11243536) -> p(HGNC:CHRNA7)
 a(PUBCHEM:5310971) -> p(HGNC:CHRNA7)
 a(PUBCHEM:9797360) -> p(HGNC:CHRNA7)
 a(PUBCHEM:5310985) -> p(HGNC:CHRNA7)
+UNSET Confidence
 
 SET Evidence = "Selective competitive antagonists are α-BTX (IC50 ∼1–100 nM), which has been widely used to detect α7 in tissues, and methyllycaconitine (MLA, IC50 10–200 nM) (Wonnacott and Barik, 2007)."
-
+SET Confidence = "High"
 p(CONSO:"alpha-Bungarotoxin") -| p(HGNC:CHRNA7)
 a(CHEBI:"methyllycaconitine") -| p(HGNC:CHRNA7)
+UNSET Confidence
 
 SET Evidence = "α7 is not only permeable to Ca2+ but is also modulated by the ion; Ca2+ has been shown to regulate agonist efficacy and cooperativity (Bonfante-Cabarcas et al., 1996; Albuquerque et al., 1997)."
-
+SET Confidence = "High"
 p(HGNC:CHRNA7) -> bp(GO:"calcium ion transport")
 a(CHEBI:"calcium ion") reg p(HGNC:CHRNA7)
+UNSET Confidence
 
 SET Evidence = "The surface expression of recombinant α7 requires coexpression of the chaperone RIC-3 (Williams et al., 2005), a transmembrane protein that is required for efficient receptor folding, assembly, and functional expression (Castillo et al., 2005; Millar, 2008)."
-
-composite(p(HGNC:CHRNA7),p(HGNC:RIC3,loc(MESH:"Cell Membrane"))) -> act(p(HGNC:CHRNA7))
+SET Confidence = "High"
+composite(p(HGNC:CHRNA7),p(HGNC:RIC3,loc(MESH:"Cell Membrane"))) -> act(p(HGNC:CHRNA7,loc(GO:"cell surface")))
+UNSET Confidence
