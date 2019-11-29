@@ -1,0 +1,740 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Transcription factor EB: from master coordinator of lysosomal pathways to candidate therapeutic target in degenerative storage diseases"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Yojana Gadiya"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/conso
+# --------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/3c93a65dc48e6786fe29ae55aa36cf9a902fe8c6/export/conso-names.belns"
+# DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+# DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+# DEFINE NAMESPACE EFO            AS URL "https://raw.githubusercontent.com/pharmacome/conso/5d2c2ea6f7112421cc8089a3f021a75ab60bb373/external/efo-names.belns"
+# DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+# DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/go-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
+# DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
+DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
+# DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+# DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
+# DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+# DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+# DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+# DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+# DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+# DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+# DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+# DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+# DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+# DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+# DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "27299292"}
+
+SET Evidence = "Out of four candidate transcription factors tested, TFEB was able to induce the expression of lysosomal genes and increase lysosomal proliferation in cultured cells.[1]"
+p(HGNC:TFEB) -> a(MESH:Lysosomes)
+
+SET Evidence = "TFEB was identified as a target of microRNA-128 (miR-128), and TFEB silencing obtained using a miR-128 mimic showed downregulation of CLEAR lysosomal genes, thus demonstrating that active TFEB is required for the expression of CLEAR genes.[1]"
+m(MIRBASE:"hsa-mir-128-1") -| p(HGNC:TFEB)
+m(MIRBASE:"hsa-mir-128-2") -| p(HGNC:TFEB)
+
+SET Evidence = "CLEAR genes control expression, import, and activity of lysosomal enzymes involved in the degradation of proteins, glycosaminoglycans, complex lipids, and glycogen.[1, 4]"
+#way to code for CLEAR gene
+
+SET Evidence = "Interestingly, non-lysosomal enzymes involved in the degradation of
+hemoglobin and chitin were also found to be under the control of TFEB.[4]"
+p(HGNC:TFEB) reg deg(a(CHEBI:hemoglobin))
+p(HGNC:TFEB) reg deg(a(CHEBI:chitin))
+
+SET Evidence = "TFEB was also found to modulate the expression of genes involved in processes such as lysosomal acidification, exocytosis, and endocytosis.[1, 4]"
+p(HGNC:TFEB) reg bp(GO:"lysosomal lumen acidification")
+p(HGNC:TFEB) reg bp(GO:exocytosis)
+p(HGNC:TFEB) reg bp(GO:endocytosis)
+
+SET Evidence = "Additional genes and pathways that are part of the CLEAR network include components of the innate immune system, the transcriptional coactivator PGC1α—which is involved in mitochondrial biogenesis and the insulin signaling pathway—and components of AMP-activated protein kinase (AMPK) and mechanistic target of rapamycin (mTOR) signaling.[4]"
+p(HGNC:PPARGC1A) -> a(MESH:Mitochondria)
+
+SET Evidence = "Subsequent work showed that TFEB promotes the formation of autophagosomes and their fusion with lysosomes through the upregulation of several key autophagy and lysosomal genes, a process that is initiated by nutrient starvation and executed by inhibition of extracellular signal-regulated kinase 2 (ERK2)-mediated phosphorylation of TFEB at Ser142.[5]"
+bp(GO:"cellular response to starvation") -> act(p(HGNC:TFEB))
+act(p(HGNC:MAPK1),ma(kin)) -> p(HGNC:TFEB,pmod(Ph,Ser,142))
+p(HGNC:TFEB,pmod(Ph,Ser,142)) -| act(p(HGNC:TFEB))
+act(p(HGNC:TFEB)) -> bp(GO:"autophagosome assembly")
+act(p(HGNC:TFEB)) -> bp(GO:"autophagosome-lysosome fusion")
+
+SET Evidence = "TFEB and its paralogs, TFE3 and microphthalmia-associated transcription factor (MITF), are also required for the execution of mitophagy—a type of autophagy that selectively eliminates damaged mitochondria; these TFs act downstream of the mitophagy regulators, PINK1 and Parkin, and mitophagy execution requires core components of autophagosome formations, such as Atg9A and Atg5.[6]"
+composite(p(HGNC:TFEB),p(HGNC:MITF),p(HGNC:TFE3)) reg bp(GO:mitophagy)
+p(HGNC:PINK1) -- composite(p(HGNC:TFEB),p(HGNC:MITF),p(HGNC:TFE3))
+p(HGNC:PRKN) -- composite(p(HGNC:TFEB),p(HGNC:MITF),p(HGNC:TFE3))
+p(HGNC:ATG9A) -- composite(p(HGNC:TFEB),p(HGNC:MITF),p(HGNC:TFE3))
+p(HGNC:ATG5) -- composite(p(HGNC:TFEB),p(HGNC:MITF),p(HGNC:TFE3))
+composite(p(HGNC:TFEB),p(HGNC:MITF),p(HGNC:TFE3),p(HGNC:PINK1),p(HGNC:PRKN),p(HGNC:ATG9A),p(HGNC:ATG5)) pos bp(GO:mitophagy)
+
+SET Evidence = "TFEB-mediated autophagy induction was found to be antagonized by ZKSCAN3, a master transcriptional repressor of autophagy.[7]"
+p(HGNC:ZKSCAN3) -| bp(GO:autophagy)
+p(HGNC:ZKSCAN3) -| act(p(HGNC:TFEB))
+act(p(HGNC:TFEB)) pos bp(GO:autophagy)
+
+SET Evidence = "Exogenous expression of human TFEB in the mouse liver revealed activation of lipid catabolism and oxidation pathways and repression of lipid biosynthetic processes.[8]"
+SET Species = "10090"
+SET MeSHAnatomy = "Liver"
+p(HGNC:TFEB) pos bp(GO:"lipid catabolic process")
+p(HGNC:TFEB) pos bp(GO:"lipid oxidation")
+p(HGNC:TFEB) neg bp(GO:"lipid biosynthetic process")
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "One of the most upregulated genes was found to be PGC1α, which was confirmed to be a direct TFEB transcriptional target under starvation conditions."
+bp(GO:"cellular response to starvation") -> act(p(HGNC:TFEB),ma(tscript))
+act(p(HGNC:TFEB),ma(tscript)) -> p(HGNC:PPARGC1A)
+
+SET Evidence = "Indeed, TFEB overexpression in livers lacking either PGC1α or its nuclear receptor, peroxisome proliferator-activated receptor α (PPARα), resulted in diminished activation of lipid metabolism genes, indicating that PGC1α–PPARα signaling mediates the effects of TFEB on lipid metabolism.[8]"
+SET MeSHAnatomy = "Liver"
+bp(GO:"peroxisome proliferator activated receptor signaling pathway") reg act(p(HGNC:TFEB))
+bp(GO:"peroxisome proliferator activated receptor signaling pathway") reg bp(GO:"lipid catabolic process")
+UNSET MeSHAnatomy
+
+SET Evidence = "TFEB availability in the liver of mice challenged with a high-fat diet correlated with the capacity to activate lipid degradation, which depended on a functional autophagic pathway."
+SET Species = "10090"
+SET MeSHAnatomy = "Liver"
+bp(MESH:"Diet, High-Fat") reg bp(GO:"lipid catabolic process")
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "TFEB overexpression could rescue protein trafficking and maturation of the common L444P mutant of glucosylceramidase, the protein mutated in Gaucher’s disease, by enhancing the cell’s folding and trafficking networks, highlighting the role played by TFEB in the control of lysosomal proteostasis.[9]"
+path(DOID:"Gaucher's disease") pos p(HGNC:GBA,var("p.Leu444Pro"))
+p(HGNC:GBA,var("p.Leu444Pro")) neg bp(GO:"protein transport")
+p(HGNC:TFEB) pos bp(GO:"protein transport")
+p(HGNC:GBA,var("p.Leu444Pro")) neg bp(GO:"protein maturation")
+p(HGNC:TFEB) pos bp(GO:"protein maturation")
+SET MeSHAnatomy = "Lysosomes"
+p(HGNC:TFEB) reg bp(MESH:Proteostasis)
+UNSET MeSHAnatomy
+
+SET Evidence = "TFEB mRNA levels are either up- or downregulated by various endogenous mechanisms. For example, miR-128 has a target sequence in TFEB 3’UTR, and miR-128–mediated downregulation of TFEB levels has been shown in human cells[1] and in the rat brain.[10]"
+SET Species = {"9606","10090"}
+SET MeSHAnatomy = "Brain"
+act(m(MIRBASE:"hsa-mir-128-1"),ma(GO:"mRNA 3'-UTR binding")) -> complex(r(HGNC:TFEB),m(MIRBASE:"hsa-mir-128-1"))
+complex(r(HGNC:TFEB),m(MIRBASE:"hsa-mir-128-1")) -| p(HGNC:TFEB)
+act(m(MIRBASE:"hsa-mir-128-2"),ma(GO:"mRNA 3'-UTR binding")) -> complex(r(HGNC:TFEB),m(MIRBASE:"hsa-mir-128-2"))
+complex(r(HGNC:TFEB),m(MIRBASE:"hsa-mir-128-2")) -| p(HGNC:TFEB)
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "Conversely, lysosomal stress induced by the addition of sucrose to the media of cultured cells was shown to upregulate TFEB expression and promote TFEB translocation from a cytosolic location to the nucleus.[1]"
+SET MeSHAnatomy = "Lysosomes"
+a(CHEBI:sucrose) -> bp(MESH:"Stress, Physiological")
+UNSET MeSHAnatomy
+bp(GO:"cellular response to stress") -> p(HGNC:TFEB)
+bp(GO:"cellular response to stress") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+
+SET Evidence = "This observation provided the first evidence for endogenous activation of TFEB as an adaptive response to lysosomal stress, which was subsequently confirmed by the analysis of mouse embryonic fibroblasts from various models of lysosomal storage disorders showing increased TFEB nuclear accumulation.[1]"
+bp(GO:"cellular response to stress") -> act(p(HGNC:TFEB),ma(tscript))
+SET Species = "10090"
+SET MeSHAnatomy = {"Fibroblasts","Mouse Embryonic Stem Cells"}
+path(DOID:"lysosomal storage disease") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+path(DOID:"lysosomal storage disease") -> p(HGNC:TFEB,loc(GO:nucleus))
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "Increased TFEB expression and transcriptional activation of the CLEAR network have also been detected in an induced pluripotent stem (iPS) cell model of Huntington disease,[11] a proteinopathy characterized by accumulation of cellular inclusions of polyQ-expanded huntingtin, and in the brain of mice lacking presenilin expression (a protein involved in lysosomal homeostasis) in excitatory neurons.[12]"
+SET MeSHAnatomy = "Induced Pluripotent Stem Cells"
+path(DOID:"Huntington's disease") -> p(HGNC:TFEB)
+UNSET MeSHAnatomy
+SET Species = "10090"
+SET MeSHAnatomy = "Brain"
+p(HGNC:PSEN1,loc(GO:"excitatory synapse")) -| p(HGNC:TFEB)
+p(HGNC:PSEN1,loc(GO:"excitatory synapse")) reg act(a(MESH:Lysosomes))
+ UNSET MeSHAnatomy
+ UNSET Species
+
+ SET Evidence = "TFEB nuclear translocation has also been observed as an adaptive response to a variety of stress conditions, including exposure to arsenic,[13] lysosomal stressors,[13–17] oxidative stress,[18, 19] transition metals,[20] ethanol,[21] and the senescence inducer doxorubicin.[22]"
+a(CHEBI:"arsenic(3+)") -> bp(MESH:"Stress, Physiological")
+a(CHEBI:"arsenic(3+)") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+SET MeSHAnatomy = "Lysosomes"
+bp(MESH:"Stress, Physiological") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+UNSET MeSHAnatomy
+bp(GO:"response to oxidative stress") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+bp(GO:"response to transition metal nanoparticle") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+bp(GO:"cellular response to ethanol") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+bp(GO:"response to doxorubicin") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+bp(GO:"response to doxorubicin") pos bp(GO:"cellular senescence")
+
+SET Evidence = "TFEB expression levels are also modulated by PGC1α,[23] a master activator of mitochondrial proliferation, which is, in turn, a TFEB direct target.[8]"
+#mrna modulator and protein target
+p(HGNC:PPARGC1A) reg r(HGNC:TFEB)
+p(HGNC:PPARGC1A) reg p(HGNC:TFEB)
+
+SET Evidence = "PGC1α binds to one of the promoters of TFEB,[23] and its regulation of TFEB is essential to TFEB activation for mitophagy.[24]"
+act(p(HGNC:PPARGC1A),ma(GO:"core promoter binding")) -> complex(p(HGNC:PPARGC1A),r(HGNC:TFEB))
+complex(p(HGNC:PPARGC1A),r(HGNC:TFEB)) reg p(HGNC:TFEB)
+complex(p(HGNC:PPARGC1A),r(HGNC:TFEB)) reg act(p(HGNC:TFEB))
+act(p(HGNC:TFEB)) -> bp(GO:mitophagy)
+complex(p(HGNC:PPARGC1A),r(HGNC:TFEB)) reg bp(GO:mitophagy)
+
+SET Evidence = "PGC1α regulation of TFEB transcription is achieved via PPARα/retinoid X receptor α (RXRα) heterodimer co-binding of TFEB promoter and can be mimicked by the PPARα agonist, gemfibrozil.[25]"
+act(p(HGNC:PPARGC1A)) reg act(p(HGNC:TFEB),ma(tscript))
+act(p(HGNC:PPARGC1A)) -> complex(p(HGNC:PPARGC1A),p(HGNC:RXRA),r(HGNC:TFEB))
+complex(p(HGNC:PPARGC1A),p(HGNC:RXRA),r(HGNC:TFEB)) reg act(p(HGNC:TFEB),ma(tscript))
+a(CHEBI:gemfibrozil) -> act(p(HGNC:PPARGC1A))
+
+SET Evidence = "Additional identified transcriptional regulators of TFEB are the fed-state sensing nuclear receptor farnesoid X receptor (FXR) and the fasting transcriptional activator cAMP response element–binding protein (CREB), which inhibits and induces TFEB expression in the liver in a fed or fasting state, respectively.26"
+SET MeSHAnatomy = "Liver"
+bp(GO:"cellular response to nutrient") -> p(HGNC:NR1H4)
+p(HGNC:NR1H4) -> p(HGNC:TFEB)
+p(HGNC:NR1H4) reg act(p(HGNC:TFEB),ma(tscript))
+bp(GO:"cellular response to starvation") -> p(HGNC:CREBBP)
+p(HGNC:CREBBP) -> p(HGNC:TFEB)
+p(HGNC:CREBBP) reg act(p(HGNC:TFEB),ma(tscript))
+UNSET MeSHAnatomy
+
+SET Evidence = "ERK2 was first identified as a controller of TFEB subcellular localization by phosphorylation at Ser142, resulting in TFEB cytosolic retention, a process abolished by nutrient starvation.[5]"
+act(p(HGNC:MAPK1),ma(kin)) -> p(HGNC:TFEB,loc(GO:cytoplasm))
+act(p(HGNC:MAPK1),ma(kin)) -> p(HGNC:TFEB,pmod(Ph,Ser,142))
+p(HGNC:TFEB,pmod(Ph,Ser,142)) -> p(HGNC:TFEB,loc(GO:cytoplasm))
+bp(GO:"cellular response to starvation") -| act(p(HGNC:MAPK1),ma(kin))
+bp(GO:"cellular response to starvation") -| p(HGNC:TFEB,loc(GO:cytoplasm))
+bp(GO:"cellular response to starvation") -| p(HGNC:TFEB,pmod(Ph,Ser,142))
+
+SET Evidence = "Subsequently, mTOR complex 1 (mTORC1), a kinase complex that functions as a switch between cellular anabolic and catabolic pathways, was also identified as a regulator of TFEB subcellular location via direct phosphorylation of specific TFEB residues."
+act(p(HGNCGENEFAMILY:"MTOR complex 1"),ma(kin)) -- bp(GO:"biosynthetic process")
+act(p(HGNCGENEFAMILY:"MTOR complex 1"),ma(kin)) -- bp(GO:"catabolic process")
+act(p(HGNCGENEFAMILY:"MTOR complex 1"),ma(kin)) -> p(HGNC:TFEB,pmod(Ph))
+act(p(HGNCGENEFAMILY:"MTOR complex 1"),ma(kin)) -> p(HGNC:TFEB,loc(GO:cytosol))
+p(HGNC:TFEB,pmod(Ph)) -> p(HGNC:TFEB,loc(GO:cytosol))
+
+SET Evidence = "In cells cultured in nutrient-poor conditions, knockout/down of tuberous sclerosis 2 (Tsc2), an upstream regulator of mTORC1, resulted in partial dephosphorylation and nuclear relocation of endogenous TFEB, which was reverted by rapamycin administration and required a serine-rich region at the TFEB C-terminus.[27]"
+#nutrient-poor conditions
+p(HGNC:TSC2) pos p(HGNCGENEFAMILY:"MTOR complex 1")
+p(HGNC:TSC2) -> p(HGNC:TFEB,pmod(Ph))
+p(HGNC:TSC2) -| tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+a(CHEBI:sirolimus) -> composite(a(CHEBI:sirolimus),p(HGNC:TFEB,frag("?_*")))
+composite(a(CHEBI:sirolimus),p(HGNC:TFEB,frag("?_*"))) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+
+SET Evidence = "In nutrient-replete cells, inhibition of mTORC1 promoted nuclear accumulation of TFEB by abrogation of mTORC1 phosphorylation of TFEB at Ser142 [28] and Ser211.[29, 30]"
+#in nutrient rich cells
+p(HGNCGENEFAMILY:"MTOR complex 1") -> p(HGNC:TFEB,pmod(Ph,Ser,142))
+p(HGNCGENEFAMILY:"MTOR complex 1") -> p(HGNC:TFEB,pmod(Ph,Ser,211))
+p(HGNCGENEFAMILY:"MTOR complex 1") -| tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+p(HGNC:TFEB,pmod(Ph,Ser,142)) -| tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+p(HGNC:TFEB,pmod(Ph,Ser,211)) -| tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+
+SET Evidence = "Phosphorylation of TFEB at Ser211 promotes TFEB interaction with the YWHA/14-3-3 proteins,[29, 30] which determine TFEB cytosolic retention by masking a nuclear localization signal located between amino acids 241 and 252.[30]"
+p(HGNC:TFEB,pmod(Ph,Ser,211)) -> composite(p(HGNC:TFEB),p(HGNC:YWHAQ))
+composite(p(HGNC:TFEB),p(HGNC:YWHAQ)) -> p(HGNC:TFEB,loc(GO:cytosol))
+p(HGNC:TFEB,frag("241_252")) isA a(MESH:"Nuclear Localization Signals")
+composite(p(HGNC:TFEB),p(HGNC:YWHAQ)) -| tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+
+SET Evidence = "The interaction between TFEB and mTORC1 occurs at the lysosomal surface and is indeed abolished by dominant-negative mutations in Rag GTPases (Rags),[28] proteins that mediate the recruitment of mTORC1 to the lysosomal membrane."
+SET MeSHAnatomy = "Lysosomes"
+complex(GO:"Ragulator complex") -> tloc(p(HGNCGENEFAMILY:"MTOR complex 1"),fromLoc(GO:cytoplasm),toLoc(GO:"plasma membrane"))
+UNSET MeSHAnatomy
+
+SET Evidence = "Conversely, constitutively active versions of Rags lead to TFEB retention in the cytoplasm, irrespective of the nutrient status of the cell.[28]"
+act(complex(GO:"Ragulator complex")) -> p(HGNC:TFEB,loc(GO:cytoplasm))
+bp(GO:"response to nutrient levels") cnc act(complex(GO:"Ragulator complex"))
+
+SET Evidence = "TFEB localization to lysosomes requires the first 30 TFEB amino acids [30] and is mediated by direct interaction with active Rags heterodimers upon amino acid stimulation.[31]"
+p(HGNC:TFEB,frag("1_30")) -> p(HGNC:TFEB,loc(MESH:Lysosomes))
+bp(GO:"amino acid activation") -> composite(complex(GO:"Ragulator complex"),p(HGNC:TFEB))
+composite(complex(GO:"Ragulator complex"),p(HGNC:TFEB)) -> p(HGNC:TFEB,loc(MESH:Lysosomes))
+
+SET Evidence = "Further studies showed that starvation increases lysosomal activity in cultured cells, which requires mTORC1 inhibition and TFEB activation.[32]"
+bp(GO:"cellular response to starvation") -> act(a(MESH:Lysosomes))
+bp(GO:"cellular response to starvation") -| p(HGNCGENEFAMILY:"MTOR complex 1")
+p(HGNCGENEFAMILY:"MTOR complex 1") -| act(p(HGNC:TFEB))
+bp(GO:"cellular response to starvation") -> act(p(HGNC:TFEB))
+
+SET Evidence = "Interestingly, mTORC1 lysosomal localization was found not to be essential for mTORC1 regulation of lysosomal function.[32]"
+p(HGNCGENEFAMILY:"MTOR complex 1",loc(GO:"plasma membrane")) cnc act(p(HGNCGENEFAMILY:"MTOR complex 1"))
+act(p(HGNCGENEFAMILY:"MTOR complex 1")) reg act(a(MESH:Lysosomes))
+
+SET Evidence = "Chemical inhibition of the glycogen synthase kinase 3 (GSK3) also promotes TFEB nuclear translocation [33] via TFEB dissociation from 14-3-3 proteins,[34] albeit the exact molecular mechanism has not yet been elucidated."
+p(HGNC:GSK3B) -| tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+p(HGNC:GSK3B) -> composite(p(HGNC:TFEB),p(HGNC:YWHAQ))
+composite(p(HGNC:TFEB),p(HGNC:YWHAQ)) -| tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+
+SET Evidence = "Drugs that act via the PI3K/AKT/mTORC1 pathway, including the nicotinamide phosphoribosyltransferase inhibitor FK86635 and the PI3K inhibitor GDC-0941,[36] also promote TFEB nuclear translocation in cultured cells."
+#17755052 - GDC-0941
+a(PUBCHEM:17755052) -| act(p(HGNC:PIK3CA))
+a(PUBCHEM:17755052) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+
+SET Evidence = "Additional reports have shown increased TFEB nuclear translocation following administration of 2-hydroxypropyl-β-cyclodextrin [37] and the flavonoid genistein,[38] two drugs that are currently under investigation for the treatment of Niemann–Pick disease type C and some mucopolysaccharidosis subtypes, respectively."
+#90479739 - 2-hydroxypropyl-β-cyclodextrin
+a(PUBCHEM:90479739) -| path(DOID:"Niemann-Pick disease type C1")
+a(PUBCHEM:90479739) -| path(DOID:"Niemann-Pick disease type C2")
+a(PUBCHEM:90479739) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+a(CHEBI:genistein) -| path(DOID:mucopolysaccharidosis)
+a(CHEBI:genistein) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytosol),toLoc(GO:nucleus))
+
+SET Evidence = "TFEB dephosphorylation requires the phosphatase calcineurin and lysosomal Ca2+ release through mucolipin 1/TRPML1, an ion channel that is under the transcriptional control of TFEB.[40]"
+act(p(HGNC:PPP3CA),ma(phos)) -| p(HGNC:TFEB,pmod(Ph))
+act(p(HGNC:TFEB),ma(tscript)) -> act(p(HGNC:MCOLN1,loc(MESH:Lysosomes)))
+act(p(HGNC:MCOLN1,loc(MESH:Lysosomes))) -> sec(a(CHEBI:"calcium(2+)"))
+sec(a(CHEBI:"calcium(2+)")) reg act(p(HGNC:PPP3CA),ma(phos))
+
+SET Evidence = "Starvation- and exercise-induced activity of TFEB is indeed suppressed upon calcineurin inhibition.[40]"
+#druing starvationa nd exercise activity
+ act(p(HGNC:PPP3CA),ma(phos)) -> act(p(HGNC:TFEB))
+
+SET Evidence = "An additional mechanism of TFEB activation has been characterized in osteoclasts, which is based on protein kinase C-β (PKCβ) phosphorylation of TFEB on serines at the protein C-terminus upon signaling of the osteoclast differentiation factor RANKL.[41]"
+SET MeSHAnatomy = "Osteoclasts"
+p(HGNC:TNFSF11) -> act(p(HGNC:PRKCB))
+p(HGNC:TNFSF11) reg bp(GO:"osteoclast differentiation")
+act(p(HGNC:PRKCB)) -> p(HGNC:TFEB,pmod(Ph,Ser))
+p(HGNC:TFEB,pmod(Ph,Ser)) -> act(p(HGNC:TFEB))
+UNSET MeSHAnatomy
+
+SET Evidence = "Because blockage of chaperone-mediated autophagy results in increased macroautophagy, the defective degradation of TFEB by CMA may be at least partly responsible for such an increase.[42]"
+bp(GO:"chaperone-mediated autophagy") pos deg(p(HGNC:TFEB))
+bp(GO:"chaperone-mediated autophagy") -| bp(GO:macroautophagy)
+p(HGNC:TFEB) -- bp(GO:macroautophagy)
+
+SET Evidence = "Similar to TFEB, TFE3 and MITF are also bound by YWHA/14-3-3 proteins,[44, 45] associate with lysosomes in nutrient-replete cells, and translocate to the nucleus upon nutrient starvation or chloroquine-induced lysosomal stress.[30, 46]"
+SET MeSHAnatomy = "Lysosomes"
+bp(GO:"cellular response to nutrient") -> complex(p(HGNC:MITF),p(HGNC:YWHAQ))
+bp(GO:"cellular response to nutrient") -> complex(p(HGNC:TFE3),p(HGNC:YWHAQ))
+bp(GO:"cellular response to starvation") -> tloc(p(HGNC:MITF),fromLoc(MESH:Lysosomes),toLoc(GO:nucleus))
+bp(GO:"cellular response to starvation") -> tloc(p(HGNC:TFE3),fromLoc(MESH:Lysosomes),toLoc(GO:nucleus))
+bp(GO:"response to chloroquine") -> bp(MESH:"Stress, Physiological")
+bp(GO:"response to chloroquine") -> tloc(p(HGNC:MITF),fromLoc(MESH:Lysosomes),toLoc(GO:nucleus))
+bp(GO:"response to chloroquine") -> tloc(p(HGNC:TFE3),fromLoc(MESH:Lysosomes),toLoc(GO:nucleus))
+UNSET MeSHAnatomy
+
+SET Evidence = "The subcellular localization of TFE3 and MITF also depends on mTORC1 activation status and is regulated via Rag-mediated recruitment to the lysosomal surface.[31, 46]"
+complex(GO:"Ragulator complex") -> tloc(p(HGNCGENEFAMILY:"MTOR complex 1"),fromLoc(GO:cytoplasm),toLoc(GO:"plasma membrane"))
+complex(GO:"Ragulator complex") -- act(p(HGNCGENEFAMILY:"MTOR complex 1"))
+act(p(HGNCGENEFAMILY:"MTOR complex 1")) -> p(HGNC:MITF,loc(GO:cytoplasm))
+act(p(HGNCGENEFAMILY:"MTOR complex 1")) -> p(HGNC:TFE3,loc(GO:cytoplasm))
+
+SET Evidence = "TFE3 promotes transcription of lysosomal and autophagy genes, and interestingly, also induces transcription of the mTORC1 activator folliculin and its interacting proteins, FNIP1 and FNIP2, thereby terminating the lysosomal starvation response when nutrients become available.[46] Similar to TFE3, TFEB can also induce expression of folliculin and the FNIPs, thus indicating a possible similar feedback mechanism."
+act(p(HGNC:TFE3),ma(tscript)) reg a(MESH:Lysosomes)
+act(p(HGNC:TFE3),ma(tscript)) reg bp(GO:autophagy)
+act(p(HGNC:TFE3),ma(tscript)) -> p(HGNC:FLCN)
+p(HGNC:FLCN) pos act(p(HGNCGENEFAMILY:"MTOR complex 1"))
+act(p(HGNC:TFE3),ma(tscript)) -> p(HGNC:FNIP1)
+act(p(HGNC:TFE3),ma(tscript)) -> p(HGNC:FNIP2)
+act(p(HGNC:TFEB),ma(tscript)) -> p(HGNC:FLCN)
+act(p(HGNC:TFEB),ma(tscript)) -> p(HGNC:FNIP1)
+act(p(HGNC:TFEB),ma(tscript)) -> p(HGNC:FNIP2)
+SET MeSHAnatomy = "Lysosomes"
+bp(GO:"cellular response to nutrient") -> act(p(HGNC:TFE3),ma(tscript))
+act(p(HGNC:TFE3),ma(tscript)) -| bp(GO:"cellular response to starvation")
+UNSET MeSHAnatomy
+
+SET Evidence = "MITF has been shown to drive endolysosomal biogenesis in melanoma cells.[47]"
+SET MeSHDisease = "Melanoma"
+act(p(HGNC:MITF)) -> a(GO:endolysosome)
+UNSET MeSHDisease
+
+SET Evidence = "TFE3 has also been implicated in the regulation of the Golgi stress response [48] and of PGC1α in muscle.[49]"
+SET MeSHAnatomy = "Golgi Apparatus"
+p(HGNC:TFE3) reg bp(GO:"cellular response to stress")
+UNSET MeSHAnatomy
+SET MeSHAnatomy = "Muscle Cells"
+p(HGNC:TFE3) reg p(HGNC:PPARGC1A)
+UNSET MeSHAnatomy
+
+SET Evidence = "Furthermore, a role for TFEB and TFE3 has been defined as part of the ER stress response;[50] TFEB and TFE3 translocate to the nucleus upon chemically induced ER stress."
+bp(GO:"response to endoplasmic reticulum stress") -> tloc(p(HGNC:TFE3),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+bp(GO:"response to endoplasmic reticulum stress") -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+
+SET Evidence = "TFEB activation by ER stress depends on PERK, a well-known effector of the unfolded protein response, and on active calcineurin,[50] a PERK target and the TFEB phosphatase.[40]"
+bp(GO:"response to endoplasmic reticulum stress") -- p(HGNC:EIF2AK3)
+p(HGNC:EIF2AK3) -- act(p(HGNC:TFEB))
+bp(GO:"response to endoplasmic reticulum stress") -- act(p(HGNC:PPP3CA),ma(phos))
+p(HGNC:EIF2AK3) -- p(HGNC:PPP3CA)
+bp(GO:"response to endoplasmic reticulum stress") -> act(p(HGNC:TFEB))
+
+SET Evidence = "The UPR effector, ATF4, has been characterized as the direct TFEB and TFE3 target necessary for the participation of these proteins in the ER stress response.[50]"
+p(HGNC:ATF4) -- p(HGNC:TFEB)
+p(HGNC:ATF4) -- p(HGNC:TFE3)
+
+SET Evidence = "Indeed, investigations of human specimens and animal models of neurodegenerative diseases have suggested that impaired TFEB signaling may contribute to disease pathogenesis."
+act(p(HGNC:TFEB)) neg path(DOID:"neurodegenerative disease")
+
+SET Evidence = "For example, Tfeb expression was found to be reduced in the striatum of a mouse model of Huntington disease and in Htt-104Q–expressing Neuro2a cells."
+SET Species = "10090"
+SET MeSHDisease = "Huntington Disease"
+SET CellLine = "Neuro-2a cell"
+SET MeSHAnatomy = "Neostriatum"
+p(HGNC:HTT,pmod(CONSO:"CAG repeats")) -| r(HGNC:TFEB)
+UNSET MeSHAnatomy
+UNSET CellLine
+UNSET MeSHDisease
+UNSET Species
+
+SET Evidence = "The expression of TFEB target enzymes was found to be subsequently diminished, and was rescued by PGC1α-mediated activation of TFEB expression.[23]"
+p(HGNC:PPARGC1A) -> act(p(HGNC:TFEB))
+p(HGNC:PPARGC1A) -> r(HGNC:TFEB)
+
+SET Evidence = "Another example was identified with the observation that lysosomes are depleted in Parkinson’s disease.[54]"
+path(DOID:"Parkinson's disease") -| a(MESH:Lysosomes)
+
+SET MeSHDisease = "Parkinson Disease"
+
+SET Evidence = "α-Synuclein, a protein pathologically accumulated in Parkinson’s disease, is structurally and functionally similar to 14-3-3 proteins, which are responsible for the cytosolic retention of TFEB.[19, 20]"
+p(HGNC:SNCA) -> p(HGNC:TFEB,loc(GO:cytoplasm))
+
+SET Evidence =  "TFEB was found to interact with overexpressed α-synuclein therefore, excess α-synuclein might sequester TFEB and prevent its nuclear translocation.[10]"
+complex(p(HGNC:TFEB),p(HGNC:SNCA)) -> p(HGNC:TFEB,loc(GO:cytoplasm))
+complex(p(HGNC:TFEB),p(HGNC:SNCA)) -| tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+
+SET Evidence = "This model is supported by an analysis of postmortem tissues from Parkinson’s disease patients showing that TFEB is depleted from the nucleus and accumulates with α-synuclein in Lewy bodies in nigral dopaminergic neurons.[10]"
+path(DOID:"Parkinson's disease") -| p(HGNC:TFEB,loc(GO:nucleus))
+SET MeSHAnatomy = "Dopaminergic Neurons"
+path(DOID:"Parkinson's disease") -> complex(p(HGNC:TFEB,loc(GO:"Lewy body")),p(HGNC:SNCA,loc(GO:"Lewy body")))
+UNSET MeSHAnatomy
+
+UNSET  MeSHDisease
+
+SET MeSHAnatomy = {"Hippocampus","Monocytes","Lymphocytes"}
+
+SET Evidence = "Another intriguing example of impaired TFEB signaling in neurodegenerative disease was provided by the observation that miR-128, a microRNA that reduces TFEB expression,[1] is consistently upregulated in the hippocampus,[55] monocytes, and lymphocytes [56] of Alzheimer’s disease patients."
+path(DOID:"Alzheimer's disease") -> m(MIRBASE:"hsa-mir-128-1")
+m(MIRBASE:"hsa-mir-128-1") -| p(HGNC:TFEB)
+path(DOID:"Alzheimer's disease") -| p(HGNC:TFEB)
+
+SET Evidence = "Interestingly, these cells displayed a decreased ability to degrade Aβ(1–42), and inhibition of miR-128 expression rescued these cellular phenotypes, including Aβ(1–42) degrading ability.[56]"
+#these cells - hippocampus, monocytes, and lymphocytes
+m(MIRBASE:"hsa-mir-128-1") -| deg(a(CHEBI:"amyloid-beta polypeptide 42"))
+
+UNSET MeSHAnatomy
+
+SET Species = "10090"
+SET MeSHDisease = "Muscular Atrophy, Spinal"
+SET MeSHAnatomy = "Muscle, Skeletal"
+
+SET Evidence = "An analysis of SBMA mice showed that polyQ AR expression chronically enhances autophagy in the skeletal muscle—the major site of polyQ AR toxicity—through inhibition of mTORC1 activity."
+#SBMA - spinobulbar muscular atrophy, AR - androgen receptor
+act(p(HGNCGENEFAMILY:"MTOR complex 1")) -| p(HGNC:AR,pmod(CONSO:"CAG repeats"))
+p(HGNC:AR,pmod(CONSO:"CAG repeats")) pos bp(GO:autophagy)
+path(DOID:"spinal muscular atrophy") neg act(p(HGNCGENEFAMILY:"MTOR complex 1"))
+
+SET Evidence = "In the spinal cord of SBMA mice, polyQ AR was found to reduce the expression of TFEB via sequestration of the nuclear factor-YA (NF-YA), thus diminishing the activity of the autophagic-lysosomal pathway and subsequently enhancing polyQ toxicity.[58]"
+p(HGNC:AR,pmod(CONSO:"CAG repeats")) -> p(HGNC:NFYA)
+p(HGNC:NFYA) -| p(HGNC:TFEB)
+p(HGNC:AR,pmod(CONSO:"CAG repeats")) -| act(a(MESH:Lysosomes))
+p(HGNC:AR,pmod(CONSO:"CAG repeats")) neg bp(GO:autophagy)
+composite(p(HGNC:TFEB),p(HGNC:NFYA)) -| act(a(MESH:Lysosomes))
+composite(p(HGNC:TFEB),p(HGNC:NFYA)) -| bp(GO:autophagy)
+composite(p(HGNC:TFEB),p(HGNC:NFYA)) -> p(HGNC:AR,pmod(CONSO:"CAG repeats"))
+
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+UNSET Species
+
+SET Evidence = "Whereas AR promotes transcription of TFEB, polyQ AR impairs TFEB activation and autophagy in SBMA motor neurons as well as in patient-derived neuronal precursor cells, thus supporting a model of autophagy impairment in the neuronal pathogenesis of SBMA.[59]"
+p(HGNC:AR) -> r(HGNC:TFEB)
+SET MeSHDisease = "Muscular Atrophy, Spinal"
+p(HGNC:AR,pmod(CONSO:"CAG repeats")) -| act(p(HGNC:TFEB))
+p(HGNC:AR,pmod(CONSO:"CAG repeats")) neg bp(GO:autophagy)
+UNSET MeSHDisease
+
+SET Evidence = "Finally, it has been reported that presenilin deficiency, a cause of familiar Alzheimer’s disease, diminishes TFEB-mediated activation of starvation-induced autophagy.[60]"
+p(HGNC:PSEN1) neg path(DOID:"Alzheimer's disease")
+p(HGNC:PSEN1) -> act(p(HGNC:TFEB))
+bp(GO:"cellular response to starvation") -> act(p(HGNC:TFEB))
+act(p(HGNC:TFEB)) -> bp(GO:autophagy)
+
+SET Evidence = "Indeed, presenilin deficiency causes reduced expression of the mTORC1 leucine sensor Sestrin2, resulting in constitutive mTORC1 tethering to the lysosomal membrane and TFEB insensitivity to autophagic stimuli.[60]"
+p(HGNC:PSEN1) -> p(HGNC:SESN2)
+p(HGNC:SESN2) -- p(HGNCGENEFAMILY:"MTOR complex 1")
+p(HGNC:PSEN1) -| p(HGNCGENEFAMILY:"MTOR complex 1",loc(GO:"lysosomal membrane"))
+p(HGNC:PSEN1) -> act(p(HGNC:TFEB))
+act(p(HGNC:TFEB)) -> bp(GO:autophagy)
+
+SET Evidence = "Taken together, these studies support a model in which pathogenic protein accumulation is exacerbated by impaired lysosomal function due to TFEB diminished activity—which, at least in some instances, is caused by the pathogenic protein accumulation itself, thus feeding a negative loop that ultimately inhibits lysosomal degradative pathways."
+path(CONSO:"protein aggregation") neg act(a(MESH:Lysosomes))
+path(CONSO:"protein aggregation") -| p(HGNC:TFEB)
+act(p(HGNC:TFEB)) -> act(a(MESH:Lysosomes))
+path(CONSO:"protein aggregation") -| act(p(HGNC:TFEB))
+
+SET Evidence = "A recent study [62] has focused on folliculin, a protein whose deficiency causes Birt–Hogg–Dubé syndrome—a condition characterized by hair follicle tumors, an increased risk for the growth of pulmonary cysts, and an elevated incidence of renal carcinoma."
+p(HGNC:FLCN) neg path(DOID:"Birt-Hogg-Dube syndrome")
+path(DOID:"Birt-Hogg-Dube syndrome") pos path(DOID:"hair follicle neoplasm")
+path(DOID:"Birt-Hogg-Dube syndrome") -> path(MESH:Cysts)
+path(DOID:"Birt-Hogg-Dube syndrome") pos path(DOID:"renal carcinoma")
+
+SET Evidence = "Folliculin was found to be required for mTORC1 enrichment on the lysosomal surface."
+p(HGNC:FLCN) -- tloc(p(HGNCGENEFAMILY:"MTOR complex 1"),fromLoc(GO:cytoplasm),toLoc(GO:"lysosomal membrane"))
+
+SET Evidence = "Therefore, in absence of folliculin, TFEB escapes mTORC1-mediated inhibition and displays enhanced activity as shown by increased lysosomal biogenesis.[62]"
+p(HGNC:FLCN) -- act(p(HGNCGENEFAMILY:"MTOR complex 1"))
+composite(p(HGNCGENEFAMILY:"MTOR complex 1"),p(HGNC:FLCN)) -> p(HGNC:TFEB)
+composite(p(HGNCGENEFAMILY:"MTOR complex 1"),p(HGNC:FLCN)) -> act(p(HGNC:TFEB))
+composite(p(HGNCGENEFAMILY:"MTOR complex 1"),p(HGNC:FLCN)) -> a(MESH:Lysosomes)
+
+SET Evidence = "In another study, an extensive analysis of human pancreatic ductal adenocarcinoma (PDA) cells revealed that TFEB, TFE3, and MITF are decoupled from mTORC1-mediated regulation of their cytoplasmic retention due to association with importin 8, a nucleocytoplasmic transporter with elevated expression in PDA."
+SET Species = "9606"
+SET Disease = "pancreatic ductal adenocarcinoma"
+path(DOID:"pancreatic ductal adenocarcinoma") -> p(HGNC:IPO8)
+p(HGNCGENEFAMILY:"MTOR complex 1") neg complex(p(HGNC:TFE3,loc(GO:cytoplasm)),p(HGNC:IPO8))
+complex(p(HGNC:TFE3,loc(GO:cytoplasm)),p(HGNC:IPO8)) -> tloc(p(HGNC:TFE3),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+p(HGNCGENEFAMILY:"MTOR complex 1") neg complex(p(HGNC:TFEB,loc(GO:cytoplasm)),p(HGNC:IPO8))
+complex(p(HGNC:TFEB,loc(GO:cytoplasm)),p(HGNC:IPO8)) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+p(HGNCGENEFAMILY:"MTOR complex 1") neg complex(p(HGNC:MITF,loc(GO:cytoplasm)),p(HGNC:IPO8))
+complex(p(HGNC:MITF,loc(GO:cytoplasm)),p(HGNC:IPO8)) -> tloc(p(HGNC:MITF),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+UNSET Disease
+UNSET Species
+
+SET Evidence = "Unrestricted activity of the MITF/TFE proteins thus results in high levels of autophagic-lysosomal catabolism, which support PDA growth.[63]"
+complex(p(INTERPRO:"MiT/TFE transcription factors, C-terminal"),p(INTERPRO:"MiT/TFE transcription factors, N-terminal")) -> act(a(MESH:Lysosomes))
+complex(p(INTERPRO:"MiT/TFE transcription factors, C-terminal"),p(INTERPRO:"MiT/TFE transcription factors, N-terminal")) -> bp(GO:autophagy)
+act(a(MESH:Lysosomes)) -> path(DOID:"pancreatic ductal adenocarcinoma")
+bp(GO:autophagy) -> path(DOID:"pancreatic ductal adenocarcinoma")
+
+SET Evidence = "In a different setting, TFEB overactivation has been implicated in skeletal muscle wasting in congestive heart failure via its angiotensin II–induced upregulation of muscle-enriched E3 ubiquitin ligase muscle RING finger-1 (MuRF1) expression via a complex PKD1/HDAC5/TFEB/MuRF1 cascade.[64]"
+SET MeSHAnatomy = "Muscle, Skeletal"
+SET MeSHDisease = "Heart Defects, Congenital"
+a(CHEBI:"angiotensin II") -> complex(GO:"Fused-Smurf ubiquitin ligase complex")
+complex(GO:"Fused-Smurf ubiquitin ligase complex") hasMembers list(p(HGNC:HDAC5),p(HGNC:TFEB),p(HGNC:PKD1),p(HGNC:TRIM63))
+complex(GO:"Fused-Smurf ubiquitin ligase complex") -> p(HGNC:TRIM63)
+p(HGNC:TRIM63) => act(p(HGNC:TFEB))
+UNSET MeSHDisease
+UNSET MeSHAnatomy
+
+SET MeSHDisease = "Parkinson Disease"
+
+SET Evidence = "TFEB transfection in MPP+–intoxicated human neuroblastoma cells reversed lysosomal depletion and attenuated cell death,[65] suggesting that intervention on a secondary but critical pathway in the pathogenic cascade could attenuate disease manifestations."
+#in  MPP+ intoxicated human neuroblastoma cells
+SET Species = "9606"
+p(HGNC:TFEB) -> a(MESH:Lysosomes)
+p(HGNC:TFEB) -| bp(GO:"cell death")
+UNSET Species
+
+SET Species = "10116"
+SET MeSHAnatomy = "Brain"
+
+SET Evidence = "Adeno-associated viral (AAV)–mediated delivery of TFEB in the brain of a rat model of Parkinson’s disease obtained by α-synuclein overexpression reduced accumulation of α-synuclein oligomers and ameliorated neurodegeneration and behavioral defects.[10]"
+#AAV -mediated delivery
+p(HGNC:TFEB) -| p(CONSO:"alpha-synuclein oligomers")
+p(HGNC:TFEB) neg path(DOID:"neurodegenerative disease")
+p(HGNC:TFEB) pos bp(GO:behavior)
+
+SET Evidence = "Chemical inhibition of mTORC1 by injection of the rapamycin precursor temsirolimus promoted nuclear translocation of TFEB in the brain of Parkinson’s disease rats and provided neuroprotection against α-synuclein toxicity.[10]"
+a(CHEBI:Temsirolimus) -> a(CHEBI:sirolimus)
+a(CHEBI:Temsirolimus) -| act(p(HGNCGENEFAMILY:"MTOR complex 1"))
+a(CHEBI:Temsirolimus) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+a(CHEBI:Temsirolimus) -> bp(MESH:Neuroprotection)
+p(HGNC:TFEB,loc(GO:nucleus)) -> bp(MESH:Neuroprotection)
+
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "Conversely, AAV-mediated delivery of miR-128 in the brain of this Parkinson’s disease model downregulated TFEB and exacerbated disease features.[10]"
+#AAV-mediated delivery
+SET MeSHAnatomy = "Brain"
+m(MIRBASE:"hsa-mir-128-1") -| p(HGNC:TFEB)
+m(MIRBASE:"hsa-mir-128-1") pos path(DOID:"Parkinson's disease")
+UNSET MeSHAnatomy
+
+UNSET MeSHDisease
+
+SET Evidence = "TFEB overexpression promoted cellular clearance in cultured cells derived from animal models of multiple sulfatase deficiency (MSD) and mucopolysaccharidosis IIIA (MPSIIIA) and from skin fibroblasts derived from patients with Batten disease (juvenile neuronal ceroid lipofuscinosis, JNCL) and Pompe disease.[66]"
+#Glycogen Storage Disease Type II - Pompe disease
+SET MeSHDisease = {"Multiple Sulfatase Deficiency Disease","Mucopolysaccharidosis III","Glycogen Storage Disease Type II"}
+SET Disease = "neuronal ceroid lipofuscinosis"
+act(p(HGNC:TFEB)) => bp(GO:"catabolic process")
+UNSET Disease
+UNSET MeSHDisease
+
+SET Evidence = "Indeed, it was determined that TFEB promotes lysosomal exocytosis by both stimulating the recruitment of lysosomes to the plasma membrane and increasing the local Ca2+
+concentrations—required for the fusion of lysosomal and plasma membranes—through the
+TRPML1/MCOLN1 channel, a TFEB direct target.[66]"
+SET MeSHDisease = "Lysosomal Storage Diseases"
+p(HGNC:TFEB) -> p(HGNC:MCOLN1)
+p(HGNC:MCOLN1) -> bp(GO:"calcium ion import")
+p(HGNC:TFEB) -> bp(GO:"calcium ion regulated lysosome exocytosis")
+UNSET MeSHDisease
+
+SET Evidence = "The injection of AAVs carrying TFEB cDNA in a mouse model of MSD reduced the storage of glycosaminoglycans as well as tissue inflammation and apoptosis,[66] demonstrating the potential validity of such an approach."
+SET Species = "10090"
+SET MeSHDisease = "Multiple Sulfatase Deficiency Disease"
+p(HGNC:TFEB) -> bp(GO:"glycosaminoglycan catabolic process")
+SET MeSHAnatomy = "Tissues"
+p(HGNC:TFEB) -> bp(GO:"inflammatory response")
+UNSET MeSHAnatomy
+p(HGNC:TFEB) -> bp(GO:"programmed cell death")
+UNSET MeSHDisease
+UNSET Species
+
+SET Evidence = "Similarly, AAV-mediated expression of TFEB in cellular and mouse models of Pompe disease, a lysosomal storage disorder characterized by glycogen accumulation in the muscle, resulted in removal of pathologically enlarged lysosomes by virtue of induced lysosomal exocytosis.[67]"
+SET Species = {"10090","9606"}
+SET MeSHDisease = "Glycogen Storage Disease Type II"
+a(CHEBI:glycogen,loc(MESH:Muscles)) -> path(DOID:"glycogen storage disease II")
+p(HGNC:TFEB) -> bp(GO:"calcium ion regulated lysosome exocytosis")
+UNSET MeSHDisease
+UNSET Species
+
+SET Evidence = "TFEB overexpression resulted in enhanced autophagosomal clearance in these test systems, and experiments conducted in autophagy-defective muscles showed that the overall clearance of accumulated material required a functional autophagic pathway.[67]"
+p(HGNC:TFEB) -> bp(GO:"autophagosome assembly")
+bp(GO:"autophagosome assembly") neg path(MESH:"Protein Aggregation, Pathological")
+p(HGNC:TFEB) pos bp(GO:autophagy)
+
+SET Evidence = "TFE3 was also shown to induce lysosomal exocytosis, and TFE3 overexpression promoted cellular clearance in a model of Pompe disease.[46]"
+SET MeSHDisease = "Glycogen Storage Disease Type II"
+p(HGNC:TFE3) -> bp(GO:"calcium ion regulated lysosome exocytosis")
+act(p(HGNC:TFE3)) => bp(GO:"catabolic process")
+UNSET MeSHDisease
+
+SET Evidence = "Finally, one study showed that 2-hydroxypropyl-β-cyclodextrin–mediated activation of TFEB was able to induce clearance of accumulated proteinaceous material in cells defective for the lysosomal protease, tripeptidyl peptidase (TPP1), using a mechanism that requires functional autophagy.[37]"
+#90479739 - 2-hydroxypropyl-β-cyclodextrin
+SET MeSHDisease = "Lysosomal Storage Diseases"
+a(PUBCHEM:90479739) -> act(p(HGNC:TFEB))
+act(p(HGNC:TFEB)) neg path(MESH:"Protein Aggregation, Pathological")
+path(MESH:"Protein Aggregation, Pathological") -| p(HGNC:TPP1)
+act(p(HGNC:TFEB)) -> bp(GO:autophagy)
+bp(GO:autophagy) neg path(MESH:"Protein Aggregation, Pathological")
+UNSET MeSHDisease
+
+SET Evidence = "In vivo, overexpression of the TFEB inducer PGC1α increased mRNA levels of TFEB and of CLEAR genes and reverted aggregate formation and pathology in a mouse model of Huntington disease.[23]"
+SET Species = "10090"
+SET MeSHDisease = "Huntington Disease"
+p(HGNC:PPARGC1A) -> r(HGNC:TFEB)
+r(HGNC:TFEB) -> p(HGNC:TFEB)
+p(HGNC:TFEB) -| p(CONSO:"huntingtin aggregates")
+p(CONSO:"huntingtin aggregates") pos path(DOID:"Huntington's disease")
+p(HGNC:TFEB) -| path(DOID:"Huntington's disease")
+UNSET MeSHDisease
+UNSET Species
+
+SET Evidence = "Treatment of SBMA mice with paeoniflorin, an active component of Paeonia plants, induced nuclear translocation of TFEB and the expression of components of the ubiquitin-proteasome system via increased expression of nuclear factor-YA (NF-YA)."
+SET Species = "10090"
+SET MeSHDisease = "Muscular Atrophy, Spinal"
+a(CHEBI:paeoniflorin) -> tloc(p(HGNC:TFEB),fromLoc(GO:cytoplasm),toLoc(GO:nucleus))
+a(CHEBI:paeoniflorin) -> act(p(HGNC:TFEB))
+act(p(HGNC:TFEB)) -> p(HGNC:NFYA)
+p(HGNC:NFYA) -> bp(GO:"nuclear protein quality control by the ubiquitin-proteasome system")
+act(p(HGNC:TFEB)) -> bp(GO:"nuclear protein quality control by the ubiquitin-proteasome system")
+
+
+SET Evidence = "Such treatment improved clearance of polyQ-expanded AR, thus mitigating the disease phenotypes.[58]"
+#clearance due to ubiquitin-proteasome system
+bp(GO:"nuclear protein quality control by the ubiquitin-proteasome system") -> deg(p(HGNC:AR,pmod(CONSO:"CAG repeats")))
+bp(GO:"nuclear protein quality control by the ubiquitin-proteasome system") -| path(DOID:"spinal muscular atrophy")
+
+SET Evidence = "Similarly, overexpression of TFEB in SBMA neuronal precursor cells rescued the observed autophagy dysregulation and mitochondrial dysfunction.[59]"
+path(DOID:"spinal muscular atrophy") neg bp(GO:autophagy)
+path(DOID:"spinal muscular atrophy") pos path(CONSO:"mitochondrial dysfunction")
+p(HGNC:TFEB) -> bp(GO:autophagy)
+p(HGNC:TFEB) -| path(CONSO:"mitochondrial dysfunction")
+
+UNSET MeSHDisease
+UNSET Species
+
+SET MeSHDisease = {"Alzheimer Disease","Tauopathies"}
+
+SET Evidence = "AAV-mediated TFEB expression in the brain of a mouse model of tauopathy reduced neurofibrillary tangle pathology and rescued synaptic deficits and neurodegeneration.[68]"
+SET Species = "10090"
+SET MeSHAnatomy = "Brain"
+p(HGNC:TFEB) -| complex(GO:"neurofibrillary tangle")
+p(HGNC:TFEB) pos bp(GO:"neuron-neuron synaptic transmission")
+p(HGNC:TFEB) -| path(DOID:"neurodegenerative disease")
+UNSET MeSHAnatomy
+UNSET Species
+
+SET Evidence = "TFEB was shown to specifically target hyperphosphorylated and misfolded Tau to degradation, a mechanism that required TFEB activation of its direct transcriptional target, PTEN, which is implicated in Tau clearance by both autophagy-dependent and -independent mechanisms.[68]"
+act(p(HGNC:TFEB)) -> deg(p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)))
+act(p(HGNC:TFEB)) -> deg(p(HGNC:MAPT,pmod(CONSO:misfolded)))
+act(p(HGNC:TFEB),ma(tscript)) -> p(HGNC:PTEN)
+act(p(HGNC:PTEN)) -> deg(p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)))
+act(p(HGNC:PTEN)) -> deg(p(HGNC:MAPT,pmod(CONSO:misfolded)))
+act(p(HGNC:PTEN)) -> bp(GO:autophagy)
+act(p(HGNC:PTEN)) -> bp(GO:"protein catabolic process")
+bp(GO:autophagy) -> deg(p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)))
+bp(GO:"protein catabolic process") -> deg(p(HGNC:MAPT,pmod(CONSO:hyperphosphorylation)))
+bp(GO:autophagy) -> deg(p(HGNC:MAPT,pmod(CONSO:misfolded)))
+bp(GO:"protein catabolic process") -> deg(p(HGNC:MAPT,pmod(CONSO:misfolded)))
+
+SET Evidence = "Clearance of the amyloid precursor protein, APP, requires functionally active lysosomes and is enhanced by activation of lysosomal biogenesis induced by GSK3 inhibition.[33]"
+act(p(HGNC:GSK3B)) -| act(a(MESH:Lysosomes))
+act(a(MESH:Lysosomes)) -> deg(p(HGNC:APP,var("?")))
+
+SET Evidence = "TFEB expression was found to be critical for clearance of mutant APP obtained by GSK3 inhibition, showing that TFEB lies downstream of GSK3 in the modulation of
+autophagy-lysosome pathways.[33]"
+p(HGNC:TFEB) -> deg(p(HGNC:APP,var("?")))
+p(HGNC:TFEB) -| p(HGNC:GSK3B)
+p(HGNC:GSK3B) reg act(a(MESH:Lysosomes))
+p(HGNC:GSK3B) reg bp(GO:autophagy)
+
+SET Evidence = "Direct investigations of the role of TFEB in the clearance of Aβ demonstrated that overexpression of TFEB promotes Aβ uptake and degradation by astrocytes.[69]"
+p(HGNC:TFEB) -> tloc(a(CHEBI:"amyloid-beta"),fromLoc(GO:cytoplasm),toLoc(MESH:Astrocytes))
+a(CHEBI:"amyloid-beta",loc(MESH:Astrocytes)) -> deg(a(CHEBI:"amyloid-beta"))
+
+SET Evidence = "Exogenous, astrocyte-specific expression of TFEB in amyloid precursor protein (APP)/presenilin 1 (PS1) transgenic mice (a model of familial Alzheimer’s disease) reduced Aβ levels and amyloid plaque load and ameliorated neuropathology and behavior phenotypes.[69]"
+#in APP/PS1 transgenic mice
+SET Species = "10090"
+p(HGNC:TFEB) -| a(CHEBI:"amyloid-beta")
+p(HGNC:TFEB) -| path(MESH:"Plaque, Amyloid")
+p(HGNC:TFEB) neg path(DOID:neuropathy)
+p(HGNC:TFEB) pos bp(GO:behavior)
+UNSET Species
+
+SET Evidence = "Similarly, neuronal expression of TFEB in the hippocampus of APP/PS1 mice promoted lysosomal proliferation and reduced Aβ generation, thereby attenuating plaque deposition.[70]"
+SET Species = "10090"
+SET MeSHAnatomy = "Hippocampus"
+p(HGNC:TFEB) -> a(MESH:Lysosomes)
+p(HGNC:TFEB) -| a(CHEBI:"amyloid-beta")
+p(HGNC:TFEB) neg path(MESH:"Plaque, Amyloid")
+UNSET MeSHAnatomy
+UNSET Species
+
+UNSET MeSHDisease
+
+SET Species = "10090"
+SET MeSHAnatomy = "Liver"
+
+SET Evidence = "AAV-mediated gene transfer of TFEB in a mouse model that recapitulates the human disease enhanced degradation of mutant AAT and ameliorated liver phenotypes, including apoptosis and fibrosis.[71]"
+p(HGNC:TFEB) -> deg(p(HGNC:SERPINA1,var("?")))
+p(HGNC:TFEB) neg bp(GO:"programmed cell death")
+p(HGNC:TFEB) neg path(MESH:Fibrosis)
+
+SET Evidence = "A follow-up study focusing on the mouse lung, which is also affected by AAT aggregation, showed that administration of AAV-TFEB by nasal instillation reduced aggregation of misfolded AAT and ameliorated lung tissue pathology.[72]"
+p(HGNC:TFEB) -| p(HGNC:SERPINA1,pmod(CONSO:misfolded))
+p(HGNC:SERPINA1,pmod(CONSO:misfolded)) -> p(HGNC:SERPINA1,pmod(CONSO:"protein aggregates"))
+p(HGNC:TFEB) -| p(HGNC:SERPINA1,pmod(CONSO:"protein aggregates"))
+UNSET MeSHAnatomy
+
+UNSET Species
