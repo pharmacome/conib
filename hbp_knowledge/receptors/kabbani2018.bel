@@ -60,8 +60,8 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
  #DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
  DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
  DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
- #DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
-DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
  #DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
  DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
  DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
@@ -75,6 +75,7 @@ SET Citation = {"PubMed", "29428175"}
 
 SET Evidence = "In the mammalian central nervous system (CNS) the nAChR plays an important role in synaptic signaling [3,4] and plasticity underlying learning, memory, and drug addiction [5,6]. Several nAChRs are strategic drug targets for neurological disorders such as schizophrenia and Alzheimer’s disease (AD) [7]."
 #40674 = mammalia
+SET Confidence = "High"
 SET Species = "40674"
 SET Anatomy = "central nervous system"
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -- bp(GO:"synaptic signaling")
@@ -84,126 +85,140 @@ p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -- path(DOID:schizo
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") -- path(DOID:"Alzheimer's disease")
 UNSET Anatomy
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Agonist activation of a7 nAChRs triggers a cytosolic Ca2+ transient of varying duration and amplitude in different cell types. This transient commonly involves the release of Ca2+ from intracellular stores such as the endoplasmic reticulum (ER) (Ca2+ store)."
-
-act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"endoplasmic reticulum"),toLoc(MESH:Cytoplasm))
+SET Confidence = "High"
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -> tloc(a(CHEBI:"calcium(2+)"),fromLoc(GO:"endoplasmic reticulum"),toLoc(MESH:Cytoplasm))
+UNSET Confidence
 
 SET Evidence = "a7 nAChR-mediated intracellular Ca2+ store activation contributes to synaptic plasticity [14]; however, this mechanism is not limited to neurons because a7 nAChR-mediated CICR from intracellular Ca2+ store is documented in hippocampal astrocytes [15]."
-
+SET Confidence = "High"
 SET Cell = "neuron"
-p(HGNC:CHRNA7) -> tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"endoplasmic reticulum"),toLoc(MESH:Cytoplasm))
-tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"endoplasmic reticulum"),toLoc(MESH:Cytoplasm)) -> bp(MESH:"Neuronal Plasticity")
+p(HGNC:CHRNA7) -> tloc(a(CHEBI:"calcium(2+)"),fromLoc(GO:"endoplasmic reticulum"),toLoc(MESH:Cytoplasm))
 UNSET Cell
+tloc(a(CHEBI:"calcium(2+)"),fromLoc(GO:"endoplasmic reticulum"),toLoc(MESH:Cytoplasm)) -> bp(MESH:"Neuronal Plasticity")
 SET Cell = "astrocyte of the hippocampus"
 act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity")) -> tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"endoplasmic reticulum"),toLoc(MESH:Cytoplasm))
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Presynaptic a7 nAChRs regulate the release of various neurotransmitters
 including dopamine, norepinephrine, GABA, and glutamate in a calcium-dependent manner
 [18,19]."
-
+SET Confidence = "High"
 SET CellStructure = "Presynaptic Terminals"
-composite(p(HGNC:CHRNA7),a(CHEBI:"calcium ion")) reg a(CHEBI:neurotransmitter)
-composite(p(HGNC:CHRNA7),a(CHEBI:"calcium ion")) reg a(CHEBI:dopamine)
-composite(p(HGNC:CHRNA7),a(CHEBI:"calcium ion")) reg a(DRUGBANK:Norepinephrine)
-composite(p(HGNC:CHRNA7),a(CHEBI:"calcium ion")) reg a(CHEBI:"gamma-aminobutyric acid")
-composite(p(HGNC:CHRNA7),a(CHEBI:"calcium ion")) reg a(CHEBI:"L-glutamate(1-)")
+composite(p(HGNC:CHRNA7),a(CHEBI:"calcium ion")) reg sec(a(CHEBI:neurotransmitter))
+composite(p(HGNC:CHRNA7),a(CHEBI:"calcium ion")) reg sec(a(CHEBI:dopamine))
+composite(p(HGNC:CHRNA7),a(CHEBI:"calcium ion")) reg sec(a(DRUGBANK:Norepinephrine))
+composite(p(HGNC:CHRNA7),a(CHEBI:"calcium ion")) reg sec(a(CHEBI:"gamma-aminobutyric acid"))
+composite(p(HGNC:CHRNA7),a(CHEBI:"calcium ion")) reg bp(GO:"glutamate secretion")
+UNSET Confidence
 
 SET Evidence = "In the hippocampus and cortex, agonist stimulation of presynaptic a7 nAChRs by
 nicotine is associated with a strong increase in the probability of synaptic glutamate release
 [20]."
-
+SET Confidence = "High"
 SET MeSHAnatomy = {"Hippocampus","Cerebral Cortex"}
 a(CHEBI:nicotine) => act(p(HGNC:CHRNA7))
-act(p(HGNC:CHRNA7)) pos sec(a(CHEBI:"L-glutamate(1-)"))
+act(p(HGNC:CHRNA7)) pos bp(GO:"glutamate secretion")
+UNSET Confidence
 
 SET Evidence = "In addition, agonist application evokes calcium-dependent presynaptic potentiation at synapses, such as in presynaptic nerve terminals in the hippocampus and cortex, which is abolished in the presence of the a7 nAChR channel blocker a-bungarotoxin (a-Bgtx) [21,22]."
-
+SET Confidence = "High"
 composite(p(HGNC:CHRNA7),a(CHEBI:"calcium ion")) pos bp(GO:"regulation of presynaptic membrane potential")
 p(CONSO:"alpha-Bungarotoxin") -| p(HGNC:CHRNA7)
 p(CONSO:"alpha-Bungarotoxin") neg bp(GO:"regulation of presynaptic membrane potential")
 UNSET MeSHAnatomy
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "a7 nAChR-mediated intracellular calcium signaling at synapses on hippocampal CA1 neurons can also lead to increased glutamate release resulting in long-term potentiation (LTP) [23]."
-
+SET Confidence = "High"
 SET Anatomy = "CA1 field of hippocampus"
 SET CellStructure = "Synapses"
 SET MeSHAnatomy = "Intracellular Space"
 p(HGNC:CHRNA7) -> bp(MESH:"Calcium Signaling")
-bp(MESH:"Calcium Signaling") -> sec(a(CHEBI:"L-glutamate(1-)"))
-sec(a(CHEBI:"L-glutamate(1-)")) -> bp(MESH:"Long-Term Potentiation")
+bp(MESH:"Calcium Signaling") -> bp(GO:"glutamate secretion")
+bp(GO:"glutamate secretion") pos bp(MESH:"Long-Term Potentiation")
 UNSET MeSHAnatomy
 UNSET CellStructure
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Calcium signaling by presynaptic a7 nAChRs therefore triggers both spontaneous and evoked vesicle release, and can contribute to short-term synaptic plasticity."
-
+SET Confidence = "High"
 SET CellStructure = "Presynaptic Terminals"
 p(HGNC:CHRNA7) -> bp(MESH:"Calcium Signaling")
 bp(MESH:"Calcium Signaling") -> sec(a(MESH:"Synaptic Vesicles"))
 sec(a(MESH:"Synaptic Vesicles")) -> bp(MESH:"Neuronal Plasticity")
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "In addition, a7 nAChR
 signaling at somatodendritic sites regulates postsynaptic glutamate receptors [3,24], resulting
 in altered synaptic plasticity and GABAergic interneuron activity [25,26]."
-
+SET Confidence = "High"
 act(p(HGNC:CHRNA7)) reg p(MESH:"Receptors, Glutamate",loc(GO:"postsynaptic membrane"))
 p(MESH:"Receptors, Glutamate",loc(GO:"postsynaptic membrane")) -- bp(MESH:"Neuronal Plasticity")
 p(MESH:"Receptors, Glutamate",loc(GO:"postsynaptic membrane")) -- bp(GO:"synaptic transmission, GABAergic")
+UNSET Confidence
 
 SET Evidence = "Agonist stimulation of a7 nAChRs results in a rapid influx of Na+ and Ca2+ into the cell via the open channel state (i.e., the ionotropic state: a7i) (Figure 1)."
-
+SET Confidence = "High"
 act(p(HGNC:CHRNA7)) -> bp(GO:"sodium ion import across plasma membrane")
 act(p(HGNC:CHRNA7)) -> bp(GO:"calcium ion import across plasma membrane")
+UNSET Confidence
 
 SET Evidence = "Calcium influx through a7 nAChRs can still however directly activate CICR from the ER of neurons [28]."
-
+SET Confidence = "High"
 SET Cell = "neuron"
 act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity")) -> tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"endoplasmic reticulum"),toLoc(MESH:Cytoplasm))
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "In the presynaptic terminal, ion
 conductance through a7i appears to produce sufficient membrane depolarization to cause the
 opening of voltage-gated Ca2+ channels (VGCCs) which, together with direct influx of Ca2+
 through the a7i channel and CICR, can foster a strong elevation of cytosolic calcium leading to
 the modulation of neurotransmitter release [29]."
-
+SET Confidence = "High"
 SET CellStructure = "Presynaptic Terminals"
 act(p(HGNC:CHRNA7)) -> bp(GO:"membrane depolarization")
 bp(GO:"membrane depolarization") -> complex(GO:"voltage-gated calcium channel complex")
-complex(GO:"voltage-gated calcium channel complex") -> a(CHEBI:"calcium ion",loc(MESH:Cytoplasm))
-act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity")) -> a(CHEBI:"calcium ion",loc(MESH:Cytoplasm))
-a(CHEBI:"calcium ion",loc(MESH:Cytoplasm)) reg sec(a(CHEBI:neurotransmitter))
+complex(GO:"voltage-gated calcium channel complex") -> a(CHEBI:"calcium(2+)",loc(MESH:Cytoplasm))
+act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity")) -> a(CHEBI:"calcium(2+)",loc(MESH:Cytoplasm))
+a(CHEBI:"calcium(2+)",loc(MESH:Cytoplasm)) reg sec(a(CHEBI:neurotransmitter))
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "In one study, expression
 of the D44A a7 nAChR subunit, which harbors a mutation at amino acid position 44 that
 decreases the permeability of the open-channel state to calcium [33], resulted in loss of the
 ability of the a7 nAChR agonist choline to promote Ca2+
 store release in a cultured cell line [34]."
-
+SET Confidence = "High"
 p(HGNC:CHRNA7,var("p.Asp44Ala")) -| bp(GO:"calcium ion import across plasma membrane")
 p(HGNC:CHRNA7,var("p.Asp44Ala")) -| complex(p(HGNC:CHRNA7),a(CHEBI:choline))
 p(HGNC:CHRNA7,var("p.Asp44Ala")) -| act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity"))
+UNSET Confidence
 
 SET Evidence = "Interestingly, long-term expression of the D44A a7 nAChR subunit also abrogated the ability of
 the a7 nAChR to modulate neurite growth in the same cell line, thus suggesting that calcium
 influx through the a7i state and Ca2+
 store coupled release are required for proper a7 nAChR
 signaling [35]."
-
+SET Confidence = "High"
 p(HGNC:CHRNA7) reg bp(GO:"neuron projection development")
 p(HGNC:CHRNA7,var("p.Asp44Ala")) -| bp(GO:"neuron projection development")
+UNSET Confidence
 
 SET Evidence = "In the substantia nigra, choline activation of presynaptic a7 nAChRs
 generates long-lived calcium transients that depend on Ca2+
 store release, as evidenced by the
 finding that treatment with dantrolene, an antagonist of the RyR, diminishes this synaptic
 calcium transient [36]."
-
+SET Confidence = "High"
 SET Anatomy = "substantia nigra"
 a(CHEBI:choline) -> act(p(HGNC:CHRNA7))
 act(p(HGNC:CHRNA7)) -> bp(GO:"calcium ion import across plasma membrane")
@@ -212,61 +227,67 @@ bp(MESH:"Calcium Signaling") -> act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calciu
 a(DRUGBANK:Dantrolene) -| p(HGNCGENEFAMILY:"Ryanodine receptors")
 a(DRUGBANK:Dantrolene) -| act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity"))
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Taken together, the evidence indicates that
 presynaptic a7 nAChRs are positioned to regulate calcium signaling via direct calcium conductance
 of the open a7i channel and Ca2+
 store release."
-
+SET Confidence = "High"
 SET CellStructure = "Presynaptic Terminals"
 p(HGNC:CHRNA7) reg bp(MESH:"Calcium Signaling")
 act(p(HGNC:CHRNA7)) -> bp(GO:"calcium ion import across plasma membrane")
 bp(GO:"calcium ion import across plasma membrane") -> bp(MESH:"Calcium Signaling")
 bp(MESH:"Calcium Signaling") -> act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity"))
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "Signaling interactions between the a7 nAChR and the Ca2+
 store can produce prolonged
 calcium transients and, in some cases, calcium oscillations in the soma, and, separately, in
 subcellular compartments such as axonal processes [38]."
-
+SET Confidence = "High"
 SET Cell = "somatic cell"
 SET Anatomy = "axon tract"
 act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity")) -> bp(MESH:"Calcium Signaling")
 UNSET Cell
 UNSET Anatomy
+UNSET Confidence
 
 SET Evidence = "Such oscillations can encode
 information that drives the activity of downstream neuronal signaling events, such as the
 activation of specific protein kinases and genetic regulation."
-
+SET Confidence = "High"
 bp(MESH:"Calcium Signaling") reg bp(GO:"neuronal signal transduction")
-bp(MESH:"Calcium Signaling") reg complex(GO:"protein kinase complex")
+bp(MESH:"Calcium Signaling") reg act(complex(GO:"protein kinase complex"))
 bp(MESH:"Calcium Signaling") reg bp(GO:"gene expression")
+UNSET Confidence
 
 SET Evidence = "During hippocampal
 circuit development, for example, a7 nAChR-mediated CICR sustains crucial changes in
 synaptic strength leading to the maturation and refinement of neural networks [31,39]."
-
+SET Confidence = "High"
 act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity")) reg bp(GO:"hippocampus development")
 SET MeSHAnatomy = "Hippocampus"
 act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity")) reg bp(GO:"neuron maturation")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Such
 signaling depends on the ability of the Ca2+
 store to engage calcium-sensitive regulators of the
 cytoskeleton, such as Ca2+/calmodulin-dependent protein kinase II (CaMKII) and calcineurin
 [13,40], which may not be fully activated by the a7i calcium current."
-
-a(CHEBI:"calcium ion",loc(MESH:"Endoplasmic Reticulum")) -> p(HGNC:CAMK2A)
-a(CHEBI:"calcium ion",loc(MESH:"Endoplasmic Reticulum")) -> a(CHEBI:calcineurin)
+SET Confidence = "High"
+a(CHEBI:"calcium(2+)",loc(MESH:"Endoplasmic Reticulum")) -> p(HGNC:CAMK2A)
+a(CHEBI:"calcium(2+)",loc(MESH:"Endoplasmic Reticulum")) -> a(CHEBI:calcineurin)
 p(HGNC:CAMK2A) reg a(GO:cytoskeleton)
 a(CHEBI:calcineurin) reg a(GO:cytoskeleton)
+UNSET Confidence
 
 SET Evidence = "In a human neuroblastoma cell line, nicotine-activated a7 nAChRs trigger CICR, producing changes in intracellular calcium levels that persist for up to 10 minutes as a consequence of both RyR and IP3 receptor (IP3R) function, the latter also linking to IP3R-mediated Ca2+ store release (IICR) [28]."
-
 #neuroblastoma CellLine
+SET Confidence = "High"
 SET Species = "9606"
 a(CHEBI:nicotine) -> act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity"))
 act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity")) reg a(CHEBI:"calcium ion",loc(MESH:"Intracellular Space"))
@@ -274,13 +295,14 @@ p(HGNCGENEFAMILY:"Ryanodine receptors") -> a(CHEBI:"calcium ion",loc(MESH:"Intra
 p(MESH:"Inositol 1,4,5-Trisphosphate Receptors") -> a(CHEBI:"calcium ion",loc(MESH:"Intracellular Space"))
 p(MESH:"Inositol 1,4,5-Trisphosphate Receptors") -> bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Work by Role and colleagues nicely corroborates these earlier
 finding in
 cultured cells, and indicates that nicotine activation of a7 nAChRs elicits localized and
 oscillatory increases in intracellular calcium within axons of ventral hippocampal slices through
 IICR [38]."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 SET CellStructure = "Axons"
 a(CHEBI:nicotine) -> act(p(HGNC:CHRNA7))
@@ -288,15 +310,17 @@ act(p(HGNC:CHRNA7)) -> bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensiti
 bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity") -> bp(MESH:"Calcium Signaling")
 UNSET CellStructure
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "These calcium oscillations persisted for up to 30 minutes after the initial application of
 nicotine, and displayed a signal that peaked at hotspots along the axon, which, incidentally,
 were also marked by the presence of the Ca2+-dependent kinase CaMKII."
-
+SET Confidence = "High"
 SET CellStructure = "Axons"
 a(CHEBI:nicotine) -> bp(MESH:"Calcium Signaling")
 bp(MESH:"Calcium Signaling") pos p(HGNC:CAMK2B)
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "Within the growth cone, the ability of the a7
 nAChR agonist choline to foster Ca2+
@@ -310,7 +334,7 @@ a(MESH:Phospholipids) -- bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensi
 UNSET MeSHAnatomy
 
 SET Evidence = "By involving the Ca2+ store, a7 nAChRs at the synapse can effectively engage a wide range of calcium-sensitive targets that are known decoders of calcium information (i.e., signal peak and duration). Such molecules include enzymes such as the cyclic AMP-dependent protein kinase (PKA) and CaMKII, which are calcium-sensitive and can regulate various synaptic ion channels, as well as cytoskeletal and trafficking proteins that govern vesicle mobility and release, and can also feedback onto nAChRs [41,42]."
-
+SET Confidence  = "High"
 p(HGNC:CHRNA7,loc(MESH:Synapses)) -> bp(GO:"positive regulation of cAMP-dependent protein kinase activity")
 p(HGNC:CHRNA7,loc(MESH:Synapses)) -> p(HGNC:CAMK2B)
 bp(GO:"positive regulation of cAMP-dependent protein kinase activity") -- bp(MESH:"Calcium Signaling")
@@ -320,11 +344,14 @@ p(HGNC:CAMK2B) reg p(MESH:"Ion Channels")
 bp(GO:"positive regulation of cAMP-dependent protein kinase activity") reg p(MESH:"Cytoskeletal Proteins")
 p(HGNC:CAMK2B) reg p(MESH:"Cytoskeletal Proteins")
 p(MESH:"Cytoskeletal Proteins") reg bp(GO:"vesicle-mediated transport")
+bp(GO:"positive regulation of cAMP-dependent protein kinase activity") reg p(HGNC:CHRNA7)
+p(HGNC:CAMK2B) reg p(HGNC:CHRNA7)
+UNSET Confidence
 
 SET Evidence = "In fact, a7 nAChRs have been shown to promote an
 enhancement in presynaptic glutamate release in the hippocampus via their ability to directly
 activate adenylyl cyclase 1, thereby leading to cAMP-mediated PKA activity in the synapse [43]."
-
+SET Confidence = "High"
 SET CellStructure = "Synapses"
 SET MeSHAnatomy = "Hippocampus"
 p(HGNC:CHRNA7) -> act(p(HGNC:ADCY1))
@@ -332,9 +359,10 @@ act(p(HGNC:ADCY1)) -> bp(GO:"positive regulation of cAMP-dependent protein kinas
 bp(GO:"positive regulation of cAMP-dependent protein kinase activity") -> sec(a(CHEBI:"L-glutamate(1-)",loc(MESH:"Presynaptic Terminals")))
 UNSET CellStructure
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In addition, a7 nAChRs are found to activate plasticity-associated kinases such as CaMKII at synapses through CICR and IICR in various experimental preparations including the chick ciliary ganglion, hippocampal axons, nerve terminals of the prefrontal cortex, and in the Drosophila giant fiber synapse [30,44–47]."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 SET CellStructure = "Axons"
 p(HGNC:CHRNA7) -> bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity")
@@ -342,13 +370,11 @@ bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release chan
 act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity")) -> act(p(HGNC:CAMK2B,loc(MESH:Synapses)))
 UNSET CellStructure
 UNSET MeSHAnatomy
-
 SET Anatomy = "prefrontal cortex"
 p(HGNC:CHRNA7) -> bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity")
 bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity") -> act(p(HGNC:CAMK2B,loc(MESH:Synapses)))
 act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity")) -> act(p(HGNC:CAMK2B,loc(MESH:Synapses)))
 UNSET Anatomy
-
 #9031= chicken
 SET Species = "9031"
 SET Anatomy = "main ciliary ganglion"
@@ -357,138 +383,162 @@ bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release chan
 act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity")) -> act(p(HGNC:CAMK2B,loc(MESH:Synapses)))
 UNSET Anatomy
 UNSET Species
-
 SET Species = "7215"
 p(HGNC:CHRNA7) -> bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity")
 bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity") -> act(p(HGNC:CAMK2B,loc(MESH:Synapses)))
 act(p(HGNC:CHRNA7),ma(GO:"calcium-induced calcium release activity")) -> act(p(HGNC:CAMK2B,loc(MESH:Synapses)))
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "a7 nAChR-mediated cellular calcium signaling is also a mechanism for activity-dependent gene regulation in neurons – by driving the activation of transcription factors such as CREB which play an important role in memory and learning [47]."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 p(HGNC:CHRNA7) -> bp(MESH:"Calcium Signaling")
 bp(MESH:"Calcium Signaling") -> p(HGNC:CREBZF)
 p(HGNC:CREBZF) -> bp(GO:"learning or memory")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In immune cells where cholinergic signaling is known to play an important role in regulating cytokine release, nAChRs are thought to operate almost entirely through metabotropic rather than ionotropic modes [27,58]."
-
+SET Confidence = "High"
 p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits") reg sec(a(MESH:Cytokines))
+UNSET Confidence
 
 SET Evidence = "Silent agonists, which convert a7 nAChRs to allosteric modulator-sensitive desensitized states without visible ion channel activity, appear to be effective in modulating nAChR activity in immune cells as well as in animal models of immune disease and inflammation [59]."
-
-a(CHEBI:"cholinergic agonist") reg p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")
+SET Confidence = "High"
+a(CHEBI:"cholinergic agonist") reg act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits"))
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -- bp(MESH:"Immunity, Cellular")
 a(CHEBI:"cholinergic agonist") -- bp(MESH:"Immunity, Cellular")
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -- path(MESH:"Immune System Diseases")
 a(CHEBI:"cholinergic agonist") -- path(MESH:"Immune System Diseases")
+act(p(HGNCGENEFAMILY:"Cholinergic receptors nicotinic subunits")) -- path(MESH:Inflammation)
 a(CHEBI:"cholinergic agonist") -- path(MESH:Inflammation)
+UNSET Confidence
 
 SET Evidence = "It has been reported that, in microglia, antagonists rather than agonists of the a7 nAChR work to inhibit the release of the proinflammatory cytokine tumor necrosis factor (TNF)-a, thus supporting the notion that ligand associated conformational receptor states, and not channel opening, drive nAChR signaling in such cells [60]."
-
+SET Confidence = "High"
 SET Cell = "microglial cell"
 a(CHEBI:"cholinergic antagonist") -| p(HGNC:CHRNA7)
 a(CHEBI:"cholinergic antagonist") -| p(HGNC:TNF)
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Proliferation and cytokine release in T cells is also regulated by nicotine, which is driven by the ability of a4 subunit-containing nAChRs to directly couple to Gao subunits and signal through G protein-driven cell division control (CDC) 42 [61]."
-
+SET Confidence = "High"
 a(CHEBI:nicotine) reg bp(GO:"T cell proliferation")
 a(CHEBI:nicotine) reg bp(GO:"cytokine secretion")
 complex(a(CHEBI:nicotine),p(HGNC:CHRNA4)) -> complex(p(HGNC:CHRNA4),p(HGNCGENEFAMILY:"G protein subunits alpha, group i"))
 complex(p(HGNC:CHRNA4),p(HGNCGENEFAMILY:"G protein subunits alpha, group i")) -> bp(GO:"cytokine secretion")
 complex(p(HGNC:CHRNA4),p(HGNCGENEFAMILY:"G protein subunits alpha, group i")) -> bp(GO:"T cell proliferation")
+complex(p(HGNC:CHRNA4),p(HGNCGENEFAMILY:"G protein subunits alpha, group i")) -- p(HGNC:CDC42)
+UNSET Confidence
 
 SET Evidence = "In many cells, G proteins participate in the regulation of cellular calcium influx through plasmamembrane channels and from intracellular Ca2+ stores through G protein-driven regulation of store-operated calcium entry (SOCE) and second messenger IICR [62]."
-
+SET Confidence = "High"
 bp(GO:"ion channel modulating, G protein-coupled receptor signaling pathway") reg bp(GO:"calcium ion homeostasis")
 bp(GO:"ion channel modulating, G protein-coupled receptor signaling pathway") reg bp(GO:"store-operated calcium entry")
 bp(GO:"ion channel modulating, G protein-coupled receptor signaling pathway") reg bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity")
 bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity") reg bp(GO:"calcium ion homeostasis")
 bp(GO:"store-operated calcium entry") reg bp(GO:"calcium ion homeostasis")
+UNSET Confidence
 
 SET Evidence = "This appears to
 be the case in microglia where direct interaction between the a7 nAChR and Gai promotes
 Ca2+
 store release, leading to a decrease in the activity of p38 mitogen-activated protein kinase
 (MAPK) and reduced TNF-a release [64]."
-
+SET Confidence = "High"
 SET Cell = "microglial cell"
-complex(p(HGNC:CHRNA7),p(HGNCGENEFAMILY:"G protein subunits alpha, group i")) -> sec(a(CHEBI:"calcium ion",loc(MESH:"Endoplasmic Reticulum")))
-sec(a(CHEBI:"calcium ion",loc(MESH:"Endoplasmic Reticulum"))) -| act(p(HGNC:MAPK14))
-sec(a(CHEBI:"calcium ion",loc(MESH:"Endoplasmic Reticulum"))) -| sec(p(HGNC:TNF))
+complex(p(HGNC:CHRNA7),p(HGNCGENEFAMILY:"G protein subunits alpha, group i")) -> sec(a(CHEBI:"calcium(2+)",loc(MESH:"Endoplasmic Reticulum")))
+sec(a(CHEBI:"calcium(2+)",loc(MESH:"Endoplasmic Reticulum"))) -| act(p(HGNC:MAPK14))
+sec(a(CHEBI:"calcium(2+)",loc(MESH:"Endoplasmic Reticulum"))) -| sec(p(HGNC:TNF))
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Similarly, in natural killer (NK) immune cells activation of the a7 nAChR by the selective ligand PNU282987 promotes Ca2+ release from the Ca2+ store, leading to decreases in nuclear factor (NF)-kB and interferon (IFN)-g production [65]."
 #PNU282987 =  9795278
+SET Confidence = "High"
 SET Cell = "natural killer cell"
 a(PUBCHEM:9795278) -> act(p(HGNC:CHRNA7))
-act(p(HGNC:CHRNA7)) -> sec(a(CHEBI:"calcium ion",loc(MESH:"Endoplasmic Reticulum")))
-sec(a(CHEBI:"calcium ion",loc(MESH:"Endoplasmic Reticulum"))) -| p(HGNC:NFKB1)
-sec(a(CHEBI:"calcium ion",loc(MESH:"Endoplasmic Reticulum"))) -| p(HGNC:IFNG)
+act(p(HGNC:CHRNA7)) -> sec(a(CHEBI:"calcium(2+)",loc(MESH:"Endoplasmic Reticulum")))
+sec(a(CHEBI:"calcium(2+)",loc(MESH:"Endoplasmic Reticulum"))) -| p(HGNC:NFKB1)
+sec(a(CHEBI:"calcium(2+)",loc(MESH:"Endoplasmic Reticulum"))) -| p(HGNC:IFNG)
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "The evidence obtained so far in
 cultured cells indicates that agonist-induced a7 nAChR interaction with Gaq at the GPBC
 enables local activation of PLC and leads to IICR-associated calcium transients."
-
+SET Confidence = "High"
 complex(p(HGNC:CHRNA7),p(HGNCGENEFAMILY:"G protein subunits alpha, group q")) -> bp(GO:"activation of phospholipase C activity")
 bp(GO:"activation of phospholipase C activity") -> bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity")
+complex(p(HGNC:CHRNA7),p(HGNCGENEFAMILY:"G protein subunits alpha, group q")) -> bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity")
+UNSET Confidence
 
 SET Evidence = "Gbeta-gamma subunits are also increasingly recognized
 for their direct role in the regulation of neurotransmitter vesicle release through interaction with the SNARE complex [70]."
-
+SET Confidence = "High"
 complex(p(HGNCGENEFAMILY:"G protein subunits beta"),p(HGNCGENEFAMILY:"G protein subunits gamma"),complex(GO:"SNARE complex")) reg bp(GO:"neurotransmitter secretion")
+UNSET Confidence
 
 SET Evidence = "Though direct Gbg coupling remains to be tested, it is consistent with electrophysiological findings that demonstrate a role for a7 nAChRs in the modulation of VGCC
 activity and neurotransmitter release in presynaptic terminals [71]."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Presynaptic Terminals"
 p(HGNC:CHRNA7) reg bp(GO:"neurotransmitter secretion")
-p(HGNC:CHRNA7) reg act(p(MESH:"Calcium Channels"))
+p(HGNC:CHRNA7) reg bp(GO:"regulation of voltage-gated calcium channel activity")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Agonist activation of the a7 nAChR with compounds such as nicotine,
 choline, or PNU282987 appears to be sufficient to activate cellular PLC and promote IICR
 in a Gaq- and dose-dependent manner [34,37]."
 #PNU282987 =  9795278
+SET Confidence = "High"
 complex(a(CHEBI:nicotine),p(HGNC:CHRNA7)) -> bp(GO:"activation of phospholipase C activity")
-complex(a(CHEBI:nicotine),a(CHEBI:choline)) -> bp(GO:"activation of phospholipase C activity")
-complex(a(CHEBI:nicotine),p(PUBCHEM:9795278)) -> bp(GO:"activation of phospholipase C activity")
+complex(p(HGNC:CHRNA7),a(CHEBI:choline)) -> bp(GO:"activation of phospholipase C activity")
+complex(p(HGNC:CHRNA7),p(PUBCHEM:9795278)) -> bp(GO:"activation of phospholipase C activity")
 complex(a(CHEBI:nicotine),p(HGNC:CHRNA7),p(HGNCGENEFAMILY:"G protein subunits alpha, group q")) -> bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity")
-complex(a(CHEBI:nicotine),a(CHEBI:choline),p(HGNCGENEFAMILY:"G protein subunits alpha, group q")) -> bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity")
-complex(a(CHEBI:nicotine),p(PUBCHEM:9795278),p(HGNCGENEFAMILY:"G protein subunits alpha, group q")) -> bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity")
+complex(p(HGNC:CHRNA7),a(CHEBI:choline),p(HGNCGENEFAMILY:"G protein subunits alpha, group q")) -> bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity")
+complex(p(HGNC:CHRNA7),p(PUBCHEM:9795278),p(HGNCGENEFAMILY:"G protein subunits alpha, group q")) -> bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity")
+UNSET Confidence
 
 SET Evidence = "Cytosolic calcium encodes information for cytoskeletal remodeling during neuron differentiation,
 migration, and synaptogenesis through amplitude, temporal, and spatial dimensions [79]."
-
+SET Confidence = "High"
 SET Cell = "neuron"
 a(CHEBI:"calcium ion",loc(MESH:Cytoplasm)) reg bp(GO:"cell differentiation")
 a(CHEBI:"calcium ion",loc(MESH:Cytoplasm)) reg bp(GO:"cell migration")
 a(CHEBI:"calcium ion",loc(MESH:Cytoplasm)) reg bp(GO:"synapse assembly")
 a(CHEBI:"calcium ion",loc(MESH:Cytoplasm)) reg a(GO:cytoskeleton)
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Incremental increases in local cytosolic calcium concentration are often sufficient to activate pro-growth molecular activity, such as CaMKII activation, thus leading to actin assembly and axon elongation."
-
+SET Confidence = "High"
 a(CHEBI:"calcium ion",loc(MESH:Cytoplasm)) reg a(GO:cytoskeleton)
 a(CHEBI:"calcium ion",loc(MESH:Cytoplasm)) reg act(p(HGNC:CAMK2B))
 act(p(HGNC:CAMK2B)) -> bp(GO:"actin rod assembly")
 act(p(HGNC:CAMK2B)) -> a(MESH:Axons)
+UNSET Confidence
 
 SET Evidence = "However, at high levels cytosolic calcium can inhibit growth through the activation of proteolytic enzymes, such as calpain, which sever spectrin, leading to cytoskeletal breakdown [80]."
-
+SET Confidence = "High"
 SET CellStructure = "Axons"
-a(CHEBI:"calcium ion",loc(MESH:Cytoplasm)) -| bp(MESH:Growth)
+a(CHEBI:"calcium ion",loc(MESH:Cytoplasm)) -| p(HGNCGENEFAMILY:Calpains)
 a(CHEBI:"calcium ion",loc(MESH:Cytoplasm)) -| p(GO:spectrin)
-a(CHEBI:"calcium ion",loc(MESH:Cytoplasm)) -| a(GO:cytoskeleton)
+a(CHEBI:"calcium ion",loc(MESH:Cytoplasm)) -| bp(GO:"cytoskeleton organization")
+p(HGNCGENEFAMILY:Calpains) -> p(GO:spectrin)
+p(GO:spectrin) -> bp(GO:"cytoskeleton organization")
 UNSET CellStructure
+UNSET Confidence
 
 SET Evidence = "We have shown an important role for the G protein scaffold
 molecule, G protein-regulated inducer of neurite outgrowth 1 (Gprin1), in the targeting of
 the a7 nAChR to the growth cone in developing hippocampal neurons [53]. Once there, a7
 nAChRs appear to operate through metabotropic G protein signaling, thereby directing
 cytoskeletal dynamics and contributing to axon growth (Figure 5)."
-
+SET Confidence = "High"
 SET MeSHAnatomy = "Hippocampus"
 SET Cell = "neuron"
 composite(p(HGNC:CHRNA7),p(HGNC:GPRIN1)) -> p(HGNC:CHRNA7,loc(MESH:"Growth Cones"))
@@ -498,47 +548,52 @@ UNSET CellStructure
 p(HGNC:CHRNA7,loc(MESH:"Growth Cones")) -> a(GO:cytoskeleton)
 UNSET MeSHAnatomy
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Activation of the a7 nAChR by agonists such as choline, nicotine, or PNU282987 was found to
 produce strong calcium transients that last for several seconds while propagating throughout
 the growth cone [34]."
-
 #PNU282987 =  9795278
+SET Confidence = "High"
 complex(a(CHEBI:nicotine),p(HGNC:CHRNA7)) -> act(p(HGNC:CHRNA7))
-complex(a(CHEBI:nicotine),a(CHEBI:choline)) -> act(p(HGNC:CHRNA7))
-complex(a(CHEBI:nicotine),p(PUBCHEM:9795278)) -> act(p(HGNC:CHRNA7))
+complex(p(HGNC:CHRNA7),a(CHEBI:choline)) -> act(p(HGNC:CHRNA7))
+complex(p(HGNC:CHRNA7),p(PUBCHEM:9795278)) -> act(p(HGNC:CHRNA7))
 SET MeSHAnatomy = "Growth Cones"
 act(p(HGNC:CHRNA7)) -> bp(GO:"calcium-mediated signaling")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Recent
 findings also show that a7 nAChR coupling to G proteins promotes downstream
 signaling through monomeric GTPases, such as RhoA, which are intimate regulators of actin
 and cytoskeletal dynamics at the synapse (Figure 5) [35]."
-
+SET Confidence = "High"
 complex(p(HGNC:CHRNA7),complex(GO:"heterotrimeric G-protein complex")) -> act(p(HGNC:RHOA),ma(GO:"GTPase activity"))
 act(p(HGNC:RHOA),ma(GO:"GTPase activity")) -> a(GO:"actin cytoskeleton",loc(MESH:Synapses))
 act(p(HGNC:RHOA),ma(GO:"GTPase activity")) -> a(MESH:Cytoskeleton,loc(MESH:Synapses))
+UNSET Confidence
 
 SET Evidence = "In non-excitable cells, such as
 keratinocytes, a7 nAChR regulates cell motility through the activity of the Rho GTPase proteins
 CDC42 and Rac [85]."
-
+SET Confidence = "High"
 SET Cell = "keratinocyte"
 p(HGNC:CHRNA7) -> act(p(HGNC:CDC42),ma(GO:"GTPase activity"))
 p(HGNC:CHRNA7) -> act(p(HGNC:AKT1),ma(GO:"GTPase activity"))
 act(p(HGNC:CDC42),ma(GO:"GTPase activity")) reg bp(MESH:"Cell Movement")
 act(p(HGNC:AKT1),ma(GO:"GTPase activity")) reg bp(MESH:"Cell Movement")
+p(HGNC:CHRNA7) reg bp(MESH:"Cell Movement")
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Interestingly, recent
 findings reveal that polymorphisms in the RhoA gene correlate with
 smoking initiation and nicotine intake [87], suggesting that G protein signaling through the
 a7m state may contribute to (synaptic) mechanisms that underlie addiction in the brain."
-
-g(HGNC:RHOA,var("?")) -- path(MESH:Smoking)
-g(HGNC:RHOA,var("?")) -- path(MESH:"Tobacco Use Disorder")
+SET Confidence = "High"
+g(HGNC:RHOA,var("?")) pos path(MESH:Smoking)
+g(HGNC:RHOA,var("?")) pos path(MESH:"Tobacco Use Disorder")
 SET Anatomy = "brain"
 complex(p(HGNC:CHRNA7),complex(GO:"heterotrimeric G-protein complex")) -- path(MESH:"Behavior, Addictive")
-complex(p(HGNC:CHRNA7),complex(GO:"heterotrimeric G-protein complex")) -- path(MESH:"Behavior, Addictive")
 UNSET Anatomy
+UNSET Confidence
