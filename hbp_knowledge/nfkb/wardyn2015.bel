@@ -1,0 +1,481 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Dissecting molecular cross-talk between Nrf2 andNF-κB response pathways"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Esther Wollert"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/terminology
+# --------------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+# DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+# DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+# DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+# DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
+# DEFINE NAMESPACE HBP            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/export/hbp-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+# DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
+# DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mesh-names.belns"
+# DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mgi-names.belns"
+# DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
+# DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+# DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
+# DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+# DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+# DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+# DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+# DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+# DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+# DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+# DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+# DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+# DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+# DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+# DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+# DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+
+SET Citation = {"PubMed", "26551702"}
+
+SET Evidence = "Among the most studied Nrf2-target genes are NAD(P)H
+dehydrogenase quinone 1 (NQO1), heme oxygenase-1 (HO-
+1), γ -glutamyl cysteine ligase modulatory subunit (GCLM),
+the catalytic subunit (GCLC) and ferritin, which function
+to maintain a reducing environment within the cell [2–4]."
+#Nrf2 is NFE2L2
+#target as transcription factor
+act(p(HGNC:NFE2L2),ma(tscript)) reg r(HGNC:NQO1)
+act(p(HGNC:NFE2L2),ma(tscript)) reg r(FPLX:HMOX)
+act(p(HGNC:NFE2L2),ma(tscript)) reg r(HGNC:GCLM)
+act(p(HGNC:NFE2L2),ma(tscript)) reg r(HGNC:GCLC)
+act(p(HGNC:NFE2L2),ma(tscript)) reg r(HGNCGENEFAMILY:"Ferritin subunits")
+
+SET Evidence = "Moreover, Nrf2 also plays a prominent role in
+orchestrating glucose metabolism by mediating transcription
+of components of the pentose phosphate pathway [7]."
+p(HGNC:NFE2L2) -- bp(GO:"glucose metabolic process")
+p(HGNC:NFE2L2) reg bp(GO:"pentose-phosphate shunt")
+
+SET Evidence = "The best
+characterized mechanism of Nrf2 regulation is mediated
+by interaction with the Kelch-like ECH-associated protein
+1 (Keap1)–Cullin3–Rbx1 complex, which mediates Nrf2
+ubiquitination and subsequent proteasomal degradation [8]."
+complex(p(HGNC:KEAP1),p(HGNC:CUL3),p(HGNC:RBX1)) reg p(HGNC:NFE2L2)
+complex(p(HGNC:KEAP1),p(HGNC:CUL3),p(HGNC:RBX1)) -> p(HGNC:NFE2L2,pmod(Ub))
+p(HGNC:NFE2L2,pmod(Ub)) -> deg(p(HGNC:NFE2L2))
+bp(GO:"proteasomal protein catabolic process") -> deg(p(HGNC:NFE2L2))
+
+SET Evidence = " Oxidizing and
+electrophilic agents, such as free ROS and plant-derived
+phenolic compounds, among many others, can modify these
+cysteine residues [9]. This causes a conformational change in
+Keap1, preventing subsequent binding of newly synthesized
+Nrf2, which promptly accumulates in the nucleus [10]."
+a(CHEBI:"reactive oxygen species") -| complex(p(HGNC:KEAP1),p(HGNC:NFE2L2))
+a(CHEBI:"phenolic radical") -| complex(p(HGNC:KEAP1),p(HGNC:NFE2L2))
+complex(p(HGNC:KEAP1),p(HGNC:NFE2L2)) -| p(HGNC:NFE2L2,loc(MESH:"Cell Nucleus"))
+
+SET Evidence = " There,
+Nrf2 associates with small Maf proteins (sMaf) and binds to
+antioxidant responsive elements (ARE) in the promoters of
+its target genes."
+SET MeSHAnatomy = "Cell Nucleus"
+p(HGNC:NFE2L2,loc(MESH:"Cell Nucleus")) -> complex(p(FPLX:MAF),p(HGNC:NFE2L2))
+p(HGNC:NFE2L2,loc(MESH:"Cell Nucleus")) -> complex(g(MESH:"Antioxidant Response Elements"),p(HGNC:NFE2L2))
+UNSET MeSHAnatomy
+
+SET Evidence = "however, Nrf2 can either be
+degraded in the nucleus via the β-TrCP–GSK3β axis or
+alternatively it may translocate back to the cytoplasm where
+it is swiftly degraded by Keap1 [12,13]."
+p(HGNC:BTRC) -> deg(p(HGNC:NFE2L2))
+p(HGNC:GSK3B) -> deg(p(HGNC:NFE2L2))
+tloc(p(HGNC:NFE2L2), fromLoc(MESH:"Cell Nucleus"),toLoc(MESH:Cytosol)) -> deg(p(HGNC:NFE2L2))
+SET MeSHAnatomy = "Cytosol"
+p(HGNC:KEAP1) -> deg(p(HGNC:NFE2L2))
+UNSET MeSHAnatomy
+
+SET Evidence = "The NF-κB complex is a key transcription
+factor that mediates immune responses to bacterial and
+viral infections, inflammation, aspects of development, cell
+proliferation and protection against UV radiation [15]."
+p(FPLX:NFkappaB) reg bp(GO:"immune response")
+p(FPLX:NFkappaB) reg path(MESH:Inflammation)
+p(FPLX:NFkappaB) reg bp(GO:"developmental process")
+p(FPLX:NFkappaB) reg bp(GO:"cell population proliferation")
+p(FPLX:NFkappaB) reg bp(GO:"UV protection")
+
+SET Evidence = "Pro-
+inflammatory cytokines such as tumour necrosis factor
+(TNF)α, interleukin (IL)-1β and bacterial lipopolysaccharide
+(LPS) are among the most potent NF-κB activators, acting on
+the extracellular receptors and initiating a relay of intracellular
+phosphorylation events, which co-ordinate signalling and
+conditional cell responses [16]."
+p(HGNC:TNF) -> act(p(FPLX:NFkappaB))
+p(HGNC:IL1B) -> act(p(FPLX:NFkappaB))
+a(CHEBI:lipopolysaccharide) -> act(p(FPLX:NFkappaB))
+
+SET Evidence = "Phosphorylation of IκBα, the
+negative regulator of NF-κB, prompts an interaction with the
+β-TrCP–Skp1–Cullin1 complex driving IκBα ubiqitination
+and proteasomal degradation, releasing NF-κB subunits,
+which then translocate to the nucleus [17]."
+#IkBa is NFKBIA
+p(HGNC:NFKBIA) -| act(p(FPLX:NFkappaB))
+p(HGNC:NFKBIA, pmod(Ph)) -> complex(p(HGNC:NFKBIA),p(HGNC:CUL1),p(HGNC:BTRC),p(HGNC:SKP1))
+complex(p(HGNC:NFKBIA),p(HGNC:CUL1),p(HGNC:BTRC),p(HGNC:SKP1)) -> p(HGNC:NFKBIA, pmod(Ub))
+complex(p(HGNC:NFKBIA),p(HGNC:CUL1),p(HGNC:BTRC),p(HGNC:SKP1)) -> deg(p(HGNC:NFKBIA))
+deg(p(HGNC:NFKBIA)) -> tloc(p(FPLX:NFkappaB),fromLoc(MESH:Cytosol),toLoc(MESH:"Cell Nucleus"))
+
+SET Evidence = "In order to respond effectively to acute inflammation, NF-
+κB also prompts an increase in mitochondrial activity and
+NADPH oxidase expression, which are the main sources of
+the endogenous free radicals [19,20]."
+SET MeSHDisease = "Inflammation"
+p(FPLX:NFkappaB) -> act(a(MESH:Mitochondria))
+p(FPLX:NFkappaB) -> p(FPLX:"NADPH_oxidase")
+act(a(MESH:Mitochondria)) -> a(CHEBI:radical)
+p(FPLX:"NADPH_oxidase") -> a(CHEBI:radical)
+UNSET MeSHDisease
+
+SET Evidence = "The first insight into the interconnected nature of Nrf2
+and NF-κB pathways came from the study of the Nrf2
+knockout (KO) mice, which exhibit a neurodegenerative
+phenotype."
+SET Species = "10090"
+p(HGNC:NFE2L2) -| path(MESH:"Neurodegenerative Diseases")
+UNSET Species
+
+SET Evidence = " Additionally, in the experimental model of
+brain injury the lack of Nrf2 has been associated with
+the augmentation of cytokine production [22]."
+SET MeSHDisease = "Brain Injuries"
+p(HGNC:NFE2L2) pos a(MESH:Cytokines)
+UNSET MeSHDisease
+
+SET Evidence = " Moreover,
+LPS-treated astrocytic and microglial cultures show more
+pronounced NF-κB activity compared with wild-type cells."
+SET MeSHAnatomy = {"Astrocytes","Microglia"}
+a(CHEBI:lipopolysaccharide) -> act(p(FPLX:NFkappaB))
+UNSET MeSHAnatomy
+
+SET Evidence = "The resulting elevation of cytokine production contributes to
+astrogliosis, neuronal death and demyelination of neuronal
+axons, which is an underlying cause of the neurodegenerative
+phenotype of the Nrf2 KO animals [23,24]."
+act(p(FPLX:NFkappaB)) -> a(MESH:Cytokines)
+SET MeSHAnatomy = "Astrocytes"
+a(MESH:Cytokines) -> path(MESH:Gliosis)
+UNSET MeSHAnatomy
+a(MESH:Cytokines) -> bp(GO:"neuron death")
+SET MeSHAnatomy = "Axons"
+a(MESH:Cytokines) -| bp(GO:"myelination")
+UNSET MeSHAnatomy
+
+SET Evidence = "Also, studies
+on Nrf2 − / − MEFs revealed enhanced IKKβ activity, aug-
+menting the phosphorylation of IκBα and its subsequent
+degradation [25]."
+#IKKβ is IKBKB
+p(HGNC:NFE2L2) -| act(p(HGNC:IKBKB))
+act(p(HGNC:IKBKB)) -> p(HGNC:NFKBIA, pmod(Ph))
+p(HGNC:NFKBIA, pmod(Ph)) -> deg(p(HGNC:NFKBIA))
+
+SET Evidence = "There have been numerous studies conducted on Nrf2
+activating phytochemicals such as sulforaphane (SFP),
+which is abundant in cruciferous vegetables, as well as
+synthetic inducers such as 2-cyano-3,12 dioxooleana-
+1,9 dien-28-imidazolide (CDDO-Im) and their anti-
+inflammatory potential."
+a(CHEBI:sulforaphane) -> act(p(HGNC:NFE2L2))
+a(PUBCHEM:9958995) -> act(p(HGNC:NFE2L2))
+
+SET Evidence = "Pre-stimulation of Nrf2 in primary
+peritoneal macrophages dampens the production of COX-2
+(cyclooxygenase 2), TNFα, iNOS (inducible nitric oxide
+synthase) and IL-1β in response to LPS."
+act(p(HGNC:NFE2L2)) -| p(HGNC:PTGS2)
+act(p(HGNC:NFE2L2)) -| p(HGNC:TNF)
+act(p(HGNC:NFE2L2)) -| p(HGNC:NOS2)
+
+SET Evidence = " What
+is more, the increase in Nrf2 activity in lupus nephritis leads
+to the accumulation of glutathione (GSH), which effectively
+buffers free radicals and prevents the activation of p65,
+resulting in reduced deposition of extracellular matrix [28]."
+SET MeSHDisease = "Lupus Nephritis"
+act(p(HGNC:NFE2L2)) -> a(MESH:Glutathione)
+a(MESH:Glutathione) -| a(CHEBI:radical)
+a(MESH:Glutathione) -| act(p(HGNC:RELA))
+a(MESH:Glutathione) -| deg(a(MESH:"Extracellular Matrix"))
+UNSET MeSHDisease
+
+SET Evidence = "Levels of GSH are thought to decrease with age and it is
+a likely contributing factor to the exacerbation of diseases
+underlined by chronic inflammation [29]."
+bp(GO:aging) neg a(MESH:Glutathione)
+
+SET Evidence = "Increases in
+HO-1 activity in endothelial cells leads to inhibition of NF-
+κB-mediated transcription of adhesion molecules such as E-
+Selectin and vascular cell adhesion molecule 1 (VCAM-1),
+through the action of bilirubin and possibly by the decrease
+in free intracellular iron ions [30]."
+SET MeSHAnatomy = "Endothelial Cells"
+act(p(FPLX:HMOX)) -| act(p(FPLX:NFkappaB),ma(tscript))
+act(p(FPLX:HMOX)) -| p(HGNC:SELE)
+act(p(FPLX:HMOX)) -| p(HGNC:VCAM1)
+
+SET Evidence = "The anti-inflammatory role of Nrf2 is well established;
+however, it should be noted that NF-κB activity also regulates
+Nrf2-mediated ARE expression."
+p(HGNC:NFE2L2) reg act(p(FPLX:NFkappaB),ma(tscript))
+act(p(FPLX:NFkappaB),ma(tscript)) reg bp(MESH:"Antioxidant Response Elements")
+
+SET Evidence = " Work by Yu et al. [31] has
+shown that p65 assists in increasing the abundance of nuclear
+Keap1 levels."
+p(HGNC:RELA) -> p(HGNC:KEAP1, loc(MESH:"Cell Nucleus"))
+
+SET Evidence = " As the nuclear
+envelope does not permit free entry of proteins larger than
+40 kDa, Keap1 is thought to enter the nucleus by interactions
+with the import facilitating karyopherin alpha 6 (importin
+alpha 7) (otherwise known as KPNA6) [32]."
+complex(p(HGNC:KEAP1),p(HGNC:KPNA6)) -> tloc(p(HGNC:KEAP1),fromLoc(MESH:Cytosol),toLoc(MESH:"Cell Nucleus"))
+
+SET Evidence = " Consequently,
+KPNA6 overexpression results in decreased levels of HO-1
+and NQO1. "
+p(HGNC:KPNA6) -| p(FPLX:HMOX)
+p(HGNC:KPNA6) -| p(HGNC:NQO1)
+
+SET Evidence = "The most well-established mechanism of inhibition of
+Nrf2 by p65 activity is a competition of both proteins
+for the transcriptional co-activator CBP (CREB-binding
+protein)–p300 complex."
+act(p(HGNC:RELA)) -| act(p(HGNC:NFE2L2))
+act(p(HGNC:RELA)) -| act(complex(p(HGNC:CREBBP),p(HGNC:EP300)))
+act(complex(p(HGNC:CREBBP),p(HGNC:EP300))) -> act(p(HGNC:NFE2L2))
+
+SET Evidence = "The CBP–p300 has an intrinsic
+histone acetyl transferase activity, which leads to local
+acetylation of histones and the loosening of chromatin
+structure, exposing DNA for transcriptional apparatus
+assembly."
+act(complex(p(HGNC:CREBBP),p(HGNC:EP300)),ma(GO:"histone acetyltransferase activity")) -> bp(GO:"histone acetylation")
+bp(GO:"histone acetylation") -> bp(GO:"chromatin disassembly")
+bp(GO:"chromatin disassembly") -> bp(GO:"mRNA transcription")
+
+SET Evidence = " Aside from its role in histone modifications, it
+also acetylates non-histone proteins, with Nrf2 and p65
+being well-defined targets [33,34]."
+act(complex(p(HGNC:CREBBP),p(HGNC:EP300)),ma(GO:"histone acetyltransferase activity")) -> p(HGNC:NFE2L2,pmod(Ac))
+act(complex(p(HGNC:CREBBP),p(HGNC:EP300)),ma(GO:"histone acetyltransferase activity")) -> p(HGNC:RELA,pmod(Ac))
+
+SET Evidence = "On the other hand, CBP also displays preference of binding
+to phosphorylated p65 at Ser 276 ."
+p(HGNC:NFE2L2,pmod(Ph,Ser,276)) -> complex(p(HGNC:CREBBP),p(HGNC:NFE2L2))
+
+SET Evidence = " Overexpression of p65 is
+thought to limit the availability of CBP for Nrf2 complex
+formation, prioritizing transcription of the κB driven genes."
+p(HGNC:RELA) -| complex(p(HGNC:CREBBP),p(HGNC:NFE2L2))
+p(HGNC:RELA) -> act(p(FPLX:NFkappaB),ma(tscript))
+
+SET Evidence = "In addition, p65 can induce repression of transcription by
+de-acetylation of histones, through association with histone
+deacetylase (HDAC)."
+complex(p(HGNC:RELA),p(FPLX:HDAC)) -> bp(GO:"histone deacetylation")
+
+SET Evidence = " Specific cell
+types show induction of Nrf2 protein levels and increased
+target gene expression in response to TNFα."
+p(HGNC:TNF) -> act(p(HGNC:NFE2L2),ma(tscript))
+
+SET Evidence = " RAC1 activation by LPS
+can activate Nrf2-mediated HO-1 expression, which in turn
+dampens the pro-inflammatory activity of NF-κB."
+a(CHEBI:lipopolysaccharide) -> act(p(HGNC:RAC1))
+act(p(HGNC:RAC1)) -> act(p(HGNC:NFE2L2),ma(tscript))
+act(p(HGNC:NFE2L2),ma(tscript)) -> p(FPLX:HMOX)
+p(FPLX:HMOX) -| act(p(FPLX:NFkappaB))
+act(p(FPLX:NFkappaB)) -> bp(GO:"inflammatory response")
+
+SET Evidence = " RAC1
+can also cause an NF-κB-mediated increase in Nrf2 levels,"
+p(HGNC:RAC1) -> p(HGNC:NFE2L2)
+act(p(FPLX:NFkappaB)) -> p(HGNC:NFE2L2)
+
+SET Evidence = "Aside from its regulatory role in the Nrf2–ARE pathway,
+Keap1 has been found to interact and negatively regulate
+IKKβ."
+#IKKβ is IKBKB
+p(HGNC:KEAP1) -| act(p(HGNC:IKBKB))
+
+SET Evidence = "Keap1 is
+thought to prevent HSP90 binding to IKKβ, which triggers
+its autophagic degradation."
+p(HGNC:KEAP1) -> complex(p(HGNC:IKBKB),p(FPLX:HSP90))
+complex(p(HGNC:IKBKB),p(FPLX:HSP90)) -> deg(p(HGNC:IKBKB))
+
+SET Evidence = "Additionally, Keap1 decreases the
+phosphorylation of IKKβ possibly by concealing the residues
+to which phosphate groups are otherwise attached."
+p(HGNC:KEAP1) -| p(HGNC:IKBKB,pmod(Ph))
+
+SET Evidence = "Overall,
+the outcome of the Keap1–IKKβ interaction is the negative
+regulation of NF-κB though stabilization of IKBα [39]."
+#IkBa is NFKBIA
+complex(p(HGNC:IKBKB),p(HGNC:KEAP1)) -> p(HGNC:NFKBIA)
+complex(p(HGNC:IKBKB),p(HGNC:KEAP1)) -| act(p(FPLX:NFkappaB))
+
+SET Evidence = "Keap1 is thought to deplete Nrf2 from the cytoplasm,
+however the F-box protein β-TrCP, a component of the
+Skp1–Cullin1–β-TrCP E3 ligase complex, controls nuclear
+Nrf2 levels [12,40]. "
+p(HGNC:KEAP1) -| p(HGNC:NFE2L2,loc(MESH:Cytosol))
+p(HGNC:BTRC) reg p(HGNC:NFE2L2,loc(MESH:Cytosol))
+
+SET Evidence = "The mechanism of degradation via β-
+TrCP differs considerably from the Keap1 mode of action as
+it only recognizes and binds to phosphorylated substrates."
+#substrate mentioned before: Nrf2
+p(HGNC:BTRC) -> deg(p(HGNC:NFE2L2,pmod(Ph)))
+
+SET Evidence = "The kinase that phosphorylates and marks Nrf2 for β-TrCP
+binding is GSK3β."
+p(HGNC:GSK3B) -> p(HGNC:NFE2L2,pmod(Ph))
+p(HGNC:NFE2L2,pmod(Ph)) -> complex(p(HGNC:NFE2L2),p(HGNC:BTRC))
+
+SET Evidence = "Interestingly, p65 is also a substrate for
+GSK3β phosphorylation, which is thought to modulate p65
+DNA binding affinity, but can have both positive and negative
+effects on NF-κB depending on the cellular context [41,42]."
+p(HGNC:GSK3B) -> p(HGNC:RELA,pmod(Ph))
+p(HGNC:RELA,pmod(Ph)) reg complex(p(HGNC:RELA),a(MESH:DNA))
+
+SET Evidence = "The canonical role of β-TrCP is the regulation of IκBα
+degradation in response to cytokines [17]."
+a(MESH:Cytokines) -> act(p(HGNC:BTRC))
+act(p(HGNC:BTRC)) reg deg(p(HGNC:NFKBIA))
+
+SET Evidence = "Therefore, β-TrCP
+function can lead to augmentation of NF-κB activity as well
+as to inhibition of Nrf2–ARE transcription."
+p(HGNC:BTRC) -> act(p(FPLX:NFkappaB))
+p(HGNC:BTRC) -| act(p(HGNC:NFE2L2),ma(tscript))
+
+SET Evidence = "Another Nrf2 target gene, p62 is involved in modulation
+of antioxidant and inflammatory activities."
+#p62 is SQSTM1
+act(p(HGNC:NFE2L2),ma(tscript)) -> p(HGNC:SQSTM1)
+p(HGNC:SQSTM1) reg bp(GO:"inflammatory response")
+p(HGNC:SQSTM1) reg bp(GO:"response to oxidative stress")
+
+SET Evidence = "p62 also acts as
+a protein scaffold, enhancing Nrf2 activity by mediating the
+autophagosomal degradation of Keap1 [43]."
+p(HGNC:SQSTM1) -> act(p(HGNC:NFE2L2))
+p(HGNC:SQSTM1) -> deg(p(HGNC:KEAP1))
+
+SET Evidence = "The ability of
+p62 to oligomerize, promotes ubiquitination and activation
+of TNFα receptor-associated factor 6 (TRAF6), enhancing
+nerve growth factor (NGF)-mediated NF-κB signalling [44]."
+p(HGNC:SQSTM1) -> p(HGNC:TRAF6, pmod(Ub))
+p(HGNC:SQSTM1) -> act(p(HGNC:TRAF6))
+act(p(HGNC:TRAF6)) -> act(p(HGNC:NGF))
+act(p(HGNC:NGF)) -> act(p(FPLX:NFkappaB))
+
+SET Evidence = "Finally, Nrf2 is thought to act mainly as a dimer with
+sMaf proteins, one of them being MafK has been shown to
+modulate transcriptional activity of p65."
+complex(p(HGNC:NFE2L2),p(HGNC:MAFK)) reg act(p(HGNC:RELA),ma(tscript))
+
+SET Evidence = "MafK is thought to
+facilitate the interaction of p65 and CBP, leading to increases
+in acetylation of p65 and its overexpression augments
+production of cytokines in response to LPS."
+p(HGNC:MAFK) -> complex(p(HGNC:CREBBP),p(HGNC:RELA))
+complex(p(HGNC:CREBBP),p(HGNC:RELA)) -> p(HGNC:RELA),pmod(Ac))
+p(HGNC:MAFK) -> a(MESH:Cytokines)
+
+SET Evidence = " Knockdown
+of Nrf2 is associated with increased levels of MafK, therefore
+the activity of Nrf2 could be involved in maintaining low
+levels of this protein, disallowing excessive p65 acetylation
+[45]."
+p(HGNC:NFE2L2) -| p(HGNC:MAFK)
+
+SET Evidence = "Several triterpenoids and phytochemical Nrf2-
+inducing compounds, such as CDDO-Im and SFP have
+shown promising results in reducing inflammation of the
+central nervous system (CNS) and importantly are also able
+to cross the blood-brain-barrier [24,46,47]. "
+a(PUBCHEM:9958995) -> act(p(HGNC:NFE2L2))
+a(CHEBI:sulforaphane) -> act(p(HGNC:NFE2L2))
+SET MeSHAnatomy = "Central Nervous System"
+a(PUBCHEM:9958995) -| path(MESH:Inflammation)
+a(CHEBI:sulforaphane) -| path(MESH:Inflammation)
+UNSET MeSHAnatomy
+
+SET Evidence = "In addition to synthetic compounds that are used in
+disease settings, many phytochemicals naturally occurring
+in fruit and vegetables such as SFP, cinnamate, resveratrol
+or curcumin all have the potential to extenuate chronic
+inflammation. These compounds act by activating Nrf2 and
+increasing the antioxidant protection of the cells, to alleviate
+the damage from ROS [3,24,48]. "
+a(CHEBI:sulforaphane) -| path(MESH:Inflammation)
+a(CHEBI:cinnamate) -| path(MESH:Inflammation)
+a(CHEBI:resveratrol) -| path(MESH:Inflammation)
+a(CHEBI:curcumin) -| path(MESH:Inflammation)
+a(CHEBI:sulforaphane) -> act(p(HGNC:NFE2L2))
+a(CHEBI:cinnamate) -> act(p(HGNC:NFE2L2))
+a(CHEBI:resveratrol) -> act(p(HGNC:NFE2L2))
+a(CHEBI:curcumin) -> act(p(HGNC:NFE2L2))
+a(CHEBI:sulforaphane) -> bp(GO:"response to oxidative stress")
+a(CHEBI:cinnamate) -> bp(GO:"response to oxidative stress")
+a(CHEBI:resveratrol) -> bp(GO:"response to oxidative stress")
+a(CHEBI:curcumin) -> bp(GO:"response to oxidative stress")

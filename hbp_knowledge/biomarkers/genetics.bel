@@ -1,0 +1,2349 @@
+###############################
+# Document Properties Section #
+###############################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved"
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "sepehr.golriz.khatami@scai-extern.fraunhofer.de"
+
+SET DOCUMENT Name        = "Genetic Biomarkers for Alzheimer's Disease"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Description = "Genetic Biomarkers related to Alzheimer's disease"
+SET DOCUMENT Authors     = "Sepehr Golriz, Daniel Domingo-Fernández, Charles Tapley Hoyt"
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/conso
+# --------------------------------------------------------
+DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/3c93a65dc48e6786fe29ae55aa36cf9a902fe8c6/export/conso-names.belns"
+DEFINE NAMESPACE EFO            AS URL "https://raw.githubusercontent.com/pharmacome/conso/5d2c2ea6f7112421cc8089a3f021a75ab60bb373/external/efo-names.belns"
+DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/go-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+DEFINE NAMESPACE INTERPRO       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/namespace/interpro/interpro-20170731.belns"
+DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
+DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/e8ae9926ff95266032cb74f77973c84939bffbeb/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+DEFINE NAMESPACE DBSNP    AS PATTERN "^rs\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+
+##############
+# Statements #
+##############
+
+############################
+SET Citation = {"PubMed", "Mol Psychiatry. 2012 Jun 19. doi: 10.1038/mp.2012.81. [Epub ahead of print]","22710270"}
+
+SET Evidence = "The literature on GWAS (genome-wide association studies) data suggests\
+that very large sample sizes (for example, 50,000 cases and 50,000 controls) may be required\
+to detect significant associations of genomic regions for complex disorders such as Alzheimer's disease (AD).\
+Because of the challenges of obtaining such large cohorts, we describe here a novel sequential strategy\
+that combines pooling of DNA and bootstrapping (pbGWAS) in order to significantly increase the statistical\
+power and exponentially reduce expenses. We applied this method to a very homogeneous sample of patients\
+belonging to a unique and clinically well-characterized multigenerational pedigree with one of the most\
+severe forms of early onset AD, carrying the PSEN1 p.Glu280Ala mutation (often referred to as E280A mutation),\
+which originated as a consequence of a founder effect. In this cohort, we identified novel loci genome-wide\
+significantly associated as modifiers of the age of onset of AD (CD44, rs187116, P=1.29 x 10(-12);\
+NPHP1, rs10173717, P=1.74 — 10(-12); CADPS2, rs3757536, P=1.54 x 10(-10); GREM2, rs12129547, P=1.69 x 10(-13),\
+among others) as well as other loci known to be associated with AD."
+
+SET Disease = "Alzheimer's disease"
+
+SET Subgraph = {"Gamma secretase subgraph","Amyloidogenic subgraph"}
+SET Confidence = "Very High"
+p(HGNC:PSEN1,sub(E,280,A)) pos path(MESH:"Alzheimer Disease")
+
+SET Subgraph = "Cell adhesion subgraph"
+g(HGNC:CD44) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs187116) pos path(MESH:"Alzheimer Disease")
+g(HGNC:CD44) -- g(DBSNP:rs187116)
+
+SET Subgraph = {"Cell adhesion subgraph","Cell cycle subgraph"}
+g(HGNC:NPHP1) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs10173717) pos path(MESH:"Alzheimer Disease")
+g(HGNC:NPHP1) -- g(DBSNP:rs10173717)
+
+SET Subgraph = {"Neurotransmitter release subgraph","Calcium-dependent signal transduction"}
+
+SET Confidence="Very High"
+g(HGNC:CADPS2) -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+SET Confidence="Very High"
+g(DBSNP:rs3757536) pos path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+SET Confidence="Very High"
+g(HGNC:CADPS2) -- g(DBSNP:rs3757536)
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = "TGF-Beta subgraph"
+SET Confidence="Very High"
+
+#GREM2 antagonist in TFG beta pathway
+g(HGNC:GREM2) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs12129547) pos path(MESH:"Alzheimer Disease")
+g(HGNC:GREM2) -- g(DBSNP:rs12129547)
+
+UNSET Disease
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Funct Integr Genomics. 2011 Dec;11(4):519-22. Epub 2011 Jul 19.","21769591"}
+
+SET Evidence ="The ApoE gene responsible for the Alzheimer's disease has been examined\
+to identify functional consequences of single-nucleotide polymorphisms (SNPs).\
+Eighty-eight SNPs have been identified in the ApoE gene in which 31 are found to be nonsynonymous,\
+8 of them are coding synonymous, 33 are found to be in intron, and 3 are in untranslated region.\
+The SNPs found in the untranslated region consisted of two SNPs from 5' and one SNP from the 3'.\
+Twenty-nine percent of the identified nsSNPs have been reported as damaging. In the analysis of SNPs\
+in the UTR regions, it has been recognized that rs72654467 from 5' and rs71673244 from 5' and 3' are\
+responsible for the alteration in levels of expression. Both native and mutant protein structures were\
+analyzed along with the stabilization residues. It has been concluded that among all SNPs of ApoE, the\
+mutation in rs11542041 (R132S) has the most significant effect on functional variation."
+
+SET Disease = "Alzheimer's disease"
+
+SET Subgraph = {"APOE subgraph","Amyloidogenic subgraph"}
+SET Confidence = "Very High"
+g(HGNC:APOE) hasVariant g(DBSNP:rs11542041)
+g(DBSNP:rs11542041) :> r(DBSNP:rs11542041)
+r(DBSNP:rs11542041) >> p(HGNC:APOE, sub(R, 132, S))
+p(HGNC:APOE, sub(R, 132, S)) =| act(p(HGNC:APOE))
+
+p(HGNC:APOE) -- path(MESH:"Alzheimer Disease")
+
+UNSET Disease
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Neurobiol Aging. 2009 Sep;30(9):1518-20. Epub 2008 Jan 10.","18191876"}
+
+SET Evidence ="A total sample of 169 AD patients, and 264 age- and sex-matched unrelated\
+caregivers from Apulia, southern Italy, were genotypized for alpha-2-macroglobulin (A2M)\
+Val1000/Ile single-nucleotide polymorphism (SNP) (rs669), apolipoprotein E (APOE), and SNPs (+1073 and +1071)\
+in the oxidized low-density lipoprotein receptor-1 (OLR1) gene on chromosome 12"
+
+SET Disease = "Alzheimer's disease"
+
+SET Confidence = "Very High"
+SET Subgraph = "Alpha 2 macroglobulin subgraph"
+p(HGNC:A2M,sub(V,1000,I)) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs669) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Low density lipoprotein subgraph"
+p(HGNC:OLR1) -- path(MESH:"Alzheimer Disease")
+
+UNSET Disease
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "J Alzheimers Dis. 2010;21(4):1311-23","20693622"}
+
+SET Evidence="We here demonstrate that promoter polymorphisms rs8003602 and rs3783320 of cholesterol 24S-hydroxylase\
+(CYP46A1) were significantly associated with Alzheimer's disease (AD) in Chinese subjects. Haplotype analyses showed\
+that haplotype CG is the risk haplotype.Further, we found MYT1 could be the potential transcription factor binding to\
+the significant promoter polymorphism and mediated gene transcriptional activity."
+
+SET Disease = "Alzheimer's disease"
+
+SET Subgraph = {"Cholesterol metabolism subgraph","Lipid metabolism subgraph"}
+p(HGNC:CYP46A1) -> a(CHEBI:"24-hydroxycholesterol")
+p(HGNC:CYP46A1) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs8003602) -- g(HGNC:CYP46A1)
+g(DBSNP:rs3783320) -- p(HGNC:CYP46A1)
+g(DBSNP:rs8003602) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs3783320) -- path(MESH:"Alzheimer Disease")
+tscript(p(HGNC:MYT1)) -> g(HGNC:CYP46A1)
+
+UNSET Disease
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Neurobiol Aging. 2011 Sep;32(9):1607-14. Epub 2009 Nov 18","19926167"}
+
+SET Evidence="Cathepsin D (CTSD) is a gene involved in amyloid precursor protein processing and is considered a\
+candidate for Alzheimer's disease (AD).This association was predominantly found in APOE e4 noncarriers. A\
+meta-analysis of previously published data showed a significantly increased risk of AD in carriers of the T-allele\
+of rs17571 (OR 1.22, 95% CI 1.03-1.44), irrespective of APOE e4 carrier status. This study adds to the evidence that\
+CTSD increases the risk of AD, although the effect size is moderate."
+
+SET Confidence = "Very High"
+SET Subgraph = "Endosomal lysosomal subgraph"
+p(HGNC:CTSD) -- deg(p(HGNC:APP))
+p(HGNC:CTSD) -- p(HGNC:APP, frag(672_713))
+SET Disease = "Alzheimer's disease"
+g(DBSNP:rs17571) pos path(MESH:"Alzheimer Disease")
+UNSET Disease
+
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Transl Psychiatry. 2011 Jul 1;1(7). pii: e18","21892414"}
+
+SET Evidence="These results suggest a biological mechanism for the genetic association of CLU with AD risk and\
+indicate rs9331888 is one of the functional DNA variants underlying this association."
+
+SET Disease = "Alzheimer's disease"
+
+SET Subgraph = "Endosomal lysosomal subgraph"
+p(HGNC:CLU) pos path(MESH:"Alzheimer Disease")
+g(DBSNP:rs9331888) pos path(MESH:"Alzheimer Disease")
+
+UNSET Disease
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Neurosci Lett. 2012 Feb 21;510(1):6-9. Epub 2012 Jan 8","22244847"}
+
+SET Evidence="Variation in the complement receptor 1 gene (CR1) has been identified in recent genome-wide\
+association studies as a risk factor for Alzheimer's disease. Here, we show that two Alzheimer's disease-associated\
+CR1 variants, rs6656401 and rs3818361, are associated with major recurrent depression in females"
+
+# major recurrent depression = major depressive disorder, not synaptic depression. So technically it's not healthy state
+
+SET Subgraph = "Complement system subgraph"
+p(HGNC:CR1) -> bp(GO:"long-term synaptic depression")
+g(DBSNP:rs6656401) -> bp(GO:"long-term synaptic depression")
+g(DBSNP:rs3818361) -> bp(GO:"long-term synaptic depression")
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Neurology. 2012 Jan 31;78(5):334-41. Epub 2012 Jan 18","22262751"}
+
+SET Evidence="The CR1 variant rs6656401 influences risk and recurrence of CAA-ICH, as well as the severity of\
+vascular amyloid deposition"
+
+SET Disease = "Alzheimer's disease"
+
+SET Subgraph = {"Amyloidogenic subgraph","Complement system subgraph"}
+SET Confidence = "Medium"
+g(DBSNP:rs6656401) -- a(CHEBI:"amyloid-beta")
+
+UNSET Disease
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "22410445"}
+
+SET Evidence="Our studies identified a SORL1 haplotype in the 3' gene region consisting of single-nucleotide\
+polymorphisms rs1699102 and rs2070045 that is associated with poor receptor expression in the brain of patients\
+with Alzheimer disease. "
+
+SET Disease = "Alzheimer's disease"
+SET MeSHAnatomy="Brain"
+
+SET Subgraph = "Low density lipoprotein subgraph"
+
+SET Confidence="Medium"
+g(HGNC:SORL1) -- bp(GO:"pre-B cell receptor expression")
+UNSET Confidence
+
+SET Confidence="High"
+g(DBSNP:rs1699102) -| bp(GO:"pre-B cell receptor expression")
+g(DBSNP:rs2070045) -| bp(GO:"pre-B cell receptor expression")
+UNSET Confidence
+
+UNSET Subgraph
+
+UNSET MeSHAnatomy
+UNSET Disease
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Hum Genet. 2012 Mar 1. [Epub ahead of print]","22382309"}
+
+SET Evidence="Our data revealed the allele (T) of the rs3865444 polymorphism of the CD33 gene and the allele (C)\
+of the rs610932 polymorphism of the MS4A6A gene may contribute to AD risk in the Chinese Han population."
+
+SET Disease = "Alzheimer's disease"
+
+SET Subgraph = "Immunoglobulin subgraph"
+g(HGNC:CD33) pos path(MESH:"Alzheimer Disease")
+g(DBSNP:rs3865444) pos path(MESH:"Alzheimer Disease")
+g(HGNC:CD33) -- g(DBSNP:rs3865444)
+g(HGNC:MS4A6A) pos path(MESH:"Alzheimer Disease")
+g(DBSNP:rs610932) pos path(MESH:"Alzheimer Disease")
+g(HGNC:MS4A6A) -- g(DBSNP:rs610932)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Neurol Sci. 2011 Dec 14. [Epub ahead of print]","22167654"}
+
+SET Evidence="Our results support the view that rs10868366 and rs7019241 in GOLPH2 and rs3826656 in near gene 5'\
+region of CD33 are significantly associated with SAD in the north Chinese Han population."
+
+SET Disease = "Alzheimer's disease"
+
+SET Subgraph = "Immunoglobulin subgraph"
+g(HGNC:CD33) pos path(MESH:"Alzheimer Disease")
+g(DBSNP:rs3826656) pos path(MESH:"Alzheimer Disease")
+g(HGNC:CD33) -- g(DBSNP:rs3826656)
+g(HGNC:GOLM1) pos path(MESH:"Alzheimer Disease")
+#golgi membrane protein 1
+SET Subgraph = "Endoplasmic reticulum-Golgi protein export"
+g(DBSNP:rs10868366) pos path(MESH:"Alzheimer Disease")
+g(DBSNP:rs7019241) pos path(MESH:"Alzheimer Disease")
+g(HGNC:GOLM1) -- g(DBSNP:rs10868366)
+g(HGNC:GOLM1) -- g(DBSNP:rs7019241)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Alzheimer Dis Assoc Disord. 2011 Jul-Sep;25(3):283-5","21285854"}
+
+SET Evidence="Our findings implicate an association between genetic variations of GAB2 and AD in Han Chinese, and\
+the minor alleles of the 3 tested SNPs (rs4945261, rs7101429, and rs7115850) might increase the risk of AD"
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = {"Akt subgraph","Phosphatidylinositol 3 subgraph"}
+g(HGNC:GAB2) -- path(MESH:"Alzheimer Disease")
+g(HGNC:GAB2) -- g(DBSNP:rs4945261)
+g(HGNC:GAB2) -- g(DBSNP:rs7101429)
+g(HGNC:GAB2) -- g(DBSNP:rs7115850)
+g(DBSNP:rs4945261) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs7101429) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs7115850) -- path(MESH:"Alzheimer Disease")
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Arch Neurol. 2011 Dec;68(12):1569-79","22159054"}
+
+SET Evidence="Several significant single-nucleotide polymorphisms (SNPs) were observed in the region of the\
+apolipoprotein E gene (APOE). After adjusting for the confounding effects of APOE genotype, one of these SNPs,\
+rs6859 in PVRL2, remained significantly associated with AD (P = .0087). Association was also observed with SNPs\
+in CLU, PICALM, BIN1, EPHA1, MS4A, ABCA7, and CD33, although the effect direction for some SNPs and the most\
+significant SNPs differed from findings in data sets consisting of whites."
+
+SET Disease = "Alzheimer's disease"
+p(HGNC:NECTIN2) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs6859) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "APOE subgraph"
+p(HGNC:APOE) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Endosomal lysosomal subgraph"
+p(HGNC:CLU) -- path(MESH:"Alzheimer Disease")
+p(HGNC:PICALM) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Synaptic vesicle endocytosis subgraph"
+p(HGNC:BIN1) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Regulation of actin cytoskeleton subgraph"
+p(HGNC:EPHA1) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Immunoglobulin subgraph"
+p(HGNC:MS4A7) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "ATP binding cassette transport subgraph"
+p(HGNC:ABCA7) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Immunoglobulin subgraph"
+p(HGNC:CD33) -- path(MESH:"Alzheimer Disease")
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Mol Psychiatry. 2011 Oct 18. doi: 10.1038/mp.2011.125. [Epub ahead of print]","22005930"}
+
+SET Evidence="SNPs upstream of SLC2A9 (rs6834555, P=3.0 x 10(-7)) and within VSNL1 (rs4038131, P=5.9 x 10(-7))\
+showed strongest evidence for association with AD+P when compared with controls."
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = "Nucleoside salvage subgraph"
+g(HGNC:SLC29A2) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs6834555) -- path(MESH:"Alzheimer Disease")
+g(HGNC:SLC29A2) -- g(DBSNP:rs6834555)
+g(HGNC:VSNL1) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs4038131) -- path(MESH:"Alzheimer Disease")
+g(HGNC:VSNL1) -- g(DBSNP:rs4038131)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Nat Genet. 2011 May;43(5):429-35. Epub 2011 Apr 3.","21460840"}
+
+SET Evidence="Meta-analyses of all data provided compelling evidence that ABCA7 (rs3764650, meta P = 4.5 x 10(-17);\
+including ADGC data, meta P = 5.0 x 10(-21)) and the MS4A gene cluster (rs610932, meta P = 1.8 x 10(-14);\
+including ADGC data, meta P = 1.2 x 10(-16)) are new Alzheimer's disease susceptibility loci"
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = "ATP binding cassette transport subgraph"
+g(HGNC:ABCA7) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs3764650) -- path(MESH:"Alzheimer Disease")
+g(HGNC:ABCA7) -- g(DBSNP:rs3764650)
+SET Subgraph = "Innate immune system subgraph"
+g(HGNC:MS4A1) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs610932) -- path(MESH:"Alzheimer Disease")
+g(HGNC:MS4A1) -- g(DBSNP:rs610932)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "BMC Med Genomics. 2008 Sep 29;1:44.","18823527"}
+
+SET Evidence="Five of seven tag SNPs chosen to cover LRAT showed significant association with LOAD with a SNP in\
+intron 2 of LRAT, showing greatest evidence of association (rs201825, p-value = 6.1 x 10-7)."
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = "Vitamin subgraph"
+g(HGNC:LRAT) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs201825) -- path(MESH:"Alzheimer Disease")
+g(HGNC:LRAT) -- g(DBSNP:rs201825)
+
+SET Evidence="To further test these associations, we added control data from 1400 subjects from the 1958 Birth\
+Cohort with the evidence for association increasing to 3.4 x 10-6 for our strongest finding, rs727153"
+
+g(DBSNP:rs727153) -- path(MESH:"Alzheimer Disease")
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "19734902"}
+
+SET Evidence="In stage 1 (3,941 cases and 7,848 controls), we replicated the established association with the\
+apolipoprotein E (APOE) locus (most significant SNP, rs2075650, P = 1.8 x 10(-157)) and observed genome-wide\
+significant association with SNPs at two loci not previously associated with the disease: at the CLU (also known\
+as APOJ) gene (rs11136000, P = 1.4 x 10(-9)) and 5' to the PICALM gene (rs3851179, P = 1.9 x 10(-8)).These\
+associations were replicated in stage 2 (2,023 cases and 2,340 controls), producing compelling evidence for\
+association with Alzheimer's disease in the combined dataset (rs11136000, P = 8.5 x 10(-10), odds ratio = 0.86;\
+rs3851179, P = 1.3 x 10(-9), odds ratio = 0.86)."
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = "Phosphatidylinositol 3 subgraph"
+
+SET Confidence="High"
+g(HGNC:PICALM) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs3851179) -- path(MESH:"Alzheimer Disease")
+g(HGNC:PICALM) -- g(DBSNP:rs3851179)
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = "APOE subgraph"
+
+SET Confidence="High"
+g(HGNC:APOE) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs2075650) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs2075650) -- g(HGNC:APOE)
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = "Endosomal lysosomal subgraph"
+
+SET Confidence="High"
+g(HGNC:CLU) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs11136000) -- path(MESH:"Alzheimer Disease")
+g(HGNC:CLU) -- g(DBSNP:rs11136000)
+UNSET Confidence
+
+UNSET Subgraph
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Nat Genet. 2009 Oct;41(10):1094-9. Epub 2009 Sep 6.","19734903"}
+
+SET Evidence="Two loci gave replicated evidence of association: one within CLU (also called APOJ), encoding\
+clusterin or apolipoprotein J, on chromosome 8 (rs11136000, OR = 0.86, 95% CI 0.81-0.90, P = 7.5 x 10(-9) for\
+combined data) and the other within CR1, encoding the complement component (3b/4b) receptor 1, on chromosome 1\
+(rs6656401, OR = 1.21, 95% CI 1.14-1.29, P = 3.7 x 10(-9) for combined data)."
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = "Endosomal lysosomal subgraph"
+g(HGNC:CLU) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs6656401) -- path(MESH:"Alzheimer Disease")
+g(HGNC:CLU) -- g(DBSNP:rs6656401)
+SET Subgraph = "APOE subgraph"
+g(HGNC:APOE) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs11136000) -- path(MESH:"Alzheimer Disease")
+g(HGNC:APOE) -- g(DBSNP:rs11136000)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Nat Genet. 2009 Feb;41(2):192-8. Epub 2009 Jan 11","19136949"}
+
+SET Evidence="we identified a SNP (rs5984894) on Xq21.3 in PCDH11X that is strongly associated with LOAD in\
+individuals of European descent from the United States"
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = "Cell-cell communication subgraph"
+g(HGNC:PCDH11X) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs5984894) -- path(MESH:"Alzheimer Disease")
+g(HGNC:PCDH11X) -- g(DBSNP:rs5984894)
+UNSET Subgraph
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Am J Hum Genet. 2009 Jan;84(1):35-43.","19118814"}
+
+SET Evidence="We have shown a genome-wide significant association between the 12q13 SNP rs11610206 and late-onset\
+Alzheimer disease"
+
+SET Disease = "Alzheimer's disease"
+g(HGNC:FAM13B) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs11610206) -- path(MESH:"Alzheimer Disease")
+g(HGNC:FAM13B) -- g(DBSNP:rs11610206)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Am J Hum Genet. 2008 Nov;83(5):623-32. Epub 2008 Oct 30","18976728"}
+
+SET Evidence="Moreover, for the SNP exhibiting the strongest and most consist family-based association with AD in\
+our analyses, rs11159647"
+
+SET Disease = "Alzheimer's disease"
+g(DBSNP:rs11159647) -- path(MESH:"Alzheimer Disease")
+
+SET Evidence="One of these signals (p = 5.7 x 10(-14)) was elicited by SNP rs4420638 and probably reflects\
+APOE-epsilon4, which maps 11 kb proximal (r2 = 0.78)"
+
+g(DBSNP:rs4420638) -- path(MESH:"Alzheimer Disease")
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "17975299"}
+
+SET Evidence="polymorphisms across the neuronal sortilin-related receptor (SORL1) gene were shown to be significantly associated with AD in several cohorts"
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = "Low density lipoprotein subgraph"
+
+SET Confidence="High"
+g(HGNC:SORL1) -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+UNSET Subgraph
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Mol Psychiatry. 2011 Oct 18. doi: 10.1038/mp.2011.135. [Epub ahead of print]","22005931"}
+
+SET Evidence="The most significant SNP outside the APOE region was located in the DCHS2 gene on chromosome 4q31.3\
+(rs1466662; P=4.95E-07)."
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = "Cell adhesion subgraph"
+g(HGNC:DCHS2) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs1466662) -- path(MESH:"Alzheimer Disease")
+g(HGNC:DCHS2) -- g(DBSNP:rs1466662)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Genome Med. 2011 May 31;3(5):33","21627779"}
+
+SET Evidence="Several signals belonged to known AD loci: APOE with eight SNPs, PICALM (three SNPS, the most\
+significant being rs536841, P = 2.96E-9), CLU (rs569214, P = 4.11E-8), and BIN1 (rs744373, P = 2.13E-9). Most\
+important, we found four SNPs that belong to a region in chromosome 11q12 not previously reported as GWAS\
+significant for AD."
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = "Synaptic vesicle endocytosis subgraph"
+g(HGNC:BIN1) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs744373) -- path(MESH:"Alzheimer Disease")
+g(HGNC:BIN1) -- g(DBSNP:rs744373)
+SET Subgraph = "Endosomal lysosomal subgraph"
+g(HGNC:CLU) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs569214) -- path(MESH:"Alzheimer Disease")
+g(HGNC:CLU) -- g(DBSNP:rs569214)
+SET Subgraph = "Phosphatidylinositol 3 subgraph"
+g(HGNC:PICALM) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs536841) -- path(MESH:"Alzheimer Disease")
+g(HGNC:PICALM) -- g(DBSNP:rs536841)
+
+SET Evidence="Meta-analysis of our data and independent replication datasets allowed us to confirm a novel\
+genome-wide significant association of AD with the membrane-spanning 4-domains subfamily A (MS4A) gene cluster\
+(rs1562990, P = 4.40E-11, odds ratio = 0.88, 95% confidence interval 0.85 to 0.91, n = 10,181 cases and 14,341\
+controls)"
+
+#:g(HGNC:MSA4A) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs1562990) -- path(MESH:"Alzheimer Disease")
+#*g(HGNC:MSA4A) -- g(DBSNP:rs1562990)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "JAMA. 2010 May 12;303(18):1832-40","20460622"}
+
+SET Evidence="In stage 3, genome-wide significant evidence for association with AD was reached at the APOE\
+(rs2075650; p=1.04x10-295),"
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = "APOE subgraph"
+g(HGNC:APOE) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs2075650) -- path(MESH:"Alzheimer Disease")
+g(HGNC:APOE) -- g(DBSNP:rs2075650)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "J Alzheimers Dis. 2010;19(1):69-77","20061627"}
+
+SET Evidence="After correction for population stratification using the Eigenstrat method [19,22], there was no\
+indication of any elevation of association due to stratification (Fig. 1) and only one SNP in the TOMM40 gene,\
+located upstream of APOE e4 gene, achieved genome-wide significance "
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = "Mitochondrial translocation subgraph"
+g(HGNC:TOMM40) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs2075650) -- path(MESH:"Alzheimer Disease")
+g(HGNC:TOMM40) -- g(DBSNP:rs2075650)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Nat Genet. 2011 May;43(5):436-41. Epub 2011 Apr 3","21460841"}
+
+SET Evidence="We obtained genome-wide significant results at MS4A4A (rs4938933; stages 1 and 2, meta-analysis P\
+(P(M)) = 1.7 x 10(-9), joint analysis P (P(J)) = 1.7 x 10(-9); stages 1, 2 and 3, P(M) = 8.2 x 10(-12)), CD2AP\
+(rs9349407; stages 1, 2 and 3, P(M) = 8.6 x 10(-9)), EPHA1 (rs11767557; stages 1, 2 and 3, P(M) = 6.0 x 10(-10))\
+and CD33 (rs3865444; stages 1, 2 and 3, P(M) = 1.6 x 10(-9)). We also replicated previous associations at CR1\
+(rs6701713; P(M) = 4.6 x 10(-10), P(J) = 5.2 x 10(-11)), CLU (rs1532278; P(M) = 8.3 x 10(-8), P(J) = 1.9 x 10(-8)),\
+BIN1 (rs7561528; P(M) = 4.0 x 10(-14), P(J) = 5.2 x 10(-14)) and PICALM (rs561655; P(M) = 7.0 x 10(-11), P(J) = 1.0 x 10(-10))"
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = "Phosphatidylinositol 3 subgraph"
+g(HGNC:PICALM) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs5616655) -- path(MESH:"Alzheimer Disease")
+g(HGNC:PICALM) -- g(DBSNP:rs5616655)
+
+g(HGNC:MS4A4A) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs4938933) -- path(MESH:"Alzheimer Disease")
+g(HGNC:MS4A4A) -- g(DBSNP:rs4938933)
+SET Subgraph = "Synaptic vesicle endocytosis subgraph"
+g(HGNC:BIN1) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs7561528) -- path(MESH:"Alzheimer Disease")
+g(HGNC:BIN1) -- g(DBSNP:rs7561528)
+SET Subgraph = "Complement system subgraph"
+g(HGNC:CR1) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs6701713) -- path(MESH:"Alzheimer Disease")
+g(HGNC:CR1) -- g(DBSNP:rs6701713)
+SET Subgraph = "Immunoglobulin subgraph"
+g(HGNC:CD33) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs3865444) -- path(MESH:"Alzheimer Disease")
+g(HGNC:CD33) -- g(DBSNP:rs3865444)
+SET Subgraph = {"Endosomal lysosomal subgraph","Regulation of actin cytoskeleton subgraph"}
+g(HGNC:CD2AP) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs9349407) -- path(MESH:"Alzheimer Disease")
+g(HGNC:CD2AP) -- g(DBSNP:rs9349407)
+SET Subgraph = "Akt subgraph"
+g(HGNC:EPHA1) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs11767557) -- path(MESH:"Alzheimer Disease")
+g(HGNC:EPHA1) -- g(DBSNP:rs11767557)
+SET Subgraph = "Endosomal lysosomal subgraph"
+g(HGNC:CLU) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs1532278) -- path(MESH:"Alzheimer Disease")
+g(HGNC:CLU) -- g(DBSNP:rs1532278)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "PLoS One. 2011 Feb 24;6(2):e16616","21390209"}
+
+SET Evidence="We combined our data with the published Harold et al. study and meta-analysis with all available\
+6521 cases and 10360 controls at the BIN1 locus revealed two significant variants (rs12989701, p?=?1.32E-10 and\
+rs744373, p?=?3.16E-10) in limited linkage disequilibrium (rÂ²? =? 0.05) with each other."
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = "Synaptic vesicle endocytosis subgraph"
+g(HGNC:BIN1) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs12989701) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs12989701) -- g(HGNC:BIN1)
+g(HGNC:BIN1) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs744373) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs744373) -- g(HGNC:BIN1)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "PLoS Genet. 2011 Feb;7(2):e1001308. Epub 2011 Feb 17","21379329"}
+
+SET Evidence="Analyses that stratified on APOE genotypes identified SNPs on chromosome 10p14 in CUGBP2 with\
+genome-wide significant evidence for association within APOE e4 homozygotes (e.g., rs201119, p?=?1.5x10(-8)).\
+Association in this gene was replicated in an independent sample consisting of three cohorts. There was evidence\
+of association for recently-reported LOAD risk loci, including BIN1 (rs7561528, p?=?0.009 with, and p?=?0.03\
+without, APOE adjustment) and CLU (rs11136000, p?=?0.023 with, and p?=?0.008 without, APOE adjustment), with\
+weaker support for CR1. However, our results provide strong evidence that association with PICALM (rs3851179,\
+p?=?0.69 with, and p?=?0.039 without, APOE adjustment) "
+
+SET Disease = "Alzheimer's disease"
+g(HGNC:CELF2) -- path(MESH:"Alzheimer Disease") # CUGBP2=CELF2
+g(DBSNP:rs201119) -- path(MESH:"Alzheimer Disease")
+g(HGNC:CELF2) -- g(DBSNP:rs201119)
+SET Subgraph = "Phosphatidylinositol 3 subgraph"
+g(HGNC:PICALM) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs3851179) -- path(MESH:"Alzheimer Disease")
+g(HGNC:PICALM) -- g(DBSNP:rs3851179)
+SET Subgraph = "Endosomal lysosomal subgraph"
+g(HGNC:CLU) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs11136000) -- path(MESH:"Alzheimer Disease")
+g(HGNC:CLU) -- g(DBSNP:rs11136000)
+SET Subgraph = "Synaptic vesicle endocytosis subgraph"
+g(HGNC:BIN1) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs7561528) -- path(MESH:"Alzheimer Disease")
+g(HGNC:BIN1) -- g(DBSNP:rs7561528)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "PLoS Genet. 2010 Sep 23;6(9). pii: e1001130","20885792"}
+
+SET Evidence="As expected, these analyses unequivocally confirmed APOE's risk effect (rs2075650, P=1.9x10(-36)).\
+Additionally, the SNP rs11754661 at 151.2 Mb of chromosome 6q25.1 in the gene MTHFD1L (which encodes the\
+methylenetetrahydrofolate dehydrogenase (NADP+ dependent) 1-like protein) was significantly associated with LOAD\
+(P=4.70x10(-8);"
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = "APOE subgraph"
+g(HGNC:APOE) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs2075650) -- path(MESH:"Alzheimer Disease")
+g(HGNC:APOE) -- g(DBSNP:rs2075650)
+UNSET Subgraph
+g(HGNC:MTHFD1L) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs11754661) -- path(MESH:"Alzheimer Disease")
+g(HGNC:MTHFD1L) -- g(DBSNP:rs11754661)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Neuron. 2007 Jun 7;54(5):713-20","17553421"}
+
+SET Evidence="LOAD was associated with six SNPs from the GRB-associated binding protein 2 (GAB2) gene and a common\
+haplotype encompassing the entire GAB2 gene. SNP rs2373115 (p = 9 x 10(-11)) was associated with an odds ratio of\
+4.06 (confidence interval 2.81-14.69), which interacts with APOE epsilon4 to further modify risk."
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = {"Akt subgraph","Phosphatidylinositol 3 subgraph"}
+g(HGNC:GAB2) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs2373115) -- path(MESH:"Alzheimer Disease")
+g(HGNC:GAB2) -- g(DBSNP:rs2373115)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "J Clin Psychiatry. 2007 Apr;68(4):613-8.","17474819"}
+
+SET Evidence="SNP rs4420638 on chromosome 19, located 14 kilobase pairs distal to the APOE epsilon variant,\
+significantly distinguished between AD cases and controls (Bonferroni corrected p value = 5.30 x 10(-34),\
+OR = 4.01) and was far more strongly associated with the risk of AD than any other SNP of the 502,627 tested."
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = "APOE subgraph"
+g(HGNC:APOE) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs4420638) -- path(MESH:"Alzheimer Disease")
+g(HGNC:APOE) -- g(DBSNP:rs4420638)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Neurology. 2011 Jan 4;76(1):69-79. Epub 2010 Dec 1","21123754"}
+
+SET Evidence="rs429358 SNP (APOE) was associated (corrected p < 0.01) with Abeta1-42, t-tau/Abeta1-42, and\
+p-tau181p/Abeta1-42. rs2075650 (TOMM40) was associated with Abeta1-42, t-tau/Abeta1-42, and p-tau181p/Abeta1-42. rs439401\
+(LOC100129500) was associated with Abeta1-42. rs4499362 (EPC2) was associated with t-tau."
+
+SET Disease = "Alzheimer's disease"
+SET Subgraph = "APOE subgraph"
+g(HGNC:APOE) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs429358) -- path(MESH:"Alzheimer Disease")
+g(HGNC:APOE) -- g(DBSNP:rs429358)
+SET Subgraph = "Mitochondrial translocation subgraph"
+g(HGNC:TOMM40) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs2075650) -- path(MESH:"Alzheimer Disease")
+g(HGNC:TOMM40) -- g(DBSNP:rs2075650)
+SET Subgraph = "Cell cycle subgraph"
+g(HGNC:EPC2) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs4499362) -- path(MESH:"Alzheimer Disease")
+g(HGNC:EPC2) -- g(DBSNP:rs4499362)
+
+UNSET Subgraph
+
+SET Evidence="In addition, we found that one SNP (rs7364180) in CCDC134 was associated with Abeta1-42 (uncorrected\
+p < 10-6). "
+
+g(HGNC:CCDC134) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs7364180) -- path(MESH:"Alzheimer Disease")
+g(HGNC:CCDC134) -- g(DBSNP:rs7364180)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "Biol Psychiatry. 2012 Sep 27. pii: S0006-3223(12)00725-1. doi: 10.1016/j.biopsych.2012.08.015. [Epub ahead of print]","23022416"}
+
+SET Evidence = "The rs3818361 single nucleotide polymorphism in complement component (3b/4b) receptor-1 (CR1) is associated with increased risk of Alzheimer's disease (AD). Although this novel variant is associated with a small effect size and is unlikely to be useful as a predictor of AD risk, it might provide insights into AD pathogenesis."
+
+SET Subgraph = "Complement system subgraph"
+g(HGNC:CR1) hasVariant g(DBSNP:rs3818361)
+
+SET Confidence="High"
+g(DBSNP:rs3818361) pos path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+UNSET Subgraph
+UNSET Evidence
+
+SET Evidence = "We examined the association between rs3818361 and brain amyloid deposition in nondemented older individuals. Risk allele carriers of rs3818361 have lower brain\
+amyloid burden relative to noncarriers. There is a strikingly greater variability in brain amyloid deposition in the noncarrier\
+group relative to risk carriers, an effect explained partly by APOE genotype. In noncarriers of the CR1 risk allele, APOE ε4\
+individuals showed significantly higher brain amyloid burden relative to APOE ε4 noncarriers. We also independently replicate\
+our observation of lower brain amyloid burden in risk allele carriers of rs3818361 in the Alzheimer's Disease Neuroimaging\
+Initiative sample.Our findings suggest complex mechanisms underlying the interaction of CR1, APOE, and brain amyloid pathways\
+in AD. Our results are relevant to treatments targeting brain Abeta in nondemented individuals at risk for AD and suggest that\
+clinical outcomes of such treatments might be influenced by complex gene-gene interactions."
+
+SET Subgraph = {"APOE subgraph", "Non-amyloidogenic subgraph"}
+SET Confidence = "Medium"
+composite(g(DBSNP:rs3818361), g(DBSNP:rs429358))
+composite(g(DBSNP:rs3818361), g(DBSNP:rs429358)) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs3818361) neg p(HGNC:APP, frag(672_713))
+UNSET Confidence
+UNSET Subgraph
+UNSET Evidence
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "22236693"}
+
+SET Evidence ="Degeneration of basal forebrain cholinergic neurons (BFCN) has shown to modulate cognitive function in AD patients [3,4]. Nerve growth factor receptor (NGFR, also called p75NTR) is one of the receptors of NGF and is expressed at the \
+end of cholinergic axon [5,6]. The gene encoding NGFR is located on chromosome 17q21-q22. In normal brain, NGFR regulates tyrosine kinase receptor type 1 (TrkA), another receptor of NGF, and induces the signaling of neuronal cell survival [7,8]. \
+In contrast, in AD brain, NGFR acts as a proapoptotic receptor in neuron cell death via binding to amyloid-beta (Abeta), NGF, or proNGF [9,10]. As a whole, NGFR plays multiple roles (survival and apoptotic process) in human brain, dependent on the cellular context."
+
+SET MeSHAnatomy= {"Brain","Cholinergic Neurons"}
+SET Disease = "Alzheimer's disease"
+
+SET Confidence="Medium"
+deg(a(MESH:"Cholinergic Neurons")) reg bp(GO:cognition)
+UNSET Confidence
+UNSET Disease
+UNSET MeSHAnatomy
+
+SET MeSHAnatomy= {"Brain","Neurons"}
+
+SET Subgraph = "Nerve growth factor subgraph"
+
+SET Confidence="Medium"
+p(HGNC:NGFR) reg act(p(HGNC:NTRK1))
+## NTRK1 = TRKA
+p(HGNC:NGFR) positiveCorrelation bp(MESH:"Cell Survival")
+UNSET Confidence
+
+UNSET Subgraph
+UNSET MeSHAnatomy
+
+SET Disease = "Alzheimer's disease"
+SET MeSHAnatomy= "Brain"
+SET Subgraph = {"Nerve growth factor subgraph","Amyloidogenic subgraph"}
+SET Confidence = "Medium"
+p(HGNC:NGFR) -> complex(p(HGNC:NGFR),a(CHEBI:"amyloid-beta"))
+SET Subgraph = "Nerve growth factor subgraph"
+p(HGNC:NGFR) -> complex(p(HGNC:NGFR),p(HGNC:NGF))
+p(HGNC:NGFR) -- bp(GO:"regulation of cell death")
+UNSET MeSHAnatomy
+UNSET Disease
+
+SET Evidence ="Cozza et al. found that variant rs2072446 was associated with a significantly decreased risk of familial AD [additive model: odds ratio (OR) = 0.28] [11]. However, no association was observed for other NGFR SNPs (rs741072, rs2072446, \
+rs2072445, and rs734194) and the risk of sporadic AD [11]. In addition, type 2 DM has been related to the change of NGFR expression in rat brain [12] and cognitive impairment and dementia in the elderly [13-15]"
+
+SET Subgraph = "Nerve growth factor subgraph"
+g(HGNC:NGFR) -- g(DBSNP:rs2072446)
+g(DBSNP:rs2072446) negativeCorrelation path(MESH:"Alzheimer Disease")
+g(HGNC:NGFR) -- g(DBSNP:rs741072)
+g(HGNC:NGFR) -- g(DBSNP:rs2072446)
+g(HGNC:NGFR) -- g(DBSNP:rs2072445)
+g(HGNC:NGFR) -- g(DBSNP:rs734194)
+
+SET MeSHAnatomy= "Brain"
+SET Species = "10116"
+SET Subgraph = {"Nerve growth factor subgraph","Insulin signal transduction"}
+g(RGD:Ngfr) -- path(MESH:"Diabetes Mellitus, Type 2")
+UNSET MeSHAnatomy
+UNSET Species
+#
+SET Disease = "type 2 diabetes mellitus"
+g(HGNC:NGFR) negativeCorrelation bp(GO:cognition)
+g(HGNC:NGFR) -- path(MESH:Dementia)
+UNSET Disease
+
+SET Evidence = "For NGFR SNPs, in ApoE ε4 non-carriers without type 2 DM, variant rs2072446 was associated with an increased risk of AD (TT+TC vs. CC: OR = 2.18, 95% CI = 1.19-4.00) (Table (Table5).5). In contrast, variant rs734194 was associated with \
+(Pinteraction = 0.007 and 0.04, Table Table5).5). Except the interaction between type 2 DM and NGFR rs2072446 among ApoE ε4 non-carriers, other results were not significant after controlling for FDR."
+SET Subgraph = "APOE subgraph"
+g(DBSNP:rs2072446) positiveCorrelation path(MESH:"Alzheimer Disease")
+g(DBSNP:rs741072) positiveCorrelation path(MESH:"Alzheimer Disease")
+#
+SET Subgraph = "APOE subgraph"
+SET Disease = "type 2 diabetes mellitus"
+g(DBSNP:rs734194) negativeCorrelation path(MESH:"Alzheimer Disease")
+UNSET Disease
+#
+SET Evidence ="We found that NGFR rs734194 was significantly associated with a decreased risk of AD, but this was not observed in the only previous study in an Italian population"
+#
+g(DBSNP:rs734194) negativeCorrelation path(MESH:"Alzheimer Disease")
+#
+SET Evidence ="Cholinergic hypothesis [3,4] has been used to elucidate the role of NGFR in AD pathogenesis because of selective loss of BFCN observed in AD patients. That is, elevated expression of NGFR and decreased TrkA may activate neuron apoptosis \
+of NGFR on BFCN and thus reduce the interaction of NGFR with Abeta and proNGF, which lower the neurotoxicity and apoptosis of BFCN. All together, these mechanisms may explain the protective effect of NGFR rs734194 on the risk of AD observed in this study."
+
+######ask how to represent variation of SNPs########
+#
+SET Disease = "Alzheimer's disease"
+SET MeSHAnatomy="Neurons"
+
+SET Subgraph = {"Nerve growth factor subgraph","Apoptosis signaling subgraph"}
+
+SET Confidence="High"
+g(HGNC:NGFR) -> bp(GO:"apoptotic process")
+UNSET Confidence
+
+SET Confidence="High"
+p(HGNC:NTRK1) negativeCorrelation bp(GO:"apoptotic process")
+UNSET Confidence
+
+SET Confidence="High"
+complex(p(HGNC:NGFR),p(HGNC:APP, frag(672_713))) -> bp(GO:"apoptotic process")
+UNSET Confidence
+
+UNSET Subgraph
+UNSET MeSHAnatomy
+UNSET Disease
+#
+SET Subgraph = "Nerve growth factor subgraph"
+
+SET Confidence="High"
+g(DBSNP:rs734194) -- bp(GO:"regulation of mRNA stability")
+g(DBSNP:rs734194) -- bp(GO:"regulation of translation")
+g(DBSNP:rs734194) -| act(g(HGNC:NGFR))
+g(DBSNP:rs734194) -| complex(p(HGNC:NGFR),p(HGNC:NGF))
+g(DBSNP:rs734194) -| complex(p(HGNC:NGFR),p(HGNC:APP, frag(672_713)))
+
+SET MeSHAnatomy= {"Brain","Cholinergic Neurons"}
+g(DBSNP:rs734194) -| p(HGNC:NGFR)
+UNSET MeSHAnatomy
+UNSET Confidence
+
+UNSET Subgraph
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "J Neurol Sci. 2011 Jan 15;300(1-2):28-32. doi: 10.1016/j.jns.2010.10.009. Epub 2010 Nov 2."," 21047645"}
+
+SET Evidence ="We found that rs5848 SNP significantly influenced serum PGRN level, with TT\
+genotype having the lowest levels, and CC as the highest. This relationship is observed in\
+each of the subgroups. We also confirmed that GRN mutation carriers had significantly lower\
+serum PGRN levels than all other groups.The rs5848 polymorphism significantly influences\
+serum PGRN with TT carriers having a lower level of serum PGRN then CT and CC carriers. This\
+is consistent with the finding that miR-659 binding to the high risk T allele of rs5848 may\
+augment translational inhibition of GRN and alter risk of FTD and possibly other dementias."
+
+SET Subgraph = {"miRNA subgraph","Inflammatory response subgraph"}
+SET Confidence = "High"
+m(HGNC:MIR659) -| r(HGNC:GRN)
+g(DBSNP:rs5848) -- r(HGNC:GRN)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "J Alzheimers Dis. 2009;18(3):603-12. doi: 10.3233/JAD-2009-1170.","19625741"}
+
+SET Evidence="These data argue against a direct role of GRN as a susceptibility factor for\
+sporadic AD but support a role of GRN as a disease-modifying gene, possibly contributing to the\
+failure of neuronal survival."
+
+SET Subgraph = "Inflammatory response subgraph"
+SET Confidence = "High"
+r(HGNC:GRN) -> p(HGNC:GRN)
+p(HGNC:GRN) positiveCorrelation bp(GO:"neuron death")
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "29183403"}
+
+SET Evidence = "Rs142787485 in RAB10 confers significant protection against AD (p value = 0.0184, odds ratio = 0.5853). Moreover, we replicated this association in an independent series of unrelated individuals (p value = 0.028, odds ratio = 0.69) and used a gene-based test to confirm a role for RAB10 variants in modifying AD risk (p value = 0.002). Experimentally, we demonstrated that knockdown of RAB10 resulted in a significant decrease in Abeta42 (p value = 0.0003) and in the Abeta42/Abeta40 ratio (p value = 0.0001) in neuroblastoma cells. We also found that RAB10 expression is significantly elevated in human AD brains (p value = 0.04)."
+
+g(HGNC:RAB10) hasVariant g(DBSNP:rs142787485)
+g(DBSNP:rs142787485) neg path(MESH:"Alzheimer Disease")
+
+p(HGNC:RAB10) -> p(HGNC:APP, frag(672_713))
+p(HGNC:RAB10) pos path(MESH:"Alzheimer Disease")
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "21709374"}
+
+SET Evidence = "The oxidized LDL receptor 1 gene (OLR1) rs1050283 single nucleotide polymorphism (SNP) has been previously shown to be associated with Alzheimer's disease (AD). An association analysis of OLR1 was carried out in a population of 443 patients with AD as compared with 393 age-matched controls. In addition, an expression analysis of OLR1 and its regulatory hsa-miR369-3p was performed in peripheral mononuclear blood cells (PBMC) from 20 patients and 15 controls. Logistic regression analysis, adjusted for gender and apolipoprotein E (ApoE) status, showed a statistically significant association of OLR1 rs1050283 under the assumption of a dominant model (CC and CT individuals versus TT: p = 0.014, OR: 1.50, 95%CI: 1.08-2.08) and a genotypic model (TC versus TT: p = 0.002, OR: 1.61, 95%CI: 1.14-2.26). No significant differences in OLR1 expression was observed between patients and controls (p > 0.05). However, stratifying patients according to the rs1050283 status, significantly decreased relative PBMC expression levels of OLR1 were observed in carriers of CC+CT genotypes as compared with TT carriers (0.13 ÃƒbetaÃ‚Â± 0.013 versus 0.46 Ãƒâ€šÃ‚Â± 0.028, p = 0.022), whereas no differences in relative expression levels of the hsa-miR369-3p were observed (p > 0.05). The effect observed was not due to the presence of the ApoE ε4 allele. The OLR1 rs1050283 SNP likely acts as a risk factor for sporadic AD. The presence of at least one C allele is associated with a decreased expression of OLR1 mRNA in the absence of hsa-miR369-3p de-regulation, suggesting that the presence of the polymorphic allele influences the binding of hsa-miR369-3p to its 3'UTR consensus sequence. Nevertheless, the limited power of the study requires further investigations with a larger sample size."
+
+SET Subgraph = "Low density lipoprotein subgraph"
+
+SET Confidence="High"
+g(DBSNP:rs1050283) -- g(HGNC:OLR1)
+g(DBSNP:rs1050283) -- path(MESH:"Alzheimer Disease")
+#late onset...
+m(HGNC:MIR369) -- r(HGNC:OLR1)
+g(HGNC:OLR1) -> r(HGNC:OLR1)
+r(HGNC:OLR1) -> p(HGNC:OLR1)
+UNSET Confidence
+
+UNSET Subgraph
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "18191876"}
+
+SET Evidence = "A2M allele and genotype frequencies were similar between AD patients and controls, also after stratification for late onset (≥70 years) and early onset (<70 years) or APOE epsilon4 status. However, there was evidence in support of LD between the OLR1 + 1071, the OLR1 + 1073, and the rs669 SNPs, with T-C-A haplotype being associated with significant increased risk of AD in both the whole sample and when we stratified according to early and late onset AD subjects, with the allelic association with AD predominantly from the OLR1 + 1073 SNP, further supporting the role of OLR1 as a candidate risk gene for sporadic AD."
+
+SET Subgraph = {"Low density lipoprotein subgraph", "Alpha 2 macroglobulin subgraph"}
+
+SET Confidence="Medium"
+g(HGNC:A2M) causesNoChange path(MESH:"Alzheimer Disease")
+#rs12316150 = OLR1 + 1071
+g(DBSNP:rs12316150) -- path(MESH:"Alzheimer Disease")
+#rs1050283 = OLR1 + 1073
+g(DBSNP:rs1050283) -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+SET Confidence="High"
+g(DBSNP:rs669) -- path(MESH:"Alzheimer Disease")
+p(HGNC:OLR1) -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+UNSET Subgraph
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "19660836"}
+
+SET Evidence = "The PPAR-gamma TCCA haplotype derived from SNPs in introns 4 (rs4135263), 5 (rs1151999), and 6 (rs709149 and rs709154) showed a strong protective effect against AD"
+
+SET Subgraph = "Peroxisome proliferator activated receptor subgraph"
+
+SET Confidence="Medium"
+path(MESH:"Alzheimer Disease") neg g(DBSNP:rs4135263)
+path(MESH:"Alzheimer Disease") neg g(DBSNP:rs1151999)
+path(MESH:"Alzheimer Disease") neg g(DBSNP:rs709149)
+path(MESH:"Alzheimer Disease") neg g(DBSNP:rs709154)
+g(HGNC:PPARG) -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+UNSET Subgraph
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "21548758"}
+
+SET Evidence = "According to these findings, hnRNP-A1 and its transcription regulatory factor miR-590-3p are disregulated in patients with AD, and the hnRNP-A1 rs7967622 C/C genotype is likely a risk factor for FTLD in male populations."
+
+SET Subgraph = "miRNA subgraph"
+
+m(HGNC:MIR590) -- g(HGNC:HNRNPA1)
+g(DBSNP:rs7967622) -- g(HGNC:HNRNPA1)
+g(HGNC:HNRNPA1) -- path(MESH:"Alzheimer Disease")
+
+UNSET ALL
+############################################
+#######################################################
+###GWAS Mufassra
+
+SET Citation = {"PubMed", "24162737"}
+SET Disease = "Alzheimer's disease"
+
+SET Evidence = "GWAS Central"
+
+SET Subgraph = "Phosphatidylinositol 3 subgraph"
+
+SET Confidence="High"
+g(DBSNP:rs10792832) -- g(HGNC:PICALM)
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = "Endosomal lysosomal subgraph"
+
+SET Confidence="High"
+g(DBSNP:rs6733839) -- g(HGNC:BIN1)
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = "Regulation of actin cytoskeleton subgraph"
+
+SET Confidence="High"
+g(DBSNP:rs10948363) -- g(HGNC:CD2AP)
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = "Low density lipoprotein subgraph"
+
+SET Confidence="High"
+g(DBSNP:rs11218343) -- g(HGNC:SORL1)
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = "ATP binding cassette transport subgraph"
+
+SET Confidence="High"
+g(DBSNP:rs4147929) -- g(HGNC:ABCA7)
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = "Complement system subgraph"
+
+SET Confidence="High"
+g(DBSNP:rs6656401) -- g(HGNC:CR1)
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = "Nuclear factor Kappa beta subgraph"
+
+SET Confidence="Low"
+g(DBSNP:rs72807343) -- g(HGNC:SQSTM1)
+g(HGNC:SQSTM1) -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = "Endosomal lysosomal subgraph"
+
+SET Confidence="High"
+g(DBSNP:rs9331896) -- g(HGNC:CLU)
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = "Immunoglobulin subgraph"
+
+SET Confidence="High"
+g(DBSNP:rs3865444) -- g(HGNC:CD33)
+UNSET Confidence
+
+UNSET Subgraph
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "22832961"}
+SET Evidence = "GWAS Central"
+
+SET Subgraph = "Synaptic vesicle endocytosis subgraph"
+g(DBSNP:rs7561528) -- g(HGNC:BIN1)
+SET Subgraph = "Endosomal lysosomal subgraph"
+g(DBSNP:rs17817600) -- g(HGNC:PICALM)
+###############################################################################################################################
+
+SET Citation = {"PubMed", "22005930"}
+SET Evidence = "GWAS Central"
+SET Subgraph = {"Phosphatidylinositol 3 subgraph", "Endosomal lysosomal subgraph"}
+
+g(DBSNP:rs10792830) -- g(HGNC:PICALM)
+g(DBSNP:rs10207628) -- g(HGNC:BIN1)
+g(DBSNP:rs3764640) -- g(HGNC:STK11)
+g(HGNC:STK11) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs4038131) -- g(HGNC:VSNL1)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "21627779"}
+SET Evidence = "GWAS Central"
+SET Subgraph = "Endosomal lysosomal subgraph"
+
+g(DBSNP:rs1562990) -- g(HGNC:MS4A6A)
+g(DBSNP:rs536841) -- g(HGNC:PICALM)
+g(DBSNP:rs569214) -- g(HGNC:CLU)
+g(DBSNP:rs744373) -- g(HGNC:BIN1)
+SET Subgraph = "Mitochondrial translocation subgraph"
+g(DBSNP:rs157580) -- g(HGNC:TOMM40)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "21460841"}
+SET Evidence = "GWAS Central"
+SET Subgraph = "Immunoglobulin subgraph"
+g(DBSNP:rs4938933) -- g(HGNC:MS4A6A)
+SET Subgraph = "Endosomal lysosomal subgraph"
+g(DBSNP:rs561655) -- g(HGNC:PICALM)
+g(DBSNP:rs7561528) -- g(HGNC:BIN1)
+g(DBSNP:rs1532278) -- g(HGNC:CLU)
+SET Subgraph = "Complement system subgraph"
+g(DBSNP:rs6701713) -- g(HGNC:CR1)
+SET Subgraph = "Regulation of actin cytoskeleton subgraph"
+g(DBSNP:rs9349407) -- g(HGNC:CD2AP)
+SET Subgraph = "ATP binding cassette transport subgraph"
+g(DBSNP:rs3752246) -- g(HGNC:ABCA7)
+SET Subgraph = "Immunoglobulin subgraph"
+g(DBSNP:rs3865444) -- g(HGNC:CD33)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "21460840"}
+SET Evidence = "GWAS Central"
+SET Subgraph = "Endosomal lysosomal subgraph"
+g(DBSNP:rs744373) -- g(HGNC:BIN1)
+SET Subgraph = "ATP binding cassette transport subgraph"
+g(DBSNP:rs3764650) -- g(HGNC:ABCA7)
+SET Subgraph = "Complement system subgraph"
+g(DBSNP:rs3818361) -- g(HGNC:CR1)
+SET Subgraph = "Immunoglobulin subgraph"
+g(DBSNP:rs610932) -- g(HGNC:MS4A6A)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "21390209"}
+
+SET Evidence = "GWAS Central"
+
+SET Subgraph = "Endosomal lysosomal subgraph"
+g(DBSNP:rs12989701) -- g(HGNC:BIN1)
+UNSET Subgraph
+g(DBSNP:rs3934834) -- g(HGNC:AGRN)
+g(HGNC:AGRN) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Endosomal lysosomal subgraph"
+g(DBSNP:rs744373) -- g(HGNC:BIN1)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "21123754"}
+
+SET Evidence = "GWAS Central"
+
+SET Subgraph = "Cell cycle subgraph"
+g(DBSNP:rs2121433) -- g(HGNC:EPC2)
+SET Subgraph = "APOE subgraph"
+g(DBSNP:rs439401) -- g(HGNC:APOE)
+SET Subgraph = "Cell cycle subgraph"
+g(DBSNP:rs4499362) -- g(HGNC:EPC2)
+SET Subgraph = "Mitochondrial translocation subgraph"
+g(DBSNP:rs157580) -- g(HGNC:TOMM40)
+g(DBSNP:rs2075650) -- g(HGNC:TOMM40)
+SET Subgraph = "JAK-STAT signaling subgraph"
+g(DBSNP:rs7364180) -- g(HGNC:CCDC134)
+SET Subgraph = "APOE subgraph"
+g(DBSNP:rs429358) -- g(HGNC:APOE)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "19734902"}
+SET Evidence = "GWAS Central"
+
+SET Confidence="Low" #R: can't find the snps in article
+SET Subgraph = "miRNA subgraph"
+g(DBSNP:rs10052694) -- g(HGNC:MIR146A)
+g(HGNC:MIR146A) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Cytokine signaling subgraph"
+g(DBSNP:rs12090333) -- g(HGNC:CSF3R)
+g(HGNC:CSF3R) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Axonal guidance subgraph"
+g(DBSNP:rs12099529) -- g(HGNC:NAV3)
+SET Subgraph = "Gap junctions subgraph"
+g(DBSNP:rs17234657) -- g(HGNC:DAB2)
+g(HGNC:DAB2) -- path(MESH:"Alzheimer Disease")
+g(HGNC:DAB1) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Axonal guidance subgraph"
+g(DBSNP:rs1795977) -- g(HGNC:NAV3)
+UNSET Subgraph
+g(DBSNP:rs197196) -- g(HGNC:BTBD3)
+g(HGNC:BTBD3) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Cytokine signaling subgraph"
+g(DBSNP:rs2264802) -- g(HGNC:SKAP2)
+g(DBSNP:rs2462910) -- g(HGNC:SKAP2)
+g(DBSNP:rs2465271) -- g(HGNC:SKAP2)
+g(HGNC:SKAP2) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Axonal guidance subgraph"
+g(DBSNP:rs2710922) -- g(HGNC:NAV3)
+g(HGNC:NAV3) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Endosomal lysosomal subgraph"
+g(DBSNP:rs3851179) -- g(HGNC:PICALM)
+SET Subgraph = "miRNA subgraph"
+g(DBSNP:rs4921144) -- g(HGNC:MIR146A)
+SET Subgraph = "Cell cycle subgraph"
+g(DBSNP:rs527384) -- g(HGNC:MKI67)
+
+g(HGNC:MKI67) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs527384) -- g(HGNC:MKI67)
+g(DBSNP:rs540879) -- g(HGNC:MKI67)
+g(DBSNP:rs541392) -- g(HGNC:MKI67)
+SET Subgraph = "Inflammatory response subgraph"
+SET Confidence = "Low"
+g(DBSNP:rs639446) -- g(HGNC:ANXA1)
+g(HGNC:ANXA1) -- path(MESH:"Alzheimer Disease")
+#S: I was checking the paper and I am not able to finde anything to this
+SET Subgraph = "Sphingolipid metabolic subgraph"
+g(DBSNP:rs7023075) -- g(HGNC:SPTLC1)
+g(HGNC:SPTLC1) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "NMDA receptor"
+g(DBSNP:rs7467550) -- g(HGNC:GRIN3A)
+g(HGNC:GRIN3A) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs7668921) -- g(HGNC:STIM2)
+g(HGNC:STIM2) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "NMDA receptor"
+g(DBSNP:rs843287) -- g(HGNC:GRIN3A)
+g(DBSNP:rs860935) -- g(HGNC:GRIN3A)
+g(DBSNP:rs9313850) -- g(HGNC:MIR146A)
+SET Subgraph = "Glutamatergic subgraph"
+g(DBSNP:rs9404493) -- g(HGNC:GRIK2)
+g(HGNC:GRIK2) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Endosomal lysosomal subgraph"
+g(DBSNP:rs11136000) -- g(HGNC:CLU)
+SET Subgraph = "Mitochondrial translocation subgraph"
+g(DBSNP:rs2075650) -- g(HGNC:TOMM40)
+SET Subgraph = "Axonal guidance subgraph"
+g(DBSNP:rs10084692) -- g(HGNC:ROBO2)
+g(HGNC:ROBO2) -- path(MESH:"Alzheimer Disease")
+UNSET Subgraph
+g(DBSNP:rs10925500) -- g(HGNC:RYR2)
+g(HGNC:RYR2) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Reelin signaling subgraph"
+g(DBSNP:rs11206955) -- g(HGNC:DAB1)
+g(DBSNP:rs11810899) -- g(HGNC:DAB1)
+g(DBSNP:rs12035887) -- g(HGNC:DAB1)
+SET Subgraph = "Amyloidogenic subgraph"
+SET Confidence = "Medium"
+g(DBSNP:rs1217338) -- g(HGNC:APBA1)
+g(DBSNP:rs12212067) -- g(HGNC:FOXO3)
+UNSET Subgraph
+g(HGNC:FOXO3) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Mitochondrial translocation subgraph"
+g(DBSNP:rs17105095) -- g(HGNC:SLC25A21)
+g(HGNC:SLC25A21) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs17105125) -- g(HGNC:SLC25A21)
+g(DBSNP:rs17105164) -- g(HGNC:SLC25A21)
+SET Subgraph = "Calcium-dependent signal transduction"
+g(DBSNP:rs2596163) -- g(HGNC:RYR3)
+g(DBSNP:rs2676087) -- g(HGNC:RYR3)
+SET Subgraph = "Reelin signaling subgraph"
+g(DBSNP:rs362769) -- g(HGNC:RELN)
+g(HGNC:RELN) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs3754268) -- g(HGNC:DAB1)
+SET Subgraph = "Glutamatergic subgraph"
+g(DBSNP:rs540787) -- g(HGNC:GRIK4)
+g(HGNC:GRIK4) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Endosomal lysosomal subgraph"
+g(DBSNP:rs754107) -- g(HGNC:BIN1)
+SET Subgraph = "Amyloidogenic subgraph"
+SET Confidence = "Medium"
+g(DBSNP:rs7866199) -- g(HGNC:APBA1)
+g(HGNC:APBA1) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = "Calcium-dependent signal transduction"
+g(DBSNP:rs8026464) -- g(HGNC:RYR3)
+g(HGNC:RYR3) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs8064630) -- g(HGNC:ATP2A3)
+g(HGNC:ATP2A3) -- path(MESH:"Alzheimer Disease")
+
+SET Subgraph = "Axonal guidance subgraph"
+g(DBSNP:rs9309766) -- g(HGNC:ROBO2)
+g(DBSNP:rs9818075) -- g(HGNC:ROBO2)
+
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "23571587"}
+SET Evidence = "GWAS Central"
+SET Subgraph = "ATP binding cassette transport subgraph"
+g(DBSNP:rs115550680) -- g(HGNC:ABCA7)
+
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "23565137"}
+SET Evidence = "GWAS Central"
+SET Subgraph = "Low density lipoprotein subgraph"
+SET Confidence="High"
+g(DBSNP:rs11218343) -- g(HGNC:SORL1)
+UNSET Confidence
+UNSET Subgraph
+g(DBSNP:rs519113) -- g(HGNC:NECTIN2)
+
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "23562540"}
+SET Evidence = "GWAS Central"
+SET Subgraph = "APOE subgraph"
+g(DBSNP:rs769449) -- g(HGNC:APOE)
+g(DBSNP:rs769449) -- g(HGNC:APOE)
+
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "23535033"}
+SET Evidence = "GWAS Central"
+g(DBSNP:rs77636885) -- g(HGNC:CAMK4)
+g(HGNC:CAMK4) -- path(MESH:"Alzheimer Disease")
+SET Subgraph = {"Caspase subgraph", "Electron transport chain"}
+
+g(DBSNP:rs1861525) -- g(HGNC:CYCS)
+g(HGNC:CYCS) -- path(MESH:"Alzheimer Disease")
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "23419831"}
+
+SET Evidence = "GWAS Central"
+
+SET Subgraph = "Mitochondrial translocation subgraph"
+g(DBSNP:rs59007384) -- g(HGNC:TOMM40)
+SET Subgraph = "APOE subgraph"
+g(DBSNP:rs429358) -- g(HGNC:APOE)
+UNSET Subgraph
+g(DBSNP:rs6857) -- g(HGNC:NECTIN2)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "22430674"}
+
+SET Evidence = "GWAS Central"
+
+g(DBSNP:rs17314229) -- g(HGNC:FRMD4A)
+g(DBSNP:rs2446581) -- g(HGNC:FRMD4A)
+g(DBSNP:rs7081208) -- g(HGNC:FRMD4A)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "22159054"}
+
+SET Evidence = "GWAS Central"
+
+g(DBSNP:rs6859) -- g(HGNC:NECTIN2)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "22005931"}
+
+SET Evidence = "GWAS Central"
+
+SET Subgraph = "Cell adhesion subgraph"
+g(DBSNP:rs1466662) -- g(HGNC:DCHS2)
+UNSET Subgraph
+g(DBSNP:rs6857) -- g(HGNC:NECTIN2)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "18976728"}
+SET Evidence = "GWAS Central"
+SET Subgraph = "Immunoglobulin subgraph"
+
+g(DBSNP:rs3826656) -- g(HGNC:CD33)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "17553421"}
+
+SET Evidence = "GWAS Central"
+
+SET Subgraph = "Phosphatidylinositol 3 subgraph"
+g(DBSNP:rs2373115) -- g(HGNC:GAB2)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "18823527"}
+
+SET Evidence = "GWAS Central"
+
+g(DBSNP:rs6859) -- g(HGNC:NECTIN2)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "19125160"}
+
+SET Evidence = "GWAS Central"
+
+SET Subgraph = "Mitochondrial translocation subgraph"
+g(DBSNP:rs157580) -- g(HGNC:TOMM40)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "19136949"}
+
+SET Evidence = "GWAS Central"
+
+SET Subgraph = "Cell-cell communication subgraph"
+g(DBSNP:rs2573905) -- g(HGNC:PCDH11X)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "19734903"}
+
+SET Evidence = "GWAS Central"
+
+SET Subgraph = {"Endosomal lysosomal subgraph", "Complement system subgraph"}
+g(DBSNP:rs11136000) -- g(HGNC:CLU)
+SET Subgraph = "Mitochondrial translocation subgraph"
+g(DBSNP:rs2075650) -- g(HGNC:TOMM40)
+SET Subgraph = "Endosomal lysosomal subgraph"
+g(DBSNP:rs2279590) -- g(HGNC:CLU)
+SET Subgraph = "Complement system subgraph"
+g(DBSNP:rs3818361) -- g(HGNC:CR1)
+g(DBSNP:rs6656401) -- g(HGNC:CR1)
+SET Subgraph = "Endosomal lysosomal subgraph"
+g(DBSNP:rs9331888) -- g(HGNC:CLU)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "20061627"}
+
+SET Evidence = "GWAS Central"
+
+SET Subgraph = "Mitochondrial translocation subgraph"
+g(DBSNP:rs2075650) -- g(HGNC:TOMM40)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "20885792"}
+
+SET Evidence = "GWAS Central"
+
+g(DBSNP:rs11754661) -- g(HGNC:MTHFD1L)
+SET Subgraph = "Mitochondrial translocation subgraph"
+g(DBSNP:rs2075650) -- g(HGNC:TOMM40)
+UNSET Subgraph
+g(DBSNP:rs6859) -- g(HGNC:NECTIN2)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "20460622"}
+
+SET Evidence = "GWAS Central"
+
+SET Subgraph = "Mitochondrial translocation subgraph"
+g(DBSNP:rs2075650) -- g(HGNC:TOMM40)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "20452100"}
+
+SET Evidence = "GWAS Central"
+
+SET Subgraph = "Reelin signaling subgraph"
+g(DBSNP:rs4298437) -- g(HGNC:RELN)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "22107728"}
+
+SET Evidence = "Several genetic association studies examined IDE gene as a susceptibility gene for Alzheimer's disease (AD), however with controversial results.We examined associations of three IDE polymorphisms (IDE2, rs4646953; IDE7, rs2251101 and IDE9, rs1887922) with AD, Abeta42 plasma level and T2DM risk in the longitudinal Vienna Transdanube Aging (VITA) study cohort.The upstream polymorphism IDE2 was found to influence AD risk and to trigger the Abeta42 plasma level, whereas the downstream polymorphism IDE7 modified the T2DM risk; no associations were found for the intronic variant IDE9.Based on our SNP and haplotype results, we delineate the model that IDE promoter and 3' untranslated region/downstream variation may have different effects on IDE expression, presumably a relevant endophenotype with disorder-specific effects on AD and T2DM susceptibility."
+
+SET Subgraph = "Amyloidogenic subgraph"
+SET Confidence = "Medium"
+g(DBSNP:rs4646953) positiveCorrelation path(MESH:"Alzheimer Disease")
+g(DBSNP:rs4646953) positiveCorrelation p(HGNC:APP, frag(672_713))
+g(DBSNP:rs2251101) -- path(MESH:"Diabetes Mellitus, Type 2")
+g(DBSNP:rs1887922) causesNoChange path(MESH:"Alzheimer Disease")
+g(DBSNP:rs1887922) causesNoChange path(MESH:"Diabetes Mellitus, Type 2")
+UNSET Confidence
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "23279143"}
+SET Evidence = "Sortilin-related VPS10 domain containing receptor 1 and Alzheimer's disease-associated allelic variations preferentially exist in female or type 2 diabetes mellitus patients in southern Han Chinese."
+#+-+-+-+-+-------------------------------------------------------------------
+SET Subgraph = "Low density lipoprotein subgraph"
+
+SET Confidence="High"
+p(HGNC:SORCS1) -- path(MESH:"Alzheimer Disease")
+p(HGNC:SORCS1) -- path(MESH:"Diabetes Mellitus, Type 2")
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Evidence = "Both in vitro and in vivo, overexpression of the sortilin-related VPS10 domain containing receptor 1 (SORCS1) protein lowers amyloid-beta generation."
+
+SET Subgraph = "Low density lipoprotein subgraph"
+
+SET Confidence="High"
+r(HGNC:SORCS1) -| p(HGNC:APP, frag(672_713))
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Evidence = "Recent studies have shown that SORCS1 variations in intron 1 are associated with sporadic Alzheimer's disease (SAD), but the results remain inconsistent.In order to clarify the role of the SORCS1 gene in southern Han Chinese, we genotyped eight single nucleotide polymorphisms (SNP) of SORCS1 in 128 SAD patients and 92 healthy controls.By dividing patients and controls according to apolipoprotein status, sex and whether they had type 2 diabetes mellitus, we found that rs7907690 C allele frequencies were significantly higher in the Alzheimer's disease (AD) patients with type 2 diabetes mellitus than in the controls (P=0.041)."
+
+SET Subgraph = {"Low density lipoprotein subgraph", "Insulin signal transduction"}
+
+SET Confidence="High"
+g(HGNC:SORCS1) -- g(DBSNP:rs7907690)
+g(DBSNP:rs7907690) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs7907690) -- path(MESH:"Diabetes Mellitus, Type 2")
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Evidence = "In multilocus analysis, the frequency of an eight-single nucleotide polymorphism rs601883/rs7907690/rs600879/rs17277986/rs2900717/rs10884399/rs11193170/rs4918280 CCGGACGG haplotype was significantly higher in AD patients (6.3%), especially in female AD patients (9.5%), than in the controls (0.5%) (P=0.003;"
+
+
+SET Disease = "Alzheimer's disease"
+
+SET Confidence="High"
+g(DBSNP:rs601883) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs7907690) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs17277986) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs2900717) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs10884399) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs11193170) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs4918280) -- path(MESH:"Alzheimer Disease")
+g(DBSNP:rs600879) -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "23403532"}
+
+SET Evidence = "The interaction between neurexins and neuroligins promotes the formation of functional synaptic structures. Recently, it has been reported that neurexins and neuroligins are proteolytically processed by presenilins at synapses. Based on this interaction and the role of presenilins in familial Alzheimer's disease (AD), we hypothesized that dysfunction of the neuroligin-neurexin pathway might be associated with AD. To explore this hypothesis, we carried out a meta-analysis of five genome-wide association studies (GWAS) comprising 1, 256 SNPs in the NRXN1, NRXN2, NRXN3, and NLGN1 genes (3,009 cases and 3,006 control individuals). We identified a marker in the NRXN3 gene (rs17757879) that showed a consistent protective effect in all GWAS"
+
+SET Subgraph = {"Synaptic vesicle endocytosis subgraph", "Synapse assembly subgraph"}
+complex(p(HGNC:NRXN2),p(INTERPRO:Neuroligin)) -> bp(GO:"synapse assembly")
+complex(p(HGNC:NRXN3),p(INTERPRO:Neuroligin)) -> bp(GO:"synapse assembly")
+complex(p(HGNC:NRXN1),p(INTERPRO:Neuroligin)) -> bp(GO:"synapse assembly")
+#p(PMIPFAM:"NRXN Family") hasMembers list (p(HGNC:NRXN1),p(HGNC:NRXN3))
+
+g(HGNC:NRXN3) -- g(DBSNP:rs17757879)
+g(DBSNP:rs17757879) -| path(MESH:"Alzheimer Disease")
+complex(p(HGNC:NRXN1),p(INTERPRO:Neuroligin)) -- path(MESH:"Alzheimer Disease")
+complex(p(HGNC:NRXN2),p(INTERPRO:Neuroligin)) -- path(MESH:"Alzheimer Disease")
+complex(p(HGNC:NRXN3),p(INTERPRO:Neuroligin)) -- path(MESH:"Alzheimer Disease")
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "21036197"}
+
+SET Evidence = "In particular, NTM at 11q25 (rs411280, p = 0.000764) and NR3C2 at 4q31.1 (rs3846329, p = 0.000675) were two novel genes which have not been associated with IQ in other studies. It has been reported that NTM might play a role in late-onset Alzheimer disease while NR3C2 may be associated with cognitive function and major depression."
+
+g(DBSNP:rs411280) -- g(HGNC:NTM)
+g(DBSNP:rs411280) -- path(MESH:"Alzheimer Disease")
+
+g(DBSNP:rs3846329) -- g(HGNC:NR3C2)
+g(HGNC:NR3C2) -- bp(GO:cognition)
+
+
+UNSET ALL
+############################################
+
+SET Citation = {"PubMed", "24586483"}
+SET Disease = "Alzheimer's disease"
+SET Evidence = "A functional polymorphism in the promoter region of microRNA-146a is associated with the risk of Alzheimer disease and the rate of cognitive decline in patients."
+SET Species = "9606"
+
+SET Confidence ="High"
+g(HGNC:MIR146A) -- path(MESH:"Alzheimer Disease")
+g(HGNC:MIR146A) -| bp(GO:cognition)
+UNSET Confidence
+
+UNSET Species
+SET MeSHDisease = "Inflammation"
+SET Evidence = "miR146a is well known for its regulatory role in the immune response and inflammation."
+
+SET Confidence ="Medium"
+m(HGNC:MIR146A) reg path(MESH:Inflammation)
+UNSET Confidence
+SET Evidence = "Recent studies have demonstrated the links between miR146a and Alzheimer disease (AD) and suggested that miR146a may be involved in neuroinflammation and the metabolism of amyloid-beta (Abeta), which are critical events in AD pathology."
+SET Disease = "Alzheimer's disease"
+
+SET Confidence = "High"
+SET Subgraph = "Inflammatory response subgraph"
+m(HGNC:MIR146A) -- path(CONSO:neuroinflammation)
+UNSET Confidence
+UNSET Subgraph
+
+SET Confidence ="High"
+m(HGNC:MIR146A) -- bp(GO:"amyloid precursor protein metabolic process")
+path(MESH:"Alzheimer Disease") -- m(HGNC:MIR146A)
+UNSET Confidence
+SET Evidence = "We found a significant difference in the genotypes and allele frequencies of rs57095329 between the AD cases and the controls (p = 0.0147 and p = 0.0184, respectively), where the AA genotype of rs57095329 was associated with an increased risk of AD as well the cognitive decline in AD patients."
+
+SET Disease = "Alzheimer's disease"
+
+SET Confidence ="High"
+g(DBSNP:rs57095329) pos path(MESH:"Alzheimer Disease")
+g(DBSNP:rs57095329) neg bp(GO:cognition)
+UNSET Confidence
+
+SET MeSHDisease = "Inflammation"
+SET MeSHAnatomy = "Blood"
+SET Evidence = "Additionally, the AA genotype of rs57095329 exhibited significantly higher miR146a expression than the GG+GA genotypes of rs2910164 in the peripheral blood cells (PBMCs) of healthy individuals and had a stronger effect on the production of IL-6 and IL-1beta when the cells were stimulated with LPS."
+
+SET Confidence ="Medium"
+g(DBSNP:rs57095329) -> g(HGNC:MIR146A)
+UNSET Confidence
+
+#g(DBSNP:rs57095329) -- p(HGNC:IL6)
+#g(DBSNP:rs57095329) -- p(HGNC:IL1B)
+
+
+UNSET MeSHAnatomy
+SET Disease = "Alzheimer's disease"
+SET Evidence = "Our data provide preliminary evidence that the rs57095329 polymorphism in the miR146a promoter is involved in the genetic susceptibility to AD, and this risk AA genotype may increase the expression of miR146a and influence certain proinflammatory cytokines, thus playing a role in the pathogenesis of AD."
+
+#g(DBSNP:rs57095329) -- path(MESH:"Alzheimer Disease")
+
+SET Confidence ="High"
+m(HGNC:MIR146A) -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "19660836"}
+
+SET Evidence = "The PPAR-gamma TCCA haplotype derived from SNPs in introns 4 (rs4135263), 5 (rs1151999), and 6 (rs709149 and rs709154) showed a strong protective effect against AD"
+
+SET Subgraph = "Peroxisome proliferator activated receptor subgraph"
+
+SET Confidence ="High"
+g(HGNC:PPARG) -> r(HGNC:PPARG)
+g(HGNC:PPARG) -- g(DBSNP:rs4135263)
+g(HGNC:PPARG) -- g(DBSNP:rs1151999)
+g(HGNC:PPARG) -- g(DBSNP:rs709149)
+g(HGNC:PPARG) -- g(DBSNP:rs709154)
+g(HGNC:PPARG) negativeCorrelation path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "25038421"}
+
+SET Species = "9606"
+SET Cell = "blood cell"
+
+SET Evidence = "The TGG haplotype in the DNMT3B gene showed significant association with Alzheimer's disease"
+SET Subgraph = "Epigenetic modification subgraph"
+
+#: g(HGNC:DNMT3B, TGG haplotype") -- path(MESH:"Alzheimer Disease")
+
+#SET Evidence = "The AD group was associated with the presence of the TGG haplotype"
+#: g(HGNC:TGG haplotype") -- path(MESH:"Alzheimer Disease")
+
+SET Evidence = "G allele of DNMT3B polymorphism rs998382 and the T allele of DNMT3B polymorphism rs2424913 were associated with AD"
+SET Subgraph = "Epigenetic modification subgraph"
+
+g(DBSNP:rs998382) -- g(HGNC:DNMT3B)
+g(DBSNP:rs998382) -- path(MESH:"Alzheimer Disease")
+
+g(DBSNP:rs2424913) -- g(HGNC:DNMT3B)
+g(DBSNP:rs2424913) -- path(MESH:"Alzheimer Disease")
+
+UNSET Species
+UNSET Cell
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "22272627"}
+
+SET Evidence = "In the present study we evaluated two functional DNMT3B promoter polymorphisms, namely -149 C > T (rs2424913) and - 579 G > T (rs1569686), as candidate LOAD risk factors"
+g(HGNC:DNMT3B, sub(C,149,T)) -> path(EFO:"late-onset Alzheimers disease")
+g(HGNC:DNMT3B, sub(G,79,T)) -> path(EFO:"late-onset Alzheimers disease")
+g(DBSNP:rs2424913) -> path(EFO:"late-onset Alzheimers disease")
+g(DBSNP:rs1569686) -> path(EFO:"late-onset Alzheimers disease")
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "22691691"}
+
+SET Evidence = "We explored the 4 significant SNP associations with average DRD4 methylation levels further. TableÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â° 2 contains p-values from the association analyses of rs3758653, rs752306, rs11246228 and rs936465 with DNA methylation at individual DRD4 CpG units"
+g(DBSNP:rs1569686) -> g(HGNC:DRD4,gmod(M))
+g(DBSNP:rs752306) -> g(HGNC:DRD4,gmod(M))
+g(DBSNP:rs11246228) -> g(HGNC:DRD4,gmod(M))
+g(DBSNP:rs936465) -> g(HGNC:DRD4,gmod(M))
+g(HGNC:DRD4) -> p(HGNC:DRD4)
+
+SET Evidence = "The T allele at the DRD4 SNP (rs3758653) was found to be significantly associated with AD in Taiwanese population."
+g(DBSNP:rs3758653) -- p(HGNC:DRD4)
+p(HGNC:DRD4) -- path(MESH:"Alzheimer Disease")
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "25800888"}
+
+SET Evidence = "KIBRA plays an important role in synaptic plasticity in human hippocampus related to cognitive function. Functional studies suggest that KIBRA is a potential candidate gene for memory and Alzheimer's disease (AD) risk. A single nucleotide polymorphism, Rs17070145 C allele affects the onset of AD in an age-dependent manner comparing with T/T genotypes and is also associated with risk of substance abuse and relapse."
+
+SET MeSHAnatomy="Hippocampus"
+p(HGNC:WWC1) -- bp(GO:"regulation of synaptic plasticity")
+p(HGNC:WWC1) -- g(DBSNP:rs17070145)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "27004735"}
+
+SET Evidence = "The analysis of 142 136 autosomal single nucleotide polymorphisms (SNPs) revealed an Immunochip-wide significant signal (PI mmunochip = 7.01 × 10(-9) ) for the SNP rs2075650 in the TOMM40/APOE region"
+SET Subgraph = "Mitochondrial translocation subgraph"
+
+g(DBSNP:rs2075650) -- p(HGNC:TOMM40)
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", " 26517285"}
+
+SET Evidence = "Neuroinflammation is a pathological hallmark of Alzheimer's disease (AD), and microglia, the brain's resident phagocyte, are pivotal for the immune response observed in AD. Microglia act as sentinel and protective cells, but may become inappropriately reactive in AD to drive neuropathology. Recent Genome Wide Association Studies (GWAS) have identified more than 20 gene variants associated with an increased risk of late-onset AD (LOAD), the most prevalent form of AD [1]. The findings strongly implicate genes related to the immune response (CR1, CD33, MS4A1, CLU, ABCA7, EPHA1), endocytosis (BIN1, PICALM, CD2AP, EPHA1 and SORL1) and lipid biology (CLU, ABCA7 and SORL1) [2-8], and many encode proteins which are highly expressed in microglia [1]. Furthermore, recent identification of a low frequency mutation in the gene encoding the triggering receptor expressed in myeloid cells 2 protein (TREM2) confers increased risk of AD in LOAD cohorts with an effect size similar to that for APOE, until recently the only identified genetic risk factor associated with LOAD [9,10(Ã¢â‚¬Â¢Ã¢â‚¬Â¢)] (Figure 1). The present review summarises our current understanding of the probable roles of microglial genes in the regulation of neuroinflammatory processes in AD and their relation to other processes affecting the disease's progression."
+
+SET Subgraph = {"Inflammatory response subgraph", "Innate immune system subgraph"}
+SET Confidence = "High"
+bp(GO:"microglial cell activation") -- bp(GO:"immune response")
+bp(GO:"microglial cell activation") negativeCorrelation path(MESH:"Alzheimer Disease")
+UNSET Confidence
+SET MeSHAnatomy= "Microglia"
+
+SET Subgraph = {"Complement system subgraph", "Innate immune system subgraph"}
+
+SET Confidence ="High"
+g(HGNC:CR1) -- bp(GO:"immune response")
+UNSET Confidence
+
+SET Subgraph = {"Immunoglobulin subgraph", "Innate immune system subgraph"}
+
+SET Confidence ="High"
+g(HGNC:CD33) -- bp(GO:"immune response")
+UNSET Confidence
+
+SET Subgraph = "Innate immune system subgraph"
+
+SET Confidence ="High"
+g(HGNC:MS4A1) -- bp(GO:"immune response")
+UNSET Confidence
+
+SET Subgraph = {"ATP binding cassette transport subgraph", "Innate immune system subgraph"}
+
+SET Confidence ="High"
+g(HGNC:ABCA7) -- bp(GO:"immune response")
+UNSET Confidence
+
+SET Subgraph = {"Complement system subgraph", "Innate immune system subgraph", "Endosomal lysosomal subgraph"}
+
+SET Confidence ="High"
+g(HGNC:CLU) -- bp(GO:"immune response")
+UNSET Confidence
+
+SET Subgraph = {"G-protein-mediated signaling", "Innate immune system subgraph"}
+
+SET Confidence ="High"
+g(HGNC:EPHA1) -- bp(GO:"immune response")
+UNSET Confidence
+
+SET Subgraph = {"Caspase subgraph", "Synapse assembly subgraph", "Synaptic vesicle endocytosis subgraph"}
+
+SET Confidence ="High"
+g(HGNC:BIN1) -- bp(GO:"endocytosis")
+UNSET Confidence
+
+SET Subgraph = "Endosomal lysosomal subgraph"
+
+SET Confidence ="High"
+g(HGNC:PICALM) -- bp(GO:"endocytosis")
+UNSET Confidence
+
+SET Subgraph = "Regulation of actin cytoskeleton subgraph"
+
+SET Confidence ="High"
+g(HGNC:CD2AP) -- bp(GO:"endocytosis")
+UNSET Confidence
+
+SET Subgraph = "G-protein-mediated signaling"
+
+SET Confidence ="High"
+g(HGNC:EPHA1) -- bp(GO:"endocytosis")
+UNSET Confidence
+
+SET Subgraph = "Immunoglobulin subgraph"
+
+SET Confidence ="High"
+g(HGNC:SORL1) -- bp(GO:"endocytosis")
+UNSET Confidence
+
+SET Subgraph = {"Complement system subgraph", "Endosomal lysosomal subgraph"}
+
+SET Confidence ="High"
+g(HGNC:CLU) -- bp(GO:"lipid transport")
+UNSET Confidence
+
+SET Subgraph = "ATP binding cassette transport subgraph"
+
+SET Confidence ="High"
+g(HGNC:ABCA7) -- bp(GO:"lipid transport")
+UNSET Confidence
+
+SET Subgraph = "Immunoglobulin subgraph"
+
+SET Confidence ="High"
+g(HGNC:SORL1) -- bp(GO:"lipid metabolic process")
+UNSET Confidence
+
+SET Subgraph = "Endosomal lysosomal subgraph"
+
+SET Confidence ="High"
+g(HGNC:PICALM) -- bp(GO:"lipid metabolic process")
+UNSET Confidence
+
+UNSET MeSHAnatomy
+SET Confidence = "High"
+SET Subgraph = "Inflammatory response subgraph"
+g(HGNC:TREM2) -> path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+SET Evidence = "CLU expression has been shown to be elevated in AD brains and is detected in amyloid
+ Clusterin directly interacts with Ab and modifies fibril formation in vitro. rs11136000 associated
+with higher brain levels of clusterin . May modify microglial activation via regulation of complement.
+ Alteration of fibril formation may affect Ab clearance"
+
+SET Subgraph = {"Complement system subgraph", "Endosomal lysosomal subgraph"}
+
+SET Confidence ="Medium"
+path(MESH:"Alzheimer Disease") -> g(HGNC:CLU)
+UNSET Confidence
+
+SET Confidence ="High"
+g(HGNC:CLU) -- g(DBSNP:rs3824968)
+g(DBSNP:rs3824968) -> g(HGNC:CLU)
+UNSET Confidence
+
+SET Subgraph = {"Complement system subgraph", "Innate immune system subgraph"}
+
+SET Confidence ="High"
+g(DBSNP:rs3824968) -- bp (GO:"microglial cell activation")
+UNSET Confidence
+
+SET Subgraph = {"Complement system subgraph", "Endosomal lysosomal subgraph"}
+
+SET Confidence ="High"
+g(DBSNP:rs3824968) -- bp(GO:"complement activation")
+UNSET Confidence
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "22950410"}
+SET Evidence = "The H1 haplotype was found to be associated with an increased expression of LRRC37A4, PLEKH1M and MAPT. In contrast, a decreased expression of MGC57346, LRRC37A and CRHR1 was associated with H1."
+
+SET Species = "9606"
+
+# rs1800547(A) allele = H1 haplotype
+
+g(DBSNP:rs1800547) -> g(HGNC:LRRC37A4P)
+#g(DBSNP:rs1800547) -> p(HGNC:PLEKH1M)
+g(DBSNP:rs1800547) -> p(HGNC:MAPT)
+
+SET Confidence="Medium"
+g(DBSNP:rs1800547) -| g(HGNC:ARF2P)
+UNSET Confidence
+
+g(DBSNP:rs1800547) -| p(HGNC:LRRC37A)
+g(DBSNP:rs1800547) -| p(HGNC:CRHR1)
+UNSET Species
+
+SET Evidence = "Of the two receptors in this system (CRHR1 and CRHR2), overactivity of CRHR1 in anxiety and depression has been a consistent finding in animal studies. In human, there is evidence for an interaction of CRHR1 function and stressful life events on vulnerability to depression and alcoholism through regulation of HPA-axis and possibly additional interaction with serotonin transporter loci. In addition, multiple sclerosis (MS) has been associated to HPA-axis activity, specifically genetic variants in CRHR1. We find increased expression of CRHR1 associated with H2 configuration, suggesting that CRHR1 activity and/or stress response might also be altered in or contributing to the H2 related phenotypes such as developmental delay and learning disability."
+SET Subgraph = "CRH subgraph"
+
+
+# rs1800547(A) allele = H1 haplotype
+# rs1800547(G) allele = H2 haplotype
+
+p(HGNC:CRHR1) -- path(MESH:Depression)
+p(HGNC:CRHR1) -- path(MESH:Anxiety)
+p(HGNC:CRHR1) -- path(MESH:"Alcoholism")
+p(HGNC:CRHR1) -- path(MESH:"Multiple Sclerosis")
+
+g(DBSNP:rs1800547) -> p(HGNC:CRHR1)
+
+p(HGNC:CRHR1) -> path(MESH:Depression)
+p(HGNC:CRHR1) -> path(MESH:Anxiety)
+p(HGNC:CRHR1) -> path(MESH:"Alcoholism")
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "25687773"}
+SET Evidence = "Across all available ADNI participants, we found that the A allele of rs393152 was significantly associated with increased atrophy rates (volume loss) of the entorhinal cortex (standardized beta-coefficient = −0.003, SE = 0.001, p-value = 0.0071) and hippocampus (standardized beta-coefficient = −0.003, SE = 0.001, p-value = 0.0031)."
+
+SET Subgraph = "CRH subgraph"
+
+SET Disease = "Alzheimer's disease"
+SET MeSHAnatomy= {"Hippocampus", "Entorhinal Cortex"}
+
+g(DBSNP:rs393152) -- p(HGNC:CRHR1)
+
+SET Confidence="Medium"
+g(DBSNP:rs393152) -- path(MESH:Atrophy)
+UNSET Confidence
+
+UNSET Disease
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "25687773"}
+SET Evidence = "By exploiting statistical power from PD, we were able to identify one SNP within the CRHR1 locus on chromosome 17 (meta-analysis p-value = 1.65 × 10−7, OR = 0.91, 95% CI = 0.88–0.94) that was significantly associated with increased AD risk. Importantly, use of this stepwise, pleiotropic approach, where power is computed conditional on discovery in the PD sample, resulted in considerable improvement in statistical power for AD gene detection."
+
+SET Disease = "Alzheimer's disease"
+g(DBSNP:rs393152) -- p(HGNC:CRHR1)
+g(DBSNP:rs393152) -- path(MESH:"Alzheimer Disease")
+UNSET Disease
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "25687773"}
+SET Evidence = "Fourth, the leading AD-associated SNP in the MAPT region (rs1981997, r2 LD = 1.0 with rs393152 in the HapMap 2) demonstrated a similar meta-analysis p-value to rs393152 providing further evidence that our AD/PD pleotropic SNP was not a false positive result. Finally, the A allele of rs393152 showed a dose-dependent effect specifically with MAPT transcript levels within the brain and was significantly associated with longitudinal medial temporal lobe atrophy, an established endophenotype of Alzheimer’s neurodegeneration."
+
+SET Disease = "Alzheimer's disease"
+SET MeSHAnatomy="Temporal Lobe"
+SET Confidence="Medium"
+g(DBSNP:rs393152) pos path(MESH:Atrophy)
+path(MESH:Atrophy) -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+g(DBSNP:rs393152) -> p(HGNC:MAPT)
+UNSET Disease
+
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "25687773"}
+SET Evidence = "Additionally, building on prior work detecting smaller gray matter volumes within cognitively normal and cognitively impaired MAPT carriers, we found a significant relationship between the A allele of rs393152 and longitudinal atrophy of the entorhinal cortex and hippocampus, two medial temporal lobe regions selectively affected with tau-associated neurofibrillary pathology in the earliest stages of AD. Considered together, this suggests that the PD-associated MAPT cluster influences Alzheimer’s neurodegeneration likely via tau-related mechanisms."
+SET Subgraph = "CRH subgraph"
+
+SET Disease = "Alzheimer's disease"
+
+SET Confidence="Medium"
+g(DBSNP:rs393152) -- bp(GO:"neurofibrillary tangle assembly")
+UNSET Confidence
+
+g(DBSNP:rs393152) -- path(MESH:"Alzheimer Disease")
+UNSET Disease
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "19419557"}
+
+SET Evidence = "The selective vulnerability of some neuronal populations can be explained in part by the decreased expression of some calcium buffering proteins including calbindin-D28K, calmodulin, and parvalbumin."
+
+SET Disease = "Alzheimer's disease"
+
+SET Subgraph = "Calcium-dependent signal transduction"
+
+SET Confidence="High"
+p(HGNC:CALB1) -> bp(GO:"calcium ion transport") # calcium buffering=calcium ion transport
+p(FPLX:"CAMK2_family") -> bp(GO:"calcium ion transport") #CAMK2 Family = calmodulin
+p(HGNC:PVALB) -> bp(GO:"calcium ion transport") # parvalbumin = PVALB
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Evidence = "Glutamate is the most abundant excitatory neurotransmitter of the mammalian nervous system. At the neuronal membrane, glutamate binds to ionotropic and metabotropic receptors. Ionotropic receptors include NMDA, kainate, and AMPA receptors"
+
+SET Subgraph = {"Glutamatergic subgraph", "NMDA receptor"}
+
+SET Confidence="Medium"
+a(CHEBI:"glutamate(2-)") -- bp(GO:"synaptic transmission, glutamatergic")
+a(CHEBI:"glutamate(2-)") -- p(MESH:"Receptors, Ionotropic Glutamate")
+a(CHEBI:"glutamate(2-)") -- p(HGNCGENEFAMILY:"Glutamate metabotropic receptors")
+p(MESH:"Receptors, Ionotropic Glutamate") hasMembers list(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor kainate type subunits"), p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"), p(HGNCGENEFAMILY:"Glutamate ionotropic receptor AMPA type subunits"))
+UNSET Confidence
+
+# Is there any family name for NMDA receptor and Kainate?
+#R:I think it's better to use the MESH term "Receptors, Ionotropic Glutamate" (D058468) which compines all subfamilies
+
+UNSET Subgraph
+
+SET Evidence = "Excessive activation of glutamate receptors can result in neuronal dysfunction and cell death, a process called excitotoxicity. Uncontrolled activation of ionotropic receptors leads to an excessive influx of calcium through the plasma membrane, which along with impairments of synaptic activation and neuronal plasticity, activate a number of calcium-dependent enzymes involved in the catabolism of proteins, phospholipids, and nucleic acids, as well as in the synthesis of nitric oxide (NO).These alterations can potentially lead to cell death through different pathways, such as membrane break-down, cytoskeletal alterations, and NO-derived free radical production."
+
+SET Subgraph = "Glutamatergic subgraph"
+
+SET Confidence="Medium"
+p(MESH:"Receptors, Ionotropic Glutamate") -> path(CONSO:Excitotoxicity)
+path(CONSO:Excitotoxicity) -> bp(GO:"neuron apoptotic process")
+
+UNSET Disease
+p(MESH:"Receptors, Ionotropic Glutamate") -> tloc(a(MESH:Calcium),fromLoc(MESH:"Cell Membrane"),toLoc(GO:intracellular))
+p(MESH:"Receptors, Ionotropic Glutamate") -| act(p(MESH:"Calcium Channels"))
+p(MESH:"Receptors, Ionotropic Glutamate") -> bp(GO:"calcium ion import")
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = {"Glutamatergic subgraph", "Nitric oxide subgraph"}
+
+SET Confidence = "Medium"
+p(MESH:"Receptors, Ionotropic Glutamate") -> a(CHEBI:"nitric oxide")
+UNSET Confidence
+
+SET Confidence ="Low" # It's another type of glumate receptor but not inotropic
+act(p(HGNC:GRIN1)) -> a(CHEBI:"nitric oxide")
+UNSET Confidence
+
+#R:These two are actually a type of ionotropic receptors, but I have used the more general term as mentioned above
+
+SET Confidence ="Low" # same as above
+act(p(FPLX:GRIA)) -> a(CHEBI:"nitric oxide")
+UNSET Confidence
+
+SET Confidence ="Medium"
+p(MESH:"Receptors, Ionotropic Glutamate") -> bp(GO:"regulation of calcium-mediated signaling")
+UNSET Confidence
+
+SET Confidence ="Low" # same as above
+act(p(HGNC:GRIN1)) -> bp(GO:"negative regulation of calcium-mediated signaling")
+UNSET Confidence
+
+SET Confidence ="Low" # same as above
+act(p(FPLX:GRIA)) -> bp(GO:"negative regulation of calcium-mediated signaling")
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Evidence = "Abeta oligomers have been found to cause an increase in NMDAR activity, which might require direct association between Abeta oligomers and the NR1 subunit of NMDAR [131]. There is also evidence that glutamate or other endogenous glutamate receptor agonists are increased in AD. Furthermore, NMDAR subunits NR1, NR2A, and NR2B protein levels and phosphorylation are selectively reduced in AD and these abnormalities correlate with the cognitive impairments."
+
+SET Subgraph = "Glutamatergic subgraph"
+
+SET Disease = "Alzheimer's disease"
+
+SET Confidence="Medium"
+a(CONSO:"amyloid-beta oligomers") -> act(p(HGNC:GRIN1))
+complex(a(CONSO:"amyloid-beta oligomers"), p(HGNC:GRIN1)) -- act(p(HGNCGENEFAMILY:"Glutamate ionotropic receptor NMDA type subunits"))
+UNSET Confidence
+
+SET Confidence="Medium"
+path(MESH:"Alzheimer Disease") -| p(HGNC:GRIN1)
+path(MESH:"Alzheimer Disease") -| p(HGNC:GRIN2A)
+path(MESH:"Alzheimer Disease") -| p(HGNC:GRIN2B)
+UNSET Confidence
+
+UNSET Subgraph
+UNSET Disease
+
+SET Evidence = "The state of tau phosphorylation and proteolysis can be regulated by calcium-dependent mechanisms. CaMKII can phosphorylate tau [189]. Cyclin-dependent kinase 5 (cdk5), another kinase involved in tau phosphorylation [190], is indirectly activated by the calcium-activated protease calpain. Indeed, cdk5 has to be associated with its regulatory subunit, p35 to be activated. Conversion of p35 to p25 deregulates cdk5 activity, resulting in an increased cdk5 kinase activity [191]. Calpain cleaves p35 into p25, and thus controls cdk5 activation [192]. Furthermore, tau is dephosphorylated by the calcium/calmodulin-dependent phosphatase, calcineurin [193]. Calpain was also proposed to directly participate in tau proteolysis and degradation"
+SET Confidence = "High"
+SET Subgraph = {"Tau protein subgraph", "Calcium-dependent signal transduction"}
+p(HGNC:MAPT, pmod(Ph)) -- bp(GO:"calcium-mediated signaling")
+composite(p(HGNC:CAMK2A),p(HGNC:CAMK2B)) -> p(HGNC:MAPT, pmod(Ph))
+UNSET Confidence
+
+SET Confidence = "High"
+SET Subgraph = {"Tau protein subgraph", "Cyclin-CDK subgraph"}
+kin(p(HGNC:CDK5)) -> p(HGNC:MAPT, pmod(Ph))
+UNSET Confidence
+
+SET Subgraph = "Cyclin-CDK subgraph"
+
+SET Confidence="High"
+p(FPLX:CAPN) -> kin(p(HGNC:CDK5))
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Subgraph = {"Cell cycle subgraph", "Cyclin-CDK subgraph"}
+
+SET Confidence = "Medium"
+pep(p(FPLX:CAPN)) -> reaction(reactants(p(HGNC:CDK5R1)), products(p(CONSO:"CDK5R1 p25")))
+p(CONSO:"CDK5R1 p25") reg kin(p(HGNC:CDK5))
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Evidence = "APP processing can be regulated by calcium signaling and inversely, APP metabolism can influence calcium signaling. It was shown that calcium influx mediated by calcium ionophores or by membrane depolarization and channel opening, leads to increased production of Abeta. Conversly, inhibition of SERCA pumps with thapsigargin and increased cytosolic calcium levels from ER calcium depletion, diminished Abeta generation"
+
+SET Subgraph = {"Calcium-dependent signal transduction", "Amyloidogenic subgraph"}
+SET Confidence = "Medium"
+bp(GO:"calcium-mediated signaling") -- a(CHEBI:"amyloid-beta")
+bp(GO:"calcium ion import") -> a(CHEBI:"amyloid-beta")
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Evidence = "Furthermore, it has been shown that PSs can physically interact with the InsP3 [211] and ryanodine [212] receptors and facilitate their calcium gating activity at the ER membrane."
+
+SET Subgraph = {"Gamma secretase subgraph", "Phosphatidylinositol 3 subgraph", "Calcium-dependent signal transduction"}
+
+SET Confidence="High"
+complex(p(HGNC:PSEN1),p(HGNC:ITPR1)) -> bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity")
+#p(HGNC:ITPR1) hasMembers list(p(HGNC:ITPR3), p(HGNC:ITPR3), p(HGNC:ITPR3))
+complex(p(HGNC:PSEN1), p(HGNC:RYR2), p(HGNC:RYR1), p(HGNC:RYR3)) -> bp(GO:"regulation of ryanodine-sensitive calcium-release channel activity")
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Evidence = "The ER calcium pump SERCA was also found to form a protein complex with endogenous PSs, an interaction that influences SERCA function by controlling ER calcium sequestration and InsP3-mediated calcium liberation. Several of these studies have also proposed that increased ER calcium release via InsP3Rs or RyRs or via modulation of SERCA may modulate APP processing and facilitate Abeta accumulation"
+
+SET Subgraph = {"Gamma secretase subgraph", "G-protein-mediated signaling", "Calcium-dependent signal transduction"}
+
+SET Confidence="High"
+complex(p(HGNC:PSEN1),p(HGNC:ATP2A3)) -- bp(GO:"sequestering of calcium ion")
+complex(p(HGNC:PSEN1),p(HGNC:ATP2A3)) -- bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity")
+bp(GO:"regulation of inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity") -> p(HGNC:APP, frag(672_713))
+bp(GO:"regulation of ryanodine-sensitive calcium-release channel activity") -> p(HGNC:APP, frag(672_713))
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Evidence = "By using a tissue-expression profiling method to screen for genes predominantly expressed in the hippocampus and located in linkage regions for AD, our group identified the CALHM1 gene, located on chromosome 10. CALHM1 codes for a protein of neuronal origin that shares sequence similarities with NMDAR and that controls both cytosolic calcium concentrations and ERK1/2 activation"
+
+SET Subgraph = "Calcium-dependent signal transduction"
+
+SET Confidence="High"
+p(HGNC:CALHM1) -- bp(GO:"calcium ion import")
+p(HGNC:CALHM1) -> act(p(FPLX:ERK))
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Evidence = "Importantly, we also determined that the frequency of the rare allele of the rs2986017 SNP (single nucleotide polymorphism) in CALHM1, which results in the P86L substitution, is significantly increased in AD cases in five independent cohorts."
+SET Disease = "Alzheimer's disease"
+
+SET Subgraph = "Calcium-dependent signal transduction"
+
+SET Confidence="Medium"
+p(HGNC:CALHM1, sub(P,86,L)) -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+UNSET Subgraph
+
+SET Evidence = "Further investigation demonstrated the functional significance of the rs2986017 SNP by showing that the P86L polymorphism promotes Abeta accumulation via a loss of CALHM1 control on calcium permeability and cytosolic calcium levels"
+
+SET Subgraph = {"Amyloidogenic subgraph", "Calcium-dependent signal transduction"}
+SET Confidence = "Medium"
+g(HGNC:CALHM1) hasVariant g(DBSNP:rs2986017)
+g(DBSNP:rs2986017) -> p(HGNC:CALHM1, sub(P,86,L))
+g(DBSNP:rs2986017) -> p(HGNC:CALHM1, sub(P,86,L))
+g(DBSNP:rs2986017) -> a(CHEBI:"amyloid-beta")
+p(HGNC:CALHM1, sub(P,86,L)) -> a(CHEBI:"amyloid-beta")
+UNSET Confidence
+
+UNSET Subgraph
+UNSET Disease
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "21657833"}
+
+SET MeSHDisease = "Breast Neoplasms"
+
+SET Evidence = "Secretion increased in a concentration-dependent manner, with an efflux ratio of more than 2 at 50 Î¼M, indicating the participation of an active efflux transporter such as P-glycoprotein, multidrug resistance protein 2 or breast cancer resistance protein."
+SET Subgraph = "ATP binding cassette transport subgraph"
+
+a(CHEBI:decursinol) -- p(HGNC:ABCB4)
+a(CHEBI:decursinol) -- p(HGNC:ABCC2)
+
+UNSET MeSHDisease
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "23556446"}
+
+SET Disease = "Alzheimer's disease"
+SET Evidence = "Association of ATP-binding cassette transporter variants with the risk of Alzheimer's disease."
+
+SET Confidence="High"
+path(MESH:"Alzheimer Disease") -- p(HGNCGENEFAMILY:"ATP binding cassette subfamily A")
+UNSET Confidence
+
+UNSET Disease
+
+SET Evidence = "In addition, the APOE4 status was analyzed. The novel ABCA7 SNP, rs3752246, tended to be associated with AD in our study."
+SET Disease = "Alzheimer's disease"
+
+SET Confidence="High"
+g(DBSNP:rs3752246) -- path(MESH:"Alzheimer Disease")
+path(MESH:"Alzheimer Disease") -- p(HGNC:ABCA7)
+UNSET Confidence
+
+UNSET Disease
+
+SET Disease = "Alzheimer's disease"
+SET Evidence = "However, only ABCC2 3972C>T (rs3740066) was significantly associated with AD risk after logistic regression analysis including all variants."
+
+SET Subgraph = "ATP binding cassette transport subgraph"
+
+SET Confidence="High"
+g(DBSNP:rs3740066) -- path(MESH:"Alzheimer Disease")
+p(HGNC:ABCC2) -- p(HGNC:ABCC2, sub(C, 3972, T))
+path(MESH:"Alzheimer Disease") -- p(HGNC:ABCC2)
+p(HGNC:ABCC2, sub(C, 3972, T)) -- path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+UNSET Subgraph
+UNSET Disease
+
+SET MeSHAnatomy= "Brain"
+SET Evidence = "Other transporters showed a lack of association.Our results support the hypothesis that ABCB1 and possibly other ABC-transporters are involved in the process of Abeta accumulation in the aging brain and may modulate the risk for AD in an allele-specific manner, and thus might represent a new target for prevention and treatment of AD."
+SET Confidence = "Medium"
+SET Subgraph = {"ATP binding cassette transport subgraph", "Amyloidogenic subgraph"}
+#only positive reult for ABCB1
+p(HGNC:ABCB1) -> a(CHEBI:"amyloid-beta")
+a(CHEBI:"amyloid-beta") -> path(MESH:"Alzheimer Disease")
+UNSET MeSHAnatomy
+UNSET Confidence
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "24173717"}
+SET Evidence = "An intergenic single-nucleotide polymorphism on chromosome 18 is associated with decreased pyroptosis and increased expression of TUBB6 (tubulin, beta 6 class V)."
+
+SET Subgraph = {"Regulation of actin cytoskeleton subgraph", "LRRK2 subgraph"}
+
+g(DBSNP:"rs9807444") -> p(HGNC:TUBB6)
+UNSET Subgraph
+
+SET Evidence = "TUBB6 is unique among tubulin isoforms in that its overexpression can completely disrupt the microtubule network."
+
+p(HGNC:TUBB6) neg bp(GO:"microtubule cytoskeleton organization")
+
+SET Evidence = "Cells from individuals with higher levels of TUBB6 expression have lower microtubule stability and less pyroptosis."
+
+SET Subgraph = "Regulation of actin cytoskeleton subgraph"
+p(HGNC:TUBB6) neg bp(GO:pyroptosis)
+
+UNSET Subgraph
+
+SET Evidence = "Reducing TUBB6 expression or stabilizing microtubules pharmacologically with paclitaxel (Taxol) increases pyroptosis without affecting the other major readout of caspase-1 activation, interleukin-1beta secretion"
+
+SET Subgraph = "Regulation of actin cytoskeleton subgraph"
+
+a(CHEBI:paclitaxel) -| p(HGNC:TUBB6)
+
+UNSET Subgraph
+
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "24393168"}
+
+SET Evidence = "Part of proteome that physically interacts with crocin was found to consist of beta-actin-like protein 2, cytochrome b-c1 complex subunit 1, ATP synthase subunit beta, tubulin beta-3 chain, tubulin beta-6 chain, 14-3-3 protein beta/alpha, V-type proton ATPase catalytic subunitA, 60 kDa heat shock protein, creatine kinase b-type, peroxiredoxin-2, cytochrome b-c1 complex subunit 2, acetyl-coA acetyltransferase, cytochrome c1, proteasome subunit alpha type-6 and proteasome subunit alpha type-4."
+
+SET Subgraph = "Regulation of actin cytoskeleton subgraph"
+p(HGNC:TUBB6) -- a(CHEBI:"crocin-1")
+UNSET Subgraph
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "26973255"}
+
+SET Evidence = "Keratin 9 was recently identified as an important component of a biomarker panel which demonstrated a high diagnostic accuracy (87%) for Alzheimer's disease (AD)."
+
+SET Subgraph = "Regulation of actin cytoskeleton subgraph"
+
+SET Confidence ="High"
+p(HGNC:TUBB6) biomarkerFor path(MESH:"Alzheimer Disease")
+UNSET Confidence
+
+UNSET Subgraph
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "26330360"}
+
+SET Evidence = "We identified 27 mutated genes, of which 19 genes are reported in COSMIC database (ZNF208, CRNN, ATXN3, DCTN1, RP1L1, PRB4, PRB1, MUC4, HS6ST3, MUC17, JAM2, ITGAD, IREB2, IQUB, CORO1B, CCDC121, AKAP2, ACAN and ACADL), and eight genes have not previously been described in gastric cancer (CCDC178, ARMC4, TUBB6, PLIN4, PKLR, PDZD2, DMBT1 and DAB1)"
+
+SET Subgraph = "Regulation of actin cytoskeleton subgraph"
+
+g(HGNC:TUBB6) -- path(MESH:"Colonic Neoplasms")
+path(MESH:"Colonic Neoplasms") -- g(HGNC:TUBB6)
+
+UNSET Subgraph
+
+UNSET ALL
+############################################
+SET Citation = {"PubMed", "24275654"}
+
+SET Evidence = "Here, we describe a direct interaction between LRRK2 and beta-tubulin. This interaction is conferred by the LRRK2 Roc domain and is disrupted by the familial R1441G mutation and artificial Roc domain mutations that mimic autophosphorylation. LRRK2 selectively interacts with three beta-tubulin isoforms: TUBB, TUBB4, and TUBB6, one of which (TUBB4) is mutated in the movement disorder dystonia type 4 (DYT4)."
+
+SET Subgraph = {"Regulation of actin cytoskeleton subgraph", "LRRK2 subgraph"}
+
+p(HGNC:TUBB6) -- p(HGNC:LRRK2)
+p(HGNC:TUBB4A) -- p(HGNC:LRRK2)
+
+UNSET Subgraph
+
+UNSET ALL
+############################################

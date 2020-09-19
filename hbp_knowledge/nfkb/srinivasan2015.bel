@@ -51,15 +51,15 @@ DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorger
 
 # Annotations defined with regular expressions
 # --------------------------------------------
-#DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 
 # Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
 # --------------------------------------------------------------------------------
 #DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
 #DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 #DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
-#DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-#DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 #DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 #DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -74,63 +74,86 @@ SET Citation = {"PubMed", "25652642"}
 
 SET Evidence = "The constitutive form is transcriptionally active as evidenced by the nuclear
 localization of the p50 and p65 subunits in the neurons of the cortex and hippocampus"
+SET Confidence = "Medium"
 SET MeSHAnatomy = {"Cerebral Cortex","Hippocampus"}
-complex(p(HGNC:NFKB1),p(HGNC:RELA),a(GO:"NF-kappaB complex")) -> act(complex(GO:"NF-kappaB p50/p65 complex"))
+complex(p(HGNC:NFKB1),p(HGNC:RELA),a(GO:"NF-kappaB complex"), loc(GO:nucleus)) -> act(complex(GO:"NF-kappaB p50/p65 complex"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In conditional neuronal NF-κB-deficient mice, loss of NF-κB signaling impaired synaptic
 transmission, spatial memory formation, and plasticity"
+SET Confidence = "Medium"
+SET Species = "10090"
 act(complex(GO:"NF-kappaB complex")) -> bp(MESH:"Synaptic Transmission")
 act(complex(GO:"NF-kappaB complex")) -> path(MESH:"Spatial Memory")
 act(complex(GO:"NF-kappaB complex")) -> bp(GO:"positive regulation of synaptic plasticity")
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "A number of physiological stimuli including membrane depolarization or glutamergic signal
 transduction lead to rapid activation of the inducible NF-κB localized in the synapses,
 cytoplasm and dendrites of the neurons"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Synapses","Cytoplasm","Dendrites","Neurons"}
 bp(GO:"membrane depolarization") -> act(complex(GO:"NF-kappaB complex"))
 bp(GO:"synaptic transmission, glutamatergic") -> act(complex(GO:"NF-kappaB complex"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Complete abrogation of the DNA binding ability of NFκB factors induces apoptosis of the neuronal cells"
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Neurons"
-act(complex(GO:"NF-kappaB complex")) -| bp(GO:"apoptotic process")
+act(complex(GO:"NF-kappaB complex"), ma(GO:"DNA binding")) -| bp(GO:"apoptotic process")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = " Cell death is preceded by reduction in the
 NF-κB regulated transcription of anti-apoptotic genes suggesting that a minimal threshold of
 NF-κB activity is needed for neuronal survival"
+SET Confidence = "High"
 act(complex(GO:"NF-kappaB complex")) -| bp(GO:"neuron death")
+UNSET Confidence
 
 SET Evidence = "Several kinase pathways
 including the calcium-calmodium dependent kinase-II (CaMK), the protein kinases-C (PKC)
 and the ras/phosphatidylinositol 3-kinase (PI3K) pathways have been implicated in
 activating neuronal NF-κB signaling"
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 bp(GO:"calmodulin dependent kinase signaling pathway") -> act(complex(GO:"NF-kappaB complex"))
 act(p(FPLX:PKC)) -> act(complex(GO:"NF-kappaB complex"))
 bp(GO:"phosphatidylinositol 3-kinase signaling") -> act(complex(GO:"NF-kappaB complex"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Unlike neurons, NF-κB is present in the cytoplasm as an
 inactive complex with the IκB proteins in glial cells under physiological conditions"
+SET Confidence = "Medium"
 SET MeSHAnatomy = {"Cytoplasm","Neuroglia"}
-a(MESH:"I-kappa B Proteins") -| act(complex(GO:"NF-kappaB complex"))
+complex(complex(GO:"NF-kappaB complex"), p(FPLX:IKB),loc(GO:cytoplasm)) =| act(complex(GO:"NF-kappaB complex"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Various endogenous and exogenous stimuli
 activate NF-κB enhancing transactivation of inflammatory molecules and production of free
 radicals in glial cells"
+SET Confidence = "High"
 SET MeSHAnatomy = "Neuroglia"
 act(complex(GO:"NF-kappaB complex")) -> bp(GO:"inflammatory response")
 act(complex(GO:"NF-kappaB complex")) -> a(MESH:"Free Radicals")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Glutamate induced stimulation of cerebellar granule cells via the N-methyl-D-aspartate (NMDA)
 receptor activate p65:p50 dimers and enhance transactivation of pro-apoptotic factors"
+SET Confidence = "Medium"
+SET Cell = "cerebellar granule cell"
 a(CHEBI:"glutamate(1-)") -> act(a(MESH:"Receptors, N-Methyl-D-Aspartate"))
 a(CHEBI:"glutamate(1-)") -> act(complex(p(HGNC:NFKB1),p(HGNC:RELA)))
+a(MESH:"Receptors, N-Methyl-D-Aspartate") -> act(complex(p(HGNC:NFKB1),p(HGNC:RELA)))
 act(complex(p(HGNC:NFKB1),p(HGNC:RELA))) -> bp(GO:"apoptotic process")
+UNSET Cell
+UNSET Confidence
 
 SET MeSHDisease = "Alzheimer Disease"
 
@@ -138,13 +161,16 @@ SET Evidence = "A consequence of intracellular and parenchymal accumulation of N
 of NF-κB in the neural and glial cells with subsequent protective or detrimental effects"
 # NPs: neuritic plaques
 # NFTS: neurofibrillary tangles
+SET Confidence = "High"
 SET MeSHAnatomy = {"Neurons","Neuroglia"}
 a(GO:"neurofibrillary tangle") pos act(complex(GO:"NF-kappaB complex"))
 path(MESH:"Plaque, Amyloid") pos act(complex(GO:"NF-kappaB complex"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = " In neuronal cells Aβ1-42
 peptide has been shown to regulate APP and BACE1 proteins in NF-κB dependent manner"
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 a(CHEBI:"amyloid-beta polypeptide 42") reg p(HGNC:APP)
 a(CHEBI:"amyloid-beta polypeptide 42") reg p(HGNC:BACE1)
@@ -152,55 +178,71 @@ a(CHEBI:"amyloid-beta polypeptide 42") -> act(complex(GO:"NF-kappaB complex"))
 act(complex(GO:"NF-kappaB complex")) reg p(HGNC:APP)
 act(complex(GO:"NF-kappaB complex")) reg p(HGNC:BACE1)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 UNSET MeSHDisease
 
 SET Evidence = "Under physiological conditions activation of NF-κB by endogenous Aβ reduces βAPP,
 BACE1 and the γ-secretase activity, thereby lowering Aβ processing and facilitating Aβ
 homeostasis"
+SET Confidence = "High"
 a(CHEBI:"amyloid-beta") -> act(complex(GO:"NF-kappaB complex"))
 act(complex(GO:"NF-kappaB complex")) -| p(HGNC:BACE1)
 act(complex(GO:"NF-kappaB complex")) -| p(CONSO:"sAPP-beta")
 act(complex(GO:"NF-kappaB complex")) -| bp(CONSO:"APP processing")
 act(complex(GO:"NF-kappaB complex")) reg a(CHEBI:"amyloid-beta")
+UNSET Confidence
 
 SET MeSHDisease = "Alzheimer Disease"
 
 SET Evidence = " However in AD, exposure to high Aβ concentrations upregulates NF-κB
 activation increasing βAPP and Aβ processing, precipitating a feed-back loop that favor
 exacerbated Aβ production "
+SET Confidence = "Medium"
 a(CHEBI:"amyloid-beta") pos act(complex(GO:"NF-kappaB complex"))
 act(complex(GO:"NF-kappaB complex")) pos p(CONSO:"sAPP-beta")
 act(complex(GO:"NF-kappaB complex")) pos bp(CONSO:"APP processing")
+bp(CONSO:"APP processing") -> a(CHEBI:"amyloid-beta")
+UNSET Confidence
 
 SET Evidence = "Aβ has been shown to upregulate APOE in astroglial cells.
 This upregulation was inhibited by decoy-κB nucleotides supporting a critical role for NFκB in APOE function"
+SET Confidence = "High"
 SET MeSHAnatomy = "Astrocytes"
 a(CHEBI:"amyloid-beta") -> act(p(HGNC:APOE))
 complex(GO:"NF-kappaB complex") -- act(p(HGNC:APOE))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = " Stimulation with the Aβ25-35 fragments induces
 secretion of cytokines such as TNF-α and of neurotrophic factors such as nerve growth
 factor (NGF) and brain derived nerve factor (BDNF) in NF-κB-dependent manner"
+SET Confidence = "High"
 composite(complex(GO:"NF-kappaB complex"),a(MESH:"amyloid beta-protein (25-35)")) -> sec(p(HGNC:TNF))
 composite(complex(GO:"NF-kappaB complex"),a(MESH:"amyloid beta-protein (25-35)")) -> sec(p(HGNC:NGF))
 composite(complex(GO:"NF-kappaB complex"),a(MESH:"amyloid beta-protein (25-35)")) -> sec(p(HGNC:BDNF))
+UNSET Confidence
 
 SET Evidence = "Stimulation of neuronal cells by TNF-α has been shown to upregulate transactivation of
 anti-apoptotic gene products and neurotrophins such as Bcl-2 and NGF respectively"
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Neurons"
 p(HGNC:TNF) -> p(HGNC:NGF)
 p(HGNC:TNF) -> p(HGNC:BCL2)
+p(HGNC:BCL2) -| bp(GO:"apoptotic process")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Decoy κB nucleotides mediate cell death by blocking neurotrophins and anti-apoptotic factors
 supporting an essential role for NF-κB in the neuroprotective process "
+SET Confidence = "High"
 complex(GO:"NF-kappaB complex") -> bp(MESH:Neuroprotection)
+UNSET Confidence
 
 SET Evidence = " In primary neuronal cells, exposure to Aβ25-35 peptide increase NF-κB mediated transactivation of
 manganese superoxide dismutase (Mn-SOD), suppress peroxinitrite production and inhibit
 membrane depolarization, thereby preventing apoptosis induced by oxidative stress"
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 a(MESH:"amyloid beta-protein (25-35)") -> act(complex(GO:"NF-kappaB complex"))
 act(complex(GO:"NF-kappaB complex")) -> act(p(HGNC:SOD2))
@@ -209,57 +251,72 @@ act(complex(GO:"NF-kappaB complex")) -| bp(GO:"membrane depolarization")
 act(complex(GO:"NF-kappaB complex")) -| bp(GO:"apoptotic process")
 bp(MESH:"Oxidative Stress") -> bp(GO:"apoptotic process")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = " In metabotrophic glutamate receptor-5 (mGlu5) agonist pretreated primary cortical neurons or
 neuroblastoma cells, Aβ induced toxicity was suppressed by selective activation of c-rel
 containing NF-κB dimers and transactivation of anti-apoptotic genes, Mn-SOD and Bcl-Xl [26] (Figs 1B, 2A)"
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Neurons"
-p(HGNC:GRM5) -> complex(p(HGNC:REL),a(GO:"NF-kappaB complex"))
+p(HGNC:GRM5) -> complex(p(HGNC:REL),a(GO:"NF-kappaB complex"),a(GO:"NF-kappaB complex"))
 p(HGNC:GRM5) -> act(p(HGNC:SOD2))
 p(HGNC:GRM5) -> act(p(HGNC:BCL2L1))
-complex(p(HGNC:REL),a(GO:"NF-kappaB complex")) -| act(a(CHEBI:"amyloid-beta"))
+complex(p(HGNC:REL),a(GO:"NF-kappaB complex"),a(GO:"NF-kappaB complex")) -| act(a(CHEBI:"amyloid-beta"))
 act(p(HGNC:SOD2)) -| act(a(CHEBI:"amyloid-beta"))
 act(p(HGNC:BCL2L1)) -| act(a(CHEBI:"amyloid-beta"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "These NF-κB mediated neuroprotective effects have been largely
 observed in early stages of neuronal regeneration in AD"
+SET Confidence = "High"
 complex(GO:"NF-kappaB complex") reg bp(MESH:Neuroprotection)
+UNSET Confidence
 
 SET Evidence = "Exposure of primary neuronal cells or post-mitotic neurons to Aβ1-42 peptide has been
 shown to strongly activate the p50:p65 dimers and mediate neuronal cell death (Fig 1)"
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Neurons"
-a(CHEBI:"amyloid-beta polypeptide 42") -> complex(p(HGNC:NFKB1),p(HGNC:RELA))
+a(CHEBI:"amyloid-beta polypeptide 42") -> complex(p(HGNC:NFKB1),p(HGNC:RELA),p(HGNC:NFKB1),p(HGNC:RELA))
 a(CHEBI:"amyloid-beta polypeptide 42") reg bp(GO:"cell death")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = ". Consistent with the cellular studies, increased immunostaining for NF-κB-p65 has been
 observed in neurons and their processes in the hippocampal formation and entorhinal cortex in AD "
-SET MeSHAnatomy = "Neurons"
+SET Confidence = "Medium"
+SET MeSHAnatomy = {"Neurons","Entorhinal Cortex"}
 path(MESH:"Alzheimer Disease") pos complex(a(GO:"NF-kappaB complex"),p(HGNC:RELA))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Comparison of the cellular distribution of NF-κB in the nucleus basalis of
 Meynert of AD and control patients showed that the proportion of large cholinergic neurons
 with elevated nuclear p65 was significantly increased in AD, suggesting an association
 between NF–κB functions and the process of cholinergic degeneration"
-path(MESH:"Alzheimer Disease") pos p(HGNC:RELA)
+SET Confidence = "Medium"
+path(MESH:"Alzheimer Disease") pos p(HGNC:RELA, loc(GO:nucleus))
 act(complex(GO:"NF-kappaB complex")) -| a(MESH:"Cholinergic Neurons")
+UNSET Confidence
 
 SET Evidence = " Mechanistically, the Aβ induced neuronal apoptosis has been attributed to the increase in the ratio of proapoptotic gene (BAX)
 transcription to that of the anti-apoptotic gene Bcl-Xl, and/or to the reduction in constitutively activated NF-κB with consequent
 increase in the cytoplasmic IκB proteins"
+SET Confidence = "Medium"
 a(CHEBI:"amyloid-beta") -> bp(GO:"neuron death")
-a(CHEBI:"amyloid-beta") -> p(HGNC:BAX)
-a(CHEBI:"amyloid-beta") -| p(HGNC:BCL2L1)
+a(CHEBI:"amyloid-beta") -> r(HGNC:BAX)
+a(CHEBI:"amyloid-beta") -| r(HGNC:BCL2L1)
 a(CHEBI:"amyloid-beta") -| act(complex(GO:"NF-kappaB complex"))
-a(CHEBI:"amyloid-beta") -> a(MESH:"I-kappa B Proteins")
+a(CHEBI:"amyloid-beta") -> a(MESH:"I-kappa B Proteins", loc(GO:cytoplasm))
+UNSET Confidence
 
 SET Evidence = "These observations substantiate a direct role of neuronal NF–κB activation in
 the pathogenesis of AD"
+SET Confidence = "High"
 SET MeSHAnatomy = "Neurons"
 act(complex(GO:"NF-kappaB complex")) pos path(MESH:"Alzheimer Disease")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = " Excessive accumulation of Aβ1-42
 stimulates microglial cells by signaling via receptor associated advanced glycation end
@@ -267,6 +324,7 @@ products (RAGE) and peroxisome proliferator-activated receptor-γ (PPAR-γ),
 phosphorylates IKK proteins, and enhances NF-κB mediated transactivation of
 inflammatory cytokines and neurotoxic molecules such as glutamate and reactive oxygen
 species (ROS)/induced nitric oxide synthase (iNOS) [12] (Fig 2B)"
+SET Confidence = "High"
 a(CHEBI:"amyloid-beta polypeptide 42") pos act(a(MESH:Microglia))
 a(CHEBI:"amyloid-beta polypeptide 42") -> bp(GO:"positive regulation of advanced glycation end-product receptor activity")
 bp(GO:"positive regulation of advanced glycation end-product receptor activity") -> act(a(MESH:Microglia))
@@ -280,42 +338,58 @@ act(complex(GO:"NF-kappaB complex")) -> act(a(MESH:Cytokines))
 act(complex(GO:"NF-kappaB complex")) -> act(a(CHEBI:"glutamate(1-)"))
 act(complex(GO:"NF-kappaB complex")) -> act(a(CHEBI:"reactive oxygen species"))
 act(complex(GO:"NF-kappaB complex")) -> act(p(HGNC:NOS2))
+UNSET Confidence
 
 SET Evidence = " Increased presence of
 activated glial cells presenting elevated NF-κB and HLA-DR expression are commonly
 observed around the Aβ plaques in postmortem AD tissue"
+SET Confidence = "Medium"
+SET Cell = "glial cell"
 path(MESH:"Plaque, Amyloid") -- complex(GO:"NF-kappaB complex")
 path(MESH:"Alzheimer Disease") pos complex(GO:"NF-kappaB complex")
 path(MESH:"Plaque, Amyloid") -- a(MESH:"HLA-DR Antigens")
 path(MESH:"Alzheimer Disease") pos a(MESH:"HLA-DR Antigens")
+UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Increased presence of NF-κB
 mediated IL-1β, IL-6, and TNF-α cytokines have been reported in the affected tissues,
 serum and CSF of AD patients"
+SET Confidence = "Medium"
 complex(GO:"NF-kappaB complex") -> p(HGNC:IL1B)
 complex(GO:"NF-kappaB complex") -> p(HGNC:IL6)
 complex(GO:"NF-kappaB complex") -> p(HGNC:TNF)
+SET MeSHAnatomy = {"Serum","Cerebrospinal Fluid"}
 path(MESH:"Alzheimer Disease") pos complex(GO:"NF-kappaB complex")
 path(MESH:"Alzheimer Disease") pos p(HGNC:IL1B)
 path(MESH:"Alzheimer Disease") pos p(HGNC:IL6)
 path(MESH:"Alzheimer Disease") pos p(HGNC:TNF)
+UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "This is supported by the observation
 that in mixed neuronal-glial cell cultures, Aβ induces increasing degree of neurotoxicity in
 an NF-κB dependent manner in the presence of higher proportion of glial cells"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Neurons","Neuroglia"}
 a(CHEBI:"amyloid-beta") -> path(CONSO:neurotoxicity)
 a(CHEBI:"amyloid-beta") -> act(complex(GO:"NF-kappaB complex"))
 act(complex(GO:"NF-kappaB complex")) -> path(CONSO:neurotoxicity)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Furthermore NF-κB specific inhibitor prevents iNOS and ROS upregulation in Aβ
 stimulated cultures of astrocytes or mixed cortical cells"
+SET Confidence = "Medium"
+SET MeSHAnatomy = {"Astrocytes","Neocortex"}
 act(complex(GO:"NF-kappaB complex")) -> act(a(CHEBI:"reactive oxygen species"))
 act(complex(GO:"NF-kappaB complex")) -> act(p(HGNC:NOS2))
+UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Upregulation of several NF-κB regulated miRNAs such as miRNA-9, miRNA-34a, miRNA-125b, miRNA-146a,
-miRNA-155 and miRNA-339 5p have been observed in stressed primary human neuronalglial cells and in postmortem AD brain tissues"
+miRNA-155 and miRNA-339 5p have been observed in stressed primary human neuronal glial cells and in postmortem AD brain tissues"
+SET Confidence = "High"
 SET MeSHAnatomy = {"Brain","Neuroglia"}
 path(MESH:"Alzheimer Disease") pos m(HGNC:"MIR9-1")
 complex(GO:"NF-kappaB complex") reg m(HGNC:"MIR9-1")
@@ -330,14 +404,17 @@ complex(GO:"NF-kappaB complex") reg m(HGNC:MIR155)
 path(MESH:"Alzheimer Disease") pos m(HGNC:MIR339)
 complex(GO:"NF-kappaB complex") reg m(HGNC:MIR339)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "In AD brains, miRNA-125b is observed
 as the most abundant exhibiting strong positive correlation with glial fibrillary acidic protein
 and vimentin and negative correlation with reduced cyclin dependent kinase 2A"
+SET Confidence = "High"
 SET MeSHAnatomy = "Brain"
 m(HGNC:MIR125B1) pos p(HGNC:GFAP)
 m(HGNC:MIR125B1) pos p(HGNC:VIM)
 m(HGNC:MIR125B1) pos p(HGNC:CDKN2A)
 UNSET MeSHAnatomy
+UNSET Confidence
 
 UNSET MeSHDisease

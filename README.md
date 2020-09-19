@@ -1,5 +1,8 @@
+<p align="center">
+  <img src="https://docs.google.com/drawings/d/e/2PACX-1vSYe8SA8J1ulLRFqFjX2bne_L-5fxb-yHFcj1B2JYLksJS90qz8y2swPZPNSrw9Zj3tljrZikb5KWOg/pub?w=150&amp;h=150" />
+</p>
+
 <h1 align="center">
-  <br>
   Curation of Neurodegeneration in BEL (CONIB)
   <a href="https://travis-ci.com/pharmacome/conib">
     <img src="https://travis-ci.com/pharmacome/conib.svg?branch=master"
@@ -60,13 +63,16 @@ $ pip install git+https://github.com/pharmacome/conib.git
 The graph can be loaded with:
 
 ```python
-import conib
+import hbp_knowledge
 
 # Get a dictionary of names to graphs
-graphs = conib.get_graphs()
+graphs = hbp_knowledge.get_graphs()
 
 # Get all BEL documents as a single graph
-graph = conib.get_graph()
+graph = hbp_knowledge.get_graph()
+
+# Get all knowledge as INDRA statements
+stmts = hbp_knowledge.get_indra_statements()
 ```
 
 ## Contributing
