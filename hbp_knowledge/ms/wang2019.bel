@@ -1,0 +1,868 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Targeting Microglia and Macrophages: A Potential Treatment Strategy for Multiple Sclerosis"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Trusha Adeshara"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/conso
+# --------------------------------------------------------
+ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+ DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+ DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+# DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+ DEFINE NAMESPACE EFO            AS URL "https://raw.githubusercontent.com/pharmacome/conso/5d2c2ea6f7112421cc8089a3f021a75ab60bb373/external/efo-names.belns"
+# DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
+ DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/4aa36980578c7d2cff07371abf768f15db89cd11/export/conso-names.belns"
+ DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+ DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+ DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
+ DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/go-names.belns"
+ DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+ DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/0816cb6686751420365441adc6a28ced2d272f14/external/mesh-names.belns"
+ DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
+# DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
+# DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+# DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
+# DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+# DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+# DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+# DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+# DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+ DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+ DEFINE NAMESPACE NCIT           AS PATTERN "^C\d+$"
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+ DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+ DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+ DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+ DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+# DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+ DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+ DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+# DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+# DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "30967783"}
+
+SET Evidence = "The CNS contains several resident macrophages, such as microglia and non-parenchymal macrophages, in the choroid plexus, perivascularspace,and meninges,which function to maintain CNS homeostasis(Prinzetal.,2011)."
+SET Confidence = "High"
+SET Anatomy = "central nervous system"
+SET MeSHAnatomy = {"Choroid Plexus","Meninges"}
+SET Anatomy = "perivascular space"
+a(MESH:Microglia) reg bp(MESH:Homeostasis)
+a(MESH:Macrophages) reg bp(MESH:Homeostasis)
+UNSET Anatomy
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "Alterations in CNS homeostasis lead to the recruitment of peripheral blood-derived monocytes (known as monocyte-derived macrophages) into the CNS, the activation of microglia, and the presence of foamy macrophages (Bogie et al., 2014; Kuhlmann et al., 2017; Mrdjen et al., 2018; Zéphir, 2018)."
+SET Confidence = "High"
+SET Anatomy = "central nervous system"
+bp(MESH:Homeostasis) -> a(MESH:Monocytes)
+bp(MESH:Homeostasis) -> bp(GO:"microglial cell activation")
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Monocyte-derived macrophages and CNS-resident phagocytic cells can promote neuroinﬂammation, thereby inducing MS, but they can also play neuroprotective and anti-inﬂammatory roles, depending on many factors."
+SET Confidence = "High"
+SET Cell = "neuron"
+a(MESH:Macrophages) -> bp(GO:"neuroinflammatory response")
+bp(GO:"neuroinflammatory response") -> path(DOID:"multiple sclerosis")
+a(MESH:Macrophages) -> path(DOID:"multiple sclerosis")
+UNSET Cell
+a(MESH:Macrophages) -> bp(MESH:Neuroprotection)
+a(MESH:Macrophages) -| path(MESH:Inflammation)
+SET Anatomy = "central nervous system"
+SET Cell = "neuron"
+a(MESH:Phagocytes) -> bp(GO:"neuroinflammatory response")
+bp(GO:"neuroinflammatory response") -> path(DOID:"multiple sclerosis")
+a(MESH:Phagocytes) -> path(DOID:"multiple sclerosis")
+UNSET Cell
+a(MESH:Phagocytes) -> bp(MESH:Neuroprotection)
+a(MESH:Phagocytes) -| path(MESH:Inflammation)
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Studies have demonstrated that microglia mediate synaptic pruning and trophic-factor production through fractalkine-CX3CR1 signaling in neurodevelopment (Tremblay et al., 2010; Ransohoﬀ and El Khoury, 2014; Schafer and Stevens, 2015; Miyamoto et al., 2016)"
+SET Confidence = "High"
+a(MESH:Microglia) -> complex(p(HGNC:CX3CL1),p(HGNC:CX3CR1))
+complex(p(HGNC:CX3CL1),p(HGNC:CX3CR1)) -> bp(MESH:"Neuronal Plasticity")
+complex(p(HGNC:CX3CL1),p(HGNC:CX3CR1)) -> bp(GO:"generation of neurons")
+a(MESH:Microglia) -> bp(MESH:"Neuronal Plasticity")
+a(MESH:Microglia) -> bp(GO:"generation of neurons")
+UNSET Confidence
+
+SET Evidence = "Fractalkine receptor deﬁcient mice showed decreased neuron survival in layer V cortical neurons during the ﬁrst postnatal week because of the reduced secretion of insulin-like growth factor from microglia (Ueno et al., 2013)."
+#first postnatal week
+SET Confidence = "High"
+SET Species = "10090"
+SET Anatomy = "cerebral cortex"
+SET Cell = "neuron"
+p(HGNC:CX3CR1) -> bp(MESH:"Cell Survival")
+a(MESH:Microglia) -> p(HGNC:IGF1)
+p(HGNC:IGF1) -> bp(MESH:"Cell Survival")
+UNSET Cell
+UNSET Anatomy
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "Furthermore, microglia depletion by the Cre-Lox technique led to deﬁciencies in multiple learning tasks, as well as a signiﬁcant reduction in learning related synapse formation (Parkhurst et al., 2014)."
+SET Confidence = "High"
+a(MESH:Microglia) -> bp(GO:"learning or memory")
+a(MESH:Microglia) -> a(GO:synapse)
+a(GO:synapse) -> bp(GO:"learning or memory")
+UNSET Confidence
+
+SET Evidence = "In addition, microglial-secreted BDNF could increase the activity of neuronal tropomyosin-related kinase receptor B, an important modulator in synaptic plasticity,prompting a crucial role of BDNF signaling in learning and memory-related synapse formation (Parkhurst etal.,2014)."
+SET Confidence = "High"
+a(MESH:Microglia) -> p(HGNC:BDNF)
+p(HGNC:BDNF) -> act(p(HGNC:NTRK2))
+p(HGNC:NTRK2) reg bp(MESH:"Neuronal Plasticity")
+a(MESH:Microglia) -> bp(MESH:"Neuronal Plasticity")
+p(HGNC:BDNF) -> a(GO:synapse)
+a(GO:synapse) -> bp(GO:"learning or memory")
+p(HGNC:BDNF) -> bp(GO:"learning or memory")
+UNSET Confidence
+
+SET Evidence = "Microglia may communicate with neurons;changes in the physiological environment such as chronic stress and light deprivation can cause hyper-ramiﬁcation of microglia and more frequent neuron–microglia contacts (Torres-Platas et al., 2014; Welberg, 2014; Yirmiya et al., 2015)."
+SET Confidence = "High"
+bp(GO:"cellular response to stress") -> bp(GO:"microglial cell activation")
+path(MESH:Light) -| bp(GO:"microglial cell activation")
+bp(GO:"microglial cell activation") -> composite(a(MESH:Microglia),a(MESH:Neurons))
+bp(GO:"cellular response to stress") -> composite(a(MESH:Microglia),a(MESH:Neurons))
+path(MESH:Light) -| composite(a(MESH:Microglia),a(MESH:Neurons))
+UNSET Confidence
+
+SET Evidence = "Moreover, microglia act as scavengers in the adult CNS to remove damaged components, apoptotic cells, and misfolded proteins (Sierra et al., 2010)."
+SET Confidence = "High"
+SET Anatomy = "adult central nervous system"
+a(MESH:Microglia) -> bp(GO:"apoptotic cell clearance")
+a(MESH:Microglia) -> deg(p(MESH:Proteins,pmod(CONSO:misfolded)))
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Once “danger” signals are detected in the surrounding environment, microglia rapidly change into a reactive phenotype, characterized by larger soma, and release various complement factors to facilitate neuron and tissue repair (Hanisch and Kettenmann, 2007; Graeber and Streit, 2010; Kettenmannetal.,2011)."
+#NCIT:C118474 = Damage-Associated Molecular Pattern Molecule
+#NCIT:C53611 = repair
+SET Confidence = "High"
+a(NCIT:C118474) -> bp(GO:"microglial cell activation")
+bp(GO:"microglial cell activation") -> bp(GO:"complement activation")
+SET Anatomy = "tissue"
+SET Cell = "neuron"
+bp(GO:"complement activation") -> bp(NCIT:C53611)
+UNSET Cell
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Perivascular macrophages are critical in BBB establishment (Mendes-Jorge et al., 2009; He et al., 2016), and blockage of colony stimulating factor 1 receptor signaling leads to a decreased coverage of pericytes in brain vessels (Yamamotoetal.,2017)."
+SET Confidence = "High"
+SET Anatomy = "perivascular space"
+a(MESH:Macrophages) -> bp(GO:"establishment of blood-brain barrier")
+UNSET Anatomy
+SET Anatomy = "brain"
+SET MeSHAnatomy = "Blood Vessels"
+p(HGNC:CSF1R) -> a(MESH:Pericytes)
+UNSET Anatomy
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "Perivascular macrophages continuously retract and protract along blood vessels in the adult brain (Daneman, 2012; Goldmann et al., 2016), suggesting that they may play a role in immune surveillance."
+SET Confidence = "High"
+SET Anatomy = {"perivascular space","adult brain"}
+SET MeSHAnatomy = "Blood Vessels"
+a(MESH:Macrophages) -> bp(MESH:Immunity)
+UNSET Anatomy
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "Moreover, they can protect against bacterial infection by recruiting circulating leukocytes (Polﬂiet et al., 2001)."
+#they = perivascular macrophages
+SET Confidence = "High"
+SET Anatomy = "perivascular space"
+a(MESH:Macrophages) -> a(MESH:"Leukocytes, Mononuclear")
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "In addition, meningeal macrophages function as APCs, detecting cell debris and antigens to maintain immune homeostasis (Kivisakk et al., 2009)."
+SET Confidence = "High"
+SET MeSHAnatomy = "Meninges"
+a(MESH:Macrophages) isA a(MESH:"Antigen-Presenting Cells")
+a(MESH:Macrophages) -| a(NCIT:C120869)
+a(MESH:Macrophages) -> bp(MESH:Immunity)
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "Choroid plexus macrophages are located near the microvilli of the choroid plexus (Liddelow, 2015; Marques et al., 2017), and their main function may support CSF release and ﬂux (Goldmannetal.,2016)."
+SET Confidence = "High"
+SET MeSHAnatomy = {"Choroid Plexus","Microvilli"}
+a(MESH:Macrophages) -> bp(GO:"cerebrospinal fluid secretion")
+a(MESH:Macrophages) -> bp(GO:"cerebrospinal fluid circulation")
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "Interferon-gamma and lipopolysaccharide treatment can generate M1 cells, while IL-4, IL-10, or IL-13 are activators of M2 cells."
+#NCIT:C156004 = M1 macrophage
+#NCIT:C123783 = M2 macrophage
+SET Confidence = "High"
+p(HGNC:IFNG) -> a(NCIT:C156004)
+a(MESH:Lipopolysaccharides) -> a(NCIT:C156004)
+p(HGNC:IL4) -> act(a(NCIT:C123783))
+p(HGNC:IL10) -> act(a(NCIT:C123783))
+p(HGNC:IL13) -> act(a(NCIT:C123783))
+UNSET Confidence
+
+SET Evidence = "M1 macrophages and microglia are characterized by an amoeboid shape, and they release pro-inﬂammatory cytokines, such as IL-6, IFN-γ, IL-23, TNF-α; inducible nitric oxide synthase; chemokines, including CCL 4, CCL5, and CCL8; and CXCL 2, CXCL4, and CXCL9 (Juhas et al., 2015; Kapellos and Iqbal, 2016)."
+SET Confidence = "High"
+a(NCIT:C156004) -> p(HGNC:IL6)
+a(NCIT:C156004) -> p(HGNC:IFNG)
+a(NCIT:C156004) -> p(MESH:"Interleukin-23")
+a(NCIT:C156004) -> p(HGNC:TNF)
+a(NCIT:C156004) -> p(HGNC:NOS2)
+a(NCIT:C156004) -> p(HGNC:CCL4)
+a(NCIT:C156004) -> p(HGNC:CCL5)
+a(NCIT:C156004) -> p(HGNC:CCL8)
+a(NCIT:C156004) -> p(HGNC:CXCL2)
+a(NCIT:C156004) -> p(HGNC:PF4)
+a(NCIT:C156004) -> p(HGNC:CXCL9)
+a(MESH:Microglia) -> p(HGNC:IL6)
+a(MESH:Microglia) -> p(HGNC:IFNG)
+a(MESH:Microglia) -> p(MESH:"Interleukin-23")
+a(MESH:Microglia) -> p(HGNC:TNF)
+a(MESH:Microglia) -> p(HGNC:NOS2)
+a(MESH:Microglia) -> p(HGNC:CCL4)
+a(MESH:Microglia) -> p(HGNC:CCL5)
+a(MESH:Microglia) -> p(HGNC:CCL8)
+a(MESH:Microglia) -> p(HGNC:CXCL2)
+a(MESH:Microglia) -> p(HGNC:PF4)
+a(MESH:Microglia) -> p(HGNC:CXCL9)
+UNSET Confidence
+
+SET Evidence = "M1 macrophages and microglia are potent APCs, causing an adaptive immune response to clear foreign substances and abnormal proteins (Das et al., 2015)."
+SET Confidence = "High"
+a(NCIT:C156004) isA a(MESH:"Antigen-Presenting Cells")
+a(MESH:Microglia) isA a(MESH:"Antigen-Presenting Cells")
+a(MESH:"Antigen-Presenting Cells") -> bp(MESH:"Adaptive Immunity")
+a(NCIT:C156004) -> bp(MESH:"Adaptive Immunity")
+a(MESH:Microglia) -> bp(MESH:"Adaptive Immunity")
+bp(MESH:"Adaptive Immunity") -|  p(MESH:Proteins,pmod(CONSO:misfolded))
+a(NCIT:C156004) -| p(MESH:Proteins,pmod(CONSO:misfolded))
+a(MESH:Microglia) -| p(MESH:Proteins,pmod(CONSO:misfolded))
+UNSET Confidence
+
+SET Evidence = "In contrast, M2 macrophages and microglia have smaller cell bodies and a branched structure(RansohoﬀandPerry,2009),and they express a variety of anti-inﬂammatory molecules, including IL-4, IL-10, IL-13, and transforming growth factor-β (David and Kroner, 2011)."
+SET Confidence = "High"
+a(NCIT:C123783) -> p(HGNC:IL4)
+a(NCIT:C123783) -> p(HGNC:IL10)
+a(NCIT:C123783) -> p(HGNC:IL13)
+a(NCIT:C123783) -> p(HGNC:TGFB1)
+a(MESH:Microglia) -> p(HGNC:IL4)
+a(MESH:Microglia) -> p(HGNC:IL10)
+a(MESH:Microglia) -> p(HGNC:IL13)
+a(MESH:Microglia) -> p(HGNC:TGFB1)
+p(HGNC:IL4) -| bp(GO:"inflammatory response")
+p(HGNC:IL10) -| bp(GO:"inflammatory response")
+p(HGNC:IL13) -| bp(GO:"inflammatory response")
+p(HGNC:TGFB1) -| bp(GO:"inflammatory response")
+UNSET Confidence
+
+SET Evidence = "These contribute to immunoregulation by inhibiting inﬂammation, remodeling tissue, promoting angiogenesis, and clearing parasites (Banerjee et al., 2013)."
+SET Confidence = "High"
+a(NCIT:C123783) reg bp(MESH:Immunity)
+a(NCIT:C123783) -| path(MESH:Inflammation)
+a(NCIT:C123783) -> bp(GO:"tissue remodeling")
+a(NCIT:C123783) -> bp(GO:angiogenesis)
+a(NCIT:C123783) -> deg(a(MESH:Parasites))
+a(MESH:Microglia) reg bp(MESH:Immunity)
+a(MESH:Microglia) -| path(MESH:Inflammation)
+a(MESH:Microglia) -> bp(GO:"tissue remodeling")
+a(MESH:Microglia) -> bp(GO:angiogenesis)
+a(MESH:Microglia) -> deg(a(MESH:Parasites))
+UNSET Confidence
+
+SET Evidence = "M2 microglia promote oligodendrocyte diﬀerentiation, and their depletion inhibits remyelination (Kotter et al., 2005; Miron et al., 2013)."
+#M2 microglia
+SET Confidence = "High"
+a(MESH:Microglia) -> bp(GO:"oligodendrocyte differentiation")
+a(MESH:Microglia) -> bp(MESH:Remyelination)
+UNSET Confidence
+
+SET Evidence = "Under steady state, microglia are primarily responsible for supporting the development of the healthy brain, they shape and maintain the neuronal synaptic network, interact with neurons and produce beneﬁcial components (Hagemeyer et al., 2017)."
+SET Confidence = "High"
+a(MESH:Microglia) -> bp(GO:"brain development")
+a(MESH:Microglia) reg bp(MESH:"Neural Pathways")
+UNSET Confidence
+
+SET Evidence = "Upon detecting “danger” signals, both microglia and non-parenchymal macrophages produce large amounts of chemokines and cytokines to promote leukocyte inﬁltration into the CNS parenchyma and function as APCs to reactivate T cells in the CNS (Gallietal.,2011;Krausgruber et al.,2011)."
+#NCIT:C74601 = parenchyma
+SET Confidence = "High"
+a(NCIT:C118474) -> bp(GO:"microglial cell activation")
+a(NCIT:C118474) -> bp(GO:"macrophage activation")
+bp(GO:"microglial cell activation") -> sec(a(MESH:Chemokines))
+bp(GO:"macrophage activation") -> sec(a(MESH:Chemokines))
+bp(GO:"microglial cell activation") -> sec(a(MESH:Cytokines))
+bp(GO:"macrophage activation") -> sec(a(MESH:Cytokines))
+SET Anatomy = "central nervous system"
+a(MESH:Cytokines) -> a(MESH:"Leukocytes, Mononuclear",loc(NCIT:C74601))
+a(MESH:Chemokines) -> a(MESH:"Leukocytes, Mononuclear",loc(NCIT:C74601))
+a(MESH:"Leukocytes, Mononuclear",loc(NCIT:C74601)) isA a(MESH:"Antigen-Presenting Cells")
+a(MESH:"Leukocytes, Mononuclear",loc(NCIT:C74601)) -> bp(GO:"T cell activation")
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "After CNS injury and inﬂammation, while microglia situated in the parenchyma and macrophages in the choroid plexus, perivascular space, and the meninges are activated, monocytes from the blood cross the damaged BBB and become monocyte derived macrophages in the CNS (Lassmann et al., 2001)."
+SET Confidence = "High"
+SET Anatomy = "central nervous system"
+bp(GO:"detection of wounding") -> act(a(MESH:Microglia,loc(NCIT:C74601)))
+bp(GO:"detection of wounding") -> act(a(MESH:Macrophages,loc(MESH:"Choroid Plexus")))
+bp(GO:"detection of wounding") -> act(a(MESH:Macrophages,loc(NCIT:C83196)))
+bp(GO:"detection of wounding") -> act(a(MESH:Macrophages,loc(MESH:Meninges)))
+path(MESH:Inflammation) -> act(a(MESH:Microglia,loc(NCIT:C74601)))
+path(MESH:Inflammation) -> act(a(MESH:Macrophages,loc(MESH:"Choroid Plexus")))
+path(MESH:Inflammation) -> act(a(MESH:Macrophages,loc(NCIT:C83196)))
+path(MESH:Inflammation) -> act(a(MESH:Macrophages,loc(MESH:Meninges)))
+a(MESH:Monocytes,loc(MESH:"Blood-Brain Barrier")) => a(MESH:Macrophages,loc(MESH:"Blood-Brain Barrier"))
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Pronounced microglial activation with high expression levels of pro-inﬂammatory genes can be found in lesion areas and normal-appearing white matter of MS patients(Lucchinettietal., 2000; Singh et al., 2013; Zrzavy et al., 2017)."
+SET Confidence = "High"
+SET Disease = "multiple sclerosis"
+SET  Anatomy = "brain white matter"
+path(MESH:Inflammation) -> bp(GO:"microglial cell activation")
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "These microglia are enriched with iron, express proinﬂammatory cytokines, and cause persistent tissue damage (Wisnieﬀ et al., 2015)."
+#these microglia = the one activated during MS
+SET Confidence = "High"
+a(MESH:Microglia) hasComponents list(a(CHEBI:"iron atom"))
+bp(GO:"microglial cell activation") -> a(MESH:Cytokines)
+a(MESH:Cytokines) -> path(MESH:Inflammation)
+a(MESH:Cytokines) -> deg(a(MESH:Tissues))
+UNSET Disease
+UNSET Confidence
+
+SET Evidence = "Although microglia are important in synaptic plasticity, this function is destroyed under pathological insults,which causes synaptic loss in MS and eventually, cognitive decline (Michailidou et al., 2015; Hong et al., 2016; Salter and Stevens, 2017; Di Filippo et al., 2018)."
+SET Confidence = "High"
+a(MESH:Microglia) -> bp(MESH:"Neuronal Plasticity")
+SET Disease = "multiple sclerosis"
+a(MESH:Microglia) -| bp(MESH:"Neuronal Plasticity")
+a(MESH:Microglia) -| bp(GO:cognition)
+UNSET Disease
+UNSET Confidence
+SET Evidence = "Activated microglia in EAE mice may produce large amounts of TNFα and thus induce excessive glutamate, leading to spontaneous and miniature excitatory post-synaptic currents (Centonze et al., 2009, 2010)."
+SET Confidence = "High"
+SET Species = "10090"
+SET MeSHDisease = "Encephalomyelitis, Autoimmune, Experimental"
+bp(GO:"microglial cell activation") -> p(HGNC:TNF)
+p(HGNC:TNF) -> a(CHEBI:"2 L-glutamate")
+a(CHEBI:"2 L-glutamate") -> bp(GO:"excitatory postsynaptic potential")
+bp(GO:"microglial cell activation") -> bp(GO:"excitatory postsynaptic potential")
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "Furthermore, astroglial ATP ampliﬁes microglial signals and subsequently promotes glutamate release from astroglia, which directly inhibits synaptic transmission (Kettenmann et al., 2013)."
+SET Confidence = "High"
+a(CHEBI:"adenosine triphosphate",loc(MESH:Astrocytes)) -> bp(GO:"microglial cell activation")
+bp(GO:"microglial cell activation") -> tloc(a(CHEBI:"2 L-glutamate"),fromLoc(MESH:Astrocytes),toLoc(MESH:Synapses))
+a(CHEBI:"2 L-glutamate",loc(MESH:Synapses)) =| bp(MESH:"Synaptic Potentials")
+UNSET Confidence
+
+SET Evidence = "Classically activated neuroinﬂammatory microglia secrete TNF-α, and C1q, inducing A1 astrocyte dysfunction, thereby resulting in the dysfunction of both oligodendrocytes and neurons (Liddelow et al., 2017; Rothhammer et al., 2018)."
+SET Confidence = "High"
+SET Cell = "microglial cell"
+bp(GO:"neuroinflammatory response") -> sec(p(HGNC:TNF))
+bp(GO:"neuroinflammatory response") -> sec(p(HGNC:C1QA))
+p(HGNC:TNF) neg act(a(MESH:Astrocytes))
+p(HGNC:C1QA) neg act(a(MESH:Astrocytes))
+bp(GO:"neuroinflammatory response") -| act(a(MESH:Astrocytes))
+a(MESH:Astrocytes) pos act(a(MESH:Neurons))
+a(MESH:Astrocytes) pos act(a(MESH:Oligodendroglia))
+bp(GO:"neuroinflammatory response") neg act(a(MESH:Neurons))
+bp(GO:"neuroinflammatory response") neg act(a(MESH:Oligodendroglia))
+UNSET Cell
+UNSET Confidence
+
+SET Evidence = "Importantly, mitochondrial disturbances have been demonstrated in modulating MS lesions,reactive oxygen species and reactive nitrogen species generated by the activated microglia also lead to intra-axonal mitochondrial injury (Balaban et al., 2005;Haileetal.,2017)."
+SET Confidence = "High"
+path(CONSO:"mitochondrial dysfunction") -- path(DOID:"multiple sclerosis")
+bp(GO:"microglial cell activation") -> a(MESH:"Reactive Oxygen Species")
+bp(GO:"microglial cell activation") -> a(MESH:"Reactive Nitrogen Species")
+SET CellStructure = "Axons"
+a(MESH:"Reactive Oxygen Species") -> path(MESH:"Mitochondrial Degradation")
+a(MESH:"Reactive Nitrogen Species") -> path(MESH:"Mitochondrial Degradation")
+UNSET CellStructure
+UNSET Confidence
+
+SET Evidence = "Kinetics studies from EAE mice indicate that microglia are the ﬁrst cell line to take up myelin antigens (Sosa et al., 2013), subsequently restimulating encephalitogenic T cells in the CNS through major histocompatibility complex (MHC) molecules and costimulatory molecules (Perry, 1998)."
+SET Confidence = "High"
+SET Species = "10090"
+SET MeSHDisease = "Encephalomyelitis, Autoimmune, Experimental"
+SET Anatomy = "central nervous system"
+complex(a(MESH:Microglia),a(MESH:Antigens,loc(MESH:"Myelin Sheath"))) -> p(HGNCGENEFAMILY:"Histocompatibility complex")
+p(HGNCGENEFAMILY:"Histocompatibility complex") -> bp(GO:"T cell activation")
+complex(a(MESH:Microglia),a(MESH:Antigens,loc(MESH:"Myelin Sheath"))) -> bp(GO:"T cell activation")
+UNSET Confidence
+
+SET Evidence = "Consistent with this, time-course studies in EAE mice showed that the appearance of inﬂammatory T cells in the CNS is consistent with the activation of CD11b+ microglia (Murphy et al., 2010)."
+#CD11b+ microglia
+SET Confidence = "High"
+bp(GO:"T cell activation") -> bp(GO:"microglial cell activation")
+UNSET Species
+UNSET MeSHDisease
+UNSET Confidence
+
+SET Evidence = "However, speciﬁc deletion of MHCII in microglia does not aﬀect disease progression,suggesting that microglia are not important in reactivating eﬃcient T cells in the CNS (Wolf et al., 2018)."
+SET Confidence = "High"
+p(MESH:"Histocompatibility Antigens Class II") cnc path(DOID:"multiple sclerosis")
+bp(GO:"microglial cell activation") cnc bp(GO:"T cell activation")
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Microglia also secrete a series of pro-inﬂammatory cytokines such as IL-18, IL-6, and IL-1b and chemokines like CCL2 and CCL5 to aggravate both MS and EAE (Merson et al., 2010; Jiang et al., 2014)."
+SET Confidence = "High"
+a(MESH:Microglia) -> sec(p(HGNC:IL18))
+a(MESH:Microglia) -> sec(p(HGNC:IL6))
+a(MESH:Microglia) -> sec(p(HGNC:IL1B))
+a(MESH:Microglia) -> sec(p(HGNC:CCL2))
+a(MESH:Microglia) -> sec(p(HGNC:CCL5))
+p(HGNC:IL18) -> bp(GO:"inflammatory response")
+p(HGNC:IL6) -> bp(GO:"inflammatory response")
+p(HGNC:IL1B) -> bp(GO:"inflammatory response")
+p(HGNC:CCL2) -> bp(GO:"inflammatory response")
+p(HGNC:CCL5) -> bp(GO:"inflammatory response")
+p(HGNC:IL18) -> path(EFO:"experimental autoimmune encephalomyelitis")
+p(HGNC:IL6) -> path(EFO:"experimental autoimmune encephalomyelitis")
+p(HGNC:IL1B) -> path(EFO:"experimental autoimmune encephalomyelitis")
+p(HGNC:CCL2) -> path(EFO:"experimental autoimmune encephalomyelitis")
+p(HGNC:CCL5) -> path(EFO:"experimental autoimmune encephalomyelitis")
+p(HGNC:IL1B) -> path(DOID:"multiple sclerosis")
+p(HGNC:IL6) -> path(DOID:"multiple sclerosis")
+p(HGNC:CCL2) -> path(DOID:"multiple sclerosis")
+p(HGNC:IL1B) -> path(DOID:"multiple sclerosis")
+p(HGNC:CCL5) -> path(DOID:"multiple sclerosis")
+UNSET Confidence
+
+SET Evidence = "In conclusion, microglia exert detrimental functions in MS and strongly damage myelin."
+SET Confidence = "High"
+a(MESH:Microglia) -> path(DOID:"multiple sclerosis")
+a(MESH:Microglia) -> deg(a(MESH:"Myelin Sheath"))
+UNSET Confidence
+
+SET Evidence = "Microglial activation may also be beneﬁcial for remyelination in MS due to the phagocytotic ability of microglia, as well as their secretion of neuroprotective molecules and antiinﬂammatory cytokines (Du et al., 2017)."
+SET Confidence = "High"
+SET Disease = "multiple sclerosis"
+bp(GO:"microglial cell activation") -> bp(MESH:Remyelination)
+a(MESH:Microglia) -> bp(GO:phagocytosis)
+UNSET Disease
+a(MESH:Microglia) -> bp(MESH:Neuroprotection)
+a(MESH:Microglia) -> a(MESH:Cytokines)
+a(MESH:Cytokines) -| bp(GO:"inflammatory response")
+UNSET Confidence
+
+SET Evidence = "Microglia-speciﬁc deletion of A20, the crucial protein in regulating microglial activation,makes microglia lose their ability to regulate neuronal synaptic function, thus exacerbating MS-like disease (Voet et al., 2018)."
+SET Confidence = "High"
+SET Cell = "microglial cell"
+p(HGNC:TNFAIP3) reg bp(GO:"microglial cell activation")
+p(HGNC:TNFAIP3) reg bp(MESH:"Synaptic Potentials")
+UNSET Cell
+p(HGNC:TNFAIP3) -| path(DOID:"multiple sclerosis")
+UNSET Confidence
+
+SET Evidence = "Several receptors, including TREM2, complement receptor 3, and signal regulatory protein-α, invoke microglia to phagocytose myelin debris in lesions (Brendecke and Prinz, 2015)."
+#NCIT:C120869 = cellular debris
+SET Confidence = "High"
+p(HGNC:TREM2) -> bp(GO:"microglial cell activation")
+p(MESH:"Macrophage-1 Antigen") -> bp(GO:"microglial cell activation")
+p(HGNC:SRPRA) -> bp(GO:"microglial cell activation")
+bp(GO:"microglial cell activation") -> bp(GO:phagocytosis)
+SET Anatomy = "myelin"
+bp(GO:phagocytosis) -> deg(a(NCIT:C120869))
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Microglia-speciﬁc ablation of TREM2 cannot upregulate genes associated with phagocytosis (Poliani et al., 2015), and the blockage of TREM2 results in increased demyelination in EAE (Piccio et al., 2007)."
+SET Confidence = "High"
+SET MeSHDisease = "Encephalomyelitis, Autoimmune, Experimental"
+p(HGNC:TREM2) -| path(HP:"CNS demyelination")
+UNSET MeSHDisease
+UNSET Confidence
+
+SET Evidence = "Moreover, microglia secrete trypsinogen, insulin-like growth factor, and ﬁbroblast growth factor during activation to promote neurogenesis (Pérez-Martín et al., 2010; Voss et al., 2012)."
+SET Confidence = "High"
+bp(GO:"microglial cell activation") => g(HGNC:PRSS3P2)
+bp(GO:"microglial cell activation") -> sec(p(HGNC:IGF1))
+bp(GO:"microglial cell activation") -> sec(p(MESH:"Fibroblast Growth Factors"))
+g(HGNC:PRSS3P2) -> bp(GO:neurogenesis)
+p(HGNC:IGF1) -> bp(GO:neurogenesis)
+p(NCIT:C20426) -> bp(GO:neurogenesis)
+bp(GO:"microglial cell activation") -> bp(GO:neurogenesis)
+UNSET Confidence
+
+SET Evidence = "Anti-inﬂammatory molecules from microglia also beneﬁt remyelination in EAE, for example, IL-4 enhances oligodendrogenesis (Butovsky et al., 2006), and activin A drives oligodendrocyte diﬀerentiation (Miron et al., 2013)."
+SET Confidence = "High"
+SET MeSHDisease = "Encephalomyelitis, Autoimmune, Experimental"
+bp(GO:"microglial cell activation") -> p(HGNC:IL4)
+p(HGNC:IL4) -> bp(GO:"oligodendrocyte development")
+bp(GO:"microglial cell activation") -> p(MESH:Activins)
+p(MESH:Activins) -> bp(GO:"oligodendrocyte differentiation")
+p(HGNC:IL4) -| bp(GO:"inflammatory response")
+p(MESH:Activins) -| bp(GO:"inflammatory response")
+p(HGNC:IL4) -> bp(MESH:Remyelination)
+p(MESH:Activins) -> bp(MESH:Remyelination)
+UNSET MeSHDisease
+UNSET Confidence
+
+SET Evidence = "Interestingly, pro-inﬂammatory cytokine TNF has neuroprotective functions in EAE(Wolfetal.,2017),and deletion of microglial TNFR2 causing early disease onset, with increased leukocyte inﬁltration,demyelination and T cell activation in CNS (Gao et al., 2017)."
+SET Confidence = "High"
+p(HGNC:TNF) -> bp(MESH:Neuroprotection)
+p(HGNC:TNFRSF1B) -| path(EFO:"experimental autoimmune encephalomyelitis")
+SET Anatomy = "central nervous system"
+p(HGNC:TNFRSF1B) -| a(MESH:"Leukocytes, Mononuclear",loc(MESH:"Central Nervous System"))
+p(HGNC:TNFRSF1B) -| path(HP:"CNS demyelination")
+p(HGNC:TNFRSF1B) -| bp(GO:"T cell activation")
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "The activated monocyte-derived macrophages is generally considered to be harmful in MS (Yamasaki et al., 2014)."
+SET Confidence = "High"
+bp(GO:"macrophage activation") -> path(DOID:"multiple sclerosis")
+UNSET Confidence
+
+SET Evidence = "Inﬁltrating monocytes accumulate at the nodes of Ranvier during early stages of EAE and actively initiate the demyelination of axons (Yamasakietal.,2014), similar to microglia, but they do not aﬀect CNS-resident microglia (Ajami et al., 2011)."
+SET Confidence = "High"
+path(EFO:"experimental autoimmune encephalomyelitis") -> a(MESH:Monocytes,loc(GO:"node of Ranvier"))
+a(MESH:Monocytes,loc(GO:"node of Ranvier")) -> path(HP:"CNS demyelination")
+SET Anatomy = "central nervous system"
+a(MESH:Monocytes) cnc a(MESH:Microglia)
+UNSET Confidence
+
+SET Evidence = "Bone marrow chimeric mice show that TRPM2 expressed by CNS-inﬁltrating macrophages prompts the production of CXCL2, thus increasing neutrophil inﬁltration and contributing to the progression of EAE (Tsutsui et al., 2018)."
+#chimeric mice
+SET Confidence = "High"
+SET Species = "10090"
+a(MESH:Macrophages) -> p(HGNC:TRPM2)
+p(HGNC:TRPM2) -> p(HGNC:CXCL2)
+p(HGNC:CXCL2) -> bp(MESH:"Neutrophil Infiltration")
+p(HGNC:CXCL2) -> path(EFO:"experimental autoimmune encephalomyelitis")
+UNSET Species
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Macrophages also secrete large amounts of pro-inﬂammatory cytokines, such as IL6, IL-12, TNF-α, IL-1, and IL-23, to aggravate the inﬂammatory response (Valentin-Torres et al., 2016)."
+SET Confidence = "High"
+a(MESH:Macrophages) -> sec(p(HGNC:IL6))
+a(MESH:Macrophages) -> sec(p(HGNC:IL12B))
+a(MESH:Macrophages) -> sec(p(HGNC:TNF))
+a(MESH:Macrophages) -> sec(p(HGNC:IL1A))
+a(MESH:Macrophages) -> sec(p(MESH:"Interleukin-23"))
+p(MESH:"Interleukin-23") -> path(MESH:Inflammation)
+p(HGNC:IL1A) -> path(MESH:Inflammation)
+p(HGNC:TNF) -> path(MESH:Inflammation)
+p(HGNC:IL12B) -> path(MESH:Inflammation)
+p(HGNC:IL6) -> path(MESH:Inflammation)
+UNSET Confidence
+
+SET Evidence = "IL-1β expression has been found to be pivotal in the polarization of Th17 cells and therefore for EAE induction (Sutton et al., 2006)."
+SET Confidence = "High"
+p(HGNC:IL1B) pos bp(GO:"T-helper 17 cell chemotaxis")
+p(HGNC:IL1B) -> path(EFO:"experimental autoimmune encephalomyelitis")
+UNSET Confidence
+
+SET Evidence = "IL-6 has also been demonstrated to be critical for CNS autoimmunity, as IL6-deﬁcient mice demonstrated alleviated EAE (Samoilova et al., 1998)."
+SET Confidence = "High"
+SET Anatomy = "central nervous system"
+p(HGNC:IL6) pos path(HP:Autoimmunity)
+SET Species = "10090"
+p(HGNC:IL6) -| path(EFO:"experimental autoimmune encephalomyelitis")
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Macrophages also express high levels of CCR4 during the disease, and CCR4 deletion leading to reduced accumulation of macrophages in CNS and attenuated EAE symptoms(Fordeetal., 2011)."
+SET Confidence = "High"
+SET Disease = "multiple sclerosis"
+a(MESH:Macrophages) -> p(HGNC:CCR4)
+SET Anatomy = "central nervous system"
+p(HGNC:CCR4) -| a(MESH:Macrophages)
+p(HGNC:CCR4) -> path(EFO:"experimental autoimmune encephalomyelitis")
+UNSET Anatomy
+UNSET Disease
+UNSET Confidence
+UNSET Species
+
+SET Evidence = "These ﬁndings suggest that macrophages are responsible for demyelination, but their direct functions on axons remain to be determined."
+SET Confidence = "High"
+a(MESH:Macrophages) -> path(HP:"CNS demyelination")
+UNSET Confidence
+
+SET Evidence = "In contrast to microglia, macrophages express TREM-1 rather than TREM-2,and although this isoform plays a role in inﬂammatory responses (Colonna and Facchetti,2003),the functions of TREM1 still need to be further studied in a CNS autoimmunity context."
+SET Confidence = "High"
+a(MESH:Microglia) -> p(HGNC:TREM2)
+a(MESH:Macrophages) -> p(HGNC:TREM1)
+p(HGNC:TREM2) -- path(MESH:Inflammation)
+UNSET Confidence
+
+SET Evidence = "The transcription factor Nr4a1 represses the autocrine production of nor epinephrine in macrophages,and myeloid cells lacking Nr4a1 lead to more leukocyte inﬁltration with in the CNS and more severe EAE clinical symptoms (Shaked et al., 2015)."
+SET Confidence = "High"
+SET Cell = "macrophage"
+p(HGNC:NR4A1) -| a(DRUGBANK:Norepinephrine)
+UNSET Cell
+SET MeSHAnatomy = "Myeloid Cells"
+p(HGNC:NR4A1) -| a(MESH:"Leukocytes, Mononuclear",loc(MESH:"Central Nervous System"))
+UNSET MeSHAnatomy
+p(HGNC:NR4A1) -| path(EFO:"experimental autoimmune encephalomyelitis")
+UNSET Confidence
+
+SET Evidence = "Perivascular macrophages, typically CD163+HLADR+, are markedly increased in MS patients and EAE-aﬀected animals (Zhang et al., 2011; Mammana et al., 2018)."
+#CD163+ and HLADR+
+SET Confidence = "High"
+SET Anatomy = "perivascular space"
+path(DOID:"multiple sclerosis") -> a(MESH:Macrophages)
+path(EFO:"experimental autoimmune encephalomyelitis") -> a(MESH:Macrophages)
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Substantial evidence indicates that perivascular macrophages have both supportive and neuroprotective roles in MS."
+SET Confidence = "High"
+SET Disease = "multiple sclerosis"
+SET Anatomy = "perivascular space"
+a(MESH:Macrophages) -> bp(MESH:Neuroprotection)
+UNSET Anatomy
+UNSET Disease
+UNSET Confidence
+
+SET Evidence = "Selective elimination of both perivascular and meningeal macrophages by treatment with clodronate-loaded liposomes reduces the progression of EAE in rats (Polﬂiet et al., 2002), suggesting that perivascular macrophages may act as competent APCs in EAE."
+SET Confidence = "High"
+SET Species = "10116"
+SET Anatomy = "perivascular space"
+SET MeSHAnatomy = "Meninges"
+a(CHEBI:"clondronate(2-)",loc(MESH:Liposomes)) -| a(MESH:Macrophages)
+a(CHEBI:"clondronate(2-)",loc(MESH:Liposomes)) -| path(EFO:"experimental autoimmune encephalomyelitis")
+UNSET MeSHAnatomy
+SET MeSHDisease = "Encephalomyelitis, Autoimmune, Experimental"
+a(MESH:Macrophages) isA a(MESH:"Antigen-Presenting Cells")
+
+UNSET Confidence
+
+SET Evidence = "EAE related perivascular macrophages upregulate the expression of MHC II and can present peptides to myelin-speciﬁc T cells in the CNS, thereby accelerating disease progression (Perry, 1998; Fabriek et al., 2005; Greter et al., 2005; Vogel et al., 2013)."
+SET Confidence = "High"
+a(MESH:Macrophages) -> p(MESH:"Histocompatibility Antigens Class II")
+a(MESH:Macrophages) -> path(EFO:"experimental autoimmune encephalomyelitis")
+UNSET MeSHDisease
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "Furthermore, perivascular macrophages express high levels of adhesion molecules such as VCAM-1 and ICAM-1 and chemokines like CCL2 and CCL3 (Hofmann et al., 2002; Vercellino et al., 2017), which may mediated by chondroitin sulfate proteoglycans (Stephenson et al., 2018), to promote leukocyte inﬁltration into the CNS."
+SET Confidence = "High"
+SET Anatomy = "perivascular space"
+a(MESH:Macrophages) -> p(HGNC:VCAM1)
+a(MESH:Macrophages) -> p(HGNC:ICAM1)
+a(MESH:Macrophages) -> p(HGNC:CCL2)
+a(MESH:Macrophages) -> p(HGNC:CCL3)
+p(HGNC:VCAM1) -> a(MESH:"Leukocytes, Mononuclear",loc(MESH:"Central Nervous System"))
+p(HGNC:ICAM1) -> a(MESH:"Leukocytes, Mononuclear",loc(MESH:"Central Nervous System"))
+p(HGNC:CCL2) -> a(MESH:"Leukocytes, Mononuclear",loc(MESH:"Central Nervous System"))
+p(HGNC:CCL3) -> a(MESH:"Leukocytes, Mononuclear",loc(MESH:"Central Nervous System"))
+UNSET Confidence
+
+SET Evidence = "Moreover, M2 perivascular macrophages can promote the diﬀerentiation of Th2 and Treg cells due to their anti-inﬂammatory characteristic (Weberetal.,2007)."
+#NCIT:C123783 = M2 macrophage
+SET Confidence = "High"
+a(NCIT:C123783) -- a(MESH:"Th2 Cells")
+a(NCIT:C123783) -> bp(GO:"regulatory T cell differentiation")
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "In concordance, meningeal macrophages are equipped to present peptide antigens to T cells, triggering neuroinﬂammatory events (Bartholomäus et al., 2009; Kivisakk et al., 2009; Ransohoﬀ and Cardona, 2010)."
+SET Confidence = "High"
+SET MeSHAnatomy = "Meninges"
+a(MESH:Macrophages) -> bp(GO:"T cell activation")
+bp(GO:"T cell activation") -> path(CONSO:neuroinflammation)
+UNSET Confidence
+
+SET Evidence = "In contrast, meningeal macrophages produce neurotrophic and anti-inﬂammatory factors to inhibit leukocyte activity and their inﬁltration into the CNS at particular disease stages (Bogie et al., 2014)."
+SET Confidence = "High"
+a(MESH:Macrophages) -> p(MESH:"Nerve Growth Factors")
+a(MESH:Macrophages) -> p(MESH:"Anti-Inflammatory Agents")
+p(MESH:"Nerve Growth Factors") -| act(a(MESH:"Leukocytes, Mononuclear"))
+p(MESH:"Anti-Inflammatory Agents") -| act(a(MESH:"Leukocytes, Mononuclear"))
+a(MESH:Macrophages) -| act(a(MESH:"Leukocytes, Mononuclear"))
+p(MESH:"Nerve Growth Factors") -| a(MESH:"Leukocytes, Mononuclear",loc(MESH:"Central Nervous System"))
+p(MESH:"Anti-Inflammatory Agents") -| a(MESH:"Leukocytes, Mononuclear",loc(MESH:"Central Nervous System"))
+a(MESH:Macrophages) -| a(MESH:"Leukocytes, Mononuclear",loc(MESH:"Central Nervous System"))
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "Leptomeningeal macrophages increase the expression of transforming growth factor-β in glial cells and cortical neurons by releasing prostaglandin E2 during inﬂammation (Wu et al., 2007)."
+SET Confidence = "High"
+SET Cell = "leptomeningeal cell"
+path(MESH:Inflammation) -> bp(GO:"macrophage activation")
+bp(GO:"macrophage activation") -> a(CHEBI:"prostaglandin E2")
+a(CHEBI:"prostaglandin E2") -> p(HGNC:TGFB1,loc(MESH:Neuroglia))
+SET Anatomy = "cerebral cortex"
+a(CHEBI:"prostaglandin E2") -> p(HGNC:TGFB1,loc(MESH:Neurons))
+UNSET Anatomy
+UNSET Cell
+UNSET Confidence
+
+SET Evidence = "However, other studies demonstrated that prostaglandin E2 could also exacerbate EAE (Lima et al., 2012), depending on the disease stage and microenvironment."
+SET Confidence = "High"
+a(CHEBI:"prostaglandin E2") -> path(EFO:"experimental autoimmune encephalomyelitis")
+UNSET Confidence
+
+SET Evidence = "The severity of MS coincides with enhanced levels of inﬁltrated leukocytes in the choroid plexus (Engelhardt et al., 2001; Vercellino et al., 2008; Mitchell et al., 2009), strongly indicating that inﬂammation at the choroid plexus contributes to the disease."
+SET Confidence = "High"
+SET Anatomy = "choroid plexus"
+path(DOID:"multiple sclerosis") -- a(MESH:"Leukocytes, Mononuclear")
+path(MESH:Inflammation) -> path(DOID:"multiple sclerosis")
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Chemokines like CXCL9 and CXCL10 accumulate in large quantities in the CSF during MS progression (Edwards et al., 2013; Puthenparampil et al., 2017), but whether they are secreted by macrophages needs to be conﬁrmed."
+SET Confidence = "High"
+SET Anatomy = "cerebrospinal fluid"
+path(DOID:"multiple sclerosis") -> p(HGNC:CXCL9)
+path(DOID:"multiple sclerosis") -> p(HGNC:CXCL10)
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "However, remote brain choroid plexus can also recruit M2-like macrophages to an injured spinal cord, which might beneﬁt myelin repair(Shechteretal.,2013)."
+SET Confidence = "High"
+a(MESH:"Choroid Plexus") -> a(NCIT:C123783,loc(MESH:"Spinal Cord"))
+a(NCIT:C123783,loc(MESH:"Spinal Cord")) -> bp(MESH:Remyelination)
+UNSET Confidence
+
+SET Evidence = "Consistent with this, researchers found that mouse myelin macrophages could inhibit IFN-γ release by Th1 cells and suppress EAE severity (Bogie et al., 2014)."
+SET Confidence = "High"
+SET Species = "10090"
+SET Anatomy = "myelin"
+a(MESH:"Th1 Cells") -> p(HGNC:IFNG)
+a(MESH:Macrophages) -| p(HGNC:IFNG)
+a(MESH:Macrophages) -| path(EFO:"experimental autoimmune encephalomyelitis")
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Although microglia and inﬁltrating macrophages are potent APCs in EAE, the expression levels of MHC II and costimulatory molecules on microglia are lower (Brendecke and Prinz, 2015), indicating that inﬂammation in the CNS is mainly activated by inﬁltrating macrophages."
+SET Confidence = "High"
+SET MeSHDisease = "Encephalomyelitis, Autoimmune, Experimental"
+a(MESH:Microglia) isA a(MESH:"Antigen-Presenting Cells")
+a(MESH:Macrophages) isA a(MESH:"Antigen-Presenting Cells")
+SET Anatomy = "central nervous system"
+a(MESH:Macrophages) -> path(MESH:Inflammation)
+UNSET Anatomy
+UNSET Species
+UNSET MeSHDisease
+UNSET Confidence
+
+SET Evidence = "Currently, the clinical treatment of MS includes recombinant IFNβ-1a, glatiramer acetate, and natalizumab to mainly regulate T and B cells (Chengetal.,2017)."
+#recombinant IFNB1
+SET Confidence = "High"
+p(HGNC:IFNB1) -| path(DOID:"multiple sclerosis")
+a(MESH:"Glatiramer Acetate") -| path(DOID:"multiple sclerosis")
+a(DRUGBANK:Natalizumab) -| path(DOID:"multiple sclerosis")
+p(HGNC:IFNB1) reg a(MESH:"T-Lymphocytes")
+a(MESH:"Glatiramer Acetate") reg a(MESH:"T-Lymphocytes")
+a(DRUGBANK:Natalizumab) reg a(MESH:"T-Lymphocytes")
+p(HGNC:IFNB1) reg a(MESH:"B-Lymphocytes")
+a(MESH:"Glatiramer Acetate") reg a(MESH:"B-Lymphocytes")
+a(DRUGBANK:Natalizumab) reg a(MESH:"B-Lymphocytes")
+UNSET Confidence
+
+SET Evidence = "Studies have found that the neuroprotective eﬀects of glatiramer acetate are mediated by activated M2 microglia (Ratchford et al., 2012)."
+#M2 Microglia
+SET Confidence = "High"
+act(a(MESH:Microglia)) -> a(MESH:"Glatiramer Acetate")
+a(MESH:"Glatiramer Acetate") -> bp(MESH:Neuroprotection)
+UNSET Confidence
+
+SET Evidence = "These agents include ethyl pyruvate (Djedovi´c et al., 2017), spermidine (Yang et al., 2016), bryostatin-1(Kornbergetal.,2018),forskolin(Veremeykoetal., 2018), and lenalidomide (Weng et al., 2018)."
+#compounds that inﬂuence macrophage and microglial functions
+SET Confidence = "High"
+a(DRUGBANK:"Ethyl pyruvate") -- bp(GO:"macrophage activation")
+a(CHEBI:spermidine) -- bp(GO:"macrophage activation")
+a(CHEBI:"bryostatin 1") -- bp(GO:"macrophage activation")
+a(CHEBI:forskolin) -- bp(GO:"macrophage activation")
+a(DRUGBANK:Lenalidomide) -- bp(GO:"macrophage activation")
+a(DRUGBANK:"Ethyl pyruvate") -- bp(GO:"microglial cell activation")
+a(CHEBI:spermidine) -- bp(GO:"microglial cell activation")
+a(CHEBI:"bryostatin 1") -- bp(GO:"microglial cell activation")
+a(CHEBI:forskolin) -- bp(GO:"microglial cell activation")
+a(DRUGBANK:Lenalidomide) -- bp(GO:"microglial cell activation")
+UNSET Confidence
+
+SET Evidence = "Ethyl pyruvate can reduce high-mobility group box 1 expression in activated ED1+ macrophages and Iba1+ microglia, thus inhibiting the activation of macrophages/microglia within the CNS to protect against EAE (Djedovi´c et al., 2017)."
+#ED1+ macrophages and Iba1+ microglia
+SET Confidence = "High"
+SET Anatomy = "central nervous system"
+a(DRUGBANK:"Ethyl pyruvate") -| bp(GO:"macrophage activation")
+a(DRUGBANK:"Ethyl pyruvate") -| bp(GO:"microglial cell activation")
+a(DRUGBANK:"Ethyl pyruvate") -| path(EFO:"experimental autoimmune encephalomyelitis")
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "In addition, forskolin has been found to alleviate EAE by suppressing the expression of CD86 while enhancing the expression of ARG1 in macrophages (Veremeyko et al., 2018)."
+SET Confidence = "High"
+a(CHEBI:forskolin) -| p(HGNC:CD86)
+p(HGNC:CD86) -> path(EFO:"experimental autoimmune encephalomyelitis")
+a(CHEBI:forskolin) -| path(EFO:"experimental autoimmune encephalomyelitis")
+a(CHEBI:forskolin) -> p(HGNC:ARG1,loc(MESH:Macrophages))
+UNSET Confidence
+
+SET Evidence = "The long non-coding RNA GAS5, a suppresser of microglial M2 polarization, is expressed at a high level within microglia in MS patients."
+#M2 microglia
+SET Confidence = "High"
+r(HGNC:GAS5) -| a(MESH:Microglia)
+path(DOID:"multiple sclerosis") -> r(HGNC:GAS5,loc(MESH:Microglia))
+UNSET Confidence
+
+SET Evidence = "For example, glucocorticoids are used extensively to treat acute relapses in MS patients (Pato-Pato et al., 2003; Cohen et al., 2009), but their therapeutic eﬀect is accompanied by serious side eﬀects due to their broad spectrum of immunosuppressive actions (Baschant and Tuckermann, 2010)."
+SET Confidence = "High"
+a(MESH:Glucocorticoids) -| path(DOID:"relapsing-remitting multiple sclerosis")
+a(MESH:Glucocorticoids) isA a(CHEBI:"immunosuppressive agent")
+UNSET Confidence
+
+SET Evidence = "Other research showed that inﬁltrated CD163+ macrophages in brains from a Parkinson’s disease model modulate local microglia to promote neuroprotection."
+#CD163+ macrophages
+SET Confidence = "High"
+SET Disease = "Parkinson's disease"
+a(MESH:Macrophages,loc(MESH:Brain)) reg a(MESH:Microglia)
+a(MESH:Microglia) -> bp(MESH:Neuroprotection)
+a(MESH:Macrophages,loc(MESH:Brain)) -> bp(MESH:Neuroprotection)
+UNSET Disease
+UNSET Confidence
+
+SET Evidence = "Chemokine gradients secreted from the CNS parenchyma can induce macrophage migration to the brain, making macrophages potential carriers for drug/nano formulations across the BBB to reach target sites (Ye et al., 2018)."
+SET Confidence = "High"
+SET Anatomy = "central nervous system"
+a(MESH:Chemokines,loc(NCIT:C74601)) -> a(MESH:Macrophages,loc(MESH:Brain))
+UNSET Anatomy
+UNSET Confidence

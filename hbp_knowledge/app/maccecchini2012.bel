@@ -86,6 +86,7 @@ SET Citation = {"PubMed", "22791904"}
 
 SET Page = 896
 SET Evidence ="A 160 mg dose was associated with an increased incidence of nausea and vomiting (four subjects were nauseous and three vomited)"
+SET Confidence = "High"
 SET Figure = 2A
 SET ArticleCompoundNumber = 1
 SET MeasurementType = "dose"
@@ -96,9 +97,10 @@ a(PUBCHEM:"11249342") -> path(MESH:Nausea)
 a(PUBCHEM:"11249342") -> path(MESH:Vomiting)
 
 UNSET {MeasurementValue,MeasurementUnits,MeasurementType,ArticleCompoundNumber,Figure}
-
+UNSET Confidence
 
 SET Evidence ="Posiphen 80 mg was determined as the no observed adverse effect level (table 1)."
+SET Confidence = "High"
 SET ArticleCompoundNumber = 1
 SET MeasurementType = "dose"
 SET MeasurementUnits ="mg"
@@ -107,26 +109,33 @@ SET MeasurementValue =80
 a(PUBCHEM:"11249342") cnc path(MESH:Nausea)
 a(PUBCHEM:"11249342") cnc path(MESH:Vomiting)
 UNSET {MeasurementValue,MeasurementUnits,MeasurementType,ArticleCompoundNumber,Page}
-
-SET Evidence ="The four times a day regimen resulted in some accumulation of Posiphen in plasma and accumulation of Posiphen/metabolites in CSF"
+UNSET Confidence
 
 SET Page =899
 SET Evidence ="Specifically, Posiphen lowered sAPPa and sAPPb levels by 59.9% and 57.7%, respectively, assessed by the AlpaLisa assay, and by 34.1% and 34%, respectively, assessed by the MSD assay, in accordance with Posiphen’s proposed mechanism of action to inhibit APP expression."
+SET Confidence = "High"
 SET ArticleCompoundNumber = 1
 a(PUBCHEM:"11249342") -| p(CONSO:"sAPP-alpha")
 a(PUBCHEM:"11249342") -| p(CONSO:"sAPP-beta")
+UNSET Confidence
 
 SET Evidence ="In addition, Posiphen significantly reduced levels of t-s (74.1%, as assessed by the Innogenetics assay and 46.2%, as assessed by the AlphaLisa assay) and p-s (61%, as assessed by the Innogenetics assay)."
+SET Confidence = "High"
 a(PUBCHEM:"11249342") -| p(HGNC:MAPT)
 a(PUBCHEM:"11249342") -| p(HGNC:MAPT,pmod(Ph))
+UNSET Confidence
 
 SET Evidence =" A significant lowering of pro-inflammatory, C3 (86.9%) and microglial activation markers, MCP-1 (87.5%) and YKL-40 (72.7%), was evident."
+SET Confidence = "High"
 a(PUBCHEM:"11249342") -| p(HGNC:C3)
 a(PUBCHEM:"11249342") -| p(HGNC:CCL2)
 a(PUBCHEM:"11249342") -| p(HGNC:CHI3L1)
+UNSET Confidence
 
 SET Evidence ="and the complement control protein, factor H, were unaffected by Posiphen (26.1% and +23.7%, respectively)."
+SET Confidence = "High"
 a(PUBCHEM:"11249342") cnc p(HGNC:CFH)
+UNSET Confidence
 
 UNSET Page
 UNSET Citation
