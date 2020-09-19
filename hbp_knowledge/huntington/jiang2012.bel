@@ -1,0 +1,337 @@
+######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Neuroprotective role of Sirt1 in mammalian models of Huntington's disease through activation of multiple Sirt1 targets"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Yojana Gadiya"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/conso
+# --------------------------------------------------------------
+ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+# DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+# DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+# DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+# DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
+DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/4aa36980578c7d2cff07371abf768f15db89cd11/export/conso-names.belns"
+DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+ DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+# DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/hp-names.belns"
+ DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/go-names.belns"
+ DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+ DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mesh-names.belns"
+# DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
+# DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
+ DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+# DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
+# DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+ DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+ DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+ DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+ DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+ DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+ DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+ DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+ DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+ DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+ DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+ DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+ DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+ DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+ DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "22179319"}
+
+SET Evidence = "SIRT1 is one of seven identified sirtuins, an evolutionarily conserved proteins with NAD+-dependent deacetylase activity that participate in numerous cell activities including cellular metabolism[5]."
+SET Confidence = "High"
+p(HGNC:"SIRT1") -- path(MESH:"Metabolism")
+p(HGNC:"SIRT1") isA p(HGNCGENEFAMILY:"Sirtuins")
+UNSET Confidence
+
+SET Evidence = "Whether SIRT1 has protective role in mammalian HD remains undefined, however, as results from lower organisms such as Caenorhabditis elegans [13] and Drosophila melanogaster [14] are contradictory; for example, overexpression of sir2, an ortholog of human SIRT1, suppressed mutant huntingtin (Htt)-induced neurotoxicity [13], whereas overexpression of sir2 in drosophila showed no significant protection [15]."
+SET Confidence = "Low"
+#34708 - Sirt1 D.melanogaster
+#3361342 - sir2 C.elegans
+SET Species = "6239"
+#p(NCBIGENE:"3361342") -| p(HGNC:"HTT", pmod(CONSO:"CAG repeats"))
+#travis giving error on 3361342
+p(HGNC:"HTT", pmod(CONSO:"CAG repeats")) -> path(CONSO:"neurotoxicity")
+UNSET Species
+SET Species = "7227"
+p(NCBIGENE:"34708") cnc p(HGNC:"HTT", pmod(CONSO:"CAG repeats"))
+p(HGNC:"HTT", pmod(CONSO:"CAG repeats")) -> path(CONSO:"neurotoxicity")
+p(NCBIGENE:"34708") cnc bp(MESH:Neuroprotection)
+UNSET Species
+UNSET Confidence
+
+SET Species = "10090"
+SET MeSHDisease = "Huntington Disease"
+
+SET Evidence = "SIRT1 overexpression did not decrease mutant Htt levels (Supplementary Fig. 1a), but significantly delayed the onset and slowed the progression of motor deficits in HD mice (Fig. 1c)."
+SET Confidence = "High"
+#Anatomy annotated form paper. Not mentioend in evidence
+SET MeSHAnatomy = {"Cerebral Cortex", "Corpus Striatum", "Hippocampus", "Hypothalamus"}
+p(HGNC:"SIRT1") cnc p(HGNC:"HTT", pmod(CONSO:"CAG repeats"))
+p(HGNC:"SIRT1") -| path(MESH:"Motor Disorders")
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "Importantly, overexpression of SIRT1 significantly attenuated the magnitude of brain atrophy in both striatum and neocortex (Fig. 1d-f)."
+SET Confidence = "High"
+#Brain atrophy - N171-82Q HD male mice`
+#Pick Disease of the Brain - brain atrophy
+SET Gender = "Male"
+SET MeSHAnatomy = {"Corpus Striatum", "Neocortex"}
+p(HGNC:"SIRT1") -| path(MESH:"Pick Disease of the Brain")
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "These results demonstrate that increased expression of SIRT1 attenuates neurodegeneration and improves motor function in HD-like mice."
+SET Confidence = "High"
+#these result - sirt1 attenuated brain atrophy
+p(HGNC:"SIRT1") -| path(CONSO:"Neurodegeneration")
+p(HGNC:"SIRT1") -> path(MESH:"Motor Activity")
+UNSET Gender
+UNSET Confidence
+
+SET Evidence = "Overexpression of SIRT1 did not decrease mutant Htt expression in BACHD mice (Supplementary Fig. 1b), but significantly attenuated motor deficits, as indicated in both accelerating rotarod tests and open field assays. (Fig. 1g-h)."
+SET Confidence = "High"
+#strain : BACHD
+p(HGNC:"SIRT1") cnc p(HGNC:"HTT", pmod(CONSO:"CAG repeats"))
+p(HGNC:"SIRT1") -| path(MESH:"Motor Disorders")
+UNSET Confidence
+
+SET Evidence = "Notably, in vivo structural MRI scans in 15-month-old mice showed significant brain atrophy in the striatum and neocortex that was partially ameliorated by SIRT1 overexpression in BACHD mice (Fig. 1i-j), suggesting that SIRT1 overexpression also attenuates neurodegeneration in BACHD mice."
+SET Confidence = "High"
+#15-month old mice
+#strain : BACHD
+SET MeSHAnatomy = {"Corpus Striatum", "Neocortex"}
+p(HGNC:"SIRT1") -| path(MESH:"Pick Disease of the Brain")
+p(HGNC:"SIRT1") -| path(CONSO:"Neurodegeneration")
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "Over expression of SIRT1 significantly attenuated hyperglycemia (Supplementary Fig. 2a), improved glucose tolerance (Supplementary Fig. 2 b-c) and attenuated weight loss in N171-82Q HD mice (Supplementary Fig. 2d)."
+SET Confidence = "High"
+#strain : N171-82Q HD male mice
+SET Gender = "Male"
+p(HGNC:"SIRT1") -| path(MESH:"Hyperglycemia")
+p(HGNC:"SIRT1") -> path(MESH:"Glucose Intolerance")
+p(HGNC:"SIRT1") -| path(MESH:"Weight Loss")
+UNSET Confidence
+
+SET Evidence = "Using Oxymax metabolic cages to measure energy expenditure continuously for a week and monitoring daily food intake, we found that SIRT1 overexpression mainly counteracted the negative effect of mutant Htt on food intake (Supplementary Fig. 2e) but did not affect energy expenditure (Supplementary Fig. 2f)."
+SET Confidence = "High"
+#food intake : Eating
+#strain : N171-82Q HD male mice
+p(HGNC:"HTT", pmod(CONSO:"CAG repeats")) -- path(MESH:"Eating")
+p(HGNC:"SIRT1") cnc path(MESH:"Energy Metabolism")
+UNSET Confidence
+
+SET Evidence = "SIRT1 overexpression did not alter insulin levels in control mice (318.6 ±83.7 pg/ml in SIRT1 mice vs 315.4±51.5 pg/ml in WT mice, mean ± S.E.M., n=10), but significantly reduced insulin levels in HD mice (308.9 ± 34.4 pg/ml in HD mice vs 149.1 ± 6.8 pg/ml in SIRT1/HD mice, mean ± S.E.M., n=10)."
+SET Confidence = "High"
+#strain : N171-82Q HD male mice
+p(HGNC:"SIRT1") -| a(MESH:"Insulins")
+UNSET Gender
+UNSET Confidence
+
+SET Evidence = "Since SIRT1 attenuated hyperglycemia and decreased insulin levels in HD mice, these results indicate that SIRT1 improves insulin sensitivity in HD mice."
+SET Confidence = "High"
+#Insulin Resistance : insulin sensitivity
+p(HGNC:"SIRT1") -> path(MESH:"Insulin Resistance")
+UNSET Confidence
+
+SET Evidence = "Intriguingly, SIRT1 overexpression did not extend the life span in N171-82Q HD mice."
+SET Confidence = "High"
+#strain : N171-82Q HD male mice
+SET Gender = "Male"
+p(HGNC:"SIRT1") cnc path(MESH:"Longevity")
+UNSET Gender
+UNSET Confidence
+
+SET Evidence = "In addition, SIRT1 overexpression did not alter aggregation of mutant Htt (Supplementary Fig. 4), suggesting that aggregation does not play a major role in neuroprotective effects of SIRT1 in our models."
+SET Confidence = "High"
+p(HGNC:"SIRT1") cnc a(CONSO:"huntingtin aggregates")
+
+UNSET MeSHDisease
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "DARPP-32 (dopamine- and cyclic AMP-regulated phosphoprotein of a molecular weight of 32 kDa) is a fundamental component of the dopamine-signaling cascade, [30,31] and HD pathology is marked by extensive loss of medium spiny striatal neurons that express high levels of DARPP32; therefore, DARPP32 can serve as a marker of neuronal loss as well as neuronal dysfunction in HD [32,33]"
+SET Confidence = "High"
+#PPP1R1B : DARPP-32
+SET MeSHDisease = "Huntington Disease"
+p(HGNC:"PPP1R1B") -| bp(GO:"striatal medium spiny neuron differentiation")
+UNSET MeSHDisease
+UNSET Confidence
+
+SET Evidence = "Importantly, SIRT1 restored DARPP32 levels in both HD models (Fig. 2a-b), suggesting that SIRT1 protects striatal neurons against mutant Htt by preservation of DARPP32 levels in medium spiny neurons."
+SET Confidence = "Medium"
+#strain : N171-82Q HD male mice, BACHD
+SET Species = "10090"
+SET MeSHDisease = "Huntington Disease"
+SET Gender = "Male"
+SET Cell = "medium spiny neuron"
+p(HGNC:"SIRT1") -> p(HGNC:"PPP1R1B")
+UNSET Cell
+UNSET Gender
+UNSET MeSHDisease
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "Our previous study of CR in HD mice suggests that CR increases brain-derived neurotrophic factor (BDNF) levels, thereby protecting neurons from mutant Htt [1]."
+SET Confidence = "High"
+#CR: calorie restricted mice
+SET Species = "10090"
+path(MESH:"Caloric Restriction") -> p(HGNC:"BDNF")
+p(HGNC:"BDNF") -> path(MESH:"Neuroprotection")
+p(HGNC:"HTT", pmod(CONSO:"CAG repeats")) -| path(MESH:"Neuroprotection")
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "Moreover, reduced BDNF contributes to striatal dysfunction and degeneration in HD and increase of BDNF levels has been demonstrated to be neuroprotective in HD [34-42]."
+SET Confidence = "High"
+p(HGNC:"BDNF") -> bp(GO:"striatal medium spiny neuron differentiation")
+p(HGNC:"BDNF") -| path(MESH:"Nerve Degeneration")
+UNSET Confidence
+
+SET Evidence = "BDNF signaling in the brain also plays an important role in regulating glucose metabolism [43] and administration of BDNF in brain reduces blood glucose levels in diabetic mice [44]."
+SET Confidence = "High"
+p(HGNC:"BDNF") reg path(MESH:"Carbohydrate Metabolism")
+SET MeSHDisease = "Diabetes Insipidus, Neurogenic"
+SET Species = "10090"
+p(HGNC:"BDNF") -| a(MESH:"Blood Glucose")
+UNSET Species
+UNSET MeSHDisease
+UNSET Confidence
+
+SET Evidence = "BDNF is also required for normal ontogeny of DARPP-32 [46]."
+SET Confidence = "High"
+p(HGNC:"BDNF") -- p(HGNC:"PPP1R1B")
+UNSET Confidence
+
+SET Evidence = "BDNF levels were significantly decreased in our HD-like mice, whereas overexpression of SIRT1 markedly restored BDNF protein levels (Fig. 2 c-d)."
+SET Confidence = "High"
+SET Species = "10090"
+SET MeSHDisease = "Huntington Disease"
+p(HGNC:"SIRT1") -> p(HGNC:"BDNF")
+UNSET MeSHDisease
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "Moreover, we found that total and phosphorylated Trk B levels were significantly decreased in striatal cells expressing full-length mutant Htt (Fig. 2e-f)."
+SET Confidence = "High"
+#NTRK2 : Trk B
+SET Cell = "striatum neuron"
+p(HGNC:"HTT", pmod(CONSO:"CAG repeats")) -| p(HGNC:"NTRK2", pmod(Ph))
+p(HGNC:"HTT", pmod(CONSO:"CAG repeats")) -| p(HGNC:"NTRK2")
+UNSET Cell
+UNSET Confidence
+
+SET Evidence = "Overexpression of SIRT1 maintained the activated phospho-Trk-B (Fig. 2e-f) but not total TrkB levels (Fig.2g)."
+SET Confidence = "High"
+SET Cell = "striatum neuron"
+p(HGNC:"SIRT1") -> p(HGNC:"NTRK2", pmod(Ph))
+p(HGNC:"SIRT1") cnc p(HGNC:"NTRK2")
+UNSET Cell
+UNSET Confidence
+
+SET Evidence = "Using an siRNA approach, we showed that complete knockdown of SIRT1 led to cell death in the absence of mutant Htt (data not shown), further suggesting a role of SIRT1 in neuronal survival."
+SET Confidence = "High"
+SET Cell = "neuron"
+p(HGNC:"SIRT1") -> path(MESH:"Cell Survival")
+UNSET Cell
+UNSET Confidence
+
+SET Evidence = "FOXO3a is a ubiquitously expressed mammalian forkhead transcription factor that is highly expressed in adult brain, and recent work indicates that FOXO3a has important roles in neuronal survival under both basal conditions and disease conditions [51-53]."
+SET Confidence = "High"
+SET MeSHAnatomy = "Brain"
+SET Cell = "neuron"
+p(HGNC:"FOXO3") -> path(MESH:"Cell Survival")
+UNSET Cell
+UNSET MeSHAnatomy
+UNSET Confidence
+
+SET Evidence = "Interestingly, we found consistently decreased levels of FOXO3a protein in HD mouse brains and in cells expressing full-length mutant Htt (Fig. 4b-c)."
+SET Confidence = "High"
+SET Species = "10090"
+SET MeSHDisease = "Huntington Disease"
+SET MeSHAnatomy = "Brain"
+p(HGNC:"HTT", pmod(CONSO:"CAG repeats")) -| p(HGNC:"FOXO3")
+UNSET MeSHAnatomy
+UNSET MeSHDisease
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "Importantly, levels of acetylated-FOXO3a that were significantly increased in cells expressing mutant Htt (Fig. 4 d) were returned to baseline levels by overexpression of SIRT1 (Fig. 4e)."
+SET Confidence = "High"
+p(HGNC:"HTT", pmod(CONSO:"CAG repeats")) -> p(HGNC:"FOXO3", pmod(Ac))
+p(HGNC:"SIRT1") -| p(HGNC:"FOXO3", pmod(Ac))
+UNSET Confidence
+
+SET Evidence = "In addition, overexpression of SIRT1 restored FOXO3a levels in the striatum of HD mice (Fig 4 b) and striatal cells expressing mutant Htt (Fig.4c)."
+SET Confidence = "High"
+SET Species = "10090"
+SET Cell = "striatum neuron"
+p(HGNC:"SIRT1") -> p(HGNC:"FOXO3")
+UNSET Cell
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "SIRT1 overexpression protected STHdh Q111/Q111 cells from mutant Htt, indicated by recovery of ATP levels (Fig. 4f)."
+SET Confidence = "High"
+#starin : STHdh Q111/Q111
+SET MeSHDisease = "Huntington Disease"
+p(HGNC:"SIRT1") -> a(CHEBI:"ATP")
+UNSET MeSHDisease
+UNSET Confidence
+
+SET Evidence = "In HD cells, overexpression of FOXO3a increased levels of BDNF and DARPP32, whereas knockdown of FOXO3a further decreased DARPP-32 levels (Supplementary Fig. 7a-c), suggesting that FOXO3a deficiency may contribute, either directly or indirectly, to mutant Htt-induced abnormalities in BDNF and DARPP-32."
+SET Confidence = "High"
+SET MeSHDisease = "Huntington Disease"
+p(HGNC:"FOXO3") -> p(HGNC:"BDNF")
+p(HGNC:"FOXO3") -> p(HGNC:"PPP1R1B")
+p(HGNC:"FOXO3") -| p(HGNC:"HTT", pmod(CONSO:"CAG repeats"))
+UNSET MeSHDisease
+UNSET Confidence
+
+SET Evidence = "Using a specific antibody that detects acetylated p53 at lysine 382, we found increased levels of acetylated-p53 in cells expressing mutant Htt compared to those expressing wild-type Htt, suggesting that the mutant protein interfered with SIRT1 deacetylase activity (Fig. 4i)."
+SET Confidence = "High"
+p(HGNC:"HTT", pmod(CONSO:"CAG repeats")) -> p(HGNC:"TP53", pmod(Ac, K, 382))
+p(HGNC:"HTT", pmod(CONSO:"CAG repeats")) -- p(HGNC:"SIRT1", pmod(Ac))
+UNSET Confidence
+
+SET Evidence = "In support of this notion, acetylated p53 was also increased in HD mouse brains, whereas overexpression of SIRT1 led to decreased acetylation of p53 (Fig. 4j)."
+SET Confidence = "High"
+p(HGNC:"SIRT1") -|  p(HGNC:"TP53", pmod(Ac, K, 382))
+UNSET Confidence

@@ -1,0 +1,841 @@
+#######################
+# Document Properties #
+#######################
+SET DOCUMENT Copyright   = "Copyright © 2019 Fraunhofer Institute SCAI, All rights reserved."
+SET DOCUMENT Licenses    = "CC BY 4.0"
+SET DOCUMENT ContactInfo = "charles.hoyt@scai.fraunhofer.de"
+
+SET DOCUMENT Name        = "Modulatory effects of α7 nAChRs on the immune system and its relevance for CNS disorders"
+SET DOCUMENT Version     = "1.0.0"
+SET DOCUMENT Authors     = "Trusha Adeshara"
+SET DOCUMENT Description = ""
+
+##############
+# Namespaces #
+##############
+
+# Namespaces hosted on https://github.com/pharmacome/conso
+# --------------------------------------------------------
+ DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/chebi-names.belns"
+ DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/3c93a65dc48e6786fe29ae55aa36cf9a902fe8c6/export/conso-names.belns"
+ DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/drugbank-names.belns"
+ DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c0c576e3d3ab9b25a3982251a4ee2fd7c49e1679/external/doid-names.belns"
+# DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ec-code.belns"
+ #DEFINE NAMESPACE EFO            AS URL "https://raw.githubusercontent.com/pharmacome/conso/5d2c2ea6f7112421cc8089a3f021a75ab60bb373/external/efo-names.belns"
+# DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/fb-names.belns"
+ DEFINE NAMESPACE HGNC           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc-names.belns"
+ DEFINE NAMESPACE HGNCGENEFAMILY AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/hgnc.genefamily-names.belns"
+ DEFINE NAMESPACE HP             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/hp-names.belns"
+ DEFINE NAMESPACE GO             AS URL "https://raw.githubusercontent.com/pharmacome/conso/d9d270e11aac480542c412d4222983a5f042b8ae/external/go-names.belns"
+ DEFINE NAMESPACE INTERPRO       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/interpro-names.belns"
+ DEFINE NAMESPACE MESH           AS URL "https://raw.githubusercontent.com/pharmacome/conso/f02c6ad4a4791a8ed45448513b9de8c8f1b00c87/external/mesh-names.belns"
+# DEFINE NAMESPACE MGI            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/mgi-names.belns"
+# DEFINE NAMESPACE MIRBASE        AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/mirbase-names.belns"
+ DEFINE NAMESPACE NCBIGENE       AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/ncbigene.belns"
+# DEFINE NAMESPACE PFAM           AS URL "https://raw.githubusercontent.com/pharmacome/conso/c328ad964c08967a0417a887510b97b965a62fa5/external/pfam-names.belns"
+# DEFINE NAMESPACE RGD            AS URL "https://raw.githubusercontent.com/pharmacome/conso/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/rgd-names.belns"
+
+# Namespaces hosted on https://github.com/sorgerlab/famplex
+# ---------------------------------------------------------
+DEFINE NAMESPACE FPLX           AS URL "https://raw.githubusercontent.com/sorgerlab/famplex/d9ec0526c20795146a9a6aef17496efe1a36cac6/export/famplex.belns"
+
+# Namespaces defined with regular expressions
+# -------------------------------------------
+# DEFINE NAMESPACE DBSNP          AS PATTERN "rs[0-9]+"
+# DEFINE NAMESPACE TAXONOMY       AS PATTERN "^\d+$"
+# DEFINE NAMESPACE UNIPROT        AS PATTERN "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"
+ DEFINE NAMESPACE PUBCHEM        AS PATTERN "^\d+$"
+DEFINE NAMESPACE NCIT           AS PATTERN "^C\d+$"
+###############
+# Annotations #
+###############
+
+# Annotations defined with regular expressions
+# --------------------------------------------
+DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
+
+# Annotations hosted on https://arty.scai.fraunhofer.de/artifactory/bel/annotation
+# --------------------------------------------------------------------------------
+ DEFINE ANNOTATION Anatomy       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/anatomy/anatomy-20170511.belanno"
+ #DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
+ DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
+ DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
+ DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+ DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
+ #DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
+ DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
+ DEFINE ANNOTATION MeSHDisease   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-diseases/mesh-diseases-20170511.belanno"
+# DEFINE ANNOTATION Subgraph      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/neurommsig/neurommsig-1.0.3.belanno"
+# DEFINE ANNOTATION TextLocation  AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/text-location/text-location-1.0.1.belanno"
+
+##############
+# Statements #
+##############
+SET Citation = {"PubMed", "26979166"}
+
+SET Evidence = "Peripheral and CNS immune cells strongly express a7 nAChRs; activation of a7 nAChRs on these cells has been shown to suppress inflammatory processes."
+SET Confidence = "High"
+bp(MESH:"Immunity, Cellular") -> p(HGNC:CHRNA7)
+act(p(HGNC:CHRNA7)) -| path(MESH:Inflammation)
+UNSET Confidence
+
+SET Evidence = "Concerning function, activation of a7 nAChRs results in strong calcium and sodium influxes, which in the case of a presynaptic location facilitates neurotransmitter release [17, 18]."
+SET Confidence = "High"
+act(p(HGNC:CHRNA7)) -> bp(GO:"calcium ion import")
+act(p(HGNC:CHRNA7)) -> bp(GO:"sodium ion import across plasma membrane")
+SET CellStructure = "Presynaptic Terminals"
+bp(GO:"calcium ion import") -> sec(a(CHEBI:neurotransmitter))
+bp(GO:"sodium ion import across plasma membrane") -> sec(a(CHEBI:neurotransmitter))
+UNSET CellStructure
+
+SET Evidence = "In addition to expression on the cell surface, an intracellular localization of a7 nAChRs has been observed in brain mitochondria [56]. In this organelle, the a7 nAChR may assemble with b2 subunits where it presumably influences pore formation and cytochrome-c release [57]."
+SET Confidence = "High"
+SET Anatomy = "brain"
+SET CellStructure = "Mitochondria"
+complex(p(HGNC:CHRNA7),p(HGNC:CHRNB2)) -> bp(GO:"pore complex assembly")
+complex(p(HGNC:CHRNA7),p(HGNC:CHRNB2)) -> sec(p(MESH:"Cytochromes c"))
+UNSET Anatomy
+UNSET CellStructure
+UNSET Confidence
+
+SET Evidence = "This indicates that in neurons a7 nAChRs have a special role in the modulation of intracellular calcium, enabling substantial calcium entry at resting or hyperpolarized membrane potential, which is different compared to other nAChRs, but similar to NMDA receptors at depolarized membrane potential."
+SET Confidence = "High"
+#in mouse cell line
+SET Species = "10090"
+SET MeSHAnatomy = "Hippocampus"
+SET Cell = "neuron"
+p(HGNC:CHRNA7) reg a(CHEBI:"calcium ion",loc(MESH:"Intracellular Space"))
+bp(GO:"membrane hyperpolarization") -> a(CHEBI:"calcium ion",loc(GO:nucleus))
+UNSET Cell
+UNSET MeSHAnatomy
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "The intracellular pathways following a7 nAChR activation in non-neuronal cells involve calcium influx through the channel pore, which then triggers calcium-induced calcium release from ryanodine- and IP3-dependent stores [10, 28, 59]."
+SET Confidence = "High"
+act(p(HGNC:CHRNA7)) -> tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"pore complex"),toLoc(MESH:"Intracellular Space"))
+tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"pore complex"),toLoc(MESH:"Intracellular Space")) -> act(p(HGNCGENEFAMILY:"Ryanodine receptors"))
+tloc(a(CHEBI:"calcium ion"),fromLoc(GO:"pore complex"),toLoc(MESH:"Intracellular Space")) -> act(p(HGNCGENEFAMILY:"Inositol 1,4,5-triphosphate receptors"))
+p(HGNCGENEFAMILY:"Ryanodine receptors") -> sec(a(CHEBI:"calcium ion"))
+p(HGNCGENEFAMILY:"Inositol 1,4,5-triphosphate receptors") -> sec(a(CHEBI:"calcium ion"))
+UNSET Confidence
+
+SET Evidence = "For instance, activation of a7 nAChRs leads to stimulation of adenylate cyclase-1 and thus to increases in cAMP levels[61]. This in turn stimulates protein kinase A (PKA), which may result in further signaling events such as CREB activation [61] and GSK3 inhibition [62]"
+SET Confidence = "High"
+act(p(HGNC:CHRNA7)) => act(p(HGNC:ADCY1))
+act(p(HGNC:ADCY1)) => a(MESH:"Cyclic AMP")
+a(MESH:"Cyclic AMP") => act(p(HGNC:PRKACA))
+act(p(HGNC:PRKACA)) => bp(GO:"protein kinase A signaling")
+bp(GO:"protein kinase A signaling") => p(HGNC:CREB1)
+bp(GO:"protein kinase A signaling") =| p(HGNC:GSK3B)
+UNSET Confidence
+
+SET Evidence = "Activation of the a7 nAChR on non-neuronal cells inhibited TLR3-, TLR4- or TLR9-induced transcription and release of inflammatory cytokines [9, 19, 21, 34, 47]."
+SET Confidence = "High"
+act(p(HGNC:CHRNA7)) -| act(p(HGNC:TLR3))
+act(p(HGNC:CHRNA7)) -| act(p(HGNC:TLR4))
+act(p(HGNC:CHRNA7)) -| act(p(HGNC:TLR9))
+act(p(HGNC:TLR3)) -> r(MESH:Cytokines)
+act(p(HGNC:TLR4)) -> r(MESH:Cytokines)
+act(p(HGNC:TLR9)) -> r(MESH:Cytokines)
+p(MESH:Cytokines) -> path(MESH:Inflammation)
+p(HGNC:CHRNA7) -| path(MESH:Inflammation)
+UNSET Confidence
+
+SET Evidence = "One of the intracellular signaling cascades described in this context is a pathway that involves JAK2-mediated tyrosine-phosphorylation of the p85 subunit of PI3 K, activation of Akt and CREB, and subsequent inhibition of (or competition with) NFkappaB [20, 25, 49, 63] (see Fig. 1)."
+SET Confidence = "High"
+act(p(HGNC:CHRNA7)) => act(p(HGNC:JAK2))
+act(p(HGNC:JAK2)) => p(FPLX:"PI3K_p85",pmod(Ph,Tyr))
+p(FPLX:"PI3K_p85",pmod(Ph,Tyr)) => act(p(HGNC:AKT1))
+act(p(HGNC:AKT1)) => act(p(HGNC:CREB1))
+act(p(HGNC:JAK2)) -| act(p(MESH:"NF-kappa B"))
+UNSET Confidence
+
+SET Evidence = "Egea and colleagues emphasize that this pathway furthermore leads to activation of the transcription factor Nrf2, which is important for transcription of numerous anti-oxidative proteins and for the induction of an anti-inflammatory phenotype of microglia cells [64]"
+#Nrf2 = GABPA
+#the one involving JAK2 Activation
+SET Confidence = "High"
+act(p(HGNC:JAK2)) -> act(p(HGNC:GABPA),ma(tscript))
+act(p(HGNC:GABPA)) -| path(MESH:"Oxidative Stress")
+SET Cell = "microglial cell"
+act(p(HGNC:GABPA)) -| path(MESH:Inflammation)
+UNSET Cell
+UNSET Confidence
+
+SET Evidence = "Alternatively, downstream signaling towards NFkB may involve JAK2 activation of STAT3 [65–68] (see Fig. 1). Finally, activation of a7 nAChRs can result in inhibition of p38 MAP-kinase [8, 10, 19]. A functional consequence of this latter pathway is inhibition of the release of inflammatory mediators like TNFa and HMGB1 [8, 10, 19]."
+SET Confidence = "High"
+act(p(HGNC:JAK2)) => act(p(HGNC:STAT3))
+act(p(HGNC:STAT3)) => act(p(MESH:"NF-kappa B"))
+act(p(HGNC:CHRNA7)) -| act(p(HGNC:"MAPK14"))
+act(p(HGNC:CHRNA7)) -> sec(p(HGNC:TNF))
+act(p(HGNC:CHRNA7)) -> sec(p(HGNC:HMGB1))
+sec(p(HGNC:TNF)) -> path(MESH:Inflammation)
+sec(p(HGNC:HMGB1)) -> path(MESH:Inflammation)
+UNSET Confidence
+
+SET Evidence = "Interestingly, activation of glucocorticoid receptors increases the expression of a7 nAChRs [76]."
+SET Confidence = "High"
+act(p(MESH:"Receptors, Glucocorticoid")) -> p(HGNC:CHRNA7)
+UNSET Confidence
+
+SET Evidence = "Overall, given the expression pattern, the cellular signaling cascades, and information from vagus nerve stimulation, the data strongly indicate that activation of the a7 nAChR suppresses the responsiveness of the immune system."
+SET Confidence = "High"
+act(p(HGNC:CHRNA7)) -| a(MESH:"Immune System")
+UNSET Confidence
+
+SET Evidence = "In this context, PNU-120596 has been shown to attenuate TNFa and IL-6 in a rodent model of inflammatory pain"
+#PNU-120596 = 311434
+SET Confidence = "High"
+SET Species = "9989"
+a(PUBCHEM:311434) -| p(HGNC:TNF)
+a(PUBCHEM:311434) -| p(HGNC:IL6)
+a(PUBCHEM:311434) -| path(MESH:Inflammation)
+p(HGNC:IL6) -> path(MESH:Inflammation)
+p(HGNC:TNF) -> path(MESH:Inflammation)
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "Consequently, any dysfunction in the α7 nAChR and its signaling processes could tip the balance towards more inflammation."
+SET Confidence = "High"
+p(HGNC:CHRNA7) -| path(MESH:Inflammation)
+UNSET Confidence
+
+SET Evidence = "This process requires several chaperone molecules such as RIC3, SLURP1, Lynx1, EPHB2, or PICK1, and evidently, their dysfunction could affect receptor level and function [1, 33, 48, 84–88]."
+#this process = assembly of α7 nAChR
+SET Confidence = "High"
+composite(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:RIC3)) -> complex(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7))
+composite(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:SLURP1)) -> complex(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7))
+composite(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:LYNX1)) -> complex(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7))
+composite(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:EPHB2)) -> complex(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7))
+composite(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:PICK1)) -> complex(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7))
+p(HGNC:RIC3) -> act(complex(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7)))
+p(HGNC:SLURP1) -> act(complex(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7)))
+p(HGNC:LYNX1) -> act(complex(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7)))
+p(HGNC:EPHB2) -> act(complex(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7)))
+p(HGNC:PICK1) -> act(complex(p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7),p(HGNC:CHRNA7)))
+UNSET Confidence
+
+SET Evidence = "An as yet undefined tyrosine-phosphorylated protein was shown to inhibit the functional activity of the α7 nAChR, whereas tyrosine kinase inhibition by genistein enhanced surface expression of the α7 nAChR [35, 37, 84, 92] or its function [51]."
+SET Confidence = "High"
+p(MESH:"Protein-Tyrosine Kinases") -> p(HGNC:CHRNA7,pmod(Ph,Tyr))
+p(HGNC:CHRNA7,pmod(Ph,Tyr)) -| act(p(HGNC:CHRNA7))
+a(CHEBI:Genisteine) -| p(MESH:"Protein-Tyrosine Kinases")
+p(MESH:"Protein-Tyrosine Kinases") -| p(HGNC:CHRNA7,loc(MESH:"Cell Membrane"))
+a(CHEBI:Genisteine) -> act(p(HGNC:CHRNA7))
+a(CHEBI:Genisteine) -> p(HGNC:CHRNA7,loc(MESH:"Cell Membrane"))
+UNSET Confidence
+
+SET Evidence = "Serine-phosphorylation of the α7 nAChR can influence function too."
+SET Confidence = "High"
+p(HGNC:CHRNA7,pmod(Ph,Ser)) reg act(p(HGNC:CHRNA7))
+UNSET Confidence
+
+SET Evidence = "It has been reported that activation of D1/D5 dopamine receptors attenuated α7 nAChR currents via PKA-mediated phosphorylation of the serine residue 365 in the M3–M4 cytoplasmic loop of the channel [93]."
+SET Confidence = "High"
+act(p(HGNC:DRD1)) -| act(p(HGNC:CHRNA7))
+act(p(HGNC:DRD5)) -| act(p(HGNC:CHRNA7))
+act(p(HGNC:DRD1)) -> act(p(HGNC:PRKACA))
+act(p(HGNC:DRD5)) -> act(p(HGNC:PRKACA))
+act(p(HGNC:PRKACA))-> p(HGNC:CHRNA7,pmod(Ph,Ser,365))
+p(HGNC:CHRNA7,pmod(Ph,Ser,365)) -| act(p(HGNC:CHRNA7))
+UNSET Confidence
+
+SET Evidence = "Furthermore, dysfunction of the α7 nAChR could result from the presence of the CHRFAM7-gene. This gene encodes a dominant negative variant of the α7 nAChR [26, 96] and is unique for humans [26, 97]."
+SET Confidence = "High"
+SET Species = "9606"
+g(HGNC:CHRFAM7A) -| act(p(HGNC:CHRNA7))
+UNSET Species
+UNSET Confidence
+
+SET Evidence = "As a last argument in favor of a physiological relevance of extrasynaptic α7 nAChRs, it should be mentioned that these receptors are also activated by choline, the precursor and hydrolytic split product of acetylcholine [46, 67, 81, 107]."
+#305 - choline
+SET Confidence = "High"
+a(PUBCHEM:305) -> act(p(HGNC:CHRNA7))
+UNSET Confidence
+
+SET MeSHDisease = "Depression"
+
+SET Evidence = "Inflammation and exposure to stress are generally recognized as strong proximal factors for the development of depression symptoms [109]."
+SET Confidence = "High"
+path(MESH:Inflammation) -> path(DOID:"mental depression")
+path(MESH:"Stress, Physiological") -> path(DOID:"mental depression")
+UNSET Confidence
+
+SET Evidence = "Many kinds of stress, but in particular those involving threat, loss, entrapment, and humiliation, lead to activation of the immune system [109–112]."
+SET Confidence = "High"
+path(MESH:"Stress, Physiological") -> a(MESH:"Immune System")
+UNSET Confidence
+
+SET Evidence = "Notably, phagocytes from patients with depression are hyper-responsive [114–116]. Upon activation, these cells produce cytotoxic compounds like nitric oxide and oxygen radicals [117, 118]."
+SET Confidence = "High"
+path(DOID:"mental depression") => act(a(MESH:Phagocytes))
+act(a(MESH:Phagocytes)) -> a(MESH:"Reactive Oxygen Species")
+act(a(MESH:Phagocytes)) -> a(MESH:"Reactive Nitrogen Species")
+UNSET Confidence
+
+SET Evidence = "These reactive oxygen radicals formed during the ‘respiratory burst’ may irreversibly oxidize tetrahydrobiopterin [119]. Since tetrahydrobiopterin is an essential cofactor for the production of dopamine, noradrenaline, and serotonin, the heightened activity of microglial cells may ultimately lead to a reduction in central monoamine levels (see Fig. 2)."
+#135402045 - tetrahydrobiopterin
+#composite(a(MESH:"Reactive Oxygen Species"),a(PUBCHEM:135402045)) -| act(a(PUBCHEM:135402045))
+SET Confidence = "High"
+act(a(PUBCHEM:135402045)) -> a(CHEBI:dopamine)
+act(a(PUBCHEM:135402045)) -> a(CHEBI:noradrenaline)
+act(a(PUBCHEM:135402045)) -> a(CHEBI:serotonin)
+act(a(PUBCHEM:135402045)) -> bp(GO:"microglial cell activation")
+bp(GO:"microglial cell activation") -| a(CHEBI:monoamine)
+UNSET Confidence
+
+SET Evidence = "This could be the underlying cause of low mood and anhedonia in depression (Kalkman and Feuerbach, in preparation)."
+#this = low monoamine level
+SET Confidence = "High"
+a(CHEBI:monoamine) -| path(HP:Anhedonia)
+a(CHEBI:monoamine) pos path(MESH:Affect)
+UNSET Confidence
+
+SET Evidence = "As outlined above, α7 nAChRs are expressed both on macrophages and microglia, and their activation leads to anti-inflammatory effects."
+SET Confidence = "High"
+act(p(HGNC:CHRNA7,loc(MESH:Microglia))) -| path(MESH:Inflammation)
+act(p(HGNC:CHRNA7,loc(MESH:Macrophages))) -| path(MESH:Inflammation)
+UNSET Confidence
+
+SET Evidence = "In particular, activation of α7 nAChRs might lead to a shift in microglia phenotype from M1-like (activated for anti-microbial activity) to M2-like (resolution, removal of debris) [10, 11, 13, 83, 120], while a similar process has been described in the periphery."
+SET Confidence = "High"
+act(p(HGNC:CHRNA7)) reg act(a(MESH:Microglia))
+UNSET Confidence
+
+SET Evidence = "Stimulation of α7 nAChRs attenuates macrophage responsiveness and diminishes release of cytokines [23, 46, 47, 66] and therefore will limit the negative impact of inflammation on tetrahydrobiopterin metabolism."
+SET Confidence = "High"
+act(p(HGNC:CHRNA7)) -| act(a(MESH:Macrophages))
+act(p(HGNC:CHRNA7)) -| sec(a(MESH:Cytokines))
+act(p(HGNC:CHRNA7)) -| path(MESH:Inflammation)
+UNSET Confidence
+
+SET Evidence = "Activation of α7 nAChRs in the brain has been shown to activate protein kinase A (PKA) via a mechanism involving calcium-dependent activation of adenylatecyclase-1 and, consequently, an increase in cAMP levels [61]."
+SET Confidence = "High"
+SET Anatomy = "brain"
+act(p(HGNC:CHRNA7)) -> composite(p(HGNC:ADCY1),a(CHEBI:"calcium(2+)"))
+composite(p(HGNC:ADCY1),a(CHEBI:"calcium(2+)")) -> act(p(HGNC:ADCY1))
+act(p(HGNC:ADCY1)) => a(MESH:"Cyclic AMP")
+a(MESH:"Cyclic AMP") => act(p(HGNC:PRKACA))
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "PKA is one of the kinases that increase Ser9-phosphorylation of GKS3β, which results in inhibition of the kinase activity. PKA also fosters Ser133-phosphorylation of the transcription factor CREB."
+SET Confidence = "High"
+p(HGNC:PRKACA) -> p(HGNC:GSK3B,pmod(Ph,Ser,9))
+p(HGNC:GSK3B,pmod(Ph,Ser,9)) -| act(p(HGNC:PRKACA),ma(kin))
+p(HGNC:PRKACA) -> p(HGNC:CREB1,pmod(Ph,Ser,133))
+UNSET Confidence
+
+SET Evidence = "Ser133-P-CREB is a substrate for GSK3β, which subsequently results in rapid catabolism of CREB and thus termination of CREB signaling. CREB competes with NFκB for binding to CREB-binding protein (CBP), and therefore limits the inflammatory NFκB signal. Activation of α7 nAChRs in the brain may thus lead to an anti-inflammatory activity."
+SET Confidence = "High"
+complex(p(HGNC:CREB1,pmod(Ph,Ser,133)),p(HGNC:GSK3B)) -> deg(p(HGNC:CREB1))
+complex(p(HGNC:CREB1,pmod(Ph,Ser,133)),p(HGNC:GSK3B)) -| act(p(HGNC:CREB1))
+complex(p(MESH:"NF-kappa B"),p(HGNC:CREBBP)) -| complex(p(HGNC:CREB1),p(HGNC:CREBBP))
+complex(p(HGNC:CREB1),p(HGNC:CREBBP)) -| complex(p(MESH:"NF-kappa B"),p(HGNC:CREBBP))
+complex(p(MESH:"NF-kappa B"),p(HGNC:CREBBP)) -| act(p(MESH:"NF-kappa B"))
+act(p(MESH:"NF-kappa B")) -> path(MESH:Inflammation)
+SET Anatomy = "brain"
+act(p(HGNC:CHRNA7)) -| path(MESH:Inflammation)
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Increased PKA activity, increased Ser9-phosphorylation of GSK3β, and increased Ser133-phosphorylation of CREB have all been observed in mouse brain after chronic treatment with the α7 nAChR agonist A582941 [62]."
+#11173546 - A582941
+SET Confidence = "High"
+SET Species = "10090"
+SET Anatomy = "brain"
+a(PUBCHEM:11173546) -| act(p(HGNC:CHRNA7))
+a(PUBCHEM:11173546) -> act(p(HGNC:PRKACA))
+a(PUBCHEM:11173546) -> p(HGNC:GSK3B,pmod(Ph,Ser,9))
+a(PUBCHEM:11173546) -> p(HGNC:CREB1,pmod(Ph,Ser,133))
+UNSET Species
+UNSET Anatomy
+UNSET Confidence
+
+UNSET MeSHDisease
+
+SET Disease = "schizophrenia"
+
+SET Evidence = "Symptoms of schizophrenia are commonly divided into three domains, namely positive symptoms (delusions, hallucinations), negative symptoms (social withdrawal, anhedonia), and cognitive deficits (learning and memory deficits, alogia)."
+SET Confidence = "High"
+path(DOID:schizophrenia) -> path(HP:Delusions)
+path(DOID:schizophrenia) -> path(HP:Hallucinations)
+path(DOID:schizophrenia) -> path(HP:Anhedonia)
+path(DOID:schizophrenia) -| bp(GO:"learning or memory")
+path(DOID:schizophrenia) -| bp(GO:cognition)
+UNSET Confidence
+
+SET Evidence = "The first episode of psychosis is often associated with microglia activation [130, 134, 135], elevated levels of pro-inflammatory cytokines in the CSF [136–138], and a significant loss in white matter volume (reviewed in [136])."
+SET Confidence = "High"
+path(HP:Psychosis) -- bp(GO:"microglial cell activation")
+SET Anatomy = "cerebrospinal fluid"
+path(HP:Psychosis) -> a(MESH:Cytokines)
+UNSET Anatomy
+path(HP:Psychosis) -> deg(a(MESH:"White Matter"))
+UNSET Confidence
+
+SET Evidence = "It is assumed that cytokines, chemokines, prostaglandins, and reactive oxygen products released by activated microglia generate a toxic milieu for oligodendrocytes (leading to white matter loss) and neurites (gray matter loss) [130, 136, 139, 140]. The severity of negative symptoms correlates with the diminution of white matter [130]."
+SET Confidence = "High"
+bp(GO:"microglial cell activation") -> sec(a(MESH:Cytokines))
+bp(GO:"microglial cell activation") -> sec(a(MESH:Chemokines))
+bp(GO:"microglial cell activation") -> sec(a(CHEBI:prostaglandin))
+bp(GO:"microglial cell activation") -> sec(a(MESH:"Reactive Oxygen Species"))
+a(MESH:Cytokines) -> deg(a(MESH:"White Matter"))
+a(MESH:Chemokines) -> deg(a(MESH:"White Matter"))
+a(CHEBI:prostaglandin) -> deg(a(MESH:"White Matter"))
+a(MESH:"Reactive Oxygen Species") -> deg(a(MESH:"White Matter"))
+a(MESH:Cytokines) -> deg(a(MESH:"Gray Matter"))
+a(MESH:Chemokines) -> deg(a(MESH:"Gray Matter"))
+a(CHEBI:prostaglandin) -> deg(a(MESH:"Gray Matter"))
+a(MESH:"Reactive Oxygen Species") -> deg(a(MESH:"Gray Matter"))
+path(DOID:schizophrenia) pos deg(a(MESH:"White Matter"))
+UNSET Confidence
+
+SET Evidence = "First, the early literature reported extremely high values for the prevalence of smoking in schizophrenia patients (see [141])."
+SET Confidence = "High"
+path(MESH:Smoking) -- path(DOID:schizophrenia)
+UNSET Confidence
+
+SET Evidence = "A vast body of genetic literature supports the contention that the functionality of the α7 nAChR in schizophrenia is diminished."
+SET Confidence = "High"
+path(DOID:schizophrenia) -| act(p(HGNC:CHRNA7))
+UNSET Confidence
+
+SET Evidence = "Finally, CNVs occur in the CHRNA7 and in CHRFAM7A, and deletions were strongly associated with schizophrenia."
+SET Confidence = "High"
+p(HGNC:CHRNA7,var("?")) pos path(DOID:schizophrenia)
+p(HGNC:CHRFAM7A,var("?")) pos path(DOID:schizophrenia)
+UNSET Confidence
+
+SET Evidence = "Encenicline (EVP6124), which is a mixed α7 nAChR agonist/5HT3 antagonist, showed significant clinical improvement on PANSS cognitive impairment domain and also for the PANSS negative scale [153]."
+SET Confidence = "High"
+a(DRUGBANK:Encenicline) -> act(p(HGNC:CHRNA7))
+a(DRUGBANK:Encenicline) -> bp(GO:cognition)
+a(DRUGBANK:Encenicline) -| path(DOID:schizophrenia)
+UNSET Confidence
+
+SET Evidence = "Another mixed α7 nAChR agonist and 5HT3 antagonist tropisetron significantly reduced PANSS total and the negative symptom subscale with increasing treatment time [154]."
+SET Confidence = "High"
+a(CHEBI:tropisetron) -> act(p(HGNC:CHRNA7))
+a(CHEBI:tropisetron) -| path(DOID:schizophrenia)
+UNSET Confidence
+
+SET Evidence = "Further, a mixed α7 agonist/5HT3 antagonist RG3487 (also known as MEM3454), was reported to improve negative symptoms and depression ratings [155]."
+SET Confidence = "High"
+a(PUBCHEM:10380472) -> act(p(HGNC:CHRNA7))
+a(PUBCHEM:10380472) -| path(MESH:Depression)
+a(PUBCHEM:10380472) -| path(DOID:schizophrenia)
+UNSET Confidence
+
+SET Evidence = "DMXB-A (GTS-21) [158], a α7 nAChR agonist with additional inhibitory activity at α4β2 nAChRs [159], improved alogia and anhedonia ratings in the scale for assessment of negative symptoms."
+SET Confidence = "High"
+a(PUBCHEM:5310985) -> act(p(HGNC:CHRNA7))
+a(PUBCHEM:5310985) -| path(DOID:aphasia)
+a(PUBCHEM:5310985) -> path(HP:Anhedonia)
+UNSET Confidence
+
+SET Evidence = "Remarkably, α7 nAChR-positive allosteric modulators (galantamine, galantamine plus choline, and JNJ39393406) were completely inactive [100]."
+#16755766 - JNJ39393406
+SET Confidence = "High"
+a(DRUGBANK:Galantamine) -> act(p(HGNC:CHRNA7))
+composite(a(DRUGBANK:Galantamine),a(PUBCHEM:305)) -> act(p(HGNC:CHRNA7))
+a(DRUGBANK:Galantamine) cnc path(DOID:schizophrenia)
+composite(a(DRUGBANK:Galantamine),a(PUBCHEM:305)) cnc path(DOID:schizophrenia)
+a(PUBCHEM:16755766) -> act(p(HGNC:CHRNA7))
+a(PUBCHEM:16755766) cnc path(DOID:schizophrenia)
+UNSET Confidence
+
+SET Evidence = "It can be speculated that stimulation of nAChRs α7 counteracts microglia activation, such that white and gray matters are exposed less to the toxic microglia products. In this respect it is noteworthy that minocycline, a compound which suppresses microglia activation, also specifically improved negative symptoms (for review see [164])."
+SET Confidence = "High"
+act(p(HGNC:CHRNA7)) -| bp(GO:"microglial cell activation")
+act(p(HGNC:CHRNA7)) -| deg(a(MESH:"Gray Matter"))
+act(p(HGNC:CHRNA7)) -| deg(a(MESH:"White Matter"))
+a(CHEBI:minocycline) -| bp(GO:"microglial cell activation")
+a(CHEBI:minocycline) -| path(DOID:schizophrenia)
+UNSET Confidence
+
+UNSET Disease
+
+SET Disease = "bipolar disorder"
+
+SET Evidence = "The cardinal features of bipolar disorder are recurrent
+episodes of depression and hypomania, whereas the latter
+includes euphoric or irritable mood, mental and behavioral
+over-activity, as well as decreased need for sleep and
+involvement in risky activities [165]."
+#NCIT:C78349 = hypomania
+SET Confidence = "High"
+path(DOID:"bipolar disorder") -> path(MESH:Depression)
+path(DOID:"bipolar disorder") -> path(NCIT:C78349)
+path(NCIT:C78349) -> path(MESH:"Irritable Mood")
+path(NCIT:C78349) -> path(MESH:"Sleep Initiation and Maintenance Disorders")
+UNSET Confidence
+
+SET Evidence = "As for major
+depressive disorder, diseases and habits that are associated
+with peripheral inflammation (diabetes, obesity, cardiovascular
+disease, smoking, and alcohol abuse) are
+recognized risk factors for bipolar disorder (reviewed in
+[166–168])."
+SET Confidence = "High"
+path(DOID:"diabetes mellitus") pos path(MESH:Depression)
+path(DOID:obesity) pos path(MESH:Depression)
+path(DOID:"cardiovascular system disease") pos path(MESH:Depression)
+path(MESH:Smoking) pos path(MESH:Depression)
+path(MESH:Alcoholism) pos path(MESH:Depression)
+path(DOID:"diabetes mellitus") pos path(DOID:"bipolar disorder")
+path(DOID:obesity) pos path(DOID:"bipolar disorder")
+path(DOID:"cardiovascular system disease") pos path(DOID:"bipolar disorder")
+path(MESH:Smoking) pos path(DOID:"bipolar disorder")
+path(MESH:Alcoholism) pos path(DOID:"bipolar disorder")
+UNSET Confidence
+
+SET Evidence = "And in further similarity to major depression,
+childhood trauma is a strong predictor for appearance of
+bipolar disorder later in life [169]."
+SET Confidence  = "High"
+#path(MESH:"Adverse Childhood Experiences") pos path(MESH:Depression)
+#path(MESH:"Adverse Childhood Experiences") pos path(DOID:"bipolar disorder")
+UNSET Confidence
+
+SET Evidence = "There is evidence
+for microglia activation in the brain of bipolar disorder
+patients: first, higher levels of IL1b, IL1R, MYD88, and
+iNOS have been found in a post-mortem study in the
+frontal cortex [175]."
+SET Confidence = "High"
+SET Anatomy = "brain"
+path(DOID:"bipolar disorder") -> bp(GO:"microglial cell activation")
+UNSET Anatomy
+SET Anatomy = "frontal cortex"
+path(DOID:"bipolar disorder") -> bp(GO:"microglial cell activation")
+bp(GO:"microglial cell activation") -> p(HGNC:IL1B)
+bp(GO:"microglial cell activation") -> p(HGNC:IL1R1)
+bp(GO:"microglial cell activation") -> p(HGNC:MYD88)
+bp(GO:"microglial cell activation") -> p(HGNC:NOS2)
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Second, microglia-derived inflammation
+markers MCP1 and YKL40 were increased in CSF
+[176], and third, microglia activation was detected by
+PK11195 imaging [177]."
+SET Confidence = "High"
+SET Anatomy = "cerebrospinal fluid"
+bp(GO:"microglial cell activation") -> p(HGNC:CHI3L1)
+bp(GO:"microglial cell activation") -> p(HGNC:CCL2)
+p(HGNC:CHI3L1) -- path(MESH:Inflammation)
+p(HGNC:CCL2) -- path(MESH:Inflammation)
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "The same genetic polymorphisms, copy number
+variations and alteration in the pseudo-gene CHRFAM7A,
+which are presumed to diminish the functionality of the
+nAChR a7 receptor in schizophrenia, have also been
+detected in bipolar disorder [161, 178]."
+SET Confidence = "High"
+p(HGNC:CHRFAM7A,var("?")) -- path(DOID:"bipolar disorder")
+UNSET Confidence
+
+SET Evidence = "Excessive dopamine
+signaling via D2 receptors in the striatum causes an activation
+of GSK3b via a multiprotein complex involving the
+D2 receptor, b-arrestin, Akt, GSK3b, and PP2A [180, 181],
+while active GSK3b results in diminished long-term
+potentiation (LTP) [182–184]."
+SET Confidence = "High"
+SET Anatomy = "striatum"
+complex(a(CHEBI:dopamine),p(INTERPRO:"Dopamine D2 receptor")) -> complex(p(INTERPRO:"Dopamine D2 receptor"),p(HGNC:ARRB1),p(HGNC:AKT1),p(HGNC:GSK3B),p(HGNC:PPP2R5B))
+complex(p(INTERPRO:"Dopamine D2 receptor"),p(HGNC:ARRB1),p(HGNC:AKT1),p(HGNC:GSK3B),p(HGNC:PPP2R5B)) -> act(p(HGNC:GSK3B))
+act(p(HGNC:GSK3B)) -| bp(MESH:"Long-Term Potentiation")
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Taken together, dysfunction of the a7
+nAChR would increase both depression-risk and hypomania
+symptoms."
+SET Confidence = "High"
+p(HGNC:CHRNA7) -| path(MESH:Depression)
+p(HGNC:CHRNA7) -| path(NCIT:C78349)
+UNSET Confidence
+
+UNSET Disease
+
+SET Disease = "autism spectrum disorder"
+
+SET Evidence = "Rett syndrome is another distinct genetic form of autism.
+In the majority of cases, Rett syndrome is caused by a
+mutation in the MeCP2 gene; the functional consequence
+of this mutation is a severe reduction in the expression of
+a7 nAChRs [91]."
+SET Confidence = "High"
+path(DOID:"Rett syndrome") isA path(HP:Autism)
+g(HGNC:MECP2,var("?")) -> path(DOID:"Rett syndrome")
+g(HGNC:MECP2,var("?")) -| p(HGNC:CHRNA7)
+UNSET Confidence
+
+SET Evidence = "In a subset of autism patients, there is evidence for an
+increase in allergic inflammation [191] and for mast cell
+activation [192]."
+SET Confidence = "High"
+path(HP:Autism) -> path(HP:Allergy)
+path(HP:Autism) -> path(MESH:Inflammation)
+path(HP:Autism) -> bp(GO:"mast cell activation")
+UNSET Confidence
+
+SET Evidence = "An infection with a helminth would skew the differentiation
+of helper T-cell towards the TH2 phenotype. IL4 and
+IL5, cytokines produced by TH2 cells [193], promote
+macrophage/microglia M2A polarization and mast cell
+activation [194–196]."
+SET Confidence = "High"
+path(DOID:"parasitic helminthiasis infectious disease") -> a(MESH:"Th2 Cells")
+a(MESH:"Th2 Cells") -> sec(p(HGNC:IL4))
+a(MESH:"Th2 Cells") -> sec(p(HGNC:IL5))
+p(HGNC:IL4) -> bp(GO:"mast cell activation")
+p(HGNC:IL5) -> bp(GO:"mast cell activation")
+UNSET Confidence
+
+UNSET Disease
+
+SET Disease = "multiple sclerosis"
+
+SET Evidence = "Depression is a common comorbidity [198]."
+#of MS
+SET Confidence = "High"
+path(DOID:"multiple sclerosis") -> path(MESH:Depression)
+UNSET Confidence
+
+SET Evidence = "The precise
+sequence of events that leads to MS in patients is not
+known [199], but activation of lymphocytes, macrophages,
+dendritic cells, and microglia are known to occur early in
+the disease [200]."
+SET Confidence = "High"
+path(DOID:"multiple sclerosis") -> bp(GO:"lymphocyte activation")
+path(DOID:"multiple sclerosis") -> bp(GO:"macrophage activation")
+path(DOID:"multiple sclerosis") -> act(a(MESH:"Dendritic Cells"))
+path(DOID:"multiple sclerosis") -> bp(GO:"microglial cell activation")
+UNSET Confidence
+
+SET Evidence = "a7 nAChR activation can lead to inhibition
+of lymphocyte proliferation [28, 201] and to
+inhibition of macrophage and microglia activation [8, 11,
+24, 25, 46]."
+SET Confidence = "High"
+act(p(HGNC:CHRNA7)) -| bp(GO:"lymphocyte proliferation")
+act(p(HGNC:CHRNA7)) -| bp(GO:"macrophage activation")
+act(p(HGNC:CHRNA7)) -| bp(GO:"microglial cell activation")
+UNSET Confidence
+
+SET Evidence = "Indeed, nicotine was shown to
+inhibit experimental MS in rodents [83, 201], but to our
+knowledge, selective a7 nAChR agonists remain to be
+investigated in human MS."
+SET Confidence = "High"
+SET Species = "9989"
+a(CHEBI:nicotine) -| path(DOID:"multiple sclerosis")
+UNSET Species
+UNSET Confidence
+
+UNSET Disease
+
+SET Disease = "Parkinson's disease"
+
+SET Evidence = "The motor symptoms of Parkinson’s disease (PD) are
+ascribed to degeneration of dopaminergic neurons in the
+substantia nigra pars compacta. Other important symptoms
+are anxiety and depression, as well as memory loss,
+confusion, and dementia."
+SET Confidence = "High"
+SET Anatomy = "substantia nigra pars compacta"
+path(DOID:"Parkinson's disease") -> deg(a(MESH:"Dopaminergic Neurons"))
+UNSET Anatomy
+path(DOID:"Parkinson's disease") -> path(DOID:"anxiety disorder")
+path(DOID:"Parkinson's disease") -> path(MESH:Depression)
+path(DOID:"Parkinson's disease") -| bp(GO:"learning or memory")
+path(DOID:"Parkinson's disease") -> path(HP:Confusion)
+path(DOID:"Parkinson's disease") -> path(DOID:dementia)
+UNSET Confidence
+
+SET Evidence = "In this respect, it is noteworthy
+that not only dopamine neurons perish but also the
+cholinergic system."
+SET Confidence = "High"
+path(DOID:"Parkinson's disease") -> deg(a(MESH:"Dopaminergic Neurons"))
+path(DOID:"Parkinson's disease") -> deg(a(MESH:"Cholinergic Neurons"))
+UNSET Confidence
+
+SET Evidence = "In fact, in PD dementia
+the levels of cerebral ChAT are reduced to levels
+below those seen in Alzheimer’s disease [204], whereas
+cholinesterase inhibition improves dementia in Parkinson’s
+disease [205]."
+SET Confidence = "High"
+path(DOID:"Parkinson's disease") -| p(HGNC:CHAT)
+p(MESH:Cholinesterases) pos path(DOID:dementia)
+UNSET Confidence
+
+SET Evidence = "A large number of epidemiological studies (for a recent
+summary see [120]) have consistently shown that smoking
+is associated with a lower incidence of PD."
+SET Confidence = "High"
+path(MESH:Smoking) neg path(DOID:"Parkinson's disease")
+UNSET Confidence
+
+SET Evidence = "Data from
+preclinical models of Parkinson’s disease indicate that
+nicotine and selective a7 nAChR agonists reduce microglia
+activation and neuroinflammation, and prevent nigro-striatal
+dopamine-neuronal loss [206, 207]."
+SET Confidence = "High"
+a(CHEBI:nicotine) -| bp(GO:"microglial cell activation")
+a(CHEBI:nicotine) -| path(CONSO:neuroinflammation)
+p(HGNC:CHRNA7) -| bp(GO:"microglial cell activation")
+p(HGNC:CHRNA7) -| path(CONSO:neuroinflammation)
+SET Anatomy = "nigrostriatal tract"
+a(CHEBI:nicotine) -| deg(a(MESH:"Dopaminergic Neurons"))
+p(HGNC:CHRNA7) -| deg(a(MESH:"Dopaminergic Neurons"))
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "a7 nAChRs
+expressed on astrocytes may also contribute to the neuroprotective
+effect, since activation of these receptors
+suppressed astroglial apoptosis induced by oxidative stress
+and preserved neurotrophic factor supply by glial cells[208]."
+SET Confidence = "High"
+SET Cell = "astrocyte"
+p(HGNC:CHRNA7) -> bp(MESH:Neuroprotection)
+bp(MESH:"Oxidative Stress") -> bp(MESH:Apoptosis)
+bp(GO:"glial cell-derived neurotrophic factor receptor signaling pathway") -> bp(MESH:Apoptosis)
+act(p(HGNC:CHRNA7)) -| bp(MESH:Apoptosis)
+UNSET Cell
+UNSET Confidence
+
+SET Evidence = "Consistent with theories about microglia activation
+as contributor to depression [213, 214], depressive
+symptoms may be considered as an early indicator of
+Parkinson’s disease."
+SET Confidence = "High"
+bp(GO:"microglial cell activation") pos path(MESH:Depression)
+path(MESH:Depression) pos path(DOID:"Parkinson's disease")
+UNSET Confidence
+
+SET Evidence = "The protective effect that smoking
+exerts on PD could thus relate to a7 nAChR-mediated antiinflammatory
+activity of nicotine [11]"
+SET Confidence = "High"
+composite(p(HGNC:CHRNA7),a(CHEBI:nicotine)) -| path(MESH:Inflammation)
+path(MESH:Smoking) neg path(DOID:"Parkinson's disease")
+UNSET Confidence
+
+UNSET Disease
+
+SET Disease = "Alzheimer's disease"
+
+SET Evidence = "Microglia cells phagocytose and subsequently degrade Ab,
+and thereby promote the removal of Ab from the brain
+[218]"
+SET Confidence = "High"
+SET Anatomy = "brain"
+bp(GO:"microglial cell activation") -> deg(a(CHEBI:"amyloid-beta"))
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Activation of a7
+nAChR expressed on microglia alters the phenotype and
+promotes phagocytosis and metabolism of Ab [12]."
+SET Confidence = "High"
+act(p(HGNC:CHRNA7,loc(MESH:Microglia))) -> deg(a(CHEBI:"amyloid-beta"))
+act(p(HGNC:CHRNA7,loc(MESH:Microglia))) -> bp(GO:"microglial cell activation")
+UNSET Confidence
+
+SET Evidence = "In a recent meta-analysis
+of prospective cohort studies investigating the effect of
+smoking on dementia and Alzheimer’s disease, smoking
+increased risk for dementia and AD [221]."
+SET Confidence = "High"
+path(MESH:Smoking) pos path(DOID:dementia)
+path(MESH:Smoking) pos path(DOID:"Alzheimer's disease")
+UNSET Confidence
+
+SET Evidence = "An intra-subunit allosteric binding
+pocket within the transmembrane domain of the a7
+nAChR has been described as mechanism for non-competitive
+antagonism by Ab (summarized by Parri et al.
+[223])"
+SET Confidence = "High"
+complex(a(CHEBI:"amyloid-beta"),p(HGNC:CHRNA7)) -| act(p(HGNC:CHRNA7))
+UNSET Confidence
+
+SET Evidence = "A further complication with relevance to AD
+pathology is the observation that cholinergic neurons in the
+basal forebrain express a heteromeric a7b2 isoform [224,
+225]"
+SET Confidence = "High"
+SET Anatomy = "basal forebrain"
+a(MESH:"Cholinergic Neurons") -> complex(CONSO:"alpha-7 beta-2 nAChR")
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Liu et al. [224] have reported that the a7b2 receptor
+is particularly sensitive to Ab, since concentrations as low
+as 1 nM inhibited the functional responses to choline."
+SET Confidence = "High"
+complex(a(CHEBI:"amyloid-beta"),p(CONSO:"alpha-7 beta-2 nAChR")) -| complex(a(PUBCHEM:305),p(CONSO:"alpha-7 beta-2 nAChR"))
+UNSET Confidence
+
+SET Evidence = "It is not clear why blockade
+of the a7b2 receptor is neurotoxic to cholinergic neurons,
+and if microglia cells from basal forebrain structures
+express this heteromeric nicotinic receptor."
+SET Confidence = "High"
+complex(CONSO:"alpha-7 beta-2 nAChR") -| deg(a(MESH:"Cholinergic Neurons"))
+UNSET Confidence
+
+SET Evidence = "Nevertheless,
+one can begin to sketch a positive feedback process where
+aging causes polarization of microglia towards a phenotype
+that is less effective in phagocytosing and degrading Ab."
+SET Confidence = "High"
+bp(GO:aging) neg bp(GO:"microglial cell mediated cytotoxicity")
+UNSET Confidence
+
+SET Evidence = "An overload of oligomeric Ab in the extracellular space
+will block the a7b2 nicotinic receptor on basal forebrain
+cholinergic neurons, and these die as a consequence. Less
+acetylcholine leads to a reduction in a7 nAChR stimulation
+of microglia cells, which results in further loss of their
+phagocytic capacity."
+SET Confidence = "High"
+SET Anatomy = "basal forebrain"
+p(CONSO:"amyloid-beta oligomers",loc(GO:"extracellular space")) -| complex(CONSO:"alpha-7 beta-2 nAChR",loc(MESH:"Cholinergic Neurons"))
+p(CONSO:"amyloid-beta oligomers",loc(GO:"extracellular space")) -> deg(complex(CONSO:"alpha-7 beta-2 nAChR",loc(MESH:"Cholinergic Neurons")))
+a(CHEBI:acetylcholine) -> act(p(HGNC:CHRNA7,loc(MESH:Microglia)))
+act(p(HGNC:CHRNA7,loc(MESH:Microglia))) -> bp(GO:phagocytosis)
+UNSET Anatomy
+UNSET Confidence
+
+SET Evidence = "Diminished clearance of Ab ultimately
+leads to extracellular precipitates, which
+presumably are a further trigger to microglia recruitment,
+inflammatory processes, and further toxicity to cholinergic
+neurons (see Fig. 3)."
+SET Confidence = "High"
+a(CHEBI:"amyloid-beta",loc(GO:"extracellular space")) -> bp(GO:"microglial cell activation")
+bp(GO:"microglial cell activation") -> path(MESH:Inflammation)
+path(MESH:Inflammation) -> deg(a(MESH:"Cholinergic Neurons"))
+UNSET Confidence
+
+SET Evidence = "This would explain why
+the toxic effects of smoking become dominant over the
+neuroprotective effects in Alzheimer’s disease, but not (or
+less) in Parkinson’s disease."
+SET Confidence = "High"
+path(MESH:Smoking) pos path(DOID:"Alzheimer's disease")
+path(MESH:Smoking) neg path(DOID:"Parkinson's disease")
+UNSET Confidence
+
+UNSET Disease

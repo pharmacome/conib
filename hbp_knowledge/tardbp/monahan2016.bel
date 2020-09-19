@@ -18,7 +18,7 @@ SET DOCUMENT Description = ""
 # --------------------------------------------------------------
 DEFINE NAMESPACE CHEBI          AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/chebi-names.belns"
 #DEFINE NAMESPACE DRUGBANK       AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/drugbank-names.belns"
-#DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/doid-names.belns"
+DEFINE NAMESPACE DOID           AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/doid-names.belns"
 #DEFINE NAMESPACE ECCODE         AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/ec-code.belns"
 #DEFINE NAMESPACE FB             AS URL "https://raw.githubusercontent.com/pharmacome/terminology/efc856fb009a39e4d284269a6801f79ed3d3cf56/external/fb-names.belns"
 DEFINE NAMESPACE CONSO          AS URL "https://raw.githubusercontent.com/pharmacome/conso/501ceccdc9a27d97edbdc48a89ebe8e1dd3626e9/export/conso-names.belns"
@@ -59,7 +59,7 @@ DEFINE ANNOTATION Species       AS PATTERN "^\d+$"
 DEFINE ANNOTATION CellLine      AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-line/cell-line-20170511.belanno"
 #DEFINE ANNOTATION CellStructure AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell-structure/cell-structure-20170511.belanno"
 DEFINE ANNOTATION Cell          AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/cell/cell-20170511.belanno"
-#DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
+DEFINE ANNOTATION Confidence    AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/confidence/confidence-1.0.0.belanno"
 #DEFINE ANNOTATION Disease       AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/disease/disease-20170511.belanno"
 #DEFINE ANNOTATION Gender        AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/gender/gender-1.0.0.belanno"
 DEFINE ANNOTATION MeSHAnatomy   AS URL "https://arty.scai.fraunhofer.de/artifactory/bel/annotation/mesh-anatomy/mesh-anatomy-20170511.belanno"
@@ -78,246 +78,335 @@ SET Citation = {"PubMed", "27181519"}
 
 SET Evidence = "ALS is the most common adult-onset motor neuron disorder, typically
 striking in the fifth to seventh decades of life, though juvenile disease also exists"
-path(MESH:"Amyotrophic Lateral Sclerosis") isA path(MESH:"Motor Neuron Disease")
+SET Confidence = "High"
+path(DOID:"amyotrophic lateral sclerosis") isA path(MESH:"Motor Neuron Disease")
+UNSET Confidence
 
 SET Evidence = "It is characterized by rapid degeneration of motor neurons, and subsequent atrophy of innervated muscle groups"
 # it: ALS pos
-path(MESH:"Amyotrophic Lateral Sclerosis") pos bp(GO:"motor neuron apoptotic process")
+SET Confidence = "Medium"
+path(DOID:"amyotrophic lateral sclerosis") pos bp(GO:"motor neuron apoptotic process")
 bp(GO:"motor neuron apoptotic process") pos bp(GO:"muscle atrophy")
+path(DOID:"amyotrophic lateral sclerosis") pos bp(GO:"muscle atrophy")
+UNSET Confidence
 
 SET Evidence = "Death is generally secondary to failure of respiratory muscles (Ravits and La Spada, 2009; Turner et al., 2013)."
+SET Confidence = "High"
 act(a(MESH:"Respiratory Muscles")) -| path(MESH:Death)
+UNSET Confidence
 
 SET Evidence = "In the case of ALS, a number of different proteins and metabolic pathways have been linked to pathogenesis, but issues
 of proteostasis (e.g. protein folding, aggregation and quality-control) appear to be the most common pathogenic theme
 (Andersen and Al-Chalabi, 2011; Renton et al., 2014)."
-path(MESH:"Amyotrophic Lateral Sclerosis") neg bp(CONSO:Proteostasis)
+SET Confidence = "High"
+path(DOID:"amyotrophic lateral sclerosis") neg bp(CONSO:Proteostasis)
+UNSET Confidence
 
 SET Evidence = "Ribonucleoprotein (RNP) granules are cellular sites dedicated to RNA processing.
 Well-characterized types of RNP granules include transport RNPs, processing bodies (P-bodies) and stress granules
 (SGs); all of which have distinct roles in mRNA regulation (Anderson and Kedersha, 2008; Kedersha et al., 2005)."
+SET Confidence = "High"
 complex(GO:"ribonucleoprotein granule") -- bp(GO:"RNA processing")
 complex(GO:"ribonucleoprotein granule") reg a(MESH:"RNA, Messenger")
 complex(GO:"P-body") isA complex(GO:"ribonucleoprotein granule")
 complex(GO:"P-body") reg a(MESH:"RNA, Messenger")
 complex(GO:"cytoplasmic stress granule") isA complex(GO:"ribonucleoprotein granule")
 complex(GO:"cytoplasmic stress granule") reg a(MESH:"RNA, Messenger")
+UNSET Confidence
 
 SET Evidence = "Thus, P-bodies are classified as foci of RNA breakdown and turnover, and SGs are thought to be
 sites of paused translation initiation and global translation repression
 (Anderson and Kedersha, 2008; Li et al., 2013; Parker and Sheth, 2007; Thomas et al., 2011)."
+SET Confidence = "High"
 complex(GO:"P-body") -- bp(GO:"RNA catabolic process")
 complex(GO:"P-body") reg a(MESH:RNA)
 complex(GO:"cytoplasmic stress granule") neg bp(GO:translation)
+UNSET Confidence
 
 SET Evidence = "The formation of SGs is believed to be a conserved, protective response to various cell stresses.
 Some example stresses include: oxidative (Anderson and Kedersha, 2002; Anderson and Kedersha, 2008; Bosco et al., 2010; Daigle et al., 2013),
 mitochondrial (Buchan et al., 2011; Chalupnikova et al., 2008; Stoecklin et al., 2004), proteasomal (Fournier et al., 2010; Mazroui et al., 2007)
 and viral (Emara and Brinton, 2007; Raaben et al., 2007)."
+SET Confidence = "High"
 bp(GO:"response to oxidative stress") -> complex(GO:"cytoplasmic stress granule")
 path(CONSO:"mitochondrial dysfunction") -> complex(GO:"cytoplasmic stress granule")
 act(complex(GO:"proteasome complex")) neg complex(GO:"cytoplasmic stress granule")
 a(MESH:Viruses) -> complex(GO:"cytoplasmic stress granule")
+UNSET Confidence
 
 SET Evidence = "More generally, SGs may decrease protein stress
 through the global repression of translation by binding mRNAs that would otherwise be translated."
+SET Confidence = "High"
 complex(GO:"cytoplasmic stress granule") -| bp(MESH:"Unfolded Protein Response")
 complex(a(GO:"cytoplasmic stress granule"), a(MESH:"RNA, Messenger")) -| bp(GO:translation)
+UNSET Confidence
 
 SET Evidence = "The apparently causal role of phosphorylated eIF2α in facilitating SG
 formation supports this hypothesis, as eIF2α has an established role in translation repression (Kedersha et al., 1999)."
+SET Confidence = "High"
 p(HGNC:EIF2A,pmod(Ph)) -> complex(GO:"cytoplasmic stress granule")
 p(HGNC:EIF2A,pmod(Ph)) -| bp(GO:translation)
+UNSET Confidence
 
 SET Evidence = "The protein TIA1, for example, is critical to the early stages of SG assembly."
-p(HGNC:TIA1) -> complex(GO:"cytoplasmic stress granule")
+SET Confidence = "Medium"
+p(HGNC:TIA1) -> bp(GO:"stress granule assembly")
+UNSET Confidence
 
 # selective autophagy refers to selective Macroautophagy
 
 SET Evidence = "Moreover, selective autophagy is particularly well-suited to clearance of large (> 2 um) protein aggregates
 and RNP granules that need to be disassembled, in part because large protein aggregates and persistent RNP granules are known
 to be resistant to ubiquitin-proteasome degradation (Venkatraman et al., 2004)."
+SET Confidence = "Medium"
 bp(GO:macroautophagy) isA bp(GO:"selective autophagy")
 bp(GO:macroautophagy) -> deg(a(CONSO:"protein aggregates"))
-bp(GO:macroautophagy) -> deg(complex(GO:"cytoplasmic stress granule"))
+bp(GO:macroautophagy) -> bp(GO:"ribonucleoprotein complex disassembly")
 bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") cnc deg(a(CONSO:"protein aggregates"))
-bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") cnc deg(complex(GO:"cytoplasmic stress granule"))
+bp(GO:"proteasome-mediated ubiquitin-dependent protein catabolic process") cnc bp(GO:"ribonucleoprotein complex disassembly")
+UNSET Confidence
 
 SET Evidence = "The general model of selective autophagic engulfment of substrate is shown in Figure 1. Initially, the phospholipid-conjugated
 LC3 protein (Atg8 in yeast) facilitates the formation of membranous phagophore structures that recognize the targeted material through various
 acceptor and receptor proteins."
+SET Confidence = "High"
 p(HGNC:MAP1LC3A) -> a(GO:phagophore)
+UNSET Confidence
 
 SET Evidence = "The phagophore envelops the substrate to form an autophagosome that fuses with the
 lysosome, forming the autophagolysosome (Klionsky et al., 2014)"
+SET Confidence = "High"
 a(MESH:Proteins,loc(GO:phagophore)) -> a(GO:autophagosome)
 bp(GO:"autophagosome-lysosome fusion") -> a(GO:autolysosome)
+UNSET Confidence
 
 SET Evidence = "NBR1 in particular has been shown to mediate selective autophagy in plant cells dealing with otherwise
 intractable protein aggregates (Zhou et al., 2013a)."
+SET Confidence = "High"
 p(HGNC:NBR1) reg bp(GO:macroautophagy)
+UNSET Confidence
 
 SET Evidence = "Similarly, autophagy is involved in the clearance of RNP granules. Buchan and colleagues
 demonstrated that SG breakdown in particular was dependent on selective autophagy"
+SET Confidence = "High"
 bp(GO:autophagy) -> deg(complex(GO:"ribonucleoprotein granule"))
 bp(GO:macroautophagy) -> deg(complex(GO:"cytoplasmic stress granule"))
+UNSET Confidence
 
 SET Evidence = "Strikingly, and very similarly to previous experiments with huntingtin and alpha-synuclein, rapamycin
 administration promoted SG clearance, while selective autophagy inhibitors had the opposite effect (Buchan et al., 2013)."
+SET Confidence = "High"
 a(CHEBI:"sirolimus") -> deg(p(HGNC:HTT))
 a(CHEBI:"sirolimus") -> deg(p(HGNC:SNCA))
 a(CHEBI:"sirolimus") -> deg(complex(GO:"cytoplasmic stress granule"))
 a(CHEBI:"autophagy inhibitor") -| deg(complex(GO:"cytoplasmic stress granule"))
+UNSET Confidence
 
 SET Evidence = "When VCP is silenced with siRNA or with specific chemical inhibitors in stressed HeLa cells, SGs accumulate (Buchan et al., 2013)."
 # VCP: valosin-containing protein (p97)
+SET Confidence = "High"
 SET CellLine = "HeLa cell"
 p(HGNC:VCP) -| complex(GO:"cytoplasmic stress granule")
 UNSET CellLine
+UNSET Confidence
 
 SET Evidence = "The first gene linked to familial ALS was superoxide dismutase 1 (SOD1)."
-g(HGNC:SOD1) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+SET Confidence = "High"
+g(HGNC:SOD1) -- path(DOID:"amyotrophic lateral sclerosis")
+UNSET Confidence
 
 SET Evidence = "Induction of the autophagy pathway has been observed in a transgenic mouse model of SOD1-ALS, as well as
 spinal cord tissues from SOD1-ALS patients, supporting the idea that pathogenic mutations in SOD1 impair, or require,
 autophagy pathways (Morimoto et al., 2007; Sasaki, 2011)"
+SET Confidence = "Medium"
+SET Species = "10090"
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 p(HGNC:SOD1,var("?")) -- bp(GO:autophagy)
+UNSET MeSHDisease
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Retinoic acid has been demonstrated to act on PQC pathways including autophagy, and interestingly, control
 rats maintained on a retinoid-free diet show ALS-like symptoms (Anguiano et al., 2013; Castillo et al., 2013; Corcoran et al., 2002;
 Kolarcik and Bowser, 2012; Rajawat et al., 2010; Rajawat et al., 2011; Riancho et al., 2015; Riancho et al., 2016)."
 # PQC pathway: protein-quality control pathway
+SET Confidence = "Medium"
 a(CHEBI:"all-trans-retinoic acid") -- bp(GO:"protein quality control for misfolded or incompletely synthesized proteins")
 bp(GO:autophagy) isA bp(GO:"protein quality control for misfolded or incompletely synthesized proteins")
 a(CHEBI:"all-trans-retinoic acid") -- bp(GO:autophagy)
-SET Species = "10090"
-a(CHEBI:"all-trans-retinoic acid") neg path(MESH:"Amyotrophic Lateral Sclerosis")
+SET Species = "10116"
+a(CHEBI:"all-trans-retinoic acid") neg path(DOID:"amyotrophic lateral sclerosis")
 UNSET Species
+UNSET Confidence
 
 SET Evidence = "Furthermore, treatment with Bexarotene, a retinoid-X receptor agonist, or induction of autophagy in a
 SOD1 mutant mouse model drastically delayed motor symptoms and ALS pathology suggesting that targeting PQC machinery
 could be a good therapeutic target for SOD1-ALS (Castillo et al., 2013; Crippa et al., 2010; Riancho et al., 2015; Riancho et al., 2016)."
+SET Confidence = "Medium"
 a(CHEBI:bexarotene) isA a(CHEBI:"retinoid X receptor agonist")
+SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 SET Species = "10090"
 a(CHEBI:bexarotene) -| path(MESH:"Motor Neuron Disease")
-a(CHEBI:bexarotene) -| path(MESH:"Amyotrophic Lateral Sclerosis")
+a(CHEBI:bexarotene) -| path(DOID:"amyotrophic lateral sclerosis")
 bp(GO:autophagy) neg path(MESH:"Motor Neuron Disease")
-bp(GO:autophagy) neg path(MESH:"Amyotrophic Lateral Sclerosis")
+bp(GO:autophagy) neg path(DOID:"amyotrophic lateral sclerosis")
 UNSET Species
+UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Autophagic dysfunctions have also been implicated in subtypes of ALS caused by mutations in TDP-43 and FUS (discussed more below)."
-path(MESH:"Amyotrophic Lateral Sclerosis") -| bp(GO:autophagy)
-p(HGNC:FUS,var("?")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
-p(HGNC:FUS,var("?")) -| bp(GO:autophagy)
-p(HGNC:TARDBP,var("?")) -> path(MESH:"Amyotrophic Lateral Sclerosis")
-p(HGNC:TARDBP,var("?")) -| bp(GO:autophagy)
+SET Confidence = "Medium"
+path(DOID:"amyotrophic lateral sclerosis") neg bp(GO:autophagy)
+p(HGNC:FUS,var("?")) -> path(DOID:"amyotrophic lateral sclerosis")
+p(HGNC:FUS,var("?")) neg bp(GO:autophagy)
+p(HGNC:TARDBP,var("?")) -> path(DOID:"amyotrophic lateral sclerosis")
+p(HGNC:TARDBP,var("?")) neg bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "It has been suggested that TDP-43 is involved in regulating autophagy in general and particularly autophagosomal and
 lysosomal biogenesis (Bose et al., 2011; Filimonenko et al., 2007; Xia et al., 2016; Ying et al., 2016)."
+SET Confidence = "Medium"
 p(HGNC:TARDBP) reg bp(GO:autophagy)
-p(HGNC:TARDBP) reg a(GO:lysosome)
+p(HGNC:TARDBP) reg bp(GO:"lysosome organization")
 p(HGNC:TARDBP) reg bp(GO:"autophagosome assembly")
+UNSET Confidence
 
 SET Evidence = "Interestingly, TDP-43 is managed by both proteasome and autophagy pathways where the soluble form of TDP-43 is degraded
 by the proteasome; and oligomeric and aggregated forms of TDP-43 are cleared by autophagy (Xia et al., 2016)."
+SET Confidence = "Medium"
 complex(GO:"proteasome complex") -> deg(p(HGNC:TARDBP))
-bp(GO:autophagy) -> p(HGNC:TARDBP,pmod(GO:"protein complex oligomerization"),frag("?"))
-bp(GO:autophagy) -> p(HGNC:TARDBP,pmod(CONSO:"protein aggregation"),frag("?"))
+bp(GO:autophagy) -> deg(p(HGNC:TARDBP,pmod(GO:"protein complex oligomerization")))
+bp(GO:autophagy) -> deg(p(HGNC:TARDBP,pmod(CONSO:"protein aggregation")))
+UNSET Confidence
 
 SET Evidence = "Given that TDP-43 is a highly aggregation-prone protein, it is not surprising to observe that impaired
 turn-over of TDP-43 directly correlates with motor dysfunctions and reduced autophagy-related proteins in a mouse model of
 TDP-43 proteinopathy (Caccamo et al., 2015)."
+SET Confidence = "Medium"
 act(p(HGNC:TARDBP)) neg path(MESH:"Motor Neuron Disease")
+SET Species = "10090"
+p(MESH:"Autophagy-Related Proteins") -| path(MESH:"TDP-43 Proteinopathies")
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "Similarly, pathogenic mutations in FUS have been shown to impair the autophagy pathway in cellular models
 and ALS patient cells (Soo et al., 2015)."
+SET Confidence = "High"
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 p(HGNC:FUS,var("?")) -| bp(GO:autophagy)
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Moreover, many SG proteins are also found in the pathological inclusions in ALS patients’ motor neurons"
-path(MESH:"Amyotrophic Lateral Sclerosis") pos complex(GO:"cytoplasmic stress granule",loc(MESH:"Motor Neurons"))
+SET Confidence = "High"
+path(DOID:"amyotrophic lateral sclerosis") pos complex(GO:"cytoplasmic stress granule",loc(MESH:"Motor Neurons"))
+UNSET Confidence
 
 # Prion-like Mechanism refers to protein misfolding
 
 SET Evidence = "Prion-like mechanisms have been implicated in a variety of neurodegenerative diseases, most
 notoriously the transmissible spongiform encephalopathies (TSEs) (Gielbert et al., 2015)."
-p(MESH:Proteins,pmod(CONSO:misfolded)) -- path(MESH:"Prion Diseases")
+#Prion disease - TSE
+SET Confidence = "High"
+p(MESH:Proteins,pmod(CONSO:misfolded)) -- path(DOID:"prion disease")
+UNSET Confidence
 
 SET Evidence = "In TSEs, auto-catalytic processes drive the propagation of misfolded protein isoforms within the nervous
 tissue of infected animals. This propagation results in the accumulation of insoluble protein aggregates that spatially
 correlates with cell death (Jeffrey et al., 1995)."
 # TSEs: transmissible spongiform encephalopathies
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Nerve Tissue"
-path(MESH:"Prion Diseases") -> p(MESH:Proteins,pmod(CONSO:misfolded))
+path(DOID:"prion disease") -> p(MESH:Proteins,pmod(CONSO:misfolded))
+p(MESH:Proteins,pmod(CONSO:misfolded)) -> p(CONSO:"protein aggregates")
+p(CONSO:"protein aggregates") -- bp(GO:"cell death")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The proteins fused-in-sarcoma (FUS) and TAR DNA binding protein-43 kDa (TDP-43) are well-established DNA/RNA-binding
 proteins that are implicated in similar functions, including transcription regulation and RNA splicing (Lagier-Tourenne et al., 2010;
 Lagier-Tourenne et al., 2012)"
+SET Confidence = "High"
 p(HGNC:FUS) reg bp(MESH:"Transcription, Genetic")
 p(HGNC:FUS) -- bp(GO:"RNA splicing")
 p(HGNC:TARDBP) reg bp(MESH:"Transcription, Genetic")
 p(HGNC:TARDBP) -- bp(GO:"RNA splicing")
+UNSET Confidence
 
 SET Evidence = "Mutations of both proteins, characteristically in domains regulating subcellular localization, are correlated with development of ALS."
 # proteins: fused-in-sarcoma (FUS) and TAR DNA binding protein-43 kDa (TDP-43)
-p(HGNC:TARDBP,var("?")) pos path(MESH:"Amyotrophic Lateral Sclerosis")
-p(HGNC:FUS,var("?")) pos path(MESH:"Amyotrophic Lateral Sclerosis")
+SET Confidence = "High"
+p(HGNC:TARDBP,var("?")) pos path(DOID:"amyotrophic lateral sclerosis")
+p(HGNC:FUS,var("?")) pos path(DOID:"amyotrophic lateral sclerosis")
+UNSET Confidence
 
 SET Evidence = "FUS is also implicated in DNA repair"
+SET Confidence = "High"
 p(HGNC:FUS) -- bp(GO:"DNA repair")
+UNSET Confidence
 
 SET Evidence = "FUS, for example, localizes to the cytoplasm following post-translational modifications, including methylation and
 phosphorylation (Deng et al., 2014; Scaramuzzino et al., 2013; Tradewell et al., 2011)."
+SET Confidence = "High"
 p(HGNC:FUS,pmod(Me)) -> p(HGNC:FUS,loc(GO:cytoplasm))
 p(HGNC:FUS,pmod(Ph)) -> p(HGNC:FUS,loc(GO:cytoplasm))
+UNSET Confidence
 
 SET Evidence = "The subsequent cytosolic co-localization with SGs is perhaps a consequence of FUS/TDP-43 having prion-like
 domains similar to the domains found in many SG constituent proteins (Gilks et al., 2004; Udan and Baloh, 2011)."
+SET Confidence = "High"
 p(HGNC:FUS,loc(GO:cytosol)) -- complex(GO:"cytoplasmic stress granule")
 p(HGNC:TARDBP,loc(GO:cytosol)) -- complex(GO:"cytoplasmic stress granule")
 p(INTERPRO:"Prion/Doppel protein, beta-ribbon domain") -- complex(GO:"cytoplasmic stress granule")
+UNSET Confidence
 
 SET Evidence = "Importantly, in a transgenic FUS mouse line, postnatal knockdown of FUS did not promote motor neuron degeneration,
 whereas expression of FUS mutants was dominant negative for motor neuron survival ((Sharma et al., 2016)."
+#transgenic FUS mouse line
+SET Confidence = "Medium"
+SET Species = "10090"
+p(HGNC:FUS) -- path(DOID:"motor neuron disease")
 p(HGNC:FUS,var("?")) -| bp(GO:"motor neuron apoptotic process")
+UNSET Species
+UNSET Confidence
 
 SET Evidence = "First, it may lead to a loss of nucleic-acid regulation as well as other intranuclear functions ascribed to both FUS and TDP-43
 (Avendano-Vazquez et al., 2012; Budini and Buratti, 2011; D'Alton et al., 2015; Dormann and Haass, 2011; Hicks et al., 2000; Lagier-Tourenne et al., 2010;
 Mastrocola et al., 2013; Patel et al., 2015a; Rulten et al., 2014; Sama et al., 2014; Wang et al., 2013; Zhou et al., 2013b)."
 # it: loss of intranuclear function
+SET Confidence = "High"
 act(p(HGNC:TARDBP)) reg a(CHEBI:"nucleic acid")
 act(p(HGNC:FUS)) reg a(CHEBI:"nucleic acid")
+UNSET Confidence
 
 SET Evidence = "Additional ALS-linked proteins Matrin-3 and hnRNPA2/A1 have DNA/RNA-binding properties"
-path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:MATR3)
-path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:HNRNPA2B1)
-path(MESH:"Amyotrophic Lateral Sclerosis") -- p(HGNC:HNRNPA1)
-
-SET Evidence = "Matrin-3 was shown to interact with TDP-43 in cytosolic aggregates in spinal neurons."
-SET MeSHAnatomy = {"Spinal Cord","Neurons"}
-complex(p(HGNC:MATR3),p(HGNC:TARDBP,pmod(CONSO:"protein aggregation"),loc(MESH:Cytosol)))
-UNSET MeSHAnatomy
-
-SET Evidence = "While less well characterized than FUS and TDP-43, the potential for Matrin-3 to interact with SGs, perhaps even via
-a direct association with TDP-43, would have obvious functional implications"
-complex(p(HGNC:MATR3),a(GO:"cytoplasmic stress granule"))
+SET Confidence = "High"
+path(DOID:"amyotrophic lateral sclerosis") -- p(HGNC:MATR3)
+path(DOID:"amyotrophic lateral sclerosis") -- p(HGNC:HNRNPA2B1)
+path(DOID:"amyotrophic lateral sclerosis") -- p(HGNC:HNRNPA1)
+UNSET Confidence
 
 SET Evidence = "Indeed, the clearance of FUS and TDP-43 aggregates by autophagy has been reported (Caccamo et al., 2009; Ryu et al., 2014; Wang et al., 2010)."
-bp(GO:autophagy) -> deg(p(HGNC:FUS,pmod(MESH:"Protein Aggregation, Pathological")))
+SET Confidence = "High"
+bp(GO:autophagy) -> deg(p(HGNC:FUS,pmod(CONSO:"protein aggregation")))
 bp(GO:autophagy) -> deg(p(HGNC:TARDBP,pmod(CONSO:"protein aggregation")))
+UNSET Confidence
 
 SET Evidence = "Recent reports suggest that autophagy of FUS aggregates can be enhanced by overexpression of the critical autophagy protein Rab1 (Soo et al., 2015)."
-p(HGNC:RAB1A) -> deg(p(HGNC:TARDBP,pmod(CONSO:"protein aggregation")))
+SET Confidence = "Medium"
+p(HGNC:RAB1A) -> deg(p(HGNC:FUS,pmod(CONSO:"protein aggregation")))
 p(HGNC:RAB1A) -> bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "In fact, the most common genetic abnormality linked with familial ALS is a disordered intron in the nucleic acid sequence
 located on chromosome 9, open reading frame 72 (C9ORF72)."
-path(MESH:"Amyotrophic Lateral Sclerosis") --  g(HGNC:C9orf72,var("?"))
+SET Confidence = "High"
+path(DOID:"amyotrophic lateral sclerosis") --  g(HGNC:C9orf72,var("?"))
+UNSET Confidence
 
 SET Evidence = "Interestingly, it has been demonstrated that the C9ORF72 translation product colocalizes with proteins implicated in regulating autophagy
 and endocytic transport such as Rab1, Rab5, Rab7 and Rab11 in mammalian neuronal cells and human spinal cord motor neurons."
+SET Confidence = "High"
 SET MeSHAnatomy = {"Neurons","Spinal Cord"}
 SET Cell = "motor neuron"
 g(HGNC:C9orf72) -- p(HGNC:RAB1A)
@@ -328,177 +417,237 @@ g(HGNC:C9orf72) -- p(HGNC:RAB11A)
 g(HGNC:C9orf72) -- p(HGNC:RAB11B)
 UNSET MeSHAnatomy
 UNSET Cell
+UNSET Confidence
 
 SET Evidence = "Perhaps most intriguing, depletion of C9ORF72 led to an increase in autophagosome dysregulation, specifically by
 disrupting function of receptors Trk-beta and LC3"
+SET Confidence = "High"
 g(HGNC:C9orf72) -> act(a(GO:autophagosome))
 g(HGNC:C9orf72) pos act(p(HGNC:NTRK2))
 g(HGNC:C9orf72) pos act(p(HGNC:MAP1LC3A))
+UNSET Confidence
 
 SET Evidence = "Moreover, pharmacological inhibition of the 26S proteasome in addition to C9ORF72 overexpression led to an accumulation of SGs (Farg et al., 2014)."
+SET Confidence = "High"
 g(HGNC:C9orf72) pos complex(GO:"cytoplasmic stress granule")
 complex(GO:"proteasome complex") -| complex(GO:"cytoplasmic stress granule")
-
-SET Evidence = "Protein interaction by C9ORF72 also includes heterogeneous nuclear ribonucleoproteins, Matrin 3, hnRNPA2/B1 and hnRNPA1
-(Donnelly et al., 2013; Farg et al., 2014; Haeusler et al., 2014)"
-complex(g(HGNC:C9orf72),p(HGNC:MATR3))
-complex(g(HGNC:C9orf72),p(HGNC:HNRNPA2B1))
-complex(g(HGNC:C9orf72),p(HGNC:HNRNPA1))
+UNSET Confidence
 
 SET Evidence = "Ju and colleagues showed the importance of intact VCP in allowing for normal autophagic pathways (Ju et al., 2009)."
+SET Confidence = "High"
 p(HGNC:VCP) -> bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "Specifically, this study demonstrated the accumulation of both autophagosomes arrested before association with
 lysosomes, and TDP-43 positive protein inclusions in cells depleted of wild type VCP (Ju et al., 2009)."
+SET Confidence = "High"
 p(HGNC:VCP) -| a(GO:autophagosome)
 p(HGNC:VCP) -| p(HGNC:TARDBP)
+UNSET Confidence
 
 SET Evidence = "Moreover, Buchan et al. showed that VCP helps target SGs to the autophagosome for disassembly, while Cherkasov and
 workers showed that this disassembly was chaperone mediated (Buchan et al., 2013; Cherkasov et al., 2013)."
+SET Confidence = "High"
 p(HGNC:VCP) -> complex(GO:"cytoplasmic stress granule",loc(GO:autophagosome))
 complex(GO:"cytoplasmic stress granule",loc(GO:autophagosome)) -> bp(GO:"stress granule disassembly")
 a(MESH:"Molecular Chaperones") reg bp(GO:"stress granule disassembly")
+UNSET Confidence
 
 SET Evidence = "Surprisingly, another report showed that impaired VCP led to a reduction in the size and formation of SGs, suggesting
 that VCP may play an important role in both SG assembly and targeting to the autophagosome (Seguin et al., 2014)"
+SET Confidence = "High"
 p(HGNC:VCP) -> bp(GO:"stress granule assembly")
 p(HGNC:VCP) -> complex(GO:"cytoplasmic stress granule",loc(GO:autophagosome))
+UNSET Confidence
 
 SET Evidence = "This same study showed a concomitant accumulation of ubiquitinated proteins with a reduction in SG formation"
+SET Confidence = "High"
 p(MESH:Proteins,pmod(Ub)) neg bp(GO:"stress granule assembly")
+UNSET Confidence
 
 SET Evidence = "Optineurin is an additional protein implicated in both ALS (Maruyama et al., 2010) and autophagic pathways, specifically
 by binding to the autophagosome receptor LC3 (N'Diaye et al., 2009; Rothenberg et al., 2010; Wong and Holzbaur, 2014)."
-p(HGNC:OPTN) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+SET Confidence = "High"
+p(HGNC:OPTN) -- path(DOID:"amyotrophic lateral sclerosis")
 complex(p(HGNC:OPTN),p(HGNC:MAP1LC3A)) -- bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "It is well documented that optineurin binds LC3, and that this association facilitates mitophagy (autophagy of mitochondria)."
+SET Confidence = "High"
 complex(p(HGNC:OPTN),p(HGNC:MAP1LC3A)) -> bp(GO:mitophagy)
+UNSET Confidence
 
 SET Evidence = "A protein called Parkin, which has been associated with Parkinson’s disease, enhanced the stability of the
 association between optineurin and mitochondria (Wong and Holzbaur, 2014)."
+SET Confidence = "High"
 p(HGNC:PRKN) -- path(MESH:"Parkinson Disease")
 p(HGNC:PRKN) -> complex(p(HGNC:OPTN),a(GO:mitochondrion))
+UNSET Confidence
 
 SET Evidence = "Moreover, Shen and colleagues demonstrated that overexpression of wild-type optineurin facilitated the autophagy-mediated
 clearance of cytosolic aggregates containing the aggregation-prone protein mutant huntingtin (Shen et al., 2015)."
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Cytosol"
 p(HGNC:OPTN) -> bp(GO:autophagy)
-bp(GO:autophagy) -> deg(p(HGNC:HTT))
-p(HGNC:OPTN) -> deg(p(HGNC:HTT))
+bp(GO:autophagy) -> deg(p(HGNC:HTT,var("?")))
+p(HGNC:OPTN) -> deg(p(HGNC:HTT,var("?")))
+p(HGNC:HTT,var("?")) -> p(HGNC:HTT,pmod(CONSO:"protein aggregation"))
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Mutations in this domain include the E478G mutation linked to ALS (Maruyama et al., 2010)."
 # this domain: ubiquitin-binding domain of optineurin
-p(HGNC:OPTN,var("p.Glu478Gly")) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+SET Confidence = "High"
+p(HGNC:OPTN,var("p.Glu478Gly")) -- path(DOID:"amyotrophic lateral sclerosis")
+UNSET Confidence
 
 SET Evidence = "Optineurin E478G, despite its reduced ability to bind ubiquitin, still has the potential
 to associate with and trap wild-type optineurin in the cytosol. This prevents the association of wild-type
 optineurin to autophagic machinery, and therefore the appropriate maturation of autophagosomes."
+SET Confidence = "Medium"
 SET MeSHAnatomy = "Cytosol"
 p(HGNC:OPTN,var("p.Glu478Gly")) -> complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly")))
 p(HGNC:OPTN,var("p.Glu478Gly")) -| complex(p(HGNC:OPTN),a(MESH:Ubiquitin))
 complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly"))) -| act(p(HGNC:OPTN))
 complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly"))) -| complex(p(HGNC:OPTN),a(GO:autophagosome))
-complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly"))) -| bp(GO:autophagy)
+complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly"))) -| bp(GO:"autophagosome maturation")
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "The authors used LC3 turnover as a measure of autophagic flux to show that this wild-type
 optineurin trapping effect of E478G led to measurable decreases in autophagy for the cell, as well as a
 subsequent increase the abundance of cytosolic aggregates (Shen et al., 2015)."
+SET Confidence = "High"
 complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly"))) -| bp(GO:autophagy)
 complex(p(HGNC:OPTN),p(HGNC:OPTN,var("p.Glu478Gly"))) -> a(CONSO:"protein aggregates",loc(MESH:Cytosol))
+UNSET Confidence
 
 SET Evidence = "Unsurprisingly, kinases like TBK1 have been implicated in diverse human pathologies
 from hepatic dysfunction to neurodegeneration (Bonnard et al., 2000; Freischmidt et al., 2015)."
+SET Confidence = "High"
 p(HGNC:TBK1) -- path(MESH:"Liver Diseases")
 p(HGNC:TBK1) -- path(CONSO:Neurodegeneration)
+UNSET Confidence
 
 SET Evidence = "Indeed, TBK1 was first linked to ALS in 2015 (Cirulli et al., 2015)."
-p(HGNC:TBK1) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+SET Confidence = "High"
+p(HGNC:TBK1) -- path(DOID:"amyotrophic lateral sclerosis")
+UNSET Confidence
 
 SET Evidence = "Perhaps the simplest explanation for TBK1-mediated ALS pathogenesis arises from the observation
 that TBK1 phosphorylates optineurin in cell models (Heo et al., 2015; Morton et al., 2008; Wild et al., 2011)"
-p(HGNC:TBK1) -> path(MESH:"Amyotrophic Lateral Sclerosis")
+SET Confidence = "High"
+p(HGNC:TBK1) -> path(DOID:"amyotrophic lateral sclerosis")
 p(HGNC:TBK1) -> p(HGNC:OPTN,pmod(Ph))
+UNSET Confidence
 
 SET Evidence = "Indeed, this phosphorylation has been shown to enhance autophagy in the context of autophagic
 anti-microbial innate immunity (Pilli et al., 2012; Radtke et al., 2007; Wild et al., 2011)."
 # phosphorylation of optineurin
+SET Confidence = "High"
 p(HGNC:OPTN,pmod(Ph)) -> bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "Optineurin and TBK1 have also been discovered co-localizing in protein aggregates, and the phosphorylation
 of optineurin at serine 177 has been shown to be critical to its function in mediating clearance of aggregated proteins
 via autophagy (Korac et al., 2013)."
+SET Confidence = "High"
 complex(p(HGNC:TBK1),p(HGNC:OPTN)) -- a(CONSO:"protein aggregates")
 p(HGNC:OPTN,pmod(Ph,Ser,177)) reg deg(a(CONSO:"protein aggregates"))
 p(HGNC:OPTN,pmod(Ph,Ser,177)) reg bp(GO:autophagy)
+UNSET Confidence
 
 SET Evidence = "For instance, open-angle glaucoma has been associated with an E50K mutation in optineurin.
 This mutation has been shown to enhance the TBK1-optineurin interaction, as well as reducing appropriate intracellular
 solubility of optineurin (Kryndushkin et al., 2012; Minegishi et al., 2013)."
-path(MESH:"Glaucoma, Open-Angle") -- p(HGNC:OPTN,var("p.Glu50Lys"))
+SET Confidence = "High"
+path(DOID:"open-angle glaucoma") -- p(HGNC:OPTN,var("p.Glu50Lys"))
 p(HGNC:OPTN,var("p.Glu50Lys")) -> complex(p(HGNC:TBK1),p(HGNC:OPTN))
+UNSET Confidence
 
 SET Evidence = "Like optineurin, mutations in the X-linked protein ubiquilin-2 are associated with familial ALS (Deng et al., 2011)."
-p(HGNC:UBQLN2,var("?")) -- path(MESH:"Amyotrophic Lateral Sclerosis")
-p(HGNC:OPTN,var("?")) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+SET Confidence = "High"
+p(HGNC:UBQLN2,var("?")) -- path(DOID:"amyotrophic lateral sclerosis")
+p(HGNC:OPTN,var("?")) -- path(DOID:"amyotrophic lateral sclerosis")
 
 SET Evidence = "Ubiquilin-2 has been well characterized for its function in delivering ubiquitin-tagged proteins to the proteasome for
 degradation (Deng et al., 2011; Walters et al., 2004) (Williams et al., 2012; Zhang et al., 2014)."
+SET Confidence = "Medium"
 p(HGNC:UBQLN2) -> p(MESH:Proteins,pmod(Ub),loc(GO:"proteasome complex"))
+p(MESH:Proteins,pmod(Ub),loc(GO:"proteasome complex")) -> deg(p(MESH:Proteins))
 p(HGNC:UBQLN2) -> deg(p(MESH:Proteins,pmod(Ub)))
+UNSET Confidence
 
 SET Evidence = "Reduction in ubiquilin-2 is associated with concomitant reduction in autophagosome formation (Rothenberg et al., 2010)"
+SET Confidence = "High"
 p(HGNC:UBQLN2) -> bp(GO:"autophagosome assembly")
+UNSET Confidence
 
 SET Evidence = "The final step in autophagy is the fusion of the autophagosome with the lysosome. This
 organelle maturation appears to be mediated by the cytosolic protein HDAC6, which contains ubiquitin-binding
 and dynein-interacting domains (Kawaguchi et al., 2003; Lee et al., 2010)."
+SET Confidence = "High"
 p(HGNC:HDAC6) -> bp(GO:"autophagosome-lysosome fusion")
 bp(GO:"autophagosome-lysosome fusion") -> a(GO:autolysosome)
+UNSET Confidence
 
 SET Evidence = "Interestingly, HDAC6 physically interacts with G3BP, a known component of SGs,
 and is sequestered into SGs under different stress conditions"
-complex(p(HGNC:HDAC6),p(HGNC:G3BP1))
+SET Confidence = "Medium"
 complex(GO:"cytoplasmic stress granule") -- p(HGNC:G3BP1)
 bp(GO:"response to stress") -> p(HGNC:HDAC6,loc(GO:"cytoplasmic stress granule"))
+UNSET Confidence
 
 SET Evidence = "Moreover, genetic or pharmacological inhibition of HDAC6 impairs SG formation, suggesting
 that HDAC6 is essential for the assembly of SGs (Kwon et al., 2007)."
+SET Confidence = "High"
 p(HGNC:HDAC6) -> bp(GO:"stress granule assembly")
+UNSET Confidence
 
 SET Evidence = "The impairment of HDAC6 has been further implicated in pathogenesis of certain types of ALS (Gal et al., 2013),
 though its precise effect remain unclear (Gal et al., 2013; Taes et al., 2013)."
-act(p(HGNC:HDAC6)) neg path(MESH:"Amyotrophic Lateral Sclerosis")
+SET Confidence = "High"
+act(p(HGNC:HDAC6)) neg path(DOID:"amyotrophic lateral sclerosis")
+UNSET Confidence
 
 SET Evidence = "Recent studies have shown that the autophagy-adapter p62 localizes with HDAC6 and controls its deacetylase activity (Yan et al., 2013)"
+SET Confidence = "High"
 complex(p(HGNC:SQSTM1),p(HGNC:HDAC6)) reg act(p(HGNC:HDAC6),ma(GO:"protein deacetylation"))
+UNSET Confidence
 
 SET Evidence = "Mutations in p62 itself have also been linked to cases of ALS in multiple studies (Fecto et al., 2011; Teyssou et al., 2013)."
-p(HGNC:SQSTM1,var("?")) -- path(MESH:"Amyotrophic Lateral Sclerosis")
+SET Confidence = "High"
+p(HGNC:SQSTM1,var("?")) -- path(DOID:"amyotrophic lateral sclerosis")
+UNSET Confidence
 
 SET Evidence = "In a cell model of TDP-43-linked ALS, the autophagy-inhibitor 3-methyladenine was found to significantly inhibit the
 degradation of TDP-43 species (Scotter et al., 2014)."
+SET Confidence = "High"
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 a(CHEBI:"3-methyladenine") isA a(CHEBI:"autophagy inhibitor")
 a(CHEBI:"3-methyladenine") -| deg(p(HGNC:TARDBP))
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Likewise, activation of autophagy by rapamycin, decreased the severity of motor dysfunction in a mouse model of
 TDP-43/ALS (Wang et al., 2012) and locomotive defects in a TDP-43/ALS Drosophila model (Cheng et al., 2015)."
+SET Confidence = "Medium"
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 a(CHEBI:"sirolimus") -> bp(GO:autophagy)
 SET Species = "10090"
 a(CHEBI:"sirolimus") -> bp(GO:"motor behavior")
 p(HGNC:TARDBP) -| bp(GO:"motor behavior")
 UNSET Species
+SET Species = "7227"
 a(CHEBI:"sirolimus") -> bp(GO:locomotion)
 p(HGNC:TARDBP) -| bp(GO:locomotion)
+UNSET Species
 UNSET MeSHDisease
+UNSET Confidence
 
 SET Evidence = "Similar observations were made in cultured neuronal cells expressing mutant ALS-causing FUS; rapamycin reduced
 FUS-positive SGs, as well as neurite fragmentation and cell death in neurons expressing mutant FUS under oxidative stress (Ryu et al., 2014)."
+SET Confidence = "High"
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 SET MeSHAnatomy = "Neurons"
 a(CHEBI:"sirolimus") -| p(HGNC:FUS,loc(GO:"cytoplasmic stress granule"))
@@ -508,11 +657,14 @@ p(HGNC:FUS,var("?")) -> bp(GO:"cell death")
 p(HGNC:FUS,var("?")) -| a(MESH:Neurites)
 UNSET MeSHDisease
 UNSET MeSHAnatomy
+UNSET Confidence
 
 SET Evidence = "Other autophagy modifiers have also been shown to have varying success in ALS models, including trehalose,
 lithium and Withaferin A (Castillo et al., 2013; Fornai et al., 2008; Patel et al., 2015b)."
+SET Confidence = "High"
 SET MeSHDisease = "Amyotrophic Lateral Sclerosis"
 a(CHEBI:"alpha,alpha-trehalose") -- bp(GO:autophagy)
 a(CHEBI:"lithium(1+)") -- bp(GO:autophagy)
 a(CHEBI:"withaferin A") -- bp(GO:autophagy)
 UNSET MeSHDisease
+UNSET Confidence
