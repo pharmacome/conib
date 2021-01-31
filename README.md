@@ -83,3 +83,8 @@ Contributions are welcome! Please submit all pull requests to https://github.com
 
 - BEL scripts in this repository are licensed under the CC BY 4.0 license.
 - Python source code in this repository is licensed under the MIT license.
+
+## More BEL Content
+
+See [A Listing of Publicly Available Content in the Biological Expression Language (BEL)](https://cthoyt.com/2020/04/30/public-bel-content.html)
+on Charles Tapley Hoyt's blog for more BEL content.
