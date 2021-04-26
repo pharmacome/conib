@@ -27,7 +27,7 @@ This knowledge repository, developed during the <a href="https://pharmacome.gith
 
 ## Content
 
-- [hbp_knowledge](https://github.com/pharmacome/conib/tree/master/hbp_knowledge): This folder contains curated BEL
+- [conib](https://github.com/pharmacome/conib/tree/master/conib): This folder contains curated BEL
   documents. Most have been organized by category (protein of interest, biological process of interest, pathway, etc.).
   Almost BEL documents correspond to a single publication, but a select few contain content from several due to
   topic-based curation.
@@ -46,10 +46,10 @@ Here are a few links for navigating the GitHub issues and pull requests:
 
 ## Installation
 
-``hbp_knowledge`` can be installed from [PyPI](https://pypi.org/project/hbp-knowledge/) with the following command:
+``conib`` can be installed from [PyPI](https://pypi.org/project/hbp-knowledge/) with the following command:
 
 ```bash
-$ pip install hbp_knowledge
+$ pip install conib
 ```
 
 or the latest version can be installed from [GitHub](https://github.com/pharmacome/conib) with:
@@ -63,16 +63,16 @@ $ pip install git+https://github.com/pharmacome/conib.git
 The graph can be loaded with:
 
 ```python
-import hbp_knowledge
+import conib
 
 # Get a dictionary of names to graphs
-graphs = hbp_knowledge.get_graphs()
+graphs = conib.get_graphs()
 
 # Get all BEL documents as a single graph
-graph = hbp_knowledge.get_graph()
+graph = conib.get_graph()
 
 # Get all knowledge as INDRA statements
-stmts = hbp_knowledge.get_indra_statements()
+stmts = conib.get_indra_statements()
 ```
 
 ## Contributing
@@ -81,7 +81,7 @@ Contributions are welcome! Please submit all pull requests to https://github.com
 
 ## License
 
-- BEL scripts in this repository are licensed under the CC BY 4.0 license.
+- BEL scripts in this repository are licensed under the CC0 1.0 Universal.
 - Python source code in this repository is licensed under the MIT license.
 
 ## More BEL Content
