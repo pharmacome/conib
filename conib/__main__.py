@@ -2,7 +2,7 @@
 
 """A command line interface for interacting with the Human Brain Pharmacome knowledge repository."""
 
-from hbp_knowledge import main
+from conib import main
 
 if __name__ == '__main__':
     main()
