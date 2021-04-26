@@ -3,13 +3,16 @@
 </p>
 
 <h1 align="center">
-  Curation of Neurodegeneration in BEL (CONIB)
+  Curation of Neurodegeneration in BEL (CONIB)<br>
   <a href="https://travis-ci.com/pharmacome/conib">
     <img src="https://travis-ci.com/pharmacome/conib.svg?branch=master"
          alt="Travis CI">
   </a>
-  <a href="https://zenodo.org/badge/latestdoi/159803376">
-  	<img src="https://zenodo.org/badge/159803376.svg" alt="DOI">
+  <a href="https://pypi.org/project/conib">
+    <img alt="PyPI" src="https://img.shields.io/pypi/v/conib">
+  </a>
+  <a href="https://doi.org/10.5281/zenodo.3385895">
+    <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.3385895.svg" alt="DOI">
   </a>
   <br>
 </h1>
