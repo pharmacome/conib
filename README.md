@@ -88,6 +88,15 @@ URL = 'https://github.com/pharmacome/conib/raw/master/conib/_cache.bel.nodelink.
 res_json = requests.get(URL).json()
 
 graph = pybel.from_nodelink(res_json)
+
+# Get INDRA statements
+from indra.sources.bel import process_pybel_graph
+pbp = process_pybel_graph(graph)
+pbp.get_statements()
+stmts = pbp.statements
+
+# Quick version
+stmts = pybel.to_indra_statements(graph)
 ```
 
 ## Contributing
