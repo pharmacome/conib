@@ -78,6 +78,18 @@ graph = conib.get_graph()
 stmts = conib.get_indra_statements()
 ```
 
+The latest compiled version of the graph can be retrieved remotely with:
+
+```python
+import requests
+import pybel
+
+URL = 'https://github.com/pharmacome/conib/raw/master/conib/_cache.bel.nodelink.json'
+res_json = requests.get(URL).json()
+
+graph = pybel.from_nodelink(res_json)
+```
+
 ## Contributing
 
 Contributions are welcome! Please submit all pull requests to https://github.com/pharmacome/conib.
